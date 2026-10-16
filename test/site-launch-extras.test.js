@@ -175,3 +175,11 @@ test('joins export token: only the exact Bearer token opens it, and a blank or s
   assert.deepStrictEqual([passed, fellBack], [false, true]);
   delete process.env.JOINS_EXPORT_TOKEN;
 });
+
+test('no public page says "multiple six-figure" (Legal rule 2 / L37: off everything public until Eli documents it)', () => {
+  const fs = require('fs'); const path = require('path');
+  const hits = [];
+  const walk = (dir) => { for (const f of fs.readdirSync(dir, { withFileTypes: true })) { const p = path.join(dir, f.name); if (f.isDirectory()) walk(p); else if (/\.(ejs|html|json|md|js)$/.test(f.name) && /multiple six[- ]figure/i.test(fs.readFileSync(p, 'utf8'))) hits.push(p); } };
+  for (const d of ['views', 'content', 'public']) walk(path.join(__dirname, '..', d));
+  assert.deepStrictEqual(hits, []);
+});
