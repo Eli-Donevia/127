@@ -1,0 +1,9 @@
+<%# Five-day progress row. Locals: me, chx, n (current day or null), preview %>
+<div class="wrap ch-top">
+  <ol class="ch-dots" aria-label="Your five days">
+    <% for (var i = 1; i <= 5; i++) { var row = me ? me.days[i - 1] : null; var isDone = row && row.done; var unlocked = (row && row.unlocked) || (typeof preview !== 'undefined' && preview); var cls = (isDone ? 'done' : '') + (typeof n !== 'undefined' && n === i ? ' now' : '') + (!unlocked && !isDone ? ' locked' : ''); %>
+      <li><% if (me) { %><a href="/challenge/day/<%= i %>" class="<%= cls %>" aria-label="Day <%= i %><%= isDone ? ', done' : !unlocked ? ', locked' : '' %>"<%- typeof n !== 'undefined' && n === i ? ' aria-current="page"' : '' %>><%= isDone ? '✓' : '0' + i %></a><% } else { %><span class="<%= cls %>"><%= '0' + i %></span><% } %></li>
+    <% } %>
+  </ol>
+  <% if (me) { %><a class="me-link" href="/challenge/me">Your page <span class="arrow"></span></a><% } %>
+</div>

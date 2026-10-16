@@ -11,8 +11,10 @@
   <div class="card stat"><div class="l">Free → paid</div><div class="v"><%= users.length ? Math.round((tierCounts.builder + tierCounts.circle) / users.length * 100) : 0 %>%</div><div class="small muted">conversion</div></div>
 </div>
 
+<%- include('../challenge/partials/admin-summary') %>
+
 <div class="card pad-lg" id="waitlist" style="margin-bottom:16px">
-  <div class="card-title"><h3>Founding waitlist</h3><a href="/admin/waitlist.csv" class="btn ghost sm">Export waitlist (CSV)</a></div>
+  <div class="card-title"><h3>Founding waitlist</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="/admin/joins.csv" class="btn ghost sm" title="Counts by day, ad and page for the ad desk. No emails.">Joins by ad (CSV)</a><a href="/admin/waitlist.csv" class="btn ghost sm">Export waitlist (CSV)</a></div></div>
   <div class="grid g-4" style="margin-bottom:18px">
     <div class="stat"><div class="l">Joined</div><div class="v"><%= wl.total %></div></div>
     <div class="stat"><div class="l">Confirmed</div><div class="v"><%= wl.confirmed %></div><div class="small muted"><%= wl.total ? Math.round(wl.confirmed / wl.total * 100) : 0 %>% confirm rate</div></div>
@@ -35,8 +37,8 @@
 </div>
 
 <div class="card pad-lg" id="grace" style="margin-bottom:16px">
-  <div class="card-title"><h3>Founding grace link</h3><span class="small muted">48 hours after the close, once per email</span></div>
-  <p class="small muted" style="margin:0 0 14px">Only for someone whose checkout broke on our side or Stripe's before the close: check for their Checkout Start or a Stripe Checkout session first. The link opens the founding checkout once.</p>
+  <div class="card-title"><h3>Founding grace link</h3><span class="small muted">One per person, works for 3 days</span></div>
+  <p class="small muted" style="margin:0 0 14px">Only for a founding checkout that started while spots were open and before the close, then broke on our side or Stripe's. Never for a card decline. If you can't tell, give the benefit of the doubt. The link opens the founding checkout once, for the next 3 days.</p>
   <form method="post" action="/admin/grace" style="display:flex;gap:10px;flex-wrap:wrap"><input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:320px"><button class="btn sm">Create link</button></form>
 </div>
 

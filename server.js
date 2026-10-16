@@ -17,10 +17,13 @@ const security = require('./lib/security');
 const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
+const utmLib = require('./lib/utm');
 const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
+const challenge = require('./lib/challenge');
 const { MILESTONES } = require('./lib/milestones');
+const templates = require('./lib/templates');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -140,6 +143,12 @@ app.use((req, res, next) => {
   res.locals.consentCopy = consent.copy;
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;
+  // Templates for a roadmap step or a playbook (content/templates/manifest.json).
+  res.locals.tplForTask = templates.forTask;
+  res.locals.tplCanOpen = templates.canOpen;
+  res.locals.tplForPlaybook = templates.forPlaybook;
+  res.locals.tplKinds = templates.KINDS;
+  res.locals.canAccess = canAccess;
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -149,9 +158,9 @@ app.use((req, res, next) => {
   res.locals.trackEvents = req.session.track || [];
   req.session.track = null;
   if (res.locals.checkoutCancelled) res.locals.trackEvents.push({ name: 'Checkout Cancelled', props: null });
-  // Keep ad and referral source for the signup record.
-  const utm = {};
-  for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) if (req.query[k]) utm[k] = String(req.query[k]).slice(0, 100);
+  // Keep the first ad and referral source a visitor arrives with (30-day session) for the waitlist and signup records.
+  // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
+  const utm = utmLib.present(req.query);
   if (Object.keys(utm).length && !req.session.utm) req.session.utm = utm;
   if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
@@ -189,6 +198,10 @@ function fmtDate(isoOrMs) {
   const t = typeof isoOrMs === 'number' ? isoOrMs : Date.parse(isoOrMs);
   return Number.isFinite(t) ? new Date(t).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null;
 }
+
+// Day One Challenge (lib/challenge-routes.js): /challenge, /dayone, /early, /admin/challenge,
+// cross-promo locals, and carry-over on /app. Mounted here so it runs after req.user is set.
+require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
 
 function cookie(req, name) {
   const m = (req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
@@ -278,13 +291,17 @@ app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
 app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
+// Drafts behind a banner until Eli approves (COOKIE_NOTICE_LIVE, EARNINGS_DISCLAIMER_LIVE), like /membership-terms.
+app.get('/cookies', (req, res) => res.render('legal', { title: 'Cookie Notice', kind: 'cookies', description: 'The cookies and similar technologies 127 uses, and how to change your choice.' }));
+app.get('/earnings-disclaimer', (req, res) => res.render('legal', { title: 'Earnings disclaimer', kind: 'earnings', description: "127 teaches people how to start and grow a business. We don't promise that you'll make money." }));
 app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder's Circle agreement", kind: 'circle' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
 function prelaunchGate(req) {
   if (req.query.invite && process.env.PRELAUNCH_INVITE && req.query.invite === process.env.PRELAUNCH_INVITE) req.session.invite = true;
-  return launch.prelaunch() && !req.user && !req.session.invite;
+  // Day One finishers get in an hour early (/early sets a 2-hour signed session flag).
+  return launch.prelaunch() && !req.user && !req.session.invite && !challenge.earlyAccess(req);
 }
 
 app.get('/start', (req, res) => {
@@ -296,7 +313,7 @@ app.get('/start', (req, res) => {
   const prefill = picked ? { [first.id]: picked.value } : null;
   res.render('start', { title: 'Your free roadmap', onboarding, retake: !!(req.user && req.user.roadmap), error: null, layout: 'bare', prefill, jump: picked ? 1 : null });
 });
-app.get('/signup', (req, res) => res.redirect(launch.prelaunch() ? '/founding' : '/start'));
+app.get('/signup', (req, res) => res.redirect(prelaunchGate(req) ? '/founding' : '/start'));
 app.get('/app/assessment', requireAuth, (req, res) => res.redirect('/start?retake=1'));
 
 // Keep only known question ids and clamp lengths.
@@ -437,10 +454,15 @@ app.post('/circle/apply', wrap(async (req, res) => {
 }));
 
 // ---------- founding members: waitlist and referrals ----------
+// First touch: what the session kept wins; form or JSON fields (utm_*) only fill what's missing.
 function utmFrom(req, body = {}) {
-  const out = { ...(req.session.utm || {}) };
-  for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) if (body[k]) out[k] = String(body[k]).slice(0, 100);
-  return out;
+  return utmLib.firstTouch(req.session.utm, body, body.utm);
+}
+
+// The status page is reached by referral code, which is in every public share link, so friends' first names show
+// only in a browser that joined or confirmed with that code.
+function ownCode(req, code) {
+  req.session.wlCodes = [code].concat((req.session.wlCodes || []).filter((c) => c !== code)).slice(0, 5);
 }
 
 app.get('/f/:code', (req, res) => {
@@ -491,6 +513,7 @@ app.post('/founding', wrap(async (req, res) => {
   if (r.error) return res.status(400).render('founding', { ...foundingPage(), error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
   if (!PROD && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
+  if (!r.existing) ownCode(req, r.entry.referralCode); // re-entering a known email never unlocks names
   res.redirect(`/founding/status?code=${r.entry.referralCode}&${r.existing ? 'back' : 'new'}=1`);
 }));
 
@@ -502,7 +525,8 @@ app.post('/api/waitlist', express.json({ limit: '10kb' }), wrap(async (req, res)
   const source = waitlist.SOURCES.includes(body.source) ? body.source : 'other';
   const r = await joinFromRequest(req, body, source);
   if (r.error) return res.status(400).json({ error: r.error });
-  res.json({ ok: true, existing: r.existing, referral_code: r.entry.referralCode, referral_link: waitlist.link(r.entry), status_url: `${baseUrl(req)}/founding/status?code=${r.entry.referralCode}` });
+  if (!r.existing) ownCode(req, r.entry.referralCode);
+  res.json({ ok: true, existing: r.existing, confirmed: !!r.entry.confirmedAt, confirm_sent: !!r.entry.confirmSentAt, referral_code: r.entry.referralCode, referral_link: waitlist.link(r.entry), status_url: `${baseUrl(req)}/founding/status?code=${r.entry.referralCode}` });
 }));
 
 app.get('/founding/confirm', wrap(async (req, res) => {
@@ -512,6 +536,7 @@ app.get('/founding/confirm', wrap(async (req, res) => {
   if (!entry) return res.status(400).render('404', { title: 'Link expired', error: true, message: 'That confirm link has expired or was already replaced. Join again with the same email to get a fresh one.' });
   if (confirmed.firstTime) track(req, 'Waitlist Confirm');
   req.session.devConfirm = null;
+  ownCode(req, entry.referralCode); // the confirm link proves they own the inbox
   res.redirect(`/founding/status?code=${entry.referralCode}&confirmed=1`);
 }));
 
@@ -557,12 +582,30 @@ app.get('/founding/doors-open.ics', (req, res) => {
   ].join('\r\n'));
 });
 
+// Day One Challenge live replays (conversion/challenge/site-spec.md): emails link here before a replay exists.
+// 1 = Kickoff (Mon Nov 9), 2 = Debrief (Mon Nov 16). CHALLENGE_REPLAY_<n>_URL once set; /challenge/me until then
+// (query string kept, so a ?t= token still opens the person's page). CHALLENGE_START_AT blank is the kill switch.
+app.get('/challenge/replay/:n(1|2)', (req, res, next) => {
+  if (!launch.date('CHALLENGE_START_AT')) return next();
+  const url = launch.replayUrl(req.params.n);
+  if (url) return res.redirect(302, url);
+  const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+  res.redirect(302, `/challenge/me${qs}`);
+});
+
 app.get('/founding/status', (req, res) => {
   const entry = waitlist.byCode(req.query.code);
   if (!entry) return res.redirect('/founding');
   res.render('founding-status', {
     title: "You're on the list",
-    entry: { code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName },
+    entry: {
+      code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName,
+      // "Check your email" only when a confirm email actually went out (unticked joiners may get none).
+      confirmSent: !!entry.confirmSentAt,
+      confirmJustSent: !!entry.confirmSentAt && Date.now() - Date.parse(entry.confirmSentAt) < 5 * 60 * 1000,
+      // Confirmed friends by first name, never email (billing terms section 5, decision O20).
+      friends: (req.session.wlCodes || []).includes(entry.referralCode) ? waitlist.friends(entry) : null,
+    },
     q: req.query,
     devConfirm: !PROD && req.session.devConfirm ? req.session.devConfirm : null,
   });
@@ -847,7 +890,7 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
 
 app.get('/app/library', requireAuth, (req, res) => {
   const track = TRACK_NAMES[req.query.track] ? req.query.track : null;
-  res.render('app/library', { title: 'Library', items: resources.filter((r) => !track || r.track === track), track, TRACK_NAMES, canAccess });
+  res.render('app/library', { title: 'Library', items: resources.filter((r) => !track || r.track === track), track, TRACK_NAMES, canAccess, tplCount: templates.list.length });
 });
 
 app.get('/app/library/:slug', requireAuth, (req, res) => {
@@ -919,6 +962,87 @@ app.post('/app/library/:slug/done', requireAuth, wrap(async (req, res) => {
     flash(req, 'win', `+30 XP. Nice work finishing ${r.title}.`);
   }
   res.redirect(`/app/library/${r.slug}`);
+}));
+
+// ---------- templates library ----------
+// Sheets, docs, checklists and recipes from content/templates (manifest v1). Files are served only
+// through the gated route; previews are open to every member so free members can see Builder cards.
+const TEMPLATE_KINDS = templates.KINDS;
+function roadmapTemplates(user) {
+  return new Set(roadmap.allTasks(user && user.roadmap).flatMap((t) => templates.roadmapIndex[t.id] || []));
+}
+
+app.get('/app/templates', requireAuth, (req, res) => {
+  const f = {
+    track: templates.TRACKS[req.query.track] ? req.query.track : null,
+    kind: TEMPLATE_KINDS[req.query.kind] ? req.query.kind : null,
+    tier: ['free', 'builder'].includes(req.query.tier) ? req.query.tier : null,
+  };
+  const items = templates.list.filter((t) => (!f.track || t.track === f.track) && (!f.kind || t.kind === f.kind) && (!f.tier || t.tier === f.tier));
+  res.render('app/templates', { title: 'Templates', items, f, all: templates.list, inRoadmap: roadmapTemplates(req.user), KINDS: TEMPLATE_KINDS, TRACKS: templates.TRACKS, canAccess, tpl: templates });
+});
+
+app.get('/app/templates/:slug', requireAuth, (req, res) => {
+  const t = templates.get(req.params.slug);
+  if (!t) return res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  res.render('app/template', {
+    title: t.title, t, KINDS: TEMPLATE_KINDS, TRACKS: templates.TRACKS, tpl: templates,
+    locked: !templates.canOpen(user, t),
+    inRoadmap: roadmapTemplates(user).has(t.slug),
+    checks: user.checklist || {},
+    progress: templates.checklistProgress(t, user),
+    review: (user.templateReviews || {})[t.slug] || null,
+    aiLeft: aiRunsLeft(user),
+    bySlug,
+  });
+});
+
+app.get('/app/templates/:slug/:file', requireAuth, templates.serveFile());
+
+// Checklist progress is stored on the member by stable item id (launch-countdown.t14.3).
+app.post('/app/templates/:slug/check', requireAuth, wrap(async (req, res) => {
+  const t = templates.get(req.params.slug);
+  const id = String(req.body.item || '');
+  const json = req.accepts(['html', 'json']) === 'json';
+  if (!t || !t.checklistIds.has(id)) return json ? res.status(404).json({ error: 'Not found' }) : res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  if (!templates.canOpen(user, t)) return json ? res.status(403).json({ error: 'Builder' }) : res.redirect(`/app/templates/${t.slug}#unlock`);
+  user.checklist = user.checklist || {};
+  if (user.checklist[id]) delete user.checklist[id];
+  else user.checklist[id] = new Date().toISOString();
+  await db.save('users', user);
+  if (json) return res.json({ id, done: !!user.checklist[id], progress: templates.checklistProgress(t, user) });
+  res.redirect(`/app/templates/${t.slug}#${id}`);
+}));
+
+// "Get feedback" from Eli's Playbook (ai.reviewTemplate: the entry's aiPrompt is the rubric).
+// Same AI-use cap and refund as a worksheet review; the user is saved afterwards so aiSpend sticks.
+app.post('/app/templates/:slug/review', requireAuth, wrap(async (req, res) => {
+  const t = templates.get(req.params.slug);
+  if (!t) return res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  const back = `/app/templates/${t.slug}#review`;
+  if (!templates.canOpen(user, t)) return res.redirect(`/app/templates/${t.slug}#unlock`);
+  const input = String(req.body.filled || '').trim().slice(0, 12000);
+  if (!input) {
+    flash(req, 'info', 'Paste what you filled in first, then ask for a check.');
+    return res.redirect(back);
+  }
+  user.templateReviews = user.templateReviews || {};
+  user.templateReviews[t.slug] = { ...(user.templateReviews[t.slug] || {}), input };
+  if (!reserveAi(req, res, user, back)) return db.save('users', user);
+  // The manifest lists pairsWith as { slug, title }; reviewTemplate grounds on the playbook slugs.
+  const entry = { ...t, pairsWith: (t.pairsWith || []).map((p) => (p && p.slug) || p) };
+  const result = await ai.reviewTemplate(entry, input, user);
+  if (result.error) {
+    refundAi(user);
+    flash(req, 'error', result.text);
+  } else {
+    user.templateReviews[t.slug] = { input, text: result.text, demo: !!result.demo, at: new Date().toISOString() };
+  }
+  await db.save('users', user);
+  res.redirect(back);
 }));
 
 app.get('/app/tools', requireAuth, (req, res) => {
@@ -1404,6 +1528,7 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
   for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
   for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
   for (const sc of db.filter('scorecards', (sc) => sc.userId === user.id)) await db.remove('scorecards', sc.id);
+  await challenge.forget(user.email);
   await db.remove('users', user.id);
   req.session = null;
   res.redirect('/?deleted=1');
@@ -1563,14 +1688,23 @@ app.get('/admin/circle/feed.json', wrap(async (req, res) => {
   });
 }));
 
-// Founding grace link (R14): support checks the member's checkout broke before the close, then sends this.
-app.post('/admin/grace', requireAuth, requireAdmin, (req, res) => {
+// Founding grace link (R14, Legal L41): only for a founding checkout that started while spots were
+// open and before the close and broke on our side, never for a card decline. One link per person.
+app.post('/admin/grace', requireAuth, requireAdmin, wrap(async (req, res) => {
   const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
-  const token = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && billing.graceToken(email);
-  if (!token) flash(req, 'error', 'Enter a valid email. FOUNDING_CLOSES_AT must be set.');
-  else flash(req, 'info', `Founding link for ${email} (works once, until ${fmtDate(billing.graceUntil() - 60000)}, 11:59pm ET): ${baseUrl(req)}/founding/lock?grace=${token}`);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    flash(req, 'error', 'Enter a valid email.');
+    return res.redirect('/admin#grace');
+  }
+  const r = await billing.issueGrace(email);
+  if (!r.token) {
+    flash(req, 'error', `${email} already had a founding link${r.issuedAt ? ` (sent ${fmtDate(r.issuedAt)})` : ''}${r.usedAt ? ', and used it' : ''}. It's one per person.`);
+    return res.redirect('/admin#grace');
+  }
+  const record = r.startedAt ? `Founding checkout on record: ${fmtDate(r.startedAt)}.` : 'No founding checkout on record, issued on the benefit of the doubt.';
+  flash(req, 'info', `Founding link for ${email}. It works once, for the next 3 days. ${record} ${baseUrl(req)}/founding/lock?grace=${r.token}`);
   res.redirect('/admin#grace');
-});
+}));
 
 app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
   const qs = onboarding.questions.map((q) => q.id);
@@ -1589,6 +1723,14 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
 app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
+
+// Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
+// One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
+app.get('/admin/joins.csv', requireAuth, requireAdmin, (req, res) => {
+  const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
+  const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
+  res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);
+});
 
 app.get('/admin/waitlist.csv', requireAuth, requireAdmin, (req, res) => {
   const esc = (v) => {

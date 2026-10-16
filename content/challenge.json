@@ -1,0 +1,757 @@
+{
+  "version": "2026-10-16",
+  "source": "conversion/challenge/daily-moves.md + legal/handoffs/launch-email-consent-and-challenge.md §3.3, §3.7",
+  "prep": {
+    "headline": "Before Monday, do one thing.",
+    "body": [
+      "Open your notes app and write down 3 problems you've noticed this week. Things people complain about, pay someone to fix, or do badly themselves. At school, at work, in your group chats, online.",
+      "That's it. On Monday you'll pick one."
+    ]
+  },
+  "feature": {
+    "feature_ok": "**Eli can feature my check-in.** He may read my first name and the answers I tick below on the public Instagram Live debrief (Mon, Nov 16), in its saved replay, and in 127's Instagram stories and short clips about the challenge. No email or last name. Don't include anything confidential.",
+    "feature_idea": "Show my idea",
+    "feature_offer": "Show my offer",
+    "guest_ok": "**I'd be up for joining the live as a guest on camera.** Eli's team will DM me first, and I can still say no.",
+    "small": "Featuring is free and unpaid. You can change your mind anytime before the live by emailing hello@127group.io. After it airs, we'll stop using it in new posts, but we can't recall what was already streamed or shared."
+  },
+  "days": [
+    {
+      "n": 1,
+      "date": "Monday 9 November",
+      "move": "Pick one",
+      "label": "DAY 1 OF 5 · PICK ONE",
+      "headline": "Pick one. Not forever. For this week.",
+      "line": "No idea is perfect. Don't ideate too long.",
+      "intro": [
+        "For way too long I thought founders had something I didn't. A degree, money, connections, permission.",
+        "They didn't. They picked something and started.",
+        "Today you pick. You're not marrying the idea. You're choosing what to test this week."
+      ],
+      "intro_small": null,
+      "move_time": "about 20 minutes",
+      "steps": [
+        {
+          "title": "Write down up to 3 ideas.",
+          "body": "No idea yet? Use the 3 problems from your prep. A problem nobody has solved well is an idea waiting for a founder.",
+          "sub": []
+        },
+        {
+          "title": "Score each one on the 5 questions below.",
+          "body": "1 means no, or no proof. 3 means maybe. 5 means yes, with proof you can point to.",
+          "sub": []
+        },
+        {
+          "title": "Pick the highest score.",
+          "body": "Tied? The one you could get a first customer for fastest wins.",
+          "sub": []
+        },
+        {
+          "title": "Write the problem in one sentence, the way your customer would say it.",
+          "body": "Not \"inefficient scheduling solutions.\" More like \"I can never find a tutor who can come on weeknights.\"",
+          "sub": []
+        }
+      ],
+      "after_steps": [
+        {
+          "type": "p",
+          "text": "Want a second opinion? Run your top idea through the free [Idea Test](/idea-test?from=challenge). It scores it and shows its reasoning, and it will tell you if you shouldn't build it."
+        }
+      ],
+      "tool": {
+        "title": "The 5-question scorecard",
+        "blocks": [
+          {
+            "type": "scorecard",
+            "questions": [
+              "Do people already pay (money, time or effort) to solve this?",
+              "Could one sale make money after costs, and can you actually reach the buyers?",
+              "What makes yours different: faster, cheaper or better?",
+              "Is this market growing? Does AI make it easier for you to deliver, or free for them to do themselves?",
+              "Do you know someone who lives this problem?"
+            ],
+            "total_label": "Total (out of 25)"
+          },
+          {
+            "type": "h",
+            "text": "Score honestly:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "No proof, no score above 2. If you can't name a person, a post, a competitor or a price you've seen, it's a guess.",
+              "A competitor is proof, not a threat. Nobody selling it usually means nobody pays for it.",
+              "\"That's a cool idea\" from a friend counts as zero."
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Maya, 19, scored three ideas. Math tutoring for high schoolers: 20. Parents in her town post in Facebook groups looking for tutors, so people already pay. Anime shirts: 11. Thin margins, no differentiator. Editing videos for local gyms: 15."
+          },
+          {
+            "type": "quote",
+            "text": "She picked tutoring. Her sentence: \"Parents can't find a math tutor who'll come on weeknights.\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I don't have any ideas.",
+          "a": "Look at what the people around you complain about, pay for, or do badly. Write 3. Pick the one you'd want to fix for a year."
+        },
+        {
+          "q": "I have ten ideas.",
+          "a": "Keep the 3 you'd actually work on next year. Score only those. Put the rest in a note called Later."
+        },
+        {
+          "q": "All my scores are low.",
+          "a": "Good. That's the test working. Pick the highest anyway. This week will teach you more than another month of thinking."
+        }
+      ],
+      "checkin": {
+        "fields": [
+          {
+            "id": "idea",
+            "label": "Your idea, in one line",
+            "type": "text",
+            "required": true,
+            "placeholder": "Math tutoring for high schoolers in my town"
+          },
+          {
+            "id": "problem",
+            "label": "The problem, in your customer's words",
+            "type": "text",
+            "required": true,
+            "placeholder": "Parents can't find a math tutor who'll come on weeknights."
+          },
+          {
+            "id": "score",
+            "label": "Your score out of 25",
+            "type": "number",
+            "required": false,
+            "placeholder": null,
+            "min": 0,
+            "max": 25
+          },
+          {
+            "id": "show_idea",
+            "label": "Add my idea to my card",
+            "type": "checkbox",
+            "required": false,
+            "placeholder": null
+          }
+        ],
+        "button": "Mark Day 1 done",
+        "feature": false
+      },
+      "after": {
+        "title": "Day 1: done.",
+        "lines": [
+          "You picked. Most people never get past this step.",
+          "Tonight at 8pm ET I'm live on Instagram doing Day 1 with a real idea from the comments. @elichristiansen_",
+          "Tomorrow at 8am: find 10 people who have this problem."
+        ]
+      },
+      "after_partial": null,
+      "next": "find 10 people who have this problem.",
+      "card": {
+        "label": "DAY 1 · PICKED ONE",
+        "show": "show_idea"
+      }
+    },
+    {
+      "n": 2,
+      "date": "Tuesday 10 November",
+      "move": "Find 10 people",
+      "label": "DAY 2 OF 5 · FIND 10 PEOPLE",
+      "headline": "Ten names. Three messages.",
+      "line": "Your network is your net worth.",
+      "intro": [
+        "You don't need a network to start. You build it by asking.",
+        "My rule: talk to everyone, everywhere, every time.",
+        "Today you find 10 people who have the problem, and you message 3 of them."
+      ],
+      "intro_small": null,
+      "move_time": "about 20 minutes",
+      "steps": [
+        {
+          "title": "List 10 real people who have the problem.",
+          "body": "Names, not personas. \"Coach Davis,\" not \"busy parents.\"",
+          "sub": []
+        },
+        {
+          "title": "Look in four places:",
+          "body": "people you know (family, friends, coaches, coworkers, teachers), people posting about it (Instagram, TikTok, Reddit, Facebook groups, Discord), places they gather (campus clubs, local shops, group chats), and anyone who can introduce you (\"Who do you know who deals with this?\").",
+          "sub": []
+        },
+        {
+          "title": "Send 3 messages",
+          "body": "asking for 10 minutes to learn how they deal with it now. You're not selling. You're learning.",
+          "sub": []
+        },
+        {
+          "title": "Track them:",
+          "body": "name, where you found them, sent, replied.",
+          "sub": []
+        }
+      ],
+      "after_steps": [],
+      "tool": {
+        "title": "Three messages to copy",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "Someone you know:",
+            "text": "Hey [name], quick favor. I'm starting a small business around [problem] and I'm trying to learn how people deal with it right now. Could I ask you a few questions for 10 minutes this week? Not selling anything."
+          },
+          {
+            "type": "template",
+            "label": "Ask for an intro:",
+            "text": "Hey [name], do you know anyone who deals with [problem]? I'm starting something around it and I want to learn from people who actually live it. Even one name helps a lot."
+          },
+          {
+            "type": "template",
+            "label": "Someone who posted about it:",
+            "text": "Hey [name], saw your [post or comment] about [problem]. I'm [first name], I'm starting a small business around it and trying to learn how people handle it today. Open to a 10-minute call or a few voice notes this week? Not selling anything. Totally fine if not."
+          },
+          {
+            "type": "p",
+            "text": "Two rules: never pretend to be a student researcher if you're not, and never pitch after you said you wouldn't. Trust starts with the first message."
+          },
+          {
+            "type": "p",
+            "text": "Send these one at a time from your own account. Don't use tools that mass-text or auto-DM people."
+          }
+        ]
+      },
+      "example": {
+        "title": "Example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Maya's list: her neighbor, her old math teacher, two parents from her church, and six parents from her old school's Facebook group, including one who posted \"looking for a tutor for my son.\""
+          },
+          {
+            "type": "quote",
+            "text": "She messaged three: the neighbor, the teacher and the parent who posted."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I can't think of 10 people with this problem.",
+          "a": "That's useful to know. Write the ones you can, then post one short ask in a group they're in: \"Anyone deal with [problem]? Trying to learn, not selling.\""
+        },
+        {
+          "q": "I'm nervous to send it.",
+          "a": "Send the first one in the next 5 minutes. The second is easier. Nobody remembers a polite message they didn't answer."
+        },
+        {
+          "q": "My customers are businesses.",
+          "a": "Same move. DM the owner, or walk in during a slow hour and ask for 10 minutes."
+        }
+      ],
+      "checkin": {
+        "fields": [
+          {
+            "id": "people",
+            "label": "People on your list",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000
+          },
+          {
+            "id": "messages",
+            "label": "Messages sent today",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000
+          },
+          {
+            "id": "where",
+            "label": "Where did you find most of them?",
+            "type": "select",
+            "required": false,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "people-i-know",
+                "label": "People I know"
+              },
+              {
+                "value": "social-posts",
+                "label": "Social posts"
+              },
+              {
+                "value": "online-groups",
+                "label": "Online groups"
+              },
+              {
+                "value": "school-or-campus",
+                "label": "School or campus"
+              },
+              {
+                "value": "local-businesses",
+                "label": "Local businesses"
+              },
+              {
+                "value": "somewhere-else",
+                "label": "Somewhere else"
+              }
+            ]
+          }
+        ],
+        "button": "Mark Day 2 done",
+        "feature": false
+      },
+      "after": {
+        "title": "Day 2: done.",
+        "lines": [
+          "You asked. That's the skill most people never practice.",
+          "Replies can take a day. Follow up once tomorrow if you hear nothing.",
+          "Tomorrow at 8am: have the conversation."
+        ]
+      },
+      "after_partial": null,
+      "next": "have the conversation.",
+      "card": {
+        "label": "DAY 2 · 10 NAMES, 3 ASKS",
+        "show": null
+      }
+    },
+    {
+      "n": 3,
+      "date": "Wednesday 11 November",
+      "move": "Have the conversation",
+      "label": "DAY 3 OF 5 · HAVE THE CONVERSATION",
+      "headline": "Ask how they solve it today. Then be quiet.",
+      "line": "Solve problems. Don't sell products.",
+      "intro": [
+        "The most useful question I know is \"How do you solve this today?\"",
+        "What people already do, and already pay for, tells you more than anything they say they'd buy.",
+        "Today you have one real conversation. No pitch."
+      ],
+      "intro_small": null,
+      "move_time": "10 to 15 minutes, plus finding the time",
+      "steps": [
+        {
+          "title": "Have one conversation",
+          "body": "with someone from your list. A call, voice notes or in person.",
+          "sub": []
+        },
+        {
+          "title": "Ask the 5 questions below.",
+          "body": "Write down their exact words, not your summary.",
+          "sub": []
+        },
+        {
+          "title": "Don't pitch.",
+          "body": "If you're explaining your idea, you've stopped learning.",
+          "sub": []
+        },
+        {
+          "title": "End with:",
+          "body": "\"Who else do you know who deals with this?\"",
+          "sub": []
+        }
+      ],
+      "after_steps": [],
+      "tool": {
+        "title": "The 5 questions",
+        "blocks": [
+          {
+            "type": "ol",
+            "items": [
+              "Tell me about the last time you dealt with [problem]. What happened?",
+              "How are you solving it right now?",
+              "What have you tried before? How did that go?",
+              "What does it cost you, in money, time or stress?",
+              "If you could fix one thing about it, what would it be?"
+            ]
+          },
+          {
+            "type": "p",
+            "text": "When an answer is vague, dig: \"Tell me more.\" \"Why was that frustrating?\" \"How much did that cost?\" Then stay quiet for 3 seconds. People fill silence with the honest part."
+          },
+          {
+            "type": "h",
+            "text": "What to listen for:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "**Good signs:** they've paid for a fix before, they've built their own workaround, they get animated, they ask when it's ready.",
+              "**Red flags:** compliments (\"cool idea\"), future promises (\"I'd totally buy that\"), \"someone should make that\" from someone who never tried to fix it, and you talking more than they do."
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Maya talked to her neighbor for 12 minutes. The line she wrote down: \"We paid a college kid last year, but he only did Saturdays, and my son needs help the night before tests.\""
+          },
+          {
+            "type": "quote",
+            "text": "\"The night before tests\" is now the center of her offer."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "Nobody's replied yet.",
+          "a": "Normal. Send 3 more messages now with yesterday's templates, then talk to anyone you can reach today who has the problem: at work, at school, in a store. That counts."
+        },
+        {
+          "q": "They said it's not a big deal.",
+          "a": "That's data. Ask what is a big deal about [the area]. Sometimes the real problem is right next door."
+        },
+        {
+          "q": "It's booked for later this week.",
+          "a": "Check in with \"It's booked.\" You can still finish the challenge."
+        }
+      ],
+      "checkin": {
+        "fields": [
+          {
+            "id": "conversation",
+            "label": "Did you have a conversation?",
+            "type": "choice",
+            "required": true,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "yes",
+                "label": "Yes"
+              },
+              {
+                "value": "booked",
+                "label": "It's booked"
+              },
+              {
+                "value": "not-yet",
+                "label": "Not yet"
+              }
+            ]
+          },
+          {
+            "id": "quote",
+            "label": "The one thing they said that surprised you, in their words",
+            "type": "textarea",
+            "required": false,
+            "placeholder": null,
+            "required_if": {
+              "field": "conversation",
+              "equals": "yes"
+            }
+          }
+        ],
+        "button": "Mark Day 3 done",
+        "feature": true
+      },
+      "after": {
+        "title": "Day 3: done.",
+        "lines": [
+          "Their exact words are worth more than any idea you had on Monday.",
+          "Tomorrow at 8am: turn those words into an offer."
+        ]
+      },
+      "after_partial": null,
+      "next": "turn those words into an offer.",
+      "card": {
+        "label": "DAY 3 · HAD THE CONVERSATION",
+        "show": null
+      }
+    },
+    {
+      "n": 4,
+      "date": "Thursday 12 November",
+      "move": "Write the offer",
+      "label": "DAY 4 OF 5 · WRITE THE OFFER",
+      "headline": "Make it so good it feels like a mistake.",
+      "line": "Make the offer so good it feels almost too good to be true.",
+      "intro": [
+        "I was #3 in the country on a national vendor sales list of 6,000+ agents. Not because I was the smoothest talker. People bought because the offer was clear and they trusted me to keep my word.",
+        "Today you write your offer in one line, in your customer's words."
+      ],
+      "intro_small": null,
+      "move_time": "about 20 minutes",
+      "steps": [
+        {
+          "title": "Fill in the offer line:",
+          "body": "\"I help [who] get [result] in [time], by [how]. It's [price].\" Use the words from yesterday's conversation.",
+          "sub": []
+        },
+        {
+          "title": "Remove the risk.",
+          "body": "Add one promise that makes yes easy: a free redo, pay after, first one free, money back. Only promise what you can keep every time.",
+          "sub": []
+        },
+        {
+          "title": "Frame the price small:",
+          "body": "per session, per week or per day. \"$5 a day\" lands softer than \"$150 a month.\"",
+          "sub": []
+        },
+        {
+          "title": "Read it out loud to one person who has the problem.",
+          "body": "If they ask \"so what do you actually do?\", rewrite it.",
+          "sub": []
+        }
+      ],
+      "after_steps": [],
+      "tool": {
+        "title": "The offer line, and a checklist",
+        "blocks": [
+          {
+            "type": "template",
+            "label": null,
+            "text": "I help **[who]** get **[result]** in **[time]**, by **[how]**. It's **[price]**. **[Your promise.]**"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "Is it for one specific person?",
+              "Is the result in their words, not yours?",
+              "Is there a time?",
+              "Is the price there, framed small?",
+              "Is the risk gone?",
+              "Could you deliver it every single time?"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Examples",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "**Maya (tutoring):** \"I help parents of 9th and 10th graders get their kid ready for math tests, with weeknight sessions at your house, including the night before. $30 a session. If your kid doesn't feel more ready after the first one, it's free.\""
+          },
+          {
+            "type": "quote",
+            "text": "**Jordan (editing for gyms):** \"I turn your gym's raw clips into 4 Reels a week, posted for you, so new members find you. $150 a month, about $5 a day. First week free.\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I don't know what to charge.",
+          "a": "Pick a number that makes you a little nervous. You'll test it tomorrow, and you can change it."
+        },
+        {
+          "q": "It sounds weak.",
+          "a": "Swap your words for theirs. Your words sound like a brochure. Theirs sound like the problem."
+        },
+        {
+          "q": "I'm not ready to deliver.",
+          "a": "You don't have to deliver tomorrow. You're testing whether anyone wants it."
+        }
+      ],
+      "checkin": {
+        "fields": [
+          {
+            "id": "offer",
+            "label": "Your one-line offer",
+            "type": "textarea",
+            "required": true,
+            "placeholder": null
+          },
+          {
+            "id": "read_to",
+            "label": "Who you read it to, and what they said",
+            "type": "textarea",
+            "required": false,
+            "placeholder": null
+          },
+          {
+            "id": "show_offer",
+            "label": "Add my offer to my card",
+            "type": "checkbox",
+            "required": false,
+            "placeholder": null
+          }
+        ],
+        "button": "Mark Day 4 done",
+        "feature": true
+      },
+      "after": {
+        "title": "Day 4: done.",
+        "lines": [
+          "You have something you can actually say yes to.",
+          "Tomorrow at 8am: ask for a yes. Monday at 8pm ET: the debrief live, the night before doors open."
+        ]
+      },
+      "after_partial": null,
+      "next": "ask for a yes.",
+      "card": {
+        "label": "DAY 4 · WROTE THE OFFER",
+        "show": "show_offer"
+      }
+    },
+    {
+      "n": 5,
+      "date": "Friday 13 November",
+      "move": "Ask for a yes",
+      "label": "DAY 5 OF 5 · ASK FOR A YES",
+      "headline": "Ask three people. Count every answer.",
+      "line": "The faster you fail, the faster you learn.",
+      "intro": [
+        "My first business was reselling sneakers. $2,000 in, $3,000 out, before college.",
+        "Not a big number. But it taught me more than any class, because real people said yes and no with real money.",
+        "Today you ask."
+      ],
+      "intro_small": "My numbers are my story, not a prediction of yours.",
+      "move_time": "about 20 minutes",
+      "steps": [
+        {
+          "title": "Pick 3 people",
+          "body": "from your list, or anyone who fits your \"who.\"",
+          "sub": []
+        },
+        {
+          "title": "Send your offer and ask for a real yes.",
+          "body": "Go for the strongest one you can:",
+          "sub": [
+            "**Money now:** a pre-order, a deposit or a paid first session.",
+            "**A date:** \"Can I put you down for the first spot on [date]?\"",
+            "**A call:** \"Can I show you how it would work, 10 minutes?\""
+          ]
+        },
+        {
+          "title": "Count every answer.",
+          "body": "Ask every no: \"What would make this a yes?\" A no with a reason is data.",
+          "sub": []
+        },
+        {
+          "title": "Post your Day One.",
+          "body": "Share your card and tell people what you started this week. Saying it out loud makes it real.",
+          "sub": []
+        }
+      ],
+      "after_steps": [],
+      "tool": {
+        "title": "Ask scripts",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "After a conversation:",
+            "text": "Hey [name], thanks again for talking with me. Based on what you said about [their words], I'm starting this: [your offer line]. I'm taking my first [3] [clients] this month. Want me to save you one?"
+          },
+          {
+            "type": "template",
+            "label": "Straight ask:",
+            "text": "I'm doing [offer] for [who]. It's [price]. Would you want it for [result]?"
+          },
+          {
+            "type": "template",
+            "label": "When they say yes:",
+            "text": "Great. [The next step: I'll send a payment link / let's lock in Tuesday at 6.]"
+          },
+          {
+            "type": "h",
+            "text": "Rules:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "Say the price plainly, then stop talking. Don't apologize. Don't discount on the spot.",
+              "If you take money, write down exactly what you promised and keep it. If you can't deliver, give it back. How you do one thing is how people think you do everything.",
+              "\"Sounds cool\" isn't a yes. Count money, a date on the calendar or a booked call.",
+              "If anyone pays you, be ready to deliver what you promised by the date you gave, or refund them right away. If you pre-sell physical products, the FTC's Mail Order Rule requires shipping within the time you state (or 30 days) or offering a refund."
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Maya asked three parents. One said yes and booked a session for Tuesday. One said \"maybe after midterms.\" One said no: \"We already have someone.\""
+          },
+          {
+            "type": "quote",
+            "text": "She asked the no what would make it a yes. The answer: \"If you did SAT prep.\" That's a note for later."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I never got a conversation.",
+          "a": "Ask for the conversation instead. A yes to a 10-minute call counts today."
+        },
+        {
+          "q": "Everyone said no.",
+          "a": "You learned in 5 days what takes most people a year. Read their reasons, change one thing (the who, the result or the price) and ask again next week."
+        },
+        {
+          "q": "I got a yes. Now what?",
+          "a": "Deliver it like your name depends on it, because it does. And keep going: your roadmap picks up from here on Tuesday."
+        }
+      ],
+      "checkin": {
+        "fields": [
+          {
+            "id": "asks",
+            "label": "Asks made",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000
+          },
+          {
+            "id": "yeses",
+            "label": "Yeses",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000,
+            "help": "0 is a real answer."
+          },
+          {
+            "id": "lesson",
+            "label": "What you learned, in one line",
+            "type": "text",
+            "required": true,
+            "placeholder": null
+          }
+        ],
+        "button": "Mark Day 5 done",
+        "feature": true
+      },
+      "after": {
+        "title": "You did all five.",
+        "lines": [
+          "You made this week day one.",
+          "Here's what you have now: one idea picked on purpose, a list of 10 people, a real conversation, an offer and real answers. That's further than most people get in a year of thinking about it.",
+          "**Monday, 8pm ET:** the debrief live on Instagram, the night before doors open. I'll go through the week, take a few hot seats and show you what opens Tuesday. Missed a day? Check-ins stay open until Sunday at 11:59pm ET.",
+          "**Tuesday 17 November, 9am ET:** doors open for Day One finishers, an hour before everyone else. Your week carries over, so your roadmap starts where today ends."
+        ]
+      },
+      "after_partial": {
+        "title": "Day 5: done.",
+        "lines": [
+          "You've got {{days_done}} of 5. Finish the rest by Sunday 11:59pm ET to count as a Day One finisher and get in an hour early on Tuesday."
+        ]
+      },
+      "next": null,
+      "card": {
+        "label": "DAY ONE FINISHER · 5 OF 5",
+        "show": "show_offer"
+      }
+    }
+  ]
+}

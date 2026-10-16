@@ -1,7 +1,7 @@
 <%# Membership FAQ (conversion/pages/pricing.md). The founding answers show before doors open and during the founding window. %>
 <% var fq = launch.prelaunch || launch.foundingOpen; var NUM = { 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 8: 'Eight', 10: 'Ten', 12: 'Twelve' }; %>
 <div class="faq">
-  <details open><summary>Is the free plan actually free?</summary><p>Yes. The assessment, weeks 1 and 2 of your roadmap, the starter library and <%= PLANS.free.aiRunsPerMonth %> Eli's Playbook messages a month. No card.</p></details>
+  <details open><summary>Is the free plan actually free?</summary><p>Yes. The assessment, weeks 1 and 2 of your roadmap with the playbooks and templates they use, the starter library and <%= PLANS.free.aiRunsPerMonth %> Eli's Playbook messages a month. No card.</p></details>
   <details><summary>Why not just use ChatGPT?</summary><p>ChatGPT doesn't know your roadmap. Eli's Playbook works from your assessment, your 30-day roadmap, and Eli's playbooks and calculators, so its answers fit where you are this week. And there's a real founder behind it.</p></details>
   <details><summary>Is this a course?</summary><p>No. There are no hours of video to sit through. It's a working system: short playbooks paired with an output, AI tools that apply them to your business, and templates you can use today.</p></details>
   <% if (fq) { %><details><summary>What does "locked" mean?</summary><p>Founding members pay <%= launch.foundingPrice ? '$' + launch.foundingPrice + ' a month' : 'the founding price' %> for as long as they stay subscribed, even if they switch plans. Cancelling ends it.</p></details><% } %>

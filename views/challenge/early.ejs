@@ -1,0 +1,19 @@
+<%- include('../partials/head') %>
+<main class="chp">
+  <section class="ch-hero">
+    <div class="wrap">
+      <div class="lbl">127 opens <%= chx.etLong(chx.launchAt) %></div>
+      <% if (state === 'wait-early') { %>
+        <h1><span class="dim">Your door opens at</span> <span class="grad"><%= chx.etClock(chx.earlyAt) %> ET.</span></h1>
+        <p class="lede">You finished the Day One Challenge, so you get in an hour before everyone else. Keep this page open, or come back with the link from your email.</p>
+        <%- include('../partials/countdown', { cdTarget: chx.earlyAt }) %>
+      <% } else { %>
+        <h1><span class="dim">Doors open at</span> <span class="grad"><%= chx.etClock(chx.launchAt) %> ET for everyone.</span></h1>
+        <p class="lede">Early access is for people who checked in all five days of the Day One Challenge. Your free 30-day roadmap is ready at <%= chx.etClock(chx.launchAt) %>.</p>
+        <%- include('../partials/countdown', { cdTarget: chx.launchAt }) %>
+      <% } %>
+    </div>
+  </section>
+</main>
+<script>(function(){var t=<%= state === 'wait-early' ? chx.earlyAt : chx.launchAt %>;var w=t-Date.now();if(w>0&&w<36e5)setTimeout(function(){location.reload()},w+1500);})();</script>
+<%- include('../partials/foot') %>

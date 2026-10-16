@@ -1,0 +1,11 @@
+<% if (typeof chAdmin !== 'undefined' && chAdmin) { %>
+<div class="card pad-lg" id="challenge" style="margin-bottom:16px">
+  <div class="card-title"><h3>Day One Challenge</h3><a href="/admin/challenge" class="btn ghost sm">Open challenge admin</a></div>
+  <div class="grid g-4">
+    <div class="stat"><div class="l">Joined</div><div class="v"><%= chAdmin.total %></div><div class="small muted"><%= chAdmin.late %> late</div></div>
+    <div class="stat"><div class="l">Started</div><div class="v"><%= chAdmin.started %></div><div class="small muted">checked in at least once</div></div>
+    <div class="stat"><div class="l">Finishers</div><div class="v"><%= chAdmin.finishers %></div><div class="small muted">all five days</div></div>
+    <div class="stat"><div class="l">Hot-seat picks</div><div class="v"><%= chAdmin.hot %></div><div class="small muted">ticked "feature me"</div></div>
+  </div>
+</div>
+<% } %>

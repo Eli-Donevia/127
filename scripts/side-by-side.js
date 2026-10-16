@@ -21,7 +21,7 @@ if (!process.env.ANTHROPIC_API_KEY) {
 }
 
 const QUESTIONS = [
-  "I'm 17 and want to start something this month. I have about 5 hours a week and $50. Where do I start?",
+  "I'm 19 and want to start something this month. I have about 5 hours a week and $50. Where do I start?",
   'Give me 3 business ideas I could test in my town.',
   'How do I know if anyone will actually pay for my idea?',
   'What should I charge for tutoring math to high schoolers?',
@@ -36,7 +36,7 @@ const QUESTIONS = [
 const IDEAS = [
   { idea: 'Pressure washing driveways and patios in my neighborhood', customer: 'Homeowners nearby', money: '$80 to $150 per job', edge: 'I already own a pressure washer' },
   { idea: 'Editing short videos for local gyms', customer: 'Gym owners who post on Instagram', money: 'Monthly package', edge: 'I edit my own TikToks' },
-  { idea: 'A faceless YouTube channel about personal finance for teens', customer: 'Teens', money: 'Ads and affiliates', edge: '' },
+  { idea: 'A faceless YouTube channel about personal finance for college students', customer: 'College students', money: 'Ads and affiliates', edge: '' },
   { idea: 'Notion templates for college students', customer: 'Freshmen', money: '$9 per template', edge: 'I use Notion every day' },
   { idea: 'Math tutoring for middle schoolers', customer: 'Parents in my town', money: '$30 an hour', edge: 'Straight As in math, and I tutor my cousin' },
 ];
@@ -101,7 +101,7 @@ function load(model) {
   });
   const outFile = path.join(__dirname, '..', 'side-by-side.md');
   fs.writeFileSync(outFile, out.join('\n'));
-  console.log(`Wrote ${outFile}. Cost: ${A} $${cost[A].toFixed(3)}, ${B} $${cost[B].toFixed(3)}.`);
+  console.log(`Wrote side-by-side.md. Cost: ${A} $${cost[A].toFixed(3)}, ${B} $${cost[B].toFixed(3)}.`);
 })().catch((err) => {
   console.error(err);
   process.exit(1);

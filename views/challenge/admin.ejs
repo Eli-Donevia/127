@@ -1,0 +1,131 @@
+<%- include('../partials/app-head') %>
+<%
+  var PH = { open: 'Sign-ups open', live: 'Challenge week', closed: 'Closed, doors not open yet', after: 'Doors are open' };
+  var when = function (t) { return etDay(t) + ' · ' + etClock(t) + ' ET'; };
+  var pct = function (a, b) { return b ? Math.round(a / b * 100) : 0; };
+  var maxDay = Math.max.apply(null, s.checkins.concat([1]));
+  var LIVE = { yes: 'Had one', booked: 'Booked one', 'not-yet': 'Not yet' };
+%>
+<div class="page-head">
+  <div>
+    <div class="eyebrow">Day One Challenge</div>
+    <h1>Challenge</h1>
+    <div class="tiny muted" style="margin-top:6px"><%= enabled ? PH[phase] : 'Switched off (CHALLENGE_START_AT is blank)' %> · Day 1 <%= when(T.startAt) %> · sign-ups close <%= when(T.regClosesAt) %> · check-ins close <%= when(T.closesAt) %></div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="/admin/challenge.csv" class="btn ghost sm">Export challenge (CSV)</a>
+    <a href="/challenge" class="btn ghost sm" target="_blank" rel="noopener">Open the page</a>
+    <a href="/admin" class="btn ghost sm">Back to Admin</a>
+  </div>
+</div>
+
+<% if (msg) { %><div class="alert info" style="margin-bottom:16px"><%= msg %></div><% } %>
+
+<div class="grid g-4" style="margin-bottom:16px">
+  <div class="card stat"><div class="l">Joined</div><div class="v"><%= s.total %></div><div class="small muted"><%= s.late %> joined late · <%= s.fromWaitlist %> already on the waitlist</div></div>
+  <div class="card stat"><div class="l">Confirmed email</div><div class="v"><%= s.confirmedPct %>%</div><div class="small muted"><%= s.confirmed %> confirmed their waitlist spot</div></div>
+  <div class="card stat"><div class="l">Started</div><div class="v"><%= s.started %></div><div class="small muted"><%= pct(s.started, s.total) %>% checked in at least once</div></div>
+  <div class="card stat"><div class="l">Finishers</div><div class="v"><%= s.finishers %></div><div class="small muted"><%= pct(s.finishers, s.total) %>% of sign-ups · <%= s.linked %> linked to an account</div></div>
+</div>
+
+<div class="grid g-2" style="margin-bottom:16px">
+  <div class="card pad-lg">
+    <h3>Check-ins per day</h3>
+    <p class="small muted">People who saved each day's check-in. Pages show the count once it reaches 25.</p>
+    <% s.checkins.forEach(function (c, i) { %>
+      <div class="hbar"><span class="muted">Day <%= i + 1 %></span><div class="bar accent"><span style="width:<%= Math.round(c / maxDay * 100) %>%"></span></div><span><%= c %></span></div>
+    <% }) %>
+  </div>
+  <div class="card pad-lg">
+    <h3>Where they came from</h3>
+    <p class="small muted">Source of each sign-up. Email opt-ins: <%= s.launchOptIn %> launch news, <%= s.ongoingOptIn %> ongoing.</p>
+    <% if (!s.total) { %><p class="small muted" style="margin:0">No sign-ups yet.</p><% } %>
+    <% Object.keys(s.bySource).sort(function (a, b) { return s.bySource[b] - s.bySource[a]; }).forEach(function (k) { %>
+      <div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span><%= k %></span><span class="mono"><%= s.bySource[k] %></span></div>
+    <% }) %>
+    <div class="tiny muted" style="margin-top:14px">
+      Launch-email setting (JOIN_IS_LAUNCH_CONSENT): <b style="font-weight:500"><%= flag ? 'On' : 'Off' %></b> ·
+      Klaviyo: <%= klaviyoOn ? 'connected' : 'not connected' %> ·
+      challenge list: <%= listSet ? 'set' : 'not set (KLAVIYO_CHALLENGE_LIST_ID)' %>
+    </div>
+  </div>
+</div>
+
+<div class="card pad-lg" id="hotseats" style="margin-bottom:16px">
+  <div class="card-title"><h3>Debrief hot seats</h3><span class="small muted"><%= hot.length %> ticked "Eli can feature my check-in"</span></div>
+  <div class="alert info" style="margin:0 0 18px">
+    <b style="font-weight:600">On air:</b> first names only. Show an idea or offer only where it says "may show". Never mention money amounts, revenue or income.
+    Before the first hot seat, say once: "It's one person's week. Results vary." Guests hear before they speak: "You're on a public live that's saved and may be clipped. Still good?"
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+    <form method="post" action="/admin/challenge/hotseat"><button class="btn sm"<%= hot.length ? '' : ' disabled' %>><%= hotSummary ? 'Rewrite the shortlist' : 'Write the shortlist' %></button></form>
+    <span class="tiny muted"><%= aiOn ? 'Claude picks 3 hot seats and 2 backups from these check-ins only.' : 'Without ANTHROPIC_API_KEY this lists the top five.' %></span>
+  </div>
+  <% if (hotSummary) { %>
+    <div style="white-space:pre-wrap;font-size:14px;line-height:1.6;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:18px"><%= hotSummary.text %></div>
+    <div class="tiny muted" style="margin:-10px 0 18px">Written <%= when(Date.parse(hotSummary.at)) %> from <%= hotSummary.count %> check-in<%= hotSummary.count === 1 ? '' : 's' %>.</div>
+  <% } %>
+  <% if (!hot.length) { %><p class="small muted" style="margin:0">Nobody yet. The box is on the Day 3, 4 and 5 check-ins.</p><% } else { %>
+  <div class="scroll-x"><table class="t">
+    <thead><tr><th>First name</th><th>Days</th><th>Idea</th><th>Day 3 conversation</th><th>Offer</th><th>Day 5</th><th></th></tr></thead>
+    <tbody>
+    <% hot.forEach(function (c) { %>
+      <tr>
+        <td><b style="font-weight:500"><%= c.firstName || '–' %></b><% if (c.guestOk) { %><br><span class="chip">open to camera</span><% } %></td>
+        <td class="mono"><%= c.daysDone %>/5<%= c.finisher ? ' ✓' : '' %></td>
+        <td><% if (c.idea) { %><%= c.idea %><br><span class="tiny muted">may show</span><% } else { %><span class="muted">not cleared</span><% } %></td>
+        <td><%= c.conversation ? (LIVE[c.conversation] || c.conversation) : '–' %><% if (c.quote) { %><br><span class="muted">"<%= c.quote %>"</span><% } %></td>
+        <td><% if (c.offer) { %><%= c.offer %><br><span class="tiny muted">may show</span><% } else { %><span class="muted">not cleared</span><% } %></td>
+        <td><% if (c.asks != null) { %>Asked <%= c.asks %>, yes <%= c.yeses != null ? c.yeses : '–' %><% } else { %>–<% } %><% if (c.lesson) { %><br><span class="muted"><%= c.lesson %></span><% } %></td>
+        <td><form method="post" action="/admin/challenge/unfeature/<%= c.id %>" onsubmit="return confirm('Stop featuring <%= (c.firstName || 'this person').replace(/'/g, '') %>? Use this when someone emails to withdraw.')"><button class="btn ghost sm">Withdraw</button></form></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
+
+<div class="grid g-2" style="margin-bottom:16px">
+  <div class="card pad-lg" id="settings">
+    <h3>Videos and replays</h3>
+    <p class="small muted">Paste a full https:// link or a /path on this site. An .mp4 plays on the page; any other link opens in a new tab. Empty hides it. Files named day-1.mp4 to day-5.mp4 in public/video/challenge/ are picked up without a link.</p>
+    <form method="post" action="/admin/challenge/settings">
+      <% [['video1', 'Day 1 video'], ['video2', 'Day 2 video'], ['video3', 'Day 3 video'], ['video4', 'Day 4 video'], ['video5', 'Day 5 video'], ['replay1', 'Kickoff replay (' + etDay(T.live1At) + ')'], ['replay2', 'Debrief replay (' + etDay(T.live2At) + ')']].forEach(function (f) { %>
+        <label class="field"><span><%= f[1] %></span><input class="input" name="<%= f[0] %>" value="<%= settings[f[0]] %>" placeholder="https://" inputmode="url" autocomplete="off"></label>
+      <% }) %>
+      <button class="btn sm">Save links</button>
+    </form>
+  </div>
+  <div class="card pad-lg">
+    <h3>One-tap join links</h3>
+    <p class="small muted">Puts a personal join link (challenge_join_url) on every waitlist profile in Klaviyo that isn't in the challenge yet, for the waitlist emails that announce the challenge. New waitlist sign-ups get it automatically. Safe to run more than once.</p>
+    <form method="post" action="/admin/challenge/backfill" onsubmit="return confirm('Update Klaviyo profiles for everyone on the waitlist who is not in the challenge yet?')"><button class="btn ghost sm"<%= klaviyoOn ? '' : ' disabled' %>>Add join links in Klaviyo</button></form>
+    <% if (!klaviyoOn) { %><p class="tiny muted" style="margin-top:8px">Klaviyo isn't connected.</p><% } %>
+    <h3 style="margin-top:28px">Lives</h3>
+    <div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span>Kickoff</span><span class="mono"><%= when(T.live1At) %></span></div>
+    <div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span>Debrief</span><span class="mono"><%= when(T.live2At) %></span></div>
+    <div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span>Finishers' early access</span><span class="mono"><%= when(T.earlyAt) %></span></div>
+    <div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span>Doors open</span><span class="mono"><%= when(T.launchAt) %></span></div>
+  </div>
+</div>
+
+<div class="card pad-lg">
+  <div class="card-title"><h3>Latest sign-ups</h3><span class="small muted">Newest 25</span></div>
+  <% if (!s.latest.length) { %><p class="small muted" style="margin:0">No sign-ups yet.</p><% } else { %>
+  <div class="scroll-x"><table class="t">
+    <thead><tr><th>Person</th><th>Source</th><th>Days</th><th>Email opt-in</th><th>Joined</th></tr></thead>
+    <tbody>
+    <% s.latest.forEach(function (e) { var d = Object.keys(e.days || {}).length; %>
+      <tr>
+        <td><b style="font-weight:500"><%= e.firstName || '–' %></b><br><span class="muted"><%= e.email %></span></td>
+        <td><%= e.source %><%= e.late ? ' · late' : '' %></td>
+        <td class="mono"><%= d %>/5<%= e.finishedAt ? ' ✓' : '' %></td>
+        <td><%= e.ongoingOptIn ? 'Ongoing' : e.launchOptIn ? 'Launch only' : 'Challenge only' %></td>
+        <td class="muted"><%= when(Date.parse(e.createdAt)) %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
+<%- include('../partials/app-foot') %>

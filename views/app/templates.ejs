@@ -1,0 +1,58 @@
+<%- include('../partials/app-head') %>
+<%
+  var freeCount = all.filter(function(t){ return t.tier === 'free'; }).length;
+  function q(change) {
+    var p = { track: f.track, kind: f.kind, tier: f.tier };
+    Object.keys(change).forEach(function(k){ p[k] = change[k]; });
+    var s = Object.keys(p).filter(function(k){ return p[k]; }).map(function(k){ return k + '=' + p[k]; }).join('&');
+    return '/app/templates' + (s ? '?' + s : '');
+  }
+  function exts(t) {
+    var seen = [];
+    t.formats.forEach(function(x){ var e = x.file.split('.').pop().toUpperCase(); if (seen.indexOf(e) < 0) seen.push(e); });
+    return seen.join(' · ');
+  }
+%>
+<div class="page-head">
+  <div><div class="eyebrow">Sheets · Docs · Checklists · Recipes</div><h1>Library</h1></div>
+  <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" class="small muted lib-note" data-upgrade="templates" data-price="<%= builderOffer.price %>">Free: <%= freeCount %> of <%= all.length %> templates. <%= builderOffer.founding ? 'Founding price until ' + builderOffer.closesDate + ':' : '' %> <button class="link-btn"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Unlock every template' %></button><%- include('../partials/renewal-line', { rlClass: 'tiny' }) %></form><% } %>
+</div>
+<%- include('../partials/library-switch', { section: 'templates', tplCount: all.length }) %>
+
+<div class="tabs">
+  <a href="<%= q({ track: null }) %>" class="<%= !f.track ? 'on' : '' %>">All</a>
+  <% Object.keys(TRACKS).forEach(function(k){ %><a href="<%= q({ track: k }) %>" class="<%= f.track===k ? 'on' : '' %>"><%= TRACKS[k] %></a><% }) %>
+</div>
+<div class="tpl-filters" aria-label="Filter templates">
+  <div class="filter-row">
+    <span class="eyebrow">Type</span>
+    <a href="<%= q({ kind: null }) %>" class="<%= !f.kind ? 'on' : '' %>">Any</a>
+    <% Object.keys(KINDS).forEach(function(k){ %><a href="<%= q({ kind: k }) %>" class="<%= f.kind===k ? 'on' : '' %>"><%= KINDS[k] %>s</a><% }) %>
+  </div>
+  <div class="filter-row">
+    <span class="eyebrow">Plan</span>
+    <a href="<%= q({ tier: null }) %>" class="<%= !f.tier ? 'on' : '' %>">Any</a>
+    <a href="<%= q({ tier: 'free' }) %>" class="<%= f.tier==='free' ? 'on' : '' %>">Free</a>
+    <a href="<%= q({ tier: 'builder' }) %>" class="<%= f.tier==='builder' ? 'on' : '' %>">Builder</a>
+  </div>
+</div>
+<p class="tiny muted mono tpl-count"><%= items.length %> TEMPLATE<%= items.length === 1 ? '' : 'S' %></p>
+
+<% if (!items.length) { %>
+  <div class="card"><p class="muted" style="margin:0">Nothing matches those filters. <a href="/app/templates" class="link">Show every template</a></p></div>
+<% } %>
+<div class="res-list tpl-list">
+  <% items.forEach(function(t){ var open = tpl.canOpen(user, t); var mine = inRoadmap.has(t.slug); var cl = t.checklistIds.size ? tpl.checklistProgress(t, user) : null; %>
+  <a href="/app/templates/<%= t.slug %>" class="res tpl-card <%= open ? '' : 'locked' %>">
+    <div class="tpl-thumb">
+      <% if (t.previewFile) { %><img src="/app/templates/<%= t.slug %>/<%= t.previewFile %>" alt="" loading="lazy" decoding="async"><% } else { %><div class="tpl-ph"><span class="eyebrow"><%= KINDS[t.kind] %></span><strong><%= t.title %></strong></div><% } %>
+      <% if (!t.reviewedByEli) { %><span class="tpl-new">New</span><% } %>
+    </div>
+    <div class="meta"><span><%= TRACKS[t.track] %> · <%= KINDS[t.kind] %></span><% if (!open) { %><span class="chip">Builder</span><% } else if (cl && cl.done) { %><span class="chip win"><%= cl.done %>/<%= cl.total %></span><% } else if (mine) { %><span class="chip win">In your roadmap</span><% } else if (t.tier==='free') { %><span class="chip line">Free</span><% } %></div>
+    <h4><%= t.title %></h4>
+    <p><%= t.summary %></p>
+    <div class="foot-row"><span><%= t.minutes %> min · <%= exts(t) %></span><span class="arrow"></span></div>
+  </a>
+  <% }) %>
+</div>
+<%- include('../partials/app-foot') %>

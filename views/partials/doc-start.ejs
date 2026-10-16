@@ -12,13 +12,15 @@
 <meta property="og:title" content="<%= fullTitle %>">
 <meta property="og:description" content="<%= desc %>">
 <meta property="og:url" content="<%= canonical %>">
-<meta property="og:image" content="<%= baseUrl %>/og.png">
+<% var og = (typeof ogImage !== 'undefined' && ogImage) || '/og.png'; %>
+<meta property="og:image" content="<%= baseUrl %><%= og %>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<%= fullTitle %>">
 <meta name="twitter:description" content="<%= desc %>">
-<meta name="twitter:image" content="<%= baseUrl %>/og.png">
+<meta name="twitter:image" content="<%= baseUrl %><%= og %>">
+<% if (typeof noindex !== 'undefined' && noindex) { %><meta name="robots" content="noindex"><% } %>
 <meta name="theme-color" content="#060607">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -26,6 +28,8 @@
 <link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/style.css">
+<% if (typeof css !== 'undefined' && css) { [].concat(css).forEach(function (href) { %><link rel="stylesheet" href="<%= href %>">
+<% }) } %>
 <% if (plausible) { %>
 <script defer data-domain="<%= plausible %>" src="https://plausible.io/js/script.js"></script>
 <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };

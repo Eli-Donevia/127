@@ -1,0 +1,11 @@
+<%# The two Instagram lives. Locals: chx %>
+<div class="ch-lives">
+  <% chx.lives.forEach(function (l) { %>
+  <div class="ch-live">
+    <div><div class="t"><%= l.title %> · live with Eli</div><div class="w"><%= l.label %> · Instagram @elichristiansen_</div></div>
+    <% if (l.replay && l.aired) { %><a class="btn light sm" href="<%= l.replay %>" target="_blank" rel="noopener" data-track="Challenge Replay" data-channel="<%= l.id %>">Watch the replay <span class="arrow"></span></a>
+    <% } else if (!l.aired) { %><a class="btn ghost sm" href="<%= l.ics %>" data-track="Challenge Calendar" data-channel="<%= l.id %>">Add to calendar</a>
+    <% } else { %><span class="tiny muted">Replay coming soon</span><% } %>
+  </div>
+  <% }) %>
+</div>

@@ -32,7 +32,7 @@
     if (STARTS[name]) {
       try {
         var u = (JSON.parse(localStorage.getItem(UTM_KEY) || 'null') || {}).utm || {};
-        var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null });
+        var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null, utm_medium: u.utm_medium || null, utm_campaign: u.utm_campaign || null, utm_content: u.utm_content || null });
         if (navigator.sendBeacon) navigator.sendBeacon('/api/quiz-start', new Blob([body], { type: 'application/json' }));
         else fetch('/api/quiz-start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: body, keepalive: true });
       } catch (e) {}
@@ -62,6 +62,8 @@
     // Shared with the Meta Pixel so the server-side Conversions API event is deduplicated.
     payload.event_id = K.lastEventId = 'lead-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
     payload.page = location.pathname;
+    // Server-side Meta events need the visitor's ad consent too (Legal L7, public/js/consent.js).
+    payload.ad_consent = !!(window.c127Consent && window.c127Consent.ads());
     try { localStorage.setItem('127-lead-email', payload.email); } catch (e) {}
     return fetch('/api/lead', {
       method: 'POST',
