@@ -3,7 +3,11 @@
 
 <% if (q.welcome) { %><div class="alert win">Welcome to 127<%= firstName ? ', ' + firstName : '' %>. Your roadmap is ready, and you've earned your first badge: Blueprint drawn.</div><% } %>
 <% if (q.retook) { %><div class="alert info">New roadmap generated from your updated answers.</div><% } %>
-<% if (upgraded) { %><div class="alert win">You're now a <%= upgraded %> member. Everything is unlocked.<%= q.demo && user.demoBilling ? ' (Demo mode: no payment was taken.)' : '' %></div><% } %>
+<% var demoNote = q.demo && user.demoBilling ? ' (Demo mode: no payment was taken.)' : ''; %>
+<% if (foundingAlert) { %><div class="alert win">You're founding member #<%= user.foundingNumber %>. Everything is unlocked, and $<%= launch.foundingPrice %> a month is yours for as long as you stay.<%= launch.foundingCall ? ' The founding call with Eli is ' + launch.foundingCall + '. Your invite comes by email.' : '' %><%= demoNote %></div>
+<% } else if (upgraded && user.tier === 'circle') { %><div class="alert win">You're in the Founder's Circle. Eli's team will email your call link and the private group invite today.<%= demoNote %></div>
+<% } else if (upgraded) { %><div class="alert win">You're a <%= upgraded %>. Everything is unlocked.<%= demoNote %></div><% } %>
+<% if (closedNotice) { %><div class="alert info closed-note" data-fb-closed><span>The founding price has closed. Builder is $<%= builderOffer.regular %> a month whenever you're ready.</span><button type="button" aria-label="Dismiss">×</button></div><% } %>
 <% if (!user.emailVerified) { %>
   <div class="alert info verify-bar"><span>Confirm your email to unlock all your Playbook messages. We sent a link to <b style="font-weight:500"><%= user.email %></b>.<% if (devVerifyLink) { %> Email isn't connected yet, so here it is: <a class="link" href="<%= devVerifyLink %>">confirm email</a>.<% } %></span>
   <form method="post" action="/app/verify/resend"><button class="btn ghost sm">Resend link</button></form></div>
@@ -17,17 +21,7 @@
   <a href="/start?retake=1" class="btn ghost sm">Retake assessment</a>
 </div>
 
-<% if (builderOffer.founding) { %>
-<%# PLACEHOLDER copy until Offer and conversion sends the final founding bar text. %>
-<div class="founding-bar">
-  <div>
-    <div class="eyebrow">Founding price</div>
-    <p><b>$<%= builderOffer.price %>/month, locked while you stay.</b> Unlocks your whole roadmap, the full library and every AI tool. Ends <%= launch.closesDate %>, midnight ET.</p>
-  </div>
-  <%- include('../partials/countdown', { cdTarget: launch.closesAt }) %>
-  <form method="post" action="/app/billing/checkout/builder"><button class="btn light">Lock $<%= builderOffer.price %>/month <span class="arrow"></span></button></form>
-</div>
-<% } %>
+<% if (builderOffer.founding) { %><%- include('../partials/founding-bar') %><% } %>
 
 <div class="grid g-main">
   <div class="grid" style="gap:16px">
@@ -45,7 +39,7 @@
     <% } else if (progress.done === progress.total) { %>
     <div class="next-card"><div class="eyebrow">Roadmap complete</div><h2>You built all 30 days.</h2><p>Share it on the wins board, then retake the assessment for your next roadmap.</p><a class="btn light" href="/app/wins">Share your win</a></div>
     <% } else { %>
-    <div class="next-card"><div class="eyebrow">Weeks 1 and 2 done</div><h2>Ready for weeks 3 and 4?</h2><p>Builder unlocks the rest of your roadmap, the full library and every AI tool.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn light">Unlock for $<%= builderOffer.price %>/month</button></form></div>
+    <div class="next-card"><div class="eyebrow">Weeks 1 and 2 done</div><h2>Ready for weeks 3 and 4?</h2><p>Builder unlocks the rest of your roadmap, every playbook and every AI tool.<%= builderOffer.founding ? ' Founding price until ' + builderOffer.closesDate + ': $' + builderOffer.price + ' a month, locked while you stay.' : '' %></p><form method="post" action="/app/billing/checkout/builder" data-upgrade="weeks12" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder · $' + builderOffer.regular + '/month' %></button></form><%- include('../partials/renewal-line') %></div>
     <% } %>
 
     <div class="card pad-lg" id="roadmap">
@@ -79,7 +73,7 @@
         </div>
         <% }) %>
         <% if (locked && w.week === 3) { %>
-        <div class="unlock"><div class="card"><div class="eyebrow">Builder</div><h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0">Unlock weeks 3 and 4</h3><p class="small muted" style="margin:0 0 16px">Plus the full library and every AI tool.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn block">Upgrade for $<%= builderOffer.price %>/month</button></form></div></div>
+        <div class="unlock"><div class="card"><div class="eyebrow">Builder</div><h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0">Unlock weeks 3 and 4</h3><p class="small muted" style="margin:0 0 16px">Plus every playbook and AI tool.<%= builderOffer.founding ? ' $' + builderOffer.price + ' a month for founding members until ' + builderOffer.closesDate + '.' : '' %></p><form method="post" action="/app/billing/checkout/builder" data-upgrade="week3" data-price="<%= builderOffer.price %>"><button class="btn block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder · $' + builderOffer.regular + '/month' %></button></form><%- include('../partials/renewal-line') %></div></div>
         <% } %>
       </div>
       <% }) %>
@@ -93,8 +87,8 @@
       <div style="display:flex;justify-content:space-between;font-size:13px;margin:10px 0 8px"><span><%= user.xp || 0 %> XP</span><span class="muted"><%= level.next ? (level.next.min - (user.xp||0)) + ' to ' + level.next.name : 'Top level' %></span></div>
       <div class="bar"><span style="width:<%= level.pct %>%"></span></div>
       <div class="badges">
-        <% Object.keys(badges).forEach(function(k){ var on = (user.badges||[]).indexOf(k) > -1; %>
-          <span class="badge <%= on ? 'on' : '' %>" title="<%= badges[k].desc %>"><%= badges[k].label %></span>
+        <% Object.keys(badges).forEach(function(k){ var on = (user.badges||[]).indexOf(k) > -1; if (badges[k].earnedOnly && !on) return; %>
+          <span class="badge <%= on ? 'on' : '' %>" title="<%= badges[k].desc %>"><%= badges[k].label %><%= k === 'founding' && user.foundingNumber ? ' · #' + user.foundingNumber : '' %></span>
         <% }) %>
       </div>
     </div>
@@ -137,11 +131,12 @@
     <% if (userPlan.key !== 'circle' && user.answers && (user.answers.circle_interest === 'yes' || user.answers.circle_interest === 'later')) { %>
     <div class="card dark">
       <div class="eyebrow" style="color:var(--gold)">Founder's Circle</div>
-      <h3 style="font-family:var(--serif);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0">You said weekly calls would help.</h3>
+      <h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0">You said weekly calls would help.</h3>
       <p class="small muted" style="margin:0 0 16px"><%= circleSeatsLeft %> of <%= circleCapacity %> seats open.</p>
       <a href="/app/circle" class="btn light sm">Learn more</a>
     </div>
     <% } %>
   </div>
 </div>
+<% if (upgradeScreen) { %><%- include('../partials/upgrade-screen') %><% } %>
 <%- include('../partials/app-foot') %>

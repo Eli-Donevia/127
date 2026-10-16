@@ -1,0 +1,39 @@
+<%- include('partials/doc-start') %>
+<body class="bare">
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a><% if (!user) { %><a href="/login?next=/founding/lock" class="small link">Sign in</a><% } %></div>
+  <main class="auth-card lock-card fade-in">
+    <div class="eyebrow"><%= grace ? 'Your founding link' : 'Founding price · ends ' + launch.closesShort %></div>
+    <h1 style="margin-top:12px">Lock $<%= launch.foundingPrice %> a month.</h1>
+    <% if (cancelled) { %><div class="alert info">No charge was made. Your founding price is here until <%= launch.closesDate %>.</div><% } %>
+    <% if (user) { %>
+      <p class="muted" style="margin:0 0 24px">Builder for $<%= launch.foundingPrice %> a month, locked while you stay. All 4 weeks of your roadmap, every playbook and every AI tool.</p>
+      <form method="post" action="/app/billing/checkout/builder" data-upgrade="lock" data-price="<%= launch.foundingPrice %>">
+        <input type="hidden" name="from" value="/founding/lock">
+        <% if (grace) { %><input type="hidden" name="grace" value="<%= grace %>"><% } %>
+        <button class="btn block">Lock $<%= launch.foundingPrice %> a month <span class="arrow"></span></button>
+      </form>
+      <%- include('partials/renewal-line', { rlPrice: launch.foundingPrice }) %>
+    <% } else { %>
+      <p class="muted" style="margin:0 0 24px">Create your account, then pay. Your 3-minute assessment comes right after, so your roadmap fits you.</p>
+      <% if (exists) { %><div class="alert error">That email already has an account. <a class="link" href="/login?next=/founding/lock">Sign in</a> and you'll come right back here.</div><% } %>
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+      <form method="post" action="/founding/lock" class="lock-form">
+        <% if (grace) { %><input type="hidden" name="grace" value="<%= grace %>"><% } %>
+        <label class="field"><span>First name</span><input class="input" name="name" required autocomplete="given-name" value="<%= form.name || '' %>"></label>
+        <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email" value="<%= form.email || '' %>"></label>
+        <label class="field"><span>Password</span><input class="input" type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></label>
+        <p class="consent-line">By creating an account, you confirm you're 18 or older and agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
+        <button class="btn block" style="margin-top:14px">Continue to payment <span class="arrow"></span></button>
+        <%- include('partials/renewal-line', { rlPrice: launch.foundingPrice, rlFree: false }) %>
+      </form>
+      <% if (grace) { %>
+      <p class="tiny muted" style="margin-top:10px">Founding price: $<%= launch.foundingPrice %> a month, locked while you stay. This link works once, until <%= fmtDate(graceUntil - 60000) %>, 11:59pm ET.</p>
+      <% } else { %>
+      <p class="tiny muted" style="margin-top:10px">Founding price: $<%= launch.foundingPrice %> a month, locked while you stay. Ends <%= launch.closesDate %>, <%= launch.closesTime %>.</p>
+      <p class="tiny muted" style="margin-top:6px">If checkout breaks on our side before the close, email <a class="link" href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p>
+      <% } %>
+      <p class="small muted" style="margin-top:20px"><a class="link" href="/login?next=/founding/lock">Already have an account? Sign in</a></p>
+    <% } %>
+  </main>
+</body>
+</html>

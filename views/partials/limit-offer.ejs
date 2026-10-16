@@ -1,0 +1,13 @@
+<%# Out of free Playbook messages (in-app-founding-offer.md section 2). Free, confirmed members only. %>
+<% if (aiLeft <= 0 && user.emailVerified && userPlan.key === 'free') {
+     var d = new Date(); var reset = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }); %>
+<div class="paywall limit-offer">
+  <div class="eyebrow">Playbook messages</div>
+  <p>You've used your <%= PLANS.free.aiRunsPerMonth %> free messages this month. Builder gives you about <%= builderOffer.messages %> a month and every AI tool.<%= builderOffer.founding ? ' Founding price until ' + builderOffer.closesDate + ': $' + builderOffer.price + ' a month, locked while you stay.' : '' %></p>
+  <div class="offer-actions">
+    <form method="post" action="/app/billing/checkout/builder" data-upgrade="limit" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form>
+    <a class="btn ghost" href="/app">Wait until <%= reset %></a>
+  </div>
+  <%- include('renewal-line') %>
+</div>
+<% } %>

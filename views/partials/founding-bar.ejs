@@ -1,0 +1,29 @@
+<%# Founding bar on the dashboard (in-app-founding-offer.md section 1). Only while builderOffer.founding. %>
+<% var o = builderOffer; var left = launch.closesAt ? Math.max(0, launch.closesAt - Date.now()) : 0;
+   var strip = 'Founding price ends in ' + Math.floor(left / 864e5) + 'd ' + String(Math.floor(left / 36e5) % 24).padStart(2, '0') + 'h'; %>
+<div class="fb <%= o.hidden ? 'is-hidden' : '' %>" data-variant="<%= o.variant %>" data-target="<%= launch.closesAt %>">
+  <div class="founding-bar fb-<%= o.variant %>">
+    <div>
+      <div class="eyebrow"><%= o.lastDay ? 'Last day for the founding price' : 'Founding price · ends ' + o.closesShort %><%= o.spotsLeft != null ? ' · ' + o.spotsLeft + ' spots left' : '' %></div>
+      <% if (o.variant === 'last_day') { %>
+        <p><b>$<%= o.price %> a month, locked while you stay, ends tonight at <%= o.closesTime %>.</b> After that, Builder is $<%= o.regular %>. There's no Black Friday sale.</p>
+      <% } else if (o.variant === 'finisher') { %>
+        <p><b>Your Day One week is already in your roadmap.</b> Weeks 2 to 4, every playbook and every AI tool are in Builder: $<%= o.price %> a month, locked while you stay, until <%= o.closesDate %>.</p>
+      <% } else if (o.variant === 'welcome') { %>
+        <p><b>You joined in founding week.</b> Do your first step below. When you're ready for the rest, Builder is $<%= o.price %> a month, locked while you stay, until <%= o.closesDate %>.</p>
+      <% } else { %>
+        <p><b>Builder for $<%= o.price %> a month, locked while you stay.</b> All 4 weeks of your roadmap, every playbook and every AI tool. $<%= o.regular %> after <%= o.closesDate %>.</p>
+      <% } %>
+      <% if (!o.lastDay) { %><button type="button" class="fb-toggle" data-fb-hide>Hide for today</button><% } %>
+    </div>
+    <% if (o.variant !== 'welcome') { %><%- include('countdown', { cdTarget: launch.closesAt }) %><% } %>
+    <div class="fb-cta">
+      <form method="post" action="/app/billing/checkout/builder" data-upgrade="bar" data-price="<%= o.price %>"><button class="btn light">Lock $<%= o.price %> a month <span class="arrow"></span></button></form>
+      <%- include('renewal-line', { rlExtra: '14 days to change your mind.' }) %>
+    </div>
+  </div>
+  <form method="post" action="/app/billing/checkout/builder" class="fb-strip" data-upgrade="bar" data-price="<%= o.price %>">
+    <span class="mono" data-fb-left><%= strip %></span>
+    <button class="fb-strip-cta">Lock $<%= o.price %> <span class="arrow"></span></button>
+  </form>
+</div>

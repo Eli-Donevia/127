@@ -1,0 +1,78 @@
+<%- include('../partials/app-head') %>
+<%# Cancel screen (offer.md section 8; Membership Terms section 10 and Appendix C). Reason first and
+    optional (R18): a chip only changes which one save option sits beside Cancel. Cancel Builder is on
+    this screen with or without a reason, one tap cancels, no second screen, nothing pre-selected,
+    no discounts. %>
+<% var circle = userPlan.key === 'circle'; var until = accessEnds || 'the end of the month you paid for';
+   var save = reason === 'unused' ? 'restart' : (pauseAvailable && (reason === 'price' || reason === 'busy' || reason === 'job')) ? 'pause' : 'switch';
+   var foundingP = launch.foundingPrice || builderOffer.price; %>
+<div class="cancel-page">
+  <div class="eyebrow">Membership</div>
+  <h1>Before you go.</h1>
+  <% if (circle) { %>
+    <p class="lede">You can cancel right now. Your seat goes back to the waitlist at the end of this month.</p>
+  <% } else { %>
+    <p class="lede">You can cancel right now. If something else would help, it's here too.</p>
+    <div class="cancel-reasons">
+      <p class="small" style="margin:0 0 10px">What's the main reason? <span class="muted">Optional.</span></p>
+      <div class="reason-chips">
+        <% CANCEL_REASONS.forEach(function(r){ %><a class="btn pill <%= reason === r[0] ? 'is-on' : '' %>" href="/app/billing/cancel?reason=<%= r[0] %>" <%= reason === r[0] ? 'aria-current="true"' : '' %>><%= r[1] %></a><% }) %>
+        <% if (reason) { %><a class="small link skip-link" href="/app/billing/cancel">Clear</a><% } %>
+      </div>
+    </div>
+    <% if (user.foundingPrice) { %><p class="cancel-fact">Cancelling ends your $<%= foundingP %> founding price. If you come back later, Builder is $<%= PLANS.builder.price %>.<%= pauseAvailable ? ' Pausing keeps it.' : '' %></p><% } %>
+  <% } %>
+
+  <div class="cancel-options">
+    <% if (circle) { %>
+      <form method="post" action="/app/billing/checkout/builder" class="cancel-opt">
+        <input type="hidden" name="from" value="/app/billing">
+        <h3>Switch to Builder</h3>
+        <p>Keeps everything but the calls and gatherings.<%= foundingKept ? ' Your $' + foundingP + ' founding price comes with you.' : '' %> The change happens now, and the unused part of this month becomes a credit.</p>
+        <button class="btn ghost block">Switch to Builder</button>
+      </form>
+      <form method="post" action="/app/billing/cancel" class="cancel-opt">
+        <input type="hidden" name="intent" value="cancel">
+        <h3>Cancel the Circle</h3>
+        <p>You keep access until <%= until %>. No more charges.</p>
+        <button class="btn ghost block">Cancel the Circle</button>
+      </form>
+    <% } else { %>
+      <% if (save === 'restart') { %>
+      <div class="cancel-opt">
+        <h3>Restart my roadmap</h3>
+        <p>Life changed? Your roadmap can too. Retake the 3-minute assessment and get a fresh week 1.</p>
+        <a class="btn ghost block" href="/start?retake=1">Restart my roadmap</a>
+      </div>
+      <% } else if (save === 'pause') { %>
+      <form method="post" action="/app/billing/pause" class="cancel-opt">
+        <input type="hidden" name="reason" value="<%= reason || '' %>">
+        <h3>Pause for a month</h3>
+        <p><%= reason === 'busy' ? 'Exams or holidays? Pause and come back to the same price. ' : '' %>Your pause starts when your paid month ends on <%= until %>, so you keep every day you paid for. Then no charge for one billing month. Your roadmap, saved work and price stay; Builder tools are locked until you're back. We'll email you before it restarts.</p>
+        <button class="btn ghost block">Pause for a month</button>
+      </form>
+      <% } else { %>
+      <form method="post" action="/app/billing/cancel" class="cancel-opt">
+        <input type="hidden" name="intent" value="switch_free">
+        <input type="hidden" name="reason" value="<%= reason || '' %>">
+        <h3>Switch to Free</h3>
+        <p>Keep your roadmap, weeks 1 and 2, and your wins. Builder ends at the end of this month<%= accessEnds ? ', on ' + accessEnds : '' %>.</p>
+        <button class="btn ghost block">Switch to Free</button>
+      </form>
+      <% } %>
+      <form method="post" action="/app/billing/cancel" class="cancel-opt">
+        <input type="hidden" name="intent" value="cancel">
+        <input type="hidden" name="reason" value="<%= reason || '' %>">
+        <h3>Cancel Builder</h3>
+        <p>You keep access until <%= until %>. No more charges.</p>
+        <button class="btn ghost block">Cancel Builder</button>
+      </form>
+    <% } %>
+  </div>
+
+  <% if (!circle && reason === 'done' && referralLink) { %><p class="small muted">Know someone starting? Your link gives them a head start: <span class="mono" style="overflow-wrap:anywhere"><%= referralLink %></span></p><% } %>
+  <% if (circle) { %><p class="small muted">Want to talk first? <a class="link" href="mailto:hello@127group.io?subject=Circle%20call%20with%20Eli">Book an optional 15-minute call with Eli.</a> It's never required to cancel.</p><% } %>
+  <p class="small muted">Cancel online anytime from Billing. No call or email needed.</p>
+  <a href="/app/billing" class="small link">← Back to Membership</a>
+</div>
+<%- include('../partials/app-foot') %>

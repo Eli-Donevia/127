@@ -962,3 +962,111 @@ html.js [data-reveal].in{opacity:1;transform:none}
   .check input, .check-row input { width: 22px; height: 22px; }
   .mnav summary { min-width: 44px; min-height: 44px; }
 }
+
+/* ==========================================================================
+   In-app founding offer, checkout and billing (in-app-founding-offer.md,
+   checkout.md, offer.md section 8, Membership Terms Appendix A and C).
+   Carbon card, Steel text, one Halo button, Geist Mono countdown. Gold is
+   the Circle's only; no serif.
+   ========================================================================== */
+.renew-line { margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: var(--muted); max-width: 520px; }
+.renew-line.tiny { font-size: 11px; margin-top: 6px; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; cursor: pointer; font-weight: 500; }
+.link-btn:hover { text-decoration-color: var(--ink); }
+.offer-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* Founding bar */
+.fb { margin: 0 0 20px; }
+.fb .founding-bar { margin: 0; background: var(--surface); border-color: var(--line-2); grid-template-columns: 1fr auto minmax(220px, 260px); }
+.fb .founding-bar .eyebrow { color: var(--ink-2); }
+.fb .founding-bar p { color: var(--ink-2); max-width: 560px; }
+.fb .founding-bar.fb-welcome { grid-template-columns: 1fr minmax(220px, 260px); }
+.fb .countdown b { font-family: var(--mono); }
+.fb-cta .btn { width: 100%; justify-content: center; }
+.fb-cta .renew-line { margin-top: 8px; }
+.fb-toggle { margin-top: 10px; background: none; border: 0; padding: 0; color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.fb-toggle:hover { color: var(--ink-2); }
+.fb-strip { display: none; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); font-size: 13px; color: var(--ink-2); }
+.fb-strip .mono { font-size: 12.5px; }
+.fb-strip-cta { background: var(--primary); color: var(--primary-ink); border: 0; border-radius: 999px; height: 32px; padding: 0 14px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.fb.is-hidden .founding-bar { display: none; }
+.fb.is-hidden .fb-strip { display: flex; }
+.fb.is-floating .fb-strip { display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 30; border-radius: 0; border-width: 0 0 1px; background: var(--bg); padding: 10px 16px; }
+@media (max-width: 820px) { .fb .founding-bar, .fb .founding-bar.fb-welcome { grid-template-columns: 1fr; } }
+.closed-note { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.closed-note button { background: none; border: 0; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; padding: 0 4px; }
+
+/* Sidebar, library note, paywalls */
+.side-upgrade { margin-bottom: 12px; }
+.side-upgrade .renew-line { color: var(--muted); }
+.lib-note { max-width: 460px; text-align: right; margin: 0; }
+.lib-note .renew-line { margin-left: auto; }
+@media (max-width: 760px) { .lib-note { text-align: left; } .lib-note .renew-line { margin-left: 0; } }
+.paywall .renew-line { margin-top: 12px; }
+.limit-offer { margin: 18px 0; }
+.limit-offer p { margin: 8px 0 18px; }
+.unlock .renew-line { margin: 10px auto 0; text-align: center; }
+
+/* Payment banner (every app page while a payment has failed) */
+.pay-banner { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+/* Billing page */
+.billing-offer { margin-bottom: 20px; padding: 26px; border-color: var(--line-2); }
+.billing-offer .eyebrow { color: var(--ink-2); }
+.billing-offer-line { margin: 8px 0 18px; color: var(--ink-2); max-width: 620px; }
+.billing-offer-line b { color: var(--ink); font-weight: 600; }
+.billing-cancelled { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; border-color: var(--line-2); }
+.billing-cancelled h3 { margin: 0 0 6px; font-family: var(--display); letter-spacing: -0.03em; }
+.billing-cancelled p { margin: 0; }
+.cancel-reason { margin-bottom: 20px; }
+.reason-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.reason-chips .btn.pill { height: 36px; font-size: 10.5px; }
+.manage-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.refund-ask { margin: 0 0 24px; max-width: 720px; }
+
+/* Cancel screen: options share size, color and weight; nothing pre-selected */
+.cancel-page { max-width: 760px; }
+.cancel-page h1 { font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.05em; margin: 12px 0 14px; }
+.cancel-page .lede { font-size: 18px; color: var(--ink-2); margin: 0 0 8px; }
+.cancel-fact { color: var(--ink-2); font-size: 15px; margin: 0 0 8px; }
+.cancel-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 24px 0; }
+.cancel-opt { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 22px; }
+.cancel-opt h3 { margin: 0 0 8px; font-size: 18px; }
+.cancel-opt p { flex: 1; margin: 0 0 18px; color: var(--ink-2); font-size: 14px; }
+@media (max-width: 760px) { .cancel-page h1 { font-size: 34px; } }
+
+/* Welcome after a founding payment, Circle confirm, fast founding checkout */
+.welcome-page, .confirm-page { max-width: 640px; }
+.welcome-page h1, .confirm-page h1 { font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.05em; margin: 12px 0 14px; }
+.welcome-page .lede { font-size: 18px; color: var(--ink-2); margin: 0 0 24px; }
+.welcome-steps { margin: 0 0 28px; padding-left: 22px; color: var(--ink-2); }
+.welcome-steps li { padding: 8px 0; }
+.welcome-steps b { color: var(--ink); font-weight: 600; }
+.confirm-card { margin: 20px 0; }
+.confirm-row { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+.confirm-row span { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .16em; }
+.confirm-form { display: grid; gap: 16px; justify-items: start; }
+.consent-check { line-height: 1.5; }
+.consent-check input { margin-top: 4px; }
+.delete-instead { margin: 0 0 12px; }
+.lock-card .renew-line { margin-top: 10px; }
+.lock-card .consent-line { margin-top: 4px; }
+@media (max-width: 760px) { .welcome-page h1, .confirm-page h1 { font-size: 34px; } }
+.cancel-reasons { margin: 18px 0 8px; }
+.reason-chips .btn.pill.is-on { color: var(--primary-ink); background: var(--primary); border-color: var(--primary); }
+.skip-link { align-self: center; margin-left: 4px; }
+
+/* Day 7 / Day 14 upgrade screen (after the founding window) */
+.ups { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; background: rgba(6, 6, 7, .82); backdrop-filter: blur(6px); }
+.ups-panel { position: relative; width: 100%; max-width: 560px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 20px; overflow: hidden; box-shadow: var(--glow); }
+.ups-close { position: absolute; top: 12px; right: 14px; z-index: 2; background: none; border: 0; color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+.ups-close:hover { color: var(--ink); }
+.ups-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.ups-track::-webkit-scrollbar { display: none; }
+.ups-step { flex: 0 0 100%; scroll-snap-align: start; padding: 40px 32px 28px; }
+.ups-step h2 { font-family: var(--display); font-weight: 700; font-size: 34px; line-height: 1.04; letter-spacing: -0.045em; margin: 12px 0 12px; }
+.ups-step p { color: var(--ink-2); margin: 0 0 22px; }
+.ups-dots { display: flex; gap: 6px; justify-content: center; padding: 0 0 20px; }
+.ups-dots span { width: 6px; height: 6px; border-radius: 999px; background: var(--line-2); }
+.ups-dots span.on { background: var(--ink); }
+@media (max-width: 760px) { .ups-step { padding: 36px 22px 24px; } .ups-step h2 { font-size: 28px; } }

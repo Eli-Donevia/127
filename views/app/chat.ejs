@@ -5,7 +5,7 @@
     <% if (chat.length) { %><form method="post" action="/app/tools/ask/clear"><button class="btn ghost sm">New conversation</button></form><% } %>
   </div>
   <% if (locked) { %>
-    <div class="paywall"><div class="eyebrow" style="color:var(--gold)">Builder</div><h3>Part of Builder</h3><p>Every AI tool and about 300 Playbook messages a month.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form></div>
+    <div class="paywall"><div class="eyebrow">Builder</div><h3>This tool is part of Builder</h3><p>Every AI tool, about <%= builderOffer.messages %> Playbook messages a month, the full library and your whole roadmap.<%= builderOffer.founding ? ' $' + builderOffer.price + ' a month for founding members until ' + builderOffer.closesDate + '.' : '' %></p><form method="post" action="/app/billing/checkout/builder" data-upgrade="tool" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form><%- include('../partials/renewal-line') %></div>
   <% } else { %>
   <div class="chat" id="chat">
     <% if (!chat.length) { %>
@@ -26,6 +26,7 @@
       </div>
     <% }) %>
   </div>
+  <%- include('../partials/limit-offer') %>
   <form method="post" action="/app/tools/ask" class="composer" id="composer">
     <textarea class="input" name="message" rows="2" maxlength="2000" placeholder="Ask about your idea, offer, pricing, customers, content…" required <%= aiLeft <= 0 ? 'disabled' : '' %>></textarea>
     <button class="btn" <%= aiLeft <= 0 ? 'disabled' : '' %>>Send</button>

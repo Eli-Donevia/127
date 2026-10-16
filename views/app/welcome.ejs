@@ -1,0 +1,20 @@
+<%- include('../partials/app-head') %>
+<div class="welcome-page">
+<% if (pending) { %>
+  <div class="eyebrow">Founding member</div>
+  <h1>Confirming your payment.</h1>
+  <p class="lede">This usually takes a few seconds. If you closed Stripe without paying, no charge was made.</p>
+  <div class="offer-actions"><a class="btn light" href="/app/welcome?founding=1">Refresh</a><a class="btn ghost" href="/app/billing">Membership</a></div>
+<% } else { %>
+  <div class="eyebrow">Founding member<%= demo ? ' · demo, no payment taken' : '' %></div>
+  <h1>You're founding member #<%= user.foundingNumber %>.</h1>
+  <p class="lede">$<%= launch.foundingPrice %> a month is yours for as long as you stay. Here's what's next.</p>
+  <ol class="welcome-steps">
+    <% if (!user.roadmap) { %><li><b>Take the 3-minute assessment.</b> Your roadmap is built from it.</li><% } %>
+    <% if (launch.foundingCall) { %><li><b>Save the founding call.</b> <%= launch.foundingCall %>, live with Eli. <a class="link" href="/founding/call.ics">Add to calendar</a></li><% } %>
+    <li><b>Do your first step today.</b> It takes about 10 minutes.</li>
+  </ol>
+  <% if (!user.roadmap) { %><a class="btn light" href="/start">Take the assessment <span class="arrow"></span></a><% } else { %><a class="btn light" href="/app">Open my roadmap <span class="arrow"></span></a><% } %>
+<% } %>
+</div>
+<%- include('../partials/app-foot') %>

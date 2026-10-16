@@ -1,0 +1,33 @@
+<%# Day 7 / Day 14 upgrade moment, after the founding window (in-app-founding-offer.md section 7).
+    Regular price, no countdown, closable at any step. %>
+<% var u = upgradeScreen; %>
+<div class="ups" role="dialog" aria-modal="true" aria-labelledby="ups-h1" data-day="<%= u.day %>">
+  <div class="ups-panel">
+    <button type="button" class="ups-close" data-ups-close aria-label="Close">×</button>
+    <div class="ups-track">
+      <section class="ups-step" data-step="1">
+        <div class="eyebrow">Day <%= u.day %></div>
+        <h2 id="ups-h1"><%= u.day === 14 ? 'Two weeks in.' : 'A week in. Look at you.' %></h2>
+        <p>You've finished <%= u.steps %> step<%= u.steps === 1 ? '' : 's' %> and logged <%= u.wins %> win<%= u.wins === 1 ? '' : 's' %>.<%= u.day === 14 ? ' Weeks 1 and 2 are ' + u.weeks12Pct + '% done.' : '' %></p>
+        <button type="button" class="btn ghost" data-ups-next>Next <span class="arrow"></span></button>
+      </section>
+      <section class="ups-step" data-step="2">
+        <div class="eyebrow">What Builder adds</div>
+        <h2>Weeks 3 and 4 are where it turns real.</h2>
+        <p>Shape the offer, check the numbers, ask for the sale. Builder unlocks those weeks, every playbook and calculator, and Eli's Playbook with the memory to match: it knows your assessment, your roadmap and your saved worksheets.</p>
+        <button type="button" class="btn ghost" data-ups-next>Next <span class="arrow"></span></button>
+      </section>
+      <section class="ups-step" data-step="3">
+        <div class="eyebrow">Builder</div>
+        <h2>$<%= PLANS.builder.price %> a month.</h2>
+        <p>Less than a dollar a day. 14 days to change your mind on your first paid charge. Cancel online anytime from Billing.</p>
+        <div class="offer-actions">
+          <form method="post" action="/app/billing/checkout/builder" data-upgrade="day<%= u.day %>" data-price="<%= PLANS.builder.price %>"><button class="btn light">Become a Builder</button></form>
+          <button type="button" class="btn ghost" data-ups-close>Not now</button>
+        </div>
+        <%- include('renewal-line', { rlPrice: PLANS.builder.price, rlFree: false }) %>
+      </section>
+    </div>
+    <div class="ups-dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+  </div>
+</div>
