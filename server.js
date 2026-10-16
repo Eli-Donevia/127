@@ -809,7 +809,8 @@ app.post('/app/tools/:slug', requireAuth, wrap(async (req, res) => {
     await db.save('users', user);
     return res.redirect('/app/tools/ask#latest');
   }
-  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, 2000)]));
+  // Per-field limit: 2,000 characters unless the tool sets max (the Interview Synthesizer's notes take 8,000).
+  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, f.max || 2000)]));
   if (!reserveAi(req, res, user, `/app/tools/${tool.slug}`)) return;
   const result = await ai.run(tool, input, user);
   if (result.error) {
