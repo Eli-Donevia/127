@@ -367,6 +367,52 @@ app.post('/start', wrap(async (req, res) => {
   res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
 }));
 
+// ---------- Founder's Circle: short account step (R31) ----------
+// "Apply for a seat" on /circle: name, email and password, then straight to the application
+// at /app/circle. No assessment first; the roadmap can come later from the dashboard.
+app.get('/circle/apply', (req, res) => {
+  if (req.user) return res.redirect('/app/circle');
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  res.render('circle-apply', { title: "Apply for the Founder's Circle", error: null, form: {}, layout: 'bare' });
+});
+app.post('/circle/apply', wrap(async (req, res) => {
+  if (req.user) return res.redirect('/app/circle');
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  if (!limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const name = String(req.body.name || '').trim().slice(0, 80);
+  const password = String(req.body.password || '');
+  const renderErr = (error) => res.status(400).render('circle-apply', { title: "Apply for the Founder's Circle", error, form: { name, email, optin: req.body.optin === 'on' }, layout: 'bare' });
+  if (!name) return renderErr('Please add your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
+  if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
+  if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead, and you will land on the application.');
+  const onList = launch.onWaitlist(email);
+  const refCode = cookie(req, 'ref');
+  const referrer = refCode && waitlist.byCode(refCode);
+  const utm = req.session.utm || {};
+  const user = await db.save('users', {
+    email,
+    name,
+    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.referralCode : null),
+    signupSource: utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || 'circle',
+    utm: Object.keys(utm).length ? utm : null,
+    passwordHash: await bcrypt.hash(password, 10),
+    tier: 'free',
+    xp: 0,
+    completed: {},
+    badges: [],
+    marketingOptIn: req.body.optin === 'on',
+    emailVerified: false,
+  });
+  req.session.uid = user.id;
+  integrations.emit('user.signed_up', { userId: user.id, source: user.signupSource, founding_member: launch.isFoundingMember(user), from_waitlist: !!onList, marketing_opt_in: user.marketingOptIn });
+  if (user.marketingOptIn) integrations.syncConsent(email, true);
+  track(req, 'Signup', { source: 'circle' });
+  await sendEmailLink(req, user, 'verify');
+  res.redirect('/app/circle');
+}));
+
 // ---------- founding members: waitlist and referrals ----------
 function utmFrom(req, body = {}) {
   const out = { ...(req.session.utm || {}) };
@@ -858,6 +904,10 @@ app.post('/app/wins/:id/delete', requireAuth, wrap(async (req, res) => {
 // ---------- Founder's Circle (lib/circle.js) ----------
 const HANDBOOK_HTML = markdown.render(fs.readFileSync(path.join(__dirname, 'content', 'circle-handbook.md'), 'utf8'));
 
+function upcomingFirstCall(call, now) {
+  return call && call.at > now ? circle.callLabel(call) : null;
+}
+
 async function circleLocals(req, extra = {}) {
   const c = circleCtx();
   await circle.tick(c);
@@ -884,7 +934,7 @@ async function circleLocals(req, extra = {}) {
     offer: state === 'offered' ? { seat: application.offer.seat, until: circle.fmtLong(circle.ms(application.offer.expiresAt)) } : null,
     approvalUntil: application && application.approvedAt ? circle.fmtDate(circle.approvalExpiresAt(application)) : null,
     nextCall: next ? circle.callLabel(next) : null,
-    firstCall: isMember && m ? circle.callLabel(circle.firstCallFor(circle.ms(m.joinedAt) || c.now)) : null,
+    firstCall: isMember && m ? upcomingFirstCall(circle.firstCallFor(circle.ms(m.joinedAt) || c.now), c.now) : null,
     scorecard: sc ? { ...sc, opens: circle.fmtDayTime(sc.window.opensAt) } : null,
     profile: isMember ? circle.profileOf(user, application) : null,
     profileMissing: isMember ? circle.profileMissing(circle.profileOf(user, application)) : [],
