@@ -330,7 +330,7 @@ function pricingDescription() {
 }
 app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length }));
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
-app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 80K followers across Instagram, TikTok and YouTube, audience snapshot, past brand partnerships and ways to work together.' }));
+app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 100K+ followers built, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
