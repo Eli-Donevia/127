@@ -10,7 +10,7 @@
     "stripe:setup": "node scripts/stripe-setup.js",
     "ai:side-by-side": "node scripts/side-by-side.js",
     "seed:demo": "node scripts/seed-demo.js",
-    "test": "rm -f data/test-db.json && DB_FILE=data/test-db.json node --test test/*.test.js"
+    "test": "rm -f data/test-db.json && DATABASE_URL= DB_FILE=data/test-db.json node --test --test-concurrency=1 test/*.test.js"
   },
   "engines": {
     "node": ">=20"
