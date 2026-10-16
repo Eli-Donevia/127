@@ -1406,3 +1406,20 @@ main .legal-foot { margin-top: 32px; }
 }
 .scorecard .check input, .circle-apply .check input, .profile-form .check input, .recap-form .check input { accent-color: var(--gold); }
 #scorecards table.t th { white-space: nowrap; }
+
+/* Founder's Circle hero: Video's gold 3D loop behind the headline (gold is Circle-only). */
+.circle-hero{position:relative;overflow:hidden;isolation:isolate}
+.circle-hero > .wrap{position:relative;z-index:1}
+.circle-hero{padding-top:clamp(270px,23vw,340px) !important}
+.ch-mark{position:absolute;left:50%;top:clamp(-10px,1vw,10px);width:min(56vw,720px);aspect-ratio:16/9;transform:translateX(-50%);z-index:0;pointer-events:none;mix-blend-mode:lighten;
+  -webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent 100%);mask-image:radial-gradient(closest-side,#000 70%,transparent 100%)}
+.ch-mark picture{position:absolute;inset:0}
+.ch-poster,.ch-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity 1s ease}
+.ch-loop{opacity:0}
+.ch-mark.is-playing .ch-loop{opacity:1}
+.ch-mark.is-playing picture{opacity:0;transition:opacity 1.2s ease}
+@media (max-width:760px){
+  .circle-hero{padding-top:min(88vw,380px) !important}
+  .ch-mark{right:auto;left:50%;top:0;width:min(100vw,420px);aspect-ratio:4/5;transform:translateX(-50%);opacity:1;
+    -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+}

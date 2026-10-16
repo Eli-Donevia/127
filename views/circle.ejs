@@ -1,6 +1,11 @@
 <%- include('partials/head') %>
 <main>
-  <section class="band" style="padding:110px 0 96px">
+  <section class="band circle-hero" style="padding:110px 0 96px">
+    <%# Video's gold 3D loop (video/3d, Circle pieces only). Poster first; the loop starts after load, phones get the
+        4:5 cut, reduced motion and data saver keep the poster. %>
+    <div class="ch-mark" aria-hidden="true">
+      <picture><source media="(max-width: 760px)" srcset="/img/gold-loop-mobile-poster.jpg" width="1080" height="1350"><img class="ch-poster" src="/img/gold-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async"></picture>
+    </div>
     <div class="wrap founder" style="align-items:end">
       <div>
         <div class="eyebrow">Founder's Circle · By application</div>
@@ -51,4 +56,23 @@
     </div>
   </section>
 </main>
+<script>
+(function () {
+  var box = document.querySelector('.ch-mark');
+  var mm = function (q) { return window.matchMedia && matchMedia(q).matches; };
+  if (!box || mm('(prefers-reduced-motion: reduce)') || (navigator.connection && navigator.connection.saveData)) return;
+  function go() {
+    var name = mm('(max-width: 760px)') ? 'gold-loop-mobile' : 'gold-loop-16x9';
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.className = 'ch-loop';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.poster = '/img/' + name + '-poster.jpg';
+    v.innerHTML = '<source src="/video/' + name + '.webm" type="video/webm"><source src="/video/' + name + '.mp4" type="video/mp4">';
+    v.addEventListener('playing', function () { box.classList.add('is-playing'); }, { once: true });
+    box.appendChild(v);
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+  document.readyState === 'complete' ? setTimeout(go, 150) : addEventListener('load', function () { setTimeout(go, 150); }, { once: true });
+})();
+</script>
 <%- include('partials/foot') %>
