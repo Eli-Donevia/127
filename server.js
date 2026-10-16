@@ -1,4 +1,10 @@
 require('./lib/env').load();
+// Without SESSION_SECRET, sessions and every signed link (grace, win-back, challenge pages, member ops) use a
+// random per-process secret instead of a fixed, guessable one. They stop working on restart; set the Secret.
+if (!process.env.SESSION_SECRET) {
+  process.env.SESSION_SECRET = require('crypto').randomBytes(32).toString('hex');
+  console.warn('[config] SESSION_SECRET is not set: using a random one, so sign-ins and signed links end on every restart.');
+}
 
 const path = require('path');
 const fs = require('fs');
@@ -40,6 +46,11 @@ if (PROD && (process.env.SESSION_SECRET || '').length < 32) {
   process.exit(1);
 }
 
+// Links that normally go by email (verify, reset, waitlist confirm) are shown on screen only when a developer
+// opts in with SHOW_DEV_LINKS=true on a non-production run. Never inferred from a missing NODE_ENV: on a deploy
+// that lost its Secrets, an on-screen reset link would let anyone take over an account.
+const DEV_LINKS = !PROD && process.env.SHOW_DEV_LINKS === 'true';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CIRCLE_CAPACITY = parseInt(process.env.CIRCLE_CAPACITY || '4', 10);
@@ -71,7 +82,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(
   cookieSession({
     name: 'h127',
-    secret: process.env.SESSION_SECRET || 'dev-only-not-for-production',
+    secret: process.env.SESSION_SECRET,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     sameSite: 'lax',
     httpOnly: true,
@@ -170,7 +181,7 @@ app.use((req, res, next) => {
   res.locals.circleCapacity = CIRCLE_CAPACITY;
   // Draft labels are for Eli and the team, never for members, unless SHOW_DRAFT_FLAGS=true.
   res.locals.showDrafts = isAdmin(user) || process.env.SHOW_DRAFT_FLAGS === 'true';
-  res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
+  res.locals.devVerifyLink = DEV_LINKS && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
   res.locals.consentCopy = consent.copy;
   res.locals.legalEffectiveDate = legalEffectiveDate();
@@ -296,10 +307,10 @@ async function sendEmailLink(req, user, kind) {
   const link = `${baseUrl(req)}/${kind === 'verify' ? 'verify' : 'reset'}?u=${user.id}&t=${t}`;
   if (kind === 'verify') {
     integrations.sendEmail({ to: user.email, subject: 'Confirm your email for 127', text: `Tap to confirm your email and unlock your full Playbook messages:\n\n${link}\n\nThis link works for 7 days.\n\n127` });
-    if (!PROD && !process.env.RESEND_API_KEY) req.session.devVerifyLink = link;
+    if (DEV_LINKS && !process.env.RESEND_API_KEY) req.session.devVerifyLink = link;
   } else {
     integrations.sendEmail({ to: user.email, subject: 'Reset your 127 password', text: `Someone asked to reset the password for this email. If it was you, choose a new one here:\n\n${link}\n\nThis link works for 1 hour. If it wasn't you, ignore this email.\n\n127` });
-    if (!PROD && !process.env.RESEND_API_KEY) return link;
+    if (DEV_LINKS && !process.env.RESEND_API_KEY) return link;
   }
   return null;
 }
@@ -561,7 +572,7 @@ app.post('/founding', wrap(async (req, res) => {
   const r = await joinFromRequest(req, req.body, 'founding');
   if (r.error) return res.status(400).render('founding', { ...foundingPage(), error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
-  if (!PROD && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
+  if (DEV_LINKS && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
   if (!r.existing) ownCode(req, r.entry.referralCode); // re-entering a known email never unlocks names
   res.redirect(`/founding/status?code=${r.entry.referralCode}&${r.existing ? 'back' : 'new'}=1`);
 }));
@@ -657,7 +668,7 @@ app.get('/founding/status', (req, res) => {
       friends: (req.session.wlCodes || []).includes(entry.referralCode) ? waitlist.friends(entry) : null,
     },
     q: req.query,
-    devConfirm: !PROD && req.session.devConfirm ? req.session.devConfirm : null,
+    devConfirm: DEV_LINKS && req.session.devConfirm ? req.session.devConfirm : null,
   });
 });
 
