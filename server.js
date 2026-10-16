@@ -133,15 +133,17 @@ app.use((req, res, next) => {
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
   res.locals.consentCopy = consent.copy;
-  // During the founding window, free founding-eligible members see the founding price from day one (checkout applies it too).
-  const offerFounding = !!(user && user.tier === 'free' && res.locals.launch.foundingOpen && res.locals.launch.foundingPrice && launch.isFoundingMember(user));
-  res.locals.builderOffer = { founding: offerFounding, price: offerFounding ? res.locals.launch.foundingPrice : 29 };
+  res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
+  res.locals.fmtDate = fmtDate;
+  // Back from Stripe Checkout without paying.
+  res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
   res.locals.canonical = baseUrl(req) + req.path;
   res.locals.description = null;
   // Plausible goals queued by the server (signup, upgrade...) fire on the next page view.
   res.locals.trackEvents = req.session.track || [];
   req.session.track = null;
+  if (res.locals.checkoutCancelled) res.locals.trackEvents.push({ name: 'Checkout Cancelled', props: null });
   // Keep ad and referral source for the signup record.
   const utm = {};
   for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) if (req.query[k]) utm[k] = String(req.query[k]).slice(0, 100);
@@ -149,6 +151,39 @@ app.use((req, res, next) => {
   if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
 });
+
+// What every upgrade card, paywall and the founding bar say (in-app-founding-offer.md).
+// During the founding window, free founding-eligible members see the founding price from day one (checkout applies it too).
+function builderOffer(req, user, L) {
+  const founding = !!(user && user.tier === 'free' && L.foundingOpen && L.foundingPrice && launch.isFoundingMember(user));
+  const offer = {
+    founding,
+    price: founding ? L.foundingPrice : PLANS.builder.price,
+    regular: PLANS.builder.price,
+    messages: PLANS.builder.aiRunsPerMonth,
+    closesDate: L.closesDate,
+    closesShort: L.closesShort,
+    closesTime: L.closesTime,
+    // Free first month from the referral reward changes the renewal line (Membership Terms, Appendix A1).
+    freeMonth: !!(founding && billing.referralRewardDue(user)),
+  };
+  offer.firstCharge = offer.freeMonth ? billing.firstChargeDate() : null;
+  if (founding) {
+    offer.lastDay = L.lastDay;
+    offer.spotsLeft = L.showSpots ? L.spotsLeft : null;
+    // Day One Challenge finishers: set by the challenge module; inert until it exists.
+    const finisher = !!(user.challengeFinisher || (user.challenge && user.challenge.finished_at));
+    offer.variant = L.lastDay ? 'last_day' : finisher ? 'finisher' : req.path === '/app' && req.query.welcome ? 'welcome' : 'default';
+    // "Hide for today" collapses the bar to one line for 24 hours, except on the last day.
+    offer.hidden = !L.lastDay && cookie(req, 'fbhide') === '1';
+  }
+  return offer;
+}
+function fmtDate(isoOrMs) {
+  if (!isoOrMs) return null;
+  const t = typeof isoOrMs === 'number' ? isoOrMs : Date.parse(isoOrMs);
+  return Number.isFinite(t) ? new Date(t).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null;
+}
 
 function cookie(req, name) {
   const m = (req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
@@ -251,7 +286,7 @@ app.get('/start', (req, res) => {
   const first = onboarding.questions[0];
   const picked = first.options.find((o) => o.value === req.query[first.id]);
   const prefill = picked ? { [first.id]: picked.value } : null;
-  res.render('start', { title: 'Your free roadmap', onboarding, retake: !!req.user, error: null, layout: 'bare', prefill, jump: picked ? 1 : null });
+  res.render('start', { title: 'Your free roadmap', onboarding, retake: !!(req.user && req.user.roadmap), error: null, layout: 'bare', prefill, jump: picked ? 1 : null });
 });
 app.get('/signup', (req, res) => res.redirect(launch.prelaunch() ? '/founding' : '/start'));
 app.get('/app/assessment', requireAuth, (req, res) => res.redirect('/start?retake=1'));
@@ -301,38 +336,7 @@ app.post('/start', wrap(async (req, res) => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
     if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
     if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead.');
-    const onList = launch.onWaitlist(email);
-    const refCode = cookie(req, 'ref');
-    const referrer = refCode && waitlist.byCode(refCode);
-    const utm = req.session.utm || {};
-    // Which funnel (quiz, stack, idea test) this member came from, if any.
-    const lead = db.filter('leads', (l) => l.email === email).sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0] || null;
-    user = await db.save('users', {
-      email,
-      name,
-      referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.referralCode : null),
-      signupSource: utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || clean.source || 'direct',
-      leadSource: lead ? lead.source : null,
-      utm: Object.keys(utm).length ? utm : null,
-      passwordHash: await bcrypt.hash(password, 10),
-      tier: 'free',
-      xp: 0,
-      completed: {},
-      badges: [],
-      marketingOptIn: req.body.optin === 'on',
-      emailVerified: false,
-    });
-    req.session.uid = user.id;
-    integrations.emit('user.signed_up', {
-      userId: user.id,
-      source: user.signupSource,
-      founding_member: launch.isFoundingMember(user),
-      from_waitlist: !!onList,
-      marketing_opt_in: user.marketingOptIn,
-    });
-    if (user.marketingOptIn) integrations.syncConsent(email, true);
-    track(req, 'Signup', { source: user.signupSource });
-    await sendEmailLink(req, user, 'verify');
+    user = await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: clean.source });
     integrations.sendEmail({ to: email, subject: 'Your 127 roadmap is ready', text: `Hi ${name || 'there'},\n\nYour personalized 30-day roadmap is waiting: ${process.env.BASE_URL || 'https://127group.io'}/app\n\nBuild with purpose.\n127` });
   }
 
@@ -361,6 +365,44 @@ app.post('/start', wrap(async (req, res) => {
   emitNewBadges(user, badgesBefore);
   res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
 }));
+
+// New account, signed in. `source` overrides the usual source (utm, referral, waitlist, funnel).
+async function createMember(req, { email, name, password, optIn, source, fallbackSource }) {
+  const onList = launch.onWaitlist(email);
+  const refCode = cookie(req, 'ref');
+  const referrer = refCode && waitlist.byCode(refCode);
+  const utm = req.session.utm || {};
+  // Which funnel (quiz, stack, idea test) this member came from, if any.
+  const lead = db.filter('leads', (l) => l.email === email).sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0] || null;
+  const user = await db.save('users', {
+    email,
+    name,
+    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.referralCode : null),
+    signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
+    leadSource: lead ? lead.source : null,
+    utm: Object.keys(utm).length ? utm : null,
+    passwordHash: await bcrypt.hash(password, 10),
+    tier: 'free',
+    xp: 0,
+    completed: {},
+    badges: [],
+    marketingOptIn: !!optIn,
+    emailVerified: false,
+  });
+  req.session.uid = user.id;
+  req.user = user;
+  integrations.emit('user.signed_up', {
+    userId: user.id,
+    source: user.signupSource,
+    founding_member: launch.isFoundingMember(user),
+    from_waitlist: !!onList,
+    marketing_opt_in: user.marketingOptIn,
+  });
+  if (user.marketingOptIn) integrations.syncConsent(email, true);
+  track(req, 'Signup', { source: user.signupSource });
+  await sendEmailLink(req, user, 'verify');
+  return user;
+}
 
 // ---------- founding members: waitlist and referrals ----------
 function utmFrom(req, body = {}) {
@@ -493,6 +535,57 @@ app.get('/founding/status', (req, res) => {
   });
 });
 
+// ---------- fast founding checkout (checkout.md section 1) ----------
+function lockOpen() {
+  const L = launch.view();
+  return !!(L.foundingOpen && !L.prelaunch && L.foundingPrice);
+}
+function renderLock(req, res, extra = {}) {
+  res.status(extra.error || extra.exists ? 400 : 200).render('founding-lock', {
+    title: 'Lock the founding price',
+    description: 'Create your 127 account and lock the founding Builder price.',
+    error: null, exists: false, form: {}, cancelled: req.query.checkout === 'cancelled', grace: null, graceUntil: null,
+    ...extra,
+  });
+}
+// A founding grace link (R14) keeps the lock page usable for one email after the close.
+const graceFrom = (token) => (token ? `/founding/lock?grace=${encodeURIComponent(token)}` : '/founding/lock');
+app.get('/founding/lock', wrap(async (req, res) => {
+  const token = req.query.grace ? String(req.query.grace) : null;
+  const grace = token && billing.verifyGrace(token);
+  if (!lockOpen() && !grace) return res.redirect('/pricing');
+  const g = grace ? { grace: token, graceUntil: grace.until, form: { email: grace.email } } : {};
+  if (req.user && req.user.tier !== 'free') {
+    flash(req, 'info', "You're already in.");
+    return res.redirect('/app/billing');
+  }
+  if (req.user && grace && req.user.email !== grace.email) {
+    return renderLock(req, res, { ...g, error: `This founding link is for ${grace.email}. Sign out and sign in with that email to use it.` });
+  }
+  // Signed in and free: straight to Stripe, unless they just came back from it.
+  if (req.user && req.query.checkout !== 'cancelled') return startCheckout(req, res, 'builder', graceFrom(grace && token), { grace: grace ? token : null });
+  renderLock(req, res, g);
+}));
+app.post('/founding/lock', wrap(async (req, res) => {
+  const token = req.body.grace ? String(req.body.grace) : null;
+  const grace = token && billing.verifyGrace(token);
+  if (!lockOpen() && !grace) return res.redirect('/pricing');
+  if (req.user) return res.redirect(graceFrom(grace && token));
+  if (!limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const name = String(req.body.name || '').trim().slice(0, 80);
+  const password = String(req.body.password || '');
+  const form = { email, name };
+  const g = grace ? { grace: token, graceUntil: grace.until } : {};
+  if (!name) return renderLock(req, res, { ...g, error: 'Please add your first name.', form });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderLock(req, res, { ...g, error: 'Please enter a valid email.', form });
+  if (password.length < 8) return renderLock(req, res, { ...g, error: 'Use a password with at least 8 characters.', form });
+  if (!lockOpen() && email !== grace.email) return renderLock(req, res, { ...g, error: `This founding link works for ${grace.email}. Use that email to continue.`, form });
+  if (db.find('users', (u) => u.email === email)) return renderLock(req, res, { ...g, exists: true, form });
+  await createMember(req, { email, name, password, optIn: false, source: 'founding-lock' });
+  await startCheckout(req, res, 'builder', graceFrom(grace && token), { grace: grace ? token : null });
+}));
+
 // ---------- auth ----------
 app.get('/login', (req, res) => res.render('login', { title: 'Sign in', error: null, notice: req.query.reset ? 'Password updated. Sign in with your new one.' : null, email: '', next: security.safeNext(req.query.next), layout: 'bare' }));
 app.post('/login', wrap(async (req, res) => {
@@ -581,7 +674,39 @@ app.get('/app', requireAuth, wrap(async (req, res, next) => {
 app.get('/app', requireAuth, (req, res) => {
   const user = req.user;
   if (!user.roadmap) return res.redirect('/start');
-  if (req.query.upgraded && req.query.upgraded === user.tier && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: user.tier } });
+  if (req.query.upgraded && req.query.upgraded === user.tier && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: user.tier, founding: !!user.foundingPrice } });
+  // Members who saw the founding bar get one dismissible line for 24 hours after it closes.
+  let closedNotice = false;
+  if (res.locals.builderOffer.founding && !user.foundingBarSeenAt) {
+    user.foundingBarSeenAt = new Date().toISOString();
+    db.save('users', user);
+  } else if (!res.locals.builderOffer.founding && user.tier === 'free' && user.foundingBarSeenAt) {
+    if (!user.foundingClosedSeenAt) {
+      user.foundingClosedSeenAt = new Date().toISOString();
+      db.save('users', user);
+    }
+    closedNotice = Date.now() - Date.parse(user.foundingClosedSeenAt) < 24 * 60 * 60 * 1000 && cookie(req, 'fbclosed') !== '1';
+  }
+  // Day 7 and Day 14 upgrade screens, after the founding window only, once each (in-app-founding-offer.md section 7).
+  let upgradeScreen = null;
+  const closesAt = res.locals.launch.closesAt;
+  if (user.tier === 'free' && closesAt && Date.now() >= closesAt) {
+    const days = Math.floor((Date.now() - Date.parse(user.createdAt)) / 864e5);
+    const day = days >= 14 && days < 21 ? 14 : days >= 7 && days < 14 ? 7 : null;
+    user.upgradeScreens = user.upgradeScreens || {};
+    if (day && !user.upgradeScreens[`day${day}`]) {
+      user.upgradeScreens[`day${day}`] = new Date().toISOString();
+      db.save('users', user);
+      const early = roadmap.allTasks({ weeks: user.roadmap.weeks.filter((w) => w.freeVisible) });
+      const earlyDone = early.filter((t) => user.completed && user.completed[t.id]).length;
+      upgradeScreen = {
+        day,
+        steps: progress(user).done,
+        wins: db.filter('wins', (w) => w.userId === user.id).length,
+        weeks12Pct: early.length ? Math.round((earlyDone / early.length) * 100) : 0,
+      };
+    }
+  }
   const recommended = user.roadmap.weeks
     .flatMap((w) => w.tasks)
     .map((t) => t.resource)
@@ -603,8 +728,29 @@ app.get('/app', requireAuth, (req, res) => {
     canAccess,
     bySlug,
     MILESTONES,
+    closedNotice,
+    upgradeScreen,
+    // Founding upgrade alert: right after paying, or after the assessment that follows a fast founding checkout.
+    foundingAlert: !!(user.foundingPrice && user.foundingNumber && user.tier === 'builder' && ((req.query.upgraded === 'builder') || req.query.welcome)),
   });
 });
+
+// Welcome after a founding payment (checkout.md section 4).
+app.get('/app/welcome', requireAuth, wrap(async (req, res) => {
+  if (req.query.session_id) {
+    try {
+      await billing.confirmCheckout(req.user, req.query.session_id);
+    } catch (err) {
+      console.warn('[billing] confirm checkout', err.message);
+    }
+    return res.redirect('/app/welcome?founding=1');
+  }
+  const user = req.user;
+  if (user.tier === 'circle') return res.redirect('/app?upgraded=circle');
+  if (user.tier === 'builder' && !user.foundingNumber) return res.redirect('/app?upgraded=builder');
+  if (user.tier === 'builder' && req.query.founding && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: 'builder', founding: true } });
+  res.render('app/welcome', { title: 'Welcome, founding member', pending: user.tier === 'free', demo: !!req.query.demo });
+}));
 
 // Progress map: members check off real-world milestones themselves.
 app.post('/app/milestone/:id', requireAuth, wrap(async (req, res) => {
@@ -647,6 +793,8 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
   if ((user.badges || []).length > before) flash(req, 'win', `Badge earned: ${gamify.BADGES[user.badges[user.badges.length - 1]].label}`);
   // Activation = the first roadmap step a member ever finishes.
   const firstEver = justDone && !user.activatedAt;
+  // One-time toast after the first finished step (onboarding.md section 4).
+  if (firstEver) flash(req, 'win', 'Step 1, done. Do more of what works.');
   if (firstEver) user.activatedAt = new Date().toISOString();
   await db.save('users', user);
   if (justDone) {
@@ -656,6 +804,7 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
   if (firstEver) {
     integrations.emit('member.activated', { userId: user.id });
     track(req, 'Activation');
+    track(req, 'Task Done', { first: 1 });
   }
   emitNewBadges(user, before);
   res.redirect(req.get('referer') && req.get('referer').includes('/app') ? req.get('referer').split('#')[0] + '#roadmap' : '/app#roadmap');
@@ -767,9 +916,12 @@ function reserveAi(req, res, user, back) {
       const resets = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toISOString().slice(0, 10);
       integrations.emit('ai.limit_hit', { userId: user.id, limit_type: 'messages', resets_on: resets });
     }
-    flash(req, 'info', user.emailVerified
-      ? "You've used this month's Playbook messages. Upgrade for more, or they reset on the 1st."
-      : `Confirm your email to keep going. We sent a link to ${user.email}.`);
+    // Free members see the upgrade panel on the page instead (partials/limit-offer).
+    if (!(user.emailVerified && user.tier === 'free')) {
+      flash(req, 'info', user.emailVerified
+        ? "You've used this month's Playbook messages. Upgrade for more, or they reset on the 1st."
+        : `Confirm your email to keep going. We sent a link to ${user.email}.`);
+    }
     res.redirect(back);
     return false;
   }
@@ -885,8 +1037,28 @@ app.post('/app/circle/apply', requireAuth, wrap(async (req, res) => {
 
 app.get('/app/billing', requireAuth, (req, res) => {
   const application = db.find('applications', (a) => a.userId === req.user.id);
-  res.render('app/billing', { title: 'Membership', application });
+  const user = req.user;
+  // 14 days to change your mind: Builder only, from the first paid charge (unknown = still show it).
+  const refundAsk = user.tier === 'builder' && !user.demoBilling && (!user.firstPaidAt || Date.now() - Date.parse(user.firstPaidAt) < 14 * 864e5);
+  if (req.query.cancelled) res.locals.trackEvents.push({ name: 'Cancel', props: { plan: (user.cancellations || []).slice(-1).map((c) => c.plan)[0] || user.tier } });
+  const lastCancel = (user.cancellations || []).slice(-1)[0];
+  res.render('app/billing', { title: 'Membership', application, refundAsk, justCancelled: !!req.query.cancelled, askReason: !!req.query.cancelled && !!lastCancel && !lastCancel.reason, CANCEL_REASONS });
 });
+
+// Where the member started a checkout from; Stripe's cancel link brings them back there.
+function checkoutFrom(req) {
+  let p = req.body && req.body.from;
+  if (!p && req.get('referer')) {
+    try {
+      const u = new URL(req.get('referer'));
+      if (u.host === req.get('host')) p = u.pathname;
+    } catch {
+      p = null;
+    }
+  }
+  p = security.safeNext(p, '/app/billing').split(/[?#]/)[0];
+  return /^\/app(\/|$)/.test(p) || p === '/founding/lock' ? p : '/app/billing';
+}
 
 app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
   const tier = req.params.tier;
@@ -898,15 +1070,61 @@ app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
       flash(req, 'info', 'The Circle is full right now. You are first in line for the next seat.');
       return res.redirect('/app/circle');
     }
+    // Builder members move up on their saved card without Stripe Checkout, so they confirm
+    // and tick the box here first (Membership Terms, Appendix A3).
+    if (req.user.tier === 'builder') {
+      if (req.body.agree !== 'on') return res.redirect('/app/billing/confirm/circle');
+      req.user.consents = [...(req.user.consents || []), {
+        kind: 'upgrade', plan: 'circle', at: new Date().toISOString(), box: true,
+        terms_version: billing.TERMS_VERSION, disclosure_version: 'circle-a3-2026-10-16', ip_hash: security.hash(security.ip(req)),
+      }].slice(-50);
+      // lib/billing-records.js keeps this field.
+      req.user.checkoutConsent = {
+        at: new Date().toISOString(), version: billing.TERMS_VERSION, plan: 'circle',
+        text: `I agree to the Founder's Circle Member Agreement and the Membership Terms, and I understand the Circle renews automatically every month at $${PLANS.circle.price} plus tax until I cancel.`,
+      };
+      await db.save('users', req.user);
+    }
   }
   if (req.user.tier === tier) return res.redirect('/app/billing');
-  track(req, 'Checkout Start', { plan: tier });
+  const grace = tier === 'builder' && req.body.grace ? String(req.body.grace) : null;
+  await startCheckout(req, res, tier, grace ? graceFrom(grace) : checkoutFrom(req), { grace });
+}));
+
+// Win-back month: the signed one-time link from the J2 email (billing.winbackProfile).
+app.get('/winback', requireAuth, wrap(async (req, res) => {
+  if (String(req.query.u || '') !== req.user.id || !billing.verifyWinback(req.user.id, req.query.t)) {
+    flash(req, 'info', "That link belongs to a different account. Sign in with the email it was sent to.");
+    return res.redirect('/app/billing');
+  }
+  if (!billing.winbackEligible(req.user)) {
+    flash(req, 'info', `This offer isn't available on your account. Builder is $${PLANS.builder.price} a month whenever you're ready.`);
+    return res.redirect('/app/billing');
+  }
+  await startCheckout(req, res, 'builder', '/app/billing', { winback: true });
+}));
+
+app.get('/app/billing/confirm/circle', requireAuth, wrap(async (req, res) => {
+  const application = db.find('applications', (a) => a.userId === req.user.id);
+  if (req.user.tier !== 'builder' || !application || application.status !== 'approved') return res.redirect('/app/circle');
+  let preview = null;
+  try {
+    preview = await billing.previewUpgrade(req.user, 'circle');
+  } catch (err) {
+    console.warn('[billing] upgrade preview', err.type || '', err.message);
+  }
+  res.render('app/confirm-circle', { title: "Confirm your Founder's Circle seat", preview, foundingKept: billing.foundingKept(req.user) });
+}));
+
+async function startCheckout(req, res, tier, from, opts = {}) {
+  const price = tier === 'circle' ? PLANS.circle.price : billing.foundingKept(req.user) ? launch.view().foundingPrice || res.locals.builderOffer.price : res.locals.builderOffer.price;
+  track(req, 'Checkout Start', { plan: tier, price, from });
   try {
     if (tier === 'circle') {
       req.user.circleHoldUntil = Date.now() + 30 * 60 * 1000;
       await db.save('users', req.user);
     }
-    res.redirect(303, await billing.checkoutUrl(req, req.user, tier));
+    res.redirect(303, await billing.checkoutUrl(req, req.user, tier, { ...opts, from, ipHash: security.hash(security.ip(req)) }));
   } catch (err) {
     if (err instanceof billing.BillingUnavailable) {
       console.warn('[billing]', err.message);
@@ -919,6 +1137,83 @@ app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
     flash(req, 'error', "We couldn't reach our payment provider. Nothing was charged. Please try again in a minute.");
     res.redirect('/app/billing');
   }
+}
+
+// ---------- cancel (offer.md section 8, Membership Terms section 10 and Appendix C) ----------
+// Reason first (research R18), always optional: a chip only changes which save option shows
+// beside Cancel. Cancel is on the same screen whether or not a reason is picked.
+const CANCEL_REASONS = [
+  ['price', 'Too expensive right now'],
+  ['unused', 'Not using it'],
+  ['busy', 'Exams or a busy stretch'],
+  ['job', 'Got a job'],
+  ['done', 'Got what I needed'],
+  ['other', 'Something else'],
+];
+// Pause needs the start deferred to the end of the paid month, which the current Stripe calls
+// can't do safely, so it isn't offered yet (README, "Turn on payments").
+const PAUSE_AVAILABLE = false;
+
+app.get('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
+  const user = req.user;
+  if (user.tier === 'free') return res.redirect('/app/billing');
+  try {
+    await billing.refreshSubscription(user);
+  } catch (err) {
+    console.warn('[billing] refresh before cancel', err.message);
+  }
+  if (user.cancelAt) return res.redirect('/app/billing');
+  const reason = CANCEL_REASONS.some((r) => r[0] === req.query.reason) ? req.query.reason : null;
+  const entry = launch.onWaitlist(user.email);
+  res.render('app/cancel', {
+    title: 'Cancel', accessEnds: fmtDate(user.periodEnd), pauseAvailable: PAUSE_AVAILABLE, foundingKept: billing.foundingKept(user),
+    CANCEL_REASONS, reason, referralLink: entry ? waitlist.link(entry) : null,
+  });
+}));
+
+app.post('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
+  const user = req.user;
+  const was = user.tier;
+  if (was === 'free') return res.redirect('/app/billing');
+  const intent = req.body.intent === 'switch_free' ? 'switch_free' : 'cancel';
+  const reason = CANCEL_REASONS.some((r) => r[0] === req.body.reason) ? req.body.reason : null;
+  try {
+    await billing.cancelAtPeriodEnd(user);
+  } catch (err) {
+    if (!(err instanceof billing.BillingUnavailable) && (!err.type || !String(err.type).startsWith('Stripe'))) throw err;
+    console.error('[billing] cancel failed', err.type || '', err.message);
+    flash(req, 'error', 'We couldn\'t cancel online just now. Try again in a minute, or email "Cancel" to hello@127group.io and we\'ll do it within 2 business days.');
+    return res.redirect('/app/billing');
+  }
+  // Record of the cancellation (Membership Terms, Appendix D).
+  user.cancellations = [...(user.cancellations || []), { at: new Date().toISOString(), plan: was, intent, reason, access_ends: user.cancelAt || null, ip_hash: security.hash(security.ip(req)) }].slice(-20);
+  await db.save('users', user);
+  res.redirect('/app/billing?cancelled=1');
+}));
+
+app.post('/app/billing/cancel/reason', requireAuth, wrap(async (req, res) => {
+  const last = (req.user.cancellations || []).slice(-1)[0];
+  const reason = CANCEL_REASONS.find((r) => r[0] === req.body.reason);
+  if (last && reason) {
+    last.reason = reason[0];
+    await db.save('users', req.user);
+    integrations.emit('subscription.cancel_reason', { userId: req.user.id, plan: last.plan, reason: reason[0] });
+  }
+  flash(req, 'info', 'Thanks for telling us.');
+  res.redirect('/app/billing');
+}));
+
+app.post('/app/billing/resume', requireAuth, wrap(async (req, res) => {
+  try {
+    if (await billing.resumeSubscription(req.user)) {
+      flash(req, 'win', `You're staying. Nothing changes and there's no new charge.${req.user.foundingPrice ? ' Your founding price stays too.' : ''}`);
+    }
+  } catch (err) {
+    if (!err.type || !String(err.type).startsWith('Stripe')) throw err;
+    console.error('[billing] resume failed', err.type, err.message);
+    flash(req, 'error', "We couldn't reach our payment provider. Please try again in a minute.");
+  }
+  res.redirect('/app/billing');
 }));
 
 app.post('/app/billing/portal', requireAuth, wrap(async (req, res) => {
@@ -940,7 +1235,17 @@ app.post('/app/billing/portal', requireAuth, wrap(async (req, res) => {
   res.redirect('/app/billing');
 }));
 
-app.get('/app/settings', requireAuth, (req, res) => res.render('app/settings', { title: 'Settings', saved: req.query.saved }));
+app.get('/app/settings', requireAuth, wrap(async (req, res) => {
+  // The delete screen offers "Cancel instead" with the date access would end (Appendix C6).
+  if (req.user.tier !== 'free') {
+    try {
+      await billing.refreshSubscription(req.user);
+    } catch (err) {
+      console.warn('[billing] refresh for settings', err.message);
+    }
+  }
+  res.render('app/settings', { title: 'Settings', saved: req.query.saved });
+}));
 app.post('/app/settings', requireAuth, wrap(async (req, res) => {
   const user = req.user;
   user.name = String(req.body.name || '').trim().slice(0, 80);
@@ -1017,6 +1322,15 @@ app.post('/admin/applications/:id/:action', requireAuth, requireAdmin, wrap(asyn
   }
   res.redirect('/admin#applications');
 }));
+
+// Founding grace link (R14): support checks the member's checkout broke before the close, then sends this.
+app.post('/admin/grace', requireAuth, requireAdmin, (req, res) => {
+  const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const token = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && billing.graceToken(email);
+  if (!token) flash(req, 'error', 'Enter a valid email. FOUNDING_CLOSES_AT must be set.');
+  else flash(req, 'info', `Founding link for ${email} (works once, until ${fmtDate(billing.graceUntil() - 60000)}, 11:59pm ET): ${baseUrl(req)}/founding/lock?grace=${token}`);
+  res.redirect('/admin#grace');
+});
 
 app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
   const qs = onboarding.questions.map((q) => q.id);

@@ -23,18 +23,19 @@
     <div class="eyebrow">Accepted</div>
     <h2>Your seat is ready.</h2>
     <p>Join to unlock the weekly call, the private group and everything in Builder.</p>
-    <form method="post" action="/app/billing/checkout/circle"><button class="btn light">Claim my seat · $299/month</button></form>
+    <form method="post" action="/app/billing/checkout/circle"><button class="btn light">Claim my seat · $<%= PLANS.circle.price %>/month</button></form>
+    <%- include('../partials/renewal-line', { rlPrice: PLANS.circle.price, rlFree: false }) %>
   </div>
 <% } else if (application) { %>
   <div class="card pad-lg" style="max-width:640px">
     <span class="chip"><%= application.status === 'declined' ? 'Not this round' : 'Application received' %></span>
-    <h3 style="font-family:var(--serif);font-weight:700;letter-spacing:-.045em;font-size:30px;margin:14px 0 8px"><%= application.status === 'declined' ? "It's not the right fit yet." : "Thanks. We'll be in touch by email." %></h3>
+    <h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:30px;margin:14px 0 8px"><%= application.status === 'declined' ? "It's not the right fit yet." : "Thanks. We'll be in touch by email." %></h3>
     <p class="muted" style="margin:0"><%= application.status === 'declined' ? 'Keep working your roadmap as a Builder. You can apply again later.' : 'Applications are reviewed personally. Meanwhile, keep working your roadmap.' %></p>
   </div>
 <% } else { %>
   <div class="grid g-main">
     <form method="post" action="/app/circle/apply" class="card pad-lg">
-      <h3 style="font-family:var(--serif);font-weight:700;letter-spacing:-.045em;font-size:30px;margin:0 0 6px">Apply for a seat</h3>
+      <h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:30px;margin:0 0 6px">Apply for a seat</h3>
       <p class="small muted" style="margin:0 0 24px">Five questions. Honest answers beat polished ones.</p>
       <label class="field"><span>What are you building, and for whom?</span><textarea class="input" name="business" required></textarea></label>
       <label class="field"><span>Where is it today? (revenue, customers, audience)</span><input class="input" name="revenue" required></label>

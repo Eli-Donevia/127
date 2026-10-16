@@ -22,10 +22,11 @@
 
   <% if (locked) { %>
     <div class="paywall">
-      <div class="eyebrow" style="color:var(--gold)">Builder</div>
+      <div class="eyebrow">Builder</div>
       <h3>Unlock the full <%= r.type.toLowerCase() %></h3>
-      <p><%= r.sections.length - 1 %> more sections<%= r.worksheet ? ', a saved worksheet' : '' %><%= r.calc ? ', an interactive calculator' : '' %> and AI feedback on your answers. Plus every playbook and AI tool. $<%= builderOffer.price %>/month, cancel anytime.</p>
-      <form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form>
+      <p><%= r.sections.length - 1 %> more sections<%= r.worksheet ? ', a saved worksheet' : '' %><%= r.calc ? ', an interactive calculator' : '' %> and AI feedback on your answers. Plus every playbook and AI tool. <%= builderOffer.founding ? '$' + builderOffer.price + ' a month, locked while you stay, until ' + builderOffer.closesDate + '. 14 days to change your mind.' : '$' + builderOffer.regular + ' a month, cancel anytime.' %></p>
+      <form method="post" action="/app/billing/checkout/builder" data-upgrade="resource" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form>
+      <%- include('../partials/renewal-line') %>
     </div>
   <% } else { %>
 
@@ -48,6 +49,7 @@
         <button class="btn ghost" formaction="/app/library/<%= r.slug %>/feedback" <%= aiLeft <= 0 ? 'disabled' : '' %> onclick="this.innerHTML='Reviewing…';this.style.opacity=.6">Save and get feedback</button>
         <span class="tiny muted">Feedback uses 1 of your <%= aiLeft %> Playbook messages.</span>
       </div>
+      <%- include('../partials/limit-offer') %>
     </form>
     <% } %>
 
