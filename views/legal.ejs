@@ -4,12 +4,15 @@
   <% if (kind === 'membership') { %>
   <% if (process.env.MEMBERSHIP_TERMS_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. These terms are not in effect yet.</div><% } %>
   <%- include('partials/membership-terms') %>
+  <% } else if (kind === 'circle') { %>
+  <% if (process.env.CIRCLE_AGREEMENT_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. This agreement is not in effect yet.</div><% } %>
+  <%- include('partials/circle-agreement') %>
   <% } else { %>
   <h1><%= kind === 'privacy' ? 'Privacy' : 'Terms' %></h1>
   <div class="alert info">Placeholder. Replace with a reviewed <%= kind === 'privacy' ? 'privacy policy' : 'terms of service, refund and cancellation policy' %> before launch.</div>
   <% if (kind === 'privacy') { %>
   <p>We collect only what we need to run your account and personalize your roadmap: your name, email, onboarding answers, progress, and billing status (handled by Stripe; we never see your full card number).</p>
-  <p>We don't sell your data. You can delete your account and all associated data at any time from Settings.</p>
+  <p>We don't sell your data. You can delete your account anytime from Settings. We keep limited billing and consent records afterward, as the law requires.</p>
   <% } else { %>
   <p>Memberships renew monthly until cancelled. You can cancel anytime from the billing page and keep access until the end of the paid period.</p>
   <p>Content and AI output are educational and are not legal, tax or financial advice.</p>

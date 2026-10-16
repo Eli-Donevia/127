@@ -271,6 +271,7 @@ app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
 app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
+app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder's Circle agreement", kind: 'circle' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
@@ -492,6 +493,7 @@ app.get('/robots.txt', (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
   if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  if (process.env.CIRCLE_AGREEMENT_LIVE === 'true') pages.push('/circle-agreement');
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
 });
 
