@@ -16,7 +16,7 @@
 <% if (ageReviews.length) { %>
 <section class="card pad-lg ops-sec" id="age" style="margin-bottom:16px;border-color:rgba(240,155,138,.35)">
   <div class="card-title"><h3>Age check</h3><span class="small muted">AI chats and posting are paused on these accounts. Answer within 2 business days.</span></div>
-  <% ageReviews.forEach(function (a) { var r = a.r; var under13 = r.statedAge != null && r.statedAge < 13; %>
+  <% ageReviews.forEach(function (a) { var r = a.r; var under13 = a.noConfirm; %>
   <div class="ops-item" style="border-top:1px solid var(--line);padding:14px 0">
     <div class="small"><b style="font-weight:500"><%= (a.u.name || '').split(' ')[0] || 'Member' %></b> <span class="muted">· <%= a.u.email %> · <%= planName(a.u.pausedTier || a.u.tier) %> · flagged by <%= r.source %> <%= when(r.flaggedAt) %><%= r.statedAge != null ? ' · says ' + r.statedAge : '' %></span></div>
     <% if (r.excerpt && r.excerpt.length) { %>
