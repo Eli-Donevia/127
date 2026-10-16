@@ -235,14 +235,13 @@
         '<div class="card halo" id="gate" style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0 6px">' +
           '<div class="label">Unlock weeks 2 to 4</div>' +
           '<h3 class="h3" style="margin:10px 0 6px">Get your full 30-day roadmap.</h3>' +
-          '<p class="fog small" style="margin:0 0 14px">We\'ll email it to you, plus one short, practical note a week from Eli\'s playbook.</p>' +
+          '<p class="fog small" style="margin:0 0 14px">Free. We\'ll email you the full roadmap.</p>' +
           '<form id="gateForm" class="stack-s" novalidate>' +
             '<input class="input" type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="60">' +
             '<input class="input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required value="' + esc(K.savedEmail()) + '">' +
-            '<label class="check-row"><input type="checkbox" name="optin"> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>' +
+            K.consentHtml() +
             '<button class="btn block" type="submit">Send my roadmap <span class="arrow"></span></button>' +
             '<div class="form-err" id="gateErr" hidden></div>' +
-            '<div class="form-note">Free. We\'ll email your roadmap. No spam, ever.</div>' +
           '</form>' +
         '</div>' +
       '</div>';

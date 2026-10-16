@@ -876,3 +876,8 @@ html.js [data-reveal].in{opacity:1;transform:none}
 /* Below-the-fold photo backgrounds load when they get near the screen (home.ejs adds .bg-in). */
 .verse-block.bg-in{background-image:url('/img/bible-open.jpg')}
 .cta-photo.bg-in{background-image:url('/img/still-timer.jpg')}
+.wl-row.two{grid-template-columns:1fr 1.4fr}
+.wl-form .btn{justify-self:start}
+.consent-line{margin:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.consent-line a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:760px){.wl-row.two{grid-template-columns:1fr}.wl-form .btn{justify-self:stretch}}

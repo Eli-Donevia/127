@@ -7,12 +7,15 @@
 
       <form method="post" action="/founding" class="wl-form" id="join">
         <% if (error) { %><div class="alert error"><%= error %></div><% } %>
-        <div class="wl-row">
+        <% var cc = consentCopy('founding'); %>
+        <div class="wl-row two">
           <input class="input" name="first_name" placeholder="First name" autocomplete="given-name" value="<%= form.first_name || '' %>" aria-label="First name">
           <input class="input" type="email" name="email" placeholder="Email" autocomplete="email" required value="<%= form.email || '' %>" aria-label="Email">
-          <button class="btn light">Join the waitlist</button>
         </div>
-        <label class="check"><input type="checkbox" name="optin" <%= form.optin === 'on' ? 'checked' : '' %>> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>
+        <label class="check"><input type="checkbox" name="optin" <%= form.optin === 'on' ? 'checked' : '' %>> <%= cc.box %></label>
+        <p class="consent-line"><%= cc.line %></p>
+        <p class="consent-line"><%- cc.terms %></p>
+        <button class="btn light">Join the waitlist <span class="arrow"></span></button>
       </form>
 
       <%- include('partials/countdown') %>

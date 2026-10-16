@@ -14,6 +14,7 @@ const ai = require('./lib/ai');
 const billing = require('./lib/billing');
 const integrations = require('./lib/integrations');
 const security = require('./lib/security');
+const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
 const { MILESTONES } = require('./lib/milestones');
@@ -130,6 +131,7 @@ app.use((req, res, next) => {
   res.locals.showDrafts = isAdmin(user) || process.env.SHOW_DRAFT_FLAGS === 'true';
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
+  res.locals.consentCopy = consent.copy;
   // During the founding window, free founding-eligible members see the founding price from day one (checkout applies it too).
   const offerFounding = !!(user && user.tier === 'free' && res.locals.launch.foundingOpen && res.locals.launch.foundingPrice && launch.isFoundingMember(user));
   res.locals.builderOffer = { founding: offerFounding, price: offerFounding ? res.locals.launch.foundingPrice : 29 };
@@ -419,6 +421,21 @@ app.get('/founding/confirm', wrap(async (req, res) => {
   req.session.devConfirm = null;
   res.redirect(`/founding/status?code=${entry.referralCode}&confirmed=1`);
 }));
+
+// Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
+app.get('/founding/doors-open.ics', (req, res) => {
+  const at = launch.date('LAUNCH_AT');
+  if (!at) return res.redirect('/founding');
+  const f = (t) => new Date(t).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const url = `${baseUrl(req)}/pricing`;
+  res.type('text/calendar').set('content-disposition', 'attachment; filename="127-doors-open.ics"').send([
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//127//Founding//EN', 'BEGIN:VEVENT',
+    `UID:doors-open-${at}@127group.io`, `DTSTAMP:${f(Date.now())}`, `DTSTART:${f(at)}`, `DTEND:${f(at + 30 * 60 * 1000)}`,
+    'SUMMARY:127 doors open', `DESCRIPTION:Doors are open. Lock the founding price: ${url}`, `URL:${url}`,
+    'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:127 doors open in 15 minutes', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR', '',
+  ].join('\r\n'));
+});
 
 app.get('/founding/status', (req, res) => {
   const entry = waitlist.byCode(req.query.code);

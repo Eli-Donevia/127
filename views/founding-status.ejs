@@ -28,8 +28,9 @@
         <p class="tiny muted" style="margin:14px 0 0">Bookmark this page to check your count. It never shows your friends' names or emails.</p>
       </div>
 
-      <% if (launch.launchDate) { %><div class="eyebrow" style="margin-top:40px">Doors open <%= launch.launchDate %></div><% } %>
+      <% if (launch.launchDate) { %><div class="eyebrow" style="margin-top:40px">Doors open <%= launch.launchDate %>, 10am ET<%= launch.closesDate ? ' · Founding price ends ' + launch.closesDate : '' %></div><% } %>
       <%- include('partials/countdown') %>
+      <% if (launch.launchAt) { %><div style="margin-top:20px"><a class="btn ghost sm" href="/founding/doors-open.ics">Add doors open to my calendar</a></div><% } %>
     </div>
   </section>
 </main>

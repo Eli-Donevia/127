@@ -107,10 +107,9 @@
         '<p class="small fog" style="margin:0 0 14px">Get a day-by-day plan to test demand, the questions to ask real customers and who to talk to on the inside. We\'ll email the full report too.</p>' +
         '<form id="gateForm" class="stack-s" novalidate>' +
           '<input class="input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required value="' + esc(K.savedEmail()) + '">' +
-          '<label class="check-row"><input type="checkbox" name="optin"> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>' +
+          K.consentHtml() +
           '<button class="btn block" type="submit">Unlock my plan <span class="arrow"></span></button>' +
           '<div class="form-err" id="gateErr" hidden></div>' +
-          '<div class="form-note">Free. We\'ll email the full report.</div>' +
         '</form></div></div>';
     document.getElementById('gateForm').onsubmit = function (e) {
       e.preventDefault();

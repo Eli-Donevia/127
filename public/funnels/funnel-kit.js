@@ -107,5 +107,18 @@
     Array.prototype.forEach.call(document.querySelectorAll('a[href^="/"]'), function (a) { a.setAttribute('href', K.href(a.getAttribute('href'))); });
   });
 
+  // Consent block for email gates, in Legal's order: box, small line, terms (then the button).
+  // The server injects window.K127_CONSENT per page from lib/consent.js.
+  K.consentHtml = function () {
+    var c = window.K127_CONSENT || { box: 'Send me founder emails and the weekly digest. Unsubscribe anytime.', line: '', terms: '' };
+    var e = function (s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+    return '<label class="check-row"><input type="checkbox" name="optin"> ' + e(c.box) + '</label>' +
+      (c.line ? '<p class="consent-line">' + e(c.line) + '</p>' : '') +
+      (c.terms ? '<p class="consent-line">' + c.terms + '</p>' : '');
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-consent]').forEach(function (el) { el.outerHTML = K.consentHtml(); });
+  });
+
   window.K127 = K;
 })();

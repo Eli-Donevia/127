@@ -233,3 +233,5 @@ p { margin: 0 0 12px; }
 
 .check-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.4;color:var(--fog,#a1a1aa);text-align:left;cursor:pointer}
 .check-row input{margin-top:3px;accent-color:#b8bfff;flex:none}
+.consent-line{margin:0;font-size:13px;line-height:1.5;color:var(--fog,#a1a1aa);text-align:left}
+.consent-line a{color:inherit;text-decoration:underline;text-underline-offset:2px}
