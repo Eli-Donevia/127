@@ -119,7 +119,12 @@ test('server-side ad events need the page flag and the 127_consent=v1.ads1 cooki
 });
 
 test('the consent config never loads a pixel itself and the footer carries the earnings line', () => {
-  withEnv({ META_PIXEL_ID: '1234567890', TIKTOK_PIXEL_ID: undefined, KLAVIYO_PUBLIC_KEY: undefined, COOKIE_DOMAIN: '.127group.io' }, () => {
+  // Legal L43: no pixel IDs until the real /privacy and /cookies are live.
+  withEnv({ META_PIXEL_ID: '1234567890', PRIVACY_LIVE: undefined, COOKIE_NOTICE_LIVE: 'true' }, () => {
+    assert.match(adConsent.configScript({ user: null }), /"metaPixelId":""/);
+    assert.strictEqual(adConsent.metaPixelId(), '');
+  });
+  withEnv({ META_PIXEL_ID: '1234567890', TIKTOK_PIXEL_ID: undefined, KLAVIYO_PUBLIC_KEY: undefined, COOKIE_DOMAIN: '.127group.io', PRIVACY_LIVE: 'true', COOKIE_NOTICE_LIVE: 'true' }, () => {
     const s = adConsent.configScript({ user: null });
     assert.match(s, /window\.C127_CONSENT=\{"metaPixelId":"1234567890"/);
     assert.match(s, /"noticeUrl":"\/cookies"/);
@@ -149,4 +154,24 @@ test('demo member: obviously fake, week 1 done, no money milestones, flagged out
   assert.ok(!('password' in u));
   // A reset keeps the same account.
   assert.strictEqual(demoUser({ existing: { id: 'keep', createdAt: 'x' }, email: 'demo@example.com', passwordHash: 'h' }).id, 'keep');
+});
+
+test('joins export token: only the exact Bearer token opens it, and a blank or short secret never does', () => {
+  const tok = require('../lib/export-token');
+  const good = 'a'.repeat(32);
+  assert.strictEqual(tok.bearer({ headers: { authorization: `Bearer ${good}` } }), good);
+  assert.strictEqual(tok.bearer({ headers: {} }), '');
+  assert.strictEqual(tok.valid(good, good), true);
+  assert.strictEqual(tok.valid(good + 'x', good), false);
+  assert.strictEqual(tok.valid('', ''), false);
+  assert.strictEqual(tok.valid('short', 'short'), false);
+  assert.strictEqual(tok.valid(good, undefined), false);
+  let passed = false; let fellBack = false;
+  process.env.JOINS_EXPORT_TOKEN = good;
+  tok.orAdmin((req, res, next) => { fellBack = true; })({ headers: { authorization: `Bearer ${good}` } }, {}, () => { passed = true; });
+  assert.deepStrictEqual([passed, fellBack], [true, false]);
+  passed = false;
+  tok.orAdmin((req, res, next) => { fellBack = true; })({ headers: { authorization: 'Bearer nope' } }, {}, () => { passed = true; });
+  assert.deepStrictEqual([passed, fellBack], [false, true]);
+  delete process.env.JOINS_EXPORT_TOKEN;
 });

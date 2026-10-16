@@ -15,6 +15,7 @@ const billing = require('./lib/billing');
 const integrations = require('./lib/integrations');
 const security = require('./lib/security');
 const consent = require('./lib/consent');
+const adConsent = require('./lib/ad-consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
 const utmLib = require('./lib/utm');
@@ -141,6 +142,7 @@ app.use((req, res, next) => {
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
   res.locals.consentCopy = consent.copy;
+  res.locals.adConsentScript = adConsent.configScript(req);
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;
   // Templates for a roadmap step or a playbook (content/templates/manifest.json).
@@ -1726,7 +1728,8 @@ app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
 
 // Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
 // One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
-app.get('/admin/joins.csv', requireAuth, requireAdmin, (req, res) => {
+app.get('/admin/joins.csv', require('./lib/export-token').orAdmin(requireAuth, requireAdmin), (req, res) => {
+  res.set('cache-control', 'no-store');
   const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
   const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
   res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);
