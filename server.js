@@ -217,6 +217,8 @@ function homeVideo() {
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo() }));
 app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: 'Free, Builder ($29/month) and the 4-seat Founder\'s Circle. Every plan starts with your free 30-day founder roadmap.', resourceCount: resources.length }));
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
+app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 80K followers across Instagram, TikTok and YouTube, audience snapshot, past brand partnerships and ways to work together.' }));
+app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
 

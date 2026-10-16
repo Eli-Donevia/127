@@ -6,7 +6,9 @@ It runs in demo mode with zero setup. Every integration (Stripe, Claude, email, 
 
 ## Run it on Replit
 
-1. In Replit, click **Create Repl → Import code or design → Upload**, and upload `127group-website.zip` (or create a blank **Node.js** Repl and drag the unzipped folder in).
+Step-by-step with every Secret: [REPLIT-SETUP.md](REPLIT-SETUP.md).
+
+1. In Replit, click **Create App → Import code or design → GitHub** and pick `Eli-Donevia/127` (or upload `127group-website.zip`).
 2. Click **Run**. Replit installs packages and opens the site.
 3. Open the **Secrets** tab and add at least:
    - `SESSION_SECRET`: a random string of 32+ characters (production refuses to start without one). Generate it with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.

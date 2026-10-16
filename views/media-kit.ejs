@@ -1,0 +1,158 @@
+<%- include('partials/head') %>
+<%
+  // Carried over from the old 127group.io media kit (artifacts/one-twenty-seven/src/pages/MediaKit.tsx). Update numbers here.
+  const reelUrl = 'https://www.instagram.com/reel/DUqcrstjkga/';
+  const stats = [['41K', 'Instagram'], ['37K', 'TikTok'], ['80K', 'Combined'], ['250K+', 'Views / 30 days'], ['25M+', 'Lifetime views']];
+  const audience = [['Core age range', '18–34', 'Primary demographic'], ['Gender split', '85% M · 15% F', 'Male-dominant audience'], ['Top locations', 'United States', '+ South America']];
+  const partnerships = [
+    ['Luckyfours', 'Brand partnership', 'Sponsored content partnership delivered to my Instagram and TikTok audiences.'],
+    ['Crave', 'UGC · Creatine gummies', "User-generated content created for Crave's creatine gummies, built for authentic, conversion-focused use."],
+  ];
+  const offerings = [
+    ['Instagram Reel', 'Dedicated sponsored reel + on-brand caption'],
+    ['TikTok Video', 'Native, high-retention sponsored video'],
+    ['Story Set', '3–5 frame story sequence with link / CTA'],
+    ['UGC Package', "Content licensed for brand's own channels"],
+    ['Multi-Platform Campaign', 'Custom scope across IG, TikTok & YouTube'],
+    ['Long-Form / YouTube', 'Integrated or dedicated video feature'],
+  ];
+  const socials = [
+    ['Instagram', '@elichristiansen_', '41K', 'https://instagram.com/elichristiansen_'],
+    ['TikTok', '@elichristiansen_', '37K', 'https://tiktok.com/@elichristiansen_'],
+    ['YouTube', '@eli_christiansen', '1.6K', 'https://youtube.com/@eli_christiansen'],
+  ];
+%>
+<style>
+  .mk-hero { padding: 120px 0 72px; }
+  .mk-hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+  .mk-hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(54px, 7.4vw, 96px); line-height: .92; letter-spacing: -.055em; margin: 20px 0 22px; }
+  .mk-hero .lede { font-size: 19px; color: var(--ink-2); margin: 0 0 8px; }
+  .mk-hero .sub { font-size: 15.5px; color: var(--muted); max-width: 520px; margin: 0 0 30px; }
+  .mk-socials { display: flex; flex-wrap: wrap; gap: 10px; }
+  .mk-social { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); color: var(--ink-2); font-size: 14px; text-decoration: none; transition: border-color .2s, color .2s; }
+  .mk-social:hover { border-color: rgba(255,255,255,.3); color: var(--ink); }
+  .mk-social b { color: var(--primary); font-weight: 600; font-size: 13px; }
+  .mk-social .k { font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .mk-photo { position: relative; max-width: 420px; margin: 0 auto; width: 100%; }
+  .mk-photo img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top; border-radius: 20px; border: 1px solid var(--line-2); filter: grayscale(1) contrast(1.05); }
+  .mk-photo .tag { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); white-space: nowrap; padding: 9px 18px; border-radius: 999px; background: #000; border: 1px solid var(--line-2); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
+  .mk-reel { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; text-decoration: none; color: inherit; background: var(--bg-2); transition: border-color .25s; }
+  .mk-reel:hover { border-color: var(--line-2); }
+  .mk-reel .shot { position: relative; min-height: 380px; overflow: hidden; }
+  .mk-reel .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: transform .7s ease; }
+  .mk-reel:hover .shot img { transform: scale(1.03); }
+  .mk-reel .play { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(0deg, rgba(0,0,0,.55), transparent 60%); }
+  .mk-reel .play span { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(8px); transition: transform .25s; }
+  .mk-reel:hover .play span { transform: scale(1.08); }
+  .mk-reel .copy { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+  .mk-reel h2 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -.04em; margin: 14px 0 8px; }
+  .mk-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; text-align: center; }
+  .mk-stats .v { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -.04em; line-height: 1; margin-bottom: 8px; }
+  .mk-card { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+  .mk-card .big { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: -.03em; color: var(--ink); margin: 14px 0 4px; }
+  .mk-card p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+  .mk-card h3 { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.03em; margin: 0; }
+  .mk-card .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .mk-card .pilltag { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; padding: 5px 12px; border: 1px solid var(--line-2); border-radius: 999px; color: var(--ink-2); }
+  .mk-card h4 { font-size: 15px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
+  .mk-g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mk-g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .mk-cta { text-align: center; padding: 120px 0; }
+  .mk-cta h2 { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 6vw, 76px); letter-spacing: -.055em; line-height: .95; margin: 0 0 18px; }
+  @media (max-width: 900px) {
+    .mk-hero { padding: 96px 0 64px; }
+    .mk-hero .wrap, .mk-reel { grid-template-columns: 1fr; }
+    .mk-reel .shot { min-height: 0; aspect-ratio: 4/5; }
+    .mk-reel .copy { padding: 32px 24px; }
+    .mk-stats { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+    .mk-g3, .mk-g2 { grid-template-columns: 1fr; }
+  }
+</style>
+<main class="mk">
+  <section class="mk-hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Media kit · 2026 · Creator founder</div>
+        <h1><span class="grad">Eli</span><br><span class="grad">Christiansen</span></h1>
+        <p class="lede">Fitness &amp; mindset. Faith &amp; family. Entrepreneurship.</p>
+        <p class="sub">Content at the intersection of fitness, faith and family, built on a foundation of discipline and entrepreneurship. Partnering with brands whose products earn a real place in the routine.</p>
+        <div class="mk-socials">
+          <% socials.forEach(([label, handle, count, url]) => { %>
+            <a class="mk-social" href="<%= url %>" target="_blank" rel="noopener noreferrer"><span class="k"><%= label %></span><%= handle %> <b><%= count %></b></a>
+          <% }) %>
+        </div>
+      </div>
+      <div class="mk-photo">
+        <img src="/img/eli-founder.jpg" alt="Eli Christiansen" width="420" height="525">
+        <div class="tag">Fitness · Mindset · Faith · Family · Business</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <a class="mk-reel" href="<%= reelUrl %>" target="_blank" rel="noopener noreferrer">
+        <div class="shot">
+          <img src="/img/wall/desk-overhead.jpg" alt="Luckyfours featured reel" loading="lazy">
+          <div class="play"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+        </div>
+        <div class="copy">
+          <div class="eyebrow">Featured reel</div>
+          <h2 class="grad">Luckyfours partnership</h2>
+          <p style="color:var(--muted);margin:0 0 28px">Sponsored content · Instagram</p>
+          <span style="font-weight:600;color:var(--ink-2)">Tap to watch <span class="arrow"></span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="band" style="padding:64px 0">
+    <div class="wrap mk-stats">
+      <% stats.forEach(([v, k]) => { %>
+        <div><div class="v grad"><%= v %></div><div class="eyebrow"><%= k %></div></div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Audience snapshot</div><h2 class="grad">Who's watching.</h2></div>
+      <div class="mk-g3">
+        <% audience.forEach(([k, v, sub]) => { %>
+          <div class="mk-card"><div class="eyebrow"><%= k %></div><div class="big"><%= v %></div><p><%= sub %></p></div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Track record</div><h2 class="grad">Recent brand partnerships.</h2></div>
+      <div class="mk-g2">
+        <% partnerships.forEach(([brand, type, desc]) => { %>
+          <div class="mk-card"><div class="row"><h3><%= brand %></h3><span class="pilltag"><%= type %></span></div><p><%= desc %></p></div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Partnership offerings</div><h2 class="grad">Ways to work together.</h2></div>
+      <div class="mk-g3">
+        <% offerings.forEach(([t, d]) => { %>
+          <div class="mk-card"><h4><%= t %></h4><p><%= d %></p></div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="band mk-cta">
+    <div class="wrap">
+      <h2><span class="grad">Let's work together.</span></h2>
+      <p style="font-size:18px;margin:0 0 36px">Sponsored content, UGC, ambassador deals and multi-platform campaigns.</p>
+      <a href="mailto:eli@127group.io?subject=Brand%20partnership" class="btn light">eli@127group.io <span class="arrow"></span></a>
+    </div>
+  </section>
+</main>
+<%- include('partials/foot') %>
