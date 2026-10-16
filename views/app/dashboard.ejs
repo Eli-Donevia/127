@@ -25,11 +25,18 @@
 
 <div class="grid g-main">
   <div class="grid" style="gap:16px">
+    <% if (q.welcome && (user.challengeFinisher || (user.challenge && user.challenge.finished_at))) { %>
+    <div class="card finisher-card">
+      <div class="eyebrow">Day One · done</div>
+      <p>Your week is in. Week 1 of your roadmap is ticked off, and everything you wrote in the five days is saved.</p>
+      <a class="btn ghost sm" href="/challenge/me">See what you wrote <span class="arrow"></span></a>
+    </div>
+    <% } %>
     <% if (next) { %>
     <div class="next-card">
       <div class="eyebrow">Your next step · Week <%= next.week %></div>
       <h2><%= next.title %></h2>
-      <p><%= next.detail %></p>
+      <p><%= next.detail %><% if (q.welcome) { %><span class="first-visit-line">About 10 minutes. Mark it done and your roadmap moves.</span><% } %></p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <% if (next.resource) { %><a href="/app/library/<%= next.resource %>" class="btn light">Open <%= bySlug[next.resource].type.toLowerCase() %> <span class="arrow"></span></a><% } %>
         <% if (next.action) { %><a href="<%= next.action %>" class="btn light">Go <span class="arrow"></span></a><% } %>

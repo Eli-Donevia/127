@@ -807,6 +807,8 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
   if ((user.badges || []).length > before) flash(req, 'win', `Badge earned: ${gamify.BADGES[user.badges[user.badges.length - 1]].label}`);
   // Activation = the first roadmap step a member ever finishes.
   const firstEver = justDone && !user.activatedAt;
+  // One-time toast after the first finished step (onboarding.md section 4).
+  if (firstEver) flash(req, 'win', 'Step 1, done. Do more of what works.');
   if (firstEver) user.activatedAt = new Date().toISOString();
   await db.save('users', user);
   if (justDone) {
@@ -816,6 +818,7 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
   if (firstEver) {
     integrations.emit('member.activated', { userId: user.id });
     track(req, 'Activation');
+    track(req, 'Task Done', { first: 1 });
   }
   emitNewBadges(user, before);
   res.redirect(req.get('referer') && req.get('referer').includes('/app') ? req.get('referer').split('#')[0] + '#roadmap' : '/app#roadmap');

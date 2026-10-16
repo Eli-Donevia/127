@@ -1070,3 +1070,5 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .ups-dots span { width: 6px; height: 6px; border-radius: 999px; background: var(--line-2); }
 .ups-dots span.on { background: var(--ink); }
 @media (max-width: 760px) { .ups-step { padding: 36px 22px 24px; } .ups-step h2 { font-size: 28px; } }
+.first-visit-line { display: block; margin-top: 10px; color: var(--ink); font-size: 14px; }
+.finisher-card p { margin: 8px 0 16px; color: var(--ink-2); }
