@@ -21,12 +21,16 @@
     <canvas id="hero3d" aria-hidden="true"></canvas>
     <div class="wrap hx-copy">
       <h1 class="kin"><span class="dim"><span>Make</span> <span>today</span></span><br><span><span>day</span> <span>one.</span></span></h1>
+      <% if (launch.prelaunch) { %>
+      <p class="hx-value"><%= launch.launchDate ? 'Doors open ' + launch.launchDate + '.' : 'Doors open soon.' %> Join the waitlist and get your <b>free 30-day plan</b> on day one, plus the playbooks, tools and an AI co-founder that won't let you quit.</p>
+      <% } else { %>
       <p class="hx-value">Answer 13 questions. Get a <b>free 30-day plan</b> to launch your first business, plus the playbooks, tools and an AI co-founder that won't let you quit.</p>
+      <% } %>
       <div class="hx-ctas">
         <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
         <a href="/score" class="btn ghost big">Take the 90-second Founder Score</a>
       </div>
-      <div class="hx-note"><%= launch.prelaunch ? (launch.launchDate ? 'Doors open ' + launch.launchDate + ' · ' : '') + 'Founding members lock in ' + (launch.foundingPrice ? '$' + launch.foundingPrice + '/mo' : 'a lower price') : 'Free forever plan · 3 minutes · No card' %></div>
+      <div class="hx-note"><%= launch.prelaunch ? 'Founding members lock in ' + (launch.foundingPrice ? '$' + launch.foundingPrice + '/mo' : 'a lower price') : 'Free forever plan · 3 minutes · No card' %></div>
     </div>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
@@ -154,8 +158,8 @@
   <!-- THESIS -->
   <div class="verse-block">
     <div class="wrap">
-      <blockquote data-reveal>"Unless the Lord builds the house, those who build it labor in vain."</blockquote>
-      <cite>Psalm 127:1</cite>
+      <blockquote data-reveal>"Unless the Lord builds the house, the builders labor in vain."</blockquote>
+      <cite>Psalm 127:1 (NIV)</cite>
       <p>Building in vain is chasing a dollar sign while neglecting your faith and the people who matter. 127 is built the other way: trust and integrity first, purpose over profit.</p>
     </div>
   </div>
@@ -192,12 +196,25 @@
   <section class="cta-photo">
     <div class="wrap">
       <h2>Make today day one.</h2>
-      <p>Your plan is three minutes away. Free, and yours to keep.</p>
+      <p><%= launch.prelaunch ? (launch.launchDate ? 'Doors open ' + launch.launchDate + '. ' : '') + 'Get your roadmap on day one. Free, and yours to keep.' : 'Your plan is three minutes away. Free, and yours to keep.' %></p>
       <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
     </div>
   </section>
 </main>
 <script type="importmap">{ "imports": { "three": "/js/vendor/three.module.min.js" } }</script>
-<script type="module" src="/js/hero3d.js"></script>
+<script type="module">
+// Start the 3D mark after the page has painted and loaded, so it never delays the first view.
+const go = () => import('/js/hero3d.js');
+const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 1500 }) : setTimeout(go, 200));
+document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
+</script>
+<script>
+(function () {
+  var els = document.querySelectorAll('.verse-block, .cta-photo');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('bg-in'); io.unobserve(e.target); } }); }, { rootMargin: '800px 0px' });
+  els.forEach(function (e) { io.observe(e); });
+})();
+</script>
 <script src="/js/home.js" defer></script>
 <%- include('partials/foot') %>

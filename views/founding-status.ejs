@@ -8,7 +8,7 @@
         <p class="lede">Your founding spot is locked in. Share your link: when <%= launch.referralsForReward %> friends confirm, your first month is free.</p>
       <% } else { %>
         <h1><span class="grad">You're on the list.</span></h1>
-        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. Only confirmed spots get the founding price.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. Confirm so your invite link counts and we can reach you on open day.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
         <% if (devConfirm) { %><div class="alert info">Email isn't connected yet, so here is the confirm link: <a class="link" href="<%= devConfirm %>">confirm my spot</a></div><% } %>
       <% } %>
 

@@ -34,7 +34,9 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').toLowerCase().split(',').m
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('trust proxy', 1);
+// Proxy hops in front of the app. Check /admin ("Your IP as the server sees it") on the first deploy:
+// if a phone on cellular and a laptop on Wi-Fi show the same address, raise TRUST_PROXY.
+app.set('trust proxy', parseInt(process.env.TRUST_PROXY || '1', 10));
 app.disable('x-powered-by');
 app.use(security.headers(PROD));
 app.use(require('compression')());
@@ -381,8 +383,15 @@ async function joinFromRequest(req, body, source) {
   });
 }
 
+// Pop-ups, talks and campus Wi-Fi put many real people behind one address, so the per-IP cap is loose
+// and a per-email cap stops one address being hammered.
+function waitlistLimit(req, res) {
+  const email = String((req.body && req.body.email) || '').trim().toLowerCase().slice(0, 200);
+  if (!limit(req, res, `waitlist:${security.ip(req)}`, 100, 60 * 60 * 1000, TOO_FAST)) return false;
+  return !email || limit(req, res, `waitlist-email:${email}`, 5, 60 * 60 * 1000, TOO_FAST);
+}
 app.post('/founding', wrap(async (req, res) => {
-  if (!limit(req, res, `waitlist:${security.ip(req)}`, 10, 60 * 60 * 1000, TOO_FAST)) return;
+  if (!waitlistLimit(req, res)) return;
   const r = await joinFromRequest(req, req.body, 'founding');
   if (r.error) return res.status(400).render('founding', { title: 'Founding members', error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
@@ -393,7 +402,7 @@ app.post('/founding', wrap(async (req, res) => {
 // Shared endpoint for the quiz and Day One Stack pages: same waitlist logic, JSON in and out.
 // Body: { email, first_name, optin, source: "quiz" | "stack", ref?, utm_* }
 app.post('/api/waitlist', express.json({ limit: '10kb' }), wrap(async (req, res) => {
-  if (!limit(req, res, `waitlist:${security.ip(req)}`, 10, 60 * 60 * 1000, TOO_FAST)) return;
+  if (!waitlistLimit(req, res)) return;
   const body = req.body || {};
   const source = waitlist.SOURCES.includes(body.source) ? body.source : 'other';
   const r = await joinFromRequest(req, body, source);
@@ -403,9 +412,10 @@ app.post('/api/waitlist', express.json({ limit: '10kb' }), wrap(async (req, res)
 
 app.get('/founding/confirm', wrap(async (req, res) => {
   if (!limit(req, res, `confirm:${security.ip(req)}`, 30, 60 * 60 * 1000, TOO_FAST)) return;
-  const entry = await waitlist.confirm(req.query.token);
+  const confirmed = await waitlist.confirm(req.query.token);
+  const entry = confirmed && confirmed.entry;
   if (!entry) return res.status(400).render('404', { title: 'Link expired', error: true, message: 'That confirm link has expired or was already replaced. Join again with the same email to get a fresh one.' });
-  track(req, 'Waitlist Confirm');
+  if (confirmed.firstTime) track(req, 'Waitlist Confirm');
   req.session.devConfirm = null;
   res.redirect(`/founding/status?code=${entry.referralCode}&confirmed=1`);
 }));
@@ -917,6 +927,8 @@ app.get('/admin', requireAuth, requireAdmin, (req, res) => {
   }
   res.render('admin/index', {
     title: 'Admin',
+    seenIp: security.ip(req),
+    forwardedFor: req.get('x-forwarded-for') || null,
     users,
     tierCounts,
     activated,

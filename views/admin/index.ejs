@@ -1,6 +1,6 @@
 <%- include('../partials/app-head') %>
 <div class="page-head">
-  <div><div class="eyebrow">Founder view</div><h1>Admin</h1></div>
+  <div><div class="eyebrow">Founder view</div><h1>Admin</h1><div class="tiny muted" style="margin-top:6px">Your IP as the server sees it: <%= seenIp %> · forwarded for: <%= forwardedFor || "none" %></div></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="/admin/export.csv" class="btn ghost sm">Export members (CSV)</a><a href="/admin/leads.csv" class="btn ghost sm">Export funnel leads (CSV)</a></div>
 </div>
 
