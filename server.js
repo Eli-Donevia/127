@@ -276,6 +276,7 @@ app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
 app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
+app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder's Circle agreement", kind: 'circle' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
@@ -521,6 +522,7 @@ app.get('/robots.txt', (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
   if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  if (process.env.CIRCLE_AGREEMENT_LIVE === 'true') pages.push('/circle-agreement');
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
 });
 
@@ -990,7 +992,8 @@ app.post('/app/tools/:slug', requireAuth, wrap(async (req, res) => {
     await db.save('users', user);
     return res.redirect('/app/tools/ask#latest');
   }
-  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, 2000)]));
+  // Per-field limit: 2,000 characters unless the tool sets max (the Interview Synthesizer's notes take 8,000).
+  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, f.max || 2000)]));
   if (!reserveAi(req, res, user, `/app/tools/${tool.slug}`)) return;
   const result = await ai.run(tool, input, user);
   if (result.error) {
@@ -1291,7 +1294,7 @@ app.get('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
   const entry = launch.onWaitlist(user.email);
   res.render('app/cancel', {
     title: 'Cancel', accessEnds: fmtDate(user.periodEnd), pauseAvailable: PAUSE_AVAILABLE, foundingKept: billing.foundingKept(user),
-    CANCEL_REASONS, reason, referralLink: entry ? waitlist.link(entry) : null,
+    CANCEL_REASONS, reason, options: req.query.options === '1', referralLink: entry ? waitlist.link(entry) : null,
   });
 }));
 

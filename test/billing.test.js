@@ -449,3 +449,18 @@ test('charge.refunded: a full refund blocks the win-back month', async () => {
   assert.strictEqual(user.refundedFirstPayment, true);
   assert.strictEqual(billing.winbackProfile(user).winback_eligible, false);
 });
+
+test('referral reward is a flat $19 credit, Circle members included (Legal L32)', async () => {
+  Object.assign(user, { tier: 'circle', stripeCustomerId: 'cus_rc' });
+  await db.save('users', user);
+  await db.save('waitlist', { email: user.email, referralCount: 3 });
+  assert.deepStrictEqual(await billing.rewardPayingReferrer(user.email), { credited: true, amount: 19 });
+  assert.strictEqual(s.calls.find((x) => x.name === 'customers.balance').args.a.amount, -1900);
+});
+
+test('no founding price for someone whose founding membership ended, even inside the window (Legal L31)', async () => {
+  Object.assign(user, { foundingNumber: 7, foundingEnded: true });
+  await db.save('users', user);
+  await billing.checkoutUrl(req, user, 'builder');
+  assert.deepStrictEqual(s.calls.find((c) => c.name === 'checkout.create').args.line_items, [{ price: 'price_b', quantity: 1 }]);
+});

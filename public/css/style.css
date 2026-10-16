@@ -502,8 +502,13 @@ h1, h2, h3, h4 { line-height: 1.1; }
 .calc-legend { margin: 10px 0 0; font-size: 12.5px; color: var(--muted); columns: 2; }
 .calc-legend div { padding: 2px 0; break-inside: avoid; }
 .calc-legend b { font-family: var(--mono); font-weight: 500; color: var(--accent); margin-right: 6px; }
-.kpi td:first-child { color: var(--ink); white-space: nowrap; }
+.kpi td:first-child { color: var(--ink); min-width: 150px; }
 .kpi .up { color: var(--win); } .kpi .down { color: var(--danger); }
+.kpi .grp td { padding-top: 14px; color: var(--muted); }
+.calc [data-newweek] { margin-top: 4px; }
+.calc-out.dim, .calc-out.dim b { color: var(--muted); }
+.calc-legend li { padding: 2px 0 4px; break-inside: avoid; }
+.calc-legend li strong { display: block; font-weight: 500; color: var(--ink-2); }
 .hist { display: grid; }
 .hist a { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); text-decoration: none; font-size: 14px; color: var(--ink-2); }
 .hist a:hover { color: var(--ink); }
@@ -1033,6 +1038,8 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .cancel-opt { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 22px; }
 .cancel-opt h3 { margin: 0 0 8px; font-size: 18px; }
 .cancel-opt p { flex: 1; margin: 0 0 18px; color: var(--ink-2); font-size: 14px; }
+.cancel-first { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 28px 0 24px; }
+.cancel-first form { margin: 0; }
 @media (max-width: 760px) { .cancel-page h1 { font-size: 34px; } }
 
 /* Welcome after a founding payment, Circle confirm, fast founding checkout */
