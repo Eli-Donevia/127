@@ -8,7 +8,7 @@
       <% if (o.variant === 'last_day') { %>
         <p><b>$<%= o.price %> a month, locked while you stay, ends tonight at <%= o.closesTime %>.</b> After that, Builder is $<%= o.regular %>. There's no Black Friday sale.</p>
       <% } else if (o.variant === 'finisher') { %>
-        <p><b><%= (user && user.challenge && user.challenge.carried > 0) ? 'Your Day One week is already in your roadmap.' : 'You finished Day One, and the badge is yours.' %></b> Weeks 2 to 4, every playbook and every AI tool are in Builder: $<%= o.price %> a month, locked while you stay, until <%= o.closesDate %>.</p>
+        <p><b><%= (user && user.challenge && user.challenge.carried > 0) ? 'Your Day One week is already in your roadmap.' : 'You finished Day One, and the badge is yours.' %></b> Weeks 3 and 4, every playbook and every AI tool are in Builder: $<%= o.price %> a month, locked while you stay, until <%= o.closesDate %>.</p>
       <% } else if (o.variant === 'welcome') { %>
         <p><b>You joined in founding week.</b> Do your first step below. When you're ready for the rest, Builder is $<%= o.price %> a month, locked while you stay, until <%= o.closesDate %>.</p>
       <% } else { %>

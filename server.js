@@ -604,6 +604,7 @@ app.get('/founding/status', (req, res) => {
       code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName,
       // "Check your email" only when a confirm email actually went out (unticked joiners may get none).
       confirmSent: !!entry.confirmSentAt,
+      referredBy: !!entry.referredBy,
       confirmJustSent: !!entry.confirmSentAt && Date.now() - Date.parse(entry.confirmSentAt) < 5 * 60 * 1000,
       // Confirmed friends by first name, never email (billing terms section 5, decision O20).
       friends: (req.session.wlCodes || []).includes(entry.referralCode) ? waitlist.friends(entry) : null,
