@@ -183,8 +183,8 @@ app.use((req, res, next) => {
   res.locals.tplForPlaybook = templates.forPlaybook;
   res.locals.tplKinds = templates.KINDS;
   res.locals.canAccess = canAccess;
-  // 127 HQ (lib/hq.js): the nav item and the dashboard card show only while HQ_LIVE=true.
-  res.locals.hqLive = hq.live();
+  // 127 HQ (lib/hq.js): the nav item and the dashboard card show while HQ_LIVE=true (HQ_LIVE=admins: admins only).
+  res.locals.hqLive = hq.liveFor(user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -864,7 +864,7 @@ app.get('/app', requireAuth, (req, res) => {
     // Founding upgrade alert: right after paying, or after the assessment that follows a fast founding checkout.
     foundingAlert: !!(user.foundingPrice && user.foundingNumber && user.tier === 'builder' && ((req.query.upgraded === 'builder') || req.query.welcome)),
     // 127 HQ card: last full week's North Number (Builder and up, while HQ_LIVE=true).
-    hqCard: hq.live() && hq.canUse(user) ? hq.dashCard(user) : null,
+    hqCard: hq.liveFor(user) && hq.canUse(user) ? hq.dashCard(user) : null,
   });
 });
 
