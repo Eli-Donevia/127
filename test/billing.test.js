@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const Stripe = require('stripe');
 
-const dataFile = path.join(__dirname, '..', 'data', 'db.json');
+const dataFile = process.env.DB_FILE ? path.resolve(process.env.DB_FILE) : path.join(__dirname, '..', 'data', 'db.json');
 const backup = fs.existsSync(dataFile) ? fs.readFileSync(dataFile) : null;
 
 const db = require('../lib/db');
