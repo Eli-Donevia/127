@@ -1,0 +1,20 @@
+<%# Slim bar above the nav on the homepage (conversion/pages/homepage.md section 3). hbState: A1, A2, B; C has no bar. %>
+<% var hb = hbState; var hbP = launch.foundingPrice ? '$' + launch.foundingPrice + ' a month' : 'the founding price';
+   var hbTrack = " data-track=\"home_bar_click\" data-props='" + JSON.stringify({ state: hb }) + "'"; %>
+<% if (hb === 'A1' && launch.challenge.on) { %>
+<div class="hbar-top" role="region" aria-label="Announcement"><div class="wrap">
+  <p>Free 5-day Day One Challenge with Eli, <%= launch.challenge.startAbbr %> to <%= launch.challenge.endAbbr %>.<% if (launch.challenge.regClosesLabel) { %> Sign up by <%= launch.challenge.regClosesLabel %>.<% } %></p>
+  <a href="/challenge?ref=home"<%- hbTrack %>>Join the challenge <span class="arrow"></span></a>
+</div></div>
+<% } else if (hb === 'A1' || hb === 'A2') { %>
+<div class="hbar-top" role="region" aria-label="Announcement"><div class="wrap">
+  <p><%= launch.launchAbbr ? 'Doors open ' + launch.launchAbbr + ' at ' + launch.launchTime + '.' : 'Doors open soon.' %> Builder is <%= hbP %> for the first <%= launch.cap %> founding members.</p>
+  <% if (launch.launchAt) { %><a href="/founding/doors-open.ics"<%- hbTrack %>>Add to my calendar <span class="arrow"></span></a><% } %>
+</div></div>
+<% } else if (hb === 'B') { %>
+<div class="hbar-top is-b" role="region" aria-label="Founding price"><div class="wrap">
+  <p><% if (launch.lastDay) { %>Founding price ends tonight at <%= launch.closesTime %>.<% } else { %>Founding price: <%= hbP %>, locked while you stay.<% if (launch.closesAbbr) { %> Ends <%= launch.closesAbbr %> at <%= launch.closesTime %>.<% } %><% } %><% if (launch.showSpots) { %> <%= launch.spotsLeft %> founding spots left.<% } %></p>
+  <%- include('countdown-line', { cdTarget: launch.closesAt, cdLabel: '', cdShort: true }) %>
+  <a href="/founding"<%- hbTrack %>>See the founding price <span class="arrow"></span></a>
+</div></div>
+<% } %>

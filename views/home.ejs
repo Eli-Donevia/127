@@ -1,13 +1,37 @@
-<%- include('partials/head') %>
 <%
-  var cta = launch.prelaunch ? { href: '/founding', label: 'Join the founding list' } : { href: '/start', label: 'Build my free plan' };
+  // Homepage, final copy from conversion/pages/homepage.md. States (section 1): A1/A2 before doors open
+  // (A1 while Day One Challenge sign-ups are open), B the founding window, C evergreen. All from server time.
+  var st = hState;
+  var S = st.charAt(0); // A, B or C
+  var L = launch;
+  var PM = L.foundingPrice ? '$' + L.foundingPrice + ' a month' : 'the founding price';
+  var doorsAt = L.launchAbbr ? L.launchAbbr + ' at ' + L.launchTime : null; // "Tue, Nov 17 at 10am ET"
+  var closesAt = L.closesAbbr ? L.closesAbbr + ' at ' + L.closesTime : null; // "Tue, Nov 24 at 11:59pm ET"
+  var doorsLine = doorsAt ? 'Doors open ' + doorsAt + '.' : 'Doors open soon.';
+  var rc = resources.length;
+  var aiB = PLANS.builder.aiRunsPerMonth;
+  var refN = L.referralsForReward;
+  // Plausible click goals (section 14): state only, never personal data.
+  var tk = function (ev, extra) { var p = { state: st }; for (var k in (extra || {})) p[k] = extra[k]; return " data-track=\"" + ev + "\" data-props='" + JSON.stringify(p) + "'"; };
+  var hero = S === 'A' ? { p: ['/founding', 'Join the founding list'], s: ['/score', 'Take the 90-second Founder Score'] }
+           : S === 'B' ? { p: ['/start', 'Get my roadmap'], s: ['/founding', 'See the founding price'] }
+           : { p: ['/start', 'Start free'], s: ['/score', 'Take the 90-second Founder Score'] };
+  var weeksCta = S === 'A' ? ['/founding', 'Join the founding list'] : S === 'B' ? ['/start', 'Get my roadmap'] : ['/start', 'Start free'];
+  // The B "3-line version" (sections 10 and 12), word for word.
+  var bLines = [
+    'Builder is ' + PM + ' for founding members, locked for as long as you stay.',
+    'It ends ' + (L.closesDay ? L.closesDay + ' at ' + L.closesTime : 'at the founding close') + ', or when ' + L.cap + ' founding members join.',
+    '14 days to change your mind. No Black Friday sale.'
+  ];
   var wallA = ['eli-stage-full', 'desk-overhead', 'eli-popup-01', 'still-watch', 'eli-hotel-corner', 'eli-gym-portrait'];
   var wallB = ['eli-headphones', 'eli-award-night', 'hotel-desk', 'eli-popup-02', 'bible-open', 'eli-plane'];
   var wallC = ['eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'desk-flatlay', 'still-timer', 'eli-headphones'];
   var reel = ['eli-stage-full', 'eli-popup-01', 'desk-overhead', 'eli-plane', 'eli-award-night', 'eli-hotel-corner', 'eli-gym-portrait', 'eli-popup-02', 'still-watch', 'eli-stockroom-square', 'hotel-desk', 'eli-headphones'];
-  var proof = ['2x founder', '25M+ views across social', 'Spoke on stage at Finovate Fall', 'Won the fintech category at Best of the Midwest', '$50K in sales from a part-time e-commerce brand', '#3 in the country out of 6,000+ agents', '100K+ followers built'];
-%>
-<main class="v4">
+  // Ticker (section 7.4): brand/voice-and-messaging.md section 7, word for word. No dollar figures here.
+  var proof = ['2x founder (e-commerce and technology)', '25M+ views across social', '100K+ followers built', 'Spoke on stage at Finovate Fall', 'Won the fintech category at Best of the Midwest (Iowa Startup Week); 1 of 5 pitch finalists at a Detroit conference', 'Received a "Most Improved" award', 'Built an ambassador network of 100+ creators; worked with pro and college athletes'];
+-%>
+<%- include('partials/head', { hbState: st === 'C' ? null : st }) %>
+<main class="v4" data-state="<%= st %>">
 
   <!-- HERO: kinetic headline, 3D chrome 127, drifting wall of Eli's photos -->
   <section class="hx">
@@ -18,31 +42,35 @@
       </div></div>
       <% }) %>
     </div>
-    <canvas id="hero3d" aria-hidden="true"></canvas>
+    <%# The live 3D mark on desktop; phones, reduced motion and low-power devices get the pre-rendered loop (or its poster) instead. %>
+    <div class="hx-mark" aria-hidden="true">
+      <canvas id="hero3d"></canvas>
+      <picture><source media="(max-width: 760px)" srcset="/img/hero-loop-mobile-poster.jpg" width="1080" height="1350"><img class="hx-poster" src="/img/hero-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async"></picture>
+    </div>
     <div class="wrap hx-copy">
       <h1 class="kin"><span class="dim"><span>Make</span> <span>today</span></span><br><span><span>day</span> <span>one.</span></span></h1>
-      <% if (launch.prelaunch) { %>
-      <p class="hx-value"><%= launch.launchDate ? 'Doors open ' + launch.launchDate + '.' : 'Doors open soon.' %> Join the waitlist and get your <b>free 30-day plan</b> on day one, plus the playbooks, tools and an AI co-founder that won't let you quit.</p>
+      <% if (S === 'A') { %>
+      <p class="hx-value">Your first business can cost $0. 127 gives you a roadmap built from your answers, the playbooks and tools to work each step, and Eli's Playbook when you get stuck. <%= doorsLine %></p>
       <% } else { %>
-      <p class="hx-value">Answer 13 questions. Get a <b>free 30-day plan</b> to launch your first business, plus the playbooks, tools and an AI co-founder that won't let you quit.</p>
+      <p class="hx-value">Your first business can cost $0. Answer 13 questions in 3 minutes and get a roadmap built from your answers, with the playbooks and tools to work each step.</p>
       <% } %>
       <div class="hx-ctas">
-        <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
-        <a href="/score" class="btn ghost big">Take the 90-second Founder Score</a>
+        <a href="<%= hero.p[0] %>" class="btn light big"<%- tk('home_hero_primary') %>><%= hero.p[1] %> <span class="arrow"></span></a>
+        <a href="<%= hero.s[0] %>" class="btn ghost big"<%- tk('home_hero_secondary') %>><%= hero.s[1] %></a>
       </div>
-      <div class="hx-note"><%= launch.prelaunch ? 'Founding members lock in ' + (launch.foundingPrice ? '$' + launch.foundingPrice + '/mo' : 'a lower price') : 'Free forever plan · 3 minutes · No card' %></div>
+      <div class="hx-note">$0 to start. The free plan is free. No card.</div>
     </div>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
     </div>
   </section>
 
-  <!-- THE HOOK: why care -->
+  <!-- THE HOOK -->
   <section class="pain">
     <div class="wrap">
       <p class="lit">You've saved 300 reels about starting a business.</p>
-      <p class="lit">You have five ideas and zero customers.</p>
-      <p class="lit">You bought the course. You never finished it.</p>
+      <p class="lit">You have 5 ideas and 0 customers.</p>
+      <p class="lit">You bought the program. You never finished it.</p>
       <p class="lit">You're waiting until you feel ready.</p>
       <p class="lit punch">Ready is a decision.<br><span>127 gives you the plan to back it up.</span></p>
     </div>
@@ -59,25 +87,25 @@
         <div class="story-step on">
           <span class="num">01</span>
           <h3>Tell us where you are.</h3>
-          <p>13 questions on your stage, goal, hours and budget. Three minutes, no account.</p>
+          <p>13 questions on your stage, goal, hours and budget. 3 minutes, no account.</p>
           <img class="story-inline" src="/img/shot-question.jpg" alt="" loading="lazy">
         </div>
         <div class="story-step">
           <span class="num">02</span>
-          <h3>Get your 30-day plan.</h3>
-          <p>Week by week, every step linked to the playbook or tool that gets it done. You see week one before you sign up.</p>
+          <h3>Get your roadmap.</h3>
+          <p>2 to 3 steps a week for 4 weeks, each linked to the playbook or tool that gets it done. Weeks 1 and 2 are free.</p>
           <img class="story-inline" src="/img/shot-roadmap.jpg" alt="" loading="lazy">
         </div>
         <div class="story-step" id="library">
           <span class="num">03</span>
           <h3>Do the work, not the reading.</h3>
-          <p><%= resources.length %> playbooks with worksheets and calculators. Each one ends with something you made: a scored idea, a script, a price, a launch calendar.</p>
+          <p><span class="cu" data-to="<%= rc %>"><%= rc %></span> playbooks, worksheets and tools. Each one ends with something you made: a scored idea, a script, a price, a launch calendar.</p>
           <img class="story-inline" src="/img/shot-playbook.jpg" alt="" loading="lazy">
         </div>
         <div class="story-step">
           <span class="num">04</span>
-          <h3>Get unstuck in seconds.</h3>
-          <p>Eli's Playbook is an AI grounded in my frameworks. It knows your plan and pushes back like a co-founder would.</p>
+          <h3>Get unstuck with Eli's Playbook.</h3>
+          <p>It's built on Eli's methods and works from your assessment and your roadmap, so its answers fit where you are this week.</p>
           <img class="story-inline" src="/img/shot-chat.jpg" alt="" loading="lazy">
         </div>
       </div>
@@ -93,12 +121,38 @@
     </div>
   </section>
 
+  <!-- WHAT STOPS YOU, AND WHAT'S IN 127 FOR IT (section 6.2) -->
+  <section class="stops">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>What stops first-time founders.</h2>
+      <div class="stops-list" role="table" aria-label="What stops first-time founders, and what's in 127 for it">
+        <div class="stops-row stops-head" role="row"><span role="columnheader">What stops you</span><span role="columnheader">What's in 127</span><span role="columnheader">Plan</span></div>
+        <% [
+          ['"I don\'t have money."', '$0 to start. The first moves, picking one idea and talking to people who have the problem, cost nothing.', 'Free'],
+          ['"I don\'t know what to start."', 'The assessment and a roadmap built for your stage, on your track: Start, Build or Grow.', 'Free: weeks 1 and 2. Builder: all 4.'],
+          ['"I don\'t know if my idea is any good."', 'The Idea Test and the Validation Interview Scripts. Builder adds the Business Model Worksheet.', 'Free and Builder'],
+          ['"I don\'t know what to say or what to charge."', 'The One-Page Offer, the Pricing Worksheet, the Outreach Scripts.', 'Builder'],
+          ['"Nobody knows I exist."', 'The 30-Day Content Calendar. Builder adds the Hook & Caption Bank, Brand Basics in an Afternoon and the Landing Page Brief.', 'Free and Builder'],
+          ['"I can\'t tell if it\'s working."', 'The Founder KPI Dashboard and the Weekly CEO Review.', 'Builder'],
+          ['"I get stuck and have no one to ask."', "Eli's Playbook, built on Eli's methods. It knows your roadmap. Builder adds every AI tool and feedback on your worksheet answers.", 'Free and Builder']
+        ].forEach(function (r) { %>
+        <div class="stops-row" role="row" data-reveal>
+          <span class="stops-q" role="cell"><%= r[0] %></span>
+          <span class="stops-a" role="cell"><%= r[1] %></span>
+          <span class="stops-p" role="cell"><% r[2].split(/(?<=\.) /).forEach(function (t) { %><span class="plan-tag <%= /^Free/.test(t) && !/Builder/.test(t) ? 'is-free' : /^Builder/.test(t) ? 'is-builder' : 'is-both' %>"><%= t %></span><% }) %></span>
+        </div>
+        <% }) %>
+      </div>
+      <p class="stops-line">Every playbook, every AI tool, all 4 weeks of your roadmap.</p>
+    </div>
+  </section>
+
   <!-- PHOTO REEL -->
   <section class="reel" aria-label="Photos of Eli building">
     <div class="reel-row r1"><div class="reel-track"><% reel.concat(reel).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" loading="lazy" width="480" height="600"><% }) %></div></div>
     <div class="reel-row r2"><div class="reel-track"><% reel.slice().reverse().concat(reel.slice().reverse()).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" loading="lazy" width="480" height="600"><% }) %></div></div>
     <div class="reel-copy wrap">
-      <h2>Built in stockrooms, on stages and on planes.<br><span>Not in a classroom.</span></h2>
+      <h2>Built in stockrooms and on stages.<br><span>Not in a classroom.</span></h2>
     </div>
   </section>
 
@@ -115,105 +169,211 @@
   </section>
   <% } %>
 
-  <!-- FOUNDER -->
+  <!-- FOUNDER (section 7) -->
   <section class="fx" id="why">
     <div class="wrap fx-grid">
       <div class="collage" aria-hidden="true">
         <figure class="cc c1" data-tilt><img src="/img/eli-founder.jpg" alt="" loading="lazy"></figure>
-        <figure class="cc c2" data-tilt><img src="/img/wall/eli-finovate-wide.jpg" alt="" loading="lazy"><figcaption>Finovate Fall</figcaption></figure>
-        <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>"Most Improved"</figcaption></figure>
+        <figure class="cc c2" data-tilt>
+          <video class="lazy-loop" muted loop playsinline preload="none" poster="/img/finovate-stage-loop-16x9-bw.jpg" data-src="/video/finovate-stage-loop-16x9-bw.mp4" width="1920" height="1080"></video>
+          <figcaption>Spoke on stage at Finovate Fall</figcaption>
+        </figure>
+        <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>Received a "Most Improved" award</figcaption></figure>
         <figure class="cc c4" data-tilt><img src="/img/wall/eli-popup-01.jpg" alt="" loading="lazy"><figcaption>Apparel pop-up</figcaption></figure>
       </div>
       <div class="fx-body">
-        <% if (showDrafts) { %><span class="draft-flag">Written from Eli's intake · Eli to approve</span><% } %>
-        <h2 class="h2" data-reveal>I started with $2,000 of sneakers.</h2>
-        <p data-reveal>$2,000 in, $3,000 out, before college. Then I built a social following past 100,000, launched an e-commerce brand that sold out its first drop and shipped to 35 states, and did it all on the side of a finance career where I finished third in the country.</p>
-        <p data-reveal>Then I left that job to build Donevia, raised a multiple six-figure pre-seed round, and won the fintech category at Best of the Midwest. None of it came from one big moment. It came from years of lost ad money, bad partnerships and tools I wish I'd found sooner. 127 is everything I wish I'd had on day one.</p>
+        <%- include('partials/why-127') %>
+        <%# The numbers: voice section 7 word for word, one per line, with the earnings line directly under them. %>
         <div class="stats" data-reveal>
           <div><b data-to="25" data-suf="M+">25M+</b><span>views across social</span></div>
           <div><b data-to="100" data-suf="K+">100K+</b><span>followers built</span></div>
-          <div><b data-to="50" data-pre="$" data-suf="K">$50K</b><span>part-time brand sales</span></div>
-          <div><b data-to="3" data-pre="#">#3</b><span>in the country, of 6,000+ agents</span></div>
+          <div><b data-to="50" data-pre="$" data-suf="K">$50K</b><span>in sales from a part-time e-commerce brand; first drop sold out; customers in 35 of 50 states</span></div>
+          <div><b data-to="3" data-pre="#">#3</b><span>in the country on a national vendor sales list of 6,000+ agents (2025); top 25 in his first 6 months (2024)</span></div>
         </div>
+        <p class="stats-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
         <div class="signature">Eli</div>
         <div class="small muted">Eli Christiansen · @elichristiansen_</div>
       </div>
     </div>
   </section>
 
-  <!-- 30 DAYS -->
+  <!-- THE FIRST 4 WEEKS: process, not results (section 8) -->
   <section class="days">
     <div class="wrap">
-      <h2 class="h2" data-reveal>Thirty days from now, you'll have:</h2>
+      <h2 class="h2" data-reveal>What your first 4 weeks look like.</h2>
       <div class="days-row">
-        <div class="day" data-reveal><span>Week 1</span><h3>A tested idea</h3><p>Scored with the Idea Test, and picked on purpose, not on mood.</p></div>
-        <div class="day" data-reveal><span>Week 2</span><h3>Five real conversations</h3><p>With people who have the problem, in their words, using scripts that make it easy.</p></div>
-        <div class="day" data-reveal><span>Week 3</span><h3>An offer and a price</h3><p>A one-line offer, a price you can defend and a page that asks for the sale.</p></div>
-        <div class="day" data-reveal><span>Week 4</span><h3>A launch plan</h3><p>A content calendar, outreach scripts and a scorecard so you keep going after day 30.</p></div>
+        <% [
+          ['Pick one idea, on purpose.', 'Score it with the Idea Test. Picked on purpose, not on mood.', 'Free'],
+          ['Talk to people who have the problem.', 'Scripts that make the first conversation easy, so you hear it in their words.', 'Free'],
+          ['Shape an offer and a price.', 'The One-Page Offer and the Pricing Worksheet.', 'Builder'],
+          ['Put it in front of people.', 'A content calendar, outreach scripts and a scorecard so you keep going after day 30.', 'Builder']
+        ].forEach(function (w, i) { %>
+        <div class="day" data-reveal><div class="day-top"><span>Week <%= i + 1 %></span><span class="plan-tag <%= w[2] === 'Free' ? 'is-free' : 'is-builder' %>"><%= w[2] %></span></div><h3><%= w[0] %></h3><p><%= w[1] %></p></div>
+        <% }) %>
       </div>
-      <div class="days-cta" data-reveal><a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a></div>
+      <p class="days-note">That's the Start track. If you're already selling, your roadmap picks the Build or Grow track instead.</p>
+      <div class="days-cta" data-reveal><a href="<%= weeksCta[0] %>" class="btn light big"<%- tk('home_weeks_cta') %>><%= weeksCta[1] %> <span class="arrow"></span></a></div>
     </div>
   </section>
 
-  <!-- THESIS -->
+  <!-- THESIS (section 9) -->
   <div class="verse-block">
     <div class="wrap">
       <blockquote data-reveal>"Unless the Lord builds the house, the builders labor in vain."</blockquote>
       <cite>Psalm 127:1 (NIV)</cite>
-      <p>Building in vain is chasing a dollar sign while neglecting your faith and the people who matter. 127 is built the other way: trust and integrity first, purpose over profit.</p>
+      <p>It's why we're called 127. For Eli, building in vain means chasing a dollar sign while neglecting his faith and the people who matter. 127 is built the other way: trust and integrity first, purpose over profit. Faith is Eli's foundation. It's offered here, never required, and 127 is for everyone who wants to build with purpose.</p>
     </div>
   </div>
 
-  <!-- PRICING -->
+  <!-- PRICING TEASER (section 10) -->
   <section id="membership">
     <div class="wrap">
       <div class="section-head center">
-        <h2>Start free. Upgrade when you've earned it.</h2>
-        <p>Every plan includes your personalized roadmap.</p>
+        <h2>Start free. Upgrade when it's earned it.</h2>
+        <p>Every plan includes your roadmap, built from your answers.</p>
       </div>
-      <%- include('partials/plans') %>
+      <%- include('partials/plans', { plansEvent: 'home_pricing_cta', plansState: st }) %>
+      <p class="price-count"><%= rc %> playbooks, worksheets and tools. About <%= aiB %> AI messages a month. All 4 weeks.</p>
+      <% if (S === 'A') { %>
+      <div class="price-state">
+        <p><%= doorsLine %> Builder is <%= PM %> for the first <%= L.cap %> founding members, until <%= closesAt || 'the founding close' %>. The founding list gets you the reminders.</p>
+        <a href="/founding" class="btn ghost"<%- tk('home_pricing_cta', { plan: 'list' }) %>>Join the founding list <span class="arrow"></span></a>
+      </div>
+      <% } else if (S === 'B') { %>
+      <div class="price-state"><p class="three-lines"><% bLines.forEach(function (l) { %><span><%= l %></span><% }) %></p></div>
+      <% } %>
+      <div class="home-trust"><%- include('partials/trust-block') %></div>
     </div>
   </section>
 
-  <% if (launch.prelaunch) { %>
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head"><h2>Get in before the doors open.</h2><p>Join the list and lock in founding terms.<%= launch.launchDate ? ' Doors open ' + launch.launchDate + '.' : '' %></p></div>
-      <%- include('partials/founding-benefits') %>
-      <div style="margin-top:28px;text-align:center"><%- include('partials/countdown') %></div>
-    </div>
-  </section>
-  <% } %>
-
-  <!-- FAQ -->
-  <section style="padding-top:0">
+  <!-- FAQ (section 11) -->
+  <section class="home-faq-sec">
     <div class="wrap">
       <div class="section-head center"><h2>Good to know.</h2></div>
-      <%- include('partials/faq') %>
+      <%- include('partials/home-faq', { hfState: S }) %>
     </div>
   </section>
 
-  <section class="cta-photo">
+  <!-- FINAL CTA (section 12) -->
+  <section class="cta-photo" id="join">
     <div class="wrap">
       <h2>Make today day one.</h2>
-      <p><%= launch.prelaunch ? (launch.launchDate ? 'Doors open ' + launch.launchDate + '. ' : '') + 'Get your roadmap on day one. Free, and yours to keep.' : 'Your plan is three minutes away. Free, and yours to keep.' %></p>
-      <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
+      <% if (S === 'A') { var cc = consentCopy('founding'); %>
+      <p><%= doorsLine %> Join the founding list and we'll tell you when they open.</p>
+      <form class="home-join" data-home-join data-flag="<%= joinFlag %>" novalidate>
+        <label class="sr-only" for="hj-email">Email</label>
+        <input class="input" id="hj-email" type="email" name="email" placeholder="Email" autocomplete="email" required>
+        <label class="check"><input type="checkbox" name="optin"> <%= cc.box %></label>
+        <p class="consent-line"><%= cc.line %></p>
+        <p class="consent-line"><%- cc.terms %></p>
+        <p class="hj-error" role="alert" hidden></p>
+        <button class="btn light big" type="submit">Join the founding list <span class="arrow"></span></button>
+      </form>
+      <div class="home-joined" data-home-joined hidden tabindex="-1">
+        <p class="hj-lead"><b>You're on the founding list.</b> Check your email and tap Confirm.</p>
+        <p><%= doorsLine %><%= closesAt ? ' Founding price ends ' + closesAt + '.' : '' %></p>
+        <% if (L.launchAt) { %><a href="/founding/doors-open.ics" class="btn ghost"<%- tk('home_calendar_add') %>>Add doors open to my calendar</a><% } %>
+        <div class="hj-ref">
+          <p><b>Bring <%= refN %>, get a month.</b> When <%= refN %> friends confirm with your link, your first month of Builder is free. Your link keeps counting until <%= L.closesDate || 'the founding close' %>, and if you've already paid, you get a <%= L.foundingPrice ? '$' + L.foundingPrice : 'one-month' %> credit instead.</p>
+          <div class="share-link"><code data-ref-link></code><button type="button" class="btn sm" data-ref-copy data-track="home_ref_copy">Copy link</button></div>
+        </div>
+      </div>
+      <a href="/score" class="cta-alt"<%- tk('home_final_secondary') %>>Take the 90-second Founder Score</a>
+      <% } else if (S === 'B') { %>
+      <p class="three-lines"><% bLines.forEach(function (l) { %><span><%= l %></span><% }) %></p>
+      <div class="cta-row">
+        <a href="/start" class="btn light big"<%- tk('home_final_primary') %>>Get my roadmap <span class="arrow"></span></a>
+        <a href="/founding/lock" class="cta-alt"<%- tk('home_final_secondary') %>>Lock <%= PM %></a>
+      </div>
+      <p class="cta-under">$0 to start. No card.</p>
+      <p class="consent-line cta-small">The 14 days cover your first paid Builder charge. One email refunds it in full. Cancel online anytime from Billing. No call or email needed.</p>
+      <p class="consent-line cta-small">If checkout breaks on our side before the close, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p>
+      <% } else { %>
+      <p>$0 to start. The free plan is free, and Builder is $29 a month when you want all 4 weeks.</p>
+      <div class="cta-row">
+        <a href="/start" class="btn light big"<%- tk('home_final_primary') %>>Start free <span class="arrow"></span></a>
+        <a href="/score" class="cta-alt"<%- tk('home_final_secondary') %>>Take the 90-second Founder Score</a>
+      </div>
+      <% } %>
     </div>
   </section>
 </main>
 <script type="importmap">{ "imports": { "three": "/js/vendor/three.module.min.js" } }</script>
 <script type="module">
-// Start the 3D mark after the page has painted and loaded, so it never delays the first view.
-const go = () => import('/js/hero3d.js');
+// Hero mark. Desktop: the live 3D mark starts after the page has loaded, over its poster.
+// Phones (unless HERO_MOBILE=3d), reduced motion and low-power devices: no WebGL. Phones and low-power get the
+// pre-rendered loop; reduced motion keeps the still poster.
+const mm = (q) => matchMedia(q).matches;
+const still = mm('(prefers-reduced-motion: reduce)');
+const phone = mm('(max-width: 760px)');
+const phoneLoop = <%- JSON.stringify(heroMobile !== '3d') %>; // HERO_MOBILE=loop (default) or 3d
+const c = navigator.connection || {};
+const low = !!c.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+const box = document.querySelector('.hx-mark');
+function loop() {
+  const name = phone ? 'hero-loop-mobile' : 'hero-loop-16x9';
+  const v = document.createElement('video');
+  Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: true, className: 'hx-loop' });
+  v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+  v.poster = '/img/' + name + '-poster.jpg';
+  v.innerHTML = '<source src="/video/' + name + '.webm" type="video/webm"><source src="/video/' + name + '.mp4" type="video/mp4">';
+  v.addEventListener('playing', () => box.classList.add('is-playing'), { once: true });
+  box.appendChild(v);
+  const p = v.play(); if (p && p.catch) p.catch(() => {});
+}
+const go = () => (still ? null : ((phone && phoneLoop) || low) ? loop() : import('/js/hero3d.js'));
 const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 1500 }) : setTimeout(go, 200));
 document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
 </script>
 <script>
 (function () {
+  // Below-the-fold photo backgrounds and the Finovate stage loop load only when they get near the screen.
   var els = document.querySelectorAll('.verse-block, .cta-photo');
-  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); return; }
+  var vids = document.querySelectorAll('video.lazy-loop');
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var save = navigator.connection && navigator.connection.saveData;
+  function startVid(v) { if (still || save || v.src) return; v.src = v.getAttribute('data-src'); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); vids.forEach(startVid); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('bg-in'); io.unobserve(e.target); } }); }, { rootMargin: '800px 0px' });
   els.forEach(function (e) { io.observe(e); });
+  var vo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { startVid(e.target); vo.unobserve(e.target); } }); }, { rootMargin: '300px 0px' });
+  vids.forEach(function (v) { vo.observe(v); });
+
+  // FAQ opens (home_faq_open, prop q).
+  document.querySelectorAll('.home-faq details').forEach(function (d) {
+    d.addEventListener('toggle', function () { if (d.open && window.plausible) window.plausible('home_faq_open', { props: { q: d.getAttribute('data-q') } }); });
+  });
+
+  // State A: inline founding-list form (posts to /api/waitlist with source "home").
+  var f = document.querySelector('[data-home-join]');
+  if (!f) return;
+  var done = document.querySelector('[data-home-joined]');
+  var err = f.querySelector('.hj-error');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = f.email.value.trim(), box = f.optin.checked, btn = f.querySelector('button');
+    err.hidden = true;
+    if (!email || !f.email.checkValidity()) { err.textContent = 'Enter a valid email.'; err.hidden = false; f.email.focus(); return; }
+    btn.disabled = true;
+    var body = { email: email, optin: box, source: 'home' };
+    try { var u = JSON.parse(localStorage.getItem('127-utm') || 'null'); if (u) ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { if (u[k]) body[k] = u[k]; }); } catch (x) {}
+    fetch('/api/waitlist', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (r) {
+        btn.disabled = false;
+        if (!r.ok || !r.j.ok) { err.textContent = r.j.error || 'Something went wrong. Try again.'; err.hidden = false; return; }
+        if (window.plausible) window.plausible('home_waitlist_submit', { props: { flag: f.getAttribute('data-flag'), box: box } });
+        done.querySelector('[data-ref-link]').textContent = r.j.referral_link || '';
+        f.hidden = true; done.hidden = false; done.focus();
+      })
+      .catch(function () { btn.disabled = false; err.textContent = 'Something went wrong. Try again.'; err.hidden = false; });
+  });
+  var copy = done.querySelector('[data-ref-copy]');
+  copy.addEventListener('click', function () {
+    var t = done.querySelector('[data-ref-link]').textContent;
+    var ok = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy link'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, function () {}); else ok();
+  });
 })();
 </script>
 <script src="/js/home.js" defer></script>

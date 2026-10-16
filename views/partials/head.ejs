@@ -1,5 +1,6 @@
 <%- include('doc-start') %>
 <body>
+<% if (typeof hbState !== 'undefined' && hbState) { %><%- include('home-bar') %><% } %>
 <header class="nav" id="nav">
   <div class="wrap">
     <a href="/" class="mark" aria-label="127 home"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>

@@ -18,7 +18,6 @@ const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
 const utmLib = require('./lib/utm');
-const adConsent = require('./lib/ad-consent');
 const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
@@ -151,8 +150,6 @@ app.use((req, res, next) => {
   res.locals.trackEvents = req.session.track || [];
   req.session.track = null;
   if (res.locals.checkoutCancelled) res.locals.trackEvents.push({ name: 'Checkout Cancelled', props: null });
-  // Ad pixels wait for consent: the config and public/js/consent.js go in every page head (partials/doc-start.ejs).
-  res.locals.adConsentScript = adConsent.configScript(req);
   // Keep the first ad and referral source a visitor arrives with (30-day session) for the waitlist and signup records.
   // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
   const utm = utmLib.present(req.query);
@@ -266,7 +263,9 @@ function homeVideo() {
   if (!fs.existsSync(f)) return null;
   return { src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo() }));
+// hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
+// heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop' }));
 // Pricing meta description by launch state (conversion/pages/pricing.md).
 function pricingDescription() {
   const v = launch.view();

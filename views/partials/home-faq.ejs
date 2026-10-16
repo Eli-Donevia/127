@@ -1,0 +1,13 @@
+<%# Homepage FAQ, word for word from conversion/offer.md section 7 (conversion/pages/homepage.md section 11). The 6th changes by state. %>
+<div class="faq home-faq">
+  <details data-q="chatgpt"><summary>Why not just use ChatGPT?</summary><p>ChatGPT doesn't know your roadmap. Eli's Playbook works from your assessment, your 30-day roadmap, and Eli's playbooks and calculators, so its answers fit where you are this week. And there's a real founder behind it.</p></details>
+  <details data-q="money"><summary>I don't have money.</summary><p>Good news: your first business can cost $0. The free plan is free, and this week's moves (pick one idea, talk to people who have the problem) cost nothing.</p></details>
+  <details data-q="income"><summary>Will I make money?</summary><p>We can't promise that, and anyone who does is selling you something. 127 gives you the plan and the tools. The work is yours. <a class="link" href="/earnings-disclaimer">Earnings disclaimer</a></p></details>
+  <details data-q="cancel"><summary>Can I cancel?</summary><p>Yes. Cancel online anytime from Billing. No call or email needed. You keep access to the end of the month you paid for.</p></details>
+  <details data-q="faith"><summary>Is this religious?</summary><p>127 is named for Psalm 127, and faith is Eli's foundation. It's offered, never required. Everyone who wants to build with purpose is welcome.</p></details>
+  <% if (hfState === 'C') { %>
+  <details data-q="start"><summary>I don't know where to start.</summary><p>That's what the 3-minute assessment is for. You'll leave with week 1 and a first step you can do today.</p></details>
+  <% } else { %>
+  <details data-q="bf"><summary>Is there a Black Friday sale?</summary><p>No. The founding price is the deal.</p></details>
+  <% } %>
+</div>

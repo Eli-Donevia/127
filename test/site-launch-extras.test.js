@@ -127,11 +127,13 @@ test('the consent config never loads a pixel itself and the footer carries the e
     assert.ok(!/fbevents|fbq\(/.test(s));
     assert.match(adConsent.configScript({ user: { id: 'u' } }), /"loggedIn":true/);
   });
-  const f = adConsent.legalFooter();
+  const ejs = require('ejs');
+  const file = require('path').join(__dirname, '..', 'views', 'partials', 'legal-footer.ejs');
+  const f = ejs.render(require('fs').readFileSync(file, 'utf8'), {}, { filename: file });
   assert.match(f, /127 is education and tools, not a promise of income\. Results vary\. <a href="\/earnings-disclaimer">Earnings disclaimer<\/a>/);
   assert.match(f, /<a href="\/cookies" data-cookie-settings>Cookie settings<\/a>/);
   assert.ok(!/Privacy/.test(f));
-  assert.match(adConsent.legalFooter({ privacyTerms: true }), /href="\/privacy">Privacy<\/a> · <a href="\/terms">Terms/);
+  assert.match(ejs.render(require('fs').readFileSync(file, 'utf8'), { privacyTerms: true }, { filename: file }), /href="\/privacy">Privacy<\/a> · <a href="\/terms">Terms/);
 });
 
 test('demo member: obviously fake, week 1 done, no money milestones, flagged out of revenue and ad counts', () => {
