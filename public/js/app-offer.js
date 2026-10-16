@@ -84,7 +84,11 @@
     var phone = window.matchMedia('(max-width: 760px)');
     new IntersectionObserver(function (entries) {
       var e = entries[0];
-      fb.classList.toggle('is-floating', phone.matches && !e.isIntersecting && e.boundingClientRect.top < 0);
+      var floating = phone.matches && !e.isIntersecting && e.boundingClientRect.top < 0;
+      var head = document.querySelector('.mobile-top');
+      var strip = fb.querySelector('.fb-strip');
+      if (strip) strip.style.top = floating && head ? head.offsetHeight + 'px' : '';
+      fb.classList.toggle('is-floating', floating);
     }).observe(bar);
   }
 })();
