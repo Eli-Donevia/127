@@ -149,7 +149,8 @@ window.RESULTS = {
     heading: 'Who built this.',
     name: 'Eli Christiansen, founder of 127.',
     points: [
-      '2x founder (e-commerce and technology)',
+      '4x founder',
+      'AI, software & e-commerce founder',
       'First business: sneaker reselling, $2,000 in, $3,000 out, before college',
       '25M+ views across social',
     ],
