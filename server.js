@@ -29,6 +29,7 @@ const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
 const hq = require('./lib/hq');
 const hqRoutes = require('./lib/hq-routes');
+const hqHarness = require('./lib/hq-harness');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -59,6 +60,8 @@ app.post('/billing/webhook', express.raw({ type: 'application/json' }), billing.
 // 127 HQ inbound (lib/hq-routes.js): a member's 127 link and their Shopify order webhooks. Raw body for
 // Shopify's signature, and ahead of the session so it never reads or sets a cookie. 404 while HQ_LIVE is off.
 app.all('/hq/in/:token', hqRoutes.inbound);
+// 127 inside Claude and ChatGPT (lib/hq-harness.js): the member's AI link. 404 unless HQ_HARNESS=true.
+app.all('/hq/ai/:token', hqRoutes.ai);
 
 app.use(express.urlencoded({ extended: true, limit: '200kb' }));
 // Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
@@ -2036,6 +2039,7 @@ db.init().then(async () => {
     ageCheck.purgeOld().catch((err) => console.error('[age-check] purge', err.message));
     // 127 HQ: each connected Stripe account's last 12 weeks, refreshed once a day.
     hq.tick().catch((err) => console.error('[hq] tick', err.message));
+    hqHarness.tick().catch((err) => console.error('[hq] check-in', err.message));
   }, 5 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();

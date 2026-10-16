@@ -16,7 +16,7 @@
 <% if (typeof hqStats !== 'undefined' && hqStats) { var hqPct = hqStats.members ? Math.round(hqStats.streak3 / hqStats.members * 100) : 0; %>
 <div class="card" id="hq" style="margin-bottom:16px">
   <div class="card-title"><h3>HQ</h3><span class="small muted">Phase 2 gate: 30% of Builders log 3 weeks in a row</span></div>
-  <p class="small" style="margin:0"><%= hqStats.members %> can use HQ · <%= hqStats.saved14 %> saved a week in the last 14 days · <b style="font-weight:600"><%= hqStats.streak3 %> (<%= hqPct %>%)</b> logged each of the last 3 weeks · connected: Stripe <%= hqStats.stripe %>, Shopify <%= hqStats.shopify %>, 127 link <%= hqStats.link %></p>
+  <p class="small" style="margin:0"><%= hqStats.members %> can use HQ · <%= hqStats.saved14 %> saved a week in the last 14 days · <b style="font-weight:600"><%= hqStats.streak3 %> (<%= hqPct %>%)</b> logged each of the last 3 weeks · connected: Stripe <%= hqStats.stripe %>, Shopify <%= hqStats.shopify %>, 127 link <%= hqStats.link %><% if (hqStats.ai || hqStats.checkin) { %>, AI link <%= hqStats.ai %> · Monday check-in on: <%= hqStats.checkin %><% } %></p>
 </div>
 <% } %>
 

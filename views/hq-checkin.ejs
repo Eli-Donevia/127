@@ -1,0 +1,54 @@
+<%- include('partials/doc-start', { noindex: true }) %>
+<%# The Monday check-in (lib/hq-harness.js): one week's numbers with no login. The link in the email
+    is the key, for that week only, for 15 days. %>
+<body class="bare">
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a></div>
+  <main class="auth-card fade-in hq hq-checkin">
+    <div class="eyebrow">HQ · Monday check-in</div>
+    <% if (!p) { %>
+      <h1 style="margin-top:12px"><%= expired ? 'This link has expired.' : "This link doesn't work." %></h1>
+      <p class="muted">Log the week in HQ instead.</p>
+      <a class="btn block" href="/app/hq">Open HQ</a>
+    <% } else if (stopped) { %>
+      <h1 style="margin-top:12px">Monday check-ins are off.</h1>
+      <p class="muted">Turn them back on any time in HQ.</p>
+      <a class="btn block" href="/app/hq">Open HQ</a>
+    <% } else { %>
+      <h1 style="margin-top:12px"><%= done ? 'Saved. Nice work' + (name ? ', ' + name : '') + '.' : (name ? name + ', how' : 'How') + ' did the week go?' %></h1>
+      <p class="muted" style="margin:0 0 16px">Week of <%= p.range %>. <%= p.north.label %> so far: <b style="color:var(--paper)"><%= p.north.value %></b>.</p>
+      <% if (done && typeof bad !== 'undefined' && bad.length) { %><p class="hq-small" style="color:var(--danger)">Saved, except <%= bad.join(', ') %>. Use a number, like 12 or 49.50.</p><% } %>
+      <% if (done && !p.analysis.empty) { %>
+        <div class="hq-card hq-leak" style="margin-bottom:16px">
+          <span class="eyebrow">Where it leaks</span>
+          <p class="hint" style="margin-top:8px"><%= p.analysis.weakLine %></p>
+          <% if (p.analysis.verdict) { %><p class="read"><%= p.analysis.verdict %></p><% } %>
+        </div>
+      <% } %>
+      <form method="post" action="/hq/week/<%= token %>">
+        <div class="hq-log">
+          <% p.fields.forEach(function (f) { %>
+          <div class="hq-f">
+            <label for="f-<%= f.id %>"><%= f.label %><%= f.money ? ' (' + (p.currency === 'USD' ? '$' : p.currency) + ')' : '' %><%= f.total ? ', total' : '' %></label>
+            <input class="hq-in" id="f-<%= f.id %>" name="v_<%= f.id %>" inputmode="decimal" autocomplete="off" value="<%= f.value %>">
+            <% f.auto.forEach(function (x) { %><span class="hq-fed"><%= x.text %> from <%= x.source === '127 link' ? 'your 127 link' : x.source %></span><% }) %>
+          </div>
+          <% }) %>
+        </div>
+        <fieldset class="hq-calls" style="margin-top:16px"><legend class="eyebrow" style="display:block;margin-bottom:8px">Your call for the week</legend>
+          <% Object.keys(p.CALLS).forEach(function (k) { %><label><input type="radio" name="call" value="<%= k %>"<%= p.call === k ? ' checked' : '' %>><span><%= p.CALLS[k] %></span></label><% }) %>
+        </fieldset>
+        <div class="hq-f" style="margin-top:12px"><label for="hq-note">Why, and what you'll do next</label><textarea class="hq-in" id="hq-note" name="note" rows="2" maxlength="200"><%= p.note %></textarea></div>
+        <button class="btn block" style="margin-top:16px">Save week</button>
+      </form>
+      <p class="hq-small" style="text-align:center;margin-top:14px"><a href="/app/hq?w=<%= p.key %>">See everything in HQ</a></p>
+      <% if (on) { %>
+      <form method="post" action="/hq/week/<%= token %>" id="stop" style="text-align:center;margin-top:18px">
+        <input type="hidden" name="stop" value="1">
+        <button class="hq-link-btn">Stop Monday check-ins</button>
+      </form>
+      <% } %>
+    <% } %>
+    <%- include('partials/legal-footer', { privacyTerms: true }) %>
+  </main>
+</body>
+</html>

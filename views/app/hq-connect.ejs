@@ -14,6 +14,27 @@
   <% if (ageReview) { %><p class="hq-foot" style="margin-bottom:16px">Connections are paused while we take a look at your account.</p><% } %>
 
   <div class="hq-cards">
+    <% if (harness) { %>
+    <section class="hq-card hq-aicard" id="ai" aria-labelledby="hq-aih">
+      <div class="hq-cname"><span class="hq-ico"><%- HI.ai %></span><h2 id="hq-aih">127 in Claude and ChatGPT</h2>
+        <% if (c.ai) { %><span class="hq-live">Live</span><% } else { %><span class="hq-off">Not set up</span><% } %></div>
+      <p class="hq-small">Add 127 to the AI you already use. Ask it "What should I do this week?" or "How did my week go?" and it answers from your roadmap, your numbers and Eli's playbooks. Tell it "I made 3 sales today" and it logs them here. No keys, no code.</p>
+      <% if (!c.ai) { %>
+        <form method="post" action="/app/hq/ai" style="margin-top:14px"><button class="hq-btn halo"<%= ageReview ? ' disabled' : '' %>>Make my AI link</button></form>
+        <p class="hq-small">By making a link, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a>. Any AI app you add it to can read your 127 profile, roadmap, HQ numbers and notes and your plan's playbooks, and log numbers you tell it. The company behind that app handles them under its own terms and your settings there, including whether it trains on your chats. It never gets your email or payment details. <a href="/privacy#7a-hq-and-connected-accounts">What's shared</a></p>
+      <% } else { %>
+        <div class="hq-linkbox"><span><%= c.ai.url.replace(/^https?:\/\//, '').replace(/[A-Za-z0-9_-]{39}([A-Za-z0-9_-]{4})$/, '••••$1') %></span><button type="button" class="hq-btn" data-copy-value="<%= c.ai.url %>" aria-label="Copy your AI link"><%- HI.copy %>Copy</button></div>
+        <p class="hq-small">Keep it private, like a password. Anyone with it can read your 127 profile and numbers and log numbers.</p>
+        <div class="hq-recipes">
+          <details open><summary>Claude</summary><ol><% harness.steps.claude.forEach(function (s) { %><li><%= s %></li><% }) %></ol></details>
+          <details><summary>ChatGPT</summary><ol><% harness.steps.chatgpt.forEach(function (s) { %><li><%= s %></li><% }) %></ol></details>
+        </div>
+        <p class="hq-small"><%= c.ai.last ? 'Last used ' + c.ai.last + (c.ai.client ? ', from ' + c.ai.client : '') + '.' : 'Not used yet.' %></p>
+        <form method="post" action="/app/hq/ai" data-confirm="Make a new AI link? The old one stops working right away, so add the new one in Claude or ChatGPT." style="margin-top:6px"><button class="hq-btn"<%= ageReview ? ' disabled' : '' %>>Make a new link</button></form>
+        <form method="post" action="/app/hq/disconnect/ai" data-confirm="Turn off your AI link? Claude and ChatGPT can't reach 127 after this. What they already read stays in those chats."><button class="hq-link-btn ember">Turn off the link</button></form>
+      <% } %>
+    </section>
+    <% } %>
     <section class="hq-card" id="shopify" aria-labelledby="hq-shop">
       <div class="hq-cname"><span class="hq-ico"><%- HI.bag %></span><h2 id="hq-shop">Shopify</h2>
         <% if (c.shopify) { %><span class="<%= c.shopify.status === 'ok' ? 'hq-live' : 'hq-off' %>"><%= c.shopify.status === 'ok' ? 'Live' : 'Waiting for an order' %></span><% } else { %><span class="hq-off">Not connected</span><% } %></div>

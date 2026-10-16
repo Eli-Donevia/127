@@ -35,6 +35,7 @@ Copy these in. Names must match exactly.
 | `JOIN_IS_LAUNCH_CONSENT` | `false` (your tick-box rule). Set `true` only if you pick "Yes, ship it" on the email consent card. |
 | `HQ_SECRET` | Another random 64 characters (same Shell command as `SESSION_SECRET`, run again). Set it once and never change it: it locks members' Stripe and Shopify keys in HQ. |
 | `HQ_LIVE` | `false` until HQ opens to members (planned Tue Dec 1), then `true`. |
+| `HQ_HARNESS` | `false` until Eli turns on HQ's December update (screenshots, the Monday check-in and 127 in Claude and ChatGPT), then `true`. Needs `HQ_LIVE` and `HQ_SECRET`. |
 
 **Email that must reach people** (confirm your email, password reset): add `RESEND_API_KEY` and `EMAIL_FROM` (`127 <hello@127group.io>`) from a free resend.com account once its DNS records for 127group.io are in. Until then those emails only show in the logs, so you can't sign in as admin on the deployed site.
 

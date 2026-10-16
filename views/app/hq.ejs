@@ -87,6 +87,30 @@
         <% } %>
       </section>
 
+      <% if (hz) { %>
+      <section class="hq-card hq-fill" id="fill" aria-labelledby="hq-fillh">
+        <div class="hq-lab"><%- HI.ai %><span class="eyebrow" id="hq-fillh">Fill it in for me</span></div>
+        <h2>Drop in screenshots. HQ reads the numbers.</h2>
+        <p class="hq-small">Stripe, Shopify, Instagram insights, your bank app, a spreadsheet: whatever shows last week's totals. Eli's Playbook reads them and fills the week below for you to check. Uses 1 of your <%= aiLeft %> messages. 127 doesn't keep your screenshots. If you can, crop out customer names and emails first. <a href="/privacy#7a-hq-and-connected-accounts">How we handle them</a></p>
+        <div class="hq-drop" data-snap data-w="<%= p.key %>" data-max="<%= hz.max %>"<%= aiLeft <= 0 ? ' data-off' : '' %>>
+          <input type="file" id="hq-shots" accept="image/*" multiple<%= aiLeft <= 0 ? ' disabled' : '' %>>
+          <label for="hq-shots"><%- HI.plus %><b>Drop screenshots here</b><span>or tap to pick up to <%= hz.max %></span></label>
+          <p class="hq-drop-msg" role="status" aria-live="polite"><%= aiLeft <= 0 ? "You've used this month's messages. They reset on the 1st." : '' %></p>
+        </div>
+        <div class="hq-ways">
+          <form method="post" action="/app/hq/checkin" class="hq-way">
+            <input type="hidden" name="w" value="<%= p.key %>"><input type="hidden" name="on" value="<%= hz.checkin ? '0' : '1' %>">
+            <div class="n"><b>Monday check-in</b><span><%= hz.checkin ? 'On. Each Monday, an email with your numbers and a link to log the week, no login.' : 'An email each Monday with your numbers and a link to log the week, no login.' %></span></div>
+            <button class="hq-pill"><%= hz.checkin ? 'Turn off' : 'Turn on' %></button>
+          </form>
+          <div class="hq-way">
+            <div class="n"><b>Ask your AI</b><span><%= c.ai ? 'Your AI link is set. Ask Claude or ChatGPT about your week, or tell it a number to log.' : 'Add 127 to Claude or ChatGPT, then ask "How did my week go?"' %></span></div>
+            <a class="hq-pill" href="/app/hq/connect#ai"><%= c.ai ? 'Manage' : 'Set up' %></a>
+          </div>
+        </div>
+      </section>
+      <% } %>
+
       <form method="post" action="/app/hq/week" class="hq-col" id="log">
         <input type="hidden" name="w" value="<%= p.key %>">
         <section class="hq-card" aria-labelledby="hq-callh">
@@ -99,17 +123,26 @@
         </section>
         <section class="hq-card" aria-labelledby="hq-logh">
           <span class="eyebrow" id="hq-logh"><%= p.isCurrent ? 'Log this week' : 'Log the week of ' + p.label %></span>
+          <% var snap = hz && hz.snap; if (snap) { %>
+          <div class="hq-snapped" role="status">
+            <b><%= snap.demo ? 'Demo mode: nothing was read.' : Object.keys(snap.values).length ? 'Check these, then press Save week.' : 'No numbers found in that screenshot.' %></b>
+            <span><%= Object.keys(snap.values).length ? 'Read from your screenshot' + (snap.source ? ' of ' + snap.source : '') + '. Nothing counts until you save.' : 'Try one that shows totals, like a dashboard or a report.' %></span>
+            <% snap.notes.forEach(function (n) { %><span class="note"><%= n %></span><% }) %>
+          </div>
+          <% } %>
           <p class="hq-small" style="margin-top:8px"><%= feeds.length ? "Type only what your tools don't count. " + feeds.join(' ') : "Type your numbers for the week. Leave a box blank if you don't track it." %></p>
           <div class="hq-log">
-            <% p.fields.forEach(function (f) { %>
-            <div class="hq-f">
+            <% p.fields.forEach(function (f) { var sv = snap && snap.values[f.id] !== undefined ? String(snap.values[f.id]) : null; %>
+            <div class="hq-f<%= sv !== null ? ' snapped' : '' %>">
               <label for="f-<%= f.id %>"><%= f.label %><%= f.money ? ' (' + cur + ')' : '' %><%= f.total ? ', total' : '' %></label>
-              <input class="hq-in" id="f-<%= f.id %>" name="v_<%= f.id %>" inputmode="decimal" autocomplete="off" value="<%= f.value %>">
+              <input class="hq-in" id="f-<%= f.id %>" name="v_<%= f.id %>" inputmode="decimal" autocomplete="off" value="<%= sv !== null ? sv : f.value %>">
+              <% if (sv !== null) { %><span class="hq-fed">From your screenshot<%= f.value !== '' && f.value !== sv ? ', was ' + f.value : '' %></span><% } %>
               <% f.auto.forEach(function (x) { %><span class="hq-fed"><%= x.text %> from <%= x.source === '127 link' ? 'your 127 link' : x.source %></span><% }) %>
             </div>
             <% }) %>
           </div>
           <button class="hq-btn halo" style="margin-top:18px">Save week</button>
+          <% if (snap) { %><button class="hq-btn" style="margin-top:8px;width:100%;border:0" formaction="/app/hq/snap/clear" formnovalidate>Clear the screenshot numbers</button><% } %>
           <% if (p.savedAt) { %><p class="hq-small" style="text-align:center">Last saved <%= fmtDate(p.savedAt) %></p><% } %>
         </section>
       </form>

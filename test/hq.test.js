@@ -726,7 +726,7 @@ test('admin numbers: who can use HQ, who logged 3 weeks in a row, and connection
   hq.saveWeek(b, '2026-12-07', { v_posts: '3' });
   await hq.makeLink(b);
   const st = hq.stats();
-  assert.deepEqual(st, { members: 2, saved14: 2, streak3: 1, stripe: 0, shopify: 0, link: 1 });
+  assert.deepEqual(st, { members: 2, saved14: 2, streak3: 1, stripe: 0, shopify: 0, link: 1, ai: 0, checkin: 0 });
 });
 
 test('account deletion removes HQ connections (server.js deleteAccount)', () => {
