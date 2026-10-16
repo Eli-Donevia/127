@@ -40,7 +40,10 @@ Optional later: `META_PIXEL_ID`, `TIKTOK_PIXEL_ID`, `META_CAPI_TOKEN`, `PLAUSIBL
 ## 4. Deploy
 **Deploy → Reserved VM** (one always-on machine, smallest size is fine). When it's live, copy the URL.
 
-## 5. Send me the URL
+## 5. One quick check
+Open `/admin` on the deployed site from your phone on cellular, then from a laptop on Wi-Fi. The top line shows "Your IP as the server sees it". If both show the same address, add the Secret `TRUST_PROXY` = `2` and redeploy. Otherwise the sign-up and waitlist limits apply to everyone at once.
+
+## 6. Send me the URL
 Paste the `https://….replit.app` URL in the Website thread. I then:
 - create the Stripe webhook for it and give you `STRIPE_WEBHOOK_SECRET` to add in Secrets (redeploy after),
 - run a test purchase with card 4242 4242 4242 4242 and check the member unlocks,
