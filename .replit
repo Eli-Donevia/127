@@ -5,10 +5,14 @@ entrypoint = "server.js"
 [nix]
 channel = "stable-24_05"
 
+# Replit's preview and deployments expect the app on 5000 (the server reads PORT; it falls back to 3000 locally).
+[env]
+PORT = "5000"
+
 [deployment]
 run = ["npm", "start"]
 deploymentTarget = "gce"
 
 [[ports]]
-localPort = 3000
+localPort = 5000
 externalPort = 80
