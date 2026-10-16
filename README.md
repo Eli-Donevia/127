@@ -55,6 +55,7 @@ The admin page shows which integrations are connected.
 
 - `content/onboarding.json`: the member onboarding questionnaire (questions, options, order). A readable copy lives in the project as a Claude Doc.
 - `content/resources.json`: the library (18 playbooks, worksheets and calculators drafted from your frameworks). Set `"reviewed": true` on an item once you've approved it.
+- `content/templates/`: the templates library (manifest plus the sheet, doc, checklist and recipe files) from the Templates thread. Re-sync with `node scripts/sync-templates.js [path/to/product/templates]` when the manifest version changes; it copies only the files the manifest lists and checks each sha256. Files are served only through `GET /app/templates/:slug/:file` (Builder files need Builder; previews are open to every member), never from `public/`.
 - `lib/plans.js`: plan names, prices, features and AI run limits.
 - `views/home.ejs`: landing page copy, including the founder note (marked as draft).
 

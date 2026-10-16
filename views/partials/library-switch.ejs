@@ -1,0 +1,5 @@
+<%# Playbooks / Templates switch at the top of the Library. %>
+<nav class="lib-switch" aria-label="Library sections">
+  <a href="/app/library" class="<%= section === 'playbooks' ? 'on' : '' %>" <%- section === 'playbooks' ? 'aria-current="page"' : '' %>>Playbooks</a>
+  <a href="/app/templates" class="<%= section === 'templates' ? 'on' : '' %>" <%- section === 'templates' ? 'aria-current="page"' : '' %>>Templates<span class="n"><%= tplCount %></span></a>
+</nav>

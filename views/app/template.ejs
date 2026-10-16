@@ -1,0 +1,132 @@
+<%- include('../partials/app-head') %>
+<% var main = t.formats[0]; var others = t.formats.slice(1); function ext(f){ return f.file.split('.').pop().toUpperCase(); } function base(f){ return f.file.split('/').pop(); } %>
+<div class="tpl-page">
+  <a href="/app/templates" class="small link">← Templates</a>
+  <div class="eyebrow" style="margin-top:24px"><%= TRACKS[t.track] %> track · <%= KINDS[t.kind] %> · <%= t.minutes %> min</div>
+  <h1 class="tpl-h1"><%= t.title %></h1>
+  <p class="lede tpl-lede"><%= t.summary %></p>
+  <div class="chips tpl-chips">
+    <% if (locked) { %><span class="chip">Builder</span><% } else if (t.tier === 'free') { %><span class="chip line">Free</span><% } else { %><span class="chip line">Builder</span><% } %>
+    <% if (inRoadmap) { %><span class="chip win">In your roadmap</span><% } %>
+    <% if (!t.reviewedByEli) { %><span class="chip line">New</span><% } %>
+    <% if (showDrafts && !t.reviewedByEli) { %><span class="draft-flag">Awaiting Eli's review</span><% } %>
+  </div>
+
+  <div class="tpl-layout">
+    <aside class="tpl-aside">
+      <div class="tpl-frame <%= t.previewFile ? '' : 'empty' %>">
+        <% if (t.previewFile) { %><img src="/app/templates/<%= t.slug %>/<%= t.previewFile %>" alt="First page of the <%= t.title %>" decoding="async"><% } else { %><div class="tpl-ph"><span class="eyebrow"><%= KINDS[t.kind] %></span><strong><%= t.title %></strong></div><% } %>
+      </div>
+
+      <% if (locked) { %>
+      <div class="paywall tpl-paywall" id="unlock">
+        <div class="eyebrow">Builder</div>
+        <h3>Unlock this <%= KINDS[t.kind].toLowerCase() %></h3>
+        <p>Download the <%= t.formats.map(ext).filter(function(e, i, a){ return a.indexOf(e) === i; }).join(', ') %> files<%= t.checklistIds.size ? ', check it off here' : '' %> and get it checked by Eli's Playbook. Plus every template, playbook and AI tool. <%= builderOffer.founding ? '$' + builderOffer.price + ' a month, locked while you stay, until ' + builderOffer.closesDate + '. 14 days to change your mind.' : '$' + builderOffer.regular + ' a month, cancel anytime.' %></p>
+        <form method="post" action="/app/billing/checkout/builder" data-upgrade="template" data-price="<%= builderOffer.price %>"><button class="btn light block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form>
+        <%- include('../partials/renewal-line') %>
+      </div>
+      <% } else { %>
+      <div class="card tpl-dl" id="download">
+        <div class="eyebrow">Download</div>
+        <a class="btn light block" href="/app/templates/<%= t.slug %>/<%= base(main) %>" download>Download <%= ext(main) %> <span class="arrow"></span></a>
+        <div class="tiny muted tpl-dl-label"><%= main.label %> · <%= tpl.fmtBytes(main.bytes) %></div>
+        <% if (others.length) { %>
+        <ul class="tpl-files">
+          <% others.forEach(function(f){ %>
+          <li><a href="/app/templates/<%= t.slug %>/<%= base(f) %>" download><span class="tpl-ext mono"><%= ext(f) %></span><span class="tpl-flabel"><%= f.label %></span><span class="tiny muted mono"><%= tpl.fmtBytes(f.bytes) %></span></a></li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+      <% } %>
+    </aside>
+
+    <div class="tpl-body doc">
+      <div class="tpl-facts">
+        <div class="output-box"><div class="eyebrow" style="color:var(--accent-ink)">You walk away with</div><div class="tpl-fact"><%= t.output %></div></div>
+        <div class="tpl-when"><div class="eyebrow">Use it when</div><div class="tpl-fact"><%= t.useWhen %></div></div>
+      </div>
+
+      <% if (t.howTo && t.howTo.length) { %>
+      <h3>How to use it</h3>
+      <ol><% t.howTo.forEach(function(x){ %><li><%= x %></li><% }) %></ol>
+      <% } %>
+
+      <% if (t.checklist && t.checklist.length) { %>
+      <div class="tpl-check <%= locked ? 'locked' : '' %>" id="checklist" data-slug="<%= t.slug %>">
+        <div class="card-title" style="margin:40px 0 6px">
+          <h3 style="margin:0">Checklist</h3>
+          <% if (!locked) { %><span class="tiny muted mono" data-cl-count><%= progress.done %>/<%= progress.total %></span><% } %>
+        </div>
+        <% if (!locked) { %>
+        <p class="small muted" style="margin:0 0 10px">Tick items off here. Your progress saves to your account.</p>
+        <div class="bar accent" style="margin-bottom:8px"><span data-cl-bar style="width:<%= progress.pct %>%"></span></div>
+        <% } %>
+        <% t.checklist.forEach(function(g){ var due = tpl.dueLabel(g.due); %>
+        <div class="cl-group" id="g-<%= g.key %>">
+          <div class="cl-head"><h4><%= g.title %></h4><% if (due) { %><span class="tiny muted mono">DO BY <%= due.toUpperCase() %></span><% } else if (locked) { %><span class="tiny muted mono"><%= g.items.length %> ITEMS</span><% } %></div>
+          <% if (!locked) { g.items.forEach(function(it){ var on = !!checks[it.id]; %>
+          <form method="post" action="/app/templates/<%= t.slug %>/check" class="cl-item" id="<%= it.id %>">
+            <input type="hidden" name="item" value="<%= it.id %>">
+            <button class="tick <%= on ? 'on' : '' %>" aria-pressed="<%= on %>" aria-label="<%= on ? 'Mark not done' : 'Mark done' %>: <%= it.text %>"></button>
+            <span class="<%= on ? 'done-text' : '' %>"><%= it.text %></span>
+          </form>
+          <% }) } %>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+
+      <% if (t.workflow) { var w = t.workflow; %>
+      <h3>The recipe</h3>
+      <dl class="tpl-wf">
+        <div><dt>When</dt><dd><%= w.trigger %></dd></div>
+        <div><dt>Result</dt><dd><%= w.result %></dd></div>
+        <div><dt>Tools</dt><dd><%= (w.tools || []).join(', ') %></dd></div>
+        <div><dt>Cost</dt><dd><%= w.cost %></dd></div>
+        <div><dt>Setup</dt><dd><%= w.setupMinutes %> minutes</dd></div>
+        <% if (w.lastChecked) { %><div><dt>Last checked</dt><dd><%= w.lastChecked %></dd></div><% } %>
+      </dl>
+      <% } %>
+
+      <% if (t.tabs && t.tabs.length) { %>
+      <h3>Inside the sheet</h3>
+      <div class="chips"><% t.tabs.forEach(function(x){ %><span class="chip line"><%= x %></span><% }) %></div>
+      <% } else if (t.outline && t.outline.length && !(t.checklist && t.checklist.length)) { %>
+      <h3>What's inside</h3>
+      <ul class="bul"><% t.outline.forEach(function(x){ %><li><%= x %></li><% }) %></ul>
+      <% } %>
+
+      <% if (!locked) { %>
+      <form method="post" action="/app/templates/<%= t.slug %>/review" class="card pad-lg ws tpl-review" id="review">
+        <div class="eyebrow">Get feedback</div>
+        <h3 style="font-size:22px;margin:6px 0 6px">Paste what you filled in</h3>
+        <p class="small muted" style="margin:0 0 14px">Eli's Playbook reads it against what a strong <%= t.title %> looks like and tells you what's strong, the biggest gap and how to fix it.</p>
+        <textarea class="input" name="filled" rows="6" maxlength="12000" placeholder="Copy the filled-in parts here: your answers, rows or notes."><%= review && review.input || '' %></textarea>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px">
+          <button class="btn" <%= aiLeft <= 0 ? 'disabled' : '' %> onclick="this.innerHTML='Reading it…';this.style.opacity=.6">Get feedback</button>
+          <span class="tiny muted">Uses 1 of your <%= aiLeft %> Playbook messages.</span>
+        </div>
+        <%- include('../partials/limit-offer') %>
+      </form>
+      <% if (review && review.text) { %>
+        <h3 id="feedback">Feedback from Eli's Playbook</h3>
+        <div class="tool-out"><%= review.text %></div>
+        <div class="ai-label"><%= review.demo ? 'Demo feedback.' : 'AI feedback built on Eli’s frameworks, not Eli himself.' %> <%= review.at.slice(0,10) %></div>
+      <% } %>
+      <% } %>
+
+      <% var pairs = (t.pairsWith || []).filter(function(p){ return bySlug[p.slug]; }); if (pairs.length) { %>
+      <h3>Pairs with</h3>
+      <div class="tpl-pairs">
+        <% pairs.forEach(function(p){ var r = bySlug[p.slug]; %>
+        <a href="/app/library/<%= r.slug %>" class="tpl-pair"><span class="eyebrow"><%= r.type %></span><span><%= r.title %></span><span class="arrow"></span></a>
+        <% }) %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="/js/checklist.js"></script>
+<%- include('../partials/app-foot') %>
