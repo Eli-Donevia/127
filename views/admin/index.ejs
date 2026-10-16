@@ -13,6 +13,13 @@
 
 <%- include('../challenge/partials/admin-summary') %>
 
+<% if (typeof hqStats !== 'undefined' && hqStats) { var hqPct = hqStats.members ? Math.round(hqStats.streak3 / hqStats.members * 100) : 0; %>
+<div class="card" id="hq" style="margin-bottom:16px">
+  <div class="card-title"><h3>HQ</h3><span class="small muted">Phase 2 gate: 30% of Builders log 3 weeks in a row</span></div>
+  <p class="small" style="margin:0"><%= hqStats.members %> can use HQ · <%= hqStats.saved14 %> saved a week in the last 14 days · <b style="font-weight:600"><%= hqStats.streak3 %> (<%= hqPct %>%)</b> logged each of the last 3 weeks · connected: Stripe <%= hqStats.stripe %>, Shopify <%= hqStats.shopify %>, 127 link <%= hqStats.link %></p>
+</div>
+<% } %>
+
 <div class="card pad-lg" id="waitlist" style="margin-bottom:16px">
   <div class="card-title"><h3>Founding waitlist</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="/admin/joins.csv" class="btn ghost sm" title="Counts by day, ad and page for the ad desk. No emails.">Joins by ad (CSV)</a><a href="/admin/waitlist.csv" class="btn ghost sm">Export waitlist (CSV)</a></div></div>
   <div class="grid g-4" style="margin-bottom:18px">

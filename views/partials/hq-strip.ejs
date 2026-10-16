@@ -1,0 +1,6 @@
+<%# HQ "Where you are": the progress map as one strip (lib/hq-routes.js progressStrip). %>
+<div class="hq-card hq-strip">
+  <div class="hq-row-top"><span class="eyebrow">Where you are</span><span class="mono-s"><%= strip.done %> of <%= strip.total %> milestones</span></div>
+  <div class="hq-segs" aria-hidden="true"><% strip.segs.forEach(function (on) { %><span class="<%= on ? 'on' : '' %>"></span><% }) %></div>
+  <div class="hq-row-top"><span class="next"><%= strip.next ? 'Next: ' + strip.next : 'All ' + strip.total + ' milestones reached' %></span><a href="/app#progress">Progress map</a></div>
+</div>

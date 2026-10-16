@@ -10,9 +10,12 @@
     circle: '<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="10" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 15c3 0 6 1.5 6 4"/></svg>',
     card: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>',
     gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
-    admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
+    admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    hq: '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>'
   };
   var nav = [['/app','Dashboard',I.home],['/app/library','Library',I.lib],['/app/tools','AI tools',I.ai],['/app/wins','Wins',I.win],['/app/circle',"Founder's Circle",I.circle],['/app/billing','Membership',I.card],['/app/settings','Settings',I.gear]];
+  // 127 HQ (lib/hq.js), after Dashboard, only while HQ_LIVE=true.
+  if (typeof hqLive !== 'undefined' && hqLive) nav.splice(1, 0, ['/app/hq','HQ',I.hq]);
   if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); }
 %>
 <div class="mobile-top">
@@ -27,7 +30,7 @@
     </div>
     <nav>
       <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : n[0]==='/admin' ? path==='/admin' : path.indexOf(n[0])===0 || (n[0]==='/app/library' && path.indexOf('/app/templates')===0); %>
-        <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %></a>
+        <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %><% if (n[0]==='/app/hq' && userPlan.key==='free' && !(pauseInfo && pauseInfo.paused)) { %><span class="lock" style="color:var(--accent)">Builder</span><% } %></a>
       <% }) %>
     </nav>
     <div class="side-foot">

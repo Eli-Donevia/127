@@ -1,0 +1,201 @@
+<%- include('../partials/app-head') %>
+<%# 127 HQ for Builders (lib/hq.js page()). Order follows the HQ mockup: head and strip, North Number,
+    the week's numbers, where it leaks, the call and the log form, then your numbers, connections,
+    Read my week and setup. %>
+<% var c = p.connections; var cur = p.currency === 'USD' ? '$' : p.currency;
+   var arrow = function (d) { return d === 'up' ? HI.up : d === 'down' ? HI.down : ''; };
+   var feeds = [];
+   if (c.shopify) feeds.push('Shopify adds sales and revenue.');
+   if (c.stripe && c.stripe.status === 'ok') feeds.push('Stripe adds sales and revenue.');
+   if (c.link && c.link.calls) feeds.push('Your 127 link adds what you send it.'); %>
+<div class="hq">
+  <div class="hq-head">
+    <div>
+      <div class="hq-row-top"><span class="eyebrow">HQ · Week of <%= p.label %></span><% if (p.isCurrent) { %><span class="hq-chip">In progress</span><% } %></div>
+      <h1 class="hq-title"><span class="dim">Run it</span><span class="steel">from here.</span></h1>
+      <nav class="hq-weeks" aria-label="Choose a week">
+        <% if (p.prev) { %><a class="hq-wk" href="/app/hq?w=<%= p.prev %>" aria-label="Previous week"><%- HI.left %></a><% } else { %><span class="hq-wk" aria-disabled="true"><%- HI.left %></span><% } %>
+        <span class="mono-s"><%= p.range %> · Eastern time<% if (!p.isCurrent) { %><br><a href="/app/hq?w=<%= p.current %>">Go to this week</a><% } %></span>
+        <% if (p.next) { %><a class="hq-wk" href="/app/hq?w=<%= p.next %>" aria-label="Next week"><%- HI.right %></a><% } else { %><span class="hq-wk" aria-disabled="true"><%- HI.right %></span><% } %>
+      </nav>
+    </div>
+    <%- include('../partials/hq-strip') %>
+  </div>
+
+  <div class="hq-grid">
+    <div class="hq-col">
+      <section class="hq-card" aria-labelledby="hq-north">
+        <div class="hq-lab"><%- HI.target %><span class="eyebrow" id="hq-north">North Number · <%= p.north.label %></span></div>
+        <div class="hq-big">
+          <span class="v"><%= p.north.value %></span>
+          <% var nc = p.north.change; if (nc.text === 'new') { %><span class="hq-up">New this week</span>
+          <% } else if (nc.text !== '–') { %><span class="hq-delta"><span class="<%= nc.dir === 'up' ? 'hq-up' : nc.dir === 'down' ? 'hq-down' : 'hq-flat' %>"><%- arrow(nc.dir) %><%= nc.text %></span><span>vs last week</span></span><% } %>
+        </div>
+        <svg class="hq-chart" viewBox="0 0 316 110" role="img" aria-label="<%= p.north.label %> for the 12 weeks to <%= p.north.to %>">
+          <line class="grid" x1="0" y1="8" x2="316" y2="8"/><line class="grid" x1="0" y1="56" x2="316" y2="56"/><line class="base" x1="0" y1="104" x2="316" y2="104"/>
+          <path class="area" d="<%= p.north.chart.area %>"/>
+          <polyline class="ln" points="<%= p.north.chart.points %>"/>
+          <% if (!p.north.chart.empty) { %><circle class="dot" cx="<%= p.north.chart.x %>" cy="<%= p.north.chart.y %>" r="5"/><% } %>
+        </svg>
+        <div class="hq-axis"><span><%= p.north.from %></span><span>12 weeks</span><span><%= p.north.to %></span></div>
+      </section>
+
+      <section aria-labelledby="hq-week">
+        <div class="hq-row-top" style="margin-bottom:10px"><span class="eyebrow" id="hq-week"><%= p.isCurrent ? 'This week' : 'Week of ' + p.label %></span><span class="tiny" style="color:var(--slate)">Change vs last week</span></div>
+        <div class="hq-tiles">
+          <% p.tiles.forEach(function (t) { %>
+          <div class="hq-tile">
+            <div class="t-lab"><span><%= t.label %></span><% if (t.sources.length) { %><span class="hq-src"><%= t.sources.join(' + ') %></span><% } %></div>
+            <div class="t-v"><%= t.value %></div>
+            <div class="t-sub <%= t.dir %>"><%= t.sub %></div>
+            <svg class="hq-spark" viewBox="0 0 144 28" aria-hidden="true"><% if (t.spark.empty) { %><line x1="3" y1="25" x2="141" y2="25"/><% } else { %><polyline points="<%= t.spark.points %>"/><circle cx="<%= t.spark.x %>" cy="<%= t.spark.y %>" r="2.5"/><% } %></svg>
+          </div>
+          <% }) %>
+        </div>
+      </section>
+
+      <section class="hq-card hq-leak" id="leak" aria-labelledby="hq-leakh">
+        <div class="hq-lab"><%- HI.drop %><span class="eyebrow" id="hq-leakh">Where it leaks</span></div>
+        <% var a = p.analysis; if (a.empty) { %>
+          <h2>Log the week to find it.</h2>
+          <p class="hint">Add reach, visits, leads and sales below. HQ checks each step from a view to a sale and names the weakest one.</p>
+        <% } else if (p.leak) { var lib = bySlug[p.leak.slug]; %>
+          <h2><%= p.leak.title %></h2>
+          <p class="why"><%= p.leak.reason %></p>
+          <div class="hq-3">
+            <div><span><%= p.isCurrent ? 'This week' : 'That week' %></span><b><%= p.leak.rate %></b></div>
+            <div><span>4-week avg</span><b><%= p.leak.avg || '–' %></b></div>
+            <div><span>Floor</span><b><%= p.leak.floor %></b></div>
+          </div>
+          <p class="hint"><%= p.leak.hint %></p>
+          <% if (lib) { %><a class="hq-pill" style="margin-top:14px" href="/app/library/<%= lib.slug %>"><%- HI.book %>Open <%= lib.title %></a><% } %>
+        <% } else { %>
+          <h2>No clear leak</h2>
+          <p class="hint">Keep inputs on target and run one test.</p>
+        <% } %>
+        <% if (!a.empty) { %>
+          <% a.notes.concat(a.extra).forEach(function (n) { %><p class="note"><%= n %></p><% }) %>
+          <div class="rule"></div>
+          <span class="eyebrow">The read</span>
+          <p class="read"><%= a.verdict || 'Log last week too, and HQ compares the two.' %></p>
+          <% if (a.rows.length) { %>
+          <details class="hq-rates"><summary>All your rates for the week</summary>
+            <% a.rows.forEach(function (r) { %><div class="calc-out<%= r[2] ? ' dim' : '' %>"><span><%= r[0] %></span><b><%= r[1] %></b></div><% }) %>
+            <p class="hq-small">Floors and minimums are 127 rules of thumb, not industry benchmarks. After 4 weeks, beat your own average.</p>
+          </details>
+          <% } %>
+        <% } %>
+      </section>
+
+      <form method="post" action="/app/hq/week" class="hq-col" id="log">
+        <input type="hidden" name="w" value="<%= p.key %>">
+        <section class="hq-card" aria-labelledby="hq-callh">
+          <span class="eyebrow" id="hq-callh"><%= p.isCurrent ? 'Your call this week' : 'Your call that week' %></span>
+          <fieldset class="hq-calls"><legend>Your call</legend>
+            <% Object.keys(p.CALLS).forEach(function (k) { %><label><input type="radio" name="call" value="<%= k %>"<%= p.call === k ? ' checked' : '' %>><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><%= p.CALLS[k] %></span></label><% }) %>
+          </fieldset>
+          <div class="hq-f" style="margin-top:14px"><label for="hq-note">Why, and what you'll do next</label><textarea class="hq-in" id="hq-note" name="note" rows="3" maxlength="200"><%= p.note %></textarea></div>
+          <p class="hq-small">Saved with the week, so you build a record of what you decided and why.</p>
+        </section>
+        <section class="hq-card" aria-labelledby="hq-logh">
+          <span class="eyebrow" id="hq-logh"><%= p.isCurrent ? 'Log this week' : 'Log the week of ' + p.label %></span>
+          <p class="hq-small" style="margin-top:8px"><%= feeds.length ? "Type only what your tools don't count. " + feeds.join(' ') : "Type your numbers for the week. Leave a box blank if you don't track it." %></p>
+          <div class="hq-log">
+            <% p.fields.forEach(function (f) { %>
+            <div class="hq-f">
+              <label for="f-<%= f.id %>"><%= f.label %><%= f.money ? ' (' + cur + ')' : '' %><%= f.total ? ', total' : '' %></label>
+              <input class="hq-in" id="f-<%= f.id %>" name="v_<%= f.id %>" inputmode="decimal" autocomplete="off" value="<%= f.value %>">
+              <% f.auto.forEach(function (x) { %><span class="hq-fed"><%= x.text %> from <%= x.source === '127 link' ? 'your 127 link' : x.source %></span><% }) %>
+            </div>
+            <% }) %>
+          </div>
+          <button class="hq-btn halo" style="margin-top:18px">Save week</button>
+          <% if (p.savedAt) { %><p class="hq-small" style="text-align:center">Last saved <%= fmtDate(p.savedAt) %></p><% } %>
+        </section>
+      </form>
+    </div>
+
+    <div class="hq-col">
+      <section class="hq-card" id="numbers" aria-labelledby="hq-numsh">
+        <div class="hq-row-top"><span class="eyebrow" id="hq-numsh">Your numbers</span><span class="mono-s" style="color:var(--slate)"><%= p.custom.length %> of <%= p.MAX_CUSTOM %></span></div>
+        <% if (!p.custom.length) { %><p class="hq-small">Track anything else: email list, waitlist, preorders, bookings. Type it with the week, or send it to your 127 link.</p><% } %>
+        <div class="hq-rows">
+          <% p.custom.forEach(function (n) { %>
+          <div class="hq-num">
+            <div class="n"><b><%= n.label %></b><span><%= n.desc %></span></div>
+            <div class="v"><% if (n.delta.text) { %><span class="d <%= n.delta.dir %>"><%= n.delta.text %></span><% } %><b><%= n.value %></b>
+              <form method="post" action="/app/hq/numbers/<%= n.id %>/delete" data-confirm="Remove <%= n.label %> and its history?"><input type="hidden" name="w" value="<%= p.key %>"><button class="hq-x" aria-label="Remove <%= n.label %>">×</button></form>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% if (p.canAddCustom) { %>
+        <details class="hq-add">
+          <summary class="hq-btn" style="width:100%"><%- HI.plus %>Add a number</summary>
+          <form method="post" action="/app/hq/numbers">
+            <input type="hidden" name="w" value="<%= p.key %>">
+            <div class="hq-f"><label for="cn-label">Name</label><input class="hq-in" id="cn-label" name="label" maxlength="40" placeholder="Email list" required style="font-family:var(--sans)"></div>
+            <div class="hq-log">
+              <div class="hq-f"><label for="cn-kind">It's</label><select class="hq-in" id="cn-kind" name="kind"><option value="count">A count</option><option value="money">An amount of money</option></select></div>
+              <div class="hq-f"><label for="cn-mode">Each week, log</label><select class="hq-in" id="cn-mode" name="mode"><option value="weekly">What happened that week</option><option value="total">The running total</option></select></div>
+            </div>
+            <button class="hq-btn" style="margin-top:12px;width:100%">Add</button>
+          </form>
+        </details>
+        <% } %>
+      </section>
+
+      <section class="hq-card" aria-labelledby="hq-connh" style="padding-top:12px;padding-bottom:8px">
+        <div class="hq-row-top"><span class="eyebrow" id="hq-connh">Connections</span><a class="hq-btn" style="border:0;padding:0" href="/app/hq/connect">Manage</a></div>
+        <div class="hq-conn">
+          <span class="hq-ico"><%- HI.bag %></span>
+          <div class="n"><b>Shopify</b><span><%= !c.shopify ? 'Counts new orders' : c.shopify.status === 'ok' ? 'New orders since ' + c.shopify.since : 'Waiting for the first order' %></span></div>
+          <% if (c.shopify) { %><span class="<%= c.shopify.status === 'ok' ? 'hq-live' : 'hq-off' %>"><%= c.shopify.status === 'ok' ? 'Live' : 'Set' %></span>
+          <% } else if (c.ready) { %><a class="hq-pill" href="/app/hq/connect#shopify">Connect</a><% } else { %><span class="hq-off">Not yet</span><% } %>
+        </div>
+        <div class="hq-conn">
+          <span class="hq-ico"><%- HI.card %></span>
+          <div class="n"><b>Stripe</b><span><%= !c.stripe ? 'Not connected' : c.stripe.status === 'ok' ? 'Last 12 weeks · refreshed ' + (c.stripe.synced || 'soon') : 'Reconnect Stripe' %></span></div>
+          <% if (c.stripe) { %><span class="<%= c.stripe.status === 'ok' ? 'hq-live' : 'hq-warn' %>"><%= c.stripe.status === 'ok' ? 'Live' : 'Needs a new key' %></span>
+          <% } else if (c.ready) { %><a class="hq-pill" href="/app/hq/connect#stripe">Connect</a><% } else { %><span class="hq-off">Not yet</span><% } %>
+        </div>
+        <div class="hq-conn">
+          <span class="hq-ico"><%- HI.link %></span>
+          <div class="n"><b>Your 127 link</b><span><%= !c.link ? 'For Zapier, Make and the rest' : c.link.sources.length ? c.link.sources.slice(0, 2).join(' and ') + ' sending' : c.link.last ? 'Last post ' + c.link.last : 'Ready, nothing sent yet' %></span></div>
+          <% if (c.link) { %><span class="hq-live">Live</span><% } else { %><a class="hq-pill" href="/app/hq/connect#link">Set up</a><% } %>
+        </div>
+      </section>
+
+      <section class="hq-card hq-read" id="read" aria-labelledby="hq-readh">
+        <div class="hq-lab"><%- HI.ai %><span class="eyebrow" id="hq-readh">Read my week</span></div>
+        <h2>Eli's Playbook on your last 12 weeks.</h2>
+        <p>It reads your numbers and your calls, names the biggest gap and what to fix next. <%= aiLeft > 0 ? 'Uses 1 of your ' + aiLeft + ' messages.' : "You've used this month's messages. They reset on the 1st." %></p>
+        <form method="post" action="/app/hq/read" style="margin-top:14px"><input type="hidden" name="w" value="<%= p.key %>"><button class="hq-btn"<%= aiLeft <= 0 || !p.hasData ? ' disabled' : '' %> data-busy="Reading your weeks…">Read my week</button></form>
+        <% if (!p.hasData) { %><p class="hq-small">Log a week first.</p><% } %>
+        <% if (p.read) { %>
+          <div class="tool-out"><%= p.read.text %></div>
+          <div class="ai-label"><%= p.read.demo ? 'Demo feedback.' : 'AI feedback built on Eli’s frameworks, not Eli himself.' %> Week of <%= p.readWeek %>, read <%= fmtDate(p.read.at) %>.</div>
+        <% } %>
+      </section>
+
+      <details class="hq-card hq-setup" id="setup"<%= p.hasData ? '' : ' open' %>>
+        <summary><span class="eyebrow">Set up HQ</span></summary>
+        <form method="post" action="/app/hq/settings" style="margin-top:14px">
+          <input type="hidden" name="w" value="<%= p.key %>"><input type="hidden" name="tiles" value="1">
+          <div class="hq-f"><label for="s-north">North Number: the one number that matters most this month</label>
+            <select class="hq-in" id="s-north" name="north"><% p.all.forEach(function (m) { %><option value="<%= m.id %>"<%= m.id === p.northId ? ' selected' : '' %>><%= m.label %></option><% }) %></select></div>
+          <div class="hq-log">
+            <div class="hq-f"><label for="s-posts">Posts a week, target</label><input class="hq-in" id="s-posts" name="target_posts" inputmode="numeric" autocomplete="off" value="<%= p.goals.posts || '' %>"></div>
+            <div class="hq-f"><label for="s-out">Outreach a week, target</label><input class="hq-in" id="s-out" name="target_outreach" inputmode="numeric" autocomplete="off" value="<%= p.goals.outreach || '' %>"></div>
+          </div>
+          <div class="hq-f" style="margin-top:14px"><span>Show these numbers</span>
+            <div class="hq-checks"><% p.all.filter(function (m) { return !m.custom; }).forEach(function (m) { var north = m.id === p.northId; %><label class="<%= north ? 'locked' : '' %>"><input type="checkbox" name="show" value="<%= m.id %>"<%= m.shown || north ? ' checked' : '' %><%= north ? ' disabled' : '' %>><%= m.label %></label><% }) %></div>
+          </div>
+          <button class="hq-btn" style="margin-top:14px;width:100%">Save setup</button>
+        </form>
+      </details>
+    </div>
+  </div>
+</div>
+<script src="/js/hq.js" defer></script>
+<%- include('../partials/app-foot') %>

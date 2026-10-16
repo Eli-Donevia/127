@@ -27,6 +27,8 @@ const memberOps = require('./lib/member-ops');
 const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
+const hq = require('./lib/hq');
+const hqRoutes = require('./lib/hq-routes');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -54,6 +56,9 @@ app.get('/healthz', (req, res) => res.json({ ok: true }));
 
 // Stripe needs the raw body, so this route comes before the body parsers.
 app.post('/billing/webhook', express.raw({ type: 'application/json' }), billing.webhook);
+// 127 HQ inbound (lib/hq-routes.js): a member's 127 link and their Shopify order webhooks. Raw body for
+// Shopify's signature, and ahead of the session so it never reads or sets a cookie. 404 while HQ_LIVE is off.
+app.all('/hq/in/:token', hqRoutes.inbound);
 
 app.use(express.urlencoded({ extended: true, limit: '200kb' }));
 // Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
@@ -175,6 +180,8 @@ app.use((req, res, next) => {
   res.locals.tplForPlaybook = templates.forPlaybook;
   res.locals.tplKinds = templates.KINDS;
   res.locals.canAccess = canAccess;
+  // 127 HQ (lib/hq.js): the nav item and the dashboard card show only while HQ_LIVE=true.
+  res.locals.hqLive = hq.live();
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -853,6 +860,8 @@ app.get('/app', requireAuth, (req, res) => {
     upgradeScreen,
     // Founding upgrade alert: right after paying, or after the assessment that follows a fast founding checkout.
     foundingAlert: !!(user.foundingPrice && user.foundingNumber && user.tier === 'builder' && ((req.query.upgraded === 'builder') || req.query.welcome)),
+    // 127 HQ card: last full week's North Number (Builder and up, while HQ_LIVE=true).
+    hqCard: hq.live() && hq.canUse(user) ? hq.dashCard(user) : null,
   });
 });
 
@@ -1733,6 +1742,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   for (const l of leads) await db.remove('leads', l.id);
   for (const w of mine('waitlist', (w) => w.email === user.email)) await db.remove('waitlist', w.id);
   await challenge.forget(user.email);
+  // 127 HQ: saved Stripe and Shopify keys and the 127 link. The numbers themselves are on the user doc.
+  await db.remove('hqConnections', user.id);
   await db.remove('users', user.id);
 }
 
@@ -1770,6 +1781,7 @@ app.get('/admin', requireAuth, requireAdmin, wrap(async (req, res) => {
     onboarding,
     wl: waitlist.stats(),
     cv: await adminCircle(req),
+    hqStats: hq.live() ? hq.stats() : null,
   });
 }));
 
@@ -1957,6 +1969,9 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
 app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
 
+// 127 HQ (lib/hq-routes.js): /app/hq, its connections and Read my week. Falls through to the 404 while HQ_LIVE is off.
+app.use(hqRoutes({ requireAuth, flash, track, reserveAi, refundAi, ageFromAi, aiRunsLeft }));
+
 // Member operations (lib/member-ops.js): Help, /guidelines, unsubscribe, wins report/reply/cheer,
 // Circle questions and call.ics, the dashboard nudge, and /admin/ops (Eli's approval outbox).
 app.use(memberOps.routes({
@@ -2019,6 +2034,8 @@ db.init().then(async () => {
   setInterval(() => {
     memberOps.flushQueued({ recap: opsRecap }).catch((err) => console.error('[member-ops] flush', err.message));
     ageCheck.purgeOld().catch((err) => console.error('[age-check] purge', err.message));
+    // 127 HQ: each connected Stripe account's last 12 weeks, refreshed once a day.
+    hq.tick().catch((err) => console.error('[hq] tick', err.message));
   }, 5 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();

@@ -1,0 +1,55 @@
+<%- include('../partials/app-head') %>
+<%# HQ preview for Free members (H3): their own progress strip, the Builder card and a dimmed sample.
+    The sample shows activity counts only, never money (Legal L12). %>
+<div class="hq">
+  <div class="hq-head">
+    <div>
+      <div class="hq-row-top"><span class="eyebrow">HQ</span><span class="hq-chip">Free plan</span></div>
+      <h1 class="hq-title"><span class="dim">Run it</span><span class="steel">from here.</span></h1>
+      <p class="hq-lede">Your numbers every week, in one place. See what's working, find the leak, and let Shopify or Stripe count your sales.</p>
+    </div>
+    <%- include('../partials/hq-strip') %>
+  </div>
+
+  <div class="hq-grid">
+    <div class="hq-col">
+      <section class="hq-card hq-upcard" aria-labelledby="hq-uph">
+        <span class="hq-chip lilac">Builder</span>
+        <h2 id="hq-uph">See what's working, every week.</h2>
+        <ul class="hq-ticks">
+          <% ['Your 8 weekly numbers with 12 weeks of history', 'Where it leaks, and your call for the week', 'Sales counted from Shopify or Stripe', 'A 127 link for Zapier, Make and the rest'].forEach(function (t) { %>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><%= t %></li>
+          <% }) %>
+        </ul>
+        <form method="post" action="/app/billing/checkout/builder" data-upgrade="hq" data-price="<%= builderOffer.price %>"><button class="btn light block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form>
+        <%- include('../partials/renewal-line') %>
+      </section>
+    </div>
+
+    <div class="hq-col">
+      <section class="hq-sample" aria-hidden="true">
+        <span class="eyebrow">What Builders see · sample</span>
+        <div class="hq-card" style="margin-top:10px">
+          <div class="hq-lab"><%- HI.target %><span class="eyebrow">North Number · <%= sample.north.label %></span></div>
+          <div class="hq-big"><span class="v"><%= sample.north.value %></span><span class="hq-up"><%- HI.up %><%= sample.north.change %></span></div>
+          <svg class="hq-chart" viewBox="0 0 316 110">
+            <line class="base" x1="0" y1="104" x2="316" y2="104"/>
+            <polyline class="ln" points="<%= sample.north.chart.points %>"/>
+          </svg>
+        </div>
+        <div class="hq-tiles">
+          <% sample.tiles.forEach(function (t) { %>
+          <div class="hq-tile">
+            <div class="t-lab"><span><%= t.label %></span></div>
+            <div class="t-v"><%= t.value %></div>
+            <div class="t-sub up"><%= t.sub %></div>
+            <svg class="hq-spark" viewBox="0 0 144 28"><polyline points="<%= t.spark.points %>"/></svg>
+          </div>
+          <% }) %>
+        </div>
+        <p class="hq-small">Sample numbers, not a real member's results.</p>
+      </section>
+    </div>
+  </div>
+</div>
+<%- include('../partials/app-foot') %>

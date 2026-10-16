@@ -1,0 +1,129 @@
+<%- include('../partials/app-head') %>
+<%# HQ connections (lib/hq.js connections()). Read-only setups: a Shopify webhook to the 127 link, a
+    restricted Stripe key, and the 127 link itself. Keys are never shown back. %>
+<% var example = (user.hq && user.hq.custom && user.hq.custom[0]) ? user.hq.custom[0].label : 'Email list'; %>
+<div class="hq">
+  <a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a>
+  <div class="hq-head" style="margin-top:4px">
+    <div>
+      <span class="eyebrow">HQ · Connections</span>
+      <h1 class="hq-title"><span class="dim">Numbers that</span><span class="steel">fill themselves.</span></h1>
+      <p class="hq-lede">127 only reads, and keeps weekly totals. It never moves money, sends messages or changes anything in your tools.</p>
+    </div>
+  </div>
+  <% if (ageReview) { %><p class="hq-foot" style="margin-bottom:16px">Connections are paused while we take a look at your account.</p><% } %>
+
+  <div class="hq-cards">
+    <section class="hq-card" id="shopify" aria-labelledby="hq-shop">
+      <div class="hq-cname"><span class="hq-ico"><%- HI.bag %></span><h2 id="hq-shop">Shopify</h2>
+        <% if (c.shopify) { %><span class="<%= c.shopify.status === 'ok' ? 'hq-live' : 'hq-off' %>"><%= c.shopify.status === 'ok' ? 'Live' : 'Waiting for an order' %></span><% } else { %><span class="hq-off">Not connected</span><% } %></div>
+      <% if (c.shopify) { %>
+        <div class="hq-kv">
+          <div><span>Store</span><span><%= c.shopify.shop || 'Shows after the first order' %></span></div>
+          <div><span>Counting</span><span>New orders since <%= c.shopify.since %></span></div>
+          <div><span>Last order</span><span><%= c.shopify.lastOrder || 'None yet' %></span></div>
+        </div>
+        <% if (c.shopify.otherCurrency) { %><p class="hq-small"><%= c.shopify.otherCurrency %> order<%= c.shopify.otherCurrency === 1 ? ' was' : 's were' %> in another currency, so HQ didn't count <%= c.shopify.otherCurrency === 1 ? 'it' : 'them' %>.</p><% } %>
+        <p class="hq-small">Shopify sends each new order to your 127 link, signed with the key you pasted, so 127 checks it really came from your store.</p>
+        <form method="post" action="/app/hq/disconnect/shopify" data-confirm="Disconnect Shopify? Orders already counted stay in HQ. Delete the webhook in Shopify too."><button class="hq-link-btn ember">Disconnect Shopify</button></form>
+      <% } else if (!c.ready) { %>
+        <p class="hq-small">Shopify can't be connected yet.</p>
+      <% } else { %>
+        <p class="hq-small">New orders count themselves from the day you connect. Two minutes in Shopify admin.</p>
+        <ol class="hq-steps">
+          <li><span>In Shopify, go to <strong>Settings</strong>, <strong>Notifications</strong>, then <strong>Webhooks</strong>, and choose <strong>Create webhook</strong>.</span></li>
+          <li><span>Event <strong>Order creation</strong>, format <strong>JSON</strong>, and your 127 link as the URL.<% if (!c.link) { %> Make it here first.<% } %></span></li>
+          <li><span>Optional: a second webhook for <strong>Refund create</strong> with the same link, so refunds come off your revenue.</span></li>
+          <li><span>Copy the signing key Shopify shows under your webhooks and paste it below.</span></li>
+        </ol>
+        <% if (c.link) { %>
+          <div class="hq-linkbox"><span><%= c.link.masked %></span><button type="button" class="hq-btn" data-copy-value="<%= c.link.url %>" aria-label="Copy your 127 link"><%- HI.copy %>Copy</button></div>
+          <form method="post" action="/app/hq/connect/shopify" style="margin-top:14px">
+            <div class="hq-f"><label for="shop-secret">Signing key</label><input class="hq-in" id="shop-secret" name="secret" autocomplete="off" spellcheck="false" required<%= ageReview ? ' disabled' : '' %>></div>
+            <button class="hq-btn halo" style="margin-top:14px" data-busy="Saving…"<%= ageReview ? ' disabled' : '' %>>Connect Shopify</button>
+            <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's sales data with 127.</p>
+          </form>
+        <% } else { %>
+          <form method="post" action="/app/hq/link" style="margin-top:14px"><input type="hidden" name="back" value="shopify"><button class="hq-btn halo"<%= ageReview ? ' disabled' : '' %>>Make my 127 link</button></form>
+          <p class="hq-small">By making a link, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a>.</p>
+        <% } %>
+      <% } %>
+    </section>
+
+    <section class="hq-card" id="stripe" aria-labelledby="hq-stripe">
+      <div class="hq-cname"><span class="hq-ico"><%- HI.card %></span><h2 id="hq-stripe">Stripe</h2>
+        <% if (c.stripe) { %><span class="<%= c.stripe.status === 'ok' ? 'hq-live' : 'hq-warn' %>"><%= c.stripe.status === 'ok' ? 'Live' : 'Needs a new key' %></span><% } else { %><span class="hq-off">Not connected</span><% } %></div>
+      <% if (c.stripe) { %>
+        <div class="hq-kv">
+          <div><span>Key</span><span class="mono">rk_<%= c.stripe.mode %>_••••<%= c.stripe.last4 %></span></div>
+          <div><span>Counting</span><span>Paid charges, last 12 weeks</span></div>
+          <div><span>Refreshed</span><span><%= c.stripe.synced || 'Not yet' %></span></div>
+        </div>
+        <% if (c.stripe.error) { %><p class="hq-small" style="color:var(--danger)"><%= c.stripe.error %></p><% } %>
+        <% if (c.stripe.otherCurrency) { %><p class="hq-small"><%= c.stripe.otherCurrency %> charge<%= c.stripe.otherCurrency === 1 ? ' was' : 's were' %> in another currency, so HQ didn't count <%= c.stripe.otherCurrency === 1 ? 'it' : 'them' %>.</p><% } %>
+        <% if (c.stripe.status === 'ok') { %>
+          <form method="post" action="/app/hq/sync" style="margin-top:14px"><button class="hq-btn" data-busy="Refreshing…"<%= ageReview ? ' disabled' : '' %>>Refresh now</button></form>
+        <% } %>
+      <% } %>
+      <% if (!c.ready) { %>
+        <p class="hq-small">Stripe can't be connected yet.</p>
+      <% } else if (!c.stripe || c.stripe.status !== 'ok') { %>
+        <p class="hq-small">Paste a read-only key. Your last 12 weeks of sales show up at once, then refresh every day.</p>
+        <ol class="hq-steps">
+          <li><span>In Stripe, go to <strong>API keys</strong> and choose <strong>Create restricted key</strong>.</span></li>
+          <li><span>Name it 127 HQ. Set <strong>Charges</strong> to <strong>Read</strong> and leave everything else at None.</span></li>
+          <li><span>Copy the key. It starts with rk_. Paste it below.</span></li>
+        </ol>
+        <form method="post" action="/app/hq/connect/stripe" style="margin-top:14px">
+          <div class="hq-f"><label for="stripe-key">Restricted key</label><input class="hq-in" id="stripe-key" name="key" placeholder="rk_live_..." autocomplete="off" spellcheck="false" required<%= ageReview ? ' disabled' : '' %>></div>
+          <p class="hq-small">Secret keys (sk_) are refused. Your key is encrypted and never shown again.</p>
+          <button class="hq-btn halo" style="margin-top:14px" data-busy="Checking with Stripe…"<%= ageReview ? ' disabled' : '' %>>Connect Stripe</button>
+          <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's sales data with 127.</p>
+        </form>
+      <% } %>
+      <% if (c.stripe) { %>
+        <form method="post" action="/app/hq/disconnect/stripe" data-confirm="Disconnect Stripe? 127 deletes its copy of your key, and sales already counted stay in HQ. Delete the key in Stripe too."><button class="hq-link-btn ember">Disconnect Stripe</button></form>
+      <% } %>
+    </section>
+
+    <section class="hq-card" id="link" aria-labelledby="hq-linkh">
+      <div class="hq-cname"><span class="hq-ico"><%- HI.link %></span><h2 id="hq-linkh">Your 127 link</h2>
+        <% if (c.link) { %><span class="hq-live">Live</span><% } else { %><span class="hq-off">Not set up</span><% } %></div>
+      <p class="hq-small">For everything else. Zapier, Make, n8n, ManyChat or a Google Sheets script can post numbers to it.</p>
+      <% if (!c.link) { %>
+        <form method="post" action="/app/hq/link" style="margin-top:14px"><button class="hq-btn halo"<%= ageReview ? ' disabled' : '' %>>Make my 127 link</button></form>
+        <p class="hq-small">By making a link, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a>.</p>
+      <% } else { %>
+        <div class="hq-linkbox"><span><%= c.link.masked %></span><button type="button" class="hq-btn" data-copy-value="<%= c.link.url %>" aria-label="Copy your 127 link"><%- HI.copy %>Copy</button></div>
+        <p class="hq-small">Keep it private, like a password. Anyone with it can add numbers to your HQ. Send numbers only, never names or emails.</p>
+        <div class="eyebrow" style="margin-top:16px">Send a number</div>
+        <pre class="hq-code">{ "metric": "leads", "value": 1 }
+{ "leads": 1, "sales": 1, "revenue": 49 }
+{ "metric": <%= JSON.stringify(example) %>, "value": 412, "mode": "set" }</pre>
+        <p class="hq-small">Names: posts, outreach, reach, visits, leads, replies, sales, revenue<%= (user.hq && user.hq.custom || []).length ? ', or one of your own numbers' : '' %>. A number adds to this week; "mode": "set" replaces it. Add "date": "<%= c.dateExample %>" for an earlier week, up to 12 back.</p>
+        <div class="hq-recipes">
+          <details><summary>Zapier</summary><ol><li>Add the action <strong>Webhooks by Zapier</strong>, event <strong>POST</strong>.</li><li>URL: your 127 link. Payload type: <strong>json</strong>.</li><li>Data: <strong>metric</strong> = leads, <strong>value</strong> = 1. Add <strong>source</strong> = Zapier to see it in HQ.</li></ol></details>
+          <details><summary>Make</summary><ol><li>Add the <strong>HTTP</strong> module, <strong>Make a request</strong>.</li><li>URL: your 127 link. Method: <strong>POST</strong>. Body type: <strong>Raw</strong>, content type <strong>JSON</strong>.</li><li>Request content: { "metric": "leads", "value": 1 }</li></ol></details>
+          <details><summary>n8n</summary><ol><li>Add an <strong>HTTP Request</strong> node. Method: <strong>POST</strong>. URL: your 127 link.</li><li>Turn on <strong>Send Body</strong>, type <strong>JSON</strong>, with metric and value.</li></ol></details>
+          <details><summary>ManyChat</summary><ol><li>In a flow, add the action <strong>External Request</strong>, type <strong>POST</strong>, URL your 127 link.</li><li>Body: { "metric": "leads", "value": 1, "source": "ManyChat" }</li></ol></details>
+          <details><summary>Google Sheets</summary><p>Extensions, Apps Script. Paste this, put your link in, then add a daily trigger (Triggers, Add trigger, time-driven).</p><pre class="hq-code">function sendToHQ() {
+  var total = SpreadsheetApp.getActive().getRange('B2').getValue();
+  UrlFetchApp.fetch('PASTE YOUR 127 LINK', {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify({ metric: <%= JSON.stringify(example) %>, value: total, mode: 'set' })
+  });
+}</pre></details>
+        </div>
+        <p class="hq-small"><%= c.link.last ? 'Last post ' + c.link.last + (c.link.sources.length ? ', from ' + c.link.sources[0] : '') + '.' : 'Nothing sent yet.' %></p>
+        <form method="post" action="/app/hq/link" data-confirm="Make a new link? The old one stops working right away, so Zapier, Make or Shopify will need the new one." style="margin-top:6px"><button class="hq-btn"<%= ageReview ? ' disabled' : '' %>>Make a new link</button></form>
+        <p class="hq-small">The old link stops working right away.</p>
+        <form method="post" action="/app/hq/disconnect/link" data-confirm="Turn off your 127 link? Nothing can send to it after this, Shopify included."><button class="hq-link-btn ember">Turn off the link</button></form>
+      <% } %>
+    </section>
+
+    <p class="hq-foot">127 keeps weekly totals, never your customers' names, emails or addresses. Disconnecting deletes the saved key. Deleting your account deletes everything HQ keeps. <a href="/privacy#7a-hq-and-connected-accounts">How we handle it</a></p>
+  </div>
+</div>
+<script src="/js/hq.js" defer></script>
+<%- include('../partials/app-foot') %>

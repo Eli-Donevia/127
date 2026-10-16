@@ -92,6 +92,19 @@
   </div>
 
   <div class="grid" style="gap:16px">
+    <% if (typeof hqCard !== 'undefined' && hqCard) { var hc = hqCard.change; %>
+    <a class="card" href="/app/hq<%= hqCard.logged ? '' : '?w=' + hqCard.week %>" style="display:block;text-decoration:none" data-hq-card>
+      <div class="card-title" style="margin-bottom:8px"><div class="eyebrow">HQ · Week of <%= hqCard.weekLabel %></div><span class="small link">Open HQ</span></div>
+      <% if (hqCard.logged) { %>
+      <div class="small muted"><%= hqCard.label %></div>
+      <div class="stat"><div class="v" style="margin:8px 0 10px"><%= hqCard.value %></div></div>
+      <% if (hc.text !== '–') { %><span class="chip <%= hc.dir === 'up' ? 'win' : 'line' %>"<%- hc.dir === 'down' ? ' style="color:var(--danger)"' : '' %>><%= hc.text === 'new' ? 'New this week' : hc.text === '0%' ? 'Same as the week before' : hc.text + ' vs the week before' %></span><% } %>
+      <% } else { %>
+      <h3 style="font-family:var(--display);font-weight:700;letter-spacing:-.04em;font-size:24px;margin:6px 0 6px">Log last week. 2 minutes.</h3>
+      <p class="small muted" style="margin:0">Your numbers, where it leaks, and your call for the week.</p>
+      <% } %>
+    </a>
+    <% } %>
     <div class="card">
       <div class="eyebrow">Level <%= level.index %> of <%= level.total %></div>
       <div class="stat"><div class="v"><%= level.name %></div></div>
