@@ -3,6 +3,7 @@
   <div><div class="eyebrow">Playbooks · Templates · Worksheets</div><h1>Library</h1></div>
   <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" class="small muted lib-note" data-upgrade="library" data-price="<%= builderOffer.price %>">Free: the starter library and everything weeks 1 and 2 use. <%= builderOffer.founding ? 'Founding price until ' + builderOffer.closesDate + ':' : '' %> <button class="link-btn"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Unlock the full library' %></button><%- include('../partials/renewal-line', { rlClass: 'tiny' }) %></form><% } %>
 </div>
+<%- include('../partials/library-switch', { section: 'playbooks', tplCount: tplCount }) %>
 <div class="tabs">
   <a href="/app/library" class="<%= !track ? 'on' : '' %>">All</a>
   <% Object.keys(TRACK_NAMES).forEach(function(k){ %><a href="/app/library?track=<%= k %>" class="<%= track===k ? 'on' : '' %>"><%= TRACK_NAMES[k] %></a><% }) %>

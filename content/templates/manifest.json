@@ -1,0 +1,3713 @@
+{
+ "name": "127 templates and workflows library",
+ "version": 1,
+ "generatedAt": "2026-10-16T10:31:22Z",
+ "count": 37,
+ "counts": {
+  "sheet": 13,
+  "doc": 9,
+  "checklist": 4,
+  "workflow": 10,
+  "system": 1
+ },
+ "tiers": {
+  "free": 8,
+  "builder": 29
+ },
+ "paths": "All file paths are relative to /mnt/project-files/product/templates/",
+ "roadmapIndex": {
+  "start-w1-t1": [
+   "idea-scorecard"
+  ],
+  "start-w1-t2": [
+   "interview-kit"
+  ],
+  "start-w2-t1": [
+   "interview-kit",
+   "conversation-tracker"
+  ],
+  "start-w2-t2": [
+   "interview-kit"
+  ],
+  "build-w1-t3": [
+   "interview-kit"
+  ],
+  "grow-w1-t2": [
+   "interview-kit"
+  ],
+  "start-w1-t3": [
+   "conversation-tracker"
+  ],
+  "start-w2-t3": [
+   "interview-synthesis"
+  ],
+  "grow-w1-t3": [
+   "interview-synthesis",
+   "one-page-offer"
+  ],
+  "start-w3-t1": [
+   "one-page-offer"
+  ],
+  "start-w3-t3": [
+   "one-page-offer"
+  ],
+  "build-w1-t1": [
+   "one-page-offer"
+  ],
+  "start-w3-t2": [
+   "business-model-canvas",
+   "first-sale-math"
+  ],
+  "build-w1-t2": [
+   "first-sale-math",
+   "pricing-lab"
+  ],
+  "start-w4-t1": [
+   "landing-page-brief"
+  ],
+  "build-w2-t2": [
+   "landing-page-brief"
+  ],
+  "build-w2-t1": [
+   "brand-sheet"
+  ],
+  "start-w4-t2": [
+   "pipeline-tracker"
+  ],
+  "build-w3-t3": [
+   "pipeline-tracker"
+  ],
+  "grow-w3-t1": [
+   "pipeline-tracker",
+   "recipe-follow-up"
+  ],
+  "build-w2-t3": [
+   "stack-audit",
+   "founder-os-notion"
+  ],
+  "systems-w2-t2": [
+   "stack-audit"
+  ],
+  "build-w3-t1": [
+   "launch-countdown",
+   "money-setup-checklist"
+  ],
+  "build-w4-t1": [
+   "launch-countdown"
+  ],
+  "build-w4-t2": [
+   "objection-log"
+  ],
+  "systems-w1-t2": [
+   "hours-audit"
+  ],
+  "systems-w1-t3": [
+   "hours-audit"
+  ],
+  "systems-w2-t1": [
+   "sop-template"
+  ],
+  "systems-w3-t2": [
+   "sop-template"
+  ],
+  "build-w4-t3": [
+   "weekly-scorecard"
+  ],
+  "grow-w1-t1": [
+   "weekly-scorecard"
+  ],
+  "grow-w4-t1": [
+   "weekly-scorecard"
+  ],
+  "systems-w1-t1": [
+   "weekly-scorecard"
+  ],
+  "systems-w4-t1": [
+   "weekly-scorecard",
+   "recipe-monday-scorecard"
+  ],
+  "build-w3-t2": [
+   "content-planner"
+  ],
+  "grow-w2-t1": [
+   "content-planner"
+  ],
+  "systems-w4-t3": [
+   "content-planner"
+  ],
+  "grow-w2-t2": [
+   "hook-bank"
+  ],
+  "grow-w2-t3": [
+   "batch-day"
+  ],
+  "grow-w3-t2": [
+   "page-leak-audit"
+  ],
+  "grow-w3-t3": [
+   "ad-test-planner"
+  ],
+  "systems-w3-t3": [
+   "ad-test-planner"
+  ],
+  "grow-w4-t2": [
+   "ceo-review"
+  ],
+  "start-w4-t3": [
+   "thirty-day-retro"
+  ],
+  "grow-w4-t3": [
+   "thirty-day-retro"
+  ],
+  "systems-w4-t2": [
+   "ninety-day-plan"
+  ],
+  "systems-w2-t3": [
+   "recipe-comment-to-dm",
+   "recipe-saved-replies"
+  ],
+  "systems-w3-t1": [
+   "recipe-comment-to-dm",
+   "recipe-lead-form"
+  ]
+ },
+ "roadmapStepsWithoutTemplate": [],
+ "templates": [
+  {
+   "slug": "idea-scorecard",
+   "title": "Idea Scorecard",
+   "kind": "sheet",
+   "track": "start",
+   "tier": "free",
+   "tabs": [
+    "Start here",
+    "Scorecard",
+    "Decision"
+   ],
+   "howTo": [
+    "List up to eight ideas in the Scorecard tab. One sentence each: what you sell and to whom.",
+    "Score each question 1 to 5. 1 = no, or no proof. 3 = maybe, some signs. 5 = yes, with proof you can point to.",
+    "Write the proof for question 1. No proof means the score can't go above 2. The sheet flags it.",
+    "Fill days to first sale and cost to start. They break ties.",
+    "Read the Decision tab. If two ideas are within 3 points, use the tie breakers in order.",
+    "Write your decision and the insider you'll talk to this week. Then stop scoring and start."
+   ],
+   "minutes": 30,
+   "summary": "Score up to eight ideas against Eli's Idea Test in one sitting, see the winner, and use the tie breakers when two ideas are close.",
+   "output": "One idea chosen on purpose, with a score, the proof behind it and the insider you'll talk to this week.",
+   "useWhen": "Day 1 of the Start track, before you talk to a single customer.",
+   "aiPrompt": "Check that the winning idea names a specific customer, that every score of 3 or more has real proof written next to it, that the tie breakers were used when scores were close, and that an insider is named with a day this week.",
+   "pairsWith": [
+    {
+     "slug": "idea-filter",
+     "title": "The Idea Test"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w1-t1",
+     "track": "start",
+     "label": "Start week 1, step 1: Score your ideas with the Idea Test"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/idea-scorecard/127-idea-scorecard.xlsx",
+     "bytes": 12117,
+     "sha256": "25b7736092c4bb2ca99dc31f77d4b14556cd6aa447682b79e538394eb1c561a2"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/idea-scorecard/127-idea-scorecard-example.xlsx",
+     "bytes": 12647,
+     "sha256": "625e74b2600597638de0f9b47c4467b6d80e5d294d68bbe075a48e2bc021dbfe"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/idea-scorecard/127-idea-scorecard.csv",
+     "bytes": 774,
+     "sha256": "c9b0e966f2d86de733b0c76bcc26adeb530df94d83bf8564b935756cb8cb10b5"
+    }
+   ],
+   "preview": "files/idea-scorecard/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "interview-kit",
+   "title": "Customer Interview Kit",
+   "kind": "doc",
+   "track": "start",
+   "tier": "free",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Step 1: Your problem in one sentence",
+    "Step 2: Find 10 people who have it",
+    "Step 3: Send the ask",
+    "Step 4: Run the call",
+    "Step 5: Notes form",
+    "Build and Grow: talk to your best customers",
+    "Next step"
+   ],
+   "minutes": 45,
+   "summary": "Everything for 10 customer conversations in one doc: your problem sentence, who to ask, outreach messages, a timed script, red flags and a notes form.",
+   "output": "A one-sentence problem, 10 named people, outreach you actually sent and a page of notes in their words for every conversation.",
+   "useWhen": "Start track weeks 1 and 2 before you build anything, or Build and Grow week 1 for the best-customer script.",
+   "aiPrompt": "Check that the problem sentence names a specific customer, situation and current fix in plain words, that the 10 people actually have the problem and are not only friends and family, and that the notes quote exact words and concrete costs instead of compliments or future promises.",
+   "pairsWith": [
+    {
+     "slug": "validation-interviews",
+     "title": "Validation Interview Scripts"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w1-t2",
+     "track": "start",
+     "label": "Start week 1, step 2: Write the problem you solve in one sentence"
+    },
+    {
+     "id": "start-w2-t1",
+     "track": "start",
+     "label": "Start week 2, step 1: Book five discovery conversations"
+    },
+    {
+     "id": "start-w2-t2",
+     "track": "start",
+     "label": "Start week 2, step 2: Run the interviews and take notes in their words"
+    },
+    {
+     "id": "build-w1-t3",
+     "track": "build",
+     "label": "Build week 1, step 3: Interview three recent customers or prospects"
+    },
+    {
+     "id": "grow-w1-t2",
+     "track": "grow",
+     "label": "Grow week 1, step 2: Talk to your three best customers"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/interview-kit/127-interview-kit.pdf",
+     "bytes": 192470,
+     "sha256": "a4e4006de2a1b4af8078bdf902e0f907c41e651a6bae3c779df28eb213bbf530"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/interview-kit/127-interview-kit.docx",
+     "bytes": 78698,
+     "sha256": "e49921a6e80637bd167a752210aafb8149b0a10c15463f43101665acf7b8e3fb"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/interview-kit/127-interview-kit.md",
+     "bytes": 8828,
+     "sha256": "d668d90f421bf6961d8329dc5db6847277b7095f441c1430608522840742665d"
+    }
+   ],
+   "preview": "files/interview-kit/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "conversation-tracker",
+   "title": "Conversation Tracker",
+   "kind": "sheet",
+   "track": "start",
+   "tier": "free",
+   "tabs": [
+    "Start here",
+    "Tracker",
+    "Progress"
+   ],
+   "howTo": [
+    "List 20 people who have the problem. Message 20 to get 10 conversations.",
+    "Pick where you found each one. Mix sources: DMs, Reddit, campus, family friends, local businesses.",
+    "Log the date you message them. The sheet sets a polite follow-up date three days later.",
+    "Update Status as you go. Booked and Interviewed rows count toward your goal of 10.",
+    "Right after each call, fill the grey-free columns: how they solve it today, what they pay, pain, and one exact quote.",
+    "Ask everyone: who else do you know who deals with this? Log referrals as new rows.",
+    "At 10 interviews, move to the Interview Synthesis sheet to make the call."
+   ],
+   "minutes": 15,
+   "summary": "Track the 20 people you message to land 10 real customer conversations, with follow-up dates and the facts that matter from each call.",
+   "output": "Ten finished conversations logged in one place, with what each person pays today and their exact words.",
+   "useWhen": "Week 1 of the Start track, the moment you list the 10 people who have the problem.",
+   "aiPrompt": "Check that the people listed actually have the problem (not just friends being nice), that each finished interview records how they solve it today and what it costs them, and that the exact quotes are the customer's words rather than the member's summary.",
+   "pairsWith": [
+    {
+     "slug": "validation-interviews",
+     "title": "Validation Interview Scripts"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w1-t3",
+     "track": "start",
+     "label": "Start week 1, step 3: List 10 people who have this problem"
+    },
+    {
+     "id": "start-w2-t1",
+     "track": "start",
+     "label": "Start week 2, step 1: Book five discovery conversations"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/conversation-tracker/127-conversation-tracker.xlsx",
+     "bytes": 11802,
+     "sha256": "cbb740ec995e8b7103035cc2a61ed675da1574df4350d4688a4174d8f150fbb9"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/conversation-tracker/127-conversation-tracker-example.xlsx",
+     "bytes": 12483,
+     "sha256": "740a476b2b092099dc0d2721fd4db651a462a2b55fe8e38785fa94a1be0e4558"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/conversation-tracker/127-conversation-tracker.csv",
+     "bytes": 1133,
+     "sha256": "7979567998d95885e866c1aaf7216adb8a324fbc9d40bea02237994c9040803a"
+    }
+   ],
+   "preview": "files/conversation-tracker/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "interview-synthesis",
+   "title": "Interview Synthesis",
+   "kind": "sheet",
+   "track": "start",
+   "tier": "free",
+   "tabs": [
+    "Start here",
+    "Interviews",
+    "Phrases",
+    "Verdict"
+   ],
+   "howTo": [
+    "In Interviews, give each conversation one row. Fill it from your notes, using their words.",
+    "In Phrases, paste any phrase that sounds like it could be a headline. Mark an x under every interview where you heard it.",
+    "Phrases heard 3 or more times turn lilac. Those are your headline, offer and ad words.",
+    "Open Verdict. The sheet suggests kill, pause or double down from your evidence.",
+    "Make your own call, write why, and if it's a pause, the one thing you'll change.",
+    "Double down? Take your top phrases into the One-Page Offer this week."
+   ],
+   "minutes": 40,
+   "summary": "Lay your interviews side by side, count the phrases people repeat, and get a kill, pause or double down call backed by evidence.",
+   "output": "Your top repeated phrases in customers' exact words, what they pay today, and a written verdict.",
+   "useWhen": "Week 2 of the Start track after your interviews, and again in Grow when you rewrite your headline.",
+   "aiPrompt": "Check that the phrases are customers' exact words rather than the member's paraphrase, that the verdict follows the evidence (people paying today, recent pain, repeated words), and that a pause verdict names the one thing that will change.",
+   "pairsWith": [
+    {
+     "slug": "validation-interviews",
+     "title": "Validation Interview Scripts"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w2-t3",
+     "track": "start",
+     "label": "Start week 2, step 3: Highlight the phrases that came up more than once"
+    },
+    {
+     "id": "grow-w1-t3",
+     "track": "grow",
+     "label": "Grow week 1, step 3: Rewrite your headline in their words"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/interview-synthesis/127-interview-synthesis.xlsx",
+     "bytes": 13534,
+     "sha256": "6abc460baa1ebc004bd432c27ff0f0ddcc4906c5870ac19647d0bed8f4d8866a"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/interview-synthesis/127-interview-synthesis-example.xlsx",
+     "bytes": 14505,
+     "sha256": "c12198d539dad6b99b574d5b64c873bc9d2da9e2e9c91c441fdf47a1307046a8"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/interview-synthesis/127-interview-synthesis-interviews.csv",
+     "bytes": 1231,
+     "sha256": "247ffcdb2aefb5ade6fbe7c87a09ddd49b02da8e10e3ef9e4adaa8fadbc7603b"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/interview-synthesis/127-interview-synthesis-phrases.csv",
+     "bytes": 287,
+     "sha256": "cfccef83a1e5d8017e16ba45499b0b1b296e0ba536dd918d6aeb34703f10e0eb"
+    }
+   ],
+   "preview": "files/interview-synthesis/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "one-page-offer",
+   "title": "One-Page Offer",
+   "kind": "doc",
+   "track": "start",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Start with the spine",
+    "The eight parts",
+    "Stack the value",
+    "Too good to refuse check",
+    "Your one-pager",
+    "Read it to three people",
+    "Next step"
+   ],
+   "minutes": 45,
+   "summary": "Build an offer so clear and so good it feels almost too good to refuse, on one page you can paste into a DM, a bio link or a landing page.",
+   "output": "A finished one-page offer with all eight parts, a value stack, honest price framing and notes from reading it to three real people.",
+   "useWhen": "Start track week 3 after your interviews, Build track week 1 to sharpen an offer, or Grow track week 1 to rewrite your headline.",
+   "aiPrompt": "Check that the offer names one specific customer, the outcome uses the customer's own words, the guarantee is something the member can honor, cost is framed as the smallest number and value as the largest, the trust proof is real, and nothing overpromises or uses fake scarcity.",
+   "pairsWith": [
+    {
+     "slug": "offer-builder",
+     "title": "The One-Page Offer"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w3-t1",
+     "track": "start",
+     "label": "Start week 3, step 1: Draft your one-page offer"
+    },
+    {
+     "id": "start-w3-t3",
+     "track": "start",
+     "label": "Start week 3, step 3: Read the offer to three people in your audience"
+    },
+    {
+     "id": "build-w1-t1",
+     "track": "build",
+     "label": "Build week 1, step 1: Rewrite your offer on one page"
+    },
+    {
+     "id": "grow-w1-t3",
+     "track": "grow",
+     "label": "Grow week 1, step 3: Rewrite your headline in their words"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/one-page-offer/127-one-page-offer.pdf",
+     "bytes": 170214,
+     "sha256": "08b7ba47f39dc7ef062dfd45c24a719bbb28e2dba5894ced04b2fd62591267c5"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/one-page-offer/127-one-page-offer.docx",
+     "bytes": 77030,
+     "sha256": "f8215e31450bb02b67ed625b48b194d4a4d453d7688ba582d5690f1af36e5936"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/one-page-offer/127-one-page-offer.md",
+     "bytes": 6313,
+     "sha256": "8ea22b09e1fd229d80fbfad6c51a136ea4bc9b2161eaa6678405608d441b62e1"
+    }
+   ],
+   "preview": "files/one-page-offer/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "business-model-canvas",
+   "title": "Business Model One-Pager",
+   "kind": "doc",
+   "track": "start",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Your one page",
+    "Sanity check",
+    "Get two outside opinions",
+    "Next step"
+   ],
+   "minutes": 40,
+   "summary": "Your whole business on one page, from who pays and how you reach them to what the first sale costs, checked before you spend a dollar.",
+   "output": "A filled one-page business model, a passed six-question sanity check and honest feedback from one insider and one mentor.",
+   "useWhen": "Week 3 of the Start track, after your interviews and before you spend money on tools, ads or inventory.",
+   "aiPrompt": "Check that the customer is specific and reachable, the problem comes before the solution, at least one channel is easy, the first-sale costs are small and realistic, the differentiator has proof, the AI answer says whether AI could replace the offer, and the scale plan moves the founder toward working on the business, not in it.",
+   "pairsWith": [
+    {
+     "slug": "business-model-worksheet",
+     "title": "Business Model Worksheet"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w3-t2",
+     "track": "start",
+     "label": "Start week 3, step 2: Check that the numbers can work"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/business-model-canvas/127-business-model-canvas.pdf",
+     "bytes": 135859,
+     "sha256": "61733348180b87e45aca163b77a7f45f9e1ad10a8dc7ab6ebe39d3e0c68184ca"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/business-model-canvas/127-business-model-canvas.docx",
+     "bytes": 75977,
+     "sha256": "b19f3eec30aa827a4aaa4419f22371411f8d2268a4bbab01c092a16f441519de"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/business-model-canvas/127-business-model-canvas.md",
+     "bytes": 4848,
+     "sha256": "ea3a160b6f450dbdf7655a69abf4830b4a4aa8b789ff04bdd355a6b939494d17"
+    }
+   ],
+   "preview": "files/business-model-canvas/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "first-sale-math",
+   "title": "First-Sale Math",
+   "kind": "sheet",
+   "track": "start",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Math"
+   ],
+   "howTo": [
+    "Open the Math tab. Fill the white cells for your test price in column B.",
+    "Add every cost one sale creates: supplies, packaging, shipping, platform and payment fees.",
+    "Look up your payment processor's current fees and enter them. Don't guess.",
+    "Enter the hours one sale takes you, start to finish, including messages.",
+    "Try a lower and a higher price in columns C and D to compare.",
+    "If one sale loses money, fix that before you spend a dollar on growth."
+   ],
+   "minutes": 20,
+   "summary": "Check that one sale makes you money after every cost, what you really earn per hour, and how many sales cover your startup costs.",
+   "output": "Profit per sale, your real hourly rate and the number of sales you need, for three test prices side by side.",
+   "useWhen": "Week 3 of the Start track when you check the numbers can work, and before you set your price.",
+   "aiPrompt": "Check that every real cost per sale is included (materials, fees, shipping, time), that payment fees are entered from the processor's current pricing rather than guessed, that profit per sale is positive at the chosen price, and that the member is not relying on wishful volume.",
+   "pairsWith": [
+    {
+     "slug": "business-model-worksheet",
+     "title": "Business Model Worksheet"
+    },
+    {
+     "slug": "pricing-worksheet",
+     "title": "Pricing Worksheet"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w3-t2",
+     "track": "start",
+     "label": "Start week 3, step 2: Check that the numbers can work"
+    },
+    {
+     "id": "build-w1-t2",
+     "track": "build",
+     "label": "Build week 1, step 2: Check your pricing and margins"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/first-sale-math/127-first-sale-math.xlsx",
+     "bytes": 9624,
+     "sha256": "c09047b02a33f9d83910ff09f0fed571932bfe73508be63cb26ec92a043ef277"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/first-sale-math/127-first-sale-math-example.xlsx",
+     "bytes": 9764,
+     "sha256": "cb3d9a8a560daadd130a413c0d0e9cd15d6136ae46b788e836b3343d161ae886"
+    }
+   ],
+   "preview": "files/first-sale-math/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "pricing-lab",
+   "title": "Pricing Lab",
+   "kind": "sheet",
+   "track": "start",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Competitors",
+    "Value and price",
+    "Price test",
+    "Test result"
+   ],
+   "howTo": [
+    "Competitors: set a 30-minute timer. Log five competitors with price, model, what's included and what's missing.",
+    "Value: put a monthly number on the result you deliver. Extra customers, hours saved, money saved.",
+    "Price: enter your price. The sheet shows the ROI multiple, price per day and where you sit against competitors.",
+    "Copy the two framing lines into your One-Page Offer.",
+    "Test: offer the price to five real buyers. Say it plainly, then stop talking. Log every answer.",
+    "Five instant yeses? You're probably too cheap. Zero? Check the offer and the customer before you drop the price."
+   ],
+   "minutes": 50,
+   "summary": "Research five competitors in 30 minutes, tie your price to the value you create, frame it small and large, and test it with five real buyers.",
+   "output": "A price you can defend, a one-line ROI story, both framings, and real yes or no answers from five buyers.",
+   "useWhen": "Week 1 of the Build track when you check pricing and margins, or any time you raise prices.",
+   "aiPrompt": "Check that the value estimate is believable and tied to a real customer outcome, that the price sits sensibly against the competitor range, that the framings use the smallest number for cost and the largest for value, and that the five-buyer test has real names and outcomes.",
+   "pairsWith": [
+    {
+     "slug": "pricing-worksheet",
+     "title": "Pricing Worksheet"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w1-t2",
+     "track": "build",
+     "label": "Build week 1, step 2: Check your pricing and margins"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/pricing-lab/127-pricing-lab.xlsx",
+     "bytes": 13714,
+     "sha256": "2133571c471a5e66a8b23ab1b6b73d13dbda01b9054c48de0546bb7a9cd88a5e"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/pricing-lab/127-pricing-lab-example.xlsx",
+     "bytes": 14450,
+     "sha256": "12be275732d0458f7c99038f5f31376b7d231216481c02e0176816907da48be6"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pricing-lab/127-pricing-lab-competitors.csv",
+     "bytes": 614,
+     "sha256": "1f80af91915cf9752c564b98bc0935b46348f9e93c8c656cc84188e9a02e5ac5"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pricing-lab/127-pricing-lab-test.csv",
+     "bytes": 360,
+     "sha256": "6db0fda2c6f05c110f8dee376a6fe08a635898c42a24900214c0af8cfea93438"
+    }
+   ],
+   "preview": "files/pricing-lab/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "landing-page-brief",
+   "title": "Landing Page Brief",
+   "kind": "doc",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Page goal and tool",
+    "The seven blocks, in order",
+    "Honest proof when you have no customers",
+    "Let Claude write the first draft",
+    "Five-point pre-launch check",
+    "Next step"
+   ],
+   "minutes": 45,
+   "summary": "Turn your One-Page Offer into a simple page: seven blocks in order, honest proof, one call to action and a Claude prompt that drafts it.",
+   "output": "A filled brief you can build from in an afternoon, a ready-to-paste Claude prompt and a five-point check to run before you share the link.",
+   "useWhen": "Start track week 4 once your One-Page Offer holds up, or Build track week 2 when you rebuild your page.",
+   "aiPrompt": "Check that the page has one goal and one call to action, the headline uses customer words and states a result, the benefits are outcomes not features, the proof is real with nothing invented, and the offer frames cost small and value large.",
+   "pairsWith": [
+    {
+     "slug": "landing-page-brief",
+     "title": "Landing Page Brief"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w4-t1",
+     "track": "start",
+     "label": "Start week 4, step 1: Outline a simple landing page"
+    },
+    {
+     "id": "build-w2-t2",
+     "track": "build",
+     "label": "Build week 2, step 2: Rebuild your landing page from the brief"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/landing-page-brief/127-landing-page-brief.pdf",
+     "bytes": 151223,
+     "sha256": "eed4b8c292edbcf41ab371c3fdec0faa5af207dc5ac24cf603b8afbaadf6f281"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/landing-page-brief/127-landing-page-brief.docx",
+     "bytes": 77074,
+     "sha256": "433b343dc6cbfeb6ef4130e719c491c81adb42e4abf285d8c455351558ad0861"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/landing-page-brief/127-landing-page-brief.md",
+     "bytes": 6681,
+     "sha256": "b05b098f5ab377d3e06f05fe8e540b103464ef8f89abdce86fbde735b8404e4f"
+    }
+   ],
+   "preview": "files/landing-page-brief/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "brand-sheet",
+   "title": "Brand Sheet",
+   "kind": "doc",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Step 1: Name sprint (45 minutes)",
+    "Step 2: Positioning line",
+    "Step 3: Three voice words",
+    "Step 4: Two colors, one font, one wordmark",
+    "Step 5: Claim your handle",
+    "Your brand sheet",
+    "Next step"
+   ],
+   "minutes": 120,
+   "summary": "Set up a name, positioning line, voice, two colors, one font, a wordmark and matching handles in one afternoon, on one page you can send anyone.",
+   "output": "A one-page brand sheet with your name, positioning line, three voice words, two colors, one font, a wordmark and one handle used everywhere.",
+   "useWhen": "Build track week 2, in one afternoon before you rebuild your landing page, then leave it alone for three months.",
+   "aiPrompt": "Check that the name is easy to say and spell, the positioning line names a specific customer, a result and a pain, the three voice words are distinct with clear \"this, not that\" examples, the visuals stay to two colors and one font, and the handle matches on every platform.",
+   "pairsWith": [
+    {
+     "slug": "brand-basics",
+     "title": "Brand Basics in an Afternoon"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w2-t1",
+     "track": "build",
+     "label": "Build week 2, step 1: Create your one-page brand sheet"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/brand-sheet/127-brand-sheet.pdf",
+     "bytes": 167557,
+     "sha256": "4dd930e9098b0dc77ca42eeff899909162629b82aaee72c90975232b7312f17e"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/brand-sheet/127-brand-sheet.docx",
+     "bytes": 77400,
+     "sha256": "42c56ca3885eb17f484d03ba30207e994ef2cba3085b867a6a727d5ec31e4827"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/brand-sheet/127-brand-sheet.md",
+     "bytes": 6494,
+     "sha256": "0a026fa535584a5c9a67c7d9bd6641ed479cc160f2f5c1b2eb8f6c65ab5126ce"
+    }
+   ],
+   "preview": "files/brand-sheet/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "pipeline-tracker",
+   "title": "Pipeline Tracker",
+   "kind": "sheet",
+   "track": "grow",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Pipeline",
+    "Dashboard"
+   ],
+   "howTo": [
+    "Write 20 names in the Pipeline tab. People who might buy, know someone who would, or give honest feedback.",
+    "Add how you know them and their problem in their words. Personal first lines come from this column.",
+    "Send your first message and log the date. Day 3, 7 and 14 follow-up dates fill in for you.",
+    "Move the Stage as things happen. Every open row gets a next step and a date.",
+    "Each morning, filter Due? for Due or Follow up. That's your list for today.",
+    "Check the Dashboard tab once a week: replies, calls, wins and money won.",
+    "Want an email each morning with who's due? Set up the Follow-Up Reminders recipe on this sheet."
+   ],
+   "minutes": 20,
+   "summary": "One list for every person you could sell to: your warm list, outreach, follow-ups on day 3, 7 and 14, and who's due today.",
+   "output": "20 real contacts with a stage and a next step each, your first messages sent, and follow-ups that never slip.",
+   "useWhen": "Week 4 of the Start track when you offer it to your warm list, then every week as your CRM until it outgrows a sheet.",
+   "aiPrompt": "Check that the list has close to 20 real people with context on how the member knows them, that each active row has a next step and a date, that follow-ups are spaced rather than spammed, and that 'Won' rows record what the customer paid.",
+   "pairsWith": [
+    {
+     "slug": "dm-outreach-scripts",
+     "title": "Outreach Scripts"
+    },
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w4-t2",
+     "track": "start",
+     "label": "Start week 4, step 2: Personally offer it to your warm list"
+    },
+    {
+     "id": "build-w3-t3",
+     "track": "build",
+     "label": "Build week 3, step 3: Warm up 20 people personally"
+    },
+    {
+     "id": "grow-w3-t1",
+     "track": "grow",
+     "label": "Grow week 3, step 1: Send 20 warm outreach messages"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/pipeline-tracker/127-pipeline-tracker.xlsx",
+     "bytes": 29004,
+     "sha256": "9c14cf4bf233d377b71cd1a32eafb1c465996a3b5e16627295f9a4e930dea2ad"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/pipeline-tracker/127-pipeline-tracker-example.xlsx",
+     "bytes": 30511,
+     "sha256": "bdc4c21f1e40dc33771a6a6bf324572054f155a27508c595cf78904e9c9ae545"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pipeline-tracker/127-pipeline-tracker.csv",
+     "bytes": 1849,
+     "sha256": "593a29ba8ce308ff1eeb4d6345b0dbb2e1db05ab3caa906af165b5aff305743c"
+    }
+   ],
+   "preview": "files/pipeline-tracker/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "stack-audit",
+   "title": "Tool Stack Audit",
+   "kind": "sheet",
+   "track": "build",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Stack",
+    "Summary"
+   ],
+   "howTo": [
+    "List every tool you use or pay for, even free ones. Check your app store subscriptions and card statement.",
+    "Give each tool its one job. Enter the monthly cost and the last day you used it.",
+    "The sheet flags tools you haven't used in 14 days and jobs with two tools.",
+    "Mark each one Keep, Cut or Later. Later tools need a trigger: the pain that means you need it.",
+    "Open the Summary tab. Every core job should show one tool. Cancel what you cut today.",
+    "Rule: don't add a new tool until a task has hurt three times."
+   ],
+   "minutes": 20,
+   "summary": "List every tool you pay for or log into, give each one job, and cut what you haven't used in two weeks, aiming for $0 to $50 a month.",
+   "output": "One tool per job for the six jobs every first business needs, your real monthly cost, and a cut list.",
+   "useWhen": "Week 2 of the Build track when you trim your tools, and any time a new app tempts you.",
+   "aiPrompt": "Check that there is exactly one kept tool per core job, that the kept monthly cost is near $0 to $50, that unused tools are cut, and that every 'later' tool names the pain that would justify it.",
+   "pairsWith": [
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    },
+    {
+     "slug": "the-127-stack",
+     "title": "The 127 Stack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w2-t3",
+     "track": "build",
+     "label": "Build week 2, step 3: Trim your tools to the simple stack"
+    },
+    {
+     "id": "systems-w2-t2",
+     "track": "systems",
+     "label": "Build (systems) week 2, step 2: Consolidate your tools"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/stack-audit/127-stack-audit.xlsx",
+     "bytes": 11880,
+     "sha256": "41768833364de2416d2d338e5b17a267e7352ca009cdbf7492f11ba26586e024"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/stack-audit/127-stack-audit-example.xlsx",
+     "bytes": 12496,
+     "sha256": "41de41f22856b6292a1718830468e8a395cb6ff16adc7775b924c4f91dd2a3f7"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/stack-audit/127-stack-audit.csv",
+     "bytes": 912,
+     "sha256": "477bfbfa64ed3d5871ca4f563a6ef593d09d9d56c537975a66b21efd711bfa7b"
+    }
+   ],
+   "preview": "files/stack-audit/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "launch-countdown",
+   "title": "Launch Countdown",
+   "kind": "checklist",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Check items off here in the Library, or download the PDF or Word version.",
+    "Work top to bottom. Each group has a do-by date.",
+    "Ask Eli's Playbook to check anything you're unsure about."
+   ],
+   "outline": [
+    "Your launch date",
+    "Launch day messages",
+    "Keep it clean",
+    "Next step"
+   ],
+   "checklist": [
+    {
+     "key": "today",
+     "title": "Today",
+     "due": -14,
+     "items": [
+      {
+       "id": "launch-countdown.today.1",
+       "text": "Pick a launch date about 14 days out and put it on your calendar."
+      },
+      {
+       "id": "launch-countdown.today.2",
+       "text": "Text three people the date and ask them to check in on you."
+      },
+      {
+       "id": "launch-countdown.today.3",
+       "text": "Copy this countdown into Google Sheets, Notion or your notes app."
+      }
+     ]
+    },
+    {
+     "key": "t14",
+     "title": "Two weeks before: set up the foundation",
+     "due": -8,
+     "items": [
+      {
+       "id": "launch-countdown.t14.1",
+       "text": "Finish your One-Page Offer."
+      },
+      {
+       "id": "launch-countdown.t14.2",
+       "text": "Fill in your Landing Page Brief and build the page."
+      },
+      {
+       "id": "launch-countdown.t14.3",
+       "text": "Run the five-point pre-launch check on your phone."
+      },
+      {
+       "id": "launch-countdown.t14.4",
+       "text": "Set up payments: Shopify Payments for a store, or a payment link for a service."
+      },
+      {
+       "id": "launch-countdown.t14.5",
+       "text": "Make a real payment with your own card, then refund it."
+      },
+      {
+       "id": "launch-countdown.t14.6",
+       "text": "Look into registering your business. Check your local rules or ask a professional. This isn't legal or tax advice."
+      },
+      {
+       "id": "launch-countdown.t14.7",
+       "text": "Set up a separate way to track business money. See Before You Take Money."
+      },
+      {
+       "id": "launch-countdown.t14.8",
+       "text": "Write your delivery steps: everything that happens after someone pays."
+      },
+      {
+       "id": "launch-countdown.t14.9",
+       "text": "Do one full test delivery with a friend."
+      }
+     ]
+    },
+    {
+     "key": "t7",
+     "title": "One week before: warm up your list",
+     "due": -1,
+     "items": [
+      {
+       "id": "launch-countdown.t7.1",
+       "text": "Write your warm list in the Pipeline Tracker. Aim for 30 names."
+      },
+      {
+       "id": "launch-countdown.t7.2",
+       "text": "Mark the 10 people most likely to buy."
+      },
+      {
+       "id": "launch-countdown.t7.3",
+       "text": "Send those 10 a personal heads-up and ask if you can send them the link first."
+      },
+      {
+       "id": "launch-countdown.t7.4",
+       "text": "Post once about what you're building and why."
+      },
+      {
+       "id": "launch-countdown.t7.5",
+       "text": "Draft your launch post, your launch DM and your launch story."
+      },
+      {
+       "id": "launch-countdown.t7.6",
+       "text": "Write the welcome message every new customer gets."
+      },
+      {
+       "id": "launch-countdown.t7.7",
+       "text": "Write your three feedback questions."
+      },
+      {
+       "id": "launch-countdown.t7.8",
+       "text": "Open the Objection Log so you can capture every \"but\" during launch week."
+      }
+     ]
+    },
+    {
+     "key": "d1",
+     "title": "Launch day",
+     "due": 0,
+     "items": [
+      {
+       "id": "launch-countdown.d1.1",
+       "text": "Send personal DMs to your top 10. One at a time, never a group message."
+      },
+      {
+       "id": "launch-countdown.d1.2",
+       "text": "Post your launch post and your story."
+      },
+      {
+       "id": "launch-countdown.d1.3",
+       "text": "Reply to every comment and DM the same day."
+      },
+      {
+       "id": "launch-countdown.d1.4",
+       "text": "Log every reply and sale in the Pipeline Tracker."
+      }
+     ]
+    },
+    {
+     "key": "d2",
+     "title": "Day 2",
+     "due": 1,
+     "items": [
+      {
+       "id": "launch-countdown.d2.1",
+       "text": "Message the next 20 people on your warm list."
+      },
+      {
+       "id": "launch-countdown.d2.2",
+       "text": "Ask your day 1 buyers if they know one person who'd want this."
+      }
+     ]
+    },
+    {
+     "key": "d3",
+     "title": "Day 3",
+     "due": 2,
+     "items": [
+      {
+       "id": "launch-countdown.d3.1",
+       "text": "Post something useful about the problem you solve, like a before and after or a quick tip."
+      },
+      {
+       "id": "launch-countdown.d3.2",
+       "text": "Log every objection you've heard so far in the Objection Log."
+      }
+     ]
+    },
+    {
+     "key": "d4",
+     "title": "Day 4",
+     "due": 3,
+     "items": [
+      {
+       "id": "launch-countdown.d4.1",
+       "text": "Send one short, friendly follow-up to every maybe and every no-reply."
+      }
+     ]
+    },
+    {
+     "key": "d5",
+     "title": "Day 5",
+     "due": 4,
+     "items": [
+      {
+       "id": "launch-countdown.d5.1",
+       "text": "Deliver to your first customers with extra care. Over-deliver on the first orders."
+      }
+     ]
+    },
+    {
+     "key": "d6",
+     "title": "Day 6",
+     "due": 5,
+     "items": [
+      {
+       "id": "launch-countdown.d6.1",
+       "text": "Post a real update: what happened and what you learned."
+      },
+      {
+       "id": "launch-countdown.d6.2",
+       "text": "Share a customer result only with their permission."
+      }
+     ]
+    },
+    {
+     "key": "d7",
+     "title": "Day 7",
+     "due": 6,
+     "items": [
+      {
+       "id": "launch-countdown.d7.1",
+       "text": "Count messages sent, replies, sales and objections."
+      },
+      {
+       "id": "launch-countdown.d7.2",
+       "text": "Write down the one thing you'll change next week."
+      }
+     ]
+    },
+    {
+     "key": "after",
+     "title": "The week after: ask, learn, decide",
+     "due": 13,
+     "items": [
+      {
+       "id": "launch-countdown.after.1",
+       "text": "Thank every customer within three days of delivery."
+      },
+      {
+       "id": "launch-countdown.after.2",
+       "text": "Ask every customer: What almost stopped you from buying? What was the best part? What would you change?"
+      },
+      {
+       "id": "launch-countdown.after.3",
+       "text": "Ask happy customers if you can share their words or a photo. Use only what they approve."
+      },
+      {
+       "id": "launch-countdown.after.4",
+       "text": "Ask every non-buyer: What would have made it a yes?"
+      },
+      {
+       "id": "launch-countdown.after.5",
+       "text": "Update your FAQ and landing page from the Objection Log."
+      },
+      {
+       "id": "launch-countdown.after.6",
+       "text": "Find the message, post or person that drove the most sales, and ask why it worked."
+      },
+      {
+       "id": "launch-countdown.after.7",
+       "text": "Pick one thing to do more of next week."
+      },
+      {
+       "id": "launch-countdown.after.8",
+       "text": "Set up simple revenue and expense tracking, and ask a professional about taxes where you live."
+      }
+     ]
+    }
+   ],
+   "minutes": 30,
+   "summary": "Every step from picking a launch date to the week after launch, with a do-by date for each so nothing important gets missed.",
+   "output": "A launch date on your calendar, a checked-off countdown and your first real numbers, from who you asked to who bought and what stopped the rest.",
+   "useWhen": "Build track week 3, about 14 days before you start asking people to pay, and every day through launch week.",
+   "aiPrompt": "Check that the launch date is about two weeks out, that payments were tested with a real purchase and refund, that registration is flagged for local rules or a professional, that the warm list has real names, and that the week-after questions ask what almost stopped people from buying.",
+   "pairsWith": [
+    {
+     "slug": "launch-checklist",
+     "title": "First Launch Checklist"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w3-t1",
+     "track": "build",
+     "label": "Build week 3, step 1: Work through the launch checklist"
+    },
+    {
+     "id": "build-w4-t1",
+     "track": "build",
+     "label": "Build week 4, step 1: Launch and message your warm list"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/launch-countdown/127-launch-countdown.pdf",
+     "bytes": 113749,
+     "sha256": "f05d18c9eea327b4554306e51fd1843a9e2f08e398573fc0a417d9cf893d6da9"
+    },
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/launch-countdown/127-launch-countdown.xlsx",
+     "bytes": 14653,
+     "sha256": "1016189527df81b154e403fa15dcf0dab2a169bb33e4fb41ed4ee904f383003a"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/launch-countdown/127-launch-countdown-example.xlsx",
+     "bytes": 14798,
+     "sha256": "99b68f70ac24aba48e5d645c3068d108752b71cb546223eef0870100edc1fb0e"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/launch-countdown/127-launch-countdown.docx",
+     "bytes": 76287,
+     "sha256": "b3245ac4ddafae88eef108acf6f351ed052a7bdb84412fa114c20cd42bb37f0d"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/launch-countdown/127-launch-countdown.md",
+     "bytes": 5706,
+     "sha256": "32518283c57c35c9753d6e3aaab448e874670f4fd2381fce7d66402c8ba8ccd2"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/launch-countdown/127-launch-countdown.csv",
+     "bytes": 373,
+     "sha256": "206b0d3167006b7458ed2f8b779ac00eb1d254c26f8e72f93d91ca7e8fc0b3ad"
+    }
+   ],
+   "preview": "files/launch-countdown/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "money-setup-checklist",
+   "title": "Before You Take Money",
+   "kind": "checklist",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Check items off here in the Library, or download the PDF or Word version.",
+    "Work top to bottom. Each group has a do-by date.",
+    "Ask Eli's Playbook to check anything you're unsure about."
+   ],
+   "outline": [
+    "Your setup, written down",
+    "Next step"
+   ],
+   "checklist": [
+    {
+     "key": "pay",
+     "title": "Payments",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.pay.1",
+       "text": "Pick one processor for what you sell: Shopify for a store, a payment link for a service, a card reader in person."
+      },
+      {
+       "id": "money-setup-checklist.pay.2",
+       "text": "Check current fees and payout timing on the processor's own site."
+      },
+      {
+       "id": "money-setup-checklist.pay.3",
+       "text": "Connect the account your payouts will go to."
+      },
+      {
+       "id": "money-setup-checklist.pay.4",
+       "text": "Make a real payment with your own card."
+      },
+      {
+       "id": "money-setup-checklist.pay.5",
+       "text": "Refund that payment and confirm the refund went through."
+      },
+      {
+       "id": "money-setup-checklist.pay.6",
+       "text": "Turn on alerts so you know when money comes in."
+      }
+     ]
+    },
+    {
+     "key": "under18",
+     "title": "If you're under 18",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.under18.1",
+       "text": "Read each processor's current age rules before you sign up."
+      },
+      {
+       "id": "money-setup-checklist.under18.2",
+       "text": "Ask a parent or guardian to open the account, or be added as its owner, if the rules require it."
+      },
+      {
+       "id": "money-setup-checklist.under18.3",
+       "text": "Agree together on who can see the account and where payouts land."
+      },
+      {
+       "id": "money-setup-checklist.under18.4",
+       "text": "Ask the same age question about any bank account for business money."
+      },
+      {
+       "id": "money-setup-checklist.under18.5",
+       "text": "Ask a professional whether being under 18 changes anything else for you."
+      },
+      {
+       "id": "money-setup-checklist.under18.6",
+       "text": "Never fake your age or use someone else's details to get around the rules."
+      }
+     ]
+    },
+    {
+     "key": "separate",
+     "title": "Keep business money separate",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.separate.1",
+       "text": "Ask a professional which setup fits you, like a separate account or a business account."
+      },
+      {
+       "id": "money-setup-checklist.separate.2",
+       "text": "Send every business payment to that one place."
+      },
+      {
+       "id": "money-setup-checklist.separate.3",
+       "text": "Pay business costs from there, and never personal ones."
+      },
+      {
+       "id": "money-setup-checklist.separate.4",
+       "text": "Store your logins in a password manager."
+      }
+     ]
+    },
+    {
+     "key": "records",
+     "title": "Records from day one",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.records.1",
+       "text": "Make a simple sheet: date, what, sale or expense, amount, receipt link."
+      },
+      {
+       "id": "money-setup-checklist.records.2",
+       "text": "Log every sale and every expense the day it happens, even small ones."
+      },
+      {
+       "id": "money-setup-checklist.records.3",
+       "text": "Make one receipts folder and save a photo of every receipt."
+      },
+      {
+       "id": "money-setup-checklist.records.4",
+       "text": "Check the sheet against your payment app once a week."
+      }
+     ]
+    },
+    {
+     "key": "ask",
+     "title": "Questions for a local professional",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.ask.1",
+       "text": "Ask: do I need to register this business where I live?"
+      },
+      {
+       "id": "money-setup-checklist.ask.2",
+       "text": "Ask: do I need to register my business name, and can I use it?"
+      },
+      {
+       "id": "money-setup-checklist.ask.3",
+       "text": "Ask: does what I sell need a permit or license?"
+      },
+      {
+       "id": "money-setup-checklist.ask.4",
+       "text": "Ask: do I need to collect sales tax, and on what?"
+      },
+      {
+       "id": "money-setup-checklist.ask.5",
+       "text": "Ask: how is this income taxed for me, and how much should I set aside?"
+      },
+      {
+       "id": "money-setup-checklist.ask.6",
+       "text": "Ask: which records should I keep, and for how long?"
+      },
+      {
+       "id": "money-setup-checklist.ask.7",
+       "text": "Write down each answer, who gave it and the date."
+      }
+     ]
+    },
+    {
+     "key": "promise",
+     "title": "Your promises",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.promise.1",
+       "text": "Test your delivery time on a real order before you promise it."
+      },
+      {
+       "id": "money-setup-checklist.promise.2",
+       "text": "Write your refund or guarantee policy in two or three sentences."
+      },
+      {
+       "id": "money-setup-checklist.promise.3",
+       "text": "Put that policy where buyers see it before they pay."
+      },
+      {
+       "id": "money-setup-checklist.promise.4",
+       "text": "Write what happens after someone pays, step by step, starting with the confirmation message."
+      },
+      {
+       "id": "money-setup-checklist.promise.5",
+       "text": "Decide how you'll handle a refund request before the first one comes in."
+      }
+     ]
+    },
+    {
+     "key": "privacy",
+     "title": "Customer info",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.privacy.1",
+       "text": "Collect only what you need to deliver: name, contact and order details."
+      },
+      {
+       "id": "money-setup-checklist.privacy.2",
+       "text": "Keep customer info in one private place, like your Pipeline Tracker, and never share or sell it."
+      },
+      {
+       "id": "money-setup-checklist.privacy.3",
+       "text": "Never store card numbers yourself. Your processor handles them."
+      },
+      {
+       "id": "money-setup-checklist.privacy.4",
+       "text": "Ask before you add anyone to an email list."
+      },
+      {
+       "id": "money-setup-checklist.privacy.5",
+       "text": "Get permission before you post a customer's photo or words."
+      }
+     ]
+    }
+   ],
+   "minutes": 60,
+   "summary": "Set up payments, separate business money, keep simple records and write down your promises before your first customer pays you.",
+   "output": "A tested way to get paid and refund, business money kept separate, a sales and expense log from day one, written promises and answers from a local professional.",
+   "useWhen": "About two weeks before launch, in Build track week 3, alongside the Launch Countdown and before you share a payment link.",
+   "aiPrompt": "Check that a real payment and refund were tested, business money is kept separate, every sale and expense has a place to be logged, registration and tax questions went to a local professional instead of being guessed, and every promise to customers has been tested.",
+   "pairsWith": [
+    {
+     "slug": "launch-checklist",
+     "title": "First Launch Checklist"
+    },
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w3-t1",
+     "track": "build",
+     "label": "Build week 3, step 1: Work through the launch checklist"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.pdf",
+     "bytes": 109367,
+     "sha256": "c13efd5a1bc169a0f8c3ec5f6c8a0912736300c3d54f9978c4e04ca66ce615f7"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.docx",
+     "bytes": 75613,
+     "sha256": "829a24f7cc3c7532048d45f01846f2136db60a8884212ea05f748bc29c392d6f"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.md",
+     "bytes": 4865,
+     "sha256": "66e00793f1fdd8f8694d5e667a7a1ac567058bc3036af5f5121765df034b6990"
+    }
+   ],
+   "preview": "files/money-setup-checklist/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "objection-log",
+   "title": "Objection Log",
+   "kind": "sheet",
+   "track": "build",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Log",
+    "FAQ"
+   ],
+   "howTo": [
+    "Every time someone hesitates, add a row: their exact words, where you heard it and the type.",
+    "Note whether they bought anyway and what you said that helped.",
+    "Open the FAQ tab. The sheet counts each type so you can see the real pattern.",
+    "Write a plain, true answer for the top three. Use their words in the question.",
+    "Put those answers on your landing page FAQ and into saved replies. Mark them fixed.",
+    "Each objection is also a post: a myth and the truth, or a question you answer on camera."
+   ],
+   "minutes": 10,
+   "summary": "Write down every \"but\" you hear in the words people used, see which objections come up most, and turn the top three into your FAQ.",
+   "output": "Your top objections ranked, an honest answer for each, and the fixes for your landing page and DMs.",
+   "useWhen": "Launch week of the Build track (log every objection you hear), then any time sales stall.",
+   "aiPrompt": "Check that objections are logged in the customer's exact words, that the most common types are answered plainly and truthfully, that no answer uses pressure or fake scarcity, and that the top answers made it onto the landing page.",
+   "pairsWith": [
+    {
+     "slug": "launch-checklist",
+     "title": "First Launch Checklist"
+    },
+    {
+     "slug": "landing-page-brief",
+     "title": "Landing Page Brief"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w4-t2",
+     "track": "build",
+     "label": "Build week 4, step 2: Log every objection you hear"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/objection-log/127-objection-log.xlsx",
+     "bytes": 13136,
+     "sha256": "321b22acb3612d87c2f886cdaa44c6f7a97fde570f88d29431867f0b36d0bd22"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/objection-log/127-objection-log-example.xlsx",
+     "bytes": 14098,
+     "sha256": "12e7525556e55fe5e04d90b19d98188e973bda769fa6fd9591da519fb80ba96d"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/objection-log/127-objection-log.csv",
+     "bytes": 1042,
+     "sha256": "742575ede2ca4d878a5da298aea15dbbeb8c2c3647f10590263eaf3b12e653a0"
+    }
+   ],
+   "preview": "files/objection-log/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "hours-audit",
+   "title": "Hours Audit",
+   "kind": "sheet",
+   "track": "build",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Audit",
+    "Summary"
+   ],
+   "howTo": [
+    "Open last week's calendar, screen time, texts and notes. List every business task and the hours it took.",
+    "Tag each one. Only me: needs your judgment, face or relationships. Repeat: same way every time. Waste: didn't need doing.",
+    "For repeat tasks, answer: same steps every time? Fine if done 80% as well?",
+    "The sheet scores each repeat task. Highest score = your best first handoff.",
+    "Pick who or what runs it: a saved reply, an automation, an AI tool, a freelancer or a friend.",
+    "Cut every waste task today. Then write the SOP for your first handoff."
+   ],
+   "minutes": 25,
+   "summary": "List every task from last week with the time it took, tag it only me, repeat or waste, and let the sheet pick your best first handoff.",
+   "output": "Last week's hours by tag, a cut list, your biggest bottleneck and the one task to hand off first.",
+   "useWhen": "Week 1 of the systems roadmap and once a month after, alongside the One-Page SOP.",
+   "aiPrompt": "Check that the audit lists real tasks with honest hours, that waste tasks are cut, that the first handoff is repeated, rule-based and low-risk rather than a judgment-heavy task, and that the chosen person or tool fits the task.",
+   "pairsWith": [
+    {
+     "slug": "delegation-playbook",
+     "title": "Delegate Your First Task"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w1-t2",
+     "track": "systems",
+     "label": "Build (systems) week 1, step 2: Audit where your hours went last week"
+    },
+    {
+     "id": "systems-w1-t3",
+     "track": "systems",
+     "label": "Build (systems) week 1, step 3: Name the single biggest bottleneck"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/hours-audit/127-hours-audit.xlsx",
+     "bytes": 11520,
+     "sha256": "3df365cc341f15f20407468765de3556c5fc3e76d6696cb7336bdcb06c82b23e"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/hours-audit/127-hours-audit-example.xlsx",
+     "bytes": 12199,
+     "sha256": "bab041f0d63dab0337f7f8043591754b22d0bf872f844b098fc1545bd27ae3c5"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hours-audit/127-hours-audit.csv",
+     "bytes": 727,
+     "sha256": "b0fe733dd63e5187ca4dc751456d746cf2dbd518a997bf6865da93f5230c2c28"
+    }
+   ],
+   "preview": "files/hours-audit/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "sop-template",
+   "title": "One-Page SOP",
+   "kind": "doc",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Is this the right task?",
+    "Your SOP",
+    "Review the first three runs",
+    "Handoff check",
+    "Turn your notes into a draft",
+    "Next step"
+   ],
+   "minutes": 45,
+   "summary": "A one-page SOP that turns a task you repeat into steps anyone, or any tool, can follow, so it stops living in your head.",
+   "output": "A tested one-page SOP for one repeated task, a named person or tool running it, and a three-run review that tells you when to let go.",
+   "useWhen": "In week 2 of your roadmap, right after your Hours Audit picks a repeat task, then again in week 3 when you hand it off.",
+   "aiPrompt": "Check that the task is repeated and rule-based, each step is one action starting with a verb, 'when to ask me' names exact situations, a recording link is present, and the first three runs are logged with an SOP fix for each problem.",
+   "pairsWith": [
+    {
+     "slug": "delegation-playbook",
+     "title": "Delegate Your First Task"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w2-t1",
+     "track": "systems",
+     "label": "Build (systems) week 2, step 1: Document one repeated process"
+    },
+    {
+     "id": "systems-w3-t2",
+     "track": "systems",
+     "label": "Build (systems) week 3, step 2: Hand off your first documented task"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/sop-template/127-sop-template.pdf",
+     "bytes": 157566,
+     "sha256": "d78f53d726aee4c4dc034f6fa0e4768cda768f0c1343cc0e51db125e4bd26fea"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/sop-template/127-sop-template.docx",
+     "bytes": 77532,
+     "sha256": "ddaeb21092e4e0129d7bf8aa5d972d806f92827f75d82a3c6c2397ecb180eb8b"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/sop-template/127-sop-template.md",
+     "bytes": 6632,
+     "sha256": "58a329555817740d298046114f35993ab42743821a2de60a92db7090d1f3f419"
+    }
+   ],
+   "preview": "files/sop-template/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "weekly-scorecard",
+   "title": "Weekly Founder Scorecard",
+   "kind": "sheet",
+   "track": "grow",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Scorecard",
+    "This week",
+    "Charts"
+   ],
+   "howTo": [
+    "Each Monday, pull last week's numbers from the same places: platform analytics, site dashboard, DMs, payment app.",
+    "Type them into the next row of the Scorecard tab. Zero is a number. Enter it.",
+    "Add your inputs too: posts, messages sent, hours. When everything drops, check these first.",
+    "Read the grey columns: each conversion rate, the change from last week and the biggest drop.",
+    "Write one double down, one pause, one kill and the one test for next week.",
+    "Open This week for the summary and the Charts tab for the trend. One week is a data point. Three is a trend.",
+    "Want it emailed to you every Monday? Set up the Monday Scorecard Email recipe on this sheet."
+   ],
+   "minutes": 10,
+   "summary": "Ten minutes every Monday: your five numbers, the conversion rate between each step, week-over-week change and one decision for next week.",
+   "output": "A 13-week scorecard that shows where your business leaks, what changed, and a written kill, pause or double down call.",
+   "useWhen": "The last week of the Build track, then every Monday, and in Grow week 4 to compare this week to week one.",
+   "aiPrompt": "Check that all five numbers are filled from the same sources each week, that the member found the step with the biggest drop rather than just the biggest number, that each week has one kill, one pause and one double down, and that the test for next week is specific.",
+   "pairsWith": [
+    {
+     "slug": "kpi-dashboard",
+     "title": "Founder KPI Dashboard"
+    },
+    {
+     "slug": "weekly-ceo-review",
+     "title": "Weekly CEO Review"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w4-t3",
+     "track": "build",
+     "label": "Build week 4, step 3: Set up your weekly scorecard"
+    },
+    {
+     "id": "grow-w1-t1",
+     "track": "grow",
+     "label": "Grow week 1, step 1: Fill in your first weekly scorecard"
+    },
+    {
+     "id": "grow-w4-t1",
+     "track": "grow",
+     "label": "Grow week 4, step 1: Compare this week to week one"
+    },
+    {
+     "id": "systems-w1-t1",
+     "track": "systems",
+     "label": "Build (systems) week 1, step 1: Set up your weekly founder scorecard"
+    },
+    {
+     "id": "systems-w4-t1",
+     "track": "systems",
+     "label": "Build (systems) week 4, step 1: Make the Monday scorecard a ritual"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/weekly-scorecard/127-weekly-scorecard.xlsx",
+     "bytes": 16755,
+     "sha256": "70be4e06fc7144e2f442ea6677b8cbe2fe465413f59c4540e509b3af213d2607"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/weekly-scorecard/127-weekly-scorecard-example.xlsx",
+     "bytes": 17266,
+     "sha256": "653afcb61cd3277370b65f1ec7f2ac24b2887c5e05db8a045f36271d1c756950"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/weekly-scorecard/127-weekly-scorecard.csv",
+     "bytes": 857,
+     "sha256": "251ec49a13aa9a73bb8164cf0d5301e46de89bf6ee9f5e7957d3ad85942a1ab7"
+    }
+   ],
+   "preview": "files/weekly-scorecard/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "content-planner",
+   "title": "30-Day Content Planner",
+   "kind": "sheet",
+   "track": "grow",
+   "tier": "free",
+   "tabs": [
+    "Start here",
+    "Setup",
+    "Calendar",
+    "Formats"
+   ],
+   "howTo": [
+    "Open Setup. Write your three pillars: one that teaches, one that shows proof, one that shows you.",
+    "Pick one main platform, your rhythm (5 or 3 days a week) and your Day 1 date. Every date and pillar fills in.",
+    "Block a two-hour batching slot on your calendar. Write it in Setup.",
+    "In Calendar, fill week one completely: hook, topic, format, CTA. Weeks two to four get topics only.",
+    "48 hours after each post, log views, saves and shares, comments and DMs.",
+    "Open Formats each week. Reuse the format that wins on DMs and comments, not just views.",
+    "Day 29: remake your best post a new way. Day 30: plan next month. Keep, cut, test."
+   ],
+   "minutes": 45,
+   "summary": "Three pillars, one platform and a posting rhythm you can keep, laid out over 30 dated days, with a tracker that tells you which format hits.",
+   "output": "Week one fully planned, weeks two to four with topics, a batching slot, and a format you know is working by day 30.",
+   "useWhen": "Week 3 of the Build track, Week 2 of Grow, or any month you plan founder-led content.",
+   "aiPrompt": "Check that the three pillars are distinct and tied to the customer's problem, that one pillar features the member personally, that the rhythm is realistic for under three hours a week, that week one has a hook, topic, format and CTA for every post, and that results are logged 48 hours after posting.",
+   "pairsWith": [
+    {
+     "slug": "content-calendar",
+     "title": "30-Day Content Calendar"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w3-t2",
+     "track": "build",
+     "label": "Build week 3, step 2: Plan 30 days of content"
+    },
+    {
+     "id": "grow-w2-t1",
+     "track": "grow",
+     "label": "Grow week 2, step 1: Map your 30-day content calendar"
+    },
+    {
+     "id": "systems-w4-t3",
+     "track": "systems",
+     "label": "Build (systems) week 4, step 3: Plan founder-led content for the month"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/content-planner/127-content-planner.xlsx",
+     "bytes": 13221,
+     "sha256": "51927aaddae3b5898142c93156870f507af634ea2a1d008df2040eed04e9f7a4"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/content-planner/127-content-planner-example.xlsx",
+     "bytes": 14118,
+     "sha256": "6c5ee45b4e188ec260ee806b7a340b2750d534c953c5121db779a948af407c30"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/content-planner/127-content-planner.csv",
+     "bytes": 1213,
+     "sha256": "fb063eec24153d5de50c2fc8df8f211d47db3572f5181f1e6f4b7e068c6a9c0e"
+    }
+   ],
+   "preview": "files/content-planner/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "hook-bank",
+   "title": "Hook Bank",
+   "kind": "sheet",
+   "track": "grow",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Hook bank",
+    "My hooks",
+    "Captions",
+    "CTAs",
+    "Results",
+    "Winners"
+   ],
+   "howTo": [
+    "Browse the Hook bank tab. Filter by type: story, mistake, contrarian, how-to, result, behind the scenes.",
+    "In My hooks, write ten hooks for your niche. Put the template number in the # column and the type fills in.",
+    "Say each hook out loud. If it sounds like an ad, rewrite it until it sounds like you.",
+    "After posting, log views, saves and DMs at 48 hours. The sheet compares each one to your average.",
+    "Open Results to see which hook type wins. Use at least two types each week so you have a comparison.",
+    "Review your winner in Winners and write three remixes: same winning element, new topic."
+   ],
+   "minutes": 30,
+   "summary": "42 fill-in-the-blank hooks, 10 caption templates and 10 calls to action, plus a log that shows which hook type works for your audience.",
+   "output": "Ten hooks written for your niche, the hook type that beats your average, and three remixes of your best post.",
+   "useWhen": "Week 2 of the Grow track, and at the start of every batching session.",
+   "aiPrompt": "Check that the member's hooks are specific to their niche with real words, numbers or tools instead of blanks, that every hook type is tried, that no hook claims a fake result, and that the winning post review names a real reason it worked.",
+   "pairsWith": [
+    {
+     "slug": "hooks-library",
+     "title": "Hook & Caption Bank"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w2-t2",
+     "track": "grow",
+     "label": "Grow week 2, step 2: Write ten hooks for your niche"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/hook-bank/127-hook-bank.xlsx",
+     "bytes": 18955,
+     "sha256": "aabaef5e3f41310877146c524e686ff10a5850b6a3bdf9d77faad7665b5b4cf7"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/hook-bank/127-hook-bank-example.xlsx",
+     "bytes": 19618,
+     "sha256": "7895e43fc6d84cf7940e322e32d50ac04225ce3366e21cf77a467a029cd794bb"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-captions.csv",
+     "bytes": 962,
+     "sha256": "f9d2867f27814eda306c6bc30bc1880fc2b0e95c5be5630c33b7ca2f0b53ee4f"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-ctas.csv",
+     "bytes": 527,
+     "sha256": "a7bf53c2c8cd85438cf4624837e1f71881b783c78c4b062d39511d2bb72fe2b0"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-my-hooks.csv",
+     "bytes": 663,
+     "sha256": "8d7857604621152641989af61986fc8b18eaa018b37dcf6de8c91996a4155de9"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-templates.csv",
+     "bytes": 3214,
+     "sha256": "25cfe8544cbb8648d7b7931dabeb6d97148b8954dadee1f8204ce53b0fa9297c"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-winners.csv",
+     "bytes": 401,
+     "sha256": "401d981c563f2f98d487de9f37a233d3c1bfd88351288b4aa740fd603af94858"
+    }
+   ],
+   "preview": "files/hook-bank/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "batch-day",
+   "title": "Batch Day",
+   "kind": "checklist",
+   "track": "grow",
+   "tier": "free",
+   "howTo": [
+    "Check items off here in the Library, or download the PDF or Word version.",
+    "Work top to bottom. Each group has a do-by date.",
+    "Ask Eli's Playbook to check anything you're unsure about."
+   ],
+   "outline": [
+    "Next step"
+   ],
+   "checklist": [
+    {
+     "key": "before",
+     "title": "Before you start",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.before.1",
+       "text": "Put your two-hour slot on the calendar, same time every week."
+      },
+      {
+       "id": "batch-day.before.2",
+       "text": "Charge your phone and clear space for video."
+      },
+      {
+       "id": "batch-day.before.3",
+       "text": "Clean the camera lens."
+      },
+      {
+       "id": "batch-day.before.4",
+       "text": "Pick one spot with window light facing you."
+      },
+      {
+       "id": "batch-day.before.5",
+       "text": "Pull last week's comments and DMs for post ideas."
+      },
+      {
+       "id": "batch-day.before.6",
+       "text": "Open your three pillars and your Hook Bank, or a note of hooks you've saved."
+      }
+     ]
+    },
+    {
+     "key": "plan",
+     "title": "Plan (15 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.plan.1",
+       "text": "Write five hooks, with at least one from each pillar."
+      },
+      {
+       "id": "batch-day.plan.2",
+       "text": "Fill each hook's blanks with your customers' exact words."
+      },
+      {
+       "id": "batch-day.plan.3",
+       "text": "Write a one-line outline under each hook."
+      },
+      {
+       "id": "batch-day.plan.4",
+       "text": "Pick one format per post."
+      },
+      {
+       "id": "batch-day.plan.5",
+       "text": "Fill in the shot list below."
+      }
+     ]
+    },
+    {
+     "key": "film",
+     "title": "Film (45 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.film.1",
+       "text": "Set the phone at eye level and lock focus."
+      },
+      {
+       "id": "batch-day.film.2",
+       "text": "Record a 10-second test and check the sound."
+      },
+      {
+       "id": "batch-day.film.3",
+       "text": "Film all five back to back in the same spot."
+      },
+      {
+       "id": "batch-day.film.4",
+       "text": "Start talking on the first frame. No warm-up."
+      },
+      {
+       "id": "batch-day.film.5",
+       "text": "Shoot each hook two or three ways."
+      },
+      {
+       "id": "batch-day.film.6",
+       "text": "Grab extra clips: hands at work, before and after, your setup."
+      }
+     ]
+    },
+    {
+     "key": "edit",
+     "title": "Edit in CapCut (45 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.edit.1",
+       "text": "Pick the best take of each hook."
+      },
+      {
+       "id": "batch-day.edit.2",
+       "text": "Cut every pause and every 'um'."
+      },
+      {
+       "id": "batch-day.edit.3",
+       "text": "Add auto captions and fix any wrong words."
+      },
+      {
+       "id": "batch-day.edit.4",
+       "text": "Put the hook on screen in the first two seconds."
+      },
+      {
+       "id": "batch-day.edit.5",
+       "text": "Keep each video under 45 seconds."
+      },
+      {
+       "id": "batch-day.edit.6",
+       "text": "Watch each one on your phone with the sound off."
+      }
+     ]
+    },
+    {
+     "key": "post",
+     "title": "Captions and schedule (15 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.post.1",
+       "text": "Write a short caption for each post."
+      },
+      {
+       "id": "batch-day.post.2",
+       "text": "Give each post one call to action: follow, comment or DM."
+      },
+      {
+       "id": "batch-day.post.3",
+       "text": "Schedule all five with the platform's own scheduler."
+      },
+      {
+       "id": "batch-day.post.4",
+       "text": "Check the days match your posting rhythm."
+      }
+     ]
+    },
+    {
+     "key": "after",
+     "title": "After",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.after.1",
+       "text": "Log each post in your 30-Day Content Planner."
+      },
+      {
+       "id": "batch-day.after.2",
+       "text": "Reply to every comment within a day."
+      },
+      {
+       "id": "batch-day.after.3",
+       "text": "Write down every question people ask. That's next week's batch."
+      },
+      {
+       "id": "batch-day.after.4",
+       "text": "Fill in the format tracker 48 hours after each post."
+      }
+     ]
+    }
+   ],
+   "minutes": 120,
+   "summary": "Film a full week of short videos in one two-hour block: plan, film, edit and schedule five posts, with a shot list that keeps you on track.",
+   "output": "Five edited, captioned posts scheduled for the week, a filled shot list and a list of questions to answer in next week's batch.",
+   "useWhen": "Grow track week 2, once your three content pillars are set, then once a week in the same slot.",
+   "aiPrompt": "Check that the five hooks cover all three pillars and use the customer's words, each post has one format and one call to action, videos stay under 45 seconds with the hook on screen in the first two seconds, and all five are scheduled and logged.",
+   "pairsWith": [
+    {
+     "slug": "content-calendar",
+     "title": "30-Day Content Calendar"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w2-t3",
+     "track": "grow",
+     "label": "Grow week 2, step 3: Batch-create one full week of posts"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/batch-day/127-batch-day.pdf",
+     "bytes": 92908,
+     "sha256": "e7bee6d920ada4882fda259af89243442804088a5108a36830ea10e48c211b1d"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/batch-day/127-batch-day.docx",
+     "bytes": 75106,
+     "sha256": "dbaf9fe6504dfaba9ec66f2e6437a1abd56f620e3ca0ed9fcc2ca3f52a2a3847"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/batch-day/127-batch-day.md",
+     "bytes": 3375,
+     "sha256": "65ed4cf0e99e2ee2ea25aab318b0a9a984ef547495a03f6086453192d2a67fad"
+    }
+   ],
+   "preview": "files/batch-day/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "page-leak-audit",
+   "title": "Landing Page Leak Audit",
+   "kind": "checklist",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Check items off here in the Library, or download the PDF or Word version.",
+    "Work top to bottom. Each group has a do-by date.",
+    "Ask Eli's Playbook to check anything you're unsure about."
+   ],
+   "outline": [
+    "Top three leaks",
+    "Next step"
+   ],
+   "checklist": [
+    {
+     "key": "clarity",
+     "title": "Clarity",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.clarity.1",
+       "text": "Show the page to a stranger for five seconds, then ask what you sell and who it's for."
+      },
+      {
+       "id": "page-leak-audit.clarity.2",
+       "text": "Make the headline the result customers want, in their words."
+      },
+      {
+       "id": "page-leak-audit.clarity.3",
+       "text": "Make the subhead say who it's for and how it works."
+      }
+     ]
+    },
+    {
+     "key": "mobile",
+     "title": "Mobile",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.mobile.1",
+       "text": "Open the page on your phone."
+      },
+      {
+       "id": "page-leak-audit.mobile.2",
+       "text": "Check the button shows without scrolling."
+      },
+      {
+       "id": "page-leak-audit.mobile.3",
+       "text": "Check every block reads cleanly, with nothing cut off."
+      },
+      {
+       "id": "page-leak-audit.mobile.4",
+       "text": "Load it on mobile data. If you're waiting, shrink or cut images."
+      }
+     ]
+    },
+    {
+     "key": "offer",
+     "title": "Offer",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.offer.1",
+       "text": "List exactly what they get."
+      },
+      {
+       "id": "page-leak-audit.offer.2",
+       "text": "Frame the price as the smallest true number, like per week or per session."
+      },
+      {
+       "id": "page-leak-audit.offer.3",
+       "text": "Offer only a guarantee you can honor every time."
+      },
+      {
+       "id": "page-leak-audit.offer.4",
+       "text": "Promise only a delivery time you've already tested."
+      }
+     ]
+    },
+    {
+     "key": "proof",
+     "title": "Proof",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.proof.1",
+       "text": "Show only real proof: conversations, photos of real work, pilot results, your story."
+      },
+      {
+       "id": "page-leak-audit.proof.2",
+       "text": "Delete any number, review or logo you can't back up."
+      },
+      {
+       "id": "page-leak-audit.proof.3",
+       "text": "Get permission for every customer quote and photo."
+      }
+     ]
+    },
+    {
+     "key": "objection",
+     "title": "Objections",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.objection.1",
+       "text": "Pull your top three objections from your Objection Log or your DMs."
+      },
+      {
+       "id": "page-leak-audit.objection.2",
+       "text": "Answer all three plainly on the page."
+      }
+     ]
+    },
+    {
+     "key": "action",
+     "title": "Action",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.action.1",
+       "text": "Use one call to action: one button, one next step."
+      },
+      {
+       "id": "page-leak-audit.action.2",
+       "text": "Repeat that same button at the top and the bottom."
+      },
+      {
+       "id": "page-leak-audit.action.3",
+       "text": "Tap every button and link on your phone."
+      },
+      {
+       "id": "page-leak-audit.action.4",
+       "text": "Complete a real purchase or booking, then refund or cancel it."
+      }
+     ]
+    },
+    {
+     "key": "followup",
+     "title": "Follow-up",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.followup.1",
+       "text": "Check the buyer gets a confirmation message right away."
+      },
+      {
+       "id": "page-leak-audit.followup.2",
+       "text": "Check you get notified of every sale, booking or form."
+      }
+     ]
+    },
+    {
+     "key": "tracking",
+     "title": "Tracking",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.tracking.1",
+       "text": "Write down this week's visits and leads from your Weekly Founder Scorecard."
+      },
+      {
+       "id": "page-leak-audit.tracking.2",
+       "text": "Work out visits to leads (leads divided by visits). That's your before number."
+      }
+     ]
+    }
+   ],
+   "minutes": 45,
+   "summary": "Run 24 quick checks on a page people visit but don't buy from, find the three biggest leaks and fix them one at a time.",
+   "output": "Your page checked on a phone, your top three leaks with a fix for each, and a before-and-after number that shows whether each fix worked.",
+   "useWhen": "Grow track week 3, or any week your Weekly Founder Scorecard shows visits going up while leads stay flat.",
+   "aiPrompt": "Check that the five-second test was done with a real stranger, all proof is real, there is exactly one call to action, checkout or booking was tested end to end, and each leak has one fix, a date and a before-and-after number.",
+   "pairsWith": [
+    {
+     "slug": "landing-page-brief",
+     "title": "Landing Page Brief"
+    },
+    {
+     "slug": "kpi-dashboard",
+     "title": "Founder KPI Dashboard"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w3-t2",
+     "track": "grow",
+     "label": "Grow week 3, step 2: Fix the biggest leak on your sales page"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/page-leak-audit/127-page-leak-audit.pdf",
+     "bytes": 95555,
+     "sha256": "257643bb96e4493337a01dbd185c52f8247a944fbb167da3979c85dda088e350"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/page-leak-audit/127-page-leak-audit.docx",
+     "bytes": 75044,
+     "sha256": "32cc9f07acfd7e417d57e67b9ed6262fa05e334041aea7b8937431cf85188f0a"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/page-leak-audit/127-page-leak-audit.md",
+     "bytes": 3414,
+     "sha256": "9f1f0037c1bef7719e34da5e3adddbd070195269e70ad979ffdb3597b8e29f1d"
+    }
+   ],
+   "preview": "files/page-leak-audit/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "ad-test-planner",
+   "title": "Ad Test Planner",
+   "kind": "sheet",
+   "track": "grow",
+   "tier": "builder",
+   "tabs": [
+    "Start here",
+    "Plan",
+    "Daily log",
+    "Results"
+   ],
+   "howTo": [
+    "Answer the five readiness checks in Plan. Fewer than three yes? Skip paid for now and go back to outreach and content.",
+    "Enter the most you can lose without stress. That's your cap, for one test, not per month.",
+    "Enter a cautious guess for cost per click, your page's conversion rate and your price.",
+    "Read the expected visitors, sales and cost per sale. Write your stop rule before you launch the ad.",
+    "Each day of the test, log spend, clicks, visits and sales in Daily log.",
+    "When the sheet says stop, stop. Change one thing only, then run the next test with the same cap."
+   ],
+   "minutes": 25,
+   "summary": "Plan a small, capped paid test, write your stop rule before you spend a dollar, then log each day so the sheet tells you when to stop.",
+   "output": "A test cap, an expected cost per sale, a stop rule written in advance, and a daily log that flags when you hit it.",
+   "useWhen": "Week 3 of the Grow track, only after free channels show signal, real conversations and a page that converts warm traffic.",
+   "aiPrompt": "Check that the test cap is an amount the member can lose without stress, that organic signal exists before paid spend, that the stop rule was set before the test and follows the two-sales rule, and that doubling down is tied to cost per sale versus what a sale earns. Nothing here is financial advice.",
+   "pairsWith": [
+    {
+     "slug": "launch-budget-calculator",
+     "title": "Launch Budget Calculator"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w3-t3",
+     "track": "grow",
+     "label": "Grow week 3, step 3: Set a capped test budget for paid reach"
+    },
+    {
+     "id": "systems-w3-t3",
+     "track": "systems",
+     "label": "Build (systems) week 3, step 3: Model a capped paid-growth test"
+    }
+   ],
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/ad-test-planner/127-ad-test-planner.xlsx",
+     "bytes": 16149,
+     "sha256": "7a1dd86b2d08e53bef3ec1d7c4cbc390ecec013f930ae237538ce51eeae763b2"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/ad-test-planner/127-ad-test-planner-example.xlsx",
+     "bytes": 16663,
+     "sha256": "38e7e6089491ae41133938bb0af7154b859ad6e20a0f195c682e8cc209bd02a2"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/ad-test-planner/127-ad-test-planner-log.csv",
+     "bytes": 322,
+     "sha256": "021a3c2363ae44bce566c8fa976b35a7fa4414871e8ad13b9cb3512bbe9a7dac"
+    }
+   ],
+   "preview": "files/ad-test-planner/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "ceo-review",
+   "title": "Weekly CEO Review",
+   "kind": "doc",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Before you start",
+    "1. Numbers (5 minutes)",
+    "2. What worked and why (5 minutes)",
+    "3. What to cut (5 minutes)",
+    "4. Delegate or automate one thing (5 minutes)",
+    "5. Next week's top three (5 minutes)",
+    "6. Perspective check (5 minutes)",
+    "Copy this every week",
+    "Get a second opinion",
+    "Next step"
+   ],
+   "minutes": 30,
+   "summary": "A 30-minute weekly review in six time-boxed parts that turns last week's numbers into one cut, one handoff and next week's top three.",
+   "output": "Last week's numbers, one thing cut, one task on its way to a person or tool, and next week's top three on your calendar.",
+   "useWhen": "Grow track week 4, when you cut the activity that produced nothing, then every week at the same time.",
+   "aiPrompt": "Check that the numbers are filled in, 'what worked' gives a real reason rather than a description, something was actually cut, the top three are specific, finishable in a week, tied to a number and on the calendar, and the perspective check was answered honestly.",
+   "pairsWith": [
+    {
+     "slug": "weekly-ceo-review",
+     "title": "Weekly CEO Review"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w4-t2",
+     "track": "grow",
+     "label": "Grow week 4, step 2: Cut the one activity that produced nothing"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/ceo-review/127-ceo-review.pdf",
+     "bytes": 183160,
+     "sha256": "a9c5fbe9f0c659271237ac53d81fa97818b41219b15df5c463390f7fd684b18a"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/ceo-review/127-ceo-review.docx",
+     "bytes": 78247,
+     "sha256": "31ed8a36950c517d75d1e6fe872a5c8330f96bccc0335c72246674c13d1d4dea"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/ceo-review/127-ceo-review.md",
+     "bytes": 7899,
+     "sha256": "a38966c48f610c0054aa01dc49fa25606fed3baa2183a444d8d7384f14501cde"
+    }
+   ],
+   "preview": "files/ceo-review/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "thirty-day-retro",
+   "title": "30-Day Retro",
+   "kind": "doc",
+   "track": "grow",
+   "tier": "free",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "What you set out to do",
+    "Your numbers",
+    "Wins",
+    "What worked, what didn't",
+    "Keep, cut, test",
+    "People to thank",
+    "Your next 30 days",
+    "Perspective",
+    "Next step"
+   ],
+   "minutes": 45,
+   "summary": "Look back on your 30-day roadmap, see what moved and why, and plan your next 30 days around what actually worked.",
+   "output": "Day 1 versus day 30 numbers, your wins logged, a keep, cut and test list, people to thank, and a top three plus first step for the next 30 days.",
+   "useWhen": "On day 30 of your roadmap, or the week you finish it, before you start anything new.",
+   "aiPrompt": "Check that day 1 and day 30 numbers are filled in honestly, 'what worked' gives a reason, something real is in the cut column, and the next 30 days have three specific priorities tied to a number plus a first step for tomorrow.",
+   "pairsWith": [
+    {
+     "slug": "weekly-ceo-review",
+     "title": "Weekly CEO Review"
+    },
+    {
+     "slug": "kpi-dashboard",
+     "title": "Founder KPI Dashboard"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "start-w4-t3",
+     "track": "start",
+     "label": "Start week 4, step 3: Write down what you learned and what you will change"
+    },
+    {
+     "id": "grow-w4-t3",
+     "track": "grow",
+     "label": "Grow week 4, step 3: Plan your next 30 days around what worked"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.pdf",
+     "bytes": 142391,
+     "sha256": "eea6f56109867709aa7905cf5e423dcaf3a9bda783e37b951fa844cbc40792e2"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.docx",
+     "bytes": 76445,
+     "sha256": "2ad35cf66467dda532a4af9e8d1319f3ad50f1a84361f761ebc01933c0db025a"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.md",
+     "bytes": 4989,
+     "sha256": "3cadb01b07cdb77cd7ab57d8ab6eb2e0569227b74cc737c5aea5024a5842ed5f"
+    }
+   ],
+   "preview": "files/thirty-day-retro/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "ninety-day-plan",
+   "title": "90-Day Priorities",
+   "kind": "doc",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Download Word or PDF, or import the Markdown into Notion.",
+    "Fill every field and bracket. Short answers beat long ones.",
+    "Ask Eli's Playbook to check your filled version."
+   ],
+   "outline": [
+    "Where you are now",
+    "The one outcome",
+    "Three priorities",
+    "The stop list",
+    "Monthly milestones",
+    "Weekly rhythm",
+    "Risks",
+    "Your people",
+    "Perspective",
+    "Next step"
+   ],
+   "minutes": 60,
+   "summary": "A one-page quarter plan: one measurable outcome, three priorities that get you there and a stop list of everything you're not doing.",
+   "output": "One outcome for the quarter, three priorities with a measure, first step and owner, a stop list, monthly milestones and a weekly rhythm that keeps it moving.",
+   "useWhen": "In week 4 of your roadmap, when you write next quarter's three priorities, then once a month during your Weekly CEO Review.",
+   "aiPrompt": "Check that there is exactly one measurable outcome with a date, three priorities (not ten) that each have a measure, a first step and an owner, a stop list with real items on it, and monthly milestones that add up to the outcome.",
+   "pairsWith": [
+    {
+     "slug": "weekly-ceo-review",
+     "title": "Weekly CEO Review"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w4-t2",
+     "track": "systems",
+     "label": "Build (systems) week 4, step 2: Write next quarter’s three priorities"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.pdf",
+     "bytes": 131446,
+     "sha256": "4ff3a85d151c1d2cf0a5bae914c024700c9eeb77f25cd83bf8cb35b583a2df1a"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.docx",
+     "bytes": 76842,
+     "sha256": "8a763a3f96da774eb65753268bb70bfbc8d2330e6e1df36b9bf64b0cc513476c"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.md",
+     "bytes": 5563,
+     "sha256": "ae7adc4c0d3ef20e19374f86908c5d5e33843611bf29d9047b30a661364522e3"
+    }
+   ],
+   "preview": "files/ninety-day-plan/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-comment-to-dm",
+   "title": "Comment-to-DM",
+   "kind": "workflow",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Pick your keyword",
+    "Set it up",
+    "Your messages",
+    "Hand off to you",
+    "Log every lead",
+    "Meta's rules",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "ManyChat",
+     "Instagram"
+    ],
+    "cost": "Free plan available, with a small monthly contact limit. Check current pricing.",
+    "setupMinutes": 30,
+    "trigger": "Someone comments your keyword on a Reel or post",
+    "result": "They get a public reply and a DM with your link in seconds, and the lead goes in your Pipeline Tracker",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 45,
+   "summary": "Set up ManyChat so anyone who comments your keyword gets your link by DM in seconds, while you keep every real conversation personal.",
+   "output": "One live comment-to-DM automation on Instagram, tested from a friend's account, with every new lead logged in your Pipeline Tracker.",
+   "useWhen": "Use it once you post three or more times a week and people keep asking for the same link, price or guide in your comments.",
+   "aiPrompt": "Check that the keyword is one short word tied to a real free thing, the first DM uses a button before the link, every message sounds human and promises nothing fake, and there is a same-day personal handoff and a tracking step.",
+   "pairsWith": [
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    },
+    {
+     "slug": "hooks-library",
+     "title": "Hook & Caption Bank"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w2-t3",
+     "track": "systems",
+     "label": "Build (systems) week 2, step 3: Pick your first two automations"
+    },
+    {
+     "id": "systems-w3-t1",
+     "track": "systems",
+     "label": "Build (systems) week 3, step 1: Get two automations running"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.pdf",
+     "bytes": 148621,
+     "sha256": "e797032140c408731897bef8f184aba187a6cc3d89cb0122d0e69ca3769ffc94"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.docx",
+     "bytes": 78274,
+     "sha256": "27da93fa35fe1eb45f7b635996826d77f079c8af5375764b30d4e8f95537a56c"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.md",
+     "bytes": 8258,
+     "sha256": "6731e1eb58153ff85c70688c6dd45edaf5bc960628c5ec6aeaab3a6bf7d6e13a"
+    }
+   ],
+   "preview": "files/recipe-comment-to-dm/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-lead-form",
+   "title": "Lead Form Autopilot",
+   "kind": "workflow",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Write your form",
+    "Set it up",
+    "The settings",
+    "The emails",
+    "Reply like a person",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Google Forms",
+     "Google Sheets",
+     "Apps Script",
+     "Gmail"
+    ],
+    "cost": "$0 with a free Google account.",
+    "setupMinutes": 25,
+    "trigger": "Someone submits your Google Form",
+    "result": "They land in your Pipeline Tracker due today, you get their answers by email, and they get a two-line \"got it\" from your Gmail",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 30,
+   "summary": "Every Google Form answer lands in your Pipeline Tracker with a next step for today, you get it by email, and they get an honest \"got it\".",
+   "output": "A live form that logs each lead in your Pipeline Tracker within a minute, emails you their answers and promises them a real reply you keep.",
+   "useWhen": "Before your launch, once you have a landing page or bio link and leads arrive in more than one place.",
+   "aiPrompt": "Check that the form asks five questions or fewer and one of them is about their problem in their words, that the reply promise is something the member will keep, that the test lead went end to end, and that the member replies personally to every lead.",
+   "pairsWith": [
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    },
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w3-t1",
+     "track": "systems",
+     "label": "Build (systems) week 3, step 1: Get two automations running"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.pdf",
+     "bytes": 152815,
+     "sha256": "4ad545da25cf4c081fde12530a534405c2e22fb8ff4b531959753a8b9168ea35"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.docx",
+     "bytes": 81080,
+     "sha256": "3f161516feb940e77e664f9d3fcf4e75fe78f21e0c9b60a02907990b734050c5"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.md",
+     "bytes": 14768,
+     "sha256": "4adf48405c36aa1acdc6903e4feb4786173176bc004935a5cc42a80c73da0b71"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-lead-form/127-lead-form.gs",
+     "bytes": 7490,
+     "sha256": "a7d62990a3d7630f682c893f9757182583408d3e507f8b250cef9afa585f4e16"
+    }
+   ],
+   "preview": "files/recipe-lead-form/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-follow-up",
+   "title": "Follow-Up Reminders",
+   "kind": "workflow",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Set it up",
+    "The email",
+    "Write the follow-up yourself",
+    "Keep the list right",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Google Sheets",
+     "Apps Script",
+     "Gmail"
+    ],
+    "cost": "$0 with a free Google account.",
+    "setupMinutes": 15,
+    "trigger": "Every morning at the hour you choose",
+    "result": "One email listing who's overdue, who's due today and who's on day 3, 7 or 14. Nothing goes to them unless you send it",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 20,
+   "summary": "A short email every morning, read from your Pipeline Tracker, listing who to follow up with today and why, without ever messaging anyone for you.",
+   "output": "A daily reminder that covers due and overdue next steps plus day 3, 7 and 14 follow-ups, so every open conversation gets its next message.",
+   "useWhen": "Grow track week 3, when you send 20 outreach messages, or any time you have more than ten open conversations.",
+   "aiPrompt": "Check that every open row in the Pipeline Tracker has a stage and either a first message date or a next step date, that the reminder hour fits the member's day, and that each follow-up the member writes adds something new instead of just bumping the thread.",
+   "pairsWith": [
+    {
+     "slug": "dm-outreach-scripts",
+     "title": "Outreach Scripts"
+    },
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "grow-w3-t1",
+     "track": "grow",
+     "label": "Grow week 3, step 1: Send 20 warm outreach messages"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.pdf",
+     "bytes": 140487,
+     "sha256": "7278d29bfd0d539a645f43070d3ee9c1b358cb69e808b5b8ea193ea509edea42"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.docx",
+     "bytes": 79741,
+     "sha256": "ab976ca08f11ca282f0015cca735d81f432a9cf62c47a75eb5c61429f4a63dcf"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.md",
+     "bytes": 12645,
+     "sha256": "21d6f27733a976db28f0749a65b8504337a23a78e96dc9a05d9ca657c98df089"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-follow-up/127-follow-up-reminders.gs",
+     "bytes": 7040,
+     "sha256": "6a42e8cd9f6d904ef42c1504157558a9145c15b1f0d34b4eb577d84a518cfc3a"
+    }
+   ],
+   "preview": "files/recipe-follow-up/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-monday-scorecard",
+   "title": "Monday Scorecard Email",
+   "kind": "workflow",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Set it up",
+    "The email",
+    "Make it a ritual",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Google Sheets",
+     "Apps Script",
+     "Gmail"
+    ],
+    "cost": "$0 with a free Google account.",
+    "setupMinutes": 15,
+    "trigger": "Every Monday morning, or the day and hour you choose",
+    "result": "A one-screen email with your latest numbers, the change from last week, the biggest drop and your call for the week",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 20,
+   "summary": "Every Monday your inbox gets last week's five numbers, what changed, your biggest leak and the test you wrote down, or a nudge to fill them in.",
+   "output": "A weekly email built from your Weekly Founder Scorecard that makes the ten-minute Monday review hard to skip.",
+   "useWhen": "Once your Weekly Founder Scorecard has week 1 in it, so the Monday review on the systems roadmap becomes a ritual.",
+   "aiPrompt": "Check that the scorecard uses the same sources every week, that the email day and hour match when the member actually sits down to review, and that each week ends with one double down, one pause, one kill and one test on the calendar.",
+   "pairsWith": [
+    {
+     "slug": "kpi-dashboard",
+     "title": "Founder KPI Dashboard"
+    },
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w4-t1",
+     "track": "systems",
+     "label": "Build (systems) week 4, step 1: Make the Monday scorecard a ritual"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.pdf",
+     "bytes": 133253,
+     "sha256": "10f565b1af3a9b34195b4d75058992aecc8d85b8e888f0ce2f63f3067398a2a8"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.docx",
+     "bytes": 80079,
+     "sha256": "1fcb71e1f976a6f5012d5fa5db7e5bebae8e480bcfd4265db36c1243e198eac8"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.md",
+     "bytes": 14308,
+     "sha256": "17605babef07a6f4465e3f35dc90d924d975d9d9c953037862b110554b74c9e7"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-monday-scorecard/127-monday-scorecard.gs",
+     "bytes": 9558,
+     "sha256": "a8d37b9b42c39911e77ab44caf9b3b57beea72101331cbda5ad6c4c168d57092"
+    }
+   ],
+   "preview": "files/recipe-monday-scorecard/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-call-notes",
+   "title": "Call Notes to Notion",
+   "kind": "workflow",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Build your Calls database",
+    "Before the call",
+    "During the call",
+    "After the call (5 minutes)",
+    "Paid option. Send it straight to Notion.",
+    "No Granola? Use a voice memo.",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Granola",
+     "Notion",
+     "Claude"
+    ],
+    "cost": "Free plans available. Granola's built-in Notion sync needs a paid plan; copy and paste works free. Check current pricing.",
+    "setupMinutes": 30,
+    "trigger": "A customer call ends",
+    "result": "A clean summary sits in your Notion Calls database and the next step is dated in your Pipeline Tracker",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 40,
+   "summary": "Turn every customer call into a clean Notion note and a dated next step, so you listen during the call instead of typing.",
+   "output": "A Notion Calls database, a saved extraction prompt and a five-minute after-call routine that puts every next step in your Pipeline Tracker.",
+   "useWhen": "Use it before your first customer interview or sales call, then run the after-call routine within an hour of every call.",
+   "aiPrompt": "Check that they ask permission before taking notes, every call has a next step and a date, the extracted quotes match the notes with nothing invented, and each next step also lands in the Pipeline Tracker.",
+   "pairsWith": [
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    },
+    {
+     "slug": "validation-interviews",
+     "title": "Validation Interview Scripts"
+    }
+   ],
+   "roadmap": [],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.pdf",
+     "bytes": 132478,
+     "sha256": "a3157da2687ffbfc734f82c13b7bf5287880ab88591ed259566ec30b1fe5678d"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.docx",
+     "bytes": 77099,
+     "sha256": "453ef0384765c9a6f2ad617e6b6d81e6a795b003b3fa38abc9b0a4a1226225be"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.md",
+     "bytes": 7063,
+     "sha256": "729b304225da4a800336171e836f05783fa9ba6993b20f4e0088a55a711179bc"
+    }
+   ],
+   "preview": "files/recipe-call-notes/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-repurpose-video",
+   "title": "One Video, Five Clips",
+   "kind": "workflow",
+   "track": "grow",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Step 1. Film one video",
+    "Step 2. Get the transcript",
+    "Step 3. Plan the clips with Claude",
+    "Step 4. Edit in CapCut",
+    "Step 5. Write the captions",
+    "Step 6. Post natively and log it",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "CapCut",
+     "Claude",
+     "Instagram",
+     "TikTok"
+    ],
+    "cost": "Free plans available. Some CapCut features, possibly auto captions, need Pro to export. Check current pricing.",
+    "setupMinutes": 45,
+    "trigger": "You finish filming one 3 to 8 minute video",
+    "result": "You have 3 to 5 clips under 45 seconds, each with a hook, on-screen text and a caption, ready to post and log",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 90,
+   "summary": "Film one 3 to 8 minute video and turn it into 3 to 5 short clips with hooks, on-screen text and captions, edited on your phone.",
+   "output": "3 to 5 posted clips from one video, a reusable editing brief and caption prompt, and 48-hour results logged in your 30-Day Content Planner.",
+   "useWhen": "Use it on batch days once you know your content pillars, or any time one long video deserves more than one post.",
+   "aiPrompt": "Check that each clip is under 45 seconds with one idea, every hook and caption uses only what was said in the video, each post has one real call to action, and results are logged after 48 hours.",
+   "pairsWith": [
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    },
+    {
+     "slug": "content-calendar",
+     "title": "30-Day Content Calendar"
+    }
+   ],
+   "roadmap": [],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.pdf",
+     "bytes": 146172,
+     "sha256": "a3e4b5dfa6a208c004f7fbf257cd6455f6a0d669b0131dbaa3ec95858dd3945b"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.docx",
+     "bytes": 77465,
+     "sha256": "b51c2c3880766d159d91fda5f3f9ade7925374eab99d9828dc6f4f4b57925a2d"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.md",
+     "bytes": 7035,
+     "sha256": "7e1f9e3099492bbd6d633a04aa323d736b6ed771297de1864e54317d75114669"
+    }
+   ],
+   "preview": "files/recipe-repurpose-video/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-paid-to-onboarded",
+   "title": "Paid to Onboarded",
+   "kind": "workflow",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Set it up. Stripe Payment Link for services.",
+    "Square or PayPal instead",
+    "Selling products on Shopify",
+    "Your after-payment timeline",
+    "Welcome them (within 24 hours)",
+    "Deliver",
+    "Check in (2 to 3 days after delivery)",
+    "Ask for a testimonial, with permission",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Stripe",
+     "Square",
+     "PayPal",
+     "Shopify"
+    ],
+    "cost": "Fees vary by processor and plan. Check current pricing before you launch.",
+    "setupMinutes": 45,
+    "trigger": "A customer pays you",
+    "result": "They see what happens next, get a receipt, and you get an alert, then you welcome, deliver and check in on a set schedule",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 60,
+   "summary": "Set up what happens automatically after someone pays, plus the welcome, delivery and check-in messages you send yourself.",
+   "output": "A tested payment link with a custom confirmation, automatic receipts and alerts, and ready messages from welcome to testimonial ask.",
+   "useWhen": "Use it the week before you launch, after your payment account is set up and before your first real customer pays.",
+   "aiPrompt": "Check that the payment link collects only what delivery needs, the confirmation explains the next step and timing, a test payment was made and refunded, the welcome goes out within 24 hours, and testimonials are used only with permission.",
+   "pairsWith": [
+    {
+     "slug": "launch-checklist",
+     "title": "First Launch Checklist"
+    },
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    }
+   ],
+   "roadmap": [],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.pdf",
+     "bytes": 147676,
+     "sha256": "76dd1af688c82f575f1b8162ce8217afff92609890be5a7aa481833645838fc5"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.docx",
+     "bytes": 77296,
+     "sha256": "aef418d119060c921d8f386a8f951649eaf49fb5170299d0d5f8035af93652ee"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.md",
+     "bytes": 7692,
+     "sha256": "1ddeca795ec1116d49862feb343a3e59cc2c1858441c220a533376a4c581a4b2"
+    }
+   ],
+   "preview": "files/recipe-paid-to-onboarded/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-booking-link",
+   "title": "Booking Link Setup",
+   "kind": "workflow",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Pick your tool",
+    "Set it up in Calendly",
+    "Or set it up in Google Calendar",
+    "Your intake questions (two max)",
+    "Your messages",
+    "Put the link where people ask",
+    "Log every booking",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Calendly",
+     "Google Calendar"
+    ],
+    "cost": "Free plans available. Automatic reminders need a paid plan on both. Check current pricing.",
+    "setupMinutes": 30,
+    "trigger": "Someone taps your booking link",
+    "result": "They pick a time inside your set blocks, answer two questions and get a confirmation, and the call lands on your calendar",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 40,
+   "summary": "Set up one booking link with 2 or 3 set time blocks a week, two intake questions and ready messages, so people book calls without the back-and-forth.",
+   "output": "A tested booking link inside set weekly blocks, two intake questions, reminder and no-show messages, and the link placed everywhere people ask.",
+   "useWhen": "Use it before you start outreach or launch, as soon as a short call is the next step for a buyer.",
+   "aiPrompt": "Check that availability is limited to 2 or 3 set blocks with buffers, there are no more than two intake questions, the reminder and no-show messages are friendly and pressure-free, and every booking is logged in the Pipeline Tracker.",
+   "pairsWith": [
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    },
+    {
+     "slug": "dm-outreach-scripts",
+     "title": "Outreach Scripts"
+    }
+   ],
+   "roadmap": [],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.pdf",
+     "bytes": 134952,
+     "sha256": "bf4e98da50c3fecca9998a1d95656714f824effbc46aef14740f8a9bc9cc8700"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.docx",
+     "bytes": 76917,
+     "sha256": "cef3539ded0f6d0b9fd182d27977ff308881e73142bb5bd98e778baac39b0fbc"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.md",
+     "bytes": 6472,
+     "sha256": "c1f064961338ee112e530207cac2446f994a5e2eca4031aeba6fc90112857a5d"
+    }
+   ],
+   "preview": "files/recipe-booking-link/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-ai-cofounder",
+   "title": "Your AI Co-Founder",
+   "kind": "workflow",
+   "track": "start",
+   "tier": "free",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Step 1. Fill your Business Brief",
+    "Step 2. Create your Project",
+    "Step 3. Run five prompts every week",
+    "Using ChatGPT or Perplexity instead",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Claude",
+     "ChatGPT",
+     "Perplexity"
+    ],
+    "cost": "Free plans available, with usage and file limits. Check current pricing.",
+    "setupMinutes": 30,
+    "trigger": "You open a new chat inside your business Project",
+    "result": "Every answer already knows your customer, offer, voice and numbers, and ends with one next step",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 45,
+   "summary": "Give Claude your business context once, in a Project with a Business Brief and Eli-style instructions, so every answer knows your business.",
+   "output": "A filled Business Brief, a Claude Project with direct and honest custom instructions, and five weekly prompts you run in under 10 minutes each.",
+   "useWhen": "Use it in your first week, as soon as you have an idea and a first customer conversation, then refresh the brief every Friday.",
+   "aiPrompt": "Check that the Business Brief uses real customer words and real numbers with nothing invented, the offer and price are specific, the never list is concrete, and the custom instructions forbid made-up numbers and legal or financial advice.",
+   "pairsWith": [
+    {
+     "slug": "the-127-stack",
+     "title": "The 127 Stack"
+    },
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    }
+   ],
+   "roadmap": [],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.pdf",
+     "bytes": 185522,
+     "sha256": "edeff8387b445eff16864f4ed0c3c1b619a170c3f2818af1c7dcae4274ae4bab"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.docx",
+     "bytes": 78592,
+     "sha256": "37d0410cd142281ae6958a2fdea651fbed1a5857db927e68e9582986c0a97c18"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.md",
+     "bytes": 9417,
+     "sha256": "6b02780f36287897377b7fbc8de97e59b76c316b5cc74d7cb4c835f0bb331836"
+    }
+   ],
+   "preview": "files/recipe-ai-cofounder/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "recipe-saved-replies",
+   "title": "Saved Replies",
+   "kind": "workflow",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Read the recipe once before you start, then follow Set it up in order.",
+    "Test it end to end before real customers touch it.",
+    "Keep the handoff to you. Automate the repeat, never the relationship."
+   ],
+   "outline": [
+    "What this does",
+    "Before you start",
+    "Step 1. Find your top 5 questions",
+    "Step 2. Write your 5 replies",
+    "Step 3. Save them where you reply",
+    "Test it",
+    "Keep it human",
+    "If it breaks",
+    "Next step"
+   ],
+   "workflow": {
+    "tools": [
+     "Instagram",
+     "TikTok",
+     "WhatsApp Business",
+     "Gmail"
+    ],
+    "cost": "$0. These features are free in each app, and WhatsApp Business is a free app.",
+    "setupMinutes": 30,
+    "trigger": "Someone asks a question you've answered before",
+    "result": "You tap a saved reply, personalize the first line and send a clear answer in under a minute",
+    "lastChecked": "2026-10"
+   },
+   "minutes": 40,
+   "summary": "Answer the 5 questions you get every day in one tap, with saved replies on Instagram, TikTok, WhatsApp Business and Gmail that still sound like you.",
+   "output": "Your top 5 questions written down, 5 saved replies in your voice, and those replies saved in every app where customers message you.",
+   "useWhen": "Use it once you've answered the same DM or email question three times, usually in your first weeks of outreach or launch.",
+   "aiPrompt": "Check that the 5 questions are real repeats, each reply answers in the first two lines and ends with one next step, the first line has room to personalize, and nothing uses fake urgency or scarcity.",
+   "pairsWith": [
+    {
+     "slug": "delegation-playbook",
+     "title": "Delegate Your First Task"
+    },
+    {
+     "slug": "automation-starter",
+     "title": "Automation Starter Pack"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "systems-w2-t3",
+     "track": "systems",
+     "label": "Build (systems) week 2, step 3: Pick your first two automations"
+    }
+   ],
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.pdf",
+     "bytes": 139295,
+     "sha256": "fc66130e5425e52245db0a4eef3ef75064bf26a379d78a3870406ce28ec9f5a3"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.docx",
+     "bytes": 76641,
+     "sha256": "a17a7ef98de98ef59395b2fe532420495544d8212ea95dec18b9e6c679825d08"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.md",
+     "bytes": 6505,
+     "sha256": "1a2a60bb9f63355cbd4fed393f88c32ac22637be9f845ad9c4189b1559d6bcee"
+    }
+   ],
+   "preview": "files/recipe-saved-replies/preview.png",
+   "reviewedByEli": false
+  },
+  {
+   "slug": "founder-os-notion",
+   "title": "127 Founder OS for Notion",
+   "kind": "system",
+   "track": "build",
+   "tier": "builder",
+   "howTo": [
+    "Download the ZIP. In Notion, open Settings, then Import, and choose the ZIP.",
+    "Check property types after import (Select and Date columns).",
+    "Delete the example rows once you add your own."
+   ],
+   "minutes": 15,
+   "summary": "Your roadmap, pipeline, conversations, content calendar, hook bank and weekly scorecard as Notion databases you import in one go.",
+   "output": "A 127 Founder OS workspace in Notion with your 30-day roadmap, six databases and five fill-in pages, ready for your own rows.",
+   "useWhen": "Build track week 2 when you trim your tools, or any time you want everything in one Notion workspace instead of separate files.",
+   "aiPrompt": "Check that the member imported the databases, set Select and Date property types, replaced the example rows with real ones, and keeps the spreadsheets for anything that needs math.",
+   "pairsWith": [
+    {
+     "slug": "the-127-stack",
+     "title": "The 127 Stack"
+    },
+    {
+     "slug": "simple-ops-stack",
+     "title": "The Simple Operations Stack"
+    },
+    {
+     "slug": "content-calendar",
+     "title": "30-Day Content Calendar"
+    },
+    {
+     "slug": "weekly-ceo-review",
+     "title": "Weekly CEO Review"
+    }
+   ],
+   "roadmap": [
+    {
+     "id": "build-w2-t3",
+     "track": "build",
+     "label": "Build week 2, step 3: Trim your tools to the simple stack"
+    }
+   ],
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP)",
+     "file": "files/founder-os-notion/127-founder-os-notion.zip",
+     "bytes": 24743,
+     "sha256": "4555189b2493c6eab970a07315bf9c986795689cbbf6a94e29ca25f1ac0b5720"
+    },
+    {
+     "format": "guide",
+     "label": "How to import (Markdown)",
+     "file": "files/founder-os-notion/127-founder-os-import-guide.md",
+     "bytes": 875,
+     "sha256": "ec4517bea80a35669cde3e1e458f7f46c5ebe8c1c808c7696b065f5ad501b76e"
+    },
+    {
+     "format": "md",
+     "label": "Home page (Markdown)",
+     "file": "files/founder-os-notion/127-founder-os-home.md",
+     "bytes": 2019,
+     "sha256": "9a8500d87eb707016afaac876d35b4931d4e89c4e3aa5d3abf098dbd92467a9e"
+    }
+   ],
+   "preview": null,
+   "reviewedByEli": false
+  }
+ ]
+}
