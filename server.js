@@ -442,6 +442,32 @@ app.get('/founding/confirm', wrap(async (req, res) => {
 }));
 
 // Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
+app.get('/links', (req, res) => res.render('links', { title: 'Links', description: 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' }));
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /admin\nDisallow: /api\nDisallow: /billing\nDisallow: /founding/status\nDisallow: /founding/confirm\nDisallow: /stack/guide\n\nSitemap: ${baseUrl(req)}/sitemap.xml\n`);
+});
+app.get('/sitemap.xml', (req, res) => {
+  const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
+  if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
+});
+
+// Calendar file for the founding members' call (FOUNDING_CALL_AT, link FOUNDING_CALL_URL).
+app.get('/founding/call.ics', (req, res) => {
+  const at = launch.date('FOUNDING_CALL_AT');
+  if (!at) return res.redirect('/app');
+  const f = (t) => new Date(t).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const url = process.env.FOUNDING_CALL_URL || `${baseUrl(req)}/app`;
+  res.type('text/calendar').set('content-disposition', 'attachment; filename="127-founding-call.ics"').send([
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//127//Founding//EN', 'BEGIN:VEVENT',
+    `UID:founding-call-${at}@127group.io`, `DTSTAMP:${f(Date.now())}`, `DTSTART:${f(at)}`, `DTEND:${f(at + 60 * 60 * 1000)}`,
+    'SUMMARY:127 founding members call with Eli', `DESCRIPTION:Join here: ${url}`, `LOCATION:${url}`, `URL:${url}`,
+    'BEGIN:VALARM', 'TRIGGER:-PT30M', 'ACTION:DISPLAY', 'DESCRIPTION:127 founding call in 30 minutes', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR', '',
+  ].join('\r\n'));
+});
+
 app.get('/founding/doors-open.ics', (req, res) => {
   const at = launch.date('LAUNCH_AT');
   if (!at) return res.redirect('/founding');

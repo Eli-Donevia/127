@@ -1,0 +1,36 @@
+<%- include('partials/doc-start') %>
+<body class="links-page">
+<%# Bio-link page: the fallback when ManyChat isn't live ("comment KEYWORD" -> tap the link in bio). %>
+<main class="links-wrap">
+  <img src="/img/127-lockup-steel.svg" alt="127" class="links-logo" width="96" height="40">
+  <p class="links-sub">Eli Christiansen · Make today day one.</p>
+  <nav class="links-list">
+    <% if (launch.prelaunch || launch.foundingOpen) { %>
+      <a class="links-item primary" href="/founding?utm_source=bio&utm_content=founding"><b><%= launch.prelaunch ? 'Join the founding list' : 'Lock the founding price' %></b><span><%= launch.prelaunch && launch.launchDate ? 'Doors open ' + launch.launchDate : (launch.foundingPrice ? '$' + launch.foundingPrice + '/month, first ' + launch.cap + ' members' : 'Founding members') %></span></a>
+    <% } else { %>
+      <a class="links-item primary" href="/start?utm_source=bio"><b>Get your free 30-day roadmap</b><span>3 minutes, no card</span></a>
+    <% } %>
+    <a class="links-item" href="/score?utm_source=bio&utm_content=roadmap"><b>Take the Founder Score</b><span>Comment ROADMAP · 90 seconds</span></a>
+    <a class="links-item" href="/stack?utm_source=bio&utm_content=stack"><b>Get the Day One Stack</b><span>Comment STACK · my tools and 30 AI prompts</span></a>
+    <a class="links-item" href="/idea-test?utm_source=bio&utm_content=idea"><b>Test your business idea</b><span>Comment IDEA · free, 60 seconds</span></a>
+    <a class="links-item" href="/circle?utm_source=bio&utm_content=circle"><b>Founder's Circle</b><span>Comment CIRCLE · 4 seats with Eli</span></a>
+  </nav>
+  <p class="links-foot"><a href="https://instagram.com/elichristiansen_" rel="noopener">Instagram</a> · <a href="https://tiktok.com/@elichristiansen_" rel="noopener">TikTok</a> · <a href="https://youtube.com/@eli_christiansen" rel="noopener">YouTube</a></p>
+</main>
+<style>
+  .links-page { background: var(--bg); }
+  .links-wrap { max-width: 480px; margin: 0 auto; padding: 56px 16px 48px; text-align: center; }
+  .links-logo { height: 40px; width: auto; }
+  .links-sub { color: var(--ink-2); font-size: 15px; margin: 14px 0 32px; }
+  .links-list { display: grid; gap: 12px; }
+  .links-item { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px; min-height: 64px; justify-content: center; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .2s; }
+  .links-item:hover { border-color: rgba(255,255,255,.3); }
+  .links-item b { font-weight: 600; font-size: 16px; }
+  .links-item span { color: var(--ink-2); font-size: 13px; }
+  .links-item.primary { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+  .links-item.primary span { color: #3a3a44; }
+  .links-foot { margin-top: 36px; font-size: 13px; color: var(--muted); }
+  .links-foot a { color: var(--ink-2); display: inline-block; padding: 12px 6px; }
+</style>
+</body>
+</html>

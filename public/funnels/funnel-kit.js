@@ -25,8 +25,18 @@
   };
 
   // name: 'Quiz Start' | 'Quiz Complete' | 'Lead' | 'Share' | 'Idea Test Run' ...
+  // Quiz starts are also counted on the server (the revenue dashboard can't read Plausible).
+  var STARTS = { 'Quiz Start': 'founder-score', 'Idea Test Run': 'idea-test' };
   K.track = function (name, props) {
     props = props || {};
+    if (STARTS[name]) {
+      try {
+        var u = (JSON.parse(localStorage.getItem(UTM_KEY) || 'null') || {}).utm || {};
+        var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null });
+        if (navigator.sendBeacon) navigator.sendBeacon('/api/quiz-start', new Blob([body], { type: 'application/json' }));
+        else fetch('/api/quiz-start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: body, keepalive: true });
+      } catch (e) {}
+    }
     try { if (window.plausible) window.plausible(name, { props: props }); } catch (e) {}
     try {
       if (window.fbq) {
