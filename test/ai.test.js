@@ -130,6 +130,9 @@ test('the system prompt is the same for every member and caches', () => {
   assert.match(p, /Interview Synthesizer \(Builder\)/);
   assert.match(p, /Psalm 127:1/);
   assert.match(p, /988/);
+  // 127 is 18+ (Legal L1): the prompt never coaches minors as members.
+  assert.match(p, /every member must be 18 or older/);
+  assert.doesNotMatch(p, /Members under 18 can build|late teens/);
   const again = load(KEY).systemPrompt();
   assert.equal(p, again, 'deterministic across loads');
 });
@@ -386,6 +389,9 @@ test('template review: the aiPrompt is the rubric and the paired playbooks groun
   const empty = await ai.reviewTemplate(template, '   ', member());
   assert.equal(empty.error, true);
   assert.equal(fake.calls.length, 1, 'nothing is sent for an empty paste');
+  // The templates manifest lists pairsWith as { slug, title } objects.
+  await ai.reviewTemplate({ ...template, pairsWith: [{ slug: 'pricing-worksheet', title: 'Pricing Worksheet' }] }, 'Price: $40 an hour', member({ tier: 'builder' }));
+  assert.match(fake.calls[1].params.system[1].text, /<playbook slug="pricing-worksheet" title="Pricing Worksheet">/);
   const demo = await load({})['reviewTemplate'](template, 'x', member());
   assert.equal(demo.demo, true);
   assert.match(demo.text, /^Feedback: Idea Scorecard/);
