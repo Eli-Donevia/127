@@ -228,6 +228,7 @@ app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit'
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
+app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.

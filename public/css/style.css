@@ -397,6 +397,11 @@ textarea.input { height: auto; min-height: 120px; padding: 14px 16px; resize: ve
 .doc ol li { counter-increment: s; padding: 12px 0 12px 44px; border-top: 1px solid var(--line); position: relative; color: var(--ink-2); }
 .doc ol li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 13px; font-family: var(--mono); font-size: 13px; color: var(--accent); }
 .doc p { color: var(--ink-2); font-size: 17px; }
+/* Legal pages built from Markdown (views/partials/membership-terms.ejs) */
+.legal-md h2 { font-family: var(--display); font-weight: 600; font-size: 28px; letter-spacing: -0.04em; margin: 48px 0 12px; scroll-margin-top: 90px; }
+.legal-md h3 { font-size: 20px; margin: 28px 0 8px; scroll-margin-top: 90px; }
+.legal-md .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.legal-md table.t td:first-child { color: var(--ink); white-space: nowrap; }
 .output-box { margin-top: 40px; padding: 22px 24px; border-radius: var(--radius); background: var(--accent-soft); border: 1px solid rgba(184,191,255,.2); color: var(--accent-ink); }
 .paywall { margin-top: 32px; padding: 32px; border-radius: 20px; background: radial-gradient(120% 100% at 0% 0%, rgba(184,191,255,.16), transparent 60%), var(--surface); border: 1px solid rgba(184,191,255,.25); }
 .paywall h3 { font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.04em; margin: 0 0 8px; color: var(--ink); }
