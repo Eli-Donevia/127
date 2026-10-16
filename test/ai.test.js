@@ -365,6 +365,28 @@ test('Circle context: Build Target, North Number trend and last commitments, Cir
   assert.match(ctx, /Commitments from their last call: Send 20 DMs; Book 3 calls/);
 });
 
+test('template review: the aiPrompt is the rubric and the paired playbooks ground it', async () => {
+  const ai = load(KEY);
+  const fake = fakeClient();
+  ai._test.setClient(fake);
+  const template = { slug: 'idea-scorecard', title: 'Idea Scorecard', aiPrompt: 'Check that the winning idea names a specific customer.', pairsWith: ['idea-filter', 'not-a-playbook'] };
+  await ai.reviewTemplate(template, 'Idea 1: lawn care for my street. Score 22.', member({ tier: 'builder' }));
+  const { params } = fake.calls[0];
+  assert.equal(params.max_tokens, 3000);
+  assert.match(params.messages[0].content, /^Please review my Idea Scorecard\.\n\nIdea 1: lawn care for my street/);
+  assert.match(params.system[1].text, /<playbook slug="idea-filter" title="The Idea Test">/);
+  assert.doesNotMatch(params.system[1].text, /not-a-playbook/);
+  const ctx = params.messages[1].content;
+  assert.match(ctx, /What a strong answer looks like: Check that the winning idea names a specific customer\./);
+  assert.match(ctx, /The member can open: The Idea Test/);
+  const empty = await ai.reviewTemplate(template, '   ', member());
+  assert.equal(empty.error, true);
+  assert.equal(fake.calls.length, 1, 'nothing is sent for an empty paste');
+  const demo = await load({})['reviewTemplate'](template, 'x', member());
+  assert.equal(demo.demo, true);
+  assert.match(demo.text, /^Feedback: Idea Scorecard/);
+});
+
 test('roadmap note: plain sentences, or null on any problem', async () => {
   const ai = load(KEY);
   ai._test.setClient(fakeClient([reply('Dani, your goal is proof. Score your ideas today.')]));
