@@ -32,6 +32,8 @@ const EVENTS = [
   'invoice.payment_failed',
   'customer.source.expiring',
   'charge.refunded',
+  'charge.dispute.created',
+  'charge.dispute.closed',
 ];
 
 function arg(name) {
