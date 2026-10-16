@@ -8,8 +8,9 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "stripe:setup": "node scripts/stripe-setup.js",
+    "ai:side-by-side": "node scripts/side-by-side.js",
     "seed:demo": "node scripts/seed-demo.js",
-    "test": "node --test test/*.test.js"
+    "test": "rm -f data/test-db.json && DB_FILE=data/test-db.json node --test test/*.test.js"
   },
   "engines": {
     "node": ">=20"

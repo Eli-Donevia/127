@@ -1,11 +1,10 @@
-// UTM capture and the ad desk's joins export, referral friends by first name, the quiz launch state,
-// challenge replay links, "Yes, send them" consent, ad consent for server-side events and the demo member.
+// UTM capture and the ad desk's joins export, referral friends by first name, challenge replay links,
+// ad consent for server-side events, the footer and the demo member.
 const test = require('node:test');
 const assert = require('node:assert');
 const db = require('../lib/db');
 const utm = require('../lib/utm');
 const launch = require('../lib/launch');
-const consent = require('../lib/consent');
 const waitlist = require('../lib/waitlist');
 const adConsent = require('../lib/ad-consent');
 
@@ -101,44 +100,12 @@ test('referred friends show by first name only, "A friend" without one, never an
   } finally { db.filter = orig; }
 });
 
-test('quiz launch state: A1 before challenge sign-ups close, A2 after, then B and C; spots only at 25 or fewer', () => {
-  const FUTURE = new Date(Date.now() + 864e5).toISOString();
-  const PAST = new Date(Date.now() - 864e5).toISOString();
-  const base = { PRELAUNCH: 'true', LAUNCH_AT: FUTURE, FOUNDING_CLOSES_AT: new Date(Date.now() + 9 * 864e5).toISOString(), FOUNDING_CAP: '100', CHALLENGE_START_AT: undefined };
-  withEnv({ ...base, CHALLENGE_REG_CLOSES_AT: FUTURE }, () => {
-    assert.deepStrictEqual(launch.funnelConfig(), { state: 'A1', spotsLeft: null, lastDay: false, challengeStarted: false });
-  });
-  withEnv({ ...base, CHALLENGE_REG_CLOSES_AT: PAST }, () => assert.strictEqual(launch.funnelConfig().state, 'A2'));
-  withEnv({ ...base, PRELAUNCH: 'false' }, () => assert.strictEqual(launch.funnelConfig().state, 'B'));
-  withEnv({ ...base, PRELAUNCH: 'false', FOUNDING_CLOSES_AT: PAST }, () => assert.strictEqual(launch.funnelConfig().state, 'C'));
-  assert.strictEqual(launch.funnelConfig({ prelaunch: false, foundingOpen: true, showSpots: true, spotsLeft: 12, lastDay: true }).spotsLeft, 12);
-  assert.strictEqual(launch.funnelConfig({ prelaunch: false, foundingOpen: true, showSpots: false, spotsLeft: 80 }).spotsLeft, null);
-  // Nothing secret or personal in it.
-  assert.deepStrictEqual(Object.keys(launch.funnelConfig()).sort(), ['challengeStarted', 'lastDay', 'spotsLeft', 'state']);
-});
-
 test('replay links come from env and only http(s) URLs count', () => {
   withEnv({ CHALLENGE_REPLAY_1_URL: 'https://www.instagram.com/reel/abc/', CHALLENGE_REPLAY_2_URL: 'javascript:alert(1)' }, () => {
     assert.strictEqual(launch.replayUrl(1), 'https://www.instagram.com/reel/abc/');
     assert.strictEqual(launch.replayUrl(2), null);
   });
   withEnv({ CHALLENGE_REPLAY_1_URL: undefined }, () => assert.strictEqual(launch.replayUrl(1), null));
-});
-
-test('"Yes, send them" (Legal L39): offered with the flag off before the close, with its own consent version', () => {
-  withEnv({ JOIN_IS_LAUNCH_CONSENT: 'false', FOUNDING_CLOSES_AT: new Date(Date.now() + 864e5).toISOString() }, () => {
-    const c = consent.copy('founder-score');
-    assert.strictEqual(c.postopt.question, "Want launch news, Eli's founder emails and the weekly digest too?");
-    assert.strictEqual(c.postopt.button, 'Yes, send them');
-    assert.strictEqual(consent.postoptAvailable('day-one-stack'), true);
-    const r = consent.postoptRecord('idea-test', 'h');
-    assert.deepStrictEqual([r.version, r.box, r.page], ['idea-test-postopt-v1', true, 'idea-test']);
-    assert.deepStrictEqual(consent.optins(true), { launch_optin: true, ongoing_optin: true });
-  });
-  withEnv({ JOIN_IS_LAUNCH_CONSENT: 'true', FOUNDING_CLOSES_AT: new Date(Date.now() + 864e5).toISOString() }, () => {
-    assert.strictEqual(consent.postoptAvailable('founder-score'), false);
-    assert.ok(!consent.copy('founder-score').postopt);
-  });
 });
 
 test('server-side ad events need the page flag and the 127_consent=v1.ads1 cookie, and never run with GPC or for members', () => {

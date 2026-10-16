@@ -1,5 +1,5 @@
-// Founder Score quiz: intro -> 7 tap questions -> score, archetype, #1 move, week-1 plan,
-// share card, and an email gate for the full 30-day roadmap that hands off to signup.
+// Founder Score quiz: intro -> 7 tap questions -> score, archetype and the reasons, then an email gate
+// for the #1 move, the roadmap preview and the launch-state block (results-kit.js), plus a share card.
 (function () {
   var S = window.SCORE, K = window.K127, esc = K.esc;
   var app = document.getElementById('app');
@@ -53,31 +53,19 @@
   }
 
   // ---------- intro ----------
+  // The intro markup lives in score.html (paints before JS). Keep a copy to re-render it on "Retake".
+  var INTRO = document.getElementById('intro') ? document.getElementById('intro').outerHTML : '';
+  var introShown = !!INTRO;
   function intro() {
     state.step = -1; progress();
-    var shared = sharedArch
-      ? '<div class="card accent" style="margin-bottom:22px"><div class="label lilac">Shared with you</div><p style="margin:8px 0 0" class="fog">Someone you know is a <b style="color:var(--c-ink)">' + esc(sharedArch.name) + '</b> with a Founder Score of <span class="mono" style="color:var(--c-ink)">' + sharedArch.score + '/100</span>. What are you?</p></div>'
-      : '';
-    render(
-      '<section class="narrow hero">' + shared +
-        '<span class="chip"><span class="dot"></span>Free · 7 questions · 90 seconds</span>' +
-        '<h1 class="h-display steel">What kind of founder are you?</h1>' +
-        '<p class="lede">Get your Founder Score, the one move that matters most this week, and a 30-day roadmap built from Eli Christiansen\'s playbook.</p>' +
-        '<div style="margin-top:28px"><button class="btn block" id="go">Get my score <span class="arrow"></span></button></div>' +
-        '<div class="proof-row"><span>Built by a <b>2x</b> founder</span><span><b>25M+</b> views across social</span><span>Left a multiple six-figure job to build</span></div>' +
-      '</section>' +
-      '<section class="narrow" style="padding-top:28px">' +
-        '<div class="grid-2">' +
-          card('Your archetype', 'Explorer, Validator, Launcher, Amplifier or Operator. Where you are, and the trap that comes with it.') +
-          card('Your score', 'Focus, validation, proof, reach and execution, scored out of 100.') +
-          card('Your #1 move', 'The single thing that will move you furthest this week. Not ten things. One.') +
-          card('Your roadmap', 'Week one free on the spot. The full 30 days when you add your email.') +
-        '</div>' +
-      '</section>'
-    );
+    if (!introShown || !document.getElementById('intro')) render(INTRO);
+    introShown = false;
+    var slot = document.getElementById('sharedSlot');
+    if (slot && sharedArch) {
+      slot.innerHTML = '<div class="card accent" style="margin-bottom:22px"><div class="label lilac">Shared with you</div><p style="margin:8px 0 0" class="fog">Someone you know is a <b style="color:var(--c-ink)">' + esc(sharedArch.name) + '</b> with a Founder Score of <span class="mono" style="color:var(--c-ink)">' + sharedArch.score + '/100</span>. What are you?</p></div>';
+    }
     document.getElementById('go').onclick = function () { K.track('Quiz Start', { shared: !!sharedArch }); state.step = 0; question(); };
   }
-  function card(t, d) { return '<div class="card"><div class="label">' + t + '</div><p class="fog small" style="margin:8px 0 0">' + d + '</p></div>'; }
 
   // ---------- questions ----------
   function question() {
@@ -128,11 +116,11 @@
   }
 
   // ---------- results ----------
+  // Before the email: archetype, score, bars, band and the reasons, then the gate (quiz-results.md §1).
+  // After it: the #1 move, the roadmap preview and the block for the launch state (A1, A2, B or C).
+  var sticky = null;
   function results(r) {
     document.getElementById('foot').hidden = false;
-    var move = S.moves[r.weakest];
-    var w1 = r.track.weeks[0].tasks.slice(0, r.trimmed ? 2 : 3);
-    var blockerNote = S.blockerNotes[state.a.blocker];
     var bars = Object.keys(S.dims).map(function (d) {
       return '<div class="bar-row' + (d === r.weakest ? ' low' : '') + '"><span class="name">' + S.dims[d] + '</span><div class="bar"><span data-w="' + (r.dims[d] / 20 * 100) + '"></span></div><span class="val">' + r.dims[d] + '/20</span></div>';
     }).join('');
@@ -140,7 +128,7 @@
     var html =
       '<section class="narrow score-hero">' +
         '<div class="label">Your Founder Score</div>' +
-        '<p class="fog" style="margin:18px 0 0;font-size:20px;letter-spacing:-.02em">You\'re a</p>' +
+        '<p class="fog" style="margin:18px 0 0;font-size:20px;letter-spacing:-.02em">You\'re ' + article(r.arch.name) + '</p>' +
         '<h1 class="h-display steel" style="margin:2px 0 14px">' + esc(r.arch.name) + '</h1>' +
         '<p class="lede" style="color:var(--c-ink)">' + esc(r.arch.tagline) + '</p>' +
       '</section>' +
@@ -154,27 +142,13 @@
         '<p class="small fog" style="margin:20px 0 0">' + esc(r.band.note) + '</p>' +
       '</div></section>' +
 
-      '<section class="narrow" style="padding-top:14px"><div class="card accent">' +
-        '<div class="label lilac">Your #1 move this week</div>' +
-        '<h3 class="h3" style="margin:10px 0 8px">' + esc(move.title) + '</h3>' +
-        '<p class="fog" style="margin:0">' + esc(move.body) + '</p>' +
+      '<section class="narrow" id="reasons" style="padding-top:14px"><div class="card">' +
+        '<div class="label">Why you got this score.</div>' +
+        '<ul class="reasons">' + reasons(r) + '</ul>' +
       '</div></section>' +
 
-      // Week 1 + gate
-      '<section class="narrow" id="plan" style="padding-top:20px">' +
-        '<div class="label">Your 30-day roadmap · ' + esc(r.track.name) + ' track</div>' +
-        '<h2 class="h2 steel" style="margin:12px 0 8px">' + esc(r.track.focus) + '</h2>' +
-        (blockerNote ? '<p class="fog">' + esc(blockerNote) + '</p>' : '') +
-        weekCard(1, r.track.weeks[0].theme, w1, false) +
-        '<div id="rest"></div>' +
-      '</section>' +
-
-      '<section class="narrow" style="padding-top:40px"><div class="grid-2">' +
-        '<div class="card"><div class="label signal">Your edge</div><p style="margin:8px 0 0">' + esc(r.arch.strength) + '</p></div>' +
-        '<div class="card"><div class="label">Your trap</div><p style="margin:8px 0 0">' + esc(r.arch.blind) + '</p></div>' +
-      '</div>' +
-      '<div class="card" style="margin-top:12px"><div class="quote">' + esc(r.arch.principle) + '</div><div class="tiny slate" style="margin-top:10px">Eli Christiansen</div></div>' +
-      '</section>' +
+      '<section class="narrow" id="gateWrap" style="padding-top:14px"></section>' +
+      '<div id="after"></div>' +
 
       // Share
       '<section class="narrow section" style="padding-bottom:20px"><div class="card">' +
@@ -185,11 +159,7 @@
         '<button class="btn ghost block" id="copyLink">Copy link</button></div>' +
       '</div></section>' +
 
-      '<section class="narrow section">' +
-        '<div class="card" style="display:flex;gap:16px;align-items:flex-start">' +
-          '<div class="tool-logo" aria-hidden="true">EC</div>' +
-          '<div><div class="label">Who built this</div><p class="small fog" style="margin:8px 0 0">Eli Christiansen left a multiple six-figure corporate job to build full time. He hit $50K in sales with a part-time e-commerce brand backed by 100+ creator ambassadors, built 25M+ views across social, and won the fintech category at Best of the Midwest (Iowa Startup Week) with his software company, Donevia. 127 is the playbook he wishes he had on day one.</p></div>' +
-        '</div>' +
+      '<section class="narrow section" style="padding-top:0">' + K.R.who() +
         '<div class="row" style="justify-content:center;margin-top:22px;gap:18px">' +
           '<a class="link" href="' + K.href('/idea-test') + '\">Test an idea free</a>' +
           '<a class="link" href="' + K.href('/stack') + '\">Get the Day One Stack</a>' +
@@ -203,65 +173,90 @@
       Array.prototype.forEach.call(app.querySelectorAll('.bar span[data-w]'), function (s) { s.style.width = s.getAttribute('data-w') + '%'; });
       countUp(document.getElementById('count'), r.total);
     });
+    if ('IntersectionObserver' in window) {
+      var seen = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        K.track('qr_reasons_view', { archetype: r.arch.name, band: r.band.label }); seen.disconnect();
+      }, { threshold: 0.4 });
+      seen.observe(document.getElementById('reasons'));
+    }
 
-    renderRest(r);
-    document.getElementById('retake').onclick = function () { state.a = {}; state.unlocked = false; save(); state.step = 0; question(); };
+    if (state.unlocked) after(r);
+    else {
+      var wrap = document.getElementById('gateWrap');
+      K.R.gate(wrap, {
+        magnet: 'score',
+        data: function () { return { archetype: r.arch.name, score: r.total, stage: r.archKey, track: r.track.name, weakest: r.weakest, blocker: state.a.blocker || null, dims: r.dims, answers: state.a }; },
+        onDone: function () {
+          K.track('Lead', { source: 'founder-score', archetype: r.arch.name });
+          state.unlocked = true; save(); writeOnboarding(r);
+          if (sticky) { sticky.remove(); sticky = null; }
+          wrap.innerHTML = '';
+          after(r);
+          document.getElementById('after').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setupShare(r);
+        },
+      });
+      sticky = K.R.sticky(wrap, 'score');
+    }
+    document.getElementById('retake').onclick = function () {
+      if (sticky) { sticky.remove(); sticky = null; }
+      state.a = {}; state.unlocked = false; save(); state.step = 0; question();
+    };
     setupShare(r);
   }
 
-  function weekCard(n, theme, tasks, locked) {
-    var t = tasks.map(function (x, i) {
-      return '<div class="task"><span class="n">' + (i + 1) + '</span><div><div class="t">' + esc(x[0]) + '</div><div class="d">' + esc(x[1]) + '</div></div></div>';
-    }).join('');
-    return '<div class="card' + (n === 1 ? ' win' : '') + (locked ? ' locked' : '') + '" style="margin-top:14px">' +
-      '<div class="week-head"><span class="label' + (n === 1 ? ' signal' : '') + '">Week ' + n + '</span><span class="small fog">' + esc(theme) + '</span></div>' +
-      '<div class="' + (locked ? 'blur' : '') + '">' + t + '</div></div>';
+  function article(w) { return /^[AEIOU]/i.test(w) ? 'an' : 'a'; }
+
+  // §4: one line per answer, points from score-data.js, the weakest part in lilac.
+  function reasons(r) {
+    var stage = QS[0].options.find(function (o) { return o.v === state.a.stage; });
+    var out = ['<li><b>Because you said "' + esc(stage.label) + '"</b>, you\'re ' + article(r.arch.name) + ' ' + esc(r.arch.name) + '.</li>'];
+    QS.forEach(function (q) {
+      if (!q.dim) return;
+      var o = q.options.find(function (x) { return x.v === state.a[q.id]; });
+      out.push('<li' + (q.dim === r.weakest ? ' class="low"' : '') + '><b>Because you said "' + esc(o.label) + '": ' + esc(S.dims[q.dim]) + ' ' + o.pts + '/20.</b> ' + esc(o.reason || '') + '</li>');
+    });
+    var bq = QS.find(function (q) { return q.id === 'blocker'; });
+    var bo = bq && bq.options.find(function (x) { return x.v === state.a.blocker; });
+    if (bo && S.blockerNotes[bo.v]) out.push('<li><b>Because you said "' + esc(bo.label) + '":</b> ' + esc(S.blockerNotes[bo.v]) + '</li>');
+    return out.join('');
   }
 
-  function renderRest(r) {
-    var rest = document.getElementById('rest');
-    var weeks = r.track.weeks.slice(1).map(function (w, i) { return weekCard(i + 2, w.theme, w.tasks.slice(0, r.trimmed ? 2 : 3), !state.unlocked); }).join('');
-    if (state.unlocked) {
-      // Pre-launch: signup is closed, so show the founding list and invite link instead.
-      var founding = K.foundingCard('founder-score');
-      if (founding) { rest.innerHTML = weeks + founding; return; }
-      rest.innerHTML = weeks +
-        '<div class="card accent" style="margin-top:14px"><div class="label lilac">Next</div>' +
-        '<h3 class="h3" style="margin:10px 0 8px">Save it and track your progress.</h3>' +
-        '<p class="fog small" style="margin:0 0 16px">Your free 127 account turns this into a live roadmap with the templates for every step, progress tracking and milestones. Your answers carry over.</p>' +
-        '<a class="btn block" id="toSignup" href="#">Create my free account <span class="arrow"></span></a></div>';
-      document.getElementById('toSignup').onclick = function (e) { e.preventDefault(); handoff(r); };
-      return;
-    }
-    rest.innerHTML =
-      '<div style="position:relative">' + weeks +
-        '<div class="card halo" id="gate" style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);margin:0 6px">' +
-          '<div class="label">Unlock weeks 2 to 4</div>' +
-          '<h3 class="h3" style="margin:10px 0 6px">Get your full 30-day roadmap.</h3>' +
-          '<p class="fog small" style="margin:0 0 14px">Free. We\'ll email you the full roadmap.</p>' +
-          '<form id="gateForm" class="stack-s" novalidate>' +
-            '<input class="input" type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="60">' +
-            '<input class="input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required value="' + esc(K.savedEmail()) + '">' +
-            K.consentHtml() +
-            '<button class="btn block" type="submit">Send my roadmap <span class="arrow"></span></button>' +
-            '<div class="form-err" id="gateErr" hidden></div>' +
-          '</form>' +
+  function after(r) {
+    var move = S.moves[r.weakest];
+    var w1 = r.track.weeks[0].tasks.slice(0, r.trimmed ? 2 : 3);
+    var t = w1.map(function (x, i) {
+      return '<div class="task"><span class="n">' + (i + 1) + '</span><div><div class="t">' + esc(x[0]) + '</div><div class="d">' + esc(x[1]) + '</div></div></div>';
+    }).join('');
+    var later = r.track.weeks.slice(1).map(function (w, i) {
+      return '<div class="week-head" style="padding:12px 0 0;border-top:1px solid var(--c-line);margin-top:12px"><span class="label">Week ' + (i + 2) + '</span><span class="small fog">' + esc(w.theme) + '</span></div>';
+    }).join('');
+    document.getElementById('after').innerHTML =
+      '<section class="narrow" style="padding-top:14px"><div class="card accent">' +
+        '<div class="label lilac">Your #1 move this week</div>' +
+        '<h3 class="h3" style="margin:10px 0 8px">' + esc(move.title) + '</h3>' +
+        '<p class="fog" style="margin:0">' + esc(move.body) + '</p>' +
+      '</div></section>' +
+
+      '<section class="narrow" id="plan" style="padding-top:20px">' +
+        '<div class="label">Your roadmap preview · ' + esc(r.track.name) + ' track</div>' +
+        '<h2 class="h2 steel" style="margin:12px 0 8px">' + esc(r.track.focus) + '</h2>' +
+        '<div class="card win" style="margin-top:14px">' +
+          '<div class="week-head"><span class="label signal">Week 1</span><span class="small fog">' + esc(r.track.weeks[0].theme) + '</span></div>' + t +
+          later +
+          '<p class="gate-small" style="margin-top:16px">Weeks 1 and 2 are free in your 127 account. Weeks 3 and 4 come with Builder.</p>' +
         '</div>' +
-      '</div>';
-    document.getElementById('gateForm').onsubmit = function (e) {
-      e.preventDefault();
-      var f = e.target, email = f.email.value.trim(), err = document.getElementById('gateErr'), btn = f.querySelector('button');
-      if (!K.validEmail(email)) { err.textContent = 'Enter a valid email.'; err.hidden = false; return; }
-      err.hidden = true; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
-      K.lead({
-        email: email, name: f.name.value.trim(), source: 'founder-score', optin: !!(f.optin && f.optin.checked),
-        data: { archetype: r.arch.name, score: r.total, stage: r.archKey, track: r.track.name, weakest: r.weakest, blocker: state.a.blocker || null, dims: r.dims, answers: state.a },
-      }).then(function () {
-        K.track('Lead', { source: 'founder-score', archetype: r.arch.name });
-        state.unlocked = true; save(); writeOnboarding(r); renderRest(r);
-        K.toast('Unlocked. Check your inbox.');
-      }, function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.innerHTML = 'Send my roadmap <span class="arrow"></span>'; });
-    };
+        '<div id="stateBlock"></div>' +
+      '</section>' +
+
+      '<section class="narrow" style="padding-top:28px"><div class="grid-2">' +
+        '<div class="card"><div class="label signal">Your edge</div><p style="margin:8px 0 0">' + esc(r.arch.strength) + '</p></div>' +
+        '<div class="card"><div class="label">Your trap</div><p style="margin:8px 0 0">' + esc(r.arch.blind) + '</p></div>' +
+      '</div>' +
+      '<div class="card" style="margin-top:12px"><div class="quote">' + esc(r.arch.principle) + '</div><div class="tiny slate" style="margin-top:10px">Eli Christiansen</div></div>' +
+      '</section>';
+    K.R.block(document.getElementById('stateBlock'), { magnet: 'score', key: r.archKey, archetype: r.arch.name, onStart: function () { handoff(r); } });
   }
 
   // Prefill the site's 13-question assessment (public/js/onboarding.js reads this key),
@@ -292,7 +287,11 @@
   }
 
   // ---------- share card (1080x1920, story format) ----------
-  function shareUrl(r) { return SHARE_BASE + '?r=' + r.arch.name.toLowerCase() + '&s=' + r.total; }
+  // After the email, the share link carries their code, so a friend who takes the score and joins counts toward Bring 3.
+  function shareUrl(r) {
+    var code = K.R.lead('score').referral_code;
+    return SHARE_BASE + '?r=' + r.arch.name.toLowerCase() + '&s=' + r.total + (code ? '&ref=' + encodeURIComponent(code) : '');
+  }
 
   function setupShare(r) {
     var img = document.getElementById('sharePrev');

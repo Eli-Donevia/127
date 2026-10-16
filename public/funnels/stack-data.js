@@ -157,7 +157,7 @@ window.STACK = {
         {
           name: 'Shopify', mono: 'Sh', cost: 'Free trial, then paid',
           job: 'Your online store.',
-          eli: 'Shopify is in my stack for e-commerce. My brand\'s first drop sold out, with customers in 35 of 50 states and 100+ creator ambassadors behind it.',
+          eli: 'Shopify is in my stack for e-commerce. My brand\'s first drop sold out, with customers in 35 of 50 states.',
           steps: [
             'Start a trial and pick a free theme. Do not customize for a week.',
             'Add one product with real photos and a description in your customer\'s words.',

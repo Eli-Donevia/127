@@ -40,25 +40,145 @@
   <form method="post" action="/admin/grace" style="display:flex;gap:10px;flex-wrap:wrap"><input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:320px"><button class="btn sm">Create link</button></form>
 </div>
 
+<% var C = cv.circle; var stateLabel = { pending: 'New', fit_call: 'Fit call', not_yet: 'Not yet', declined: 'Declined', offered: 'Seat offered', waiting: 'Approved, waiting', passed: 'Claim window ended', lapsed: 'Approval expired', former: 'Former member', member: 'Member' }; %>
 <div class="card pad-lg" id="applications" style="margin-bottom:16px">
-  <div class="card-title"><h3>Founder's Circle applications</h3><span class="small muted"><%= circleSeatsLeft %> of <%= circleCapacity %> seats open</span></div>
+  <div class="card-title"><h3>Founder's Circle applications</h3><span class="small muted"><%= circleSeatsLeft %> of <%= circleCapacity %> seats open · <%= cv.fitCalls %> of 4 fit calls in the last 7 days</span></div>
+  <p class="small muted" style="margin:-6px 0 14px">Rubric: Building, 13-week result (Q4), Time (Q5), Coachable, Good for the room, 0-2 each. 7+ approve, 5-6 fit call or not yet, 4 or less not yet. Red flags override the score.</p>
   <% if (!applications.length) { %><p class="small muted" style="margin:0">No applications yet.</p><% } else { %>
-  <div class="scroll-x"><table class="t">
-    <thead><tr><th>Applicant</th><th>Business</th><th>Where it is</th><th>Needs help with</th><th>Status</th><th></th></tr></thead>
+  <div class="scroll-x"><table class="t circle-apps">
+    <thead><tr><th>Applicant</th><th>Building · today</th><th>90 days · 13 weeks</th><th>Time</th><th>Status</th><th>Decide</th></tr></thead>
     <tbody>
-    <% applications.forEach(function(a){ %>
+    <% applications.forEach(function(a){ var st = cv.state(a); %>
       <tr>
-        <td><b style="font-weight:500"><%= a.name %></b><br><span class="muted"><%= a.email %></span><% if (a.link && /^https?:\/\//i.test(a.link)) { %><br><a class="link" href="<%= a.link %>" target="_blank" rel="noopener">link</a><% } %></td>
-        <td><%= a.business %></td><td><%= a.revenue %></td><td><%= a.challenge %><br><span class="muted">Commitment: <%= a.commitment %></span></td>
-        <td><span class="chip <%= a.status==='approved' ? 'win' : a.status==='declined' ? 'line' : '' %>"><%= a.status %></span></td>
-        <td style="white-space:nowrap">
-          <% if (a.status !== 'approved') { %><form method="post" action="/admin/applications/<%= a.id %>/approved" style="display:inline"><button class="btn sm">Approve</button></form><% } %>
-          <% if (a.status !== 'declined') { %><form method="post" action="/admin/applications/<%= a.id %>/declined" style="display:inline"><button class="btn ghost sm">Decline</button></form><% } %>
+        <td><b style="font-weight:500"><%= a.name %></b><br><span class="muted"><%= a.email %></span><% if (a.link && /^https?:\/\//i.test(a.link)) { %><br><a class="link" href="<%= a.link %>" target="_blank" rel="noopener">link</a><% } %><br><span class="tiny muted">applied <%= C.fmtDate(C.ms(a.appliedAt || a.createdAt)) %><%= a.returning ? ' · returning member' : '' %></span></td>
+        <td><%= a.business %><br><span class="muted"><%= a.revenue %></span></td>
+        <td><%= a.challenge %><br><span class="muted"><b style="font-weight:500">13 weeks:</b> <%= a.result13 || '(old form: not asked)' %></span></td>
+        <td><%= C.TIME_ANSWERS[a.time] || '–' %><% if (a.timeNote) { %><br><span class="muted"><%= a.timeNote %></span><% } %></td>
+        <td><span class="chip <%= st === 'member' || st === 'offered' || st === 'waiting' ? 'gold' : st === 'declined' || st === 'not_yet' || st === 'lapsed' ? 'line' : '' %>"><%= stateLabel[st] || st %></span>
+          <% if (st === 'offered') { %><br><span class="tiny muted">Seat <%= C.seatLabel(a.offer.seat) %> until <%= C.fmtDayTime(C.ms(a.offer.expiresAt)) %></span><% } %>
+          <% if (st === 'waiting') { %><br><span class="tiny muted">#<%= cv.queue.findIndex(function(q){ return q.id === a.id; }) + 1 %> in line · until <%= C.fmtDate(C.approvalExpiresAt(a)) %></span><% } %>
+          <% if (a.notYet && st === 'not_yet') { %><br><span class="tiny muted"><%= a.notYet.reason %></span><% } %>
+        </td>
+        <td class="decide">
+          <% if (['pending', 'fit_call', 'not_yet', 'lapsed'].indexOf(st) >= 0) { %>
+            <form method="post" action="/admin/applications/<%= a.id %>/approve"><button class="btn sm">Approve</button></form>
+            <% if (st !== 'fit_call') { %>
+            <details><summary class="btn ghost sm">Fit call</summary>
+              <form method="post" action="/admin/applications/<%= a.id %>/fit_call" class="decide-form">
+                <input class="input" name="bookingUrl" type="url" placeholder="https:// booking link" value="<%= cv.fitCallUrl %>" required>
+                <button class="btn sm">Send fit call invite</button>
+              </form>
+            </details>
+            <% } %>
+            <% if (st !== 'not_yet') { %>
+            <details><summary class="btn ghost sm">Not yet</summary>
+              <form method="post" action="/admin/applications/<%= a.id %>/not_yet" class="decide-form">
+                <textarea class="input" name="reason" required maxlength="500" placeholder="One specific reason"></textarea>
+                <textarea class="input" name="change" required maxlength="500" placeholder="What would change my answer"></textarea>
+                <button class="btn sm">Send not yet</button>
+              </form>
+            </details>
+            <% } %>
+            <form method="post" action="/admin/applications/<%= a.id %>/decline" onsubmit="return confirm('Decline is for red flags only. Send the decline email?')"><button class="btn ghost sm">Decline</button></form>
+          <% } else if (st === 'passed') { %>
+            <form method="post" action="/admin/applications/<%= a.id %>/ready"><button class="btn ghost sm">Back in line</button></form>
+          <% } else { %><span class="tiny muted">–</span><% } %>
         </td>
       </tr>
     <% }) %>
     </tbody>
   </table></div>
+  <% } %>
+</div>
+
+<div class="grid g-2" style="margin-bottom:16px" id="circle-table">
+  <div class="card pad-lg">
+    <h3>The table</h3>
+    <p class="small muted">Members by seat. Attendance from approved recaps, newest first.</p>
+    <% if (!cv.members.length) { %><p class="small muted" style="margin:0">No members yet.</p><% } %>
+    <% cv.members.forEach(function(u){ var m = u.circle || {}; var h = cv.history(u); %>
+      <div class="circle-row">
+        <span class="seat-badge sm">Seat <b><%= C.seatLabel(m.seat) %></b></span>
+        <div><b style="font-weight:500"><%= u.name || u.email %></b><% if (m.founding) { %> <span class="founding-mark sm">Founding Seat</span><% } %><% if (u.paymentIssue) { %> <span class="chip line">payment failing</span><% } %>
+          <div class="tiny muted">joined <%= C.fmtDate(C.ms(m.joinedAt)) %><% if (h.length) { %> · <% h.forEach(function(x){ %><span title="<%= x.label %>" class="att <%= x.attendance %>"><%= x.attendance === 'attended' ? '●' : x.attendance === 'missed' ? '○' : '·' %></span><% }) %> · hot seats: <%= h.filter(function(x){ return x.hotSeat; }).length %><% } %></div>
+        </div>
+      </div>
+    <% }) %>
+    <% if (cv.formers.length) { %>
+      <div class="eyebrow" style="margin:22px 0 6px">Former members</div>
+      <% cv.formers.forEach(function(u){ var m = u.circle; var until = C.addMonths(C.ms(m.leftAt), C.RETURN_MONTHS); %>
+        <div class="circle-row">
+          <span class="alumni-mark sm">Alumni</span>
+          <div><b style="font-weight:500"><%= u.name || u.email %></b> <span class="tiny muted">Seat <%= C.seatLabel(m.seat) %> · left <%= C.fmtDate(C.ms(m.leftAt)) %></span>
+            <div class="tiny muted"><%= m.goodStanding === false ? 'Not in good standing: must apply again' : until > cv.now ? 'Good standing: can come back without applying until ' + C.fmtDate(until) : 'Left more than 6 months ago: must apply again' %>
+              <form method="post" action="/admin/circle/members/<%= u.id %>/standing" style="display:inline"><input type="hidden" name="good" value="<%= m.goodStanding === false ? '1' : '0' %>"><button class="linkbtn"><%= m.goodStanding === false ? 'Mark good standing' : 'Mark not in good standing' %></button></form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+  <div class="card pad-lg">
+    <h3>Approved and waiting</h3>
+    <p class="small muted">Seats are offered in approval order, 72 hours each. Approvals last 6 months.</p>
+    <% cv.offers.forEach(function(a){ %>
+      <div class="circle-row"><span class="chip gold">Offered</span><div><b style="font-weight:500"><%= a.name || a.email %></b><div class="tiny muted">Seat <%= C.seatLabel(a.offer.seat) %>, held until <%= C.fmtDayTime(C.ms(a.offer.expiresAt)) %><%= a.offer.remindedAt ? ' · reminder sent' : '' %></div></div></div>
+    <% }) %>
+    <% if (!cv.queue.length && !cv.offers.length) { %><p class="small muted" style="margin:0">Nobody is waiting.</p><% } %>
+    <% cv.queue.forEach(function(a, i){ %>
+      <div class="circle-row"><span class="mono gold-num">#<%= i + 1 %></span><div><b style="font-weight:500"><%= a.name || a.email %></b><div class="tiny muted">approved <%= C.fmtDate(C.ms(a.approvedAt)) %> · valid until <%= C.fmtDate(C.approvalExpiresAt(a)) %><%= a.returning ? ' · returning member' : '' %></div></div></div>
+    <% }) %>
+  </div>
+</div>
+
+<div class="card pad-lg" id="scorecards" style="margin-bottom:16px">
+  <div class="card-title"><h3>Scorecards<% if (cv.nextLabel) { %> · <%= cv.nextLabel %><% } %></h3><a class="btn ghost sm" href="/admin/circle/feed.json">Heartbeat feed (JSON)</a></div>
+  <% if (!cv.scorecards.length) { %><p class="small muted" style="margin:0">No members or no call scheduled yet.</p><% } else { %>
+  <div class="scroll-x"><table class="t">
+    <thead><tr><th>Member</th><th>Commitments</th><th>Number</th><th>In the way</th><th>Hot seat</th><th>Quick question</th><th>Call</th><th>Private to Eli</th></tr></thead>
+    <tbody>
+    <% cv.scorecards.forEach(function(r){ var s = r.s; %>
+      <tr>
+        <td><b style="font-weight:500"><%= C.firstName(r.u.name, r.u.email) %></b> <span class="tiny muted">Seat <%= C.seatLabel(r.u.circle && r.u.circle.seat) %></span><% if (s && s.late) { %><br><span class="chip line">late</span><% } %><% if (s && s.bell) { %><br><span class="chip gold">Bell: <%= s.bellType === 'other' ? s.bellOther : C.BELLS[s.bellType] %></span><% } %></td>
+        <% if (!s) { %><td colspan="7" class="muted">Not in yet</td><% } else { %>
+        <td><% s.commitments.forEach(function(c){ %><div><%= C.COMMITMENT[c.status] %>: <%= c.text %><% if (c.learned) { %> <span class="muted">(<%= c.learned %>)</span><% } %></div><% }) %><% if (!s.commitments.length) { %><span class="muted">–</span><% } %></td>
+        <td><span class="mono"><%= s.number %></span> <span class="muted"><%= s.northLabel %></span><% if (s.numberShare === 'eli') { %><br><span class="tiny muted">Eli only</span><% } %><% if (s.numberNote) { %><br><span class="tiny muted"><%= s.numberNote %></span><% } %></td>
+        <td><%= s.inTheWay %><% if (s.win) { %><br><span class="muted">Win: <%= s.win %></span><% } %></td>
+        <td><%= C.HOT_SEAT[s.hotSeat] %><% if (s.hsUrgent) { %> <span class="chip line">time-sensitive</span><% } %><% if (s.hsSituation) { %><br><span class="muted"><%= s.hsSituation %></span><% } %></td>
+        <td><%= s.quickQuestion || '–' %></td>
+        <td><%= C.ATTENDANCE[s.attendance] %></td>
+        <td><%= s.privateNote || '–' %></td>
+        <% } %>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
+
+<div class="card pad-lg" id="recap" style="margin-bottom:16px">
+  <div class="card-title"><h3>Call recap<% if (cv.lastLabel) { %> · <%= cv.lastLabel %><% } %></h3><span class="small muted">Emails every member (their commitments first)<%= process.env.CIRCLE_CALL_NOTES_WEBHOOK_URL ? ' and posts to #call-notes' : '' %></span></div>
+  <% if (!cv.last) { %><p class="small muted" style="margin:0">No call has happened yet.</p>
+  <% } else if (cv.recapDone) { %><p class="small muted" style="margin:0">Sent <%= C.fmtDate(C.ms(cv.recapDone.sentAt)) %> to <%= cv.recapDone.recipients || 0 %> member<%= cv.recapDone.recipients === 1 ? '' : 's' %><%= cv.recapDone.postedToDiscord ? ' and posted to #call-notes' : '' %>.</p>
+  <% } else { %>
+    <p class="small muted" style="margin:-6px 0 14px">Paste the heartbeat's draft or edit this one. Fill every [placeholder]: it won't send with one left in. Check: commitments right, nothing off the record, the Bell line there, attendance marked.</p>
+    <form method="post" action="/admin/circle/recap" class="recap-form">
+      <input type="hidden" name="callKey" value="<%= cv.last.key %>">
+      <textarea class="input mono" name="post" rows="22"><%= cv.recapDraft %></textarea>
+      <div class="grid g-2" style="margin-top:14px">
+        <% cv.members.forEach(function(u){ %>
+          <div class="recap-member">
+            <div class="small" style="font-weight:500;margin-bottom:6px"><%= C.firstName(u.name, u.email) %> · Seat <%= C.seatLabel(u.circle && u.circle.seat) %></div>
+            <textarea class="input" name="commit_<%= u.id %>" rows="2" placeholder="Commitments for next call, one per line"></textarea>
+            <div class="sc-row" style="margin-top:8px">
+              <select class="input" name="attend_<%= u.id %>"><option value="unknown">Attendance: unknown</option><option value="attended">Attended</option><option value="missed">Missed</option></select>
+              <label class="check"><input type="checkbox" name="hot_<%= u.id %>"><span>Had a hot seat</span></label>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <button class="btn gold" style="margin-top:16px">Approve and send the recap</button>
+    </form>
   <% } %>
 </div>
 

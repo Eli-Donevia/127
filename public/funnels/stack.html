@@ -13,9 +13,8 @@
 <!--/OG-->
 <meta name="theme-color" content="#060607">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/funnels/funnels.css">
 <!--TRACKERS-->
 </head>
@@ -32,15 +31,7 @@
     <h1 class="h-display steel">The Day One Stack</h1>
     <p class="lede">The tools I use to build businesses, the order to set them up, and 30 AI prompts you can copy and paste today. Day one costs $0.</p>
 
-    <form id="stackForm" class="card halo stack-s" style="margin-top:26px" novalidate>
-      <div class="label" style="margin-bottom:6px">Send me the stack</div>
-      <input class="input" type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="60">
-      <input class="input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
-      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-      <div data-consent></div>
-      <button class="btn block" type="submit">Get the free stack <span class="arrow"></span></button>
-      <div class="form-err" id="err" hidden></div>
-    </form>
+    <div id="stackForm" style="margin-top:26px"></div>
   </section>
 
   <section class="narrow section" style="padding-top:36px">
@@ -54,21 +45,20 @@
   </section>
 
   <section class="narrow section">
-    <div class="card" style="display:flex;gap:16px;align-items:flex-start">
-      <div class="tool-logo" aria-hidden="true">EC</div>
-      <div><div class="label">From Eli Christiansen</div>
-        <p class="small fog" style="margin:8px 0 0">2x founder. Left a multiple six-figure corporate job to build full time. $50K in sales from a part-time e-commerce brand, 25M+ views across social, and the fintech category win at Best of the Midwest (Iowa Startup Week) with his software company, Donevia. These are the tools that made the difference.</p></div>
-    </div>
+    <div id="who"></div>
     <div style="margin-top:22px"><a href="#stackForm" class="btn block ghost">Get the free stack</a></div>
   </section>
 </main>
 
 <footer class="f-foot">
+  <div class="earn">127 is education and tools, not a promise of income. Results vary. <a href="/earnings-disclaimer">Earnings disclaimer</a></div>
   <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
-  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></div>
+  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/cookies">Cookie Notice</a> · <a href="/cookies" data-cookie-settings>Cookie settings</a></div>
 </footer>
 
 <script src="/funnels/funnel-kit.js"></script>
+<script src="/funnels/results-data.js"></script>
+<script src="/funnels/results-kit.js"></script>
 <script src="/funnels/stack-data.js"></script>
 <script>
 (function () {
@@ -87,19 +77,12 @@
   document.getElementById('sample').innerHTML = '<h4>' + esc(p.t) + '</h4><div class="when">' + esc(p.when) + '</div><button class="btn pill copy" id="copySample">Copy</button><pre>' + esc(p.p) + '</pre>';
   document.getElementById('copySample').onclick = function () { K.copy(p.p); K.track('Prompt Copy', { n: 'sample' }); };
 
-  var f = document.getElementById('stackForm');
-  f.email.value = K.savedEmail();
-  f.onsubmit = function (e) {
-    e.preventDefault();
-    var err = document.getElementById('err'), btn = f.querySelector('button[type=submit]'), email = f.email.value.trim();
-    if (!K.validEmail(email)) { err.textContent = 'Enter a valid email.'; err.hidden = false; return; }
-    if (f.website.value) return;
-    err.hidden = true; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
-    K.lead({ email: email, name: f.name.value.trim(), source: 'day-one-stack', optin: !!f.optin.checked, data: {} }).then(function () {
-      K.track('Lead', { source: 'day-one-stack' });
-      location.href = K.href('/stack/guide');
-    }, function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.innerHTML = 'Get the free stack <span class="arrow"></span>'; });
-  };
+  document.getElementById('who').innerHTML = K.R.who();
+  // The guide page shows the launch-state block (results-kit.js) after the email.
+  K.R.gate(document.getElementById('stackForm'), {
+    magnet: 'stack',
+    onDone: function () { K.track('Lead', { source: 'day-one-stack' }); setTimeout(function () { location.href = K.href('/stack/guide'); }, 600); },
+  });
 })();
 </script>
 </body>

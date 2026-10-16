@@ -20,6 +20,8 @@ const waitlist = require('./lib/waitlist');
 const utmLib = require('./lib/utm');
 const adConsent = require('./lib/ad-consent');
 const billingRecords = require('./lib/billing-records');
+const circle = require('./lib/circle');
+const markdown = require('./lib/markdown');
 const { MILESTONES } = require('./lib/milestones');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
@@ -74,10 +76,13 @@ function isAdmin(user) {
   return !!user && !!user.emailVerified && ADMIN_EMAILS.includes(user.email);
 }
 // Approved applicants who are mid-checkout hold a seat for 30 minutes so the Circle can't be overbooked.
+// A seat offered to an approved applicant (the 72-hour claim window, lib/circle.js) is held too.
 function circleSeatsLeft(exceptUserId) {
-  const now = Date.now();
-  const taken = db.filter('users', (u) => u.tier === 'circle' || (u.id !== exceptUserId && u.circleHoldUntil && u.circleHoldUntil > now)).length;
+  const taken = circle.seatHolders(circleCtx(), exceptUserId).size;
   return Math.max(0, CIRCLE_CAPACITY - taken);
+}
+function circleCtx(extra = {}) {
+  return circle.ctx({ capacity: CIRCLE_CAPACITY, admin: ADMIN_EMAILS[0] || null, ...extra });
 }
 function monthKey() {
   return new Date().toISOString().slice(0, 7);
@@ -278,6 +283,7 @@ app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Members
 // Drafts behind a banner until Eli approves (COOKIE_NOTICE_LIVE, EARNINGS_DISCLAIMER_LIVE), like /membership-terms.
 app.get('/cookies', (req, res) => res.render('legal', { title: 'Cookie Notice', kind: 'cookies', description: 'The cookies and similar technologies 127 uses, and how to change your choice.' }));
 app.get('/earnings-disclaimer', (req, res) => res.render('legal', { title: 'Earnings disclaimer', kind: 'earnings', description: "127 teaches people how to start and grow a business. We don't promise that you'll make money." }));
+app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder's Circle agreement", kind: 'circle' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
@@ -411,6 +417,30 @@ async function createMember(req, { email, name, password, optIn, source, fallbac
   return user;
 }
 
+// ---------- Founder's Circle: short account step (R31) ----------
+// "Apply for a seat" on /circle: name, email and password, then straight to the application
+// at /app/circle. No assessment first; the roadmap can come later from the dashboard.
+app.get('/circle/apply', (req, res) => {
+  if (req.user) return res.redirect('/app/circle');
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  res.render('circle-apply', { title: "Apply for the Founder's Circle", error: null, form: {}, layout: 'bare' });
+});
+app.post('/circle/apply', wrap(async (req, res) => {
+  if (req.user) return res.redirect('/app/circle');
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  if (!limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const name = String(req.body.name || '').trim().slice(0, 80);
+  const password = String(req.body.password || '');
+  const renderErr = (error) => res.status(400).render('circle-apply', { title: "Apply for the Founder's Circle", error, form: { name, email, optin: req.body.optin === 'on' }, layout: 'bare' });
+  if (!name) return renderErr('Please add your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
+  if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
+  if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead, and you will land on the application.');
+  await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: 'circle' });
+  res.redirect('/app/circle');
+}));
+
 // ---------- founding members: waitlist and referrals ----------
 // First touch: what the session kept wins; form or JSON fields (utm_*) only fill what's missing.
 function utmFrom(req, body = {}) {
@@ -507,6 +537,7 @@ app.get('/robots.txt', (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
   if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  if (process.env.CIRCLE_AGREEMENT_LIVE === 'true') pages.push('/circle-agreement');
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
 });
 
@@ -706,6 +737,8 @@ app.get('/app', requireAuth, wrap(async (req, res, next) => {
 }));
 app.get('/app', requireAuth, (req, res) => {
   const user = req.user;
+  // New Circle members land on their seat page (scorecard, profile, first call), not the dashboard.
+  if (req.query.upgraded === 'circle' && user.tier === 'circle') return res.redirect(`/app/circle?upgraded=circle${req.query.demo ? '&demo=1' : ''}`);
   if (!user.roadmap) return res.redirect('/start');
   if (req.query.upgraded && req.query.upgraded === user.tier && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: user.tier, founding: !!user.foundingPrice } });
   // Members who saw the founding bar get one dismissible line for 24 hours after it closes.
@@ -994,7 +1027,8 @@ app.post('/app/tools/:slug', requireAuth, wrap(async (req, res) => {
     await db.save('users', user);
     return res.redirect('/app/tools/ask#latest');
   }
-  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, 2000)]));
+  // Per-field limit: 2,000 characters unless the tool sets max (the Interview Synthesizer's notes take 8,000).
+  const input = Object.fromEntries(tool.fields.map((f) => [f.name, String(req.body[f.name] || '').slice(0, f.max || 2000)]));
   if (!reserveAi(req, res, user, `/app/tools/${tool.slug}`)) return;
   const result = await ai.run(tool, input, user);
   if (result.error) {
@@ -1035,35 +1069,134 @@ app.post('/app/wins/:id/delete', requireAuth, wrap(async (req, res) => {
   res.redirect('/app/wins');
 }));
 
-app.get('/app/circle', requireAuth, (req, res) => {
-  const application = db.find('applications', (a) => a.userId === req.user.id);
-  res.render('app/circle', {
+// ---------- Founder's Circle (lib/circle.js) ----------
+const HANDBOOK_HTML = markdown.render(fs.readFileSync(path.join(__dirname, 'content', 'circle-handbook.md'), 'utf8'));
+
+function upcomingFirstCall(call, now) {
+  return call && call.at > now ? circle.callLabel(call) : null;
+}
+
+async function circleLocals(req, extra = {}) {
+  const c = circleCtx();
+  await circle.tick(c);
+  const user = req.user;
+  const application = circle.appFor(c, user.id);
+  const state = circle.appState(application, user, c.now);
+  const m = circle.membership(user);
+  const isMember = user.tier === 'circle';
+  const former = circle.isFormer(user);
+  const next = circle.nextCall(c.now);
+  const sc = isMember ? circle.scorecardStatus(c, user.id) : null;
+  // Not yet, lapsed and former applicants apply again with their last answers filled in ("your answer here carries over").
+  const values = extra.values || (application && ['not_yet', 'lapsed', 'former'].includes(state) ? application : {});
+  return {
     title: "Founder's Circle",
     application,
+    state,
+    membership: m,
+    isMember,
+    former,
+    returning: circle.returningEligible(user, c.now),
+    canApply: circle.canApply(application, user, c.now),
+    position: state === 'waiting' ? circle.queuePosition(c, application) : null,
+    offer: state === 'offered' ? { seat: application.offer.seat, until: circle.fmtLong(circle.ms(application.offer.expiresAt)) } : null,
+    approvalUntil: application && application.approvedAt ? circle.fmtDate(circle.approvalExpiresAt(application)) : null,
+    nextCall: next ? circle.callLabel(next) : null,
+    firstCall: isMember && m ? upcomingFirstCall(circle.firstCallFor(circle.ms(m.joinedAt) || c.now), c.now) : null,
+    scorecard: sc ? { ...sc, opens: circle.fmtDayTime(sc.window.opensAt) } : null,
+    profile: isMember ? circle.profileOf(user, application) : null,
+    profileMissing: isMember ? circle.profileMissing(circle.profileOf(user, application)) : [],
+    recaps: isMember ? circle.recaps(c).slice(0, 3) : [],
+    circle,
+    values,
+    errors: extra.errors || null,
     callUrl: process.env.CIRCLE_CALL_URL || null,
     communityUrl: process.env.CIRCLE_COMMUNITY_URL || null,
-    callTime: process.env.CIRCLE_CALL_TIME || 'Weekly, day and time shared on acceptance',
-  });
+    callTime: process.env.CIRCLE_CALL_TIME || 'Thursdays, 8pm ET',
+    handbookPath: circle.HANDBOOK_PATH,
+  };
+}
+
+app.get('/app/circle', requireAuth, wrap(async (req, res) => {
+  const joined = req.query.upgraded === 'circle' && req.user.tier === 'circle';
+  if (joined && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: 'circle', founding: !!req.user.foundingPrice } });
+  if (joined) res.locals.flash = { type: 'win', text: "You're in the Founder's Circle. Your first call and next steps are below." };
+  res.render('app/circle', await circleLocals(req));
+}));
+
+// The member handbook (content/circle-handbook.md). Signed-in members of any plan can read it,
+// since applicants confirm they've read it.
+app.get(circle.HANDBOOK_PATH, requireAuth, (req, res) => {
+  res.render('app/handbook', { title: "Founder's Circle handbook", html: HANDBOOK_HTML });
 });
 
 app.post('/app/circle/apply', requireAuth, wrap(async (req, res) => {
   const user = req.user;
-  if (db.find('applications', (a) => a.userId === user.id)) return res.redirect('/app/circle');
-  const f = (k) => String(req.body[k] || '').trim().slice(0, 1500);
-  const app_ = await db.save('applications', {
-    userId: user.id,
-    email: user.email,
-    name: user.name,
-    business: f('business'),
-    revenue: f('revenue'),
-    challenge: f('challenge'),
-    commitment: f('commitment'),
-    link: security.isHttpUrl(f('link')) ? f('link').slice(0, 300) : '',
-    status: 'pending',
-  });
-  integrations.emit('circle.applied', { applicationId: app_.id, email: user.email, name: user.name });
-  if (ADMIN_EMAILS[0]) integrations.sendEmail({ to: ADMIN_EMAILS[0], subject: `New Founder's Circle application: ${user.name || user.email}`, text: `${user.name} <${user.email}>\n\nBusiness: ${app_.business}\nRevenue: ${app_.revenue}\nChallenge: ${app_.challenge}\n\nReview it at /admin` });
-  flash(req, 'win', "Application received. You'll hear back by email.");
+  if (!limit(req, res, `circle-apply:${user.id}`, 10, 60 * 60 * 1000, TOO_FAST)) return;
+  const r = await circle.apply(circleCtx(), user, req.body, security.isHttpUrl);
+  if (r.errors) return res.status(400).render('app/circle', await circleLocals(req, { values: r.values, errors: r.errors }));
+  const a = r.app;
+  integrations.emit('circle.applied', { applicationId: a.id, email: user.email, name: user.name });
+  if (ADMIN_EMAILS[0]) integrations.sendEmail({ to: ADMIN_EMAILS[0], subject: `New Founder's Circle application: ${user.name || user.email}`, text: `${user.name} <${user.email}>\n\nBuilding: ${a.business}\nToday: ${a.revenue}\nNeeds (90 days): ${a.challenge}\n13 weeks from now: ${a.result13}\nTime: ${circle.TIME_ANSWERS[a.time]}${a.timeNote ? ': ' + a.timeNote : ''}\n\nDecide at ${baseUrl(req)}/admin#applications` });
+  flash(req, 'win', "Got it. Eli reads every application himself. You'll hear back within 2 weekdays.");
+  res.redirect('/app/circle');
+}));
+
+// Former members in good standing (left in the last 6 months) skip the application.
+app.post('/app/circle/rejoin', requireAuth, wrap(async (req, res) => {
+  const r = await circle.rejoin(circleCtx(), req.user);
+  if (r.error) flash(req, 'error', r.error);
+  else flash(req, 'win', r.offered ? 'Welcome back. Your seat is held for you for 72 hours.' : `Welcome back. The table is full right now, and you're number ${r.position} in line.`);
+  res.redirect('/app/circle');
+}));
+
+// "Reply when you're ready": back in line after a claim window ran out.
+app.post('/app/circle/ready', requireAuth, wrap(async (req, res) => {
+  const c = circleCtx();
+  const a = circle.appFor(c, req.user.id);
+  const r = a ? await circle.backInLine(c, a) : { error: 'No application found.' };
+  if (r.error) flash(req, 'error', r.error);
+  else flash(req, 'win', r.offered ? 'A seat is open. It is held for you for 72 hours.' : "You're back in line. We'll email you when a seat opens.");
+  res.redirect('/app/circle');
+}));
+
+app.post('/app/circle/profile', requireAuth, wrap(async (req, res) => {
+  if (req.user.tier !== 'circle') return res.redirect('/app/circle');
+  const r = await circle.saveProfile(circleCtx(), req.user, req.body);
+  flash(req, r.missing.length ? 'info' : 'win', r.missing.length ? `Saved. Still to fill in: ${r.missing.join(', ')}.` : 'Founder Profile saved.');
+  res.redirect('/app/circle#profile');
+}));
+
+async function scorecardLocals(req, extra = {}) {
+  const c = circleCtx();
+  await circle.tick(c);
+  const user = req.user;
+  const st = circle.scorecardStatus(c, user.id);
+  return {
+    title: 'Scorecard',
+    st,
+    seat: (user.circle && user.circle.seat) || null,
+    profile: circle.profileOf(user, circle.appFor(c, user.id)),
+    commitments: st ? circle.commitmentsFor(c, user.id, st.call) : [],
+    history: st ? circle.numberHistory(c, user.id, st.call.key) : [],
+    values: extra.values || (st && st.existing) || {},
+    errors: extra.errors || null,
+    opens: st ? circle.fmtDayTime(st.window.opensAt) : null,
+    dayName: st ? new Date(st.call.at).toLocaleDateString('en-US', { weekday: 'long', timeZone: 'America/New_York' }) : null,
+    clock: st ? circle.fmtClock(st.call.at) : null,
+    circle,
+  };
+}
+app.get('/app/circle/scorecard', requireAuth, wrap(async (req, res) => {
+  if (req.user.tier !== 'circle') return res.redirect('/app/circle');
+  res.render('app/scorecard', await scorecardLocals(req));
+}));
+app.post('/app/circle/scorecard', requireAuth, wrap(async (req, res) => {
+  if (req.user.tier !== 'circle') return res.redirect('/app/circle');
+  const r = await circle.saveScorecard(circleCtx(), req.user, req.body);
+  if (r.errors) return res.status(400).render('app/scorecard', await scorecardLocals(req, { values: r.values || {}, errors: r.errors }));
+  const day = new Date(r.call.at).toLocaleDateString('en-US', { weekday: 'long', timeZone: 'America/New_York' });
+  flash(req, 'win', `Got it. See you ${day} at ${circle.fmtClock(r.call.at)} ET.`);
   res.redirect('/app/circle');
 }));
 
@@ -1199,7 +1332,7 @@ app.get('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
   const entry = launch.onWaitlist(user.email);
   res.render('app/cancel', {
     title: 'Cancel', accessEnds: fmtDate(user.periodEnd), pauseAvailable: PAUSE_AVAILABLE, foundingKept: billing.foundingKept(user),
-    CANCEL_REASONS, reason, referralLink: entry ? waitlist.link(entry) : null,
+    CANCEL_REASONS, reason, options: req.query.options === '1', referralLink: entry ? waitlist.link(entry) : null,
   });
 }));
 
@@ -1301,13 +1434,14 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
   await db.purgeEvents(user.id, user.email);
   for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
   for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
+  for (const sc of db.filter('scorecards', (sc) => sc.userId === user.id)) await db.remove('scorecards', sc.id);
   await db.remove('users', user.id);
   req.session = null;
   res.redirect('/?deleted=1');
 }));
 
 // ---------- admin ----------
-app.get('/admin', requireAuth, requireAdmin, (req, res) => {
+app.get('/admin', requireAuth, requireAdmin, wrap(async (req, res) => {
   const users = db.all('users').sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const tierCounts = { free: 0, builder: 0, circle: 0 };
   users.forEach((u) => (tierCounts[u.tier] = (tierCounts[u.tier] || 0) + 1));
@@ -1335,24 +1469,129 @@ app.get('/admin', requireAuth, requireAdmin, (req, res) => {
     activated,
     mrr,
     dist,
-    applications: db.all('applications').sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+    applications: db.all('applications').map(circle.normalizeApplication).sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
     integrations: integrations.status(),
     onboarding,
     wl: waitlist.stats(),
+    cv: await adminCircle(req),
   });
-});
+}));
 
+// The Circle panels in /admin: decisions, the line, the table, Scorecards and the recap.
+async function adminCircle(req) {
+  const c = circleCtx();
+  await circle.tick(c);
+  const users = Object.fromEntries(db.all('users').map((u) => [u.id, u]));
+  const state = (a) => circle.appState(a, users[a.userId], c.now);
+  const next = circle.nextCall(c.now);
+  const last = circle.lastCall(c.now);
+  const members = circle.members(c);
+  const recapDone = last ? db.find('circleRecaps', (r) => r.callKey === last.key) : null;
+  const savedDraft = req.session.recapDraft || null;
+  req.session.recapDraft = null;
+  return {
+    now: c.now,
+    users,
+    state,
+    queue: circle.queue(c),
+    offers: db.all('applications').filter((a) => state(a) === 'offered'),
+    members,
+    formers: db.all('users').filter((u) => circle.isFormer(u)).sort((a, b) => b.circle.leftAt.localeCompare(a.circle.leftAt)),
+    next,
+    nextLabel: next ? circle.fmtShort(next.at) : null,
+    scorecards: next ? members.map((u) => ({ u, s: circle.scorecardFor(c, u.id, next.key) })) : [],
+    last,
+    lastLabel: last ? circle.fmtShort(last.at) : null,
+    recapDone,
+    recapDraft: last && !recapDone ? savedDraft || circle.recapDraft(c, last) : '',
+    history: (u) => circle.historyFor(c, u.id),
+    fitCalls: circle.fitCallsThisWeek(c),
+    fitCallUrl: process.env.CIRCLE_FIT_CALL_URL || '',
+    circle,
+  };
+}
+
+
+// Approve, Fit call, Not yet, Decline (each sends its email), and "back in line" after a claim window ran out.
+const ADMIN_ACTIONS = { approve: 'approve', approved: 'approve', fit_call: 'fit_call', not_yet: 'not_yet', decline: 'decline', declined: 'decline' };
 app.post('/admin/applications/:id/:action', requireAuth, requireAdmin, wrap(async (req, res) => {
-  const a = db.get('applications', req.params.id);
-  if (a && ['approved', 'declined', 'pending'].includes(req.params.action)) {
-    a.status = req.params.action;
-    await db.save('applications', a);
-    if (a.status === 'approved') {
-      integrations.emit('circle.approved', { applicationId: a.id, email: a.email });
-      integrations.sendEmail({ to: a.email, subject: "You're in: Founder's Circle", text: `Your application was accepted. Claim your seat here: ${process.env.BASE_URL || 'https://127group.io'}/app/circle` });
-    }
+  const c = circleCtx();
+  const a = circle.normalizeApplication(db.get('applications', req.params.id));
+  if (!a) return res.redirect('/admin#applications');
+  const action = ADMIN_ACTIONS[req.params.action];
+  let r;
+  if (req.params.action === 'ready') r = await circle.backInLine(c, a);
+  else if (action) r = await circle.decide(c, a, action, { bookingUrl: req.body.bookingUrl, reason: req.body.reason, change: req.body.change, by: req.user.email });
+  else r = { error: 'Unknown action.' };
+  if (r.error) flash(req, 'error', r.error);
+  else {
+    const who = a.name || a.email;
+    const msg = {
+      approve: r.offered ? `${who} approved. Seat ${circle.seatLabel(r.seat)} is held for 72 hours.` : `${who} approved and waiting: number ${r.position} in line.`,
+      fit_call: `Fit call invite sent to ${who}.`,
+      not_yet: `"Not yet" sent to ${who}.`,
+      decline: `Decline sent to ${who}.`,
+    }[action] || `${who} is back in line.`;
+    flash(req, 'win', msg);
   }
   res.redirect('/admin#applications');
+}));
+
+// Former members: good standing decides whether they can come back without applying.
+app.post('/admin/circle/members/:id/standing', requireAuth, requireAdmin, wrap(async (req, res) => {
+  const u = db.get('users', req.params.id);
+  if (u && circle.isFormer(u)) {
+    u.circle.goodStanding = req.body.good === '1';
+    await db.save('users', u);
+  }
+  res.redirect('/admin#circle-table');
+}));
+
+// Eli approves the recap: it emails every member (their commitments first) and posts to #call-notes.
+app.post('/admin/circle/recap', requireAuth, requireAdmin, wrap(async (req, res) => {
+  const r = await circle.sendRecap(circleCtx(), { callKey: req.body.callKey, post: req.body.post, body: req.body, by: req.user.email });
+  if (r.error) {
+    flash(req, 'error', r.error);
+    req.session.recapDraft = String(r.post || req.body.post || '').slice(0, 8000);
+  } else {
+    flash(req, 'win', `Recap sent to ${r.sent} member${r.sent === 1 ? '' : 's'}${r.posted ? ' and posted to #call-notes' : ''}.`);
+  }
+  res.redirect('/admin#recap');
+}));
+
+// The `circle` section of the members heartbeat feed: profiles, the next call's Scorecards, the last
+// recap, attendance and hot-seat history, and the line. Admin session, or CIRCLE_FEED_TOKEN as a bearer token.
+app.get('/admin/circle/feed.json', wrap(async (req, res) => {
+  const token = process.env.CIRCLE_FEED_TOKEN || '';
+  const auth = String(req.get('authorization') || '').replace(/^Bearer\s+/i, '');
+  const byToken = token.length >= 32 && !!auth && security.sameHash(security.hash(auth), security.hash(token));
+  if (!byToken && !isAdmin(req.user)) return res.status(404).json({ error: 'Not found' });
+  const c = circleCtx();
+  await circle.tick(c);
+  const next = circle.nextCall(c.now);
+  const lastRecap = circle.recaps(c)[0] || null;
+  const card = (s) => s && { ...s, id: undefined, userId: undefined };
+  res.set('cache-control', 'no-store').json({
+    generated_at: new Date(c.now).toISOString(),
+    circle: {
+      capacity: CIRCLE_CAPACITY,
+      seats_left: circleSeatsLeft(),
+      next_call: next && { at: next.key, label: circle.callLabel(next), kickoff: next.kickoff, scorecard: circle.scorecardWindow(next) },
+      members: circle.members(c).map((u) => ({
+        user_id: u.id,
+        name: u.name,
+        seat: u.circle && u.circle.seat,
+        founding_seat: !!(u.circle && u.circle.founding),
+        joined_at: u.circle && u.circle.joinedAt,
+        profile: circle.profileOf(u, circle.appFor(c, u.id)),
+        scorecard: (next && card(circle.scorecardFor(c, u.id, next.key))) || null,
+        history: circle.historyFor(c, u.id),
+        payment_issue: !!u.paymentIssue,
+      })),
+      last_recap: lastRecap && { call_at: lastRecap.callKey, post: lastRecap.post, members: lastRecap.members },
+      waiting: circle.queue(c).map((a, i) => ({ position: i + 1, name: a.name, approved_at: a.approvedAt })),
+    },
+  });
 }));
 
 // Founding grace link (R14): support checks the member's checkout broke before the close, then sends this.
@@ -1410,7 +1649,11 @@ app.use((err, req, res, next) => {
   res.status(500).render('404', { title: 'Something went wrong', error: true });
 });
 
-db.init().then(() => {
+db.init().then(async () => {
+  // Members who joined before this ran get their seat numbers quietly; later joins notify Eli.
+  await circle.tick(circleCtx({ notify: false })).catch((err) => console.error('[circle] first pass', err));
+  // Claim windows, reminders, the waiting line and Scorecard notices.
+  setInterval(() => circle.tick(circleCtx()).catch((err) => console.error('[circle] tick', err)), 5 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });

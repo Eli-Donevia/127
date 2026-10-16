@@ -39,7 +39,7 @@ Until Stripe is connected, upgrade buttons say payments aren't on yet. For testi
 
 | What | Secrets | Notes |
 |---|---|---|
-| AI tools (Claude) | `ANTHROPIC_API_KEY` | Without it, tools return a clearly labeled demo answer. |
+| AI tools (Claude) | `ANTHROPIC_API_KEY` | Without it, tools return a clearly labeled demo answer. Optional settings are in `.env.example`. `npm run ai:side-by-side` compares two models on 10 Free questions and 5 Idea Tests and writes `side-by-side.md` next to `package.json`; it costs under $1 in API calls, so run it only on Eli's say-so. |
 | Email (Resend) | `RESEND_API_KEY`, `EMAIL_FROM` | Welcome, upgrade and Circle emails. Without it, emails are logged. |
 | Klaviyo | `KLAVIYO_PRIVATE_KEY`, `KLAVIYO_WAITLIST_LIST_ID`, `KLAVIYO_MEMBERS_LIST_ID`, `KLAVIYO_LIST_ID` | Sends the launch metrics (Joined Waitlist, Confirmed Waitlist, Referral Counted, Signed Up, Completed Onboarding, Completed Step, Earned Badge, Hit Free Limit, Upgraded, Downgraded, Cancelled Subscription, Applied to Circle, Approved for Circle, Posted Win, 127 Lead Captured) and keeps profile properties in sync. People are only added to a list when they ticked the email box; unticking it in Settings unsubscribes them. Deleting an account asks Klaviyo to delete the profile. |
 | Automations | `WEBHOOK_URL` | Every event is also POSTed as JSON (Zapier, Make, n8n, a CRM). |
