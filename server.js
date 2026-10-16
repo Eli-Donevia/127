@@ -128,6 +128,9 @@ app.use((req, res, next) => {
   res.locals.showDrafts = isAdmin(user) || process.env.SHOW_DRAFT_FLAGS === 'true';
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
+  // During the founding window, free founding-eligible members see the founding price from day one (checkout applies it too).
+  const offerFounding = !!(user && user.tier === 'free' && res.locals.launch.foundingOpen && res.locals.launch.foundingPrice && launch.isFoundingMember(user));
+  res.locals.builderOffer = { founding: offerFounding, price: offerFounding ? res.locals.launch.foundingPrice : 29 };
   res.locals.baseUrl = baseUrl(req);
   res.locals.canonical = baseUrl(req) + req.path;
   res.locals.description = null;

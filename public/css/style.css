@@ -856,3 +856,11 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .v4 .cta-photo h2{max-width:720px}
 @media (max-width:760px){.v4 .cta-photo{background-size:cover;background-position:70% center}.v4 .cta-photo::before{background:rgba(6,6,7,.72)}}
 @media (max-width:1000px){.hx-wall{opacity:.2}}
+
+/* Founding offer bar on the dashboard (founding window only) */
+.founding-bar { display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center; padding: 22px 26px; margin: 0 0 20px; border: 1px solid rgba(184,191,255,.22); border-radius: var(--radius); background: linear-gradient(180deg, var(--accent-soft), transparent), var(--surface); }
+.founding-bar p { margin: 6px 0 0; color: var(--ink-2); font-size: 15px; }
+.founding-bar p b { color: var(--ink); font-weight: 600; }
+.founding-bar .countdown { margin: 0; }
+@media (max-width: 820px) { .founding-bar { grid-template-columns: 1fr; gap: 16px; } }
+.founding-bar .countdown b { font-size: 22px; } .founding-bar .countdown div { padding: 10px 8px; }
