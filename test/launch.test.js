@@ -39,3 +39,30 @@ test('challenge card follows the challenge env and its kill switch', () => {
     assert.strictEqual(launch.view().challenge.open, false);
   });
 });
+
+test('homepage labels and state follow launch env (homepage.md sections 1 and 3)', () => {
+  const PAST = new Date(Date.now() - 864e5).toISOString();
+  const FUTURE = new Date(Date.now() + 864e5).toISOString();
+  const LATER = new Date(Date.now() + 10 * 864e5).toISOString();
+  const base = { FOUNDING_CAP: '100', CHALLENGE_START_AT: '2026-11-09T14:00:00Z' };
+  withEnv({ ...base, LAUNCH_AT: '2026-11-17T15:00:00Z', FOUNDING_CLOSES_AT: '2026-11-25T05:00:00Z', CHALLENGE_REG_CLOSES_AT: '2026-11-13T17:00:00Z' }, () => {
+    const v = launch.view();
+    assert.strictEqual(v.launchAbbr, 'Tue, Nov 17');
+    assert.strictEqual(v.closesAbbr, 'Tue, Nov 24');
+    assert.strictEqual(v.challenge.startAbbr, 'Mon Nov 9');
+    assert.strictEqual(v.challenge.endAbbr, 'Fri Nov 13');
+    assert.strictEqual(v.challenge.regClosesLabel, 'Fri Nov 13, 12pm ET');
+  });
+  withEnv({ ...base, PRELAUNCH: 'true', LAUNCH_AT: LATER, FOUNDING_CLOSES_AT: LATER, CHALLENGE_REG_CLOSES_AT: FUTURE }, () => {
+    assert.strictEqual(launch.homeState(), 'A1');
+  });
+  withEnv({ ...base, PRELAUNCH: 'true', LAUNCH_AT: LATER, FOUNDING_CLOSES_AT: LATER, CHALLENGE_REG_CLOSES_AT: PAST }, () => {
+    assert.strictEqual(launch.homeState(), 'A2');
+  });
+  withEnv({ ...base, PRELAUNCH: 'true', LAUNCH_AT: PAST, FOUNDING_CLOSES_AT: LATER, CHALLENGE_REG_CLOSES_AT: PAST }, () => {
+    assert.strictEqual(launch.homeState(), 'B');
+  });
+  withEnv({ ...base, PRELAUNCH: 'true', LAUNCH_AT: PAST, FOUNDING_CLOSES_AT: PAST }, () => {
+    assert.strictEqual(launch.homeState(), 'C');
+  });
+});

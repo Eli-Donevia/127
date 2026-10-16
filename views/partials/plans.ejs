@@ -1,5 +1,7 @@
 <%
   // Plan cards in three states (conversion/pages/pricing.md): A before doors open, B founding window, C evergreen.
+  // No "Most members" flag and no reference price; the founding note is lilac, gold stays on the Circle.
+  // plansEvent / plansState override the Plausible event and its state prop (the homepage sends home_pricing_cta, A1/A2/B/C).
   var ps = launch.prelaunch ? 'A' : launch.foundingOpen ? 'B' : 'C';
   var fp = ps !== 'C' && launch.foundingPrice ? launch.foundingPrice : null;
   var rcP = typeof resourceCount !== 'undefined' ? resourceCount : (typeof resources !== 'undefined' ? resources.length : 18);
@@ -45,7 +47,7 @@
     <% if (k === 'builder' && ps !== 'C') { %>
     <div class="plan-extras"><div class="eyebrow">Founding extras</div><p>Founding number and badge · The founding call with Eli, December 1 · Locked price, even if you switch plans</p></div>
     <% } %>
-    <% var cur = user && user.tier === k; var above = user && PLANS[user.tier] && PLANS[user.tier].rank > p.rank; var tr = function (plan) { return " data-track=\"Plan Click\" data-props='" + JSON.stringify({ plan: plan, state: ps }) + "'"; }; %>
+    <% var cur = user && user.tier === k; var above = user && PLANS[user.tier] && PLANS[user.tier].rank > p.rank; var tr = function (plan) { return " data-track=\"" + (typeof plansEvent !== 'undefined' ? plansEvent : 'Plan Click') + "\" data-props='" + JSON.stringify({ plan: plan, state: typeof plansState !== 'undefined' ? plansState : ps }) + "'"; }; %>
     <% if (cur) { %>
       <span class="btn ghost block is-current" aria-disabled="true">Your plan</span>
     <% } else if (above) { %>

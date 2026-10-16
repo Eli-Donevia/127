@@ -1,0 +1,15 @@
+<%#
+  Eli's story on the homepage (conversion/pages/homepage.md section 7.2). It needs Eli's OK before launch.
+  HOME_WHY_STORY=true   show the story to everyone (Eli approved it; no draft tag).
+  unset / false         visitors see a neutral heading (the line already live on /founding) and no story;
+                        admins and SHOW_DRAFT_FLAGS=true still see the story, tagged, so Eli can review it in place.
+%>
+<% var whyOn = process.env.HOME_WHY_STORY === 'true'; %>
+<% if (whyOn || showDrafts) { %>
+  <% if (!whyOn) { %><span class="draft-flag">Written from Eli's intake · Eli to approve · hidden until HOME_WHY_STORY=true</span><% } %>
+  <h2 class="h2" data-reveal>I started with $2,000 of sneakers.</h2>
+  <p data-reveal>I started reselling sneakers before college. Then I built an e-commerce brand on the side of a corporate job, left that job to build full time, and started a software company, Donevia.</p>
+  <p data-reveal>None of it came from one big moment. It came from years of lost ad money, bad partnerships and tools I wish I'd found sooner. 127 is everything I wish I'd had on day one.</p>
+<% } else { %>
+  <h2 class="h2" data-reveal>I built 127 with everything I wish I had when I started.</h2>
+<% } %>

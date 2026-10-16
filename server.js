@@ -257,7 +257,9 @@ function homeVideo() {
   if (!fs.existsSync(f)) return null;
   return { src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo() }));
+// hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
+// heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop' }));
 // Pricing meta description by launch state (conversion/pages/pricing.md).
 function pricingDescription() {
   const v = launch.view();
