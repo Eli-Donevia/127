@@ -17,6 +17,7 @@ const security = require('./lib/security');
 const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
+const billingRecords = require('./lib/billing-records');
 const { MILESTONES } = require('./lib/milestones');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
@@ -228,6 +229,7 @@ app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit'
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
+app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
@@ -914,6 +916,7 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
     return res.redirect('/app/settings');
   }
   integrations.forget(user.email);
+  await billingRecords.retainOnDelete(user);
   await db.purgeEvents(user.id, user.email);
   for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
   for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
@@ -1011,4 +1014,5 @@ app.use((err, req, res, next) => {
 
 db.init().then(() => {
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
+  if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });
