@@ -25,8 +25,12 @@ test('view labels launch and close dates in Eastern time', () => {
 test('challenge card follows the challenge env and its kill switch', () => {
   const FUTURE = new Date(Date.now() + 864e5).toISOString();
   const PAST = new Date(Date.now() - 864e5).toISOString();
-  withEnv({ CHALLENGE_START_AT: undefined, CHALLENGE_REG_CLOSES_AT: FUTURE }, () => {
+  withEnv({ CHALLENGE_START_AT: 'off', CHALLENGE_REG_CLOSES_AT: FUTURE }, () => {
     assert.strictEqual(launch.view().challenge.open, false);
+  });
+  // Unset uses the code defaults (Nov 9 to 13), so Replit needs no challenge Secrets.
+  withEnv({ CHALLENGE_START_AT: undefined, CHALLENGE_REG_CLOSES_AT: FUTURE }, () => {
+    assert.strictEqual(launch.date('CHALLENGE_START_AT'), Date.parse('2026-11-09T13:00:00Z'));
   });
   withEnv({ CHALLENGE_START_AT: '2026-11-09T13:00:00Z', CHALLENGE_REG_CLOSES_AT: FUTURE, EARLY_ACCESS_AT: '2026-11-17T14:00:00Z' }, () => {
     const c = launch.view().challenge;

@@ -70,9 +70,11 @@ test('dates: Day n unlocks 8am ET each day; phases and the promo window follow t
   assert.strictEqual(ch.canCheckIn(3, T('2026-11-11T12:59:59Z')), false);
 });
 
-test('dates: env overrides and the off switch (blank CHALLENGE_START_AT, as in lib/launch.js)', () => {
-  for (const v of ['', 'off', undefined]) {
-    if (v === undefined) delete process.env.CHALLENGE_START_AT; else process.env.CHALLENGE_START_AT = v;
+test('dates: env overrides and the off switch (blank or "off" CHALLENGE_START_AT, as in lib/launch.js)', () => {
+  delete process.env.CHALLENGE_START_AT;
+  assert.strictEqual(ch.enabled(), true); // unset: the code defaults apply
+  for (const v of ['', 'off']) {
+    process.env.CHALLENGE_START_AT = v;
     assert.strictEqual(ch.enabled(), false);
     assert.strictEqual(ch.promoVisible(T('2026-11-01T12:00:00Z')), false);
     assert.strictEqual(ch.joinUrl('a@b.test'), undefined);
