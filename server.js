@@ -15,6 +15,7 @@ const billing = require('./lib/billing');
 const integrations = require('./lib/integrations');
 const security = require('./lib/security');
 const consent = require('./lib/consent');
+const adConsent = require('./lib/ad-consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
 const utmLib = require('./lib/utm');
@@ -158,6 +159,7 @@ app.use((req, res, next) => {
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
   res.locals.consentCopy = consent.copy;
+  res.locals.adConsentScript = adConsent.configScript(req);
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;
   // Templates for a roadmap step or a playbook (content/templates/manifest.json).
@@ -630,6 +632,7 @@ app.get('/founding/status', (req, res) => {
       code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName,
       // "Check your email" only when a confirm email actually went out (unticked joiners may get none).
       confirmSent: !!entry.confirmSentAt,
+      referredBy: !!entry.referredBy,
       confirmJustSent: !!entry.confirmSentAt && Date.now() - Date.parse(entry.confirmSentAt) < 5 * 60 * 1000,
       // Confirmed friends by first name, never email (billing terms section 5, decision O20).
       friends: (req.session.wlCodes || []).includes(entry.referralCode) ? waitlist.friends(entry) : null,
@@ -1963,7 +1966,8 @@ app.use(memberOps.routes({
 
 // Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
 // One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
-app.get('/admin/joins.csv', requireAuth, requireAdmin, (req, res) => {
+app.get('/admin/joins.csv', require('./lib/export-token').orAdmin(requireAuth, requireAdmin), (req, res) => {
+  res.set('cache-control', 'no-store');
   const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
   const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
   res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);

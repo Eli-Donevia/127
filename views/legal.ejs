@@ -12,6 +12,9 @@
   <% } else if (kind === 'circle') { %>
   <% if (process.env.CIRCLE_AGREEMENT_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. This agreement is not in effect yet.</div><% } %>
   <%- include('partials/circle-agreement') %>
+  <% } else if ((kind === 'privacy' && process.env.PRIVACY_LIVE === 'true') || (kind === 'terms' && process.env.TERMS_LIVE === 'true')) { %>
+  <%# Legal's 01 and 02, built by scripts/build-membership-terms.js --terms / --privacy. Live only once Eli approves the final text (Legal handoff item 1). %>
+  <%- include(kind === 'privacy' ? 'partials/privacy-policy' : 'partials/terms-of-service') %>
   <% } else { %>
   <h1><%= kind === 'privacy' ? 'Privacy' : 'Terms' %></h1>
   <div class="alert info">Placeholder. Replace with a reviewed <%= kind === 'privacy' ? 'privacy policy' : 'terms of service, refund and cancellation policy' %> before launch.</div>

@@ -6,6 +6,8 @@
 //   node scripts/build-membership-terms.js --circle [path/to/04-founders-circle-agreement.md]
 //   node scripts/build-membership-terms.js --earnings [path/to/05-earnings-disclaimer.md]   (Part A only)
 //   node scripts/build-membership-terms.js --cookies [path/to/08-cookie-notice.md]          (Part A only)
+//   node scripts/build-membership-terms.js --terms [path/to/01-terms-of-service.md]
+//   node scripts/build-membership-terms.js --privacy [path/to/02-privacy-policy.md]
 //
 // Only the public page goes in: the title through Section 18. The note above the
 // title, the Appendices (implementation specs) and the "Drafting notes" are left out.
@@ -22,9 +24,11 @@ const DOCS = {
   circle: { src: '/mnt/project-files/legal/04-founders-circle-agreement.md', out: 'circle-agreement.ejs', name: 'legal/04-founders-circle-agreement.md' },
   earnings: { src: '/mnt/project-files/legal/05-earnings-disclaimer.md', out: 'earnings-disclaimer.ejs', name: 'legal/05-earnings-disclaimer.md (Part A)', partA: true },
   cookies: { src: '/mnt/project-files/legal/08-cookie-notice.md', out: 'cookie-notice.ejs', name: 'legal/08-cookie-notice.md (Part A)', partA: true },
+  terms: { src: '/mnt/project-files/legal/01-terms-of-service.md', out: 'terms-of-service.ejs', name: 'legal/01-terms-of-service.md' },
+  privacy: { src: '/mnt/project-files/legal/02-privacy-policy.md', out: 'privacy-policy.ejs', name: 'legal/02-privacy-policy.md' },
   membership: { src: '/mnt/project-files/legal/03-membership-billing-terms.md', out: 'membership-terms.ejs', name: 'legal/03-membership-billing-terms.md (title to Section 18)' },
 };
-const DOC = DOCS[['circle', 'earnings', 'cookies'].find((k) => process.argv.includes(`--${k}`)) || 'membership'];
+const DOC = DOCS[['circle', 'earnings', 'cookies', 'terms', 'privacy'].find((k) => process.argv.includes(`--${k}`)) || 'membership'];
 const SRC = ARG || DOC.src;
 const OUT = path.join(__dirname, '..', 'views', 'partials', DOC.out);
 

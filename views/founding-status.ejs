@@ -22,10 +22,19 @@
       <% } else { %>
         <h1><span class="grad">You're on the list.</span></h1>
         <% if (entry.confirmSent) { %>
-        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. It makes your friends' sign-ups count toward your free month, and it's how we reach you on launch day.<%= q.back && entry.confirmJustSent ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <%# Offer C14: the friend part only when a friend's link brought them (a friend counts once they confirm). %>
+        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. It's how we reach you on launch day<%= entry.referredBy ? ", and it counts toward your friend's free month" : '' %>.<%= q.back && entry.confirmJustSent ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
         <% } else { %>
-        <%# No confirm email went out (unticked box, or email isn't connected), so don't promise one. %>
-        <p class="lede">Your spot is saved.<%= launch.prelaunch && launch.launchDay ? ' Doors open ' + launch.launchDay + ' at ' + launch.launchTime + '.' : '' %></p>
+        <%# No confirm email went out (unticked box, or email isn't connected), so don't promise one. Not "Your spot is
+            saved": the founding price goes to the first 100 who start (Offer C14, O18). %>
+        <% if (launch.prelaunch && launch.launchDay) { %>
+        <p class="lede">Doors open <%= launch.launchDay %> at <%= launch.launchTime %>. Builder is <%= PM %> for the first <%= launch.cap %>, locked while you stay. Add it to your calendar so you don't miss it.</p>
+        <div style="margin-top:4px"><a class="btn ghost sm" href="/founding/doors-open.ics" data-track="Calendar Add" data-props='{"placement":"status"}'>Add doors open to my calendar</a></div>
+        <% } else if (launch.foundingOpen) { %>
+        <p class="lede">Builder is <%= PM %> for the first <%= launch.cap %>, locked while you stay.</p>
+        <% } else if (!launch.prelaunch) { %>
+        <p class="lede">Thank you to our founding members. Builder is $29 a month, and the free plan is still free.</p>
+        <% } %>
         <% } %>
         <% if (devConfirm) { %><div class="alert info">Email isn't connected yet, so here is the confirm link: <a class="link" href="<%= devConfirm %>">confirm my spot</a></div><% } %>
       <% } %>
@@ -72,7 +81,8 @@
         <div class="eyebrow fm-label" style="margin:36px 0 4px">How it works</div>
         <%- include('partials/founding-timeline', { tlTicked: true }) %>
         <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: 'DOORS OPEN IN', cdShort: false }) %>
-        <% if (launch.launchAt) { %><div style="margin-top:20px"><a class="btn ghost sm" href="/founding/doors-open.ics">Add doors open to my calendar</a></div><% } %>
+        <% var calUp = !(q.confirmed || entry.confirmed) && !entry.confirmSent && launch.launchDay; %>
+        <% if (launch.launchAt && !calUp) { %><div style="margin-top:20px"><a class="btn ghost sm" href="/founding/doors-open.ics">Add doors open to my calendar</a></div><% } %>
       </div>
       <% } %>
     </div>

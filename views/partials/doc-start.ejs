@@ -37,6 +37,5 @@
 <% }) %></script>
 <% } %>
 <%# Ad pixels load only after "Accept" (Legal L7, legal/08-cookie-notice.md Part C). Plausible above is cookieless and runs without a banner. %>
-<script>window.C127_CONSENT = <%- JSON.stringify({ metaPixelId: process.env.META_PIXEL_ID || '', tiktokPixelId: process.env.TIKTOK_PIXEL_ID || '', klaviyoPublicKey: process.env.KLAVIYO_PUBLIC_KEY || '', loggedIn: typeof user !== 'undefined' && !!user, cookieDomain: process.env.COOKIE_DOMAIN || '', noticeUrl: '/cookies' }).replace(/</g, '\\u003c') %>;</script>
-<script src="/js/consent.js" defer></script>
+<%- typeof adConsentScript !== 'undefined' ? adConsentScript : '' %>
 </head>

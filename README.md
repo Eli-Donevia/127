@@ -79,6 +79,7 @@ Stack: Node + Express, server-rendered EJS, plain CSS, Postgres or a JSON file, 
 - Lead magnets post to `POST /api/waitlist` (JSON: `email, first_name, optin, source: quiz|stack, ref, utm_*`). The Founder Score, Day One Stack and Idea Test pages (`/score`, `/stack`, `/idea-test`) already join the waitlist automatically before launch.
 - Founding price: `FOUNDING_PRICE` (shown on pages), `FOUNDING_CLOSES_AT`, `FOUNDING_CAP` (default 100), `REFERRALS_FOR_REWARD` (default 3), plus the founding price and coupon that `stripe:setup` creates. A founding member is anyone on the waitlist or who signs up before the close. Cancelling ends the founding price.
 - `/admin` shows the waitlist (joined, confirmed, by source, top referrers, flags) with a CSV export.
+- `/admin/joins.csv` (counts per day, ad and page; no personal data) also opens without a login for the growth harness when `JOINS_EXPORT_TOKEN` is set (24+ characters) and the request sends `Authorization: Bearer <token>`. The token opens that one route only.
 
 ## Security notes
 
