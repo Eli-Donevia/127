@@ -7,6 +7,7 @@
   var bar = document.getElementById('bar');
   var state = { step: -1, answers: {} };
   var busy = false;
+  var weeks = 4; // roadmap length, updated from the week-1 preview
 
   // Steps: core questions, a week-1 preview, fine-tuning questions, then the account form.
   var steps = [];
@@ -50,6 +51,7 @@
         '<p>' + esc(OB.intro.subtitle) + '</p>' +
         '<div class="ob-promise"><div><b>Your track</b>Start, Build or Grow</div><div><b>30-day plan</b>Weekly steps, in order</div><div><b>The right tools</b>Matched to each step</div></div>' +
         '<button class="btn" id="go">Begin <span class="arrow"></span></button>' +
+        (OB.intro.byline && !window.OB_RETAKE ? '<p class="small muted" style="margin-top:16px">' + esc(OB.intro.byline) + '</p>' : '') +
         (window.OB_RETAKE ? '<p class="small muted" style="margin-top:16px">Retaking builds a fresh roadmap and resets roadmap progress. Your XP and badges stay.</p>' : '') +
       '</div>'
     );
@@ -133,6 +135,7 @@
     x.onload = function () {
       var r; try { r = JSON.parse(x.responseText); } catch (e) { r = null; }
       if (!r || !r.week) { next(); return; }
+      if (r.weeks) weeks = r.weeks;
       var left = steps.slice(state.step + 1).filter(function (s) { return s.kind === 'q'; }).length;
       var html =
         '<div class="ob-section">Your roadmap · ' + esc(r.trackName) + ' track</div>' +
@@ -140,8 +143,9 @@
         '<p class="ob-hint">' + esc(r.focus) + '</p>' +
         '<div class="ob-preview"><div class="eyebrow">Week 1 · ' + esc(r.week.theme) + '</div><ol>' +
         r.week.tasks.map(function (t) { return '<li><b>' + esc(t.title) + '</b>' + (t.detail ? '<span>' + esc(t.detail) + '</span>' : '') + '</li>'; }).join('') +
-        '</ol><div class="ob-more">+ ' + (r.weeks - 1) + ' more weeks, each step matched to a playbook or tool</div></div>' +
-        '<p class="ob-hint" style="margin:22px 0 0">' + (left ? left + ' quick taps to fine-tune it, then it\'s saved to your account.' : 'Save it to your account to start.') + '</p>' +
+        '</ol><div class="ob-more">+ ' + (r.weeks - 1) + ' more weeks. Every step comes with the playbook or tool to do it.</div></div>' +
+        '<p class="ob-step1">Step 1 takes about 10 minutes. You can do it today.</p>' +
+        '<p class="ob-hint" style="margin:8px 0 0">' + (left ? left + ' quick taps to fine-tune it, then it\'s saved to your account.' : 'Save it to your account to start.') + '</p>' +
         '<div class="ob-nav"><button class="ob-back" id="back">← Back</button><div style="display:flex;gap:14px;align-items:center">' +
         (left && window.OB_ACCOUNT ? '<button class="ob-back" id="skipall">Skip, save it now</button>' : '') +
         '<button class="btn" id="nx">' + (left ? 'Fine-tune it' : 'Save my roadmap') + ' <span class="arrow"></span></button></div></div>';
@@ -159,15 +163,15 @@
     el(
       '<div class="ob-section">Last step</div>' +
       '<h2 class="ob-q">Your roadmap is ready. Where should we save it?</h2>' +
-      '<p class="ob-hint">Create your free account to see your plan and track progress.</p>' +
+      '<p class="ob-hint">Create your free account to see all ' + weeks + ' weeks and track your progress.</p>' +
       (window.OB_ERROR ? '<div class="alert error">' + esc(window.OB_ERROR) + '</div>' : '') +
       '<form id="acct">' +
         '<label class="field"><span>First name</span><input class="input" name="name" autocomplete="given-name" required></label>' +
         '<label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="email" required value="' + esc(leadEmail()) + '"></label>' +
         '<label class="field"><span>Password</span><input class="input" type="password" name="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters"></label>' +
-        '<label class="check" style="margin:4px 0 24px"><input type="checkbox" name="optin"> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>' +
+        '<label class="check" style="margin:4px 0 18px"><input type="checkbox" name="optin"> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>' +
+        '<p class="consent-line" style="margin:0 0 18px">By creating an account, you confirm you\'re 18 or older and agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>' +
         '<div class="ob-nav" style="margin-top:0"><button type="button" class="ob-back" id="back">← Back</button><button class="btn">See my roadmap <span class="arrow"></span></button></div>' +
-        '<p class="tiny muted" style="margin-top:20px">By continuing you agree to the <a class="link" href="/terms" target="_blank">terms</a> and <a class="link" href="/privacy" target="_blank">privacy policy</a>.</p>' +
       '</form>'
     );
     document.getElementById('back').onclick = back;

@@ -18,7 +18,7 @@
   --surface-3: #1b1b20;
   --ink: #ededf2;
   --ink-2: #b3b3bd;
-  --muted: #7b7b86;
+  --muted: #8b8b96;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
   --primary: #e3e6f1;
@@ -397,6 +397,11 @@ textarea.input { height: auto; min-height: 120px; padding: 14px 16px; resize: ve
 .doc ol li { counter-increment: s; padding: 12px 0 12px 44px; border-top: 1px solid var(--line); position: relative; color: var(--ink-2); }
 .doc ol li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 13px; font-family: var(--mono); font-size: 13px; color: var(--accent); }
 .doc p { color: var(--ink-2); font-size: 17px; }
+/* Legal pages built from Markdown (views/partials/membership-terms.ejs) */
+.legal-md h2 { font-family: var(--display); font-weight: 600; font-size: 28px; letter-spacing: -0.04em; margin: 48px 0 12px; scroll-margin-top: 90px; }
+.legal-md h3 { font-size: 20px; margin: 28px 0 8px; scroll-margin-top: 90px; }
+.legal-md .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.legal-md table.t td:first-child { color: var(--ink); white-space: nowrap; }
 .output-box { margin-top: 40px; padding: 22px 24px; border-radius: var(--radius); background: var(--accent-soft); border: 1px solid rgba(184,191,255,.2); color: var(--accent-ink); }
 .paywall { margin-top: 32px; padding: 32px; border-radius: 20px; background: radial-gradient(120% 100% at 0% 0%, rgba(184,191,255,.16), transparent 60%), var(--surface); border: 1px solid rgba(184,191,255,.25); }
 .paywall h3 { font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.04em; margin: 0 0 8px; color: var(--ink); }
@@ -761,7 +766,7 @@ h2.grad, h2 .grad, .section-head h2 .grad{background:none;-webkit-text-fill-colo
 
 /* the hook */
 .pain{padding:160px 0 !important}
-.lit{font-family:var(--display);font-weight:700;font-size:clamp(34px,5.2vw,76px);line-height:1.02;letter-spacing:-.05em;margin:0 0 .5em;max-width:1100px;opacity:.16;transition:opacity .2s linear;text-wrap:balance}
+.lit{font-family:var(--display);font-weight:700;font-size:clamp(34px,5.2vw,76px);line-height:1.02;letter-spacing:-.05em;margin:0 0 .5em;max-width:1100px;opacity:.45;transition:opacity .2s linear;text-wrap:balance}
 .lit.punch{margin-top:1.2em}
 .lit.punch span{color:var(--accent)}
 html:not(.js) .lit{opacity:1}
@@ -881,3 +886,79 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .consent-line{margin:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
 .consent-line a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media (max-width:760px){.wl-row.two{grid-template-columns:1fr}.wl-form .btn{justify-self:stretch}}
+
+/* ---------- Founding and pricing final copy (conversion/pages, 2026-10-16) ----------
+   Two-tone headlines, mono countdown line, founding cards and timeline, pricing states.
+   Gold stays on the Circle card only, so the Builder founding note uses the accent. */
+.dim-ink{color:#5d5e68}
+.hero h1 .dim-ink{-webkit-text-fill-color:#5d5e68}
+.fm-hero-label{color:var(--ink-2);margin-bottom:-6px}
+.fm .hero h1{font-size:clamp(46px,7.4vw,96px)}
+.cd-line{margin-top:32px;font-size:13px;letter-spacing:.14em;color:var(--ink-2)}
+.cd-line span{color:var(--ink)}
+.fm-hero-small{margin:18px auto 0;max-width:520px;text-align:center}
+.fm-in{font-size:17px;color:var(--ink);border:1px solid var(--line-2);border-radius:999px;padding:10px 20px}
+.fm-tight{padding:0 0 24px}
+.fm-challenge{text-align:left}
+.fm-challenge h3{font-size:20px;letter-spacing:-.025em;margin:10px 0 6px}
+.fm-challenge p{margin:0 0 18px;color:var(--ink-2);font-size:15px}
+.fm-sec{padding-top:0}
+.section-head > .eyebrow.fm-label{display:block;margin-bottom:14px}
+.fm .card h3{font-size:19px}
+.fm .card p{margin:8px 0 0;color:var(--ink-2);font-size:15px}
+.fm-note{margin:22px 0 0}
+.fm-timeline{list-style:none;margin:0;padding:0}
+.fm-timeline li{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line)}
+.fm-timeline li:last-child{border-bottom:1px solid var(--line)}
+.fm-timeline .mono{font-size:12px;letter-spacing:.12em;color:var(--ink-2)}
+.fm-timeline p{margin:0;color:var(--ink-2);font-size:15px;text-align:left}
+.fm-timeline li.done .mono::before{content:'✓ ';color:var(--win)}
+.fm-h3{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.2vw,36px);line-height:1.08;letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.fm-earnings{margin-top:14px;color:var(--muted)}
+.fm .founder-line{font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.6;letter-spacing:-.005em;color:var(--ink-2);text-wrap:pretty}
+.fm-table td:first-child{color:var(--ink);width:40%}
+.fm-closed{min-height:60vh;display:flex;align-items:center}
+.fm-closed .lede{margin-bottom:28px}
+.fm-h3s{font-size:20px;letter-spacing:-.025em}
+.fm-status-extra{text-align:left;margin-top:36px}
+.plans-v5 .price{margin:16px 0 20px}
+.founding-note{color:var(--accent-ink);margin:-8px 0 4px}
+.plan-small{font-size:13px;color:var(--muted);margin:0 0 14px}
+.plan.dark .plan-small{margin-top:-8px}
+.plan-extras{border-top:1px solid var(--line);margin:-16px 0 24px;padding-top:14px}
+.plan-extras p{margin:6px 0 0;font-size:13.5px;color:var(--ink-2)}
+.plan-under{margin-top:10px;font-size:13px;color:var(--muted);text-align:center}
+@media (min-width:1001px){.plans-v5 .plan.featured{transform:translateY(-10px)}}
+.pr-line{margin-top:14px !important;color:var(--ink) !important;font-size:16px !important}
+.pr-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:center;margin:0 0 28px;padding:14px 18px;border:1px solid rgba(184,191,255,.22);border-radius:999px;background:var(--accent-soft);text-align:center}
+.pr-bar .cd-line{margin:0;font-size:12px}
+.pr-spots{font-size:12px;letter-spacing:.14em;color:var(--ink)}
+.pr-bar-copy{font-size:14px;color:var(--ink-2)}
+.pr-close{padding:72px 0 24px}
+.pr-compare .t{min-width:620px}
+.trust-block{margin-top:28px}
+.trust-block ul{list-style:none;margin:12px 0 0;padding:0}
+.trust-block li{padding:12px 0;border-top:1px solid var(--line);color:var(--ink-2);font-size:15px}
+.trust-block li:first-child{border-top:0}
+.trust-block li b{color:var(--ink);font-weight:600}
+.honor-line{margin-top:14px}
+.section-head p.honor-line{font-size:13px;color:var(--muted)}
+.pr-trust{padding:0 0 48px}
+.ob-step1{margin:22px 0 0;font-size:15px;color:var(--ink)}
+@media (max-width:760px){
+  .fm-timeline li{grid-template-columns:1fr;gap:4px}
+  .pr-bar{border-radius:16px}
+  .cd-line{font-size:12px;letter-spacing:.1em}
+}
+
+/* R30: 44px tap targets on touch screens (padding, not visual size changes where possible) */
+@media (pointer: coarse) {
+  .btn, .btn.sm, .mk-social, .nav-cta .btn { min-height: 44px; }
+  .faq summary { min-height: 44px; display: flex; align-items: center; padding-top: 10px; padding-bottom: 10px; }
+  .foot a, footer a { display: inline-flex; align-items: center; min-height: 44px; }
+  .share-row .btn, .share-link .btn { min-height: 44px; }
+  .task .tick { position: relative; }
+  .task .tick::before { content: ''; position: absolute; inset: -12px; }
+  .check input, .check-row input { width: 22px; height: 22px; }
+  .mnav summary { min-width: 44px; min-height: 44px; }
+}

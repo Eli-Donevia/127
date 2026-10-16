@@ -144,6 +144,22 @@ test('webhook: paid checkout unlocks Builder once, duplicates are ignored', asyn
   assert.strictEqual(again.body.duplicate, true);
 });
 
+test('founding numbers: one per member, never reused after a cancel', async () => {
+  const launch = require('../lib/launch');
+  const before = launch.foundingSubscribers();
+  s.sub('sub_n1', 'price_f', 'active', { customer: 'cus_n1' + user.id });
+  user.foundingNumber = undefined;
+  await deliver({ id: 'evt_n1' + user.id, type: 'checkout.session.completed', data: { object: { client_reference_id: user.id, payment_status: 'paid', subscription: 'sub_n1', customer: 'cus_n1' + user.id, metadata: {} } } });
+  await deliver({ id: 'evt_n2' + user.id, type: 'customer.subscription.updated', data: { object: s.subs.sub_n1 } });
+  const n = user.foundingNumber;
+  assert.ok(n >= 1);
+  assert.strictEqual(launch.foundingSubscribers(), before + 1);
+  await deliver({ id: 'evt_n3' + user.id, type: 'customer.subscription.deleted', data: { object: { ...s.subs.sub_n1, status: 'canceled' } } });
+  assert.strictEqual(user.tier, 'free');
+  assert.strictEqual(user.foundingNumber, n);
+  assert.strictEqual(launch.foundingSubscribers(), before + 1);
+});
+
 test('webhook: unpaid (async) checkout does not unlock until async_payment_succeeded', async () => {
   s.sub('sub_2', 'price_b');
   const obj = { client_reference_id: user.id, payment_status: 'unpaid', subscription: 'sub_2', customer: 'cus_1', metadata: {} };

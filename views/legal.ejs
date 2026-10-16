@@ -1,6 +1,10 @@
 <%- include('partials/head') %>
 <main class="wrap doc" style="padding:80px 24px">
   <div class="eyebrow">127 Group LLC</div>
+  <% if (kind === 'membership') { %>
+  <% if (process.env.MEMBERSHIP_TERMS_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. These terms are not in effect yet.</div><% } %>
+  <%- include('partials/membership-terms') %>
+  <% } else { %>
   <h1><%= kind === 'privacy' ? 'Privacy' : 'Terms' %></h1>
   <div class="alert info">Placeholder. Replace with a reviewed <%= kind === 'privacy' ? 'privacy policy' : 'terms of service, refund and cancellation policy' %> before launch.</div>
   <% if (kind === 'privacy') { %>
@@ -9,6 +13,7 @@
   <% } else { %>
   <p>Memberships renew monthly until cancelled. You can cancel anytime from the billing page and keep access until the end of the paid period.</p>
   <p>Content and AI output are educational and are not legal, tax or financial advice.</p>
+  <% } %>
   <% } %>
 </main>
 <%- include('partials/foot') %>

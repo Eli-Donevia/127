@@ -17,6 +17,7 @@ const security = require('./lib/security');
 const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
+const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const { MILESTONES } = require('./lib/milestones');
@@ -227,12 +228,19 @@ function homeVideo() {
   return { src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo() }));
-app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: 'Free, Builder ($29/month) and the 4-seat Founder\'s Circle. Every plan starts with your free 30-day founder roadmap.', resourceCount: resources.length }));
+// Pricing meta description by launch state (conversion/pages/pricing.md).
+function pricingDescription() {
+  const v = launch.view();
+  if ((v.prelaunch || v.foundingOpen) && v.foundingPrice) return `Start free. Builder is $${v.foundingPrice} a month, locked while you stay, for the first ${v.cap} founding members until ${v.closesDate || 'the founding close'}. Then $29.`;
+  return `Start free. Builder is $29 a month for the full library and every AI tool. The ${CIRCLE_CAPACITY}-seat Founder's Circle is by application.`;
+}
+app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length }));
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 80K followers across Instagram, TikTok and YouTube, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
+app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
@@ -372,10 +380,21 @@ app.get('/f/:code', (req, res) => {
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
 
-app.get('/founding', (req, res) => {
-  if (!launch.prelaunch()) return res.redirect('/pricing');
-  res.render('founding', { title: 'Founding members', description: 'Join the 127 founding list: a 30-day roadmap to your first business, an AI that pushes you like a founder would, and a locked founding price.', error: null, form: {} });
-});
+// /founding has three states (conversion/pages/founding.md): A waitlist, B founding window, C closed.
+// It stays live after launch because old posts and DMs link to it.
+function foundingPage() {
+  const v = launch.view();
+  const state = v.prelaunch ? 'A' : v.foundingOpen ? 'B' : 'C';
+  const pm = v.foundingPrice ? `$${v.foundingPrice} a month` : 'a founding price';
+  const base = { fState: state, resourceCount: resources.length };
+  if (state === 'A') {
+    const ch = v.challenge.open ? ` Free 5-day challenge with Eli, ${v.challenge.dates}.` : '';
+    return { ...base, title: 'Founding members', description: `Join the 127 founding list. Builder for ${pm}, locked while you stay, when doors open${v.launchDate ? ` ${v.launchDate}` : ''}.${ch}` };
+  }
+  if (state === 'B') return { ...base, title: 'Founding price', description: `Builder for ${pm}, locked while you stay. Until ${v.closesDate || 'the founding close'} or the first ${v.cap} founding members.` };
+  return { ...base, title: 'Founding members', description: 'The founding price has closed. Builder is $29 a month, and the free plan is still free.' };
+}
+app.get('/founding', (req, res) => res.render('founding', { ...foundingPage(), error: null, form: {} }));
 
 async function joinFromRequest(req, body, source) {
   waitlist.useHost(baseUrl(req));
@@ -400,7 +419,7 @@ function waitlistLimit(req, res) {
 app.post('/founding', wrap(async (req, res) => {
   if (!waitlistLimit(req, res)) return;
   const r = await joinFromRequest(req, req.body, 'founding');
-  if (r.error) return res.status(400).render('founding', { title: 'Founding members', error: r.error, form: req.body });
+  if (r.error) return res.status(400).render('founding', { ...foundingPage(), error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
   if (!PROD && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
   res.redirect(`/founding/status?code=${r.entry.referralCode}&${r.existing ? 'back' : 'new'}=1`);
@@ -428,6 +447,32 @@ app.get('/founding/confirm', wrap(async (req, res) => {
 }));
 
 // Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
+app.get('/links', (req, res) => res.render('links', { title: 'Links', description: 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' }));
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /admin\nDisallow: /api\nDisallow: /billing\nDisallow: /founding/status\nDisallow: /founding/confirm\nDisallow: /stack/guide\n\nSitemap: ${baseUrl(req)}/sitemap.xml\n`);
+});
+app.get('/sitemap.xml', (req, res) => {
+  const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
+  if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
+});
+
+// Calendar file for the founding members' call (FOUNDING_CALL_AT, link FOUNDING_CALL_URL).
+app.get('/founding/call.ics', (req, res) => {
+  const at = launch.date('FOUNDING_CALL_AT');
+  if (!at) return res.redirect('/app');
+  const f = (t) => new Date(t).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const url = process.env.FOUNDING_CALL_URL || `${baseUrl(req)}/app`;
+  res.type('text/calendar').set('content-disposition', 'attachment; filename="127-founding-call.ics"').send([
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//127//Founding//EN', 'BEGIN:VEVENT',
+    `UID:founding-call-${at}@127group.io`, `DTSTAMP:${f(Date.now())}`, `DTSTART:${f(at)}`, `DTEND:${f(at + 60 * 60 * 1000)}`,
+    'SUMMARY:127 founding members call with Eli', `DESCRIPTION:Join here: ${url}`, `LOCATION:${url}`, `URL:${url}`,
+    'BEGIN:VALARM', 'TRIGGER:-PT30M', 'ACTION:DISPLAY', 'DESCRIPTION:127 founding call in 30 minutes', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR', '',
+  ].join('\r\n'));
+});
+
 app.get('/founding/doors-open.ics', (req, res) => {
   const at = launch.date('LAUNCH_AT');
   if (!at) return res.redirect('/founding');
@@ -1011,6 +1056,7 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
     return res.redirect('/app/settings');
   }
   integrations.forget(user.email);
+  await billingRecords.retainOnDelete(user);
   await db.purgeEvents(user.id, user.email);
   for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
   for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
@@ -1218,4 +1264,5 @@ db.init().then(async () => {
   // Claim windows, reminders, the waiting line and Scorecard notices.
   setInterval(() => circle.tick(circleCtx()).catch((err) => console.error('[circle] tick', err)), 5 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
+  if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });

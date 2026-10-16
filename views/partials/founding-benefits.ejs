@@ -1,5 +1,13 @@
-<dl class="principles benefits">
-  <div><dt>Locked price.</dt><dd>Builder for <%= launch.foundingPrice ? '$' + launch.foundingPrice + '/month instead of $29' : 'a lower founding price' %>, for as long as you stay.</dd></div>
-  <div><dt>First month free.</dt><dd>Bring <%= launch.referralsForReward %> friends who confirm their spot.</dd></div>
-  <div><dt>First look at the Circle.</dt><dd>Applications for the <%= circleCapacity %>-seat Founder's Circle open to the waitlist first.</dd></div>
-</dl>
+<%# Founding member benefits (conversion/pages/founding.md). Card 4 changes once doors open. %>
+<% var fbP = launch.foundingPrice ? '$' + launch.foundingPrice + ' a month' : 'The founding price'; var fbR = launch.referralsForReward; %>
+<div class="grid g-2 fm-cards">
+  <div class="card pad-lg"><h3><%= fbP %>, locked.</h3><p>Builder is $29<%= launch.closesDate ? ' after ' + launch.closesDate : ' after the founding window' %>. Yours stays <%= launch.foundingPrice ? '$' + launch.foundingPrice : 'at the founding price' %> for as long as you stay, even if you switch plans.</p></div>
+  <div class="card pad-lg"><h3>A founding number.</h3><p>You'll be one of <%= launch.cap %>, with a number and a Founding badge on your profile for good.</p></div>
+  <div class="card pad-lg"><h3>The founding call.</h3><p>A live call with Eli for founding members only, December 1 at 8pm ET. Recorded if you can't make it.</p></div>
+  <% if (launch.prelaunch) { %>
+  <div class="card pad-lg"><h3>Bring <%= fbR %>, get a month.</h3><p>When <%= fbR %> friends confirm with your link, your first month is free.<%= launch.closesDate ? ' Your link keeps counting until ' + launch.closesDate + '.' : '' %></p></div>
+  <% } else { %>
+  <div class="card pad-lg"><h3>Bring <%= fbR %>, get a month.</h3><p>When <%= fbR %> friends confirm with your link<%= launch.closesDate ? ' by ' + launch.closesDate : '' %>, your first month is free. It's applied at checkout, or as credit on your next bill if you've already paid.</p></div>
+  <% } %>
+</div>
+<p class="small muted fm-note">The Founder's Circle has <%= circleCapacity %> seats. The founding list hears first.</p>

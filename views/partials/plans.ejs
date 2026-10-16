@@ -1,28 +1,78 @@
-<div class="plans">
-  <% ['free','builder','circle'].forEach(function(k){ var p = PLANS[k]; %>
+<%
+  // Plan cards in three states (conversion/pages/pricing.md): A before doors open, B founding window, C evergreen.
+  var ps = launch.prelaunch ? 'A' : launch.foundingOpen ? 'B' : 'C';
+  var fp = ps !== 'C' && launch.foundingPrice ? launch.foundingPrice : null;
+  var rcP = typeof resourceCount !== 'undefined' ? resourceCount : (typeof resources !== 'undefined' ? resources.length : 18);
+  var cap = launch.cap;
+  var CARDS = {
+    free: {
+      flag: 'Start here',
+      line: "Your personalized roadmap, starter playbooks and a taste of Eli's Playbook.",
+      items: ['The assessment and weeks 1 and 2 of your roadmap', 'The Idea Test, the interview scripts and the content calendar', PLANS.free.aiRunsPerMonth + " Eli's Playbook messages a month", 'Progress, milestones and the wins board'],
+    },
+    builder: {
+      flag: fp ? 'Founding price' : 'Full roadmap',
+      line: 'The full library, every AI tool, and a roadmap that grows with you.',
+      items: ['All 4 weeks of your roadmap', 'All ' + rcP + ' playbooks, worksheets and tools', 'Every AI tool and about ' + PLANS.builder.aiRunsPerMonth + ' Playbook messages a month', 'Saved worksheets and AI feedback on your answers', 'New resources every month'],
+    },
+    circle: {
+      flag: 'With Eli',
+      line: 'Four founders. A weekly call with Eli. Two in-person gatherings a year.',
+      items: ['Everything in Builder', 'A weekly 45-minute group call with Eli', 'Questions before every call', 'Call notes and action items', 'A private member group', 'Two in-person gatherings a year', 'About ' + PLANS.circle.aiRunsPerMonth + ' Playbook messages a month'],
+    },
+  };
+  if (circleCapacity !== 4) CARDS.circle.line = circleCapacity + ' founders. A weekly call with Eli. Two in-person gatherings a year.';
+%>
+<div class="plans plans-v5">
+  <% ['free','builder','circle'].forEach(function(k){ var p = PLANS[k]; var c = CARDS[k]; %>
   <div class="plan <%= k==='builder' ? 'featured' : '' %> <%= k==='circle' ? 'dark' : '' %>">
-    <div class="plan-flag"><%= k==='free' ? 'Start here' : k==='builder' ? 'Most members' : 'By application · ' + circleCapacity + ' seats' %></div>
+    <div class="plan-flag"><%= c.flag %></div>
     <h3><%= p.name %></h3>
-    <div class="tag"><%= p.tagline %></div>
-    <div class="price"><span class="amt">$<%= p.price %></span><span class="per"><%= p.price ? '/ month' : 'forever' %></span></div>
-    <% if (k==='builder' && launch.foundingPrice && (launch.prelaunch || launch.foundingOpen)) { %><div class="founding-note">Founding members $<%= launch.foundingPrice %>/month<%= launch.closesDate ? ' until ' + launch.closesDate : '' %>, locked while you stay</div><% } %>
-    <ul><% p.features.forEach(function(f){ %><li><%= f %></li><% }) %></ul>
-    <% var cur = user && user.tier === k; var above = user && PLANS[user.tier] && PLANS[user.tier].rank > p.rank; %>
+    <% if (k === 'builder' && fp) { %>
+      <div class="price"><span class="amt">$<%= fp %></span><span class="per">/ month</span></div>
+      <div class="founding-note"><%= ps === 'A' ? 'Founding price for the first ' + cap + (launch.launchDate ? ' · opens ' + launch.launchDate : '') : 'Founding price, locked while you stay' %></div>
+      <div class="plan-small"><%= ps === 'A' ? 'Builder is $29 after ' + (launch.closesDate || 'the founding window') : 'Ends ' + (launch.closesDate ? launch.closesDate + ', ' + launch.closesTime : 'at the founding close') + '. Then $29.' %></div>
+    <% } else if (k === 'free') { %>
+      <div class="price"><span class="amt">$0</span><span class="per">No card</span></div>
+    <% } else if (k === 'circle') { %>
+      <div class="price"><span class="amt">$<%= p.price %></span><span class="per">/ month</span></div>
+      <div class="plan-small"><%= circleCapacity %> seats · by application</div>
+    <% } else { %>
+      <div class="price"><span class="amt">$<%= p.price %></span><span class="per">/ month</span></div>
+    <% } %>
+    <div class="tag"><%= c.line %></div>
+    <ul><% c.items.forEach(function(f){ %><li><%= f %></li><% }) %></ul>
+    <% if (k === 'builder' && ps !== 'C') { %>
+    <div class="plan-extras"><div class="eyebrow">Founding extras</div><p>Founding number and badge · The founding call with Eli, December 1 · Locked price, even if you switch plans</p></div>
+    <% } %>
+    <% var cur = user && user.tier === k; var above = user && PLANS[user.tier] && PLANS[user.tier].rank > p.rank; var tr = function (plan) { return " data-track=\"Plan Click\" data-props='" + JSON.stringify({ plan: plan, state: ps }) + "'"; }; %>
     <% if (cur) { %>
       <span class="btn ghost block is-current" aria-disabled="true">Your plan</span>
     <% } else if (above) { %>
       <span class="btn ghost block is-current" aria-disabled="true">Included in your plan</span>
     <% } else if (k==='free') { %>
-      <a href="<%= user ? '/app' : launch.prelaunch ? '/founding' : '/start' %>" class="btn ghost block"><%= !user && launch.prelaunch ? 'Join the waitlist' : 'Get your free roadmap' %></a>
+      <% if (user) { %><a href="/app" class="btn ghost block">Go to my roadmap</a>
+      <% } else if (ps === 'A') { %><a href="/founding" class="btn ghost block"<%- tr('free') %>>Join the founding list</a>
+      <% } else { %><a href="/start?ref=pricing" class="btn ghost block"<%- tr('free') %>>Start free</a><% } %>
     <% } else if (k==='builder') { %>
+      <% var bLabel = ps === 'B' ? (fp ? 'Lock $' + fp + ' a month' : 'Lock the founding price') : 'Become a Builder'; %>
       <% if (user) { %>
-      <form method="post" action="/app/billing/checkout/builder"><button class="btn block">Become a Builder</button></form>
+      <form method="post" action="/app/billing/checkout/builder"><button class="btn block"<%- tr('builder') %>><%= bLabel %></button></form>
+      <% } else if (ps === 'A') { %>
+      <a href="/founding" class="btn block"<%- tr('builder') %>>Join the founding list</a>
       <% } else { %>
-      <a href="<%= launch.prelaunch ? '/founding' : '/start' %>" class="btn block"><%= launch.prelaunch ? 'Join the founding waitlist' : 'Start free, upgrade anytime' %></a>
+      <a href="<%= ps === 'B' ? '/founding/lock' : '/start?ref=pricing' %>" class="btn block"<%- tr('builder') %>><%= bLabel %></a>
       <% } %>
+      <% if (ps !== 'A') { %><div class="plan-under">14 days to change your mind.</div><% } %>
     <% } else { %>
-      <a href="/circle" class="btn light block"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %></a>
+      <% if (ps === 'A' && !user) { %>
+      <a href="/founding" class="btn light block"<%- tr('circle') %>>Join the founding list</a>
+      <div class="plan-under">The founding list hears first when seats open.</div>
+      <% } else { %>
+      <a href="/circle" class="btn light block"<%- tr('circle') %>>Apply for the Circle</a>
+      <% } %>
     <% } %>
   </div>
   <% }) %>
 </div>
+<%- include('track-clicks') %>
