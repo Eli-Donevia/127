@@ -1,0 +1,8 @@
+<%# "How it works" timeline (conversion/pages/founding.md). tlTicked: tick TODAY (status page). %>
+<% var tlTick = typeof tlTicked !== 'undefined' && tlTicked; var ch = launch.challenge; %>
+<ol class="fm-timeline">
+  <li class="<%= tlTick ? 'done' : '' %>"><span class="mono">TODAY</span><p>Join the list and confirm your email.</p></li>
+  <% if (ch.on) { %><li><span class="mono"><%= ch.datesShort %></span><p>The free Day One Challenge with Eli.</p></li><% } %>
+  <% if (launch.launchShort) { %><li><span class="mono"><%= launch.launchShort %>, <%= launch.launchTime.toUpperCase() %></span><p>Doors open.<%= ch.on && ch.earlyTime ? ' Challenge finishers get in at ' + ch.earlyTime + '.' : '' %></p></li><% } %>
+  <% if (launch.closesShort) { %><li><span class="mono"><%= launch.closesShort %>, <%= launch.closesTime.toUpperCase() %></span><p>The founding price ends, or sooner if <%= launch.cap %> join.</p></li><% } %>
+</ol>

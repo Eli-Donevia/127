@@ -1,0 +1,11 @@
+<script>
+// Plausible click goals: data-track="Event Name" with props from data-props (JSON) or data-channel.
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-track]');
+  if (!b || !window.plausible) return;
+  var props = null;
+  try { props = JSON.parse(b.getAttribute('data-props') || 'null'); } catch (err) {}
+  if (!props && b.getAttribute('data-channel')) props = { channel: b.getAttribute('data-channel') };
+  window.plausible(b.getAttribute('data-track'), props ? { props: props } : undefined);
+});
+</script>

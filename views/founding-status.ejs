@@ -1,19 +1,47 @@
 <%- include('partials/head') %>
 <% var shareText = 'I just got on the founding list for 127. 30-day roadmap to start your first business. Founding price is locked if you join' + (launch.launchDate ? ' before ' + launch.launchDate.replace(/^(\w{3})\w*/, '$1') : ' early') + ': ' + entry.link; %>
-<main>
+<%
+  var P = launch.foundingPrice ? '$' + launch.foundingPrice : null;
+  var PM = P ? P + ' a month' : 'the founding price';
+  var R = launch.referralsForReward;
+  var chHref = '/challenge?ref=' + encodeURIComponent(entry.code) + (entry.firstName ? '&first_name=' + encodeURIComponent(entry.firstName) : '');
+%>
+<main class="fm">
   <section class="hero plain founding-hero">
     <div class="wrap narrow">
       <% if (q.confirmed || entry.confirmed) { %>
         <h1><span class="grad">You're confirmed<%= entry.firstName ? ', ' + entry.firstName : '' %>.</span></h1>
-        <p class="lede">Your founding spot is locked in. Share your link: when <%= launch.referralsForReward %> friends confirm, your first month is free.</p>
+        <% if (launch.prelaunch) { %>
+        <p class="lede">Doors open <%= launch.launchDay ? launch.launchDay + ' at ' + launch.launchTime : 'soon' %>. Builder is <%= PM %> for the first <%= launch.cap %>, locked while you stay.</p>
+        <% } else if (launch.foundingOpen) { %>
+        <p class="lede">Builder is <%= PM %> for the first <%= launch.cap %>, locked while you stay.</p>
+        <% } else { %>
+        <p class="lede">Thank you to our founding members. Builder is $29 a month, and the free plan is still free.</p>
+        <% } %>
       <% } else { %>
         <h1><span class="grad">You're on the list.</span></h1>
-        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. Confirm so your invite link counts and we can reach you on open day.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. It makes your friends' sign-ups count toward your free month, and it's how we reach you on launch day.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
         <% if (devConfirm) { %><div class="alert info">Email isn't connected yet, so here is the confirm link: <a class="link" href="<%= devConfirm %>">confirm my spot</a></div><% } %>
       <% } %>
 
+      <% if (!launch.prelaunch && launch.foundingOpen) { %>
+      <div class="hero-cta" style="margin-top:8px">
+        <a href="/founding/lock" class="btn light" data-track="Founding Lock Click" data-props='{"placement":"status"}'><%= P ? 'Lock ' + PM : 'Lock the founding price' %> <span class="arrow"></span></a>
+      </div>
+      <% } %>
+
+      <% if (!launch.prelaunch && !launch.foundingOpen) { %>
+      <%# After the founding close the link stops counting, so the share block becomes the final count. %>
       <div class="card pad-lg share-card">
-        <div class="eyebrow">Your invite link</div>
+        <div class="ref-progress" style="margin:0;padding:0;border:0">
+          <div class="dots"><% for (var j = 0; j < R; j++) { %><span class="<%= j < entry.count ? 'on' : '' %>"></span><% } %></div>
+          <div><b><%= Math.min(entry.count, R) %> of <%= R %></b> confirmed<%= entry.count >= R ? '. Your first month of Builder is free.' : '.' %></div>
+        </div>
+      </div>
+      <% } else { %>
+      <div class="card pad-lg share-card">
+        <h3 class="fm-h3s">Bring <%= R %>, get a month.</h3>
+        <p class="muted" style="margin:6px 0 0">When <%= R %> friends confirm with your link, your first month of Builder is free.<%= launch.closesDate ? ' Your link keeps counting until ' + launch.closesDate + ', and if you\'ve already paid, the month comes as credit.' : '' %></p>
         <div class="share-link"><code id="reflink"><%= entry.link.replace(/^https?:\/\//, '') %></code><button type="button" class="btn sm" data-copy-text="<%= entry.link %>" data-track="Referral Share" data-channel="copy">Copy</button></div>
         <div class="share-row">
           <a class="btn ghost sm" href="sms:?&body=<%= encodeURIComponent(shareText) %>" data-track="Referral Share" data-channel="messages">Messages</a>
@@ -22,22 +50,28 @@
           <a class="btn ghost sm" href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(shareText) %>" target="_blank" rel="noopener" data-track="Referral Share" data-channel="x">X</a>
         </div>
         <div class="ref-progress">
-          <div class="dots"><% for (var i = 0; i < launch.referralsForReward; i++) { %><span class="<%= i < entry.count ? 'on' : '' %>"></span><% } %></div>
-          <div><b><%= Math.min(entry.count, launch.referralsForReward) %> of <%= launch.referralsForReward %></b> friends confirmed<%= entry.count >= launch.referralsForReward ? '. Your first month is free.' : ' → first month free' %></div>
+          <div class="dots"><% for (var i = 0; i < R; i++) { %><span class="<%= i < entry.count ? 'on' : '' %>"></span><% } %></div>
+          <div><b><%= Math.min(entry.count, R) %> of <%= R %></b> confirmed<%= entry.count >= R ? '. Your first month is free.' : '' %></div>
         </div>
         <p class="tiny muted" style="margin:14px 0 0">Bookmark this page to check your count. It never shows your friends' names or emails.</p>
       </div>
+      <% } %>
 
-      <% if (launch.launchDate) { %><div class="eyebrow" style="margin-top:40px">Doors open <%= launch.launchDate %>, 10am ET<%= launch.closesDate ? ' · Founding price ends ' + launch.closesDate : '' %></div><% } %>
-      <%- include('partials/countdown') %>
-      <% if (launch.launchAt) { %><div style="margin-top:20px"><a class="btn ghost sm" href="/founding/doors-open.ics">Add doors open to my calendar</a></div><% } %>
+      <% if (launch.prelaunch) { %>
+      <div class="fm-status-extra">
+        <%- include('partials/challenge-card', { chHref: chHref, chFrom: 'status' }) %>
+        <div class="eyebrow fm-label" style="margin:36px 0 4px">How it works</div>
+        <%- include('partials/founding-timeline', { tlTicked: true }) %>
+        <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: 'DOORS OPEN IN', cdShort: false }) %>
+        <% if (launch.launchAt) { %><div style="margin-top:20px"><a class="btn ghost sm" href="/founding/doors-open.ics">Add doors open to my calendar</a></div><% } %>
+      </div>
+      <% } %>
     </div>
   </section>
 </main>
+<%- include('partials/track-clicks') %>
 <script>
 document.addEventListener('click', function (e) {
-  var b = e.target.closest('[data-track]');
-  if (b && window.plausible) window.plausible(b.getAttribute('data-track'), { props: { channel: b.getAttribute('data-channel') } });
   var c = e.target.closest('[data-copy-text]');
   if (!c) return;
   var t = c.getAttribute('data-copy-text');

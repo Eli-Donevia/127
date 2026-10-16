@@ -223,7 +223,13 @@ function homeVideo() {
   return { src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo() }));
-app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: 'Free, Builder ($29/month) and the 4-seat Founder\'s Circle. Every plan starts with your free 30-day founder roadmap.', resourceCount: resources.length }));
+// Pricing meta description by launch state (conversion/pages/pricing.md).
+function pricingDescription() {
+  const v = launch.view();
+  if ((v.prelaunch || v.foundingOpen) && v.foundingPrice) return `Start free. Builder is $${v.foundingPrice} a month, locked while you stay, for the first ${v.cap} founding members until ${v.closesDate || 'the founding close'}. Then $29.`;
+  return `Start free. Builder is $29 a month for the full library and every AI tool. The ${CIRCLE_CAPACITY}-seat Founder's Circle is by application.`;
+}
+app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length }));
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 80K followers across Instagram, TikTok and YouTube, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
@@ -369,10 +375,21 @@ app.get('/f/:code', (req, res) => {
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
 
-app.get('/founding', (req, res) => {
-  if (!launch.prelaunch()) return res.redirect('/pricing');
-  res.render('founding', { title: 'Founding members', description: 'Join the 127 founding list: a 30-day roadmap to your first business, an AI that pushes you like a founder would, and a locked founding price.', error: null, form: {} });
-});
+// /founding has three states (conversion/pages/founding.md): A waitlist, B founding window, C closed.
+// It stays live after launch because old posts and DMs link to it.
+function foundingPage() {
+  const v = launch.view();
+  const state = v.prelaunch ? 'A' : v.foundingOpen ? 'B' : 'C';
+  const pm = v.foundingPrice ? `$${v.foundingPrice} a month` : 'a founding price';
+  const base = { fState: state, resourceCount: resources.length };
+  if (state === 'A') {
+    const ch = v.challenge.open ? ` Free 5-day challenge with Eli, ${v.challenge.dates}.` : '';
+    return { ...base, title: 'Founding members', description: `Join the 127 founding list. Builder for ${pm}, locked while you stay, when doors open${v.launchDate ? ` ${v.launchDate}` : ''}.${ch}` };
+  }
+  if (state === 'B') return { ...base, title: 'Founding price', description: `Builder for ${pm}, locked while you stay. Until ${v.closesDate || 'the founding close'} or the first ${v.cap} founding members.` };
+  return { ...base, title: 'Founding members', description: 'The founding price has closed. Builder is $29 a month, and the free plan is still free.' };
+}
+app.get('/founding', (req, res) => res.render('founding', { ...foundingPage(), error: null, form: {} }));
 
 async function joinFromRequest(req, body, source) {
   waitlist.useHost(baseUrl(req));
@@ -397,7 +414,7 @@ function waitlistLimit(req, res) {
 app.post('/founding', wrap(async (req, res) => {
   if (!waitlistLimit(req, res)) return;
   const r = await joinFromRequest(req, req.body, 'founding');
-  if (r.error) return res.status(400).render('founding', { title: 'Founding members', error: r.error, form: req.body });
+  if (r.error) return res.status(400).render('founding', { ...foundingPage(), error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
   if (!PROD && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
   res.redirect(`/founding/status?code=${r.entry.referralCode}&${r.existing ? 'back' : 'new'}=1`);

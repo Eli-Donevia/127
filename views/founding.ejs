@@ -1,9 +1,36 @@
 <%- include('partials/head') %>
-<main>
+<%
+  // Three states (conversion/pages/founding.md): A waitlist, B founding window, C closed.
+  var st = typeof fState !== 'undefined' ? fState : (launch.prelaunch ? 'A' : launch.foundingOpen ? 'B' : 'C');
+  var P = launch.foundingPrice ? '$' + launch.foundingPrice : null;
+  var PM = P ? P + ' a month' : 'the founding price';
+  var cap = launch.cap;
+  var closesAt = launch.closesDay ? launch.closesDay + ' at ' + launch.closesTime : 'the close of the founding window';
+  var rc = typeof resourceCount !== 'undefined' ? resourceCount : 18;
+  var aiB = PLANS.builder.aiRunsPerMonth;
+  var lockLabel = P ? 'Lock ' + PM : 'Lock the founding price';
+  var member = user && (user.tier === 'builder' || user.tier === 'circle');
+%>
+<main class="fm">
+<% if (st === 'C') { %>
+  <section class="hero plain founding-hero fm-closed">
+    <div class="wrap narrow">
+      <h1><span class="grad">The founding price has closed.</span></h1>
+      <p class="lede">Thank you to our founding members. Builder is $29 a month, and the free plan is still free.</p>
+      <div class="hero-cta">
+        <a href="/start?ref=founding-closed" class="btn light big" data-track="Start Free Click" data-props='{"from":"founding"}'>Get my roadmap <span class="arrow"></span></a>
+        <a href="/pricing" class="hero-alt">See the plans</a>
+      </div>
+    </div>
+  </section>
+<% } else { %>
+
+  <% if (st === 'A') { %>
   <section class="hero plain founding-hero">
     <div class="wrap narrow">
-      <h1><span class="grad">Make today day one.</span></h1>
-      <p class="lede">Get a 30-day roadmap to your first business, an AI that pushes you like a founder would, and the playbooks behind it.<%= launch.launchDate ? ' Doors open ' + launch.launchDate + '.' : '' %></p>
+      <div class="eyebrow fm-hero-label">FOUNDING LIST<%= launch.launchShort ? ' · DOORS OPEN ' + launch.launchShort : '' %></div>
+      <h1><span class="dim-ink">Be one of</span> <span class="grad">the first <%= cap %>.</span></h1>
+      <p class="lede">127 opens<%= launch.launchDate ? ' on ' + launch.launchDate : ' soon' %>: a roadmap built for you, plus the playbooks, AI tools and templates to work it. The first <%= cap %> Builders pay <%= PM %>, locked for as long as they stay.</p>
 
       <form method="post" action="/founding" class="wl-form" id="join">
         <% if (error) { %><div class="alert error"><%= error %></div><% } %>
@@ -15,42 +42,105 @@
         <label class="check"><input type="checkbox" name="optin" <%= form.optin === 'on' ? 'checked' : '' %>> <%= cc.box %></label>
         <p class="consent-line"><%= cc.line %></p>
         <p class="consent-line"><%- cc.terms %></p>
-        <button class="btn light">Join the waitlist <span class="arrow"></span></button>
+        <button class="btn light">Join the founding list <span class="arrow"></span></button>
       </form>
 
-      <%- include('partials/countdown') %>
+      <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: 'DOORS OPEN IN', cdShort: false }) %>
     </div>
   </section>
 
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">What founding members get</div><h2 class="grad">In early, on better terms.</h2></div>
-      <%- include('partials/founding-benefits') %>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="wrap founding-founder">
-      <div class="founder-photo"><img src="/img/eli-founder.jpg" alt="Eli Christiansen speaking on stage" loading="lazy" width="800" height="1000"></div>
-      <div>
-        <div class="eyebrow">Who's building this</div>
-        <!-- Proof points as approved in brand/voice-and-messaging.md section 7 -->
-        <p class="founder-line">2x founder. Part-time e-commerce brand, first drop sold out. #3 in the country on a national vendor sales list of 6,000+ agents. Left a multiple six-figure corporate job to build Donevia, which won the fintech category at Best of the Midwest.</p>
-        <div class="small muted">Eli Christiansen · Founder, 127</div>
+  <% if (launch.challenge.open) { %>
+  <section class="fm-tight"><div class="wrap narrow"><%- include('partials/challenge-card', { chHref: '/challenge?ref=founding', chFrom: 'founding' }) %></div></section>
+  <% } %>
+  <% } else { %>
+  <section class="hero plain founding-hero">
+    <div class="wrap narrow">
+      <div class="eyebrow fm-hero-label">FOUNDING PRICE<%= launch.closesShort ? ' · ENDS ' + launch.closesShort : '' %><%= launch.spotsLeft <= 25 ? ' · ' + launch.spotsLeft + ' SPOTS LEFT' : '' %></div>
+      <h1><span class="grad"><%= P ? PM + '.' : 'The founding price.' %></span> <span class="dim-ink">Locked while you stay.</span></h1>
+      <p class="lede">Builder: all 4 weeks of your roadmap, every playbook and every AI tool. $29 a month<%= launch.closesDate ? ' after ' + launch.closesDate : ' after the founding window' %>. There's no Black Friday sale.</p>
+      <div class="hero-cta">
+        <% if (member) { %>
+          <div class="fm-in">You're already in.<%= user.foundingNumber ? ' Founding member #' + user.foundingNumber : '' %></div>
+        <% } else { %>
+          <a href="/founding/lock" class="btn light big" data-track="Founding Lock Click" data-props='{"placement":"hero"}'><%= lockLabel %> <span class="arrow"></span></a>
+          <a href="/start?ref=founding" class="hero-alt" data-track="Start Free Click" data-props='{"from":"founding"}'>Or start free and decide this week</a>
+        <% } %>
       </div>
+      <p class="consent-line fm-hero-small">14 days to change your mind. Cancel online anytime from Billing. No call or email needed.</p>
+      <%- include('partials/countdown-line', { cdTarget: launch.closesAt, cdLabel: 'FOUNDING PRICE ENDS IN', cdShort: false }) %>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="fm-sec">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow fm-label">Founding members</div><h2>In early, on better terms.</h2></div>
+      <%- include('partials/founding-benefits') %>
+      <% if (st === 'B') { %><%- include('partials/trust-block') %><% } %>
     </div>
   </section>
 
-  <section class="quote"><div class="wrap"><blockquote>“No one is truly self-made.”</blockquote><cite>Eli Christiansen</cite></div></section>
+  <% if (st === 'A') { %>
+  <section class="fm-sec">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow fm-label">The membership</div><h2>Your next step, every week. And the tool for it.</h2>
+        <p>Take a 3-minute assessment. 127 builds a 30-day roadmap for where you are: 2 to 3 steps a week on the Start, Build or Grow track. Every step comes with the playbook, worksheet or AI tool to do it.</p></div>
+      <div class="grid g-3">
+        <div class="card pad-lg"><h3>The roadmap.</h3><p>Built from your answers. Week 1 starts today.</p></div>
+        <div class="card pad-lg"><h3>The library.</h3><p><%= rc %> playbooks, worksheets and tools: The Idea Test, the One-Page Offer, the Outreach Scripts, the Launch Budget Calculator and more.</p></div>
+        <div class="card pad-lg"><h3>Eli's Playbook.</h3><p>An AI built on how Eli builds. About <%= aiB %> messages a month on Builder.</p></div>
+      </div>
+      <p class="small muted fm-note">The assessment and weeks 1 and 2 of your roadmap are free. Builder unlocks all 4 weeks, every playbook and every AI tool.</p>
+    </div>
+  </section>
+
+  <section class="fm-sec">
+    <div class="wrap narrow">
+      <div class="section-head"><div class="eyebrow fm-label">How it works</div></div>
+      <%- include('partials/founding-timeline', { tlTicked: false }) %>
+      <p class="consent-line honor-line">If checkout breaks on our side before the close, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p>
+    </div>
+  </section>
+  <% } else { %>
+  <section class="fm-sec">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow fm-label">What you get</div><h2>Everything I wish I had when I started.</h2></div>
+      <div class="card scroll-x fm-table">
+        <table class="t">
+          <thead><tr><th>What stops you</th><th>What you get</th></tr></thead>
+          <tbody>
+            <tr><td>"I don't know what to start."</td><td>The assessment and a roadmap built for your stage, all 4 weeks unlocked, on your track (Start, Build or Grow)</td></tr>
+            <tr><td>"I don't know if my idea is any good."</td><td>The Idea Test, the Validation Interview Scripts, the Business Model Worksheet</td></tr>
+            <tr><td>"I don't know what to say or what to charge."</td><td>The One-Page Offer, the Pricing Worksheet, the Outreach Scripts</td></tr>
+            <tr><td>"Nobody knows I exist."</td><td>The 30-Day Content Calendar, the Hook &amp; Caption Bank, Brand Basics in an Afternoon, the Landing Page Brief</td></tr>
+            <tr><td>"I'm about to launch and don't want to blow it."</td><td>The First Launch Checklist, the Launch Budget Calculator</td></tr>
+            <tr><td>"I get stuck and have no one to ask."</td><td>Eli's Playbook (AI built on Eli's methods): every AI tool and about <%= aiB %> messages a month, plus AI feedback on your worksheet answers</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted fm-note"><%= rc %> playbooks, worksheets and tools. About <%= aiB %> AI messages a month. All 4 weeks.</p>
+    </div>
+  </section>
+  <% } %>
+
+  <%- include('partials/founding-proof') %>
 
   <section>
     <div class="wrap narrow">
-      <div class="section-head"><div class="eyebrow">Questions</div><h2 class="grad">Good to know.</h2></div>
+      <div class="section-head"><div class="eyebrow">Questions</div><h2>Good to know.</h2></div>
       <div class="faq">
-        <details><summary>Is it free?</summary><p>Yes. The assessment, your 30-day roadmap and starter playbooks are free. Builder is the paid plan.</p></details>
-        <details><summary>What does "locked" mean?</summary><p>Your price never goes up while your subscription is active. If you cancel, the founding price ends.</p></details>
-        <details><summary>When does the founding price end?</summary><p><%= launch.closesDate ? 'Midnight ET on ' + launch.closesDate : 'At the close of the founding window' %>, or when <%= process.env.FOUNDING_CAP || 100 %> founding members join, whichever comes first.</p></details>
-        <details><summary>Do I need a business idea?</summary><p>No. The assessment starts wherever you are.</p></details>
+        <% if (st === 'A') { %>
+        <details><summary>Is it free to join?</summary><p>Yes. You can start with $0: the list, the challenge, the assessment and your first 2 weeks of roadmap are free. Builder is the paid plan.</p></details>
+        <% } else { %>
+        <details><summary>Can I start free and upgrade later?</summary><p>Yes. Upgrade any time before <%= launch.closesDate ? launch.closesDate + ' at ' + launch.closesTime : 'the founding price ends' %> and you still get <%= PM %>, locked.</p></details>
+        <% } %>
+        <details><summary>Why not just use ChatGPT?</summary><p>ChatGPT doesn't know your roadmap. Eli's Playbook works from your assessment, your 30-day roadmap, and Eli's playbooks and calculators, so its answers fit where you are this week. And there's a real founder behind it.</p></details>
+        <details><summary>What does "locked" mean?</summary><p>Your price never goes up while you're subscribed, even if you switch plans. Cancelling ends it.</p></details>
+        <details><summary>When does the founding price end?</summary><p><%= closesAt %>, or when <%= cap %> founding members join, whichever comes first.</p></details>
+        <details><summary>Is there a Black Friday sale?</summary><p>No. The founding price is the deal.</p></details>
+        <details><summary>Do I need a business idea?</summary><p>No. The Start track begins by picking one.</p></details>
+        <details><summary>What if it's not for me?</summary><p>You have 14 days after your first paid Builder charge to change your mind. Email <a class="link" href="mailto:hello@127group.io">hello@127group.io</a> and we'll refund it in full to your card. The membership ends with the refund, and so does the founding price. Once per person.</p></details>
+        <details><summary>How old do I need to be?</summary><p>18 or older.</p></details>
         <details><summary>Is this financial advice?</summary><p>No. 127 teaches how to start and grow a business. It doesn't give financial, legal or tax advice.</p></details>
       </div>
     </div>
@@ -58,10 +148,22 @@
 
   <section class="cta-final">
     <div class="wrap">
+      <% if (st === 'A') { %>
       <h2><span class="grad">Your spot is one email away.</span></h2>
-      <a href="#join" class="btn light" style="margin-top:28px">Join the waitlist <span class="arrow"></span></a>
-      <p class="tiny muted" style="margin-top:28px">Build with purpose. · Psalm 127:1</p>
+      <a href="#join" class="btn light" style="margin-top:28px">Join the founding list <span class="arrow"></span></a>
+      <% } else { %>
+      <h2><span class="grad">Make today day one.</span></h2>
+      <% if (member) { %>
+      <p class="fm-in" style="margin-top:28px">You're already in.<%= user.foundingNumber ? ' Founding member #' + user.foundingNumber : '' %></p>
+      <% } else { %>
+      <a href="/founding/lock" class="btn light" style="margin-top:28px" data-track="Founding Lock Click" data-props='{"placement":"final"}'><%= lockLabel %> <span class="arrow"></span></a>
+      <% } %>
+      <p class="consent-line" style="margin-top:18px">Ends <%= launch.closesDate ? launch.closesDate + ', ' + launch.closesTime : 'at the close of the founding window' %>, or at <%= cap %> founding members. If checkout breaks on our side before then, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours of the close and we'll honor the founding price.</p>
+      <% } %>
+      <% if (st === 'A') { %><p class="tiny muted" style="margin-top:28px">Build with purpose. · Psalm 127:1</p><% } %>
     </div>
   </section>
+<% } %>
 </main>
+<%- include('partials/track-clicks') %>
 <%- include('partials/foot') %>
