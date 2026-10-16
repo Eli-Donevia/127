@@ -1998,6 +1998,14 @@ app.get('/admin/waitlist.csv', requireAuth, requireAdmin, (req, res) => {
 // ---------- errors ----------
 app.use((req, res) => res.status(404).render('404', { title: 'Not found' }));
 app.use((err, req, res, next) => {
+  // Body-parser errors carry the raw request in err.body (answers, emails): log only the type, never the body (Legal handoff item 24).
+  if (err && typeof err.type === 'string' && /^(entity\.|request\.|charset\.|encoding\.)/.test(err.type)) {
+    console.warn('[body]', req.method, req.path, err.type);
+    const status = err.status && err.status < 500 ? err.status : 400;
+    if (req.is('json') || req.accepts(['html', 'json']) === 'json') return res.status(status).json({ ok: false, error: 'Something went wrong. Try again.' });
+    return res.status(status).render('404', { title: 'Something went wrong', error: true });
+  }
+  if (err && err.body !== undefined) delete err.body;
   console.error(err);
   res.status(500).render('404', { title: 'Something went wrong', error: true });
 });
