@@ -586,20 +586,6 @@ app.post('/founding/lock', wrap(async (req, res) => {
   await startCheckout(req, res, 'builder', graceFrom(grace && token), { grace: grace ? token : null });
 }));
 
-// Calendar file for the founding call (FOUNDING_CALL_AT). The join link comes by email.
-app.get('/founding/call.ics', (req, res) => {
-  const at = launch.date('FOUNDING_CALL_AT');
-  if (!at) return res.redirect('/app');
-  const f = (t) => new Date(t).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  res.type('text/calendar').set('content-disposition', 'attachment; filename="127-founding-call.ics"').send([
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//127//Founding//EN', 'BEGIN:VEVENT',
-    `UID:founding-call-${at}@127group.io`, `DTSTAMP:${f(Date.now())}`, `DTSTART:${f(at)}`, `DTEND:${f(at + 60 * 60 * 1000)}`,
-    'SUMMARY:127 founding call with Eli', 'DESCRIPTION:Live with Eli for founding members. Your join link comes by email.',
-    'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:127 founding call in 15 minutes', 'END:VALARM',
-    'END:VEVENT', 'END:VCALENDAR', '',
-  ].join('\r\n'));
-});
-
 // ---------- auth ----------
 app.get('/login', (req, res) => res.render('login', { title: 'Sign in', error: null, notice: req.query.reset ? 'Password updated. Sign in with your new one.' : null, email: '', next: security.safeNext(req.query.next), layout: 'bare' }));
 app.post('/login', wrap(async (req, res) => {

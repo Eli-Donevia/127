@@ -78,31 +78,54 @@ async function member(over = {}) {
 
 // ---------- acknowledgment ----------
 
-test('acknowledgment: plan, price from Stripe, billing day, renewal, cancel steps, refund rules', async () => {
-  const u = await member();
-  await billingEmails.subscriptionSynced(u, sub());
-  await settle();
-  assert.strictEqual(sent.length, 1);
-  const m = sent[0];
-  assert.strictEqual(m.to, 'ana@x.test');
-  assert.strictEqual(m.subject, 'Your 127 Builder membership is confirmed');
-  assert.match(m.text, /^Hi Ana,/);
-  assert.match(m.text, /Plan: Builder, founding price \(locked for as long as your membership stays active\)/);
-  assert.match(m.text, /Price: \$23 a month, plus any applicable tax/); // from the Stripe price, not a constant
-  assert.match(m.text, /Billing date: the 22nd of each month/);
-  assert.match(m.text, /renews automatically every month until you cancel/);
-  assert.match(m.text, /https:\/\/127\.test\/app\/billing/);
-  assert.match(m.text, /within 14 days of your first paid Builder charge/);
-  assert.match(m.text, /don't refund partial months/);
-  assert.match(m.text, /https:\/\/127\.test\/membership-terms/);
-  assert.ok(!/First charge/.test(m.text));
-  assert.ok(!/\$19|\$29|November 24/.test(m.text));
-  const rec = billingEmails.deps.db.filter('billingRecords', () => true);
-  assert.deepStrictEqual(rec.map((r) => [r.kind, r.subscriptionId, r.priceId]), [['start', 'sub_1', 'price_f']]);
+test('acknowledgment, founding Builder: "Founding member #n", welcome body, then the Your membership block', async () => {
+  process.env.FOUNDING_CALL_AT = '2026-12-02T01:00:00Z';
+  try {
+    const u = await member({ foundingNumber: 42, marketingOptIn: false }); // transactional: goes without marketing consent
+    await billingEmails.subscriptionSynced(u, sub());
+    await settle();
+    assert.strictEqual(sent.length, 1);
+    const m = sent[0];
+    assert.strictEqual(m.to, 'ana@x.test');
+    assert.strictEqual(m.subject, 'Founding member #42');
+    assert.match(m.text, /^Hi Ana,/);
+    assert.match(m.text, /You're in, and \$23 a month is yours for as long as you stay\. Two things: take the 3-minute assessment if you haven't \(Get my roadmap: https:\/\/127\.test\/start\), and save Tuesday, December 1 at 8pm ET for the founding call \(Add to calendar: https:\/\/127\.test\/founding\/call\.ics\)\. Make today day one\.\n\nEli\n\nYour membership\n/);
+    assert.match(m.text, /Builder, founding member #42\. \$23 a month plus any tax, locked while you stay\. Next charge: Tuesday, December 22\./); // price from Stripe, not a constant
+    assert.match(m.text, /It renews automatically every month until you cancel\. Cancel online anytime from Billing\. No call or email needed\./);
+    assert.match(m.text, /Manage billing: https:\/\/127\.test\/app\/billing/);
+    assert.match(m.text, /14 days to change your mind: within 14 days of your first paid charge, email hello@127group\.io and we'll refund it in full\. The membership ends with the refund\. Once per person\./);
+    assert.match(m.text, /Membership terms: https:\/\/127\.test\/membership-terms/);
+    assert.ok(!/First charge|free month/.test(m.text));
+    assert.ok(!/\$19|\$29|November 24/.test(m.text));
+    const rec = billingEmails.deps.db.filter('billingRecords', () => true);
+    assert.deepStrictEqual(rec.map((r) => [r.kind, r.subscriptionId, r.priceId]), [['start', 'sub_1', 'price_f']]);
+  } finally {
+    delete process.env.FOUNDING_CALL_AT;
+  }
 });
 
-test('acknowledgment: sent once per subscription, again on upgrade, never for a downgrade', async () => {
-  const u = await member();
+test('acknowledgment, founding Builder with a roadmap and no call date: only the parts that apply', async () => {
+  const u = await member({ foundingNumber: 7, roadmap: { weeks: [] } });
+  await billingEmails.subscriptionSynced(u, sub());
+  await settle();
+  assert.match(sent[0].text, /You're in, and \$23 a month is yours for as long as you stay\. Make today day one\./);
+  assert.ok(!/assessment|founding call/.test(sent[0].text));
+});
+
+test('acknowledgment, regular Builder: "You\'re a Builder", the block at the regular price without the founding line', async () => {
+  const u = await member({ foundingPrice: false });
+  await billingEmails.subscriptionSynced(u, sub({ price: PRICES.builder }));
+  await settle();
+  const m = sent[0];
+  assert.strictEqual(m.subject, "You're a Builder");
+  assert.match(m.text, /^Hi Ana,\n\nYour membership\nBuilder\. \$31 a month plus any tax\. Next charge: Tuesday, December 22\./);
+  assert.ok(!/founding|locked while you stay|Make today day one/i.test(m.text));
+  assert.match(m.text, /Cancel online anytime from Billing\. No call or email needed\./);
+  assert.match(m.text, /14 days to change your mind/);
+});
+
+test('acknowledgment: sent once per subscription, again on upgrade to the Circle, never for a downgrade', async () => {
+  const u = await member({ foundingNumber: 3 });
   await billingEmails.subscriptionSynced(u, sub());
   await billingEmails.subscriptionSynced(u, sub()); // webhook after the success page
   await billingEmails.purchaseAcknowledgment(u, sub()); // a retry
@@ -113,9 +136,12 @@ test('acknowledgment: sent once per subscription, again on upgrade, never for a 
   await billingEmails.subscriptionSynced(u, sub({ price: PRICES.circle }));
   await settle();
   assert.strictEqual(sent.length, 2);
-  assert.strictEqual(sent[1].subject, "Your 127 Founder's Circle membership is confirmed");
-  assert.match(sent[1].text, /Price: \$319 a month/);
+  assert.strictEqual(sent[1].subject, "You're in the Founder's Circle");
+  assert.match(sent[1].text, /Your membership\nFounder's Circle\. \$319 a month plus any tax\. Next charge:/);
+  assert.match(sent[1].text, /It renews automatically every month until you cancel\. Cancel online anytime from Billing\. No call or email needed\./);
+  assert.match(sent[1].text, /Founder's Circle Member Agreement \(https:\/\/127\.test\/circle-agreement\)/);
   assert.ok(!/14 days/.test(sent[1].text)); // the 14-day refund is Builder only
+  assert.ok(!/founding member/.test(sent[1].text));
   u.tier = 'builder';
   await billingEmails.subscriptionSynced(u, sub());
   await settle();
@@ -137,7 +163,8 @@ test('acknowledgment with the referral free month: first-charge date, amount, ca
   await settle();
   const charge = billingEmails.longDate(T0 + 30 * DAY);
   assert.strictEqual(charge, 'Tuesday, December 22');
-  assert.match(sent[0].text, new RegExp(`First charge: \\$23 on ${charge}\\. Your first month is free\\. Cancel before ${charge} to pay nothing\\.`));
+  assert.match(sent[0].text, new RegExp(`Builder, founding member\\. \\$23 a month plus any tax, locked while you stay\\. Your free month runs to ${charge}\\. First charge: \\$23 on ${charge}\\.`));
+  assert.ok(!/Next charge/.test(sent[0].text));
   assert.strictEqual(u.freeMonthSubscriptionId, 'sub_1');
   assert.strictEqual(u.freeMonthEndsAt, new Date(T0 + 30 * DAY).toISOString());
 });

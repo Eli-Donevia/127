@@ -285,6 +285,15 @@ test('Klaviyo "Started Checkout" when a Checkout Session is created', async () =
   assert.deepStrictEqual([props.plan, props.founding, props.price, props.checkout_url], ['builder', true, 19, 'https://127.test/founding/lock']);
 });
 
+test('Started Checkout: plan is "builder" or "circle" only; a founding Builder stays "builder" with founding true', async () => {
+  await billing.checkoutUrl(req, user, 'circle');
+  const e = events('checkout.started', user.id).find((x) => x.payload.plan === 'circle');
+  assert.ok(e, 'circle event emitted');
+  assert.strictEqual(e.payload.founding, false);
+  assert.strictEqual(e.payload.checkout_url, 'https://127.test/app/circle');
+  for (const x of events('checkout.started', user.id)) assert.ok(['builder', 'circle'].includes(x.payload.plan));
+});
+
 test('Klaviyo "Payment Failed" on every attempt, "Payment Recovered" only after a failure', async () => {
   Object.assign(user, { tier: 'builder', stripeCustomerId: 'cus_pf' + user.id, stripeSubscriptionId: 'sub_pf', foundingPrice: true });
   await db.save('users', user);

@@ -14,7 +14,7 @@
   </div>
   <form method="post" action="/app/billing/checkout/circle" class="confirm-form">
     <input type="hidden" name="from" value="/app/circle">
-    <label class="check consent-check"><input type="checkbox" name="agree" id="agree" required> <span>I agree to the <a class="link" href="<%= '/terms#circle' %>" target="_blank">Founder's Circle Member Agreement</a> and the <a class="link" href="/membership-terms" target="_blank">Membership Terms</a>, and I understand the Circle renews automatically every month at $<%= circlePrice %> plus tax until I cancel.</span></label>
+    <label class="check consent-check"><input type="checkbox" name="agree" id="agree" required> <span>I agree to the <a class="link" href="/circle-agreement" target="_blank">Founder's Circle Member Agreement</a> and the <a class="link" href="/membership-terms" target="_blank">Membership Terms</a>, and I understand the Circle renews automatically every month at $<%= circlePrice %> plus tax until I cancel.</span></label>
     <button class="btn gold" id="claim" disabled>Claim my seat</button>
     <a class="small link" href="/app/circle">Not now</a>
   </form>
