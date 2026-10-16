@@ -144,6 +144,9 @@ test('the system prompt is the same for every member and caches', () => {
   assert.match(p, /- \$50K in gross sales from a part-time e-commerce brand/);
   assert.match(p, /add right after it: "Eli's results aren't typical or a promise of what you'll earn\."/);
   assert.doesNotMatch(p, /multiple six-figure/);
+  // Legal L45: the #3 ranking always says what it was #3 of.
+  assert.match(p, /always say what it was #3 of: use the whole line or "#3 of 6,000\+ sales agents"/);
+  assert.match(p, /- #3 in the country on a national vendor sales list of 6,000\+ agents \(2025\)/);
   const again = load(KEY).systemPrompt();
   assert.equal(p, again, 'deterministic across loads');
 });
