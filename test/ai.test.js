@@ -340,6 +340,10 @@ test('worksheet review: rubric, playbook text and the member\'s answers', async 
   const ctx = params.messages[1].content;
   assert.match(ctx, /What a strong answer looks like: Check that the ROI story/);
   assert.match(params.system[1].text, /<playbook slug="pricing-worksheet" title="Pricing Worksheet">/);
+  // The upgraded calculators write 450 to 800 character summaries; the verdict lines at the end must survive.
+  const long = 'Price $40. Margin 85%. '.repeat(30) + 'Verdict: raise the price to $45.';
+  await ai.review(r, { ...values, __calc: JSON.stringify({ inputs: { value: '400', price: '40' }, summary: long }) }, member({ tier: 'builder' }));
+  assert.ok(fake.calls[1].params.messages[0].content.includes(long), 'a long calculator summary is sent whole');
 });
 
 test('Circle context: Build Target, North Number trend and last commitments, Circle only', async () => {

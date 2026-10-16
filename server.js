@@ -704,6 +704,8 @@ app.get('/app', requireAuth, wrap(async (req, res, next) => {
 }));
 app.get('/app', requireAuth, (req, res) => {
   const user = req.user;
+  // New Circle members land on their seat page (scorecard, profile, first call), not the dashboard.
+  if (req.query.upgraded === 'circle' && user.tier === 'circle') return res.redirect(`/app/circle?upgraded=circle${req.query.demo ? '&demo=1' : ''}`);
   if (!user.roadmap) return res.redirect('/start');
   if (req.query.upgraded && req.query.upgraded === user.tier && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: user.tier, founding: !!user.foundingPrice } });
   // Members who saw the founding bar get one dismissible line for 24 hours after it closes.
@@ -1083,6 +1085,9 @@ async function circleLocals(req, extra = {}) {
 }
 
 app.get('/app/circle', requireAuth, wrap(async (req, res) => {
+  const joined = req.query.upgraded === 'circle' && req.user.tier === 'circle';
+  if (joined && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: 'circle', founding: !!req.user.foundingPrice } });
+  if (joined) res.locals.flash = { type: 'win', text: "You're in the Founder's Circle. Your first call and next steps are below." };
   res.render('app/circle', await circleLocals(req));
 }));
 
