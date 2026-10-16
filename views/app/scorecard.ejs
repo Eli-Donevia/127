@@ -1,0 +1,97 @@
+<%- include('../partials/app-head') %>
+<% var v = values || {}; var seatNo = seat ? circle.seatLabel(seat) : null; %>
+<div class="page-head">
+  <div><div class="eyebrow"><a class="link" href="/app/circle">Founder's Circle</a></div><h1>Scorecard<% if (st) { %> · <%= st.label %><% } %></h1></div>
+  <% if (seatNo) { %><div class="circle-marks"><span class="seat-badge">Seat <b><%= seatNo %></b></span></div><% } %>
+</div>
+
+<% if (!st) { %>
+  <div class="card pad-lg circle-state"><p class="muted" style="margin:0">No call is scheduled yet. Your Scorecard opens 48 hours before the next one.</p></div>
+<% } else if (st.state === 'not_open') { %>
+  <div class="card pad-lg circle-state"><h3 class="circle-h">Opens <%= opens %>.</h3><p class="muted" style="margin:0">Your Scorecard for <%= st.label %> opens 48 hours before the call and is due at midnight ET the night before.</p></div>
+<% } else { %>
+  <% if (errors && errors.length) { %><div class="alert error"><% errors.forEach(function(e){ %><div><%= e %></div><% }) %></div><% } %>
+  <% if (st.state === 'late') { %><div class="alert info">It was due at midnight ET. It still saves, marked late, until the call starts.</div><% } %>
+  <form method="post" action="/app/circle/scorecard" class="card pad-lg scorecard">
+    <p class="small muted" style="margin:0 0 22px">3 minutes. Required fields are marked <span class="req">*</span>.</p>
+
+    <section class="sc-q">
+      <h3>1. Last call you said you'd do this <span class="req">*</span></h3>
+      <% if (!commitments.length) { %><p class="small muted" style="margin:0">No commitments from an approved recap yet.</p><% } %>
+      <% commitments.forEach(function(c, i){ var row = (v.commitments && v.commitments[i]) || {}; var cur = row.status || v['c' + i + '_status'] || ''; %>
+        <div class="sc-commit">
+          <div class="small"><%= c %></div>
+          <div class="seg">
+            <% Object.keys(circle.COMMITMENT).forEach(function(k){ %><label><input type="radio" name="c<%= i %>_status" value="<%= k %>" required <%= cur === k ? 'checked' : '' %>><span><%= circle.COMMITMENT[k] %></span></label><% }) %>
+          </div>
+          <input class="input" name="c<%= i %>_learned" maxlength="300" placeholder="What did you learn? (optional)" value="<%= row.learned || v['c' + i + '_learned'] || '' %>">
+        </div>
+      <% }) %>
+    </section>
+
+    <section class="sc-q">
+      <h3>2. <%= profile.northLabel || 'Your number' %> <span class="req">*</span></h3>
+      <% if (!profile.northLabel) { %><p class="tiny muted" style="margin:0 0 8px">Pick your North Number in your <a class="link" href="/app/circle#profile">Founder Profile</a>.</p><% } %>
+      <% if (history.length) { %><div class="sc-history"><% history.forEach(function(h){ %><span><em><%= h.call %></em><b class="mono"><%= h.value %></b></span><% }) %></div><% } %>
+      <div class="sc-row">
+        <input class="input" name="number" inputmode="decimal" required placeholder="0" value="<%= v.number != null ? v.number : '' %>" style="max-width:160px">
+        <input class="input" name="numberNote" maxlength="200" placeholder="Note (optional)" value="<%= v.numberNote || '' %>">
+      </div>
+      <div class="seg" style="margin-top:10px">
+        <label><input type="radio" name="numberShare" value="group" <%= v.numberShare !== 'eli' ? 'checked' : '' %>><span>Share in the recap</span></label>
+        <label><input type="radio" name="numberShare" value="eli" <%= v.numberShare === 'eli' ? 'checked' : '' %>><span>Eli only</span></label>
+      </div>
+    </section>
+
+    <section class="sc-q sc-bell">
+      <h3>3. Win of the week</h3>
+      <input class="input" name="win" maxlength="200" placeholder="One line (optional)" value="<%= v.win || '' %>">
+      <label class="check" style="margin-top:12px"><input type="checkbox" name="bell" <%= v.bell ? 'checked' : '' %>><span><b style="font-weight:600">Ring the Bell:</b> this is a milestone.</span></label>
+      <div class="sc-more">
+        <div class="seg">
+          <% Object.keys(circle.BELLS).forEach(function(k){ %><label><input type="radio" name="bellType" value="<%= k %>" <%= v.bellType === k ? 'checked' : '' %>><span><%= circle.BELLS[k] %></span></label><% }) %>
+        </div>
+        <input class="input" name="bellOther" maxlength="120" placeholder="If other: what was it?" value="<%= v.bellOther || '' %>" style="margin-top:10px">
+      </div>
+    </section>
+
+    <section class="sc-q">
+      <h3>4. What's in the way? <span class="req">*</span></h3>
+      <input class="input" name="inTheWay" maxlength="300" required placeholder="One line" value="<%= v.inTheWay || '' %>">
+    </section>
+
+    <section class="sc-q sc-hot">
+      <h3>5. Do you need a hot seat this week? <span class="req">*</span></h3>
+      <div class="seg">
+        <% Object.keys(circle.HOT_SEAT).forEach(function(k){ %><label><input type="radio" name="hotSeat" value="<%= k %>" required <%= v.hotSeat === k ? 'checked' : '' %>><span><%= circle.HOT_SEAT[k] %></span></label><% }) %>
+      </div>
+      <div class="sc-more">
+        <label class="field"><span>The situation (2-3 sentences)</span><textarea class="input" name="hsSituation" maxlength="800"><%= v.hsSituation || '' %></textarea></label>
+        <label class="field"><span>What I've tried</span><textarea class="input" name="hsTried" maxlength="500"><%= v.hsTried || '' %></textarea></label>
+        <label class="field"><span>What I'd do if I had to decide today</span><textarea class="input" name="hsDecide" maxlength="500"><%= v.hsDecide || '' %></textarea></label>
+        <label class="check"><input type="checkbox" name="hsUrgent" <%= v.hsUrgent ? 'checked' : '' %>><span>It's time-sensitive (a deadline before the next call)</span></label>
+      </div>
+    </section>
+
+    <section class="sc-q">
+      <h3>6. One quick question for the rapid round</h3>
+      <input class="input" name="quickQuestion" maxlength="300" placeholder="One sentence (optional)" value="<%= v.quickQuestion || '' %>">
+    </section>
+
+    <section class="sc-q">
+      <h3>7. Will you be on the call? <span class="req">*</span></h3>
+      <div class="seg">
+        <% Object.keys(circle.ATTENDANCE).forEach(function(k){ %><label><input type="radio" name="attendance" value="<%= k %>" required <%= v.attendance === k ? 'checked' : '' %>><span><%= circle.ATTENDANCE[k] %></span></label><% }) %>
+      </div>
+      <p class="tiny muted" style="margin:8px 0 0">Can't make it? Your Scorecard still counts, and your quick question gets answered in the recap.</p>
+    </section>
+
+    <section class="sc-q">
+      <h3>8. Anything Eli should know first?</h3>
+      <input class="input" name="privateNote" maxlength="500" placeholder="Private to Eli (optional)" value="<%= v.privateNote || '' %>">
+    </section>
+
+    <button class="btn gold">Send my Scorecard</button>
+  </form>
+<% } %>
+<%- include('../partials/app-foot') %>
