@@ -6,16 +6,20 @@
     <h3>Profile</h3>
     <label class="field" style="margin-top:18px"><span>First name</span><input class="input" name="name" value="<%= user.name || '' %>"></label>
     <label class="field"><span>Email</span><input class="input" value="<%= user.email %>" disabled></label>
-    <label class="check" style="margin-bottom:20px"><input type="checkbox" name="optin" <%= user.marketingOptIn ? 'checked' : '' %>> Weekly founder digest</label>
+    <label class="check" style="margin-bottom:20px"><input type="checkbox" name="optin" <%= user.marketingOptIn ? 'checked' : '' %>> Founder emails and the weekly digest</label>
     <button class="btn">Save</button>
   </form>
   <div class="card pad-lg">
+    <h3>Help</h3>
+    <p class="small muted">A question about your account, billing, a refund or anything else? A person answers within one business day.</p>
+    <a href="/app/help" class="btn ghost sm">Get help</a>
+    <hr class="rule" style="margin:28px 0">
     <h3>Your assessment</h3>
     <p class="small muted">Your roadmap is built from your answers. Retake it when your stage or goal changes.</p>
     <a href="/start?retake=1" class="btn ghost sm">Retake assessment</a>
     <hr class="rule" style="margin:28px 0">
     <h3>Delete account</h3>
-    <p class="small muted">Permanently deletes your account, answers, progress and posts.<%= userPlan.key !== 'free' ? ' Deleting ends your paid membership right away, without a refund for the rest of the month' + (user.foundingPrice ? ', and ends your founding price' : '') + '.' : '' %></p>
+    <p class="small muted">Permanently deletes your account, answers, progress and posts.<%= userPlan.key !== 'free' || pauseInfo ? ' Deleting ends your paid membership right away, without a refund for the rest of the month' + (user.foundingPrice ? ', and ends your founding price' : '') + '.' : '' %></p>
     <% if (userPlan.key !== 'free' && !user.cancelAt) { %>
       <form method="post" action="/app/billing/cancel" class="delete-instead">
         <input type="hidden" name="intent" value="cancel">

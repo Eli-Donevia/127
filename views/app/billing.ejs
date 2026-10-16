@@ -2,6 +2,21 @@
 <div class="page-head"><div><div class="eyebrow">Your plan</div><h1>Membership</h1></div></div>
 <% var foundingPlan = userPlan.key === 'builder' && user.foundingPrice; var ends = fmtDate(user.cancelAt); %>
 
+<% if (pauseInfo) { var pStart = fmtDate(pauseInfo.startsAt), pBack = fmtDate(pauseInfo.resumesAt); %>
+<div class="card billing-cancelled" id="pause">
+  <div>
+    <% if (pauseInfo.paused) { %>
+    <h3>Paused until <%= pBack %></h3>
+    <p class="small muted">Your roadmap and price are saved. Nothing will be charged until <%= pBack %>. Want back sooner?</p>
+    <% } else { %>
+    <h3>Your pause is set</h3>
+    <p class="small muted">Your pause starts when your paid month ends on <%= pStart %>, so you keep every day you paid for. Then no charge for one month, until <%= pBack %>. Your roadmap, saved work and price stay; Builder tools are locked until you're back. We'll email you before it restarts.</p>
+    <% } %>
+    <p class="tiny muted" style="margin:6px 0 0"><%= pauseInfo.paused ? 'Resume now and Builder comes back right away.' : 'Change your mind and Builder carries on as usual.' %> Next charge: <%= fmtDate(user.periodEnd) || pBack %>, $<%= pausePrice %>.</p>
+  </div>
+  <form method="post" action="/app/billing/pause/resume"><button class="btn light"><%= pauseInfo.paused ? 'Resume now' : 'Keep Builder, no pause' %></button></form>
+</div>
+<% } %>
 <% if (user.cancelAt && userPlan.key !== 'free') { %>
 <div class="card billing-cancelled">
   <div>
@@ -36,7 +51,10 @@
 
 <div class="grid g-3" style="margin-bottom:24px">
   <div class="card"><div class="stat"><div class="l">Current plan</div>
-    <% if (foundingPlan) { %>
+    <% if (pauseInfo && pauseInfo.paused) { %>
+      <div class="v">Builder · paused</div>
+      <div class="small muted">Restarts <%= fmtDate(pauseInfo.resumesAt) %> at $<%= pausePrice %>/month<%= user.foundingPrice ? ', your founding price' : '' %>.</div>
+    <% } else if (foundingPlan) { %>
       <div class="v">Builder · founding member<%= user.foundingNumber ? ' #' + user.foundingNumber : '' %></div>
       <div class="small muted">$<%= launch.foundingPrice || 19 %>/month, locked while you stay. Switching plans keeps it; cancelling ends it.</div>
     <% } else { %>
@@ -46,7 +64,7 @@
   <div class="card"><div class="stat"><div class="l">Playbook messages</div><div class="v"><%= userPlan.aiRunsPerMonth %></div><div class="small muted">per month</div></div></div>
   <div class="card">
     <div class="stat"><div class="l">Manage</div></div>
-    <% if (userPlan.key !== 'free') { %>
+    <% if (userPlan.key !== 'free' || (pauseInfo && pauseInfo.paused)) { %>
       <div class="manage-row">
         <form method="post" action="/app/billing/portal"><button class="btn ghost sm"><%= stripeLive ? 'Card and invoices' : demoBilling ? 'Demo: set back to Free' : 'Manage billing' %></button></form>
         <% if (!user.cancelAt) { %><a class="btn ghost sm" href="/app/billing/cancel">Cancel</a><% } %>

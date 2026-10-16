@@ -1,0 +1,11 @@
+<%# Dashboard nudge (lib/member-signals.js analyzeMember().nudge). "Not now" hides it for the rest of the day. %>
+<div class="card nudge-card" role="note" style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px">
+  <div style="min-width:0">
+    <h3 style="margin:0 0 4px"><%= nudge.title %></h3>
+    <% if (nudge.body) { %><p class="small muted" style="margin:0"><%= nudge.body %></p><% } %>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <% if (nudge.cta && /^\/[^/]/.test(nudge.cta.href)) { %><a class="btn sm" href="<%= nudge.cta.href %>"><%= nudge.cta.label %></a><% } %>
+    <form method="post" action="/app/nudge/dismiss"><button class="link small" style="background:none;border:0;padding:0;cursor:pointer;color:var(--muted)">Not now</button></form>
+  </div>
+</div>

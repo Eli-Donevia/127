@@ -8,6 +8,8 @@
     <div class="paywall"><div class="eyebrow">Builder</div><h3>This tool is part of Builder</h3><p>Every AI tool, about <%= builderOffer.messages %> Playbook messages a month, the full library and your whole roadmap.<%= builderOffer.founding ? ' $' + builderOffer.price + ' a month for founding members until ' + builderOffer.closesDate + '.' : '' %></p><form method="post" action="/app/billing/checkout/builder" data-upgrade="tool" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form><%- include('../partials/renewal-line') %></div>
   <% } else { %>
   <div class="chat" id="chat">
+    <%# Legal's AI disclosure (ai.DISCLOSURE), at the start of every chat session. %>
+    <p class="small muted chat-disclosure" role="note" style="margin:0 0 16px"><%= aiDisclosure %></p>
     <% if (!chat.length) { %>
       <div class="chat-empty">
         <p class="lede" style="margin:0 0 6px"><%= tool.blurb %></p>
@@ -31,7 +33,6 @@
     <textarea class="input" name="message" rows="2" maxlength="2000" placeholder="Ask about your idea, offer, pricing, customers, content…" required <%= aiLeft <= 0 ? 'disabled' : '' %>></textarea>
     <button class="btn" <%= aiLeft <= 0 ? 'disabled' : '' %>>Send</button>
   </form>
-  <p class="tiny muted" style="margin-top:10px">AI suggestions built on Eli's frameworks. Not Eli himself, and not financial, legal or tax advice.</p>
   <script>
     (function(){var f=document.getElementById('composer');if(!f)return;var t=f.querySelector('textarea');
     t.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(t.value.trim())f.requestSubmit();}});

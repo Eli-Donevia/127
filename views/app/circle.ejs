@@ -31,7 +31,13 @@
           <% if (sc && sc.state !== 'not_open') { %><a class="btn gold" href="/app/circle/scorecard"><%= sc.existing ? 'Edit my Scorecard' : 'Fill in my Scorecard' %> <span class="arrow"></span></a><% } %>
           <% if (callUrl) { %><a class="btn ghost" href="<%= callUrl %>" target="_blank" rel="noopener">Open The Room</a><% } else { %><span class="small" style="color:var(--on-dark-2)">Call link coming soon.</span><% } %>
         </div>
+        <p class="tiny" style="margin:14px 0 0"><a class="link" href="/app/circle/call.ics" style="color:var(--on-dark-2)">Add every call to my calendar</a></p>
       </div>
+      <form method="post" action="/app/circle/question" class="card pad-lg" id="question">
+        <label class="field" style="margin:0"><span>Your question for this week's call</span>
+          <textarea class="input" name="question" maxlength="1000" rows="3" required></textarea></label>
+        <button class="btn ghost sm" style="margin-top:10px">Send to Eli</button>
+      </form>
       <% if (sc) { %>
         <div class="card pad-lg circle-sc">
           <div class="card-title"><h3>Scorecard · <%= sc.label %></h3><% if (sc.existing) { %><span class="chip gold"><%= sc.existing.late ? 'Sent, late' : 'Sent' %></span><% } %></div>

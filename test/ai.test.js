@@ -133,6 +133,17 @@ test('the system prompt is the same for every member and caches', () => {
   // 127 is 18+ (Legal L1): the prompt never coaches minors as members.
   assert.match(p, /every member must be 18 or older/);
   assert.doesNotMatch(p, /Members under 18 can build|late teens/);
+  // Legal L42: the under-18 marker is for the member's own age only, and the Playbook asks nothing about age.
+  assert.match(p, /If the member says they themselves are under 18 right now, reply with only \[\[under18\]\] and nothing else/);
+  assert.match(p, /It doesn't count for anyone else's age/);
+  assert.match(p, /a hypothetical \("what if I were 16\?"\)/);
+  assert.match(p, /Decide from the member's latest message only/);
+  assert.match(p, /Never ask anyone their age or school year/);
+  assert.match(p, /Never tell a member to quit their job or school, borrow money/);
+  // Eli's facts: "gross sales" (Legal C2), the earnings line, no "multiple six-figure" (Legal rule 2).
+  assert.match(p, /- \$50K in gross sales from a part-time e-commerce brand/);
+  assert.match(p, /add right after it: "Eli's results aren't typical or a promise of what you'll earn\."/);
+  assert.doesNotMatch(p, /multiple six-figure/);
   const again = load(KEY).systemPrompt();
   assert.equal(p, again, 'deterministic across loads');
 });
@@ -443,4 +454,72 @@ test('real SDK request shape (fake fetch): beta header, body and cache markers',
   assert.deepEqual(seen.body.system[0].cache_control, { type: 'ephemeral', ttl: '1h' });
   assert.equal(seen.body.messages.at(-1).role, 'system');
   assert.deepEqual(seen.body.messages[0].content[0].cache_control, { type: 'ephemeral' });
+});
+
+test('under 18 (Legal L42): the marker becomes the fixed reply and flags the result in every mode', async () => {
+  const ai = load(KEY);
+  const ask = (content) => ai.chat([{ role: 'user', content }], member());
+  ai._test.setClient(fakeClient([reply('[[under18]]')]));
+  assert.deepEqual(await ask("I'm 16 and want to start a lawn mowing business. Where do I start?"), { demo: false, text: ai.UNDER18_REPLY, flags: ['under18'] });
+  assert.match(ai.UNDER18_REPLY, /^127 is for people 18 and older/);
+  assert.match(ai.UNDER18_REPLY, /hello@127group\.io/);
+  // Whatever else the model writes never reaches the member: no follow-up questions about age, no coaching.
+  ai._test.setClient(fakeClient([reply('[[ under18 ]]\nHow old are you exactly? Meanwhile, price lawns at $30.\n\nNext: ask 5 neighbors.')]));
+  const extra = await ask('im 15 lol');
+  assert.equal(extra.text, ai.UNDER18_REPLY);
+  assert.deepEqual(extra.flags, ['under18']);
+  // The crisis rule comes first: the crisis reply is kept (marker removed), and the result still flags.
+  ai._test.setClient(fakeClient([reply("[[under18]]\nI'm really glad you told me. Please call or text 988 right now, or tell someone you trust.")]));
+  const crisis = await ask("I'm 15 and I don't want to be here anymore.");
+  assert.match(crisis.text, /call or text 988/);
+  assert.doesNotMatch(crisis.text, /under18|\[\[/);
+  assert.deepEqual(crisis.flags, ['under18']);
+  // Tools, worksheet reviews and template reviews carry the flag the same way.
+  ai._test.setClient(fakeClient([reply('[[under18]]'), reply('[[under18]]'), reply('[[under18]]')]));
+  const tool = ai.TOOLS.find((t) => t.slug === 'hook-writer');
+  const input = Object.fromEntries(tool.fields.map((f) => [f.name, f.type === 'select' ? f.options[0] : "I'm 16 and I sell custom phone cases"]));
+  assert.deepEqual(await ai.run(tool, input, member({ tier: 'builder' })), { demo: false, text: ai.UNDER18_REPLY, flags: ['under18'] });
+  const resource = require('../content/resources.json').resources[0];
+  assert.deepEqual((await ai.review(resource, {}, member())).flags, ['under18']);
+  const template = { slug: 'dm-scripts', title: 'DM Scripts', aiPrompt: 'Specific and honest.', pairsWith: [] };
+  assert.deepEqual((await ai.reviewTemplate(template, "Hi, I'm 16 and I mow lawns.", member())).flags, ['under18']);
+  // The roadmap note: null for the site's current call, or { text: null, flags } when it asks for flags.
+  ai._test.setClient(fakeClient([reply('[[under18]]'), reply('[[under18]]')]));
+  assert.equal(await ai.roadmapNote(member()), null);
+  assert.deepEqual(await ai.roadmapNote(member(), { withFlags: true }), { text: null, flags: ['under18'] });
+});
+
+test('under 18: nothing flags without the marker, whatever ages the member mentions', async () => {
+  const ai = load(KEY);
+  // The code never decides on its own: other people's ages, hypotheticals, past ages and scripts
+  // are the model's call (and the prompt says they don't count). Even a stated age flags only
+  // through the model's marker. scripts/under18-check.js tests the model's side, live.
+  const said = [
+    'My little brother is 16 and wants to help me with the business. Can he?',
+    'What if I were 16, would your advice be different?',
+    "I started selling candy at school when I was 15. Now I'm 22 and want to start again.",
+    'Write me a hook that starts with "I\'m 17 and I just made my first sale".',
+    'My customers are high schoolers, mostly 15 to 17. How do I reach them?',
+    "I'm 10 years into my career and want a side business.",
+    "I'm 16 and want to start mowing lawns.",
+  ];
+  for (const content of said) {
+    ai._test.setClient(fakeClient([reply('Start with five conversations this week.\n\nNext: list five people to ask.')]));
+    const r = await ai.chat([{ role: 'user', content }], member());
+    assert.equal(r.flags, undefined, content);
+    assert.equal(r.text, 'Start with five conversations this week.\n\nNext: list five people to ask.');
+  }
+  // Tools don't flag without it either.
+  ai._test.setClient(fakeClient([reply('10 hooks.\n\nNext: film one.')]));
+  const tool = ai.TOOLS.find((t) => t.slug === 'hook-writer');
+  const input = Object.fromEntries(tool.fields.map((f) => [f.name, f.type === 'select' ? f.options[0] : "\"I'm 17 and I made my first sale\" for my students"]));
+  assert.equal((await ai.run(tool, input, member({ tier: 'builder' }))).flags, undefined);
+  // The roadmap note without the marker: the same string as before, or { text } when asked.
+  ai._test.setClient(fakeClient([reply('Dani, score your ideas today.'), reply('Dani, score your ideas today.')]));
+  assert.equal(await ai.roadmapNote(member()), 'Dani, score your ideas today.');
+  assert.deepEqual(await ai.roadmapNote(member(), { withFlags: true }), { text: 'Dani, score your ideas today.' });
+  // Demo answers (no key) never flag. (load() clears the key, so this goes last.)
+  const demo = await load().chat([{ role: 'user', content: "I'm 16 and want to start mowing lawns." }], member());
+  assert.equal(demo.demo, true);
+  assert.equal(demo.flags, undefined);
 });

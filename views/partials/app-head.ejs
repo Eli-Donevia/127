@@ -13,7 +13,7 @@
     admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
   };
   var nav = [['/app','Dashboard',I.home],['/app/library','Library',I.lib],['/app/tools','AI tools',I.ai],['/app/wins','Wins',I.win],['/app/circle',"Founder's Circle",I.circle],['/app/billing','Membership',I.card],['/app/settings','Settings',I.gear]];
-  if (isAdmin) nav.push(['/admin','Admin',I.admin]);
+  if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); }
 %>
 <div class="mobile-top">
   <a href="/app" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
@@ -26,14 +26,14 @@
       <button class="btn ghost sm" style="display:none" id="closeSide" onclick="document.getElementById('side').classList.remove('open')">Close</button>
     </div>
     <nav>
-      <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : path.indexOf(n[0])===0 || (n[0]==='/app/library' && path.indexOf('/app/templates')===0); %>
+      <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : n[0]==='/admin' ? path==='/admin' : path.indexOf(n[0])===0 || (n[0]==='/app/library' && path.indexOf('/app/templates')===0); %>
         <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %></a>
       <% }) %>
     </nav>
     <div class="side-foot">
       <div class="who"><%= user.name || user.email %></div>
-      <div class="muted small" style="margin-bottom:12px"><%= userPlan.name %> member</div>
-      <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" class="side-upgrade" data-upgrade="sidebar" data-price="<%= builderOffer.price %>"><button class="btn sm block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Become a Builder' %></button><%- include('renewal-line', { rlClass: 'tiny' }) %></form><% } %>
+      <div class="muted small" style="margin-bottom:12px"><%= pauseInfo && pauseInfo.paused ? 'Builder member · paused' : userPlan.name + ' member' %></div>
+      <% if (userPlan.key === 'free' && !pauseInfo) { %><form method="post" action="/app/billing/checkout/builder" class="side-upgrade" data-upgrade="sidebar" data-price="<%= builderOffer.price %>"><button class="btn sm block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Become a Builder' %></button><%- include('renewal-line', { rlClass: 'tiny' }) %></form><% } %>
       <form method="post" action="/logout"><button class="link small" style="background:none;border:0;padding:0;cursor:pointer;color:var(--muted)">Sign out</button></form>
     </div>
   </aside>
@@ -44,5 +44,7 @@
       <form method="post" action="/app/billing/portal"><button class="btn light sm">Update card</button></form>
     </div>
     <% } %>
+    <% if (ageReview) { %><div class="alert info age-pause" role="status"><%= agePauseMessage %></div><% } %>
+    <% if (pauseInfo && pauseInfo.paused && path !== '/app/billing') { %><div class="alert info">Paused until <%= fmtDate(pauseInfo.resumesAt) %>. Your roadmap and price are saved. <a class="link" href="/app/billing#pause">Resume now</a></div><% } %>
     <% if (checkoutCancelled) { %><div class="alert info">No charge was made.<%= builderOffer.founding ? ' Your founding price is here until ' + builderOffer.closesDate + '.' : '' %></div><% } %>
     <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.text %></div><% } %>

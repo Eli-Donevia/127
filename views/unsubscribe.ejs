@@ -1,0 +1,21 @@
+<%- include('partials/doc-start') %>
+<body class="bare">
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a></div>
+  <main class="auth-card fade-in">
+    <div class="eyebrow">Email</div>
+    <h1 style="margin-top:12px">Unsubscribe</h1>
+    <% if (done) { %>
+      <p class="muted" style="margin:0 0 20px">You're unsubscribed from founder emails and the weekly digest. You'll still get account and billing emails.</p>
+    <% } else if (!ok) { %>
+      <p class="muted" style="margin:0 0 20px">This link doesn't work. You can turn emails off in Settings, or email hello@127group.io.</p>
+    <% } else { %>
+      <p class="muted" style="margin:0 0 20px">Stop founder emails and the weekly digest? You'll still get account and billing emails.</p>
+      <form method="post" action="/unsubscribe">
+        <input type="hidden" name="u" value="<%= u %>"><input type="hidden" name="t" value="<%= t %>">
+        <button class="btn block">Unsubscribe</button>
+      </form>
+    <% } %>
+    <%- include('partials/legal-footer', { privacyTerms: true }) %>
+  </main>
+</body>
+</html>
