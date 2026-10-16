@@ -1,0 +1,2087 @@
+{
+  "_readme": "The 127 library. Every item was drafted by AI from Eli's founder intake and frameworks and is waiting for Eli's review: set \"reviewed\": true on an item once he signs off, and the draft label disappears. Fields: sections (heading + body/steps/bullets/example/template), optional worksheet (fields members fill in and save; ids must stay stable once members use them), optional calc (idea-score, pricing, budget or kpi: an interactive calculator built into the app), aiPrompt (what Eli's Playbook checks when a member asks for feedback). tier: free or builder.",
+  "resources": [
+    {
+      "slug": "idea-filter",
+      "title": "The Idea Test",
+      "track": "start",
+      "type": "Worksheet",
+      "tier": "free",
+      "minutes": 30,
+      "summary": "Score up to five business ideas against Eli's five questions so you pick one on purpose, not on mood.",
+      "output": "One chosen idea with a score, a written reason it won, the proof you have so far and the name of an insider you will talk to this week.",
+      "framework": "The Idea Test",
+      "calc": "idea-score",
+      "sections": [
+        {
+          "heading": "Pick in one sitting, then move",
+          "body": "Set a timer for 30 minutes. By the end you will have one idea, not five. Eli's rule: no idea is perfect, don't ideate too long. Every week you spend comparing ideas in your head is a week you could have spent talking to real customers, and customers will teach you more than any list.\n\nWrite down up to five ideas in the scoring grid. They don't need to be polished. \"Lawn care for my neighborhood\", \"resume reviews for college seniors\" and \"editing short-form videos for local gyms\" are all fine. If you have more than five, keep the five you would actually be willing to work on for the next year. If you only have one, score it anyway. A low score is still useful: it tells you what to fix or what proof to go find.",
+          "bullets": [
+            "Score each idea 1 to 5 on every question. 1 means no or no proof. 3 means maybe, some signs. 5 means yes, with proof you can point to.",
+            "Score fast. Your first honest answer is usually right. Come back to the ones you are unsure about after you finish the grid.",
+            "Nobody sees this but you. A flattering score helps nobody."
+          ]
+        },
+        {
+          "heading": "The five questions",
+          "body": "These are the questions Eli runs before committing to anything. They are in this order on purpose: if an idea fails question one, the rest barely matter.",
+          "steps": [
+            "Does it solve a problem people pay to solve, or add value they will pay for? Value counts too: saving time, peace of mind, education. Look for proof: people already paying someone, searching for it, complaining about it, or hacking together their own fix. Example: busy parents already pay for tutoring. That is proof. \"People would probably like an app for this\" is not.",
+            "Do the economics work, and does it scale? Could one sale make you money after costs? Through which channels would you reach buyers (Instagram, TikTok, Facebook groups, door to door, campus clubs, local businesses), and how hard are those channels to get into? A sneaker cleaning side business can reach buyers through local sneaker groups and resellers. A new energy drink needs shelf space in stores, which is a much harder channel.",
+            "What is your differentiator? Faster, cheaper, higher quality, or a better supply chain. Pick one you can actually back up. \"I care more\" is not a differentiator until a customer can feel it. \"Resume edits back in 24 hours instead of a week\" is.",
+            "Is the market growing or shrinking, and how is AI changing it? Eli's example: someone could have a fantastic newspaper business, but the market is shrinking no matter how good the business is. Ask whether AI makes your idea easier to deliver (good) or makes it free for the customer to do themselves (dangerous). Basic resume formatting is getting replaced by AI tools. Coaching someone through a career switch is harder to replace.",
+            "Have you talked to an insider? If you didn't live the problem, talk to someone who did or who works inside that industry. A landscaper, a gym owner, a recruiter, a parent who hires tutors. One real conversation beats ten hours of research."
+          ]
+        },
+        {
+          "heading": "The sixth question: would you still care in 2 years?",
+          "body": "The grid adds one more row: would I still care about this in 2 years? Eli's biggest early mistake was trying to do too much. His advice: there are a million ways to make money, pick one, get really good at it, and focus on it for the next five years.\n\nYou don't have to marry the idea today. But if you already know you would be bored of it by spring, score it low. Motivation runs out. Interest in the problem and the people you serve is what keeps you going when the first ten DMs get ignored."
+        },
+        {
+          "heading": "How to score honestly",
+          "body": "Most first-time founders score their favorite idea high on everything. That is normal, and it is the fastest way to waste three months. Use these rules to keep yourself honest.",
+          "bullets": [
+            "No proof, no score above 2. If you can't name a person, a post, a competitor or a price you have seen, it is a guess.",
+            "A competitor is proof, not a threat. If nobody else sells it, ask why before you get excited. Often it is because nobody pays for it.",
+            "Your friends saying \"that's a cool idea\" counts as zero. Compliments are not proof. Money, time and effort are.",
+            "Score the idea as it is today, not the version you imagine after a year of work.",
+            "If you scored a 5, write the proof next to it. If you can't, drop it to a 3.",
+            "Your product likely sucks at the start. That's fine. The question is whether you can prove it is better than the competition, not whether you love it."
+          ]
+        },
+        {
+          "heading": "Breaking ties",
+          "body": "If two ideas finish within a few points of each other, don't add more questions. Use these tie breakers in order and stop at the first one that separates them.",
+          "steps": [
+            "Higher score on question one wins. Proof that people pay beats everything else.",
+            "Shortest path to a first paying customer wins. Lawn care can get a paying customer this weekend. A print-on-demand brand needs designs, a store and traffic first.",
+            "Lowest cost to start wins. Pick the idea you can test with your phone and under a hundred dollars.",
+            "The one where you already know an insider wins. Your network is your net worth.",
+            "Still tied? Flip a coin. If you feel disappointed by the result, pick the other one. Then stop thinking and start."
+          ]
+        },
+        {
+          "heading": "Worked example",
+          "example": "Maya, 19, scored three ideas. Tutoring high schoolers in math: proof 5 (parents in her town post in Facebook groups looking for tutors), economics 4, differentiator 3 (she scored a 5 on the AP exam and lives nearby), market 4 (AI helps her prep, parents still want a person), insider 4 (her old math teacher), 2-year care 4. Total 24. Print-on-demand anime shirts: proof 3, economics 2 (thin margins after the print provider takes its cut), differentiator 2, market 3, insider 1, care 5. Total 16. Video editing for local gyms: proof 3, economics 4, differentiator 3, market 3, insider 2, care 3. Total 18. She picked tutoring. Her reason: \"Parents already pay for this and I can get my first student this week.\" She keeps the shirt idea as a side project for later, not now."
+        },
+        {
+          "heading": "Your output: one idea and one conversation",
+          "body": "Fill in the worksheet below. The most important field is the last one. Before the week is over, you will talk to one insider about the idea that won. Then move on to Validation Interview Scripts to go talk to 10 real people.\n\nEli's advice on the mindset: make today day one. The faster you fail, the faster you learn. An idea you test this week beats a perfect idea you are still thinking about next month."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "chosen_idea",
+          "label": "The idea you chose (one sentence: what you sell and to whom)",
+          "type": "text",
+          "placeholder": "Math tutoring for high schoolers in my town"
+        },
+        {
+          "id": "why_it_won",
+          "label": "Why it won (score, and the tie breaker if you used one)",
+          "type": "textarea",
+          "placeholder": "Scored 24. Highest proof that people pay, fastest first customer."
+        },
+        {
+          "id": "proof_so_far",
+          "label": "Proof you have found so far (people paying, posts, competitors, prices)",
+          "type": "textarea",
+          "placeholder": "3 Facebook group posts asking for tutors, local tutors charge $40 to $60 an hour"
+        },
+        {
+          "id": "insider_this_week",
+          "label": "The insider you will talk to this week, and when",
+          "type": "text",
+          "placeholder": "Mr. Lopez, my old math teacher, Thursday after school"
+        }
+      ],
+      "aiPrompt": "Check that the chosen idea names a specific customer, that the proof is real evidence of people paying rather than opinions or compliments, that the reason it won matches the Idea Test, and that the insider is a named person with a date this week.",
+      "reviewed": false
+    },
+    {
+      "slug": "validation-interviews",
+      "title": "Validation Interview Scripts",
+      "track": "start",
+      "type": "Script",
+      "tier": "free",
+      "minutes": 45,
+      "summary": "Find 10 people with no network, run interviews that get the truth instead of compliments, and decide whether to kill, pause or double down.",
+      "output": "Ten interview notes, the top three phrases your customers repeat, what they pay today and a written kill, pause or double down verdict.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "Book your first interview today",
+          "body": "Before you read the rest, send one message to one person who has the problem you want to solve. Use the outreach template below. The rest of this script works best once you have a conversation on the calendar.\n\nYour goal is 10 conversations. Not surveys, not polls in your Instagram story. Real conversations, 15 minutes each, on a call, in person or over voice notes. Ten is enough to hear the same words repeat and few enough that you can finish in a week or two with a few hours."
+        },
+        {
+          "heading": "Who to talk to and how to find 10 people with no network",
+          "body": "Talk to people who have the problem right now, or who have paid to solve it recently. Not your mom, unless she is the customer. Not friends who will be nice to you. If you are building a resume-review offer, talk to college seniors applying for jobs. If you are starting lawn care, talk to homeowners, not other teenagers.\n\nEli's rule: your network is your net worth, and the hack is to talk to everyone, everywhere, every time. You don't need a network yet. You build it by asking.",
+          "bullets": [
+            "DMs: find people posting about the problem on Instagram, TikTok or X. Comment first, then DM. Someone who just posted \"why is it so hard to find a good editor\" is a perfect interview.",
+            "Reddit: search the subreddit where your customer hangs out (a city subreddit, a college subreddit, a hobby like r/Sneakers). Read the complaints. Message people who posted about the problem, politely and briefly.",
+            "Campus: clubs, career centers, dorm group chats, Discord servers. Ask a club leader if you can post a short ask.",
+            "Family friends: ask your parents, aunts, coaches and old teachers \"who do you know who deals with this?\" Adults love helping a young person who asks a clear question.",
+            "Local businesses: walk in during a slow hour. Owners often say yes to a 10-minute chat with someone who is respectful and specific.",
+            "End every interview with: \"Who else do you know who deals with this?\" One good interview often turns into two more."
+          ]
+        },
+        {
+          "heading": "Outreach message",
+          "body": "Keep it short, honest and easy to say yes to. You are asking to learn, not to sell. Never pretend to be a student researcher if you are not one, and never pitch after promising you won't. Trust is everything, and it starts with the first message.",
+          "template": "Hey [name], I saw your [post/comment] about [problem]. I'm [your first name], I'm starting a small business around [problem area] and I'm trying to learn how people deal with it right now.\n\nWould you be open to a 15-minute call or a few voice notes this week? I'm not selling anything, I just want to understand it from someone who's actually dealt with it.\n\nTotally fine if not. Thanks either way."
+        },
+        {
+          "heading": "The interview script",
+          "body": "The core of every interview is one question: how do you solve this today? What people already do, and already pay for, tells you more than what they say they would buy. Ask about the past, not the future. Never pitch during the interview. Write down their exact words.",
+          "template": "OPEN (1 min)\nThanks for doing this. I'm trying to understand how people deal with [problem]. There are no wrong answers and I'm not selling anything today.\n\nCONTEXT (2 min)\n1. Tell me a bit about you and how [problem area] shows up in your life or work.\n\nTHE PROBLEM (5 min)\n2. Tell me about the last time you dealt with [problem]. What happened?\n3. How often does this come up?\n4. What's the hardest part about it?\n\nHOW THEY SOLVE IT TODAY (5 min)\n5. How are you solving this right now? Walk me through it.\n6. What have you tried before that? What happened?\n7. What does that cost you, in money, time or stress?\n8. What do you like and hate about what you use now?\n\nCLOSE (2 min)\n9. If you could wave a magic wand and fix one thing about this, what would it be?\n10. Who else do you know who deals with this?\n11. Can I follow up with you if I build something?"
+        },
+        {
+          "heading": "Follow-up questions that get the truth",
+          "body": "The first answer is usually surface level. The good stuff comes after you dig. Use these whenever an answer is vague.",
+          "bullets": [
+            "\"Can you tell me more about that?\"",
+            "\"Why was that frustrating?\"",
+            "\"What did you do next?\"",
+            "\"How much did you pay for that?\" or \"How much time did that take?\"",
+            "\"When was the last time that happened?\"",
+            "\"What would happen if you just didn't solve it?\" (If the answer is \"nothing much\", the problem may not be worth paying for.)",
+            "Stay quiet for three seconds after they finish. People fill silence with the honest part."
+          ]
+        },
+        {
+          "heading": "Red flags: answers that feel good and mean nothing",
+          "bullets": [
+            "Compliments. \"That's such a cool idea\" is polite, not proof. Steer back: \"Thanks. How do you handle this today?\"",
+            "\"I'd totally buy that.\" Future promises are cheap. Ask what they have bought or done in the past.",
+            "\"Someone should make that.\" If they have never tried to fix it themselves, the pain might be small.",
+            "Hypotheticals. \"Would you use...\" questions get you guesses. Swap them for \"When did you last...\"",
+            "You talking more than they do. If you are explaining your idea, you stopped interviewing.",
+            "Only talking to friends. They want you to win, so they tell you what you want to hear."
+          ]
+        },
+        {
+          "heading": "Notes template",
+          "body": "Fill one of these in right after every conversation, while it is fresh. If you use Granola it can take notes for you on calls, but still write the exact phrases yourself. Keep all 10 in one place, a Notes doc, a Notion page or Attio.",
+          "template": "Interview #[number] / [date]\nName and who they are: [name, role, how you found them]\nHow they solve it today: [exact steps or tools]\nWhat they pay today: [money, time, or both]\nHardest part, in their words: \"[exact quote]\"\nOther phrases worth stealing: \"[quote]\" / \"[quote]\"\nTried before: [what and why it failed]\nMagic wand answer: [their answer]\nPain level (1 to 5, my judgment): [ ]\nReferrals: [names]\nFollow up OK? [yes/no]"
+        },
+        {
+          "heading": "Read your 10 interviews: kill, pause or double down",
+          "body": "Lay all 10 notes side by side. Highlight any phrase that came up three or more times. Those words become your headline, your offer and your ads. Then make the call. Eli's test for product-market fit is simple: when you have it, people want to pay without you needing to sell them. Ten interviews won't prove PMF, but they show which direction you are heading.",
+          "bullets": [
+            "Kill: most people shrug, already have a cheap fix they like, or can't remember the last time it happened. Nobody pays anything today. Kill it, go back to the Idea Test, and be glad you learned this in two weeks instead of six months.",
+            "Pause: the problem is real but scattered, or you are hearing it from the wrong people. Change one thing (the customer, the problem or the angle) and run five more interviews.",
+            "Double down: the same pain and the same words repeat, people already spend money or hours on bad fixes, and a few asked \"when can I get this?\" or \"can I pay you?\" Move to the One-Page Offer this week."
+          ],
+          "example": "Jordan wanted to clean sneakers for students. After 10 interviews: 7 said they had ruined a pair trying to clean them at home, 5 had paid a shop $25 to $40 and hated the week-long wait, and the phrase \"I don't trust myself with suede\" came up four times. Two asked if he could do a pair this weekend. Verdict: double down. His headline came straight from the interviews."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "problem_statement",
+          "label": "The problem you are testing, in one sentence (who has it and what it is)",
+          "type": "textarea",
+          "placeholder": "College students ruin expensive sneakers trying to clean them at home"
+        },
+        {
+          "id": "ten_people",
+          "label": "Your 10 people: list names or handles and where you found each one",
+          "type": "textarea",
+          "placeholder": "1. @user from r/Sneakers  2. Sam, roommate's friend  3. ..."
+        },
+        {
+          "id": "top_phrases",
+          "label": "Top 3 phrases people repeated, in their exact words",
+          "type": "textarea",
+          "placeholder": "\"I don't trust myself with suede\""
+        },
+        {
+          "id": "what_they_pay",
+          "label": "What they pay today to solve it (money, time or both)",
+          "type": "textarea",
+          "placeholder": "$25 to $40 at a shop, plus a week without the shoes"
+        },
+        {
+          "id": "verdict",
+          "label": "Your verdict",
+          "type": "select",
+          "options": [
+            "Kill",
+            "Pause",
+            "Double down"
+          ]
+        }
+      ],
+      "aiPrompt": "Check that the problem names a specific customer, that the 10 people are real customers rather than only friends and family, that the repeated phrases are quotes rather than the member's own words, that what they pay today is concrete, and that the verdict is supported by the evidence rather than by compliments or future promises.",
+      "reviewed": false
+    },
+    {
+      "slug": "business-model-worksheet",
+      "title": "Business Model Worksheet",
+      "track": "start",
+      "type": "Worksheet",
+      "tier": "builder",
+      "minutes": 40,
+      "summary": "Turn a validated idea into a one-page business model so you know who pays, how you reach them and whether it can grow before you spend money.",
+      "output": "A filled-in one-page business model covering customer, problem, solution, revenue, channels, startup costs, differentiator, market direction and how it scales.",
+      "framework": "The Idea Test",
+      "sections": [
+        {
+          "heading": "Fill the customer and problem boxes first",
+          "body": "Open the worksheet and write the customer and the problem before anything else. Every other box depends on those two. If you can't fill them in one sentence each, go back to your Validation Interview notes and use the words people actually said.\n\nThis worksheet is built on steps one to four of the Idea Test. Step one is the problem and proof. Step two is economics, channels and scale. Step three is your differentiator. Step four is where the market is heading and how AI is changing it. You already scored your idea quickly. Now you write it out properly, one box at a time. Eli's rule: solve problems, don't sell products. So the problem comes before the solution, every time."
+        },
+        {
+          "heading": "Step 1: customer, problem, solution",
+          "bullets": [
+            "Customer: one specific person, not \"everyone\". \"Small gym owners within 20 minutes of me who post on Instagram less than once a week\" beats \"fitness businesses\".",
+            "Problem: what hurts, in their words. Include what they do about it today and what that costs them.",
+            "Solution: what you will do or deliver. Describe the result, not features. \"Four ready-to-post Reels a week, edited from your own clips\" is a solution. \"Video editing services\" is a category.",
+            "Proof: the strongest evidence you have that people pay to solve this. Interviews, competitors, posts, past sales."
+          ]
+        },
+        {
+          "heading": "Step 2: money, channels, costs and scale",
+          "body": "This is where most first ideas quietly break. Be specific and write real numbers where you have them. Rough is fine. Made up is not.",
+          "bullets": [
+            "How you make money: one-time sale, monthly plan, per job, per product, or pay-for-performance. Write the price you plan to test.",
+            "Channels: where your customer already spends attention, and how you will get in front of them. List two at most to start: DMs, short-form video, Facebook groups, flyers, campus clubs, walking into local businesses, a Shopify store with TikTok traffic.",
+            "How hard each channel is to reach: easy (you can start today, free), medium (needs consistent content or relationships), hard (needs money, permission or a gatekeeper, like retail shelves or app store ranking).",
+            "Costs to start: everything you need to make the first sale. Tools, supplies, samples, a domain, ads. Keep it under what you can afford to lose. Many service businesses start with a phone and free tools.",
+            "How it scales: what happens at 10 customers, then 50? Do you hire help, use templates, automate with tools like ManyChat for DMs, or switch to a product? Eli's point: as fast as you can, get to working on the business, not in it. Your business is only as valuable as it is when you aren't there to run it."
+          ]
+        },
+        {
+          "heading": "Step 3: your differentiator",
+          "body": "Pick one: faster, cheaper, higher quality, or a better supply chain. Then write the proof. Your product likely sucks at the start, so you need a clear reason a buyer would choose you over what they use today.",
+          "example": "Lawn care example. Most local services take a week to quote. Differentiator: faster. \"Text a photo of your yard, get a price in 10 minutes, mowed by Saturday.\" Proof: three neighbors said waiting for quotes was the most annoying part."
+        },
+        {
+          "heading": "Step 4: market direction and AI impact",
+          "body": "Ask two questions. Is this market growing or shrinking? How is AI changing it? Write both answers, and write what you will do about each.\n\nAI can cut your costs (faster editing, faster research, quicker websites) or replace what you sell (if a customer can type one prompt and get the same result for free). If it is the second, change the offer so you sell what AI can't easily do for them: judgment, trust, local presence, accountability, taste. A short-form editing service that only cuts clips is exposed. One that also plans the hooks, posts on schedule and reports what worked is harder to replace.",
+          "bullets": [
+            "Growing signs: more people searching for it, new competitors raising prices, buyers asking for more.",
+            "Shrinking signs: prices dropping every year, customers moving to a free option, fewer businesses offering it.",
+            "Check with Perplexity or Claude for recent trends, then confirm by asking one insider."
+          ]
+        },
+        {
+          "heading": "Sanity check before you move on",
+          "steps": [
+            "Can you name 10 real people who match your customer box? If not, the customer is too vague or too hard to reach.",
+            "Is at least one channel easy? If both are hard, you will burn months before your first sale.",
+            "Can you make the first sale for less than you are willing to lose? If not, find a smaller first version.",
+            "Does your differentiator have proof from a real person? If not, it is a guess.",
+            "If AI made this 10 times cheaper next year, would you still have a business? If not, adjust the offer now.",
+            "Would you do this for five years? Eli's advice is to pick one thing and get really good at it."
+          ]
+        },
+        {
+          "heading": "Your output",
+          "body": "When every field below is filled in, you have a one-page business model. Read it out loud in under two minutes. If you stumble, simplify. Then take it into The One-Page Offer and the Pricing Worksheet.\n\nShow it to one insider and one mentor. Ask them one question: \"What here do you think is wrong?\" Nobody is self-made, and a second pair of eyes catches the box you filled in with hope instead of evidence. Keep the model honest as you learn: update it after every 10 customer conversations. No shortcuts here. A model built on wishful numbers will cost you more than a slow week of real work."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "customer",
+          "label": "Customer: who exactly pays you?",
+          "type": "text",
+          "placeholder": "Small gym owners within 20 minutes of me"
+        },
+        {
+          "id": "problem",
+          "label": "Problem: what hurts, in their words, and what they do about it today",
+          "type": "textarea"
+        },
+        {
+          "id": "solution",
+          "label": "Solution: the result you deliver",
+          "type": "textarea"
+        },
+        {
+          "id": "revenue",
+          "label": "How you make money: model and the price you will test",
+          "type": "text",
+          "placeholder": "Monthly plan, $300/month"
+        },
+        {
+          "id": "channels",
+          "label": "Channels (two max) and how hard each is to reach: easy, medium or hard",
+          "type": "textarea",
+          "placeholder": "Walk-ins (easy), Instagram DMs (easy)"
+        },
+        {
+          "id": "startup_costs",
+          "label": "Costs to start: everything needed for the first sale",
+          "type": "textarea"
+        },
+        {
+          "id": "differentiator",
+          "label": "Differentiator: faster, cheaper, higher quality or better supply chain, plus proof",
+          "type": "textarea"
+        },
+        {
+          "id": "market_ai",
+          "label": "Market direction and AI impact: growing or shrinking, and what AI changes",
+          "type": "textarea"
+        },
+        {
+          "id": "scale",
+          "label": "How it scales: what changes at 10 customers and at 50",
+          "type": "textarea"
+        }
+      ],
+      "aiPrompt": "Check that the customer is specific and reachable, the problem comes before the solution, at least one channel is easy to reach, startup costs are realistic and small, the differentiator has proof, the AI impact answer addresses whether AI could replace the offer, and the scale plan moves the founder toward working on the business rather than in it.",
+      "reviewed": false
+    },
+    {
+      "slug": "offer-builder",
+      "title": "The One-Page Offer",
+      "track": "start",
+      "type": "Template",
+      "tier": "builder",
+      "minutes": 45,
+      "summary": "Build an offer so clear and so good it feels almost too good to refuse, on one page you can paste into a DM, a landing page or a pitch.",
+      "output": "A finished one-page offer covering who it is for, the outcome, timeframe, what's included, bonuses, guarantee, price framing and why they should trust you.",
+      "framework": "The too-good-to-refuse offer",
+      "sections": [
+        {
+          "heading": "Start with the outcome, not the product",
+          "body": "Write one sentence: \"I help [who] get [outcome] in [timeframe].\" That sentence is the spine of your offer. Everything else on this page supports it.\n\nEli's principle: make the offer so good it feels too good to be true, so good that nobody would turn it down if it really does what you say. That doesn't mean lying or overpromising. It means stacking real value, removing risk and framing the price so the buyer's decision feels easy. Trust beats everything in sales. If you promise it, deliver it."
+        },
+        {
+          "heading": "The eight parts of the offer",
+          "steps": [
+            "Who it's for: one specific person. Name who it is not for too. \"For college seniors applying to finance internships\" beats \"for job seekers\".",
+            "The outcome: the result they get, in the words they used in your interviews. Make it measurable if you can: more interviews, a clean yard, four posts a week, a B on the next test.",
+            "The timeframe: how fast they get it. Speed is value. \"Back in 48 hours\" or \"in 30 days\".",
+            "What's included: the actual deliverables. Keep it to three to five items. Specific beats long.",
+            "Bonuses: extras that remove the next problem they will hit. A bonus should be cheap for you to deliver and valuable to them, like a template, a checklist or a quick follow-up call.",
+            "Guarantee or risk reversal: what happens if it doesn't work. Free redo, money back, pay only when satisfied, or pay for performance. Only offer what you can afford to honor.",
+            "Price framing: the smallest number for cost, the largest number for value. \"$3 a day\" instead of \"$90 a month\". \"Worth a $60k job offer\" instead of \"better resume\".",
+            "Why trust you: proof. Past results, a testimonial, your own story, your credentials, or a free first sample. If you have nothing yet, give your first few customers a deal in exchange for honest reviews."
+          ]
+        },
+        {
+          "heading": "Make it too good to refuse",
+          "bullets": [
+            "Stack value until the price feels small. List what each part would cost if they bought it separately.",
+            "Remove the scary part. Ask yourself what would stop them from saying yes today, then answer it on the page.",
+            "Lower the risk until saying no feels like the bigger risk.",
+            "Use their words, not yours. Steal phrases straight from your interview notes.",
+            "Make the next step tiny: \"Reply YES\", \"Book a 10-minute call\", \"Send me your resume\".",
+            "Test a new pricing model. Paid on results, first job free, or pay after delivery can make a normal offer stand out in a crowded market."
+          ]
+        },
+        {
+          "heading": "Filled example: resume review for college seniors",
+          "example": "For: college seniors applying to business and finance internships who are getting no callbacks. Not for: people who want a full career coach.\n\nOutcome: a resume that gets past the filters and gets you interviews.\n\nTimeframe: back in 48 hours.\n\nIncluded: a line-by-line rewrite of your resume, a version tailored to one job posting you choose, and a 15-minute video walkthrough explaining every change.\n\nBonuses: a LinkedIn headline and About section rewrite, plus a cold email template for reaching recruiters.\n\nGuarantee: if you don't love it, I redo it free. If you still don't love it, full refund.\n\nPrice: $49 one time. That's less than a dollar a week over a semester, for a document that could land a summer offer worth thousands.\n\nWhy trust me: I rewrote resumes for six classmates last semester, and four of them got interviews within a month. (Use your real numbers only. If you have none, offer your first five at $19 for honest feedback.)\n\nNext step: DM me \"RESUME\" and send your current version."
+        },
+        {
+          "heading": "Copyable one-page offer template",
+          "body": "Copy this, fill every bracket, and cut anything that doesn't help the buyer decide. It should fit on one phone screen when you scroll twice.",
+          "template": "[OFFER NAME]\n\nFor: [specific person] who [struggle, in their words].\nNot for: [who this isn't for].\n\nYou get: [outcome] in [timeframe].\n\nWhat's included:\n1. [deliverable]\n2. [deliverable]\n3. [deliverable]\n\nBonuses:\n- [bonus that solves the next problem]\n- [bonus]\n\nOur promise: [guarantee or risk reversal].\n\nPrice: [price]. That's [smallest framing, e.g. per day or per use].\nWhat it's worth: [largest framing, e.g. per year or per outcome].\n\nWhy trust me: [proof: results, testimonial, story, sample].\n\nNext step: [one tiny action, e.g. Reply YES / Book 10 min at link]."
+        },
+        {
+          "heading": "Test it before you publish",
+          "steps": [
+            "Read it out loud to someone who matches the \"For\" line. If they ask \"so what do you actually do?\", it is not clear yet.",
+            "Ask them: \"What would stop you from buying this today?\" Fix that on the page.",
+            "Send it to three people from your validation interviews. Watch who asks how to pay.",
+            "Check every promise. If you can't deliver it every time, cut it. How you do one thing is how people think you do everything.",
+            "Once it holds up, turn it into your landing page brief.",
+            "Revisit it after your first five sales. Add the real results and testimonials to the trust section, and cut any part nobody cared about."
+          ]
+        },
+        {
+          "heading": "Your output",
+          "body": "Fill in each field below. When you are done you will have a one-page offer you can paste into a DM, your bio link or a landing page. If you want a second opinion, paste it into Claude and ask: \"Act as my customer. What would stop you from buying this?\" Keep it honest. No fake scarcity, no fake reviews, no promises you can't keep. Win their trust, win their wallet."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "who_for",
+          "label": "Who it's for (and who it's not for)",
+          "type": "textarea"
+        },
+        {
+          "id": "outcome",
+          "label": "The outcome, in your customer's words",
+          "type": "text"
+        },
+        {
+          "id": "timeframe",
+          "label": "The timeframe",
+          "type": "text",
+          "placeholder": "Back in 48 hours"
+        },
+        {
+          "id": "included",
+          "label": "What's included (three to five deliverables)",
+          "type": "textarea"
+        },
+        {
+          "id": "bonuses",
+          "label": "Bonuses",
+          "type": "textarea"
+        },
+        {
+          "id": "guarantee",
+          "label": "Guarantee or risk reversal",
+          "type": "text"
+        },
+        {
+          "id": "price_framing",
+          "label": "Price framing: price, smallest-number cost and largest-number value",
+          "type": "textarea",
+          "placeholder": "$90/month = $3 a day. Worth $2,000 in new clients a year."
+        },
+        {
+          "id": "why_trust",
+          "label": "Why they should trust you (real proof only)",
+          "type": "textarea"
+        },
+        {
+          "id": "next_step",
+          "label": "The one tiny next step you ask them to take",
+          "type": "text"
+        }
+      ],
+      "aiPrompt": "Check that the offer names one specific customer, the outcome is concrete and uses customer language, the guarantee is something the member can honor, the cost is framed as the smallest number and value as the largest, the trust proof is real rather than invented, and nothing in it overpromises or uses manipulative tactics.",
+      "reviewed": false
+    },
+    {
+      "slug": "pricing-worksheet",
+      "title": "Pricing Worksheet",
+      "track": "start",
+      "type": "Worksheet",
+      "tier": "builder",
+      "minutes": 50,
+      "summary": "Set a price you can defend by tying it to the return your customer gets, checking it against competitors and testing it with real buyers.",
+      "output": "A chosen price and pricing model, a one-sentence ROI story, and the smallest and largest ways to frame it.",
+      "framework": "ROI pricing",
+      "calc": "pricing",
+      "sections": [
+        {
+          "heading": "Run the calculator with real numbers",
+          "body": "Open the calculator and fill in four things: the value you create for the customer each month, what they spend today on alternatives, the low and high competitor prices, and your price. It shows your ROI multiple (how many dollars of value the customer gets per dollar they pay you), your price per day, and where you sit against competitors.\n\nUse numbers from your interviews and research, not hopes. If you don't know a number yet, the sections below show you how to find it in under an hour."
+        },
+        {
+          "heading": "ROI pricing: price from the value, not your nerves",
+          "body": "Eli's view: the best businesses can be tied back to an ROI model. Your customer gets more revenue, more capacity, lower costs, saved time or peace of mind. Your job is to know roughly what that is worth to them, then price so the deal is obviously good.\n\nMost first-time founders price on fear: \"What's the least I can charge so nobody says no?\" That leads to tired founders and businesses that can't grow. Price on value instead.",
+          "steps": [
+            "Write the outcome. \"A gym gets four Reels a week that bring in new trial members.\"",
+            "Put a monthly number on it. If two extra members a month sign up at $50 a month, that's $100 in new monthly revenue that keeps stacking. Time counts too: if an owner saves 8 hours a month and values their time at $25 an hour, that's $200.",
+            "Add what they spend today. Doing it themselves, paying a cousin, using a cheap tool, or doing nothing and losing customers.",
+            "Aim for an ROI the customer can see clearly. If they get several times more value than they pay, the price is easy to say yes to. If your price is close to the value, they will hesitate.",
+            "Be honest. Only claim value you can back up. Overpromising ROI to close a sale breaks trust, and trust is the whole game."
+          ]
+        },
+        {
+          "heading": "Competitor research in 30 minutes",
+          "body": "Know how others price, because that is what your buyer already expects. Set a timer.",
+          "steps": [
+            "Minutes 0 to 10: search Google, Instagram, TikTok and Reddit for the service or product in your area. Ask Perplexity: \"What do [service] providers in [city] typically charge?\" Treat AI answers as a starting point and check sources.",
+            "Minutes 10 to 20: write down five competitors with their price, what's included and their pricing model. Screenshot their offers.",
+            "Minutes 20 to 25: note the lowest and highest price. Those go into the calculator.",
+            "Minutes 25 to 30: write what the cheap ones leave out and what the expensive ones include. That gap is where your offer can win."
+          ],
+          "example": "Sneaker cleaning: a mall shop charges $35 with a 5-day wait. A local guy on Instagram charges $20 but has no reviews. A mail-in service charges $45 plus shipping. Low $20, high $45. A $30 price with 24-hour turnaround and before-and-after photos sits in the middle on price and wins on speed and trust."
+        },
+        {
+          "heading": "Pick a pricing model",
+          "body": "Sometimes the model matters more than the number. Eli's example: an ad agency that charges only on performance instead of the usual retainer. It can scare the existing market, but if it is more favorable to the buyer it can become very attractive.",
+          "bullets": [
+            "One-time: pay once, get the thing. Good for resume reviews, a single cleaning, a logo. Simple to sell, but you have to keep finding new buyers.",
+            "Monthly: recurring payment for ongoing results. Good for lawn care, tutoring, video editing, social media management. Predictable income, but you must keep delivering.",
+            "Pay-for-performance: you get paid based on results, like a fee per new client or a share of sales. Very easy to say yes to. Only use it when you can track results clearly and can afford to wait to get paid.",
+            "Tiers: three options (basic, standard, premium). Most buyers pick the middle. Lets the buyer choose instead of deciding yes or no. Keep the differences obvious."
+          ]
+        },
+        {
+          "heading": "Frame the price: smallest number for cost, largest for value",
+          "body": "Eli's rule: when selling cost, frame it as the lowest possible number. When selling value, frame it as the highest. The calculator gives you price per day to help.",
+          "bullets": [
+            "Cost, small: \"$5 a day\" instead of \"$150 a month\". \"Less than a coffee per session.\"",
+            "Value, large: \"Worth $1,200 a year in new members\" instead of \"$100 a month\". \"Saves you 100 hours a year.\"",
+            "Compare to the alternative: \"Less than a shop charges, done in a day instead of a week.\"",
+            "Never fake it. Framing helps people see real value. It should never hide real cost."
+          ]
+        },
+        {
+          "heading": "Test with 5 real buyers, then know when to raise",
+          "body": "A price is a guess until someone pays it. Test it with five real buyers before you change anything.",
+          "steps": [
+            "Offer the price to five people who match your customer, ideally from your interview list.",
+            "Say the price plainly and stop talking. Don't apologize or discount on the spot.",
+            "Track three outcomes: yes and paid, \"let me think\", or no. Ask every no: \"What would make this a yes?\"",
+            "If all five say yes instantly, you are probably too cheap.",
+            "If nobody says yes, check the offer and the customer before you drop the price. Often it is the wrong person or an unclear outcome, not the number."
+          ],
+          "bullets": [
+            "Raise your price when you are booked up, when almost nobody pushes back, when you have results and reviews to show, or when you add real value.",
+            "Raise for new customers first. Give existing customers notice and honor what you promised them.",
+            "Keep your word. A promise about price is still a promise."
+          ]
+        },
+        {
+          "heading": "Your output",
+          "body": "Fill in the fields below: your ROI story in one sentence, your model, your price, and both framings. Paste the framings straight into The One-Page Offer. Taxes and payment rules vary by place, so check local rules or ask a professional before you start charging regularly."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "roi_story",
+          "label": "Your ROI story in one sentence",
+          "type": "textarea",
+          "placeholder": "For $150 a month, a gym gets 4 Reels a week that bring in about 2 new members worth $100 a month each month."
+        },
+        {
+          "id": "pricing_model",
+          "label": "Chosen pricing model",
+          "type": "select",
+          "options": [
+            "One-time",
+            "Monthly",
+            "Pay-for-performance",
+            "Tiers"
+          ]
+        },
+        {
+          "id": "price",
+          "label": "Your price",
+          "type": "text",
+          "placeholder": "$150/month"
+        },
+        {
+          "id": "lowest_framing",
+          "label": "Lowest-number framing of the cost",
+          "type": "text",
+          "placeholder": "$5 a day"
+        },
+        {
+          "id": "highest_framing",
+          "label": "Highest-number framing of the value",
+          "type": "text",
+          "placeholder": "Worth $1,200 a year in new members"
+        }
+      ],
+      "aiPrompt": "Check that the ROI story ties the price to a specific, believable customer return, that the model fits the offer, that the price sits sensibly against the competitor range, that the cost framing uses the smallest number and the value framing the largest, and that no claim overstates the value or hides real cost.",
+      "reviewed": false
+    },
+    {
+      "slug": "landing-page-brief",
+      "title": "Landing Page Brief",
+      "track": "build",
+      "type": "Template",
+      "tier": "builder",
+      "minutes": 60,
+      "summary": "Turns your One-Page Offer into a simple page that explains what you do, proves it honestly and asks for one action.",
+      "output": "A filled-in landing page brief, ready to build in an afternoon with Shopify, Carrd, Framer or Claude.",
+      "framework": "The too-good-to-refuse offer",
+      "sections": [
+        {
+          "heading": "Start with their words, not yours",
+          "body": "Open your notes from your customer conversations before you write a single line. Your headline is already in there. Look for the sentence people said when they described the problem or the result they want. Copy it word for word.\n\nA landing page is not where you get creative. It is where you repeat back what customers told you, so clearly that they think you read their mind. If you haven't had at least five conversations yet, stop and do those first. A page built on guesses is a guess with a nice font.\n\nThis brief follows your One-Page Offer. If you haven't finished that, do it now. Every block below pulls straight from it.",
+          "steps": [
+            "Open your interview notes and your One-Page Offer side by side.",
+            "Highlight every phrase a customer used to describe their pain or their goal.",
+            "Circle the phrase that came up most. That is your headline draft.",
+            "Write down the three objections you heard most. Those become your FAQ."
+          ]
+        },
+        {
+          "heading": "The seven blocks, in order",
+          "body": "Every first landing page needs the same seven blocks. Keep them in this order. Visitors on a phone scroll top to bottom, and each block answers the next question in their head.",
+          "bullets": [
+            "Headline: the result they want, in their words. Not your business name. Not a slogan.",
+            "Subhead: who it's for and how it works, in one sentence.",
+            "Three benefits: what changes for them. Write outcomes, not features. 'Your sneakers look new in 48 hours' beats 'premium cleaning solution'.",
+            "Proof: anything real. Number of conversations you had, a before-and-after photo you took, a result from a free pilot, your own story with the problem. Never invent a testimonial, a review count or a logo you haven't earned.",
+            "Offer: exactly what they get, the price, and anything that makes it feel too good to refuse, like a guarantee or a bonus. Frame cost as the smallest number (per week, per session) and value as the largest.",
+            "FAQ: your top three objections, answered plainly.",
+            "One call to action: one button, one action, repeated at the top and bottom. Book a call, buy now or join the waitlist. Pick one."
+          ],
+          "example": "Resume review offer.\nHeadline: Get more interviews from the same job applications.\nSubhead: A line-by-line resume rewrite for college students applying to internships, back in 48 hours.\nBenefits: Recruiters see your strongest work first. Every bullet shows a result, not a duty. You stop guessing what's wrong.\nProof: Built from 12 conversations with students and two campus recruiters. Free reviews for my first five clients, results posted with permission.\nOffer: $39 rewrite, one round of edits, money back if you don't think it's better.\nFAQ: Is this AI? Will it work for my major? What if I hate it?\nCTA: Book my review."
+        },
+        {
+          "heading": "Honest proof when you have no customers yet",
+          "body": "Trust beats everything else in sales, and fake proof kills trust the second someone spots it. You don't need testimonials to launch. You need something true that lowers the risk of saying yes.\n\nIf you have zero customers, use what you do have. Win their trust, win their wallet.",
+          "bullets": [
+            "Your research: 'Built after talking to 15 lawn care customers in our neighborhood.'",
+            "Your own experience: 'I cleaned my own collection for three years before offering it.'",
+            "A free pilot: do the work for two or three people at no cost in exchange for honest feedback and permission to share results.",
+            "Photos and screenshots of real work, with permission.",
+            "A guarantee: taking the risk off them is proof you believe in it.",
+            "Leave a section out before you fill it with something made up."
+          ]
+        },
+        {
+          "heading": "Build it in an afternoon",
+          "body": "Don't spend a week picking a tool. Pick the one that matches what you sell and build today. You can always rebuild later when you have customers and know what works.",
+          "bullets": [
+            "Selling physical products, like a print-on-demand brand: use Shopify. A one-product store with your seven blocks on the product page is enough.",
+            "Selling a service or collecting a waitlist, like tutoring or video editing: use a simple page builder like Carrd or Framer. One page, one form or booking link.",
+            "Want it written and coded for you: paste your filled brief into Claude and ask for a single-page HTML site or page copy. Then paste the copy into your builder."
+          ],
+          "template": "You are helping me build a one-page landing page for a first business.\n\nBusiness: [what you sell, in one sentence]\nCustomer: [who it's for]\nTheir words for the problem: [exact phrases from customer conversations]\nHeadline draft: [headline]\nThree benefits: [benefit 1], [benefit 2], [benefit 3]\nProof I actually have: [real proof only]\nOffer and price: [what they get, price, guarantee]\nTop objections: [objection 1], [objection 2], [objection 3]\nOne call to action: [button text and where it goes]\n\nWrite the page copy block by block in this order: headline, subhead, benefits, proof, offer, FAQ, call to action. Keep it short, plain and mobile-first. Do not invent testimonials, numbers or reviews. Then give me three alternative headlines using my customers' words."
+        },
+        {
+          "heading": "The brief template",
+          "body": "Copy this into your notes app or Notion, fill every bracket, then build from it. If you can't fill a line, that's a sign to go back to customers, not to make something up.",
+          "template": "LANDING PAGE BRIEF\n\nPage goal (one action): [book a call / buy / join waitlist]\nTool: [Shopify / Carrd / Framer / other]\n\n1. HEADLINE\n[The result they want, in their words]\n\n2. SUBHEAD\n[For who] who want [result], [how it works in a few words]\n\n3. THREE BENEFITS\n- [Outcome 1]\n- [Outcome 2]\n- [Outcome 3]\n\n4. PROOF (real only)\n[Conversations, pilot results, photos, your story, guarantee]\n\n5. OFFER\nWhat you get: [deliverables]\nPrice: [price, framed as smallest number]\nRisk reversal: [guarantee or promise]\n\n6. FAQ\nQ: [Objection 1]  A: [Answer]\nQ: [Objection 2]  A: [Answer]\nQ: [Objection 3]  A: [Answer]\n\n7. CALL TO ACTION\nButton text: [verb + result]\nGoes to: [checkout / booking link / form]"
+        },
+        {
+          "heading": "Five-point pre-launch check",
+          "body": "How you do one thing is how people think you do everything. A broken button tells a visitor your service is probably broken too. Run this check on your phone, not your laptop, before you share the link with anyone.",
+          "steps": [
+            "Five-second test: show the page to someone who has never heard of it for five seconds. Ask what you sell and who it's for. If they can't say, rewrite the headline.",
+            "Phone check: open it on your phone. Every block reads cleanly, nothing is cut off, the button is easy to tap.",
+            "Click test: press every button and link. Complete a real purchase or booking yourself, then refund or cancel it.",
+            "Honesty check: every claim on the page is true and you can back it up. Delete anything you can't.",
+            "Follow-up check: you know exactly what happens after someone clicks. They get a confirmation, and you get notified."
+          ]
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "A finished brief and, if you push, a live page by tonight. Your next move is to send the link to five people from your customer conversations and ask one question: 'Would you buy this, and if not, what's stopping you?' Their answers tell you which block to fix first."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "page_goal",
+          "label": "What is the one action you want visitors to take?",
+          "type": "select",
+          "options": [
+            "Buy now",
+            "Book a call",
+            "Join the waitlist",
+            "Fill out a form"
+          ]
+        },
+        {
+          "id": "headline",
+          "label": "Headline: the result they want, in their words",
+          "type": "text",
+          "placeholder": "Get more interviews from the same applications"
+        },
+        {
+          "id": "subhead",
+          "label": "Subhead: who it's for and how it works",
+          "type": "text",
+          "placeholder": "For [who] who want [result], [how]"
+        },
+        {
+          "id": "benefits",
+          "label": "Three benefits (outcomes, not features)",
+          "type": "textarea",
+          "placeholder": "One per line"
+        },
+        {
+          "id": "proof",
+          "label": "Proof you actually have (real only)",
+          "type": "textarea",
+          "placeholder": "Conversations, pilots, photos, your story, guarantee"
+        },
+        {
+          "id": "offer",
+          "label": "Offer: what they get, the price and any guarantee",
+          "type": "textarea"
+        },
+        {
+          "id": "faq",
+          "label": "Top three objections and your answers",
+          "type": "textarea"
+        },
+        {
+          "id": "cta",
+          "label": "Button text and where it goes",
+          "type": "text",
+          "placeholder": "Book my review, goes to booking link"
+        },
+        {
+          "id": "tool",
+          "label": "Where will you build it?",
+          "type": "select",
+          "options": [
+            "Shopify",
+            "Carrd",
+            "Framer",
+            "Claude-written page",
+            "Other"
+          ]
+        }
+      ],
+      "aiPrompt": "Check that the headline uses customer language and states a result, the benefits are outcomes not features, the proof is real with no invented testimonials or numbers, the offer frames cost small and value large, and there is exactly one call to action.",
+      "reviewed": false
+    },
+    {
+      "slug": "brand-basics",
+      "title": "Brand Basics in an Afternoon",
+      "track": "build",
+      "type": "Playbook",
+      "tier": "builder",
+      "minutes": 120,
+      "summary": "Set up a name, positioning line, voice, colors, font, logo and handles in one afternoon without an agency or a budget.",
+      "output": "A one-page brand sheet with your name, positioning line, three voice words, two colors, one font, a simple logo and your handles.",
+      "framework": "How you do one thing is how people think you do everything",
+      "sections": [
+        {
+          "heading": "Brand is a promise, kept consistently",
+          "body": "Your brand is not your logo. It's what people expect from you, based on every interaction they've had. One of Eli's rules: how you do one thing is how people perceive you do most things. A sloppy DM, a blurry profile photo or a page with three fonts tells people your work is probably sloppy too.\n\nThe good news: a first brand doesn't need to be impressive. It needs to be clear and consistent. Pick a few simple choices today and use them everywhere for the next six months. Consistency beats cleverness.\n\nSet a timer for one afternoon. If you're still choosing colors at hour four, you're ideating too long. No idea is perfect, and no brand is either."
+        },
+        {
+          "heading": "Step 1: Pick a name you can say out loud",
+          "body": "Spend no more than 45 minutes on this. A name doesn't make a business. Plenty of names sound strange until the business behind them is good.",
+          "steps": [
+            "Write 20 options fast. Mix plain (Northside Lawn Co), descriptive (Fresh Kicks Cleaning), and your own name (Maya Tutors).",
+            "Cross out anything hard to spell after hearing it once.",
+            "Cross out anything too narrow to grow into, unless you want to stay narrow.",
+            "Search each finalist on Google, Instagram and TikTok. Drop any that are taken by a business in your space.",
+            "Check the handle and a domain are available for your top two.",
+            "Check local rules for business names where you plan to register, since some places require a name search. This isn't legal advice, so check with your local office or a professional.",
+            "Say your favorite out loud to three people. If they ask you to repeat it, keep looking."
+          ],
+          "example": "A short-form video editing service tried 'Kinetic Frame Studio', 'CutReady' and 'Edits by Jordan'. Kinetic Frame was hard to remember. CutReady's handle was taken. Edits by Jordan won: easy to say, leads with personal brand, and the handle was free."
+        },
+        {
+          "heading": "Step 2: Write your one-line positioning",
+          "body": "This is the sentence you'll use in your bio, your landing page subhead and when someone asks 'what do you do?'. Solve problems, don't sell products. Lead with who you help and what changes for them.",
+          "template": "I help [specific customer] get [result they want] without [the pain or obstacle they hate].",
+          "example": "Lawn care: I help busy families on the north side get a clean yard every week without chasing down a contractor.\nPrint-on-demand: Shirts for college runners who want gear that's actually funny.\nTutoring: I help high school juniors raise their SAT math score without boring prep books."
+        },
+        {
+          "heading": "Step 3: Choose three voice words",
+          "body": "Voice is how you sound in captions, emails and DMs. Pick three words and write one 'this, not that' line for each so you know what they mean in practice. Then check every post against them.",
+          "bullets": [
+            "Direct, not rude: 'Here's what's wrong with your resume.' not 'Your resume is bad.'",
+            "Friendly, not fake: 'Glad you reached out.' not 'OMG we LOVE you!!!'",
+            "Confident, not hype: 'Back in 48 hours.' not 'The fastest service on the planet.'",
+            "Read your last five captions or DMs out loud. If they don't sound like your three words, rewrite one of them now."
+          ]
+        },
+        {
+          "heading": "Step 4: Two colors, one font, a simple logo",
+          "body": "Keep the visual system tiny. Two colors and one font are easier to keep consistent, and consistency is what people remember.",
+          "steps": [
+            "Pick one main color and one accent. Your main color goes on buttons and highlights. Everything else stays white, black or gray.",
+            "Write down the exact color codes so you never eyeball it again.",
+            "Pick one font from Google Fonts or whatever your page builder offers. Use it for everything. Bold for headings, regular for text.",
+            "Make a wordmark logo: your name typed in your font and main color. That's a real logo. Many big brands use one.",
+            "Use a free design tool like Canva, or ask an AI image tool for a few simple icon options if you want a symbol. Keep it simple enough to read at the size of a profile photo.",
+            "Export a square version for profile photos and a wide version for your website header."
+          ]
+        },
+        {
+          "heading": "Step 5: Lock your handles and profiles",
+          "body": "Grab the same handle everywhere, even on platforms you won't use yet. Matching handles make you easier to find and look more established.",
+          "steps": [
+            "Claim your handle on Instagram, TikTok and the one other platform your customers use most.",
+            "If your exact name is taken, add a simple word: get, hq, co, or your city.",
+            "Use your square logo or a clear photo of your face. If you lead with personal brand, your face usually wins.",
+            "Paste your positioning line into every bio.",
+            "Add one link: your landing page or booking link.",
+            "Post one piece of content that says what you do, so a new visitor never lands on an empty profile."
+          ]
+        },
+        {
+          "heading": "Your brand sheet",
+          "body": "Put all of this on one page. Save it in Notion or your notes app and send it to anyone who ever makes something for you, from a friend designing a flyer to a freelancer editing a video. That's how you stay consistent without thinking about it.",
+          "template": "BRAND SHEET: [Business name]\n\nPositioning: I help [customer] get [result] without [pain].\nVoice: [word 1], [word 2], [word 3]\n  [word 1] means [this], not [that]\n  [word 2] means [this], not [that]\n  [word 3] means [this], not [that]\nMain color: [code]\nAccent color: [code]\nFont: [font name]\nLogo files: [link to square and wide versions]\nHandle: @[handle] on [platforms]\nOne link: [URL]"
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "A finished one-page brand sheet and matching profiles live on every platform you need. Use it on your landing page next. Don't redesign for at least three months. Change your brand when customers give you a reason, not when you get bored."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "business_name",
+          "label": "Business name",
+          "type": "text"
+        },
+        {
+          "id": "positioning",
+          "label": "One-line positioning: I help [customer] get [result] without [pain]",
+          "type": "textarea"
+        },
+        {
+          "id": "voice_words",
+          "label": "Three voice words, with a 'this, not that' for each",
+          "type": "textarea",
+          "placeholder": "Direct, not rude..."
+        },
+        {
+          "id": "colors",
+          "label": "Main color and accent color (with codes)",
+          "type": "text",
+          "placeholder": "#1A1A1A and #FF5A1F"
+        },
+        {
+          "id": "font",
+          "label": "Your one font",
+          "type": "text"
+        },
+        {
+          "id": "handle",
+          "label": "Your handle, and the platforms you claimed it on",
+          "type": "text",
+          "placeholder": "@editsbyjordan on IG, TikTok, YouTube"
+        }
+      ],
+      "aiPrompt": "Check that the name is easy to say and spell, the positioning line names a specific customer, a result and a pain, the voice words are distinct with clear examples, the visual choices stay to two colors and one font, and the handle is consistent across platforms.",
+      "reviewed": false
+    },
+    {
+      "slug": "launch-checklist",
+      "title": "First Launch Checklist",
+      "track": "build",
+      "type": "Checklist",
+      "tier": "builder",
+      "minutes": 30,
+      "summary": "A day-by-day plan for the two weeks before launch, launch week and the week after, so nothing important gets missed.",
+      "output": "A launch date on your calendar and a checklist you work through until your first customers have paid and given feedback.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "Pick your launch date now",
+          "body": "Make today day one. One of Eli's biggest mistakes was believing for too long that this wasn't possible for him. The fix is a date on a calendar. Pick a launch day about two weeks out, write it down and tell three people. Deadlines turn plans into actions.\n\nA first launch is not a big event. It's the day you start asking people to pay. You launch to the people who already know you, learn fast, and fix what breaks. This checklist assumes a few hours a week. If you have more time, compress it.",
+          "steps": [
+            "Pick a launch date about 14 days from today.",
+            "Put it on your calendar with reminders.",
+            "Text three people the date and ask them to check in on you.",
+            "Copy this checklist into Notion or your notes app."
+          ]
+        },
+        {
+          "heading": "Two weeks before: set up the foundation",
+          "body": "This week is about making sure people can actually pay you and that you can actually deliver. Quality before growth. A bad first experience costs more than a late launch.",
+          "steps": [
+            "Finish your One-Page Offer and your Landing Page Brief.",
+            "Build your landing page and run the five-point pre-launch check.",
+            "Look into registering your business. Rules depend on where you live and what you sell. Check your local government's small business site or talk to a professional. This is not legal or tax advice.",
+            "Open a separate account or at least a separate way to track business money, so it never mixes with personal spending. Ask a professional what's right for you.",
+            "Set up payments: Shopify Payments for a store, or a payment link from a processor like Stripe, Square or PayPal for a service.",
+            "Test a real payment with your own card, then refund it.",
+            "Write your delivery steps: exactly what happens after someone pays, from confirmation to finished work.",
+            "Do one full test delivery with a friend so you find the gaps before a customer does."
+          ]
+        },
+        {
+          "heading": "One week before: warm up your list",
+          "body": "Your network is your net worth. Your first customers will almost always come from people who already know you or people you've already talked to. Don't launch to strangers first.",
+          "steps": [
+            "Write your warm list: every customer conversation, friend, family member, classmate, coworker and follower who might buy or know someone who would. Aim for at least 30 names.",
+            "Mark the ten most likely buyers.",
+            "Send a personal heads-up to those ten: 'I'm launching [thing] next [day]. Can I send you the link first?'",
+            "Post once about what you're building and why, so launch day isn't the first time people hear about it.",
+            "Draft your launch day post, your launch DM and your launch story.",
+            "Write your welcome or confirmation message for new customers.",
+            "Prepare a short feedback form with three questions (see the week after section)."
+          ]
+        },
+        {
+          "heading": "Launch week, day by day",
+          "body": "Keep each day small. Under three hours a week is enough if you do the right things in the right order.",
+          "steps": [
+            "Day 1 (launch day): Send personal DMs to your top ten. Not a group message. Post your launch post and story. Reply to every comment and DM the same day.",
+            "Day 2: Message the next 20 people on your warm list. Ask your Day 1 buyers if they know one person who'd want this.",
+            "Day 3: Post something useful related to the problem you solve, like a before-and-after or a quick tip. Write down every objection you've heard so far.",
+            "Day 4: Follow up with anyone who said 'maybe' or didn't reply. One short, friendly follow-up. No pressure.",
+            "Day 5: Deliver to your first customers with extra care. Over-deliver on the first orders.",
+            "Day 6: Post a real update: what happened, what you learned. Share a customer result only with permission.",
+            "Day 7: Review the week. Count messages sent, replies, sales and objections. Write down one thing to change."
+          ],
+          "example": "A sneaker cleaning side business launched to 30 people: classmates, a few people from the gym and the eight people interviewed during validation. Day 1 DMs went to the ten who had complained most about dirty shoes. The owner tracked every reply in a sheet and noted the top objection: 'Will it ruin my suede?' That went straight into the FAQ on Day 3."
+        },
+        {
+          "heading": "The week after: ask, learn, decide",
+          "body": "Client feedback should drive what you change next. Ask every first customer, personally, within a few days of delivery. Then use Eli's kill, pause or double down lens: look for what people loved and ask why it worked.",
+          "steps": [
+            "Message every customer within three days of delivery to thank them.",
+            "Ask three questions: What almost stopped you from buying? What was the best part? What would you change?",
+            "Ask happy customers if you can share their words or a photo. Only use what they approve.",
+            "Ask non-buyers one question: 'What would have made it a yes?'",
+            "List every objection you heard and update your FAQ and landing page.",
+            "Look at what worked best: which message, post or person got the most sales. Ask why it beat everything else.",
+            "Decide one thing to do more of next week. Do more of what works, not just more.",
+            "Set up a simple way to track revenue and expenses, and ask a professional about tax rules where you live."
+          ]
+        },
+        {
+          "heading": "Keep it clean",
+          "body": "Launch week pressure makes people promise things they can't deliver. Don't. No fake scarcity, no made-up reviews, no promises you can't keep. Trust and integrity are the foundation, and your first ten customers will tell people how you treated them.",
+          "bullets": [
+            "Only promise delivery times you've already tested.",
+            "If you mess up, say so fast and fix it.",
+            "Refund anyone who's unhappy if you offered a guarantee. Keep your word."
+          ]
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "A launch date, a checked-off list and real data: how many people you asked, how many bought, what stopped the rest and what to do more of. That's your first proof the business can work."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "launch_date",
+          "label": "Your launch date",
+          "type": "text",
+          "placeholder": "Friday, November 14"
+        },
+        {
+          "id": "payment_setup",
+          "label": "How will customers pay you?",
+          "type": "select",
+          "options": [
+            "Shopify Payments",
+            "Stripe payment link",
+            "Square",
+            "PayPal",
+            "Other"
+          ]
+        },
+        {
+          "id": "registration_plan",
+          "label": "What do you need to check about registering your business, and who will you ask?",
+          "type": "textarea"
+        },
+        {
+          "id": "warm_list_top10",
+          "label": "Your top ten warm-list names",
+          "type": "textarea",
+          "placeholder": "One per line"
+        },
+        {
+          "id": "launch_dm",
+          "label": "Your launch-day DM",
+          "type": "textarea"
+        },
+        {
+          "id": "feedback_questions",
+          "label": "Your three feedback questions",
+          "type": "textarea"
+        }
+      ],
+      "aiPrompt": "Check that the launch date is within about two weeks, payments are set up and tested, registration is flagged for local rules or a professional without giving legal advice, the warm list has real names, the launch DM is personal not salesy, and the feedback questions ask about objections and what to change.",
+      "reviewed": false
+    },
+    {
+      "slug": "launch-budget-calculator",
+      "title": "Launch Budget Calculator",
+      "track": "build",
+      "type": "Calculator",
+      "tier": "builder",
+      "minutes": 25,
+      "calc": "budget",
+      "summary": "Set a small, capped first test for paid traffic and know in advance what the numbers mean, when to stop and when to double down.",
+      "output": "A capped test budget, an expected cost per sale and a written stop rule you commit to before spending a dollar.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "Start small, start now",
+          "body": "Paid ads can teach you a lot fast, and they can burn your money just as fast. Eli has lost marketing money on ads himself. Lessons like that are part of why this library exists. The goal of your first paid test is not to make money. It's to buy information cheaply.\n\nSo you cap it. Pick an amount you could lose completely without stress, without skipping rent and without borrowing. That's your test budget. Not a monthly budget. A one-time test.\n\nThen you decide, before you spend anything, what result means stop and what result means keep going. Deciding in advance protects you from the most common trap: spending 'just a little more' because you're sure it's about to work.",
+          "steps": [
+            "Write down the most you can lose without stress. That's your cap.",
+            "Never put ad spend on a credit card you can't pay off in full.",
+            "Enter that cap as your total test budget in the calculator.",
+            "Write your stop rule before launching the ad, and don't change it mid-test."
+          ]
+        },
+        {
+          "heading": "Organic before paid",
+          "body": "Paid traffic amplifies something that already works. It doesn't fix something that doesn't. Before you spend on ads, make sure free channels have shown you some signal.",
+          "bullets": [
+            "You've had at least ten customer conversations and people described the problem in their own words.",
+            "Your landing page has been seen by real people from your warm list, and at least a few bought or signed up.",
+            "You know your top three objections and your page answers them.",
+            "You've posted content and know which post or message got the best response.",
+            "If none of these are true yet, skip paid for now. Go back to warm outreach and content. It costs time, not money, and teaches you more."
+          ]
+        },
+        {
+          "heading": "Using the calculator",
+          "body": "The calculator takes four numbers and shows what your test is likely to produce. Use honest guesses at first, then replace them with real numbers as soon as you have them.",
+          "bullets": [
+            "Total test budget: your cap. The most you will spend on this test.",
+            "Expected cost per click: what you'll pay for each visitor. You won't know this until you run an ad, so start with a cautious guess and update it after the first day or two.",
+            "Landing page conversion %: out of every 100 visitors, how many buy. If you've shared your page with your warm list, use what you saw there, then expect cold traffic to convert lower.",
+            "Price: what one sale is worth to you.",
+            "Expected visitors: how many people your budget brings to the page.",
+            "Expected sales: how many of those visitors buy, based on your conversion rate.",
+            "Cost per sale: how much ad money each sale costs. This is the number that matters most.",
+            "Stop rule: the point where the test has told you enough and you should pause."
+          ],
+          "example": "A tutoring service tests a $100 budget. They guess $0.50 per click and a 2% conversion rate on a $40 first session. The calculator shows about 200 visitors and about 4 sales, so roughly $25 in ads per sale. That's under the $40 price, so the test is worth running. If real clicks cost $1.50 instead, the same budget brings about 67 visitors and maybe 1 sale at around $100 per sale, which is more than a session earns. Now they know what to watch for. These numbers are an example, not a benchmark."
+        },
+        {
+          "heading": "What the numbers mean",
+          "body": "Don't get emotional about one number. Read them together. Each tells you where the problem is.",
+          "bullets": [
+            "High cost per click, decent conversion: your page works, your ad or targeting doesn't. Test a new hook or audience.",
+            "Low cost per click, almost no sales: people are curious but the page or offer isn't convincing. Go back to your Landing Page Brief and your offer.",
+            "Clicks and add-to-carts but no purchases: something at checkout is wrong, like surprise shipping costs, a broken button or missing trust signals.",
+            "Cost per sale under your price, but not by much: you may be losing money once you count your costs. Work out what one sale actually earns you after costs.",
+            "Cost per sale well under what a sale earns you: you've found something. Don't scale yet. Confirm it holds first."
+          ]
+        },
+        {
+          "heading": "When to stop",
+          "body": "Write your stop rule before the test starts. Here's a simple one most first-time founders can use: if you've spent the cost of two sales at your price and have zero sales, pause and fix something before spending more. If you've spent your whole cap and your cost per sale is higher than what a sale earns you, stop the test.\n\nStopping is not failing. Fail fast, learn fast. A stopped test with clear notes is worth more than a 'successful' one you can't explain.",
+          "steps": [
+            "Pause when you hit your stop rule. No exceptions, no 'one more day'.",
+            "Write down what you learned: cost per click, conversion and the top comment or objection.",
+            "Change one thing only: the hook, the audience, the page headline or the offer.",
+            "Run the next test with the same cap, so you can compare."
+          ]
+        },
+        {
+          "heading": "When to double down",
+          "body": "Eli's rule: when something works, ask why. What did this do that the things before it didn't? Then do more of that until it stops working. Do more of what works, not just more in general.",
+          "steps": [
+            "Confirm the result over a second test with the same setup. One good day can be luck.",
+            "Write down why you think it worked: the hook, the audience, the offer or the timing.",
+            "Increase the budget in small steps rather than all at once, and watch cost per sale after each step.",
+            "Reuse the winning hook in your organic content too.",
+            "Stop increasing as soon as cost per sale climbs past what a sale earns you.",
+            "Keep delivery quality up as orders grow. A bad product kills a company faster than great marketing can grow it."
+          ]
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "A capped test budget, an expected cost per sale and a stop rule written down before you spend. Screenshot your calculator results, save them with your stop rule in Notion, and compare them against reality after the test. This is not financial advice. Only spend what you can afford to lose."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "test_cap",
+          "label": "The most you can lose on this test without stress",
+          "type": "text",
+          "placeholder": "$100"
+        },
+        {
+          "id": "organic_signal",
+          "label": "What signal have you seen from free channels so far?",
+          "type": "textarea",
+          "placeholder": "Sales, sign-ups, replies, best post"
+        },
+        {
+          "id": "channel",
+          "label": "Where will you run the test?",
+          "type": "select",
+          "options": [
+            "Instagram / Facebook",
+            "TikTok",
+            "Google Search",
+            "YouTube",
+            "Other"
+          ]
+        },
+        {
+          "id": "stop_rule",
+          "label": "Your stop rule, in one sentence",
+          "type": "textarea",
+          "placeholder": "If I spend $X with zero sales, I pause and change one thing"
+        },
+        {
+          "id": "double_down_rule",
+          "label": "What result would make you double down?",
+          "type": "textarea"
+        },
+        {
+          "id": "one_change",
+          "label": "If the test fails, what is the one thing you'll change first?",
+          "type": "text"
+        }
+      ],
+      "aiPrompt": "Check that the test cap is small and affordable, there is real organic signal before paid spend, the stop rule is specific and set in advance, the double-down rule is tied to cost per sale versus what a sale earns, and nothing reads as financial advice.",
+      "reviewed": false
+    },
+    {
+      "slug": "simple-ops-stack",
+      "title": "The Simple Operations Stack",
+      "track": "build",
+      "type": "Playbook",
+      "tier": "builder",
+      "minutes": 45,
+      "summary": "Set up the fewest tools you need to take payments, track customers, keep notes, book calls and send email, for $0 to $50 a month to start.",
+      "output": "Your stack written down, one tool per job, set up and connected, with nothing extra.",
+      "framework": null,
+      "sections": [
+        {
+          "heading": "One tool per job",
+          "body": "Software feels like progress. It isn't. Every new tool is a new login, a new bill and a new place where information gets lost. The rule for a first business: one tool per job, and spend $0 to $50 a month to start. Most of the tools below have free plans or cheap starter plans. Check current pricing yourself before you sign up, since it changes.\n\nThe point of a stack is to get you closer to working on the business, not in it. Eli's rule: your business is only as valuable as it is when you aren't there to run it. Simple, written-down systems are how you get there.",
+          "steps": [
+            "List the six jobs below.",
+            "Pick one tool for each. Not two. One.",
+            "Write your choices in one note, with logins stored in a password manager.",
+            "Don't add a seventh tool until a task has hurt three times."
+          ]
+        },
+        {
+          "heading": "The six jobs",
+          "bullets": [
+            "Payments: how money gets to you.",
+            "Customer tracking (CRM): who you've talked to, what they said, what happens next.",
+            "Meeting notes: what was said on calls, without you typing during the call.",
+            "Docs and planning: your offer, processes, content plan and to-dos.",
+            "Email: a professional address for talking to customers.",
+            "Calendar booking: a link people use to book time with you, so you stop going back and forth."
+          ]
+        },
+        {
+          "heading": "Payments",
+          "body": "Pick based on what you sell. Test every option with a real purchase before launch.",
+          "bullets": [
+            "Physical products or merch, like a print-on-demand brand: Shopify. Your store and checkout in one place.",
+            "Services, like tutoring, lawn care or editing: a payment link from a processor like Stripe, Square or PayPal. Send the link after a call, or put it on your landing page.",
+            "In-person work, like sneaker cleaning at a pop-up: a card reader from Square or similar, or tap-to-pay on your phone if your processor supports it.",
+            "Keep business money separate from personal money from day one. Ask a professional about the right setup where you live."
+          ]
+        },
+        {
+          "heading": "Customer tracking: Attio or a sheet",
+          "body": "Your network is your net worth, but only if you remember who's in it. A CRM is just a list of people with notes and a next step. Eli uses Attio. If you're just starting, a Google Sheet works fine until you have more conversations than you can track.",
+          "template": "CUSTOMER TRACKER COLUMNS\nName | How we met | Contact | Problem in their words | Stage (talked / interested / paid / follow-up) | Last contact date | Next step | Next step date | Notes",
+          "example": "A short-form video editor tracks every creator they DM in a sheet. When 'next step date' is today, they follow up. After three weeks the sheet had over 40 rows, so they moved it into Attio to see their pipeline as stages."
+        },
+        {
+          "heading": "Notes and docs: Granola and Notion",
+          "body": "Granola takes notes during your calls so you can focus on the person. After every customer conversation, you get a summary you can copy into your CRM. Notion is where your business lives in writing: your offer, your brand sheet, your delivery steps, your content plan. Eli uses Notion for content scheduling frameworks.",
+          "steps": [
+            "Set up Granola and use it on your next customer call. Ask permission to take notes first.",
+            "Create one Notion page called HQ.",
+            "Inside HQ, add: Offer, Brand Sheet, Delivery Steps, Content Plan, Weekly Review.",
+            "After every call, paste the key points and next step into your CRM."
+          ]
+        },
+        {
+          "heading": "Email and calendar booking",
+          "bullets": [
+            "Get an email on your own domain if you can, like you@yourbusiness.com, through Google Workspace or your domain provider. It looks more trustworthy than a random personal address. A clean personal Gmail is fine to start.",
+            "Set up a booking link with a tool like Calendly or Google Calendar's booking pages. Offer two or three set time blocks a week, not your whole life.",
+            "Put your booking link in your bio, your landing page and your email signature.",
+            "Add a confirmation and a reminder message so people show up."
+          ]
+        },
+        {
+          "heading": "Your stack, written down",
+          "body": "Fill this in and keep it in your Notion HQ. When you think about adding a tool, look at this page first and ask which job it does. If a tool already does that job, you don't need another one.",
+          "template": "MY OPERATIONS STACK\n\nPayments: [tool] | Cost: [check current price]\nCRM: [Attio / Google Sheet] | Cost: [ ]\nMeeting notes: [Granola / other] | Cost: [ ]\nDocs and planning: [Notion / other] | Cost: [ ]\nEmail: [address and provider] | Cost: [ ]\nBooking: [tool and link] | Cost: [ ]\n\nTotal monthly: [ ] (target: $0 to $50)\nTool I'm NOT adding yet: [ ]\nAdd a new tool only when: a task has hurt three times."
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "Watch for the signs you're over-tooled: you pay for something you haven't opened in two weeks, you can't remember where a customer's details live, or you spend more time setting up tools than talking to customers. When that happens, cut back to one tool per job. Cancel anything that doesn't have a job on your stack page.\n\nAlso watch for the opposite: a task that keeps hurting. If you've lost a lead three times because you forgot to follow up, that's the signal to upgrade from a sheet to Attio, or to add a reminder. Let real pain pick your next tool, not a video about productivity apps.\n\nSix jobs, six tools, set up and written on one page, for $0 to $50 a month. Once this is running, the Automation Starter Pack shows you how to connect them so the boring work happens without you."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "payments_tool",
+          "label": "Payments tool",
+          "type": "select",
+          "options": [
+            "Shopify",
+            "Stripe",
+            "Square",
+            "PayPal",
+            "Other"
+          ]
+        },
+        {
+          "id": "crm_tool",
+          "label": "Customer tracking",
+          "type": "select",
+          "options": [
+            "Attio",
+            "Google Sheet",
+            "Notion database",
+            "Other"
+          ]
+        },
+        {
+          "id": "notes_docs",
+          "label": "Meeting notes and docs tools",
+          "type": "text",
+          "placeholder": "Granola + Notion"
+        },
+        {
+          "id": "email_booking",
+          "label": "Business email address and booking link tool",
+          "type": "text"
+        },
+        {
+          "id": "monthly_cost",
+          "label": "Estimated total monthly cost",
+          "type": "text",
+          "placeholder": "$0 to $50"
+        },
+        {
+          "id": "not_adding",
+          "label": "Tools you're tempted by but NOT adding yet",
+          "type": "textarea"
+        }
+      ],
+      "aiPrompt": "Check that there is exactly one tool per job, the monthly cost stays near $0 to $50, payments fit what they sell, the CRM choice matches their volume of conversations, and they haven't added tools without a clear job.",
+      "reviewed": false
+    },
+    {
+      "slug": "automation-starter",
+      "title": "Automation Starter Pack",
+      "track": "build",
+      "type": "Playbook",
+      "tier": "builder",
+      "minutes": 180,
+      "summary": "Six starter automations and AI prompts a first-time founder can set up in an afternoon, built on Eli's day-one toolkit.",
+      "output": "At least two automations running and an AI prompt pack saved in Notion, ready to reuse every week.",
+      "framework": null,
+      "sections": [
+        {
+          "heading": "Automate the repeat, not the relationship",
+          "body": "Eli runs his work with what he calls AI coworking agents: AI tied into the tools you already use, like Notion, Granola and Attio, so the repeat work happens without you. You don't need anything complex to start. You need a few small automations that remove the jobs you do every single week.\n\nOne rule before you build anything: automate the repeat, never the relationship. Trust beats everything in sales. Automations can answer FAQs, log leads and draft posts. You still personally talk to customers, review every AI draft before it goes out and keep every promise an automation makes.\n\nPick two of the six below to set up today. Add the rest once those run smoothly. Most of these tools have free or starter plans, but check current pricing before you commit.",
+          "steps": [
+            "Write down the three tasks you repeat most every week.",
+            "Match them to the automations below.",
+            "Set up two today. Test each one yourself, end to end.",
+            "Save the prompts in a Notion page called Prompt Pack."
+          ]
+        },
+        {
+          "heading": "1. DM replies with ManyChat",
+          "body": "If people find you on Instagram or other social platforms, they'll DM the same questions over and over. ManyChat can reply instantly to keywords and comments, send your link and collect an email.",
+          "steps": [
+            "Connect ManyChat to the account where people DM you most.",
+            "Set up a keyword trigger: when someone comments or DMs a word like PRICE or LINK, they get an automatic reply.",
+            "Write the reply in your brand voice: a short answer, your link and a question that invites a real conversation.",
+            "Add a handoff: anything the bot can't answer goes to you, and you reply personally the same day.",
+            "Test it from a friend's account."
+          ],
+          "example": "A sneaker cleaning business posts a before-and-after video with 'Comment CLEAN for prices'. Everyone who comments gets a DM with the price list and a booking link, and the owner personally follows up with anyone who asks a question."
+        },
+        {
+          "heading": "2. Lead form into your CRM",
+          "body": "Every lead should land in one place automatically. No copying from DMs, emails and notes into a sheet at midnight.",
+          "steps": [
+            "Put a simple form on your landing page with name, contact and one question about their problem.",
+            "Connect the form to Attio or a Google Sheet. Many form tools connect directly, or you can use an automation tool like Zapier or Make.",
+            "Add an automatic confirmation message so the lead knows you got it.",
+            "Set a rule for yourself: reply personally to every new lead within 24 hours.",
+            "Submit a test lead and confirm it shows up in the right place."
+          ]
+        },
+        {
+          "heading": "3. Granola meeting summary into Notion",
+          "body": "Every customer call is research. Granola captures notes so you can listen. Then a summary goes into Notion and the next step goes into your CRM.",
+          "steps": [
+            "Use Granola on every customer or sales call, with permission.",
+            "After the call, send the summary to your Notion Calls page. Use a built-in integration if your plan has one, or paste it in.",
+            "Run the prompt below on the notes to pull out the parts that matter.",
+            "Copy the next step and date into your CRM."
+          ],
+          "template": "Here are my notes from a customer conversation: [paste notes]\n\nPull out:\n1. The problem in their exact words\n2. How they solve it today and what it costs them\n3. Any objection or hesitation\n4. Anything they said they'd pay for\n5. The agreed next step and date\n\nKeep it short. Quote them directly where you can. Do not add anything that isn't in the notes."
+        },
+        {
+          "heading": "4. Content repurposing with CapCut and AI",
+          "body": "Eli grew his audience by finding formats that worked and reusing them. One good video can become five pieces. Film once, then let AI help you cut and rewrite.",
+          "steps": [
+            "Film one longer video on your phone: a tip, a story or a before-and-after.",
+            "Use the editing brief below with Claude to plan your cuts.",
+            "Edit three to five short clips in CapCut on your phone.",
+            "Use AI to draft captions for each platform, then rewrite them in your voice.",
+            "Log what you posted in your Notion content plan, and note which clip got the best response."
+          ],
+          "template": "VIDEO EDITING BRIEF\n\nI filmed a [length] video about [topic] for [audience].\nTranscript or summary: [paste]\n\nGive me:\n1. Three to five short clip ideas under 45 seconds, each with a start and end point\n2. A hook for the first two seconds of each clip, under ten words\n3. On-screen text for each clip\n4. One caption per clip in a [your three voice words] voice, with one call to action: [action]\n\nDon't invent facts, results or claims I didn't make in the video."
+        },
+        {
+          "heading": "5. Weekly metrics email",
+          "body": "Work on the business, not in it. Once a week, look at the same few numbers in the same order. Automate the reminder and the summary so you never skip it.",
+          "steps": [
+            "Pick five numbers: conversations, leads, sales, revenue and your best piece of content.",
+            "Set a recurring calendar block, same time every week.",
+            "If your tools send weekly reports (Shopify and many payment tools do), send them to one inbox folder.",
+            "Paste your numbers into the weekly review prompt below.",
+            "Save the answer in your Notion Weekly Review page."
+          ],
+          "template": "WEEKLY REVIEW PROMPT\n\nHere are my numbers this week and last week:\nConversations: [this week] / [last week]\nNew leads: [ ] / [ ]\nSales: [ ] / [ ]\nRevenue: [ ] / [ ]\nBest content and its result: [ ]\nWhat I worked on: [ ]\n\nAct as a direct, no-hype business coach. Tell me:\n1. What worked best this week and why it probably beat what came before\n2. What I should do more of next week\n3. What I should stop or pause\n4. The one most important task for next week\nBe concise. Challenge me if I'm busy but not moving the numbers."
+        },
+        {
+          "heading": "6. Your AI assistant prompt pack",
+          "body": "Save prompts you reuse so you never start from a blank page. Here's the one Eli's toolkit leans on for building a website with Claude. Fill the brackets, paste it, then edit the result by hand. Always check AI output before it goes in front of a customer.",
+          "template": "WEBSITE-BUILDING PROMPT FOR CLAUDE\n\nBuild a single-page website for my business as one HTML file with inline CSS. Mobile-first, fast, clean.\n\nBusiness name: [name]\nPositioning: I help [customer] get [result] without [pain]\nBrand: main color [code], accent [code], font [font name], voice [three words]\nSections in order: headline, subhead, three benefits, proof, offer and price, FAQ, one call to action\nHeadline: [headline in customers' words]\nBenefits: [1], [2], [3]\nReal proof: [only true proof]\nOffer: [what they get, price, guarantee]\nFAQ: [three objections with answers]\nCall to action: [button text] linking to [URL]\n\nRules: no invented testimonials, reviews, logos or numbers. Short sentences. One button style. After the code, list anything I need to replace or check."
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "Two automations running today, tested end to end, and a Prompt Pack page in Notion with the editing brief, the call summary prompt, the weekly review prompt and the website prompt. Add one more automation each week until the repeat work runs itself and your time goes to customers."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "repeat_tasks",
+          "label": "The three tasks you repeat most every week",
+          "type": "textarea"
+        },
+        {
+          "id": "first_two",
+          "label": "The two automations you're setting up today",
+          "type": "textarea",
+          "placeholder": "ManyChat keyword replies, lead form into Attio"
+        },
+        {
+          "id": "dm_keyword",
+          "label": "Your ManyChat keyword and auto-reply",
+          "type": "textarea"
+        },
+        {
+          "id": "crm_destination",
+          "label": "Where do new leads land?",
+          "type": "select",
+          "options": [
+            "Attio",
+            "Google Sheet",
+            "Notion",
+            "Other"
+          ]
+        },
+        {
+          "id": "weekly_numbers",
+          "label": "The five numbers in your weekly review",
+          "type": "text"
+        },
+        {
+          "id": "human_rule",
+          "label": "What will you always handle personally, never automate?",
+          "type": "textarea"
+        }
+      ],
+      "aiPrompt": "Check that they picked two concrete automations tied to real repeat tasks, every automation has a test step and a human handoff, leads land in one place, the weekly numbers are specific, and they keep relationships and final review personal.",
+      "reviewed": false
+    },
+    {
+      "slug": "delegation-playbook",
+      "title": "Delegate Your First Task",
+      "track": "build",
+      "type": "Playbook",
+      "tier": "builder",
+      "minutes": 60,
+      "summary": "Find the task that eats your week, write it down so someone or something else can run it, and hand it off for good.",
+      "output": "A last-week hours audit, a one-page SOP for your first task, and that task handed to a person, AI tool or automation.",
+      "framework": null,
+      "sections": [
+        {
+          "heading": "Audit last week's hours",
+          "body": "You can't hand off what you can't see. Open your calendar, your screen time, your texts and your notes from last week and list every task you did for the business, with rough time spent. Be honest. Twenty minutes answering the same DM five times counts.\n\nThen tag each one.",
+          "bullets": [
+            "Only me: needs your judgment, your face or your relationships. Selling, key decisions, being on camera.",
+            "Repeat: you do it the same way every time. Replying to common questions, posting, invoicing, scheduling.",
+            "Waste: it didn't need doing at all. Cut it today."
+          ],
+          "template": "HOURS AUDIT (last week)\nTask | Time spent | How often | Tag (only me / repeat / waste)\n[ ] | [ ] | [daily / weekly] | [ ]\n[ ] | [ ] | [ ] | [ ]\n[ ] | [ ] | [ ] | [ ]\n\nTotal hours: [ ]\nHours on 'repeat' tasks: [ ]\nHours on 'waste': [ ]"
+        },
+        {
+          "heading": "Why this matters now",
+          "body": "Two of Eli's principles drive this playbook. First: get to the point where you're working on the business, not in it, as fast as you can. Second: your business is only as valuable as it is when you aren't there to run it. If every task lives in your head, you don't have a business yet. You have a job you made for yourself.\n\nYou don't need money or a team to start. Your first handoff might be to an AI tool or a free automation. The skill is writing the process down. That skill is what lets you hire later."
+        },
+        {
+          "heading": "Pick your first task",
+          "body": "Don't start with the hardest thing. Start with the task that is repeated, rule-based and low-risk if it goes wrong once. Score your 'repeat' tasks and pick the winner.",
+          "steps": [
+            "How often does it happen? Weekly or more is ideal.",
+            "Can you explain the steps without saying 'it depends' more than once?",
+            "If it's done slightly worse than you'd do it, does anything break? If not, it's a good first task.",
+            "How much time would it free up each week?"
+          ],
+          "example": "A sneaker cleaning side business: the owner spends about two hours a week answering 'how much for a deep clean?' and 'how long does it take?' in DMs. It happens every day, the answers never change, and a slightly slow reply doesn't lose a customer. That's the first task. Second place: photographing before and afters, which needs more judgment, so it waits."
+        },
+        {
+          "heading": "Write a one-page SOP",
+          "body": "SOP means standard operating procedure: a written set of steps anyone could follow. The fastest way to write one is to record yourself doing the task once with your phone's screen recorder, talking out loud. Then write the steps from the recording. Claude can turn a transcript or rough notes into a clean draft for you to edit. Keep it to one page. If it's longer, the task is too big. Split it.",
+          "template": "SOP: [task name]\nOwner: [who or what runs this]\nHow often: [daily / weekly / when X happens]\nTime it should take: [ ]\n\nWHY THIS MATTERS\n[One sentence: what this task does for the customer or the business]\n\nWHAT YOU NEED\n- Access to: [tools, accounts, folders]\n- Templates or saved replies: [link]\n\nSTEPS\n1. [ ]\n2. [ ]\n3. [ ]\n4. [ ]\n5. [ ]\n\nWHAT GOOD LOOKS LIKE\n[Example of a finished result, or a link to one]\n\nCOMMON MISTAKES\n- [ ]\n- [ ]\n\nWHEN TO ASK ME\n[The exact situations that need the owner, e.g. refunds, angry customers, anything over $X]\n\nRecording: [link to screen recording]"
+        },
+        {
+          "heading": "Choose who or what runs it",
+          "body": "Match the task to the cheapest option that will do it well. Don't hire a person for something a saved reply can handle.",
+          "bullets": [
+            "Saved replies or templates: free, best for answers that never change.",
+            "Automation: ManyChat for DM keyword replies on Instagram, Calendly for booking, Shopify for order confirmations, Klaviyo for email follow-ups. Best for 'when X happens, do Y' tasks.",
+            "AI tools: Claude for drafting captions, emails or first versions of content, Granola for call notes, Perplexity for research. You still review the output.",
+            "A freelancer: for tasks that need a human, like video editing, design or customer support. Start with one small, paid test task. Check local rules or a professional before treating anyone as staff.",
+            "A friend or family member: only with clear expectations and fair pay. Choosing the right people to build with is crucial. A bad fit costs more than money."
+          ],
+          "example": "A tutoring service: scheduling and reminders go to Calendly with automatic text reminders. Writing weekly progress notes for parents goes to Claude, using the tutor's session notes and a template, with the tutor reviewing each one before sending."
+        },
+        {
+          "heading": "Review the first three runs",
+          "body": "Handoffs fail when you either hover over every step or disappear completely. Do neither. Review the first three runs closely, then step back.",
+          "steps": [
+            "Run 1: watch or check everything. Note each place they got stuck or the result was off.",
+            "Fix the SOP, not just the result. If the same question comes up twice, the answer goes in the document.",
+            "Run 2: check the finished result only. Give one or two pieces of specific feedback.",
+            "Run 3: spot check. If it's 80 percent as good as you'd do it, that's a pass.",
+            "After run 3, switch to a quick weekly check during your Weekly CEO Review."
+          ]
+        },
+        {
+          "heading": "Let go",
+          "body": "The last step is the hardest. It won't be done exactly your way. That's fine. If it's done well and consistently, your time is now free for the work only you can do: selling, building relationships, improving the product. Treat whoever helps you the way you'd want to be treated: clear instructions, fair pay, credit when it goes well.\n\nYour output from this playbook: a completed hours audit, one task chosen on purpose, a one-page SOP saved where you can share it, and a named person or tool running it. Then go back to your audit and pick the next one."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "hours_audit",
+          "label": "Last week's hours audit: every task, time spent and tag (only me / repeat / waste)",
+          "type": "textarea",
+          "placeholder": "DM replies, 2 hrs, repeat\nFilming, 1.5 hrs, only me..."
+        },
+        {
+          "id": "first_task",
+          "label": "The first task you'll hand off, and why this one",
+          "type": "textarea"
+        },
+        {
+          "id": "who_or_what",
+          "label": "Who or what will do it?",
+          "type": "select",
+          "options": [
+            "Saved replies or templates",
+            "Automation (ManyChat, Calendly, Shopify, Klaviyo)",
+            "AI tool (Claude, Granola, Perplexity)",
+            "Freelancer",
+            "Friend or family member",
+            "Other"
+          ]
+        },
+        {
+          "id": "sop_link",
+          "label": "Link to your one-page SOP",
+          "type": "text",
+          "placeholder": "Notion, Google Doc or notes link"
+        }
+      ],
+      "aiPrompt": "Check that the hours audit lists real tasks with time and tags, that the first task is repeated, rule-based and low-risk rather than a judgment-heavy task, that the chosen person or tool fits the task, and that an SOP link is present.",
+      "reviewed": false
+    },
+    {
+      "slug": "the-127-stack",
+      "title": "The 127 Stack",
+      "track": "build",
+      "type": "Guide",
+      "tier": "builder",
+      "minutes": 30,
+      "summary": "A directory of the tools in Eli's own day-one toolkit, with what each is for, whether you need it now or later and the first thing to do with it.",
+      "output": "A short list of the tools you'll set up now, the ones you'll wait on, and one first action for each.",
+      "framework": null,
+      "sections": [
+        {
+          "heading": "How to use this list",
+          "body": "This is Eli's own stack: the tools he says he'd use from day one, tested over years of building businesses. Eli has said tools he didn't know existed made him far more productive. That doesn't mean you need all of them on day one. Trying to do too much is one of Eli's biggest lessons, and that applies to software too.\n\nRead each tool, then mark it Now or Later. Most first-time founders need three or four tools now. Prices and plans change often, so check each tool's site for current pricing before signing up. Many have free plans or trials.",
+          "steps": [
+            "Read each section below.",
+            "Mark every tool Now or Later based on what you're doing this month.",
+            "Set up your Now tools one at a time, doing the first action for each.",
+            "Ignore the Later tools until a real task needs them."
+          ]
+        },
+        {
+          "heading": "Think and research",
+          "bullets": [
+            "Claude. What it's for: thinking partner, writing, planning, and building simple websites from a prompt. When: now. First thing to do: paste in your idea and ask Claude to run it through the Idea Test questions and challenge your weakest assumption.",
+            "Perplexity. What it's for: AI search that shows its sources, useful for market research, competitor pricing and checking whether a market is growing or shrinking. When: now, while validating. First thing to do: search for your top three competitors and how they price, then open the sources and confirm them yourself."
+          ],
+          "example": "A lawn care founder asks Perplexity what lawn services in their town charge and which ones have reviews. Then they paste the findings into Claude and ask: 'Based on this, what could I do that's faster, cheaper or higher quality?'"
+        },
+        {
+          "heading": "Plan and organize",
+          "bullets": [
+            "Notion. What it's for: your business HQ for docs, processes, to-dos and content planning. Eli builds content scheduling frameworks in Notion. When: now. First thing to do: make one page called HQ with sub-pages for Offer, Brand Sheet, Delivery Steps and Content Plan.",
+            "Miro. What it's for: visual boards and templates for mapping ideas, customer journeys and plans. Eli uses Miro boards to build templates. When: later, unless you think visually. First thing to do: map your customer's journey on one board, from first hearing about you to paying and coming back."
+          ]
+        },
+        {
+          "heading": "Sell and follow up",
+          "bullets": [
+            "Attio. What it's for: a CRM to track every person you talk to, where they are and what happens next. When: now if you're having lots of conversations, later if a Google Sheet still works. First thing to do: add everyone from your customer conversations with a stage and a next step date.",
+            "Granola. What it's for: AI meeting notes, so you can listen instead of typing during calls. When: now, as soon as you start customer conversations. First thing to do: use it on your next call (with permission), then pull out the problem in their words and the next step.",
+            "ManyChat. What it's for: automating DM replies on social platforms, like sending a link when someone comments a keyword. When: later, once people are DMing you the same questions often. First thing to do: set up one keyword reply on a post, like 'Comment PRICE and I'll send details', and test it from a friend's account."
+          ]
+        },
+        {
+          "heading": "Create content",
+          "bullets": [
+            "CapCut. What it's for: easy video editing on your phone, from cuts to captions. Eli edits on iPhone with it. When: now, if content is how you'll get customers. First thing to do: film a 30-second before-and-after or quick tip and edit it in CapCut with on-screen captions.",
+            "Higgsfield. What it's for: AI video generation, useful for visuals you can't easily film. When: later. Real footage of you and your work builds more trust early on. First thing to do: once you have a format that works, try generating one supporting visual for it, and label AI content honestly."
+          ],
+          "example": "A short-form video editing service films its own process on a phone, edits in CapCut, and posts the before-and-after. The founder uses Claude to write three hooks for the same clip and tests one per day."
+        },
+        {
+          "heading": "Sell online",
+          "bullets": [
+            "Shopify. What it's for: an online store with checkout, products and payments in one place. When: now if you sell physical products, like a print-on-demand or merch brand. Later or never for most service businesses, where a payment link and a simple page are enough. First thing to do: set up a one-product store using your Landing Page Brief as the product page, then test a real purchase."
+          ]
+        },
+        {
+          "heading": "Tie it together with AI",
+          "body": "Eli's next level is what he calls AI coworking agents: AI tied into the tools you already use, like Notion, Granola and Attio, so the repeat work runs without you. You don't start there. You start with one tool per job, then connect them. The Simple Operations Stack and the Automation Starter Pack walk you through both.\n\nRemember: nobody is self-made, and no tool replaces people. Tools give you time back. Spend it talking to customers and building relationships."
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "Your stack split into Now and Later, with a first action for each Now tool. Save the list below in Notion and do the first action for one tool today.",
+          "template": "MY 127 STACK\n\nNOW\n[Tool]: [what I'll use it for] | First action: [ ] | Done: [ ]\n[Tool]: [what I'll use it for] | First action: [ ] | Done: [ ]\n[Tool]: [what I'll use it for] | First action: [ ] | Done: [ ]\n\nLATER (add when a real task needs it)\n[Tool]: [the trigger that means I need it]\n[Tool]: [the trigger that means I need it]"
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "now_tools",
+          "label": "Tools you're setting up now (three or four max)",
+          "type": "textarea"
+        },
+        {
+          "id": "later_tools",
+          "label": "Tools you're waiting on, and the trigger for each",
+          "type": "textarea"
+        },
+        {
+          "id": "sell_physical",
+          "label": "What do you sell?",
+          "type": "select",
+          "options": [
+            "Physical products",
+            "A service",
+            "Digital product",
+            "Not sure yet"
+          ]
+        },
+        {
+          "id": "first_action",
+          "label": "The first action you'll take today, and with which tool",
+          "type": "text"
+        }
+      ],
+      "aiPrompt": "Check that they picked no more than four tools for now, each Now tool has a concrete first action, Later tools have a clear trigger, and their choices fit what they sell, such as Shopify only for physical products.",
+      "reviewed": false
+    },
+    {
+      "slug": "content-calendar",
+      "title": "30-Day Content Calendar",
+      "track": "grow",
+      "type": "Template",
+      "tier": "free",
+      "minutes": 45,
+      "summary": "Set up a posting rhythm you can keep for 30 days on under three hours a week, and learn which format your audience actually wants.",
+      "output": "A filled-in 30-day calendar, three content pillars, one batching slot on your calendar and a tracker that shows which format hit.",
+      "framework": "Audience growth",
+      "sections": [
+        {
+          "heading": "Pick your three pillars before you film anything",
+          "body": "Most people quit posting because every day starts with a blank screen. Pillars fix that. A pillar is a topic bucket you can pull from forever. Three is enough. More than three and your page looks random. Fewer and you run dry.\n\nEli's approach to audience growth comes down to four things: be authentic, be consistent, find the format that hits and reuse it, and lead with your personal brand. People follow people before they follow businesses. So at least one pillar should be about you: what you're learning, what you're building, what went wrong.\n\nA good pillar set has one that teaches, one that shows proof, and one that shows you.",
+          "steps": [
+            "Teach: the problem your customer has and how to fix part of it for free.",
+            "Proof: work you did, before and afters, customer words, what you're testing.",
+            "You: your story, your week, your mistakes, why you started."
+          ],
+          "example": "A sneaker cleaning side business: (1) Teach: how to get creases and stains out at home. (2) Proof: before and after clips of real pairs. (3) You: a 20-year-old building a business between classes, the wins and the pairs that went wrong."
+        },
+        {
+          "heading": "Choose one main platform",
+          "body": "You have under three hours a week. You do not have time to win on five platforms. Pick the one where your customer already scrolls, post there first, and repurpose the same clip elsewhere only if it costs you under five minutes.\n\nQuick guide: TikTok and Instagram Reels for consumer products and local services. YouTube Shorts if you also want longer videos later. LinkedIn if you sell to businesses or professionals (a resume-review offer fits here). X if your customers are founders, developers or creators who read more than they watch."
+        },
+        {
+          "heading": "The weekly rhythm",
+          "body": "Consistency beats volume. Three to five posts a week that you actually publish will do more than a daily plan you abandon in week two. Here is a five-day rhythm built on the three pillars. Drop to three days (Monday, Wednesday, Friday) if that's what you can keep.",
+          "bullets": [
+            "Monday (Teach): one quick how-to or one mistake to avoid.",
+            "Tuesday (You): a lesson you learned this week, told as a short story.",
+            "Wednesday (Proof): a before and after, a result, or a customer's exact words (real only, with permission).",
+            "Thursday (Teach): answer a question someone actually asked you.",
+            "Friday (You): behind the scenes. Show the work, the setup, the messy part."
+          ]
+        },
+        {
+          "heading": "Batch a week in two hours with CapCut",
+          "body": "Posting every day does not mean filming every day. Block one two-hour slot a week and make everything at once. Eli used CapCut on his iPhone for fast edits. It's free and good enough to start.",
+          "steps": [
+            "15 minutes: write five hooks and five one-line outlines, one per post. Use your pillars and last week's comments for ideas.",
+            "45 minutes: film all five back to back. Same spot, same light, change your shirt if you care. Shoot each hook two or three ways.",
+            "45 minutes: edit in CapCut. Cut every pause, add auto captions, keep most videos under 45 seconds.",
+            "15 minutes: write captions and schedule them (native scheduler, or a Notion board if you want to track ideas and status in one place)."
+          ],
+          "example": "A tutoring service for high school math: Sunday 4 to 6 pm. Five videos: a common algebra mistake, why the tutor almost failed calculus, a student's grade jump (with permission), a viewer's question answered, and a look at how a session is planned."
+        },
+        {
+          "heading": "Your 30-day calendar",
+          "body": "Copy this into Notes, Notion or a Google Doc and fill in the blanks during your first batching session. Each row is one post. Fill week one completely now. Fill weeks two to four with topics only, then sharpen them as you learn what hits.",
+          "template": "30-DAY CONTENT CALENDAR\nPlatform: [main platform]\nPillars: 1) [teach] 2) [proof] 3) [you]\nBatching slot: [day and time, 2 hours]\nFormat I'm testing first: [e.g. talking head with text hook]\n\nWEEK 1\nDay 1 (Teach): Hook: [ ] | Topic: [ ] | Format: [ ] | CTA: [ ]\nDay 2 (You): Hook: [ ] | Topic: [ ] | Format: [ ] | CTA: [ ]\nDay 3 (Proof): Hook: [ ] | Topic: [ ] | Format: [ ] | CTA: [ ]\nDay 4 (Teach): Hook: [ ] | Topic: [ ] | Format: [ ] | CTA: [ ]\nDay 5 (You): Hook: [ ] | Topic: [ ] | Format: [ ] | CTA: [ ]\nDays 6-7: rest, reply to every comment, note questions for next week\n\nWEEK 2\nDay 8 (Teach): [ ]\nDay 9 (You): [ ]\nDay 10 (Proof): [ ]\nDay 11 (Teach): [ ]\nDay 12 (You): [ ]\nDays 13-14: rest, review tracker\n\nWEEK 3\nDay 15 (Teach): [ ]\nDay 16 (You): [ ]\nDay 17 (Proof): [ ]\nDay 18 (Teach): [ ]\nDay 19 (You): [ ]\nDays 20-21: rest, review tracker\n\nWEEK 4\nDay 22 (Teach): [ ]\nDay 23 (You): [ ]\nDay 24 (Proof): [ ]\nDay 25 (Teach): [ ]\nDay 26 (You): [ ]\nDays 27-28: rest, review tracker\n\nDAYS 29-30\nDay 29: remake your best post from this month in a new way\nDay 30: write your plan for next month: keep, cut, test"
+        },
+        {
+          "heading": "Track which format hits",
+          "body": "A format is the shape of the video, not the topic. Talking head with a text hook. Green screen over a screenshot. Voiceover on a before and after. A list of three. A day-in-the-life. Change one thing at a time so you know what made the difference.\n\nWhen a post beats your average, Eli's question is: why? What did this one do that the others didn't? Then reuse that format or framework until it stops working. Do more of what works, not just more.",
+          "template": "FORMAT TRACKER (fill in 48 hours after posting)\nDate | Pillar | Format | Hook | Views | Saves/Shares | Comments | Profile visits or DMs\n[ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ]\n\nEnd of each week:\nMy average views: [ ]\nPost that beat it: [ ]\nWhy I think it worked: [ ]\nNext week I'll reuse: [format or hook]",
+          "bullets": [
+            "Views tell you if the hook stopped the scroll.",
+            "Saves and shares tell you the content was useful.",
+            "Comments and DMs tell you it built trust. These are the ones that turn into customers.",
+            "Give a format at least three tries before you judge it. One post is noise."
+          ]
+        },
+        {
+          "heading": "What you leave with",
+          "body": "By the end of this session you should have three pillars written down, one platform chosen, a two-hour batching slot blocked on your calendar, week one fully planned and the first format you're going to test. Then make today day one: batch your first five posts this week. Fill in the worksheet below so you can come back and check yourself at day 30."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "pillar_one",
+          "label": "Pillar 1: what will you teach?",
+          "type": "text",
+          "placeholder": "e.g. how to clean sneakers at home"
+        },
+        {
+          "id": "pillar_two",
+          "label": "Pillar 2: what proof will you show?",
+          "type": "text",
+          "placeholder": "e.g. before and after clips"
+        },
+        {
+          "id": "pillar_three",
+          "label": "Pillar 3: what part of you and your story will you share?",
+          "type": "text",
+          "placeholder": "e.g. building this between classes"
+        },
+        {
+          "id": "main_platform",
+          "label": "Your main platform",
+          "type": "select",
+          "options": [
+            "TikTok",
+            "Instagram",
+            "YouTube Shorts",
+            "LinkedIn",
+            "X"
+          ]
+        },
+        {
+          "id": "posting_days",
+          "label": "Which days will you post?",
+          "type": "text",
+          "placeholder": "e.g. Mon, Wed, Fri"
+        },
+        {
+          "id": "batching_slot",
+          "label": "Your weekly two-hour batching slot",
+          "type": "text",
+          "placeholder": "e.g. Sunday 4 to 6 pm"
+        },
+        {
+          "id": "first_format",
+          "label": "The format you'll test first, and why",
+          "type": "textarea",
+          "placeholder": "e.g. voiceover on a before and after, because results are my strongest proof"
+        }
+      ],
+      "aiPrompt": "Check that the three pillars are distinct and tied to a real customer problem, that one pillar features the member personally, that the posting days and batching slot are realistic for someone with under three hours a week, and that the first format is specific enough to test.",
+      "reviewed": false
+    },
+    {
+      "slug": "hooks-library",
+      "title": "Hook & Caption Bank",
+      "track": "grow",
+      "type": "Template",
+      "tier": "builder",
+      "minutes": 30,
+      "summary": "Fill-in-the-blank hooks, captions and calls to action so you never start a post from a blank screen.",
+      "output": "Ten hooks written for your niche, three captions ready to post, your go-to CTA, and a loop for doubling down on the format that works.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "How to use this bank",
+          "body": "The first line decides whether anyone sees the rest. A hook is a promise: keep watching and you'll get this. Don't copy these word for word. Fill the blanks with your customer's exact words, then say it out loud. If it sounds like an ad, rewrite it until it sounds like you.\n\nRules for every hook:",
+          "bullets": [
+            "Say it in the first two seconds, on screen and out loud.",
+            "One idea per post. If the hook promises two things, split it into two posts.",
+            "Be specific. Numbers, names of tools, places and timeframes beat vague words.",
+            "Only claim what's true. A fake result might get views, but it costs you trust, and trust beats everything.",
+            "Write five hooks for every post and pick the best one. Test the runner-up next time."
+          ]
+        },
+        {
+          "heading": "Story and mistake hooks",
+          "body": "Story hooks work because people follow people. Mistake hooks work because nobody wants to make the same one.",
+          "template": "STORY\n1. I started [business] with [small amount or resource]. Here's what happened.\n2. A year ago I was [old situation]. Today I'm [new situation].\n3. The day I almost quit [thing] was the day [turning point].\n4. My first customer for [offer] came from [unexpected place].\n5. Nobody believed [thing] would work. Here's what I did anyway.\n6. This is what [number] weeks of building [business] looks like.\n7. I didn't think I was qualified to [goal]. Here's what changed.\n\nMISTAKE\n8. I wasted [time or money] on [thing] so you don't have to.\n9. The biggest mistake I made starting [business]: [mistake].\n10. Stop [common action] if you want [result].\n11. [Number] mistakes I made in my first [timeframe] of [business].\n12. If you're doing [common habit], you're losing [result].\n13. I tried [popular advice]. It didn't work. Here's why.\n14. Don't [action] until you've done this first."
+        },
+        {
+          "heading": "Contrarian and how-to hooks",
+          "body": "Contrarian hooks earn attention by disagreeing with something your audience has heard a hundred times. Only use one if you actually believe it and can back it up. How-to hooks are your most reliable saves.",
+          "template": "CONTRARIAN\n15. Unpopular opinion: you don't need [common belief] to [result].\n16. Everyone says [advice]. I think that's wrong.\n17. [Popular thing] is overrated. Do this instead.\n18. The worst advice I got about [topic]: [advice].\n19. You don't have a [problem] problem. You have a [real problem] problem.\n20. Nobody talks about this part of [topic].\n21. [Thing people fear] isn't the hard part. [Real hard part] is.\n\nHOW-TO\n22. How to [result] in [timeframe] without [pain].\n23. Here's exactly how I'd [result] if I started today.\n24. [Number] steps to [result]. Save this.\n25. The [number]-minute fix for [problem].\n26. How I [result] using only [tool or phone].\n27. Do this before you [common action].\n28. The easiest way to [result] for [specific person]."
+        },
+        {
+          "heading": "Result and behind-the-scenes hooks",
+          "body": "Result hooks only work with real results. If you don't have one yet, use a customer's result (with permission) or a small honest win. Behind-the-scenes hooks build trust because they show the work, not just the outcome.",
+          "template": "RESULT\n29. This [before] became [after] in [timeframe].\n30. How [customer type] went from [before] to [after].\n31. What [price or amount] gets you with [offer].\n32. We just [milestone]. Here's what actually made the difference.\n33. Watch this [thing] go from [before] to [after].\n34. [Customer] said [exact quote]. Here's what we did.\n35. My [first / tenth / best] [sale, client, drop] and what I learned.\n\nBEHIND THE SCENES\n36. A day running [business] while [other commitment].\n37. What goes into one [product or service] that nobody sees.\n38. Packing orders for [business]. Come with me.\n39. Here's what my [setup / workspace / process] actually looks like.\n40. The part of [business] I hate, and why I do it anyway.\n41. Honest update: week [number] of building [business].\n42. Here's how a [service] session actually goes.",
+          "example": "A short-form video editing service, filled in: 'This 40-minute podcast became 6 clips in one afternoon.' (Result, #29.) 'Here's exactly how I'd get my first editing client if I started today.' (How-to, #23.) 'You don't have a views problem. You have a first-two-seconds problem.' (Contrarian, #19.)"
+        },
+        {
+          "heading": "10 caption templates",
+          "body": "The hook gets the view. The caption keeps the reader and gives them a next step. Keep it short on TikTok and Reels, longer on LinkedIn and X.",
+          "template": "1. QUICK LESSON\n[Hook restated]. Here's what I learned: [lesson in one sentence]. [CTA]\n\n2. THREE TIPS\n[Number] things I wish I knew about [topic]:\n1) [tip]\n2) [tip]\n3) [tip]\nWhich one are you trying first?\n\n3. BEFORE / AFTER\nBefore: [situation]. After: [situation]. What changed: [one thing]. [CTA]\n\n4. MISTAKE\nI used to [mistake]. It cost me [cost]. Now I [new habit]. Don't repeat my mistake.\n\n5. CUSTOMER WORDS\n'[exact customer quote].' That's why we [what you do]. [CTA]\n\n6. STORY\n[Where you were]. [What happened]. [What you learned]. [Question for the reader]\n\n7. BEHIND THE SCENES\nWhat you didn't see: [hidden work]. This is why [result] takes [time].\n\n8. QUESTION\nHonest question for [audience]: [question]? I'll reply to every comment.\n\n9. OFFER\nI help [who] [get result] without [pain]. I'm taking [number] [clients / orders] this month. [CTA]\n\n10. MYTH\nMyth: [common belief]. Truth: [what you've seen]. Here's why: [reason]."
+        },
+        {
+          "heading": "10 calls to action",
+          "body": "Every post gets one CTA, never three. Match it to your goal: comments help reach, saves signal value, DMs start conversations, and links drive sales. ManyChat can send an automatic DM when someone comments a keyword, which makes the 'comment a word' CTA easy to run on Instagram.",
+          "bullets": [
+            "Comment '[keyword]' and I'll send you [free thing].",
+            "Save this for the next time you [situation].",
+            "Send this to someone who needs to [result].",
+            "Follow for part two.",
+            "DM me '[keyword]' if you want help with [problem].",
+            "Which one are you? Tell me in the comments.",
+            "Link in bio to [book / order / get the free guide].",
+            "Follow if you're building [type of business] too.",
+            "Try this today and tell me how it goes.",
+            "I'm taking [number] [clients / orders] this week. DM me to grab a spot."
+          ]
+        },
+        {
+          "heading": "The do-more-of-what-works loop",
+          "body": "A hook bank only matters if you learn from it. Eli grew his social channels by doubling down: when a video worked, he reused that format or framework to hit again. Run this loop every week.",
+          "steps": [
+            "Post. Use hooks from at least two different types this week so you have a comparison.",
+            "Wait 48 hours. Note views, saves, shares and DMs for each post.",
+            "Find the winner. Which post beat your average clearly?",
+            "Ask why. Was it the hook type, the topic, the format, the length, the first frame? Write down one reason.",
+            "Double down. Make three new posts that keep the winning element and change everything else.",
+            "Repeat until it stops working. When a format drops below your average twice in a row, pause it and test a new hook type."
+          ],
+          "template": "WINNING POST REVIEW\nPost: [link]\nHook type: [story / mistake / contrarian / how-to / result / BTS]\nWhat it did differently: [ ]\nWhy I think it worked: [ ]\nThree remixes:\n1. [same element, new topic]\n2. [same element, new topic]\n3. [same element, new topic]"
+        },
+        {
+          "heading": "Your output",
+          "body": "Before you close this, write ten hooks for your niche (at least one from each type), fill in three caption templates, and pick the one CTA you'll use most this month. Save them in your notes app or your content board so your next batching session starts with a full list."
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "niche",
+          "label": "Who are you talking to, in one line?",
+          "type": "text",
+          "placeholder": "e.g. college students who want clean sneakers without paying retail"
+        },
+        {
+          "id": "ten_hooks",
+          "label": "Write ten hooks for your niche (one per line, at least one from each type)",
+          "type": "textarea",
+          "placeholder": "1. I wasted $200 on cleaning kits so you don't have to..."
+        },
+        {
+          "id": "three_captions",
+          "label": "Fill in three caption templates",
+          "type": "textarea"
+        },
+        {
+          "id": "main_cta",
+          "label": "Your go-to CTA this month",
+          "type": "text",
+          "placeholder": "e.g. Comment CLEAN and I'll send you my stain guide"
+        },
+        {
+          "id": "winning_format",
+          "label": "Your best post so far: what made it work?",
+          "type": "textarea",
+          "placeholder": "Hook type, format, why you think it beat the others"
+        }
+      ],
+      "aiPrompt": "Check that the hooks are specific to the member's niche with real words, numbers or tools rather than generic blanks, that every hook type is represented, that no hook claims a fake result, and that the CTA matches a clear goal.",
+      "reviewed": false
+    },
+    {
+      "slug": "dm-outreach-scripts",
+      "title": "Outreach Scripts",
+      "track": "grow",
+      "type": "Script",
+      "tier": "builder",
+      "minutes": 40,
+      "summary": "Copyable messages for warm outreach, cold DMs, follow-ups, inbound replies, booking calls and asking for referrals, without sounding like a bot.",
+      "output": "A list of 20 warm contacts, your first message written and sent, and a simple tracker for follow-ups.",
+      "framework": "The too-good-to-refuse offer",
+      "sections": [
+        {
+          "heading": "Start with 20 people who already know you",
+          "body": "Your first customers almost never come from strangers. They come from people who already trust you, or from people those people trust. Eli's rule: trust beats everything else in sales. Win their trust, win their wallet.\n\nBefore you write a single message, open your contacts, your DMs and your follower list and write down 20 names. Not 20 buyers. 20 people who might buy, know someone who would, or give you honest feedback.",
+          "bullets": [
+            "Friends and family who'd tell you the truth.",
+            "Classmates, teammates, coworkers, old bosses.",
+            "People in group chats or clubs you're part of.",
+            "Followers who've commented or replied to you before.",
+            "Anyone who's ever asked you for help with the thing you now sell."
+          ]
+        },
+        {
+          "heading": "Warm outreach: people you know",
+          "body": "Be direct. People you know can tell when you're being weird. Say what you started, who it's for, and ask for one small thing: feedback, a referral, or a yes. Personalize the first line every time.",
+          "template": "WARM: ASK FOR FEEDBACK\nHey [name], [one real personal line, e.g. saw you started at the new job, congrats]. I just started [business], helping [who] with [problem]. Before I go wider, I'd love your honest take. Can I send you a 30-second overview?\n\nWARM: DIRECT OFFER\nHey [name], quick one. I'm doing [service] for [who] and taking my first [number] clients at [intro price or bonus]. You mentioned [problem they told you about] a while back. Is that still a thing for you?\n\nWARM: ASK WHO THEY KNOW\nHey [name], I started [business]. I help [who] [get result]. Do you know anyone dealing with [problem] right now? Even one name helps a ton.",
+          "example": "A lawn care service: 'Hey Marcus, hope the new semester's going well. I started a lawn care service this spring, mostly mowing and edging for families in [neighborhood]. Your parents mentioned last summer the yard was a lot to keep up with. Would they want a free first cut so they can see the work?'"
+        },
+        {
+          "heading": "Cold DMs that don't feel spammy",
+          "body": "Cold works when it's clearly written for one person. Eli's life hack is to talk to everyone, everywhere, every time, but that means real conversations, not copy-paste blasts. Three rules: mention something specific about them, ask about their situation before you offer anything, and keep it under four lines.",
+          "template": "COLD: START WITH THEM\nHey [name], saw your [post / video / store] about [specific thing]. [Genuine one-line reaction]. Curious, how are you handling [problem] right now?\n\nCOLD: USEFUL FIRST\nHey [name], I [do thing] for [type of person]. I noticed [specific, small issue, e.g. your last three reels have no captions]. Happy to send a quick tip on fixing it, no strings. Want it?\n\nCOLD: AFTER THEY REPLY WITH THE PROBLEM\nThat makes sense. A lot of [type of person] I talk to say the same. I actually help with exactly that: [one-line offer]. Want me to show you how it'd work for you?",
+          "bullets": [
+            "Never open with a pitch or a link.",
+            "Never send the same message to 50 people at once.",
+            "If they don't describe a problem, don't offer. Thank them and move on.",
+            "Ask how they solve it today. Their answer tells you whether your offer fits."
+          ]
+        },
+        {
+          "heading": "Follow-ups",
+          "body": "Most replies come after a follow-up, because people are busy, not because they said no. Follow up once after three days, once more after a week, then stop. Each follow-up should add something, not just bump the thread.",
+          "template": "FOLLOW-UP 1 (day 3)\nHey [name], just floating this back up in case it got buried. No pressure either way.\n\nFOLLOW-UP 2 (day 7, add value)\nHey [name], thought of you when I [made this / saw this]: [link or tip]. Still happy to chat about [problem] whenever works.\n\nCLOSE THE LOOP (day 14)\nHey [name], I'll stop bugging you. If [problem] ever becomes a priority, I'm here. Appreciate you."
+        },
+        {
+          "heading": "Replying to inbound and booking the call",
+          "body": "When someone reaches out first, speed matters. Reply the same day. Ask one or two questions to understand their situation before quoting a price. Then move to a short call or a clear next step. A Calendly link makes booking easy.",
+          "template": "INBOUND: FIRST REPLY\nHey [name], thanks for reaching out. Quick question so I can actually help: what's going on with [problem] right now, and what have you tried so far?\n\nINBOUND: AFTER THEY EXPLAIN\nGot it. That's exactly what I help with. The fastest way to see if it's a fit is a 15-minute call. Grab any time here: [booking link]. Or tell me two times that work.\n\nBOOKING: CONFIRM\nYou're booked for [day, time]. I'll come with [one thing you'll prepare, e.g. three ideas for your page]. If anything changes, just reply here.\n\nSIMPLE OFFER AFTER THE CALL\nGreat talking, [name]. Here's what we discussed: [their problem in their words]. What I'll do: [deliverable] by [date]. Price: [price]. If you're in, reply YES and I'll send [payment link / next step].",
+          "example": "A resume-review offer on LinkedIn: 'Got it, you've applied to 40 roles and heard back from two. That's exactly what I help with. I'll rewrite your resume for one target role and send it back in 48 hours. Price: [price]. If you don't land at least one interview from your next 15 applications, I'll do a second round free.' Frame cost as the smallest number and value as the largest."
+        },
+        {
+          "heading": "Asking for referrals",
+          "body": "The best time to ask is right after a customer says something good. Make it easy: tell them exactly who to send and give them a message they can forward.",
+          "template": "REFERRAL ASK\nReally glad [result] worked out, [name]. Quick ask: do you know one or two people who are dealing with [problem]? If it helps, here's a message you can forward:\n\n'Hey, I used [your name] for [service] and [result]. Thought of you. Here's their [link / handle].'\n\nREFERRAL THANK YOU\nHey [name], [referred person] reached out because of you. Thank you. [Small thank-you, e.g. your next [service] is on me]."
+        },
+        {
+          "heading": "Integrity rules",
+          "body": "How you do one thing is how people think you do everything. Your DMs are your reputation. Eli's standard is simple: no shady deals, no unkept promises, no manipulation.",
+          "bullets": [
+            "No fake scarcity. Only say 'three spots left' if there are three spots left.",
+            "No fake urgency, fake results or fake testimonials.",
+            "No guilt trips. A no is a no. Thank them and leave the door open.",
+            "Don't promise what you can't deliver. Under-promise, over-deliver.",
+            "Respect platform rules and people's inboxes. If someone asks you to stop, stop.",
+            "If your offer won't help them, say so and point them somewhere that will."
+          ]
+        },
+        {
+          "heading": "Track it and send your first message today",
+          "body": "Outreach dies without tracking. You'll forget who you messaged and when to follow up. A notes app works. A spreadsheet works. Attio works if you want a real CRM as you grow. Pick one tonight.",
+          "template": "OUTREACH TRACKER\nName | How I know them | Date sent | Script used | Replied? | Follow-up date | Outcome\n[ ] | [ ] | [ ] | [ ] | [Y/N] | [ ] | [call / sale / referral / no]"
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "warm_contacts",
+          "label": "List 20 warm contacts (name and how you know them, one per line)",
+          "type": "textarea",
+          "placeholder": "1. Marcus, high school teammate\n2. Aunt Jo, owns a salon..."
+        },
+        {
+          "id": "first_message",
+          "label": "The exact message you'll send first",
+          "type": "textarea",
+          "placeholder": "Paste your filled-in script here"
+        },
+        {
+          "id": "follow_up_day",
+          "label": "What day will you send follow-ups?",
+          "type": "text",
+          "placeholder": "e.g. Thursday, three days after sending"
+        },
+        {
+          "id": "tracking_method",
+          "label": "How will you track replies and follow-ups?",
+          "type": "select",
+          "options": [
+            "Notes app",
+            "Spreadsheet",
+            "Attio",
+            "Notion",
+            "Other"
+          ]
+        }
+      ],
+      "aiPrompt": "Check that the contact list has close to 20 real names with context, that the first message is personalized, short and asks about the person's problem before pitching, that it avoids fake scarcity or pressure, and that there is a concrete follow-up day and tracking method.",
+      "reviewed": false
+    },
+    {
+      "slug": "kpi-dashboard",
+      "title": "Founder KPI Dashboard",
+      "track": "grow",
+      "type": "Calculator",
+      "tier": "builder",
+      "minutes": 20,
+      "calc": "kpi",
+      "summary": "Track the five numbers that show where your business leaks, and decide each week what to kill, pause or double down on.",
+      "output": "A weekly scorecard with your five numbers, the conversion rate between each step, and one decision for next week.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "Fill in last week's numbers first",
+          "body": "Don't read the rest until you've entered last week in the scorecard above. Guesses are fine for week one. Write down where each number came from so next week is faster: your platform analytics, your site dashboard, your DMs, your payment app.\n\nIf a number is zero, enter zero. A zero is information. It tells you exactly where to look."
+        },
+        {
+          "heading": "The five numbers",
+          "body": "Every early business runs on the same chain: people see you, some get curious, some start a conversation, some buy, and that turns into money. Track these five every week, same day, same sources.",
+          "steps": [
+            "Reach: total views or impressions across your content, ads or flyers. How many people saw you.",
+            "Visits: profile visits or website visitors. How many got curious enough to look closer.",
+            "Leads: DMs, form fills, booked calls or real conversations. How many raised their hand.",
+            "Sales: number of paying customers or orders. How many said yes with money.",
+            "Revenue: total money in from those sales. Not profit, just what came in. Your bookkeeping (and a professional, when you need one) handles the rest."
+          ]
+        },
+        {
+          "heading": "What each conversion rate tells you",
+          "body": "The dashboard divides each step by the one before it. That rate is where the real lesson is. A big number with a bad rate after it is a leak. Fix the leak before you pour more people in the top. More reach on a leaky page just means more people leaving.",
+          "bullets": [
+            "Reach to visits (visits divided by reach): is your content making people curious about you? If it's low, your hooks get views but your profile or offer isn't clear. Fix your bio, pinned posts and first line of your site.",
+            "Visits to leads (leads divided by visits): when people look closer, do they reach out? If it's low, your offer or your CTA is weak. Make the next step obvious and the offer clearer.",
+            "Leads to sales (sales divided by leads): when people talk to you, do they buy? If it's low, it's your conversation, your price framing or your offer. Reread your DMs. Use the outreach scripts.",
+            "Revenue per sale (revenue divided by sales): what's each customer worth? If it's low, look at pricing, bundles or an upsell. Tie the price to the ROI the customer sees."
+          ],
+          "example": "A print-on-demand brand's week: 12,000 views, 300 profile visits, 20 DMs, 4 orders, $140 revenue. Reach to visits is 2.5%, visits to leads about 6.7%, leads to sales 20%, $35 per sale. The content is working fine. The leak is between visits and DMs: people look at the page and leave. Next week's fix is the bio and a pinned post that shows the best designs and how to order."
+        },
+        {
+          "heading": "Read week-over-week, not day to day",
+          "body": "One good day means nothing. One week is a data point. Three weeks is a trend. The dashboard shows the change from last week for every number. Look for the step that moved most, up or down, and ask what you did differently.\n\nWhen something works, Eli's question is: why? What did this do that everything before didn't? Then do more of that until it stops working. Do more of what works, not just more.",
+          "bullets": [
+            "Reach up, everything else flat: you found a hook, but it's attracting the wrong people or your next step is unclear.",
+            "Reach flat, sales up: your conversations or offer improved. Figure out what you said differently and write it down.",
+            "Everything down: you probably posted less or messaged fewer people. Check your inputs before you change the strategy."
+          ]
+        },
+        {
+          "heading": "Kill, pause or double down",
+          "body": "Every week, look at what you spent time on and match it to the numbers. Then make one call per activity. Product-market fit, in Eli's words, is when people want to pay without you needing to sell them. Until then, your numbers are how you find the path to it.",
+          "bullets": [
+            "Double down: the activity moved a number you care about for two or more weeks. Do more of exactly that. Same format, same channel, same message.",
+            "Pause: it hasn't moved anything yet, but you've run it fewer than three times or changed too many things at once. Run it cleanly one more time, then decide.",
+            "Kill: you've given it a fair try and it hasn't moved leads or sales. Stop. Time is the only thing you can't buy back, and you have under three hours a week."
+          ],
+          "template": "WEEKLY DECISION\nThe step with the biggest leak: [reach / visits / leads / sales / revenue per sale]\nWhat I think is causing it: [ ]\nDouble down on: [activity]\nPause: [activity]\nKill: [activity]\nOne change I'll test next week: [ ]"
+        },
+        {
+          "heading": "Make it a Monday habit",
+          "body": "Ten minutes, same time every week. Enter the numbers, read the rates, make the call, then plan your week around the biggest leak. Pair it with the Weekly CEO Review so the numbers turn into next week's top three. Keep every week's scorecard. After a month you'll be able to see which changes actually moved the numbers, and which ones only felt productive.",
+          "steps": [
+            "Pull last week's numbers from the same sources every time.",
+            "Enter them in the scorecard.",
+            "Find the lowest conversion rate and the biggest week-over-week change.",
+            "Write one kill, one pause and one double down.",
+            "Put the one test for next week on your calendar."
+          ]
+        },
+        {
+          "heading": "What you walk away with",
+          "body": "A filled-in scorecard for last week, the conversion rate at every step, the one leak you're fixing next, and a written kill, pause or double down call. Do it again next Monday and you'll have your first week-over-week trend."
+        }
+      ],
+      "reviewed": false
+    },
+    {
+      "slug": "weekly-ceo-review",
+      "title": "Weekly CEO Review",
+      "track": "grow",
+      "type": "Template",
+      "tier": "builder",
+      "minutes": 30,
+      "summary": "A 30-minute weekly review that pulls you out of the busywork and decides what next week is for.",
+      "output": "A completed review with your numbers, what to double down on, what to cut, one thing to delegate or automate, next week's top three and a perspective check.",
+      "framework": "Kill, pause or double down",
+      "sections": [
+        {
+          "heading": "Book the 30 minutes now",
+          "body": "Put a recurring 30-minute block on your calendar before you read any further. Sunday evening or Monday morning works for most people. Same time, every week, phone on do not disturb.\n\nEli's principle: get to the point where you're working on the business, not in it, as fast as you can. Your business is only as valuable as it is when you aren't there to run it. You won't get there by accident. This review is the 30 minutes a week where you act like the CEO instead of the only employee."
+        },
+        {
+          "heading": "The six parts",
+          "body": "Each part has a time box. Stick to it. The point is a decision, not a journal entry.",
+          "steps": [
+            "Numbers (5 minutes): enter last week's reach, visits, leads, sales and revenue in the KPI Dashboard. Note the biggest change.",
+            "What worked and why (5 minutes): name the one thing that moved a number. Ask why it worked better than what came before.",
+            "What to cut (5 minutes): name what took time and produced nothing. Kill it or pause it.",
+            "Delegate or automate (5 minutes): name one task you did that someone or something else could do.",
+            "Next week's top three (5 minutes): pick the three things that will move the numbers most. Three, not ten.",
+            "Perspective check (5 minutes): step back from the business and check what matters more than it."
+          ]
+        },
+        {
+          "heading": "Numbers, wins and cuts",
+          "body": "Start with numbers because feelings lie. A week that felt busy can be a week where nothing moved. A week that felt slow can be the week you got your first referral.\n\nFor wins, don't stop at 'that post did well'. Ask what it did that the others didn't. Was it the hook, the offer, who you messaged, the time you posted? Do more of what works, not just more.\n\nFor cuts, be honest. Trying to do too much was one of Eli's biggest mistakes. There are a million ways to make money. Pick one, get really good at it. Every week, something should come off your list.",
+          "example": "A short-form video editing service: Numbers show 6 leads, 2 sales. What worked: a before-and-after clip of a client's podcast got 4 of the 6 DMs, because it showed the result in the first second. What to cut: two hours spent redesigning the logo, zero impact. Decision: make three more before-and-after clips next week, logo stays as is."
+        },
+        {
+          "heading": "Delegate or automate one thing",
+          "body": "You don't need a team to start delegating. Look at your week and find the tasks you repeat that don't need your judgment. Some can go to AI or an automation. Some can go to a freelancer later. Write it down now even if you can't hand it off yet. The list becomes your plan.",
+          "bullets": [
+            "Repeated DM replies: a saved reply, or ManyChat for keyword-triggered messages.",
+            "Call notes and follow-ups: Granola to capture notes, then a follow-up template.",
+            "Content ideas, captions and first drafts: Claude, with your hook bank as input.",
+            "Research on competitors or a market: Perplexity.",
+            "Scheduling: a Calendly link instead of back-and-forth texts.",
+            "Bigger repeat tasks: write a one-page process and see the Delegate Your First Task playbook."
+          ]
+        },
+        {
+          "heading": "Next week's top three",
+          "body": "Each one should be specific, finishable in a week and tied to a number. 'Grow on TikTok' is not a top three item. 'Post four before-and-after clips and reply to every comment within a day' is.\n\nIf everything feels important, ask: if I only got one of these done, which would move revenue or customers the most? That's number one.\n\nThen put all three on your calendar before you close the review. A priority without a time slot is a wish. If you can't find the time for all three, that's your answer: cut one, or delegate something from step four."
+        },
+        {
+          "heading": "Perspective check",
+          "body": "127 is built on Psalm 127:1: unless the Lord builds the house, those who build it labor in vain. Building in vain, as Eli puts it, means only focusing on money while neglecting your faith and the people who matter. Take two minutes on each question. Purpose over profit.",
+          "bullets": [
+            "Did I keep my commitments to the people closest to me this week?",
+            "Did I make time for my faith, rest and health, or did the business eat all of it?",
+            "Did I do business with integrity: no shortcuts, no promises I couldn't keep?",
+            "Who helped me this week, and have I thanked them? Nobody is self-made.",
+            "Am I still building for the reason I started?"
+          ]
+        },
+        {
+          "heading": "The template",
+          "body": "Copy this into Notion, Google Docs or your notes app. Duplicate it every week so you can look back and see the trend.",
+          "template": "WEEKLY CEO REVIEW\nWeek of: [date]\n\n1. NUMBERS\nReach: [ ] | Visits: [ ] | Leads: [ ] | Sales: [ ] | Revenue: [ ]\nBiggest change from last week: [ ]\n\n2. WHAT WORKED AND WHY\nWhat moved a number: [ ]\nWhy it worked better than before: [ ]\nHow I'll do more of it: [ ]\n\n3. WHAT TO CUT\nTook time, produced nothing: [ ]\nKill or pause: [ ]\n\n4. DELEGATE OR AUTOMATE\nTask I repeated: [ ]\nWho or what could do it: [person / AI / automation]\nFirst step to hand it off: [ ]\n\n5. NEXT WEEK'S TOP THREE\n1. [ ]\n2. [ ]\n3. [ ]\n\n6. PERSPECTIVE CHECK\nPeople who matter: [ ]\nFaith, rest, health: [ ]\nIntegrity check: [ ]\nWho I'm thankful for: [ ]\nStill building for the right reason? [ ]"
+        }
+      ],
+      "worksheet": [
+        {
+          "id": "numbers",
+          "label": "Last week's numbers: reach, visits, leads, sales, revenue",
+          "type": "textarea",
+          "placeholder": "Reach 8,000 / Visits 210 / Leads 9 / Sales 2 / Revenue $120"
+        },
+        {
+          "id": "what_worked",
+          "label": "What worked, and why did it work better than before?",
+          "type": "textarea"
+        },
+        {
+          "id": "what_to_cut",
+          "label": "What took time and produced nothing? Kill or pause it.",
+          "type": "textarea"
+        },
+        {
+          "id": "delegate_automate",
+          "label": "One task to delegate or automate, and who or what will do it",
+          "type": "textarea",
+          "placeholder": "e.g. replying to 'how much?' DMs, ManyChat keyword reply"
+        },
+        {
+          "id": "top_one",
+          "label": "Next week's priority #1",
+          "type": "text"
+        },
+        {
+          "id": "top_two",
+          "label": "Next week's priority #2",
+          "type": "text"
+        },
+        {
+          "id": "top_three",
+          "label": "Next week's priority #3",
+          "type": "text"
+        },
+        {
+          "id": "perspective",
+          "label": "Perspective check: faith, people who matter, purpose",
+          "type": "textarea"
+        }
+      ],
+      "aiPrompt": "Check that the numbers are filled in, that 'what worked' includes a real reason rather than a description, that something was actually cut, that the top three are specific, finishable in a week and tied to a number, and that the perspective check was answered honestly rather than skipped.",
+      "reviewed": false
+    }
+  ]
+}

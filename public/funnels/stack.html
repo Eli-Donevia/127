@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--OG-->
+<title>The Day One Stack · 127</title>
+<meta name="description" content="Eli Christiansen's founder tool stack, the order to set it up, and 30 copy-paste AI prompts. Free.">
+<meta property="og:title" content="The Day One Stack">
+<meta property="og:description" content="The tools Eli Christiansen uses to build, the order to set them up, and 30 copy-paste AI prompts. Free.">
+<meta property="og:image" content="/funnels/og/stack.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/OG-->
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/funnels/funnels.css">
+<!--TRACKERS-->
+</head>
+<body>
+<div class="bg-grid"></div><div class="glow"></div>
+<header class="f-top">
+  <a href="/" class="mark" aria-label="127"><span class="num">127</span></a>
+  <a href="/score" class="aside" data-site>Take the Founder Score</a>
+</header>
+
+<main>
+  <section class="narrow hero">
+    <span class="chip"><span class="dot"></span>Free guide · PDF + web</span>
+    <h1 class="h-display steel">The Day One Stack</h1>
+    <p class="lede">The tools I use to build businesses, the order to set them up, and 30 AI prompts you can copy and paste today. Day one costs $0.</p>
+
+    <form id="stackForm" class="card halo stack-s" style="margin-top:26px" novalidate>
+      <div class="label" style="margin-bottom:6px">Send me the stack</div>
+      <input class="input" type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="60">
+      <input class="input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <label class="check-row"><input type="checkbox" name="optin"> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>
+      <button class="btn block" type="submit">Get the free stack <span class="arrow"></span></button>
+      <div class="form-err" id="err" hidden></div>
+      <div class="form-note">You'll get the guide right away.</div>
+    </form>
+  </section>
+
+  <section class="narrow section" style="padding-top:36px">
+    <div class="label" style="margin-bottom:14px">What's inside</div>
+    <div class="stack-s" id="layers"></div>
+  </section>
+
+  <section class="narrow" style="padding-bottom:12px">
+    <div class="label" style="margin-bottom:14px">A taste: prompt 03 of 30</div>
+    <article class="card prompt" id="sample"></article>
+  </section>
+
+  <section class="narrow section">
+    <div class="card" style="display:flex;gap:16px;align-items:flex-start">
+      <div class="tool-logo" aria-hidden="true">EC</div>
+      <div><div class="label">From Eli Christiansen</div>
+        <p class="small fog" style="margin:8px 0 0">2x founder. Left a multiple six-figure corporate job to build full time. $50K in sales from a part-time e-commerce brand, 25M+ views across social, and the fintech category win at Best of the Midwest (Iowa Startup Week) with his software company, Donevia. These are the tools that made the difference.</p></div>
+    </div>
+    <div style="margin-top:22px"><a href="#stackForm" class="btn block ghost">Get the free stack</a></div>
+  </section>
+</main>
+
+<footer class="f-foot">
+  <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
+  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></div>
+</footer>
+
+<script src="/funnels/funnel-kit.js"></script>
+<script src="/funnels/stack-data.js"></script>
+<script>
+(function () {
+  var K = window.K127, D = window.STACK, esc = K.esc;
+
+  var layers = D.layers.map(function (l) { return { n: l.n, name: l.name, when: l.when, tools: l.tools.map(function (t) { return t.name; }) }; });
+  layers.push({ n: '06', name: 'Systems', when: D.systems.when, tools: ['AI coworkers that run on the stack'] });
+  layers.push({ n: '30', name: 'Copy-paste prompts', when: 'Validate, offer, brand, content, sales, CEO', tools: [] });
+  document.getElementById('layers').innerHTML = layers.map(function (l) {
+    return '<div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:18px 20px"><span class="layer-num" style="padding-top:3px">' + l.n + '</span>' +
+      '<div style="flex:1"><div class="row" style="justify-content:space-between;gap:6px"><b style="font-weight:600;letter-spacing:-.02em">' + esc(l.name) + '</b><span class="tiny slate">' + esc(l.when) + '</span></div>' +
+      (l.tools.length ? '<div class="small fog" style="margin-top:4px">' + esc(l.tools.join(' · ')) + '</div>' : '') + '</div></div>';
+  }).join('');
+
+  var p = D.prompts[0].items[2];
+  document.getElementById('sample').innerHTML = '<h4>' + esc(p.t) + '</h4><div class="when">' + esc(p.when) + '</div><button class="btn pill copy" id="copySample">Copy</button><pre>' + esc(p.p) + '</pre>';
+  document.getElementById('copySample').onclick = function () { K.copy(p.p); K.track('Prompt Copy', { n: 'sample' }); };
+
+  var f = document.getElementById('stackForm');
+  f.email.value = K.savedEmail();
+  f.onsubmit = function (e) {
+    e.preventDefault();
+    var err = document.getElementById('err'), btn = f.querySelector('button[type=submit]'), email = f.email.value.trim();
+    if (!K.validEmail(email)) { err.textContent = 'Enter a valid email.'; err.hidden = false; return; }
+    if (f.website.value) return;
+    err.hidden = true; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+    K.lead({ email: email, name: f.name.value.trim(), source: 'day-one-stack', optin: !!f.optin.checked, data: {} }).then(function () {
+      K.track('Lead', { source: 'day-one-stack' });
+      location.href = K.href('/stack/guide');
+    }, function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.innerHTML = 'Get the free stack <span class="arrow"></span>'; });
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<%- include('partials/head') %>
+<main>
+  <section style="padding-bottom:48px">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Membership</div>
+        <h1 style="font-size:clamp(44px,6vw,72px)">Start free. Grow into it.</h1>
+        <p>Every plan starts with the free assessment and your personalized 30-day roadmap. Upgrade when you've earned it. Cancel anytime.</p>
+      </div>
+      <%- include('partials/plans') %>
+    </div>
+  </section>
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Compare</div><h2>What each plan includes.</h2></div>
+      <div class="card scroll-x" style="padding:8px 8px">
+        <table class="t">
+          <thead><tr><th></th><th>Free</th><th>Builder</th><th>Founder's Circle</th></tr></thead>
+          <tbody>
+            <tr><td>Founder assessment and 30-day roadmap</td><td>Weeks 1–2</td><td>Full</td><td>Full</td></tr>
+            <tr><td>Playbooks, worksheets and calculators</td><td>Starter 3 + your weeks 1–2</td><td>All <%= resourceCount %></td><td>All <%= resourceCount %></td></tr>
+            <tr><td>Eli's Playbook (AI)</td><td>Chat + Idea Validator · 15 messages/mo</td><td>Every tool · about 300/mo</td><td>Every tool · about 600/mo</td></tr>
+            <tr><td>AI feedback on your worksheets</td><td>Within your 15</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Progress, milestones and badges</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Member wins board</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Weekly founder-led group call</td><td>–</td><td>–</td><td>✓</td></tr>
+            <tr><td>Private member group</td><td>–</td><td>–</td><td>✓</td></tr>
+            <tr><td>Call notes and action items</td><td>–</td><td>–</td><td>✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section style="padding-top:24px"><div class="wrap"><div class="section-head"><div class="eyebrow">Questions</div><h2>Good to know.</h2></div><%- include('partials/faq') %></div></section>
+</main>
+<%- include('partials/foot') %>

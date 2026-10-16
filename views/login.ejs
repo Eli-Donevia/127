@@ -1,0 +1,19 @@
+<%- include('partials/doc-start') %>
+<body class="bare">
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a><a href="/start" class="small link">New here? Start free</a></div>
+  <main class="auth-card fade-in">
+    <div class="eyebrow">Welcome back</div>
+    <h1 style="margin-top:12px">Sign in</h1>
+    <p class="muted" style="margin:0 0 28px">Pick up where you left off.</p>
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <% if (notice) { %><div class="alert win"><%= notice %></div><% } %>
+    <form method="post" action="/login">
+      <input type="hidden" name="next" value="<%= next %>">
+      <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email" value="<%= email %>" <%= email ? '' : 'autofocus' %>></label>
+      <label class="field"><span>Password</span><input class="input" type="password" name="password" required autocomplete="current-password" <%= email ? 'autofocus' : '' %>></label>
+      <button class="btn block" style="margin-top:8px">Sign in</button>
+    </form>
+    <p class="small muted" style="margin-top:24px"><a class="link" href="/forgot">Forgot your password?</a></p>
+  </main>
+</body>
+</html>

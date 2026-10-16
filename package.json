@@ -1,0 +1,26 @@
+{
+  "name": "127group",
+  "version": "0.1.0",
+  "private": true,
+  "description": "127: founder resources, AI tools and a personalized roadmap. Free, Builder ($29/mo) and Founder's Circle ($299/mo).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "stripe:setup": "node scripts/stripe-setup.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.8.2",
+    "cookie-session": "^2.1.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "stripe": "^22.6.2"
+  }
+}

@@ -1,0 +1,27 @@
+<%- include('../partials/app-head') %>
+<div class="page-head"><div><div class="eyebrow">Community</div><h1>Wins</h1></div></div>
+<div class="grid g-main">
+  <div class="card pad-lg">
+    <% if (!wins.length) { %><p class="muted" style="margin:0">Nothing here yet. Wins can be small: a first interview, a published page, a first sale.</p><% } %>
+    <% wins.forEach(function(w){ %>
+      <div class="win-item">
+        <div class="avatar"><%= w.name[0] %></div>
+        <div style="flex:1">
+          <div class="small"><b style="font-weight:500"><%= w.name %></b> <span class="muted">· <%= PLANS[w.tier] ? PLANS[w.tier].name : '' %> · <%= new Date(w.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric'}) %></span></div>
+          <div style="color:var(--ink-2)"><%= w.text %></div>
+        </div>
+        <% if (w.userId === user.id || isAdmin) { %><form method="post" action="/app/wins/<%= w.id %>/delete"><button class="tiny muted" style="background:none;border:0;cursor:pointer">Remove</button></form><% } %>
+      </div>
+    <% }) %>
+  </div>
+  <div class="card">
+    <h3>Share a win</h3>
+    <p class="small muted">Progress, a lesson, or this week's commitment. First names only. +15 XP.</p>
+    <form method="post" action="/app/wins">
+      <textarea class="input" name="text" maxlength="500" placeholder="I booked my first three customer interviews." required></textarea>
+      <button class="btn block" style="margin-top:12px">Post</button>
+    </form>
+    <p class="tiny muted" style="margin-top:14px">Keep it kind and real. Posts that break that are removed.</p>
+  </div>
+</div>
+<%- include('../partials/app-foot') %>

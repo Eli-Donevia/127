@@ -1,0 +1,20 @@
+<%- include('../partials/app-head') %>
+<div class="page-head">
+  <div><div class="eyebrow">Playbooks · Templates · Worksheets</div><h1>Library</h1></div>
+  <% if (userPlan.key === 'free') { %><span class="small muted">Free: the starter library plus everything weeks 1 and 2 of your roadmap use · <a class="link" href="/app/billing">Unlock all</a></span><% } %>
+</div>
+<div class="tabs">
+  <a href="/app/library" class="<%= !track ? 'on' : '' %>">All</a>
+  <% Object.keys(TRACK_NAMES).forEach(function(k){ %><a href="/app/library?track=<%= k %>" class="<%= track===k ? 'on' : '' %>"><%= TRACK_NAMES[k] %></a><% }) %>
+</div>
+<div class="res-list">
+  <% items.forEach(function(r){ var open = canOpen(r); var via = open && !canAccess(user, r.tier); var done = (user.resourcesDone||{})[r.slug]; %>
+  <a href="/app/library/<%= r.slug %>" class="res <%= open ? '' : 'locked' %>">
+    <div class="meta"><span><%= TRACK_NAMES[r.track] %> · <%= r.type %></span><% if (done) { %><span class="chip win">Done</span><% } else if (!open) { %><span class="chip">Builder</span><% } else if (via) { %><span class="chip win">In your roadmap</span><% } else if (r.tier==='free') { %><span class="chip line">Free</span><% } %></div>
+    <h4><%= r.title %></h4>
+    <p><%= r.summary %></p>
+    <div class="foot-row"><span><%= r.minutes %> min<%= r.calc ? ' · calculator' : (r.worksheet && r.worksheet.length ? ' · worksheet' : '') %></span><span class="arrow"></span></div>
+  </a>
+  <% }) %>
+</div>
+<%- include('../partials/app-foot') %>

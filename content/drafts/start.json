@@ -1,0 +1,563 @@
+[
+  {
+    "slug": "idea-filter",
+    "title": "The Idea Test",
+    "track": "start",
+    "type": "Worksheet",
+    "tier": "free",
+    "minutes": 30,
+    "summary": "Score up to five business ideas against Eli's five questions so you pick one on purpose, not on mood.",
+    "output": "One chosen idea with a score, a written reason it won, the proof you have so far and the name of an insider you will talk to this week.",
+    "framework": "The Idea Test",
+    "calc": "idea-score",
+    "sections": [
+      {
+        "heading": "Pick in one sitting, then move",
+        "body": "Set a timer for 30 minutes. By the end you will have one idea, not five. Eli's rule: no idea is perfect, don't ideate too long. Every week you spend comparing ideas in your head is a week you could have spent talking to real customers, and customers will teach you more than any list.\n\nWrite down up to five ideas in the scoring grid. They don't need to be polished. \"Lawn care for my neighborhood\", \"resume reviews for college seniors\" and \"editing short-form videos for local gyms\" are all fine. If you have more than five, keep the five you would actually be willing to work on for the next year. If you only have one, score it anyway. A low score is still useful: it tells you what to fix or what proof to go find.",
+        "bullets": [
+          "Score each idea 1 to 5 on every question. 1 means no or no proof. 3 means maybe, some signs. 5 means yes, with proof you can point to.",
+          "Score fast. Your first honest answer is usually right. Come back to the ones you are unsure about after you finish the grid.",
+          "Nobody sees this but you. A flattering score helps nobody."
+        ]
+      },
+      {
+        "heading": "The five questions",
+        "body": "These are the questions Eli runs before committing to anything. They are in this order on purpose: if an idea fails question one, the rest barely matter.",
+        "steps": [
+          "Does it solve a problem people pay to solve, or add value they will pay for? Value counts too: saving time, peace of mind, education. Look for proof: people already paying someone, searching for it, complaining about it, or hacking together their own fix. Example: busy parents already pay for tutoring. That is proof. \"People would probably like an app for this\" is not.",
+          "Do the economics work, and does it scale? Could one sale make you money after costs? Through which channels would you reach buyers (Instagram, TikTok, Facebook groups, door to door, campus clubs, local businesses), and how hard are those channels to get into? A sneaker cleaning side business can reach buyers through local sneaker groups and resellers. A new energy drink needs shelf space in stores, which is a much harder channel.",
+          "What is your differentiator? Faster, cheaper, higher quality, or a better supply chain. Pick one you can actually back up. \"I care more\" is not a differentiator until a customer can feel it. \"Resume edits back in 24 hours instead of a week\" is.",
+          "Is the market growing or shrinking, and how is AI changing it? Eli's example: someone could have a fantastic newspaper business, but the market is shrinking no matter how good the business is. Ask whether AI makes your idea easier to deliver (good) or makes it free for the customer to do themselves (dangerous). Basic resume formatting is getting replaced by AI tools. Coaching someone through a career switch is harder to replace.",
+          "Have you talked to an insider? If you didn't live the problem, talk to someone who did or who works inside that industry. A landscaper, a gym owner, a recruiter, a parent who hires tutors. One real conversation beats ten hours of research."
+        ]
+      },
+      {
+        "heading": "The sixth question: would you still care in 2 years?",
+        "body": "The grid adds one more row: would I still care about this in 2 years? Eli's biggest early mistake was trying to do too much. His advice: there are a million ways to make money, pick one, get really good at it, and focus on it for the next five years.\n\nYou don't have to marry the idea today. But if you already know you would be bored of it by spring, score it low. Motivation runs out. Interest in the problem and the people you serve is what keeps you going when the first ten DMs get ignored."
+      },
+      {
+        "heading": "How to score honestly",
+        "body": "Most first-time founders score their favorite idea high on everything. That is normal, and it is the fastest way to waste three months. Use these rules to keep yourself honest.",
+        "bullets": [
+          "No proof, no score above 2. If you can't name a person, a post, a competitor or a price you have seen, it is a guess.",
+          "A competitor is proof, not a threat. If nobody else sells it, ask why before you get excited. Often it is because nobody pays for it.",
+          "Your friends saying \"that's a cool idea\" counts as zero. Compliments are not proof. Money, time and effort are.",
+          "Score the idea as it is today, not the version you imagine after a year of work.",
+          "If you scored a 5, write the proof next to it. If you can't, drop it to a 3.",
+          "Your product likely sucks at the start. That's fine. The question is whether you can prove it is better than the competition, not whether you love it."
+        ]
+      },
+      {
+        "heading": "Breaking ties",
+        "body": "If two ideas finish within a few points of each other, don't add more questions. Use these tie breakers in order and stop at the first one that separates them.",
+        "steps": [
+          "Higher score on question one wins. Proof that people pay beats everything else.",
+          "Shortest path to a first paying customer wins. Lawn care can get a paying customer this weekend. A print-on-demand brand needs designs, a store and traffic first.",
+          "Lowest cost to start wins. Pick the idea you can test with your phone and under a hundred dollars.",
+          "The one where you already know an insider wins. Your network is your net worth.",
+          "Still tied? Flip a coin. If you feel disappointed by the result, pick the other one. Then stop thinking and start."
+        ]
+      },
+      {
+        "heading": "Worked example",
+        "example": "Maya, 19, scored three ideas. Tutoring high schoolers in math: proof 5 (parents in her town post in Facebook groups looking for tutors), economics 4, differentiator 3 (she scored a 5 on the AP exam and lives nearby), market 4 (AI helps her prep, parents still want a person), insider 4 (her old math teacher), 2-year care 4. Total 24. Print-on-demand anime shirts: proof 3, economics 2 (thin margins after the print provider takes its cut), differentiator 2, market 3, insider 1, care 5. Total 16. Video editing for local gyms: proof 3, economics 4, differentiator 3, market 3, insider 2, care 3. Total 18. She picked tutoring. Her reason: \"Parents already pay for this and I can get my first student this week.\" She keeps the shirt idea as a side project for later, not now."
+      },
+      {
+        "heading": "Your output: one idea and one conversation",
+        "body": "Fill in the worksheet below. The most important field is the last one. Before the week is over, you will talk to one insider about the idea that won. Then move on to Validation Interview Scripts to go talk to 10 real people.\n\nEli's advice on the mindset: make today day one. The faster you fail, the faster you learn. An idea you test this week beats a perfect idea you are still thinking about next month."
+      }
+    ],
+    "worksheet": [
+      {
+        "id": "chosen_idea",
+        "label": "The idea you chose (one sentence: what you sell and to whom)",
+        "type": "text",
+        "placeholder": "Math tutoring for high schoolers in my town"
+      },
+      {
+        "id": "why_it_won",
+        "label": "Why it won (score, and the tie breaker if you used one)",
+        "type": "textarea",
+        "placeholder": "Scored 24. Highest proof that people pay, fastest first customer."
+      },
+      {
+        "id": "proof_so_far",
+        "label": "Proof you have found so far (people paying, posts, competitors, prices)",
+        "type": "textarea",
+        "placeholder": "3 Facebook group posts asking for tutors, local tutors charge $40 to $60 an hour"
+      },
+      {
+        "id": "insider_this_week",
+        "label": "The insider you will talk to this week, and when",
+        "type": "text",
+        "placeholder": "Mr. Lopez, my old math teacher, Thursday after school"
+      }
+    ],
+    "aiPrompt": "Check that the chosen idea names a specific customer, that the proof is real evidence of people paying rather than opinions or compliments, that the reason it won matches the Idea Test, and that the insider is a named person with a date this week."
+  },
+  {
+    "slug": "validation-interviews",
+    "title": "Validation Interview Scripts",
+    "track": "start",
+    "type": "Script",
+    "tier": "free",
+    "minutes": 45,
+    "summary": "Find 10 people with no network, run interviews that get the truth instead of compliments, and decide whether to kill, pause or double down.",
+    "output": "Ten interview notes, the top three phrases your customers repeat, what they pay today and a written kill, pause or double down verdict.",
+    "framework": "Kill, pause or double down",
+    "sections": [
+      {
+        "heading": "Book your first interview today",
+        "body": "Before you read the rest, send one message to one person who has the problem you want to solve. Use the outreach template below. The rest of this script works best once you have a conversation on the calendar.\n\nYour goal is 10 conversations. Not surveys, not polls in your Instagram story. Real conversations, 15 minutes each, on a call, in person or over voice notes. Ten is enough to hear the same words repeat and few enough that you can finish in a week or two with a few hours."
+      },
+      {
+        "heading": "Who to talk to and how to find 10 people with no network",
+        "body": "Talk to people who have the problem right now, or who have paid to solve it recently. Not your mom, unless she is the customer. Not friends who will be nice to you. If you are building a resume-review offer, talk to college seniors applying for jobs. If you are starting lawn care, talk to homeowners, not other teenagers.\n\nEli's rule: your network is your net worth, and the hack is to talk to everyone, everywhere, every time. You don't need a network yet. You build it by asking.",
+        "bullets": [
+          "DMs: find people posting about the problem on Instagram, TikTok or X. Comment first, then DM. Someone who just posted \"why is it so hard to find a good editor\" is a perfect interview.",
+          "Reddit: search the subreddit where your customer hangs out (a city subreddit, a college subreddit, a hobby like r/Sneakers). Read the complaints. Message people who posted about the problem, politely and briefly.",
+          "Campus: clubs, career centers, dorm group chats, Discord servers. Ask a club leader if you can post a short ask.",
+          "Family friends: ask your parents, aunts, coaches and old teachers \"who do you know who deals with this?\" Adults love helping a young person who asks a clear question.",
+          "Local businesses: walk in during a slow hour. Owners often say yes to a 10-minute chat with someone who is respectful and specific.",
+          "End every interview with: \"Who else do you know who deals with this?\" One good interview often turns into two more."
+        ]
+      },
+      {
+        "heading": "Outreach message",
+        "body": "Keep it short, honest and easy to say yes to. You are asking to learn, not to sell. Never pretend to be a student researcher if you are not one, and never pitch after promising you won't. Trust is everything, and it starts with the first message.",
+        "template": "Hey [name], I saw your [post/comment] about [problem]. I'm [your first name], I'm starting a small business around [problem area] and I'm trying to learn how people deal with it right now.\n\nWould you be open to a 15-minute call or a few voice notes this week? I'm not selling anything, I just want to understand it from someone who's actually dealt with it.\n\nTotally fine if not. Thanks either way."
+      },
+      {
+        "heading": "The interview script",
+        "body": "The core of every interview is one question: how do you solve this today? What people already do, and already pay for, tells you more than what they say they would buy. Ask about the past, not the future. Never pitch during the interview. Write down their exact words.",
+        "template": "OPEN (1 min)\nThanks for doing this. I'm trying to understand how people deal with [problem]. There are no wrong answers and I'm not selling anything today.\n\nCONTEXT (2 min)\n1. Tell me a bit about you and how [problem area] shows up in your life or work.\n\nTHE PROBLEM (5 min)\n2. Tell me about the last time you dealt with [problem]. What happened?\n3. How often does this come up?\n4. What's the hardest part about it?\n\nHOW THEY SOLVE IT TODAY (5 min)\n5. How are you solving this right now? Walk me through it.\n6. What have you tried before that? What happened?\n7. What does that cost you, in money, time or stress?\n8. What do you like and hate about what you use now?\n\nCLOSE (2 min)\n9. If you could wave a magic wand and fix one thing about this, what would it be?\n10. Who else do you know who deals with this?\n11. Can I follow up with you if I build something?"
+      },
+      {
+        "heading": "Follow-up questions that get the truth",
+        "body": "The first answer is usually surface level. The good stuff comes after you dig. Use these whenever an answer is vague.",
+        "bullets": [
+          "\"Can you tell me more about that?\"",
+          "\"Why was that frustrating?\"",
+          "\"What did you do next?\"",
+          "\"How much did you pay for that?\" or \"How much time did that take?\"",
+          "\"When was the last time that happened?\"",
+          "\"What would happen if you just didn't solve it?\" (If the answer is \"nothing much\", the problem may not be worth paying for.)",
+          "Stay quiet for three seconds after they finish. People fill silence with the honest part."
+        ]
+      },
+      {
+        "heading": "Red flags: answers that feel good and mean nothing",
+        "bullets": [
+          "Compliments. \"That's such a cool idea\" is polite, not proof. Steer back: \"Thanks. How do you handle this today?\"",
+          "\"I'd totally buy that.\" Future promises are cheap. Ask what they have bought or done in the past.",
+          "\"Someone should make that.\" If they have never tried to fix it themselves, the pain might be small.",
+          "Hypotheticals. \"Would you use...\" questions get you guesses. Swap them for \"When did you last...\"",
+          "You talking more than they do. If you are explaining your idea, you stopped interviewing.",
+          "Only talking to friends. They want you to win, so they tell you what you want to hear."
+        ]
+      },
+      {
+        "heading": "Notes template",
+        "body": "Fill one of these in right after every conversation, while it is fresh. If you use Granola it can take notes for you on calls, but still write the exact phrases yourself. Keep all 10 in one place, a Notes doc, a Notion page or Attio.",
+        "template": "Interview #[number] / [date]\nName and who they are: [name, role, how you found them]\nHow they solve it today: [exact steps or tools]\nWhat they pay today: [money, time, or both]\nHardest part, in their words: \"[exact quote]\"\nOther phrases worth stealing: \"[quote]\" / \"[quote]\"\nTried before: [what and why it failed]\nMagic wand answer: [their answer]\nPain level (1 to 5, my judgment): [ ]\nReferrals: [names]\nFollow up OK? [yes/no]"
+      },
+      {
+        "heading": "Read your 10 interviews: kill, pause or double down",
+        "body": "Lay all 10 notes side by side. Highlight any phrase that came up three or more times. Those words become your headline, your offer and your ads. Then make the call. Eli's test for product-market fit is simple: when you have it, people want to pay without you needing to sell them. Ten interviews won't prove PMF, but they show which direction you are heading.",
+        "bullets": [
+          "Kill: most people shrug, already have a cheap fix they like, or can't remember the last time it happened. Nobody pays anything today. Kill it, go back to the Idea Test, and be glad you learned this in two weeks instead of six months.",
+          "Pause: the problem is real but scattered, or you are hearing it from the wrong people. Change one thing (the customer, the problem or the angle) and run five more interviews.",
+          "Double down: the same pain and the same words repeat, people already spend money or hours on bad fixes, and a few asked \"when can I get this?\" or \"can I pay you?\" Move to the One-Page Offer this week."
+        ],
+        "example": "Jordan wanted to clean sneakers for students. After 10 interviews: 7 said they had ruined a pair trying to clean them at home, 5 had paid a shop $25 to $40 and hated the week-long wait, and the phrase \"I don't trust myself with suede\" came up four times. Two asked if he could do a pair this weekend. Verdict: double down. His headline came straight from the interviews."
+      }
+    ],
+    "worksheet": [
+      {
+        "id": "problem_statement",
+        "label": "The problem you are testing, in one sentence (who has it and what it is)",
+        "type": "textarea",
+        "placeholder": "College students ruin expensive sneakers trying to clean them at home"
+      },
+      {
+        "id": "ten_people",
+        "label": "Your 10 people: list names or handles and where you found each one",
+        "type": "textarea",
+        "placeholder": "1. @user from r/Sneakers  2. Sam, roommate's friend  3. ..."
+      },
+      {
+        "id": "top_phrases",
+        "label": "Top 3 phrases people repeated, in their exact words",
+        "type": "textarea",
+        "placeholder": "\"I don't trust myself with suede\""
+      },
+      {
+        "id": "what_they_pay",
+        "label": "What they pay today to solve it (money, time or both)",
+        "type": "textarea",
+        "placeholder": "$25 to $40 at a shop, plus a week without the shoes"
+      },
+      {
+        "id": "verdict",
+        "label": "Your verdict",
+        "type": "select",
+        "options": [
+          "Kill",
+          "Pause",
+          "Double down"
+        ]
+      }
+    ],
+    "aiPrompt": "Check that the problem names a specific customer, that the 10 people are real customers rather than only friends and family, that the repeated phrases are quotes rather than the member's own words, that what they pay today is concrete, and that the verdict is supported by the evidence rather than by compliments or future promises."
+  },
+  {
+    "slug": "business-model-worksheet",
+    "title": "Business Model Worksheet",
+    "track": "start",
+    "type": "Worksheet",
+    "tier": "builder",
+    "minutes": 40,
+    "summary": "Turn a validated idea into a one-page business model so you know who pays, how you reach them and whether it can grow before you spend money.",
+    "output": "A filled-in one-page business model covering customer, problem, solution, revenue, channels, startup costs, differentiator, market direction and how it scales.",
+    "framework": "The Idea Test",
+    "sections": [
+      {
+        "heading": "Fill the customer and problem boxes first",
+        "body": "Open the worksheet and write the customer and the problem before anything else. Every other box depends on those two. If you can't fill them in one sentence each, go back to your Validation Interview notes and use the words people actually said.\n\nThis worksheet is built on steps one to four of the Idea Test. Step one is the problem and proof. Step two is economics, channels and scale. Step three is your differentiator. Step four is where the market is heading and how AI is changing it. You already scored your idea quickly. Now you write it out properly, one box at a time. Eli's rule: solve problems, don't sell products. So the problem comes before the solution, every time."
+      },
+      {
+        "heading": "Step 1: customer, problem, solution",
+        "bullets": [
+          "Customer: one specific person, not \"everyone\". \"Small gym owners within 20 minutes of me who post on Instagram less than once a week\" beats \"fitness businesses\".",
+          "Problem: what hurts, in their words. Include what they do about it today and what that costs them.",
+          "Solution: what you will do or deliver. Describe the result, not features. \"Four ready-to-post Reels a week, edited from your own clips\" is a solution. \"Video editing services\" is a category.",
+          "Proof: the strongest evidence you have that people pay to solve this. Interviews, competitors, posts, past sales."
+        ]
+      },
+      {
+        "heading": "Step 2: money, channels, costs and scale",
+        "body": "This is where most first ideas quietly break. Be specific and write real numbers where you have them. Rough is fine. Made up is not.",
+        "bullets": [
+          "How you make money: one-time sale, monthly plan, per job, per product, or pay-for-performance. Write the price you plan to test.",
+          "Channels: where your customer already spends attention, and how you will get in front of them. List two at most to start: DMs, short-form video, Facebook groups, flyers, campus clubs, walking into local businesses, a Shopify store with TikTok traffic.",
+          "How hard each channel is to reach: easy (you can start today, free), medium (needs consistent content or relationships), hard (needs money, permission or a gatekeeper, like retail shelves or app store ranking).",
+          "Costs to start: everything you need to make the first sale. Tools, supplies, samples, a domain, ads. Keep it under what you can afford to lose. Many service businesses start with a phone and free tools.",
+          "How it scales: what happens at 10 customers, then 50? Do you hire help, use templates, automate with tools like ManyChat for DMs, or switch to a product? Eli's point: as fast as you can, get to working on the business, not in it. Your business is only as valuable as it is when you aren't there to run it."
+        ]
+      },
+      {
+        "heading": "Step 3: your differentiator",
+        "body": "Pick one: faster, cheaper, higher quality, or a better supply chain. Then write the proof. Your product likely sucks at the start, so you need a clear reason a buyer would choose you over what they use today.",
+        "example": "Lawn care example. Most local services take a week to quote. Differentiator: faster. \"Text a photo of your yard, get a price in 10 minutes, mowed by Saturday.\" Proof: three neighbors said waiting for quotes was the most annoying part."
+      },
+      {
+        "heading": "Step 4: market direction and AI impact",
+        "body": "Ask two questions. Is this market growing or shrinking? How is AI changing it? Write both answers, and write what you will do about each.\n\nAI can cut your costs (faster editing, faster research, quicker websites) or replace what you sell (if a customer can type one prompt and get the same result for free). If it is the second, change the offer so you sell what AI can't easily do for them: judgment, trust, local presence, accountability, taste. A short-form editing service that only cuts clips is exposed. One that also plans the hooks, posts on schedule and reports what worked is harder to replace.",
+        "bullets": [
+          "Growing signs: more people searching for it, new competitors raising prices, buyers asking for more.",
+          "Shrinking signs: prices dropping every year, customers moving to a free option, fewer businesses offering it.",
+          "Check with Perplexity or Claude for recent trends, then confirm by asking one insider."
+        ]
+      },
+      {
+        "heading": "Sanity check before you move on",
+        "steps": [
+          "Can you name 10 real people who match your customer box? If not, the customer is too vague or too hard to reach.",
+          "Is at least one channel easy? If both are hard, you will burn months before your first sale.",
+          "Can you make the first sale for less than you are willing to lose? If not, find a smaller first version.",
+          "Does your differentiator have proof from a real person? If not, it is a guess.",
+          "If AI made this 10 times cheaper next year, would you still have a business? If not, adjust the offer now.",
+          "Would you do this for five years? Eli's advice is to pick one thing and get really good at it."
+        ]
+      },
+      {
+        "heading": "Your output",
+        "body": "When every field below is filled in, you have a one-page business model. Read it out loud in under two minutes. If you stumble, simplify. Then take it into The One-Page Offer and the Pricing Worksheet.\n\nShow it to one insider and one mentor. Ask them one question: \"What here do you think is wrong?\" Nobody is self-made, and a second pair of eyes catches the box you filled in with hope instead of evidence. Keep the model honest as you learn: update it after every 10 customer conversations. No shortcuts here. A model built on wishful numbers will cost you more than a slow week of real work."
+      }
+    ],
+    "worksheet": [
+      {
+        "id": "customer",
+        "label": "Customer: who exactly pays you?",
+        "type": "text",
+        "placeholder": "Small gym owners within 20 minutes of me"
+      },
+      {
+        "id": "problem",
+        "label": "Problem: what hurts, in their words, and what they do about it today",
+        "type": "textarea"
+      },
+      {
+        "id": "solution",
+        "label": "Solution: the result you deliver",
+        "type": "textarea"
+      },
+      {
+        "id": "revenue",
+        "label": "How you make money: model and the price you will test",
+        "type": "text",
+        "placeholder": "Monthly plan, $300/month"
+      },
+      {
+        "id": "channels",
+        "label": "Channels (two max) and how hard each is to reach: easy, medium or hard",
+        "type": "textarea",
+        "placeholder": "Walk-ins (easy), Instagram DMs (easy)"
+      },
+      {
+        "id": "startup_costs",
+        "label": "Costs to start: everything needed for the first sale",
+        "type": "textarea"
+      },
+      {
+        "id": "differentiator",
+        "label": "Differentiator: faster, cheaper, higher quality or better supply chain, plus proof",
+        "type": "textarea"
+      },
+      {
+        "id": "market_ai",
+        "label": "Market direction and AI impact: growing or shrinking, and what AI changes",
+        "type": "textarea"
+      },
+      {
+        "id": "scale",
+        "label": "How it scales: what changes at 10 customers and at 50",
+        "type": "textarea"
+      }
+    ],
+    "aiPrompt": "Check that the customer is specific and reachable, the problem comes before the solution, at least one channel is easy to reach, startup costs are realistic and small, the differentiator has proof, the AI impact answer addresses whether AI could replace the offer, and the scale plan moves the founder toward working on the business rather than in it."
+  },
+  {
+    "slug": "offer-builder",
+    "title": "The One-Page Offer",
+    "track": "start",
+    "type": "Template",
+    "tier": "builder",
+    "minutes": 45,
+    "summary": "Build an offer so clear and so good it feels almost too good to refuse, on one page you can paste into a DM, a landing page or a pitch.",
+    "output": "A finished one-page offer covering who it is for, the outcome, timeframe, what's included, bonuses, guarantee, price framing and why they should trust you.",
+    "framework": "The too-good-to-refuse offer",
+    "sections": [
+      {
+        "heading": "Start with the outcome, not the product",
+        "body": "Write one sentence: \"I help [who] get [outcome] in [timeframe].\" That sentence is the spine of your offer. Everything else on this page supports it.\n\nEli's principle: make the offer so good it feels too good to be true, so good that nobody would turn it down if it really does what you say. That doesn't mean lying or overpromising. It means stacking real value, removing risk and framing the price so the buyer's decision feels easy. Trust beats everything in sales. If you promise it, deliver it."
+      },
+      {
+        "heading": "The eight parts of the offer",
+        "steps": [
+          "Who it's for: one specific person. Name who it is not for too. \"For college seniors applying to finance internships\" beats \"for job seekers\".",
+          "The outcome: the result they get, in the words they used in your interviews. Make it measurable if you can: more interviews, a clean yard, four posts a week, a B on the next test.",
+          "The timeframe: how fast they get it. Speed is value. \"Back in 48 hours\" or \"in 30 days\".",
+          "What's included: the actual deliverables. Keep it to three to five items. Specific beats long.",
+          "Bonuses: extras that remove the next problem they will hit. A bonus should be cheap for you to deliver and valuable to them, like a template, a checklist or a quick follow-up call.",
+          "Guarantee or risk reversal: what happens if it doesn't work. Free redo, money back, pay only when satisfied, or pay for performance. Only offer what you can afford to honor.",
+          "Price framing: the smallest number for cost, the largest number for value. \"$3 a day\" instead of \"$90 a month\". \"Worth a $60k job offer\" instead of \"better resume\".",
+          "Why trust you: proof. Past results, a testimonial, your own story, your credentials, or a free first sample. If you have nothing yet, give your first few customers a deal in exchange for honest reviews."
+        ]
+      },
+      {
+        "heading": "Make it too good to refuse",
+        "bullets": [
+          "Stack value until the price feels small. List what each part would cost if they bought it separately.",
+          "Remove the scary part. Ask yourself what would stop them from saying yes today, then answer it on the page.",
+          "Lower the risk until saying no feels like the bigger risk.",
+          "Use their words, not yours. Steal phrases straight from your interview notes.",
+          "Make the next step tiny: \"Reply YES\", \"Book a 10-minute call\", \"Send me your resume\".",
+          "Test a new pricing model. Paid on results, first job free, or pay after delivery can make a normal offer stand out in a crowded market."
+        ]
+      },
+      {
+        "heading": "Filled example: resume review for college seniors",
+        "example": "For: college seniors applying to business and finance internships who are getting no callbacks. Not for: people who want a full career coach.\n\nOutcome: a resume that gets past the filters and gets you interviews.\n\nTimeframe: back in 48 hours.\n\nIncluded: a line-by-line rewrite of your resume, a version tailored to one job posting you choose, and a 15-minute video walkthrough explaining every change.\n\nBonuses: a LinkedIn headline and About section rewrite, plus a cold email template for reaching recruiters.\n\nGuarantee: if you don't love it, I redo it free. If you still don't love it, full refund.\n\nPrice: $49 one time. That's less than a dollar a week over a semester, for a document that could land a summer offer worth thousands.\n\nWhy trust me: I rewrote resumes for six classmates last semester, and four of them got interviews within a month. (Use your real numbers only. If you have none, offer your first five at $19 for honest feedback.)\n\nNext step: DM me \"RESUME\" and send your current version."
+      },
+      {
+        "heading": "Copyable one-page offer template",
+        "body": "Copy this, fill every bracket, and cut anything that doesn't help the buyer decide. It should fit on one phone screen when you scroll twice.",
+        "template": "[OFFER NAME]\n\nFor: [specific person] who [struggle, in their words].\nNot for: [who this isn't for].\n\nYou get: [outcome] in [timeframe].\n\nWhat's included:\n1. [deliverable]\n2. [deliverable]\n3. [deliverable]\n\nBonuses:\n- [bonus that solves the next problem]\n- [bonus]\n\nOur promise: [guarantee or risk reversal].\n\nPrice: [price]. That's [smallest framing, e.g. per day or per use].\nWhat it's worth: [largest framing, e.g. per year or per outcome].\n\nWhy trust me: [proof: results, testimonial, story, sample].\n\nNext step: [one tiny action, e.g. Reply YES / Book 10 min at link]."
+      },
+      {
+        "heading": "Test it before you publish",
+        "steps": [
+          "Read it out loud to someone who matches the \"For\" line. If they ask \"so what do you actually do?\", it is not clear yet.",
+          "Ask them: \"What would stop you from buying this today?\" Fix that on the page.",
+          "Send it to three people from your validation interviews. Watch who asks how to pay.",
+          "Check every promise. If you can't deliver it every time, cut it. How you do one thing is how people think you do everything.",
+          "Once it holds up, turn it into your landing page brief.",
+          "Revisit it after your first five sales. Add the real results and testimonials to the trust section, and cut any part nobody cared about."
+        ]
+      },
+      {
+        "heading": "Your output",
+        "body": "Fill in each field below. When you are done you will have a one-page offer you can paste into a DM, your bio link or a landing page. If you want a second opinion, paste it into Claude and ask: \"Act as my customer. What would stop you from buying this?\" Keep it honest. No fake scarcity, no fake reviews, no promises you can't keep. Win their trust, win their wallet."
+      }
+    ],
+    "worksheet": [
+      {
+        "id": "who_for",
+        "label": "Who it's for (and who it's not for)",
+        "type": "textarea"
+      },
+      {
+        "id": "outcome",
+        "label": "The outcome, in your customer's words",
+        "type": "text"
+      },
+      {
+        "id": "timeframe",
+        "label": "The timeframe",
+        "type": "text",
+        "placeholder": "Back in 48 hours"
+      },
+      {
+        "id": "included",
+        "label": "What's included (three to five deliverables)",
+        "type": "textarea"
+      },
+      {
+        "id": "bonuses",
+        "label": "Bonuses",
+        "type": "textarea"
+      },
+      {
+        "id": "guarantee",
+        "label": "Guarantee or risk reversal",
+        "type": "text"
+      },
+      {
+        "id": "price_framing",
+        "label": "Price framing: price, smallest-number cost and largest-number value",
+        "type": "textarea",
+        "placeholder": "$90/month = $3 a day. Worth $2,000 in new clients a year."
+      },
+      {
+        "id": "why_trust",
+        "label": "Why they should trust you (real proof only)",
+        "type": "textarea"
+      },
+      {
+        "id": "next_step",
+        "label": "The one tiny next step you ask them to take",
+        "type": "text"
+      }
+    ],
+    "aiPrompt": "Check that the offer names one specific customer, the outcome is concrete and uses customer language, the guarantee is something the member can honor, the cost is framed as the smallest number and value as the largest, the trust proof is real rather than invented, and nothing in it overpromises or uses manipulative tactics."
+  },
+  {
+    "slug": "pricing-worksheet",
+    "title": "Pricing Worksheet",
+    "track": "start",
+    "type": "Worksheet",
+    "tier": "builder",
+    "minutes": 50,
+    "summary": "Set a price you can defend by tying it to the return your customer gets, checking it against competitors and testing it with real buyers.",
+    "output": "A chosen price and pricing model, a one-sentence ROI story, and the smallest and largest ways to frame it.",
+    "framework": "ROI pricing",
+    "calc": "pricing",
+    "sections": [
+      {
+        "heading": "Run the calculator with real numbers",
+        "body": "Open the calculator and fill in four things: the value you create for the customer each month, what they spend today on alternatives, the low and high competitor prices, and your price. It shows your ROI multiple (how many dollars of value the customer gets per dollar they pay you), your price per day, and where you sit against competitors.\n\nUse numbers from your interviews and research, not hopes. If you don't know a number yet, the sections below show you how to find it in under an hour."
+      },
+      {
+        "heading": "ROI pricing: price from the value, not your nerves",
+        "body": "Eli's view: the best businesses can be tied back to an ROI model. Your customer gets more revenue, more capacity, lower costs, saved time or peace of mind. Your job is to know roughly what that is worth to them, then price so the deal is obviously good.\n\nMost first-time founders price on fear: \"What's the least I can charge so nobody says no?\" That leads to tired founders and businesses that can't grow. Price on value instead.",
+        "steps": [
+          "Write the outcome. \"A gym gets four Reels a week that bring in new trial members.\"",
+          "Put a monthly number on it. If two extra members a month sign up at $50 a month, that's $100 in new monthly revenue that keeps stacking. Time counts too: if an owner saves 8 hours a month and values their time at $25 an hour, that's $200.",
+          "Add what they spend today. Doing it themselves, paying a cousin, using a cheap tool, or doing nothing and losing customers.",
+          "Aim for an ROI the customer can see clearly. If they get several times more value than they pay, the price is easy to say yes to. If your price is close to the value, they will hesitate.",
+          "Be honest. Only claim value you can back up. Overpromising ROI to close a sale breaks trust, and trust is the whole game."
+        ]
+      },
+      {
+        "heading": "Competitor research in 30 minutes",
+        "body": "Know how others price, because that is what your buyer already expects. Set a timer.",
+        "steps": [
+          "Minutes 0 to 10: search Google, Instagram, TikTok and Reddit for the service or product in your area. Ask Perplexity: \"What do [service] providers in [city] typically charge?\" Treat AI answers as a starting point and check sources.",
+          "Minutes 10 to 20: write down five competitors with their price, what's included and their pricing model. Screenshot their offers.",
+          "Minutes 20 to 25: note the lowest and highest price. Those go into the calculator.",
+          "Minutes 25 to 30: write what the cheap ones leave out and what the expensive ones include. That gap is where your offer can win."
+        ],
+        "example": "Sneaker cleaning: a mall shop charges $35 with a 5-day wait. A local guy on Instagram charges $20 but has no reviews. A mail-in service charges $45 plus shipping. Low $20, high $45. A $30 price with 24-hour turnaround and before-and-after photos sits in the middle on price and wins on speed and trust."
+      },
+      {
+        "heading": "Pick a pricing model",
+        "body": "Sometimes the model matters more than the number. Eli's example: an ad agency that charges only on performance instead of the usual retainer. It can scare the existing market, but if it is more favorable to the buyer it can become very attractive.",
+        "bullets": [
+          "One-time: pay once, get the thing. Good for resume reviews, a single cleaning, a logo. Simple to sell, but you have to keep finding new buyers.",
+          "Monthly: recurring payment for ongoing results. Good for lawn care, tutoring, video editing, social media management. Predictable income, but you must keep delivering.",
+          "Pay-for-performance: you get paid based on results, like a fee per new client or a share of sales. Very easy to say yes to. Only use it when you can track results clearly and can afford to wait to get paid.",
+          "Tiers: three options (basic, standard, premium). Most buyers pick the middle. Lets the buyer choose instead of deciding yes or no. Keep the differences obvious."
+        ]
+      },
+      {
+        "heading": "Frame the price: smallest number for cost, largest for value",
+        "body": "Eli's rule: when selling cost, frame it as the lowest possible number. When selling value, frame it as the highest. The calculator gives you price per day to help.",
+        "bullets": [
+          "Cost, small: \"$5 a day\" instead of \"$150 a month\". \"Less than a coffee per session.\"",
+          "Value, large: \"Worth $1,200 a year in new members\" instead of \"$100 a month\". \"Saves you 100 hours a year.\"",
+          "Compare to the alternative: \"Less than a shop charges, done in a day instead of a week.\"",
+          "Never fake it. Framing helps people see real value. It should never hide real cost."
+        ]
+      },
+      {
+        "heading": "Test with 5 real buyers, then know when to raise",
+        "body": "A price is a guess until someone pays it. Test it with five real buyers before you change anything.",
+        "steps": [
+          "Offer the price to five people who match your customer, ideally from your interview list.",
+          "Say the price plainly and stop talking. Don't apologize or discount on the spot.",
+          "Track three outcomes: yes and paid, \"let me think\", or no. Ask every no: \"What would make this a yes?\"",
+          "If all five say yes instantly, you are probably too cheap.",
+          "If nobody says yes, check the offer and the customer before you drop the price. Often it is the wrong person or an unclear outcome, not the number."
+        ],
+        "bullets": [
+          "Raise your price when you are booked up, when almost nobody pushes back, when you have results and reviews to show, or when you add real value.",
+          "Raise for new customers first. Give existing customers notice and honor what you promised them.",
+          "Keep your word. A promise about price is still a promise."
+        ]
+      },
+      {
+        "heading": "Your output",
+        "body": "Fill in the fields below: your ROI story in one sentence, your model, your price, and both framings. Paste the framings straight into The One-Page Offer. Taxes and payment rules vary by place, so check local rules or ask a professional before you start charging regularly."
+      }
+    ],
+    "worksheet": [
+      {
+        "id": "roi_story",
+        "label": "Your ROI story in one sentence",
+        "type": "textarea",
+        "placeholder": "For $150 a month, a gym gets 4 Reels a week that bring in about 2 new members worth $100 a month each month."
+      },
+      {
+        "id": "pricing_model",
+        "label": "Chosen pricing model",
+        "type": "select",
+        "options": [
+          "One-time",
+          "Monthly",
+          "Pay-for-performance",
+          "Tiers"
+        ]
+      },
+      {
+        "id": "price",
+        "label": "Your price",
+        "type": "text",
+        "placeholder": "$150/month"
+      },
+      {
+        "id": "lowest_framing",
+        "label": "Lowest-number framing of the cost",
+        "type": "text",
+        "placeholder": "$5 a day"
+      },
+      {
+        "id": "highest_framing",
+        "label": "Highest-number framing of the value",
+        "type": "text",
+        "placeholder": "Worth $1,200 a year in new members"
+      }
+    ],
+    "aiPrompt": "Check that the ROI story ties the price to a specific, believable customer return, that the model fits the offer, that the price sits sensibly against the competitor range, that the cost framing uses the smallest number and the value framing the largest, and that no claim overstates the value or hides real cost."
+  }
+]

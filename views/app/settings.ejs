@@ -1,0 +1,22 @@
+<%- include('../partials/app-head') %>
+<div class="page-head"><div><div class="eyebrow">Account</div><h1>Settings</h1></div></div>
+<% if (saved) { %><div class="alert win">Saved.</div><% } %>
+<div class="grid g-2">
+  <form method="post" action="/app/settings" class="card pad-lg">
+    <h3>Profile</h3>
+    <label class="field" style="margin-top:18px"><span>First name</span><input class="input" name="name" value="<%= user.name || '' %>"></label>
+    <label class="field"><span>Email</span><input class="input" value="<%= user.email %>" disabled></label>
+    <label class="check" style="margin-bottom:20px"><input type="checkbox" name="optin" <%= user.marketingOptIn ? 'checked' : '' %>> Weekly founder digest</label>
+    <button class="btn">Save</button>
+  </form>
+  <div class="card pad-lg">
+    <h3>Your assessment</h3>
+    <p class="small muted">Your roadmap is built from your answers. Retake it when your stage or goal changes.</p>
+    <a href="/start?retake=1" class="btn ghost sm">Retake assessment</a>
+    <hr class="rule" style="margin:28px 0">
+    <h3>Delete account</h3>
+    <p class="small muted">Permanently deletes your account, answers, progress and posts. Cancel any paid plan first.</p>
+    <form method="post" action="/app/settings/delete" onsubmit="return confirm('Delete your account and all data? This cannot be undone.')"><button class="btn ghost sm" style="color:#8a3a2a;border-color:#e7c6bf">Delete my account</button></form>
+  </div>
+</div>
+<%- include('../partials/app-foot') %>

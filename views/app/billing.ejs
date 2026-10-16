@@ -1,0 +1,22 @@
+<%- include('../partials/app-head') %>
+<div class="page-head"><div><div class="eyebrow">Your plan</div><h1>Membership</h1></div></div>
+<% if (user.paymentIssue || user.subscriptionStatus === 'past_due') { %>
+<div class="alert error" style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+  <span>Your last payment didn't go through. Your plan is still on while Stripe retries. Update your card to keep it.</span>
+  <form method="post" action="/app/billing/portal"><button class="btn light sm">Update card</button></form>
+</div>
+<% } %>
+<div class="grid g-3" style="margin-bottom:32px">
+  <div class="card"><div class="stat"><div class="l">Current plan</div><div class="v"><%= userPlan.name %></div><div class="small muted">$<%= userPlan.key === 'builder' && user.foundingPrice && launch.foundingPrice ? launch.foundingPrice : userPlan.price %>/month<%= userPlan.key === 'builder' && user.foundingPrice ? ' · founding price, locked' : '' %></div></div></div>
+  <div class="card"><div class="stat"><div class="l">Playbook messages</div><div class="v"><%= userPlan.aiRunsPerMonth %></div><div class="small muted">per month</div></div></div>
+  <div class="card">
+    <div class="stat"><div class="l">Manage</div></div>
+    <% if (userPlan.key !== 'free') { %>
+      <form method="post" action="/app/billing/portal" style="margin-top:14px"><button class="btn ghost sm"><%= stripeLive ? 'Manage billing or cancel' : demoBilling ? 'Demo: set back to Free' : 'Manage billing' %></button></form>
+      <p class="tiny muted" style="margin-top:10px">Invoices, card and cancellation are handled securely by Stripe.</p>
+    <% } else { %><p class="small muted" style="margin-top:14px">You're on the free plan. No card on file.</p><% } %>
+  </div>
+</div>
+<% if (!stripeLive && demoBilling) { %><div class="alert info">Demo mode: Stripe isn't connected, so upgrades are simulated and no payment is taken.</div><% } else if (!stripeLive) { %><div class="alert info">Paid plans open soon. Everything free is ready to use now.</div><% } %>
+<%- include('../partials/plans') %>
+<%- include('../partials/app-foot') %>

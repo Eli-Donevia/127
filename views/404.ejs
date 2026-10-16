@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+<main class="wrap" style="padding:120px 24px;text-align:center">
+  <div class="eyebrow"><%= typeof error !== 'undefined' && error ? 'Error' : '404' %></div>
+  <h1 class="display serif" style="font-size:56px;margin:14px 0"><%= typeof title !== 'undefined' && title === 'Slow down' ? 'Slow down a little.' : typeof error !== 'undefined' && error ? 'Something went wrong.' : 'Nothing built here yet.' %></h1>
+  <p class="muted"><%= typeof message !== 'undefined' && message ? message : "Let's get you back on track." %></p>
+  <a href="/" class="btn" style="margin-top:20px">Go home</a>
+</main>
+<%- include('partials/foot') %>

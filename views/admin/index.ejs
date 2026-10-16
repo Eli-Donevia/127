@@ -1,0 +1,104 @@
+<%- include('../partials/app-head') %>
+<div class="page-head">
+  <div><div class="eyebrow">Founder view</div><h1>Admin</h1></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="/admin/export.csv" class="btn ghost sm">Export members (CSV)</a><a href="/admin/leads.csv" class="btn ghost sm">Export funnel leads (CSV)</a></div>
+</div>
+
+<div class="grid g-4" style="margin-bottom:16px">
+  <div class="card stat"><div class="l">Members</div><div class="v"><%= users.length %></div><div class="small muted"><%= tierCounts.free %> free · <%= tierCounts.builder %> builder · <%= tierCounts.circle %> circle</div></div>
+  <div class="card stat"><div class="l">MRR</div><div class="v">$<%= mrr.toLocaleString() %></div><div class="small muted">paid Stripe plans only</div></div>
+  <div class="card stat"><div class="l">Activated</div><div class="v"><%= users.length ? Math.round(activated / users.length * 100) : 0 %>%</div><div class="small muted">finished a roadmap step</div></div>
+  <div class="card stat"><div class="l">Free → paid</div><div class="v"><%= users.length ? Math.round((tierCounts.builder + tierCounts.circle) / users.length * 100) : 0 %>%</div><div class="small muted">conversion</div></div>
+</div>
+
+<div class="card pad-lg" id="waitlist" style="margin-bottom:16px">
+  <div class="card-title"><h3>Founding waitlist</h3><a href="/admin/waitlist.csv" class="btn ghost sm">Export waitlist (CSV)</a></div>
+  <div class="grid g-4" style="margin-bottom:18px">
+    <div class="stat"><div class="l">Joined</div><div class="v"><%= wl.total %></div></div>
+    <div class="stat"><div class="l">Confirmed</div><div class="v"><%= wl.confirmed %></div><div class="small muted"><%= wl.total ? Math.round(wl.confirmed / wl.total * 100) : 0 %>% confirm rate</div></div>
+    <div class="stat"><div class="l">Email opt-in</div><div class="v"><%= wl.optedIn %></div></div>
+    <div class="stat"><div class="l">Earned reward</div><div class="v"><%= wl.reward %></div><div class="small muted"><%= launch.referralsForReward %>+ confirmed friends</div></div>
+  </div>
+  <div class="grid g-2">
+    <div><div class="eyebrow" style="margin-bottom:8px">By source</div>
+      <% if (!wl.total) { %><p class="small muted" style="margin:0">No signups yet.</p><% } %>
+      <% Object.keys(wl.bySource).forEach(function(k){ %><div class="small" style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><span><%= k %></span><span class="mono"><%= wl.bySource[k] %></span></div><% }) %>
+    </div>
+    <div><div class="eyebrow" style="margin-bottom:8px">Top referrers</div>
+      <% if (!wl.topReferrers.length) { %><p class="small muted" style="margin:0">No confirmed referrals yet.</p><% } %>
+      <% wl.topReferrers.forEach(function(w){ %><div class="small" style="display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px solid var(--line)"><span style="overflow-wrap:anywhere"><%= w.firstName || '' %> <span class="muted"><%= w.email %></span></span><span class="mono"><%= w.referralCount %></span></div><% }) %>
+    </div>
+  </div>
+  <% if (wl.flagged.length) { %>
+    <div class="alert info" style="margin:18px 0 0"><b style="font-weight:600"><%= wl.flagged.length %> referral<%= wl.flagged.length === 1 ? '' : 's' %> to check:</b> same network as the person who referred them, within 24 hours. They still count. <%= wl.flagged.map(function(w){ return w.email + ' (via ' + w.referredBy + ')'; }).join(', ') %></div>
+  <% } %>
+</div>
+
+<div class="card pad-lg" id="applications" style="margin-bottom:16px">
+  <div class="card-title"><h3>Founder's Circle applications</h3><span class="small muted"><%= circleSeatsLeft %> of <%= circleCapacity %> seats open</span></div>
+  <% if (!applications.length) { %><p class="small muted" style="margin:0">No applications yet.</p><% } else { %>
+  <div class="scroll-x"><table class="t">
+    <thead><tr><th>Applicant</th><th>Business</th><th>Where it is</th><th>Needs help with</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+    <% applications.forEach(function(a){ %>
+      <tr>
+        <td><b style="font-weight:500"><%= a.name %></b><br><span class="muted"><%= a.email %></span><% if (a.link && /^https?:\/\//i.test(a.link)) { %><br><a class="link" href="<%= a.link %>" target="_blank" rel="noopener">link</a><% } %></td>
+        <td><%= a.business %></td><td><%= a.revenue %></td><td><%= a.challenge %><br><span class="muted">Commitment: <%= a.commitment %></span></td>
+        <td><span class="chip <%= a.status==='approved' ? 'win' : a.status==='declined' ? 'line' : '' %>"><%= a.status %></span></td>
+        <td style="white-space:nowrap">
+          <% if (a.status !== 'approved') { %><form method="post" action="/admin/applications/<%= a.id %>/approved" style="display:inline"><button class="btn sm">Approve</button></form><% } %>
+          <% if (a.status !== 'declined') { %><form method="post" action="/admin/applications/<%= a.id %>/declined" style="display:inline"><button class="btn ghost sm">Decline</button></form><% } %>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
+
+<div class="grid g-2" style="margin-bottom:16px">
+  <div class="card pad-lg">
+    <h3>What members told us</h3>
+    <p class="small muted">Live answers from the onboarding questionnaire.</p>
+    <% Object.keys(dist).slice(0, 6).forEach(function(k){ var d = dist[k]; var max = Math.max.apply(null, Object.values(d.counts).concat([1])); %>
+      <div style="margin-top:22px">
+        <div class="small" style="font-weight:500;margin-bottom:6px"><%= d.question %></div>
+        <% Object.keys(d.counts).forEach(function(label){ %>
+          <div class="hbar"><span class="muted"><%= label %></span><div class="bar accent"><span style="width:<%= Math.round(d.counts[label] / max * 100) %>%"></span></div><span><%= d.counts[label] %></span></div>
+        <% }) %>
+      </div>
+    <% }) %>
+  </div>
+  <div class="card pad-lg">
+    <h3>Integrations</h3>
+    <p class="small muted">Set these in Replit's Secrets tab. Everything works in demo mode until then.</p>
+    <% integrations.forEach(function(i){ %>
+      <div style="padding:14px 0;border-top:1px solid var(--line)">
+        <div><span class="dot <%= i.on ? 'on' : '' %>"></span><b style="font-weight:500"><%= i.name %></b> <span class="tiny muted"><%= i.on ? 'Connected' : 'Not connected' %></span></div>
+        <div class="small muted" style="margin-left:16px"><%= i.what %></div>
+        <% if (!i.on) { %><div class="tiny" style="margin-left:16px;color:var(--accent-ink);font-family:ui-monospace,Menlo,monospace"><%= i.env %></div><% } %>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<div class="card pad-lg">
+  <div class="card-title"><h3>Members</h3><span class="small muted">Newest first</span></div>
+  <div class="scroll-x"><table class="t">
+    <thead><tr><th>Member</th><th>Plan</th><th>Track</th><th>Stage · Goal</th><th>Steps</th><th>XP</th><th>Joined</th></tr></thead>
+    <tbody>
+    <% users.slice(0, 200).forEach(function(u){ var a = u.answers || {}; %>
+      <tr>
+        <td><b style="font-weight:500"><%= u.name || '–' %></b><br><span class="muted"><%= u.email %></span></td>
+        <td><%= PLANS[u.tier] ? PLANS[u.tier].name : u.tier %></td>
+        <td><%= u.roadmap ? u.roadmap.trackName : '–' %></td>
+        <td><%= a.stage || '–' %> · <%= a.goal || '–' %></td>
+        <td><%= Object.keys(u.completed || {}).length %></td>
+        <td><%= u.xp || 0 %></td>
+        <td class="muted"><%= new Date(u.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric'}) %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+</div>
+<%- include('../partials/app-foot') %>

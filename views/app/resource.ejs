@@ -1,0 +1,68 @@
+<%- include('../partials/app-head') %>
+<div class="doc">
+  <a href="/app/library" class="small link">← Library</a>
+  <div class="eyebrow" style="margin-top:24px"><%= TRACK_NAMES[r.track] %> track · <%= r.type %> · <%= r.minutes %> min<%= r.framework ? ' · ' + r.framework : '' %></div>
+  <h1><%= r.title %></h1>
+  <p class="lede"><%= r.summary %></p>
+  <% if (typeof viaRoadmap !== 'undefined' && viaRoadmap) { %><span class="chip win" style="margin:0 8px 18px 0">Unlocked by your roadmap</span><% } %>
+  <% if (showDrafts && !r.reviewed) { %><span class="draft-flag">Drafted from Eli's frameworks · awaiting Eli's review</span><% } %>
+  <div class="output-box" style="margin-top:8px"><div class="eyebrow" style="color:var(--accent-ink)">You'll walk away with</div><div style="font-size:17px;margin-top:6px"><%= r.output %></div></div>
+
+  <% var sections = locked ? r.sections.slice(0, 1) : r.sections; %>
+  <% sections.forEach(function(s, si){ %>
+    <h3><%= s.heading %></h3>
+    <% if (s.body) { s.body.split('\n\n').forEach(function(p){ %><p><%= p %></p><% }) } %>
+    <% if (s.steps) { %><ol><% s.steps.forEach(function(x){ %><li><%= x %></li><% }) %></ol><% } %>
+    <% if (s.bullets) { %><ul class="bul"><% s.bullets.forEach(function(x){ %><li><%= x %></li><% }) %></ul><% } %>
+    <% if (s.example && !locked) { %><div class="example"><div class="eyebrow">Example</div><p><%= s.example %></p></div><% } %>
+    <% if (s.template && !locked) { %>
+      <div class="tpl"><div class="tpl-bar"><span class="eyebrow">Template</span><button type="button" class="btn ghost sm" data-copy="#tpl-<%= si %>">Copy</button></div><pre id="tpl-<%= si %>"><%= s.template %></pre></div>
+    <% } %>
+  <% }) %>
+
+  <% if (locked) { %>
+    <div class="paywall">
+      <div class="eyebrow" style="color:var(--gold)">Builder</div>
+      <h3>Unlock the full <%= r.type.toLowerCase() %></h3>
+      <p><%= r.sections.length - 1 %> more sections<%= r.worksheet ? ', a saved worksheet' : '' %><%= r.calc ? ', an interactive calculator' : '' %> and AI feedback on your answers. Plus every playbook and AI tool. $29/month, cancel anytime.</p>
+      <form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form>
+    </div>
+  <% } else { %>
+
+    <% if (r.calc || (r.worksheet && r.worksheet.length)) { %>
+    <form method="post" action="/app/library/<%= r.slug %>/worksheet" class="card pad-lg ws" id="worksheet">
+      <div class="card-title"><div><div class="eyebrow">Your worksheet</div><h3 style="font-size:22px;margin-top:6px">Fill it in. It saves to your account.</h3></div><% if (saved.__updated) { %><span class="tiny muted mono">SAVED <%= saved.__updated.slice(0,10) %></span><% } %></div>
+      <% if (r.calc) { %>
+        <div class="calc" data-calc="<%= r.calc %>"></div>
+        <input type="hidden" name="__calc" value="<%= saved.__calc || '' %>">
+      <% } %>
+      <% (r.worksheet || []).forEach(function(f){ %>
+        <label class="field"><span><%= f.label %></span>
+          <% if (f.type === 'textarea') { %><textarea class="input" name="<%= f.id %>" rows="3" placeholder="<%= f.placeholder || '' %>"><%= saved[f.id] || '' %></textarea>
+          <% } else if (f.type === 'select') { %><select class="input" name="<%= f.id %>"><option value="">Choose…</option><% (f.options || []).forEach(function(o){ %><option <%= saved[f.id]===o ? 'selected' : '' %>><%= o %></option><% }) %></select>
+          <% } else { %><input class="input" name="<%= f.id %>" placeholder="<%= f.placeholder || '' %>" value="<%= saved[f.id] || '' %>"><% } %>
+        </label>
+      <% }) %>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <button class="btn">Save</button>
+        <button class="btn ghost" formaction="/app/library/<%= r.slug %>/feedback" <%= aiLeft <= 0 ? 'disabled' : '' %> onclick="this.innerHTML='Reviewing…';this.style.opacity=.6">Save and get feedback</button>
+        <span class="tiny muted">Feedback uses 1 of your <%= aiLeft %> Playbook messages.</span>
+      </div>
+    </form>
+    <% } %>
+
+    <% if (feedback) { %>
+      <h3 id="feedback">Feedback from Eli's Playbook</h3>
+      <div class="tool-out"><%= feedback.text %></div>
+      <div class="ai-label"><%= feedback.demo ? 'Demo feedback.' : 'AI feedback built on Eli’s frameworks, not Eli himself.' %> <%= feedback.at.slice(0,10) %></div>
+    <% } %>
+
+    <div style="margin-top:32px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <% if (done) { %><span class="chip win">Completed</span><% } else { %>
+      <form method="post" action="/app/library/<%= r.slug %>/done"><button class="btn">I've finished this · +30 XP</button></form><% } %>
+      <a href="/app/tools/ask" class="btn ghost">Ask Eli's Playbook about this</a>
+    </div>
+  <% } %>
+</div>
+<script src="/js/worksheet.js"></script>
+<%- include('../partials/app-foot') %>

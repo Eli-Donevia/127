@@ -1,0 +1,41 @@
+<%- include('doc-start') %>
+<body>
+<% if (!stripeLive && user && user.demoBilling) { %><div class="banner">Demo billing: Stripe isn't connected yet, so upgrades are simulated.</div><% } %>
+<%
+  var I = {
+    home: '<svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
+    lib: '<svg viewBox="0 0 24 24"><path d="M4 4h5v16H4zM10 4h5v16h-5z"/><path d="M16 5l4 1-3 14-4-1"/></svg>',
+    ai: '<svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
+    win: '<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 01-8 0z"/><path d="M8 6H5v1a3 3 0 003 3M16 6h3v1a3 3 0 01-3 3M12 13v4M8 20h8"/></svg>',
+    circle: '<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="10" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 15c3 0 6 1.5 6 4"/></svg>',
+    card: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>',
+    gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
+    admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
+  };
+  var nav = [['/app','Dashboard',I.home],['/app/library','Library',I.lib],['/app/tools','AI tools',I.ai],['/app/wins','Wins',I.win],['/app/circle',"Founder's Circle",I.circle],['/app/billing','Membership',I.card],['/app/settings','Settings',I.gear]];
+  if (isAdmin) nav.push(['/admin','Admin',I.admin]);
+%>
+<div class="mobile-top">
+  <a href="/app" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+  <button class="btn ghost sm" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
+</div>
+<div class="shell">
+  <aside class="side" id="side">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+      <button class="btn ghost sm" style="display:none" id="closeSide" onclick="document.getElementById('side').classList.remove('open')">Close</button>
+    </div>
+    <nav>
+      <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : path.indexOf(n[0])===0; %>
+        <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %></a>
+      <% }) %>
+    </nav>
+    <div class="side-foot">
+      <div class="who"><%= user.name || user.email %></div>
+      <div class="muted small" style="margin-bottom:12px"><%= userPlan.name %> member</div>
+      <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" style="margin-bottom:12px"><button class="btn sm block">Upgrade to Builder</button></form><% } %>
+      <form method="post" action="/logout"><button class="link small" style="background:none;border:0;padding:0;cursor:pointer;color:var(--muted)">Sign out</button></form>
+    </div>
+  </aside>
+  <main class="main">
+    <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.text %></div><% } %>

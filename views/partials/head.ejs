@@ -1,0 +1,31 @@
+<%- include('doc-start') %>
+<body>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="/" class="mark" aria-label="127 home"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <nav class="nav-links">
+      <a href="/#how">How it works</a>
+      <a href="/#library">Library</a>
+      <a href="/pricing">Membership</a>
+      <a href="/circle">Founder's Circle</a>
+    </nav>
+    <div class="nav-cta">
+      <% if (user) { %>
+        <a href="/app" class="btn sm">Dashboard</a>
+      <% } else { %>
+        <a href="/login" class="btn ghost sm hide-sm">Sign in</a>
+        <% if (launch.prelaunch) { %><a href="/founding" class="btn sm">Join the waitlist</a><% } else { %><a href="/start" class="btn sm">Start free <span class="arrow"></span></a><% } %>
+      <% } %>
+      <details class="mnav">
+        <summary aria-label="Menu"><span></span><span></span></summary>
+        <div class="mnav-panel">
+          <a href="/#how">How it works</a>
+          <a href="/#library">Library</a>
+          <a href="/pricing">Membership</a>
+          <a href="/circle">Founder's Circle</a>
+          <% if (user) { %><a href="/app">Dashboard</a><% } else { %><a href="/login">Sign in</a><% } %>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

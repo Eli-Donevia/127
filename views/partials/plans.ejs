@@ -1,0 +1,28 @@
+<div class="plans">
+  <% ['free','builder','circle'].forEach(function(k){ var p = PLANS[k]; %>
+  <div class="plan <%= k==='builder' ? 'featured' : '' %> <%= k==='circle' ? 'dark' : '' %>">
+    <div class="plan-flag"><%= k==='free' ? 'Start here' : k==='builder' ? 'Most members' : 'By application · ' + circleCapacity + ' seats' %></div>
+    <h3><%= p.name %></h3>
+    <div class="tag"><%= p.tagline %></div>
+    <div class="price"><span class="amt">$<%= p.price %></span><span class="per"><%= p.price ? '/ month' : 'forever' %></span></div>
+    <% if (k==='builder' && launch.foundingPrice && (launch.prelaunch || launch.foundingOpen)) { %><div class="founding-note">Founding members $<%= launch.foundingPrice %>/month<%= launch.closesDate ? ' until ' + launch.closesDate : '' %>, locked while you stay</div><% } %>
+    <ul><% p.features.forEach(function(f){ %><li><%= f %></li><% }) %></ul>
+    <% var cur = user && user.tier === k; var above = user && PLANS[user.tier] && PLANS[user.tier].rank > p.rank; %>
+    <% if (cur) { %>
+      <span class="btn ghost block is-current" aria-disabled="true">Your plan</span>
+    <% } else if (above) { %>
+      <span class="btn ghost block is-current" aria-disabled="true">Included in your plan</span>
+    <% } else if (k==='free') { %>
+      <a href="<%= user ? '/app' : launch.prelaunch ? '/founding' : '/start' %>" class="btn ghost block"><%= !user && launch.prelaunch ? 'Join the waitlist' : 'Get your free roadmap' %></a>
+    <% } else if (k==='builder') { %>
+      <% if (user) { %>
+      <form method="post" action="/app/billing/checkout/builder"><button class="btn block">Become a Builder</button></form>
+      <% } else { %>
+      <a href="<%= launch.prelaunch ? '/founding' : '/start' %>" class="btn block"><%= launch.prelaunch ? 'Join the founding waitlist' : 'Start free, upgrade anytime' %></a>
+      <% } %>
+    <% } else { %>
+      <a href="/circle" class="btn light block"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %></a>
+    <% } %>
+  </div>
+  <% }) %>
+</div>

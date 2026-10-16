@@ -1,0 +1,64 @@
+<%- include('partials/head') %>
+<main>
+  <section class="hero plain founding-hero">
+    <div class="wrap narrow">
+      <h1><span class="grad">Make today day one.</span></h1>
+      <p class="lede">Get a 30-day roadmap to your first business, an AI that pushes you like a founder would, and the playbooks behind it.<%= launch.launchDate ? ' Doors open ' + launch.launchDate + '.' : '' %></p>
+
+      <form method="post" action="/founding" class="wl-form" id="join">
+        <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+        <div class="wl-row">
+          <input class="input" name="first_name" placeholder="First name" autocomplete="given-name" value="<%= form.first_name || '' %>" aria-label="First name">
+          <input class="input" type="email" name="email" placeholder="Email" autocomplete="email" required value="<%= form.email || '' %>" aria-label="Email">
+          <button class="btn light">Join the waitlist</button>
+        </div>
+        <label class="check"><input type="checkbox" name="optin" <%= form.optin === 'on' ? 'checked' : '' %>> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>
+      </form>
+
+      <%- include('partials/countdown') %>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">What founding members get</div><h2 class="grad">In early, on better terms.</h2></div>
+      <%- include('partials/founding-benefits') %>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap founding-founder">
+      <div class="founder-photo"><img src="/img/eli-founder.jpg" alt="Eli Christiansen speaking on stage" loading="lazy" width="800" height="1000"></div>
+      <div>
+        <div class="eyebrow">Who's building this</div>
+        <!-- Proof points as approved in brand/voice-and-messaging.md section 7 -->
+        <p class="founder-line">2x founder. Part-time e-commerce brand, first drop sold out. #3 in the country on a national vendor sales list of 6,000+ agents. Left a multiple six-figure corporate job to build Donevia, which won the fintech category at Best of the Midwest.</p>
+        <div class="small muted">Eli Christiansen · Founder, 127</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote"><div class="wrap"><blockquote>“No one is truly self-made.”</blockquote><cite>Eli Christiansen</cite></div></section>
+
+  <section>
+    <div class="wrap narrow">
+      <div class="section-head"><div class="eyebrow">Questions</div><h2 class="grad">Good to know.</h2></div>
+      <div class="faq">
+        <details><summary>Is it free?</summary><p>Yes. The assessment, your 30-day roadmap and starter playbooks are free. Builder is the paid plan.</p></details>
+        <details><summary>What does "locked" mean?</summary><p>Your price never goes up while your subscription is active. If you cancel, the founding price ends.</p></details>
+        <details><summary>When does the founding price end?</summary><p><%= launch.closesDate ? 'Midnight ET on ' + launch.closesDate : 'At the close of the founding window' %>, or when <%= process.env.FOUNDING_CAP || 100 %> founding members join, whichever comes first.</p></details>
+        <details><summary>Do I need a business idea?</summary><p>No. The assessment starts wherever you are.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. 127 teaches how to start and grow a business. It doesn't give financial, legal or tax advice.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final">
+    <div class="wrap">
+      <h2><span class="grad">Your spot is one email away.</span></h2>
+      <a href="#join" class="btn light" style="margin-top:28px">Join the waitlist <span class="arrow"></span></a>
+      <p class="tiny muted" style="margin-top:28px">Build with purpose. · Psalm 127:1</p>
+    </div>
+  </section>
+</main>
+<%- include('partials/foot') %>

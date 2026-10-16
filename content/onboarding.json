@@ -1,0 +1,371 @@
+{
+  "_readme": "This file IS the member onboarding questionnaire. Edit question text, options or order here and the site updates on restart. Keep each 'id' stable once real members have answered (the roadmap engine reads them). type: single | multi | text. 'max' limits multi picks. 'optional' lets people skip. Questions up to previewAfter build the roadmap; after them the member sees a preview of week 1, then the remaining questions fine-tune it before the account step.",
+  "intro": {
+    "title": "Let's build your roadmap.",
+    "subtitle": "About 3 minutes, mostly tap-to-answer. You'll get a personalized 30-day plan, free."
+  },
+  "questions": [
+    {
+      "id": "stage",
+      "section": "Where you are",
+      "type": "single",
+      "question": "Which best describes you right now?",
+      "options": [
+        {
+          "value": "exploring",
+          "label": "Exploring",
+          "hint": "I want to start something but haven't picked an idea"
+        },
+        {
+          "value": "validating",
+          "label": "Validating",
+          "hint": "I have an idea and I'm testing whether people want it"
+        },
+        {
+          "value": "launched",
+          "label": "Launched",
+          "hint": "I'm selling, under about $1k a month"
+        },
+        {
+          "value": "growing",
+          "label": "Growing",
+          "hint": "About $1k to $10k a month"
+        },
+        {
+          "value": "scaling",
+          "label": "Scaling",
+          "hint": "$10k+ a month and the business needs systems"
+        }
+      ]
+    },
+    {
+      "id": "model",
+      "section": "Where you are",
+      "type": "single",
+      "question": "What kind of business is it (or will it be)?",
+      "options": [
+        {
+          "value": "product",
+          "label": "Physical product or e-commerce"
+        },
+        {
+          "value": "service",
+          "label": "Service, freelance or agency"
+        },
+        {
+          "value": "creator",
+          "label": "Content, creator or personal brand"
+        },
+        {
+          "value": "digital",
+          "label": "Digital product, course or community"
+        },
+        {
+          "value": "software",
+          "label": "Software or app"
+        },
+        {
+          "value": "local",
+          "label": "Local business"
+        },
+        {
+          "value": "unsure",
+          "label": "Not sure yet"
+        }
+      ]
+    },
+    {
+      "id": "goal",
+      "section": "Where you're going",
+      "type": "single",
+      "question": "What's the one outcome you want most in the next 90 days?",
+      "options": [
+        {
+          "value": "pick_idea",
+          "label": "Pick an idea I'm confident in"
+        },
+        {
+          "value": "validate",
+          "label": "Prove people will pay for it"
+        },
+        {
+          "value": "launch",
+          "label": "Launch and make my first sale"
+        },
+        {
+          "value": "first_customers",
+          "label": "Get consistent customers"
+        },
+        {
+          "value": "audience",
+          "label": "Build an audience that buys"
+        },
+        {
+          "value": "revenue",
+          "label": "Grow revenue meaningfully"
+        },
+        {
+          "value": "systems",
+          "label": "Get my time back with systems and automation"
+        }
+      ]
+    },
+    {
+      "id": "obstacles",
+      "section": "Where you're going",
+      "type": "multi",
+      "max": 2,
+      "question": "What's getting in the way? Pick up to two.",
+      "options": [
+        {
+          "value": "where_to_start",
+          "label": "I don't know where to start"
+        },
+        {
+          "value": "time",
+          "label": "Not enough time"
+        },
+        {
+          "value": "offer",
+          "label": "My offer isn't clear"
+        },
+        {
+          "value": "attention",
+          "label": "I can't get attention"
+        },
+        {
+          "value": "sales",
+          "label": "People look but don't buy"
+        },
+        {
+          "value": "tools",
+          "label": "Too many tools, not enough progress"
+        },
+        {
+          "value": "money",
+          "label": "Limited budget"
+        },
+        {
+          "value": "accountability",
+          "label": "Staying consistent on my own"
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "section": "Your capacity",
+      "type": "single",
+      "question": "How much time can you give this each week?",
+      "options": [
+        {
+          "value": "lt3",
+          "label": "Under 3 hours"
+        },
+        {
+          "value": "3to7",
+          "label": "3 to 7 hours"
+        },
+        {
+          "value": "8to15",
+          "label": "8 to 15 hours"
+        },
+        {
+          "value": "15plus",
+          "label": "15+ hours"
+        }
+      ]
+    },
+    {
+      "id": "channels",
+      "section": "Your capacity",
+      "type": "multi",
+      "question": "Where do you already have some presence? Pick any.",
+      "optional": true,
+      "options": [
+        {
+          "value": "instagram",
+          "label": "Instagram"
+        },
+        {
+          "value": "tiktok",
+          "label": "TikTok"
+        },
+        {
+          "value": "youtube",
+          "label": "YouTube"
+        },
+        {
+          "value": "linkedin",
+          "label": "LinkedIn"
+        },
+        {
+          "value": "x",
+          "label": "X"
+        },
+        {
+          "value": "email",
+          "label": "An email list"
+        },
+        {
+          "value": "none",
+          "label": "Nowhere yet"
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "section": "What it's for",
+      "type": "text",
+      "question": "Picture 12 months from now. What would make this year a win?",
+      "placeholder": "e.g. Replace my salary, quit my job, $5k/month from my product, 10k followers who trust me...",
+      "optional": true
+    },
+    {
+      "id": "budget",
+      "section": "Your capacity",
+      "type": "single",
+      "question": "Roughly what can you invest in the business each month?",
+      "options": [
+        {
+          "value": "0",
+          "label": "$0 for now"
+        },
+        {
+          "value": "lt100",
+          "label": "Under $100"
+        },
+        {
+          "value": "100to500",
+          "label": "$100 to $500"
+        },
+        {
+          "value": "500to2k",
+          "label": "$500 to $2,000"
+        },
+        {
+          "value": "2kplus",
+          "label": "$2,000+"
+        }
+      ]
+    },
+    {
+      "id": "ai_comfort",
+      "section": "How you work",
+      "type": "single",
+      "question": "How comfortable are you using AI tools?",
+      "options": [
+        {
+          "value": "new",
+          "label": "New to it"
+        },
+        {
+          "value": "dabble",
+          "label": "I dabble"
+        },
+        {
+          "value": "daily",
+          "label": "I use it daily"
+        },
+        {
+          "value": "builder",
+          "label": "I build with it"
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "section": "How you work",
+      "type": "multi",
+      "max": 2,
+      "question": "What helps you actually get things done? Pick up to two.",
+      "options": [
+        {
+          "value": "checklists",
+          "label": "Short checklists"
+        },
+        {
+          "value": "templates",
+          "label": "Templates I can copy"
+        },
+        {
+          "value": "playbooks",
+          "label": "Step-by-step playbooks"
+        },
+        {
+          "value": "ai",
+          "label": "AI walking me through it"
+        },
+        {
+          "value": "peers",
+          "label": "Other founders to learn from"
+        },
+        {
+          "value": "examples",
+          "label": "Real examples and case studies"
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "section": "What it's for",
+      "type": "text",
+      "question": "Why does this matter to you right now?",
+      "placeholder": "Family, freedom, purpose, proving something to yourself... whatever's true.",
+      "optional": true
+    },
+    {
+      "id": "circle_interest",
+      "section": "Going further",
+      "type": "single",
+      "question": "Would a small weekly call with a founder who's been there be valuable to you?",
+      "options": [
+        {
+          "value": "not_now",
+          "label": "Not right now"
+        },
+        {
+          "value": "later",
+          "label": "Maybe once I've made progress"
+        },
+        {
+          "value": "yes",
+          "label": "Yes, tell me more"
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "section": "Going further",
+      "type": "single",
+      "question": "Last one. How did you find us?",
+      "optional": true,
+      "options": [
+        {
+          "value": "instagram",
+          "label": "Instagram"
+        },
+        {
+          "value": "tiktok",
+          "label": "TikTok"
+        },
+        {
+          "value": "youtube",
+          "label": "YouTube"
+        },
+        {
+          "value": "friend",
+          "label": "A friend"
+        },
+        {
+          "value": "ad",
+          "label": "An ad"
+        },
+        {
+          "value": "other",
+          "label": "Somewhere else"
+        }
+      ]
+    }
+  ],
+  "previewAfter": "outcome"
+}

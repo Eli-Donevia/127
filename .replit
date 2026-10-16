@@ -1,0 +1,14 @@
+modules = ["nodejs-20"]
+run = "npm start"
+entrypoint = "server.js"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["npm", "start"]
+deploymentTarget = "gce"
+
+[[ports]]
+localPort = 3000
+externalPort = 80

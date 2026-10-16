@@ -1,0 +1,31 @@
+<%- include('partials/doc-start') %>
+<body class="bare">
+  <div class="ob-progress"><span id="bar"></span></div>
+  <div class="bare-top">
+    <a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <% if (user) { %><a href="/app" class="small link">Back to dashboard</a><% } else { %><a href="/login" class="small link">Have an account? Sign in</a><% } %>
+  </div>
+
+  <main class="ob">
+    <div class="ob-stage">
+      <div class="ob-card" id="ob" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <form id="submit" method="post" action="/start" hidden>
+    <input type="hidden" name="answers" id="answers">
+  </form>
+
+  <noscript><div class="wrap" style="padding:40px">Please enable JavaScript to take the assessment.</div></noscript>
+
+  <script>
+    window.OB = <%- JSON.stringify(onboarding).replace(/</g, '\\u003c') %>;
+    window.OB_ACCOUNT = <%- JSON.stringify(!user) %>;
+    window.OB_RETAKE = <%- JSON.stringify(!!retake) %>;
+    window.OB_ERROR = <%- JSON.stringify(error || null) %>;
+    window.OB_PREFILL = <%- JSON.stringify(typeof prefill !== 'undefined' ? prefill : null).replace(/</g, '\\u003c') %>;
+    window.OB_JUMP = <%- JSON.stringify(typeof jump !== 'undefined' ? jump : null) %>;
+  </script>
+  <script src="/js/onboarding.js"></script>
+</body>
+</html>

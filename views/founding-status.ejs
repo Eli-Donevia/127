@@ -1,0 +1,49 @@
+<%- include('partials/head') %>
+<% var shareText = 'I just got on the founding list for 127. 30-day roadmap to start your first business. Founding price is locked if you join' + (launch.launchDate ? ' before ' + launch.launchDate.replace(/^(\w{3})\w*/, '$1') : ' early') + ': ' + entry.link; %>
+<main>
+  <section class="hero plain founding-hero">
+    <div class="wrap narrow">
+      <% if (q.confirmed || entry.confirmed) { %>
+        <h1><span class="grad">You're confirmed<%= entry.firstName ? ', ' + entry.firstName : '' %>.</span></h1>
+        <p class="lede">Your founding spot is locked in. Share your link: when <%= launch.referralsForReward %> friends confirm, your first month is free.</p>
+      <% } else { %>
+        <h1><span class="grad">You're on the list.</span></h1>
+        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. Only confirmed spots get the founding price.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <% if (devConfirm) { %><div class="alert info">Email isn't connected yet, so here is the confirm link: <a class="link" href="<%= devConfirm %>">confirm my spot</a></div><% } %>
+      <% } %>
+
+      <div class="card pad-lg share-card">
+        <div class="eyebrow">Your invite link</div>
+        <div class="share-link"><code id="reflink"><%= entry.link.replace(/^https?:\/\//, '') %></code><button type="button" class="btn sm" data-copy-text="<%= entry.link %>" data-track="Referral Share" data-channel="copy">Copy</button></div>
+        <div class="share-row">
+          <a class="btn ghost sm" href="sms:?&body=<%= encodeURIComponent(shareText) %>" data-track="Referral Share" data-channel="messages">Messages</a>
+          <a class="btn ghost sm" href="https://wa.me/?text=<%= encodeURIComponent(shareText) %>" target="_blank" rel="noopener" data-track="Referral Share" data-channel="whatsapp">WhatsApp</a>
+          <button type="button" class="btn ghost sm" data-copy-text="<%= entry.link %>" data-open="instagram://story-camera" data-track="Referral Share" data-channel="instagram">Instagram story</button>
+          <a class="btn ghost sm" href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(shareText) %>" target="_blank" rel="noopener" data-track="Referral Share" data-channel="x">X</a>
+        </div>
+        <div class="ref-progress">
+          <div class="dots"><% for (var i = 0; i < launch.referralsForReward; i++) { %><span class="<%= i < entry.count ? 'on' : '' %>"></span><% } %></div>
+          <div><b><%= Math.min(entry.count, launch.referralsForReward) %> of <%= launch.referralsForReward %></b> friends confirmed<%= entry.count >= launch.referralsForReward ? '. Your first month is free.' : ' → first month free' %></div>
+        </div>
+        <p class="tiny muted" style="margin:14px 0 0">Bookmark this page to check your count. It never shows your friends' names or emails.</p>
+      </div>
+
+      <% if (launch.launchDate) { %><div class="eyebrow" style="margin-top:40px">Doors open <%= launch.launchDate %></div><% } %>
+      <%- include('partials/countdown') %>
+    </div>
+  </section>
+</main>
+<script>
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-track]');
+  if (b && window.plausible) window.plausible(b.getAttribute('data-track'), { props: { channel: b.getAttribute('data-channel') } });
+  var c = e.target.closest('[data-copy-text]');
+  if (!c) return;
+  var t = c.getAttribute('data-copy-text');
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+    var o = c.textContent; c.textContent = 'Copied'; setTimeout(function () { c.textContent = o; }, 1500);
+  }).catch(function () {});
+  var open = c.getAttribute('data-open'); if (open) setTimeout(function () { location.href = open; }, 300);
+});
+</script>
+<%- include('partials/foot') %>

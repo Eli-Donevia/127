@@ -1,0 +1,34 @@
+<%- include('../partials/app-head') %>
+<div class="page-head">
+  <div><div class="eyebrow">Apply what you learn</div><h1>Eli's Playbook</h1></div>
+  <span class="small muted"><%= aiLeft %> messages left this month</span>
+</div>
+<% var askTool = tools.find(function(t){return t.chat}); %>
+<a href="/app/tools/ask" class="next-card" style="display:block;text-decoration:none;margin-bottom:16px">
+  <div class="eyebrow">Ask anything</div>
+  <h2><%= askTool.name %></h2>
+  <p><%= askTool.blurb %></p>
+  <span class="btn light">Start a conversation <span class="arrow"></span></span>
+</a>
+<div class="res-list">
+  <% tools.filter(function(t){return !t.chat}).forEach(function(t){ var open = canAccess(user, t.tier); %>
+  <a href="/app/tools/<%= t.slug %>" class="res <%= open ? '' : 'locked' %>">
+    <div class="meta"><span>AI tool</span><% if (!open) { %><span class="chip">Builder</span><% } else if (t.tier==='free') { %><span class="chip line">Free</span><% } %></div>
+    <h4><%= t.name %></h4>
+    <p><%= t.blurb %></p>
+    <div class="foot-row"><span><%= t.framework || 'Built on the 127 library' %></span><span class="arrow"></span></div>
+  </a>
+  <% }) %>
+</div>
+<% if (history.length) { %>
+<div class="card" style="margin-top:24px">
+  <div class="card-title"><h3>Your recent runs</h3></div>
+  <div class="hist">
+    <% history.forEach(function(h){ var t = tools.find(function(x){return x.slug===h.tool}); if (!t) return; %>
+    <a href="/app/tools/<%= h.tool %>?h=<%= h.id %>#result"><span><b style="font-weight:500;color:var(--ink)"><%= t.name %></b> · <%= String(Object.values(h.input)[0] || '').slice(0, 60) %></span><span class="mono tiny muted"><%= h.at.slice(0, 10) %></span></a>
+    <% }) %>
+  </div>
+</div>
+<% } %>
+<p class="tiny muted" style="margin-top:24px">Eli's Playbook gives AI suggestions built on Eli's frameworks, the 127 library and your answers. It isn't Eli himself, and it isn't legal, tax or financial advice.</p>
+<%- include('../partials/app-foot') %>

@@ -1,0 +1,14 @@
+<% var target = typeof cdTarget !== 'undefined' ? cdTarget : launch.launchAt; %>
+<% if (target && target > Date.now()) { var left = target - Date.now(); %>
+<div class="countdown" data-target="<%= target %>" aria-label="Time until doors open">
+  <div><b data-u="d"><%= Math.floor(left / 864e5) %></b><span>Days</span></div>
+  <div><b data-u="h"><%= String(Math.floor(left / 36e5) % 24).padStart(2, '0') %></b><span>Hrs</span></div>
+  <div><b data-u="m"><%= String(Math.floor(left / 6e4) % 60).padStart(2, '0') %></b><span>Min</span></div>
+  <div><b data-u="s"><%= String(Math.floor(left / 1e3) % 60).padStart(2, '0') %></b><span>Sec</span></div>
+</div>
+<script>
+(function(){var el=document.currentScript.previousElementSibling,t=+el.getAttribute('data-target');function p(n){return String(n).padStart(2,'0')}
+function tick(){var l=Math.max(0,t-Date.now());el.querySelector('[data-u=d]').textContent=Math.floor(l/864e5);el.querySelector('[data-u=h]').textContent=p(Math.floor(l/36e5)%24);el.querySelector('[data-u=m]').textContent=p(Math.floor(l/6e4)%60);el.querySelector('[data-u=s]').textContent=p(Math.floor(l/1e3)%60);}
+tick();setInterval(tick,1000);})();
+</script>
+<% } %>

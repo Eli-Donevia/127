@@ -1,0 +1,43 @@
+<%- include('../partials/app-head') %>
+<div class="chat-wrap">
+  <div class="page-head" style="margin-bottom:20px">
+    <div><div class="eyebrow">AI · <%= aiLeft %> messages left this month</div><h1><%= tool.name %></h1></div>
+    <% if (chat.length) { %><form method="post" action="/app/tools/ask/clear"><button class="btn ghost sm">New conversation</button></form><% } %>
+  </div>
+  <% if (locked) { %>
+    <div class="paywall"><div class="eyebrow" style="color:var(--gold)">Builder</div><h3>Part of Builder</h3><p>Every AI tool and about 300 Playbook messages a month.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form></div>
+  <% } else { %>
+  <div class="chat" id="chat">
+    <% if (!chat.length) { %>
+      <div class="chat-empty">
+        <p class="lede" style="margin:0 0 6px"><%= tool.blurb %></p>
+        <p class="small muted" style="margin:0 0 22px">It knows your stage, goal and roadmap. It's direct, it'll push back, and it ends every answer with one next action.</p>
+        <div class="starters">
+          <% tool.starters.forEach(function(s){ %>
+          <form method="post" action="/app/tools/ask"><input type="hidden" name="message" value="<%= s %>"><button class="starter"><%= s %> <span class="arrow"></span></button></form>
+          <% }) %>
+        </div>
+      </div>
+    <% } %>
+    <% chat.forEach(function(m, i){ %>
+      <div class="msg <%= m.role %>" <%= i === chat.length - 1 ? 'id=latest' : '' %>>
+        <% if (m.role === 'assistant') { %><div class="who"><span class="mark"><span class="num" style="font-size:14px">127</span></span> Eli's Playbook</div><% } %>
+        <div class="bubble"><%= m.content %></div>
+      </div>
+    <% }) %>
+  </div>
+  <form method="post" action="/app/tools/ask" class="composer" id="composer">
+    <textarea class="input" name="message" rows="2" maxlength="2000" placeholder="Ask about your idea, offer, pricing, customers, content…" required <%= aiLeft <= 0 ? 'disabled' : '' %>></textarea>
+    <button class="btn" <%= aiLeft <= 0 ? 'disabled' : '' %>>Send</button>
+  </form>
+  <p class="tiny muted" style="margin-top:10px">AI suggestions built on Eli's frameworks. Not Eli himself, and not financial, legal or tax advice.</p>
+  <script>
+    (function(){var f=document.getElementById('composer');if(!f)return;var t=f.querySelector('textarea');
+    t.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(t.value.trim())f.requestSubmit();}});
+    f.addEventListener('submit',function(){var b=f.querySelector('button');b.textContent='Thinking…';b.style.opacity=.6;});
+    document.querySelectorAll('.starters form').forEach(function(x){x.addEventListener('submit',function(){x.querySelector('button').style.opacity=.6;});});
+    var l=document.getElementById('latest');if(l)l.scrollIntoView({block:'start'});})();
+  </script>
+  <% } %>
+</div>
+<%- include('../partials/app-foot') %>

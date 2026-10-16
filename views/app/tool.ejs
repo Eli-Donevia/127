@@ -1,0 +1,40 @@
+<%- include('../partials/app-head') %>
+<div class="doc" style="max-width:820px">
+  <a href="/app/tools" class="small link">← AI tools</a>
+  <div class="eyebrow" style="margin-top:24px">AI tool<%= tool.framework ? ' · ' + tool.framework : '' %> · <%= aiLeft %> messages left</div>
+  <h1><%= tool.name %></h1>
+  <p class="lede"><%= tool.blurb %></p>
+  <% if (locked) { %>
+    <div class="paywall"><div class="eyebrow" style="color:var(--gold)">Builder</div><h3>This tool is part of Builder</h3><p>Every AI tool, about 300 Playbook messages a month, the full library and your full roadmap.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form></div>
+  <% } else { %>
+    <form method="post" action="/app/tools/<%= tool.slug %>" class="card pad-lg" style="margin-top:28px">
+      <% tool.fields.forEach(function(f){ %>
+        <label class="field"><span><%= f.label %></span>
+          <% if (f.type === 'textarea') { %><textarea class="input" name="<%= f.name %>" placeholder="<%= f.placeholder || '' %>" <%= f.optional ? '' : 'required' %>><%= input[f.name] || '' %></textarea>
+          <% } else if (f.type === 'select') { %><select class="input" name="<%= f.name %>"><% f.options.forEach(function(o){ %><option <%= input[f.name]===o ? 'selected' : '' %>><%= o %></option><% }) %></select>
+          <% } else { %><input class="input" name="<%= f.name %>" placeholder="<%= f.placeholder || '' %>" value="<%= input[f.name] || '' %>" <%= f.optional ? '' : 'required' %>><% } %>
+        </label>
+      <% }) %>
+      <button class="btn" <%= aiLeft <= 0 ? 'disabled' : '' %> onclick="if(this.form.checkValidity()){this.innerHTML='Thinking…';this.style.opacity=.6}">Run <%= tool.name %></button>
+    </form>
+    <% if (result) { %>
+      <h3 id="result">Result</h3>
+      <div class="tool-out"><%= result.text %></div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap">
+        <button type="button" class="btn ghost sm" data-copy=".tool-out">Copy</button>
+        <a href="/app/tools/ask" class="btn ghost sm">Talk it through with Eli's Playbook</a>
+      </div>
+      <div class="ai-label"><%= result.demo ? 'Demo output.' : 'AI suggestion built on Eli’s frameworks and the 127 library, not Eli himself.' %> Use your judgment.</div>
+    <% } %>
+    <% if (history && history.length) { %>
+      <h3>Your recent runs</h3>
+      <div class="hist">
+        <% history.forEach(function(h){ var f = tool.fields[0]; %>
+        <a href="/app/tools/<%= tool.slug %>?h=<%= h.id %>#result"><span><%= String(h.input[f.name] || '').slice(0, 80) || 'Run' %></span><span class="mono tiny muted"><%= h.at.slice(0, 10) %></span></a>
+        <% }) %>
+      </div>
+    <% } %>
+  <% } %>
+</div>
+<script src="/js/worksheet.js"></script>
+<%- include('../partials/app-foot') %>

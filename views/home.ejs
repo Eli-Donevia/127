@@ -1,0 +1,203 @@
+<%- include('partials/head') %>
+<%
+  var cta = launch.prelaunch ? { href: '/founding', label: 'Join the founding list' } : { href: '/start', label: 'Build my free plan' };
+  var wallA = ['eli-stage-full', 'desk-overhead', 'eli-popup-01', 'still-watch', 'eli-hotel-corner', 'eli-gym-portrait'];
+  var wallB = ['eli-headphones', 'eli-award-night', 'hotel-desk', 'eli-popup-02', 'bible-open', 'eli-plane'];
+  var wallC = ['eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'desk-flatlay', 'still-timer', 'eli-headphones'];
+  var reel = ['eli-stage-full', 'eli-popup-01', 'desk-overhead', 'eli-plane', 'eli-award-night', 'eli-hotel-corner', 'eli-gym-portrait', 'eli-popup-02', 'still-watch', 'eli-stockroom-square', 'hotel-desk', 'eli-headphones'];
+  var proof = ['2x founder', '25M+ views across social', 'Spoke on stage at Finovate Fall', 'Won the fintech category at Best of the Midwest', '$50K in sales from a part-time e-commerce brand', '#3 in the country out of 6,000+ agents', '100K+ followers built'];
+%>
+<main class="v4">
+
+  <!-- HERO: kinetic headline, 3D chrome 127, drifting wall of Eli's photos -->
+  <section class="hx">
+    <div class="hx-wall" aria-hidden="true">
+      <% [wallA, wallB, wallC].forEach(function (col, ci) { %>
+      <div class="hx-col c<%= ci %>"><div class="hx-track">
+        <% col.concat(col).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" width="480" height="600" <%= ci ? 'loading="lazy"' : '' %>><% }) %>
+      </div></div>
+      <% }) %>
+    </div>
+    <canvas id="hero3d" aria-hidden="true"></canvas>
+    <div class="wrap hx-copy">
+      <h1 class="kin"><span class="dim"><span>Make</span> <span>today</span></span><br><span><span>day</span> <span>one.</span></span></h1>
+      <p class="hx-value">Answer 13 questions. Get a <b>free 30-day plan</b> to launch your first business, plus the playbooks, tools and an AI co-founder that won't let you quit.</p>
+      <div class="hx-ctas">
+        <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
+        <a href="/score" class="btn ghost big">Take the 90-second Founder Score</a>
+      </div>
+      <div class="hx-note"><%= launch.prelaunch ? (launch.launchDate ? 'Doors open ' + launch.launchDate + ' · ' : '') + 'Founding members lock in ' + (launch.foundingPrice ? '$' + launch.foundingPrice + '/mo' : 'a lower price') : 'Free forever plan · 3 minutes · No card' %></div>
+    </div>
+    <div class="ticker" aria-label="About Eli">
+      <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
+    </div>
+  </section>
+
+  <!-- THE HOOK: why care -->
+  <section class="pain">
+    <div class="wrap">
+      <p class="lit">You've saved 300 reels about starting a business.</p>
+      <p class="lit">You have five ideas and zero customers.</p>
+      <p class="lit">You bought the course. You never finished it.</p>
+      <p class="lit">You're waiting until you feel ready.</p>
+      <p class="lit punch">Ready is a decision.<br><span>127 gives you the plan to back it up.</span></p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS: sticky 3D device, real screens -->
+  <section class="story-wrap" id="how">
+    <div class="wrap story-grid">
+      <div class="story-steps">
+        <div class="story-intro" data-reveal>
+          <h2 class="h2">Your first 30 days, mapped.</h2>
+          <p class="sub">No theory. A plan built from your answers, and everything you need to finish it.</p>
+        </div>
+        <div class="story-step on">
+          <span class="num">01</span>
+          <h3>Tell us where you are.</h3>
+          <p>13 questions on your stage, goal, hours and budget. Three minutes, no account.</p>
+          <img class="story-inline" src="/img/shot-question.jpg" alt="" loading="lazy">
+        </div>
+        <div class="story-step">
+          <span class="num">02</span>
+          <h3>Get your 30-day plan.</h3>
+          <p>Week by week, every step linked to the playbook or tool that gets it done. You see week one before you sign up.</p>
+          <img class="story-inline" src="/img/shot-roadmap.jpg" alt="" loading="lazy">
+        </div>
+        <div class="story-step" id="library">
+          <span class="num">03</span>
+          <h3>Do the work, not the reading.</h3>
+          <p><%= resources.length %> playbooks with worksheets and calculators. Each one ends with something you made: a scored idea, a script, a price, a launch calendar.</p>
+          <img class="story-inline" src="/img/shot-playbook.jpg" alt="" loading="lazy">
+        </div>
+        <div class="story-step">
+          <span class="num">04</span>
+          <h3>Get unstuck in seconds.</h3>
+          <p>Eli's Playbook is an AI grounded in my frameworks. It knows your plan and pushes back like a co-founder would.</p>
+          <img class="story-inline" src="/img/shot-chat.jpg" alt="" loading="lazy">
+        </div>
+      </div>
+      <div class="story-stage" aria-hidden="true">
+        <div class="device">
+          <img class="story-screen on" src="/img/shot-question.jpg" alt="">
+          <img class="story-screen" src="/img/shot-roadmap.jpg" alt="">
+          <img class="story-screen" src="/img/shot-playbook.jpg" alt="">
+          <img class="story-screen" src="/img/shot-chat.jpg" alt="">
+        </div>
+        <div class="device-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO REEL -->
+  <section class="reel" aria-label="Photos of Eli building">
+    <div class="reel-row r1"><div class="reel-track"><% reel.concat(reel).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" loading="lazy" width="480" height="600"><% }) %></div></div>
+    <div class="reel-row r2"><div class="reel-track"><% reel.slice().reverse().concat(reel.slice().reverse()).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" loading="lazy" width="480" height="600"><% }) %></div></div>
+    <div class="reel-copy wrap">
+      <h2>Built in stockrooms, on stages and on planes.<br><span>Not in a classroom.</span></h2>
+    </div>
+  </section>
+
+  <% if (video) { %>
+  <!-- INTRO VIDEO (shown once a file is added) -->
+  <section class="video-sec">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>Why I built 127.</h2>
+      <div class="video-frame" data-reveal>
+        <video src="<%= video.src %>" poster="<%= video.poster %>" playsinline preload="metadata" muted></video>
+        <button class="video-play" type="button" aria-label="Play the video"><span></span></button>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <!-- FOUNDER -->
+  <section class="fx" id="why">
+    <div class="wrap fx-grid">
+      <div class="collage" aria-hidden="true">
+        <figure class="cc c1" data-tilt><img src="/img/eli-founder.jpg" alt="" loading="lazy"></figure>
+        <figure class="cc c2" data-tilt><img src="/img/wall/eli-finovate-wide.jpg" alt="" loading="lazy"><figcaption>Finovate Fall</figcaption></figure>
+        <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>"Most Improved"</figcaption></figure>
+        <figure class="cc c4" data-tilt><img src="/img/wall/eli-popup-01.jpg" alt="" loading="lazy"><figcaption>Apparel pop-up</figcaption></figure>
+      </div>
+      <div class="fx-body">
+        <% if (showDrafts) { %><span class="draft-flag">Written from Eli's intake · Eli to approve</span><% } %>
+        <h2 class="h2" data-reveal>I started with $2,000 of sneakers.</h2>
+        <p data-reveal>$2,000 in, $3,000 out, before college. Then I built a social following past 100,000, launched an e-commerce brand that sold out its first drop and shipped to 35 states, and did it all on the side of a finance career where I finished third in the country.</p>
+        <p data-reveal>Then I left that job to build Donevia, raised a multiple six-figure pre-seed round, and won the fintech category at Best of the Midwest. None of it came from one big moment. It came from years of lost ad money, bad partnerships and tools I wish I'd found sooner. 127 is everything I wish I'd had on day one.</p>
+        <div class="stats" data-reveal>
+          <div><b data-to="25" data-suf="M+">25M+</b><span>views across social</span></div>
+          <div><b data-to="100" data-suf="K+">100K+</b><span>followers built</span></div>
+          <div><b data-to="50" data-pre="$" data-suf="K">$50K</b><span>part-time brand sales</span></div>
+          <div><b data-to="3" data-pre="#">#3</b><span>in the country, of 6,000+ agents</span></div>
+        </div>
+        <div class="signature">Eli</div>
+        <div class="small muted">Eli Christiansen · @elichristiansen_</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 30 DAYS -->
+  <section class="days">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>Thirty days from now, you'll have:</h2>
+      <div class="days-row">
+        <div class="day" data-reveal><span>Week 1</span><h3>A tested idea</h3><p>Scored with the Idea Test, and picked on purpose, not on mood.</p></div>
+        <div class="day" data-reveal><span>Week 2</span><h3>Five real conversations</h3><p>With people who have the problem, in their words, using scripts that make it easy.</p></div>
+        <div class="day" data-reveal><span>Week 3</span><h3>An offer and a price</h3><p>A one-line offer, a price you can defend and a page that asks for the sale.</p></div>
+        <div class="day" data-reveal><span>Week 4</span><h3>A launch plan</h3><p>A content calendar, outreach scripts and a scorecard so you keep going after day 30.</p></div>
+      </div>
+      <div class="days-cta" data-reveal><a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a></div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <div class="verse-block">
+    <div class="wrap">
+      <blockquote data-reveal>"Unless the Lord builds the house, those who build it labor in vain."</blockquote>
+      <cite>Psalm 127:1</cite>
+      <p>Building in vain is chasing a dollar sign while neglecting your faith and the people who matter. 127 is built the other way: trust and integrity first, purpose over profit.</p>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <section id="membership">
+    <div class="wrap">
+      <div class="section-head center">
+        <h2>Start free. Upgrade when you've earned it.</h2>
+        <p>Every plan includes your personalized roadmap.</p>
+      </div>
+      <%- include('partials/plans') %>
+    </div>
+  </section>
+
+  <% if (launch.prelaunch) { %>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2>Get in before the doors open.</h2><p>Join the list and lock in founding terms.<%= launch.launchDate ? ' Doors open ' + launch.launchDate + '.' : '' %></p></div>
+      <%- include('partials/founding-benefits') %>
+      <div style="margin-top:28px;text-align:center"><%- include('partials/countdown') %></div>
+    </div>
+  </section>
+  <% } %>
+
+  <!-- FAQ -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head center"><h2>Good to know.</h2></div>
+      <%- include('partials/faq') %>
+    </div>
+  </section>
+
+  <section class="cta-photo">
+    <div class="wrap">
+      <h2>Make today day one.</h2>
+      <p>Your plan is three minutes away. Free, and yours to keep.</p>
+      <a href="<%= cta.href %>" class="btn light big"><%= cta.label %> <span class="arrow"></span></a>
+    </div>
+  </section>
+</main>
+<script type="importmap">{ "imports": { "three": "/js/vendor/three.module.min.js" } }</script>
+<script type="module" src="/js/hero3d.js"></script>
+<script src="/js/home.js" defer></script>
+<%- include('partials/foot') %>

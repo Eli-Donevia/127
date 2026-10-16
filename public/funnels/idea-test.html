@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--OG-->
+<title>Idea Test · 127</title>
+<meta name="description" content="Score your business idea in 60 seconds on the six questions that decide if it can work. Free, no signup.">
+<meta property="og:title" content="Is your business idea any good?">
+<meta property="og:description" content="Score it in 60 seconds on the six questions that decide if it can work. Free, no signup.">
+<meta property="og:image" content="/funnels/og/idea-test.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/OG-->
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/funnels/funnels.css">
+<!--TRACKERS-->
+</head>
+<body>
+<div class="bg-grid"></div><div class="glow"></div>
+<header class="f-top">
+  <a href="/" class="mark" aria-label="127"><span class="num">127</span></a>
+  <a href="/score" class="aside" data-site>Take the Founder Score</a>
+</header>
+
+<main>
+  <section class="narrow hero" id="top">
+    <span class="chip"><span class="dot"></span>Free · No signup · 60 seconds</span>
+    <h1 class="h-display steel">Is your idea any good?</h1>
+    <p class="lede">Score it on the six questions Eli Christiansen asks before he builds anything. You get a straight verdict, the biggest risk, and a 7-day plan to prove it before you spend a dollar.</p>
+  </section>
+
+  <section class="narrow" id="formWrap">
+    <form id="ideaForm" class="card halo stack-m" novalidate>
+      <label class="field"><span>Your idea, in a sentence or two</span>
+        <textarea class="textarea" name="idea" maxlength="800" required placeholder="e.g. A meal-prep subscription for college athletes, built around their training schedule."></textarea></label>
+      <label class="field"><span>Who is it for? Be specific.</span>
+        <input class="input" name="customer" maxlength="300" placeholder="e.g. D1 and D2 athletes living off campus"></label>
+      <label class="field"><span>How would it make money? <span class="slate">(optional)</span></span>
+        <input class="input" name="money" maxlength="300" placeholder="e.g. $79 a week subscription"></label>
+      <label class="field"><span>What's your edge? <span class="slate">(optional)</span></span>
+        <input class="input" name="edge" maxlength="300" placeholder="e.g. I played D1 and know the athletic departments"></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button class="btn block" type="submit" id="run">Test my idea <span class="arrow"></span></button>
+      <div class="form-err" id="err" hidden></div>
+      <div class="form-note">Not financial advice. Your idea stays private.</div>
+    </form>
+
+    <div class="grid-2" style="margin-top:14px" id="criteriaInfo">
+      <div class="card"><div class="label">The six questions</div>
+        <div class="flow" style="margin-top:12px">
+          <div class="step"><span class="mono slate">01</span><span><b>Real pain.</b> Do people already pay to fix it?</span></div>
+          <div class="step"><span class="mono slate">02</span><span><b>Clear value.</b> Time, money, peace of mind?</span></div>
+          <div class="step"><span class="mono slate">03</span><span><b>Economics.</b> Can the numbers work?</span></div>
+        </div></div>
+      <div class="card"><div class="label">&nbsp;</div>
+        <div class="flow" style="margin-top:12px">
+          <div class="step"><span class="mono slate">04</span><span><b>Reachable buyers.</b> Can you get in front of them?</span></div>
+          <div class="step"><span class="mono slate">05</span><span><b>Edge.</b> Why you, and why would they notice?</span></div>
+          <div class="step"><span class="mono slate">06</span><span><b>Market direction.</b> Growing, shrinking, AI?</span></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section class="narrow" id="result" hidden style="padding-top:8px"></section>
+</main>
+
+<footer class="f-foot">
+  <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
+  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></div>
+</footer>
+<script src="/funnels/funnel-kit.js"></script>
+<script src="/funnels/idea-test.js"></script>
+</body>
+</html>
