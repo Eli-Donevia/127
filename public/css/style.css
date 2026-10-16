@@ -1186,3 +1186,5 @@ html.js [data-reveal].in{opacity:1;transform:none}
   .circle-h { font-size: 26px; }
   .seg span { min-height: 44px; }
 }
+.scorecard .check input, .circle-apply .check input, .profile-form .check input, .recap-form .check input { accent-color: var(--gold); }
+#scorecards table.t th { white-space: nowrap; }

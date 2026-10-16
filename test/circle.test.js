@@ -368,12 +368,14 @@ test('circleProfile: Klaviyo properties for members and approved applicants only
   const early = await addUser(w, 'Early', { tier: 'circle', circle: { joinedAt: '2026-11-20T12:00:00Z' } });
   const late = await addUser(w, 'Late', { tier: 'circle', circle: { joinedAt: '2026-11-24T23:30:00Z' } });
   assert.deepStrictEqual(circle.circleProfile(early, { store: w.store, now: T0, env: ENV }), {
-    circle_first_call: 'Tuesday, November 24 at 8pm ET (the kickoff)',
+    circle_first_call: '2026-11-25T01:00:00.000Z',
+    circle_first_call_text: 'Tuesday, November 24 at 8pm ET (the kickoff)',
     circle_discord_url: 'https://discord.gg/test',
     circle_profile_url: 'https://127.test/app/circle#profile',
     circle_handbook_url: 'https://127.test/app/circle/handbook',
   });
-  assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call, 'Thursday, December 3 at 8pm ET');
+  assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call_text, 'Thursday, December 3 at 8pm ET');
+  assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call, '2026-12-04T01:00:00.000Z');
 });
 
 test('emails: copy from applications.md, no em dashes', () => {
