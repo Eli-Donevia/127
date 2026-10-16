@@ -40,7 +40,7 @@
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <% if (next.resource) { %><a href="/app/library/<%= next.resource %>" class="btn light">Open <%= bySlug[next.resource].type.toLowerCase() %> <span class="arrow"></span></a><% } %>
         <% if (next.action) { %><a href="<%= next.action %>" class="btn light">Go <span class="arrow"></span></a><% } %>
-        <% var nextTpl = tplForTask(next.id).filter(function(x){ return canAccess(user, x.tier); })[0]; if (nextTpl && !next.resource) { %><a href="/app/templates/<%= nextTpl.slug %>" class="btn light">Open <%= nextTpl.title %> <span class="arrow"></span></a><% } %>
+        <% var nextTpl = tplForTask(next.id).filter(function(x){ return tplCanOpen(user, x); })[0]; if (nextTpl && !next.resource) { %><a href="/app/templates/<%= nextTpl.slug %>" class="btn light">Open <%= nextTpl.title %> <span class="arrow"></span></a><% } %>
         <form method="post" action="/app/task/<%= next.id %>"><button class="btn ghost" style="color:var(--on-dark);border-color:var(--dark-line)">Mark done · +<%= next.xp %> XP</button></form>
       </div>
     </div>
@@ -76,7 +76,7 @@
             <div class="t-title <%= done ? 'done-text' : '' %>"><%= t.title %></div>
             <% if (!done) { %><div class="t-detail"><%= t.detail %></div><% } %>
             <% if (res) { %><div class="t-meta"><a href="/app/library/<%= res.slug %>" class="chip line" style="text-decoration:none"><%= res.type %> · <%= res.title %></a><% if (!canOpen(res)) { %><span class="chip">Builder</span><% } %></div><% } %>
-            <% var tpls = tplForTask(t.id); if (tpls.length) { %><div class="t-use"><span class="tiny muted">Use:</span><% tpls.forEach(function(x, i){ %><a href="/app/templates/<%= x.slug %>" class="link small"><%= x.title %></a><% if (!canAccess(user, x.tier)) { %><span class="tpl-lock" title="Builder template">Builder</span><% } %><% }) %></div><% } %>
+            <% var tpls = tplForTask(t.id); if (tpls.length) { %><div class="t-use"><span class="tiny muted">Use:</span><% tpls.forEach(function(x, i){ %><a href="/app/templates/<%= x.slug %>" class="link small"><%= x.title %></a><% if (!tplCanOpen(user, x)) { %><span class="tpl-lock" title="Builder template">Builder</span><% } %><% }) %></div><% } %>
           </div>
           <span class="xp">+<%= t.xp %> XP</span>
         </div>

@@ -144,6 +144,7 @@ app.use((req, res, next) => {
   res.locals.fmtDate = fmtDate;
   // Templates for a roadmap step or a playbook (content/templates/manifest.json).
   res.locals.tplForTask = templates.forTask;
+  res.locals.tplCanOpen = templates.canOpen;
   res.locals.tplForPlaybook = templates.forPlaybook;
   res.locals.tplKinds = templates.KINDS;
   res.locals.canAccess = canAccess;
@@ -981,7 +982,7 @@ app.get('/app/templates/:slug', requireAuth, (req, res) => {
   const user = req.user;
   res.render('app/template', {
     title: t.title, t, KINDS: TEMPLATE_KINDS, TRACKS: templates.TRACKS, tpl: templates,
-    locked: !canAccess(user, t.tier),
+    locked: !templates.canOpen(user, t),
     inRoadmap: roadmapTemplates(user).has(t.slug),
     checks: user.checklist || {},
     progress: templates.checklistProgress(t, user),
@@ -1000,7 +1001,7 @@ app.post('/app/templates/:slug/check', requireAuth, wrap(async (req, res) => {
   const json = req.accepts(['html', 'json']) === 'json';
   if (!t || !t.checklistIds.has(id)) return json ? res.status(404).json({ error: 'Not found' }) : res.status(404).render('404', { title: 'Not found' });
   const user = req.user;
-  if (!canAccess(user, t.tier)) return json ? res.status(403).json({ error: 'Builder' }) : res.redirect(`/app/templates/${t.slug}#unlock`);
+  if (!templates.canOpen(user, t)) return json ? res.status(403).json({ error: 'Builder' }) : res.redirect(`/app/templates/${t.slug}#unlock`);
   user.checklist = user.checklist || {};
   if (user.checklist[id]) delete user.checklist[id];
   else user.checklist[id] = new Date().toISOString();
@@ -1016,7 +1017,7 @@ app.post('/app/templates/:slug/review', requireAuth, wrap(async (req, res) => {
   if (!t) return res.status(404).render('404', { title: 'Not found' });
   const user = req.user;
   const back = `/app/templates/${t.slug}#review`;
-  if (!canAccess(user, t.tier)) return res.redirect(`/app/templates/${t.slug}#unlock`);
+  if (!templates.canOpen(user, t)) return res.redirect(`/app/templates/${t.slug}#unlock`);
   const input = String(req.body.filled || '').trim().slice(0, 12000);
   if (!input) {
     flash(req, 'info', 'Paste what you filled in first, then ask for a check.');

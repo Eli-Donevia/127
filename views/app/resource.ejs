@@ -70,7 +70,7 @@
   <div class="tpl-for" id="templates">
     <h3>Templates for this playbook</h3>
     <div class="tpl-pairs">
-      <% pairTpls.forEach(function(x){ var xo = canAccess(user, x.tier); %>
+      <% pairTpls.forEach(function(x){ var xo = tplCanOpen(user, x); %>
       <a href="/app/templates/<%= x.slug %>" class="tpl-pair"><span class="eyebrow"><%= tplKinds[x.kind] %> · <%= x.minutes %> min</span><span><%= x.title %></span><% if (!xo) { %><span class="chip">Builder</span><% } else { %><span class="arrow"></span><% } %></a>
       <% }) %>
     </div>

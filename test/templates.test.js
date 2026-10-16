@@ -173,3 +173,18 @@ test('gated file route', async (t) => {
     }
   });
 });
+
+test('O24: free members open templates linked from their own weeks 1 and 2, nothing else', () => {
+  for (const [key, track] of Object.entries(roadmap.TRACKS)) {
+    const weeks = track.weeks.map((w, wi) => ({ week: wi + 1, freeVisible: wi < 2, tasks: w.tasks.map((_, ti) => ({ id: `${key}-w${wi + 1}-t${ti + 1}` })) }));
+    const user = { tier: 'free', roadmap: { weeks } };
+    const free = new Set(weeks.slice(0, 2).flatMap((w) => w.tasks.flatMap((t) => templates.forTask(t.id).map((x) => x.slug))));
+    for (const t of templates.list) {
+      const expected = t.tier === 'free' || free.has(t.slug);
+      assert.strictEqual(templates.canOpen(user, t), expected, `${key}: ${t.slug}`);
+    }
+    // Step 1 never hits a paywall.
+    for (const t of templates.forTask(`${key}-w1-t1`)) assert.ok(templates.canOpen(user, t), `${key} step 1: ${t.slug}`);
+  }
+  assert.strictEqual(templates.canOpen({ tier: 'free' }, templates.list.find((t) => t.tier === 'builder')), false);
+});
