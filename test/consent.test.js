@@ -49,3 +49,11 @@ test('flag off with Klaviyo on: unticked joiners get no confirm email, so the fo
     assert.doesNotMatch(c.line, /only email your confirm link/);
   });
 });
+
+test('D15 switch: CONFIRM_EMAIL_TO_ALL=true brings back founding-off-v1 with Klaviyo on', () => {
+  withEnv({ JOIN_IS_LAUNCH_CONSENT: undefined, FOUNDING_CLOSES_AT: FUTURE, KLAVIYO_PRIVATE_KEY: 'x', CONFIRM_EMAIL_TO_ALL: 'true' }, () => {
+    assert.strictEqual(consent.confirmToAll(), true);
+    assert.strictEqual(consent.copy('founding').version, 'founding-off-v1');
+  });
+  withEnv({ KLAVIYO_PRIVATE_KEY: 'x', CONFIRM_EMAIL_TO_ALL: undefined }, () => assert.strictEqual(consent.confirmToAll(), false));
+});

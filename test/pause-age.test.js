@@ -317,3 +317,11 @@ test('age: "Close for age" cancels, refunds every payment in full, deletes, emai
   assert.equal(ageCheck.blocked(email, Date.now() + 3 * 366 * DAY), false, 'kept for 3 years');
   assert.equal(await ageCheck.purgeOld(Date.now() + 3 * 366 * DAY), 1);
 });
+
+test('pause during a free month: no "your card will be charged" reminder for the voided date (Offer 11:53)', () => {
+  const { pauseCovers } = require('../lib/reminders');
+  const ends = Date.parse('2026-12-17T15:00:00Z');
+  assert.equal(pauseCovers({ pause: { resumesAt: '2027-01-18T15:00:00Z', endedAt: null } }, ends), true);
+  assert.equal(pauseCovers({ pause: { resumesAt: '2027-01-18T15:00:00Z', endedAt: '2026-12-01T00:00:00Z' } }, ends), false);
+  assert.equal(pauseCovers({}, ends), false);
+});

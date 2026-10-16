@@ -331,3 +331,10 @@ test('billing facts on tier changes: planHistory, tierSince, paidSince, canceled
   assert.equal(fm.billing.planHistory.length, 2);
   assert.equal(fm.billing.canceledAt, u.canceledAt);
 });
+
+test('Klaviyo profile: payment_retry_at and pause_resumes_at are null (not missing) when nothing is open, so stale dates clear', () => {
+  const { memberProfile } = require('../lib/integrations');
+  const p = memberProfile({ id: 'u-null', email: 'n@example.com', tier: 'builder', pause: { resumesAt: '2026-12-01T00:00:00Z', endedAt: '2026-11-20T00:00:00Z' } });
+  assert.strictEqual(p.payment_retry_at, null);
+  assert.strictEqual(p.pause_resumes_at, null);
+});
