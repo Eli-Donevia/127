@@ -294,11 +294,13 @@ function checkLink(kind, q) {
 
 // ---------- public site ----------
 // Intro video on the homepage: HOME_VIDEO_URL, or drop a file at public/video/intro.mp4 (poster: intro.jpg).
+// intro.mp4 is Video's Finovate Fall highlight until Eli films "Why I built 127"; then set HOME_VIDEO_TITLE="Why I built 127."
 function homeVideo() {
-  if (process.env.HOME_VIDEO_URL) return { src: process.env.HOME_VIDEO_URL, poster: process.env.HOME_VIDEO_POSTER || '/img/eli-founder.jpg' };
+  const title = process.env.HOME_VIDEO_TITLE || 'On stage at Finovate Fall.';
+  if (process.env.HOME_VIDEO_URL) return { title, src: process.env.HOME_VIDEO_URL, poster: process.env.HOME_VIDEO_POSTER || '/img/eli-founder.jpg' };
   const f = path.join(__dirname, 'public', 'video', 'intro.mp4');
   if (!fs.existsSync(f)) return null;
-  return { src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
+  return { title, src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
 // hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
 // heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.

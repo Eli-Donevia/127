@@ -82,11 +82,29 @@
     });
   }
 
-  // Intro video: play inline when someone taps the poster
-  var vbtn = document.querySelector('.video-play');
-  if (vbtn) vbtn.addEventListener('click', function () {
-    var v = document.querySelector('.video-frame video');
-    if (!v) return;
-    v.controls = true; v.muted = false; v.play(); vbtn.hidden = true;
+  // Videos play inline when someone taps the poster. The walkthrough has no <video> until then (it's silent, so it
+  // stays muted), and phones get the 9:16 cut.
+  document.querySelectorAll('.video-frame').forEach(function (frame) {
+    var btn = frame.querySelector('.video-play');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var v = frame.querySelector('video');
+      if (!v && frame.dataset.srcWide) {
+        var tall = window.matchMedia && matchMedia('(max-width: 760px)').matches;
+        v = document.createElement('video');
+        var base = (tall ? frame.dataset.srcTall : frame.dataset.srcWide).replace(/\.mp4$/, '');
+        v.innerHTML = '<source src="' + base + '.webm" type="video/webm"><source src="' + base + '.mp4" type="video/mp4">';
+        v.muted = true; v.playsInline = true; v.setAttribute('playsinline', '');
+        var pic = frame.querySelector('picture img');
+        if (pic) v.poster = pic.currentSrc || pic.src;
+        frame.classList.add('is-playing');
+        frame.appendChild(v);
+      }
+      if (!v) return;
+      v.controls = true;
+      if (!frame.dataset.srcWide) v.muted = false;
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+      btn.hidden = true;
+    });
   });
 })();

@@ -122,6 +122,18 @@
     </div>
   </section>
 
+  <!-- PRODUCT WALKTHROUGH: Video's film of the real app (demo member, no prices, no Eli figures). Nothing loads until tapped. -->
+  <section class="walk-sec">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>See it in a minute.</h2>
+      <p class="sub" data-reveal>The real product: the assessment, your roadmap, a playbook worksheet and Eli's Playbook.</p>
+      <div class="video-frame walk-frame" data-reveal data-src-wide="/video/walkthrough-16x9.mp4" data-src-tall="/video/walkthrough-9x16.mp4">
+        <picture><source media="(max-width: 760px)" srcset="/img/walkthrough-9x16.jpg" width="720" height="1280"><img src="/img/walkthrough-16x9.jpg" alt="The 127 member dashboard: Do step one today." width="1280" height="720" loading="lazy" decoding="async"></picture>
+        <button class="video-play" type="button" aria-label="Play the product walkthrough" data-track="Walkthrough Play"><span></span></button>
+      </div>
+    </div>
+  </section>
+
   <!-- WHAT STOPS YOU, AND WHAT'S IN 127 FOR IT (section 6.2) -->
   <section class="stops">
     <div class="wrap">
@@ -158,10 +170,10 @@
   </section>
 
   <% if (video) { %>
-  <!-- INTRO VIDEO (shown once a file is added) -->
+  <!-- INTRO VIDEO: Video's Finovate highlight (public/video/intro.mp4) until Eli's "Why I built 127" clip -->
   <section class="video-sec">
     <div class="wrap">
-      <h2 class="h2" data-reveal>Why I built 127.</h2>
+      <h2 class="h2" data-reveal><%= video.title %></h2>
       <div class="video-frame" data-reveal>
         <video src="<%= video.src %>" poster="<%= video.poster %>" playsinline preload="metadata" muted></video>
         <button class="video-play" type="button" aria-label="Play the video"><span></span></button>
