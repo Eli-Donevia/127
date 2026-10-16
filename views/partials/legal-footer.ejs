@@ -1,0 +1,9 @@
+<%# Footer legal links and the earnings line, on every page: site (partials/foot.ejs), member app (partials/app-foot.ejs)
+    and the static funnel pages (lib/funnels.js, through lib/ad-consent.js legalFooter()).
+    Sources: legal/handoffs/website.md item 3, legal/08-cookie-notice.md Part C item 5, legal/05-earnings-disclaimer.md Part B.
+    Pass privacyTerms: true where the footer doesn't already link Privacy and Terms.
+    "Cookie settings" opens the panel from public/js/consent.js (loaded by partials/doc-start.ejs); without JS it goes to /cookies. %>
+<div class="legal-foot">
+  <p class="legal-links"><% if (typeof privacyTerms !== 'undefined' && privacyTerms) { %><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <% } %><a href="/cookies">Cookie Notice</a> · <a href="/cookies" data-cookie-settings>Cookie settings</a></p>
+  <p class="earnings-note">127 is education and tools, not a promise of income. Results vary. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
+</div>

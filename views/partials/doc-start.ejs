@@ -32,4 +32,6 @@
 <% (trackEvents || []).forEach(function (e) { %>plausible(<%- JSON.stringify(e.name) %><%- e.props ? ', { props: ' + JSON.stringify(e.props).replace(/</g, '\\u003c') + ' }' : '' %>);
 <% }) %></script>
 <% } %>
+<%# Ad pixels load only after "Accept" (Legal L7): config + public/js/consent.js, lib/ad-consent.js. %>
+<%- typeof adConsentScript !== 'undefined' ? adConsentScript : '' %>
 </head>

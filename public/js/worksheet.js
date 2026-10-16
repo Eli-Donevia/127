@@ -24,6 +24,8 @@
   function money(n) { return '$' + (Math.round(n * 100) / 100).toLocaleString(undefined, { maximumFractionDigits: n < 10 ? 2 : 0 }); }
   function pct(n) { return (Math.round(n * 10) / 10) + '%'; }
   function inp(k, label, ph, cls) { return '<label class="field ' + (cls || '') + '"><span>' + label + '</span><input class="input" inputmode="decimal" data-k="' + k + '" placeholder="' + esc(ph || '') + '" value="' + esc(saved[k] || '') + '"></label>'; }
+  // Under every money result (legal/05-earnings-disclaimer.md Part B, calculators and worksheets).
+  var ESTIMATE = '<p class="small muted calc-estimate" style="margin:8px 0 0">An estimate from the numbers you entered. Not a forecast or a promise.</p>';
   function out(rows) { return rows.map(function (r) { return '<div class="calc-out"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>'; }).join(''); }
 
   var calcs = {
@@ -76,7 +78,7 @@
         var rows = [['ROI for the customer', roi ? (Math.round(roi * 10) / 10) + 'x' : 'add their value'], ['Smallest-number framing', money(perDay) + ' a day'], ['Largest-number framing', yearValue ? money(yearValue) + ' a year in value' : 'add their value'], ['Position', pos]];
         if (a) rows.push(['vs what they spend today', monthly ? (p < a ? money(a - p) + '/mo cheaper' : money(p - a) + '/mo more') : money(a * 12) + '/yr on alternatives']);
         var tip = roi >= 10 ? 'Under-priced. You can likely charge more.' : roi >= 3 ? 'Healthy. Easy to defend with the ROI story.' : roi > 0 ? 'Thin. Raise the value or lower the price.' : '';
-        return { html: out(rows) + (tip ? '<p class="small muted" style="margin:8px 0 0">' + tip + ' Test it on five real buyers before you change it.</p>' : ''), summary: rows.map(function (r) { return r[0] + ': ' + r[1]; }).join('; ') };
+        return { html: out(rows) + (tip ? '<p class="small muted" style="margin:8px 0 0">' + tip + ' Test it on five real buyers before you change it.</p>' : '') + ESTIMATE, summary: rows.map(function (r) { return r[0] + ': ' + r[1]; }).join('; ') };
       },
     },
     budget: {
@@ -95,7 +97,7 @@
         var rows = [['Expected visitors', Math.round(visitors).toLocaleString()], ['Expected sales', (Math.round(sales * 10) / 10).toString()], ['Cost per sale', cps ? money(cps) : '–'], ['Revenue back', money(rev)]];
         var stop = (p ? 'Pause rule: if you’ve spent ' + money(Math.min(2 * p, b)) + ' (the price of two sales) with zero sales, pause and fix one thing. ' : '') + 'Stop rule: if the whole ' + money(b) + ' is spent and each sale costs more than it earns you, stop the test.';
         var verdict = p && cps ? (cps < p * 0.5 ? 'Profitable on paper. Run it small, then double down on what works.' : cps < p ? 'Breakeven-ish. Fine for learning, not for scaling.' : 'You’d lose money per sale. Fix the page or offer first, or grow organically.') : '';
-        return { html: out(rows) + '<p class="small" style="margin:10px 0 0;color:var(--accent-ink)">' + stop + '</p>' + (verdict ? '<p class="small muted" style="margin:6px 0 0">' + verdict + '</p>' : ''), summary: rows.map(function (r) { return r[0] + ': ' + r[1]; }).join('; ') + '. ' + stop };
+        return { html: out(rows) + '<p class="small" style="margin:10px 0 0;color:var(--accent-ink)">' + stop + '</p>' + (verdict ? '<p class="small muted" style="margin:6px 0 0">' + verdict + '</p>' : '') + ESTIMATE, summary: rows.map(function (r) { return r[0] + ': ' + r[1]; }).join('; ') + '. ' + stop };
       },
     },
     kpi: {

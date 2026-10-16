@@ -5,6 +5,7 @@
     <div>
       <a href="/pricing">Membership</a><a href="/circle">Founder's Circle</a><a href="/score">Founder Score</a><a href="/idea-test">Idea Test</a><a href="/stack">Day One Stack</a><a href="/media-kit">Media kit</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><% if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') { %><a href="/membership-terms">Membership terms</a><% } %><a href="/login">Sign in</a>
     </div>
+    <%- include('legal-footer') %>
   </div>
 </footer>
 <script>

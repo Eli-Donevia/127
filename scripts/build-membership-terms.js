@@ -26,6 +26,7 @@ function inline(text) {
     /^(\/|#|https:\/\/|mailto:)/.test(href) ? `<a href="${href}">${label}</a>` : label
   );
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
   return s;
 }
 
@@ -109,4 +110,4 @@ if (require.main === module) {
   console.log(`Wrote ${path.relative(process.cwd(), OUT)} (${html.length} bytes) from ${SRC}`);
 }
 
-module.exports = { build, inline, publicPart };
+module.exports = { build, inline, publicPart, convert };

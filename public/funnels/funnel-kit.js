@@ -32,7 +32,7 @@
     if (STARTS[name]) {
       try {
         var u = (JSON.parse(localStorage.getItem(UTM_KEY) || 'null') || {}).utm || {};
-        var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null });
+        var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null, utm_medium: u.utm_medium || null, utm_campaign: u.utm_campaign || null, utm_content: u.utm_content || null });
         if (navigator.sendBeacon) navigator.sendBeacon('/api/quiz-start', new Blob([body], { type: 'application/json' }));
         else fetch('/api/quiz-start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: body, keepalive: true });
       } catch (e) {}
@@ -62,6 +62,8 @@
     // Shared with the Meta Pixel so the server-side Conversions API event is deduplicated.
     payload.event_id = K.lastEventId = 'lead-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
     payload.page = location.pathname;
+    // Server-side Meta events need the visitor's ad consent too (Legal L7, public/js/consent.js).
+    payload.ad_consent = !!(window.c127Consent && window.c127Consent.ads());
     try { localStorage.setItem('127-lead-email', payload.email); } catch (e) {}
     return fetch('/api/lead', {
       method: 'POST',
@@ -87,6 +89,7 @@
       localStorage.setItem(FKEY, JSON.stringify({
         link: j.referral_link, status: j.status_url, code: j.referral_code, existing: !!j.existing, confirmed: !!j.confirmed,
         n: j.referrals_for_reward || 3, launchDate: j.launch_date || null, launchAt: j.launch_at || null,
+        confirmSent: !!j.confirm_sent,
       }));
     } catch (e) {}
   };
@@ -106,7 +109,7 @@
       '<div class="label lilac">Founding list</div>' +
       '<h3 class="h3" style="margin:10px 0 8px">' + (f.existing ? 'You\'re already on the founding list.' : 'You\'re on the founding list.') + '</h3>' +
       '<p class="fog small" style="margin:0 0 14px">' +
-        (f.confirmed ? 'Your spot is confirmed.' : 'Check your email and tap Confirm so your invite link counts.') +
+        (f.confirmed ? 'Your spot is confirmed.' : f.confirmSent ? 'Check your email and tap Confirm so your invite link counts.' : 'Your spot is saved.') +
         (f.launchDate ? ' Doors open ' + K.esc(f.launchDate) + '.' : '') +
         ' When ' + f.n + ' friends join with your link and confirm, your first month is free.</p>' +
       '<div class="label" style="margin-bottom:8px">Your invite link</div>' +
@@ -122,7 +125,7 @@
     var f = K.founding(); if (!f) return;
     var card = b.closest('.founding-card'), source = card ? card.getAttribute('data-source') : '';
     if (b.getAttribute('data-founding') === 'status') { K.track('Founding Status Click', { source: source }); return; }
-    var text = 'I just got on the founding list for 127, a 30-day roadmap to start your first business. Join with my link: ' + f.link;
+    var text = "I'm on the 127 founding list. I get a free month if you join with my link: " + f.link;
     K.track('Referral Share', { source: source, channel: navigator.share ? 'native' : 'copy' });
     if (navigator.share) { navigator.share({ title: '127', text: text, url: f.link }).catch(function () {}); return; }
     K.copy(f.link);

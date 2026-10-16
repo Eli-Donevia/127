@@ -1,5 +1,6 @@
 <%- include('partials/head') %>
-<% var shareText = 'I just got on the founding list for 127. 30-day roadmap to start your first business. Founding price is locked if you join' + (launch.launchDate ? ' before ' + launch.launchDate.replace(/^(\w{3})\w*/, '$1') : ' early') + ': ' + entry.link; %>
+<%# Prefilled share text (founding.md status page; legal/03 section 5 asks sharers to say they get a reward). %>
+<% var shareText = "I'm on the 127 founding list. I get a free month if you join with my link: " + entry.link; %>
 <%
   var P = launch.foundingPrice ? '$' + launch.foundingPrice : null;
   var PM = P ? P + ' a month' : 'the founding price';
@@ -20,7 +21,12 @@
         <% } %>
       <% } else { %>
         <h1><span class="grad">You're on the list.</span></h1>
-        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. It makes your friends' sign-ups count toward your free month, and it's how we reach you on launch day.<%= q.back ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <% if (entry.confirmSent) { %>
+        <p class="lede">Check your email and tap <b style="color:var(--ink)">Confirm</b>. It makes your friends' sign-ups count toward your free month, and it's how we reach you on launch day.<%= q.back && entry.confirmJustSent ? ' (You were already on the list, so we sent a fresh link.)' : '' %></p>
+        <% } else { %>
+        <%# No confirm email went out (unticked box, or email isn't connected), so don't promise one. %>
+        <p class="lede">Your spot is saved.<%= launch.prelaunch && launch.launchDay ? ' Doors open ' + launch.launchDay + ' at ' + launch.launchTime + '.' : '' %></p>
+        <% } %>
         <% if (devConfirm) { %><div class="alert info">Email isn't connected yet, so here is the confirm link: <a class="link" href="<%= devConfirm %>">confirm my spot</a></div><% } %>
       <% } %>
 
@@ -37,6 +43,7 @@
           <div class="dots"><% for (var j = 0; j < R; j++) { %><span class="<%= j < entry.count ? 'on' : '' %>"></span><% } %></div>
           <div><b><%= Math.min(entry.count, R) %> of <%= R %></b> confirmed<%= entry.count >= R ? '. Your first month of Builder is free.' : '.' %></div>
         </div>
+        <% if (entry.friends && entry.friends.length) { %><ul class="ref-friends" aria-label="Friends who confirmed"><% entry.friends.forEach(function (n) { %><li><%= n %></li><% }) %></ul><% } %>
       </div>
       <% } else { %>
       <div class="card pad-lg share-card">
@@ -49,11 +56,13 @@
           <button type="button" class="btn ghost sm" data-copy-text="<%= entry.link %>" data-open="instagram://story-camera" data-track="Referral Share" data-channel="instagram">Instagram story</button>
           <a class="btn ghost sm" href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(shareText) %>" target="_blank" rel="noopener" data-track="Referral Share" data-channel="x">X</a>
         </div>
+        <p class="small muted ref-say">Share it with people you know, in your own words, and say you get a free month if they join.</p>
         <div class="ref-progress">
           <div class="dots"><% for (var i = 0; i < R; i++) { %><span class="<%= i < entry.count ? 'on' : '' %>"></span><% } %></div>
           <div><b><%= Math.min(entry.count, R) %> of <%= R %></b> confirmed<%= entry.count >= R ? '. Your first month is free.' : '' %></div>
         </div>
-        <p class="tiny muted" style="margin:14px 0 0">Bookmark this page to check your count. It never shows your friends' names or emails.</p>
+        <% if (entry.friends && entry.friends.length) { %><ul class="ref-friends" aria-label="Friends who confirmed"><% entry.friends.forEach(function (n) { %><li><%= n %></li><% }) %></ul><% } %>
+        <p class="tiny muted" style="margin:14px 0 0">Bookmark this page to check your count. You'll see each friend's first name when they confirm, never their email.</p>
       </div>
       <% } %>
 

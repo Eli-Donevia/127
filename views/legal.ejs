@@ -4,6 +4,11 @@
   <% if (kind === 'membership') { %>
   <% if (process.env.MEMBERSHIP_TERMS_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. These terms are not in effect yet.</div><% } %>
   <%- include('partials/membership-terms') %>
+  <% } else if (kind === 'cookies' || kind === 'earnings') { %>
+  <%# Drafts from Legal (scripts/build-legal-pages.js) until Eli approves: COOKIE_NOTICE_LIVE / EARNINGS_DISCLAIMER_LIVE. %>
+  <% if (process.env[kind === 'cookies' ? 'COOKIE_NOTICE_LIVE' : 'EARNINGS_DISCLAIMER_LIVE'] !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. This page is not in effect yet.</div><% } %>
+  <%- include(kind === 'cookies' ? 'partials/cookie-notice' : 'partials/earnings-disclaimer') %>
+  <% if (kind === 'cookies') { %><p style="margin-top:24px"><a href="/cookies" class="btn ghost sm" data-cookie-settings>Cookie settings</a></p><% } %>
   <% } else { %>
   <h1><%= kind === 'privacy' ? 'Privacy' : 'Terms' %></h1>
   <div class="alert info">Placeholder. Replace with a reviewed <%= kind === 'privacy' ? 'privacy policy' : 'terms of service, refund and cancellation policy' %> before launch.</div>
