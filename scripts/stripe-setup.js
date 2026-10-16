@@ -7,7 +7,7 @@
 //
 // Creates: the Builder and Founder's Circle products, the $29, $19 founding and
 // $299 monthly prices (found by lookup key, so no price IDs go in Secrets), the
-// founding referral coupon (first month free), and a customer portal setup.
+// founding referral and win-back coupons (first month free), and a customer portal setup.
 // Reports Stripe Tax status. It never changes tax registrations.
 //
 // Flags:
@@ -27,8 +27,11 @@ const EVENTS = [
   'customer.subscription.created',
   'customer.subscription.updated',
   'customer.subscription.deleted',
+  'customer.subscription.trial_will_end',
   'invoice.paid',
   'invoice.payment_failed',
+  'customer.source.expiring',
+  'charge.refunded',
 ];
 
 function arg(name) {
@@ -114,6 +117,21 @@ async function main() {
     });
     console.log(`+ coupon ${coupon.name} (${coupon.id})`);
   } else console.log(`= coupon ${coupon.name} (${coupon.id})`);
+
+  // Win-back reward: first month back free on regular Builder, sent as a signed link (offer.md section 8).
+  const WINBACK_COUPON = 'winback-first-month';
+  let winback = await s.coupons.retrieve(WINBACK_COUPON).catch((e) => (e.code === 'resource_missing' ? null : Promise.reject(e)));
+  if (!winback) {
+    winback = await s.coupons.create({
+      id: WINBACK_COUPON,
+      name: 'Come back: first month free',
+      percent_off: 100,
+      duration: 'once',
+      applies_to: { products: [products.builder.id] },
+      metadata: { app: '127' },
+    });
+    console.log(`+ coupon ${winback.name} (${winback.id})`);
+  } else console.log(`= coupon ${winback.name} (${winback.id})`);
 
   // Customer portal: card, invoices, cancel at period end. Plan switches stay in
   // the app, because Circle needs an approved application and a free seat.

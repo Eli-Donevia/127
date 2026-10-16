@@ -5,8 +5,9 @@
   <h1><%= tool.name %></h1>
   <p class="lede"><%= tool.blurb %></p>
   <% if (locked) { %>
-    <div class="paywall"><div class="eyebrow" style="color:var(--gold)">Builder</div><h3>This tool is part of Builder</h3><p>Every AI tool, about 300 Playbook messages a month, the full library and your full roadmap.</p><form method="post" action="/app/billing/checkout/builder"><button class="btn light">Become a Builder</button></form></div>
+    <div class="paywall"><div class="eyebrow">Builder</div><h3>This tool is part of Builder</h3><p>Every AI tool, about <%= builderOffer.messages %> Playbook messages a month, the full library and your whole roadmap.<%= builderOffer.founding ? ' $' + builderOffer.price + ' a month for founding members until ' + builderOffer.closesDate + '.' : '' %></p><form method="post" action="/app/billing/checkout/builder" data-upgrade="tool" data-price="<%= builderOffer.price %>"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form><%- include('../partials/renewal-line') %></div>
   <% } else { %>
+    <%- include('../partials/limit-offer') %>
     <form method="post" action="/app/tools/<%= tool.slug %>" class="card pad-lg" style="margin-top:28px">
       <% tool.fields.forEach(function(f){ %>
         <label class="field"><span><%= f.label %></span>

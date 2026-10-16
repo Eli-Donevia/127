@@ -1,0 +1,23 @@
+<%- include('../partials/app-head') %>
+<%# Builder to Circle charges the saved card without Stripe Checkout, so the disclosure and an
+    unticked consent box live here (Membership Terms, Appendix A3). %>
+<% var circlePrice = PLANS.circle.price; var money = function (n) { return '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, ''); }; %>
+<div class="confirm-page">
+  <div class="eyebrow">Founder's Circle</div>
+  <h1>Confirm your seat.</h1>
+  <div class="card confirm-card">
+    <div class="confirm-row"><span>Due today</span><b><%= preview ? money(preview.dueToday) : 'The difference for the rest of this month' %></b></div>
+    <p class="tiny muted" style="margin:0 0 14px"><%= preview ? 'The difference between Builder and the Circle for the rest of this month' + (preview.dueToday ? ', plus any tax' : '') + '.' : 'Shown on your invoice before your card is charged.' %></p>
+    <div class="confirm-row"><span>Then</span><b>$<%= circlePrice %> a month plus tax</b></div>
+    <p class="small" style="margin:14px 0 0">Renews monthly at $<%= circlePrice %> plus tax until you cancel. Cancel online anytime from Billing.</p>
+    <% if (foundingKept) { %><p class="small muted" style="margin:8px 0 0">Your founding price stays with your account: if you switch back to Builder, you pay $<%= launch.foundingPrice || builderOffer.price %> again.</p><% } %>
+  </div>
+  <form method="post" action="/app/billing/checkout/circle" class="confirm-form">
+    <input type="hidden" name="from" value="/app/circle">
+    <label class="check consent-check"><input type="checkbox" name="agree" id="agree" required> <span>I agree to the <a class="link" href="/circle-agreement" target="_blank">Founder's Circle Member Agreement</a> and the <a class="link" href="/membership-terms" target="_blank">Membership Terms</a>, and I understand the Circle renews automatically every month at $<%= circlePrice %> plus tax until I cancel.</span></label>
+    <button class="btn gold" id="claim" disabled>Claim my seat</button>
+    <a class="small link" href="/app/circle">Not now</a>
+  </form>
+</div>
+<script>(function(){var a=document.getElementById('agree'),b=document.getElementById('claim');a.addEventListener('change',function(){b.disabled=!a.checked;});})();</script>
+<%- include('../partials/app-foot') %>

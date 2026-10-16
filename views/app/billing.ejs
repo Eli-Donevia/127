@@ -1,22 +1,60 @@
 <%- include('../partials/app-head') %>
 <div class="page-head"><div><div class="eyebrow">Your plan</div><h1>Membership</h1></div></div>
-<% if (user.paymentIssue || user.subscriptionStatus === 'past_due') { %>
-<div class="alert error" style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-  <span>Your last payment didn't go through. Your plan is still on while Stripe retries. Update your card to keep it.</span>
-  <form method="post" action="/app/billing/portal"><button class="btn light sm">Update card</button></form>
+<% var foundingPlan = userPlan.key === 'builder' && user.foundingPrice; var ends = fmtDate(user.cancelAt); %>
+
+<% if (user.cancelAt && userPlan.key !== 'free') { %>
+<div class="card billing-cancelled">
+  <div>
+    <h3>You're cancelled. Access runs until <%= ends %>.</h3>
+    <p class="small muted">Changed your mind? Keep <%= userPlan.name %> with one tap, with no new charge<%= user.foundingPrice ? ', and your founding price stays' : '' %>.</p>
+  </div>
+  <form method="post" action="/app/billing/resume"><button class="btn light">Keep <%= userPlan.name %></button></form>
+</div>
+<% } else if (justCancelled) { %>
+<div class="alert win">You're cancelled. You're on the free plan now, and your roadmap, weeks 1 and 2 and your wins stay.</div>
+<% } %>
+<% if (askReason) { %>
+<div class="card cancel-reason">
+  <div class="eyebrow">Optional</div>
+  <p class="small" style="margin:8px 0 14px">What was the main reason? One tap, and it helps us build a better 127.</p>
+  <form method="post" action="/app/billing/cancel/reason" class="reason-chips">
+    <% CANCEL_REASONS.forEach(function(r){ %><button class="btn pill" name="reason" value="<%= r[0] %>"><%= r[1] %></button><% }) %>
+  </form>
 </div>
 <% } %>
-<div class="grid g-3" style="margin-bottom:32px">
-  <div class="card"><div class="stat"><div class="l">Current plan</div><div class="v"><%= userPlan.name %></div><div class="small muted">$<%= userPlan.key === 'builder' && user.foundingPrice && launch.foundingPrice ? launch.foundingPrice : userPlan.price %>/month<%= userPlan.key === 'builder' && user.foundingPrice ? ' · founding price, locked' : '' %></div></div></div>
+
+<% if (builderOffer.founding) { %>
+<div class="card billing-offer">
+  <div class="eyebrow">Founding price · ends <%= builderOffer.closesDate %>, <%= builderOffer.closesTime %></div>
+  <p class="billing-offer-line"><b>Builder for $<%= builderOffer.price %> a month, locked while you stay.</b> Switching plans later keeps it. Cancelling ends it.</p>
+  <form method="post" action="/app/billing/checkout/builder" data-upgrade="billing" data-price="<%= builderOffer.price %>"><button class="btn light">Lock $<%= builderOffer.price %> a month <span class="arrow"></span></button></form>
+  <%- include('../partials/renewal-line') %>
+  <p class="tiny muted" style="margin:6px 0 0">14 days to change your mind: email us within 14 days of your first paid charge and we'll refund it in full.</p>
+</div>
+<% } %>
+
+<div class="grid g-3" style="margin-bottom:24px">
+  <div class="card"><div class="stat"><div class="l">Current plan</div>
+    <% if (foundingPlan) { %>
+      <div class="v">Builder · founding member<%= user.foundingNumber ? ' #' + user.foundingNumber : '' %></div>
+      <div class="small muted">$<%= launch.foundingPrice || builderOffer.price %>/month, locked while you stay. Switching plans keeps it; cancelling ends it.</div>
+    <% } else { %>
+      <div class="v"><%= userPlan.name %></div><div class="small muted">$<%= userPlan.price %>/month</div>
+    <% } %>
+  </div></div>
   <div class="card"><div class="stat"><div class="l">Playbook messages</div><div class="v"><%= userPlan.aiRunsPerMonth %></div><div class="small muted">per month</div></div></div>
   <div class="card">
     <div class="stat"><div class="l">Manage</div></div>
     <% if (userPlan.key !== 'free') { %>
-      <form method="post" action="/app/billing/portal" style="margin-top:14px"><button class="btn ghost sm"><%= stripeLive ? 'Manage billing or cancel' : demoBilling ? 'Demo: set back to Free' : 'Manage billing' %></button></form>
-      <p class="tiny muted" style="margin-top:10px">Invoices, card and cancellation are handled securely by Stripe.</p>
+      <div class="manage-row">
+        <form method="post" action="/app/billing/portal"><button class="btn ghost sm"><%= stripeLive ? 'Card and invoices' : demoBilling ? 'Demo: set back to Free' : 'Manage billing' %></button></form>
+        <% if (!user.cancelAt) { %><a class="btn ghost sm" href="/app/billing/cancel">Cancel</a><% } %>
+      </div>
+      <p class="tiny muted" style="margin-top:10px">Cancel online anytime from Billing. No call or email needed.</p>
     <% } else { %><p class="small muted" style="margin-top:14px">You're on the free plan. No card on file.</p><% } %>
   </div>
 </div>
+<% if (refundAsk) { %><p class="small muted refund-ask">Changed your mind? Within 14 days of your first paid charge, email <a class="link" href="mailto:hello@127group.io?subject=Refund">hello@127group.io</a> with the subject "Refund" and we'll refund it in full.</p><% } %>
 <% if (!stripeLive && demoBilling) { %><div class="alert info">Demo mode: Stripe isn't connected, so upgrades are simulated and no payment is taken.</div><% } else if (!stripeLive) { %><div class="alert info">Paid plans open soon. Everything free is ready to use now.</div><% } %>
 <%- include('../partials/plans') %>
 <%- include('../partials/app-foot') %>

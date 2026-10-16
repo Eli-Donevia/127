@@ -34,6 +34,12 @@
   <% } %>
 </div>
 
+<div class="card pad-lg" id="grace" style="margin-bottom:16px">
+  <div class="card-title"><h3>Founding grace link</h3><span class="small muted">48 hours after the close, once per email</span></div>
+  <p class="small muted" style="margin:0 0 14px">Only for someone whose checkout broke on our side or Stripe's before the close: check for their Checkout Start or a Stripe Checkout session first. The link opens the founding checkout once.</p>
+  <form method="post" action="/admin/grace" style="display:flex;gap:10px;flex-wrap:wrap"><input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:320px"><button class="btn sm">Create link</button></form>
+</div>
+
 <% var C = cv.circle; var stateLabel = { pending: 'New', fit_call: 'Fit call', not_yet: 'Not yet', declined: 'Declined', offered: 'Seat offered', waiting: 'Approved, waiting', passed: 'Claim window ended', lapsed: 'Approval expired', former: 'Former member', member: 'Member' }; %>
 <div class="card pad-lg" id="applications" style="margin-bottom:16px">
   <div class="card-title"><h3>Founder's Circle applications</h3><span class="small muted"><%= circleSeatsLeft %> of <%= circleCapacity %> seats open · <%= cv.fitCalls %> of 4 fit calls in the last 7 days</span></div>

@@ -33,9 +33,16 @@
     <div class="side-foot">
       <div class="who"><%= user.name || user.email %></div>
       <div class="muted small" style="margin-bottom:12px"><%= userPlan.name %> member</div>
-      <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" style="margin-bottom:12px"><button class="btn sm block">Upgrade to Builder</button></form><% } %>
+      <% if (userPlan.key === 'free') { %><form method="post" action="/app/billing/checkout/builder" class="side-upgrade" data-upgrade="sidebar" data-price="<%= builderOffer.price %>"><button class="btn sm block"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Become a Builder' %></button><%- include('renewal-line', { rlClass: 'tiny' }) %></form><% } %>
       <form method="post" action="/logout"><button class="link small" style="background:none;border:0;padding:0;cursor:pointer;color:var(--muted)">Sign out</button></form>
     </div>
   </aside>
   <main class="main">
+    <% if (user.tier !== 'free' && (user.paymentIssue || user.subscriptionStatus === 'past_due')) { var retry = user.paymentIssue && fmtDate(user.paymentIssue.retryAt); %>
+    <div class="alert error pay-banner">
+      <span>Your last payment didn't go through. Update your card<%= retry ? ' by ' + retry : '' %> to keep <%= userPlan.name %>.<%= user.foundingPrice && launch.foundingPrice ? ' If the plan ends, so does your $' + launch.foundingPrice + ' founding price.' : '' %></span>
+      <form method="post" action="/app/billing/portal"><button class="btn light sm">Update card</button></form>
+    </div>
+    <% } %>
+    <% if (checkoutCancelled) { %><div class="alert info">No charge was made.<%= builderOffer.founding ? ' Your founding price is here until ' + builderOffer.closesDate + '.' : '' %></div><% } %>
     <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.text %></div><% } %>

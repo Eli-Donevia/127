@@ -15,7 +15,15 @@
     <a href="/start?retake=1" class="btn ghost sm">Retake assessment</a>
     <hr class="rule" style="margin:28px 0">
     <h3>Delete account</h3>
-    <p class="small muted">Permanently deletes your account, answers, progress and posts. Cancel any paid plan first.</p>
+    <p class="small muted">Permanently deletes your account, answers, progress and posts.<%= userPlan.key !== 'free' ? ' Deleting ends your paid membership right away, without a refund for the rest of the month' + (user.foundingPrice ? ', and ends your founding price' : '') + '.' : '' %></p>
+    <% if (userPlan.key !== 'free' && !user.cancelAt) { %>
+      <form method="post" action="/app/billing/cancel" class="delete-instead">
+        <input type="hidden" name="intent" value="cancel">
+        <button class="btn sm">Cancel instead and keep access until <%= fmtDate(user.periodEnd) || 'the end of the month you paid for' %></button>
+      </form>
+    <% } else if (userPlan.key !== 'free' && user.cancelAt) { %>
+      <p class="small muted">Your plan is cancelled and access runs until <%= fmtDate(user.cancelAt) %>. To use that time, delete your account after then.</p>
+    <% } %>
     <form method="post" action="/app/settings/delete" onsubmit="return confirm('Delete your account and all data? This cannot be undone.')"><button class="btn ghost sm" style="color:#8a3a2a;border-color:#e7c6bf">Delete my account</button></form>
   </div>
 </div>

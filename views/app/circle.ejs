@@ -111,11 +111,12 @@
   <div class="next-card circle-call" style="max-width:720px">
     <div class="eyebrow">Approved</div>
     <h2>Seat <%= circle.seatLabel(offer.seat) %> is yours to claim.</h2>
-    <p>It's held for you until <%= offer.until %>. After that it goes to the next person in line. $299 a month, cancel online any time.</p>
+    <p>It's held for you until <%= offer.until %>. After that it goes to the next person in line.</p>
     <div class="circle-actions">
-      <form method="post" action="/app/billing/checkout/circle"><button class="btn gold">Claim my seat · $299/month</button></form>
+      <form method="post" action="/app/billing/checkout/circle"><input type="hidden" name="from" value="/app/circle"><button class="btn gold">Claim my seat · $<%= PLANS.circle.price %>/month</button></form>
       <a class="btn ghost" href="<%= handbookPath %>">Read the handbook</a>
     </div>
+    <%- include('../partials/renewal-line', { rlPrice: PLANS.circle.price, rlFree: false }) %>
   </div>
 
 <% } else if (state === 'waiting') { %>

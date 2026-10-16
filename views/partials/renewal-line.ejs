@@ -1,0 +1,3 @@
+<%# One line under every Start/Upgrade/Lock button (Membership Terms, Appendix A1). Optional: rlPrice, rlFree, rlExtra, rlClass. %>
+<% var rlP = typeof rlPrice !== 'undefined' ? rlPrice : builderOffer.price; var rlF = typeof rlFree !== 'undefined' ? rlFree : builderOffer.freeMonth; %>
+<p class="renew-line <%= typeof rlClass !== 'undefined' ? rlClass : '' %>"><%= rlF ? 'Free for your first month, then $' + rlP + ' a month plus tax starting ' + builderOffer.firstCharge + '.' : '$' + rlP + ' a month plus tax.' %> Renews monthly until you cancel. Cancel online anytime from Billing.<%= typeof rlExtra !== 'undefined' && rlExtra ? ' ' + rlExtra : '' %></p>
