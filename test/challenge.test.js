@@ -115,6 +115,19 @@ test('join: arriving with your own referral code (founding status page) counts a
   assert.strictEqual(r.entry.fromWaitlist, true);
 });
 
+test('waitlist: the confirm link already sent still works after a challenge join rotates it', async () => {
+  at('2026-10-28T15:00:00Z');
+  const waitlist = require('../lib/waitlist');
+  const e = email();
+  const w = await waitlist.join({ email: e, firstName: 'Ola', optIn: false, source: 'founder-score', confirmEmail: false });
+  const first = new URL(w.confirmUrl).searchParams.get('token');
+  const r = await ch.join({ email: e, firstName: 'Ola' });
+  assert.ok(r.confirmUrl && new URL(r.confirmUrl).searchParams.get('token') !== first, 'CH0 gets a fresh link');
+  const c = await waitlist.confirm(first);
+  assert.ok(c && c.firstTime && c.entry.email === e, 'the first email\'s link confirms');
+  assert.strictEqual(await waitlist.confirm('not-a-token'), null);
+});
+
 test('join: the same email again returns the existing entry, never a second one', async () => {
   at('2026-10-28T15:00:00Z');
   const e = email();
