@@ -1169,7 +1169,7 @@ app.get('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
   const entry = launch.onWaitlist(user.email);
   res.render('app/cancel', {
     title: 'Cancel', accessEnds: fmtDate(user.periodEnd), pauseAvailable: PAUSE_AVAILABLE, foundingKept: billing.foundingKept(user),
-    CANCEL_REASONS, reason, referralLink: entry ? waitlist.link(entry) : null,
+    CANCEL_REASONS, reason, options: req.query.options === '1', referralLink: entry ? waitlist.link(entry) : null,
   });
 }));
 

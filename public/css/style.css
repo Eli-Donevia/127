@@ -1038,6 +1038,8 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .cancel-opt { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 22px; }
 .cancel-opt h3 { margin: 0 0 8px; font-size: 18px; }
 .cancel-opt p { flex: 1; margin: 0 0 18px; color: var(--ink-2); font-size: 14px; }
+.cancel-first { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 28px 0 24px; }
+.cancel-first form { margin: 0; }
 @media (max-width: 760px) { .cancel-page h1 { font-size: 34px; } }
 
 /* Welcome after a founding payment, Circle confirm, fast founding checkout */
