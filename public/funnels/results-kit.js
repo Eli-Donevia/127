@@ -190,7 +190,8 @@
     on('ref-copy', function () { K.track('qr_ref_copy', { magnet: m }); K.copy(lead.referral_link); });
     on('ref-share', function () {
       K.track('qr_ref_share', { magnet: m });
-      var text = "I'm on the founding list for 127, a 30-day roadmap for your first business. Join with my link: " + lead.referral_link;
+      // O20 / billing terms section 5: the prefilled share text says the sharer gets a reward (conversion/pages/founding.md).
+      var text = "I'm on the 127 founding list. I get a free month if you join with my link: " + lead.referral_link;
       if (navigator.share) navigator.share({ title: '127', text: text, url: lead.referral_link }).catch(function () {});
       else K.copy(lead.referral_link);
     });

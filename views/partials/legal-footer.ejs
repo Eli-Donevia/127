@@ -1,0 +1,8 @@
+<%# Footer legal links plus the earnings line for pages without the site footer: the member app (partials/app-foot.ejs)
+    and the bare pages (login, forgot, reset, start, founding lock, links). legal/handoffs/website.md item 3 and
+    legal/08-cookie-notice.md Part C item 5. The line itself is partials/earnings-note.ejs (shared with the site footer).
+    Pass privacyTerms: true where Privacy and Terms aren't already linked. "Cookie settings" opens public/js/consent.js's panel. %>
+<div class="legal-foot">
+  <p class="legal-links"><% if (typeof privacyTerms !== 'undefined' && privacyTerms) { %><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <% } %><a href="/cookies">Cookie Notice</a> · <a href="/cookies" data-cookie-settings>Cookie settings</a></p>
+  <%- include('earnings-note') %>
+</div>

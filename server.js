@@ -17,6 +17,7 @@ const security = require('./lib/security');
 const consent = require('./lib/consent');
 const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
+const utmLib = require('./lib/utm');
 const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
@@ -155,9 +156,9 @@ app.use((req, res, next) => {
   res.locals.trackEvents = req.session.track || [];
   req.session.track = null;
   if (res.locals.checkoutCancelled) res.locals.trackEvents.push({ name: 'Checkout Cancelled', props: null });
-  // Keep ad and referral source for the signup record.
-  const utm = {};
-  for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) if (req.query[k]) utm[k] = String(req.query[k]).slice(0, 100);
+  // Keep the first ad and referral source a visitor arrives with (30-day session) for the waitlist and signup records.
+  // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
+  const utm = utmLib.present(req.query);
   if (Object.keys(utm).length && !req.session.utm) req.session.utm = utm;
   if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
@@ -284,6 +285,9 @@ app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
 app.get('/terms', (req, res) => res.render('legal', { title: 'Terms', kind: 'terms' }));
 app.get('/membership-terms', (req, res) => res.render('legal', { title: 'Membership terms', kind: 'membership' }));
+// Drafts behind a banner until Eli approves (COOKIE_NOTICE_LIVE, EARNINGS_DISCLAIMER_LIVE), like /membership-terms.
+app.get('/cookies', (req, res) => res.render('legal', { title: 'Cookie Notice', kind: 'cookies', description: 'The cookies and similar technologies 127 uses, and how to change your choice.' }));
+app.get('/earnings-disclaimer', (req, res) => res.render('legal', { title: 'Earnings disclaimer', kind: 'earnings', description: "127 teaches people how to start and grow a business. We don't promise that you'll make money." }));
 app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder's Circle agreement", kind: 'circle' }));
 
 // ---------- onboarding (the free assessment is the signup) ----------
@@ -443,10 +447,15 @@ app.post('/circle/apply', wrap(async (req, res) => {
 }));
 
 // ---------- founding members: waitlist and referrals ----------
+// First touch: what the session kept wins; form or JSON fields (utm_*) only fill what's missing.
 function utmFrom(req, body = {}) {
-  const out = { ...(req.session.utm || {}) };
-  for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) if (body[k]) out[k] = String(body[k]).slice(0, 100);
-  return out;
+  return utmLib.firstTouch(req.session.utm, body, body.utm);
+}
+
+// The status page is reached by referral code, which is in every public share link, so friends' first names show
+// only in a browser that joined or confirmed with that code.
+function ownCode(req, code) {
+  req.session.wlCodes = [code].concat((req.session.wlCodes || []).filter((c) => c !== code)).slice(0, 5);
 }
 
 app.get('/f/:code', (req, res) => {
@@ -497,6 +506,7 @@ app.post('/founding', wrap(async (req, res) => {
   if (r.error) return res.status(400).render('founding', { ...foundingPage(), error: r.error, form: req.body });
   if (!r.existing) track(req, 'Waitlist Join', { source: 'founding' });
   if (!PROD && !process.env.KLAVIYO_PRIVATE_KEY && !process.env.RESEND_API_KEY && r.confirmUrl) req.session.devConfirm = r.confirmUrl;
+  if (!r.existing) ownCode(req, r.entry.referralCode); // re-entering a known email never unlocks names
   res.redirect(`/founding/status?code=${r.entry.referralCode}&${r.existing ? 'back' : 'new'}=1`);
 }));
 
@@ -508,7 +518,8 @@ app.post('/api/waitlist', express.json({ limit: '10kb' }), wrap(async (req, res)
   const source = waitlist.SOURCES.includes(body.source) ? body.source : 'other';
   const r = await joinFromRequest(req, body, source);
   if (r.error) return res.status(400).json({ error: r.error });
-  res.json({ ok: true, existing: r.existing, referral_code: r.entry.referralCode, referral_link: waitlist.link(r.entry), status_url: `${baseUrl(req)}/founding/status?code=${r.entry.referralCode}` });
+  if (!r.existing) ownCode(req, r.entry.referralCode);
+  res.json({ ok: true, existing: r.existing, confirmed: !!r.entry.confirmedAt, confirm_sent: !!r.entry.confirmSentAt, referral_code: r.entry.referralCode, referral_link: waitlist.link(r.entry), status_url: `${baseUrl(req)}/founding/status?code=${r.entry.referralCode}` });
 }));
 
 app.get('/founding/confirm', wrap(async (req, res) => {
@@ -518,6 +529,7 @@ app.get('/founding/confirm', wrap(async (req, res) => {
   if (!entry) return res.status(400).render('404', { title: 'Link expired', error: true, message: 'That confirm link has expired or was already replaced. Join again with the same email to get a fresh one.' });
   if (confirmed.firstTime) track(req, 'Waitlist Confirm');
   req.session.devConfirm = null;
+  ownCode(req, entry.referralCode); // the confirm link proves they own the inbox
   res.redirect(`/founding/status?code=${entry.referralCode}&confirmed=1`);
 }));
 
@@ -563,12 +575,30 @@ app.get('/founding/doors-open.ics', (req, res) => {
   ].join('\r\n'));
 });
 
+// Day One Challenge live replays (conversion/challenge/site-spec.md): emails link here before a replay exists.
+// 1 = Kickoff (Mon Nov 9), 2 = Debrief (Mon Nov 16). CHALLENGE_REPLAY_<n>_URL once set; /challenge/me until then
+// (query string kept, so a ?t= token still opens the person's page). CHALLENGE_START_AT blank is the kill switch.
+app.get('/challenge/replay/:n(1|2)', (req, res, next) => {
+  if (!launch.date('CHALLENGE_START_AT')) return next();
+  const url = launch.replayUrl(req.params.n);
+  if (url) return res.redirect(302, url);
+  const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+  res.redirect(302, `/challenge/me${qs}`);
+});
+
 app.get('/founding/status', (req, res) => {
   const entry = waitlist.byCode(req.query.code);
   if (!entry) return res.redirect('/founding');
   res.render('founding-status', {
     title: "You're on the list",
-    entry: { code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName },
+    entry: {
+      code: entry.referralCode, link: waitlist.link(entry), count: entry.referralCount || 0, confirmed: !!entry.confirmedAt, firstName: entry.firstName,
+      // "Check your email" only when a confirm email actually went out (unticked joiners may get none).
+      confirmSent: !!entry.confirmSentAt,
+      confirmJustSent: !!entry.confirmSentAt && Date.now() - Date.parse(entry.confirmSentAt) < 5 * 60 * 1000,
+      // Confirmed friends by first name, never email (billing terms section 5, decision O20).
+      friends: (req.session.wlCodes || []).includes(entry.referralCode) ? waitlist.friends(entry) : null,
+    },
     q: req.query,
     devConfirm: !PROD && req.session.devConfirm ? req.session.devConfirm : null,
   });
@@ -1685,6 +1715,14 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
 app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
+
+// Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
+// One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
+app.get('/admin/joins.csv', requireAuth, requireAdmin, (req, res) => {
+  const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
+  const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
+  res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);
+});
 
 app.get('/admin/waitlist.csv', requireAuth, requireAdmin, (req, res) => {
   const esc = (v) => {
