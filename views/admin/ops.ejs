@@ -1,0 +1,183 @@
+<%- include('../partials/app-head') %>
+<%# /admin/ops: Eli's phone-first approval outbox (ops/members/site-changes/SPEC.md section 2). Sections hide when empty.
+    Nothing here sends on its own: every send is an Approve tap. %>
+<%
+  var who = function (id) { var u = users[id]; return u ? ((u.name || '').split(' ')[0] || u.email) : 'Deleted account'; };
+  var when = function (t) { return t ? fmtCentral(Date.parse(t)) : ''; };
+  var note = function (type, id) { var n = notesFor(type, id)[0]; return n ? n.text : null; };
+  var planName = function (t) { return PLANS[t] ? PLANS[t].name : (t || ''); };
+%>
+<div class="page-head">
+  <div><div class="eyebrow">Founder view</div><h1>Ops</h1>
+    <div class="tiny muted" style="margin-top:6px"><%= opsOn ? 'Members heartbeat connected (OPS_FEED_TOKEN set).' : 'Members heartbeat off: set OPS_FEED_TOKEN to turn on /ops/feed.' %> Quiet hours 10pm to 8am Central: approved notes wait until 8am.</div></div>
+  <a href="/admin" class="btn ghost sm">Admin</a>
+</div>
+
+<% if (ageReviews.length) { %>
+<section class="card pad-lg ops-sec" id="age" style="margin-bottom:16px;border-color:rgba(240,155,138,.35)">
+  <div class="card-title"><h3>Age check</h3><span class="small muted">AI chats and posting are paused on these accounts. Answer within 2 business days.</span></div>
+  <% ageReviews.forEach(function (a) { var r = a.r; var under13 = r.statedAge != null && r.statedAge < 13; %>
+  <div class="ops-item" style="border-top:1px solid var(--line);padding:14px 0">
+    <div class="small"><b style="font-weight:500"><%= (a.u.name || '').split(' ')[0] || 'Member' %></b> <span class="muted">· <%= a.u.email %> · <%= planName(a.u.pausedTier || a.u.tier) %> · flagged by <%= r.source %> <%= when(r.flaggedAt) %><%= r.statedAge != null ? ' · says ' + r.statedAge : '' %></span></div>
+    <% if (r.excerpt && r.excerpt.length) { %>
+      <div style="margin:10px 0">
+      <% r.excerpt.forEach(function (m, i) { var last = i === r.excerpt.length - 1; %>
+        <div class="small" style="padding:6px 10px;margin-bottom:4px;border-radius:8px;background:var(--surface);<%= last ? 'border:1px solid rgba(240,155,138,.35)' : '' %>"><span class="muted"><%= m.from === 'member' ? 'Member' : 'Playbook' %><%= last ? ' (flagged)' : '' %>:</span> <span style="overflow-wrap:anywhere"><%= m.text %></span></div>
+      <% }) %>
+      </div>
+    <% } else { %><p class="small muted">Flagged by <%= r.source %>, no message on the site. Check the email thread.</p><% } %>
+    <% if (r.status === 'asked') { %><p class="small <%= a.expired ? '' : 'muted' %>" style="<%= a.expired ? 'color:var(--danger)' : '' %>">Asked to confirm <%= when(r.askedAt) %>. <%= a.expired ? '7 days with no reply: close for age.' : 'A yes unpauses. A no, or 7 days with no reply, means close.' %></p><% } %>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <% if (r.status === 'open') { %>
+        <form method="post" action="/admin/ops/age/<%= a.u.id %>/no_action"><button class="btn ghost sm">No action</button></form>
+        <% if (!under13) { %><form method="post" action="/admin/ops/age/<%= a.u.id %>/ask"><button class="btn ghost sm">Ask to confirm</button></form><% } %>
+      <% } else { %>
+        <form method="post" action="/admin/ops/age/<%= a.u.id %>/confirmed"><button class="btn ghost sm">They replied yes (18+)</button></form>
+      <% } %>
+      <form method="post" action="/admin/ops/age/<%= a.u.id %>/close" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <label class="check tiny"><input type="checkbox" name="confirm" required> Cancel, refund every payment, delete the account</label>
+        <button class="btn sm" style="background:var(--danger);border-color:var(--danger)">Close for age</button>
+      </form>
+    </div>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<% if (urgent.length) { %>
+<section class="card pad-lg ops-sec" id="urgent" style="margin-bottom:16px;border-color:rgba(240,155,138,.35)">
+  <div class="card-title"><h3>Urgent</h3><span class="small muted">Crisis, threat or safety reports</span></div>
+  <% urgent.forEach(function (x) { %>
+  <div class="ops-item" style="border-top:1px solid var(--line);padding:12px 0">
+    <% if (x.type === 'ticket') { %>
+      <div class="small"><b style="font-weight:500">Help: <%= x.ticket.subject %></b> <span class="muted">· <%= x.ticket.firstName || x.ticket.email %> · <%= when(x.ticket.createdAt) %></span></div>
+      <p class="small" style="overflow-wrap:anywhere;margin:6px 0"><%= x.ticket.body %></p>
+      <a class="link small" href="#ticket-<%= x.ticket.id %>">Go to ticket</a>
+    <% } else { var t = x.reply || x.win; %>
+      <div class="small"><b style="font-weight:500"><%= x.reply ? 'Reply' : 'Post' %> by <%= x.reply ? x.reply.name : x.win.name %></b> <span class="muted">· <%= when(t.at || t.createdAt) %> · <%= (t.flags || []).join(', ') %></span></div>
+      <p class="small" style="overflow-wrap:anywhere;margin:6px 0"><%= t.text %></p>
+      <% var n = note('win', x.win.id); if (n) { %><p class="tiny muted">Note: <%= n %></p><% } %>
+      <a class="link small" href="#held">Decide below</a>
+    <% } %>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<% if (drafts.length || queued.length) { %>
+<section class="ops-sec" id="drafts" style="margin-bottom:16px">
+  <h3 style="margin:0 0 10px">Drafts to approve</h3>
+  <% Object.keys(groups).forEach(function (kind) { %>
+    <div class="eyebrow" style="margin:14px 0 8px"><%= kind.replace(/_/g, ' ') %> · <%= groups[kind].length %></div>
+    <% groups[kind].forEach(function (d) { %>
+    <form method="post" action="/admin/ops/drafts/<%= d.id %>/approve" class="card pad-lg" id="draft-<%= d.id %>" style="margin-bottom:10px">
+      <div class="small"><b style="font-weight:500">To <%= d.recipient === 'circle' ? 'every Circle member and #call-notes' : (d.firstName || d.email) %></b><span class="muted"><%= d.tier ? ' · ' + planName(d.tier) : '' %><%= d.commercial ? ' · founder email (opt-in only)' : '' %></span></div>
+      <% if (d.reason) { %><p class="tiny muted" style="margin:4px 0 10px">Why: <%= d.reason %></p><% } %>
+      <% if (d.error) { %><div class="alert error"><%= d.error %></div><% } %>
+      <label class="field"><span>Subject</span><input class="input" name="subject" maxlength="140" value="<%= d.subject %>" required></label>
+      <label class="field"><span>Message</span><textarea class="input" name="body" rows="8" maxlength="5000" required><%= d.body %></textarea></label>
+      <% if (d.needsAction) { %>
+        <p class="small" style="color:var(--danger);font-weight:500;margin:0 0 6px">First: <%= d.needsAction %></p>
+        <label class="check small"><input type="checkbox" name="done_in_stripe"> Done in Stripe</label>
+      <% } %>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn sm">Approve and send</button>
+        <button class="btn ghost sm" formaction="/admin/ops/drafts/<%= d.id %>/discard" formnovalidate>Discard</button>
+      </div>
+    </form>
+    <% }) %>
+  <% }) %>
+  <% if (queued.length) { %>
+    <div class="card pad-lg"><div class="small muted">Approved, waiting for 8am Central:</div>
+    <% queued.forEach(function (d) { %><div class="small" style="padding:6px 0;border-top:1px solid var(--line)"><%= d.subject %> <span class="muted">· to <%= d.firstName || d.email || 'the Circle' %> · <%= when(d.sendAfter) %></span>
+      <form method="post" action="/admin/ops/drafts/<%= d.id %>/discard" style="display:inline"><button class="link tiny" style="background:none;border:0;cursor:pointer">Don't send</button></form></div><% }) %>
+    </div>
+  <% } %>
+</section>
+<% } %>
+
+<% if (held.length) { %>
+<section class="card pad-lg ops-sec" id="held" style="margin-bottom:16px">
+  <div class="card-title"><h3>Posts on hold</h3><span class="small muted">Approve puts it up; Hide keeps it down</span></div>
+  <% held.forEach(function (x) { var t = x.reply || x.win; var author = users[x.reply ? x.reply.userId : x.win.userId]; var paused = author && postingPaused(author); %>
+  <div class="ops-item" style="border-top:1px solid var(--line);padding:12px 0">
+    <div class="small"><b style="font-weight:500"><%= x.reply ? 'Reply' : 'Post' %> by <%= x.reply ? x.reply.name : x.win.name %></b> <span class="muted">· <%= x.win.status === 'reported' && !x.reply ? 'hidden after reports' : 'held' %> · <%= when(t.heldAt || t.at || t.createdAt) %></span></div>
+    <p class="small" style="overflow-wrap:anywhere;margin:6px 0"><%= t.text %></p>
+    <% if ((t.flags || []).length) { %><p class="tiny muted" style="margin:0">Why: <%= t.flags.join(', ') %></p><% } %>
+    <% if (!x.reply && (x.win.reports || []).length) { %><p class="tiny muted" style="margin:0">Reports: <%= x.win.reports.map(function (r) { return r.reason; }).join(', ') %></p><% } %>
+    <% var n = note('win', x.win.id); if (n) { %><p class="tiny muted" style="margin:0">Note: <%= n %></p><% } %>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <form method="post" action="/admin/ops/wins/<%= x.win.id %>/approve"><% if (x.reply) { %><input type="hidden" name="reply" value="<%= x.reply.id %>"><% } %><button class="btn sm">Approve</button></form>
+      <form method="post" action="/admin/ops/wins/<%= x.win.id %>/hide"><% if (x.reply) { %><input type="hidden" name="reply" value="<%= x.reply.id %>"><% } %><button class="btn ghost sm">Hide</button></form>
+      <% if (author) { %><form method="post" action="/admin/ops/members/<%= author.id %>/posting-pause"><button class="btn ghost sm"><%= paused ? 'Turn posting back on' : 'Pause posting 7 days' %></button></form><% } %>
+    </div>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<% if (openTickets.length) { %>
+<section class="card pad-lg ops-sec" id="tickets" style="margin-bottom:16px">
+  <div class="card-title"><h3>Open tickets</h3><span class="small muted">Reply within one business day</span></div>
+  <% openTickets.forEach(function (t) { var d = draftForTicket[t.id]; var n = note('ticket', t.id); %>
+  <div class="ops-item" id="ticket-<%= t.id %>" style="border-top:1px solid var(--line);padding:12px 0">
+    <div class="small"><b style="font-weight:500"><%= t.subject %></b> <span class="muted">· <%= t.firstName || t.email %> · <%= planName(t.tier) %> · <%= t.category %> · <%= when(t.createdAt) %></span></div>
+    <p class="small" style="overflow-wrap:anywhere;margin:6px 0;white-space:pre-line"><%= t.body %></p>
+    <% if (n) { %><p class="tiny muted" style="margin:0">Triage: <%= n %></p><% } %>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px">
+      <% if (d) { %><a class="link small" href="#draft-<%= d.id %>"><%= d.status === 'queued' ? 'Reply approved, waiting for 8am' : 'Staged reply' %></a><% } else { %><a class="link small" href="mailto:<%= t.email %>?subject=<%= encodeURIComponent('Re: ' + t.subject) %>">Reply by email</a><% } %>
+      <form method="post" action="/admin/ops/tickets/<%= t.id %>/close"><button class="btn ghost sm">Close</button></form>
+    </div>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<% if (atRisk.length) { %>
+<section class="card pad-lg ops-sec" id="risk" style="margin-bottom:16px">
+  <div class="card-title"><h3>Paying members at risk</h3><span class="small muted">Read-only</span></div>
+  <% atRisk.slice(0, 15).forEach(function (m) { %>
+  <div class="small" style="border-top:1px solid var(--line);padding:8px 0"><b style="font-weight:500"><%= m.firstName || m.email %></b> <span class="muted">· <%= planName(m.tier) %> · score <%= m.risk.score %></span>
+    <div class="tiny muted"><%= (m.risk.reasons || []).map(function (r) { return r.label; }).join(' · ') %></div></div>
+  <% }) %>
+</section>
+<% } %>
+
+<% if (questions.length) { %>
+<section class="card pad-lg ops-sec" id="circle" style="margin-bottom:16px">
+  <div class="card-title"><h3>Circle this week</h3><span class="small muted">Questions since <%= lastCall ? fmtCentral(lastCall.at) + ' Central' : 'the start' %></span></div>
+  <% questions.forEach(function (q) { %><div class="small" style="border-top:1px solid var(--line);padding:8px 0"><b style="font-weight:500"><%= q.firstName || who(q.userId) %>:</b> <span style="overflow-wrap:anywhere"><%= q.text %></span></div><% }) %>
+</section>
+<% } %>
+
+<% if (winReplies && firstWins.length) { %>
+<section class="card pad-lg ops-sec" id="first-wins" style="margin-bottom:16px">
+  <div class="card-title"><h3>First wins</h3><span class="small muted">Each member's first live post this week</span></div>
+  <% firstWins.forEach(function (w) { var eli = (w.replies || []).some(function (r) { return r.byEli; }); %>
+  <div style="border-top:1px solid var(--line);padding:10px 0">
+    <div class="small"><b style="font-weight:500"><%= w.name %></b> <span class="muted">· <%= when(w.createdAt) %></span></div>
+    <p class="small" style="overflow-wrap:anywhere;margin:4px 0"><%= w.text %></p>
+    <% if (eli) { %><p class="tiny muted">You replied.</p><% } else { %>
+    <form method="post" action="/admin/ops/wins/<%= w.id %>/reply" style="display:flex;gap:8px;flex-wrap:wrap"><input class="input" name="text" maxlength="500" placeholder="Reply as Eli" required style="flex:1;min-width:180px"><button class="btn sm">Reply as Eli</button></form>
+    <% } %>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<section class="card pad-lg ops-sec" id="grace" style="margin-bottom:16px">
+  <div class="card-title"><h3>Founding grace link</h3><span class="small muted">One per person, works for 3 days</span></div>
+  <p class="small muted" style="margin:0 0 12px">Only for a founding checkout that started while spots were open and before the close, then broke on our side or Stripe's. Never for a card decline.</p>
+  <form method="post" action="/admin/grace" style="display:flex;gap:10px;flex-wrap:wrap"><input type="hidden" name="back" value="ops"><input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:320px"><button class="btn sm">Create link</button></form>
+</section>
+
+<section class="card pad-lg ops-sec" id="age-flag" style="margin-bottom:16px">
+  <div class="card-title"><h3>Age check from an email or a parent</h3></div>
+  <p class="small muted" style="margin:0 0 12px">Pauses AI chats and posting on the account at once and adds it to Age check. For a parent: first check they control the account email or the paying card (last 4 digits and a charge date).</p>
+  <form method="post" action="/admin/ops/age-flag" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:280px">
+    <select class="input" name="source" style="max-width:160px"><option value="email">From an email</option><option value="parent">From a parent</option></select>
+    <button class="btn ghost sm">Pause and review</button>
+  </form>
+</section>
+<%- include('../partials/app-foot') %>

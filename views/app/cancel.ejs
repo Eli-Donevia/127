@@ -16,7 +16,11 @@
   <% if (circle) { %>
     <p class="lede">Your seat goes back to the waitlist at the end of this month. You keep the Circle until <%= until %>.</p>
   <% } else { %>
+    <% if (paused) { %>
+    <p class="lede">Your plan is paused until <%= until %>. Cancel now and it won't restart: you stay on the free plan, with your roadmap's weeks 1 and 2 and your wins.</p>
+    <% } else { %>
     <p class="lede">You keep Builder until <%= until %>. Then you move to the free plan, with your roadmap's weeks 1 and 2 and your wins.</p>
+    <% } %>
     <% if (user.foundingPrice) { %><p class="cancel-fact">Cancelling ends your $<%= foundingP %> founding price. If you come back later, Builder is $<%= PLANS.builder.price %>.</p><% } %>
     <% if (!options) { %>
     <div class="cancel-reasons">
@@ -59,7 +63,7 @@
       <form method="post" action="/app/billing/pause" class="cancel-opt">
         <input type="hidden" name="reason" value="<%= reason || '' %>">
         <h3>Pause for a month</h3>
-        <p><%= reason === 'busy' ? 'Exams or holidays? Pause and come back to the same price. ' : '' %>Your pause starts when your paid month ends on <%= until %>, so you keep every day you paid for. Then no charge for 30 days. Your roadmap, saved work and price stay; Builder tools are locked until you're back. We'll email you before it restarts.</p>
+        <p><%= reason === 'busy' ? 'Exams or holidays? Pause and come back to the same price. ' : '' %>Your pause starts when your paid month ends on <%= pauseStarts || until %>, so you keep every day you paid for. Then no charge for one month, until <%= pauseRestarts %>. Your roadmap, saved work and price stay; Builder tools are locked until you're back. We'll email you before it restarts.</p>
         <button class="btn ghost block">Pause for a month</button>
       </form>
       <% } else { %>
@@ -76,7 +80,7 @@
       <input type="hidden" name="intent" value="cancel">
       <input type="hidden" name="reason" value="<%= reason || '' %>">
       <h3>Cancel <%= planName %></h3>
-      <p>You keep access until <%= until %>. No more charges.</p>
+      <p><%= paused ? 'Your plan won\'t restart on ' + until + '.' : 'You keep access until ' + until + '.' %> No more charges.</p>
       <button class="btn ghost block">Cancel <%= planName %></button>
     </form>
   </div>

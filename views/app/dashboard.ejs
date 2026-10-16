@@ -22,6 +22,7 @@
 </div>
 
 <% if (builderOffer.founding) { %><%- include('../partials/founding-bar') %><% } %>
+<% if (typeof nudge !== 'undefined' && nudge) { %><%- include('../partials/nudge') %><% } %>
 
 <div class="grid g-main">
   <div class="grid" style="gap:16px">

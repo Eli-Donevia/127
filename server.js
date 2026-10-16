@@ -23,6 +23,8 @@ const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const challenge = require('./lib/challenge');
+const memberOps = require('./lib/member-ops');
+const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
 const onboarding = require('./content/onboarding.json');
@@ -54,6 +56,9 @@ app.get('/healthz', (req, res) => res.json({ ok: true }));
 app.post('/billing/webhook', express.raw({ type: 'application/json' }), billing.webhook);
 
 app.use(express.urlencoded({ extended: true, limit: '200kb' }));
+// Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
+// Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
+app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(
   cookieSession({
@@ -128,6 +133,18 @@ app.use((req, res, next) => {
   res.locals.userPlan = user ? plan(user.tier) : null;
   res.locals.canOpen = (r) => canOpen(user, r);
   res.locals.isAdmin = isAdmin(user);
+  // Age review (Legal L42): AI chats and posting paused, message in the app header.
+  res.locals.ageReview = ageCheck.underReview(user);
+  res.locals.agePauseMessage = ageCheck.PAUSE_MESSAGE;
+  // Legal's exact AI disclosure (lib/ai.js), on the AI tools page and at the start of every chat.
+  res.locals.aiDisclosure = ai.DISCLOSURE;
+  // Pause (offer.md section 8): scheduled or in effect.
+  res.locals.pauseInfo = user ? pauseInfo(user) : null;
+  // For the members heartbeat: at most once an hour, fire and forget.
+  if (user && (!user.lastSeenAt || Date.now() - Date.parse(user.lastSeenAt) > 60 * 60 * 1000)) {
+    user.lastSeenAt = new Date().toISOString();
+    Promise.resolve(db.save('users', user)).catch(() => {});
+  }
   res.locals.path = req.path;
   res.locals.PLANS = PLANS;
   res.locals.plausible = process.env.PLAUSIBLE_DOMAIN || null;
@@ -171,7 +188,7 @@ app.use((req, res, next) => {
 // What every upgrade card, paywall and the founding bar say (in-app-founding-offer.md).
 // During the founding window, free founding-eligible members see the founding price from day one (checkout applies it too).
 function builderOffer(req, user, L) {
-  const founding = !!(user && user.tier === 'free' && L.foundingOpen && L.foundingPrice && launch.isFoundingMember(user));
+  const founding = !!(user && user.tier === 'free' && !user.pausedTier && L.foundingOpen && L.foundingPrice && launch.isFoundingMember(user));
   const offer = {
     founding,
     price: founding ? L.foundingPrice : PLANS.builder.price,
@@ -194,6 +211,12 @@ function builderOffer(req, user, L) {
     offer.hidden = !L.lastDay && cookie(req, 'fbhide') === '1';
   }
   return offer;
+}
+// A pause the member asked for that hasn't ended: { paused, startsAt, resumesAt } (ISO).
+function pauseInfo(user) {
+  const p = user.pause;
+  if (!p || p.endedAt) return null;
+  return { paused: !!user.pausedTier, startsAt: p.scheduledFor, resumesAt: p.resumesAt, tier: user.pausedTier || p.tier || 'builder' };
 }
 function fmtDate(isoOrMs) {
   if (!isoOrMs) return null;
@@ -363,6 +386,7 @@ app.post('/start', wrap(async (req, res) => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
     if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
     if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead.');
+    if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
     user = await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: clean.source });
     integrations.sendEmail({ to: email, subject: 'Your 127 roadmap is ready', text: `Hi ${name || 'there'},\n\nYour personalized 30-day roadmap is waiting: ${process.env.BASE_URL || 'https://127group.io'}/app\n\nBuild with purpose.\n127` });
   }
@@ -374,8 +398,10 @@ app.post('/start', wrap(async (req, res) => {
   if (!firstTime) user.completed = {};
   // The personal note is an AI call, so it runs on the first roadmap and at most once a day on retakes.
   const lastNote = user.roadmapNoteAt ? Date.parse(user.roadmapNoteAt) : 0;
+  let note = null;
   if (firstTime || Date.now() - lastNote > 24 * 60 * 60 * 1000) {
-    user.roadmapNote = await ai.roadmapNote(user);
+    note = await ai.roadmapNote(user, { withFlags: true });
+    user.roadmapNote = note && note.text ? note.text : null;
     user.roadmapNoteAt = new Date().toISOString();
   } else {
     user.roadmapNote = null;
@@ -390,6 +416,7 @@ app.post('/start', wrap(async (req, res) => {
   await db.save('users', user);
   integrations.emit('onboarding.completed', { userId: user.id, answers: clean, track: user.roadmap.track, trackName: user.roadmap.trackName });
   emitNewBadges(user, badgesBefore);
+  if (note) await ageFromAi(req, user, note, [{ from: 'member', text: wordsOf(clean), at: new Date().toISOString() }]);
   res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
 }));
 
@@ -451,6 +478,7 @@ app.post('/circle/apply', wrap(async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
   if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
   if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead, and you will land on the application.');
+  if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
   await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: 'circle' });
   res.redirect('/app/circle');
 }));
@@ -661,6 +689,7 @@ app.post('/founding/lock', wrap(async (req, res) => {
   if (password.length < 8) return renderLock(req, res, { ...g, error: 'Use a password with at least 8 characters.', form });
   if (!lockOpen() && email !== grace.email) return renderLock(req, res, { ...g, error: `This founding link works for ${grace.email}. Use that email to continue.`, form });
   if (db.find('users', (u) => u.email === email)) return renderLock(req, res, { ...g, exists: true, form });
+  if (ageCheck.blocked(email)) return renderLock(req, res, { ...g, error: ageCheck.SIGNUP_REFUSED, form });
   await createMember(req, { email, name, password, optIn: false, source: 'founding-lock' });
   await startCheckout(req, res, 'builder', graceFrom(grace && token), { grace: grace ? token : null });
 }));
@@ -804,10 +833,12 @@ app.get('/app', requireAuth, (req, res) => {
     level: gamify.level(user.xp),
     badges: gamify.BADGES,
     recommended,
-    wins: db.all('wins').sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3),
+    wins: memberOps.visibleWins(user, db.all('wins')).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 3),
     aiLeft: aiRunsLeft(user),
     canAccess,
     bySlug,
+    // Dashboard nudge (member-signals.analyzeMember), hidden for the day after "Not now".
+    nudge: cookie(req, 'nudgehide') === new Date().toISOString().slice(0, 10) ? null : memberOps.nudgeFor(user),
     MILESTONES,
     closedNotice,
     upgradeScreen,
@@ -950,6 +981,7 @@ app.post('/app/library/:slug/feedback', requireAuth, wrap(async (req, res) => {
   }
   await db.save('users', user);
   if (result.error) flash(req, 'error', result.text);
+  else await ageFromAi(req, user, result, [{ from: 'member', text: wordsOf(user.worksheets[r.slug]), at: new Date().toISOString() }]);
   res.redirect(`/app/library/${r.slug}#feedback`);
 }));
 
@@ -1045,6 +1077,7 @@ app.post('/app/templates/:slug/review', requireAuth, wrap(async (req, res) => {
     user.templateReviews[t.slug] = { input, text: result.text, demo: !!result.demo, at: new Date().toISOString() };
   }
   await db.save('users', user);
+  if (!result.error) await ageFromAi(req, user, result, [{ from: 'member', text: input, at: new Date().toISOString() }]);
   res.redirect(back);
 }));
 
@@ -1061,9 +1094,34 @@ app.get('/app/tools/:slug', requireAuth, (req, res) => {
   res.render('app/tool', { title: tool.name, tool, result: saved ? { text: saved.text, demo: saved.demo } : null, input: saved ? saved.input : {}, locked, aiLeft: aiRunsLeft(req.user), history: (req.user.aiHistory || []).filter((h) => h.tool === tool.slug).slice(0, 5) });
 });
 
+// Under 18 (Legal L42): when the Playbook's marker is on an AI result (flags: ['under18']), AI chats
+// and posting pause at once and Eli gets the review in /admin/ops. excerpt: the flagged member
+// words last, with up to 2 messages before them. Only the model's marker counts here, never keywords.
+async function ageFromAi(req, user, result, excerpt) {
+  const f = ai.underAgeFlag(result);
+  if (!f) return false;
+  const last = excerpt.length ? excerpt[excerpt.length - 1].text : '';
+  const flagged = await ageCheck.flag(user, { source: 'playbook', excerpt, statedAge: f.statedAge != null ? f.statedAge : ageCheck.statedAge(last) });
+  if (flagged) flash(req, 'info', ageCheck.PAUSE_MESSAGE);
+  return flagged;
+}
+// Plain text of what a member typed into a form (worksheets, tools, onboarding answers).
+function wordsOf(v) {
+  if (v == null) return '';
+  if (typeof v === 'string') return v;
+  if (Array.isArray(v)) return v.map(wordsOf).filter(Boolean).join('\n');
+  if (typeof v === 'object') return Object.values(v).map(wordsOf).filter(Boolean).join('\n');
+  return '';
+}
+
 // The run is counted before the AI call, so parallel requests can't slip past the monthly limit.
 // It is handed back if the call fails.
 function reserveAi(req, res, user, back) {
+  if (ageCheck.underReview(user)) {
+    flash(req, 'info', ageCheck.PAUSE_MESSAGE);
+    res.redirect(back);
+    return false;
+  }
   if (!security.allow(`ai:${user.id}`, 12, 5 * 60 * 1000)) {
     flash(req, 'info', 'That was a lot of messages in a few minutes. Give it a moment, then try again.');
     res.redirect(back);
@@ -1121,6 +1179,12 @@ app.post('/app/tools/:slug', requireAuth, wrap(async (req, res) => {
       user.chat = user.chat.slice(-40);
     }
     await db.save('users', user);
+    // Under 18 (Legal L42): the flagged message and the 2 before it go to Eli.
+    if (!result.error && ai.underAgeFlag(result)) {
+      const upTo = user.chat.map((m) => m.content).lastIndexOf(text);
+      const excerpt = (upTo >= 0 ? user.chat.slice(Math.max(0, upTo - 2), upTo + 1) : [{ role: 'user', content: text }]).map((m) => ({ from: m.role === 'user' ? 'member' : 'playbook', text: m.content, at: m.at }));
+      await ageFromAi(req, user, result, excerpt);
+    }
     return res.redirect('/app/tools/ask#latest');
   }
   // Per-field limit: 2,000 characters unless the tool sets max (the Interview Synthesizer's notes take 8,000).
@@ -1136,26 +1200,69 @@ app.post('/app/tools/:slug', requireAuth, wrap(async (req, res) => {
   const entry = { id: db.id(), tool: tool.slug, input, text: result.text, demo: !!result.demo, at: new Date().toISOString() };
   user.aiHistory = [entry].concat(user.aiHistory || []).slice(0, 30);
   await db.save('users', user);
+  await ageFromAi(req, user, result, [{ from: 'member', text: wordsOf(input), at: entry.at }]);
   res.redirect(`/app/tools/${tool.slug}?h=${entry.id}#result`);
 }));
 
+// The board shows live posts, plus the viewer's own held ones ("waiting for a check").
 app.get('/app/wins', requireAuth, (req, res) => {
-  res.render('app/wins', { title: 'Wins', wins: db.all('wins').sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 50), canPost: true });
+  const user = req.user;
+  const pausedNote = ageCheck.underReview(user) ? ageCheck.PAUSE_MESSAGE : memberOps.postingPaused(user) ? memberOps.pausedMessage(user) : null;
+  res.render('app/wins', {
+    title: 'Wins',
+    wins: memberOps.visibleWins(user, db.all('wins')).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 50),
+    canPost: !pausedNote,
+    pausedNote,
+    REPORT_REASONS: memberOps.REPORT_REASONS,
+    winReplies: memberOps.winRepliesOn(),
+    visibleReplies: memberOps.visibleReplies,
+  });
 });
 
+// Pre-screen (lib/moderation.js): block (not saved), hold (saved, waits for Eli in /admin/ops) or live.
 app.post('/app/wins', requireAuth, wrap(async (req, res) => {
   const text = String(req.body.text || '').trim().slice(0, 500);
   if (text.length < 3) return res.redirect('/app/wins');
   const user = req.user;
+  if (ageCheck.underReview(user)) {
+    flash(req, 'info', ageCheck.PAUSE_MESSAGE);
+    return res.redirect('/app/wins');
+  }
+  if (memberOps.postingPaused(user)) {
+    flash(req, 'error', memberOps.pausedMessage(user));
+    return res.redirect('/app/wins');
+  }
+  const screen = memberOps.screenPost(user, text);
+  if (screen.action === 'block') {
+    flash(req, 'error', memberOps.blockMessage(screen));
+    return res.redirect('/app/wins');
+  }
+  const status = memberOps.statusFor(screen);
+  const now = new Date().toISOString();
   const firstName = (user.name || 'A member').split(' ')[0];
-  const win = await db.save('wins', { userId: user.id, name: firstName, text, tier: user.tier });
+  const win = await db.save('wins', {
+    userId: user.id, name: firstName, text, tier: user.pausedTier || user.tier,
+    status, flags: screen.reasons.map((r) => r.code), urgent: !!screen.urgent, heldAt: status === 'held' ? now : null,
+  });
+  memberOps.afterScreen(user, win, screen);
   await addXp(user, 15);
   const badgesBefore = (user.badges || []).length;
   const isNew = gamify.award(user, 'first_win');
   await db.save('users', user);
-  integrations.emit('win.posted', { userId: user.id, win_id: win.id, text });
+  if (status === 'live') integrations.emit('win.posted', { userId: user.id, win_id: win.id, text });
+  else integrations.emit('win.held', { userId: user.id, win_id: win.id, reasons: win.flags });
   emitNewBadges(user, badgesBefore);
-  flash(req, 'win', isNew ? 'Badge earned: First win shared' : 'Posted. Keep building.');
+  // Under 18 (Legal L42): pause AI chats and posting; Eli sees this post and the 2 before it.
+  const age = ageCheck.detect(text, null);
+  if (age) {
+    const mine = db.filter('wins', (w) => w.userId === user.id).sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt))).slice(-3);
+    await ageCheck.flag(user, { source: 'post', excerpt: mine.map((w) => ({ from: 'member', text: w.text, at: w.createdAt })), statedAge: age.statedAge });
+    flash(req, 'info', ageCheck.PAUSE_MESSAGE);
+  } else if (status === 'held') {
+    flash(req, 'info', screen.crisis ? `${memberOps.HOLD_MESSAGE} ${require('./lib/moderation').CRISIS_MESSAGE}` : memberOps.HOLD_MESSAGE);
+  } else {
+    flash(req, 'win', isNew ? 'Badge earned: First win shared' : 'Posted. Keep building.');
+  }
   res.redirect('/app/wins');
 }));
 
@@ -1303,7 +1410,7 @@ app.get('/app/billing', requireAuth, (req, res) => {
   const refundAsk = user.tier === 'builder' && !user.demoBilling && (!user.firstPaidAt || Date.now() - Date.parse(user.firstPaidAt) < 14 * 864e5);
   if (req.query.cancelled) res.locals.trackEvents.push({ name: 'Cancel', props: { plan: (user.cancellations || []).slice(-1).map((c) => c.plan)[0] || user.tier } });
   const lastCancel = (user.cancellations || []).slice(-1)[0];
-  res.render('app/billing', { title: 'Membership', application, refundAsk, justCancelled: !!req.query.cancelled, askReason: !!req.query.cancelled && !!lastCancel && !lastCancel.reason, CANCEL_REASONS });
+  res.render('app/billing', { title: 'Membership', application, refundAsk, justCancelled: !!req.query.cancelled, askReason: !!req.query.cancelled && !!lastCancel && !lastCancel.reason, CANCEL_REASONS, pausePrice: pausePrice(user) });
 });
 
 // Where the member started a checkout from; Stripe's cancel link brings them back there.
@@ -1324,6 +1431,11 @@ function checkoutFrom(req) {
 app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
   const tier = req.params.tier;
   if (!['builder', 'circle'].includes(tier)) return res.redirect('/app/billing');
+  // A paused Builder still has a subscription: "Resume now" on Billing brings it back, no new checkout.
+  if (req.user.pause && !req.user.pause.endedAt) {
+    flash(req, 'info', 'Your Builder plan is paused. Resume it here to get everything back.');
+    return res.redirect('/app/billing#pause');
+  }
   if (tier === 'circle') {
     const application = db.find('applications', (a) => a.userId === req.user.id);
     if (!application || application.status !== 'approved') return res.redirect('/app/circle');
@@ -1411,30 +1523,85 @@ const CANCEL_REASONS = [
   ['done', 'Got what I needed'],
   ['other', 'Something else'],
 ];
-// Pause needs the start deferred to the end of the paid month, which the current Stripe calls
-// can't do safely, so it isn't offered yet (README, "Turn on payments").
-const PAUSE_AVAILABLE = false;
+// Pause for a month (offer.md section 8, Membership Terms section 8; lib/billing.js "pause").
+// Builder only, once every 6 months; it starts when the paid month ends.
+const PAUSE_AVAILABLE = true;
+
+// The price a paused plan restarts at (founding price kept).
+function pausePrice(user) {
+  return user.foundingPrice ? launch.view().foundingPrice || 19 : PLANS.builder.price;
+}
 
 app.get('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
   const user = req.user;
-  if (user.tier === 'free') return res.redirect('/app/billing');
+  if (user.tier === 'free' && !user.pausedTier) return res.redirect('/app/billing');
   try {
     await billing.refreshSubscription(user);
   } catch (err) {
     console.warn('[billing] refresh before cancel', err.message);
   }
   if (user.cancelAt) return res.redirect('/app/billing');
+  // Seen for the churn score (members heartbeat feed).
+  user.cancelPageViewedAt = new Date().toISOString();
+  await db.save('users', user);
   const reason = CANCEL_REASONS.some((r) => r[0] === req.query.reason) ? req.query.reason : null;
   const entry = launch.onWaitlist(user.email);
+  const preview = billing.pausePreview(user);
   res.render('app/cancel', {
-    title: 'Cancel', accessEnds: fmtDate(user.periodEnd), pauseAvailable: PAUSE_AVAILABLE, foundingKept: billing.foundingKept(user),
+    title: 'Cancel', accessEnds: fmtDate(user.periodEnd), foundingKept: billing.foundingKept(user),
+    pauseAvailable: PAUSE_AVAILABLE && billing.pauseEligible(user).ok && !!preview,
+    pauseStarts: preview ? fmtDate(preview.pausesAt) : null, pauseRestarts: preview ? fmtDate(preview.restartAt) : null,
+    paused: !!user.pausedTier,
     CANCEL_REASONS, reason, options: req.query.options === '1', referralLink: entry ? waitlist.link(entry) : null,
   });
 }));
 
+// "Pause for a month" on screen 2 of the cancel flow.
+app.post('/app/billing/pause', requireAuth, wrap(async (req, res) => {
+  const user = req.user;
+  if (!PAUSE_AVAILABLE) return res.redirect('/app/billing/cancel');
+  const ok = billing.pauseEligible(user);
+  if (!ok.ok) {
+    flash(req, 'info', billing.PAUSE_REFUSALS[ok.reason] + (ok.nextAt ? ` You can pause again from ${fmtDate(ok.nextAt)}.` : ''));
+    return res.redirect('/app/billing');
+  }
+  try {
+    await billing.pauseAtPeriodEnd(user);
+  } catch (err) {
+    if (err instanceof billing.BillingUnavailable) {
+      flash(req, 'info', err.message);
+      return res.redirect('/app/billing');
+    }
+    if (!err.type || !String(err.type).startsWith('Stripe')) throw err;
+    console.error('[billing] pause failed', err.type, err.code || '', err.message);
+    flash(req, 'error', "We couldn't pause online just now. Nothing changed. Try again in a minute, or email hello@127group.io.");
+    return res.redirect('/app/billing');
+  }
+  const reason = CANCEL_REASONS.some((r) => r[0] === req.body.reason) ? req.body.reason : null;
+  // Record of the pause (Membership Terms, Appendix D).
+  user.pauseRecords = [...(user.pauseRecords || []), { at: new Date().toISOString(), plan: 'builder', reason, starts: user.pause.scheduledFor, restarts: user.pause.resumesAt, subscription: user.pause.subscriptionId || null, terms_version: billing.TERMS_VERSION, ip_hash: security.hash(security.ip(req)) }].slice(-20);
+  await db.save('users', user);
+  if (reason) integrations.emit('subscription.cancel_reason', { userId: user.id, plan: 'builder', reason, saved_by: 'pause' });
+  res.redirect('/app/billing?paused=1#pause');
+}));
+
+// "Resume now" on Billing: ends a scheduled or running pause.
+app.post('/app/billing/pause/resume', requireAuth, wrap(async (req, res) => {
+  try {
+    if (await billing.resumePause(req.user)) {
+      flash(req, 'win', `You're back on Builder. Next charge: ${fmtDate(req.user.periodEnd) || 'your next renewal date'}.`);
+    }
+  } catch (err) {
+    if (!err.type || !String(err.type).startsWith('Stripe')) throw err;
+    console.error('[billing] resume pause failed', err.type, err.message);
+    flash(req, 'error', "We couldn't reach our payment provider. Please try again in a minute.");
+  }
+  res.redirect('/app/billing');
+}));
+
 app.post('/app/billing/cancel', requireAuth, wrap(async (req, res) => {
   const user = req.user;
-  const was = user.tier;
+  const was = user.pausedTier || user.tier;
   if (was === 'free') return res.redirect('/app/billing');
   const intent = req.body.intent === 'switch_free' ? 'switch_free' : 'cancel';
   const reason = CANCEL_REASONS.some((r) => r[0] === req.body.reason) ? req.body.reason : null;
@@ -1525,17 +1692,40 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
     flash(req, 'error', "We couldn't cancel your subscription automatically, so your account wasn't deleted. Email hello@127group.io and we'll sort it out today.");
     return res.redirect('/app/settings');
   }
-  integrations.forget(user.email);
-  await billingRecords.retainOnDelete(user);
-  await db.purgeEvents(user.id, user.email);
-  for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
-  for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
-  for (const sc of db.filter('scorecards', (sc) => sc.userId === user.id)) await db.remove('scorecards', sc.id);
-  await challenge.forget(user.email);
-  await db.remove('users', user.id);
+  await deleteAccount(user);
   req.session = null;
   res.redirect('/?deleted=1');
 }));
+
+// Full account deletion (Legal L14, handoff item 14): the account, roadmap, AI conversations, posts
+// and replies, Circle application, Scorecards and questions, tickets and drafts, waitlist, free-tool
+// and Idea Test records, events and the Klaviyo profile. retainBilling: false for a close for age,
+// which keeps only the ageClosures record (lib/age-check.js).
+async function deleteAccount(user, { retainBilling = true } = {}) {
+  integrations.forget(user.email);
+  if (retainBilling) await billingRecords.retainOnDelete(user);
+  await db.purgeEvents(user.id, user.email);
+  const mine = (col, test) => db.filter(col, test);
+  for (const w of mine('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
+  for (const w of mine('wins', (w) => (w.replies || []).some((r) => r.userId === user.id) || (w.cheers || []).includes(user.id))) {
+    w.replies = (w.replies || []).filter((r) => r.userId !== user.id);
+    w.cheers = (w.cheers || []).filter((id) => id !== user.id);
+    await db.save('wins', w);
+  }
+  for (const a of mine('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
+  for (const sc of mine('scorecards', (sc) => sc.userId === user.id)) await db.remove('scorecards', sc.id);
+  for (const col of ['tickets', 'reports', 'circleQuestions']) for (const x of mine(col, (x) => x.userId === user.id)) await db.remove(col, x.id);
+  for (const d of mine('drafts', (d) => d.userId === user.id || d.email === user.email)) await db.remove('drafts', d.id);
+  for (const n of mine('notes', (n) => n.targetType === 'member' && n.targetId === user.id)) await db.remove('notes', n.id);
+  // Free tools: leads by email, and Idea Test results a lead points to.
+  const leads = mine('leads', (l) => l.email === user.email);
+  const leadRefs = new Set(leads.flatMap((l) => Object.values(l.data || {}).filter((v) => typeof v === 'string')));
+  for (const t of mine('ideaTests', (t) => leadRefs.has(t.id))) await db.remove('ideaTests', t.id);
+  for (const l of leads) await db.remove('leads', l.id);
+  for (const w of mine('waitlist', (w) => w.email === user.email)) await db.remove('waitlist', w.id);
+  await challenge.forget(user.email);
+  await db.remove('users', user.id);
+}
 
 // ---------- admin ----------
 app.get('/admin', requireAuth, requireAdmin, wrap(async (req, res) => {
@@ -1663,50 +1853,81 @@ app.get('/admin/circle/feed.json', wrap(async (req, res) => {
   const auth = String(req.get('authorization') || '').replace(/^Bearer\s+/i, '');
   const byToken = token.length >= 32 && !!auth && security.sameHash(security.hash(auth), security.hash(token));
   if (!byToken && !isAdmin(req.user)) return res.status(404).json({ error: 'Not found' });
+  const { generated_at, ...data } = await circleFeedData();
+  res.set('cache-control', 'no-store').json({ generated_at, circle: data });
+}));
+
+// Shared by /admin/circle/feed.json and the `circle` section of GET /ops/feed.
+async function circleFeedData() {
   const c = circleCtx();
   await circle.tick(c);
   const next = circle.nextCall(c.now);
+  const last = circle.lastCall(c.now);
   const lastRecap = circle.recaps(c)[0] || null;
   const card = (s) => s && { ...s, id: undefined, userId: undefined };
-  res.set('cache-control', 'no-store').json({
+  return {
     generated_at: new Date(c.now).toISOString(),
-    circle: {
-      capacity: CIRCLE_CAPACITY,
-      seats_left: circleSeatsLeft(),
-      next_call: next && { at: next.key, label: circle.callLabel(next), kickoff: next.kickoff, scorecard: circle.scorecardWindow(next) },
-      members: circle.members(c).map((u) => ({
-        user_id: u.id,
-        name: u.name,
-        seat: u.circle && u.circle.seat,
-        founding_seat: !!(u.circle && u.circle.founding),
-        joined_at: u.circle && u.circle.joinedAt,
-        profile: circle.profileOf(u, circle.appFor(c, u.id)),
-        scorecard: (next && card(circle.scorecardFor(c, u.id, next.key))) || null,
-        history: circle.historyFor(c, u.id),
-        payment_issue: !!u.paymentIssue,
-      })),
-      last_recap: lastRecap && { call_at: lastRecap.callKey, post: lastRecap.post, members: lastRecap.members },
-      waiting: circle.queue(c).map((a, i) => ({ position: i + 1, name: a.name, approved_at: a.approvedAt })),
-    },
-  });
-}));
+    capacity: CIRCLE_CAPACITY,
+    seats_left: circleSeatsLeft(),
+    next_call: next && { at: next.key, label: circle.callLabel(next), kickoff: next.kickoff, scorecard: circle.scorecardWindow(next) },
+    members: circle.members(c).map((u) => ({
+      user_id: u.id,
+      name: u.name,
+      seat: u.circle && u.circle.seat,
+      founding_seat: !!(u.circle && u.circle.founding),
+      joined_at: u.circle && u.circle.joinedAt,
+      profile: circle.profileOf(u, circle.appFor(c, u.id)),
+      scorecard: (next && card(circle.scorecardFor(c, u.id, next.key))) || null,
+      history: circle.historyFor(c, u.id),
+      payment_issue: !!u.paymentIssue,
+    })),
+    last_recap: lastRecap && { call_at: lastRecap.callKey, post: lastRecap.post, members: lastRecap.members },
+    // Recap status for the last call: sent (and posted to #call-notes) or still due.
+    recap_status: last ? { call_at: last.key, sent: !!(lastRecap && lastRecap.callKey === last.key), sent_at: lastRecap && lastRecap.callKey === last.key ? lastRecap.sentAt : null, posted: !!(lastRecap && lastRecap.callKey === last.key && lastRecap.postedToDiscord) } : null,
+    waiting: circle.queue(c).map((a, i) => ({ position: i + 1, name: a.name, approved_at: a.approvedAt })),
+  };
+}
+// The `app` section of GET /ops/feed.
+function opsFeedApp() {
+  const next = circle.nextCall(Date.now());
+  const L = launch.view();
+  return {
+    baseUrl: process.env.BASE_URL || 'https://127group.io',
+    circleCapacity: CIRCLE_CAPACITY,
+    circleSeatsLeft: circleSeatsLeft(),
+    circleCallTime: process.env.CIRCLE_CALL_TIME || 'Thursdays, 8pm ET',
+    nextCircleCall: next ? next.key : null,
+    launchAt: L.launchAt ? new Date(L.launchAt).toISOString() : null,
+  };
+}
+// Circle recap approved from /admin/ops (a `circle_recap` draft): the same path as /admin/circle/recap.
+async function opsRecap({ callKey, date, post, by }) {
+  let key = callKey;
+  if (!key && date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    const [y, m, d] = date.split('-').map(Number);
+    const call = circle.callsBetween(circle.etTime(y, m, d, 0, 0), circle.etTime(y, m, d, 23, 59))[0];
+    key = call ? call.key : null;
+  }
+  return circle.sendRecap(circleCtx(), { callKey: key, post, body: {}, by });
+}
 
 // Founding grace link (R14, Legal L41): only for a founding checkout that started while spots were
 // open and before the close and broke on our side, never for a card decline. One link per person.
 app.post('/admin/grace', requireAuth, requireAdmin, wrap(async (req, res) => {
   const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const graceBack = req.body.back === 'ops' ? '/admin/ops#grace' : '/admin#grace';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     flash(req, 'error', 'Enter a valid email.');
-    return res.redirect('/admin#grace');
+    return res.redirect(graceBack);
   }
   const r = await billing.issueGrace(email);
   if (!r.token) {
     flash(req, 'error', `${email} already had a founding link${r.issuedAt ? ` (sent ${fmtDate(r.issuedAt)})` : ''}${r.usedAt ? ', and used it' : ''}. It's one per person.`);
-    return res.redirect('/admin#grace');
+    return res.redirect(graceBack);
   }
   const record = r.startedAt ? `Founding checkout on record: ${fmtDate(r.startedAt)}.` : 'No founding checkout on record, issued on the benefit of the doubt.';
   flash(req, 'info', `Founding link for ${email}. It works once, for the next 3 days. ${record} ${baseUrl(req)}/founding/lock?grace=${r.token}`);
-  res.redirect('/admin#grace');
+  res.redirect(graceBack);
 }));
 
 app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
@@ -1726,6 +1947,22 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
 app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
+
+// Member operations (lib/member-ops.js): Help, /guidelines, unsubscribe, wins report/reply/cheer,
+// Circle questions and call.ics, the dashboard nudge, and /admin/ops (Eli's approval outbox).
+app.use(memberOps.routes({
+  requireAuth, requireAdmin, flash, limit, TOO_FAST, circle,
+  recap: opsRecap,
+  ageClose: {
+    refundAll: (u) => billing.refundAllAndCancel(u),
+    deleteAccount: async (u) => {
+      const discord = u.tier === 'circle' || circle.isFormer(u);
+      await deleteAccount(u, { retainBilling: false });
+      // Discord has no API here: Eli removes them from the server by hand.
+      if (discord && ADMIN_EMAILS[0]) integrations.sendEmail({ to: ADMIN_EMAILS[0], subject: 'Remove a closed account from Discord', text: 'An account closed for age was in the Founder\'s Circle. Remove them from the 127 Discord server today.' });
+    },
+  },
+}));
 
 // Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
 // One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
@@ -1761,6 +1998,11 @@ db.init().then(async () => {
   await circle.tick(circleCtx({ notify: false })).catch((err) => console.error('[circle] first pass', err));
   // Claim windows, reminders, the waiting line and Scorecard notices.
   setInterval(() => circle.tick(circleCtx()).catch((err) => console.error('[circle] tick', err)), 5 * 60 * 1000).unref();
+  // Approved drafts that waited out quiet hours (10pm-8am Central), and age-closure records past 3 years.
+  setInterval(() => {
+    memberOps.flushQueued({ recap: opsRecap }).catch((err) => console.error('[member-ops] flush', err.message));
+    ageCheck.purgeOld().catch((err) => console.error('[age-check] purge', err.message));
+  }, 5 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });
