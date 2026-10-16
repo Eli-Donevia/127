@@ -21,6 +21,7 @@ const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const { MILESTONES } = require('./lib/milestones');
+const templates = require('./lib/templates');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -140,6 +141,11 @@ app.use((req, res, next) => {
   res.locals.consentCopy = consent.copy;
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;
+  // Templates for a roadmap step or a playbook (content/templates/manifest.json).
+  res.locals.tplForTask = templates.forTask;
+  res.locals.tplForPlaybook = templates.forPlaybook;
+  res.locals.tplKinds = templates.KINDS;
+  res.locals.canAccess = canAccess;
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -847,7 +853,7 @@ app.post('/app/task/:id', requireAuth, wrap(async (req, res) => {
 
 app.get('/app/library', requireAuth, (req, res) => {
   const track = TRACK_NAMES[req.query.track] ? req.query.track : null;
-  res.render('app/library', { title: 'Library', items: resources.filter((r) => !track || r.track === track), track, TRACK_NAMES, canAccess });
+  res.render('app/library', { title: 'Library', items: resources.filter((r) => !track || r.track === track), track, TRACK_NAMES, canAccess, tplCount: templates.list.length });
 });
 
 app.get('/app/library/:slug', requireAuth, (req, res) => {
@@ -919,6 +925,87 @@ app.post('/app/library/:slug/done', requireAuth, wrap(async (req, res) => {
     flash(req, 'win', `+30 XP. Nice work finishing ${r.title}.`);
   }
   res.redirect(`/app/library/${r.slug}`);
+}));
+
+// ---------- templates library ----------
+// Sheets, docs, checklists and recipes from content/templates (manifest v1). Files are served only
+// through the gated route; previews are open to every member so free members can see Builder cards.
+const TEMPLATE_KINDS = templates.KINDS;
+function roadmapTemplates(user) {
+  return new Set(roadmap.allTasks(user && user.roadmap).flatMap((t) => templates.roadmapIndex[t.id] || []));
+}
+
+app.get('/app/templates', requireAuth, (req, res) => {
+  const f = {
+    track: templates.TRACKS[req.query.track] ? req.query.track : null,
+    kind: TEMPLATE_KINDS[req.query.kind] ? req.query.kind : null,
+    tier: ['free', 'builder'].includes(req.query.tier) ? req.query.tier : null,
+  };
+  const items = templates.list.filter((t) => (!f.track || t.track === f.track) && (!f.kind || t.kind === f.kind) && (!f.tier || t.tier === f.tier));
+  res.render('app/templates', { title: 'Templates', items, f, all: templates.list, inRoadmap: roadmapTemplates(req.user), KINDS: TEMPLATE_KINDS, TRACKS: templates.TRACKS, canAccess, tpl: templates });
+});
+
+app.get('/app/templates/:slug', requireAuth, (req, res) => {
+  const t = templates.get(req.params.slug);
+  if (!t) return res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  res.render('app/template', {
+    title: t.title, t, KINDS: TEMPLATE_KINDS, TRACKS: templates.TRACKS, tpl: templates,
+    locked: !canAccess(user, t.tier),
+    inRoadmap: roadmapTemplates(user).has(t.slug),
+    checks: user.checklist || {},
+    progress: templates.checklistProgress(t, user),
+    review: (user.templateReviews || {})[t.slug] || null,
+    aiLeft: aiRunsLeft(user),
+    bySlug,
+  });
+});
+
+app.get('/app/templates/:slug/:file', requireAuth, templates.serveFile());
+
+// Checklist progress is stored on the member by stable item id (launch-countdown.t14.3).
+app.post('/app/templates/:slug/check', requireAuth, wrap(async (req, res) => {
+  const t = templates.get(req.params.slug);
+  const id = String(req.body.item || '');
+  const json = req.accepts(['html', 'json']) === 'json';
+  if (!t || !t.checklistIds.has(id)) return json ? res.status(404).json({ error: 'Not found' }) : res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  if (!canAccess(user, t.tier)) return json ? res.status(403).json({ error: 'Builder' }) : res.redirect(`/app/templates/${t.slug}#unlock`);
+  user.checklist = user.checklist || {};
+  if (user.checklist[id]) delete user.checklist[id];
+  else user.checklist[id] = new Date().toISOString();
+  await db.save('users', user);
+  if (json) return res.json({ id, done: !!user.checklist[id], progress: templates.checklistProgress(t, user) });
+  res.redirect(`/app/templates/${t.slug}#${id}`);
+}));
+
+// "Get feedback" from Eli's Playbook (ai.reviewTemplate: the entry's aiPrompt is the rubric).
+// Same AI-use cap and refund as a worksheet review; the user is saved afterwards so aiSpend sticks.
+app.post('/app/templates/:slug/review', requireAuth, wrap(async (req, res) => {
+  const t = templates.get(req.params.slug);
+  if (!t) return res.status(404).render('404', { title: 'Not found' });
+  const user = req.user;
+  const back = `/app/templates/${t.slug}#review`;
+  if (!canAccess(user, t.tier)) return res.redirect(`/app/templates/${t.slug}#unlock`);
+  const input = String(req.body.filled || '').trim().slice(0, 12000);
+  if (!input) {
+    flash(req, 'info', 'Paste what you filled in first, then ask for a check.');
+    return res.redirect(back);
+  }
+  user.templateReviews = user.templateReviews || {};
+  user.templateReviews[t.slug] = { ...(user.templateReviews[t.slug] || {}), input };
+  if (!reserveAi(req, res, user, back)) return db.save('users', user);
+  // The manifest lists pairsWith as { slug, title }; reviewTemplate grounds on the playbook slugs.
+  const entry = { ...t, pairsWith: (t.pairsWith || []).map((p) => (p && p.slug) || p) };
+  const result = await ai.reviewTemplate(entry, input, user);
+  if (result.error) {
+    refundAi(user);
+    flash(req, 'error', result.text);
+  } else {
+    user.templateReviews[t.slug] = { input, text: result.text, demo: !!result.demo, at: new Date().toISOString() };
+  }
+  await db.save('users', user);
+  res.redirect(back);
 }));
 
 app.get('/app/tools', requireAuth, (req, res) => {

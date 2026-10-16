@@ -26,7 +26,7 @@
       <button class="btn ghost sm" style="display:none" id="closeSide" onclick="document.getElementById('side').classList.remove('open')">Close</button>
     </div>
     <nav>
-      <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : path.indexOf(n[0])===0; %>
+      <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : path.indexOf(n[0])===0 || (n[0]==='/app/library' && path.indexOf('/app/templates')===0); %>
         <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %></a>
       <% }) %>
     </nav>
