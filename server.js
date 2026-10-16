@@ -1650,14 +1650,23 @@ app.get('/admin/circle/feed.json', wrap(async (req, res) => {
   });
 }));
 
-// Founding grace link (R14): support checks the member's checkout broke before the close, then sends this.
-app.post('/admin/grace', requireAuth, requireAdmin, (req, res) => {
+// Founding grace link (R14, Legal L41): only for a founding checkout that started while spots were
+// open and before the close and broke on our side, never for a card decline. One link per person.
+app.post('/admin/grace', requireAuth, requireAdmin, wrap(async (req, res) => {
   const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
-  const token = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && billing.graceToken(email);
-  if (!token) flash(req, 'error', 'Enter a valid email. FOUNDING_CLOSES_AT must be set.');
-  else flash(req, 'info', `Founding link for ${email} (works once, until ${fmtDate(billing.graceUntil() - 60000)}, 11:59pm ET): ${baseUrl(req)}/founding/lock?grace=${token}`);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    flash(req, 'error', 'Enter a valid email.');
+    return res.redirect('/admin#grace');
+  }
+  const r = await billing.issueGrace(email);
+  if (!r.token) {
+    flash(req, 'error', `${email} already had a founding link${r.issuedAt ? ` (sent ${fmtDate(r.issuedAt)})` : ''}${r.usedAt ? ', and used it' : ''}. It's one per person.`);
+    return res.redirect('/admin#grace');
+  }
+  const record = r.startedAt ? `Founding checkout on record: ${fmtDate(r.startedAt)}.` : 'No founding checkout on record, issued on the benefit of the doubt.';
+  flash(req, 'info', `Founding link for ${email}. It works once, for the next 3 days. ${record} ${baseUrl(req)}/founding/lock?grace=${r.token}`);
   res.redirect('/admin#grace');
-});
+}));
 
 app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
   const qs = onboarding.questions.map((q) => q.id);

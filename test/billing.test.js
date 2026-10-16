@@ -464,3 +464,20 @@ test('no founding price for someone whose founding membership ended, even inside
   await billing.checkoutUrl(req, user, 'builder');
   assert.deepStrictEqual(s.calls.find((c) => c.name === 'checkout.create').args.line_items, [{ price: 'price_b', quantity: 1 }]);
 });
+
+test('grace link (Legal L41): one per person, expires 3 days after it is issued', async () => {
+  const before = Date.now();
+  const r = await billing.issueGrace(user.email);
+  assert.ok(r.token);
+  const days = (r.until - before) / 864e5;
+  assert.ok(days > 2.99 && days < 3.01, `expected 3 days, got ${days}`);
+  const again = await billing.issueGrace(user.email);
+  assert.strictEqual(again.token, null);
+  assert.strictEqual(again.reason, 'already_issued');
+});
+
+test('a founding checkout started inside the window is recorded for support', async () => {
+  await billing.checkoutUrl(req, user, 'builder');
+  assert.ok(user.foundingCheckoutStartedAt);
+  assert.strictEqual(billing.graceCheck(user.email).startedAt, user.foundingCheckoutStartedAt);
+});
