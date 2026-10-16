@@ -1,0 +1,70 @@
+<%- include('../partials/head') %>
+<main class="chp">
+  <% if (!me) { %>
+  <section class="ch-hero ch-lost">
+    <div class="wrap">
+      <div class="lbl">The Day One Challenge</div>
+      <% if (sent) { %>
+        <h1><span class="dim">Check your</span> <span class="grad">email.</span></h1>
+        <p class="lede">If that email is in the challenge, its personal link is on the way. Open it on this phone or computer.</p>
+      <% } else { %>
+        <h1><span class="dim">Get back to</span> <span class="grad">your page.</span></h1>
+        <p class="lede"><%= lost ? "That link didn't work. " : '' %>Enter your email and we'll send your challenge link. No account needed.</p>
+        <form method="post" action="/challenge/me">
+          <input class="input" type="email" name="email" placeholder="Email" autocomplete="email" required aria-label="Email">
+          <button class="btn light">Send my link</button>
+        </form>
+      <% } %>
+      <p class="small-print" style="margin-top:28px">Not in yet? <a href="/challenge">Join the free Day One Challenge</a>.</p>
+    </div>
+  </section>
+  <% } else { var r = 52, c = 2 * Math.PI * r; %>
+  <%- include('partials/top', { n: null, preview: false }) %>
+  <section class="ch-hero">
+    <div class="wrap">
+      <div class="lbl">The Day One Challenge</div>
+      <h1><% if (me.firstName) { %><span class="dim"><%= me.firstName %>'s</span> <span class="grad">Day One.</span><% } else { %><span class="dim">Your</span> <span class="grad">Day One.</span><% } %></h1>
+      <div class="ch-status">
+        <div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="<%= me.finished ? '#86d6ad' : '#e3e6f1' %>" stroke-width="8" stroke-linecap="round" stroke-dasharray="<%= c %>" stroke-dashoffset="<%= c * (1 - me.daysDone / 5) %>"/></svg><b><%= me.daysDone %>/5</b></div>
+        <div>
+          <% if (me.finished) { %>
+            <p class="lede" style="margin:0"><b>You're a Day One finisher.</b> Doors open for you <%= chx.etWeekday(chx.launchAt) %> at <%= chx.etClock(chx.earlyAt) %> ET. We'll email your link.</p>
+          <% } else if (chx.now > chx.closesAt) { %>
+            <p class="lede" style="margin:0">Check-ins are closed. You finished <b><%= me.daysDone %> of 5</b>. Doors open <%= chx.etLong(chx.launchAt) %> at <%= chx.etClock(chx.launchAt) %> ET. Your week carries over.</p>
+          <% } else { %>
+            <p class="lede" style="margin:0"><b><%= me.daysDone %> of 5</b> · Finish by Sunday 11:59pm ET for early access.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch-block">
+    <div class="wrap">
+      <span class="lbl">Your five days</span>
+      <ul class="ch-rows">
+        <% me.days.forEach(function (d) { var inner = '<span class="n">DAY 0' + d.n + '</span><span class="m">' + d.move + '<span class="d">' + d.date + '</span></span>'; %>
+        <li><% if (d.unlocked || d.done) { %><a href="/challenge/day/<%= d.n %>"><%- inner %><span class="st <%= d.done ? 'ok' : 'go' %>"><%= d.done ? '✓ Done' : chx.now > chx.closesAt ? 'Closed' : 'Open' %> <span class="arrow"></span></span></a>
+        <% } else { %><div class="row"><%- inner %><span class="st wait">Unlocks <%= chx.etDay(d.unlockAt) %>, <%= chx.etClock(d.unlockAt) %></span></div><% } %></li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ch-block">
+    <div class="wrap">
+      <span class="lbl">Lives</span>
+      <%- include('partials/lives') %>
+    </div>
+  </section>
+
+  <section class="ch-block">
+    <div class="wrap">
+      <%- include('partials/referral') %>
+      <form class="ch-forget" method="post" action="/challenge/forget">Not <%= me.firstName || 'you' %>? <button>Sign out of this page</button></form>
+    </div>
+  </section>
+  <% } %>
+</main>
+<%- include('partials/page-script') %>
+<%- include('../partials/foot') %>

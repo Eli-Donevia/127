@@ -1,0 +1,59 @@
+<%- include('../partials/head') %>
+<% var fn = me ? me.firstName : ''; var live = chx.phase === 'live'; %>
+<main class="chp">
+  <% if (kind !== 'sent') { %><%- include('partials/top', { n: null, preview: false }) %><% } %>
+  <section class="ch-hero">
+    <div class="wrap">
+      <% if (kind === 'sent') { %>
+        <div class="lbl">The Day One Challenge</div>
+        <h1><span class="dim">Check your</span> <span class="grad">email.</span></h1>
+        <p class="lede">That email is already in the challenge, so we just sent its personal link there. Open the email on this phone or computer to get back to your page.</p>
+        <p class="small-print">Nothing there in a minute? Check spam or promotions, or <a href="/challenge/me">ask for the link again</a>.</p>
+      <% } else { %>
+        <div class="lbl"><span class="live-dot" aria-hidden="true"></span><%= live ? 'Day ' + chx.dayLive + ' is live' : 'You\'re in' %></div>
+        <h1><span class="dim">You're in<%= fn ? ',' : '.' %></span><% if (fn) { %> <span class="grad"><%= fn %>.</span><% } %></h1>
+        <% if (onList && kind === 'new') { %><p class="lede">You're already on the founding list, so your founding price is saved.</p><% } %>
+        <% if (live) { %>
+          <p class="lede">The challenge started Monday, and you can still finish it: every day stays open until <b>Sunday, November 15 at 11:59pm ET</b>. Start here, about 20 minutes each.</p>
+          <div class="ch-catchup">
+            <% me.days.forEach(function (d) { if (!d.unlocked) return; %><a class="btn <%= d.done ? 'ghost' : 'light' %> sm" href="/challenge/day/<%= d.n %>"><%= d.done ? '✓ ' : '' %>Day <%= d.n %>: <%= d.move %><% if (!d.done) { %> <span class="arrow"></span><% } %></a><% }) %>
+          </div>
+        <% } else { %>
+          <p class="lede">Day 1 lands <b><%= chx.etLong(chx.startAt) %> at <%= chx.etClock(chx.startAt) %> ET</b>.<% if (needsConfirm) { %> Check your inbox and tap <b>Confirm</b> so we know the email's yours. It also locks in your founding spot.<% } else { %> Your welcome email is on its way with the link to your challenge page.<% } %></p>
+          <div class="lbl" style="margin-top:30px">Day 1 starts in</div>
+          <%- include('../partials/countdown', { cdTarget: chx.startAt }) %>
+        <% } %>
+        <p class="small-print" style="margin-top:18px">You'll get one email a day, Nov 9 to 13.</p>
+      <% } %>
+    </div>
+  </section>
+
+  <% if (kind !== 'sent') { %>
+  <section class="ch-block">
+    <div class="wrap">
+      <span class="lbl"><%= live ? 'Before your next move' : 'Three things before Monday' %></span>
+      <ol class="ch-prep">
+        <% if (!live) { %>
+        <li><b>Do the 1-minute prep.</b><p>Write down 3 problems you've noticed this week. Things people complain about, pay someone to fix, or do badly themselves.</p></li>
+        <% } %>
+        <li><b>Save the lives.</b><p>Kickoff and debrief, live with Eli on Instagram. Replays if you can't make it.</p>
+          <div class="btns"><% chx.lives.forEach(function (l) { if (l.aired) return; %><a class="btn ghost sm" href="<%= l.ics %>" data-track="Challenge Calendar" data-channel="<%= l.id %>"><%= l.title %> · <%= l.label %></a><% }) %></div></li>
+        <li><b>Turn on live alerts.</b><p>Follow <a href="https://instagram.com/elichristiansen_" target="_blank" rel="noopener">@elichristiansen_</a> on Instagram and tap the bell.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="ch-block">
+    <div class="wrap">
+      <%- include('partials/referral') %>
+      <div class="ch-mine" style="margin-top:22px">Your challenge page: <code><%= me.pageUrl.replace(/^https?:\/\//, '') %></code> <button type="button" class="btn ghost sm" data-copy-text="<%= me.pageUrl %>" style="margin-left:6px">Copy</button><br><span class="tiny">Bookmark it. It's yours, so keep it to yourself.</span></div>
+    </div>
+  </section>
+  <div data-joined data-email="<%= me.entry.email %>" data-name="<%= fn %>" hidden></div>
+  <% } %>
+</main>
+<% if (lead && lead.pixel) { %>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',<%- JSON.stringify(String(lead.pixel)) %>);fbq('track','PageView');fbq('track','Lead',{content_name:'day-one-challenge'},{eventID:<%- JSON.stringify(lead.eventId) %>});</script>
+<% } %>
+<%- include('partials/page-script') %>
+<%- include('../partials/foot') %>

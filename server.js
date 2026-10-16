@@ -21,6 +21,7 @@ const utmLib = require('./lib/utm');
 const billingRecords = require('./lib/billing-records');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
+const challenge = require('./lib/challenge');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
 const onboarding = require('./content/onboarding.json');
@@ -198,6 +199,10 @@ function fmtDate(isoOrMs) {
   return Number.isFinite(t) ? new Date(t).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null;
 }
 
+// Day One Challenge (lib/challenge-routes.js): /challenge, /dayone, /early, /admin/challenge,
+// cross-promo locals, and carry-over on /app. Mounted here so it runs after req.user is set.
+require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
+
 function cookie(req, name) {
   const m = (req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
   return m ? decodeURIComponent(m[1]) : null;
@@ -295,7 +300,8 @@ app.get('/circle-agreement', (req, res) => res.render('legal', { title: "Founder
 // During pre-launch, new signups go to the founding waitlist unless they have the invite code.
 function prelaunchGate(req) {
   if (req.query.invite && process.env.PRELAUNCH_INVITE && req.query.invite === process.env.PRELAUNCH_INVITE) req.session.invite = true;
-  return launch.prelaunch() && !req.user && !req.session.invite;
+  // Day One finishers get in an hour early (/early sets a 2-hour signed session flag).
+  return launch.prelaunch() && !req.user && !req.session.invite && !challenge.earlyAccess(req);
 }
 
 app.get('/start', (req, res) => {
@@ -307,7 +313,7 @@ app.get('/start', (req, res) => {
   const prefill = picked ? { [first.id]: picked.value } : null;
   res.render('start', { title: 'Your free roadmap', onboarding, retake: !!(req.user && req.user.roadmap), error: null, layout: 'bare', prefill, jump: picked ? 1 : null });
 });
-app.get('/signup', (req, res) => res.redirect(launch.prelaunch() ? '/founding' : '/start'));
+app.get('/signup', (req, res) => res.redirect(prelaunchGate(req) ? '/founding' : '/start'));
 app.get('/app/assessment', requireAuth, (req, res) => res.redirect('/start?retake=1'));
 
 // Keep only known question ids and clamp lengths.
@@ -1522,6 +1528,7 @@ app.post('/app/settings/delete', requireAuth, wrap(async (req, res) => {
   for (const w of db.filter('wins', (w) => w.userId === user.id)) await db.remove('wins', w.id);
   for (const a of db.filter('applications', (a) => a.userId === user.id)) await db.remove('applications', a.id);
   for (const sc of db.filter('scorecards', (sc) => sc.userId === user.id)) await db.remove('scorecards', sc.id);
+  await challenge.forget(user.email);
   await db.remove('users', user.id);
   req.session = null;
   res.redirect('/?deleted=1');

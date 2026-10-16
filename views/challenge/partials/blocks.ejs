@@ -1,0 +1,17 @@
+<%# Renders content blocks from content/challenge.json. Locals: blocks, md %>
+<% (blocks || []).forEach(function (b) { %>
+  <% if (b.type === 'p') { %><p><%- md(b.text) %></p>
+  <% } else if (b.type === 'h') { %><h4><%- md(b.text) %></h4>
+  <% } else if (b.type === 'note') { %><p class="note"><%- md(b.text) %></p>
+  <% } else if (b.type === 'ul' || b.type === 'ol') { %><<%= b.type %>><% b.items.forEach(function (it) { %><li><%- md(it) %></li><% }) %></<%= b.type %>>
+  <% } else if (b.type === 'quote') { %><blockquote class="ch-quote"><%- md(b.text) %></blockquote>
+  <% } else if (b.type === 'template') { %><div class="tpl"><% if (b.label) { %><span class="tpl-label"><%- md(b.label) %></span><% } %><p class="tpl-text"><%- md(b.text) %></p><button type="button" class="btn ghost sm" data-copy-text="<%= String(b.text).replace(/\*\*/g, '') %>" data-track="Challenge Template Copy">Copy</button></div>
+  <% } else if (b.type === 'scorecard') { %>
+    <div class="score-scroll"><table class="score-grid" data-scorecard>
+      <thead><tr><th>Question</th><th><input class="input" placeholder="Idea A" aria-label="Idea A" maxlength="60"></th><th><input class="input" placeholder="Idea B" aria-label="Idea B" maxlength="60"></th><th><input class="input" placeholder="Idea C" aria-label="Idea C" maxlength="60"></th></tr></thead>
+      <tbody><% b.questions.forEach(function (q, i) { %><tr><td class="q"><span><%= i + 1 %></span><%- md(q) %></td><% for (var c = 0; c < 3; c++) { %><td><select class="input" data-col="<%= c %>" aria-label="Question <%= i + 1 %>, idea <%= 'ABC'[c] %>"><option value="">·</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><% } %></tr><% }) %></tbody>
+      <tfoot><tr><td><%- md(b.total_label) %></td><% for (var c2 = 0; c2 < 3; c2++) { %><td class="tot" data-total="<%= c2 %>">0</td><% } %></tr></tfoot>
+    </table></div>
+    <p class="note" style="margin-top:10px">1 means no, or no proof. 3 means maybe. 5 means yes, with proof you can point to. Nothing here is saved; your check-in below is.</p>
+  <% } %>
+<% }) %>
