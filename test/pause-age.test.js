@@ -273,15 +273,15 @@ test('age: "Ask to confirm" sends one email, is refused under 13, and a yes unpa
   assert.equal(ageCheck.underReview(user), false);
 });
 
-test('age: a member who says middle school gets no "Ask to confirm" (Legal 8d), but other people\'s grades or 12th grade do not count', async () => {
-  assert.equal(ageCheck.middleSchool("I'm in 8th grade and want to sell stickers"), true);
-  assert.equal(ageCheck.middleSchool('still in middle school lol'), true);
-  assert.equal(ageCheck.middleSchool("I'm in 12th grade"), false);
+test('age: "Ask to confirm" is skipped when the member said they\'re in middle school', async () => {
   await builder(10);
-  await ageCheck.flag(user, { source: 'playbook', excerpt: [{ from: 'playbook', text: 'Who is it for?' }, { from: 'member', text: "i'm in middle school" }], statedAge: null });
+  await ageCheck.flag(user, { source: 'playbook', excerpt: [{ from: 'member', text: 'hi' }, { from: 'playbook', text: 'hello' }, { from: 'member', text: "im in middle school but i want to start a business" }], statedAge: null });
   assert.equal(user.ageReview.middleSchool, true);
-  assert.equal(ageCheck.noConfirm(user.ageReview), true);
+  assert.equal(ageCheck.askAllowed(user.ageReview), false);
   assert.match((await ageCheck.askConfirm(user, 'eli')).error, /middle school/);
+  assert.equal(mails.filter((m) => m.to === user.email).length, 0);
+  assert.equal(ageCheck.saidMiddleSchool('I teach middle school art'), false, 'only about themselves');
+  assert.equal(ageCheck.askAllowed({ statedAge: 16, middleSchool: false }), true);
 });
 
 test('age: "Close for age" cancels, refunds every payment in full, deletes, emails once and blocks the email for signup', async () => {

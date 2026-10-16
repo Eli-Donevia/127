@@ -16,9 +16,9 @@
 <% if (ageReviews.length) { %>
 <section class="card pad-lg ops-sec" id="age" style="margin-bottom:16px;border-color:rgba(240,155,138,.35)">
   <div class="card-title"><h3>Age check</h3><span class="small muted">AI chats and posting are paused on these accounts. Answer within 2 business days.</span></div>
-  <% ageReviews.forEach(function (a) { var r = a.r; var under13 = a.noConfirm; %>
+  <% ageReviews.forEach(function (a) { var r = a.r; %>
   <div class="ops-item" style="border-top:1px solid var(--line);padding:14px 0">
-    <div class="small"><b style="font-weight:500"><%= (a.u.name || '').split(' ')[0] || 'Member' %></b> <span class="muted">· <%= a.u.email %> · <%= planName(a.u.pausedTier || a.u.tier) %> · flagged by <%= r.source %> <%= when(r.flaggedAt) %><%= r.statedAge != null ? ' · says ' + r.statedAge : '' %></span></div>
+    <div class="small"><b style="font-weight:500"><%= (a.u.name || '').split(' ')[0] || 'Member' %></b> <span class="muted">· <%= a.u.email %> · <%= planName(a.u.pausedTier || a.u.tier) %> · flagged by <%= r.source %> <%= when(r.flaggedAt) %><%= r.statedAge != null ? ' · says ' + r.statedAge : '' %><%= r.middleSchool ? ' · says middle school' : '' %></span></div>
     <% if (r.excerpt && r.excerpt.length) { %>
       <div style="margin:10px 0">
       <% r.excerpt.forEach(function (m, i) { var last = i === r.excerpt.length - 1; %>
@@ -30,7 +30,7 @@
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <% if (r.status === 'open') { %>
         <form method="post" action="/admin/ops/age/<%= a.u.id %>/no_action"><button class="btn ghost sm">No action</button></form>
-        <% if (!under13) { %><form method="post" action="/admin/ops/age/<%= a.u.id %>/ask"><button class="btn ghost sm">Ask to confirm</button></form><% } %>
+        <% if (a.canAsk) { %><form method="post" action="/admin/ops/age/<%= a.u.id %>/ask"><button class="btn ghost sm">Ask to confirm</button></form><% } %>
       <% } else { %>
         <form method="post" action="/admin/ops/age/<%= a.u.id %>/confirmed"><button class="btn ghost sm">They replied yes (18+)</button></form>
       <% } %>
