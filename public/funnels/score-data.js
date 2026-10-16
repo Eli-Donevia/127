@@ -1,5 +1,7 @@
 // Founder Score: questions, scoring and results copy.
 // Edit copy here; the page logic lives in score.js.
+// reason: the line under "Why you got this score." (conversion/pages/quiz-results.md §4). The server reads this
+// file too, so the result email says the same thing as the page.
 // The roadmap weeks mirror lib/roadmap.js in the main site (same tracks and steps),
 // so what someone sees here matches what their account builds after signup.
 window.SCORE = {
@@ -21,10 +23,10 @@ window.SCORE = {
       dim: 'focus',
       title: 'How many ideas or projects are you juggling?',
       options: [
-        { v: 'none', label: 'None yet', pts: 6 },
-        { v: 'one', label: "One. I'm committed.", pts: 20 },
-        { v: 'few', label: 'Two or three', pts: 10 },
-        { v: 'many', label: 'A new one every week', pts: 4 },
+        { v: 'none', label: 'None yet', pts: 6 , reason: "You haven't picked an idea yet. Week 1 is picking one, on purpose." },
+        { v: 'one', label: "One. I'm committed.", pts: 20 , reason: "One idea gets all your hours. Keep it that way." },
+        { v: 'few', label: 'Two or three', pts: 10 , reason: "Two or three ideas split your hours. Pick the one you can test this week." },
+        { v: 'many', label: 'A new one every week', pts: 4 , reason: "A new idea feels like progress. A test is progress." },
       ],
     },
     {
@@ -33,10 +35,10 @@ window.SCORE = {
       title: 'In the last 30 days, how many potential customers have you talked to about their problem?',
       sub: 'Real conversations. Not posts, not likes.',
       options: [
-        { v: '0', label: 'None', pts: 2 },
-        { v: '1-4', label: '1 to 4', pts: 9 },
-        { v: '5-14', label: '5 to 14', pts: 16 },
-        { v: '15+', label: '15 or more', pts: 20 },
+        { v: '0', label: 'None', pts: 2 , reason: "No buyer has told you about the problem yet. 5 conversations change that." },
+        { v: '1-4', label: '1 to 4', pts: 9 , reason: "You've started. A few more and you'll hear the same words twice." },
+        { v: '5-14', label: '5 to 14', pts: 16 , reason: "You've heard the problem in real words. Use them in your offer." },
+        { v: '15+', label: '15 or more', pts: 20 , reason: "You know the problem in your customers' words." },
       ],
     },
     {
@@ -44,10 +46,10 @@ window.SCORE = {
       dim: 'proof',
       title: 'Has anyone paid you yet?',
       options: [
-        { v: 'no', label: 'No', pts: 2 },
-        { v: 'asked', label: 'Not yet, but people have asked to', pts: 8 },
-        { v: 'some', label: 'Yes, a handful of sales', pts: 15 },
-        { v: 'monthly', label: 'Yes, every month', pts: 20 },
+        { v: 'no', label: 'No', pts: 2 , reason: "No one has paid yet. Asking for your first $1 is the next proof." },
+        { v: 'asked', label: 'Not yet, but people have asked to', pts: 8 , reason: "People asking to pay is a signal. Give them a way to pay." },
+        { v: 'some', label: 'Yes, a handful of sales', pts: 15 , reason: "Someone paid. Find out why they said yes, then ask again." },
+        { v: 'monthly', label: 'Yes, every month', pts: 20 , reason: "Sales every month is the strongest proof there is." },
       ],
     },
     {
@@ -55,10 +57,10 @@ window.SCORE = {
       dim: 'reach',
       title: 'Where would your next 100 customers come from?',
       options: [
-        { v: 'unknown', label: 'No idea yet', pts: 3 },
-        { v: 'network', label: 'Friends, family and my network', pts: 10 },
-        { v: 'posting', label: 'I post, but not consistently', pts: 12 },
-        { v: 'channel', label: 'A channel that already brings people in', pts: 20 },
+        { v: 'unknown', label: 'No idea yet', pts: 3 , reason: "You don't know where buyers will come from yet. Start with people you already know." },
+        { v: 'network', label: 'Friends, family and my network', pts: 10 , reason: "Your network is a real first channel. Plan the next one before it runs out." },
+        { v: 'posting', label: 'I post, but not consistently', pts: 12 , reason: "The channel is there. Consistency is the gap." },
+        { v: 'channel', label: 'A channel that already brings people in', pts: 20 , reason: "You have a channel that works. Measure it so you can grow it." },
       ],
     },
     {
@@ -66,10 +68,10 @@ window.SCORE = {
       dim: 'execution',
       title: 'Last week, how much time did you actually put into it?',
       options: [
-        { v: 'none', label: 'Honestly, none', pts: 3, time: 'lt3' },
-        { v: 'lt3', label: 'Under 3 hours', pts: 10, time: 'lt3' },
-        { v: '3to10', label: '3 to 10 hours', pts: 16, time: '3to7' },
-        { v: '10plus', label: '10+ hours', pts: 20, time: '8to15' },
+        { v: 'none', label: 'Honestly, none', pts: 3, time: 'lt3' , reason: "With no hours, nothing moves. Your roadmap starts with the smallest step that counts." },
+        { v: 'lt3', label: 'Under 3 hours', pts: 10, time: 'lt3' , reason: "Under 3 hours works if each hour goes to the step that matters. Your roadmap is trimmed to those." },
+        { v: '3to10', label: '3 to 10 hours', pts: 16, time: '3to7' , reason: "That's enough to finish each week's steps." },
+        { v: '10plus', label: '10+ hours', pts: 20, time: '8to15' , reason: "Time isn't your gap. Put it on your weakest part." },
       ],
     },
     {
@@ -192,7 +194,7 @@ window.SCORE = {
       focus: 'Choose the right idea, prove demand and make a first offer.',
       weeks: [
         { theme: 'Choose on purpose', tasks: [
-          ['Score your ideas with the Idea Filter', 'Rank every idea on the same criteria so you choose with your head, not your mood.'],
+          ['Score your ideas with the Idea Test', 'Rank every idea on the same criteria so you choose with your head, not your mood.'],
           ['Write the problem you solve in one sentence', 'Use words a customer would say, not industry jargon.'],
           ['List 10 people who have this problem', 'Names, not personas. These are your first conversations.'],
         ] },

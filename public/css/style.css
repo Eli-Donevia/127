@@ -502,8 +502,13 @@ h1, h2, h3, h4 { line-height: 1.1; }
 .calc-legend { margin: 10px 0 0; font-size: 12.5px; color: var(--muted); columns: 2; }
 .calc-legend div { padding: 2px 0; break-inside: avoid; }
 .calc-legend b { font-family: var(--mono); font-weight: 500; color: var(--accent); margin-right: 6px; }
-.kpi td:first-child { color: var(--ink); white-space: nowrap; }
+.kpi td:first-child { color: var(--ink); min-width: 150px; }
 .kpi .up { color: var(--win); } .kpi .down { color: var(--danger); }
+.kpi .grp td { padding-top: 14px; color: var(--muted); }
+.calc [data-newweek] { margin-top: 4px; }
+.calc-out.dim, .calc-out.dim b { color: var(--muted); }
+.calc-legend li { padding: 2px 0 4px; break-inside: avoid; }
+.calc-legend li strong { display: block; font-weight: 500; color: var(--ink-2); }
 .hist { display: grid; }
 .hist a { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); text-decoration: none; font-size: 14px; color: var(--ink-2); }
 .hist a:hover { color: var(--ink); }
@@ -1033,6 +1038,8 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .cancel-opt { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 22px; }
 .cancel-opt h3 { margin: 0 0 8px; font-size: 18px; }
 .cancel-opt p { flex: 1; margin: 0 0 18px; color: var(--ink-2); font-size: 14px; }
+.cancel-first { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 28px 0 24px; }
+.cancel-first form { margin: 0; }
 @media (max-width: 760px) { .cancel-page h1 { font-size: 34px; } }
 
 /* Welcome after a founding payment, Circle confirm, fast founding checkout */
@@ -1174,3 +1181,117 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .cta-photo .home-join .hj-error{color:var(--danger)}
 .foot a{white-space:nowrap}
 .foot .wrap > div:nth-child(2){display:flex;flex-wrap:wrap;row-gap:4px}
+
+/* ==========================================================================
+   Founder's Circle (lib/circle.js): seat card, seat/Founding/alumni marks,
+   application, Founder Profile, Scorecard, handbook and the /admin Circle panels.
+   Gold is the Circle's colour and stays on Circle surfaces only. The seat card
+   matches circle/assets/seat-0N.png and seat-founding-0N.png (gold gradient
+   #EDD49E -> #D8B46E -> #A78545 on Void).
+   ========================================================================== */
+.circle-marks { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.seat-badge { display: inline-flex; align-items: baseline; gap: 8px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+.seat-badge b { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -0.05em; line-height: 1; color: var(--gold); background: linear-gradient(180deg, #edd49e 0%, #d8b46e 55%, #a78545 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.seat-badge.sm b { font-size: 20px; }
+.founding-mark { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: #120e06; background: linear-gradient(180deg, #edd49e, #c9a35e); border-radius: 999px; padding: 5px 11px; white-space: nowrap; }
+.founding-mark::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #120e06; }
+.alumni-mark { display: inline-flex; align-items: center; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: 4px 11px; white-space: nowrap; background: transparent; }
+.founding-mark.sm, .alumni-mark.sm { font-size: 10px; padding: 3px 8px; letter-spacing: .14em; }
+.gold-num { color: var(--gold); }
+
+.seat-card { position: relative; overflow: hidden; border-radius: 20px; padding: 34px 32px 30px; min-height: 340px; display: flex; flex-direction: column; justify-content: center;
+  background: radial-gradient(90% 60% at 50% 0%, rgba(216,180,110,.13), transparent 70%), linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 36px 36px, linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 36px 36px, #060607;
+  border: 1px solid rgba(216,180,110,.28); }
+.seat-card .eyebrow { color: var(--ink-2); letter-spacing: .3em; }
+.seat-card .seat-num { font-family: var(--display); font-weight: 800; font-size: clamp(96px, 12vw, 150px); line-height: .9; letter-spacing: -0.06em; margin: 14px 0 12px; background: linear-gradient(180deg, #edd49e 0%, #d8b46e 52%, #a78545 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold); }
+.seat-card .seat-title { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -0.05em; line-height: 1; color: #e3e3ea; }
+.seat-card .seat-title span { color: #7b7b86; }
+.seat-card p { margin: 14px 0 0; color: var(--ink-2); font-size: 16px; }
+.seat-card .seat-foot { margin-top: 18px; color: var(--muted); }
+
+.circle-call { background: radial-gradient(120% 120% at 0% 0%, rgba(216,180,110,.16), transparent 55%), var(--surface); border-color: rgba(216,180,110,.3); }
+.circle-call .eyebrow { color: var(--gold); }
+.circle-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.circle-actions form { margin: 0; }
+.circle-h { font-family: var(--display); font-weight: 700; letter-spacing: -0.045em; font-size: 30px; line-height: 1.08; margin: 14px 0 8px; }
+.circle-state { max-width: 720px; }
+.circle-state .alumni-mark { margin-bottom: 4px; }
+.circle-sc .card-title { margin-bottom: 8px; }
+.circle-profile { margin: 16px 0; }
+.profile-key { margin: 6px 0 18px; }
+.profile-tile { border: 1px solid rgba(216,180,110,.22); border-radius: var(--radius-sm); padding: 16px 18px; background: var(--gold-soft); }
+.profile-tile .eyebrow { color: var(--gold); }
+.profile-tile .pv { margin-top: 8px; font-size: 17px; font-weight: 500; color: var(--ink); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.circle-profile details > summary, .recap > summary { cursor: pointer; color: var(--ink-2); font-weight: 500; padding: 8px 0; }
+.profile-form { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.profile-form .field:has(textarea), .profile-form .btn { grid-column: 1 / -1; }
+.profile-form .btn { justify-self: start; }
+.recap { border-top: 1px solid var(--line); margin-top: 8px; }
+.recap-text { white-space: pre-wrap; font-size: 14px; color: var(--ink-2); margin-top: 10px; overflow-wrap: anywhere; }
+
+/* Segmented choice buttons (radio inputs), used by the application and the Scorecard */
+.circle-choice { border: 0; padding: 0; margin: 0 0 18px; min-width: 0; }
+.circle-choice legend { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 10px; padding: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface-2); font-size: 14px; color: var(--ink-2); }
+.seg input:checked + span { border-color: var(--gold); background: var(--gold-soft); color: var(--ink); }
+.seg input:focus-visible + span { box-shadow: 0 0 0 3px rgba(216,180,110,.35); }
+.time-note { margin-top: 10px; }
+.circle-apply .field > span em { font-style: normal; font-weight: 400; }
+
+/* The Scorecard */
+.scorecard { max-width: 760px; }
+.sc-q { padding: 20px 0; border-top: 1px solid var(--line); }
+.sc-q h3 { font-size: 16px; margin: 0 0 12px; }
+.req { color: var(--gold); }
+.sc-commit { display: grid; gap: 10px; padding: 12px 0; }
+.sc-commit + .sc-commit { border-top: 1px dashed var(--line); }
+.sc-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.sc-row .input { flex: 1; min-width: 140px; }
+.sc-history { display: flex; gap: 18px; margin: 0 0 12px; flex-wrap: wrap; }
+.sc-history span { display: grid; gap: 2px; }
+.sc-history em { font-style: normal; font-size: 11px; color: var(--muted); }
+.sc-history b { font-family: var(--mono); font-weight: 500; font-size: 15px; color: var(--ink); }
+.sc-more { margin-top: 12px; }
+.sc-bell:not(:has(input[name="bell"]:checked)) .sc-more { display: none; }
+.sc-hot:not(:has(input[value="need"]:checked)):not(:has(input[value="room"]:checked)) .sc-more { display: none; }
+
+/* The handbook */
+.handbook { max-width: 820px; }
+.handbook > h1:first-child, .handbook > h1:first-child + p + hr { display: none; }
+.handbook h2 { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: -0.04em; margin: 34px 0 10px; scroll-margin-top: 90px; }
+.handbook p, .handbook li { color: var(--ink-2); font-size: 15.5px; }
+.handbook b { color: var(--ink); font-weight: 600; }
+.handbook a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.handbook code { font-family: var(--mono); font-size: 13px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+.handbook ul.tasks { list-style: none; padding: 0; }
+.handbook ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+.handbook .box { flex: none; width: 16px; height: 16px; margin-top: 4px; border: 1px solid var(--gold); border-radius: 4px; }
+.handbook table.t { margin: 10px 0 18px; }
+.handbook ol li::marker { color: var(--gold); font-weight: 600; }
+
+/* /admin Circle panels */
+.circle-apps td { min-width: 140px; }
+.circle-apps td.decide { min-width: 170px; }
+.decide > form, .decide > details { margin: 0 0 6px; }
+.decide details > summary { list-style: none; cursor: pointer; }
+.decide details > summary::-webkit-details-marker { display: none; }
+.decide-form { display: grid; gap: 6px; margin-top: 6px; min-width: 220px; }
+.circle-row { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.circle-row > :first-child { flex: none; min-width: 74px; }
+.att { font-family: var(--mono); margin-right: 2px; }
+.att.attended { color: var(--gold); }
+.att.missed { color: var(--danger); }
+.linkbtn { background: none; border: 0; padding: 0; margin-left: 6px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: inherit; }
+.recap-form textarea.mono { font-size: 13px; line-height: 1.5; }
+.recap-member { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; }
+@media (max-width: 760px) {
+  .profile-form { grid-template-columns: 1fr; }
+  .seat-card { min-height: 0; padding: 28px 22px; }
+  .circle-h { font-size: 26px; }
+  .seg span { min-height: 44px; }
+}
+.scorecard .check input, .circle-apply .check input, .profile-form .check input, .recap-form .check input { accent-color: var(--gold); }
+#scorecards table.t th { white-space: nowrap; }

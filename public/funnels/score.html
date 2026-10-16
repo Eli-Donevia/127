@@ -15,9 +15,8 @@
 <!--/OG-->
 <meta name="theme-color" content="#060607">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/funnels/funnels.css">
 <!--TRACKERS-->
 </head>
@@ -30,9 +29,31 @@
   <a href="/login" class="aside" id="signin">Sign in</a>
 </header>
 
-<main id="app" aria-live="polite"></main>
+<main id="app" aria-live="polite">
+  <!-- Intro is plain HTML so it paints before any script runs. score.js reuses this markup for "Retake". -->
+  <div id="intro">
+    <section class="narrow hero">
+      <div id="sharedSlot"></div>
+      <span class="chip"><span class="dot"></span>Free · 7 questions · 90 seconds</span>
+      <h1 class="h-display steel">What kind of founder are you?</h1>
+      <p class="lede">Get your Founder Score and why you got it, the one move that matters most this week, and a 30-day roadmap built from Eli Christiansen's playbook.</p>
+      <div style="margin-top:28px"><button class="btn block" id="go" type="button">Get my score <span class="arrow"></span></button></div>
+      <div class="intro-eli"><img src="/img/eli-founder.jpg" alt="Eli Christiansen speaking on stage" width="44" height="44"><span><b>Make today day one.</b>Eli Christiansen, founder of 127</span></div>
+      <div class="proof-row"><span>Built by a <b>2x</b> founder</span><span><b>25M+</b> views across social</span><span>Left a corporate job to build full time</span></div>
+    </section>
+    <section class="narrow" style="padding-top:28px">
+      <div class="grid-2">
+        <div class="card"><div class="label">Your archetype</div><p class="fog small" style="margin:8px 0 0">Explorer, Validator, Launcher, Amplifier or Operator. Where you are, and the trap that comes with it.</p></div>
+        <div class="card"><div class="label">Your score</div><p class="fog small" style="margin:8px 0 0">Focus, validation, proof, reach and execution, scored out of 100.</p></div>
+        <div class="card"><div class="label">Why</div><p class="fog small" style="margin:8px 0 0">Every part of your score comes with the reason, from your own answers.</p></div>
+        <div class="card"><div class="label">Your roadmap</div><p class="fog small" style="margin:8px 0 0">A 30-day plan for where you are. Add your email for your #1 move and the preview.</p></div>
+      </div>
+    </section>
+  </div>
+</main>
 
 <footer class="f-foot" id="foot">
+  <div class="earn">127 is education and tools, not a promise of income. Results vary. <a href="/earnings-disclaimer">Earnings disclaimer</a></div>
   <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
   <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></div>
 </footer>
@@ -40,6 +61,8 @@
 <noscript><div class="narrow" style="padding:40px 20px">Turn on JavaScript to take the Founder Score.</div></noscript>
 <script src="/funnels/funnel-kit.js"></script>
 <script src="/funnels/score-data.js"></script>
+<script src="/funnels/results-data.js"></script>
+<script src="/funnels/results-kit.js"></script>
 <script src="/funnels/score.js"></script>
 </body>
 </html>

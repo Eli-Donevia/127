@@ -81,9 +81,9 @@
   });
   h += '</section>';
 
-  // founding list (pre-launch only; empty otherwise)
-  var founding = K.foundingCard('day-one-stack');
-  if (founding) h += '<section class="narrow no-print" style="padding-top:22px">' + founding + '</section>';
+  // After the email: the block for the launch state (quiz-results.md §10). Only for someone who came through the gate.
+  var gated = !!K.R.lead('stack').at;
+  if (gated && !printMode) h += '<section class="narrow no-print" id="next" style="padding-top:22px"><div id="stateBlock"></div></section>';
 
   // next
   h += '<section class="narrow section no-print"><div class="card halo">' +
@@ -94,7 +94,12 @@
     '<div class="row" style="justify-content:center;margin-top:14px"><a class="link" href="' + K.href('/idea-test') + '\">Or test an idea free</a></div>' +
   '</div></section>';
 
+  h += '<section class="narrow no-print" style="padding-top:0">' + K.R.who() + '</section>';
+
   document.getElementById('guide').innerHTML = h;
+  if (gated && !printMode) {
+    K.R.block(document.getElementById('stateBlock'), { magnet: 'stack', onStart: function () { location.href = K.href('/start') + '?from=stack'; } });
+  }
   if (printMode) document.documentElement.classList.add('print');
 
   document.addEventListener('click', function (e) {

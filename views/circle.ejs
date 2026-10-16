@@ -9,7 +9,7 @@
       <div>
         <p style="font-size:19px;margin:0 0 28px">Up to <%= circleCapacity %> heavily committed, driven founders. One focused call every week with Eli, real hot seats, clear commitments, and two in-person gatherings a year.</p>
         <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <a href="<%= user ? '/app/circle' : '/start' %>" class="btn light"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %> <span class="arrow"></span></a>
+          <a href="<%= user ? '/app/circle' : '/circle/apply' %>" class="btn light"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %> <span class="arrow"></span></a>
           <span class="small" style="color:var(--on-dark-2)">$299 / month · <%= circleSeatsLeft %> of <%= circleCapacity %> seats open</span>
         </div>
       </div>
@@ -19,10 +19,12 @@
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">The weekly call</div><h2>45 minutes. No fluff.</h2></div>
       <div class="steps">
-        <div class="step"><div class="n">05′</div><h4>Wins</h4><p>Each member shares what moved since last week.</p></div>
-        <div class="step"><div class="n">30′</div><h4>Hot seats</h4><p>Two or three members go deep on their biggest question, submitted in advance.</p></div>
-        <div class="step"><div class="n">10′</div><h4>Commitments</h4><p>Everyone leaves with one or two specific commitments for the week.</p></div>
-        <div class="step"><div class="n">+</div><h4>Notes</h4><p>A summary and action items land in your inbox after every call.</p></div>
+        <div class="step"><div class="n">02′</div><h4>Open</h4><p>A short welcome, and the Bell for anyone who hit a milestone since last week.</p></div>
+        <div class="step"><div class="n">08′</div><h4>Scorecards</h4><p>Your commitments and your number, 2 minutes each. Done or not done, then what you learned.</p></div>
+        <div class="step"><div class="n">13′</div><h4>Hot seat 1</h4><p>13 minutes on one member's real decision: questions first, then the room's takes, then Eli's call.</p></div>
+        <div class="step"><div class="n">13′</div><h4>Hot seat 2</h4><p>The same for a second member. With four members, you get a hot seat every other week.</p></div>
+        <div class="step"><div class="n">05′</div><h4>Rapid round</h4><p>The two members not in a hot seat each get one quick question answered.</p></div>
+        <div class="step"><div class="n">04′</div><h4>Commitments</h4><p>One or two each, specific enough to check next week. The recap lands in your inbox the next morning.</p></div>
       </div>
     </div>
   </section>

@@ -6,7 +6,8 @@
 <div class="card billing-cancelled">
   <div>
     <h3>You're cancelled. Access runs until <%= ends %>.</h3>
-    <p class="small muted">Changed your mind? Keep <%= userPlan.name %> with one tap, with no new charge<%= user.foundingPrice ? ', and your founding price stays' : '' %>.</p>
+    <p class="small muted">Changed your mind? Keep <%= userPlan.name %> with one tap, with no new charge.<%= user.foundingPrice ? ' Undo before ' + ends + ' and you keep your $' + (launch.foundingPrice || 19) + ' founding price. After that, it ends for good.' : '' %></p>
+    <% if (userPlan.key === 'circle') { %><p class="small muted">Want to talk it through? <a class="link" href="mailto:hello@127group.io?subject=Circle%20call%20with%20Eli">Book an optional 15-minute call with Eli.</a> It's never required.</p><% } %>
   </div>
   <form method="post" action="/app/billing/resume"><button class="btn light">Keep <%= userPlan.name %></button></form>
 </div>
@@ -37,7 +38,7 @@
   <div class="card"><div class="stat"><div class="l">Current plan</div>
     <% if (foundingPlan) { %>
       <div class="v">Builder · founding member<%= user.foundingNumber ? ' #' + user.foundingNumber : '' %></div>
-      <div class="small muted">$<%= launch.foundingPrice || builderOffer.price %>/month, locked while you stay. Switching plans keeps it; cancelling ends it.</div>
+      <div class="small muted">$<%= launch.foundingPrice || 19 %>/month, locked while you stay. Switching plans keeps it; cancelling ends it.</div>
     <% } else { %>
       <div class="v"><%= userPlan.name %></div><div class="small muted">$<%= userPlan.price %>/month</div>
     <% } %>

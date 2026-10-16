@@ -10,7 +10,7 @@
     <p class="tiny muted" style="margin:0 0 14px"><%= preview ? 'The difference between Builder and the Circle for the rest of this month' + (preview.dueToday ? ', plus any tax' : '') + '.' : 'Shown on your invoice before your card is charged.' %></p>
     <div class="confirm-row"><span>Then</span><b>$<%= circlePrice %> a month plus tax</b></div>
     <p class="small" style="margin:14px 0 0">Renews monthly at $<%= circlePrice %> plus tax until you cancel. Cancel online anytime from Billing.</p>
-    <% if (foundingKept) { %><p class="small muted" style="margin:8px 0 0">Your founding price stays with your account: if you switch back to Builder, you pay $<%= launch.foundingPrice || builderOffer.price %> again.</p><% } %>
+    <% if (foundingKept) { %><p class="small muted" style="margin:8px 0 0">Your founding price stays with your account: if you switch back to Builder, you pay $<%= launch.foundingPrice || 19 %> again.</p><% } %>
   </div>
   <form method="post" action="/app/billing/checkout/circle" class="confirm-form">
     <input type="hidden" name="from" value="/app/circle">
