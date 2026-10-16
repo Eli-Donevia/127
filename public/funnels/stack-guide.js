@@ -81,6 +81,10 @@
   });
   h += '</section>';
 
+  // founding list (pre-launch only; empty otherwise)
+  var founding = K.foundingCard('day-one-stack');
+  if (founding) h += '<section class="narrow no-print" style="padding-top:22px">' + founding + '</section>';
+
   // next
   h += '<section class="narrow section no-print"><div class="card halo">' +
     '<div class="label">What to do next</div>' +

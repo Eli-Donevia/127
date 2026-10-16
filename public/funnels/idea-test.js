@@ -93,7 +93,7 @@
   function renderPlan() {
     var r = current.report, el = document.getElementById('plan');
     if (unlocked) {
-      el.innerHTML = planHtml(r) +
+      el.innerHTML = planHtml(r) + K.foundingCard('idea-test') +
         '<div class="card accent" style="margin-top:14px"><div class="label lilac">Next</div>' +
         '<h3 class="h3" style="margin:10px 0 8px">Turn this into a 30-day plan.</h3>' +
         '<p class="small fog" style="margin:0 0 16px">Take the 90-second Founder Score and get a roadmap built for where you are, with the templates for every step.</p>' +

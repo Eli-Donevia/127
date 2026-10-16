@@ -222,6 +222,9 @@
     var rest = document.getElementById('rest');
     var weeks = r.track.weeks.slice(1).map(function (w, i) { return weekCard(i + 2, w.theme, w.tasks.slice(0, r.trimmed ? 2 : 3), !state.unlocked); }).join('');
     if (state.unlocked) {
+      // Pre-launch: signup is closed, so show the founding list and invite link instead.
+      var founding = K.foundingCard('founder-score');
+      if (founding) { rest.innerHTML = weeks + founding; return; }
       rest.innerHTML = weeks +
         '<div class="card accent" style="margin-top:14px"><div class="label lilac">Next</div>' +
         '<h3 class="h3" style="margin:10px 0 8px">Save it and track your progress.</h3>' +

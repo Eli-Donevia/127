@@ -62,10 +62,61 @@
       if (!/json/.test(r.headers.get('content-type') || '')) return { ok: true, preview: true };
       return r.json().catch(function () { return { ok: r.ok }; }).then(function (j) {
         if (!r.ok) throw new Error((j && j.error) || 'Something went wrong. Try again.');
+        if (j && j.referral_link) K.saveFounding(j);
         return j;
       });
     }, function () { return { ok: true, preview: true }; });
   };
+
+  // ---------- founding list (pre-launch) ----------
+  // /api/lead returns the invite link when the site is in pre-launch; the pages show it
+  // in place of "Create my free account" (signup is closed until doors open).
+  var FKEY = '127-founding';
+  K.saveFounding = function (j) {
+    try {
+      localStorage.setItem(FKEY, JSON.stringify({
+        link: j.referral_link, status: j.status_url, code: j.referral_code, existing: !!j.existing, confirmed: !!j.confirmed,
+        n: j.referrals_for_reward || 3, launchDate: j.launch_date || null, launchAt: j.launch_at || null,
+      }));
+    } catch (e) {}
+  };
+  K.founding = function () {
+    try {
+      var f = JSON.parse(localStorage.getItem(FKEY) || 'null');
+      if (!f || !f.link) return null;
+      if (f.launchAt && Date.now() >= f.launchAt) return null; // doors are open: signup works again
+      return f;
+    } catch (e) { return null; }
+  };
+  K.foundingCard = function (source) {
+    var f = K.founding();
+    if (!f) return '';
+    var short = String(f.link).replace(/^https?:\/\//, '');
+    return '<div class="card accent founding-card" style="margin-top:14px" data-source="' + K.esc(source || '') + '">' +
+      '<div class="label lilac">Founding list</div>' +
+      '<h3 class="h3" style="margin:10px 0 8px">' + (f.existing ? 'You\'re already on the founding list.' : 'You\'re on the founding list.') + '</h3>' +
+      '<p class="fog small" style="margin:0 0 14px">' +
+        (f.confirmed ? 'Your spot is confirmed.' : 'Check your email and tap Confirm so your invite link counts.') +
+        (f.launchDate ? ' Doors open ' + K.esc(f.launchDate) + '.' : '') +
+        ' When ' + f.n + ' friends join with your link and confirm, your first month is free.</p>' +
+      '<div class="label" style="margin-bottom:8px">Your invite link</div>' +
+      '<div class="mono small" style="padding:12px 14px;border:1px solid var(--c-line);border-radius:12px;word-break:break-all;margin-bottom:12px">' + K.esc(short) + '</div>' +
+      '<div class="row" style="gap:10px">' +
+        '<button class="btn block" type="button" data-founding="share">Share my invite link</button>' +
+        '<a class="btn ghost block" href="' + K.esc(f.status) + '" data-founding="status">See my spot</a>' +
+      '</div></div>';
+  };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-founding]');
+    if (!b) return;
+    var f = K.founding(); if (!f) return;
+    var card = b.closest('.founding-card'), source = card ? card.getAttribute('data-source') : '';
+    if (b.getAttribute('data-founding') === 'status') { K.track('Founding Status Click', { source: source }); return; }
+    var text = 'I just got on the founding list for 127, a 30-day roadmap to start your first business. Join with my link: ' + f.link;
+    K.track('Referral Share', { source: source, channel: navigator.share ? 'native' : 'copy' });
+    if (navigator.share) { navigator.share({ title: '127', text: text, url: f.link }).catch(function () {}); return; }
+    K.copy(f.link);
+  });
 
   K.savedEmail = function () { try { return localStorage.getItem('127-lead-email') || ''; } catch (e) { return ''; } };
 
