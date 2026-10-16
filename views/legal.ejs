@@ -2,6 +2,7 @@
 <main class="wrap doc" style="padding:80px 24px">
   <div class="eyebrow">127 Group LLC</div>
   <% if (kind === 'membership') { %>
+  <% if (process.env.MEMBERSHIP_TERMS_LIVE !== 'true') { %><div class="alert info" style="margin-bottom:24px">Draft for review. These terms are not in effect yet.</div><% } %>
   <%- include('partials/membership-terms') %>
   <% } else { %>
   <h1><%= kind === 'privacy' ? 'Privacy' : 'Terms' %></h1>
