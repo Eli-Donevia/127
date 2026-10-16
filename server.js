@@ -1088,6 +1088,11 @@ app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
         kind: 'upgrade', plan: 'circle', at: new Date().toISOString(), box: true,
         terms_version: billing.TERMS_VERSION, disclosure_version: 'circle-a3-2026-10-16', ip_hash: security.hash(security.ip(req)),
       }].slice(-50);
+      // lib/billing-records.js keeps this field.
+      req.user.checkoutConsent = {
+        at: new Date().toISOString(), version: billing.TERMS_VERSION, plan: 'circle',
+        text: `I agree to the Founder's Circle Member Agreement and the Membership Terms, and I understand the Circle renews automatically every month at $${PLANS.circle.price} plus tax until I cancel.`,
+      };
       await db.save('users', req.user);
     }
   }
