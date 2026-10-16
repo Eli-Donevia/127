@@ -75,6 +75,12 @@ app.use(
 const bySlug = Object.fromEntries(resources.map((r) => [r.slug, r]));
 const TRACK_NAMES = { start: 'Start', build: 'Build', grow: 'Grow' };
 
+// The "Last updated" date on the legal pages: the day the site was published (LEGAL_EFFECTIVE_DATE, YYYY-MM-DD).
+function legalEffectiveDate() {
+  const raw = /^\d{4}-\d{2}-\d{2}$/.test(process.env.LEGAL_EFFECTIVE_DATE || '') ? process.env.LEGAL_EFFECTIVE_DATE : '2026-10-16';
+  return new Date(raw + 'T12:00:00Z').toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 function currentUser(req) {
   return req.session && req.session.uid ? db.get('users', req.session.uid) : null;
 }
@@ -159,6 +165,7 @@ app.use((req, res, next) => {
   res.locals.devVerifyLink = !PROD && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
   res.locals.consentCopy = consent.copy;
+  res.locals.legalEffectiveDate = legalEffectiveDate();
   res.locals.adConsentScript = adConsent.configScript(req);
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;

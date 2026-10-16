@@ -39,6 +39,8 @@ function escape(s) {
 // Links are limited to site paths, anchors, https and mailto.
 function inline(text) {
   let s = escape(text);
+  // The page's date is filled when it renders (LEGAL_EFFECTIVE_DATE, the publish day), so no bracket ships.
+  s = s.replace(/\[EFFECTIVE DATE\]/g, '<%= legalEffectiveDate %>');
   s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, label, href) =>
     /^(\/|#|https:\/\/|mailto:)/.test(href) ? `<a href="${href}">${label}</a>` : label
   );
