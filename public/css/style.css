@@ -767,6 +767,8 @@ h2.grad, h2 .grad, .section-head h2 .grad{background:none;-webkit-text-fill-colo
 .ticker-track{display:flex;width:max-content;animation:tick 48s linear infinite}
 .ticker span{font-size:14px;color:var(--ink-2);white-space:nowrap;padding:0 28px;position:relative}
 .ticker span::after{content:'';position:absolute;right:-3px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--muted);transform:translateY(-50%)}
+.ticker-note{margin:14px auto 0;padding:0 16px;max-width:1100px;font-size:13px;line-height:1.45;color:var(--ink-2);text-align:center}
+.ticker-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @keyframes tick{to{transform:translateX(-50%)}}
 
 /* the hook */

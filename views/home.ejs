@@ -28,8 +28,17 @@
   var wallB = ['eli-headphones', 'eli-award-night', 'hotel-desk', 'eli-popup-02', 'bible-open', 'eli-stockroom-square'];
   var wallC = ['eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'desk-flatlay', 'still-timer', 'eli-headphones'];
   var reel = ['eli-stage-full', 'eli-popup-01', 'desk-overhead', 'eli-stockroom-square', 'eli-award-night', 'eli-hotel-corner', 'eli-gym-portrait', 'eli-popup-02', 'still-timer', 'hotel-desk', 'eli-headphones'];
-  // Ticker (section 7.4): brand/voice-and-messaging.md section 7, word for word. No dollar figures here.
-  var proof = ['2x founder (e-commerce and technology)', '25M+ views across social', '100K+ followers built', 'Spoke on stage at Finovate Fall', 'Won the fintech category at Best of the Midwest (Iowa Startup Week); 1 of 5 pitch finalists at a Detroit conference', 'Received a "Most Improved" award', 'Built an ambassador network of 100+ creators; worked with pro and college athletes'];
+  // Ticker: Eli's credentials as he set them (Oct 16), worded per Legal L49 (legal/handoffs/eli-credentials.md).
+  // The valuation is a money figure, so the static earnings line sits under the ticker (compliance-review C13).
+  var proof = [
+    'Top 3 of 6,000+ sales agents',
+    '4x founder',
+    '$1M+ fintech startup valuation',
+    'AI, software & e-commerce founder',
+    '25M+ views across social',
+    '100K+ followers built',
+    'Fintech category winner at Best of the Midwest (Iowa Startup Week)'
+  ];
 -%>
 <%- include('partials/head', { hbState: st === 'C' ? null : st }) %>
 <main class="v4" data-state="<%= st %>">
@@ -63,6 +72,7 @@
     </div>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
+      <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
   </section>
 
