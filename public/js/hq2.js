@@ -334,6 +334,7 @@
     var text = ta ? ta.value : '';
     var href = go.getAttribute('href');
     if (/^mailto:/i.test(href)) go.setAttribute('href', mailto(href, ($('[data-subject]', card) || {}).textContent, text));
+    if (/^sms:/i.test(href)) go.setAttribute('href', href.split('?')[0] + '?&body=' + encodeURIComponent(text));
     if (go.getAttribute('data-clip') === '1' && text) copyText(text).then(function () { say('Copied. Paste it in, send it, then tap Sent.'); });
     var sent = $('form[data-qact="sent"] button', card);
     if (sent) sent.classList.add('btn', 'sm');

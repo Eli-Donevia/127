@@ -3,7 +3,7 @@
     still holds a [placeholder] can't be copied or opened until it's filled in. %>
 <% var KIND = { reply: 'Replied', call: 'Call booked', follow: 'Follow-up', new: 'New' };
    var first = it.ways[0];
-   var GO = { ig: 'Copy and open Instagram', email: 'Open in email', fb: 'Copy and open Messenger', site: 'Copy and open their site', call: 'Call' };
+   var GO = { ig: 'Copy and open Instagram', email: 'Open in email', fb: 'Copy and open Messenger', site: 'Copy and open their site', call: 'Call', sms: 'Open in Messages' };
    var written = !!it.text && !(it.kind === 'reply' && !it.text); %>
 <article class="h2-q k-<%= it.kind %>" id="q-<%= it.id %>" data-q="<%= it.id %>" data-kind="<%= it.kind %>">
   <div class="h2-q-top">

@@ -699,6 +699,33 @@ test('the pipeline never moves a lead backwards', async () => {
   assert.equal(pipeline.counts(user.id).contacted, 1);
 });
 
+test("another pack's tool moves a lead forward by id, so a booked person stays one row; never back or out of won", async () => {
+  const todayLib = require('../lib/harness/today');
+  const user = await member('builder');
+  const sarah = await pipeline.upsert(user.id, 'warm', { key: 'person:5155550100', name: 'Sarah', warm: true, links: { phone: '515-555-0100' } });
+  const before = todayLib.hundred(user).today;
+  let l = await pipeline.update(user.id, sarah.id, { stage: 'contacted', note: 'Texted about a deep clean.' });
+  assert.equal(l.stage, 'contacted');
+  assert.equal(l.touches, 1, 'the first message counts');
+  assert.ok(l.nextAt, 'and its follow-up is dated');
+  assert.equal(todayLib.hundred(user).today, before + 1, "toward today's number");
+  l = await pipeline.update(user.id, sarah.id, { stage: 'found' });
+  assert.equal(l.stage, 'contacted', 'never back');
+  l = await pipeline.update(user.id, sarah.id, { stage: 'won' });
+  assert.equal(l.stage, 'won');
+  assert.equal(l.nextAt, null, 'no follow-ups once won');
+  assert.equal(l.pack, 'warm', "still the warm pack's row");
+  assert.equal(pipeline.list(user.id).length, 1);
+  l = await pipeline.update(user.id, sarah.id, { stage: 'lost' });
+  assert.equal(l.stage, 'won', 'a tool never moves a lead out of won');
+  assert.equal((await pipeline.upsert(user.id, 'warm', { key: 'person:5155550100', stage: 'lost' })).stage, 'won', 'nor does an upsert');
+  // A booking beats an old no; a re-run's "found" never revives one.
+  const tom = await pipeline.upsert(user.id, 'warm', { key: 'person:tom', name: 'Tom', warm: true, stage: 'lost' });
+  assert.equal((await pipeline.update(user.id, tom.id, { stage: 'contacted' })).stage, 'lost');
+  assert.equal((await pipeline.update(user.id, tom.id, { stage: 'won' })).stage, 'won');
+  assert.equal(await pipeline.update(user.id, 'nope', { stage: 'won' }), null);
+});
+
 test("a reply a pack logs is dated, a pack can mark the member's answer sent, and messages keep their lines", async () => {
   const todayLib = require('../lib/harness/today');
   pipeline._setDeps({ now: () => now });

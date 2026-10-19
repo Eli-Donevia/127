@@ -758,6 +758,38 @@ test('every email Do my day hands out says who it is from, a mailing address and
   assert.doesNotMatch(P.get(u.id, c.id).msg.email, /PO Box/);
 });
 
+test('someone the member knows gets a text first, from their own phone; a stranger never gets one', async () => {
+  const u = await member('builder', { name: 'Rae Okafor' });
+  const way = (it, id) => it.ways.find((w) => w.id === id);
+  const item = (name) => todayLib.queue(u).items.find((i) => i.name === name);
+  const hi = "Hey Sarah, it's Rae! I just started a cleaning business. Know anyone who needs a hand?";
+  // The warm pack says channel 'call' for anyone with a phone.
+  const sarah = await P.upsert(u.id, 'warm', { key: 'person:5155550100', name: 'Sarah', warm: true, score: 90, channel: 'call', links: { phone: '(515) 555-0100', email: 'sarah@example.test' }, msg: { dm: hi, email: `${hi}\n\nRae`, follow1: 'No pressure at all, just thought of you.' } });
+  await P.upsert(u.id, 'warm', { key: 'person:pat', name: 'Pat', warm: true, score: 80, channel: 'email', links: { phone: '515 555 0101', email: 'pat@example.test' }, msg: { dm: 'Hi Pat!', subject: 'Hi', email: 'Hi Pat,\n\nQuick hello.' } });
+  await P.upsert(u.id, 'test', { key: 'echo', name: 'Echo Gym', score: 70, channel: 'sms', links: { phone: '515 555 0102' }, msg: { dm: 'Hi Echo Gym.', walkin: 'Hi, I am Rae.' } });
+
+  let S = item('Sarah');
+  assert.deepEqual(S.ways.map((w) => w.id), ['sms', 'email', 'call'], 'the text first, the call a tap away');
+  assert.equal(S.text, hi, 'a text carries no email footer');
+  assert.equal(way(S, 'sms').href, `sms:5155550100?&body=${encodeURIComponent(hi)}`);
+  assert.match(way(S, 'email').text, /Not interested\? Reply "no thanks"/, 'her email still does (Legal L55)');
+  assert.equal(item('Pat').ways[0].id, 'email', "a pack's own channel other than the phone still goes first");
+  assert.ok(way(item('Pat'), 'sms'));
+  assert.deepEqual(item('Echo Gym').ways.map((w) => w.id), ['call'], 'no text to a stranger, whatever the pack says');
+  const page = await html(await s.go('/app/hq', { as: u }));
+  assert.match(page, /data-way="sms"[^>]*data-go-label="Open in Messages">Text<\/button>/);
+  assert.match(page, /data-go href="sms:5155550100\?&amp;body=Hey%20Sarah/);
+
+  // Sent by text, it counts as a warm send, and the follow-up goes by text too.
+  await s.go(`/app/hq/queue/${sarah.id}/sent`, { as: u, json: {} });
+  assert.equal(todayLib.hundred(u).counts.warm, 1);
+  now += 3 * DAY;
+  S = item('Sarah');
+  assert.equal(S.kind, 'follow');
+  assert.equal(S.ways[0].id, 'sms');
+  assert.equal(S.text, 'No pressure at all, just thought of you.');
+});
+
 test('a win: the card, its consent record, the Circle once ever, and only shared wins reach the proof library', async () => {
   const u = await member('builder', { name: 'Rae Okafor' });
   const other = await member();

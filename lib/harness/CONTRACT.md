@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.4)
+# How a workflow plugs into the 127 harness (contract v1.5)
 
-Owner: Harness v2 thread. Version 1.4, 2026-10-19 (v1 to v1.3 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.5, 2026-10-19 (v1 to v1.4 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -9,6 +9,11 @@ The idea in one line: a **pack** is one folder of plain Node code that gives the
 Code: CommonJS, Node 20, no new npm packages without telling the Harness thread (system tools like `ffmpeg` are declared, see 7).
 
 ## 0. What changed since v1
+
+**In v1.5** (nothing breaks):
+
+- **Moving another pack's lead:** `ctx.leads.update(id, { stage })` moves any of the member's leads forward, like `upsert`, so a business pack that books someone another pack found keeps them one row in the Pipeline. A tool never moves a lead back or out of `won`; `lost` to `won` is allowed, since a booking beats an old no. `upsert` follows the same rule now (section 13).
+- **Texts for people the member knows:** a `warm` lead with a phone gets a Text way first in Do my day, with `msg.dm` and no email footer, and Call a tap away. `channel: 'call'` (or none) on a warm lead means the text; `channel: 'sms'` says so outright; another `channel` still goes first. Someone new never gets a text (section 13).
 
 **In v1.4** (nothing breaks; one new line for a business pack):
 
@@ -241,9 +246,9 @@ Every field can be missing; check before use. `address` is the member's mailing 
 | `await ctx.save(name, data, { type })` | Saves a file to the member's Library (section 12). Returns `{ id, url, name, type, bytes }`; put that object in your output. |
 | `await ctx.asset(id)` | A Library file (a file input's value, or one you saved): `{ id, name, type, bytes, path }`, copied to a temp path deleted after the call. |
 | `ctx.tmpdir()` | A private scratch folder for this call, deleted after it. |
-| `await ctx.leads.upsert(lead)` | Adds or updates a lead in the member's Pipeline (section 13). `key` is yours; the same key updates the same lead, and an upsert never moves a lead backwards. |
+| `await ctx.leads.upsert(lead)` | Adds or updates a lead in the member's Pipeline (section 13). `key` is yours; the same key updates the same lead, and an upsert only moves a lead forward (section 13). |
 | `await ctx.leads.list({ stage, limit, all })` | This pack's leads, newest first (`limit` default 500, max 2,000); `all: true` for the whole Pipeline (follow-ups across packs). |
-| `await ctx.leads.get(id)` / `update(id, patch)` | Any of the member's leads by id; `update` fills in `msg`, `facts`, `score`, `channel`, `reply`, `week` and `note`, never the stage. |
+| `await ctx.leads.get(id)` / `update(id, patch)` | Any of the member's leads by id; `update` fills in `msg`, `facts`, `score`, `channel`, `reply`, `week` and `note`, and moves `stage` forward like `upsert`. |
 | `await ctx.remember(key, value)` | Section 6b. |
 | `ctx.cache` | `await get(key)`, `await set(key, value, hours)`: shared by all members, for public data only (a gym's public stats), so 20 members in one city don't pay twice. Never member data. |
 | `ctx.log(text)` | One line in the run's timeline the member sees ("Found 41 gyms within 10 miles"). |
@@ -319,8 +324,8 @@ A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and 
 
 A lead is `{ key, name, company, source, stage, links, note, data, warm, score, channel, facts, msg, reply, sentAt, repliedAt, answered, answeredAt, week }`:
 
-- `stage`: `found`, `contacted`, `replied`, `call`, `won`, `lost`. `links`: `website`, `instagram`, `tiktok`, `youtube`, `facebook`, `linkedin`, `maps` (https), `email`, `phone`. `data`: anything of yours, up to 8 KB.
-- `score` (0 to 100): best first in Do my day. `channel`: `ig`, `email`, `fb`, `site` or `call`, where the first message goes. `facts`: up to 5 one-line reasons the message cites ("They post every day but have no Reels"). `warm`: someone the member knows.
+- `stage`: `found`, `contacted`, `replied`, `call`, `won`, `lost`. A tool moves a lead forward only, with `upsert` or `update`: never back and never out of `won`, while `lost` to `won` is allowed. A first message (to `contacted`) counts toward the member's daily number, and a lead moved past `contacted` gets no more follow-ups. The member moves leads anywhere from the Pipeline. `links`: `website`, `instagram`, `tiktok`, `youtube`, `facebook`, `linkedin`, `maps` (https), `email`, `phone`. `data`: anything of yours, up to 8 KB.
+- `score` (0 to 100): best first in Do my day. `channel`: `ig`, `email`, `fb`, `site`, `call` or `sms`, where the first message goes. `facts`: up to 5 one-line reasons the message cites ("They post every day but have no Reels"). `warm`: someone the member knows. With a phone, Do my day offers them a text first (`sms:` with `msg.dm`, or the follow-up or answer, without the email footer), sent from the member's own phone; someone new is never offered a text.
 - `msg`: the messages, already written: `dm`, `subject`, `email`, `walkin`, `follow1`, `follow2`, and `answer` (a reply to their reply). Do my day hands these out ready to send, with one tap opening Instagram, Gmail or the phone. Keep `[placeholders]` out, or the member has to fill them before the buttons work (the address placeholder below and `[business name]` are the exceptions). Line breaks are kept.
 - **Emails** (US CAN-SPAM, Legal L55): every email Do my day hands out, first messages, follow-ups and answers alike, ends with the member's first name, their business, a mailing address and a "no thanks" line (`Not interested? Reply "no thanks" and I won't email again.`). HQ adds whatever's missing on the Email and website versions and takes those lines off the Instagram, Facebook and call versions, so write `follow1`, `follow2` and `answer` once, signed with the first name or not signed. If you write the footer yourself, put `[Your business address, required in marketing email]` where the address goes: HQ swaps in the address the member saved in Your business, and until there is one the placeholder keeps Copy off and links to where to save it.
 - `sentAt`: a lead that arrives already contacted gets its first follow-up 3 days after this (then 4 days after the second message; none after the third).
