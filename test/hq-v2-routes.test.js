@@ -1469,6 +1469,149 @@ test('a member types their city once: the first run that asks saves it to Your b
   }
 });
 
+// ---------- a search of real businesses: First 25's Terms line (Legal L53, L66) ----------
+
+const OSM_LINE = 'Business info from OpenStreetMap. By searching, you agree to our {terms}.';
+const AG = {
+  id: 'tag',
+  title: 'Terms line tests',
+  version: '1.0.0',
+  summary: 'Searches of real businesses.',
+  tools: [
+    {
+      // Like gym.find_gyms: its own line is OpenStreetMap's, so the member reads it once.
+      name: 'tag.find', title: 'Find shops', description: 'Finds shops near you.', kind: 'api', risk: 'read', credits: 1, wants: ['osm'],
+      agree: { text: OSM_LINE, href: '/terms#13b-first-25', when: 'osm' },
+      input: obj({ city: { type: 'string' } }), output: obj({ n: { type: 'integer' } }),
+      run: async (input, ctx) => ({ n: ctx.secret('osm') ? 25 : 3 }),
+    },
+    { name: 'tag.more', title: 'Find more', description: 'Finds more on Google Maps or OpenStreetMap.', kind: 'api', risk: 'read', credits: 1, wants: ['places', 'osm'], input: obj({}), output: obj({ n: { type: 'integer' } }), run: async () => ({ n: 1 }) },
+    { name: 'tag.odd', title: 'Odd line', description: 'Has a line of its own.', kind: 'code', risk: 'read', credits: 0, agree: { text: 'Odd <b>data</b> & more. See our {terms}.', href: '/terms#odd' }, input: obj({}), output: obj({ n: { type: 'integer' } }), run: async () => ({ n: 0 }) },
+  ],
+  workflows: [
+    { id: 'tag.search', title: 'Shops near you', promise: 'Shops near you.', minutes: 2, tier: 'free', suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' }, inputs: obj({ city: { type: 'string', title: 'Your city' } }), steps: [{ id: 'find', tool: 'tag.find', input: { city: '$inputs.city' } }, { id: 'more', tool: 'tag.more' }], result: ['find'] },
+    { id: 'tag.odd', title: 'Odd one', promise: 'An odd line.', minutes: 1, tier: 'free', inputs: obj({}, []), steps: [{ id: 'odd', tool: 'tag.odd' }], result: ['odd'] },
+    { id: 'tag.later', title: 'Shops after an OK', promise: 'Asks first, then finds shops.', minutes: 2, tier: 'free', inputs: obj({ city: { type: 'string', title: 'Your city' } }), steps: [{ id: 'ok', approve: { title: 'Look for shops?' } }, { id: 'find', tool: 'tag.find', input: { city: '$inputs.city' } }], result: ['find'] },
+  ],
+};
+
+test("a search of real businesses shows First 25's Terms line under Run it, and starts only once it's been read", async () => {
+  const r0 = packs.registerAll([{ pack: AG, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const ENV = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'GOOGLE_PLACES_API_KEY', 'PLACES_API_KEY', 'GOOGLE_PLACES_KEY'];
+  const was = Object.fromEntries(ENV.map((k) => [k, process.env[k]]));
+  const reps = harness.schedules;
+  reps._setDeps({ now: () => now });
+  const mcp = require('../lib/harness/mcp');
+  const lines = (page) => (page.match(/<p class="hq-small h2-agree">/g) || []).length;
+  try {
+    for (const k of ENV) delete process.env[k];
+    // Map servers off: the search shows sample businesses, so there's no line and nothing to agree to.
+    const u = await member();
+    assert.equal(lines(await html(await s.go('/app/hq/w/tag.search', { as: u }))), 0);
+    let run = await engine.start(u, 'tag.search', { city: 'Ames' });
+    assert.equal(run.agreed, undefined);
+    await engine.idle();
+    // A member who set up a repeat back then, and a run waiting on its member's OK before it searches.
+    const v = await member();
+    run = await engine.start(v, 'tag.search', { city: 'Ames' });
+    await engine.idle();
+    await reps.create(v, engine.get(v, run.id));
+    const waiting = await engine.start(v, 'tag.later', { city: 'Ames' });
+    await engine.idle();
+    assert.equal(engine.get(v, waiting.id).status, 'waiting');
+
+    // Map servers on: OpenStreetMap's line, once, right under the button, with Terms linked to Section 13B.
+    process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search';
+    const [line, ...extra] = engine.agreeLines(packs.workflow('tag.search'));
+    assert.deepEqual(extra, []);
+    assert.deepEqual({ text: line.text, href: line.href }, { text: OSM_LINE, href: '/terms#13b-first-25' });
+    let page = await html(await s.go('/app/hq/w/tag.search?in_city=Ames', { as: u }));
+    assert.equal(lines(page), 1);
+    assert.match(page, new RegExp(`Run it <span class="arrow"></span></button>\\s*<input type="hidden" name="agree" value="${line.key}">\\s*<p class="hq-small h2-agree">Business info from OpenStreetMap\\. By searching, you agree to our <a href="/terms#13b-first-25">Terms</a>\\.</p>`));
+    // First 25 says the same words under its own search button.
+    assert.ok(fs.readFileSync(path.join(__dirname, '..', 'public', 'funnels', 'first25-data.js'), 'utf8').includes(`osm: '${OSM_LINE}'`));
+    // So does the gym pack's search (Gym G65), once.
+    assert.deepEqual(packs.registerAll([{ pack: require('../lib/packs/gym'), source: 'test' }]).refused, []);
+    assert.deepEqual(engine.agreeLines(packs.workflow('gym.first_clients')).map((l) => l.key), [line.key]);
+    assert.equal(lines(await html(await s.go('/app/hq/w/gym.first_clients', { as: u }))), 1);
+
+    // The run that started before them stops at its search instead of searching for real.
+    await engine.answer(v, waiting.id, 'ok', { approved: true });
+    await engine.idle();
+    assert.equal(engine.get(v, waiting.id).status, 'failed');
+    assert.equal(engine.view(engine.get(v, waiting.id)).steps.find((x) => x.id === 'find').error, 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.');
+
+    // Sent without the line (the page was open before the servers went on): back to the page with their answers.
+    let res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames' } });
+    assert.equal(where(res), '/app/hq/w/tag.search?in_city=Ames');
+    assert.ok(flashes.some((f) => f.type === 'error' && f.text === 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.'));
+    // With it: the run keeps the line the member read.
+    res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames', agree: line.key } });
+    assert.match(where(res), /^\/app\/hq\/runs\/[\w-]+$/);
+    run = engine.get(u, where(res).split('/').pop());
+    assert.deepEqual(run.agreed, [{ key: line.key, text: OSM_LINE, href: '/terms#13b-first-25' }]);
+    await engine.idle();
+    assert.equal(engine.get(u, run.id).steps.find.output.n, 25, 'it searched for real');
+    // An admin's sample run searches nothing, so it needs no line.
+    process.env.ADMIN_EMAILS = u.email;
+    res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames', sample: '1' } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    delete process.env.ADMIN_EMAILS;
+    await engine.idle();
+
+    // Google on too: a step that may use either source shows both lines.
+    process.env.PLACES_API_KEY = 'test-key';
+    page = await html(await s.go('/app/hq/w/tag.search', { as: u }));
+    assert.equal(lines(page), 2);
+    assert.match(page, /<p class="hq-small h2-agree">Business info from Google Maps\. By searching, you agree to our <a href="\/terms#13b-first-25">Terms<\/a>, including Google Maps&#39; terms\.<\/p>/);
+    delete process.env.PLACES_API_KEY;
+
+    // A pack's own line is escaped, with only {terms} turned into the link.
+    page = await html(await s.go('/app/hq/w/tag.odd', { as: u }));
+    assert.match(page, /<p class="hq-small h2-agree">Odd &lt;b&gt;data&lt;\/b&gt; &amp; more\. See our <a href="\/terms#odd">Terms<\/a>\.<\/p>/);
+
+    // The AI link sends the member to HQ to start it, with their answers filled in, and starts nothing.
+    const before = engine.list(u).length;
+    const listed = (await mcp.call(u, 'list_workflows', { query: 'shops' }, { base: 'https://127.test' })).content[0].text;
+    assert.match(listed, /tag\.search: Shops near you\..* Starts in HQ: it searches real businesses, and the member reads a Terms line under Run it there\./);
+    const said = (await mcp.call(u, 'start_workflow', { workflow: 'tag.search', inputs: { city: 'Des Moines', nope: 'x' } }, { base: 'https://127.test' })).content[0].text;
+    assert.match(said, /Nothing started\. Give them this link, with their answers filled in: https:\/\/127\.test\/app\/hq\/w\/tag\.search\?in_city=Des\+Moines$/);
+    assert.equal(engine.list(u).length, before);
+
+    // The repeat set up before the servers went on waits until its member has read the line in HQ.
+    now = Date.parse('2026-11-09T13:30:00Z');
+    const only = (x) => x.id === v.id;
+    assert.deepEqual(await reps.sweep({ enabledFor: only, start: engine.start }), []);
+    assert.match(await html(await s.go('/app/hq/runs', { as: v })), /Every Monday at 7am · This workflow now searches real businesses\. Run it from its page in HQ, and read the line under Run it first\./);
+    res = await s.go('/app/hq/w/tag.search/run', { as: v, form: { in_city: 'Ames', agree: line.key } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    await engine.idle();
+    now = Date.parse('2026-11-16T13:30:00Z');
+    const ids = await reps.sweep({ enabledFor: only, start: engine.start });
+    assert.equal(ids.length, 1);
+    assert.deepEqual(engine.get(v, ids[0]).agreed.map((l) => l.key), [line.key]);
+    await engine.idle();
+
+    // A pack's line has to be text with a page on 127's site, tied to a source the tool uses.
+    const check = (agree) => packs.checkPack({ id: 'tbad', title: 'Bad', version: '1', tools: [{ ...AG.tools[0], name: 'tbad.find', agree }] }, () => null).join('\n');
+    assert.equal(check(AG.tools[0].agree), '');
+    assert.match(check({ text: '' }), /agree needs a text of up to 300 characters/);
+    assert.match(check({ text: 'See our {terms}.' }), /agree\.text has \{terms\}, so it needs an href/);
+    assert.match(check({ text: 'See our {terms}.', href: 'https://evil.example/terms' }), /agree\.href must be a page on 127's site/);
+    assert.match(check({ text: 'See our {terms}.', href: '//evil.example/terms' }), /agree\.href must be a page on 127's site/);
+    assert.match(check({ text: 'Data from Google.', when: 'places' }), /agree\.when must be one of the tool's needs or wants/);
+  } finally {
+    for (const [k, val] of Object.entries(was)) {
+      if (val === undefined) delete process.env[k];
+      else process.env[k] = val;
+    }
+    reps._setDeps({ now: () => Date.now() });
+    unregister(['tag', 'gym']);
+  }
+});
+
 // ---------- the next price ----------
 
 test('the next price: free case studies, then half, three quarters and full, per client only', async () => {

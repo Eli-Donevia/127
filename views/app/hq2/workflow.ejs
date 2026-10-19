@@ -63,6 +63,11 @@
         </div>
         <% if (canRun) { %>
           <button class="btn block"><%= wf.freeRun ? 'Run it free' : 'Run it' %> <span class="arrow"></span></button>
+          <%# A search of real businesses names its source and Terms Section 13B right under the button, as First 25 does (Legal L53, L66). %>
+          <% wf.agree.forEach(function (a) { %>
+          <input type="hidden" name="agree" value="<%= a.key %>">
+          <p class="hq-small h2-agree"><% a.text.split('{terms}').forEach(function (part, i) { %><% if (i) { %><a href="<%= a.href %>">Terms</a><% } %><%= part %><% }) %></p>
+          <% }) %>
           <p class="hq-small"><%= wf.freeRun ? 'Your one free Builder run. No card needed.' : 'About ' + wf.credits + ' credits. You have ' + wf.usage.left.toLocaleString('en-US') + ' left this month.' %></p>
           <% if (isAdmin) { %><button class="hq-link-btn" name="sample" value="1">Run with sample data (admin, for the example)</button><% } %>
         <% } else { %>
