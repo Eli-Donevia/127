@@ -7,7 +7,6 @@
   var bar = document.getElementById('bar');
   var state = { step: -1, answers: {} };
   var busy = false;
-  var weeks = 4; // roadmap length, updated from the week-1 preview
 
   // Steps: core questions, a week-1 preview, fine-tuning questions, then the account form.
   var steps = [];
@@ -135,7 +134,6 @@
     x.onload = function () {
       var r; try { r = JSON.parse(x.responseText); } catch (e) { r = null; }
       if (!r || !r.week) { next(); return; }
-      if (r.weeks) weeks = r.weeks;
       var left = steps.slice(state.step + 1).filter(function (s) { return s.kind === 'q'; }).length;
       var html =
         '<div class="ob-section">Your roadmap · ' + esc(r.trackName) + ' track</div>' +
@@ -163,7 +161,7 @@
     el(
       '<div class="ob-section">Last step</div>' +
       '<h2 class="ob-q">Your roadmap is ready. Where should we save it?</h2>' +
-      '<p class="ob-hint">Create your free account to see all ' + weeks + ' weeks and track your progress.</p>' +
+      '<p class="ob-hint">Create your free account to open weeks 1 and 2 and track your progress.</p>' +
       (window.OB_ERROR ? '<div class="alert error">' + esc(window.OB_ERROR) + '</div>' : '') +
       '<form id="acct">' +
         '<label class="field"><span>First name</span><input class="input" name="name" autocomplete="given-name" required></label>' +

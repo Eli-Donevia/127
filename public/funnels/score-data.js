@@ -13,9 +13,9 @@ window.SCORE = {
       options: [
         { v: 'exploring', label: 'Exploring', sub: "I want to start something but haven't picked an idea" },
         { v: 'validating', label: 'Validating', sub: "I have an idea and I'm testing if people want it" },
-        { v: 'launched', label: 'Launched', sub: "I'm selling, under about $1k a month" },
-        { v: 'growing', label: 'Growing', sub: 'About $1k to $10k a month' },
-        { v: 'scaling', label: 'Scaling', sub: '$10k+ a month and it needs systems' },
+        { v: 'launched', label: 'Launched', sub: "I'm selling, but sales aren't steady yet" },
+        { v: 'growing', label: 'Growing', sub: 'My sales are steady and I want more' },
+        { v: 'scaling', label: 'Scaling', sub: 'My sales are steady and the business needs systems' },
       ],
     },
     {

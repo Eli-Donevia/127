@@ -37,7 +37,7 @@ function walk(dir, exts) {
 function siteFiles() {
   const views = walk(path.join(ROOT, 'views'), /\.ejs$/).filter((p) => !LEGAL.test(p.split(path.sep).join('/')));
   const pages = walk(path.join(ROOT, 'public', 'funnels'), /\.html$/);
-  return [...views, ...pages, path.join(ROOT, 'content', 'challenge.json'), ...[...EMAILS, ...TOOL_OUTPUT, 'lib/plans.js'].map((f) => path.join(ROOT, f))].filter((p) => fs.existsSync(p));
+  return [...views, ...pages, path.join(ROOT, 'content', 'challenge.json'), path.join(ROOT, 'content', 'onboarding.json'), ...[...EMAILS, ...TOOL_OUTPUT, 'lib/plans.js'].map((f) => path.join(ROOT, f))].filter((p) => fs.existsSync(p));
 }
 
 // Views carry the earnings line through the site footer (partials/foot.ejs includes partials/earnings-note.ejs).
