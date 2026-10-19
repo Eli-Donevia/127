@@ -844,6 +844,10 @@ test('Start with business types: pick one first, then your business leads and th
     assert.match(groups, /First gym clients/);
     assert.doesNotMatch(groups.slice(0, groups.indexOf('</section>')), /Your first 25/, 'no business type in the job groups');
     assert.equal(harness.businessTypes(fresh).filter((t) => t.mine).length, 0);
+    let move = harness.today(fresh).move;
+    assert.equal(move.kind, 'pick');
+    assert.equal(move.href, '/app/hq/start#types');
+    assert.match(harness.todayLib.say(fresh, harness.moveDeps), /Next: Pick your business\./);
 
     // Their own words fit one: it leads, in its own order, and the other folds at the end.
     const cleaner = await member();
@@ -861,6 +865,9 @@ test('Start with business types: pick one first, then your business leads and th
     assert.ok(list.findIndex((w) => w.id === 'tclean.first_25') < list.findIndex((w) => w.id === 'rt.flow'), 'their business before the tools');
     assert.ok(list.findIndex((w) => w.id === 'twalk.first_25') > list.findIndex((w) => w.id === 'rf.pick'), "another business's workflows last");
     assert.equal((await harness.ask(cleaner, 'dog walking first 25')).pick.id, 'twalk.first_25', 'the Ask bar still finds them');
+    move = harness.today(cleaner).move;
+    assert.equal(move.kind, 'leads');
+    assert.equal(move.href, '/app/hq/w/tclean.first_25', "Today's first 25 is their business's");
 
     // Picking one makes it theirs, over their words; a tool pack or nonsense changes nothing.
     let res = await s.go('/app/hq/start/business', { as: cleaner, form: { pack: 'twalk' } });
