@@ -472,6 +472,8 @@ test("the five's page: this week's numbers from HQ, the weekly video and pieces 
   const five = await html(await s.go('/app/founding-five', { as: u }));
   assert.match(five, /Can 127 use this clip in its posts, emails and website, with your first name\?/);
   assert.match(five, /Ava is one of the Founding Five: 127 gave them four group sessions with Eli for sharing their build\./);
+  // Legal's confirmed line, word for word (Oct 19).
+  assert.match(five, /To stop us using it, tap Stop using it here or email hello@127group\.io anytime\./);
   await s.go(`/app/founding-five/pieces/${piece.id}/yes`, { as: u, method: 'POST' });
   let p = ff.mine(u.id).pieces[0];
   assert.equal(p.status, 'yes');
@@ -482,6 +484,7 @@ test("the five's page: this week's numbers from HQ, the weekly video and pieces 
   p = ff.mine(u.id).pieces[0];
   assert.equal(p.status, 'stopped');
   assert.ok(p.stoppedAt);
+  assert.deepEqual(p.answers.map((x) => [x.yes, x.via || null, x.version]), [[true, null, ff.PIECE_OK.version], [false, 'tap', ff.PIECE_OK.version]], 'the stop sits next to the yes');
   assert.equal(told.length, 1);
   assert.doesNotMatch(told[0].text, /@/);
   // A stopped piece can't go back to yes.
@@ -492,12 +495,21 @@ test("the five's page: this week's numbers from HQ, the weekly video and pieces 
   const story = ff.mine(u.id).pieces[1];
   await s.go(`/admin/founding-five/${a.id}/pieces/${story.id}/stop`, { as: admin, method: 'POST' });
   assert.equal(ff.mine(u.id).pieces[1].status, 'stopped');
+  // An email works the same as a tap, and is kept the same way.
+  assert.deepEqual(ff.mine(u.id).pieces[1].answers, [{ yes: false, at: new Date(now).toISOString(), via: 'email' }]);
+  const sheet = await html(await s.go('/admin/founding-five', { as: admin }));
+  assert.match(sheet, /yes Dec 1, stopped Dec 1 in HQ, take it down by Dec 8/);
+  assert.match(sheet, /stopped Dec 1 by email, take it down by Dec 8/);
 
   const fp = memberOps.buildFeed().foundingFive.members.find((m) => m.userId === u.id).pieces;
   assert.equal(fp[0].status, 'stopped');
   assert.equal(fp[0].textVersion, ff.PIECE_OK.version);
   assert.ok(fp[0].stoppedAt);
   assert.equal(fp[1].textVersion, null);
+  assert.equal(fp[0].yesAt, new Date(now).toISOString());
+  assert.equal(fp[0].stoppedVia, 'tap');
+  assert.equal(fp[1].yesAt, null);
+  assert.equal(fp[1].stoppedVia, 'email');
 });
 
 test("the ops feed's foundingFive: no emails, ages, video files or links", async () => {

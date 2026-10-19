@@ -15,6 +15,8 @@
   var day = function (iso) { return iso ? new Date(iso).toLocaleDateString('en-US', { timeZone: ET, month: 'short', day: 'numeric' }) : ''; };
   var u5 = function (u) { return !u ? 'account deleted' : u.pause && !u.pause.endedAt ? 'paused' : !ff.onPlan(u) ? 'not on Builder now' : u.cancelAtPeriodEnd ? 'cancels ' + (day(u.cancelAt) || 'at period end') : ''; };
   var waitingAlts = real.filter(function (x) { return (x.a.mark === 'alt1' || x.a.mark === 'alt2') && x.a.decidedAt && !x.a.leftAt; }).sort(function (p, q) { return p.a.mark < q.a.mark ? -1 : 1; });
+  // A stop sits next to the yes it ends, with how it came in and the 7-day take-down date (Legal L63).
+  var stopSaid = function (p) { var y = (p.answers || []).filter(function (x) { return x.yes; }).pop(); var via = p.stoppedVia || (p.stoppedBy === 'member' ? 'tap' : 'email'); return (y ? 'yes ' + day(y.at) + ', ' : '') + 'stopped ' + day(p.stoppedAt) + (via === 'tap' ? ' in HQ' : ' by email') + ', take it down by ' + day(new Date(Date.parse(p.stoppedAt) + 7 * 864e5).toISOString()); };
 %>
 <div class="page-head">
   <div><div class="eyebrow">Founder view</div><h1>Founding Five</h1>
@@ -55,7 +57,7 @@
       <p class="small" style="margin:0 0 8px"><% wk.forEach(function (k, i) { var w = a.weeks[k]; %><%= i ? ' · ' : '' %>Week of <%= k.slice(5) %>: <%= w.savedAt ? w.sends + ' sent, ' + w.replies + ' replies, ' + w.calls + ' calls, ' + w.yeses + ' yeses' : 'numbers not saved' %><% if (w.video) { %>, <a class="link" href="/admin/founding-five/<%= a.id %>/video/w<%= k %>" target="_blank" rel="noopener">video</a><% } %><% }) %></p>
     <% } %>
     <% (a.pieces || []).forEach(function (p) { %>
-      <div class="small ff-row" style="padding:6px 0;border-top:1px solid var(--line)"><span><b style="font-weight:500"><%= p.title %></b> <span class="muted">· <%= p.kind %> · <%= { waiting: 'waiting for their OK', yes: 'yes ' + when(p.answeredAt), no: 'no', stopped: 'stopped ' + when(p.stoppedAt) }[p.status] %></span></span>
+      <div class="small ff-row" style="padding:6px 0;border-top:1px solid var(--line)"><span><b style="font-weight:500"><%= p.title %></b> <span class="muted">· <%= p.kind %> · <%= { waiting: 'waiting for their OK', yes: 'yes ' + when(p.answeredAt), no: 'no', stopped: stopSaid(p) }[p.status] %></span></span>
         <% if (p.status !== 'stopped') { %><form method="post" action="/admin/founding-five/<%= a.id %>/pieces/<%= p.id %>/stop" data-confirm="Mark it stopped? Nothing new may use it, and it comes down from 127's own accounts, website and emails within 7 days."><button class="link tiny ff-linkbtn">Stopped</button></form><% } %></div>
     <% }) %>
     <% if (!a.leftAt) { %>
