@@ -817,6 +817,56 @@ test('the OpenStreetMap servers are one need, ready only with both set', () => {
   }
 });
 
+test("outside services Legal hasn't cleared stay off with their key set, and /admin says why", async () => {
+  const needsLib = require('../lib/harness/needs');
+  const KEYS = { YOUTUBE_API_KEY: 'yt', PEXELS_API_KEY: 'px', ELEVENLABS_API_KEY: 'el', DEEPGRAM_API_KEY: 'dg', GEMINI_API_KEY: 'gm', HUNTER_API_KEY: 'hu' };
+  const was = Object.fromEntries(Object.keys(KEYS).map((k) => [k, process.env[k]]));
+  const obj = (properties) => ({ type: 'object', properties, required: [] });
+  const seen = [];
+  const LG = {
+    id: 'lg', title: 'Legal hold test', version: '1.0.0', summary: 'A tool that wants Pexels and needs Deepgram.',
+    tools: [{
+      name: 'lg.clip', title: 'Cut a clip', description: 'Cuts a clip.', kind: 'api', risk: 'read', needs: ['transcribe'], wants: ['pexels'], credits: 0,
+      input: obj({}), output: obj({ ok: { type: 'boolean' } }),
+      run: async (input, ctx) => (seen.push({ sample: ctx.sample, pexels: ctx.secret('pexels'), transcribe: ctx.secret('transcribe') }), { ok: true }),
+    }],
+    workflows: [{ id: 'lg.make', title: 'Cut a clip', promise: 'One clip.', tier: 'free', minutes: 1, inputs: obj({}), steps: [{ id: 'clip', tool: 'lg.clip', input: {} }] }],
+  };
+  assert.deepEqual(packs.register(LG).refused, []);
+  try {
+    Object.assign(process.env, KEYS);
+    for (const name of ['youtube', 'pexels', 'voice', 'transcribe', 'gemini', 'hunter']) {
+      assert.equal(needsLib.available(name), false, name);
+      assert.equal(needsLib.read(name), null, name);
+      const st = needsLib.status().find((x) => x.name === name);
+      assert.equal(st.ready, false, name);
+      assert.equal(st.keySet, true, name);
+      assert.match(st.held, /^Waits for Legal: not in the Privacy Policy yet/, name);
+    }
+    assert.match(needsLib.status().find((x) => x.name === 'gemini').held, /trains on what it is sent/);
+    assert.match(needsLib.status().find((x) => x.name === 'hunter').held, /beyond a business's own site/);
+    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['Pexels', true], ['ElevenLabs', true], ['Deepgram', true], ['Gemini', true], ['Hunter', true]]);
+    assert.equal(needsLib.held('places'), false, 'Google Places is under L53, not held');
+
+    // A tool that needs a held service runs as a sample and gets no key, even with every key set.
+    const user = await member('builder');
+    const run = await engine.start(user, 'lg.make', {});
+    await engine.idle();
+    assert.equal(engine.get(user, run.id).status, 'done');
+    assert.deepEqual(seen, [{ sample: true, pexels: null, transcribe: null }]);
+
+    // Eli sees the list on /admin's HQ v2 card.
+    const card = await require('ejs').renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), { hq2: { mode: 'admins', list: [], until: '2026-12-01', credits: 5000, allowances: {}, held: needsLib.heldList() } });
+    assert.match(card, /Waiting for Legal: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter\. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set\./);
+    assert.match(card, /Set now and ignored: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter\./);
+  } finally {
+    for (const [k, v] of Object.entries(was)) {
+      if (v === undefined) delete process.env[k];
+      else process.env[k] = v;
+    }
+  }
+});
+
 test('no key a server echoes reaches a step error, a log line or the server log (Tracestrack, LocationIQ, the Graph API)', async () => {
   const text = require('../lib/harness/text');
   const KEYS = ['trk9f8e7d6c5b4a39281706f5e4d3c2b1a0', 'pk.1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d', 'EAAGm0PX4ZCpsBAKZB1a2b3c4d5e6f7g8h9'];
