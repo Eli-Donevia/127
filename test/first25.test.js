@@ -500,6 +500,34 @@ test('every service gets a sample for #1, built only from what we found', () => 
   assert.match(MK.render(reel), /data-reel data-scene="0"[\s\S]+<span class="mk-logo">Lantern Gym<\/span><b>Come try a class\.<\/b>/);
 });
 
+test("a Google list's mock-up shows only the name and city, and says how to send it (Legal S24, L56)", () => {
+  global.window = { matchMedia: () => ({ matches: false }) };
+  delete require.cache[require.resolve('../public/funnels/first25-mock.js')];
+  require('../public/funnels/first25-mock.js');
+  const MK = global.window.F25MOCK;
+  delete global.window;
+  const real = { name: 'Lantern Gym', rating: 4.7, reviews: 112, address: '12 Main St, Ames', phone: '(515) 555-0100', instagram: 'lanternco' };
+  for (const pack of ['video', 'social', 'web', 'ai', 'email', 'photo']) {
+    const g = E.mock(real, pack, 'gyms', { me: 'Maya', city: 'Ames', source: 'google' });
+    assert.deepEqual([g.rating, g.reviews, g.address, g.phone, g.instagram], [null, null, '', '', ''], pack);
+    const html = MK.render(g);
+    assert.doesNotMatch(html, /★|Google reviews|Main St|555-|@lanternco/, `${pack}: nothing of Google's on it`);
+    assert.match(html, /Lantern Gym/);
+    assert.match(html, /Not their real/);
+    // OpenStreetMap and sample lists keep the facts we found.
+    assert.equal(E.mock(real, pack, 'gyms', { city: 'Ames', source: 'osm' }).phone, '(515) 555-0100');
+  }
+  // The screenshot keeps its mark, and the line to send with it is Legal's, with no name in it.
+  const site = E.mock(real, 'web', 'gyms', { me: 'Maya', city: 'Ames', source: 'google' });
+  assert.match(site.note, /^Screenshot it with the "Not their real website" line in view and send it with your message\./);
+  assert.equal(site.say, "I put together a quick mock-up of a new homepage for you, attached. It's just a mock-up, made only for you.");
+  assert.equal(E.mock(real, 'social', 'gyms', {}).say, "I put together a quick mock-up of your next 9 posts for you, attached. It's just a mock-up, made only for you.");
+  for (const pack of ['social', 'ai', 'email']) assert.match(E.mock(real, pack, 'gyms', {}).note, /line in view/);
+  // A reel is made from their own clips and a shot list is a plan, so neither is screenshotted.
+  assert.equal(E.mock(real, 'video', 'gyms', {}).say, '');
+  assert.equal(E.mock(real, 'photo', 'gyms', {}).say, '');
+});
+
 // ---------- niche doors ----------
 test('niche pages open on one service and buyer, and unknown ones go to the main page', async () => {
   for (const [id, n] of Object.entries(D.niches)) {

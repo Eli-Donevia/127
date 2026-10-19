@@ -197,6 +197,8 @@ body.f25-noscroll { overflow: hidden; }
 .f25-mock { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--c-line); }
 .f25-mock .h3 { font-size: 18px; margin: 8px 0 0; }
 .f25-mock-note { margin: 10px 0 0; font-size: 13.5px; color: var(--c-fog); line-height: 1.5; }
+.f25-say { margin-top: 12px; padding: 12px 14px; border: 1px solid var(--c-line); border-radius: 12px; }
+.f25-say p { margin: 6px 0 10px; font-size: 14px; line-height: 1.5; }
 .f25-spec .f25-mockbtn { margin-bottom: 16px; }
 .mk { position: relative; margin-top: 12px; border-radius: 14px; overflow: hidden; min-width: 0; background: var(--mk-bg); color: var(--mk-ink); border: 1px solid rgba(255,255,255,.12); text-align: left; }
 .mk-serif h5, .mk-serif .mk-nav b, .mk-serif .mk-ig-bio b, .mk-serif .mk-mail-body h5 { font-family: Georgia, 'Times New Roman', serif; font-weight: 600; letter-spacing: -.01em; }

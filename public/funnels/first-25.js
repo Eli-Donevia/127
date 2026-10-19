@@ -257,7 +257,7 @@
     if (!st.unlocked) {
       var gate = $('gateWrap');
       // The sample for #1 shows through the gate, blurred: the thing the email unlocks, with their name on it.
-      var top1 = run.prospects[0], m1 = M && top1 ? F.mock(top1, run.pack, run.buyer, { me: run.me, city: run.city, service: run.service }) : null;
+      var top1 = run.prospects[0], m1 = M && top1 ? F.mock(top1, run.pack, run.buyer, { me: run.me, city: run.city, service: run.service, source: run.source }) : null;
       var n = run.prospects.length;
       R.gate(gate, {
         magnet: 'first25',
@@ -378,13 +378,14 @@
   // [your name], [paste your link], [your price] and the rest stand out, so nobody sends one by mistake.
   function marked(t) { return esc(t).replace(/\[([a-z' ]{2,30})\]/g, '<span class="ph">[$1]</span>'); }
 
-  // The sample: a mockup made for this business (#1 right away, the rest on tap), then the steps to make it real.
+  // The mock-up made for this business (#1 right away, the rest on tap), then the steps to make the real one.
   function spec(b) {
-    var run = st.run, ctx = { me: run.me, city: run.city, service: run.service };
+    var run = st.run, ctx = { me: run.me, city: run.city, service: run.service, source: run.source };
     var sp = b.spec || F.spec(b, run.pack, run.buyer, ctx);
     var m = M ? F.mock(b, run.pack, run.buyer, ctx) : null;
     var made = m && (b.rank === 1 || st.mock[b.rank])
-      ? '<div class="f25-mock"><div class="label signal">Made for ' + esc(b.name) + '</div><h4 class="h3">' + esc(m.title) + '</h4>' + M.render(m) + '<p class="f25-mock-note">' + esc(m.note) + '</p></div>'
+      ? '<div class="f25-mock"><div class="label signal">Made for ' + esc(b.name) + '</div><h4 class="h3">' + esc(m.title) + '</h4>' + M.render(m) + '<p class="f25-mock-note">' + esc(m.note) + '</p>' +
+        (m.say ? '<div class="f25-say"><div class="label">' + esc(D.mock.sayLabel) + '</div><p>' + esc(m.say) + '</p><button type="button" class="btn ghost" data-copy-say="' + esc(m.say) + '">Copy</button></div>' : '') + '</div>'
       : m ? '<button type="button" class="btn ghost block f25-mockbtn" data-mock="' + b.rank + '">' + esc(D.mock.make) + '</button>' : '';
     return '<div class="card f25-spec" style="margin-top:14px;padding:16px">' + made +
       '<div class="label signal">' + (m ? 'Make it real' : 'Free sample · make it first') + '</div>' +
@@ -409,6 +410,12 @@
         var cur3 = box3.querySelector('[aria-selected="true"]').getAttribute('data-tab');
         K.copy(withAddr((b3.msg || {})[FOLLOW[cur3]] || ''));
         K.track('First25 Copy', { kind: cur3 + '_email', rank: b3.rank });
+        return;
+      }
+      var cs = e.target.closest('[data-copy-say]');
+      if (cs) {
+        K.copy(cs.getAttribute('data-copy-say'));
+        K.track('First25 Copy', { kind: 'mockup_line', rank: Number(cs.closest('[data-rank]').getAttribute('data-rank')) });
         return;
       }
       var cp = e.target.closest('[data-copy]');

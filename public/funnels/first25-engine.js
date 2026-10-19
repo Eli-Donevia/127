@@ -264,6 +264,9 @@
     var f = function (s) { return E.fill(s, v); };
     var pick = function (k) { return own[k] != null ? own[k] : base[k]; };
     var shots = own.shots || M.shots;
+    // Members screenshot it and send it, so a Google list's mock-up shows only the business's name and city:
+    // Google's rating, reviews, address and phone stay in the app (Legal S24, L56).
+    var listing = ctx.source !== 'google';
     return {
       kind: kind, biz: b.name, city: v.city, one: v.one, me: ctx.me || '', serif: !!own.serif,
       pal: pick('pal'), cta: f(pick('cta')), hero: f(pick('hero')), sub: f(pick('sub')),
@@ -273,11 +276,12 @@
       q: f(pick('q')), a: f(pick('a')),
       chat: { hi: f(M.chat.hi), yes: M.chat.yes, done: f(M.chat.done), online: M.chat.online, type: M.chat.type },
       email: { subject: f(M.email.subject), pre: f(M.email.pre), body: M.email.body.map(f), sign: f(M.email.sign), foot: f(M.email.foot) },
-      title: M.titles[kind], note: f(M.notes[kind]),
+      title: M.titles[kind], note: f(M.notes[kind]), say: M.what[kind] ? E.fill(M.say, { what: M.what[kind] }) : '',
       by: ctx.me ? E.fill(M.by, { me: ctx.me }) : M.byNone, notReal: E.fill(M.notReal, { surface: M.surface[kind] }),
-      // Real listing facts only.
-      rating: b.rating || null, reviews: b.reviews != null ? b.reviews : null, address: b.address || '', phone: b.phone || '',
-      instagram: b.instagram || ((b.site || {}).socials || {}).instagram || '',
+      // Real facts only, and none of Google's on a Google list.
+      rating: (listing && b.rating) || null, reviews: listing && b.reviews != null ? b.reviews : null,
+      address: (listing && b.address) || '', phone: (listing && b.phone) || '',
+      instagram: listing ? b.instagram || ((b.site || {}).socials || {}).instagram || '' : '',
     };
   };
 

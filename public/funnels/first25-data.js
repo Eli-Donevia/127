@@ -349,21 +349,26 @@
   // kinds: the mockup each service gets. Per buyer: colors [background, text, accent], the words on the
   // mock homepage, their next 9 posts, the reel's 3 lines and one chat question.
   // Never invented facts about the business: no reviews, offers, prices, years or awards.
-  // Only real listing data (name, city, rating, address, phone) is shown as fact.
+  // Only real facts are shown: the business's name and city, plus its rating, reviews, address and phone on
+  // OpenStreetMap and sample lists. Google lists show only the name and city (Legal S24, L56).
   var mock = {
     kinds: { video: 'reel', social: 'grid', web: 'site', ai: 'chat', email: 'email', photo: 'shots' },
     titles: { reel: 'Their 15-second reel', grid: 'Their next 9 posts', site: 'Their new homepage', chat: 'Their website chat', email: 'Their first email', shots: 'The 9 photos to take' },
     surface: { reel: 'video', grid: 'Instagram', site: 'website', chat: 'chat', email: 'email', shots: 'photos' },
     notes: {
-      // How to use it. Shown under the sample and in the email, so each one stands on its own.
-      // Samples stay private (Legal L53 part 3.5): shown only to that business, never posted.
+      // How to use it. Shown under the mock-up and in the email, so each one stands on its own.
+      // Mock-ups stay private (Legal L53 part 3.5), and every screenshot keeps its "Not their real" line (L56).
       reel: "Make the real one from their clips with the steps below. It's only for them, so never post it.",
-      grid: "Screenshot it and send it with your message. It's only for them, so never post it.",
-      site: "Screenshot it and send it with your message. Swap in their real photos once they say yes. It's only for them, so never post it.",
-      chat: "Screenshot it and send it with your message. It's only for them, so never post it.",
-      email: "Screenshot it and send it with your message. It's only for them, so never post it.",
+      grid: "Screenshot it with the \"Not their real Instagram\" line in view and send it with your message. It's only for them, so never post it.",
+      site: "Screenshot it with the \"Not their real website\" line in view and send it with your message. Swap in their real photos once they say yes. It's only for them, so never post it.",
+      chat: "Screenshot it with the \"Not their real chat\" line in view and send it with your message. It's only for them, so never post it.",
+      email: "Screenshot it with the \"Not their real email\" line in view and send it with your message. It's only for them, so never post it.",
       shots: 'Ask {biz} before you shoot, then send them the best 3.',
     },
+    // The line to send with the screenshot, in Legal's words (S24, L56). No name in it, so it works for every list.
+    say: "I put together a quick mock-up of {what} for you, attached. It's just a mock-up, made only for you.",
+    what: { grid: 'your next 9 posts', site: 'a new homepage', chat: 'a website chat', email: 'a welcome email' },
+    sayLabel: 'Send it with this line',
     by: 'Sample by {me}',
     byNone: 'Sample',
     notReal: 'Not their real {surface}',
