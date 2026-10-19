@@ -1765,3 +1765,22 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 @media (max-width:760px){.fo{padding:18px 18px 8px}.fo-lines li{font-size:15px}}
 /* Footer: who Eli is and what 127 does, on every page. */
 .foot-about{max-width:420px;margin:14px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+/* The Builder map on /pricing (lib/builder-map.js): the wide map on desktop, the fan view on phones and tablets. */
+.bm{padding:40px 0 24px}
+.bm .section-head{margin-bottom:24px}
+.bm-fig{margin:0}
+.bm-art svg{display:block;width:100%;height:auto}
+.bm-art-phone{display:none;max-width:520px;margin:0 auto}
+@media (max-width:900px){.bm-art-wide{display:none}.bm-art-phone{display:block}}
+.bm-cap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 22px;margin-top:18px;text-align:center}
+.bm-line{flex-basis:100%;font-size:16px;color:var(--ink)}
+.bm-key{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.bm-key i{flex:none;width:10px;height:10px;border-radius:50%}
+.bm-k-item{background:radial-gradient(circle at 35% 30%,#fff,#b9bdc8 42%,#34363e)}
+.bm-k-tool{background:#fff;border:1.5px solid #e3e6f1;box-shadow:inset 0 0 0 2px #060607}
+@media (prefers-reduced-motion:no-preference){
+  .bm-halo{animation:bmBreathe 7s ease-in-out infinite}
+  .bm-tool circle+circle{animation:bmPulse 3.6s ease-in-out infinite;animation-delay:calc(var(--i) * -.41s)}
+}
+@keyframes bmBreathe{50%{opacity:.72}}
+@keyframes bmPulse{50%{opacity:.3}}

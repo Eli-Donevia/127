@@ -17,9 +17,9 @@ const EMAILS = ['lib/billing-emails.js', 'lib/circle-emails.js', 'lib/waitlist.j
 // Tool output: what First 25 writes for people (the message to each business, what each website is missing, the page's own lines)
 // and the results pages' lines, including what they say about Builder and 127 HQ (Legal L62).
 const TOOL_OUTPUT = ['public/funnels/first25-data.js', 'public/funnels/first25-engine.js', 'public/funnels/first-25.js', 'public/funnels/results-data.js'];
-// Copy that is all about paid plans: the plan names and features, the plan cards and the pricing page. Every sentence
-// counts as paid-plan copy here (Legal L62), so none of it says a plan gets members clients, leads or businesses.
-const PAID_COPY = ['lib/plans.js', 'views/partials/plans.ejs', 'views/pricing.ejs'];
+// Copy that is all about paid plans: the plan names and features, the plan cards, the Builder map and the pricing page.
+// Every sentence counts as paid-plan copy here (Legal L62), so none of it says a plan gets members clients, leads or businesses.
+const PAID_COPY = ['lib/plans.js', 'views/partials/plans.ejs', 'views/partials/builder-map.ejs', 'views/pricing.ejs'];
 const isPaidCopy = (p) => PAID_COPY.includes(path.relative(ROOT, p).split(path.sep).join('/'));
 
 function walk(dir, exts) {

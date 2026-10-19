@@ -33,6 +33,7 @@ const memberOps = require('./lib/member-ops');
 const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
+const builderMap = require('./lib/builder-map');
 const hq = require('./lib/hq');
 const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
@@ -351,7 +352,7 @@ function pricingDescription() {
   if ((v.prelaunch || v.foundingOpen) && v.foundingPrice) return `Start free. Builder is $${v.foundingPrice} a month, locked while you stay, for the first ${v.cap} founding members until ${v.closesDate || 'the founding close'}. Then $29.`;
   return `Start free. Builder is $29 a month for the full library and every AI tool. The ${CIRCLE_CAPACITY}-seat Founder's Circle is by application.`;
 }
-app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length }));
+app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length, builderMap: builderMap.forPage() }));
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 100K+ followers built, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
