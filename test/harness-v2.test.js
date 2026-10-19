@@ -787,6 +787,9 @@ test('no key a server echoes reaches a step error, a log line or the server log 
   assert.match(logged, /caused by: Error: Echo https:\/\/overpass\.tracestrack\.com\/\[hidden\]/);
   assert.match(logged, /caused by: Error: GET \/overpass\/\[hidden\]\/api and \?key=\[hidden\]/);
   assert.equal(text.scrubKeys('Checked the menu page. 12 classes a week.'), 'Checked the menu page. 12 classes a week.', 'ordinary words stay');
+  assert.equal(text.scrubKeys('That link needs to start with https://. Paste a public link.'), 'That link needs to start with https://. Paste a public link.', 'a bare https:// reads as written');
+  assert.equal(text.scrubKeys('Visit https://example.com.'), 'Visit https://example.com.', 'a plain site address stays');
+  assert.equal(text.scrubKeys('Failed https://sam:pa55word@host.example/x'), 'Failed https://host.example/[hidden]', 'no user:password@');
 });
 
 test("a key in a pack's { error } items, a bad address or a harness log line reaches neither the run nor the log", async () => {
