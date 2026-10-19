@@ -477,6 +477,8 @@
       osm: 'Business info from OpenStreetMap. By searching, you agree to our {terms}.',
     },
     gmaps: 'Google Maps',
+    // LocationIQ's free plan: its link, in its words, wherever its city search is used (the line above and the credits).
+    searchBy: { locationiq: { text: 'Search by LocationIQ.com', url: 'https://locationiq.com' } },
     checksBy: 'Website checks by 127.',
     // A saved Google list keeps place IDs only, so it loads names from Google Maps each time it opens (Legal L53 part 1.1).
     details: {

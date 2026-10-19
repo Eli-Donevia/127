@@ -582,6 +582,11 @@ test('OpenStreetMap on the live site needs our own or a paid server (Legal L53 p
     assert.equal(first25.sourceName(), 'sample', 'never on the live site');
     process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
     assert.equal(first25.sourceName(), 'sample', 'both servers, not one');
+    // The URL can carry the server's key, so only https counts, and a bare host isn't a server.
+    for (const bad of ['http://nominatim.example', 'nominatim.example']) {
+      process.env.OSM_NOMINATIM_URL = bad;
+      assert.equal(first25.sourceName(), 'sample', bad);
+    }
     process.env.OSM_NOMINATIM_URL = 'https://nominatim.example';
     assert.equal(first25.sourceName(), 'osm');
   } finally {
@@ -768,6 +773,61 @@ test('OpenStreetMap city lookups take turns, once a second, and once per place (
     await first25._test.fromOsm(B, ' ames,  IA ');
     assert.equal(hits.length, 2, 'a place looked up before comes from the cache');
   } finally { global.fetch = realFetch; }
+});
+
+test("a paid map server's key stays in its URL: LocationIQ's ?key= and Tracestrack's path (Legal L55)", () => {
+  const url = (set) => {
+    if (set) process.env.OSM_NOMINATIM_URL = set; else delete process.env.OSM_NOMINATIM_URL;
+    const u = new URL(first25._test.nominatimUrl('Ames, IA'));
+    return { at: u.origin + u.pathname, params: Object.fromEntries(u.searchParams) };
+  };
+  const ames = { format: 'json', limit: '1', q: 'Ames, IA' };
+  try {
+    assert.deepEqual(url(), { at: 'https://nominatim.openstreetmap.org/search', params: ames }, 'the public server, for testing');
+    assert.deepEqual(url('https://nominatim.example/'), { at: 'https://nominatim.example/search', params: ames }, 'just the server');
+    // LocationIQ's search URL (the form the gym pack reads), just its server, or its older .php path. Its key is kept and
+    // our params join it; it has no jsonv2, so the format is json either way.
+    for (const set of ['https://us1.locationiq.com/v1/search?key=test-key', 'https://us1.locationiq.com/v1?key=test-key', 'https://us1.locationiq.com/v1/search.php?key=test-key&format=jsonv2']) {
+      assert.deepEqual(url(set), { at: set.includes('.php') ? 'https://us1.locationiq.com/v1/search.php' : 'https://us1.locationiq.com/v1/search', params: { key: 'test-key', ...ames } }, set);
+    }
+  } finally { delete process.env.OSM_NOMINATIM_URL; }
+});
+
+test("a search on paid map servers sends each key only to its server, and shows LocationIQ's link, never the key", async () => {
+  const realFetch = global.fetch, calls = [];
+  process.env.OSM_NOMINATIM_URL = 'https://us1.locationiq.com/v1/search?key=liq-test-key';
+  process.env.OSM_OVERPASS_URL = 'https://api.tracestrack.com/overpass/tt-test-key/interpreter';
+  global.fetch = async (url, init = {}) => {
+    const u = String(url);
+    calls.push({ u, method: init.method || 'GET', body: String(init.body || '') });
+    if (u.startsWith('https://us1.locationiq.com/')) return jsonRes([{ boundingbox: ['41.9', '42.1', '-93.6', '-93.3'], lat: '42.0', lon: '-93.45' }]);
+    if (u.startsWith('https://api.tracestrack.com/')) return jsonRes({ elements: [{ type: 'node', id: 7, tags: { name: 'Lantern Gym', leisure: 'fitness_centre' } }] });
+    throw new Error('no other server');
+  };
+  try {
+    const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Nevada, IA', source: 'osm' });
+    assert.deepEqual(calls.map((c) => [c.method, c.u.split('?')[0]]), [['GET', 'https://us1.locationiq.com/v1/search'], ['POST', 'https://api.tracestrack.com/overpass/tt-test-key/interpreter']]);
+    assert.equal(new URL(calls[0].u).searchParams.get('key'), 'liq-test-key');
+    assert.match(calls[1].body, /^data=/);
+    assert.ok(!calls[1].body.includes('test-key'), "Overpass's query carries no key");
+    assert.equal(doc.prospects[0].name, 'Lantern Gym');
+    // LocationIQ's free plan asks for its link where its search is used: under the button and with the list's credits.
+    process.env.FIRST25_SOURCE = 'osm';
+    assert.equal(first25.injectPage({ params: {} }), '<script>window.F25_SOURCE="osm";</script>\n<script>window.F25_SEARCH_BY="locationiq";</script>\n');
+    const v = first25.view(doc);
+    assert.equal(v.searchBy, 'locationiq');
+    assert.deepEqual(D.copy.searchBy[v.searchBy], { text: 'Search by LocationIQ.com', url: 'https://locationiq.com' });
+    for (const out of [JSON.stringify(v), JSON.stringify(db.get('prospectRuns', doc.id)), first25.injectPage({ params: {} }), first25.emailText({ name: 'Sam', data: { run_id: doc.id, k: first25.sign(doc.id) } }, () => '[state]').text]) {
+      assert.ok(!/test-key|locationiq\.com\/v1|tracestrack/.test(out), 'no server URL or key leaves the server');
+    }
+    // Other servers get no LocationIQ link.
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example';
+    assert.equal(first25.view(doc).searchBy, undefined);
+    assert.equal(first25.injectPage({ params: {} }), '<script>window.F25_SOURCE="osm";</script>\n');
+  } finally {
+    global.fetch = realFetch;
+    delete process.env.FIRST25_SOURCE; delete process.env.OSM_NOMINATIM_URL; delete process.env.OSM_OVERPASS_URL;
+  }
 });
 
 // ---------- the messages members send (Legal L53 part 3) ----------

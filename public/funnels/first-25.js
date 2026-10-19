@@ -36,7 +36,7 @@
   (function () {
     var t = window.F25_SOURCE && D.copy.srcLine[window.F25_SOURCE];
     if (!t || !$('srcLine')) return;
-    $('srcLine').innerHTML = esc(t).replace('{terms}', '<a href="/terms#13b-first-25">Terms</a>');
+    $('srcLine').innerHTML = esc(t).replace('{terms}', '<a href="/terms#13b-first-25">Terms</a>') + (window.F25_SOURCE === 'osm' ? searchBy(window.F25_SEARCH_BY) : '');
     $('srcLine').hidden = false;
   })();
   $('stack').innerHTML = D.stack.map(function (x) {
@@ -250,7 +250,9 @@
     $('scan').hidden = true; $('intro').hidden = true; $('formWrap').hidden = true; $('whoWrap').hidden = false;
     var el = $('result');
     el.hidden = false;
-    el.innerHTML = summary(run) + '<div id="tracker"></div><div class="f25-list" id="top"></div><div id="gateWrap" style="margin-top:14px"></div><div class="f25-list" id="rest"></div><div id="after"></div>';
+    // The credits sit under the list, so they show with the top 3 before the email too (Legal L53 parts 1.5 and 2.2).
+    el.innerHTML = summary(run) + '<div id="tracker"></div><div class="f25-list" id="top"></div><div id="gateWrap" style="margin-top:14px"></div><div class="f25-list" id="rest"></div>' +
+      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + credits(run) + '</p><div id="after"></div>';
     bindCards($('top'));
     bindCards($('rest'));
     drawList();
@@ -633,7 +635,6 @@
       '</div>' +
       '<div class="card" style="margin-top:14px" id="replies"></div>' +
       '<div id="stateBlock"></div>' + hq +
-      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + credits(run) + '</p>' +
       '<div class="f25-again"><a class="link" href="/first-25" data-again>Run another search</a></div>';
     drawReplies(run.prospects[0] && run.prospects[0].rank);
     var csv = el.querySelector('[data-csv]');
@@ -664,7 +665,12 @@
       }).join('');
     }
     var t = esc(run.attribution || '');
-    return run.source === 'osm' ? t.replace('openstreetmap.org/copyright', '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>') : t;
+    return run.source === 'osm' ? t.replace('openstreetmap.org/copyright', '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>') + searchBy(run.searchBy) : t;
+  }
+  // The city lookup's own link, when its terms ask for one (LocationIQ's free plan).
+  function searchBy(id) {
+    var c = id && D.copy.searchBy[id];
+    return c ? ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.text) + '</a>' : '';
   }
 
   // What to say when they answer, written for one business on the list.
