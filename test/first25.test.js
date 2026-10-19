@@ -843,6 +843,78 @@ test("a search on paid map servers sends each key only to its server, and shows 
   }
 });
 
+// A search through the route on our own map servers, faked: answer(url) gives each server's response. Requests to the
+// test's own server go through.
+async function viaRoute(place, answer) {
+  const realFetch = global.fetch, realWarn = console.warn, calls = [], logs = [];
+  process.env.FIRST25_SOURCE = 'osm';
+  process.env.OSM_NOMINATIM_URL = 'https://us1.locationiq.com/v1/search?key=liq-test-key';
+  process.env.OSM_OVERPASS_URL = 'https://api.tracestrack.com/overpass/tt-test-key/interpreter';
+  global.fetch = async (url, init = {}) => {
+    const u = String(url);
+    if (u.startsWith('http://127.0.0.1')) return realFetch(url, init);
+    calls.push(new URL(u).host);
+    return answer(u);
+  };
+  console.warn = (...a) => logs.push(a.join(' '));
+  try {
+    return await serve(app(), async (base) => {
+      const res = await post(base, { pack: 'video', buyer: 'gyms', place });
+      return { out: (await res.text()).trim().split('\n').map((l) => JSON.parse(l)).pop(), calls, logs };
+    });
+  } finally {
+    global.fetch = realFetch; console.warn = realWarn;
+    delete process.env.FIRST25_SOURCE; delete process.env.OSM_NOMINATIM_URL; delete process.env.OSM_OVERPASS_URL;
+  }
+}
+const errRes = (status, o) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json' } });
+const IQ = (u) => u.startsWith('https://us1.locationiq.com/');
+const BOX = [{ boundingbox: ['41.3', '41.5', '-93.0', '-92.8'], lat: '41.4', lon: '-92.9' }];
+
+test("a place LocationIQ can't find says so, instead of saying the search is busy", async () => {
+  const { out, calls } = await viaRoute('Nowheresville, IA', (u) => (IQ(u) ? errRes(404, { error: 'Unable to geocode' }) : jsonRes({ elements: [] })));
+  assert.equal(out.type, 'error');
+  assert.match(out.error, /couldn't find that place/);
+  assert.deepEqual(calls, ['us1.locationiq.com'], "no map search for a place that isn't there");
+});
+
+test('a refused key or a used-up day shows labeled sample businesses, and the log says what to check, never the key', async () => {
+  const cases = [
+    ['Pella, IA', (u) => (IQ(u) ? jsonRes(BOX) : errRes(403, { error: 'Forbidden' })), 'down', /api\.tracestrack\.com turned down 127's key \(403\)/],
+    ['Osceola, IA', () => errRes(401, { error: 'Invalid key' }), 'down', /us1\.locationiq\.com turned down 127's key \(401\)/],
+    ['Adel, IA', () => errRes(429, { error: 'Rate Limited Day' }), 'capped', /us1\.locationiq\.com says today's limit is used up/],
+    ['Perry, IA', (u) => (IQ(u) ? jsonRes(BOX) : errRes(404, { error: 'Not found' })), 'down', /api\.tracestrack\.com has nothing at the setting's address/],
+  ];
+  for (const [place, answer, note, log] of cases) {
+    const { out, logs } = await viaRoute(place, answer);
+    assert.equal(out.type, 'result', place);
+    assert.equal(out.run.source, 'sample', place);
+    assert.equal(out.run.sample, true, place);
+    assert.deepEqual([!!out.run.down, !!out.run.capped], [note === 'down', note === 'capped'], place);
+    assert.ok(logs.some((l) => log.test(l)), `${place}: ${logs.join(' | ')}`);
+    assert.ok(logs.every((l) => !l.includes('test-key')), 'no key in the log');
+    // The email says why the list is samples, like the page's banner.
+    const text = first25.emailText({ name: 'Sam', data: { run_id: out.run.id, k: out.run.k } }, () => '[state]').text;
+    assert.ok(text.includes(note === 'down' ? D.copy.down : D.copy.capped), place);
+  }
+  // A busy server is still worth another try, so it says so.
+  const { out } = await viaRoute('Winterset, IA', (u) => (IQ(u) ? jsonRes(BOX) : errRes(504, { error: 'Gateway Timeout' })));
+  assert.equal(out.type, 'error');
+  assert.match(out.error, /busy right now/);
+});
+
+test("LocationIQ's per-second limit gets one more try a turn later", async () => {
+  let n = 0;
+  const { out, calls } = await viaRoute('Knoxville, IA', (u) => {
+    if (IQ(u)) return ++n === 1 ? errRes(429, { error: 'Rate Limited Second' }) : jsonRes(BOX);
+    return jsonRes({ elements: [{ type: 'node', id: 9, tags: { name: 'Lantern Gym', leisure: 'fitness_centre' } }] });
+  });
+  assert.equal(out.type, 'result');
+  assert.equal(out.run.source, 'osm');
+  assert.deepEqual(calls.slice(0, 2), ['us1.locationiq.com', 'us1.locationiq.com']);
+  assert.equal(out.run.prospects[0].name, 'Lantern Gym');
+});
+
 test("a city's answer from LocationIQ is reused for 48 hours at most, other servers' for a week (Legal L57)", async () => {
   const realFetch = global.fetch, realNow = Date.now, hits = [], H = 3600e3;
   let now = realNow();

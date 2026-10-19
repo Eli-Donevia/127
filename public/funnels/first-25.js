@@ -293,7 +293,7 @@
     return '<div class="f25-sum">' +
       '<div class="label lilac">Your First 25</div>' +
       '<h2 class="h1 steel" style="margin-top:12px">' + esc(cap(B.many)) + ' in ' + esc(run.city) + '.</h2>' +
-      (run.sample ? '<div class="f25-banner">' + esc(run.capped ? D.copy.capped : D.copy.sampleNote) + '</div>' : '') +
+      (run.sample ? '<div class="f25-banner">' + esc(run.capped ? D.copy.capped : run.down ? D.copy.down : D.copy.sampleNote) + '</div>' : '') +
       (run.detailsFailed ? '<div class="f25-banner">' + esc(D.copy.details.fail) + '</div>' : '') +
       '<div class="f25-stats">' + tiles.slice(0, 3).join('') + '</div>' +
       (saved ? '<p class="f25-saved">' + esc(saved) + '</p>' : '') +

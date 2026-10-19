@@ -523,6 +523,8 @@
     peek: 'Mock-up for {biz} · Unlocks with your email',
     savedHead: 'Your {n} are saved.',
     capped: 'Live search is at its limit for today, so this is a sample list. Come back tomorrow for real businesses near you.',
+    // When our map server turns the search down (a key or setting to fix), so the list is samples until it's fixed.
+    down: "Live search isn't working right now, so this is a sample list. Come back later for real businesses near you.",
     emailSample: 'We made a mock-up for #1, {biz}: {title}. Open your list to see it. {note}',
     // Google runs: the email carries 127's own findings and the link, never a business name (Legal L53 part 1.3).
     emailFound: 'What we found on their websites:',
