@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.2)
+# How a workflow plugs into the 127 harness (contract v1.3)
 
-Owner: Harness v2 thread. Version 1.2, 2026-10-19 (v1 and v1.1 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.3, 2026-10-19 (v1 to v1.2 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -9,6 +9,12 @@ The idea in one line: a **pack** is one folder of plain Node code that gives the
 Code: CommonJS, Node 20, no new npm packages without telling the Harness thread (system tools like `ffmpeg` are declared, see 7).
 
 ## 0. What changed since v1
+
+**In v1.3** (nothing to change in a pack):
+
+- **Blank inputs:** a blank number, yes/no, list or pick-one counts as not given, from HQ's form or the AI link, so its default applies (section 4b).
+- **Previews:** `sms:`, `tel:` and `mailto:` links in an HTML file open the member's own apps from HQ's preview (section 12).
+- **`{ error }` items** in your output and every harness log line get the same key scrub as step errors (section 6).
 
 **In v1.2:**
 
@@ -142,7 +148,7 @@ Runs persist step by step, so the member can close the page and come back. Statu
 
 ### 4b. Inputs
 
-JSON Schema subset: `type` (or a list of types), `properties`, `required`, `items`, `enum`, `const`, `anyOf`, `minimum`, `maximum`, `minLength`, `maxLength`, `minItems`, `maxItems`, `pattern`, `format` (`uri`, `email`, `date`, `textarea`, `asset`), `title`, `description`, `default`. No `$ref`. HQ builds the form from it: `enum` is a select, booleans a checkbox, numbers a number field, arrays a comma list, `format: 'textarea'` (or `maxLength` over 400) a text box.
+JSON Schema subset: `type` (or a list of types), `properties`, `required`, `items`, `enum`, `const`, `anyOf`, `minimum`, `maximum`, `minLength`, `maxLength`, `minItems`, `maxItems`, `pattern`, `format` (`uri`, `email`, `date`, `textarea`, `asset`), `title`, `description`, `default`. No `$ref`. HQ builds the form from it: `enum` is a select, booleans a checkbox, numbers a number field, arrays a comma list, `format: 'textarea'` (or `maxLength` over 400) a text box. A field left blank isn't sent, and a blank (`""`) number, yes/no, list or pick-one from anywhere (the AI link included) counts as not given: its `default` applies, and only a `required` field complains.
 
 - **A file the member adds:** `{ type: 'string', format: 'asset', title: 'Your video', accept: 'video/*' }`, or a list: `{ type: 'array', items: { type: 'string', format: 'asset' }, accept: '.csv,.vcf' }`. `accept` works like `<input accept>`. HQ shows the member's Library files that fit, with "Add a file" right there; the value is a Library file id, checked to be theirs before the run starts. Read it with `await ctx.asset(id)`. Don't take files as `type: 'object'`, data URLs or base64: they can't be uploaded and they bloat the run. A public `https` link is fine as a second option (`format: 'uri'`, fetched with `ctx.fetch`).
 - **A business from the member's Pipeline:** `{ type: 'string', title: 'Which gym', options: 'pipeline' }`. HQ suggests the names in their Pipeline (lost ones left out) and still takes a typed name; the value is the name. Find it with `ctx.leads.list({ all: true })`.
@@ -175,7 +181,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | `render` | `ffmpeg` on the server | `FFMPEG_PATH` or `ffmpeg` on the path |
 | `stripe`, `shopify` | the member's own HQ connections | not wired into packs yet: always sample |
 
-Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. A server's error can echo the request, key and all (Tracestrack puts it in the path, LocationIQ in `?key=`, the Graph API in `access_token`), so the engine keeps only the scheme and host of any URL in your step errors, `ctx.log` lines and the server log, and hides key-like values. Scrub what you save in outputs yourself. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
+Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. A server's error can echo the request, key and all (Tracestrack puts it in the path, LocationIQ in `?key=`, the Graph API in `access_token`), so the engine keeps only the scheme and host of any URL in your step errors, `{ error }` items, `ctx.log` lines and the server log, and hides key-like values. Scrub what else you save in outputs yourself. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
 
 **Sample mode.** If any `needs` entry is missing, `ctx.sample === true` (and on an admin's sample run). The tool must still work: return realistic data from `sample/` and set `sample: true` on the output. A missing `wants` key doesn't turn sample mode on; work without it.
 
@@ -291,7 +297,7 @@ A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and 
 
 ## 12. Files (the Library)
 
-`ctx.save` and member uploads take: mp4, webm, mov, png, jpg, webp, gif, svg, mp3, wav, csv, txt, md, html, json, pdf, zip, ics, vcf, vtt, srt; a `.liquid` file is saved as plain text and keeps its name. Up to 25 MB a file (`HARNESS_MAX_FILE_MB`); files a member adds must fit in 25 MB in all for Free, 500 MB Builder, 2 GB Circle, while files a run makes are always kept, so a run never stops halfway. Keep videos lean anyway: a member pays for space they can see filling up. Files are private to the member. HTML opens in a sandbox with no scripts (don't put scripts in generated pages), and SVG always downloads, with a sandboxed preview, since SVG can carry script.
+`ctx.save` and member uploads take: mp4, webm, mov, png, jpg, webp, gif, svg, mp3, wav, csv, txt, md, html, json, pdf, zip, ics, vcf, vtt, srt; a `.liquid` file is saved as plain text and keeps its name. Up to 25 MB a file (`HARNESS_MAX_FILE_MB`); files a member adds must fit in 25 MB in all for Free, 500 MB Builder, 2 GB Circle, while files a run makes are always kept, so a run never stops halfway. Keep videos lean anyway: a member pays for space they can see filling up. Files are private to the member. HTML opens in a sandbox with no scripts, forms or pop-ups (don't put scripts in generated pages); `sms:`, `tel:` and `mailto:` links in it open the member's own apps, so a send sheet works from the preview. SVG always downloads, with a sandboxed preview, since SVG can carry script.
 
 ## 13. Leads and Do my day
 
