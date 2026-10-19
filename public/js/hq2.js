@@ -246,7 +246,7 @@
   // A draft that still holds a [placeholder] can't be copied or opened until it's filled in.
   var HOLE = /\[[^\]\n]{2,60}\]/;
   var lock = function (card) {
-    var ta = $('[data-text]', card);
+    var ta = $('textarea[data-text]', card);
     var go = $('[data-go]', card);
     if (!ta || !go) return;
     var m = ta.value.match(HOLE);
@@ -272,7 +272,7 @@
     return Promise.resolve();
   };
   $$('.h2-q').forEach(function (card) {
-    var ta = $('[data-text]', card);
+    var ta = $('textarea[data-text]', card);
     if (!ta) return;
     var texts = {};
     var current = ($('[data-go]', card) || {}).getAttribute ? $('[data-go]', card).getAttribute('data-way-id') : '';
@@ -330,7 +330,7 @@
     if (!go) return;
     var card = go.closest('.h2-q');
     if (go.classList.contains('off')) { e.preventDefault(); return; }
-    var ta = $('[data-text]', card);
+    var ta = $('textarea[data-text]', card);
     var text = ta ? ta.value : '';
     var href = go.getAttribute('href');
     if (/^mailto:/i.test(href)) go.setAttribute('href', mailto(href, ($('[data-subject]', card) || {}).textContent, text));
