@@ -726,7 +726,7 @@ test('the card on the dashboard and HQ Today reads right in each state', async (
   const u = await member();
   const apply = await ejs.renderFile(file, { c: ff.card(u), hq: false });
   assert.match(apply, /Build alongside Eli for four weeks\./);
-  assert.doesNotMatch(apply, /<img/, 'no image until Graphics adds one');
+  assert.match(apply, /<img src="\/img\/founding-five\/card\.webp" alt=""/, "Graphics' webp, the only copy in public/img/founding-five");
   assert.match(await ejs.renderFile(file, { c: { ...ff.card(u), image: '/img/founding-five/card.jpg' }, hq: true }), /<img src="\/img\/founding-five\/card\.jpg" alt=""/);
   assert.match(apply, /href="\/app\/founding-five"/);
   await applyAs(u);
