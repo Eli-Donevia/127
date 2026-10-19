@@ -35,7 +35,7 @@
         <h2 id="move-h" class="h2-steel"><%= t.move.title %></h2>
         <% if (t.move.detail) { %><p><%= t.move.detail %></p><% } %>
         <a class="btn" href="<%= t.move.href %>"><%= t.move.cta %> <span class="arrow"></span></a>
-        <% if (!q.items.length && t.move.kind !== 'inbox' && !(typeof f25 !== 'undefined' && f25)) { %><div class="h2-why">Have a First 25 list already? Open it and bring it into HQ. Every business lands here with its first message drafted for you to send.</div><% } %>
+        <% if (!q.items.length && t.move.kind !== 'inbox' && t.move.kind !== 'samples' && !(typeof f25 !== 'undefined' && f25)) { %><div class="h2-why">Have a First 25 list already? Open it and bring it into HQ. Every business lands here with its first message drafted for you to send.</div><% } %>
       </section>
       <% } %>
 
@@ -71,7 +71,8 @@
           <div class="h2-q-list"><% more.forEach(function (it, i) { %><%- include('../../partials/hq2-queue-item', { it: it, n: shown + i + 1, cost: cost }) %><% }) %></div>
         </details>
         <% } %>
-        <p class="h2-q-foot">127 writes. You send each one from your own phone or email, then tap Sent. Your follow-ups come back here on their own: 3 days after the first message, then 4 days after that.</p>
+        <p class="h2-q-foot">127 writes. You send each one from your own phone or email, then tap Sent. Your follow-ups come back here on their own: 3 days after the first message, then 4 days after that.<% if (q.samples) { %> <%= q.samples === 1 ? 'One made-up sample business stays' : q.samples + ' made-up sample businesses stay' %> off your day.<% } %></p>
+        <% if (q.osm) { %><p class="tiny" style="color:var(--slate);margin:8px 0 0">Business listings © <a class="link" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a></p><% } %>
       </section>
       <% } %>
 

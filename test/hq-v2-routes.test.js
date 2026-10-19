@@ -1310,6 +1310,87 @@ test("Monday's card: from 8am local the week's sends are written and waiting; ap
   }
 });
 
+// ---------- made-up businesses ----------
+
+// Like the library's warm pack: people the member knows, so no map search.
+const WARM = {
+  id: 'warm',
+  title: 'People you know',
+  version: '1.0.0',
+  summary: 'People you already know.',
+  tools: [{ name: 'warm.sort', title: 'Sort people', description: 'Sorts people you know.', kind: 'code', risk: 'read', credits: 1, input: obj({ names: { type: 'string' } }), output: obj({ text: { type: 'string' } }), run: async ({ names }) => ({ text: names }) }],
+  workflows: [{ id: 'warm.first_25', title: 'Your first 25: people you know', promise: '25 people you already know, each with a text.', minutes: 5, tier: 'free', inputs: obj({ names: { type: 'string', title: 'Names' } }), steps: [{ id: 'sort', tool: 'warm.sort', input: { names: '$inputs.names' } }], result: ['sort'] }],
+};
+
+test("made-up businesses stay in the Pipeline, tagged Sample, but are never a new send in Do my day or on Monday's card", async () => {
+  const u = await member('builder', { name: 'Rae Okafor' });
+  const monday = harness.monday;
+  const only = (x) => x.id === u.id;
+  // Like a search held until 127's map servers are set: made-up gyms, marked data.sample.
+  await P.upsert(u.id, 'test', { key: 's1', name: 'Sample Iron Gym', score: 95, links: { instagram: IG('sampleiron') }, msg: { dm: 'Hi Sample Iron Gym.' }, data: { sample: true } });
+  await P.upsert(u.id, 'test', { key: 's2', name: 'Sample Lift House', score: 90, links: { email: 's@lift.test' }, msg: { email: 'Hi Lift House.' }, data: { sample: true } });
+  const r0 = packs.registerAll([{ pack: WARM, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const was = Object.fromEntries(MAP_ENV.map((k) => [k, process.env[k]]));
+  monday._reset();
+  try {
+    for (const k of MAP_ENV) delete process.env[k];
+    let q = todayLib.queue(u);
+    assert.deepEqual(q.items, []);
+    assert.deepEqual([q.samples, q.real, q.osm], [2, 0, false]);
+    // Only samples: the move says so, and people they know need no search.
+    let move = todayLib.nextMove(u, harness.moveDeps);
+    assert.equal(move.kind, 'samples');
+    assert.equal(move.title, 'No real businesses yet');
+    assert.equal(move.detail, 'The 2 businesses in your Pipeline are made-up samples, so Do my day has none to send. Start with "Your first 25: people you know": 25 people you already know, each with a text.');
+    assert.equal(move.href, '/app/hq/w/warm.first_25');
+    let page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /No real businesses yet/);
+    assert.doesNotMatch(page, /Have a First 25 list already/);
+    // With a map source on, a search finds real ones.
+    osmOn();
+    const find = harness.catalog(u).find((w) => !w.locked && w.job === 'leads');
+    assert.equal(todayLib.nextMove(u, harness.moveDeps).href, find ? `/app/hq/w/${find.id}` : '/app/hq/pipeline');
+    for (const k of MAP_ENV) delete process.env[k];
+    // Monday 8am: samples alone get no card.
+    now = Date.parse('2026-11-09T14:00:00Z');
+    await todayLib.log(u.id, 'cold', 1);
+    assert.deepEqual(monday.due(only), []);
+
+    // A real business from OpenStreetMap (the library's kit keeps placeSource 'osm') is the day's one new send, with the credit.
+    await P.upsert(u.id, 'test', { key: 'r1', name: 'Barbell Club', company: 'Barbell Club', score: 50, links: { instagram: IG('barbellclub') }, msg: { dm: 'Hi Barbell Club.' }, data: { placeSource: 'osm' } });
+    q = todayLib.queue(u);
+    assert.deepEqual(q.items.map((i) => i.name), ['Barbell Club']);
+    assert.equal(q.items[0].company, '', 'the kit saves the name as the company too; it shows once');
+    assert.deepEqual([q.counts.new, q.samples, q.real, q.osm], [1, 2, 1, true]);
+    page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /2 made-up sample businesses stay off your day\./);
+    assert.match(page, /Business listings © <a class="link" href="https:\/\/www\.openstreetmap\.org\/copyright"[^>]*>OpenStreetMap contributors<\/a>/);
+    assert.doesNotMatch(page, /Hi Sample Iron Gym|Hi Lift House/);
+    // The Pipeline keeps them, tagged Sample, and gives OpenStreetMap its credit.
+    page = await html(await s.go('/app/hq/pipeline', { as: u }));
+    assert.match(page, /Sample Iron Gym<\/h4><span class="h2-tag" title="A made-up business, so it's never in Do my day">Sample<\/span>/);
+    assert.doesNotMatch(page, /Barbell Club<\/h4><span class="h2-tag"/);
+    assert.match(page, /Business listings © <a class="link" href="https:\/\/www\.openstreetmap\.org\/copyright"/);
+    // Monday's card picks the real one only.
+    assert.deepEqual(monday.due(only).map((x) => x.user.id), [u.id]);
+    const ids = await monday.sweep({ enabledFor: only, start: engine.start });
+    await engine.idle();
+    const run = engine.get(u, ids[0]);
+    assert.deepEqual(engine.view(run).waitingOn.ask.items.map((i) => i.label), ['Barbell Club']);
+    // The gym pack keeps source 'openstreetmap'.
+    assert.deepEqual([{ source: 'openstreetmap' }, { placeSource: 'osm' }, { source: 'google' }, { source: 'sample' }, {}].map((data) => P.fromOsm({ data })), [true, true, false, false, false]);
+    // A source of 'sample' is made up too (the gym pack's sample gyms carry both).
+    assert.deepEqual([{ sample: true }, { source: 'sample' }, { placeSource: 'sample' }, { source: 'openstreetmap' }, {}].map((data) => P.madeUp({ data })), [true, true, true, false, false]);
+  } finally {
+    for (const [k, val] of Object.entries(was)) {
+      if (val === undefined) delete process.env[k];
+      else process.env[k] = val;
+    }
+    unregister(['warm']);
+  }
+});
+
 // ---------- repeats ----------
 
 const REP = {
@@ -1699,7 +1780,8 @@ const AL = {
       name: 'tal.write', title: 'Write to a shop', description: 'Drafts a note and adds the shop to the Pipeline.', kind: 'code', risk: 'draft', credits: 0,
       input: obj({ shop: { type: 'object' } }), output: obj({ name: { type: 'string' }, text: { type: 'string' } }),
       run: async ({ shop }, ctx) => {
-        await ctx.leads.upsert({ key: shop.key, name: shop.name, stage: 'found', data: { source: shop.source } });
+        // Where it came from, the way the library's kit keeps it.
+        await ctx.leads.upsert({ key: shop.key, name: shop.name, stage: 'found', data: { placeSource: shop.source } });
         return { name: shop.name, text: `Hi ${shop.name} team, a quick idea for you.` };
       },
     },
@@ -1759,6 +1841,11 @@ test('the AI link keeps what a Google search found in HQ, and gives OpenStreetMa
     got = await ai(u, 'get_pipeline', {});
     assert.match(got, /: Iron Gym, Found\n/);
     assert.ok(got.endsWith(`\n\n${CREDIT}`), got);
+    // So does moving one; a made-up business says it's a sample, so it's never suggested as someone to contact.
+    const iron = P.list(u.id).find((l) => l.name === 'Iron Gym');
+    assert.equal(await ai(u, 'move_lead', { lead: iron.id, stage: 'contacted' }), `Iron Gym is now at Contacted.\n\n${CREDIT}`);
+    await P.upsert(u.id, 'test', { key: 'made-up', name: 'Sample Gym', data: { sample: true } });
+    assert.match(await ai(u, 'get_pipeline', {}), /: Sample Gym, Found \(a made-up sample, not a real business\)\n/);
 
     // Google on: one line for both sources, agreed in HQ. The AI link starts the search, and nothing it found
     // comes back through it: no names, phones, picks, drafts or errors.
