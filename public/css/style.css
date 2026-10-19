@@ -1742,5 +1742,5 @@ main .legal-foot { margin-top: 32px; }
 @media (prefers-reduced-motion:reduce){.h5r-sheet,.h5r-chips,.h5r-row,.h5r-sheet.is-run .h5r-list li{animation:none !important}}
 .r5-why{margin:-12px 0 30px;max-width:460px;padding:14px 0 0;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink-2)}
 .r5-why b{color:var(--ink);font-weight:600}
-/* No sideways page scroll on phones: the step glow and the outputs rail stay inside their sections. */
-.v5 .w5,.v5 .o5{overflow-x:clip}
+/* No sideways page scroll on phones: the step glow, the outputs rail and the hook section's halo stay inside their sections. */
+.v5 .w5,.v5 .o5,.v5 .pain-mark{overflow-x:clip}
