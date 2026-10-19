@@ -665,12 +665,12 @@
       }).join('');
     }
     var t = esc(run.attribution || '');
-    return run.source === 'osm' ? t.replace('openstreetmap.org/copyright', '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>') + searchBy(run.searchBy) : t;
+    return run.source === 'osm' ? t.replace('openstreetmap.org/copyright', '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>') + searchBy(run.searchBy, ' · ') : t;
   }
-  // The city lookup's own link, when its terms ask for one (LocationIQ's free plan).
-  function searchBy(id) {
+  // The city lookup's own link, when its terms ask for one (LocationIQ's free plan, Legal L57): in the line, at its size.
+  function searchBy(id, sep) {
     var c = id && D.copy.searchBy[id];
-    return c ? ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.text) + '</a>' : '';
+    return c ? (sep || ' ') + '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.text) + '</a>' : '';
   }
 
   // What to say when they answer, written for one business on the list.

@@ -830,6 +830,28 @@ test("a search on paid map servers sends each key only to its server, and shows 
   }
 });
 
+test("a city's answer from LocationIQ is reused for 48 hours at most, other servers' for a week (Legal L57)", async () => {
+  const realFetch = global.fetch, realNow = Date.now, hits = [], H = 3600e3;
+  let now = realNow();
+  global.fetch = async (url) => { hits.push(new URL(String(url)).host); return jsonRes([{ boundingbox: ['41.6', '41.8', '-93.7', '-93.5'], lat: '41.7', lon: '-93.6' }]); };
+  Date.now = () => now;
+  try {
+    process.env.OSM_NOMINATIM_URL = 'https://us1.locationiq.com/v1/search?key=test-key';
+    await first25._test.geocode('Ankeny, IA');
+    now += 47 * H;
+    await first25._test.geocode('Ankeny, IA');
+    assert.equal(hits.length, 1, 'inside 48 hours, the answer is reused');
+    now += 2 * H;
+    await first25._test.geocode('Ankeny, IA');
+    assert.equal(hits.length, 2, 'past 48 hours, LocationIQ is asked again');
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example';
+    await first25._test.geocode('Altoona, IA');
+    now += 6 * 24 * H;
+    await first25._test.geocode('Altoona, IA');
+    assert.deepEqual(hits, ['us1.locationiq.com', 'us1.locationiq.com', 'nominatim.example'], 'other servers keep a city for a week');
+  } finally { global.fetch = realFetch; Date.now = realNow; delete process.env.OSM_NOMINATIM_URL; }
+});
+
 // ---------- the messages members send (Legal L53 part 3) ----------
 test('every cold email ends with the mailing address and the opt-out, and DMs carry neither', () => {
   const b = { name: 'Lantern Gym', gaps: [{ id: 'no_video' }] };
