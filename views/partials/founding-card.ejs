@@ -1,0 +1,26 @@
+<%# The founding member card (v2 design): what you're joining, shown as an object. It only restates facts already on the page.
+    fcSt: 'A' (waitlist) or 'B' (founding window). The name line follows the first-name field as you type; members see their own name and number. %>
+<% var fcB = typeof fcSt !== 'undefined' && fcSt === 'B';
+   var fcMember = user && (user.tier === 'builder' || user.tier === 'circle');
+   var fcName = user && user.name ? String(user.name).trim().split(/\s+/)[0].slice(0, 18) : '';
+   var fcNo = fcMember && user.foundingNumber ? 'No. ' + String(user.foundingNumber).padStart(3, '0') : 'No. ___'; %>
+<div class="f5-art" aria-hidden="true">
+  <div class="f5-halo"></div>
+  <div class="f5-card">
+    <div class="f5-top"><span class="f5-mark">127</span><span class="f5-tag">Founding member</span></div>
+    <div class="f5-big">One of <%= launch.cap %>.</div>
+    <dl class="f5-rows">
+      <div><dt>Builder</dt><dd><%= launch.foundingPrice ? '$' + launch.foundingPrice + ' a month' : 'Founding price' %></dd></div>
+      <div><dt>Price</dt><dd>Locked while you stay</dd></div>
+      <% if (fcB) { %>
+      <div><dt>Founding price ends</dt><dd><%= launch.closesShort || 'Soon' %></dd></div>
+      <% } else { %>
+      <div><dt>Doors open</dt><dd><%= launch.launchShort || 'Soon' %></dd></div>
+      <% } %>
+    </dl>
+    <div class="f5-name"><span data-f5-name data-default="Your name"><%= fcName || 'Your name' %></span><em><%= fcNo %></em></div>
+  </div>
+</div>
+<script>
+(function(){var i=document.querySelector('.wl-form [name=first_name]'),o=document.querySelector('[data-f5-name]');if(!i||!o)return;var d=o.getAttribute('data-default');function u(){var v=i.value.trim().split(/\s+/)[0].slice(0,18);o.textContent=v||d;}i.addEventListener('input',u);u();})();
+</script>

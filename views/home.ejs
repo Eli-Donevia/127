@@ -37,7 +37,7 @@
     'Fintech category winner at Best of the Midwest (Iowa Startup Week)'
   ];
   // What day 30 looks like: one demo member's outputs, labeled as a sample (voice section 7: never invent results).
-  // Jordan edits videos for local gyms (voice section 15's local-service example).
+  // Maya edits videos for local gyms (voice section 15's local-service example; the same sample member as the shared golden path).
   var made = [
     { week: 1, plan: 'Free', title: 'A tested idea.', tool: 'The Idea Test' },
     { week: 2, plan: 'Free', title: 'Proof from real people.', tool: 'Validation Interview Scripts' },
@@ -58,13 +58,80 @@
     'campaign-planner': 'A small, capped campaign with a stop rule',
     'workflow-recommender': 'What to automate or hand off first'
   };
+  // The question in the visitor's head that each tool answers (problem first, then the tool, then what it hands back).
+  var asks = {
+    'ask': 'What do I do next?',
+    'offer-validator': 'Is my idea any good?',
+    'interview-synthesizer': 'What did those calls tell me?',
+    'offer-stack': 'What exactly am I selling?',
+    'hook-writer': 'Why does nobody stop on my posts?',
+    'content-planner': 'What do I post this week?',
+    'outreach-writer': 'What do I say in the first message?',
+    'sales-call-prep': 'What if they say it costs too much?',
+    'launch-planner': 'When do I actually launch?',
+    'campaign-planner': 'Should I spend money on ads?',
+    'workflow-recommender': 'What can I stop doing myself?'
+  };
   var order = ['ask', 'offer-validator', 'interview-synthesizer', 'offer-stack', 'hook-writer', 'content-planner', 'outreach-writer', 'sales-call-prep', 'launch-planner', 'campaign-planner', 'workflow-recommender'];
   var toolList = order.map(function (s) { return tools.filter(function (t) { return t.slug === s; })[0]; }).filter(Boolean);
   var hqOn = process.env.HQ_LIVE === 'true'; // HQ goes on the homepage only when it's live for every member.
+  // Run mode (v2/hormozi-playbook.md 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
+  // The demo rows are First 25's own sample run (gyms, Des Moines): made-up businesses, labeled Sample.
+  var run = typeof first25 !== 'undefined' && first25;
+  var f25Packs = [['video', 'Short videos'], ['social', 'Social media'], ['web', 'Websites'], ['ai', 'AI booking'], ['email', 'Email'], ['photo', 'Photos'], ['other', 'Something else']];
+  var f25Demo = [
+    ['Iron Fitness', '4.6★ · 237 reviews', ['No video', 'No TikTok'], 87],
+    ['Steadfast Strength', '4.5★ · 87 reviews', ['No video', 'No TikTok'], 87],
+    ['Torch Performance', '4.1★ · 21 reviews', ['No video', '21 reviews'], 87],
+    ['Cornerstone Fitness', '4.6★ · 90 reviews', ['No video', 'Few photos'], 82],
+    ['Prairie Boxing', '4★ · 21 reviews', ['No video', '21 reviews'], 82]
+  ];
 -%>
 <%- include('partials/head', { hbState: st === 'C' ? null : st }) %>
 <main class="v5" data-state="<%= st %>">
 
+  <% if (run) { %>
+  <!-- HERO, run mode: pick what you sell, type a city, and First 25 finds the 25, checks each site and writes the messages -->
+  <section class="h5 h5r">
+    <div class="wrap h5r-grid">
+      <div class="h5r-copy">
+        <p class="lbl">Free · No signup to search</p>
+        <h1 class="h5-title h5r-title"><span class="st"><span>Your</span> <span>first</span> <span>25.</span></span> <span class="dim"><span>Found</span> <span>tonight.</span></span></h1>
+        <p class="h5-sub">Tell 127 what you sell and where. It finds 25 local businesses that need it, checks what each one is missing and writes the first message. You approve every word.</p>
+      </div>
+      <div class="h5r-demo" aria-hidden="true">
+        <div class="h5-halo"></div>
+        <div class="h5r-sheet" data-h5r-demo>
+          <div class="h5r-head"><span>Your first 25 · Sample</span><span class="h5r-count"><b data-h5r-n>25</b> / 25</span></div>
+          <p class="h5r-where">Gyms in Des Moines.</p>
+          <ol class="h5r-list">
+            <% f25Demo.forEach(function (d, i) { %>
+            <li style="--i:<%= i %>"><span class="h5r-rank">#<%= i + 1 %></span><span class="h5r-biz"><b><%= d[0] %></b><small><%= d[1] %></small></span><span class="h5r-gaps"><% d[2].forEach(function (g) { %><i><%= g %></i><% }) %></span><span class="h5r-score" style="--s:<%= d[3] %>%"><%= d[3] %></span></li>
+            <% }) %>
+          </ol>
+          <div class="h5r-msg"><span class="h5r-k">DM for #1 <em>Message ready</em></span><p data-h5r-type>Hi Iron Fitness team. I'm [your name], and I make short videos for gyms in Des Moines. I was on your website and couldn't find any video of your classes. I'd like to make you one free 15-second reel from clips you already have. No cost, no catch. Want me to send it over?</p></div>
+          <p class="h5r-foot">Sample businesses, made up to show how it works.</p>
+        </div>
+      </div>
+      <form class="h5r-form" action="/first-25" method="get" data-h5r-form>
+        <fieldset class="h5r-chips"><legend>What do you sell?</legend>
+          <div class="h5r-chip-row"><% f25Packs.forEach(function (pk, i) { %><label class="h5r-chip"><input type="radio" name="pack" value="<%= pk[0] %>"<%= i === 0 ? ' checked' : '' %>><span><%= pk[1] %></span></label><% }) %></div>
+        </fieldset>
+        <div class="h5r-row">
+          <label class="sr-only" for="h5r-place">Your city and state, or ZIP code</label>
+          <input class="input" id="h5r-place" name="place" placeholder="Your city and state, or ZIP" autocomplete="address-level2" required minlength="2" maxlength="80">
+          <input type="hidden" name="go" value="1">
+          <button class="btn light big" type="submit"<%- tk('home_hero_primary', { cta: 'first25' }) %>>Find my first 25 <span class="arrow"></span></button>
+        </div>
+        <p class="h5-note">Not sure what to sell? <a href="/first-25">Answer 3 questions and we'll pick.</a><br>Built by Eli Christiansen, 4x founder.</p>
+      </form>
+    </div>
+    <div class="ticker" aria-label="About Eli">
+      <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
+      <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
+    </div>
+  </section>
+  <% } else { %>
   <!-- HERO: the bio's promise, one button, the 3D 127 under a halo -->
   <section class="h5">
     <%# The halo ring sits behind the mark. The live 3D mark runs on desktop; phones, reduced motion and low-power devices get the pre-rendered loop (or its poster) instead. %>
@@ -85,9 +152,18 @@
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
   </section>
+  <% } %>
 
-  <!-- THE HOOK -->
-  <section class="pain">
+  <!-- THE HOOK (in run mode the 3D 127 moves here, under its halo: the brand moment after the demo) -->
+  <section class="pain<%= run ? ' pain-mark' : '' %>">
+    <% if (run) { %>
+    <div class="hx-mark" aria-hidden="true">
+      <div class="h5-halo"></div>
+      <canvas id="hero3d" data-fit="1.08"></canvas>
+      <picture><source media="(max-width: 760px)" srcset="/img/hero-loop-mobile-poster.jpg" width="1080" height="1350"><img class="hx-poster" src="/img/hero-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async" loading="lazy"></picture>
+    </div>
+    <p class="lbl pain-lbl">Make today day one</p>
+    <% } %>
     <div class="wrap">
       <p class="lit">You've saved 300 reels about starting a business.</p>
       <p class="lit">You have 5 ideas and 0 customers.</p>
@@ -103,12 +179,12 @@
       <div class="o5-head">
         <p class="lbl" data-reveal>Your first 30 days</p>
         <h2 class="h2" data-reveal><span class="dim">You don't finish with notes.</span> You finish with these.</h2>
-        <p class="sub" data-reveal>Every step ends with something you made. Here's a sample roadmap: Jordan, who edits videos for local gyms.</p>
+        <p class="sub" data-reveal>Every step ends with something you made. Here's a sample roadmap: Maya, who edits videos for local gyms.</p>
       </div>
       <div class="o5-grid" data-o5-scroll>
         <% made.forEach(function (m, i) { %>
         <article class="o5-card" data-reveal>
-          <div class="o5-top"><span>Week <%= m.week %></span><span class="o5-plan<%= m.plan === 'Free' ? ' is-free' : '' %>"><%= m.plan %></span></div>
+          <div class="o5-top"><span>By day <%= [7, 14, 21, 30][i] %></span><span class="o5-plan<%= m.plan === 'Free' ? ' is-free' : '' %>"><%= m.plan %></span></div>
           <h3><%= m.title %></h3>
           <div class="o5-art">
             <% if (i === 0) { %>
@@ -174,16 +250,18 @@
       <div class="t5-head">
         <p class="lbl" data-reveal>AI tools</p>
         <h2 class="h2" data-reveal>Tools that hand you<br><span class="dim">the finished thing.</span></h2>
-        <p class="sub" data-reveal>Each one works from your roadmap and ends with something you can use today.</p>
+        <p class="sub" data-reveal>Find the question you're stuck on. Each tool works from your roadmap and ends with something you can use today.</p>
       </div>
       <ul class="t5-grid">
         <% toolList.forEach(function (t) { %>
         <li class="t5-tool" data-reveal>
+          <p class="t5-ask">“<%= asks[t.slug] %>”</p>
           <div class="t5-name"><b><%= t.name %></b><span class="o5-plan<%= t.tier === 'free' ? ' is-free' : '' %>"><%= t.tier === 'free' ? 'Free' : 'Builder' %></span></div>
           <p><span aria-hidden="true">→</span> <%= outputs[t.slug] %></p>
         </li>
         <% }) %>
         <li class="t5-tool is-lib" data-reveal>
+          <p class="t5-ask">“Is there a template for this?”</p>
           <div class="t5-name"><b>The Library</b></div>
           <p><span aria-hidden="true">→</span> <%= rc %> playbooks, worksheets and templates. <%= rFree %> are free.</p>
         </li>
@@ -198,12 +276,14 @@
         <p class="lbl" data-reveal>The free plan</p>
         <h2 class="h2" data-reveal>Here's what $0 gets you.</h2>
         <p class="sub" data-reveal><% if (S === 'A') { %>All of it is free when doors open<%= L.launchAbbr ? ' ' + L.launchAbbr : '' %>. Join the founding list and we'll tell you when they do.<% } else { %>No card and no trial clock. Keep it as long as you like, and upgrade when Builder is worth it to you.<% } %></p>
+        <% if (run) { %><p class="r5-why" data-reveal><b>Why give it away?</b> The list is free. The follow-ups, the calls and the delivery are where you'll want help. That's Builder.</p><% } %>
         <a href="<%= cta[0] %>" class="btn light big"<%- tk('home_receipt_cta') %>><%= cta[1] %> <span class="arrow"></span></a>
       </div>
       <div class="r5-wrap" data-reveal>
         <figure class="r5-paper" aria-label="The free plan, itemized">
           <div class="r5-head"><div><b>127</b><span>Free plan</span></div><span class="r5-stamp" aria-hidden="true">Day 001</span></div>
           <ul>
+            <% if (run) { %><li><span>25</span><b>Local businesses for what you sell, each checked, each with a message</b><em>$0</em></li><% } %>
             <li><span>1</span><b>Assessment, 13 questions</b><em>$0</em></li>
             <li><span>1</span><b>30-day roadmap, built from your answers</b><em>$0</em></li>
             <li><span>2</span><b>Weeks of steps, with their playbooks</b><em>$0</em></li>
@@ -396,6 +476,22 @@ const go = () => (still ? null : ((phone && phoneLoop) || low) ? loop() : import
 const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 1500 }) : setTimeout(go, 200));
 document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
 </script>
+<% if (run) { %>
+<script>
+(function () {
+  // Run-mode hero. "Something else" opens First 25 without running it, so they can say what they sell first.
+  var f = document.querySelector('[data-h5r-form]');
+  if (f) f.addEventListener('submit', function () { var p = f.querySelector('input[name=pack]:checked'); f.querySelector('input[name=go]').disabled = !!(p && p.value === 'other'); });
+  // The sample sheet counts to 25 and types the first message once. Reduced motion shows the finished sheet.
+  var d = document.querySelector('[data-h5r-demo]');
+  if (!d || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var n = d.querySelector('[data-h5r-n]'), t = d.querySelector('[data-h5r-type]'), full = t.textContent;
+  d.classList.add('is-run'); n.textContent = '0'; t.textContent = '';
+  var k = 0, iv = setInterval(function () { n.textContent = ++k; if (k >= 25) clearInterval(iv); }, 60);
+  var j = 0; setTimeout(function step() { j += 2; t.textContent = full.slice(0, j); if (j < full.length) setTimeout(step, 16); }, 1500);
+})();
+</script>
+<% } %>
 <script>
 (function () {
   // Below-the-fold photo backgrounds and the looping clips load only when they get near the screen,

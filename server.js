@@ -332,7 +332,9 @@ function homeVideo() {
 }
 // hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
 // heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop' }));
+// The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html); until then it keeps the v2 brand hero.
+const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop', first25: HOME_FIRST25 }));
 // Pricing meta description by launch state (conversion/pages/pricing.md).
 function pricingDescription() {
   const v = launch.view();

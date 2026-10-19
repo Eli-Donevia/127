@@ -1540,7 +1540,8 @@ main .legal-foot { margin-top: 32px; }
 .t5-tool{background:var(--bg);padding:24px 24px 26px;transition:background .2s}
 .t5-tool:hover{background:var(--surface)}
 .t5-name{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.t5-name b{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.025em;line-height:1.25}
+.t5-tool .t5-ask{margin:0 0 18px;font-family:var(--display);font-weight:600;font-size:21px;line-height:1.2;letter-spacing:-.032em;color:var(--ink);text-wrap:balance}
+.t5-name b{font-family:var(--display);font-weight:500;font-size:15px;letter-spacing:-.01em;line-height:1.3;color:var(--ink-2)}
 .t5 .o5-plan{background:transparent;color:var(--primary);border-color:rgba(227,230,241,.3);flex:none}
 .t5 .o5-plan.is-free{color:var(--accent-ink);border-color:rgba(184,191,255,.35)}
 .t5-tool p{margin:10px 0 0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
@@ -1609,7 +1610,7 @@ main .legal-foot { margin-top: 32px; }
   .w5-steps li{grid-template-columns:44px 1fr}
   .t5-grid{grid-template-columns:1fr;border-radius:18px}
   .t5-tool{padding:18px 20px 20px}
-  .t5-name b{font-size:17px}
+  .t5-tool .t5-ask{font-size:19px;margin-bottom:14px}
   .t5-art{display:none}
   .q5-list{grid-template-columns:1fr}
   .r5-paper{transform:rotate(1deg);padding:30px 20px 34px}
@@ -1620,5 +1621,126 @@ main .legal-foot { margin-top: 32px; }
 @media (prefers-reduced-motion: reduce){
   .h5-halo,.h5-title > span > span,.h5 .lbl,.h5-sub,.h5-btn,.h5-note{animation:none !important}
 }
+
+/* ---------- Founding hero v2: copy and form on the left, the founding member card under the halo on the right ----------
+   The card only restates the page's own facts (cap, price, dates). Its name line follows the first-name field. */
+.f5{padding-top:72px}
+.f5 .f5-grid{max-width:1180px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(32px,5vw,72px);align-items:center;text-align:left}
+.f5 .f5-copy h1{margin:22px 0;font-size:clamp(46px,6.2vw,92px)}
+.f5 .lede{margin:0 0 30px;max-width:560px}
+.f5 .wl-form{margin:0;max-width:560px}
+.f5 .hero-cta{align-items:flex-start;margin:0 0 8px}
+.f5 .hero-alt{margin:14px 0 0}
+.f5 .fm-hero-small{margin:18px 0 0;text-align:left}
+.f5-art{position:relative;display:grid;place-items:center;min-height:420px;isolation:isolate}
+.f5-halo{position:absolute;left:50%;top:50%;width:150%;height:140%;transform:translate(-50%,-50%);border-radius:50%;z-index:-1;background:radial-gradient(closest-side,rgba(244,245,251,.85),rgba(232,235,248,.72) 32%,rgba(206,212,248,.44) 52%,rgba(184,191,255,.17) 72%,rgba(184,191,255,.05) 86%,transparent);-webkit-mask-image:linear-gradient(#000 76%,rgba(0,0,0,.25) 76.4%,transparent 100%);mask-image:linear-gradient(#000 76%,rgba(0,0,0,.25) 76.4%,transparent 100%);animation:haloIn 1.8s .15s both}
+.f5-halo::after{content:"";position:absolute;left:8%;right:8%;top:76%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
+.f5-card{position:relative;width:min(460px,100%);aspect-ratio:1.586;border-radius:22px;padding:24px 26px;display:flex;flex-direction:column;background:linear-gradient(140deg,#24252c 0%,#0f0f13 42%,#191a20 100%);border:1px solid rgba(255,255,255,.14);box-shadow:0 50px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.14);transform:rotate(-5deg);overflow:hidden;animation:f5In 1.2s .2s cubic-bezier(.2,.7,.2,1) both}
+.f5-card::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.09) 47%,transparent 58%);transform:translateX(-60%);animation:f5Sheen 2.4s 1s ease-out both;pointer-events:none}
+.f5-top{display:flex;justify-content:space-between;align-items:center}
+.f5-mark,.f5-big{background:linear-gradient(180deg,#fff,#a7a9b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f5-mark{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.06em;line-height:1}
+.f5-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.f5-big{margin-top:auto;font-family:var(--display);font-weight:700;font-size:clamp(28px,3vw,38px);letter-spacing:-.045em;line-height:1.05}
+.f5-rows{margin:14px 0 0;display:grid;gap:5px}
+.f5-rows div{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.f5-rows dt{color:#6a6c78}
+.f5-rows dd{margin:0;color:var(--ink);text-align:right}
+.f5-name{margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.f5-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.f5-name em{font-style:normal;color:#6a6c78;font-size:11px;flex:none}
+@keyframes f5In{from{opacity:0;transform:translateY(24px) rotate(-9deg)}to{opacity:1;transform:rotate(-5deg)}}
+@keyframes f5Sheen{to{transform:translateX(60%)}}
+@media (max-width:900px){
+  .f5{padding-top:48px}
+  .f5 .f5-grid{grid-template-columns:1fr;gap:8px}
+  .f5-art{min-height:290px}
+  .f5-card{width:min(350px,90%);padding:18px 20px;border-radius:18px}
+  .f5-mark{font-size:22px}
+  .f5-big{font-size:28px}
+  .f5-rows{margin-top:10px;gap:3px}
+  .f5-rows div{font-size:10px}
+  .f5-name{margin-top:10px;padding-top:10px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){.f5-card,.f5-halo{animation:none}.f5-card::before{display:none}}
+
+/* ---------- Homepage hero, run mode (v2/hormozi-playbook.md 2.2): First 25 on the first screen ----------
+   Copy and the form on the left, a sample run under the halo on the right. The 3D 127 moves to the hook (.pain-mark). */
+.h5r{text-align:left;justify-content:center}
+.h5r-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);grid-template-areas:"copy demo" "form demo";column-gap:clamp(36px,5vw,84px);row-gap:30px;align-items:start;padding-top:clamp(20px,5vh,64px);padding-bottom:44px}
+.h5r-copy{grid-area:copy;align-self:end}
+.h5r-form{grid-area:form;max-width:560px}
+.h5r-demo{grid-area:demo;align-self:center;position:relative;isolation:isolate;padding:28px 0}
+.h5r .h5-title{margin:0 0 22px;font-size:clamp(44px,min(6vw,10.5vh),92px)}
+.h5r .h5-title .st > span:nth-child(1){animation-delay:0s}.h5r .h5-title .st > span:nth-child(2){animation-delay:.08s}.h5r .h5-title .st > span:nth-child(3){animation-delay:.16s}
+.h5r .h5-title .dim > span:nth-child(1){animation-delay:.3s}.h5r .h5-title .dim > span:nth-child(2){animation-delay:.38s}
+.h5r .h5-sub{margin:0;max-width:540px}
+.h5r .h5-halo{--glow-w:178%;--glow-h:142%;--floor:89%}
+.h5r-sheet{position:relative;max-width:520px;margin:0 auto;border-radius:22px;padding:22px 22px 16px;background:linear-gradient(180deg,rgba(23,23,28,.96),rgba(11,11,14,.97));border:1px solid rgba(255,255,255,.12);box-shadow:0 44px 90px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.1);animation:fadeUp 1s .3s both}
+.h5r-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.h5r-count{color:var(--ink-2)}
+.h5r-count b{display:inline-block;min-width:2ch;text-align:right;color:var(--ink);font-weight:500}
+.h5r-where{margin:10px 0 14px;font-family:var(--display);font-weight:700;font-size:clamp(24px,2.2vw,32px);letter-spacing:-.04em;line-height:1.05;color:var(--ink)}
+.h5r-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.h5r-list li{display:grid;grid-template-columns:28px minmax(0,1fr) auto 36px;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.h5r-rank{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.h5r-biz{min-width:0}
+.h5r-biz b{display:block;font-weight:600;font-size:14.5px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h5r-biz small{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+.h5r-gaps{display:flex;gap:5px}
+.h5r-gaps i{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line-2);border-radius:999px;padding:4px 7px;white-space:nowrap}
+.h5r-score{justify-self:end;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--ink);background:radial-gradient(closest-side,#141418 80%,transparent 82%),conic-gradient(var(--primary) 0 var(--s,85%),rgba(255,255,255,.1) var(--s,85%) 100%)}
+.h5r-msg{margin-top:14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line);padding:12px 14px}
+.h5r-k{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.h5r-k em{font-style:normal;color:var(--accent-ink)}
+.h5r-msg p{margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink-2);min-height:6em}
+.h5r-foot{margin:12px 0 0;font-size:11.5px;color:var(--muted)}
+.h5r-sheet.is-run .h5r-list li{animation:h5rRow .5s calc(.5s + var(--i) * .16s) cubic-bezier(.2,.7,.2,1) both}
+@keyframes h5rRow{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.h5r-chips{border:0;margin:0 0 14px;padding:0;min-width:0;animation:fadeUp .9s .6s both}
+.h5r-chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.h5r-chips legend{margin:0 0 10px;padding:0;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.h5r-chip{position:relative;cursor:pointer}
+.h5r-chip input{position:absolute;opacity:0;pointer-events:none}
+.h5r-chip span{display:inline-flex;align-items:center;height:36px;padding:0 15px;border-radius:999px;border:1px solid var(--line-2);font-size:14px;color:var(--ink-2);white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.h5r-chip:hover span{color:var(--ink);border-color:rgba(255,255,255,.3)}
+.h5r-chip input:checked + span{background:var(--primary);border-color:var(--primary);color:#0b0b0e}
+.h5r-chip input:focus-visible + span{outline:2px solid var(--primary);outline-offset:2px}
+.h5r-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;animation:fadeUp .9s .72s both}
+.h5r-row .input{margin:0;height:54px}
+.h5r .h5-note{text-align:left;margin-top:16px}
+.h5r .h5-note a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
+/* The hook carries the 3D mark in run mode */
+.v5 .pain.pain-mark{position:relative;isolation:isolate;padding-top:72px !important;text-align:center}
+.pain-mark .hx-mark{margin:0 auto}
+.v5 .pain-lbl{margin:6px 0 80px}
+.pain-mark .wrap{text-align:left}
+@media (max-width:1000px){
+  .h5r-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "demo" "form";row-gap:24px}
+  .h5r-demo{padding:4px 0}
+  .h5r-form{max-width:none}
+}
+@media (max-width:760px){
+  .h5r-grid{padding-top:12px;padding-bottom:28px;row-gap:20px}
+  .h5r .h5-title{font-size:clamp(42px,12.6vw,60px);margin-bottom:14px}
+  .h5r .h5-title > span{display:block}
+  .h5r .h5-sub{font-size:16px}
+  .h5r .h5-halo{--glow-w:120%;--glow-h:120%;--floor:92%}
+  .h5r-sheet{padding:15px 15px 6px;border-radius:18px}
+  .h5r-where{font-size:22px;margin:8px 0 8px}
+  .h5r-list li{grid-template-columns:24px minmax(0,1fr) auto 32px;padding:8px 0}
+  .h5r-list li:nth-child(n+4),.h5r-msg,.h5r-foot{display:none}
+  .h5r-gaps i:nth-child(2){display:none}
+  .h5r-score{width:32px;height:32px;font-size:11px}
+  .h5r-chip-row{flex-wrap:nowrap;overflow-x:auto;margin-right:-20px;padding-right:20px;scrollbar-width:none}
+  .h5r-chip-row::-webkit-scrollbar{display:none}
+  .h5r-row{grid-template-columns:1fr}
+  .h5r-row .btn{width:100%}
+  .v5 .pain.pain-mark{padding-top:48px !important}
+  .v5 .pain-lbl{margin-bottom:56px}
+}
+@media (prefers-reduced-motion:reduce){.h5r-sheet,.h5r-chips,.h5r-row,.h5r-sheet.is-run .h5r-list li{animation:none !important}}
+.r5-why{margin:-12px 0 30px;max-width:460px;padding:14px 0 0;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink-2)}
+.r5-why b{color:var(--ink);font-weight:600}
 /* No sideways page scroll on phones: the step glow and the outputs rail stay inside their sections. */
 .v5 .w5,.v5 .o5{overflow-x:clip}

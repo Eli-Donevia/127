@@ -26,8 +26,9 @@
 <% } else { %>
 
   <% if (st === 'A') { %>
-  <section class="hero plain founding-hero">
-    <div class="wrap narrow">
+  <section class="hero plain founding-hero f5">
+    <div class="wrap f5-grid">
+    <div class="f5-copy">
       <div class="eyebrow fm-hero-label">FOUNDING LIST<%= launch.launchShort ? ' · DOORS OPEN ' + launch.launchShort : '' %></div>
       <h1><span class="dim-ink">Be one of</span> <span class="grad">the first <%= cap %>.</span></h1>
       <p class="lede">127 opens<%= launch.launchDate ? ' on ' + launch.launchDate : ' soon' %>: a roadmap built for you, plus the playbooks, AI tools and templates to work it. The first <%= cap %> Builders pay <%= PM %>, locked for as long as they stay.</p>
@@ -47,14 +48,17 @@
 
       <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: 'DOORS OPEN IN', cdShort: false }) %>
     </div>
+    <%- include('partials/founding-card', { fcSt: 'A' }) %>
+    </div>
   </section>
 
   <% if (launch.challenge.open) { %>
   <section class="fm-tight"><div class="wrap narrow"><%- include('partials/challenge-card', { chHref: '/challenge?ref=founding', chFrom: 'founding' }) %></div></section>
   <% } %>
   <% } else { %>
-  <section class="hero plain founding-hero">
-    <div class="wrap narrow">
+  <section class="hero plain founding-hero f5">
+    <div class="wrap f5-grid">
+    <div class="f5-copy">
       <div class="eyebrow fm-hero-label">FOUNDING PRICE<%= launch.closesShort ? ' · ENDS ' + launch.closesShort : '' %><%= launch.spotsLeft <= 25 ? ' · ' + launch.spotsLeft + ' SPOTS LEFT' : '' %></div>
       <h1><span class="grad"><%= P ? PM + '.' : 'The founding price.' %></span> <span class="dim-ink">Locked while you stay.</span></h1>
       <p class="lede">Builder: all 4 weeks of your roadmap, every playbook and every AI tool. $29 a month<%= launch.closesDate ? ' after ' + launch.closesDate : ' after the founding window' %>. There's no Black Friday sale.</p>
@@ -68,6 +72,8 @@
       </div>
       <p class="consent-line fm-hero-small">14 days to change your mind. Cancel online anytime from Billing. No call or email needed.</p>
       <%- include('partials/countdown-line', { cdTarget: launch.closesAt, cdLabel: 'FOUNDING PRICE ENDS IN', cdShort: false }) %>
+    </div>
+    <%- include('partials/founding-card', { fcSt: 'B' }) %>
     </div>
   </section>
   <% } %>
