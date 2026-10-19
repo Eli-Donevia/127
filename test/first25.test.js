@@ -933,3 +933,11 @@ test('lists older than 30 days are deleted', async () => {
   assert.equal(db.get('prospectRuns', old.id), null);
   assert.ok(db.get('prospectRuns', fresh.id));
 });
+
+test('error text from a paid map server never carries its key', () => {
+  const url = 'https://eu1.locationiq.com/v1/search?key=pk.secret1234567890&q=Ames&format=json';
+  const msg = first25._test.scrubUrl(url, 'Invalid key pk.secret1234567890 for /v1/search?key=pk.secret1234567890&q=Ames&format=json');
+  assert.doesNotMatch(msg, /secret1234567890/);
+  const t = first25._test.scrubUrl('https://overpass.tracestrack.com/api/ts-abcdef123456/interpreter', 'Not found: /api/ts-abcdef123456/interpreter');
+  assert.doesNotMatch(t, /abcdef123456/);
+});
