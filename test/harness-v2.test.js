@@ -731,6 +731,46 @@ test('the OpenStreetMap servers are one need, ready only with both set', () => {
   }
 });
 
+test('no key a server echoes reaches a step error, a log line or the server log (Tracestrack, LocationIQ, the Graph API)', async () => {
+  const text = require('../lib/harness/text');
+  const KEYS = ['trk9f8e7d6c5b4a39281706f5e4d3c2b1a0', 'pk.1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d', 'EAAGm0PX4ZCpsBAKZB1a2b3c4d5e6f7g8h9'];
+  const urls = [
+    `https://overpass.tracestrack.com/overpass/${KEYS[0]}/api/interpreter`,
+    `https://us1.locationiq.com/v1/search?key=${KEYS[1]}&q=Ames`,
+    `https://graph.facebook.com/v21.0/17841400000000000?fields=business_discovery&access_token=${KEYS[2]}`,
+  ];
+  const obj = (properties) => ({ type: 'object', properties, required: [] });
+  const KP = {
+    id: 'kp', title: 'Key test', version: '1.0.0', summary: 'Servers that echo the request.',
+    tools: [{
+      name: 'kp.call', title: 'Call a server', description: 'Calls servers that echo the request.', kind: 'code', risk: 'read', credits: 0, input: obj({}), output: obj({ ok: { type: 'boolean' } }),
+      run: async (input, ctx) => {
+        ctx.log(`Asked ${urls[1]}`);
+        throw new Error(`The map server said no: ${urls[2]} ${KEYS[0]}`, { cause: new Error(`404 Not Found: ${urls[0]}`) });
+      },
+    }],
+    workflows: [{ id: 'kp.go', title: 'Call a server', promise: 'Calls a server.', tier: 'free', minutes: 1, inputs: obj({}), steps: [{ id: 'call', tool: 'kp.call', input: {} }] }],
+  };
+  assert.deepEqual(packs.register(KP).refused, []);
+  const user = await member('builder');
+  const run = await engine.start(user, 'kp.go', {});
+  await engine.idle();
+  const saved = JSON.stringify(engine.get(user, run.id));
+  assert.equal(engine.get(user, run.id).status, 'failed');
+  for (const k of KEYS) assert.ok(!saved.includes(k), `nothing saved or shown holds ${k.slice(0, 6)}...`);
+  assert.match(saved, /The map server said no: https:\/\/graph\.facebook\.com\/\[hidden\] \[hidden\]/);
+  assert.match(saved, /Asked https:\/\/us1\.locationiq\.com\/\[hidden\]/);
+
+  // A crash in the engine logs the error, its stack and its causes, scrubbed the same way.
+  const err = new Error(`Failed ${urls[2]}`, { cause: new Error(`Echo ${urls[0]}`, { cause: new Error(`GET /overpass/${KEYS[0]}/api and ?key=${KEYS[1]}`) }) });
+  const logged = text.scrubError(err);
+  for (const k of KEYS) assert.ok(!logged.includes(k), `no ${k.slice(0, 6)}... in the log`);
+  assert.match(logged, /^Error: Failed https:\/\/graph\.facebook\.com\/\[hidden\]\n\s+at /);
+  assert.match(logged, /caused by: Error: Echo https:\/\/overpass\.tracestrack\.com\/\[hidden\]/);
+  assert.match(logged, /caused by: Error: GET \/overpass\/\[hidden\]\/api and \?key=\[hidden\]/);
+  assert.equal(text.scrubKeys('Checked the menu page. 12 classes a week.'), 'Checked the menu page. 12 classes a week.', 'ordinary words stay');
+});
+
 test("without ffmpeg, a workflow that makes video won't start (sample data can't stand in for a render)", async () => {
   const needsLib = require('../lib/harness/needs');
   const obj = (properties) => ({ type: 'object', properties, required: [] });

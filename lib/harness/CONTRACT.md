@@ -16,6 +16,7 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 - **Leads:** `repliedAt`, and `answered: true` or `answeredAt` when your workflow logs the member's answer (section 13). Messages keep their line breaks.
 - **Keys:** `osm`, the OpenStreetMap servers First 25 also reads (section 6). The brain has `business.address` (section 6b).
 - **Google Places:** the engine drops Google's fields at any depth of a lead's `data`, not only the top (section 6).
+- **Keys in errors:** step errors, `ctx.log` lines and the server log keep only a URL's scheme and host and hide key-like values (section 6).
 
 **In v1.1:**
 
@@ -174,7 +175,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | `render` | `ffmpeg` on the server | `FFMPEG_PATH` or `ffmpeg` on the path |
 | `stripe`, `shopify` | the member's own HQ connections | not wired into packs yet: always sample |
 
-Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
+Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. A server's error can echo the request, key and all (Tracestrack puts it in the path, LocationIQ in `?key=`, the Graph API in `access_token`), so the engine keeps only the scheme and host of any URL in your step errors, `ctx.log` lines and the server log, and hides key-like values. Scrub what you save in outputs yourself. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
 
 **Sample mode.** If any `needs` entry is missing, `ctx.sample === true` (and on an admin's sample run). The tool must still work: return realistic data from `sample/` and set `sample: true` on the output. A missing `wants` key doesn't turn sample mode on; work without it.
 
