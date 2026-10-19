@@ -68,6 +68,7 @@
       biz: b.name, city: (ctx && ctx.city) || '', what: B.what, film: B.film, thing: B.thing, one: B.one, many: B.many,
       year: b.site && b.site.footerYear, reviews: b.reviews, rating: b.rating,
       end: B.end || 'Come try a ' + B.thing + '.',
+      page: b.website ? 'website' : b.facebook ? 'Facebook page' : b.instagram ? 'Instagram' : 'map listing',
     };
   }
 
@@ -138,7 +139,8 @@
     (list || []).forEach(function (b) {
       var k = baseName(b.name);
       if (b.closed) { stats.closed++; return; }
-      if (E.isChain(b.name, o.buyer) || counts[k] >= 3) { stats.chains++; return; }
+      // b.chain: the source says it's a chain's branch (OpenStreetMap's brand tags).
+      if (b.chain || E.isChain(b.name, o.buyer) || counts[k] >= 3) { stats.chains++; return; }
       // The same business listed twice: same name, same website or same phone number.
       var keys = ['n:' + k], dom = domainOf(b.website), tel = String(b.phone || '').replace(/\D/g, '').slice(-10);
       if (dom && !SHARED_HOSTS.test(dom)) keys.push('w:' + dom);
@@ -229,7 +231,7 @@
   // Each way says which message fits it (dm, email or walkin) and the link that opens it, if any.
   E.channels = function (b, packId) {
     var s = b.site || {}, so = s.socials || {}, out = [];
-    var ig = b.instagram || so.instagram, fb = so.facebook && so.facebook !== 'page' ? so.facebook : null;
+    var ig = b.instagram || so.instagram, fb = b.facebook || (so.facebook && so.facebook !== 'page' ? so.facebook : null);
     var visual = ['video', 'social', 'photo'].indexOf(packId) !== -1;
     var site = b.website && !/\.example(\/|$)/.test(b.website) ? b.website : null;
     if (ig) out.push({ id: 'ig', label: 'Instagram DM', to: '@' + ig, href: 'https://ig.me/m/' + encodeURIComponent(ig), text: 'dm', rank: visual ? 0 : 2 });

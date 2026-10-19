@@ -671,7 +671,7 @@ test('a Google list is saved as place IDs and our own work, never the listing (L
       assert.doesNotMatch(JSON.stringify(stored), GOOGLE_DETAILS);
       for (const p of stored.prospects) {
         assert.match(p.id, /^g-p[12]-\d+$/);
-        for (const k of ['name', 'website', 'phone', 'address', 'rating', 'reviews', 'mapsUrl']) assert.equal(p[k], undefined, `${k} is not saved`);
+        for (const k of ['name', 'website', 'facebook', 'phone', 'address', 'rating', 'reviews', 'mapsUrl']) assert.equal(p[k], undefined, `${k} is not saved`);
         for (const x of p.gaps.concat(p.fits)) assert.deepEqual(Object.keys(x).sort(), ['id', 'points']);
         assert.equal(p.site.checked, true);
       }
@@ -816,10 +816,13 @@ test("a search on paid map servers sends each key only to its server, and shows 
   };
   try {
     const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Nevada, IA', source: 'osm' });
-    assert.deepEqual(calls.map((c) => [c.method, c.u.split('?')[0]]), [['GET', 'https://us1.locationiq.com/v1/search'], ['POST', 'https://api.tracestrack.com/overpass/tt-test-key/interpreter']]);
+    // One city lookup, then Overpass: the city's box, and, with so few found, about 15 km around it.
+    assert.deepEqual(calls.map((c) => [c.method, c.u.split('?')[0]]), [['GET', 'https://us1.locationiq.com/v1/search'], ['POST', 'https://api.tracestrack.com/overpass/tt-test-key/interpreter'], ['POST', 'https://api.tracestrack.com/overpass/tt-test-key/interpreter']]);
     assert.equal(new URL(calls[0].u).searchParams.get('key'), 'liq-test-key');
-    assert.match(calls[1].body, /^data=/);
-    assert.ok(!calls[1].body.includes('test-key'), "Overpass's query carries no key");
+    for (const c of calls.slice(1)) {
+      assert.match(c.body, /^data=/);
+      assert.ok(!c.body.includes('test-key'), "Overpass's query carries no key");
+    }
     assert.equal(doc.prospects[0].name, 'Lantern Gym');
     // LocationIQ's free plan asks for its link where its search is used: under the button and with the list's credits.
     process.env.FIRST25_SOURCE = 'osm';
@@ -860,6 +863,95 @@ test("a city's answer from LocationIQ is reused for 48 hours at most, other serv
     await first25._test.geocode('Altoona, IA');
     assert.deepEqual(hits, ['us1.locationiq.com', 'us1.locationiq.com', 'nominatim.example'], 'other servers keep a city for a week');
   } finally { global.fetch = realFetch; Date.now = realNow; delete process.env.OSM_NOMINATIM_URL; }
+});
+
+test('OpenStreetMap tags can be patterns, so a gym tagged "climbing;fitness" is found', () => {
+  assert.equal(first25._test.overpassFilter('leisure=fitness_centre'), '["leisure"="fitness_centre"]');
+  assert.equal(first25._test.overpassFilter('leisure=sports_centre][sport~fitness|climbing'), '["leisure"="sports_centre"]["sport"~"fitness|climbing"]');
+  for (const t of E.buyer('gyms').osm) assert.match(first25._test.overpassFilter(t), /^(\["[a-z_:]+"[=~]"[^"]+"\])+$/, t);
+});
+
+// A fake Nominatim and Overpass: the first box finds `first`, the wider one `wider` (by the box's south edge).
+function fakeOsm(box, first, wider, { failWide = false } = {}) {
+  const realFetch = global.fetch, boxes = [];
+  global.fetch = async (url, init = {}) => {
+    const u = String(url);
+    if (u.includes('/search?')) return jsonRes([{ boundingbox: box, lat: String((+box[0] + +box[1]) / 2), lon: String((+box[2] + +box[3]) / 2) }]);
+    if (u.includes('interpreter')) {
+      const bb = decodeURIComponent(String(init.body)).match(/\(([-\d.]+),([-\d.]+),([-\d.]+),([-\d.]+)\);/).slice(1).map(Number);
+      boxes.push(bb);
+      if (boxes.length > 1 && failWide) return new Response('busy', { status: 504 });
+      return jsonRes({ elements: boxes.length > 1 ? wider : first });
+    }
+    return realFetch(url, init);
+  };
+  return { boxes, restore: () => { global.fetch = realFetch; } };
+}
+const el = (id, tags) => ({ type: 'node', id, lat: 41.6, lon: -93.6, tags });
+
+test('an OpenStreetMap search reaches the suburbs when the city box is thin, and keeps only businesses to pitch', async () => {
+  const B = E.buyer('gyms');
+  const city = [el(1, { name: 'Iron & Oak Strength', leisure: 'fitness_centre', website: 'ironandoak.com', 'contact:instagram': 'https://instagram.com/ironoak' }),
+    el(2, { name: 'Anytime Fitness', leisure: 'fitness_centre', brand: 'Anytime Fitness', 'brand:wikidata': 'Q4778364' })];
+  const suburbs = [city[0], city[1],
+    el(3, { name: 'CrossFit 8035', leisure: 'fitness_centre', brand: 'CrossFit' }),
+    el(4, { name: 'CrossFit', leisure: 'fitness_centre', brand: 'CrossFit' }),
+    el(5, { name: 'Capitol Lofts Apartments Fitness Room', leisure: 'fitness_centre' }),
+    el(6, { name: 'Westside Club Gym', leisure: 'fitness_centre', access: 'private' }),
+    el(7, { name: 'Thai Boxing Academy', amenity: 'dojo', website: 'https://www.facebook.com/thaiboxingdsm/' }),
+    el(8, { name: 'Studio Lift', leisure: 'fitness_centre', website: 'https://instagram.com/studio.lift' }),
+    el(9, { name: 'Kosama', leisure: 'fitness_centre' }),
+    el(10, { name: 'Ironworks Barbell', leisure: 'fitness_centre', website: 'https://ironworks-barbell.business.site/' }),
+    el(11, { name: 'University Avenue Boxing', leisure: 'fitness_centre' }),
+    el(12, { name: 'University of Iowa Field House', leisure: 'sports_centre', sport: 'fitness' })];
+  const f = fakeOsm(['41.55', '41.65', '-93.70', '-93.55'], city, suburbs);
+  try {
+    const list = await first25._test.fromOsm(B, 'Grimes, IA');
+    assert.equal(f.boxes.length, 2, 'the city box, then about 15 km around it');
+    assert.ok(f.boxes[1][0] < f.boxes[0][0] && f.boxes[1][2] > f.boxes[0][2], 'the second box is wider');
+    const by = Object.fromEntries(list.map((b) => [b.name, b]));
+    assert.deepEqual(Object.keys(by).sort(), ['Anytime Fitness', 'CrossFit', 'CrossFit 8035', 'Iron & Oak Strength', 'Ironworks Barbell', 'Kosama', 'Studio Lift', 'Thai Boxing Academy', 'University Avenue Boxing'], 'once each; no private, apartment or campus gyms, and a street name is just a name');
+    assert.equal(by['Anytime Fitness'].chain, true, 'a brand tag marks a chain');
+    assert.equal(by['CrossFit 8035'].chain, false, 'a CrossFit affiliate is its own gym');
+    assert.equal(by.CrossFit.chain, true, 'a CrossFit listing with no name of its own is dropped');
+    assert.deepEqual([by['Iron & Oak Strength'].website, by['Iron & Oak Strength'].instagram], ['http://ironandoak.com', 'ironoak']);
+    // A Facebook or Instagram page isn't their own website: no site to check, and the page is a way to reach them.
+    assert.deepEqual([by['Thai Boxing Academy'].website, by['Thai Boxing Academy'].facebook], [null, 'thaiboxingdsm']);
+    assert.deepEqual([by['Studio Lift'].website, by['Studio Lift'].instagram], [null, 'studio.lift']);
+    assert.equal(by['Ironworks Barbell'].website, null, "an old Google business.site page isn't a site of their own");
+    const { prospects, stats } = E.rank(list, { pack: 'video', buyer: 'gyms', now: NOW });
+    assert.deepEqual(prospects.map((b) => b.name).sort(), ['CrossFit 8035', 'Iron & Oak Strength', 'Ironworks Barbell', 'Studio Lift', 'Thai Boxing Academy', 'University Avenue Boxing']);
+    assert.equal(stats.chains, 3, 'Anytime Fitness, the unnamed CrossFit and Kosama');
+    const thai = prospects.find((b) => b.name === 'Thai Boxing Academy');
+    assert.ok(thai.gaps.some((g) => g.id === 'no_site'));
+    assert.deepEqual(E.channels(thai, 'video').map((c) => [c.id, c.href]).find((c) => c[0] === 'fb'), ['fb', 'https://m.me/thaiboxingdsm']);
+    // The message names what they do have, so it reads true on their own page.
+    const dm = (name) => E.messages(prospects.find((b) => b.name === name), 'video', 'gyms', { city: 'Grimes' }).dm;
+    assert.match(dm('Thai Boxing Academy'), /I couldn't find a website for Thai Boxing Academy, just your Facebook page\./);
+    assert.match(dm('Studio Lift'), /just your Instagram\./);
+    assert.match(dm('CrossFit 8035'), /just your map listing\./);
+  } finally { f.restore(); }
+});
+
+test('a wide place or a full first search gets one OpenStreetMap search, and a failed wider search keeps the first', async () => {
+  const B = E.buyer('gyms');
+  const many = Array.from({ length: 60 }, (_, i) => el(100 + i, { name: `Gym ${i}`, leisure: 'fitness_centre' }));
+  let f = fakeOsm(['41.55', '41.65', '-93.70', '-93.55'], many, []);
+  try { assert.equal((await first25._test.fromOsm(B, 'Clive, IA')).length, 60); assert.equal(f.boxes.length, 1, '60 found is enough'); } finally { f.restore(); }
+  f = fakeOsm(['40.3', '43.5', '-96.6', '-90.1'], many.slice(0, 5), []);
+  try { await first25._test.fromOsm(B, 'Iowa'); assert.equal(f.boxes.length, 1, 'a state is already cut to about 15 km'); } finally { f.restore(); }
+  f = fakeOsm(['41.55', '41.65', '-93.70', '-93.55'], many.slice(0, 5), [], { failWide: true });
+  try { assert.equal((await first25._test.fromOsm(B, 'Waukee, IA')).length, 5, 'the first results still make the list'); assert.equal(f.boxes.length, 2); } finally { f.restore(); }
+});
+
+test("a Google listing whose website is a Facebook page counts as no website, and the page isn't saved (Legal L53)", async () => {
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  const realFetch = global.fetch;
+  global.fetch = async () => jsonRes({ places: [{ id: 'fb1', displayName: { text: 'Thai Spice' }, websiteUri: 'https://www.facebook.com/thaispiceomaha', businessStatus: 'OPERATIONAL' }] });
+  try {
+    const [b] = await first25._test.fromGoogle(E.buyer('restaurants'), 'Omaha, NE');
+    assert.deepEqual([b.website, b.facebook], [null, 'thaispiceomaha']);
+  } finally { global.fetch = realFetch; delete process.env.GOOGLE_PLACES_KEY; }
 });
 
 // ---------- the messages members send (Legal L53 part 3) ----------

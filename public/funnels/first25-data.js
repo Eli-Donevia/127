@@ -14,11 +14,13 @@
   // q: the search phrase ("gyms in Des Moines, IA"). type: Google Places includedType when one fits.
   // osm: OpenStreetMap tags for the free source. what: what they sell, for messages.
   // film: what a video or photo sample would show. chains: names we drop (corporate marketing, not a first client).
+  // skip: words in an OpenStreetMap name that mean it isn't a business to pitch (an apartment building's gym).
   var buyers = {
     gyms: {
       label: 'Gyms and fitness studios', one: 'gym', many: 'gyms', q: 'gyms and fitness studios', type: 'gym',
-      osm: ['leisure=fitness_centre', 'amenity=gym', 'sport=crossfit'], what: 'classes', film: 'a class', thing: 'class',
-      chains: ['planet fitness', 'anytime fitness', 'la fitness', 'orangetheory', 'crunch fitness', '24 hour fitness', "gold's gym", 'golds gym', 'snap fitness', 'ymca', 'life time', 'lifetime fitness', 'equinox', '9round', 'retro fitness', 'blink fitness', 'chuze', 'eos fitness', 'genesis health', 'workout anytime', 'fitness 19', 'youfit', 'esporta', 'vasa fitness'],
+      osm: ['leisure=fitness_centre', 'amenity=gym', 'sport=crossfit', 'amenity=dojo', 'leisure=sports_centre][sport~fitness|crossfit|boxing|kickboxing|martial_arts|mma|climbing|bouldering|weightlifting|powerlifting'], what: 'classes', film: 'a class', thing: 'class',
+      chains: ['planet fitness', 'anytime fitness', 'la fitness', 'orangetheory', 'crunch fitness', '24 hour fitness', "gold's gym", 'golds gym', 'snap fitness', 'ymca', 'life time', 'lifetime fitness', 'equinox', '9round', 'retro fitness', 'blink fitness', 'chuze', 'eos fitness', 'genesis health', 'workout anytime', 'fitness 19', 'youfit', 'esporta', 'vasa fitness', 'f45', 'burn boot camp', 'koko fitclub', 'kosama', "farrell's", 'pure barre', 'club pilates', 'title boxing', 'ufc gym', 'cyclebar', 'rumble boxing', 'row house', 'stretchlab', 'hotworx', 'hot worx', 'jazzercise', 'fit body boot camp', 'camp gladiator', 'mayweather boxing', 'the exercise coach'],
+      skip: ['apartments', 'apartment', 'residences', 'hotel', 'suites', 'university of', 'state university', 'college of', 'community college', 'high school', 'middle school', 'elementary', 'hospital', 'medical center', 'senior living', 'city of', 'recreation center', 'rec center', 'community center', 'aquatic center', 'aquatics'],
     },
     yoga: {
       label: 'Yoga and pilates studios', one: 'studio', many: 'yoga and pilates studios', q: 'yoga and pilates studios', type: 'yoga_studio',
@@ -28,7 +30,7 @@
     restaurants: {
       label: 'Restaurants and cafes', one: 'restaurant', many: 'restaurants', q: 'restaurants and cafes', type: 'restaurant',
       osm: ['amenity=restaurant', 'amenity=cafe'], what: 'food', film: 'a dish coming out of the kitchen', thing: 'dish',
-      chains: ["mcdonald's", 'mcdonalds', 'starbucks', 'subway', 'chipotle', 'panera', 'taco bell', "wendy's", 'burger king', 'chick-fil-a', "domino's", 'pizza hut', 'dunkin', "applebee's", 'olive garden', "chili's", 'buffalo wild wings', "arby's", 'kfc', 'panda express', 'sonic', 'jimmy john', 'qdoba', "culver's", 'dairy queen', 'five guys', 'noodles & company', 'red robin', 'texas roadhouse', 'ihop', "denny's", 'perkins', 'jersey mike', 'firehouse subs', "casey's", 'kwik trip', 'kwik star', 'hy-vee', 'caribou coffee', 'dutch bros', "raising cane's", 'whataburger', 'popeyes', 'little caesars', "papa john's", "hardee's", 'cracker barrel', 'outback', 'red lobster'],
+      chains: ["mcdonald's", 'mcdonalds', 'starbucks', 'subway', 'chipotle', 'panera', 'taco bell', "wendy's", 'burger king', 'chick-fil-a', "domino's", 'pizza hut', 'dunkin', "applebee's", 'olive garden', "chili's", 'buffalo wild wings', "arby's", 'kfc', 'panda express', 'sonic', 'jimmy john', 'qdoba', "culver's", 'dairy queen', 'five guys', 'noodles & company', 'red robin', 'texas roadhouse', 'ihop', "denny's", 'perkins', 'jersey mike', 'firehouse subs', "casey's", 'kwik trip', 'kwik star', 'hy-vee', 'caribou coffee', 'dutch bros', "raising cane's", 'whataburger', 'popeyes', 'little caesars', "papa john's", "hardee's", 'cracker barrel', 'outback', 'red lobster', "godfather's", 'pizza ranch', 'runza', "freddy's frozen custard", "scooter's coffee", 'wingstop', "zaxby's", 'potbelly', 'crumbl', 'smoothie king', 'tropical smoothie', "jason's deli", "mcalister's", "fazoli's", "steak 'n shake", 'white castle'],
     },
     salons: {
       label: 'Salons and barbers', one: 'salon', many: 'salons and barbershops', q: 'hair salons and barbershops', type: 'hair_salon',
@@ -83,7 +85,8 @@
   var gaps = {
     site_down: { chip: 'Site down', why: "Their website didn't load when we checked.", say: "I tried your website this week and it didn't load for me." },
     broken_link: { chip: 'Broken link', why: 'The website link on their map listing goes to a missing page.', say: "The website link on your map listing goes to a page that doesn't exist anymore." },
-    no_site: { chip: 'No website', why: 'No website on their listing.', say: "I couldn't find a website for {biz}, just your map listing." },
+    // {page}: their Facebook page or Instagram when that's all they have instead of a website, else their map listing.
+    no_site: { chip: 'No website', why: 'No website on their listing.', say: "I couldn't find a website for {biz}, just your {page}." },
     no_video: { chip: 'No video', why: 'No video anywhere on their homepage.', say: "I was on your website and couldn't find any video of your {what}." },
     no_tiktok: { chip: 'No TikTok', why: 'No TikTok linked from their site.', say: "I couldn't find {biz} on TikTok." },
     no_youtube: { chip: 'No YouTube', why: 'No YouTube linked from their site.', say: "I didn't see a YouTube channel for {biz}." },
