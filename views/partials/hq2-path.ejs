@@ -1,0 +1,15 @@
+<%# A business type's workflows as one numbered path (harness.start: mine.items or a type's items), each step the member has finished checked off. Locals: items, next (the id of the step to mark next, or null). %>
+<ol class="h2-path">
+  <% items.forEach(function (w) { var lock = w.locked ? (w.tier === 'circle' ? "Founder's Circle" : 'Builder') : ''; var isNext = !w.ran && w.id === next; %>
+  <li data-search="<%= (w.title + ' ' + w.promise + ' ' + w.packTitle).toLowerCase() %>">
+    <a class="h2-step<%= w.locked ? ' locked' : '' %><%= isNext ? ' next' : '' %>" href="/app/hq/w/<%= w.id %>">
+      <span class="h2-num<%= w.ran ? ' done' : isNext ? ' next' : '' %>" aria-hidden="true"><%= w.ran ? '' : w.n %></span>
+      <span class="t">
+        <b><% if (isNext) { %><span class="sr-only">Next: </span><% } %><%= w.title %></b>
+        <span class="p"><%= w.promise %></span>
+        <span class="s"><% if (w.ran) { %><span class="win"><%= w.ran === 1 ? 'Done' : 'Done ' + w.ran + ' times' %></span><% } else if (lock) { %><span class="<%= w.tier === 'circle' ? 'gold' : 'lock' %>"><%= lock %></span><% } else { %><%= w.credits ? 'About ' + w.credits + ' credits' : 'Free' %><% } %> &middot; <% if (w.repeat) { %>repeats <%= w.repeat.charAt(0).toLowerCase() + w.repeat.slice(1) %><% } else { %><%= w.minutes %> min of yours<% } %></span>
+      </span>
+    </a>
+  </li>
+  <% }) %>
+</ol>

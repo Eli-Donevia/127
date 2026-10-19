@@ -12,7 +12,7 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 
 **In v1.4** (nothing breaks; one new line for a business pack):
 
-- **`business: true`** on a pack that is a business a member starts (house cleaning, UGC, video editing for gyms); leave it out, or say `false`, for tools any business uses (offers, ads). Start opens on the member's own business, the one they picked or their words fit, with its workflows in your order, then the tools by job, then every other business folded. Another business's workflows also go last on Today and in the Ask bar's list, though the bar still finds them by name. `harness check` notes a pack with niches that doesn't say (section 2).
+- **`business: true`** on a pack that is a business a member starts (house cleaning, UGC, video editing for gyms); leave it out, or say `false`, for tools any business uses (offers, ads). Start opens on the member's own business, the one they picked or their words fit, as one numbered path: its workflows in your order, so list them in the order a member runs them (the free first one first), each one they've finished checked off and the first one left marked next. Then the tools by job, then every other business folded. Another business's workflows also go last on Today and in the Ask bar's list, though the bar still finds them by name. `harness check` notes a pack with niches that doesn't say (section 2).
 - **`job`** is still optional. Left out, it's the job your workflow's id and title name most (its promise counts less), so "Your first 25" lands in Get leads; set it when you want another group (section 4).
 - **`suggestSchedule`** now does something: a finished run offers to repeat with the same answers, and one tap turns it on (section 4d).
 
@@ -65,7 +65,7 @@ module.exports = {
   version: '0.1.0',
   summary: 'Find gyms, show them what better video looks like, and write the messages to send them.',
   niches: ['video editing', 'gyms', 'fitness', 'local business'],  // matched against the member's business on Start
-  business: true,                             // v1.4: a business a member starts; leave out (or false) for tools any business uses
+  business: true,                             // v1.4: a business a member starts (Start shows its workflows as numbered steps in your order); leave out (or false) for tools any business uses
   system: ['ffmpeg'],                         // optional, informational: what the server must have installed
   tools: [require('./tools/find-gyms'), /* ... */],
   workflows: [/* section 4 */],

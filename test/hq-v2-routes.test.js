@@ -858,6 +858,15 @@ test('Start with business types: pick one first, then your business leads and th
     const mine = page.slice(page.indexOf('id="mine"'), page.indexOf('</section>', page.indexOf('id="mine"')));
     assert.ok(mine.indexOf('tclean.first_25') > 0 && mine.indexOf('tclean.first_25') < mine.indexOf('tclean.offer'), 'the pack order');
     assert.doesNotMatch(mine, /twalk/);
+    assert.match(mine, /<span class="h2-tag">2 steps<\/span>/);
+    assert.match(mine, /<ol class="h2-path">[\s\S]*?<span class="h2-num next" aria-hidden="true">1<\/span>[\s\S]*?Your first 25[\s\S]*?<span class="h2-num" aria-hidden="true">2<\/span>/, 'one numbered path, step 1 next');
+    // A finished run checks its step off and the next one left is marked; an admin's sample run counts for nothing.
+    await db.save('runs', { id: db.id(), memberId: cleaner.id, workflowId: 'tclean.first_25', title: 'Your first 25', status: 'done', createdAt: new Date().toISOString() });
+    await db.save('runs', { id: db.id(), memberId: cleaner.id, workflowId: 'tclean.offer', title: 'Your offer', status: 'done', sample: true, createdAt: new Date().toISOString() });
+    page = await html(await s.go('/app/hq/start', { as: cleaner }));
+    const done = page.slice(page.indexOf('id="mine"'), page.indexOf('</section>', page.indexOf('id="mine"')));
+    assert.match(done, /<span class="h2-tag win">1 of 2 done<\/span>/);
+    assert.match(done, /<span class="h2-num done" aria-hidden="true"><\/span>[\s\S]*?<span class="win">Done<\/span>[\s\S]*?<span class="h2-num next" aria-hidden="true">2<\/span>[\s\S]*?Next: <\/span>Your house cleaning offer/);
     assert.ok(page.indexOf('Start a different business') > page.indexOf('id="leads"'), 'the others fold at the end');
     assert.doesNotMatch(page, /id="type-tclean"/);
     assert.doesNotMatch(page, /Pick a business</);

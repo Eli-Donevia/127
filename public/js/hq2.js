@@ -529,15 +529,33 @@
     }
   }
 
-  // ---------- Start: search ----------
+  // ---------- Start: search, and "Show all" on a job ----------
   var search = $('#wf-search');
   if (search) {
+    // A job longer than a row shows its best row on a wider screen until "Show all", or while searching.
+    var clamp = function (searching) {
+      $$('.h2-more').forEach(function (b) {
+        var g = b.closest('.h2-group');
+        g.classList.toggle('clamp', !searching && !g.hasAttribute('data-all'));
+      });
+    };
+    $$('.h2-more').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var g = b.closest('.h2-group');
+        g.setAttribute('data-all', '');
+        g.classList.remove('clamp');
+        var c = $$('.h2-card', g)[3];
+        if (c) c.focus(); // the button goes away; carry on from the first card it showed
+      });
+    });
+    clamp(false);
     var filter = function () {
       var words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
       var any = false;
+      clamp(words.length > 0);
       $$('.h2-group').forEach(function (g) {
         var shown = 0;
-        $$('.h2-card', g).forEach(function (c) {
+        $$('[data-search]', g).forEach(function (c) {
           var hay = c.getAttribute('data-search') || '';
           var ok = words.every(function (w) { return hay.indexOf(w) >= 0; });
           c.hidden = !ok;
@@ -545,7 +563,7 @@
         });
         // A folded business type opens while the search finds something in it, and folds back after.
         $$('.h2-type', g).forEach(function (d) {
-          var hits = $$('.h2-card', d).filter(function (c) { return !c.hidden; }).length;
+          var hits = $$('[data-search]', d).filter(function (c) { return !c.hidden; }).length;
           d.hidden = !hits;
           if (words.length) {
             if (!d.hasAttribute('data-open')) d.setAttribute('data-open', d.open ? '1' : '');
