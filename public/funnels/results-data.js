@@ -7,6 +7,7 @@ window.RESULTS = {
     score: { label: 'Get your full result.', line: 'Your reasons, your #1 move and your roadmap preview, sent to your inbox.', button: 'Send my results' },
     stack: { label: 'Get the Day One Stack.', line: '10 tools, 30 copy-paste prompts and the $0 day-one stack.', button: 'Send me the guide' },
     idea: { label: 'Get your 7-day test plan.', line: 'Your 7-day test plan, 3 customer questions and who to talk to.', button: 'Send my results' },
+    first25: { sticky: 'Get all 25 and every message by email.', label: 'Get all 25 and every message.', line: 'All 25 ranked, a DM, email and walk-in line for each, 2 follow-ups, free samples for your top 3, and a file for Sheets or Notion.', button: 'Send me my 25' },
     toast: 'Sent. Check your inbox.',
     sticky: 'Get your full result by email.',
   },
@@ -121,6 +122,17 @@ window.RESULTS = {
     resource: "Tools help when you know the next step. Your roadmap gives you the step, and Builder's 18 playbooks, worksheets and tools cover all 4 weeks.",
     start: 'Start free. Your roadmap tells you which tool each step needs.',
     builder: "Builder, ${builderPrice} a month: all 4 weeks, every playbook and Eli's Playbook, which knows your roadmap.",
+  },
+
+  // First 25 (lib/first25.js). The list is the first step of the Start track's "find 10 people", so the lines point there.
+  first25: {
+    a1: 'Day 2 of the challenge, {day2}, is Find 10 people. You already have 25.',
+    a2: 'On {doorsShort}, your roadmap opens on the Start track. This list is your head start on it.',
+    resource: "You have the list. Builder's Outreach Scripts and Eli's Playbook help you turn the replies into a first client.",
+    start: 'Start free. Your roadmap turns this list into your first conversation, one step at a time.',
+    builder: "Builder, ${builderPrice} a month: the full library, Outreach Scripts and Eli's Playbook.",
+    // Turn on when 127 HQ runs First 25 for members every week (Harness v2 thread). Until then it never shows.
+    hq: { on: false, label: '127 HQ', heading: 'A fresh 25 every Monday.', body: '127 HQ runs this search for you every week, tracks who replied, and writes your follow-ups.' },
   },
 
   // Idea Test, by verdict (§11). a2: roadmap.js Start week 1 opens with the Idea Test itself.

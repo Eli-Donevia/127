@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--OG-->
+<title>First 25 · 127</title>
+<meta name="description" content="Name what you sell and your city. Get 25 local businesses that need it, what's broken in their marketing, and the message to send each one. Free.">
+<meta property="og:title" content="Find your first 25 clients.">
+<meta property="og:description" content="25 local businesses that need what you sell, what's broken in their marketing, and the message to send each one. Free.">
+<meta property="og:image" content="/funnels/og/first-25.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/OG-->
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/funnels/funnels.css">
+<link rel="stylesheet" href="/funnels/first-25.css">
+<!--TRACKERS-->
+</head>
+<body>
+<div class="bg-grid"></div><div class="glow"></div>
+<header class="f-top">
+  <a href="/" class="mark" aria-label="127"><span class="num">127</span></a>
+  <a href="/stack" class="aside" data-site>The Day One Stack</a>
+</header>
+
+<main>
+  <section class="narrow hero" id="intro">
+    <span class="chip"><span class="dot"></span>Free · 60 seconds · No signup to search</span>
+    <h1 class="h-display steel">Find your first 25 clients.</h1>
+    <p class="lede">Tell us what you sell and where. We'll find local businesses that need it, check every website for the gap you fix, and write the message to send each one.</p>
+  </section>
+
+  <section class="narrow" id="formWrap">
+    <form id="f25Form" class="card halo stack-m" novalidate>
+      <div class="field"><span>What do you sell?</span>
+        <div class="f25-packs" id="packs" role="group" aria-label="What you sell"></div>
+        <button type="button" class="f25-pickme" id="pickMe" aria-expanded="false">Not sure? Answer 3 questions and we'll pick.</button>
+        <div class="f25-picker" id="picker" hidden></div>
+      </div>
+      <label class="field" id="serviceField" hidden><span>What is it? A few words.</span>
+        <input class="input" name="service" maxlength="60" placeholder="e.g. Pressure washing"></label>
+      <label class="field"><span>Who do you want to sell to?</span>
+        <select class="input" name="buyer" id="buyer"></select></label>
+      <label class="field"><span>Where?</span>
+        <input class="input" name="place" maxlength="80" required placeholder="City and state, or a ZIP code" autocomplete="address-level2"></label>
+      <label class="field"><span>Your first name <span class="slate">(it goes in your messages)</span></span>
+        <input class="input" name="me" maxlength="40" placeholder="e.g. Maya" autocomplete="given-name"></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button class="btn block" type="submit" id="go">Find my 25 <span class="arrow"></span></button>
+      <div class="form-err" id="err" hidden></div>
+      <div class="form-note">Public business info only. We look at each homepage once, the way a visitor would.</div>
+    </form>
+
+    <div class="card f25-stack">
+      <div class="label">What you get, free</div>
+      <ul class="f25-stack-list" id="stack"></ul>
+    </div>
+  </section>
+
+  <section class="narrow f25-scan" id="scan" hidden aria-live="polite">
+    <div class="label lilac">Working</div>
+    <h2 class="h2" style="margin-top:12px" id="scanTitle">Finding your 25.</h2>
+    <div class="f25-meter"><span id="meter"></span></div>
+    <ol class="f25-log" id="log"></ol>
+  </section>
+
+  <section class="narrow" id="result" hidden></section>
+
+  <section class="narrow section" id="whoWrap"><div id="who"></div></section>
+</main>
+
+<footer class="f-foot">
+  <div class="earn">127 is education and tools, not a promise of income. Results vary. <a href="/earnings-disclaimer">Earnings disclaimer</a></div>
+  <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
+  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/cookies">Cookie Notice</a> · <a href="/cookies" data-cookie-settings>Cookie settings</a></div>
+</footer>
+<script src="/funnels/funnel-kit.js"></script>
+<script src="/funnels/results-data.js"></script>
+<script src="/funnels/results-kit.js"></script>
+<script src="/funnels/first25-data.js"></script>
+<script src="/funnels/first25-engine.js"></script>
+<script src="/funnels/first-25.js"></script>
+</body>
+</html>

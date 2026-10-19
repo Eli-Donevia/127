@@ -1,0 +1,367 @@
+// First 25: what you sell, who buys it, the gaps we check for, and every line of copy the
+// tool writes (messages, samples, the 7-day plan). Edit copy here; first25-engine.js uses it
+// on the page and on the server, so the page, the CSV and the email always say the same thing.
+//
+// Rules for this file (brand/voice-and-messaging.md §5, §7, §15):
+// - Messages are honest: the sender never claims past clients, results or experience.
+// - Every observation says what we checked ("on your website"), never what we can't know.
+// - The outcome we promise is a first conversation and a first client, never income.
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.FIRST25 = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  // ---------- who buys (local businesses) ----------
+  // q: the search phrase ("gyms in Des Moines, IA"). type: Google Places includedType when one fits.
+  // osm: OpenStreetMap tags for the free source. what: what they sell, for messages.
+  // film: what a video or photo sample would show. chains: names we drop (corporate marketing, not a first client).
+  var buyers = {
+    gyms: {
+      label: 'Gyms and fitness studios', one: 'gym', many: 'gyms', q: 'gyms and fitness studios', type: 'gym',
+      osm: ['leisure=fitness_centre', 'amenity=gym', 'sport=crossfit'], what: 'classes', film: 'a class', thing: 'class',
+      chains: ['planet fitness', 'anytime fitness', 'la fitness', 'orangetheory', 'crunch fitness', '24 hour fitness', "gold's gym", 'golds gym', 'snap fitness', 'ymca', 'life time', 'lifetime fitness', 'equinox', '9round', 'retro fitness', 'blink fitness', 'chuze', 'eos fitness', 'genesis health', 'workout anytime', 'fitness 19', 'youfit', 'esporta', 'vasa fitness'],
+    },
+    yoga: {
+      label: 'Yoga and pilates studios', one: 'studio', many: 'yoga and pilates studios', q: 'yoga and pilates studios', type: 'yoga_studio',
+      osm: ['sport=yoga', 'leisure=fitness_centre][sport=pilates'], what: 'classes', film: 'a class', thing: 'class',
+      chains: ['corepower', 'club pilates', 'yogasix', 'pure barre', 'solidcore', 'hotworx', 'hot worx', 'stretchlab', 'bodybar'],
+    },
+    restaurants: {
+      label: 'Restaurants and cafes', one: 'restaurant', many: 'restaurants', q: 'restaurants and cafes', type: 'restaurant',
+      osm: ['amenity=restaurant', 'amenity=cafe'], what: 'food', film: 'a dish coming out of the kitchen', thing: 'dish',
+      chains: ["mcdonald's", 'mcdonalds', 'starbucks', 'subway', 'chipotle', 'panera', 'taco bell', "wendy's", 'burger king', 'chick-fil-a', "domino's", 'pizza hut', 'dunkin', "applebee's", 'olive garden', "chili's", 'buffalo wild wings', "arby's", 'kfc', 'panda express', 'sonic', 'jimmy john', 'qdoba', "culver's", 'dairy queen', 'five guys', 'noodles & company', 'red robin', 'texas roadhouse', 'ihop', "denny's", 'perkins', 'jersey mike', 'firehouse subs', "casey's", 'kwik trip', 'kwik star', 'hy-vee', 'caribou coffee', 'dutch bros', "raising cane's", 'whataburger', 'popeyes', 'little caesars', "papa john's", "hardee's", 'cracker barrel', 'outback', 'red lobster'],
+    },
+    salons: {
+      label: 'Salons and barbers', one: 'salon', many: 'salons and barbershops', q: 'hair salons and barbershops', type: 'hair_salon',
+      osm: ['shop=hairdresser', 'shop=beauty'], what: 'work', film: 'a cut coming together', thing: 'cut',
+      chains: ['great clips', 'supercuts', 'sport clips', 'fantastic sams', 'cost cutters', 'ulta', 'regis', 'hair cuttery', 'smartstyle', 'first choice haircutters', 'floyd', 'drybar', 'european wax', 'the lash lounge'],
+    },
+    medspas: {
+      label: 'Med spas and skin clinics', one: 'med spa', many: 'med spas', q: 'med spas and skin clinics', type: null,
+      osm: ['shop=beauty][beauty=skin_care', 'healthcare=clinic][healthcare:speciality=dermatology'], what: 'treatments', film: 'the space and a consult', thing: 'treatment',
+      chains: ['ideal image', 'laseraway', 'milan laser', 'european wax center', 'hand & stone', 'massage envy', 'the joint', 'skin laundry', 'sono bello', 'body sculpt', 'alchemy 43', 'ever/body', 'face foundrie'],
+    },
+    dentists: {
+      label: 'Dentists', one: 'dental office', many: 'dental offices', q: 'dentists', type: 'dentist',
+      osm: ['amenity=dentist', 'healthcare=dentist'], what: 'care', film: 'the office and the team', thing: 'visit',
+      chains: ['aspen dental', 'heartland dental', 'western dental', 'coast dental', 'gentle dental', 'smile brands', 'bright now', 'monarch dental', 'comfort dental', 'kool smiles', 'small smiles', 'castle dental', 'affordable dentures', 'clear choice', 'clearchoice'],
+    },
+    chiro: {
+      label: 'Chiropractors and physical therapy', one: 'clinic', many: 'chiropractic and PT clinics', q: 'chiropractors and physical therapy clinics', type: 'chiropractor',
+      osm: ['healthcare=chiropractor', 'healthcare=physiotherapist', 'amenity=chiropractor'], what: 'care', film: 'the clinic and a session', thing: 'session',
+      chains: ['the joint', 'athletico', 'ati physical therapy', 'select physical therapy', 'upstream rehab', 'pivot physical therapy', 'professional physical therapy', 'confluent health', 'novacare', 'physiotherapy associates', 'benchmark physical therapy'],
+    },
+    realtors: {
+      label: 'Real estate agents', one: 'agent', many: 'real estate agents', q: 'real estate agents', type: 'real_estate_agency',
+      osm: ['office=estate_agent'], what: 'listings', film: 'a listing walkthrough', thing: 'listing',
+      chains: [],
+    },
+    contractors: {
+      label: 'Home services (plumbing, HVAC, roofing)', one: 'company', many: 'home service companies', q: 'plumbing HVAC and roofing contractors', type: null,
+      osm: ['craft=plumber', 'craft=hvac', 'craft=roofer', 'craft=electrician'], what: 'work', film: 'a job from start to finish', thing: 'job',
+      chains: ['roto-rooter', 'mr. rooter', 'ars rescue', 'one hour heating', 'benjamin franklin plumbing', 'aire serv', 'mister sparky', 'servpro', 'servicemaster', 'mr. electric', 'home depot', "lowe's", 'sears home', 'leaf filter', 'leaffilter', 'rhino shield', 'window nation', 'renewal by andersen'],
+    },
+    auto: {
+      label: 'Auto repair and detailing', one: 'shop', many: 'auto shops', q: 'auto repair and detailing shops', type: 'car_repair',
+      osm: ['shop=car_repair', 'amenity=car_wash'], what: 'work', film: 'a car before and after', thing: 'job',
+      chains: ['jiffy lube', 'midas', 'meineke', 'firestone', 'pep boys', 'valvoline', 'take 5', 'goodyear', 'monro', 'christian brothers automotive', 'maaco', 'discount tire', 'les schwab', 'ntb', 'caliber collision', 'gerber collision', 'safelite', 'grease monkey', 'tire kingdom', 'big o tires', 'mavis tire', 'brakes plus', 'tires plus', 'quick lane', 'mister car wash', 'tommy\'s express', 'autozone', "o'reilly", 'advance auto'],
+    },
+    boutiques: {
+      label: 'Boutiques and local shops', one: 'shop', many: 'boutiques', q: 'boutiques and local gift shops', type: 'clothing_store',
+      osm: ['shop=clothes', 'shop=boutique', 'shop=gift'], what: 'products', film: 'new arrivals on the rack', thing: 'piece',
+      chains: ['target', 'walmart', 'tj maxx', 'marshalls', 'ross dress for less', 'old navy', 'h&m', 'zara', "kohl's", "macy's", 'nordstrom', 'banana republic', 'american eagle', 'hollister', 'ann taylor', 'francesca', 'altar\'d state', 'buckle', 'maurices', 'torrid', 'lane bryant', 'christopher & banks', 'hallmark', 'claire\'s', 'five below', 'hobby lobby', 'michaels', 'kirkland\'s', 'homegoods'],
+    },
+    law: {
+      label: 'Law firms', one: 'firm', many: 'law firms', q: 'law firms', type: 'lawyer',
+      osm: ['office=lawyer'], what: 'cases', film: 'the office and the team', thing: 'consult',
+      chains: ['legalzoom', 'jacoby & meyers', 'morgan & morgan', 'h&r block', 'jackson hewitt', 'liberty tax'],
+    },
+  };
+
+  // ---------- the gaps we check (from their website and their listing) ----------
+  // why: the reason shown on the card. say: the line the message opens with (honest, about what we saw).
+  // {biz} {city} {what} {year} {reviews} {thing} are filled per business.
+  var gaps = {
+    site_down: { chip: 'Site down', why: "Their website didn't load when we checked.", say: "I tried your website this week and it didn't load for me." },
+    broken_link: { chip: 'Broken link', why: 'The website link on their map listing goes to a missing page.', say: "The website link on your map listing goes to a page that doesn't exist anymore." },
+    no_site: { chip: 'No website', why: 'No website on their listing. Google is their whole storefront.', say: "I couldn't find a website for {biz}, just the Google listing." },
+    no_video: { chip: 'No video', why: 'No video anywhere on their homepage.', say: "I was on your website and couldn't find any video of your {what}." },
+    no_tiktok: { chip: 'No TikTok', why: 'No TikTok linked from their site.', say: "I couldn't find {biz} on TikTok." },
+    no_youtube: { chip: 'No YouTube', why: 'No YouTube linked from their site.', say: "I didn't see a YouTube channel for {biz}." },
+    no_instagram: { chip: 'No Instagram link', why: "Their site doesn't link to an Instagram.", say: "Your website doesn't link to an Instagram." },
+    no_facebook: { chip: 'No Facebook link', why: "Their site doesn't link to a Facebook page.", say: "Your website doesn't link to a Facebook page." },
+    no_pixel: { chip: 'No ad pixel', why: "No Meta pixel, so they can't show ads to people who visited.", say: "Your website isn't set up to show ads to people who've already visited." },
+    no_booking: { chip: 'No online booking', why: 'No way to book or order online. Every booking is a phone call.', say: "I couldn't find a way to book online on your website." },
+    no_chat: { chip: 'No chat', why: 'No chat on their site. Questions after hours go nowhere.', say: "There's no way to ask a quick question on your website after hours." },
+    no_form: { chip: 'No contact form', why: 'No contact form on their homepage.', say: "Your homepage doesn't have a contact form." },
+    no_signup: { chip: 'No email list', why: 'No email signup anywhere on their homepage.', say: "I couldn't find a way to join your email list on your website." },
+    stale_footer: { chip: '© {year}', why: 'Their footer still says © {year}.', say: 'The footer on your website still says © {year}.' },
+    no_https: { chip: 'Not secure', why: 'Their site has no https, so Chrome marks it "Not secure".', say: 'Your website shows as "Not secure" in Chrome.' },
+    no_mobile: { chip: 'Not phone-ready', why: "Their site isn't set up for phones.", say: 'Your website is hard to use on a phone.' },
+    slow: { chip: 'Slow site', why: 'Their homepage took over 3 seconds to respond.', say: 'Your homepage took a few seconds to load for me.' },
+    no_description: { chip: 'No Google blurb', why: 'No description for Google to show under their name.', say: "When I searched for {biz}, Google didn't show a description for your site." },
+    few_images: { chip: 'Few photos', why: 'Only a few photos on their homepage.', say: 'Your website only has a few photos of your {what}.' },
+    few_reviews: { chip: '{reviews} reviews', why: 'Only {reviews} Google reviews.', say: 'I saw you have {reviews} Google reviews.' },
+  };
+
+  // Signals that make a business a better first client (they already spend on marketing, they're busy).
+  var fits = {
+    ads: { why: 'Already runs ads, so they pay for marketing.' },
+    booking: { why: 'Takes bookings online, so more views can turn into bookings.' },
+    busy: { why: 'Busy: {reviews} Google reviews.' },
+    rated: { why: '{rating} stars on Google. They care how they look.' },
+    independent: { why: 'Independent, not a chain. The owner decides.' },
+  };
+
+  // ---------- what you sell ----------
+  // gaps: points for each gap this service fixes. fit: points for signs they'd buy.
+  // verb: what you do, after "I". offer: the free sample, in the message. sample: the spec piece (see specs).
+  var packs = {
+    video: {
+      label: 'Short videos', sell: 'short-form video', verb: 'make short videos', buyers: ['gyms', 'yoga', 'restaurants', 'salons', 'medspas', 'realtors'],
+      gaps: { no_video: 30, no_tiktok: 16, no_instagram: 10, no_youtube: 5, no_site: 14, site_down: 8, few_reviews: 6, stale_footer: 5, few_images: 6 },
+      fit: { ads: 10, booking: 6, busy: 6, independent: 4 },
+      offer: "I'd like to make you one free 15-second reel from clips you already have.",
+      walkin: 'Could I film 2 minutes of {film} this week and send you a free edit?',
+      follow1: 'I went ahead and made the sample reel. Here it is: [paste your link]. If you like it, I can make 4 to 8 a month for you.',
+      subject: 'A free reel for {biz}?',
+      sample: 'video',
+    },
+    social: {
+      label: 'Social media', sell: 'social media', verb: 'run social media', buyers: ['restaurants', 'boutiques', 'salons', 'gyms', 'yoga', 'medspas'],
+      gaps: { no_instagram: 24, no_tiktok: 14, no_facebook: 8, no_pixel: 8, no_video: 10, no_site: 12, site_down: 6, few_reviews: 8, stale_footer: 6, few_images: 6 },
+      fit: { ads: 8, busy: 8, booking: 4, independent: 4 },
+      offer: "I'd like to write and design your next 3 posts for free, so you can see the style first.",
+      walkin: 'Could I take a few photos this week and turn them into 3 free posts for you?',
+      follow1: 'I made the 3 posts. Here they are: [paste your link]. Use them either way. If you want more like this every week, let me know.',
+      subject: '3 free posts for {biz}?',
+      sample: 'social',
+    },
+    web: {
+      label: 'Websites', sell: 'a new website', verb: 'build websites', buyers: ['contractors', 'auto', 'salons', 'restaurants', 'law', 'dentists', 'chiro'],
+      gaps: { no_site: 44, site_down: 38, broken_link: 24, no_https: 20, no_mobile: 20, stale_footer: 14, slow: 10, no_booking: 8, no_form: 8, no_description: 5 },
+      fit: { busy: 10, rated: 4, independent: 4 },
+      offer: "I'd like to make you a free mockup of a new homepage, and you keep it either way.",
+      walkin: 'Could I send you a free mockup of a new homepage for {biz}? Takes me a day.',
+      follow1: "I made the homepage mockup. Here it is: [paste your link]. If you'd like it live, I can have it up in a week.",
+      subject: 'A free homepage mockup for {biz}',
+      sample: 'web',
+    },
+    ai: {
+      label: 'AI booking and follow-up', sell: 'AI booking and follow-up', verb: 'set up AI booking and follow-up', buyers: ['dentists', 'chiro', 'medspas', 'salons', 'contractors', 'law'],
+      gaps: { no_booking: 30, no_chat: 16, few_reviews: 14, no_form: 10, no_site: 10, site_down: 6, slow: 4 },
+      fit: { busy: 10, ads: 6, independent: 4 },
+      offer: "I'd like to build you a free demo that answers booking questions for {biz}, so you can try it before you decide anything.",
+      walkin: 'Could I build you a free demo that answers your booking questions, using what is already on your website?',
+      follow1: 'I built the demo. Here it is answering real questions from your website: [paste your link]. Want me to set it up for real?',
+      subject: 'A free booking demo for {biz}',
+      sample: 'ai',
+    },
+    email: {
+      label: 'Email marketing', sell: 'email marketing', verb: 'write email campaigns', buyers: ['boutiques', 'restaurants', 'gyms', 'yoga', 'salons', 'medspas'],
+      gaps: { no_signup: 34, no_pixel: 8, no_site: 14, site_down: 6, few_reviews: 6, stale_footer: 6, no_instagram: 6 },
+      fit: { busy: 10, ads: 8, booking: 4, independent: 4 },
+      offer: "I'd like to write your first 3 emails for free, so you can see what it would look like.",
+      walkin: 'Could I write your first 3 customer emails for free and show you how to send them?',
+      follow1: 'I wrote the 3 emails. Here they are: [paste your link]. If you want, I can set up the signup form and send them for you.',
+      subject: '3 free emails for {biz}?',
+      sample: 'email',
+    },
+    photo: {
+      label: 'Photography', sell: 'photography', verb: 'take photos', buyers: ['restaurants', 'realtors', 'boutiques', 'gyms', 'salons', 'medspas'],
+      gaps: { few_images: 26, no_instagram: 14, no_site: 14, site_down: 6, few_reviews: 8, stale_footer: 8, no_video: 4 },
+      fit: { busy: 10, rated: 4, ads: 6, independent: 4 },
+      offer: "I'd like to shoot 3 free photos of your {what} so you can see the style.",
+      walkin: 'Could I take 10 photos of your {what} this week and send you the best 3 for free?',
+      follow1: 'Here are your 3 photos: [paste your link]. They are yours to use. If you want a full set every month, let me know.',
+      subject: 'Free photos for {biz}?',
+      sample: 'photo',
+    },
+    other: {
+      label: 'Something else', sell: 'my service', verb: 'work with local businesses', buyers: ['restaurants', 'gyms', 'salons', 'contractors', 'auto', 'boutiques', 'dentists', 'realtors', 'law', 'medspas', 'yoga', 'chiro'],
+      gaps: { no_site: 6, site_down: 4, broken_link: 4, stale_footer: 4, no_https: 3, no_mobile: 3 },
+      fit: { busy: 26, rated: 14, independent: 16 },
+      offer: "I'd like to show you my work with a free first job, so you can decide after.",
+      walkin: 'Could I do a small first job for free so you can see the quality?',
+      follow1: 'Following up on my note. The free first job is still on the table. Want me to pick a day?',
+      subject: 'A free first job for {biz}?',
+      sample: 'other',
+    },
+  };
+
+  // ---------- the free sample to make before you message (top 3) ----------
+  var hooks = {
+    gyms: 'POV: your first class at {biz}', yoga: '60 minutes at {biz}, in 15 seconds', restaurants: 'The {thing} {city} keeps coming back for',
+    salons: 'Watch this {thing} come together', medspas: 'What a visit to {biz} actually looks like', dentists: 'Meet the team at {biz}',
+    chiro: 'What happens in your first session at {biz}', realtors: 'Inside this {city} listing in 15 seconds', contractors: 'One {thing}, start to finish',
+    auto: 'Before and after, {biz}', boutiques: 'New at {biz} this week', law: 'Meet the team at {biz}',
+  };
+  var specs = {
+    video: {
+      title: 'Make one free reel for {biz}.',
+      steps: [
+        'Grab 4 to 6 clips from their public Instagram or Facebook. The edit is only for them, so never post it.',
+        'Cut a 12 to 15 second vertical edit in CapCut: a hook in the first second, a cut on every beat, big captions.',
+        'Open on this line: "{hook}".',
+        'End on their name and one line: "Come try a {thing}."',
+        'Export at 1080x1920 and upload it as an unlisted link you can paste into your follow-up.',
+      ],
+      // Shot by shot, so the first edit takes an hour, not an evening.
+      board: [
+        ['0 to 2s', 'On screen: "{hook}"'],
+        ['2 to 8s', 'Their 3 best clips, one cut on every beat'],
+        ['8 to 12s', 'The moment people come for: {film}'],
+        ['12 to 15s', 'Their logo and "Come try a {thing}."'],
+      ],
+    },
+    social: {
+      title: 'Write and design 3 posts for {biz}.',
+      steps: [
+        'Scroll their last 9 posts. Note which ones got the most comments.',
+        'Write 3 posts that do more of that: one behind the scenes, one customer favorite, one reason to come in this week.',
+        'Design them in Canva in their colors, with their logo small in a corner.',
+        'Put the 3 images and the captions in one link you can paste into your follow-up.',
+      ],
+    },
+    web: {
+      title: 'Mock up a new homepage for {biz}.',
+      steps: [
+        'Screenshot their current homepage on your phone.',
+        'Ask Claude to write a new homepage for {biz}: one headline, 3 short sections and one button that says "Book" or "Get a quote".',
+        'Build the mockup in Framer, Canva or Lovable. Keep it to one screen on a phone.',
+        'Send the before and after side by side. People buy what they can see.',
+      ],
+    },
+    ai: {
+      title: 'Build a 2-minute booking demo for {biz}.',
+      steps: [
+        'Copy their hours, services, prices and FAQs from their website into a doc.',
+        'Paste it into Claude and ask it to answer like their front desk. Test 10 real questions, like "Do you have anything Saturday?"',
+        'Record a 60-second screen video of it answering 3 of them.',
+        'Send the video, not a pitch. The demo does the selling.',
+      ],
+    },
+    email: {
+      title: 'Write the first 3 emails for {biz}.',
+      steps: [
+        'Welcome: who they are and why people come back.',
+        'Favorite: their best seller or most booked {thing}, with one photo.',
+        'Come back: one reason to visit this month.',
+        'Mock them up in a free email template and send screenshots, with the text ready to paste.',
+      ],
+    },
+    photo: {
+      title: 'Shoot 10, send 3, for {biz}.',
+      steps: [
+        'Visit as a customer. Ask before you take a single photo.',
+        'Shoot 10 photos of their best {what} in natural light, from their customers\' point of view.',
+        "Edit the best 3 on your phone. Match the colors to their sign or logo.",
+        'Send them with one line: "These are yours to use, free."',
+      ],
+    },
+    other: {
+      title: 'Do one small free job for {biz}.',
+      steps: [
+        'Pick the smallest piece of work that shows your quality in under an hour.',
+        'Take a before photo and an after photo.',
+        'Send both with one line: "This one is on me. Want me to do the rest?"',
+      ],
+    },
+  };
+
+  // ---------- the 7-day plan (first conversation, first client) ----------
+  var plan = [
+    'Make the free sample for #1. Send your message to #1 to #5.',
+    'Send #6 to #10. Walk into the 2 closest and use the walk-in line.',
+    'Follow up with #1 to #5. Send the sample you made.',
+    'Send #11 to #15. Make a sample for the best reply so far.',
+    'Follow up with #6 to #10. Ask anyone who replied for 15 minutes.',
+    'Send #16 to #25.',
+    'Last follow-ups. Write down every reply, even the no\'s. That list is your next week.',
+  ];
+
+  // ---------- the tracker (the same stages as the HQ Pipeline, v2/harness/WORKFLOW-CONTRACT.md §7) ----------
+  var stages = [
+    { id: 'found', label: 'Not contacted', short: 'New' },
+    { id: 'contacted', label: 'Sent', short: 'Sent' },
+    { id: 'replied', label: 'Replied', short: 'Replied' },
+    { id: 'call', label: 'Call booked', short: 'Call' },
+    { id: 'won', label: 'Won', short: 'Won' },
+    { id: 'lost', label: 'Not now', short: 'Not now' },
+  ];
+
+  // ---------- when they reply ----------
+  // [brackets] are for the sender to fill in; the page highlights them so nobody sends one by mistake.
+  var replies = [
+    { id: 'yes', label: '"Sure, send it"', text: "Great, I'll have it to you by [day]. Is there anything you'd love me to show, or anything to avoid?" },
+    { id: 'sent', label: 'Sending the sample', text: "Here it is: [paste your link]. If you like it, I can do this for {biz} every month. It's easier to show you than type it out. Do you have 10 minutes this week?" },
+    { id: 'price', label: '"How much?"', text: "For {biz} I'd start simple: [what you'll do] each month for [your price]. No contract. If you'd like to see it first, the first one is free." },
+    { id: 'who', label: '"Who are you?"', text: "I'm {me}. I {verb} for {many} in {city}. I'm starting with a few local businesses, so the first one is free. No catch." },
+    { id: 'covered', label: '"We already have someone"', text: "Good to hear you're covered. If you ever want a second set of hands or a fresh idea, I'm around. Mind if I check back in a couple of months?" },
+    { id: 'later', label: '"Not right now"', text: 'No problem at all. Can I check back in a couple of months? The free one is still yours whenever you want it.' },
+    { id: 'quiet', label: 'Quiet after the sample', text: "Hi {biz} team, did the sample come through okay? Happy to change anything. If now's not the time, no worries at all." },
+  ];
+
+  // ---------- "Not sure what to sell?" (3 questions, then one pick) ----------
+  var picker = {
+    likes: [
+      { id: 'film', label: 'Filming and editing' }, { id: 'write', label: 'Writing' }, { id: 'people', label: 'Talking to people' },
+      { id: 'build', label: 'Building things on a computer' }, { id: 'photo', label: 'Taking photos' }, { id: 'ai', label: 'Trying new apps and AI' },
+    ],
+    // like: [what you sell, who to sell to if you'll walk in, who if you'd rather stay online]
+    map: {
+      film: ['video', 'gyms', 'realtors'], write: ['email', 'boutiques', 'yoga'], people: ['social', 'restaurants', 'salons'],
+      build: ['web', 'contractors', 'dentists'], photo: ['photo', 'restaurants', 'boutiques'], ai: ['ai', 'medspas', 'dentists'],
+    },
+    why: {
+      'video|gyms': 'Gyms post all the time, classes are easy to film, and the owner is usually on site.',
+      'video|realtors': 'Agents need a video for every listing, and most of the work happens on your laptop.',
+      'email|boutiques': 'Boutiques sell to people who already love them, and email is how they bring them back.',
+      'email|yoga': 'Studios live on regulars, and a weekly email keeps the schedule full.',
+      'social|restaurants': 'Restaurants need fresh posts every week, and you can shoot them while you eat.',
+      'social|salons': 'Salons sell on looks, so a steady feed of their work brings in new bookings.',
+      'web|contractors': 'People hire contractors from a Google search, so the website does the selling.',
+      'web|dentists': 'New patients judge a dental office by its website before they ever call.',
+      'photo|restaurants': 'Good food photos sell the dish, and you can shoot a menu in an afternoon.',
+      'photo|boutiques': 'Every new arrival needs photos, and you can shoot a rack in an hour.',
+      'ai|medspas': 'Med spas get the same booking questions every day, and a missed question is a missed booking.',
+      'ai|dentists': 'Dental offices answer the same questions all day, and patients want answers after hours too.',
+    },
+    hours: [{ id: 'lt5', label: 'Under 5' }, { id: '5to15', label: '5 to 15' }, { id: '15', label: '15 or more' }],
+    hoursNote: {
+      lt5: 'With under 5 hours a week, aim for 1 client first.',
+      '5to15': 'With 5 to 15 hours a week, 2 or 3 clients is plenty to start.',
+      15: 'With 15 or more hours a week, you can work the whole list in 7 days.',
+    },
+  };
+
+  // ---------- what you get (the form page) ----------
+  var stack = [
+    ['25 local businesses that need what you sell', 'Ranked, with chains and closed ones taken out.'],
+    ["What's missing on each one's website", 'In plain words, from a real check of their homepage.'],
+    ['The message to send each one', 'A DM, an email, a walk-in line and 2 follow-ups.'],
+    ['A free sample to make for your top 3', 'Step by step, so you lead with something they can see.'],
+    ['Send mode and a tracker', 'Work your top 5 in one sitting, then track who replied.'],
+  ];
+
+  var copy = {
+    problem: "You don't need a better idea. You need a list.",
+    problemSub: "An idea can't pay you. A customer can. Here are 25 who could, and what to say to each one.",
+    checked: 'We checked each homepage on {date}. Things change, so look before you send.',
+    sampleNote: 'Sample businesses. They are made up so you can see how it works.',
+    attribution: {
+      sample: 'Sample data. These businesses are made up.',
+      google: 'Business listings from Google. Website checks by 127.',
+      osm: 'Business listings © OpenStreetMap contributors (openstreetmap.org/copyright). Website checks by 127.',
+    },
+    emailOptOut: 'P.S. Not for you? Reply "no thanks" and I won\'t follow up.',
+    follow2: "Last note from me. If {sell} isn't a priority right now, no problem at all. If it is, the first one is still free.",
+    // About 5 minutes a site, by hand: open it, look for video, socials, booking, the footer.
+    saved: 'We read {n} websites for you. That is about {time} of clicking by hand.',
+    priceTip: 'One package, one price, one start date. Make the first month an easy yes, and raise your price after 3 happy clients.',
+    keep: 'Your list and tracker stay here for 30 days.',
+    sendDone: "That's {n} sent. On day 3, send the Day 3 note to anyone who hasn't answered. It's on each card.",
+    won: 'First client. Reply to your First 25 email and tell Eli how it happened.',
+  };
+
+  return { buyers: buyers, gaps: gaps, fits: fits, packs: packs, specs: specs, hooks: hooks, plan: plan, stages: stages, replies: replies, picker: picker, stack: stack, copy: copy };
+});

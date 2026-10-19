@@ -26,10 +26,10 @@
 
   // name: 'Quiz Start' | 'Quiz Complete' | 'Lead' | 'Share' | 'Idea Test Run' ...
   // Quiz starts are also counted on the server (the revenue dashboard can't read Plausible).
-  var STARTS = { 'Quiz Start': 'founder-score', 'Idea Test Run': 'idea-test' };
+  var STARTS = { 'Quiz Start': 'founder-score', 'Idea Test Run': 'idea-test', 'First25 Search': 'first-25' };
   K.track = function (name, props) {
     props = props || {};
-    if (STARTS[name]) {
+    if (STARTS[name] && K.onSite) {
       try {
         var u = (JSON.parse(localStorage.getItem(UTM_KEY) || 'null') || {}).utm || {};
         var body = JSON.stringify({ quiz: STARTS[name], utm_source: u.utm_source || null, utm_medium: u.utm_medium || null, utm_campaign: u.utm_campaign || null, utm_content: u.utm_content || null });
@@ -107,7 +107,7 @@
   // Links between funnel pages. On the live site they are clean URLs; in a static
   // preview (no server) they point at the sibling .html files.
   K.onSite = /127group\.io$|localhost|127\.0\.0\.1|replit/.test(location.hostname);
-  var LOCAL = { '/score': 'score.html', '/stack': 'stack.html', '/stack/guide': 'stack-guide.html', '/idea-test': 'idea-test.html', '/funnels/day-one-stack.pdf': 'day-one-stack.pdf' };
+  var LOCAL = { '/score': 'score.html', '/stack': 'stack.html', '/stack/guide': 'stack-guide.html', '/idea-test': 'idea-test.html', '/first-25': 'first-25.html', '/funnels/day-one-stack.pdf': 'day-one-stack.pdf' };
   K.href = function (path) {
     if (K.onSite) return path;
     var bare = path.split('?')[0];

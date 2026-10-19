@@ -6,9 +6,9 @@
 (function () {
   var K = window.K127, D = window.RESULTS, esc = K.esc;
   var R = {};
-  var THING = { score: 'results', stack: 'guide', idea: 'results' };
-  var SOURCE = { score: 'founder-score', stack: 'day-one-stack', idea: 'idea-test' };
-  var FROM = { score: 'score', stack: 'stack', idea: 'idea-test' };
+  var THING = { score: 'results', stack: 'guide', idea: 'results', first25: 'list' };
+  var SOURCE = { score: 'founder-score', stack: 'day-one-stack', idea: 'idea-test', first25: 'first-25' };
+  var FROM = { score: 'score', stack: 'stack', idea: 'idea-test', first25: 'first-25' };
 
   // ---------- what the server said ----------
   var KEY = function (magnet) { return '127-result-' + magnet; };
@@ -53,7 +53,8 @@
         var lead = R.saveLead(o.magnet, Object.assign({}, j, { first_name: f.name ? f.name.value.trim() : '' }));
         var L = R.launch(o.magnet);
         K.track('qr_gate_submit', { magnet: o.magnet, state: L.state, flag: L.flag || 'off', box: box ? 'on' : 'off' });
-        K.toast(D.gate.toast);
+        // A static preview has no server behind it, so it never says anything was sent.
+        K.toast(j && j.preview ? 'Preview only. Nothing was sent.' : D.gate.toast);
         o.onDone(lead);
       }, function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.innerHTML = esc(g.button) + ' <span class="arrow"></span>'; });
     };
@@ -64,7 +65,7 @@
   R.sticky = function (target, magnet) {
     var bar = document.createElement('div');
     bar.className = 'sticky-ask';
-    bar.innerHTML = '<span>' + esc(D.gate.sticky) + '</span><button class="btn" type="button">' + esc(D.gate[magnet].button) + '</button>';
+    bar.innerHTML = '<span>' + esc(D.gate[magnet].sticky || D.gate.sticky) + '</span><button class="btn" type="button">' + esc(D.gate[magnet].button) + '</button>';
     document.body.appendChild(bar);
     bar.querySelector('button').onclick = function () {
       target.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -83,7 +84,7 @@
   // o: { magnet, key (archetype key or verdict), onStart() }
   R.block = function (el, o) {
     var L = R.launch(o.magnet), lead = R.lead(o.magnet);
-    var lines = o.magnet === 'score' ? D.score[o.key] : o.magnet === 'stack' ? D.stack : Object.assign({ a2: D.idea.a2, start: D.idea.start }, D.idea[o.key]);
+    var lines = o.magnet === 'score' ? D.score[o.key] : o.magnet === 'stack' ? D.stack : o.magnet === 'first25' ? D.first25 : Object.assign({ a2: D.idea.a2, start: D.idea.start }, D.idea[o.key]);
     var A = L.state === 'A1' || L.state === 'A2';
     var h = '';
     if (A) {
