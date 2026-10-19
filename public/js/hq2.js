@@ -293,6 +293,34 @@
       });
     });
     lock(card);
+    card.fillName = function (name) {
+      var fill = function (s) { return String(s || '').split('[business name]').join(name); };
+      ta.value = fill(ta.value);
+      Object.keys(texts).forEach(function (k) { texts[k] = fill(texts[k]); });
+      $$('.h2-q-ways button', card).forEach(function (b) {
+        b.setAttribute('data-text', fill(b.getAttribute('data-text')));
+        b.setAttribute('data-subject', fill(b.getAttribute('data-subject')));
+      });
+      var sub = $('.h2-q-subject [data-subject]', card);
+      if (sub) sub.textContent = fill(sub.textContent);
+      lock(card);
+    };
+  });
+  // A Google business's name is fetched when the member asks for it, and kept only on this page (Legal L53).
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gname]');
+    if (!b || b.disabled) return;
+    b.disabled = true;
+    fetch('/app/hq/leads/' + encodeURIComponent(b.getAttribute('data-gname')) + '/name.json', { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Try again in a moment.'); return j; }); })
+      .then(function (j) {
+        var box = b.closest('.h2-q') || b.closest('[data-lead]');
+        var to = box && $('[data-gname-to]', box);
+        if (to) to.textContent = j.name;
+        if (box && box.fillName) box.fillName(j.name);
+        b.remove();
+      })
+      .catch(function (err) { b.disabled = false; say(err.message); });
   });
   document.addEventListener('click', function (e) {
     var go = e.target.closest('[data-go]');

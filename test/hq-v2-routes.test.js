@@ -526,7 +526,7 @@ test('Do my day: the best sends first, already written, each opening the right a
   assert.match(page, /Do my day, Rae/);
   assert.match(page, /Your 25 for today/);
   assert.match(page, /2 already written/);
-  const at = (x) => page.indexOf(`<h3>${x}`);
+  const at = (x) => page.indexOf(`<h3><span data-gname-to>${x}`);
   assert.ok(at('Iron Temple') > 0 && at('Iron Temple') < at('Core Club') && at('Core Club') < at('Peak Fitness'), 'best score first');
   assert.match(page, /href="https:\/\/ig\.me\/m\/irontemple"/);
   assert.match(page, /Copy and open Instagram/);
@@ -850,6 +850,89 @@ test("the member's own First 25 list, found by their email, comes in with one ta
     assert.equal(where(r), '/app/hq');
     assert.doesNotMatch(await html(await s.go('/app/hq', { as: v })), /Bring in your/);
   } finally {
+    imports._setDeps({ first25: () => require('../lib/first25'), first25Data: () => require('../public/funnels/first25-data.js') });
+  }
+});
+
+test('Google businesses (Legal L53): the Pipeline keeps the place ID and 127\'s own work; names come from Google Maps when shown', async () => {
+  const places = require('../lib/harness/places');
+  const u = await member('builder', { name: 'Rae Okafor' });
+  await harness.brain.update(u, { business: { what: 'Short videos for gyms', city: 'Ames', audience: 'gyms' } });
+  const PID = 'ChIJirontempleAmes01';
+  // A row from a First 25 Google list: no company, the place ID in data, messages with the placeholder.
+  const rows = [{ key: 'first25:g1', name: '', company: '', source: 'first-25', stage: 'found', links: { website: 'https://google-gave-this.test', instagram: 'irontemple', map: 'https://maps.google.com/?cid=1', phone: '515-555-0100' }, data: { list: 'L9', rank: 1, score: 90, city: 'Ames', pack: 'video', buyer: 'gyms', sample: false, place_id: PID, gaps: ['no-reels'], messages: { dm: 'Hi [business name], I make short videos for gyms.', email: 'Hi [business name] team.', day3: 'Checking in.' } } }];
+  imports._setDeps({ first25: () => ({ leadsFor: async () => JSON.parse(JSON.stringify(rows)) }), first25Data: () => F25_DATA });
+  const calls = [];
+  const names = { [PID]: 'Iron Temple', ChIJpeakfitnessAmes2: 'Peak Fitness' };
+  places._setDeps({ fetch: async (url, opts) => {
+    const id = decodeURIComponent(url.split('/v1/places/')[1].split('?')[0]);
+    calls.push({ id, mask: opts.headers['x-goog-fieldmask'] });
+    return { ok: true, json: async () => ({ id, displayName: { text: names[id] }, attributions: [] }) };
+  } });
+  process.env.PLACES_API_KEY = 'test-key';
+  const stored = (id) => JSON.stringify(db.get('pipeline', id));
+  try {
+    let r = await s.go('/app/hq/import/first25-mine', { as: u, form: {} });
+    assert.equal(where(r), '/app/hq#day');
+    const [lead] = P.list(u.id);
+    assert.equal(lead.key, `gplaces:${PID}`);
+    assert.equal(lead.placeId, PID);
+    assert.equal(lead.name, '');
+    assert.deepEqual(Object.keys(lead.links), ['instagram']);
+    assert.equal(lead.data.place_id, PID);
+    assert.doesNotMatch(stored(lead.id), /google-gave-this|555-0100|maps\.google/);
+    assert.equal(calls.length, 0, 'nothing fetched to import');
+
+    // Today: the name is fetched for the page and put into the message, with the Google Maps credit.
+    let page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /<span data-gname-to>Iron Temple<\/span>/);
+    assert.match(page, /Hi Iron Temple, I make short videos for gyms\./);
+    assert.match(page, /query_place_id=ChIJirontempleAmes01" target="_blank" rel="noopener noreferrer">Google Maps<\/a>/);
+    assert.deepEqual(calls, [{ id: PID, mask: 'id,displayName,attributions' }]);
+    assert.doesNotMatch(stored(lead.id), /Iron Temple/, 'shown, never kept');
+
+    // A pack that saves a Google result: the name it brings becomes the placeholder, and Google's fields
+    // and any fact quoting Google's numbers are dropped.
+    await P.upsert(u.id, 'gym', { key: 'gplaces:ChIJpeakfitnessAmes2', name: 'Peak Fitness', links: { website: 'https://peak.test', instagram: IG('peak') }, msg: { dm: 'Hi Peak Fitness team. Your classes look great.' }, facts: ['Only 23 Google reviews.', 'No Reels in 3 months.'], data: { rating: 4.8, reviews: 23, address: '1 Main St', score: 70 } });
+    const peak = P.list(u.id).find((x) => x.key === 'gplaces:ChIJpeakfitnessAmes2');
+    assert.equal(peak.name, '');
+    assert.equal(peak.msg.dm, 'Hi [business name] team. Your classes look great.');
+    assert.deepEqual(peak.facts, ['No Reels in 3 months.']);
+    assert.deepEqual(peak.data, { score: 70, place_id: 'ChIJpeakfitnessAmes2' });
+    assert.deepEqual(Object.keys(peak.links), ['instagram']);
+
+    // Write it for me: the tool gets "[business name]", so the draft it saves keeps the placeholder.
+    const j = await json(await s.go(`/app/hq/queue/${peak.id}/write`, { as: u, json: {} }));
+    await engine.idle();
+    assert.equal(engine.get(u, j.run).status, 'done');
+    assert.match(P.get(u.id, peak.id).msg.dm, /\[business name\]/);
+    assert.doesNotMatch(stored(peak.id), /Peak Fitness/);
+
+    // One card's name on request (past the first three on Today), only for the member's own Google lead.
+    calls.length = 0;
+    r = await s.go(`/app/hq/leads/${peak.id}/name.json`, { as: u, headers: { accept: 'application/json' } });
+    assert.deepEqual(await json(r), { name: 'Peak Fitness', credits: [] });
+    assert.equal(calls.length, 1);
+    const other = await member('builder');
+    assert.equal((await s.go(`/app/hq/leads/${peak.id}/name.json`, { as: other, headers: { accept: 'application/json' } })).status, 404);
+
+    // The Pipeline page shows names too; the AI link lists a Google business by its Maps link.
+    page = await html(await s.go('/app/hq/pipeline', { as: u }));
+    assert.match(page, /<h4 data-gname-to>Peak Fitness<\/h4>/);
+    const mcpText = (await require('../lib/harness/mcp').call(u, 'get_pipeline', {})).content[0].text;
+    assert.match(mcpText, /a business on Google Maps \(https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=business&query_place_id=ChIJpeakfitnessAmes2\)/);
+
+    // Without the key nothing is fetched: the card says so and the placeholder keeps Copy off.
+    delete process.env.PLACES_API_KEY;
+    calls.length = 0;
+    page = await html(await s.go('/app/hq', { as: u }));
+    assert.equal(calls.length, 0);
+    assert.match(page, /<span data-gname-to>A business on Google Maps<\/span>/);
+    assert.match(page, /Fill in <b data-hole-text>\[business name\]<\/b> before you send it\./);
+    assert.match(page, /data-gname="/);
+  } finally {
+    delete process.env.PLACES_API_KEY;
+    places._setDeps({ fetch: (...a) => fetch(...a) });
     imports._setDeps({ first25: () => require('../lib/first25'), first25Data: () => require('../public/funnels/first25-data.js') });
   }
 });

@@ -640,6 +640,32 @@ test('the pipeline never moves a lead backwards', async () => {
   assert.equal(pipeline.counts(user.id).contacted, 1);
 });
 
+test('Google names (Legal L53): fetched only with the key, a few a page, counted against the day cap, and stopped by it', async () => {
+  const places = require('../lib/harness/places');
+  const calls = [];
+  places._setDeps({ fetch: async (url) => (calls.push(url), { ok: true, json: async () => ({ displayName: { text: 'Gym ' + url.match(/place0+(\d)/)[1] }, attributions: [{ provider: 'Yelp' }] }) }) });
+  const ids = Array.from({ length: 8 }, (_, i) => `ChIJplace0000000${i}`);
+  try {
+    assert.equal((await places.names(ids)).size, 0, 'no key, no calls');
+    assert.equal(calls.length, 0);
+    process.env.GOOGLE_PLACES_KEY = 'k';
+    const got = await places.names(ids, { limit: 3 });
+    assert.equal(got.size, 3);
+    assert.deepEqual(got.get(ids[1]), { name: 'Gym 1', credits: ['Yelp'] });
+    assert.ok(Math.abs(ctxLib.daySpent() - 0.06) < 1e-9, 'each call counts about $0.02 toward the day');
+    process.env.HARNESS_MAX_DAY_USD = '0.1';
+    assert.equal((await places.names(ids, { limit: 8 })).size, 0, 'the next 5 would pass the cap');
+    // Everything else (OpenStreetMap, the member's own) is stored as it came.
+    const osm = places.scrub({ key: 'osm:node/1', name: 'Iron Temple', links: { website: 'https://iron.test' } });
+    assert.equal(osm.name, 'Iron Temple');
+    assert.equal(osm.placeId, undefined);
+  } finally {
+    delete process.env.GOOGLE_PLACES_KEY;
+    delete process.env.HARNESS_MAX_DAY_USD;
+    places._setDeps({ fetch: (...a) => fetch(...a) });
+  }
+});
+
 test('the Library refuses unknown types and enforces the quota', async () => {
   const user = await member('free');
   await assert.rejects(library.save(user, 'run.exe', 'MZ'), /can't keep that kind of file/);

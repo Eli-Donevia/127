@@ -40,7 +40,8 @@
       <div class="h2-row"><span class="eyebrow"><%= c.label %></span><span class="tiny" style="color:var(--slate)" data-col-count="<%= c.stage %>"><%= c.leads.length %></span></div>
       <% c.leads.slice(0, 200).forEach(function (l) { var fwd = nextOf[l.stage]; %>
       <article class="h2-lead" id="<%= l.id %>" data-lead="<%= l.id %>">
-        <div class="h2-row" style="flex-wrap:nowrap;align-items:flex-start"><h4><%= l.name || l.company || l.key %></h4><% if (l.warm) { %><span class="h2-tag win">Knows you</span><% } %></div>
+        <div class="h2-row" style="flex-wrap:nowrap;align-items:flex-start"><h4 data-gname-to><%= l.name || l.company || l.key %></h4><% if (l.warm) { %><span class="h2-tag win">Knows you</span><% } %></div>
+        <% if (l.google) { %><p class="tiny"><a class="link" href="<%= l.google.maps %>" target="_blank" rel="noopener noreferrer">Google Maps</a><%= l.google.credits.length ? ' · ' + l.google.credits.join(', ') : '' %><% if (!l.google.live) { %> · <button type="button" class="hq-link-btn" data-gname="<%= l.id %>">Show name</button><% } %></p><% } %>
         <% if (l.company && l.name) { %><p><%= l.company %></p><% } %>
         <% if (l.facts && l.facts.length) { %><p><%= l.facts[0] %></p><% } %>
         <% if (l.note) { %><p><%= l.note %></p><% } %>

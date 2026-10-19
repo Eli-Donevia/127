@@ -9,8 +9,8 @@
   <div class="h2-q-top">
     <span class="h2-q-n" aria-hidden="true"><%= n %></span>
     <div class="h2-q-who">
-      <h3><%= it.name %><% if (it.company) { %> <span>· <%= it.company %></span><% } %></h3>
-      <div class="h2-chips"><span class="h2-tag k"><%= KIND[it.kind] %></span><% if (it.warm) { %><span class="h2-tag win">Knows you</span><% } %><% if (it.sample) { %><span class="h2-tag">Sample list</span><% } %></div>
+      <h3><span data-gname-to><%= it.name %></span><% if (it.company) { %> <span>· <%= it.company %></span><% } %></h3>
+      <div class="h2-chips"><span class="h2-tag k"><%= KIND[it.kind] %></span><% if (it.warm) { %><span class="h2-tag win">Knows you</span><% } %><% if (it.sample) { %><span class="h2-tag">Sample list</span><% } %><% if (it.google) { %><a class="h2-tag" href="<%= it.google.maps %>" target="_blank" rel="noopener noreferrer">Google Maps</a><% if (it.google.credits.length) { %><span class="h2-tag"><%= it.google.credits.join(', ') %></span><% } %><% if (!it.google.live) { %><button type="button" class="h2-tag" data-gname="<%= it.id %>">Show name</button><% } %><% } %></div>
     </div>
   </div>
   <% if (it.why) { %><p class="h2-q-why"><%= it.why %></p><% } %>

@@ -19,6 +19,8 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 - **Files:** more types (svg, ics, vcf, vtt, srt, mov, Shopify `.liquid`), 25 MB a file, members add their own (section 12).
 - **Testing:** `lib/harness/testing.js` and the CLI are real (section 9).
 - **Router:** there is no batch lane yet; `deep` is Circle only (section 11).
+- **Google Places (Legal L53):** a Google business is saved by its place ID only; the engine drops Google's fields and HQ fetches the name when it's shown (sections 6 and 13).
+- **Files a run makes** are kept even past the member's Library space, so a run never stops halfway; files a member adds must fit (section 12).
 
 ## 1. Folder
 
@@ -53,7 +55,7 @@ module.exports = {
 module.exports = {
   name: 'gym.find_gyms',            // '<pack>.<verb_noun>', 2 to 40 of a-z, 0-9 and _ after the dot
   title: 'Find gyms near you',      // what the member reads, 2 to 5 words
-  description: 'Lists gyms and studios in a city with their website, Instagram and rating.', // also read by AI (Claude, ChatGPT)
+  description: 'Lists gyms and studios in a city with their website and Instagram.', // also read by AI (Claude, ChatGPT)
   kind: 'api',                      // 'code' (pure code), 'ai' (calls ctx.ai), 'api' (calls an outside service)
   risk: 'read',                     // 'read' | 'draft' | 'act' (section 5)
   needs: ['places'],                // keys it can't work without; a missing one means sample mode (section 6)
@@ -166,7 +168,14 @@ Read one with `ctx.secret('places')` (only names you declared). Never log it, pu
 
 **Sample mode.** If any `needs` entry is missing, `ctx.sample === true` (and on an admin's sample run). The tool must still work: return realistic data from `sample/` and set `sample: true` on the output. A missing `wants` key doesn't turn sample mode on; work without it.
 
-**Google Places terms** (Legal L53 and Funnels F9): store `place_id` only, fetch details again for display, show Google's attribution, and leave Google's phone and address out of anything kept or exported.
+**Google Places terms** (Legal L53; `legal/handoffs/first-25.md` part 1 and `gym-video.md` part 3). 127 may keep a place ID for as long as it likes, and nothing else from Google: not the name, address, phone, website, rating, review count or Maps link, in the Pipeline, `ctx.remember`, `ctx.cache`, a saved file or an export.
+
+- Save a Google business with `key: 'gplaces:<place id>'` (or `placeId`), plus your own work: scores, gap ids, what you found on the business's own website (its Instagram, Facebook, email), and your messages. The engine enforces it on every `ctx.leads.upsert` and `update`: it drops Google's fields, swaps any Google name in your messages, facts and note for `[business name]`, and drops facts that quote Google's numbers.
+- When a tool reads a Google lead (`ctx.leads.get / list`), its name is `[business name]`. Write messages with that placeholder; HQ fills it in with the name it fetches when the member opens the lead, and the placeholder keeps Copy off until then.
+- Keep Google's ratings and review counts out of messages. Use a Google name in this run's own output only (what the member sees right now), never in what you save.
+- Spreadsheets and other files you save leave out every Google field; a Maps link built from the place ID (`https://www.google.com/maps/search/?api=1&query=<words>&query_place_id=<id>`) is fine.
+- Show "Google Maps" (or Google's logo) wherever Google results show, plus any provider names Google returns.
+- OpenStreetMap results can be stored for the list's life, with the OSM credit.
 
 **6b. The business brain.** `ctx.brain` is a read-only snapshot of what 127 knows about the member's business:
 
@@ -271,7 +280,7 @@ A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and 
 
 ## 12. Files (the Library)
 
-`ctx.save` and member uploads take: mp4, webm, mov, png, jpg, webp, gif, svg, mp3, wav, csv, txt, md, html, json, pdf, zip, ics, vcf, vtt, srt; a `.liquid` file is saved as plain text and keeps its name. Up to 25 MB a file (`HARNESS_MAX_FILE_MB`); 25 MB in all for Free, 500 MB Builder, 2 GB Circle. Files are private to the member. HTML opens in a sandbox with no scripts (don't put scripts in generated pages), and SVG always downloads, with a sandboxed preview, since SVG can carry script.
+`ctx.save` and member uploads take: mp4, webm, mov, png, jpg, webp, gif, svg, mp3, wav, csv, txt, md, html, json, pdf, zip, ics, vcf, vtt, srt; a `.liquid` file is saved as plain text and keeps its name. Up to 25 MB a file (`HARNESS_MAX_FILE_MB`); files a member adds must fit in 25 MB in all for Free, 500 MB Builder, 2 GB Circle, while files a run makes are always kept, so a run never stops halfway. Keep videos lean anyway: a member pays for space they can see filling up. Files are private to the member. HTML opens in a sandbox with no scripts (don't put scripts in generated pages), and SVG always downloads, with a sandboxed preview, since SVG can carry script.
 
 ## 13. Leads and Do my day
 
@@ -281,6 +290,7 @@ A lead is `{ key, name, company, source, stage, links, note, data, warm, score, 
 - `score` (0 to 100): best first in Do my day. `channel`: `ig`, `email`, `fb`, `site` or `call`, where the first message goes. `facts`: up to 5 one-line reasons the message cites ("They post every day but have no Reels"). `warm`: someone the member knows.
 - `msg`: the messages, already written: `dm`, `subject`, `email`, `walkin`, `follow1`, `follow2`, and `answer` (a reply to their reply). Do my day hands these out ready to send, with one tap opening Instagram, Gmail or the phone. Keep `[placeholders]` out, or the member has to fill them before the buttons work.
 - `sentAt`: a lead that arrives already contacted gets its first follow-up 3 days after this (then 4 days after the second message; none after the third).
+- `placeId`: a business found through Google Places (or `key: 'gplaces:<place id>'`). It's stored without its name and Google's fields; see section 6.
 
 Do my day picks each morning's 25 (up to 100, the member's choice) from every pack's leads: answers to replies first, then calls to prep, follow-ups due, then the best new ones. So a pack that finds businesses should upsert them with `msg`, `facts`, `score` and `channel`, and everything else is HQ's job.
 
