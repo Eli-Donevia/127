@@ -1,0 +1,69 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Pipeline: everyone the member is working on, from every pack, with this week's scoreboard and
+    the next price. Moving a lead to Contacted counts toward today's number (today.js onStage); moving
+    one to Won opens Log a win. %>
+<% var nextOf = { found: 'contacted', contacted: 'replied', replied: 'call', call: 'won' };
+   var linkNames = { website: 'Site', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', facebook: 'Facebook', linkedin: 'LinkedIn', maps: 'Maps' };
+   var cols = stage ? board.filter(function (c) { return c.stage === stage; }) : board;
+   var total = board.reduce(function (n, c) { return n + c.leads.length; }, 0); %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Pipeline</span>
+      <h1 class="hq-title"><span class="dim">Everyone you're working on.</span><span class="steel">Move them forward.</span></h1>
+      <p class="hq-lede">Workflows and your First 25 lists add people here. Each first message counts toward today's <%= hundred.target %>: you're at <b data-total><%= hundred.today %></b>. <a class="link" href="/app/hq#day">Do my day</a></p>
+    </div>
+  </div>
+  <div class="h2-pipe-top">
+    <div class="h2-score">
+      <% [['touches', 'Messages sent'], ['replies', 'Replies'], ['calls', 'Calls booked'], ['yeses', 'Yeses']].forEach(function (k) { var a = score.this[k[0]], b2 = score.last[k[0]]; %>
+      <div class="hq-tile"><div class="t-lab"><span><%= k[1] %> this week</span></div><div class="t-v"><%= a %></div><div class="t-sub <%= a > b2 ? 'up' : a < b2 ? 'down' : 'same' %>">Last week <%= b2 %></div></div>
+      <% }) %>
+    </div>
+    <a class="hq-card h2-price sm" href="/app/hq/win" aria-label="Your next price: <%= ladder.price %>">
+      <span class="eyebrow">Your next price</span>
+      <b class="h2-h"><%= ladder.price %></b>
+      <span class="tiny" style="color:var(--slate)"><%= ladder.left !== null ? (ladder.pct === 0 ? ladder.left + ' free case stud' + (ladder.left === 1 ? 'y' : 'ies') + ' to go' : ladder.left + ' more, then ' + ladder.then.price) : 'Full price' %></span>
+    </a>
+  </div>
+  <nav class="h2-chips" aria-label="Stages" style="margin-bottom:14px">
+    <a class="h2-tag<%= !stage ? ' dfy' : '' %>" href="/app/hq/pipeline">All <%= total %></a>
+    <% board.forEach(function (c) { %><a class="h2-tag<%= stage === c.stage ? ' dfy' : '' %>" href="/app/hq/pipeline?stage=<%= c.stage %>"><%= c.label %> <span data-col-count="<%= c.stage %>"><%= c.leads.length %></span></a><% }) %>
+  </nav>
+  <% if (!total) { %>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">No one here yet. Run a workflow that finds leads, or open a First 25 list and tap Work your 25 in HQ. Each business lands here with its first message written.</p><a class="btn" style="margin-top:14px" href="/app/hq/start#leads">Find leads <span class="arrow"></span></a></div>
+  <% } else { %>
+  <div class="h2-board<%= stage ? ' one' : '' %>">
+    <% cols.forEach(function (c) { %>
+    <section class="h2-col" data-col="<%= c.stage %>" aria-label="<%= c.label %>">
+      <div class="h2-row"><span class="eyebrow"><%= c.label %></span><span class="tiny" style="color:var(--slate)" data-col-count="<%= c.stage %>"><%= c.leads.length %></span></div>
+      <% c.leads.slice(0, 200).forEach(function (l) { var fwd = nextOf[l.stage]; %>
+      <article class="h2-lead" id="<%= l.id %>" data-lead="<%= l.id %>">
+        <div class="h2-row" style="flex-wrap:nowrap;align-items:flex-start"><h4><%= l.name || l.company || l.key %></h4><% if (l.warm) { %><span class="h2-tag win">Knows you</span><% } %></div>
+        <% if (l.company && l.name) { %><p><%= l.company %></p><% } %>
+        <% if (l.facts && l.facts.length) { %><p><%= l.facts[0] %></p><% } %>
+        <% if (l.note) { %><p><%= l.note %></p><% } %>
+        <% if (l.stage === 'contacted' && l.nextAt) { %><p class="tiny" style="color:var(--slate)">Follow-up due <%= new Date(l.nextAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></p><% } %>
+        <% var links = l.links || {}; if (Object.keys(links).length) { %>
+        <div class="links">
+          <% Object.keys(linkNames).forEach(function (k) { if (links[k]) { %><a href="<%= links[k] %>" target="_blank" rel="noopener noreferrer nofollow"><%= linkNames[k] %></a><% } }) %>
+          <% if (links.email) { %><a href="mailto:<%= links.email %>"><%= links.email %></a><% } %>
+          <% if (links.phone) { %><a href="tel:<%= links.phone.replace(/[^\d+]/g, '') %>"><%= links.phone %></a><% } %>
+        </div>
+        <% } %>
+        <div class="moves">
+          <% if (fwd) { %><form method="post" action="/app/hq/pipeline/<%= l.id %>/move"><input type="hidden" name="stage" value="<%= fwd %>"><input type="hidden" name="from" value="<%= stage || '' %>"><button class="fwd" data-move="<%= fwd %>"><%= labels[fwd] %></button></form><% } %>
+          <% if (l.stage !== 'lost' && l.stage !== 'won') { %><form method="post" action="/app/hq/pipeline/<%= l.id %>/move"><input type="hidden" name="stage" value="lost"><input type="hidden" name="from" value="<%= stage || '' %>"><button data-move="lost">Lost</button></form><% } %>
+          <% if (l.stage === 'lost') { %><form method="post" action="/app/hq/pipeline/<%= l.id %>/move"><input type="hidden" name="stage" value="found"><input type="hidden" name="from" value="<%= stage || '' %>"><button data-move="found">Bring back</button></form><% } %>
+        </div>
+      </article>
+      <% }) %>
+      <% if (c.leads.length > 200) { %><p class="h2-empty">And <%= c.leads.length - 200 %> more.</p><% } %>
+    </section>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

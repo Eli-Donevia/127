@@ -1,0 +1,24 @@
+<%# An approval a run is waiting on (engine.view's ask). Locals: runId, step, workflowTitle and back (optional). %>
+<% var a = step.ask; var pre = a.max || 3; %>
+<form class="hq-card h2-ask" method="post" action="/app/hq/runs/<%= runId %>/answer/<%= step.id %>" data-max="<%= a.max || '' %>">
+  <div class="h2-row"><span class="eyebrow">Waiting on you<%= typeof workflowTitle !== 'undefined' && workflowTitle ? ' · ' + workflowTitle : '' %></span><% if (a.max) { %><span class="h2-tag">Pick up to <%= a.max %></span><% } %></div>
+  <h3 class="h2-h" style="margin-top:8px"><%= a.title %></h3>
+  <% if (a.note) { %><p class="h2-sub"><%= a.note %></p><% } %>
+  <% if (a.options) { %>
+    <div class="h2-opts">
+      <% a.options.forEach(function (o, i) { %><label class="h2-opt"><input type="checkbox" name="chosen" value="<%= o.key %>"<%= i < pre ? ' checked' : '' %>><span><%= o.label %><% if (o.detail) { %><small><%= o.detail %></small><% } %></span></label><% }) %>
+    </div>
+  <% } %>
+  <% if (a.items) { a.items.forEach(function (it) { %>
+    <div class="h2-draft">
+      <label for="d-<%= step.id %>-<%= it.key %>"><%= it.label %></label>
+      <% if (a.edit === 'text') { %><textarea id="d-<%= step.id %>-<%= it.key %>" name="item_<%= it.key %>" maxlength="10000"><%= it.text %></textarea>
+      <% } else { %><div class="blk-copy"><pre><%= it.text %></pre></div><% } %>
+    </div>
+  <% }) } %>
+  <% if (typeof back !== 'undefined' && back) { %><input type="hidden" name="back" value="<%= back %>"><% } %>
+  <div class="h2-actions">
+    <button class="btn"><%= a.options ? 'Go with these' : a.items ? 'Looks good, go on' : 'Yes, go on' %> <span class="arrow"></span></button>
+    <button class="btn ghost" name="skip" value="1" formnovalidate>Skip</button>
+  </div>
+</form>

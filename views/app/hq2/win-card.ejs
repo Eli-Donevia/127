@@ -1,0 +1,59 @@
+<%- include('../../partials/app-head') %>
+<%# A logged win: the share card (drawn in the browser, no money on it), who can see it, the next price,
+    and the Founder's Circle once ever, at the member's first win. Locals: w, kinds, consent, circle, ladder, firstName. %>
+<% var k = kinds[w.kind] || { card: 'A win' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <section class="hq-card h2-move" aria-labelledby="card-h">
+        <span class="eyebrow">Win logged</span>
+        <h2 id="card-h" class="h2-steel"><%= k.card %>.</h2>
+        <% if (w.note) { %><p><%= w.note %></p><% } %>
+        <div class="h2-wincard" data-wincard data-title="<%= k.card %>." data-name="<%= firstName %>" data-note="<%= w.note %>">
+          <img alt="Your share card: <%= k.card %>" data-wincard-img hidden>
+        </div>
+        <div class="h2-actions">
+          <button type="button" class="btn" data-share hidden>Share your card</button>
+          <a class="hq-pill" data-save download="127-win.png" hidden>Save the image</a>
+          <a class="hq-pill ghost" href="/app/wins">Tell the other members</a>
+        </div>
+        <p class="hq-small">Your card shows your first name and what happened. Never money.</p>
+      </section>
+
+      <section class="hq-card" aria-labelledby="who-h">
+        <span class="eyebrow" id="who-h">Who can see it</span>
+        <form method="post" action="/app/hq/win/<%= w.id %>/consent" class="h2-form" style="margin-top:10px">
+          <div class="h2-opts">
+            <% Object.keys(consent).forEach(function (c) { %><label class="h2-opt"><input type="radio" name="consent" value="<%= c %>"<%= c === w.consent ? ' checked' : '' %>><span><%= consent[c] %></span></label><% }) %>
+          </div>
+          <div class="h2-actions"><button class="hq-pill">Save</button></div>
+        </form>
+        <p class="hq-small">You agreed to: "<%= w.consentText %>" on <%= new Date(w.consentAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>.</p>
+        <form method="post" action="/app/hq/win/<%= w.id %>/delete" data-confirm="Delete this win?"><button class="hq-link-btn">Delete this win</button></form>
+      </section>
+    </div>
+
+    <div class="h2-stack">
+      <% if (circle) { %>
+      <section class="hq-card h2-circle" aria-labelledby="circle-h">
+        <span class="eyebrow" id="circle-h">Founder's Circle</span>
+        <h3 class="h2-h" style="margin-top:8px">Want Eli in your corner for what's next?</h3>
+        <p class="h2-sub">4 seats, a weekly call with Eli, by application.<%= typeof PLANS !== 'undefined' && PLANS.circle && PLANS.circle.price ? ' $' + PLANS.circle.price + ' a month.' : '' %></p>
+        <a class="btn gold" style="margin-top:14px" href="/app/circle"><%= circle.open ? 'Apply for a seat' : 'Join the waitlist' %></a>
+        <p class="hq-small">You'll only see this once.</p>
+      </section>
+      <% } %>
+
+      <section class="hq-card h2-price" aria-labelledby="price-h">
+        <span class="eyebrow" id="price-h">Your next price</span>
+        <h3 class="h2-h" style="margin-top:8px"><%= ladder.price %></h3>
+        <p class="h2-sub"><%= ladder.left !== null ? (ladder.pct === 0 ? ladder.left + ' free case stud' + (ladder.left === 1 ? 'y' : 'ies') + ' to go.' : ladder.left + ' more at this price, then ' + ladder.then.price + '.') : 'Full price from here.' %></p>
+        <ol class="h2-ladder"><% ladder.steps.forEach(function (x) { %><li class="<%= x.here ? 'here' : '' %>"><span><%= x.label %></span><b><%= x.price %></b></li><% }) %></ol>
+        <% if (ladder.script) { %><div class="blk-copy" style="margin-top:12px"><div class="h2-row"><span class="tiny">How to say it</span><button type="button" data-copy>Copy</button></div><pre><%= ladder.script %></pre></div><% } %>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

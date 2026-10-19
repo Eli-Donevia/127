@@ -1,0 +1,18 @@
+<%# HQ v2 tabs and Talk to 127 (the orb and the ask bar). Locals: tab, inboxCount, usage. %>
+<% var tabs = [['today', '/app/hq', 'Today'], ['start', '/app/hq/start', 'Start'], ['inbox', '/app/hq/inbox', 'Inbox'], ['pipeline', '/app/hq/pipeline', 'Pipeline'], ['runs', '/app/hq/runs', 'Runs'], ['library', '/app/hq/library', 'Library'], ['numbers', '/app/hq?v1=1', 'Numbers'], ['brain', '/app/hq/brain', 'Your business'], ['setup', '/app/hq/setup', 'Set up']];
+   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab; %>
+<nav class="h2-tabs" aria-label="HQ">
+  <% tabs.forEach(function (t) { %><a href="<%= t[1] %>" class="<%= here === t[0] ? 'on' : '' %>"<%- here === t[0] ? ' aria-current="page"' : '' %>><%= t[2] %><% if (t[0] === 'inbox' && inboxCount) { %><span class="n" aria-label="<%= inboxCount %> waiting"><%= inboxCount %></span><% } %></a><% }) %>
+  <span class="h2-credits" title="Credits left this month"><%= usage.left.toLocaleString('en-US') %> / <%= usage.allowance.toLocaleString('en-US') %> credits</span>
+</nav>
+<div class="h2-talk">
+  <div>
+    <button type="button" class="orb" id="orb" data-state="idle" aria-label="Talk to 127"><span class="dust"></span><span class="ring"></span><span class="core"></span></button>
+    <div class="orb-status" id="orb-status" aria-hidden="true">Talk</div>
+  </div>
+  <form id="talk" method="post" action="/app/hq/talk" autocomplete="off">
+    <input name="text" id="talk-in" placeholder="Tell 127 what you want done" aria-label="Tell 127 what you want done" maxlength="500" enterkeyhint="go">
+    <button class="go">Go</button>
+  </form>
+</div>
+<div class="h2-say" id="say" role="status" aria-live="polite"></div>

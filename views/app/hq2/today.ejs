@@ -1,0 +1,180 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Today (lib/harness/today.js): Do my day (today's sends, already written, from the Pipeline),
+    the scoreboard (this week against last), what's waiting and running, the next price, and what 127
+    did this month as counts of work. Plain names only (v2/hormozi-playbook.md). %>
+<% var q = t.queue, h = t.hundred, s = t.score, L = t.ladder;
+   var R = 22, C = 2 * Math.PI * R, off = C * (1 - Math.min(1, h.today / h.target));
+   var stamp = function (iso) { return iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''; };
+   var sig = t.running.map(function (v) { return v.id + ':' + v.status; }).join(',') + '|' + t.inbox.length;
+   var sends = q.items.filter(function (i) { return i.kind !== 'call'; }).length;
+   var shown = Math.max(h.target, 10), more = q.items.slice(shown);
+   var urgent = t.move.kind === 'inbox' || t.move.kind === 'failed';
+   var arrow = function (a, b) { return a > b ? 'up' : a < b ? 'down' : 'same'; };
+   var lowCredits = userPlan.key === 'free' && t.usage.left < cost.write && typeof builderOffer !== 'undefined'; %>
+<div class="hq h2" data-today data-sig="<%= sig %>">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <% if (typeof f25 !== 'undefined' && f25) { %>
+      <section class="hq-card h2-move" aria-labelledby="f25-h">
+        <span class="eyebrow">Your First 25</span>
+        <h2 id="f25-h" class="h2-steel">Bring in your <%= f25.fresh %> businesses<%= f25.city ? ' in ' + f25.city : '' %></h2>
+        <p>Each one lands in your Pipeline with its first message and follow-ups already written, and Do my day lines them up. Nothing is sent: you send each one yourself.</p>
+        <div class="h2-actions">
+          <form method="post" action="/app/hq/import/first25-mine"><button class="btn">Bring them in <span class="arrow"></span></button></form>
+          <form method="post" action="/app/hq/import/first25-mine/hide"><button class="hq-link-btn">Not now</button></form>
+        </div>
+      </section>
+      <% } %>
+
+      <% if (urgent || !q.items.length) { %>
+      <section class="hq-card h2-move" aria-labelledby="move-h">
+        <span class="eyebrow">Your move<%= firstName ? ', ' + firstName : '' %></span>
+        <h2 id="move-h" class="h2-steel"><%= t.move.title %></h2>
+        <% if (t.move.detail) { %><p><%= t.move.detail %></p><% } %>
+        <a class="btn" href="<%= t.move.href %>"><%= t.move.cta %> <span class="arrow"></span></a>
+        <% if (!q.items.length && t.move.kind !== 'inbox' && !(typeof f25 !== 'undefined' && f25)) { %><div class="h2-why">Have a First 25 list already? Open it and tap <b>Work your 25 in HQ</b>. Every business lands here with its first message written.</div><% } %>
+      </section>
+      <% } %>
+
+      <% if (t.inbox.length) { %>
+      <section class="hq-card" aria-labelledby="wait-h">
+        <div class="h2-row"><span class="eyebrow" id="wait-h">Waiting on you</span><a class="link tiny" href="/app/hq/inbox">All <%= t.inbox.length %></a></div>
+        <div class="h2-stack" style="gap:8px;margin-top:10px">
+          <% t.inbox.slice(0, 4).forEach(function (i) { %>
+          <a class="h2-card" href="/app/hq/runs/<%= i.runId %>"><h3><%= i.title %></h3><p><%= i.workflow %><%= i.count ? ' · ' + i.count + ' to look at' : '' %></p></a>
+          <% }) %>
+        </div>
+      </section>
+      <% } %>
+
+      <% if (q.items.length) { %>
+      <section class="hq-card h2-day" id="day" aria-labelledby="day-h" data-day data-target="<%= h.target %>">
+        <div class="h2-day-head">
+          <div class="h2-ring sm<%= h.done ? ' done' : '' %>" data-ring>
+            <svg viewBox="0 0 52 52" aria-hidden="true"><defs><linearGradient id="h2-done" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#86d6ad"/><stop offset="1" stop-color="#b8bfff"/></linearGradient></defs><circle class="bg" cx="26" cy="26" r="<%= R %>"/><circle class="fg" cx="26" cy="26" r="<%= R %>" stroke-dasharray="<%= C.toFixed(1) %>" stroke-dashoffset="<%= off.toFixed(1) %>" data-c="<%= C.toFixed(1) %>"/></svg>
+            <div class="mid"><b data-total><%= h.today %></b></div>
+          </div>
+          <div>
+            <span class="eyebrow">Do my day<%= firstName ? ', ' + firstName : '' %></span>
+            <h2 id="day-h" class="h2-h"><%= h.done ? 'You did your ' + h.target + ' today.' : 'Your ' + h.target + ' for today' %></h2>
+            <p class="h2-sub" data-day-line><% if (h.done) { %>Everything past here is extra.<% } else { %><span data-left><%= h.left %></span> to go<%= sends ? ', about ' + q.minutes + ' minute' + (q.minutes === 1 ? '' : 's') : '' %>.<% } %><% if (h.streak > 1) { %> <b class="h2-win"><%= h.streak %> days in a row.</b><% } %><% if (q.written) { %> <%= q.written %> already written.<% } %></p>
+          </div>
+        </div>
+        <div class="h2-q-list">
+          <% q.items.slice(0, shown).forEach(function (it, i) { %><%- include('../../partials/hq2-queue-item', { it: it, n: i + 1, cost: cost }) %><% }) %>
+        </div>
+        <% if (more.length) { %>
+        <details class="h2-more"><summary><%= more.length %> more lined up</summary>
+          <div class="h2-q-list"><% more.forEach(function (it, i) { %><%- include('../../partials/hq2-queue-item', { it: it, n: shown + i + 1, cost: cost }) %><% }) %></div>
+        </details>
+        <% } %>
+        <p class="h2-q-foot">127 writes. You send each one from your own phone or email, then tap Sent. Your follow-ups come back here on their own: 3 days after the first message, then 4 days after that.</p>
+      </section>
+      <% } %>
+
+      <% if (t.running.length) { %>
+      <section class="hq-card" aria-labelledby="run-h">
+        <span class="eyebrow" id="run-h">127 is working on</span>
+        <ul class="h2-steps" style="margin-top:6px">
+          <% t.running.forEach(function (v) { var cur = v.steps.find(function (st) { return ['running', 'waiting', 'sleeping', 'queued'].indexOf(st.status) >= 0; }) || {}; %>
+          <li><span class="h2-dot <%= v.status %>"></span><div><a class="t link" href="/app/hq/runs/<%= v.id %>"><%= v.title %></a><div class="s"><%= v.status === 'sleeping' ? 'Picks up on its own ' + stamp(v.wakeAt) : v.status === 'waiting' ? 'Waiting on you' : (cur.title || 'Starting') %><%= cur.progress && cur.progress.total ? ' · ' + cur.progress.done + ' of ' + cur.progress.total : '' %></div></div></li>
+          <% }) %>
+        </ul>
+      </section>
+      <% } %>
+
+      <section class="hq-card" id="score" aria-labelledby="score-h">
+        <div class="h2-row"><span class="eyebrow" id="score-h">This week</span><span class="tiny" style="color:var(--slate)">Against last week</span></div>
+        <div class="h2-score">
+          <% [['touches', 'Messages sent'], ['replies', 'Replies'], ['calls', 'Calls booked'], ['yeses', 'Yeses']].forEach(function (k) { var a = s.this[k[0]], b2 = s.last[k[0]]; %>
+          <div class="hq-tile"><div class="t-lab"><span><%= k[1] %></span></div><div class="t-v"><%= a %></div><div class="t-sub <%= arrow(a, b2) %>">Last week <%= b2 %></div></div>
+          <% }) %>
+        </div>
+        <% if (s.this.answerHours !== null || s.last.answerHours !== null) { var hrs = function (x) { return x === null ? 'none yet' : x < 1 ? 'under an hour' : 'about ' + Math.round(x) + ' hour' + (Math.round(x) === 1 ? '' : 's'); }; %>
+        <p class="h2-sub" style="font-size:14px">Your time to answer a reply: <b><%= hrs(s.this.answerHours) %></b> this week, <%= hrs(s.last.answerHours) %> last week.</p>
+        <% } %>
+        <div class="h2-from" aria-label="Where your messages came from this week">
+          <% t.week.four.forEach(function (f) { %><span><b><%= f.value %></b> <%= f.label.toLowerCase() %></span><% }) %>
+        </div>
+        <div class="h2-week" aria-label="Messages each day this week"><% t.week.days.forEach(function (d) { %><span class="<%= d >= h.target ? 'hit' : '' %>" style="height:<%= Math.max(3, Math.min(34, Math.round(d / h.target * 34))) %>px" title="<%= d %>"></span><% }) %></div>
+        <details class="h2-more" id="log">
+          <summary>Log something you did outside 127</summary>
+          <div class="h2-plus">
+            <% kinds.forEach(function (k) { %><div class="k"><span><%= k.label %><b data-count="<%= k.kind %>"><%= h.counts[k.kind] %></b></span><span style="display:flex;gap:4px"><button type="button" data-add="<%= k.kind %>" data-n="1" data-label="<%= k.label.toLowerCase() %>" aria-label="Add 1, <%= k.label.toLowerCase() %>">+1</button><button type="button" data-add="<%= k.kind %>" data-n="10" data-label="<%= k.label.toLowerCase() %>" aria-label="Add 10, <%= k.label.toLowerCase() %>">+10</button></span></div><% }) %>
+          </div>
+        </details>
+      </section>
+
+      <section aria-labelledby="start-h">
+        <div class="h2-row" style="margin-bottom:10px"><span class="eyebrow" id="start-h">Start one · Picked for you</span><a class="link tiny" href="/app/hq/start">See everything</a></div>
+        <div class="h2-cards"><% t.start.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: t.bottleneck.job }) %><% }) %></div>
+      </section>
+    </div>
+
+    <div class="h2-stack">
+      <% if (lowCredits) { %>
+      <section class="hq-card h2-offer" aria-labelledby="offer-h">
+        <span class="eyebrow" id="offer-h">Credits</span>
+        <p class="h2-sub">You've used this month's free credits. Builder gives you <%= (1000).toLocaleString('en-US') %> credits a month and every workflow.<%= builderOffer.founding ? ' Founding price until ' + builderOffer.closesDate + ': $' + builderOffer.price + ' a month, locked while you stay.' : '' %></p>
+        <form method="post" action="/app/billing/checkout/builder" data-upgrade="credits" data-price="<%= builderOffer.price %>" style="margin-top:12px"><button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + ' a month' : 'Become a Builder' %></button></form>
+        <%- include('../../partials/renewal-line') %>
+      </section>
+      <% } %>
+
+      <section class="hq-card h2-price" aria-labelledby="price-h">
+        <div class="h2-row"><span class="eyebrow" id="price-h">Your next price</span><a class="link tiny" href="/app/hq/win">Log a win</a></div>
+        <h3 class="h2-h" style="margin-top:8px"><%= L.price %><% if (L.pct > 0 && L.pct < 100) { %> <span class="tiny" style="color:var(--slate);font-family:var(--mono)"><%= L.pct %>%</span><% } %></h3>
+        <p class="h2-sub"><%= L.won ? 'You have ' + L.won + ' client' + (L.won === 1 ? '' : 's') + '. ' : '' %><%= L.left !== null ? (L.pct === 0 ? 'Your first 3 are free case studies: ' + L.left + ' to go.' : L.left + ' more at this price, then ' + L.then.price + '.') : 'Full price from here.' %></p>
+        <ol class="h2-ladder"><% L.steps.forEach(function (x) { %><li class="<%= x.here ? 'here' : '' %>"><span><%= x.label %></span><b><%= x.price %></b></li><% }) %></ol>
+        <% if (!L.hasPrice) { %><p class="hq-small">Add your price in <a class="link" href="/app/hq/brain#business">Your business</a> to see it in dollars.</p><% } %>
+        <% if (L.script) { %>
+        <details class="h2-more"><summary>How to say it</summary><div class="blk-copy" style="margin-top:8px"><div class="h2-row"><span class="tiny">Your line</span><button type="button" data-copy>Copy</button></div><pre><%= L.script %></pre></div></details>
+        <% } %>
+      </section>
+
+      <section class="hq-card" aria-labelledby="rec-h">
+        <span class="eyebrow" id="rec-h">127 did this for you · <%= new Date(t.receipts.month + '-15').toLocaleDateString('en-US', { month: 'long' }) %></span>
+        <div class="h2-receipts">
+          <div><b><%= t.receipts.lists %></b><span>list<%= t.receipts.lists === 1 ? '' : 's' %> built</span></div>
+          <div><b><%= t.receipts.drafts %></b><span>message<%= t.receipts.drafts === 1 ? '' : 's' %> written</span></div>
+          <div><b><%= t.receipts.samples %></b><span>sample<%= t.receipts.samples === 1 ? '' : 's' %> made</span></div>
+          <div><b><%= t.receipts.runs %></b><span>job<%= t.receipts.runs === 1 ? '' : 's' %> done</span></div>
+        </div>
+      </section>
+
+      <section class="hq-card" aria-labelledby="pipe-h">
+        <div class="h2-row"><span class="eyebrow" id="pipe-h">Pipeline</span><a class="link tiny" href="/app/hq/pipeline">Open</a></div>
+        <div class="h2-receipts" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <% [['found', 'Found'], ['contacted', 'Contacted'], ['replied', 'Replied'], ['call', 'Calls'], ['won', 'Won'], ['lost', 'Lost']].forEach(function (st) { %><div><b><%= t.pipeline[st[0]] || 0 %></b><span><a class="link" href="/app/hq/pipeline?stage=<%= st[0] %>"><%= st[1] %></a></span></div><% }) %>
+        </div>
+      </section>
+
+      <% if (t.files.length) { %>
+      <section class="hq-card" aria-labelledby="files-h">
+        <div class="h2-row"><span class="eyebrow" id="files-h">New in your Library</span><a class="link tiny" href="/app/hq/library">All files</a></div>
+        <ul class="h2-timeline" style="max-height:none">
+          <% t.files.forEach(function (f) { %><li><a class="link" href="<%= f.url %>"><%= f.name %></a></li><% }) %>
+        </ul>
+      </section>
+      <% } %>
+
+      <% if (t.recent.length) { %>
+      <section class="hq-card" aria-labelledby="recent-h">
+        <div class="h2-row"><span class="eyebrow" id="recent-h">Finished</span><a class="link tiny" href="/app/hq/runs">All runs</a></div>
+        <ul class="h2-steps" style="margin-top:6px">
+          <% t.recent.forEach(function (r) { %><li><span class="h2-dot <%= r.status %>"></span><div><a class="t link" href="/app/hq/runs/<%= r.id %>"><%= r.title %></a><div class="s"><%= r.status === 'done' ? 'Done' : r.status === 'failed' ? 'Stopped on an error' : 'Stopped' %> · <%= stamp(r.endedAt) %></div></div></li><% }) %>
+        </ul>
+      </section>
+      <% } %>
+
+      <section class="hq-card" aria-labelledby="cred-h">
+        <span class="eyebrow" id="cred-h">Credits this month</span>
+        <div class="hq-big" style="margin-top:8px"><span class="v" style="font-size:40px"><%= t.usage.left.toLocaleString('en-US') %></span><span class="tiny" style="color:var(--slate)">left of <%= t.usage.allowance.toLocaleString('en-US') %>. Resets on the 1st. Writing one message is about <%= cost.write %>.</span></div>
+        <% if (userPlan.key === 'free' && !lowCredits) { %><p class="hq-small">Builder comes with <%= (1000).toLocaleString('en-US') %> credits a month and every workflow.</p><a class="hq-pill" style="margin-top:10px" href="/app/billing">See Builder</a><% } %>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

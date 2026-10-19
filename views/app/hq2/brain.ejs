@@ -1,0 +1,63 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 "Your business": the brain every workflow reads (lib/harness/brain.js). Fields post as <group>_<key>. %>
+<% var B = b || {}; var val = function (g, k) { return (B[g] && B[g][k]) || ''; };
+   var groups = [
+     { id: 'business', title: 'What you do', items: [
+       ['name', 'Business name', 'text', ''],
+       ['what', 'What you sell, in a sentence', 'area', 'Example: 30-day strength coaching for busy dads, online.'],
+       ['offer', 'Your offer and what people get', 'area', 'What they pay for and what they walk away with.'],
+       ['price', 'Price', 'text', 'Example: $297, or $99 a month.'],
+       ['audience', 'Who it is for', 'area', 'Be specific. Who has the problem worst and can pay to fix it?'],
+       ['niche', 'Your niche or industry', 'text', ''],
+       ['stage', 'Where you are', 'text', 'Example: idea, first sales, steady, growing.'],
+       ['city', 'City', 'text', 'Workflows that find local leads start here.'],
+       ['region', 'State or region', 'text', ''],
+       ['country', 'Country', 'text', ''],
+       ['timezone', 'Time zone', 'text', 'Example: America/Chicago']
+     ] },
+     { id: 'voice', title: 'How you sound', items: [
+       ['tone', 'Your tone in a few words', 'text', 'Example: direct, warm, no fluff.'],
+       ['avoid', 'Words or claims to never use', 'area', 'Drafts leave these out.']
+     ] },
+     { id: 'links', title: 'Where people find you', items: [
+       ['website', 'Website', 'text', 'https://'],
+       ['instagram', 'Instagram', 'text', '@handle or link'],
+       ['tiktok', 'TikTok', 'text', '@handle or link'],
+       ['youtube', 'YouTube', 'text', 'Link'],
+       ['booking', 'Booking link', 'text', 'Drafts that ask for a call use this.']
+     ] },
+     { id: 'goal', title: 'What you are aiming at', items: [
+       ['northNumber', 'The one number you watch', 'text', 'Example: paying clients, monthly revenue.'],
+       ['buildTarget', 'What you are building toward', 'area', 'Example: my first 3 paying clients by March.'],
+       ['daily', 'Messages a day', 'number', 'Do my day lines up this many each day. It starts at 25 (about 20 minutes). Go up to 100 when it feels easy.']
+     ] }
+   ]; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Your business</span>
+      <h1 class="hq-title"><span class="dim">Tell 127 once.</span><span class="steel">Every workflow uses it.</span></h1>
+      <p class="hq-lede">The more specific this is, the less every draft sounds like a template. Leave anything blank you don't know yet.</p>
+    </div>
+  </div>
+  <form method="post" action="/app/hq/brain" class="h2-stack">
+    <% groups.forEach(function (g) { %>
+    <section class="hq-card h2-form" aria-labelledby="g-<%= g.id %>">
+      <h2 class="h2-h" id="g-<%= g.id %>" style="font-size:18px;margin-bottom:14px"><%= g.title %></h2>
+      <% g.items.forEach(function (f) { var id = g.id + '_' + f[0]; var v = f[0] === 'daily' ? (val(g.id, f[0]) || daily) : val(g.id, f[0]); %>
+      <label class="field" for="<%= id %>">
+        <span><%= f[1] %></span>
+        <% if (f[2] === 'area') { %><textarea class="input" id="<%= id %>" name="<%= id %>" maxlength="400" rows="2"><%= v %></textarea>
+        <% } else if (f[2] === 'number') { %><input class="input" type="number" inputmode="numeric" min="1" max="100" id="<%= id %>" name="<%= id %>" value="<%= v %>">
+        <% } else { %><input class="input" id="<%= id %>" name="<%= id %>" value="<%= v %>" maxlength="120"<%- g.id === 'links' && f[0] === 'website' ? ' inputmode="url"' : '' %>><% } %>
+        <% if (f[3]) { %><span class="hint"><%= f[3] %></span><% } %>
+      </label>
+      <% }) %>
+    </section>
+    <% }) %>
+    <div><button class="btn">Save <span class="arrow"></span></button></div>
+  </form>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

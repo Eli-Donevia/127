@@ -1,0 +1,58 @@
+<%# A tool's output as blocks (lib/harness/blocks.js, contract section 10). Local: blocks. %>
+<% var fmt = function (v, f) {
+     if (typeof v !== 'number') return String(v == null ? '' : v);
+     if (f === 'money') return '$' + v.toLocaleString('en-US', { maximumFractionDigits: v % 1 ? 2 : 0 });
+     if (f === 'percent') return (Math.round(v * 1000) / 10) + '%';
+     return v.toLocaleString('en-US');
+   };
+   var groups = [];
+   (blocks || []).forEach(function (b) {
+     var last = groups[groups.length - 1];
+     if (b.type === 'metric' && last && last.type === 'metrics') last.items.push(b);
+     else if (b.type === 'metric') groups.push({ type: 'metrics', items: [b] });
+     else groups.push(b);
+   }); %>
+<% groups.forEach(function (b) { %>
+  <% if (b.type === 'metrics') { %>
+    <div class="blk blk-metrics"><% b.items.forEach(function (m) { %><div class="blk-metric"><span><%= m.label %></span><b><%= fmt(m.value, m.format) %></b><% if (m.note) { %><small><%= m.note %></small><% } %></div><% }) %></div>
+  <% } else if (b.type === 'text') { %>
+    <div class="blk blk-text"><%= b.text %></div>
+  <% } else if (b.type === 'table') { var shown = b.rows.slice(0, b.limit), rest = b.rows.slice(b.limit); %>
+    <div class="blk">
+      <% if (b.title) { %><div class="eyebrow" style="margin-bottom:8px"><%= b.title %></div><% } %>
+      <div class="blk-table"><table>
+        <thead><tr><% b.columns.forEach(function (c) { %><th><%= c.label %></th><% }) %></tr></thead>
+        <tbody>
+          <% shown.forEach(function (r) { %><tr><% b.columns.forEach(function (c) { var v = r[c.key]; %><td><% if (c.format === 'link' && v) { %><a class="link" href="<%= v %>" target="_blank" rel="noopener noreferrer nofollow">Open</a><% } else { %><%= fmt(v, c.format) %><% } %></td><% }) %></tr><% }) %>
+        </tbody>
+      </table>
+      <% if (rest.length) { %><details class="more"><summary>Show <%= rest.length %> more</summary><table><tbody><% rest.forEach(function (r) { %><tr><% b.columns.forEach(function (c) { var v = r[c.key]; %><td><% if (c.format === 'link' && v) { %><a class="link" href="<%= v %>" target="_blank" rel="noopener noreferrer nofollow">Open</a><% } else { %><%= fmt(v, c.format) %><% } %></td><% }) %></tr><% }) %></tbody></table></details><% } %>
+      </div>
+    </div>
+  <% } else if (b.type === 'cards') { %>
+    <div class="blk">
+      <% if (b.title) { %><div class="eyebrow" style="margin-bottom:8px"><%= b.title %></div><% } %>
+      <div class="blk-cards"><% b.items.forEach(function (c) { %>
+        <div class="blk-card">
+          <% if (c.image) { %><img src="<%= c.image.url %>" alt="" loading="lazy"><% } %>
+          <h4><span><% if (c.href) { %><a class="link" href="<%= c.href %>"<%- /^https:/.test(c.href) ? ' target="_blank" rel="noopener noreferrer nofollow"' : '' %>><%= c.title %></a><% } else { %><%= c.title %><% } %></span><% if (c.badge) { %><span class="h2-tag"><%= c.badge %></span><% } %></h4>
+          <% if (c.subtitle) { %><div class="sub"><%= c.subtitle %></div><% } %>
+          <% if (c.body) { %><div class="body"><%= c.body %></div><% } %>
+        </div>
+      <% }) %></div>
+    </div>
+  <% } else if (b.type === 'copy') { %>
+    <div class="blk blk-copy">
+      <div class="h2-row"><span class="eyebrow"><%= b.label %></span><span class="h2-chips"><button type="button" data-copy>Copy</button><% if (b.email && b.email.to) { %><a href="mailto:<%= encodeURIComponent(b.email.to) %>?subject=<%= encodeURIComponent(b.email.subject || '') %>&body=<%= encodeURIComponent(b.text.slice(0, 1800)) %>">Open in email</a><% } %></span></div>
+      <pre><%= b.text %></pre>
+    </div>
+  <% } else if (b.type === 'video') { %>
+    <figure class="blk blk-media" style="margin:0"><video controls playsinline preload="metadata" src="<%= b.asset.url %>"></video><% if (b.caption) { %><figcaption><%= b.caption %></figcaption><% } %></figure>
+  <% } else if (b.type === 'image') { %>
+    <figure class="blk blk-media" style="margin:0"><img src="<%= b.asset.url %>" alt="<%= b.caption || b.label %>" loading="lazy"><% if (b.caption) { %><figcaption><%= b.caption %></figcaption><% } %></figure>
+  <% } else if (b.type === 'file') { %>
+    <div class="blk"><a class="blk-file" href="<%= b.asset.url %>?download=1"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><%= b.label %><% if (b.caption) { %> · <%= b.caption %><% } %></a><% if (b.asset.type === 'text/html' || b.asset.type === 'image/svg+xml') { %> <a class="blk-link" href="<%= b.asset.url %>?preview=1" target="_blank" rel="noopener">Preview</a><% } %></div>
+  <% } else if (b.type === 'link') { %>
+    <div class="blk"><a class="blk-link" href="<%= b.href %>"<%- /^https:/.test(b.href) ? ' target="_blank" rel="noopener noreferrer nofollow"' : '' %>><%= b.label %> <span class="arrow"></span></a></div>
+  <% } %>
+<% }) %>

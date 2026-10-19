@@ -1,0 +1,87 @@
+<%# One item in Do my day (lib/harness/today.js queue). Locals: it, n (its number), cost ({ write, reply, prep }).
+    Every send is the member's own: 127 writes it, they copy it, open the app and tap Sent. A draft that
+    still holds a [placeholder] can't be copied or opened until it's filled in. %>
+<% var KIND = { reply: 'Replied', call: 'Call booked', follow: 'Follow-up', new: 'New' };
+   var first = it.ways[0];
+   var GO = { ig: 'Copy and open Instagram', email: 'Open in email', fb: 'Copy and open Messenger', site: 'Copy and open their site', call: 'Call' };
+   var written = !!it.text && !(it.kind === 'reply' && !it.text); %>
+<article class="h2-q k-<%= it.kind %>" id="q-<%= it.id %>" data-q="<%= it.id %>" data-kind="<%= it.kind %>">
+  <div class="h2-q-top">
+    <span class="h2-q-n" aria-hidden="true"><%= n %></span>
+    <div class="h2-q-who">
+      <h3><%= it.name %><% if (it.company) { %> <span>· <%= it.company %></span><% } %></h3>
+      <div class="h2-chips"><span class="h2-tag k"><%= KIND[it.kind] %></span><% if (it.warm) { %><span class="h2-tag win">Knows you</span><% } %><% if (it.sample) { %><span class="h2-tag">Sample list</span><% } %></div>
+    </div>
+  </div>
+  <% if (it.why) { %><p class="h2-q-why"><%= it.why %></p><% } %>
+
+  <% if (it.kind === 'call') { %>
+    <div class="h2-q-acts">
+      <% if (it.prepRun) { %>
+        <a class="btn" href="/app/hq/runs/<%= it.prepRun %>">Open your call prep <span class="arrow"></span></a>
+      <% } else { %>
+        <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Prep the call</button><span class="h2-q-cost">About <%= cost.prep %> credits</span></form>
+      <% } %>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/won" data-qact="won"><button class="hq-pill win">They said yes</button></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/lost" data-qact="lost"><button class="hq-pill ghost">Not now</button></form>
+    </div>
+
+  <% } else if (it.kind === 'reply' && !it.text) { %>
+    <form class="h2-q-reply" method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write">
+      <label for="said-<%= it.id %>">What did they say?</label>
+      <textarea id="said-<%= it.id %>" name="text" rows="3" maxlength="3000" placeholder="Paste their reply here"><%= it.reply || '' %></textarea>
+      <div class="h2-q-acts"><button class="btn">Draft my answer</button><span class="h2-q-cost">About <%= cost.reply %> credits</span></div>
+    </form>
+
+  <% } else if (it.needsDraft) { %>
+    <div class="h2-q-acts">
+      <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Write it for me</button><span class="h2-q-cost">About <%= cost.write %> credits</span></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/skip" data-qact="skip"><button class="hq-pill ghost">Not today</button></form>
+    </div>
+
+  <% } else if (!first) { %>
+    <p class="h2-q-why">There's no way to reach them on file yet. Add a link or an email in your Pipeline.</p>
+    <div class="h2-q-acts"><a class="hq-pill" href="/app/hq/pipeline#<%= it.id %>">Open in Pipeline</a><form method="post" action="/app/hq/queue/<%= it.id %>/skip" data-qact="skip"><button class="hq-pill ghost">Not today</button></form></div>
+
+  <% } else { %>
+    <% if (it.ways.length > 1) { %>
+    <div class="h2-q-ways" role="tablist" aria-label="How to reach <%= it.name %>">
+      <% it.ways.forEach(function (w, i) { %><button type="button" role="tab" aria-selected="<%= i === 0 ? 'true' : 'false' %>" data-way="<%= w.id %>" data-href="<%= w.href %>" data-text="<%= w.text %>" data-subject="<%= w.subject || '' %>" data-clip="<%= w.copy ? '1' : '' %>" data-go-label="<%= GO[w.id] || 'Open' %>"><%= w.label %></button><% }) %>
+    </div>
+    <% } %>
+    <div class="h2-q-msg">
+      <div class="h2-q-subject"<%- first.subject ? '' : ' hidden' %>>Subject: <span data-subject><%= first.subject || '' %></span></div>
+      <textarea data-text rows="5" maxlength="4000" aria-label="Message to <%= it.name %>"><%= first.text %></textarea>
+      <p class="h2-q-hole" data-hole<%- it.hole ? '' : ' hidden' %>>Fill in <b data-hole-text><%= it.hole %></b> before you send it.</p>
+    </div>
+    <div class="h2-q-acts">
+      <a class="btn<%= it.hole ? ' off' : '' %>" data-go href="<%= first.href %>" target="_blank" rel="noopener"<%- it.hole ? ' aria-disabled="true"' : '' %> data-clip="<%= first.copy ? '1' : '' %>" data-way-id="<%= first.id %>"><%= GO[first.id] || 'Open' %></a>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/sent" data-qact="sent"><button class="hq-pill win"><%= it.kind === 'reply' ? 'Sent my answer' : 'Sent' %></button></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/skip" data-qact="skip"><button class="hq-pill ghost">Not today</button></form>
+    </div>
+  <% } %>
+
+  <% if (it.kind === 'new' || it.kind === 'follow') { %>
+  <details class="h2-more h2-q-more">
+    <summary>More</summary>
+    <form class="h2-q-reply" method="post" action="/app/hq/queue/<%= it.id %>/replied" data-qact="replied">
+      <label for="rep-<%= it.id %>">They replied? Paste what they said and 127 drafts your answer.</label>
+      <textarea id="rep-<%= it.id %>" name="text" rows="3" maxlength="3000" placeholder="Their reply"></textarea>
+      <div class="h2-q-acts"><button class="hq-pill">They replied</button><span class="h2-q-cost">About <%= cost.reply %> credits with their words</span></div>
+    </form>
+    <div class="h2-q-acts">
+      <% if (written) { %><form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="hq-pill ghost">Write it again</button></form><% } %>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/lost" data-qact="lost"><button class="hq-pill ghost">Not interested</button></form>
+    </div>
+  </details>
+  <% } else if (it.kind === 'reply' && it.text) { %>
+  <details class="h2-more h2-q-more">
+    <summary>More</summary>
+    <div class="h2-q-acts">
+      <form method="post" action="/app/hq/queue/<%= it.id %>/booked" data-qact="booked"><button class="hq-pill">They booked a call</button></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/won" data-qact="won"><button class="hq-pill win">They said yes</button></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/lost" data-qact="lost"><button class="hq-pill ghost">Not interested</button></form>
+    </div>
+  </details>
+  <% } %>
+</article>

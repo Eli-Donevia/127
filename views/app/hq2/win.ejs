@@ -1,0 +1,49 @@
+<%- include('../../partials/app-head') %>
+<%# Log a win (lib/harness/wins.js): what happened and who can see it. Locals: lead, kinds, consent, mine, ladder. %>
+<% var pick = lead && lead.stage === 'won' ? 'yes' : 'talk'; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <section class="hq-card h2-move" aria-labelledby="win-h">
+        <span class="eyebrow">Log a win</span>
+        <h2 id="win-h" class="h2-steel"><%= lead ? (lead.name || 'They') + ' said yes?' : 'Something went right?' %></h2>
+        <p>Every first counts: a real conversation, a yes, a client who paid. Log it, get your card, and see your next price.</p>
+        <form method="post" action="/app/hq/win" class="h2-form" style="margin-top:16px">
+          <% if (lead) { %><input type="hidden" name="lead" value="<%= lead.id %>"><% } %>
+          <fieldset class="h2-opts" style="border:0;padding:0;margin:0">
+            <legend class="eyebrow" style="margin-bottom:8px">What happened</legend>
+            <% Object.keys(kinds).forEach(function (k) { %><label class="h2-opt"><input type="radio" name="kind" value="<%= k %>"<%= k === pick ? ' checked' : '' %> required><span><%= kinds[k].label %></span></label><% }) %>
+          </fieldset>
+          <div class="field" style="margin-top:14px">
+            <label for="win-note">In one line (optional)</label>
+            <input class="input" id="win-note" name="note" maxlength="280" placeholder="Example: Booked my first shoot with a gym in Ankeny">
+            <span class="hint">No amounts. 127 never asks for or shows money.</span>
+          </div>
+          <fieldset class="h2-opts" style="border:0;padding:0;margin:14px 0 0">
+            <legend class="eyebrow" style="margin-bottom:8px">Who can see it</legend>
+            <% Object.keys(consent).forEach(function (k) { %><label class="h2-opt"><input type="radio" name="consent" value="<%= k %>"<%= k === 'private' ? ' checked' : '' %> required><span><%= consent[k] %></span></label><% }) %>
+          </fieldset>
+          <p class="hq-small">You can change this anytime from the win's page.</p>
+          <div class="h2-actions"><button class="btn">Log it <span class="arrow"></span></button><a class="hq-pill ghost" href="/app/hq">Not now</a></div>
+        </form>
+      </section>
+    </div>
+    <div class="h2-stack">
+      <section class="hq-card h2-price" aria-labelledby="price-h">
+        <span class="eyebrow" id="price-h">Your next price</span>
+        <h3 class="h2-h" style="margin-top:8px"><%= ladder.price %></h3>
+        <ol class="h2-ladder"><% ladder.steps.forEach(function (x) { %><li class="<%= x.here ? 'here' : '' %>"><span><%= x.label %></span><b><%= x.price %></b></li><% }) %></ol>
+      </section>
+      <% if (mine.length) { %>
+      <section class="hq-card" aria-labelledby="mine-h">
+        <span class="eyebrow" id="mine-h">Your wins</span>
+        <ul class="h2-timeline" style="max-height:none">
+          <% mine.forEach(function (w) { %><li><time><%= new Date(w.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></time><a class="link" href="/app/hq/win/<%= w.id %>"><%= kinds[w.kind] ? kinds[w.kind].card : w.kind %></a><%= w.leadName ? ' · ' + w.leadName : '' %></li><% }) %>
+        </ul>
+      </section>
+      <% } %>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/app-foot') %>

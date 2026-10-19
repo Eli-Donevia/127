@@ -1,0 +1,11 @@
+<%# A workflow card (harness.catalog). Locals: w, fitJob (optional). %>
+<a class="h2-card<%= w.locked ? ' locked' : '' %><%= typeof fitJob !== 'undefined' && fitJob && w.job === fitJob && !w.locked ? ' fit' : '' %>" href="/app/hq/w/<%= w.id %>" data-search="<%= (w.title + ' ' + w.promise + ' ' + w.packTitle).toLowerCase() %>">
+  <h3><%= w.title %></h3>
+  <p><%= w.promise %></p>
+  <div class="meta">
+    <span class="h2-tag dfy">127 does it</span>
+    <span class="h2-tag"><%= w.minutes %> min of yours</span>
+    <span class="h2-tag"><%= w.credits ? 'About ' + w.credits + ' credits' : 'Free' %></span>
+    <% if (w.locked) { %><span class="h2-tag <%= w.tier === 'circle' ? 'gold' : 'lock' %>"><%= w.tier === 'circle' ? "Founder's Circle" : 'Builder' %></span><% } %>
+  </div>
+</a>

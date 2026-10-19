@@ -1,0 +1,23 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Start: every workflow, grouped by the job it does, the member's bottleneck first. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Start</span>
+      <h1 class="hq-title"><span class="dim">Pick a job.</span><span class="steel">127 does it.</span></h1>
+      <p class="hq-lede">Each one runs in the background and stops for your OK before anything goes out. Your bottleneck right now is <b><%= bottleneck.title.toLowerCase() %></b>, so those come first.</p>
+    </div>
+  </div>
+  <input class="h2-search" type="search" id="wf-search" placeholder="Search workflows" aria-label="Search workflows" value="<%= q %>">
+  <% var order = groups.slice().sort(function (a, b) { return (b.id === bottleneck.job) - (a.id === bottleneck.job); }); %>
+  <% order.forEach(function (g) { %>
+  <section class="h2-group" id="<%= g.id %>" aria-labelledby="g-<%= g.id %>">
+    <div class="h2-row"><div><h2 class="h2-h" id="g-<%= g.id %>"><%= g.title %><% if (g.id === bottleneck.job) { %> <span class="h2-tag dfy" style="vertical-align:middle">Your bottleneck</span><% } %></h2><p class="h2-sub" style="margin-top:2px"><%= g.blurb %></p></div></div>
+    <div class="h2-cards three"><% g.items.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: bottleneck.job }) %><% }) %></div>
+  </section>
+  <% }) %>
+  <p class="h2-empty" id="wf-none" hidden>Nothing matches. Try fewer words, or tell 127 what you want done above.</p>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

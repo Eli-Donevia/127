@@ -1,0 +1,83 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 workflow page (harness.workflowPage): the outcome, what it takes, the plan, an example, the form. %>
+<%# No hours-saved claims: a time saving shows only once it's timed by hand and on file (playbook 1.4). %>
+<% var auto = wf.plan.filter(function (p) { return p.kind === 'tool'; }).length, you = wf.plan.filter(function (p) { return p.kind === 'approve'; }).length;
+   var canRun = !wf.locked || wf.freeRun; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <section class="hq-card">
+        <span class="eyebrow"><%= wf.packTitle %></span>
+        <h1 class="hq-title" style="font-size:36px"><span class="steel"><%= wf.title %></span></h1>
+        <p class="hq-lede"><%= wf.promise %></p>
+        <div class="h2-value">
+          <div><span>You get</span><b><%= wf.proof || 'The finished work, ready to use' %></b></div>
+          <div><span>Your time</span><b>About <%= wf.minutes %> min</b></div>
+          <div><span>127 does</span><b><%= auto %> step<%= auto === 1 ? '' : 's' %><%= you ? ', you OK ' + you : '' %></b></div>
+          <div><span>Credits</span><b><%= wf.credits ? 'About ' + wf.credits : 'Free' %></b></div>
+        </div>
+      </section>
+
+      <section class="hq-card" aria-labelledby="plan-h">
+        <span class="eyebrow" id="plan-h">What happens</span>
+        <ol class="h2-plan">
+          <% wf.plan.forEach(function (p, i) { %><li class="<%= p.kind === 'approve' ? 'you' : '' %>"><span class="n"><%= i + 1 %></span><span><%= p.title %><%= p.each ? ' (for each)' : '' %></span><span class="who"><%= p.kind === 'approve' ? 'You' : p.kind === 'wait' ? 'Waits' : p.who %></span></li><% }) %>
+        </ol>
+        <p class="hq-small">Nothing is sent or posted for you. Drafts wait in your Inbox until you say go.</p>
+      </section>
+
+      <% if (wf.example && wf.example.result.length) { %>
+      <section class="hq-card" aria-labelledby="ex-h">
+        <div class="h2-row"><span class="eyebrow" id="ex-h">An example run</span><span class="h2-sample">Sample data</span></div>
+        <div class="h2-out"><%- include('../../partials/hq2-blocks', { blocks: wf.example.result }) %></div>
+      </section>
+      <% } %>
+    </div>
+
+    <div class="h2-stack">
+      <form class="hq-card h2-form" method="post" action="/app/hq/w/<%= wf.id %>/run">
+        <span class="eyebrow">Run it</span>
+        <div style="margin-top:12px">
+          <% fields.forEach(function (f) { var id = 'in-' + f.key; %>
+          <% if (f.control === 'asset' || f.control === 'assets') { %>
+          <div class="field" role="group" aria-labelledby="<%= id %>-l" data-pick data-name="in_<%= f.key %>">
+            <span id="<%= id %>-l"><%= f.label %><%= f.required ? '' : ' (optional)' %></span>
+            <% if (f.control === 'asset') { %><select class="input" id="<%= id %>" name="in_<%= f.key %>" aria-labelledby="<%= id %>-l"<%= f.required ? ' required' : '' %>><option value="">Choose a file</option><% f.files.forEach(function (x) { %><option value="<%= x.id %>"<%= x.id === f.value ? ' selected' : '' %>><%= x.name %></option><% }) %></select>
+            <% } else { %><span class="h2-opts" data-pick-list><% f.files.forEach(function (x) { %><label class="h2-opt"><input type="checkbox" name="in_<%= f.key %>" value="<%= x.id %>"<%= f.value.split(', ').indexOf(x.id) >= 0 ? ' checked' : '' %>><span><%= x.name %></span></label><% }) %></span><% } %>
+            <span class="h2-actions" style="margin-top:6px"><label class="hq-pill ghost">Add a file<input type="file" data-upload-input hidden<% if (f.accept) { %> accept="<%= f.accept %>"<% } %><%= f.control === 'assets' ? ' multiple' : '' %>></label><span class="hq-small" data-upload-msg aria-live="polite"><%= f.files.length ? '' : 'Nothing in your Library fits yet. Add one here.' %></span></span>
+            <% if (f.hint) { %><span class="hint"><%= f.hint %></span><% } %>
+          </div>
+          <% return; } %>
+          <label class="field" for="<%= id %>">
+            <span><%= f.label %><%= f.required ? '' : ' (optional)' %></span>
+            <% if (f.control === 'select') { %><select class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><% if (!f.required) { %><option value="">Choose</option><% } %><% f.options.forEach(function (o) { %><option<%= String(o) === f.value ? ' selected' : '' %>><%= o %></option><% }) %></select>
+            <% } else if (f.control === 'textarea') { %><textarea class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><%= f.value %></textarea>
+            <% } else if (f.control === 'check') { %><span class="check"><input type="checkbox" id="<%= id %>" name="in_<%= f.key %>"<%= f.value === 'true' ? ' checked' : '' %>> Yes</span>
+            <% } else if (f.control === 'number') { %><input class="input" type="number" inputmode="numeric" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>"<%= f.min !== undefined ? ' min=' + f.min : '' %><%= f.max !== undefined ? ' max=' + f.max : '' %><%= f.required ? ' required' : '' %>>
+            <% } else { %><input class="input" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>"<%= f.required ? ' required' : '' %>><% } %>
+            <% if (f.hint) { %><span class="hint"><%= f.hint %><%= f.control === 'list' ? ' (separate with commas)' : '' %></span><% } %>
+          </label>
+          <% }) %>
+        </div>
+        <% if (canRun) { %>
+          <button class="btn block"><%= wf.freeRun ? 'Run it free' : 'Run it' %> <span class="arrow"></span></button>
+          <p class="hq-small"><%= wf.freeRun ? 'Your one free Builder run. No card needed.' : 'About ' + wf.credits + ' credits. You have ' + wf.usage.left.toLocaleString('en-US') + ' left this month.' %></p>
+          <% if (isAdmin) { %><button class="hq-link-btn" name="sample" value="1">Run with sample data (admin, for the example)</button><% } %>
+        <% } else { %>
+          <a class="btn block" href="<%= wf.tier === 'circle' ? '/app/circle' : '/app/billing' %>"><%= wf.tier === 'circle' ? "Part of the Founder's Circle" : 'Part of Builder' %></a>
+          <p class="hq-small">You can see the plan and the example. Running it is part of <%= wf.tier === 'circle' ? "the Founder's Circle" : 'Builder' %>.</p>
+        <% } %>
+      </form>
+
+      <% if (wf.next.length) { %>
+      <section aria-labelledby="next-h">
+        <span class="eyebrow" id="next-h">After this</span>
+        <div class="h2-cards" style="grid-template-columns:minmax(0,1fr);margin-top:10px"><% wf.next.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w }) %><% }) %></div>
+      </section>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

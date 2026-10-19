@@ -1,0 +1,26 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Inbox: every approval a run is waiting on, answerable right here. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Inbox</span>
+      <h1 class="hq-title"><span class="dim">127 did the work.</span><span class="steel">You make the call.</span></h1>
+      <p class="hq-lede">Nothing goes out until you say go. Edit anything you want first.</p>
+    </div>
+  </div>
+  <% if (!items.length) { %>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">Nothing waiting on you. When a run needs your OK, it shows up here and on Today.</p></div>
+  <% } else { %>
+    <div class="h2-stack">
+      <% items.forEach(function (i) { %>
+        <div id="i-<%= i.id %>">
+          <div class="h2-row" style="margin-bottom:8px"><a class="link tiny" href="/app/hq/runs/<%= i.runId %>"><%= i.workflow || 'Open the run' %></a></div>
+          <%- include('../../partials/hq2-approve', { runId: i.runId, step: i.step, workflowTitle: '', back: '/app/hq/inbox' }) %>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

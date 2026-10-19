@@ -1,0 +1,17 @@
+<%- include('../../partials/app-head') %>
+<%# Bring a First 25 list into the Pipeline (lib/harness/imports.js). Locals: p (first25Preview). %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <section class="hq-card h2-move" style="max-width:680px" aria-labelledby="imp-h">
+    <span class="eyebrow">First 25<%= p.sample ? ' · Sample list' : '' %></span>
+    <h2 id="imp-h" class="h2-steel">Work your <%= p.count %> in HQ</h2>
+    <p><%= p.count %> businesses<%= p.place || p.city ? ' in ' + (p.place || p.city) : '' %> go into your Pipeline with their first messages and follow-ups written. Each day, Do my day lines up who to message next.</p>
+    <% if (p.top.length) { %><p class="hq-small">Starting with <%= p.top.join(', ') %>.</p><% } %>
+    <form method="post" action="/app/hq/import/first25/<%= p.id %>" style="margin-top:16px">
+      <input type="hidden" name="k" value="<%= p.k %>">
+      <button class="btn">Bring them in <span class="arrow"></span></button>
+    </form>
+    <p class="hq-small" style="margin-top:12px">Bringing the same list in again updates those businesses and never moves one backwards. Nothing is sent: you send each message yourself.</p>
+  </section>
+</div>
+<%- include('../../partials/app-foot') %>

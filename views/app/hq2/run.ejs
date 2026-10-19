@@ -1,0 +1,96 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 run page (engine.view): where it is, what's waiting on the member, what it made. Polls while live. %>
+<% var stamp = function (iso, time) { return iso ? new Date(iso).toLocaleString('en-US', time ? { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' } : { month: 'short', day: 'numeric' }) : ''; };
+   var said = { queued: 'Starting', running: 'Working on it', waiting: 'Waiting on you', sleeping: 'Picks up on its own ' + stamp(v.wakeAt, true) + ' ET', done: 'Done', failed: 'Stopped on an error', stopped: 'Stopped' };
+   var stepSaid = { pending: 'Up next', queued: 'Up next', running: 'Working', waiting: 'Waiting on you', sleeping: 'Waiting', done: 'Done', skipped: 'Skipped', failed: 'Stopped on an error' };
+   var ended = ['done', 'failed', 'stopped'].indexOf(v.status) >= 0;
+   var shown = new Set((wf && wf.result) || []); %>
+<div class="hq h2" data-run="<%= v.id %>" data-status="<%= v.status %>"<%- live || v.status === 'sleeping' ? ' data-live="1"' : '' %>>
+  <%- include('../../partials/hq2-nav') %>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <section class="hq-card">
+        <div class="h2-row"><span class="eyebrow"><span class="h2-dot <%= v.status %>" style="display:inline-block;vertical-align:-2px;margin:0 6px 0 0"></span><%= said[v.status] || v.status %></span><% if (v.sample) { %><span class="h2-sample" title="Some of this used sample data, so check it before you use it">Sample data</span><% } %></div>
+        <h1 class="hq-title" style="font-size:32px;margin-top:8px"><span class="steel"><%= v.title %></span></h1>
+        <% if (v.promise) { %><p class="hq-lede"><%= v.promise %></p><% } %>
+        <% if (v.error) { %><p class="h2-sub" style="color:var(--danger)"><%= v.error %></p><% } %>
+        <div class="h2-actions">
+          <% if (v.status === 'failed') { %><form method="post" action="/app/hq/runs/<%= v.id %>/retry"><button class="btn">Try again from where it stopped <span class="arrow"></span></button></form><% } %>
+          <% if (v.status === 'sleeping') { %><form method="post" action="/app/hq/runs/<%= v.id %>/wake"><button class="btn">Pick it up now</button></form><% } %>
+          <% if (!ended) { %><form method="post" action="/app/hq/runs/<%= v.id %>/stop" data-confirm="Stop this run? Anything it already made stays in your Library."><button class="btn ghost">Stop</button></form><% } %>
+          <% if (ended && wf && wf.hidden) { %><a class="btn ghost" href="/app/hq#day">Back to Do my day</a><% } else if (ended) { %><a class="btn ghost" href="/app/hq/w/<%= v.workflowId %>">Run it again</a><% } %>
+        </div>
+      </section>
+
+      <% if (v.waitingOn) { %><%- include('../../partials/hq2-approve', { runId: v.id, step: v.waitingOn, workflowTitle: '' }) %><% } %>
+
+      <% if (v.status === 'done' && v.result.length) { %>
+      <section class="hq-card" aria-labelledby="res-h">
+        <div class="h2-row"><span class="eyebrow" id="res-h">What 127 made</span><span class="tiny" style="color:var(--slate)">Also saved to your Library</span></div>
+        <div class="h2-out"><%- include('../../partials/hq2-blocks', { blocks: v.result }) %></div>
+      </section>
+      <% } %>
+
+      <section class="hq-card" aria-labelledby="steps-h">
+        <span class="eyebrow" id="steps-h">Steps</span>
+        <ul class="h2-steps" style="margin-top:6px">
+          <% v.steps.forEach(function (s) { var p = s.progress; %>
+          <li data-step="<%= s.id %>" data-step-status="<%= s.status %>">
+            <span class="h2-dot <%= s.status %>"></span>
+            <div style="min-width:0">
+              <div class="t"><%= s.title %></div>
+              <div class="s"><%= s.status === 'sleeping' && s.wakeAt ? 'Picks up ' + stamp(s.wakeAt, true) + ' ET' : stepSaid[s.status] || s.status %><% if (p && p.total) { %> · <span data-done><%= p.done %></span> of <%= p.total %><% } %><% if (s.sample) { %> · sample data<% } %></div>
+              <% if (p && p.total && s.status === 'running') { %><div class="h2-bar"><i data-bar style="width:<%= Math.round(p.done / p.total * 100) %>%"></i></div><% } %>
+              <% if (s.error) { %><div class="s err"><%= s.error %></div><% } %>
+              <% if (s.blocks.length && !(v.status === 'done' && shown.has(s.id))) { %>
+              <details class="h2-more"<%= s.kind === 'tool' && v.status !== 'done' && s === v.steps.filter(function (x) { return x.blocks.length; }).slice(-1)[0] ? ' open' : '' %>><summary>See what this step made</summary><div class="h2-out"><%- include('../../partials/hq2-blocks', { blocks: s.blocks }) %></div></details>
+              <% } %>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+      </section>
+    </div>
+
+    <div class="h2-stack">
+      <section class="hq-card" aria-labelledby="sum-h">
+        <span class="eyebrow" id="sum-h">This run</span>
+        <div class="h2-receipts" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div><b><%= v.freeRun ? 'Free' : (v.credits && v.credits.used) || 0 %></b><span><%= v.freeRun ? 'your free Builder run' : 'credits used' %></span></div>
+          <div><b><%= v.steps.filter(function (s) { return s.status === 'done'; }).length %>/<%= v.steps.length %></b><span>steps done</span></div>
+        </div>
+        <p class="hq-small">Started <%= stamp(v.createdAt, true) %> ET<%= v.endedAt ? '. Ended ' + stamp(v.endedAt, true) + ' ET' : '' %>.</p>
+        <% if (isAdmin && v.sample && v.status === 'done') { %><form method="post" action="/app/hq/runs/<%= v.id %>/showcase"><button class="hq-link-btn">Make this the example on the workflow page</button></form><% } %>
+      </section>
+
+      <% if (next.length && ended) { %>
+      <section aria-labelledby="next-h">
+        <span class="eyebrow" id="next-h">Next</span>
+        <% if (next[0].why) { %><p class="h2-sub" style="margin:6px 0 0"><%= next[0].why %></p><% } %>
+        <div class="h2-cards" style="grid-template-columns:minmax(0,1fr);margin-top:10px"><%- include('../../partials/hq2-card', { w: next[0] }) %></div>
+      </section>
+      <% } %>
+
+      <% if (v.timeline.length) { %>
+      <section class="hq-card" aria-labelledby="log-h">
+        <span class="eyebrow" id="log-h">What happened</span>
+        <ul class="h2-timeline">
+          <% v.timeline.slice().reverse().forEach(function (e) { %><li><time datetime="<%= e.at %>"><%= new Date(e.at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) %></time><%= e.text %></li><% }) %>
+        </ul>
+      </section>
+      <% } %>
+
+      <% if (costs) { %>
+      <section class="hq-card" aria-labelledby="hood-h">
+        <span class="eyebrow" id="hood-h">Under the hood (admins)</span>
+        <p class="hq-small">Our cost for this run: $<%= costs.usd.toFixed(4) %></p>
+        <div class="blk-table" style="margin-top:8px"><table><thead><tr><th>Step</th><th>Cost</th><th>Models</th></tr></thead><tbody>
+          <% costs.steps.forEach(function (c) { %><tr><td><%= c.step %></td><td>$<%= c.usd.toFixed(4) %></td><td><%= Object.entries(c.models).map(function (m) { return m[0] + ' ×' + m[1]; }).join(', ') %></td></tr><% }) %>
+        </tbody></table></div>
+      </section>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

@@ -1,0 +1,23 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 "Set up": what makes 127 work harder for this member (lib/harness/setup.js). %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Set up · <%= s.done %> of <%= s.total %> done</span>
+      <h1 class="hq-title"><span class="dim">Ten minutes here</span><span class="steel">saves you hours a week.</span></h1>
+      <p class="hq-lede">Picked from what you sell and where you post. Free plans first, and 127 earns nothing from any of these.</p>
+    </div>
+  </div>
+  <ul class="h2-setup">
+    <% s.items.forEach(function (i) { %>
+    <li class="<%= i.done ? 'done' : '' %>">
+      <span class="tick" aria-label="<%= i.done ? 'Done' : 'Not yet' %>"></span>
+      <div><b><%= i.title %></b><span><%= i.why %></span></div>
+      <% if (!i.done) { %><a class="hq-pill" href="<%= i.href %>"<%- i.external ? ' target="_blank" rel="noopener noreferrer"' : '' %>><%= i.cta %></a><% } %>
+    </li>
+    <% }) %>
+  </ul>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

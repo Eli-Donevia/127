@@ -1,0 +1,44 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Library: every file a workflow made for the member. %>
+<% var mb = function (n) { return n >= 1048576 ? (Math.round(n / 104857.6) / 10) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; };
+   var kindOf = function (t) { return /^video\//.test(t) ? 'video' : /^image\//.test(t) ? 'image' : t === 'text/html' ? 'html' : 'file'; };
+   var label = { 'text/csv': 'Spreadsheet', 'application/pdf': 'PDF', 'text/plain': 'Text', 'text/markdown': 'Doc', 'text/html': 'Web page', 'application/zip': 'Zip', 'application/json': 'Data', 'text/calendar': 'Calendar', 'text/vcard': 'Contacts', 'text/vtt': 'Captions', 'application/x-subrip': 'Captions', 'image/svg+xml': 'Image' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Library</span>
+      <h1 class="hq-title"><span class="dim">Everything 127</span><span class="steel">made for you.</span></h1>
+      <p class="hq-lede">Videos, lists, pages and docs from your runs, and files you add. <%= mb(used) %> of <%= mb(quota) %> used.</p>
+    </div>
+  </div>
+  <section class="hq-card" data-upload aria-labelledby="up-h" style="margin-bottom:14px">
+    <span class="eyebrow" id="up-h">Add your own files</span>
+    <p class="h2-sub">Clips, photos, a contacts export or a spreadsheet, for workflows that use your files. Up to <%= maxMb %> MB each.</p>
+    <div class="h2-actions" style="margin-top:10px"><label class="hq-pill">Choose files<input type="file" data-upload-input multiple hidden></label><span class="hq-small" data-upload-msg aria-live="polite"></span></div>
+  </section>
+  <% if (!files.length) { %>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">Nothing here yet. Files from your runs land here so you can grab them any time.</p></div>
+  <% } else { %>
+  <div class="h2-files">
+    <% files.forEach(function (f) { var k = kindOf(f.type); %>
+    <div class="h2-file">
+      <% if (k === 'video') { %><video controls playsinline preload="metadata" src="<%= f.url %>"></video>
+      <% } else if (k === 'image') { %><a href="<%= f.url %><%= f.type === 'image/svg+xml' ? '?preview=1' : '' %>"><img src="<%= f.url %>" alt="<%= f.name %>" loading="lazy" style="aspect-ratio:auto"></a><% } %>
+      <div class="nm" title="<%= f.name %>"><%= f.name %></div>
+      <div class="h2-row">
+        <span><%= label[f.type] || (k === 'video' ? 'Video' : k === 'image' ? 'Image' : 'File') %> · <%= mb(f.bytes) %></span>
+        <span class="h2-chips">
+          <% if (k === 'html') { %><a class="link" href="<%= f.url %>?preview=1" target="_blank" rel="noopener">Preview</a><% } %>
+          <a class="link" href="<%= f.url %>?download=1">Download</a>
+          <% if (f.runId) { %><a class="link" href="/app/hq/runs/<%= f.runId %>">Run</a><% } %>
+        </span>
+      </div>
+      <form method="post" action="/app/hq/files/<%= f.id %>/delete" data-confirm="Delete <%= f.name %>? This can't be undone." style="margin-top:6px"><button class="hq-link-btn">Delete</button></form>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

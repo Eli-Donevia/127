@@ -1,0 +1,24 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2: every run, newest first. %>
+<% var said = { queued: 'Starting', running: 'Working', waiting: 'Waiting on you', sleeping: 'Waiting', done: 'Done', failed: 'Stopped on an error', stopped: 'Stopped' };
+   var stamp = function (iso) { return iso ? new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) : ''; }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Runs</span>
+      <h1 class="hq-title"><span class="dim">Everything</span><span class="steel">127 has done for you.</span></h1>
+    </div>
+  </div>
+  <% if (!runs.length) { %>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">Nothing yet. Pick a job on Start and 127 gets going.</p><a class="btn" style="margin-top:14px" href="/app/hq/start">Start one <span class="arrow"></span></a></div>
+  <% } else { %>
+    <div class="hq-card">
+      <ul class="h2-steps">
+        <% runs.forEach(function (r) { %><li><span class="h2-dot <%= r.status %>"></span><div class="h2-row" style="align-items:flex-start"><div style="min-width:0"><a class="t link" href="/app/hq/runs/<%= r.id %>"><%= r.title %></a><div class="s"><%= said[r.status] || r.status %> · <%= stamp(r.endedAt || r.createdAt) %> ET</div></div><span class="h2-tag"><%= r.freeRun ? 'Free run' : ((r.credits && r.credits.used) || 0) + ' credits' %></span></div></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
