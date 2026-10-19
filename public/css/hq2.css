@@ -2,7 +2,7 @@
    steel headlines, uppercase spaced labels, pill buttons, thin-bordered cards. Green is progress, the
    lavender accent is 127 working for you, gold stays the Circle's. Phone first. */
 
-.h2 { max-width: 1120px; }
+.h2 { max-width: 1120px; font: inherit; letter-spacing: inherit; text-wrap: wrap; } /* the root shares style.css's .h2 heading class; its 56px -0.045em spacing would squeeze every line in HQ */
 .h2 [hidden] { display: none !important; } /* a card the search hides is display:flex otherwise */
 .h2 .eyebrow { color: var(--slate); }
 .h2 section:not(.hq-card) { padding: 0; }
