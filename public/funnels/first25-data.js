@@ -52,7 +52,7 @@
     },
     realtors: {
       label: 'Real estate agents', one: 'agent', many: 'real estate agents', q: 'real estate agents', type: 'real_estate_agency',
-      osm: ['office=estate_agent'], what: 'listings', film: 'a listing walkthrough', thing: 'listing',
+      osm: ['office=estate_agent'], what: 'listings', film: 'a listing walkthrough', thing: 'listing', end: 'Book a showing.',
       chains: [],
     },
     contractors: {
@@ -83,32 +83,32 @@
   var gaps = {
     site_down: { chip: 'Site down', why: "Their website didn't load when we checked.", say: "I tried your website this week and it didn't load for me." },
     broken_link: { chip: 'Broken link', why: 'The website link on their map listing goes to a missing page.', say: "The website link on your map listing goes to a page that doesn't exist anymore." },
-    no_site: { chip: 'No website', why: 'No website on their listing. Google is their whole storefront.', say: "I couldn't find a website for {biz}, just the Google listing." },
+    no_site: { chip: 'No website', why: 'No website on their listing.', say: "I couldn't find a website for {biz}, just the Google listing." },
     no_video: { chip: 'No video', why: 'No video anywhere on their homepage.', say: "I was on your website and couldn't find any video of your {what}." },
     no_tiktok: { chip: 'No TikTok', why: 'No TikTok linked from their site.', say: "I couldn't find {biz} on TikTok." },
     no_youtube: { chip: 'No YouTube', why: 'No YouTube linked from their site.', say: "I didn't see a YouTube channel for {biz}." },
     no_instagram: { chip: 'No Instagram link', why: "Their site doesn't link to an Instagram.", say: "Your website doesn't link to an Instagram." },
     no_facebook: { chip: 'No Facebook link', why: "Their site doesn't link to a Facebook page.", say: "Your website doesn't link to a Facebook page." },
-    no_pixel: { chip: 'No ad pixel', why: "No Meta pixel, so they can't show ads to people who visited.", say: "Your website isn't set up to show ads to people who've already visited." },
-    no_booking: { chip: 'No online booking', why: 'No way to book or order online. Every booking is a phone call.', say: "I couldn't find a way to book online on your website." },
-    no_chat: { chip: 'No chat', why: 'No chat on their site. Questions after hours go nowhere.', say: "There's no way to ask a quick question on your website after hours." },
+    no_pixel: { chip: 'No ad pixel', why: 'No Meta pixel on their homepage. Ads use it to reach people who already visited.', say: "It looks like your website isn't set up to show ads to people who've already visited." },
+    no_booking: { chip: 'No online booking', why: 'No way to book or order online on their homepage.', say: "I couldn't find a way to book online on your website." },
+    no_chat: { chip: 'No chat', why: 'No chat on their homepage.', say: "I didn't see a chat on your website for quick questions." },
     no_form: { chip: 'No contact form', why: 'No contact form on their homepage.', say: "Your homepage doesn't have a contact form." },
     no_signup: { chip: 'No email list', why: 'No email signup anywhere on their homepage.', say: "I couldn't find a way to join your email list on your website." },
     stale_footer: { chip: '© {year}', why: 'Their footer still says © {year}.', say: 'The footer on your website still says © {year}.' },
     no_https: { chip: 'Not secure', why: 'Their site has no https, so Chrome marks it "Not secure".', say: 'Your website shows as "Not secure" in Chrome.' },
-    no_mobile: { chip: 'Not phone-ready', why: "Their site isn't set up for phones.", say: 'Your website is hard to use on a phone.' },
-    slow: { chip: 'Slow site', why: 'Their homepage took over 3 seconds to respond.', say: 'Your homepage took a few seconds to load for me.' },
+    no_mobile: { chip: 'Not phone-ready', why: "Their site isn't set up for phones.", say: "Your website doesn't seem to be set up for phones." },
+    slow: { chip: 'Slow site', why: 'Their homepage took over 3 seconds to respond when we checked.', say: 'Your homepage took a few seconds to load for me.' },
     no_description: { chip: 'No Google blurb', why: 'No description for Google to show under their name.', say: "When I searched for {biz}, Google didn't show a description for your site." },
-    few_images: { chip: 'Few photos', why: 'Only a few photos on their homepage.', say: 'Your website only has a few photos of your {what}.' },
-    few_reviews: { chip: '{reviews} reviews', why: 'Only {reviews} Google reviews.', say: 'I saw you have {reviews} Google reviews.' },
+    few_images: { chip: 'Few photos', why: 'Fewer than 6 photos on their homepage.', say: 'Your website only has a few photos of your {what}.' },
+    few_reviews: { chip: '{reviews} reviews', why: '{reviews} Google reviews so far.', say: 'I saw you have {reviews} Google reviews.' },
   };
 
   // Signals that make a business a better first client (they already spend on marketing, they're busy).
   var fits = {
-    ads: { why: 'Already runs ads, so they pay for marketing.' },
+    ads: { why: 'Has an ad tag on their site, a sign they already pay for marketing.' },
     booking: { why: 'Takes bookings online, so more views can turn into bookings.' },
-    busy: { why: 'Busy: {reviews} Google reviews.' },
-    rated: { why: '{rating} stars on Google. They care how they look.' },
+    busy: { why: '{reviews} Google reviews.' },
+    rated: { why: '{rating} stars on Google from {reviews} reviews.' },
     independent: { why: 'Independent, not a chain. The owner decides.' },
   };
 
@@ -202,7 +202,7 @@
         'Grab 4 to 6 clips from their public Instagram or Facebook. The edit is only for them, so never post it.',
         'Cut a 12 to 15 second vertical edit in CapCut: a hook in the first second, a cut on every beat, big captions.',
         'Open on this line: "{hook}".',
-        'End on their name and one line: "Come try a {thing}."',
+        'End on their name and one line: "{end}"',
         'Export at 1080x1920 and upload it as an unlisted link you can paste into your follow-up.',
       ],
       // Shot by shot, so the first edit takes an hour, not an evening.
@@ -210,7 +210,7 @@
         ['0 to 2s', 'On screen: "{hook}"'],
         ['2 to 8s', 'Their 3 best clips, one cut on every beat'],
         ['8 to 12s', 'The moment people come for: {film}'],
-        ['12 to 15s', 'Their logo and "Come try a {thing}."'],
+        ['12 to 15s', 'Their logo and "{end}"'],
       ],
     },
     social: {
@@ -336,12 +336,109 @@
 
   // ---------- what you get (the form page) ----------
   var stack = [
-    ['25 local businesses that need what you sell', 'Ranked, with chains and closed ones taken out.'],
+    ['25 local businesses that could use what you sell', 'Ranked, with chains and closed ones taken out.'],
     ["What's missing on each one's website", 'In plain words, from a real check of their homepage.'],
     ['The message to send each one', 'A DM, an email, a walk-in line and 2 follow-ups.'],
-    ['A free sample to make for your top 3', 'Step by step, so you lead with something they can see.'],
+    ['A sample made for your #1', 'A mockup with their name on it, ready to screenshot and send.'],
     ['Send mode and a tracker', 'Work your top 5 in one sitting, then track who replied.'],
   ];
+
+  // ---------- the sample we make for them (after the email: #1, then any card on tap) ----------
+  // kinds: the mockup each service gets. Per buyer: colors [background, text, accent], the words on the
+  // mock homepage, their next 9 posts, the reel's 3 lines and one chat question.
+  // Never invented facts about the business: no reviews, offers, prices, years or awards.
+  // Only real listing data (name, city, rating, address, phone) is shown as fact.
+  var mock = {
+    kinds: { video: 'reel', social: 'grid', web: 'site', ai: 'chat', email: 'email', photo: 'shots' },
+    titles: { reel: 'Their 15-second reel', grid: 'Their next 9 posts', site: 'Their new homepage', chat: 'Their website chat', email: 'Their first email', shots: 'The 9 photos to take' },
+    surface: { reel: 'video', grid: 'Instagram', site: 'website', chat: 'chat', email: 'email', shots: 'photos' },
+    notes: {
+      // How to use it. Shown under the sample and in the email, so each one stands on its own.
+      reel: 'Make the real one from their clips with the steps below.',
+      grid: 'Screenshot it and send it with your message.',
+      site: 'Screenshot it and send it with your message. Swap in their real photos once they say yes.',
+      chat: 'Screenshot it and send it with your message.',
+      email: 'Screenshot it and send it with your message.',
+      shots: 'Ask {biz} before you shoot, then send them the best 3.',
+    },
+    by: 'Sample by {me}',
+    byNone: 'Sample',
+    notReal: 'Not their real {surface}',
+    make: 'Make their sample',
+    chat: { hi: 'Hi, thanks for stopping by {biz}! Ask me anything, or I can book you in.', yes: 'Yes please', done: "Done. What's the best number to text the details to?", online: 'Online', type: 'Type a message' },
+    email: {
+      subject: 'Welcome to {biz}', pre: "Here's what to expect from us.",
+      body: ['Thanks for joining the {biz} list.', "Once or twice a month we'll send what's new, the {ask} people ask about most, and the odd reason to stop by.", 'See you soon.'],
+      sign: 'The {biz} team', foot: "You're getting this because you joined the {biz} list.",
+    },
+    shots: ['The front door', 'The space in morning light', 'Hands at work', 'The {thing} up close', 'The team, candid', "A customer's view", 'The details people miss', 'The busiest moment', 'The sign at dusk'],
+    // When a buyer has no words of its own.
+    base: { pal: ['#ffffff', '#1d1d1f', '#3a5bd9'], hero: 'Welcome to {biz}.', sub: 'Proudly local in {city}.', cta: 'Get in touch', ask: 'news',
+      secs: [['What we do', 'A quick look at what {biz} offers.'], ['Visit', 'Find us in {city}.'], ['Contact', 'Call, email or stop by.']],
+      grid: ['Meet the team', 'Behind the scenes', 'A customer favorite', 'How it works', 'This week', 'Your questions, answered', 'Inside the space', 'A local shout-out', 'Come say hi'],
+      lines: ['Made in {city}', 'Made for you', 'Come see us'], q: 'Are you open today?', a: 'Let me check today for you. Want me to send you the hours?' },
+    buyers: {
+      gyms: { pal: ['#111111', '#ffffff', '#e4002b'], cta: 'Book your first class', hero: 'Stronger starts here.', sub: 'Classes and coaching in {city}, for every level.', ask: 'classes',
+        secs: [['Classes', 'Find a time that fits and come try one.'], ['Coaching', 'Ask about training one on one.'], ['First visit', "New here? Tell us your goals and we'll take it from there."]],
+        grid: ['Your first class, step by step', 'Meet the coaches', 'Move of the week', "This week's schedule", 'The early crew', 'Ask a coach', 'What to bring', 'Member spotlight', 'Come try a class'],
+        lines: ['Show up as you are', 'Leave stronger', 'Same time next week?'],
+        q: 'Do you have anything tonight?', a: "Let me check tonight's schedule. Want me to save you a spot?" },
+      yoga: { pal: ['#f4f1ea', '#1c2420', '#7c9a7e'], serif: true, cta: 'Book a class', hero: 'An hour that is just yours.', sub: 'Classes in {city}, for every body.', ask: 'classes',
+        secs: [['Classes', 'Find a time that fits your week.'], ['New here', 'What to bring, and what your first class is like.'], ['Teachers', 'Meet the people who will guide you.']],
+        grid: ['Your first class, step by step', 'Meet the teachers', 'Pose of the week', "This week's schedule", 'Inside the studio', 'Ask a teacher', 'What to bring', 'Student spotlight', 'Roll out a mat with us'],
+        lines: ['Breathe out the week', 'Every level, every body', 'Roll out the mat'],
+        q: 'Is there a class for total beginners?', a: 'I can find a good first class for you. Want me to check this week?' },
+      restaurants: { pal: ['#1a1410', '#f6efe6', '#e0a33a'], cta: 'See the menu', hero: 'Come hungry.', sub: 'Good food and good company in {city}.', ask: 'dishes',
+        secs: [['Menu', 'The dishes people come back for.'], ['Plan ahead', 'Call ahead, or just come in.'], ['Visit', 'Find us in {city}.']],
+        grid: ['The dish everyone orders', 'Meet the kitchen', "This week's special", 'Behind the pass', 'How we make it', 'Staff picks', 'Date night', "A regular's favorite", 'See you tonight'],
+        lines: ['Hungry yet?', 'Pull up a chair', 'Save room'],
+        q: 'Can I get a table for 6 on Friday?', a: "Let me check Friday for you. What time were you thinking?" },
+      salons: { pal: ['#f7f2ef', '#2b1b17', '#c47a5a'], cta: 'Book an appointment', hero: 'Your next favorite cut.', sub: 'Cuts and styling in {city}.', ask: 'looks',
+        secs: [['Services', 'Everything we offer, in one place.'], ['Stylists', 'Find the right person for your hair.'], ['Book', 'Pick a time that works for you.']],
+        grid: ['Before and after', 'Meet the stylists', 'Look of the week', 'Book your chair', 'Inside the salon', 'Ask a stylist', 'Hair care tips', 'Behind the chair', 'Fresh cut, fresh week'],
+        lines: ['New week', 'New cut', 'Book your chair'],
+        q: 'Can I get a cut on Saturday?', a: 'Let me check Saturday for you. Do you have a stylist you like, or should I find the first opening?' },
+      medspas: { pal: ['#f6f4f1', '#2a2a2a', '#b59a7a'], serif: true, cta: 'Book a consult', hero: 'Skin care, made personal.', sub: 'Treatments and consults in {city}.', ask: 'treatments',
+        secs: [['Treatments', 'Find the right one for your skin.'], ['First visit', 'Start with a consult and a plan.'], ['Questions', 'Ask us anything before you book.']],
+        grid: ['What a first visit looks like', 'Meet the team', 'Treatment of the month', 'Your questions, answered', 'Inside the space', 'Aftercare tips', 'Skin myths', 'A day at the spa', 'Book a consult'],
+        lines: ['Your skin, your plan', 'Start with a consult', 'Glow on your schedule'],
+        q: 'How long does a first visit take?', a: 'It depends on the treatment, so most people start with a consult. Want me to find you a time this week?' },
+      dentists: { pal: ['#ffffff', '#0f2a3d', '#2a9d8f'], cta: 'Book a visit', hero: 'Dental care in {city}.', sub: 'Checkups, cleanings and the care in between.', ask: 'care',
+        secs: [['New patients', 'Tell us a little about you and pick a time.'], ['Your visit', 'What to expect, start to finish.'], ['Find us', 'Hours, parking and directions.']],
+        q: 'Can I get in this week? My tooth has been bugging me.', a: "Sorry to hear that. Let me check this week's openings. Do mornings or afternoons work better?" },
+      chiro: { pal: ['#f3f7f9', '#14303f', '#3a86c8'], cta: 'Book a visit', hero: 'Move better, feel better.', sub: 'Care that keeps you moving, in {city}.', ask: 'care',
+        secs: [['First visit', 'What happens in your first session.'], ['Care plans', 'A plan built around how you move.'], ['Find us', 'Hours, parking and directions.']],
+        q: 'Do you take walk-ins?', a: 'Booking ahead gets you a time that suits you. Want me to find the next opening?' },
+      realtors: { pal: ['#ffffff', '#1d1d1f', '#1f5f8b'], cta: 'Get in touch', hero: 'Find your place in {city}.', sub: 'Buying or selling, start with a conversation.', ask: 'homes',
+        secs: [['Buying', 'Tell us what you are looking for.'], ['Selling', 'Find out what your home could list for.'], ['Neighborhoods', 'A local guide to {city}.']],
+        grid: ['Just listed', 'Meet the agent', 'Neighborhood guide', 'Open house this weekend', 'Market update', 'Before you buy', 'Home tour', 'First-time buyer tips', "Let's talk"],
+        lines: ['Take the tour', 'Picture yourself here', 'Book a showing'],
+        shots: ['The front of the house', 'The kitchen in daylight', 'The living room, wide', 'The best view', 'The backyard', 'The main bedroom', 'The details buyers miss', 'The street at golden hour', 'The agent at the door'],
+        q: 'Is that new listing still available?', a: 'Let me check for you. Would you like to set up a showing?' },
+      contractors: { pal: ['#ffffff', '#1b1f24', '#f28c28'], cta: 'Request service', hero: 'Repairs, installs and service in {city}.', sub: "Tell us what's going on and we'll get back to you.", ask: 'projects',
+        secs: [['Repairs', 'Something broken? Send a photo and a few words.'], ['Installs', 'Planning an upgrade? Get a quote first.'], ['Service area', 'Based in {city}.']],
+        q: 'Something stopped working. Can someone come out this week?', a: "Sorry to hear that. What's going on, and when is a good time? I'll get you on the schedule." },
+      auto: { pal: ['#121417', '#f2f2f2', '#e63946'], cta: 'Book service', hero: 'Your car, taken care of.', sub: 'Car care in {city}.', ask: 'services',
+        secs: [['Services', 'Tell us what your car needs.'], ['Book a time', 'Pick a time that works for you.'], ['Find us', 'Hours and directions.']],
+        q: 'Can you fit my car in this week?', a: "Let me see what's open. What's the year, make and model?" },
+      boutiques: { pal: ['#fbf8f4', '#2d2a26', '#9c6b4e'], serif: true, cta: 'Shop new arrivals', hero: 'New this week.', sub: 'A local shop in {city}.', ask: 'pieces',
+        secs: [['New arrivals', 'Fresh pieces, a few at a time.'], ['Gifts', 'Something for everyone on your list.'], ['Visit', 'Find us in {city}.']],
+        grid: ['New this week', 'Meet the owner', 'Staff pick', 'Styled three ways', 'Gift ideas', 'Inside the shop', 'Just restocked', 'A customer favorite', 'Come say hi'],
+        q: 'Do you have this in a medium?', a: 'Let me check for you. Want me to hold one at the counter?' },
+      law: { pal: ['#ffffff', '#1f2a37', '#7a5c2e'], serif: true, cta: 'Book a consultation', hero: 'Talk to a lawyer in {city}.', sub: 'Clear answers and a plan for your next step.', ask: 'questions',
+        secs: [['How we help', 'Start with a short call about your situation.'], ['What to expect', 'Plain answers and a clear next step.'], ['Contact', 'Call, email or book a time.']],
+        q: 'Do you handle cases like mine?', a: "I can set up a short call so you can explain what's going on. What's the best time to reach you?" },
+    },
+  };
+
+  // ---------- niche doors (/first-25/gyms and friends): ads and keywords open on one niche ----------
+  // The page says what the ad says (research R28). h1 names the job, never a result.
+  var niches = {
+    gyms: { pack: 'video', buyer: 'gyms', h1: 'Find 25 gyms to make videos for.', lede: "Type your city. We'll find the independent gyms near you, check each website for video, and write the message to send each one.", og: 'Find 25 gyms to make videos for · 127' },
+    contractors: { pack: 'ai', buyer: 'contractors', h1: 'Find 25 contractors to set up booking for.', lede: "Type your city. We'll find independent plumbing, HVAC and roofing companies, check each website for online booking and chat, and write the message to send each one.", og: 'Find 25 contractors to set up booking for · 127' },
+    restaurants: { pack: 'social', buyer: 'restaurants', h1: 'Find 25 restaurants to run social for.', lede: "Type your city. We'll find the independent restaurants near you, check each website for Instagram, TikTok and photos, and write the message to send each one.", og: 'Find 25 restaurants to run social for · 127' },
+    shops: { pack: 'social', buyer: 'boutiques', h1: 'Find 25 local shops to run social for.', lede: "Type your city. We'll find the independent boutiques and gift shops near you, check each website for Instagram and photos, and write the message to send each one.", og: 'Find 25 local shops to run social for · 127' },
+  };
 
   var copy = {
     problem: "You don't need a better idea. You need a list.",
@@ -355,13 +452,23 @@
     },
     emailOptOut: 'P.S. Not for you? Reply "no thanks" and I won\'t follow up.',
     follow2: "Last note from me. If {sell} isn't a priority right now, no problem at all. If it is, the first one is still free.",
-    // About 5 minutes a site, by hand: open it, look for video, socials, booking, the footer.
-    saved: 'We read {n} websites for you. That is about {time} of clicking by hand.',
+    // A count we can stand behind: {checks} is the number of website checks in first25-engine.js. No time-saved claims until timed by hand (R21).
+    saved: 'We read {n} websites and checked each one for {checks} things.',
+    saved1: 'We read their website and checked it for {checks} things.',
+    // Sample lists read no real websites, so they say what a real search does instead.
+    savedSample: 'With real businesses, we read each website and check it for {checks} things.',
     priceTip: 'One package, one price, one start date. Make the first month an easy yes, and raise your price after 3 happy clients.',
-    keep: 'Your list and tracker stay here for 30 days.',
+    keep: 'Your list and tracker stay here until {date}.',
     sendDone: "That's {n} sent. On day 3, send the Day 3 note to anyone who hasn't answered. It's on each card.",
     won: 'First client. Reply to your First 25 email and tell Eli how it happened.',
+    // The next problem, named (what the free tool leaves undone).
+    nextLabel: "What's left",
+    next: 'You have {n} names and {n} drafts.',
+    nextSub: "Next comes the part most people skip: the day 3 follow-up, the call, and a price they can say yes to. That's where you'll want help.",
+    savedHead: 'Your {n} are saved.',
+    capped: 'Live search is at its limit for today, so this is a sample list. Come back tomorrow for real businesses near you.',
+    emailSample: 'We made a sample for #1, {biz}: {title}. Open your list to see it. {note}',
   };
 
-  return { buyers: buyers, gaps: gaps, fits: fits, packs: packs, specs: specs, hooks: hooks, plan: plan, stages: stages, replies: replies, picker: picker, stack: stack, copy: copy };
+  return { buyers: buyers, gaps: gaps, fits: fits, packs: packs, specs: specs, hooks: hooks, plan: plan, stages: stages, replies: replies, picker: picker, stack: stack, mock: mock, niches: niches, copy: copy };
 });

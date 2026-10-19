@@ -5,7 +5,8 @@
 (function () {
   var K = window.K127, F = window.F25, D = window.FIRST25, R = K.R, RD = window.RESULTS, esc = K.esc;
   var $ = function (id) { return document.getElementById(id); };
-  var st = { pack: 'video', run: null, unlocked: false, open: {}, status: {} };
+  var st = { pack: 'video', run: null, unlocked: false, open: {}, status: {}, mock: {} };
+  var M = window.F25MOCK;
   var SAVED = '127-first25-last';
 
   // ---------- form ----------
@@ -75,10 +76,22 @@
     form.place.focus();
   });
 
-  // Ads and ManyChat can open a finished list: /first-25?pack=video&buyer=gyms&place=Des+Moines,+IA&go=1
+  // Niche doors (/first-25/gyms): the page opens on that niche and says what the ad said.
+  var niche = (function () {
+    var id = window.F25_NICHE || (location.pathname.match(/^\/first-25\/([a-z-]+)\/?$/) || [])[1] || new URLSearchParams(location.search).get('niche');
+    var n = id && F.niche(id);
+    if (!n) return null;
+    $('h1').textContent = n.h1;
+    $('lede').textContent = n.lede;
+    return n;
+  })();
+
+  // Ads and ManyChat can open a finished list: /first-25/gyms?place=Des+Moines,+IA&go=1
+  // or /first-25?pack=video&buyer=gyms&place=Des+Moines,+IA&go=1
   (function prefill() {
     var p = new URLSearchParams(location.search), last = {};
     try { last = JSON.parse(localStorage.getItem(SAVED) || '{}') || {}; } catch (e) {}
+    if (niche) last = { place: last.place, me: last.me, pack: niche.pack, buyer: niche.buyer };
     var pack = p.get('pack') || last.pack;
     if (D.packs[pack]) st.pack = pack;
     renderPacks();
@@ -110,7 +123,7 @@
     { id: 'search', text: function (i) { return 'Searching ' + F.cityOf(i.place) + ' for ' + D.buyers[i.buyer].many; } },
     { id: 'filter', text: function () { return 'Dropping chains and closed businesses'; } },
     { id: 'audit', text: function () { return 'Checking every website'; } },
-    { id: 'rank', text: function (i) { return 'Ranking by how much they need ' + (i.pack === 'other' && i.service ? i.service : D.packs[i.pack].sell); } },
+    { id: 'rank', text: function () { return 'Ranking them by the gaps you fix'; } },
     { id: 'write', text: function () { return 'Writing your messages'; } },
   ];
   function startScan(input) {
@@ -237,7 +250,7 @@
       var gate = $('gateWrap');
       R.gate(gate, {
         magnet: 'first25',
-        data: function () { return { run_id: run.id, k: run.k, pack: run.pack, buyer: run.buyer, place: run.place, city: run.city, count: run.prospects.length, source: run.source }; },
+        data: function () { return { run_id: run.id, k: run.k, pack: run.pack, buyer: run.buyer, place: run.place, city: run.city, count: run.prospects.length, list_source: run.source }; },
         onDone: function () {
           st.unlocked = true;
           if (st.sticky) st.sticky.remove();
@@ -261,11 +274,11 @@
       tiles.push('<div class="f25-stat"><b>' + h.n + '<small>/' + h.of + '</small></b><span>' + esc(h.line.replace(/^\d+ of \d+ /, '')) + '</span></div>');
     });
     if (tiles.length < 3) tiles.push('<div class="f25-stat"><b>' + n + '</b><span>ranked, with messages ready</span></div>');
-    var saved = F.saved(s.checked);
+    var saved = F.saved(s.checked, run.sample);
     return '<div class="f25-sum">' +
       '<div class="label lilac">Your First 25</div>' +
       '<h2 class="h1 steel" style="margin-top:12px">' + esc(cap(B.many)) + ' in ' + esc(run.city) + '.</h2>' +
-      (run.sample ? '<div class="f25-banner">' + esc(D.copy.sampleNote) + '</div>' : '') +
+      (run.sample ? '<div class="f25-banner">' + esc(run.capped ? D.copy.capped : D.copy.sampleNote) + '</div>' : '') +
       '<div class="f25-stats">' + tiles.slice(0, 3).join('') + '</div>' +
       (saved ? '<p class="f25-saved">' + esc(saved) + '</p>' : '') +
       '<div class="f25-problem"><h3 class="h3" style="margin:0 0 8px">' + esc(D.copy.problem) + '</h3><p class="fog" style="margin:0">' + esc(D.copy.problemSub) + '</p></div>' +
@@ -277,6 +290,7 @@
     $('top').innerHTML = run.prospects.slice(0, 5).map(function (b, i) { return card(b, i === 0 || st.unlocked); }).join('');
     $('rest').innerHTML = run.prospects.slice(5).map(function (b) { return st.open[b.rank] ? card(b, true) : row(b); }).join('');
     drawTracker();
+    if (M) M.start($('result'));
   }
 
   function card(b, withMsg) {
@@ -298,7 +312,7 @@
       (links.length ? '<div class="f25-links">' + links.join('') + '</div>' : '') +
       (withMsg ? messages(b) : locked(b)) +
       (st.unlocked ? stageRow(b) : '') +
-      (withMsg && st.unlocked && b.spec ? spec(b) : '') +
+      (withMsg && st.unlocked ? spec(b) : '') +
     '</article>';
   }
 
@@ -330,11 +344,19 @@
   // [your name], [paste your link], [your price] and the rest stand out, so nobody sends one by mistake.
   function marked(t) { return esc(t).replace(/\[([a-z' ]{2,30})\]/g, '<span class="ph">[$1]</span>'); }
 
+  // The sample: a mockup made for this business (#1 right away, the rest on tap), then the steps to make it real.
   function spec(b) {
-    return '<div class="card f25-spec" style="margin-top:14px;padding:16px"><div class="label signal">Free sample · make it first</div>' +
-      '<h4 class="h3" style="font-size:18px;margin:8px 0 0">' + esc(b.spec.title) + '</h4>' +
-      '<ol>' + b.spec.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
-      (b.spec.board ? '<div class="label" style="margin-top:16px">Shot by shot</div><div class="f25-board">' + b.spec.board.map(function (r) { return '<div><b>' + esc(r[0]) + '</b><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>' : '') +
+    var run = st.run, ctx = { me: run.me, city: run.city, service: run.service };
+    var sp = b.spec || F.spec(b, run.pack, run.buyer, ctx);
+    var m = M ? F.mock(b, run.pack, run.buyer, ctx) : null;
+    var made = m && (b.rank === 1 || st.mock[b.rank])
+      ? '<div class="f25-mock"><div class="label signal">Made for ' + esc(b.name) + '</div><h4 class="h3">' + esc(m.title) + '</h4>' + M.render(m) + '<p class="f25-mock-note">' + esc(m.note) + '</p></div>'
+      : m ? '<button type="button" class="btn ghost block f25-mockbtn" data-mock="' + b.rank + '">' + esc(D.mock.make) + '</button>' : '';
+    return '<div class="card f25-spec" style="margin-top:14px;padding:16px">' + made +
+      '<div class="label signal">' + (m ? 'Make it real' : 'Free sample · make it first') + '</div>' +
+      '<h4 class="h3" style="font-size:18px;margin:8px 0 0">' + esc(sp.title) + '</h4>' +
+      '<ol>' + sp.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
+      (sp.board ? '<div class="label" style="margin-top:16px">Shot by shot</div><div class="f25-board">' + sp.board.map(function (r) { return '<div><b>' + esc(r[0]) + '</b><span>' + esc(r[1]) + '</span></div>'; }).join('') + '</div>' : '') +
     '</div>';
   }
 
@@ -360,6 +382,13 @@
         var holder = sb.closest('[data-stage-for]'), r = Number(holder.getAttribute('data-stage-for')), v = sb.getAttribute('data-st');
         setStage(r, stageOf(r) === v ? 'found' : v);
         Array.prototype.forEach.call(holder.querySelectorAll('[data-st]'), function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-st') === stageOf(r))); });
+        return;
+      }
+      var mk = e.target.closest('[data-mock]');
+      if (mk) {
+        st.mock[mk.getAttribute('data-mock')] = true;
+        K.track('First25 Sample', { rank: Number(mk.getAttribute('data-mock')), kind: F.mockKind(st.run.pack) });
+        drawList();
         return;
       }
       var open = e.target.closest('[data-open]');
@@ -501,7 +530,15 @@
       : '<button type="button" class="btn block" data-csv>Download all ' + run.prospects.length + ' for Sheets or Notion</button>';
     var hq = G.hq && G.hq.on ? '<div class="card f25-hq" style="margin-top:14px"><div class="label lilac">' + esc(G.hq.label) + '</div><h3 class="h3" style="margin:10px 0 8px">' + esc(G.hq.heading) + '</h3><p class="fog">' + esc(G.hq.body) + '</p></div>' : '';
     var kept = K.onSite && run.id !== 'preview';
+    var until = run.keepUntil ? new Date(run.keepUntil).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'America/New_York' }) : '';
+    var keep = kept && until ? F.fill(D.copy.keep, { date: until }) : '';
     el.innerHTML =
+      '<div class="card f25-next" style="margin-top:14px">' +
+        '<div class="label lilac">' + esc(D.copy.nextLabel) + '</div>' +
+        '<h3 class="h3" style="margin:10px 0 8px">' + esc(F.fill(D.copy.next, { n: run.prospects.length })) + '</h3>' +
+        '<p class="fog" style="margin:0">' + esc(D.copy.nextSub) + '</p>' +
+        (keep ? '<p class="f25-keep"><b>' + esc(F.fill(D.copy.savedHead, { n: run.prospects.length })) + '</b> ' + esc(keep) + '</p>' : '') +
+      '</div>' +
       '<div class="card" style="margin-top:14px">' +
         '<div class="label">Your first 7 days</div>' +
         '<ol class="f25-plan">' + D.plan.map(function (p, i) { return '<li><b>Day ' + (i + 1) + '</b><span>' + esc(p) + '</span></li>'; }).join('') + '</ol>' +
@@ -510,7 +547,7 @@
       '</div>' +
       '<div class="card" style="margin-top:14px" id="replies"></div>' +
       '<div id="stateBlock"></div>' + hq +
-      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + esc(run.attribution || '') + (kept ? ' ' + esc(D.copy.keep) : '') + '</p>' +
+      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + esc(run.attribution || '') + '</p>' +
       '<div class="f25-again"><a class="link" href="/first-25" data-again>Run another search</a></div>';
     drawReplies(run.prospects[0] && run.prospects[0].rank);
     var csv = el.querySelector('[data-csv]');

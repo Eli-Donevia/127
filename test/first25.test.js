@@ -181,10 +181,12 @@ test('reply scripts are filled for one business and keep the blanks to fill', ()
 });
 
 test('the value line, the picker and the reel storyboard', () => {
-  assert.equal(E.saved(37), 'We read 37 websites for you. That is about 3 hours of clicking by hand.');
-  assert.equal(E.saved(9), 'We read 9 websites for you. That is about 45 minutes of clicking by hand.');
-  assert.equal(E.saved(12), 'We read 12 websites for you. That is about 1 hour of clicking by hand.');
+  // A count of what we checked, never a time-saved claim (playbook R21: those need timing by hand).
+  assert.equal(E.SITE_CHECKS, 18);
+  assert.equal(E.saved(37), 'We read 37 websites and checked each one for 18 things.');
+  assert.equal(E.saved(1), 'We read their website and checked it for 18 things.');
   assert.equal(E.saved(0), '');
+  assert.equal(E.saved(37, true), 'With real businesses, we read each website and check it for 18 things.');
   assert.deepEqual(E.pick('film', true, 'lt5'), { pack: 'video', buyer: 'gyms', why: D.picker.why['video|gyms'], note: 'With under 5 hours a week, aim for 1 client first.' });
   for (const like of Object.keys(D.picker.map)) for (const walk of [true, false]) {
     const p = E.pick(like, walk, '15');
@@ -434,13 +436,181 @@ test('the email carries the top 10, the links and the 7 days, written for the na
   assert.match(m.text, /Day 7: /);
   assert.match(m.text, /When they reply:\n\n"Sure, send it"\n/);
   assert.match(m.text, /0 to 2s: On screen: "POV: your first class at /);
-  assert.match(m.text, /stay here for 30 days\./);
+  const until = new Date(Date.parse(saved.createdAt || saved.checkedAt) + 30 * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'America/New_York' });
+  assert.match(m.text, new RegExp(`Your list and tracker stay here until ${until}\\.`));
+  assert.match(m.text, /^Here are 25 gyms in Des Moines, ranked by the gaps you fix/m);
+  // The sample made for #1, how to use it, then the steps for the real one.
+  assert.match(m.text, /We made a sample for #1, [^:]+: their 15-second reel\. Open your list to see it\. Make the real one from their clips with the steps below\.\n\nBefore you message #1/);
+  // The next problem, named, right before the launch block.
+  assert.match(m.text, /You have 25 names and 25 drafts\. Next comes the part most people skip/);
   assert.match(m.text, /Sample businesses\./);
   assert.match(m.text, /\[state now\]$/);
   const lost = first25.emailText({ name: 'Jordan', data: { run_id: saved.id, k: 'bad' } }, (state) => `[state ${state}]`);
   assert.equal(lost.subject, 'Your First 25');
   assert.match(lost.text, /didn't save on our side/);
   assert.match(lost.text, /\[state C\]$/);
+});
+
+// ---------- the sample made for #1 ----------
+test('every service gets a sample for #1, built only from what we found', () => {
+  global.window = { matchMedia: () => ({ matches: false }) };
+  require('../public/funnels/first25-mock.js');
+  const MK = global.window.F25MOCK;
+  delete global.window;
+  const kinds = { video: 'reel', social: 'grid', web: 'site', ai: 'chat', email: 'email', photo: 'shots' };
+  const real = { name: 'Lantern & Co <b>', rating: 4.7, reviews: 112, address: '12 Main St, Ames', phone: '(515) 555-0100', instagram: 'lanternco' };
+  let n = 0;
+  for (const pack of Object.keys(D.packs)) {
+    for (const buyer of Object.keys(D.buyers)) {
+      const m = E.mock(real, pack, buyer, { me: 'Maya', city: 'Ames' });
+      if (pack === 'other') { assert.equal(m, null, 'no sample for "something else"'); continue; }
+      n++;
+      assert.equal(m.kind, kinds[pack]);
+      const strings = [];
+      (function walk(o) { if (typeof o === 'string') strings.push(o); else if (o && typeof o === 'object') Object.values(o).forEach(walk); })(m);
+      for (const t of strings) {
+        assert.doesNotMatch(t, /\{\w+\}/, `${pack}/${buyer} has an unfilled field: ${t}`);
+        assert.doesNotMatch(t, /—/, `${pack}/${buyer} has an em dash: ${t}`);
+        // No offers, prices, awards or history we never saw.
+        assert.doesNotMatch(t, /\$\d|\d+ ?%|percent|free trial|guarantee|award|best in|#1 in|since \d{4}|\d+ years/i, `${pack}/${buyer} invents something: ${t}`);
+      }
+      const html = MK.render(m);
+      assert.match(html, /<div class="mk-wm">Sample by Maya · Not their real [A-Za-z ]+<\/div>/, `${pack}/${buyer} is watermarked`);
+      assert.match(html, /Lantern &amp; Co &lt;b&gt;/);
+      assert.doesNotMatch(html, /Co <b>/);
+    }
+  }
+  assert.ok(n >= 60);
+  // Their rating, reviews, phone and Instagram show only when we found them.
+  assert.match(MK.render(E.mock(real, 'web', 'gyms', { me: 'Maya', city: 'Ames' })), /★ 4\.7<\/b> · 112 Google reviews/);
+  const bare = MK.render(E.mock({ name: 'Lantern Gym' }, 'web', 'gyms', { city: 'Ames' }));
+  assert.doesNotMatch(bare, /★|Google reviews|555/);
+  assert.match(bare, /<div class="mk-wm">Sample · Not their real website<\/div>/);
+  assert.match(MK.render(E.mock(real, 'social', 'gyms', { me: 'Maya', city: 'Ames' })), /@lanternco/);
+  assert.doesNotMatch(MK.render(E.mock({ name: 'Lantern Gym' }, 'social', 'gyms', { city: 'Ames' })), /@/);
+  // The reel ends on their name and the line for their kind of business.
+  const reel = E.mock({ name: 'Lantern Gym' }, 'video', 'gyms', { me: 'Maya', city: 'Ames' });
+  assert.equal(reel.end, 'Come try a class.');
+  assert.equal(E.mock({ name: 'A' }, 'video', 'realtors', {}).end, 'Book a showing.');
+  assert.match(MK.render(reel), /data-reel data-scene="0"[\s\S]+<span class="mk-logo">Lantern Gym<\/span><b>Come try a class\.<\/b>/);
+});
+
+// ---------- niche doors ----------
+test('niche pages open on one service and buyer, and unknown ones go to the main page', async () => {
+  for (const [id, n] of Object.entries(D.niches)) {
+    assert.ok(D.packs[n.pack].buyers.includes(n.buyer), `${id}: ${n.pack} sells to ${n.buyer}`);
+    assert.doesNotMatch(n.h1 + n.lede + n.og, /clients|customers|—/i, `${id} promises an outcome`);
+  }
+  const a = express();
+  a.use(require('../lib/funnels')());
+  await serve(a, async (base) => {
+    const gyms = await fetch(base + '/first-25/gyms');
+    assert.equal(gyms.status, 200);
+    const html = await gyms.text();
+    assert.match(html, /<script>window\.F25_NICHE="gyms";<\/script>/);
+    assert.match(html, /<title>Find 25 gyms to make videos for · 127<\/title>/);
+    assert.match(html, /<meta property="og:url" content="[^"]+\/first-25\/gyms">/);
+    const nope = await fetch(base + '/first-25/nope?place=Ames&go=1', { redirect: 'manual' });
+    assert.equal(nope.status, 302);
+    assert.equal(nope.headers.get('location'), '/first-25?place=Ames&go=1');
+    const main = await (await fetch(base + '/first-25')).text();
+    assert.match(main, /<title>Your first 25, found in a minute · 127<\/title>/);
+    assert.doesNotMatch(main, /F25_NICHE/);
+  });
+});
+
+// ---------- the cost guard ----------
+test('past the daily cap, a live search still answers, on labeled sample businesses', async () => {
+  process.env.FIRST25_SOURCE = 'google';
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  try {
+    await serve(app((key) => key === 'f25:all'), async (base) => {
+      const res = await post(base, { pack: 'video', buyer: 'gyms', place: 'Ames, IA' });
+      assert.equal(res.status, 200);
+      const out = (await res.text()).trim().split('\n').map((l) => JSON.parse(l)).pop();
+      assert.equal(out.type, 'result');
+      assert.equal(out.run.source, 'sample');
+      assert.equal(out.run.capped, true);
+      assert.deepEqual(db.get('prospectRuns', out.run.id).cost, { requests: 0, usd: 0 });
+    });
+  } finally { delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
+});
+
+test('a live run counts its Places requests and what they cost', async () => {
+  process.env.FIRST25_SOURCE = 'google';
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  const realFetch = global.fetch;
+  const W = ['Anchor', 'Birch', 'Cedar', 'Dune', 'Ember', 'Fable', 'Granite', 'Harbor', 'Ivy', 'Juniper', 'Kestrel', 'Linden', 'Maple', 'Nimbus', 'Onyx', 'Pine', 'Quarry', 'Ridge', 'Summit', 'Timber'];
+  let calls = 0;
+  global.fetch = async (url, init) => {
+    if (!String(url).startsWith('https://places.googleapis.com/')) return realFetch(url, init);
+    const page = ++calls;
+    const places = W.map((w, i) => ({ id: `p${page}-${i}`, displayName: { text: `${w} ${page === 1 ? 'Athletics' : 'Boxing'}` }, shortFormattedAddress: `${i + 1} Main St, Ames`, rating: 4.5, userRatingCount: 30 + i, businessStatus: 'OPERATIONAL', googleMapsUri: `https://maps.google.com/?cid=${page}${i}` }));
+    return new Response(JSON.stringify({ places, ...(page === 1 ? { nextPageToken: 'next' } : {}) }), { status: 200, headers: { 'content-type': 'application/json' } });
+  };
+  try {
+    const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA' }, () => {});
+    assert.equal(doc.source, 'google');
+    assert.equal(calls, 2);
+    assert.deepEqual(doc.cost, { requests: 2, usd: 0.07 });
+    // The same search again comes from the cache and costs nothing.
+    const again = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA' }, () => {});
+    assert.equal(calls, 2);
+    assert.deepEqual(again.cost, { requests: 0, usd: 0 });
+  } finally {
+    global.fetch = realFetch;
+    delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY;
+  }
+});
+
+// ---------- the follow-up emails and HQ ----------
+test('the follow-up email fields name their list, and page data can never overwrite source', () => {
+  const funnels = require('../lib/funnels');
+  const k = first25.sign(saved.id);
+  const lead = { email: 'jordan@example.com', name: 'Jordan', source: 'first-25', data: { run_id: saved.id, k, source: 'sample', pack: 'video' }, utm: { source: 'instagram' } };
+  const p = funnels._test.eventProps(lead);
+  assert.equal(p.source, 'first-25');
+  assert.equal(p.utm_source, 'instagram');
+  assert.equal(p.first25_top1, saved.prospects[0].name);
+  assert.equal(p.first25_top2, saved.prospects[1].name);
+  assert.equal(p.first25_count, 25);
+  assert.equal(p.first25_city, 'Des Moines');
+  assert.match(p.first25_list_url, new RegExp(`/first-25/r/${saved.id}\\?k=${k}$`));
+  assert.match(p.first25_top1_dm, /I'm Jordan, and I make short videos for gyms in Des Moines/);
+  assert.match(p.first25_top1_day3, /it's Jordan again/);
+  assert.equal(p.first25_sample, 'Their 15-second reel');
+  assert.equal(p.first25_is_sample, true);
+  for (const [key, v] of Object.entries(p)) if (typeof v === 'string') assert.doesNotMatch(v, /\{\w+\}|undefined/, `${key} is filled`);
+  // A bad signature adds nothing, and the other funnels never get these fields.
+  assert.deepEqual(first25.nurtureProps({ ...lead, data: { run_id: saved.id, k: 'bad' } }), {});
+  assert.equal(funnels._test.eventProps({ ...lead, source: 'founder-score' }).first25_top1, undefined);
+});
+
+test('the HQ import gives one Pipeline row per business, with its tracker stage', async () => {
+  const doc = db.get('prospectRuns', saved.id);
+  const rows = first25.pipeline(doc, 'Jordan');
+  const STAGES = D.stages.map((s) => s.id);
+  assert.equal(rows.length, 25);
+  assert.equal(new Set(rows.map((r) => r.key)).size, 25, 'one key per business');
+  for (const r of rows) {
+    assert.equal(r.source, 'first-25');
+    assert.match(r.key, /^first25:/);
+    assert.ok(r.company);
+    assert.ok(STAGES.includes(r.stage));
+    assert.match(r.data.messages.dm, /I'm Jordan/);
+  }
+  assert.equal(rows.find((r) => r.data.rank === 2).stage, 'contacted');
+  assert.equal(rows.find((r) => r.data.rank === 3).stage, 'won');
+  assert.equal(rows.find((r) => r.data.rank === 1).stage, 'found');
+  // Google lists leave out phone and address, like the CSV (Funnels F7).
+  const g = first25.pipeline({ ...doc, source: 'google', sample: false });
+  assert.ok(g.every((r) => !r.links.phone && r.data.address === null));
+  // HQ asks by email: the newest list saved at the gate, written for the name they gave.
+  await db.save('leads', { email: 'jordan@example.com', name: 'Jordan', source: 'first-25', data: { run_id: saved.id, k: first25.sign(saved.id) } });
+  const mine = first25.leadsFor('Jordan@Example.com');
+  assert.equal(mine.length, 25);
+  assert.match(mine[0].data.messages.dm, /I'm Jordan/);
+  assert.deepEqual(first25.leadsFor('nobody@example.com'), []);
 });
 
 test('lists older than 30 days are deleted', async () => {

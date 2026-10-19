@@ -67,6 +67,7 @@
     return {
       biz: b.name, city: (ctx && ctx.city) || '', what: B.what, film: B.film, thing: B.thing, one: B.one, many: B.many,
       year: b.site && b.site.footerYear, reviews: b.reviews, rating: b.rating,
+      end: B.end || 'Come try a ' + B.thing + '.',
     };
   }
 
@@ -206,12 +207,48 @@
     return out.sort(function (x, y) { return x.rank - y.rank; });
   };
 
-  // "We read 37 websites for you. That is about 3 hours of clicking by hand." (about 5 minutes a site)
-  E.saved = function (n) {
-    if (!n) return '';
-    var mins = n * 5, time = mins < 60 ? mins + ' minutes' : (Math.round(mins / 30) / 2) + ' hours';
-    return E.fill(D.copy.saved, { n: n, time: time.replace(/^1 hours$/, '1 hour') });
+  // "We read 37 websites and checked each one for 18 things." A count, never a time-saved claim.
+  // Website checks only (no_site and few_reviews come from the listing).
+  E.SITE_CHECKS = Object.keys(E.gapTests).filter(function (id) { return id !== 'no_site' && id !== 'few_reviews'; }).length;
+  E.saved = function (n, sample) {
+    if (sample) return E.fill(D.copy.savedSample, { checks: E.SITE_CHECKS });
+    return n ? E.fill(n === 1 ? D.copy.saved1 : D.copy.saved, { n: n, checks: E.SITE_CHECKS }) : '';
   };
+
+  // ---------- the sample made for them ----------
+  // Everything a mockup needs for one business, filled in: the kind (reel, grid, site, chat, email,
+  // shots), its words and colors. Rendering is first25-mock.js; this stays pure so tests can read it.
+  E.mockKind = function (packId) { return D.mock.kinds[packId] || null; };
+  E.mock = function (b, packId, buyerId, ctx) {
+    var kind = E.mockKind(packId);
+    if (!kind) return null;
+    ctx = ctx || {};
+    var M = D.mock, base = M.base, own = M.buyers[buyerId] || {};
+    var v = vars(b, buyerId, ctx);
+    v.ask = own.ask || base.ask;
+    v.hook = E.fill(D.hooks[buyerId] || 'Meet {biz}', v);
+    var f = function (s) { return E.fill(s, v); };
+    var pick = function (k) { return own[k] != null ? own[k] : base[k]; };
+    var shots = own.shots || M.shots;
+    return {
+      kind: kind, biz: b.name, city: v.city, one: v.one, me: ctx.me || '', serif: !!own.serif,
+      pal: pick('pal'), cta: f(pick('cta')), hero: f(pick('hero')), sub: f(pick('sub')),
+      secs: pick('secs').map(function (x) { return [f(x[0]), f(x[1])]; }),
+      grid: (kind === 'shots' ? shots : pick('grid')).map(f),
+      lines: pick('lines').map(f), hook: v.hook, end: v.end,
+      q: f(pick('q')), a: f(pick('a')),
+      chat: { hi: f(M.chat.hi), yes: M.chat.yes, done: f(M.chat.done), online: M.chat.online, type: M.chat.type },
+      email: { subject: f(M.email.subject), pre: f(M.email.pre), body: M.email.body.map(f), sign: f(M.email.sign), foot: f(M.email.foot) },
+      title: M.titles[kind], note: f(M.notes[kind]),
+      by: ctx.me ? E.fill(M.by, { me: ctx.me }) : M.byNone, notReal: E.fill(M.notReal, { surface: M.surface[kind] }),
+      // Real listing facts only.
+      rating: b.rating || null, reviews: b.reviews != null ? b.reviews : null, address: b.address || '', phone: b.phone || '',
+      instagram: b.instagram || ((b.site || {}).socials || {}).instagram || '',
+    };
+  };
+
+  // Niche doors: /first-25/gyms opens on video for gyms with its own headline.
+  E.niche = function (id) { return Object.prototype.hasOwnProperty.call(D.niches, id) ? D.niches[id] : null; };
 
   // "Not sure what to sell?": a like, whether they'll walk into a business, and their hours.
   E.pick = function (like, walkIn, hours) {
