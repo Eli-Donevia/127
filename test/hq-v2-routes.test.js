@@ -1347,6 +1347,33 @@ test('repeats: a finished run offers its schedule, one tap keeps it, and it runs
   }
 });
 
+test('a member types their city once: the first run that asks saves it to Your business, and never overwrites it', async () => {
+  packs.registerAll([{ pack: REP, source: 'test' }]);
+  try {
+    const u = await member();
+    assert.equal(harness.brain.snapshot(u).business.city || '', '');
+    let res = await s.go('/app/hq/w/trep.next/run', { as: u, form: { in_city: 'Ames, IA' } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    let b = harness.brain.snapshot(u).business;
+    assert.equal(b.city, 'Ames');
+    assert.equal(b.region, 'IA');
+    assert.match(await html(await s.go('/app/hq/w/trep.next', { as: u })), /name="in_city" value="Ames, IA"/, 'the next form already has it');
+    await engine.idle();
+    res = await s.go('/app/hq/w/trep.next/run', { as: u, form: { in_city: 'Boone, IA' } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    assert.equal(harness.brain.snapshot(u).business.city, 'Ames', 'a saved city stays');
+    // Through the AI link too, as typed when it has no state.
+    const v = await member();
+    await require('../lib/harness/mcp').call(v, 'start_workflow', { workflow: 'trep.next', inputs: { city: 'Des Moines' } });
+    b = harness.brain.snapshot(v).business;
+    assert.equal(b.city, 'Des Moines');
+    assert.equal(b.region || '', '');
+    await engine.idle();
+  } finally {
+    unregister(['trep']);
+  }
+});
+
 // ---------- the next price ----------
 
 test('the next price: free case studies, then half, three quarters and full, per client only', async () => {
