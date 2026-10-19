@@ -771,6 +771,58 @@ test('no key a server echoes reaches a step error, a log line or the server log 
   assert.equal(text.scrubKeys('Checked the menu page. 12 classes a week.'), 'Checked the menu page. 12 classes a week.', 'ordinary words stay');
 });
 
+test("a key in a pack's { error } items, a bad address or a harness log line reaches neither the run nor the log", async () => {
+  const KEY = 'pk.9f8e7d6c5b4a39281706f5e4d3c2b1a0';
+  const obj = (properties) => ({ type: 'object', properties, required: [] });
+  const EI = {
+    id: 'ei', title: 'Error items', version: '1.0.0', summary: 'A list where one lookup failed.',
+    tools: [
+      {
+        name: 'ei.list', title: 'List places', description: 'Lists places; one lookup failed.', kind: 'code', risk: 'read', credits: 0, input: obj({}), output: obj({ places: { type: 'array' } }),
+        run: async () => ({ places: [{ name: 'Ironleaf' }, { error: `Lookup failed: https://us1.locationiq.com/v1/search?key=${KEY}&q=Ames` }] }),
+      },
+      { name: 'ei.one', title: 'Check a place', description: 'Checks one place.', kind: 'code', risk: 'read', credits: 0, input: obj({ place: { type: 'object' } }), output: obj({ ok: { type: 'boolean' } }), run: async () => ({ ok: true }) },
+      {
+        name: 'ei.fetch', title: 'Read a page', description: 'Reads a page at a bad address.', kind: 'code', risk: 'read', credits: 0, input: obj({}), output: obj({ said: { type: 'string' } }),
+        run: async (input, ctx) => {
+          try {
+            await ctx.fetch(`https://exa mple.com/v1/search?key=${KEY}`);
+            return { said: 'read it' };
+          } catch (err) {
+            return { said: err.message };
+          }
+        },
+      },
+    ],
+    workflows: [{
+      id: 'ei.go', title: 'Check places', promise: 'Lists and checks places.', tier: 'free', minutes: 1, inputs: obj({}),
+      steps: [{ id: 'list', tool: 'ei.list', input: {} }, { id: 'check', tool: 'ei.one', each: '$list.places', input: { place: '$item' } }, { id: 'page', tool: 'ei.fetch', input: {} }],
+    }],
+  };
+  assert.deepEqual(packs.register(EI).refused, []);
+  const user = await member('builder');
+  const run = await engine.start(user, 'ei.go', {});
+  await engine.idle();
+  const raw = db.get('runs', run.id);
+  assert.equal(raw.status, 'done');
+  assert.ok(!JSON.stringify(raw).includes(KEY) && !JSON.stringify(engine.get(user, run.id)).includes(KEY), 'no key saved in the run or shown');
+  assert.match(raw.steps.check.items[1].error, /^Lookup failed: https:\/\/us1\.locationiq\.com\/\[hidden\]$/);
+  assert.equal(raw.steps.page.output.said, "That isn't a web address (exa).", 'a bad address shows only its host');
+
+  // Every harness log line that prints an error scrubs it first (Website's review found five that didn't).
+  const root = path.join(__dirname, '..', 'lib');
+  const files = ['harness', 'harness/providers', 'packs/hq', 'packs/playbooks'].flatMap((d) =>
+    fs.readdirSync(path.join(root, d)).filter((f) => f.endsWith('.js')).map((f) => path.join(root, d, f)),
+  );
+  const loose = [];
+  for (const file of files) {
+    fs.readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+      if (/console\.(warn|error|log)\(/.test(line) && /\berr\b/.test(line) && !/scrub(Keys|Error)\(/.test(line)) loose.push(`${path.relative(root, file)}:${i + 1}`);
+    });
+  }
+  assert.deepEqual(loose, [], 'log lines that print an error without scrubKeys');
+});
+
 test("without ffmpeg, a workflow that makes video won't start (sample data can't stand in for a render)", async () => {
   const needsLib = require('../lib/harness/needs');
   const obj = (properties) => ({ type: 'object', properties, required: [] });
