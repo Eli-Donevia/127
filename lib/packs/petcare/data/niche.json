@@ -1,0 +1,643 @@
+{
+ "id": "petcare",
+ "name": "Dog walking and pet sitting",
+ "checked": "2026-10-19",
+ "research": "research/niches/petcare.json",
+ "what": "dog walking and pet sitting",
+ "what_example": "dog walking in Northside",
+ "crowd": {
+  "buyer": "Pet owners",
+  "scores": {
+   "pain": 3,
+   "can_pay": 4,
+   "findable": 3,
+   "growing": 4
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   5,
+   6,
+   7,
+   8,
+   11,
+   12
+  ],
+  "off_season": null,
+  "not_yet": [
+   "Don't skip the meet and greet.",
+   "Don't take dogs you can't handle in your first month.",
+   "Don't pay for a booking app before you have 3 regulars."
+  ],
+  "note": "Trust first. Summer and the holidays are the busiest weeks for sitting.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/crowd.json (our judgment). Best months: research/niches/petcare.json crowd hint (walking is steady all year; sitting peaks in summer and the holidays)."
+ },
+ "safety": [
+  "Every new client starts with a free meet and greet at their home.",
+  "Get the intake form filled in before the first visit: vet, emergency contact, meds, food and behavior notes.",
+  "Don't take dogs you can't handle in your first month.",
+  "Never label keys with a client's address.",
+  "Platform protection plans don't cover clients you book directly: get your own liability and pet care insurance before you hold keys.",
+  "Boarding pets in your own home can need a state license, plus zoning, lease or HOA okay. Start with walks and drop-ins."
+ ],
+ "partners": [
+  {
+   "id": "vets",
+   "label": "Vets and animal clinics",
+   "search": {
+    "category": "vets",
+    "words": "veterinarians"
+   },
+   "their_customers": "clients",
+   "why": "need a walk or a drop-in while they work or travel",
+   "ask": "leave a few cards at your front desk, if that's okay with your practice",
+   "give": "point every client who asks about a vet your way and give your staff my founding price"
+  },
+  {
+   "id": "groomers",
+   "label": "Pet groomers",
+   "search": {
+    "category": "groomers",
+    "words": "dog groomers"
+   },
+   "their_customers": "customers",
+   "why": "need someone for walks and visits between grooming appointments",
+   "ask": "leave cards at your counter",
+   "give": "recommend you to every client who asks about grooming"
+  },
+  {
+   "id": "petstores",
+   "label": "Pet supply stores",
+   "search": {
+    "category": "pet stores",
+    "words": "pet supply stores"
+   },
+   "their_customers": "customers",
+   "why": "ask where to find a walker or sitter they can trust",
+   "ask": "post my card on your community board, if you have one",
+   "give": "point my clients to you for food and supplies"
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "search": {
+    "category": "apartment buildings",
+    "words": "apartment complexes"
+   },
+   "their_customers": "residents",
+   "why": "have dogs at home alone during the workday",
+   "ask": "share my flyer with residents, following your building's rules",
+   "give": "give your residents my founding price and a free meet and greet"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "trust rules and a meet and greet script",
+  "safety_title": "Trust first",
+  "find_tip": "Vets, groomers, pet stores and apartment buildings come from OpenStreetMap once your city is set and business search is on. Until then, look them up on a map and add the real ones by hand.",
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. Every new client starts with a free meet and greet so your pet gets to know me first. My first 3 clients get {founding}. Want a spot, or know someone with a dog who might?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. My first 3 clients get {founding}, and all I ask is honest feedback after two weeks. Could I tell you more, or is there a pet owner you'd pass this to?",
+   "Hey {greet}! I'm launching {what} in {area}: walks, drop-ins and pet sitting, starting with a free meet and greet. My first 3 clients get {founding}. Know anyone with a pet who might want it?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my pet care message. If it's not for you, would you mind passing my number to one pet owner who might want it? Thank you.",
+  "next_people": [
+   "Hi {greet}! I'm walking dogs and pet sitting around {area} now. Every new client starts with a free meet and greet, and I have room for a few more at {rate}. Know anyone with a dog who might want a hand?",
+   "Hey {greet}, hope you're well! I do {what} here in {area}, with a visit card and photo after every visit. Want a spot, or know a pet owner I could help?",
+   "Hi {greet}! Quick one: if you or a neighbor ever need a midday walk or someone to watch a pet while you travel, I'm doing {what} in {area} now. It starts with a free meet and greet."
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my pet care message. If it's not for you, would you mind passing my number to one pet owner who might want it? Thank you.",
+  "next_subject": "Pet care in {area}"
+ },
+ "extra": [
+  {
+   "title": "Meet and greet script (20 minutes, free)",
+   "lines": [
+    "1. Thanks for having me. I'll let your pet come to me first.",
+    "2. Walk me through a normal day: food, walks, potty breaks, anything they're scared of.",
+    "3. Any health issues, meds or allergies? Who is your vet, and who should I call if I can't reach you?",
+    "4. Leash, harness, doors and gates: what are your rules? Any dogs or people they don't get along with?",
+    "5. Keys or door code: how do you want to hand them over? I never label keys with your address.",
+    "6. Let's do a short walk together so you can see how we do.",
+    "7. My founding price is {founding}. Want to set up the first week?"
+   ]
+  }
+ ],
+ "offer": {
+  "name": "30-minute dog walk",
+  "unit": "walk",
+  "length": "30 minutes",
+  "prices": {
+   "budget": 18,
+   "standard": 25,
+   "premium": 32
+  },
+  "range_text": "$15 to $35 for a 30-minute walk",
+  "basis": "From research/niches/petcare.json (Wag platform data July 2026, StartCosts and Thumbtack pages, checked 2026-10-19). Drop-ins run $12 to $40 a visit and overnights $39 to $268 a night.",
+  "sources": [
+   "https://wagwalking.com/dog-walking/cost",
+   "https://startcosts.com/dog-walking",
+   "https://www.thumbtack.com/p/dog-walking-prices"
+  ],
+  "includes": [
+   "A free meet and greet at your home before the first walk",
+   "A 30-minute walk on a route you approve",
+   "Fresh water and a paw wipe when we get back",
+   "A visit card after every walk: times, potty, notes and a photo"
+  ],
+  "steps": [
+   "Free meet and greet: your pet meets me, you show me the routine.",
+   "You fill in a short intake form: vet, emergency contact, food, meds and rules.",
+   "Walks happen at the time you book, with your rules followed.",
+   "After every visit you get a visit card with a photo."
+  ],
+  "promise": "If I'm late or miss a walk, the next one is free. If you're not happy with a visit, tell me the same day and I refund that visit.",
+  "promise_note": "I can't promise how your pet will behave. I promise the care: every walk as booked, your rules followed, and a card after every visit.",
+  "sheet_notes_title": "Trust first",
+  "sheet_notes": [
+   "Every new client starts with a free meet and greet at your home.",
+   "Your vet and an emergency contact are on file before the first visit.",
+   "Keys are never labeled with your address."
+  ],
+  "footer": "Pay per walk or per pack of 5.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "Neighbors and people you know",
+    "note": "For honest feedback after two weeks. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner clients",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it when your weekday walk slots are 80 percent full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free meet and greet",
+    "price": 0,
+    "unit": "visit",
+    "what": "20 minutes at their home. Your pet meets me before anything is booked."
+   },
+   {
+    "kind": "Core",
+    "name": "30-minute walk",
+    "price": "core",
+    "what": "Weekday walks at a set time."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Weekday pack of 5 walks",
+    "times": 5,
+    "off": 0.05,
+    "unit": "pack of 5",
+    "what": "Paid up front; the same weekday time stays held."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Second dog on the same walk",
+    "factor": 0.3,
+    "what": "Same walk, one more dog from the same home."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "15-minute potty break",
+    "factor": 0.75,
+    "what": "A quick visit when a full walk is too much."
+   },
+   {
+    "kind": "Bigger job",
+    "name": "Overnight stay in your home",
+    "factor": 3,
+    "unit": "night",
+    "what": "Summer and holiday sitting: evening, night and morning care."
+   }
+  ],
+  "ladder_word": "clients"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After the first weeks: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both neighbors, and a referral card.",
+  "client_title": "Owner's name",
+  "done_example": "Rosie's walks these last two weeks",
+  "reward_default": "a free walk",
+  "file_word": "referral card",
+  "card_title": "A walker {greet} recommends",
+  "card_footer": "Every new client starts with a free meet and greet.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for trusting me with {done}. It's been a joy.",
+   "review_ask": "Would you leave an honest review about the care so far? It helps other pet owners decide who to trust. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If a neighbor or friend needs walks or a sitter, I'd love an introduction. When someone you send my way books, you both get {reward}.",
+   "card_line": "{business}: walks, drop-ins and pet sitting, starting with a free meet and greet and a visit card after every visit."
+  },
+  "business_fallback": "Your walker and sitter"
+ },
+ "replies": {
+  "who_title": "Which owner or place",
+  "ai_rules": [
+   "Every new client starts with a free meet and greet at their home. That is the next step.",
+   "Never promise how a pet will behave. Promise the care: every walk as booked and the owner's rules followed.",
+   "Say any price once, exactly as given."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great! The first step is a free meet and greet at your place, about 20 minutes, so your pet can meet me before anything is booked. What day works for you?",
+    "next": "Book the meet and greet within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. My {length_adj} walks are {rate}. Every new client starts with a free meet and greet, so you can see how we get on first. Want to set one up?",
+    "next": "Say the price once, then offer the meet and greet."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. If a trip or a long workday comes up, just text me. Happy to do a free meet and greet whenever suits.",
+    "next": "Set a reminder for a month, or before the next holiday."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I do {what} here in {area}. Every new client starts with a free meet and greet at home. Happy to answer any question.",
+    "next": "Answer plainly, then offer the meet and greet."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They have a walker or sitter already.",
+    "answer": "Good to hear you're covered! If you ever need a backup for a trip or a busy week, I'm nearby. Thanks for letting me know.",
+    "next": "Leave it there. Offer to be their backup before the holidays."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The best way to answer it properly is at a free meet and greet, so I can see your pet's routine. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the meet and greet."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free meet and greet this week be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to meet",
+    "means": "They want to meet or talk first.",
+    "answer": "Happy to! {when_ask} The first step is a free meet and greet at your place, about 20 minutes, so your pet can meet me before anything is booked.",
+    "next": "Book the meet and greet within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few cards this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the cards within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what their clients would pay.",
+    "answer": "My walks are {rate}, and every new client starts with a free meet and greet. Happy to drop off cards with the details.",
+    "next": "Say the price once, then offer the cards."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back in a couple of months? Thanks for considering it.",
+    "next": "Set a reminder for 2 months out."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, a local dog walker and pet sitter. Every client starts with a free meet and greet, and I follow your rules on posting. Happy to stop by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already recommend a walker or sitter.",
+    "answer": "Good to hear your clients have someone. If you ever keep a list of local walkers or sitters, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my card with your clients?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines)",
+    "means": "They have rules about posting or promoting.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share local services with clients or residents, like a newsletter or a resource list, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   }
+  ],
+  "objections": [
+   {
+    "id": "apps",
+    "label": "Why not Rover or Wag?",
+    "match": "\\b(rover|wag|care\\.com|the app|an app|apps)\\b",
+    "means": "They're comparing you with the booking apps.",
+    "answer": "Fair question, and the apps work for lots of people. With me you get the same walker every time, no booking fee on top of the walk, and a free meet and greet first. One thing worth knowing: Rover's own protection doesn't cover bookings made outside Rover, so ask to see my insurance certificate.",
+    "next": "Mention the meet and greet, then book it.",
+    "check": "Have your insurance certificate ready before you send this.",
+    "sources": [
+     {
+      "publisher": "Rover Help Center",
+      "url": "https://support.rover.com/hc/en-us/articles/205385304-What-are-the-service-fees",
+      "says": "Owners pay an 11% booking fee on Rover.",
+      "checked": "2026-10-19",
+      "page_date": "2026-06-23"
+     },
+     {
+      "publisher": "Wag",
+      "url": "https://wagwalking.com/dog-walking/cost",
+      "says": "Wag adds a $2.99 booking fee per walk, waived with Wag Premium.",
+      "checked": "2026-10-19",
+      "page_date": "2026-07"
+     },
+     {
+      "publisher": "Rover Help Center",
+      "url": "https://support.rover.com/hc/en-us/articles/206197333-What-do-sitters-need-to-know-about-the-Rover-Guarantee",
+      "says": "Rover's protection excludes bookings made outside Rover.com.",
+      "checked": "2026-10-19",
+      "page_date": "2026-09-28"
+     }
+    ]
+   },
+   {
+    "id": "insured",
+    "label": "Are you insured?",
+    "match": "\\b(insur\\w*|bonded|bond|liabilit\\w*)\\b",
+    "means": "They want to know you carry insurance.",
+    "answer": "Good question to ask. I'll send you my insurance certificate before the meet and greet, so you can see exactly what it covers.",
+    "next": "Send the certificate, then book the meet and greet.",
+    "check": "Only send this once your policy is active.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/pet-sitting-prices",
+      "says": "Ask for references and find out if the pet sitter is licensed and insured.",
+      "checked": "2026-10-19",
+      "page_date": "2026-01-05"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+      "says": "Clients almost always expect liability insurance and bonding.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-12"
+     }
+    ]
+   },
+   {
+    "id": "keys",
+    "label": "Can I trust you with my keys?",
+    "match": "\\b(keys?|lockbox|door code|garage code|trust (you|a stranger|someone)|my home|our home|in my house)\\b",
+    "means": "They want to know their home is safe with you.",
+    "answer": "Of course, it's a fair thing to ask. We meet first at your home, I'm happy to share my background check, keys are never labeled with your address, and they come back to you or go in a lockbox, whichever you prefer.",
+    "next": "Offer the meet and greet so they can see how you work.",
+    "check": "Have your background check ready to share before you send this.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+      "says": "Clients verify a background check before handing over keys.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-12"
+     }
+    ]
+   },
+   {
+    "id": "care",
+    "label": "My dog needs extra care",
+    "match": "\\b(reactive|anxious|nervous|scared|senior|older dog|old dog|meds|medication|insulin|puppy|aggressive|pulls)\\b",
+    "means": "Their pet needs extra care, and they want to know you can handle it.",
+    "answer": "Thanks for telling me. For a dog like that I walk solo, never in a group, we do a longer meet and greet so they get used to me, and we write the care plan down together. Any extra care is priced up front.",
+    "next": "Book a longer meet and greet. Only say yes if it's a dog you can handle.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/dog-walking-prices",
+      "says": "Walkers can walk a dog alone or with a vetted pack; be clear about your dog's personality and needs.",
+      "checked": "2026-10-19",
+      "page_date": "2025-10-20"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/dog-walking",
+      "says": "Puppy or senior surcharge $3 to $5.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "cost",
+    "label": "Too much every weekday",
+    "match": "\\b(too (expensive|much|pricey)|cheaper|lower (price|rate)|every (day|weekday)|out of (our|my) budget|discount)\\b",
+    "means": "The price adds up for them over a week.",
+    "answer": "That's fair. Two ways to make it work: a 15-minute potty break instead of a full walk, or a pack of 5 walks paid ahead for a little less per walk.",
+    "next": "Hold your price. Offer the potty break or the pack of 5.",
+    "sources": [
+     {
+      "publisher": "Wag",
+      "url": "https://wagwalking.com/dog-walking/cost",
+      "says": "20-minute walks average $18 versus $24 for 30 minutes.",
+      "checked": "2026-10-19",
+      "page_date": "2026-07"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/dog-walking",
+      "says": "Package discounts 5% to 10% for weekly commitments.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "backup",
+    "label": "What if you get sick?",
+    "match": "\\b(if you('re| are) sick|you get sick|your (vacation|holidays?)|backup|back-up|cover for you)\\b",
+    "means": "They want to know what happens when you can't come.",
+    "answer": "Good question. If I'm ever sick, I'll tell you as early as I can and only send a backup you've met and okayed. My holiday dates go out a month ahead.",
+    "next": "Put your backup and holiday policy in your agreement.",
+    "check": "Name your backup sitter before you promise one.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "for_title": "Pet's name (optional)",
+  "title": "Pet care{for}",
+  "default": "pack5",
+  "packages": [
+   {
+    "id": "walk1",
+    "label": "30-minute dog walk",
+    "detail": "On a route you approve, with a visit card after",
+    "qty": 1,
+    "pick": "One walk"
+   },
+   {
+    "id": "pack5",
+    "label": "30-minute dog walks, weekday pack of 5",
+    "short": "Pack of 5",
+    "detail": "The same weekday time each day",
+    "qty": 5,
+    "off": 0.05,
+    "pick": "Weekday pack of 5 walks"
+   },
+   {
+    "id": "potty5",
+    "label": "15-minute potty breaks, pack of 5",
+    "detail": "A quick visit when a full walk is too much",
+    "qty": 5,
+    "factor": 0.75,
+    "pick": "Pack of 5 potty breaks",
+    "unit": "visit"
+   },
+   {
+    "id": "overnight",
+    "label": "Overnight stay in your home",
+    "detail": "Evening, night and morning care",
+    "qty": 1,
+    "factor": 3,
+    "unit": "night",
+    "pick": "One overnight stay"
+   }
+  ],
+  "extra": {
+   "title": "Add a second dog from the same home",
+   "label": "Second dog from the same home",
+   "detail": "Same visit, one more dog from your home",
+   "factor": 0.3,
+   "per_package": true
+  },
+  "notes": [
+   "Every new client starts with a free meet and greet.",
+   "If I'm late or miss a walk, the next one is free. If you're not happy with a visit, tell me the same day and I refund that visit."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder to the owner, and a printable first visit checklist.",
+  "who_title": "Owner's name",
+  "who_word": "owner",
+  "for_title": "Pet's name",
+  "for_default": "your pet",
+  "when_title": "First visit day and time",
+  "where": null,
+  "booking": "Hi {greet}, you're all set! {For_s} first visit is {when}. It's {deal}. I'll send a visit card with a photo after every visit.{pay}",
+  "prep": "Before the first visit, could you fill in the intake form I'm sending (vet, emergency contact, food, meds and house rules), and leave the leash, bags and treats where I can find them? We'll sort out the keys or door code together.",
+  "reminder": "Hi {greet}, see you {when} for {for_s} visit. Reply here if anything changes.",
+  "founding": "Founding client: after two weeks, ask {greet} for honest feedback you may quote as a founding client, and ask before you post any photo of {for}. Never ask for a review in exchange.",
+  "file_word": "first visit checklist",
+  "checklist_title": "First visit checklist for {for_title}",
+  "checklist": {
+   "Meet and greet": [
+    "Let the pet come to you and watch how they react.",
+    "Tour the home: leash, harness, food, treats, towels and bags.",
+    "Get the intake form filled in: vet, emergency contact, food, meds and behavior notes.",
+    "Agree on keys or the door code. Never label keys with the address.",
+    "Sign the service agreement with your cancellation and holiday terms."
+   ],
+   "Every visit": [
+    "Check in, then potty and walk. Log the route and the time.",
+    "Fresh water, food and meds exactly as written.",
+    "Clean up any mess and lock up behind you."
+   ],
+   "After": [
+    "Send the visit card with a photo.",
+    "Return or store keys as agreed.",
+    "Invoice weekly or per booking."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/pet-sitting-prices",
+    "says": "Arrange a meet and greet: watch the pet's body language, tour the home, go over where essentials are.",
+    "checked": "2026-10-19",
+    "page_date": "2026-01-05"
+   },
+   {
+    "publisher": "ZenBusiness",
+    "url": "https://www.zenbusiness.com/start-a-business/animals/pet-sitting/",
+    "says": "Use a standardized intake process to gather veterinary records, feeding instructions and emergency contacts.",
+    "checked": "2026-10-19",
+    "page_date": "2026-08-26"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Owner's name",
+  "for_title": "Pet's name",
+  "for_example": "Rosie",
+  "what_example": "weekday walks since September",
+  "result_example": "Rosie waits by the door for her walk now, and Lisa comes home to a calm dog",
+  "quote_example": "Coming home to her visit card is the best part of my day.",
+  "anon": "A dog owner in {area}",
+  "named": "{greet}, {for_s} owner in {area}",
+  "photo": true,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about {for_s} walks? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer. {photo_line}It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "photo_line": "I'd like to use the photo of {for} too, only if you're happy with that. ",
+  "review": "If you have a minute, would you leave an honest review about what my visits have been like? It helps other pet owners decide. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a client, shared with their permission. {story_line} If your dog could use a midday walk, {reach}",
+  "disclosure": {
+   "founding": "This client paid a founding price.",
+   "free": "These visits were free."
+  },
+  "rules": [
+   "Only what the owner agreed to in writing, and a photo only with their okay.",
+   "Only numbers they gave you.",
+   "Nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "Busy pet owners nearby",
+  "group": "pets",
+  "format": "door_hanger",
+  "print": true,
+  "headline": "Dog walks and pet sitting in {area}",
+  "sub": "30-minute walks on a route you approve, with a visit card and photo after every visit.",
+  "bullets": [
+   "A free meet and greet before anything is booked",
+   "Your rules followed on every visit",
+   "Keys never labeled with your address"
+  ],
+  "offer": "Free meet and greet",
+  "cta": "Book a meet and greet",
+  "tagline": "Dog walks and pet sitting that start with a free meet and greet.",
+  "design": "local-service"
+ }
+}

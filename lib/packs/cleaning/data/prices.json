@@ -1,0 +1,543 @@
+{
+ "checked": "2026-10-19",
+ "unit": "visit",
+ "minimum": 90,
+ "minimum_basis": "Judgment call: Fixr puts basic visits at $75 to $175, so a $90 floor covers drive time on small jobs.",
+ "base": "Prices are for a 2 bed, 1 bath home; the home size factor scales them.",
+ "packages": [
+  {
+   "id": "standard",
+   "label": "Standard clean",
+   "range": [
+    100,
+    190
+   ],
+   "minutes": 150,
+   "includes": [
+    "Dusting top to bottom",
+    "Kitchen counters, sink and appliance fronts",
+    "Bathrooms scrubbed and disinfected",
+    "Floors vacuumed and mopped",
+    "Beds made and trash out"
+   ],
+   "basis": "2 bed, 1 bath. Judgment call: our pick inside the sourced ranges for this home size. Fixr: $75 to $110 for a 2 bed, 1 bath standard clean; Thumbtack: $190 average for 2 bed, 1 bath; HomeAdvisor: $118 to $238 per visit for all homes.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Standard or regular house cleaning: $146 to $202 national average cost range. All house cleaning: $185 to $324 national average, $124 low end, $493 high end.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+     "says": "Professional house cleaning costs $118 to $238 per visit, average $176, or $0.10 to $0.20 per square foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Basic services usually cost between $75 and $175 per visit; national average range $150 to $250 for a standard one-time clean, average $221 for a 4 bed, 3 bath home.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Average cost: 1 bed 1 bath $150; 2 bed 1 bath $190; 2 bed 2 bath $195; 3 bed 2 bath $220; 3 bed 3 bath $240.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Standard clean: studio $65 to $90; 1 bed 1 bath $70 to $100; 2 bed 1 bath $75 to $110; 2 bed 2 bath $85 to $140.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "deep",
+   "label": "Deep clean",
+   "range": [
+    190,
+    400
+   ],
+   "minutes": 270,
+   "includes": [
+    "Everything in a standard clean",
+    "Baseboards, doors and switch plates",
+    "Inside microwave and range hood",
+    "Shower glass and grout scrubbed",
+    "Behind and under what moves"
+   ],
+   "basis": "Sourced range for a deep or spring clean.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Deep house cleaning: $190 to $265 national average cost range.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+     "says": "Deep cleaning runs $200 to $400 per visit, up to $0.25 per square foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Deep or spring cleaning usually costs between $200 and $400 per visit; a one-time deep clean can cost over 2x a standard clean.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "move_out",
+   "label": "Move-out clean",
+   "range": [
+    200,
+    500
+   ],
+   "minutes": 300,
+   "includes": [
+    "Empty home cleaned top to bottom",
+    "Inside cabinets, drawers and closets",
+    "Inside oven and fridge",
+    "Bathrooms and floors detailed",
+    "Photos for the landlord or agent"
+   ],
+   "basis": "Sourced range for move-in or move-out cleaning.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Move-out cleaning: $200 to $286 national average cost range.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+     "says": "Move-in and move-out cleaning costs up to $500 depending on home size; up to $0.35 per square foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Move-in or move-out services cost between $200 and $400 per visit.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "turnover",
+   "label": "Short-stay turnover",
+   "range": [
+    100,
+    150
+   ],
+   "minutes": 120,
+   "includes": [
+    "Kitchen and bathrooms reset",
+    "Floors and surfaces",
+    "Beds made with fresh linens",
+    "Restock list and photo checklist for the host"
+   ],
+   "basis": "HomeGuide: $100 to $150 for 2 bedrooms (studio or 1 bedroom $50 to $100); Thumbtack: vacation rental cleaning $179 to $257 average.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Vacation rental cleaning: $179 to $257 national average cost range.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/costs/airbnb-cleaning-service-cost",
+     "says": "Studio or 1 bedroom $50 to $100 per clean; 2 bedrooms $100 to $150; hosts commonly pay $75 to $250 per turnover; on-site laundry adds $15 to $40; hot tub adds $25 to $50.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "home",
+   "label": "Home size",
+   "default": "s2",
+   "basis": "Thumbtack average by home size: 1 bed 1 bath $150, 2 bed 1 bath $190, 2 bed 2 bath $195, 3 bed 2 bath $220, 3 bed 3 bath $240 (ratios to 2 bed 1 bath). 4 bed and up is a judgment call.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Average cost: 1 bed 1 bath $150; 2 bed 1 bath $190; 2 bed 2 bath $195; 3 bed 2 bath $220; 3 bed 3 bath $240.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Standard clean: studio $65 to $90; 1 bed 1 bath $70 to $100; 2 bed 1 bath $75 to $110; 2 bed 2 bath $85 to $140.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "s1",
+     "label": "Studio or 1 bed, 1 bath",
+     "short": "1 bed, 1 bath",
+     "mult": 0.8,
+     "minutes": -30,
+     "max": {
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "sqft": 900
+     }
+    },
+    {
+     "id": "s2",
+     "label": "2 bed, 1 bath",
+     "short": "2 bed, 1 bath",
+     "mult": 1,
+     "max": {
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "sqft": 1200
+     }
+    },
+    {
+     "id": "s3",
+     "label": "2 bed, 2 bath",
+     "short": "2 bed, 2 bath",
+     "mult": 1.05,
+     "minutes": 15,
+     "max": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "sqft": 1500
+     }
+    },
+    {
+     "id": "s4",
+     "label": "3 bed, 2 bath",
+     "short": "3 bed, 2 bath",
+     "mult": 1.15,
+     "minutes": 45,
+     "max": {
+      "bedrooms": 3,
+      "bathrooms": 2.5,
+      "sqft": 2000
+     }
+    },
+    {
+     "id": "s5",
+     "label": "3 bed, 3 bath or 4 bed",
+     "short": "3 bed, 3 bath",
+     "mult": 1.3,
+     "minutes": 75,
+     "max": {
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2600
+     }
+    },
+    {
+     "id": "s6",
+     "label": "4 bed, 3 bath or bigger",
+     "short": "4 bed and up",
+     "mult": 1.5,
+     "minutes": 120
+    }
+   ]
+  },
+  {
+   "id": "condition",
+   "label": "How it looks now",
+   "default": "regular",
+   "packages": [
+    "standard",
+    "deep",
+    "move_out"
+   ],
+   "basis": "Judgment call. Fixr: a one-time deep clean can cost over 2x a standard clean.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Deep house cleaning: $190 to $265 national average cost range.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+     "says": "Deep cleaning runs $200 to $400 per visit, up to $0.25 per square foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Deep or spring cleaning usually costs between $200 and $400 per visit; a one-time deep clean can cost over 2x a standard clean.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "regular",
+     "label": "Kept up",
+     "mult": 1
+    },
+    {
+     "id": "overdue",
+     "label": "1 to 3 months since a real clean",
+     "mult": 1.15,
+     "minutes": 30
+    },
+    {
+     "id": "heavy",
+     "label": "3 months or more, or pets",
+     "mult": 1.3,
+     "minutes": 60
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "oven",
+   "label": "Inside oven",
+   "range": [
+    15,
+    45
+   ],
+   "minutes": 25,
+   "unit": "each",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Oven $15 to $40.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/articles/how-much-to-charge-for-house-cleaning",
+     "says": "Oven cleaning $15 to $35.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/costs/maid-service-cost",
+     "says": "Oven cleaning $20 to $45.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    }
+   ]
+  },
+  {
+   "id": "fridge",
+   "label": "Inside fridge",
+   "range": [
+    10,
+    50
+   ],
+   "minutes": 25,
+   "unit": "each",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Fridge $10 to $50.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/articles/how-much-to-charge-for-house-cleaning",
+     "says": "Refrigerator cleaning $12 to $50.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/costs/maid-service-cost",
+     "says": "Refrigerator cleaning $20 to $40.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    }
+   ]
+  },
+  {
+   "id": "cabinets",
+   "label": "Inside cabinets",
+   "range": [
+    20,
+    60
+   ],
+   "minutes": 40,
+   "unit": "each",
+   "sources": [
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/articles/how-much-to-charge-for-house-cleaning",
+     "says": "Interior cabinet cleaning $25 to $45+; cabinet organization about $50.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    },
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/costs/maid-service-cost",
+     "says": "Interior cabinets $20 to $50.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Organizing cabinets $50 to $60 per project.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "laundry",
+   "label": "Laundry",
+   "range": [
+    10,
+    20
+   ],
+   "minutes": 15,
+   "unit": "load",
+   "basis": "Fixr only ($10 to $20 per load).",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Laundry $10 to $20 per load.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "sheets",
+   "label": "Change sheets",
+   "range": [
+    10,
+    18
+   ],
+   "minutes": 10,
+   "unit": "bed",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "says": "Changing the bedsheets $10 to $18 per unit.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "linens",
+   "label": "Linens and laundry on site",
+   "range": [
+    15,
+    40
+   ],
+   "minutes": 30,
+   "unit": "turnover",
+   "packages": [
+    "turnover"
+   ],
+   "basis": "HomeGuide: on-site laundry adds $15 to $40 per turnover.",
+   "sources": [
+    {
+     "publisher": "HomeGuide",
+     "url": "https://homeguide.com/costs/airbnb-cleaning-service-cost",
+     "says": "Studio or 1 bedroom $50 to $100 per clean; 2 bedrooms $100 to $150; hosts commonly pay $75 to $250 per turnover; on-site laundry adds $15 to $40; hot tub adds $25 to $50.",
+     "checked": "2026-10-19",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "weekly",
+   "label": "Weekly plan",
+   "every": "week",
+   "discount": 0.15,
+   "packages": [
+    "standard"
+   ]
+  },
+  {
+   "id": "biweekly",
+   "label": "Every 2 weeks plan",
+   "every": "2 weeks",
+   "discount": 0.1,
+   "packages": [
+    "standard"
+   ]
+  },
+  {
+   "id": "monthly",
+   "label": "Every 4 weeks plan",
+   "every": "4 weeks",
+   "discount": 0.05,
+   "packages": [
+    "standard"
+   ]
+  }
+ ],
+ "plans_basis": "Judgment call inside the sources: Thumbtack every 2 weeks $160 to $220 vs one time $174 to $256 per visit; HomeAdvisor: many companies take $5 to $10 off per visit for weekly or every 2 weeks.",
+ "plans_sources": [
+  {
+   "publisher": "Thumbtack",
+   "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+   "says": "National average cost per visit: one-time $174 to $256, once a month $162 to $228, every 2 weeks $160 to $220.",
+   "page_date": "2026-01-05",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "HomeAdvisor",
+   "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+   "says": "Biweekly cleaning costs an average of $100 to $250 per visit; weekly $75 to $200 per week; many companies drop the rate by $5 to $10 per visit for weekly or biweekly service.",
+   "page_date": "2026-06-19",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "HomeAdvisor",
+   "url": "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+   "says": "Many companies drop their rate by $5 to $10 per visit when you schedule weekly or biweekly cleanings.",
+   "page_date": "2026-06-19",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://connecteam.com/e-how-start-small-cleaning-business/",
+  "https://homeguide.com/costs/airbnb-cleaning-service-cost",
+  "https://www.fixr.com/costs/house-cleaning",
+  "https://www.homeadvisor.com/cost/cleaning-services/hire-a-maid-service/",
+  "https://www.thumbtack.com/p/house-cleaning-prices"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+  "checked": "2026-10-19",
+  "about": "Rules the sales tools quote to members. Each one was read from its source on the checked date. Members see these as plain-language notes, not legal advice.",
+  "reviews": {
+    "ftc": {
+      "rule": "The FTC's Consumer Review Rule (16 CFR 465.4) bans giving any reward that is tied, openly or by hint, to a review saying something positive or negative. It took effect October 21, 2024.",
+      "member": "Never offer a reward for a review, and never ask for a good review in exchange for anything.",
+      "source": "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers"
+    },
+    "google": {
+      "rule": "Google Maps does not allow reviews posted because of an incentive (payment, discounts, free goods or services), and does not allow asking only happy customers for reviews.",
+      "member": "Keep referral rewards and review requests completely separate. Ask every customer for a review, not just the happy ones, and never attach a reward.",
+      "source": "https://support.google.com/contributionpolicy/answer/7400114?hl=en"
+    }
+  },
+  "referrals": {
+    "licensed": {
+      "member": "If you work in real estate, mortgage or title, law, insurance, health care or finance, check your license rules before you offer any referral reward. Some of these fields ban or cap them.",
+      "examples": [
+        {
+          "field": "Real estate settlement services",
+          "rule": "RESPA Section 8 (Regulation X, 12 CFR 1024.14) bars giving or taking a fee, kickback or thing of value for referring settlement service business on a federally related mortgage loan.",
+          "source": "https://www.consumerfinance.gov/rules-policy/regulations/1024/14/"
+        },
+        {
+          "field": "Lawyers",
+          "rule": "ABA Model Rule 7.2(b) says a lawyer may not give anything of value for recommending the lawyer's services, with narrow exceptions such as nominal gifts. States adopt their own versions.",
+          "source": "https://www.americanbar.org/groups/professional_responsibility/publications/model_rules_of_professional_conduct/rule_7_2_advertising"
+        }
+      ]
+    }
+  },
+  "email": {
+    "canSpam": {
+      "rule": "Marketing email must include your valid physical postal address and a clear way to opt out, and opt-outs must be honored within 10 business days. Email that only updates a customer about a deal they already agreed to is exempt from most of the law, read narrowly.",
+      "member": "Follow-ups about a quote someone asked for are about their deal. A check-in with someone who said no, or who never asked, is marketing: add your postal address and an easy way to say stop.",
+      "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+    }
+  },
+  "payments": {
+    "member": "127 never takes payment. Paste your own payment link and buyers pay you directly. Card processors charge a fee per payment: check current rates on your provider's pricing page.",
+    "providers": [
+      {
+        "name": "Stripe Payment Links",
+        "how": "Make a link in the Stripe Dashboard with no code, then share it by email, text or QR code.",
+        "source": "https://stripe.com/payments/payment-links"
+      },
+      {
+        "name": "Square Online Checkout links",
+        "how": "In your Square dashboard, open Online Checkout and create a link.",
+        "source": "https://www.nerdwallet.com/business/software/learn/payment-links"
+      },
+      {
+        "name": "PayPal.Me",
+        "how": "A reusable link to your PayPal account that you can share with anyone.",
+        "source": "https://www.nerdwallet.com/business/software/learn/payment-links"
+      }
+    ]
+  },
+  "tax": {
+    "member": "Use your own sales tax rate. Whether a service is taxable depends on your state or country, so check with your state's revenue department or a tax pro before you charge it."
+  }
+}

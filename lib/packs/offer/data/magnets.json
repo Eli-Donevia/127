@@ -1,0 +1,1924 @@
+{
+  "checked": "2026-10-19",
+  "note": "Freebie content for 'Make a freebie to give away'. Checklists are self-checks a buyer ticks; calculators run on numbers the buyer types; templates are fill-in pages. Defaults in calculators are starting guesses the buyer changes, not facts. No statistics, no claims about results.",
+  "checklists": {
+    "detailing": {
+      "title": "The 20-Point Car Check",
+      "subject": "your car",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Outside",
+          "items": [
+            [
+              "Paint feels smooth when you run the back of your hand over it",
+              "Rough paint has stuck-on dirt that scratches when you wash"
+            ],
+            [
+              "No bird droppings or tree sap left on the paint",
+              "They can mark the paint the longer they sit"
+            ],
+            [
+              "Wheels are clean, with no brown brake dust",
+              "Brake dust bakes on and gets harder to remove"
+            ],
+            [
+              "Headlights are clear, not foggy or yellow",
+              "Foggy lights are dimmer at night"
+            ],
+            [
+              "Windows are streak-free inside and out",
+              "Streaks show up worst when you drive into the sun"
+            ],
+            [
+              "Tires look dark, not gray or dusty",
+              "Clean tires make the whole car look newer"
+            ]
+          ]
+        },
+        {
+          "name": "Inside",
+          "items": [
+            [
+              "Floor mats are clean under the driver's feet",
+              "That's where dirt grinds into the carpet"
+            ],
+            [
+              "Seats have no stains or crumbs in the seams",
+              "Crumbs in seams mean the seats need a real vacuum"
+            ],
+            [
+              "The car smells neutral when you first get in",
+              "A smell that comes back is in the seats or carpet"
+            ],
+            [
+              "Cup holders and door pockets are clean",
+              "They're the stickiest spots in most cars"
+            ],
+            [
+              "Dashboard and screens are dust-free",
+              ""
+            ],
+            [
+              "No pet hair on seats or carpet",
+              "Pet hair weaves into fabric and needs special tools"
+            ],
+            [
+              "Trunk is clean and empty of old stuff",
+              ""
+            ],
+            [
+              "Seat belts are clean when you run a finger along them",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Habits",
+          "items": [
+            [
+              "Washed in the last month",
+              ""
+            ],
+            [
+              "Inside cleaned in the last 3 months",
+              ""
+            ],
+            [
+              "You'd happily give a coworker a ride right now",
+              "The quickest honest test there is"
+            ],
+            [
+              "Water beads up on the paint after rain",
+              "Beading means the paint still has protection"
+            ],
+            [
+              "No chips or scratches you've been ignoring",
+              "Small chips grow when they're left alone"
+            ],
+            [
+              "You know when the next clean is",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          16,
+          "Your car is in great shape. Keep it up."
+        ],
+        [
+          10,
+          "A few spots need attention before they get worse."
+        ],
+        [
+          0,
+          "Time for a full reset, inside and out."
+        ]
+      ]
+    },
+    "cleaning": {
+      "title": "The 20-Point Home Clean Check",
+      "subject": "your home",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Kitchen",
+          "items": [
+            [
+              "Stovetop is free of baked-on spills",
+              ""
+            ],
+            [
+              "Inside the microwave is clean",
+              ""
+            ],
+            [
+              "Fridge shelves are wiped and nothing is past its date",
+              ""
+            ],
+            [
+              "Sink and drain smell fresh",
+              "A smell usually means buildup in the drain"
+            ],
+            [
+              "Cabinet fronts and handles aren't sticky",
+              "Handles are touched more than anything else in the kitchen"
+            ],
+            [
+              "Floor is clean along the edges and under the cabinets",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Bathrooms",
+          "items": [
+            [
+              "No soap scum on the shower glass or tub",
+              ""
+            ],
+            [
+              "Grout looks like its real color",
+              ""
+            ],
+            [
+              "Toilet base and the floor behind it are clean",
+              ""
+            ],
+            [
+              "Mirror is streak-free",
+              ""
+            ],
+            [
+              "Towels smell fresh",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Whole home",
+          "items": [
+            [
+              "Baseboards are dust-free",
+              ""
+            ],
+            [
+              "Ceiling fans and air vents aren't dusty",
+              "Dust up high falls on everything below"
+            ],
+            [
+              "Under the couch and bed is clean",
+              ""
+            ],
+            [
+              "Light switches and door handles are wiped",
+              ""
+            ],
+            [
+              "Windowsills and window tracks are clean",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Habits",
+          "items": [
+            [
+              "You clean on a set day each week",
+              ""
+            ],
+            [
+              "Nothing on the cleaning list has waited over a month",
+              ""
+            ],
+            [
+              "You could have guests over tomorrow without stress",
+              "The quickest honest test there is"
+            ],
+            [
+              "You know which jobs you'd hand off first",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          16,
+          "Your home is in great shape."
+        ],
+        [
+          10,
+          "A few rooms need a reset."
+        ],
+        [
+          0,
+          "Time for a deep clean, top to bottom."
+        ]
+      ]
+    },
+    "lawn": {
+      "title": "The 15-Point Yard Check",
+      "subject": "your yard",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Lawn",
+          "items": [
+            [
+              "Grass is one even height, no long patches",
+              ""
+            ],
+            [
+              "Edges along walks and beds are sharp",
+              "Sharp edges make the whole yard look finished"
+            ],
+            [
+              "No bare or brown spots bigger than your hand",
+              ""
+            ],
+            [
+              "Very few weeds in the lawn",
+              ""
+            ],
+            [
+              "Clippings and leaves are cleared off the grass",
+              "Leaves left on grass block the light it needs"
+            ]
+          ]
+        },
+        {
+          "name": "Beds and trees",
+          "items": [
+            [
+              "Flower beds are weeded",
+              ""
+            ],
+            [
+              "Mulch is fresh and covers the soil",
+              ""
+            ],
+            [
+              "Bushes are trimmed back from the house",
+              ""
+            ],
+            [
+              "No branches touch the roof",
+              ""
+            ],
+            [
+              "Dead plants are pulled out",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "This season",
+          "items": [
+            [
+              "Fallen leaves have a plan",
+              ""
+            ],
+            [
+              "Gutters were cleared after the leaves fell",
+              ""
+            ],
+            [
+              "Hoses and outside taps are ready for cold weather",
+              ""
+            ],
+            [
+              "You know what the yard needs next season",
+              ""
+            ],
+            [
+              "The yard looks the way you want from the street",
+              "The quickest honest test there is"
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          12,
+          "Your yard is in great shape."
+        ],
+        [
+          8,
+          "A few jobs to get done this season."
+        ],
+        [
+          0,
+          "Time for a full cleanup."
+        ]
+      ]
+    },
+    "washing": {
+      "title": "The 12-Point Curb Appeal Check",
+      "subject": "the outside of your home",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Walls and roofline",
+          "items": [
+            [
+              "Siding has no green or black streaks",
+              "Green usually means algae or mildew"
+            ],
+            [
+              "No cobwebs under the eaves",
+              ""
+            ],
+            [
+              "Brick and stone look like their real color",
+              ""
+            ],
+            [
+              "Gutters are clean on the outside",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Ground",
+          "items": [
+            [
+              "Driveway has no dark oil or tire marks",
+              ""
+            ],
+            [
+              "Sidewalk is one color, not blotchy",
+              ""
+            ],
+            [
+              "Patio or deck isn't slippery or green",
+              "Green surfaces get slippery when wet"
+            ],
+            [
+              "Front steps and entry are clean",
+              "It's the first thing guests see up close"
+            ]
+          ]
+        },
+        {
+          "name": "Extras",
+          "items": [
+            [
+              "Fence is clean and even in color",
+              ""
+            ],
+            [
+              "Windows are clean from the outside",
+              ""
+            ],
+            [
+              "Outdoor furniture is clean enough to sit on",
+              ""
+            ],
+            [
+              "The trash bin area is clean and doesn't smell",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your home looks great from the curb."
+        ],
+        [
+          6,
+          "A few spots need a wash."
+        ],
+        [
+          0,
+          "Time for a full wash, top to bottom."
+        ]
+      ]
+    },
+    "petcare": {
+      "title": "The 12-Point Happy Dog Check",
+      "subject": "your dog's week",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Exercise",
+          "items": [
+            [
+              "Gets a walk on workdays, not only weekends",
+              ""
+            ],
+            [
+              "Gets time to sniff and explore on walks",
+              "Sniffing is how dogs take in the world"
+            ],
+            [
+              "Has burned some energy before you leave for the day",
+              ""
+            ],
+            [
+              "Stays calm, not destructive, when left alone",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Routine",
+          "items": [
+            [
+              "Eats and goes out on a steady schedule",
+              ""
+            ],
+            [
+              "The water bowl is always full",
+              ""
+            ],
+            [
+              "Has a safe, comfy spot to rest",
+              ""
+            ],
+            [
+              "Nails are trimmed (no clicking on the floor)",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Backup plan",
+          "items": [
+            [
+              "Someone can let your dog out if you're running late",
+              ""
+            ],
+            [
+              "There's a plan for trips and long days",
+              ""
+            ],
+            [
+              "A sitter would find the food, meds and vet info in one place",
+              ""
+            ],
+            [
+              "Your dog is comfortable with new people",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your dog has a great setup."
+        ],
+        [
+          6,
+          "A few gaps, mostly on busy days."
+        ],
+        [
+          0,
+          "Time for a backup plan you can count on."
+        ]
+      ]
+    },
+    "photo": {
+      "title": "The 12-Point Photo Check",
+      "subject": "your photos online",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "First look",
+          "items": [
+            [
+              "Your Google listing has photos from the last 3 months",
+              ""
+            ],
+            [
+              "The first photo people see shows your best work or space",
+              ""
+            ],
+            [
+              "Photos are bright and sharp, not dark or blurry",
+              ""
+            ],
+            [
+              "There's a photo of you or your team",
+              "People like to know who they'll meet"
+            ]
+          ]
+        },
+        {
+          "name": "Consistency",
+          "items": [
+            [
+              "Photos look like one brand, with the same feel",
+              ""
+            ],
+            [
+              "Your website uses your own photos, not stock photos",
+              ""
+            ],
+            [
+              "Your last 9 posts look good side by side",
+              ""
+            ],
+            [
+              "Menu or product photos match what people actually get",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Ready to use",
+          "items": [
+            [
+              "You have photos ready for holidays and promos",
+              ""
+            ],
+            [
+              "Photos show people enjoying the place or product",
+              ""
+            ],
+            [
+              "Every photo has a reason to be there",
+              ""
+            ],
+            [
+              "You'd be proud to show any of them to a new customer",
+              "The quickest honest test there is"
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your photos are working for you."
+        ],
+        [
+          6,
+          "A few gaps to fill."
+        ],
+        [
+          0,
+          "Time for a fresh set of photos."
+        ]
+      ]
+    },
+    "fitness": {
+      "title": "The 12-Point Starting Point Check",
+      "subject": "where you're starting",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Everyday strength",
+          "items": [
+            [
+              "You can climb two flights of stairs without stopping",
+              ""
+            ],
+            [
+              "You can get up off the floor easily",
+              ""
+            ],
+            [
+              "You carry the groceries in one trip",
+              ""
+            ],
+            [
+              "You walk most days",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Habits",
+          "items": [
+            [
+              "You move on purpose 3 or more days a week",
+              ""
+            ],
+            [
+              "You know what to do when you walk into a gym",
+              ""
+            ],
+            [
+              "You sleep well most nights",
+              ""
+            ],
+            [
+              "You drink water through the day",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Plan",
+          "items": [
+            [
+              "You have a goal for the next 30 days",
+              ""
+            ],
+            [
+              "Someone checks in on your progress",
+              "Having someone expect you makes it easier to show up"
+            ],
+            [
+              "You know your starting numbers",
+              "Write them down today so you can see change later"
+            ],
+            [
+              "You've kept a routine going for a month before",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Strong base. Time for a real plan."
+        ],
+        [
+          6,
+          "Good start. A written plan makes the next step clear."
+        ],
+        [
+          0,
+          "A great time to start, with someone in your corner."
+        ]
+      ]
+    },
+    "tutoring": {
+      "title": "The 12-Point Homework and Test Check",
+      "subject": "your child's school week",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Homework",
+          "items": [
+            [
+              "Homework starts without a fight",
+              ""
+            ],
+            [
+              "Your child knows where to find every assignment",
+              ""
+            ],
+            [
+              "Homework is done before the evening is over",
+              ""
+            ],
+            [
+              "They ask for help when they're stuck",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Tests",
+          "items": [
+            [
+              "Test dates are on a calendar at home",
+              ""
+            ],
+            [
+              "Studying starts 3 or more days before a test",
+              "A few short sessions are easier than one long night"
+            ],
+            [
+              "They can explain what the next test covers",
+              ""
+            ],
+            [
+              "They feel okay, not panicked, before a test",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Progress",
+          "items": [
+            [
+              "You know their current grade in each class",
+              ""
+            ],
+            [
+              "Missing work gets caught within a week",
+              ""
+            ],
+            [
+              "Their teacher would say they're keeping up",
+              ""
+            ],
+            [
+              "There's a plan for their hardest subject",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "School is running smoothly."
+        ],
+        [
+          6,
+          "A few gaps, usually in one subject."
+        ],
+        [
+          0,
+          "Time for a plan and some help."
+        ]
+      ]
+    },
+    "web": {
+      "title": "The 15-Point Website Check",
+      "subject": "your website",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "First look on a phone",
+          "items": [
+            [
+              "It opens fast on your phone",
+              "A slow page loses people before they see anything"
+            ],
+            [
+              "The first line says what you do and where",
+              ""
+            ],
+            [
+              "There's a call or book button you can tap with your thumb",
+              ""
+            ],
+            [
+              "Text is big enough to read without zooming",
+              ""
+            ],
+            [
+              "It shows a real photo of your work or place",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Trust",
+          "items": [
+            [
+              "The year in the footer is this year",
+              "An old year makes people wonder if you're still open"
+            ],
+            [
+              "Prices, or a starting price, are on the page",
+              ""
+            ],
+            [
+              "Your hours and service area are easy to find",
+              ""
+            ],
+            [
+              "Real reviews are shown or linked",
+              ""
+            ],
+            [
+              "Your phone and address match your Google listing",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Getting found",
+          "items": [
+            [
+              "It shows up when you search your business name",
+              ""
+            ],
+            [
+              "Each page has its own title",
+              ""
+            ],
+            [
+              "It works on every phone you've tried",
+              ""
+            ],
+            [
+              "People can book or message without calling",
+              ""
+            ],
+            [
+              "You can update it yourself, or you know who will",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          12,
+          "Your site is in good shape."
+        ],
+        [
+          8,
+          "A few fixes would make it work harder for you."
+        ],
+        [
+          0,
+          "Time for a new site."
+        ]
+      ]
+    },
+    "social": {
+      "title": "The 15-Point Instagram Check",
+      "subject": "your Instagram",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Profile",
+          "items": [
+            [
+              "Your bio says what you do and where",
+              ""
+            ],
+            [
+              "The link goes somewhere useful",
+              ""
+            ],
+            [
+              "Your profile photo is clear even when it's tiny",
+              ""
+            ],
+            [
+              "Highlights show prices, work and reviews",
+              ""
+            ],
+            [
+              "The contact button works",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Posts",
+          "items": [
+            [
+              "You posted in the last 7 days",
+              "A quiet account makes people wonder if you're open"
+            ],
+            [
+              "Your last 9 posts show your real work or place",
+              ""
+            ],
+            [
+              "There's at least one short video from the last month",
+              ""
+            ],
+            [
+              "Captions tell people what to do next",
+              ""
+            ],
+            [
+              "Posts show faces, not only products",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Habits",
+          "items": [
+            [
+              "Comments get a reply within a day",
+              ""
+            ],
+            [
+              "DMs get a reply within a day",
+              ""
+            ],
+            [
+              "You know which post did best last month",
+              ""
+            ],
+            [
+              "There's a plan for next week's posts",
+              ""
+            ],
+            [
+              "Someone else could post if you're busy",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          12,
+          "Your account is in good shape."
+        ],
+        [
+          8,
+          "A few gaps to close."
+        ],
+        [
+          0,
+          "Time for a plan and some help posting."
+        ]
+      ]
+    },
+    "video": {
+      "title": "The 12-Point Video Check",
+      "subject": "your videos",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Basics",
+          "items": [
+            [
+              "You posted a video in the last 14 days",
+              ""
+            ],
+            [
+              "The first 2 seconds show a face or something moving",
+              ""
+            ],
+            [
+              "Your videos have captions on screen",
+              "Captions help anyone watching with the sound off"
+            ],
+            [
+              "They're filmed upright for phones",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Message",
+          "items": [
+            [
+              "Sound is clear, without background noise",
+              ""
+            ],
+            [
+              "Each video has one clear message",
+              ""
+            ],
+            [
+              "The last frame says what to do next",
+              ""
+            ],
+            [
+              "You have clips of your real place or product",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Plan",
+          "items": [
+            [
+              "You know your best video from last month",
+              ""
+            ],
+            [
+              "There's a plan for next month's videos",
+              ""
+            ],
+            [
+              "You have someone to film or edit",
+              ""
+            ],
+            [
+              "Your videos look like one brand",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your videos are in good shape."
+        ],
+        [
+          6,
+          "A few fixes would make them work harder."
+        ],
+        [
+          0,
+          "Time for a video plan and some help."
+        ]
+      ]
+    },
+    "candles": {
+      "title": "The 12-Point Candle Care Check",
+      "subject": "your candles",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Burning",
+          "items": [
+            [
+              "You trim the wick before each burn",
+              "A short wick burns cleaner"
+            ],
+            [
+              "The first burn lasts until the melted wax reaches the edges",
+              "That keeps it from tunneling"
+            ],
+            [
+              "Candles burn away from drafts and vents",
+              ""
+            ],
+            [
+              "You stop each burn after a few hours",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Scent",
+          "items": [
+            [
+              "Your scents match the season",
+              ""
+            ],
+            [
+              "Each room has a scent that suits it",
+              ""
+            ],
+            [
+              "You know which scents you'd give as gifts",
+              ""
+            ],
+            [
+              "You keep one ready for when guests come over",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Safety",
+          "items": [
+            [
+              "Candles sit on a heat-safe surface",
+              ""
+            ],
+            [
+              "They're out of reach of pets and kids",
+              ""
+            ],
+            [
+              "You never leave one burning in an empty room",
+              ""
+            ],
+            [
+              "Empty jars get cleaned and reused or recycled",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "You're a candle pro."
+        ],
+        [
+          6,
+          "A few habits to change for a cleaner burn."
+        ],
+        [
+          0,
+          "Time for a fresh start, and better candles."
+        ]
+      ]
+    },
+    "home": {
+      "title": "The 12-Point Home Check",
+      "subject": "your home",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Outside",
+          "items": [
+            [
+              "Gutters are clear and water flows away from the house",
+              ""
+            ],
+            [
+              "Walkways and steps are clean and not slippery",
+              ""
+            ],
+            [
+              "All the outside lights work",
+              ""
+            ],
+            [
+              "Windows and screens are clean and not torn",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Inside",
+          "items": [
+            [
+              "The air filter was changed this season",
+              ""
+            ],
+            [
+              "Smoke alarms beep when you press test",
+              ""
+            ],
+            [
+              "No drips under the sinks",
+              ""
+            ],
+            [
+              "Every room has a place for things",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Upkeep",
+          "items": [
+            [
+              "You know when each job was last done",
+              ""
+            ],
+            [
+              "There's a plan for the next big job",
+              ""
+            ],
+            [
+              "Nothing you're putting off is getting worse",
+              ""
+            ],
+            [
+              "Someone you trust can do the jobs you don't want to",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your home is in great shape."
+        ],
+        [
+          6,
+          "A few jobs to schedule."
+        ],
+        [
+          0,
+          "Time to get help with the big ones."
+        ]
+      ]
+    },
+    "personal": {
+      "title": "The 10-Point Look Check",
+      "subject": "your look",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Know what you want",
+          "items": [
+            [
+              "You've saved 2 or 3 photos of the look you want",
+              ""
+            ],
+            [
+              "You know what you didn't like last time",
+              ""
+            ],
+            [
+              "You know how much time you'll spend on it each morning",
+              ""
+            ],
+            [
+              "You know your budget for keeping it up",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Keep it up",
+          "items": [
+            [
+              "You have the right products at home",
+              ""
+            ],
+            [
+              "You know how to style it on a busy day",
+              ""
+            ],
+            [
+              "Your next appointment is already booked",
+              "Booking ahead gets you the times you want"
+            ]
+          ]
+        },
+        {
+          "name": "Feel good",
+          "items": [
+            [
+              "You like what you see in the mirror today",
+              "The quickest honest test there is"
+            ],
+            [
+              "You'd be happy to be in a photo right now",
+              ""
+            ],
+            [
+              "You feel like yourself, only sharper",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          8,
+          "You're all set."
+        ],
+        [
+          5,
+          "A few things to plan before your next visit."
+        ],
+        [
+          0,
+          "Time for a fresh look and a plan to keep it."
+        ]
+      ]
+    },
+    "teach": {
+      "title": "The 12-Point Progress Check",
+      "subject": "your progress",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Goal",
+          "items": [
+            [
+              "You have one clear goal for the next 30 days",
+              ""
+            ],
+            [
+              "You know why it matters to you",
+              ""
+            ],
+            [
+              "You know your starting point",
+              "Write it down today so you can see the change later"
+            ],
+            [
+              "You know the next step after this one",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Practice",
+          "items": [
+            [
+              "You practice on set days",
+              ""
+            ],
+            [
+              "You track what you did",
+              ""
+            ],
+            [
+              "You know what to work on between lessons",
+              ""
+            ],
+            [
+              "You have a plan for busy weeks",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Support",
+          "items": [
+            [
+              "Someone checks your progress",
+              ""
+            ],
+            [
+              "You get feedback on what to fix",
+              ""
+            ],
+            [
+              "You've kept a routine for a month before",
+              ""
+            ],
+            [
+              "You know what's been holding you back",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "You're set up to keep going."
+        ],
+        [
+          6,
+          "A plan and a check-in would help."
+        ],
+        [
+          0,
+          "A great time to start with a coach."
+        ]
+      ]
+    },
+    "b2b": {
+      "title": "The 12-Point Busy Owner Check",
+      "subject": "your business",
+      "minutes": 5,
+      "groups": [
+        {
+          "name": "Getting found",
+          "items": [
+            [
+              "Your Google listing shows your current hours",
+              ""
+            ],
+            [
+              "Your website works on a phone",
+              ""
+            ],
+            [
+              "You posted on social media in the last 7 days",
+              ""
+            ],
+            [
+              "People can book or ask a question without calling",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Answering",
+          "items": [
+            [
+              "Calls get answered or returned the same day",
+              ""
+            ],
+            [
+              "Messages get a reply within a day",
+              ""
+            ],
+            [
+              "You follow up with people who asked but didn't buy",
+              ""
+            ],
+            [
+              "Your prices are written down where customers can see them",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Time",
+          "items": [
+            [
+              "You ask every customer for an honest review",
+              ""
+            ],
+            [
+              "You know where your last 10 customers came from",
+              ""
+            ],
+            [
+              "You have one hour a week to work on the business, not in it",
+              ""
+            ],
+            [
+              "The jobs you hate have someone to hand them to",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          10,
+          "Your business runs smoothly."
+        ],
+        [
+          6,
+          "A few gaps are costing you time."
+        ],
+        [
+          0,
+          "Time to hand some of this off."
+        ]
+      ]
+    },
+    "product": {
+      "title": "The 10-Point Gift Check",
+      "subject": "your gift list",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "The list",
+          "items": [
+            [
+              "You have a list of everyone you're buying for",
+              ""
+            ],
+            [
+              "There's a budget for each person",
+              ""
+            ],
+            [
+              "You know what each person already loves",
+              ""
+            ],
+            [
+              "You've picked something for the hard-to-shop-for person",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Timing",
+          "items": [
+            [
+              "Gifts that ship are ordered with time to spare",
+              ""
+            ],
+            [
+              "You have a few small extras for surprise guests",
+              ""
+            ],
+            [
+              "Wrapping and cards are ready",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Feel good",
+          "items": [
+            [
+              "Most gifts are from small makers, not big chains",
+              ""
+            ],
+            [
+              "Each gift has a note that says why you picked it",
+              ""
+            ],
+            [
+              "You're not stressed about it",
+              "The quickest honest test there is"
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          8,
+          "You're ready."
+        ],
+        [
+          5,
+          "A few gifts left to sort."
+        ],
+        [
+          0,
+          "Time to start the list."
+        ]
+      ]
+    },
+    "digital": {
+      "title": "The 10-Point Weekly Time Check",
+      "subject": "your week",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Plan",
+          "items": [
+            [
+              "You know where your hours go each week",
+              ""
+            ],
+            [
+              "Your to-do list lives in one place",
+              ""
+            ],
+            [
+              "You plan your week before Monday",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Repeat jobs",
+          "items": [
+            [
+              "Jobs you repeat have a checklist or template",
+              ""
+            ],
+            [
+              "Files are named so you can find them fast",
+              ""
+            ],
+            [
+              "You do similar tasks together, in one block",
+              ""
+            ],
+            [
+              "You have a ready reply for common questions",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Done",
+          "items": [
+            [
+              "Your inbox is under control",
+              ""
+            ],
+            [
+              "You end the week knowing what's next",
+              ""
+            ],
+            [
+              "You have one evening a week with nothing to do",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          8,
+          "Your week runs itself."
+        ],
+        [
+          5,
+          "A few systems would save you hours."
+        ],
+        [
+          0,
+          "Time to set up a system."
+        ]
+      ]
+    },
+    "food": {
+      "title": "The 10-Point Party Food Check",
+      "subject": "your party food",
+      "minutes": 3,
+      "groups": [
+        {
+          "name": "Plan",
+          "items": [
+            [
+              "You know your guest count",
+              ""
+            ],
+            [
+              "You know about any allergies",
+              ""
+            ],
+            [
+              "There's something for kids and something not sweet",
+              ""
+            ],
+            [
+              "You know how much to order",
+              "The planner on the next page does the math"
+            ]
+          ]
+        },
+        {
+          "name": "Timing",
+          "items": [
+            [
+              "Treats are ordered at least a few days ahead",
+              ""
+            ],
+            [
+              "You know when to pick up or when it arrives",
+              ""
+            ],
+            [
+              "You have a plan to keep food fresh",
+              ""
+            ]
+          ]
+        },
+        {
+          "name": "Serving",
+          "items": [
+            [
+              "Plates, napkins and a knife are ready",
+              ""
+            ],
+            [
+              "There's a spot on the table for the centerpiece treat",
+              ""
+            ],
+            [
+              "Someone's in charge of serving",
+              ""
+            ]
+          ]
+        }
+      ],
+      "bands": [
+        [
+          8,
+          "You're ready to host."
+        ],
+        [
+          5,
+          "A few things left to sort."
+        ],
+        [
+          0,
+          "Let's plan it together."
+        ]
+      ]
+    }
+  },
+  "calculators": {
+    "diy_vs_pro": {
+      "title": "What doing it yourself really costs",
+      "lede": "Type your own numbers in the Value column. Every total updates.",
+      "defaults": {
+        "hours": 3,
+        "rate": 25,
+        "supplies": 20,
+        "times": 12
+      },
+      "byNiche": {
+        "detailing": {
+          "hours": 4,
+          "supplies": 30,
+          "times": 6,
+          "job": "detail your car"
+        },
+        "cleaning": {
+          "hours": 3,
+          "supplies": 15,
+          "times": 26,
+          "job": "clean your home"
+        },
+        "lawn": {
+          "hours": 2,
+          "supplies": 10,
+          "times": 26,
+          "job": "do the yard"
+        },
+        "washing": {
+          "hours": 5,
+          "supplies": 40,
+          "times": 1,
+          "job": "wash the outside of your home"
+        },
+        "petcare": {
+          "hours": 1,
+          "supplies": 0,
+          "times": 240,
+          "job": "walk your dog"
+        },
+        "handyman": {
+          "hours": 3,
+          "supplies": 40,
+          "times": 6,
+          "job": "do the job"
+        }
+      }
+    },
+    "grade": {
+      "title": "What do I need on the final?",
+      "lede": "Type your grade, how much the final counts and the grade you want. The sheet does the math."
+    },
+    "practice": {
+      "title": "How much practice adds up",
+      "lede": "A little a day turns into real hours. Type your own numbers."
+    },
+    "time_saved": {
+      "title": "What it costs you to do it yourself",
+      "lede": "Type your own numbers. The sheet shows your time cost next to the price of handing it off."
+    },
+    "gift_budget": {
+      "title": "Holiday gift planner",
+      "lede": "Add a row for each person. Totals update as you go."
+    },
+    "party_order": {
+      "title": "How much to order for your party",
+      "lede": "Type your guest count. The sheet works out how much to order."
+    }
+  },
+  "templates": {
+    "home_schedule": {
+      "title": "Home care calendar",
+      "variants": {
+        "detailing": {
+          "title": "Car care calendar",
+          "seasons": {
+            "winter": [
+              "Rinse road salt off the underside every few weeks",
+              "Keep rubber mats in to catch slush",
+              "Check tire pressure when it gets cold"
+            ],
+            "spring": [
+              "Full wash and wax after winter",
+              "Deep clean the inside and mats",
+              "Check wipers and replace if they streak"
+            ],
+            "summer": [
+              "Park in the shade when you can",
+              "Use a sunshade on hot days",
+              "Wash off bugs and bird droppings quickly"
+            ],
+            "fall": [
+              "Wax before winter",
+              "Clean and protect the interior",
+              "Check lights and wipers before dark evenings"
+            ]
+          }
+        },
+        "lawn": {
+          "title": "Yard calendar",
+          "seasons": {
+            "winter": [
+              "Keep heavy things off frozen grass",
+              "Plan beds and planting for spring",
+              "Clean and sharpen tools"
+            ],
+            "spring": [
+              "First cut when the grass starts growing",
+              "Edge beds and add fresh mulch",
+              "Pull weeds while they're small"
+            ],
+            "summer": [
+              "Mow a little higher in the heat",
+              "Water early in the morning",
+              "Trim hedges after they flower"
+            ],
+            "fall": [
+              "Clear leaves before they mat down",
+              "Last cut a little shorter",
+              "Clean gutters after the leaves fall"
+            ]
+          }
+        },
+        "default": {
+          "title": "Home care calendar",
+          "seasons": {
+            "winter": [
+              "Test smoke and carbon monoxide alarms",
+              "Check for drafts around doors and windows",
+              "Change the air filter"
+            ],
+            "spring": [
+              "Clean gutters and check downspouts",
+              "Wash windows inside and out",
+              "Deep clean the kitchen and bathrooms"
+            ],
+            "summer": [
+              "Clean outdoor furniture and grill",
+              "Check the air conditioner filter",
+              "Wash the outside of the house"
+            ],
+            "fall": [
+              "Clean gutters after leaves fall",
+              "Shut off outside taps before a freeze",
+              "Change the air filter"
+            ]
+          }
+        }
+      }
+    },
+    "prep_sheet": {
+      "title": "Before your appointment",
+      "fields": [
+        "Your name",
+        "Date and time",
+        "The look you want (paste or describe 2 or 3 photos)",
+        "What you didn't like last time",
+        "Allergies or sensitivities",
+        "Time you have to style it each morning",
+        "Budget for keeping it up",
+        "Questions you want to ask"
+      ]
+    },
+    "weekly_plan": {
+      "title": "Weekly plan",
+      "rows": [
+        "Focus for the day",
+        "Minutes",
+        "What I did",
+        "Done"
+      ]
+    },
+    "posting_plan": {
+      "title": "30-day posting plan",
+      "types": [
+        "Behind the scenes",
+        "Before and after",
+        "A tip your customers can use today",
+        "Meet the team",
+        "Your offer and how to book",
+        "A question for your followers",
+        "A customer's words (only with their OK)",
+        "Something new this week",
+        "A common question, answered"
+      ]
+    },
+    "care_card": {
+      "title": "Care card",
+      "variants": {
+        "candles": {
+          "title": "How to get the best burn",
+          "steps": [
+            "Trim the wick short before every burn.",
+            "Let the first burn go until the melted wax reaches the edges.",
+            "Keep it away from drafts, pets and kids.",
+            "Stop the burn after a few hours, and never leave it alone.",
+            "Stop when there's a thin layer of wax left at the bottom."
+          ]
+        },
+        "default": {
+          "title": "How to look after it",
+          "steps": [
+            "Keep it clean and dry.",
+            "Store it out of direct sun.",
+            "Handle it with clean hands.",
+            "Follow the label for anything specific.",
+            "Questions? Message me any time."
+          ]
+        }
+      }
+    },
+    "meal_plan": {
+      "title": "Weekly meal plan",
+      "meals": [
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Snacks"
+      ]
+    },
+    "pet_sheet": {
+      "title": "Pet sitter info sheet",
+      "fields": [
+        "Pet's name and age",
+        "Food: what, how much and when",
+        "Walks: when and how long",
+        "Medicine and when to give it",
+        "Vet name and phone",
+        "Emergency contact",
+        "House notes: keys, alarm, where the leash lives",
+        "Things that scare them",
+        "Favorite treats and games"
+      ]
+    },
+    "order_form": {
+      "title": "Party order form",
+      "fields": [
+        "Date and time of the party",
+        "Number of guests",
+        "Flavors you love",
+        "Allergies to plan around",
+        "Pickup or delivery",
+        "Colors or theme",
+        "Budget",
+        "Anything else I should know"
+      ]
+    }
+  }
+}

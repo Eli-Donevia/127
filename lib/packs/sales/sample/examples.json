@@ -1,0 +1,31 @@
+{
+  "sales.send_quote": {
+    "customer": "Dana Brooks",
+    "customerContact": "dana.brooks@mail.example, (512) 555-0119",
+    "lines": "Full interior and exterior detail (SUV), 180\nPet hair removal (heavy), 40\nHeadlight restore, 60\nFirst-time customer discount, -20",
+    "title": "Full detail for a 2019 Honda Pilot",
+    "deposit": "25%"
+  },
+  "sales.send_invoice": {
+    "customer": "Priya Shah",
+    "customerContact": "priya.shah@mail.example, (512) 555-0187",
+    "lines": "Deep clean, 2 bed 1 bath, 180\nInside the fridge, 35",
+    "paid": 50,
+    "dueDays": 7
+  },
+  "sales.send_proposal": {
+    "name": "Ana Ruiz",
+    "company": "Lakeside Family Dental",
+    "email": "ana@lakesidedental.example",
+    "notes": "Office manager. 4 staff cars in the lot from 8 to 5.\nWants them cleaned at the office during work hours, nobody drives anywhere.\nPatients see the cars from the waiting room.\nTheir last detailer kept rescheduling.\nAsked for one invoice per visit.",
+    "goals": "Clean cars without anyone leaving the office\nThe same day every month, no reminders needed\nOne invoice per visit",
+    "options": "Complete care, 720 per visit, full interior and exterior detail on all 4 cars; clay bar and sealant; floor mats shampooed; same day each month, booked a year ahead\nStandard, 520 per visit, full interior and exterior detail on all 4 cars; floor mats shampooed\nExterior plus, 340 per visit, hand wash and wax on all 4 cars; interior vacuum and wipe-down"
+  },
+  "sales.call_prep": {
+    "name": "Tom Becker",
+    "notes": "Two kids and a dog. Minivan interior is a mess. Asked if I can do it while he's at work. Said a shop quoted him a full day without the car."
+  },
+  "sales.get_paid": {
+    "list": "Carlos Diaz, $95, due Oct 9, carlos.diaz@mail.example"
+  }
+}

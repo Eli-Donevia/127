@@ -1,0 +1,24 @@
+{
+  "checked": "2026-10-19",
+  "sources": {
+    "nominatim": "https://operations.osmfoundation.org/policies/nominatim/",
+    "overpass": "https://wiki.openstreetmap.org/wiki/Overpass_API",
+    "copyright": "https://www.openstreetmap.org/copyright",
+    "shopKey": "https://wiki.openstreetmap.org/wiki/Key:shop"
+  },
+  "servers": "Through the kit only (places.geocode and places.overpass, D27, Legal L55 and L57): one server for each, 127's own in live runs, never a rotation of public mirrors. Live runs without 127's servers are held and show sample shops (places.HELD_NOTE). Server addresses carry keys, so none is saved, shown or logged here.",
+  "overpass": {
+    "rules": [
+      "One query at a time per member (never in parallel).",
+      "One server, one pause and one retry, then a plain busy note (kit places.overpass).",
+      "Cache results (we keep a city's shop list for 24 hours)."
+    ]
+  },
+  "attribution": {
+    "text": "Business data from OpenStreetMap contributors (ODbL)",
+    "link": "https://www.openstreetmap.org/copyright",
+    "license": "Open Database License (ODbL) 1.0",
+    "where": "Views: places.creditBlocks (adds Search by LocationIQ.com when LocationIQ looked up the city). Spreadsheets: places.creditLine as the last row. Pages: places.creditHtml."
+  },
+  "note": "OpenStreetMap is free and community made: coverage varies by city, and many shops have no website listed. Every list says so and links each shop to its OpenStreetMap page."
+}

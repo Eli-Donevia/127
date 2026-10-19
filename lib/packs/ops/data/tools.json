@@ -1,0 +1,78 @@
+{
+  "note": "Prices and free tiers read on each tool's own pricing page on the checked date. Prices change: the stack page shows the checked date and source for every line, and says check current pricing where we could not read a number.",
+  "tools": {
+    "gbp": { "name": "Google Business Profile", "free": "Free", "paid": null, "url": "https://www.google.com/business/", "source": "https://www.google.com/business/", "checked": "2026-10-19" },
+    "square": { "name": "Square", "free": "Free plan $0 a month. Card fees 2.6% plus 15 cents in person, 3.3% plus 30 cents online. Includes a simple site, invoices and booking.", "paid": "Plus $49 a month", "url": "https://squareup.com/us/en/pricing", "source": "https://squareup.com/us/en/pricing", "checked": "2026-10-19" },
+    "stripe": { "name": "Stripe", "free": "No monthly fee. 2.9% plus 30 cents per domestic card payment. Payment Links included.", "paid": "Invoicing adds 0.4% per paid invoice", "url": "https://stripe.com/pricing", "source": "https://stripe.com/pricing", "checked": "2026-10-19" },
+    "gumroad": { "name": "Gumroad", "free": "No monthly fee. 10% plus 50 cents per direct sale (30% on sales from Gumroad Discover). Handles sales tax as merchant of record.", "paid": null, "url": "https://gumroad.com/pricing", "source": "https://gumroad.com/pricing", "checked": "2026-10-19" },
+    "shopify": { "name": "Shopify", "free": null, "paid": "Basic $39 a month, or $29 a month billed yearly", "url": "https://www.shopify.com/pricing", "source": "https://www.shopify.com/pricing", "checked": "2026-10-19" },
+    "calendly": { "name": "Calendly", "free": "Free: 1 event type, 1 calendar", "paid": "Standard $10 a seat a month yearly, $12 monthly", "url": "https://calendly.com/pricing", "source": "https://calendly.com/pricing", "checked": "2026-10-19" },
+    "calcom": { "name": "Cal.com", "free": "Free forever for individuals", "paid": "Teams $12 a user a month yearly", "url": "https://cal.com/pricing", "source": "https://cal.com/pricing", "checked": "2026-10-19" },
+    "jobber": { "name": "Jobber", "free": null, "paid": "Core $29 a month billed yearly (promotions change)", "url": "https://www.getjobber.com/pricing/", "source": "https://www.getjobber.com/pricing/", "checked": "2026-10-19" },
+    "carrd": { "name": "Carrd", "free": "Free for up to 3 sites on a carrd.co address", "paid": "Pro Standard $19 a year with your own domain (Pro Lite $9 a year)", "url": "https://carrd.co/", "source": "https://carrd.co/pro", "checked": "2026-10-19" },
+    "linktree": { "name": "Linktree", "free": "Free", "paid": "Starter $6 a month yearly, $8 monthly", "url": "https://linktr.ee/", "source": "https://linktr.ee/s/pricing", "checked": "2026-10-19" },
+    "cloudflare": { "name": "Cloudflare Registrar", "free": "Domains at cost, no markup", "paid": "You pay the registry price for the ending you pick", "url": "https://www.cloudflare.com/products/registrar/", "source": "https://www.cloudflare.com/products/registrar/", "checked": "2026-10-19" },
+    "workspace": { "name": "Google Workspace", "free": null, "paid": "Business Starter $7 a user a month yearly, $8.40 flexible", "url": "https://workspace.google.com/", "source": "https://knowledge.workspace.google.com/admin/getting-started/editions/business-editions", "checked": "2026-10-19" },
+    "zoho": { "name": "Zoho Mail", "free": "Forever Free: 1 domain, up to 5 users, 5 GB each, web and app only (no IMAP or POP), in select regions", "paid": "Mail Lite $1 a user a month billed yearly", "url": "https://www.zoho.com/mail/zohomail-pricing.html", "source": "https://www.zoho.com/mail/zohomail-pricing.html", "checked": "2026-10-19" },
+    "quo": { "name": "Quo (business phone line)", "free": null, "paid": "Starter $15 a user a month billed yearly", "url": "https://www.quo.com/pricing", "source": "https://www.quo.com/pricing", "checked": "2026-10-19" },
+    "wave": { "name": "Wave", "free": "Starter $0 (card payments 2.9% plus 60 cents)", "paid": "Pro $190 a year", "url": "https://www.waveapps.com/pricing", "source": "https://www.waveapps.com/pricing", "checked": "2026-10-19" },
+    "kit": { "name": "Kit (email list)", "free": "Free up to 10,000 subscribers", "paid": "check current pricing", "url": "https://kit.com/pricing", "source": "https://help.kit.com/en/articles/16627071-the-kit-free-plan", "checked": "2026-10-19" },
+    "mailerlite": { "name": "MailerLite", "free": "Free: 250 subscribers, 2,500 emails a month", "paid": "Growing Business $10.80 a month yearly, $12 monthly", "url": "https://www.mailerlite.com/pricing", "source": "https://www.mailerlite.com/pricing", "checked": "2026-10-19" },
+    "beehiiv": { "name": "Beehiiv", "free": "Free up to 2,500 subscribers", "paid": "check current pricing", "url": "https://www.beehiiv.com/pricing", "source": "https://www.beehiiv.com/pricing", "checked": "2026-10-19" },
+    "canva": { "name": "Canva", "free": "Free", "paid": "Pro US$144 a year", "url": "https://www.canva.com/pricing/", "source": "https://www.canva.com/pricing/", "checked": "2026-10-19" },
+    "buffer": { "name": "Buffer", "free": "Free: 3 channels, 10 scheduled posts per channel", "paid": "Essentials $5 a channel a month yearly, $6 monthly", "url": "https://buffer.com/pricing", "source": "https://buffer.com/pricing", "checked": "2026-10-19" },
+    "notion": { "name": "Notion", "free": "Free", "paid": "Plus $10 a seat a month yearly, $12 monthly", "url": "https://www.notion.com/pricing", "source": "https://www.notion.com/pricing", "checked": "2026-10-19" },
+    "hubspot": { "name": "HubSpot CRM", "free": "Free CRM", "paid": "Starter from $15 a seat a month", "url": "https://www.hubspot.com/products/crm", "source": "https://www.hubspot.com/products/crm", "checked": "2026-10-19" },
+    "tally": { "name": "Tally", "free": "Free: unlimited forms and submissions, payments, signatures and file uploads", "paid": "Pro $24 a month", "url": "https://tally.so/pricing", "source": "https://tally.so/pricing", "checked": "2026-10-19" },
+    "gdrive": { "name": "Google Drive", "free": "15 GB free with a Google account", "paid": null, "url": "https://drive.google.com/", "source": "https://support.google.com/googleone/answer/9312312", "checked": "2026-10-19" },
+    "bitwarden": { "name": "Bitwarden", "free": "Free", "paid": "Premium $1.65 a month billed yearly", "url": "https://bitwarden.com/pricing/", "source": "https://bitwarden.com/pricing/", "checked": "2026-10-19" }
+  },
+  "stacks": {
+    "local": [
+      ["Get found on Google Maps", "gbp", null],
+      ["Take bookings and get paid", "square", "jobber"],
+      ["A simple page with your prices", "carrd", "square"],
+      ["Your own domain", "cloudflare", null],
+      ["Email at your domain", "zoho", "workspace"],
+      ["Books and receipts", "wave", null],
+      ["Flyers, posts and price sheets", "canva", null],
+      ["Checklists and how-tos", "notion", null],
+      ["Passwords", "bitwarden", null],
+      ["A separate business number (later)", "quo", null]
+    ],
+    "service": [
+      ["Book calls", "calcom", "calendly"],
+      ["Get paid", "stripe", "square"],
+      ["Intake forms", "tally", null],
+      ["Track leads and clients", "hubspot", "notion"],
+      ["A simple site", "carrd", null],
+      ["Your own domain", "cloudflare", null],
+      ["Email at your domain", "zoho", "workspace"],
+      ["Books and receipts", "wave", null],
+      ["Posts and proposals design", "canva", null],
+      ["Schedule posts", "buffer", null],
+      ["Passwords", "bitwarden", null]
+    ],
+    "products": [
+      ["Sell online", "square", "shopify"],
+      ["Email list", "kit", "mailerlite"],
+      ["Product photos and labels", "canva", null],
+      ["Schedule posts", "buffer", null],
+      ["Your own domain", "cloudflare", null],
+      ["Email at your domain", "zoho", "workspace"],
+      ["Books and receipts", "wave", null],
+      ["Local pickup and markets on Maps", "gbp", null],
+      ["Passwords", "bitwarden", null]
+    ],
+    "digital": [
+      ["Sell downloads", "gumroad", "stripe"],
+      ["Email list", "kit", "beehiiv"],
+      ["Link in bio", "linktree", "carrd"],
+      ["Make the product and covers", "canva", "notion"],
+      ["Schedule posts", "buffer", null],
+      ["Files and backups", "gdrive", null],
+      ["Books and receipts", "wave", null],
+      ["Passwords", "bitwarden", null]
+    ]
+  }
+}

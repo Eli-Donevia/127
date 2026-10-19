@@ -1,0 +1,152 @@
+{
+  "checked": "2026-10-19",
+  "unit": "project",
+  "basis": "Ranges are our judgment inside the sourced market ranges for a first-year solo designer. One-page sites: GoDaddy $500 to $5,000, its own service from $499. Small sites: Wix $500 to $10,000, Squarespace $500 to a couple thousand. Care plans: GoWP $39 to $99, WP Buffs $89 to $359 a month.",
+  "sources": [
+    "https://webflow.com/blog/website-cost",
+    "https://wpbuffs.com/pricing/",
+    "https://www.godaddy.com/resources/skills/how-much-does-a-website-cost",
+    "https://www.gowp.com/pricing/",
+    "https://www.squarespace.com/blog/how-much-does-a-website-cost",
+    "https://www.upwork.com/hire/web-designers/cost/",
+    "https://www.wix.com/blog/how-much-does-a-website-cost"
+  ],
+  "packages": [
+    {
+      "id": "one_page",
+      "label": "One-page website",
+      "range": [
+        500,
+        1500
+      ],
+      "minutes": 600,
+      "includes": [
+        "Phone-first one-page site in your colors",
+        "Tap-to-call button, hours, services and area",
+        "Contact or quote form",
+        "Google basics: title, description, business details for search",
+        "Set up on your own domain and hosting account"
+      ]
+    },
+    {
+      "id": "small_site",
+      "label": "Small business website (up to 5 pages)",
+      "range": [
+        1000,
+        3000
+      ],
+      "minutes": 1500,
+      "includes": [
+        "Everything in the one-page site",
+        "Up to 5 pages (home, services, about, gallery, contact)",
+        "Booking or quote request set up",
+        "Google Business Profile website link updated"
+      ]
+    },
+    {
+      "id": "fix_list",
+      "label": "Fix list on your current site",
+      "range": [
+        250,
+        750
+      ],
+      "minutes": 300,
+      "includes": [
+        "The top 5 fixes from the site check, done on your current builder",
+        "Phone check on a real phone",
+        "A before and after note"
+      ]
+    }
+  ],
+  "factors": [
+    {
+      "id": "words",
+      "label": "Who writes the words",
+      "options": [
+        {
+          "id": "client",
+          "label": "You send the words",
+          "mult": 1
+        },
+        {
+          "id": "me",
+          "label": "I write the words",
+          "mult": 1.15,
+          "minutes": 120
+        }
+      ]
+    }
+  ],
+  "addons": [
+    {
+      "id": "booking",
+      "label": "Online booking or ordering set up",
+      "range": [
+        100,
+        300
+      ],
+      "minutes": 90
+    },
+    {
+      "id": "gbp",
+      "label": "Google Business Profile tune-up",
+      "range": [
+        75,
+        250
+      ],
+      "minutes": 60
+    },
+    {
+      "id": "email",
+      "label": "Business email on your domain set up (you pay Google)",
+      "range": [
+        50,
+        150
+      ],
+      "minutes": 45
+    },
+    {
+      "id": "extra_page",
+      "label": "Extra page",
+      "range": [
+        100,
+        300
+      ],
+      "minutes": 120
+    }
+  ],
+  "care_plans": [
+    {
+      "id": "care",
+      "label": "Care plan",
+      "range": [
+        39,
+        99
+      ],
+      "unit": "month",
+      "includes": [
+        "Updates, backups and an uptime check",
+        "1 small edit a month (hours, prices, a photo)",
+        "A one-page report each month"
+      ]
+    },
+    {
+      "id": "care_plus",
+      "label": "Care plan plus",
+      "range": [
+        89,
+        179
+      ],
+      "unit": "month",
+      "includes": [
+        "Everything in the care plan",
+        "Up to 5 small edits a month",
+        "A Google profile post each week"
+      ]
+    }
+  ],
+  "care_sources": [
+    "https://www.gowp.com/pricing/",
+    "https://wpbuffs.com/pricing/"
+  ]
+}

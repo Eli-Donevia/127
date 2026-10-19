@@ -1,0 +1,1475 @@
+{
+ "id": "cleaning",
+ "name": "House cleaning",
+ "pack_title": "House cleaning",
+ "checked": "2026-10-19",
+ "summary": "Start a house cleaning business: your first 25 people and partners, a price menu from real local ranges, instant quotes by bedrooms and bathrooms, and messages for every step.",
+ "what": "house cleaning",
+ "business_word": "House Cleaning",
+ "worker": "cleaner",
+ "job": "clean",
+ "icon": "sparkle",
+ "mood": "fresh",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Hi neighbor!",
+ "door_step3": "I clean, you check, I send photos",
+ "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+ "promises": {
+  "first_25": "15 people you know and 10 local agents, managers and hosts, each with a message, plus door hangers with this month's offer.",
+  "offer": "Your price menu by home size, the first-clients ladder, a regular plan and job math, on a one-page offer sheet.",
+  "quote": "Bedrooms, bathrooms, how often and add-ons in; a quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, your regular plan, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the clean: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+  "proof": "One clean turned into proof: a result card, a before-and-after collage from your photos, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 agents, managers, hosts and movers near you that are not in your Pipeline yet, each with its messages, saved for Do my day.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "One customer's street turned into a route: door hangers with a neighbor price, a sheet for the 20 nearest homes and an intro ask for your customer."
+ },
+ "crowd": {
+  "buyer": "Homes and small offices",
+  "scores": {
+   "pain": 4,
+   "can_pay": 3,
+   "findable": 4,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   11,
+   12
+  ],
+  "off_season": {
+   "months": [
+    1,
+    2
+   ],
+   "where": "all",
+   "play": "Turn holiday one-time cleans into every-2-weeks plans and sell New Year deep cleans to past clients."
+  },
+  "note": "Recurring. Spring, move season and the holidays are the peaks.",
+  "not_yet": [
+   "Don't buy commercial equipment before your fifth regular.",
+   "Don't build a website before your first 3 regulars. A Google profile and a price sheet are enough.",
+   "Don't fill your week with one-time deep cleans. Aim for recurring."
+  ],
+  "basis": "Scores, first $1, buyer and not-yet lines: research/crowd.json (our judgment). Best months and slow season: research/niches/cleaning.json crowd hint, from its sources."
+ },
+ "buyers": [
+  {
+   "who": "Busy dual-income households and parents of young kids",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Older adults and people with limited mobility",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "publisher": "Thumbtack",
+     "says": "House cleaning is an additional challenge if you have any kind of mobility issues.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Renters and owners moving out, and the listing agents and property managers who need homes ready",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "publisher": "Thumbtack",
+     "says": "Move-out cleaning gets a home or apartment move-out ready; pros clean rental properties, move-ins and move-outs and homes for sale.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Short-term rental hosts who need a turnover after every guest",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "publisher": "Thumbtack",
+     "says": "Vacation rental cleaning is needed if you have property you consistently rent out.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "url": "https://homeguide.com/costs/airbnb-cleaning-service-cost",
+     "publisher": "HomeGuide",
+     "says": "Hosts commonly pay $75 to $250 per turnover.",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Friends and neighbors (referrals)",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "publisher": "Thumbtack",
+     "says": "Hiring tip: ask for referrals from friends who have used the same cleaning service over time.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Google search, Maps and reviews",
+   "sources": [
+    {
+     "url": "https://www.brightlocal.com/research/local-consumer-review-survey/",
+     "publisher": "BrightLocal Local Consumer Review Survey 2026",
+     "says": "97% of consumers read reviews for local businesses; Google's share as a review source fell from 83% in 2025 to 71%; use of ChatGPT and other AI tools for local recommendations rose from 6% to 45%; 47% will not use a business with fewer than 20 reviews; 74% care about reviews from the last three months; 31% will only use a business with 4.5 stars or more and 68% with 4 or more; 80% are likely to use a business that responds to all of its reviews; 89% expect owners to respond.",
+     "page_date": "2026-02-11 (modified 2026-09-14)",
+     "kind": "survey by a vendor of review software",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "AI assistants such as ChatGPT",
+   "sources": [
+    {
+     "url": "https://www.brightlocal.com/research/local-consumer-review-survey/",
+     "publisher": "BrightLocal Local Consumer Review Survey 2026",
+     "says": "97% of consumers read reviews for local businesses; Google's share as a review source fell from 83% in 2025 to 71%; use of ChatGPT and other AI tools for local recommendations rose from 6% to 45%; 47% will not use a business with fewer than 20 reviews; 74% care about reviews from the last three months; 31% will only use a business with 4.5 stars or more and 68% with 4 or more; 80% are likely to use a business that responds to all of its reviews; 89% expect owners to respond.",
+     "page_date": "2026-02-11 (modified 2026-09-14)",
+     "kind": "survey by a vendor of review software",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Marketplaces such as Thumbtack and Angi",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/pro",
+     "publisher": "Thumbtack",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads, which determines how many leads they get. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Neighborhood Facebook groups and Nextdoor",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Vacuum (commercial-grade costs more)",
+    "unit": "each",
+    "range_usd": [
+     100,
+     500
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Vacuum $100 to $500+.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Mop, bucket and broom",
+    "unit": "set",
+    "range_usd": [
+     30,
+     100
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Mop, bucket and broom $30 to $100.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Microfiber cloths",
+    "unit": "starter stock",
+    "range_usd": [
+     20,
+     75
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Microfiber cloths $20 to $75.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Gloves and PPE",
+    "unit": "starter stock",
+    "range_usd": [
+     25,
+     100
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Gloves and PPE $25 to $100.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Caddy or storage bins",
+    "unit": "each",
+    "range_usd": [
+     20,
+     100
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Caddy or storage bins $20 to $100.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Equipment and initial supplies, total",
+    "unit": "one time",
+    "range_usd": [
+     300,
+     2500
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Equipment $200 to $2,000 (basic residential gear on the low end); initial supplies $100 to $500.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Initial supplies and equipment $500 to $2,000.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Business registration, license and permits",
+    "unit": "one time or yearly",
+    "range_usd": [
+     0,
+     520
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Business registration usually under $100; most cities and counties require a general business license, typically $50 to $100 a year; LLC formation $50 to $500 depending on the state.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Business registration $0 to $520; business license and permits $50 to $500; DBA registration $10 to $100.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Janitorial (surety) bond",
+    "unit": "per year",
+    "range_usd": [
+     100,
+     300
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Surety bonds, sometimes called janitorial bonds, typically cost $100 to $300 a year for small cleaning businesses.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Janitorial bond $100 to $150.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Initial marketing (cards, door hangers, simple site)",
+    "unit": "one time",
+    "range_usd": [
+     100,
+     1000
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Initial marketing $100 to $1,000+.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Initial marketing (cards, website, etc.) $100 to $500.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "General liability insurance",
+    "unit": "per month",
+    "range_usd": [
+     48,
+     90
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "General liability insurance about $54 to $75 per month (from its insurance partner Coverdash).",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "General liability insurance $580 to $1,080 for the first year (about $48 to $90 a month).",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Cleaning supplies and chemicals",
+    "unit": "per month",
+    "range_usd": [
+     50,
+     300
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "says": "Cleaning supplies $50 to $300 per month depending on job volume; trash bags and paper goods $25 to $150 per month.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Scheduling and invoicing software for cleaners",
+    "unit": "per month",
+    "range_usd": [
+     19,
+     329
+    ],
+    "note": "A free calendar plus Square invoices also works for the first clients.",
+    "sources": [
+     {
+      "publisher": "ZenMaid",
+      "url": "https://www.zenmaid.com/pricing",
+      "says": "Starter $19 per month (up to 40 appointments a month); Pro $39 per month; Premium $49 per month.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Jobber",
+      "url": "https://www.getjobber.com/pricing/",
+      "says": "Plans starting at $29 per month (Core, one user, billed annually); higher tiers cost more and extra users are added per month.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/pricing/",
+      "says": "Basic $59 per month billed annually or $79 month to month (1 user); Essentials $149 annually or $189 monthly; Max $329 monthly list price.",
+      "page_date": "2026-08-26",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Card processing",
+    "unit": "per payment",
+    "range_usd": null,
+    "note": "Percent fees, so no low/high dollar range.",
+    "sources": [
+     {
+      "publisher": "Square Help Center",
+      "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+      "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH via invoice 1% with $1 minimum.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Stripe",
+      "url": "https://stripe.com/pricing",
+      "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup or monthly fees.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Workers compensation (only once you hire employees)",
+    "unit": "first year",
+    "range_usd": [
+     0,
+     2400
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Workers compensation insurance $0 to $2,400 for the first year.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Commercial auto insurance (if you drive for work)",
+    "unit": "first year",
+    "range_usd": [
+     1200,
+     1680
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Connecteam",
+      "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+      "says": "Commercial auto insurance $1,200 to $1,680 for the first year.",
+      "page_date": "2025-12-25",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your state and city before you take paid jobs.",
+  "items": [
+   {
+    "item": "General business license or registration",
+    "what_to_check": "City or county business license, state registration if you use an LLC, and a DBA if you use a name other than your own.",
+    "sources": [
+     {
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "publisher": "U.S. Small Business Administration",
+      "says": "Licenses and permits depend on business activity and location; local governments set registration, licensing and permitting rules; research your own state, county and city; some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "publisher": "Housecall Pro",
+      "says": "Most cities and counties require a general business license, typically $50 to $100 a year; requirements vary, so check city, county and state separately.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "EIN",
+    "what_to_check": "Free from the IRS; needed to hire, and handy for a business bank account.",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+      "publisher": "IRS",
+      "says": "Get an EIN directly from the IRS online in minutes for free.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Sales tax on services or supplies",
+    "what_to_check": "Some states tax cleaning services or supplies you resell; ask your state revenue department.",
+    "sources": [
+     {
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "publisher": "Housecall Pro",
+      "says": "Some states also require a sales tax permit if you charge for supplies.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "what_to_check": "Covers damage to a client's home and injuries; clients and property managers often ask for proof.",
+    "sources": [
+     {
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "publisher": "U.S. Small Business Administration",
+      "says": "Lists common policies: general liability, product liability, professional liability, commercial property, home-based business insurance, and workers compensation; buy insurance required by law first, and taxes on employment insurance and workers compensation vary by state.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Janitorial (surety) bond",
+    "what_to_check": "Not usually required by law; protects clients against theft by a worker and is often requested by clients.",
+    "sources": [
+     {
+      "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+      "publisher": "Housecall Pro",
+      "says": "Surety bonds protect clients if an employee steals or causes damage; typically $100 to $300 a year.",
+      "page_date": "2026-05-04",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Workers compensation and worker classification",
+    "what_to_check": "Most states require workers compensation once you have employees; decide employee versus contractor by the IRS control tests.",
+    "sources": [
+     {
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "publisher": "U.S. Small Business Administration",
+      "says": "Lists common policies: general liability, product liability, professional liability, commercial property, home-based business insurance, and workers compensation; buy insurance required by law first, and taxes on employment insurance and workers compensation vary by state.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+      "publisher": "IRS",
+      "says": "Whether a helper is an employee or independent contractor depends on behavioral control, financial control and the relationship of the parties.",
+      "page_date": "2026-05-19",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Chemical safety once you have employees",
+    "what_to_check": "Labels, safety data sheets and training for the chemicals your crew uses.",
+    "sources": [
+     {
+      "url": "https://www.osha.gov/hazcom",
+      "publisher": "OSHA",
+      "says": "Hazard Communication standard (29 CFR 1910.1200): employers whose workers use hazardous chemicals need labels, safety data sheets and training.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Before the visit: confirm address, entry method (key, lockbox or door code), pets, parking, priority rooms, add-ons and the price in writing.",
+   "On arrival: quick walkthrough with the client or their notes; photograph any existing damage or problem areas.",
+   "Work top to bottom and dry to wet: dust high surfaces, fans and fixtures first, floors last.",
+   "Kitchen: wipe appliance fronts and counters, clean and polish the sink, wipe cabinet fronts, empty trash, sweep and mop.",
+   "Bathrooms: scrub sink and counters, clean mirrors, scrub shower or tub, clean and disinfect the toilet, sweep and mop.",
+   "Bedrooms and living areas: dust surfaces, empty wastebaskets, make beds or change linens if booked, tidy, vacuum.",
+   "Add-ons booked for this visit: inside oven, inside fridge, interior cabinets, interior windows, laundry.",
+   "Final walkthrough against the checklist, after photos, lights off, lock up, reset any alarm.",
+   "Same day: send the invoice or charge the card on file, ask for a review, and book the next visit."
+  ],
+  "sources": [
+   {
+    "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+    "publisher": "Thumbtack",
+    "says": "Standard cleaning includes sweeping, mopping, vacuuming, dusting and tidying; bathrooms include sweeping and mopping, scrubbing the sink and counters, cleaning mirrors, scrubbing the shower or tub, cleaning and disinfecting the toilet; get the agreement in writing.",
+    "page_date": "2026-01-05",
+    "checked": "2026-10-19"
+   },
+   {
+    "url": "https://www.fixr.com/costs/house-cleaning",
+    "publisher": "Fixr",
+    "says": "Kitchen tasks include wiping appliances and counters, polishing sinks, cleaning windows, sweeping and mopping; bedroom tasks include dusting, emptying wastebaskets and floors.",
+    "page_date": "2025-01-31",
+    "checked": "2026-10-19"
+   }
+  ],
+  "note": "The order of steps (top to bottom, dry to wet) and the before and after photos are common practice, a judgment call."
+ },
+ "objections": [
+  {
+   "objection": "It costs too much; I can do it myself.",
+   "answer": "Show the hours they get back and the per-visit price of a recurring plan versus one-off.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "too much",
+    "too expensive",
+    "expensive",
+    "do it myself",
+    "cheaper",
+    "afford",
+    "pricey",
+    "out of my budget"
+   ],
+   "say": "Totally fair, and lots of people keep up their own place. Where I help most is the deep work that eats a whole Saturday: baseboards, grout, inside the oven. You could book one deep clean and keep it up yourself after. Want a quote for just that?"
+  },
+  {
+   "objection": "I don't want a stranger in my house. What if something breaks or goes missing?",
+   "answer": "Insured and bonded, written checklist, photos, the same cleaner every time.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Hiring tips: choose a company that is bonded and insured; lock up valuables; consider door codes for access.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "stranger",
+    "trust",
+    "break",
+    "missing",
+    "stolen",
+    "steal",
+    "safe",
+    "valuables",
+    "in my house",
+    "in my home"
+   ],
+   "say": "Completely fair to ask. I carry liability insurance through [your insurer], I work from a written checklist, I send before and after photos, and it's me every time. Happy to meet for 5 minutes before the first clean so you know who's coming."
+  },
+  {
+   "objection": "Will it be the same person each time?",
+   "answer": "Promise a named cleaner and tell them in advance if that changes.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Hiring tip: request that the same crew come each time for consistency and accountability.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "same person",
+    "same cleaner",
+    "who comes",
+    "different people",
+    "same one",
+    "who will clean"
+   ],
+   "say": "Yes, it's me. If that ever has to change, I'll tell you ahead of time, never a surprise at the door."
+  },
+  {
+   "objection": "Are you licensed and insured?",
+   "answer": "Have the license number and insurance certificate ready to send.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/house-cleaning-prices",
+     "says": "Hiring tips: hire a licensed company; choose one that is bonded and insured.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "insured",
+    "insurance",
+    "licensed",
+    "license",
+    "bonded",
+    "liability"
+   ],
+   "say": "Good question. I carry liability insurance through [your insurer], and I'll send you the certificate before the first clean."
+  },
+  {
+   "objection": "You don't have many reviews yet.",
+   "answer": "Offer a first clean with a redo promise and share real photos; never post fake reviews.",
+   "sources": [
+    {
+     "publisher": "BrightLocal Local Consumer Review Survey 2026",
+     "url": "https://www.brightlocal.com/research/local-consumer-review-survey/",
+     "says": "97% of consumers read reviews for local businesses; Google's share as a review source fell from 83% in 2025 to 71%; use of ChatGPT and other AI tools for local recommendations rose from 6% to 45%; 47% will not use a business with fewer than 20 reviews; 74% care about reviews from the last three months; 31% will only use a business with 4.5 stars or more and 68% with 4 or more; 80% are likely to use a business that responds to all of its reviews; 89% expect owners to respond.",
+     "page_date": "2026-02-11 (modified 2026-09-14)",
+     "checked": "2026-10-19",
+     "kind": "survey by a vendor of review software"
+    }
+   ],
+   "note": null,
+   "match": [
+    "reviews",
+    "how long have you",
+    "experience",
+    "references",
+    "new business",
+    "just started"
+   ],
+   "say": "True, I'm new, so I'll let the work speak: you check every room before I leave, and if I missed a spot, tell me within 24 hours and I come back and redo it free."
+  },
+  {
+   "objection": "I don't want to be locked into a contract.",
+   "answer": "No contract, skip or cancel with 48 hours notice.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "contract",
+    "locked in",
+    "commit",
+    "cancel",
+    "long term",
+    "sign up"
+   ],
+   "say": "No contract at all. Skip or cancel any visit with 48 hours notice."
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "One neighborhood, 200 door hangers",
+   "steps": [
+    "Pick one subdivision close to home so drive time stays low.",
+    "Print 200 door hangers with your first clean price by bedroom count, a recurring every-2-weeks price and a QR code to book.",
+    "Hang them on doors on a Saturday morning; never put them in or on mailboxes.",
+    "Follow up in the same streets one week later with a second round."
+   ],
+   "sources": [
+    {
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "says": "Knowingly depositing circulars or similar unstamped matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Leave door hangers on the door, never in or on the mailbox.",
+     "checked": "2026-10-19"
+    },
+    {
+     "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+     "publisher": "Connecteam",
+     "says": "Target a specific local area to help minimize travel costs and build a strong reputation.",
+     "page_date": "2025-12-25",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Quantities are a judgment call. Check your city's rules on door to door solicitation and handbills."
+  },
+  {
+   "play": "Ten listing agents and five property managers",
+   "steps": [
+    "List 10 agents with active listings in your area and 5 local property managers.",
+    "Send each a one page move-out and listing-prep price sheet by bedroom count with a 48 hour turnaround promise.",
+    "Offer to do their next vacant unit and send before and after photos the same day."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Warm list text: 30 people",
+   "steps": [
+    "Text 30 people you know: you are taking 5 recurring clients in your area this month and ask who they know.",
+    "Give each a referral thank-you (for example a free add-on on their own next clean)."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Short-term rental hosts",
+   "steps": [
+    "Find 20 local short-term rentals and note any guest reviews that mention cleanliness.",
+    "Join the local host Facebook group and post a turnover offer: photo checklist after every clean, linens add-on, same-day availability.",
+    "Offer the first turnover at your standard price with a redo promise."
+   ],
+   "sources": [
+    {
+     "url": "https://homeguide.com/costs/airbnb-cleaning-service-cost",
+     "publisher": "HomeGuide",
+     "says": "Hosts commonly pay $75 to $250 per turnover; on-site laundry adds $15 to $40.",
+     "kind": "search result excerpt (site blocks automated page reads); open the page to confirm",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Steps are a judgment call."
+  },
+  {
+   "play": "Every Door Direct Mail to one or two carrier routes",
+   "steps": [
+    "Pick the route around your best first client.",
+    "Mail a postcard with your price menu and a booking link; EDDM Retail needs at least 200 pieces."
+   ],
+   "sources": [
+    {
+     "url": "https://www.usps.com/business/every-door-direct-mail.htm",
+     "publisher": "USPS",
+     "says": "EDDM Retail flats currently $0.26 per piece; send at least 200 and up to 5,000 pieces per day per ZIP Code.",
+     "low": 0.26,
+     "high": 0.26,
+     "unit": "per piece",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Printing is extra; plan printing and postage before you mail."
+  }
+ ],
+ "platform_fees": [
+  {
+   "platform": "Thumbtack",
+   "fees": "Free to join, no membership fee; you pay for leads at prices you set a budget for. Lead prices are not published.",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/pro",
+     "publisher": "Thumbtack",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads, which determines how many leads they get. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Square (card payments)",
+   "fees": "2.6% + 15 cents in person; 3.3% + 30 cents online or invoices on the free plan.",
+   "sources": [
+    {
+     "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+     "publisher": "Square Help Center",
+     "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH via invoice 1% with $1 minimum.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Stripe (card payments)",
+   "fees": "2.9% + 30 cents per domestic card payment.",
+   "sources": [
+    {
+     "url": "https://stripe.com/pricing",
+     "publisher": "Stripe",
+     "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup or monthly fees.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "Spring is the classic deep cleaning season.",
+   "sources": [
+    {
+     "url": "https://www.businesswire.com/news/home/20250304020817/en",
+     "publisher": "American Cleaning Institute survey via Business Wire",
+     "says": "About 80% of Americans planned to spring clean in 2025.",
+     "page_date": "2025-03-04",
+     "checked": "2026-10-19"
+    },
+    {
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "publisher": "Fixr",
+     "says": "Deep cleaning is usually called spring cleaning; many homeowners time deep cleans before having family in for the holidays.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Holiday deep cleans in November and December, before guests arrive.",
+   "sources": [
+    {
+     "url": "https://www.fixr.com/costs/house-cleaning",
+     "publisher": "Fixr",
+     "says": "Many homeowners time deep cleans to take place before having family in for the holidays.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Move-out demand rises in summer moving season.",
+   "sources": [
+    {
+     "url": "https://www.jbcharleston.jb.mil/News/Article/233776/peak-move-season-get-ready",
+     "publisher": "Joint Base Charleston (U.S. Air Force)",
+     "says": "Almost 65 percent of Department of Defense household goods moves happen in the summer peak season, May 15 through Sept. 30.",
+     "page_date": "2012",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Military moves only and an older source; use it as a direction, not a number."
+  },
+  {
+   "pattern": "Recurring weekly and biweekly clients are steady year round.",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "default_costs": {
+  "perJob": 8,
+  "hourly": 25,
+  "monthlyFixed": 120,
+  "basis": "Defaults when you leave them empty: supplies about $8 a visit (Housecall Pro: $50 to $300 a month in supplies), $25 an hour for your time (HomeAdvisor: independent cleaners $12 to $25 an hour), $120 a month fixed (insurance about $48 to $90 a month plus phone)."
+ },
+ "partners": [
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "sellers",
+   "why": "need the house spotless before photos and showings",
+   "ask": "leave my cards for sellers getting ready to list",
+   "give": "clean your next listing at my founding price and send you before and after photos the same day",
+   "weight": 2
+  },
+  {
+   "id": "property_managers",
+   "label": "Property managers",
+   "one": "property management company",
+   "search": {
+    "words": "property management companies",
+    "osm": [
+     "office=property_management"
+    ]
+   },
+   "their_customers": "owners",
+   "why": "need units cleaned fast between tenants",
+   "ask": "clean your next move-out as a trial",
+   "give": "turn a vacant unit within 48 hours and send photos for your file",
+   "weight": 2
+  },
+  {
+   "id": "short_stay",
+   "label": "Short-stay hosts and managers",
+   "one": "vacation rental manager",
+   "search": {
+    "words": "vacation rental management",
+    "osm": [
+     "tourism=guest_house",
+     "tourism=apartment"
+    ]
+   },
+   "their_customers": "guests",
+   "why": "judge the stay by how clean it is",
+   "ask": "do one turnover for you as a trial",
+   "give": "send a photo checklist after every clean so you can see it",
+   "weight": 1
+  },
+  {
+   "id": "movers",
+   "label": "Moving companies",
+   "one": "moving company",
+   "search": {
+    "words": "moving companies",
+    "osm": [
+     "office=moving_company",
+     "shop=storage_rental"
+    ]
+   },
+   "their_customers": "customers",
+   "why": "need a move-out clean the same week they move",
+   "ask": "leave my cards for customers who ask who cleans",
+   "give": "offer your customers my founding price",
+   "weight": 1
+  }
+ ],
+ "lead_offers": [
+  {
+   "id": "holiday",
+   "months": [
+    10,
+    11,
+    12
+   ],
+   "package": "deep",
+   "label": "Holiday deep clean",
+   "one": "holiday deep clean",
+   "many": "holiday deep cleans",
+   "follow_on": {
+    "package": "standard",
+    "plan": "biweekly",
+    "say": "a standard clean every 2 weeks"
+   }
+  },
+  {
+   "id": "new_year",
+   "months": [
+    1,
+    2
+   ],
+   "package": "deep",
+   "label": "New Year deep clean",
+   "one": "New Year deep clean",
+   "many": "New Year deep cleans",
+   "follow_on": {
+    "package": "standard",
+    "plan": "biweekly",
+    "say": "a standard clean every 2 weeks"
+   }
+  },
+  {
+   "id": "spring",
+   "months": [
+    3,
+    4,
+    5
+   ],
+   "package": "deep",
+   "label": "Spring deep clean",
+   "one": "spring deep clean",
+   "many": "spring deep cleans",
+   "follow_on": {
+    "package": "standard",
+    "plan": "biweekly",
+    "say": "a standard clean every 2 weeks"
+   }
+  },
+  {
+   "id": "main",
+   "package": "deep",
+   "label": "First deep clean, then every 2 weeks",
+   "one": "first deep clean",
+   "many": "first deep cleans",
+   "follow_on": {
+    "package": "standard",
+    "plan": "biweekly",
+    "say": "a standard clean every 2 weeks"
+   }
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.35,
+   "label": "Founding price",
+   "ask": "Permission to post before and after photos (no faces or house numbers) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.15,
+   "label": "Early price",
+   "ask": "Same work, smaller discount, while you build photos and routines."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once your calendar is full two weeks out."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "deep",
+   "label": "First clean as a deep clean, founding price",
+   "note": "Sets the standard for every visit after."
+  },
+  "core": {
+   "package": "standard",
+   "note": "Priced by home size."
+  },
+  "recurring": {
+   "package": "standard",
+   "plan": "biweekly",
+   "note": "Same cleaner, same day. Skip or cancel with 48 hours notice."
+  },
+  "upsell": {
+   "addon": "oven",
+   "note": "Offer it at booking; most people say yes to one add-on."
+  },
+  "downsell": {
+   "package": "standard",
+   "plan": "monthly",
+   "note": "For people who say every 2 weeks is too much."
+  }
+ },
+ "offer": {
+  "who": "Busy households, parents of young kids and older neighbors who want a clean home without giving up a weekend.",
+  "outcome": "Come home to a clean house every other week, with the same cleaner every time.",
+  "promise": "Miss a spot? Tell me within 24 hours and I come back and redo it free.",
+  "names": [
+   "The Every Other Week Clean",
+   "Clean House Reset",
+   "Same Cleaner Plan",
+   "Fresh Start Deep Clean"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Would you want one, or know someone who would?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. I'm doing 3 {lead_many} at {founding} for a {ref} so I can get before and after photos. Want a spot, or know someone who might?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Interested, or know someone?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one person who might want it? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If a friend comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. After that, every {every} is {plan_price} a visit. Bigger homes are a bit more. Want an exact quote? Just send bedrooms, bathrooms and roughly when it was last deep cleaned.",
+   "not_now": "Totally fine! Can I check back in a month or two? And if a friend mentions needing a cleaner, I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I bring my own supplies, I send photos when I finish, and if I miss a spot I come back and redo it free within 24 hours.",
+   "covered": "Good to hear you're set! If your cleaner is ever away or booked up, I'm happy to fill in. Mind if I check back in a few months?",
+   "yes": "Wonderful! To book you in, I just need the address, bedrooms and bathrooms, and any pets. I have openings this week and next. What day works for you?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}.{plan} {promise} Reply with a day that works and I'll lock it in.",
+  "plan_terms": "Skip or cancel with 48 hours notice. No contract.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for having me today! I'll send your before and after photos tonight. {promise}",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+   "plan": "Hi {customer}, want me to keep it this way? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+   "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor could use the same, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. It's been a while since your {job}. Want me to save you a spot in the next couple of weeks?",
+   "checkin_days": 30,
+   "card_thanks": "Thank you for having me!",
+   "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "2 bed, 1 bath",
+  "size_factor": "home",
+  "fields": {
+   "service": {
+    "type": "string",
+    "title": "What they want",
+    "use": "package",
+    "map": {
+     "Standard clean": "standard",
+     "Deep clean": "deep",
+     "Move-out clean": "move_out",
+     "Short-stay turnover": "turnover"
+    },
+    "default": "Standard clean"
+   },
+   "bedrooms": {
+    "type": "string",
+    "title": "Bedrooms",
+    "maxLength": 3
+   },
+   "bathrooms": {
+    "type": "string",
+    "title": "Bathrooms",
+    "maxLength": 4
+   },
+   "sqft": {
+    "type": "string",
+    "title": "Square feet (optional)",
+    "maxLength": 6
+   },
+   "condition": {
+    "type": "string",
+    "title": "Last real clean",
+    "use": "factor:condition",
+    "map": {
+     "Under a month ago": "regular",
+     "1 to 3 months ago": "overdue",
+     "3 months or more, or pets": "heavy"
+    },
+    "default": "Under a month ago"
+   },
+   "frequency": {
+    "type": "string",
+    "title": "How often",
+    "use": "plan",
+    "map": {
+     "One time": null,
+     "Every week": "weekly",
+     "Every 2 weeks": "biweekly",
+     "Every 4 weeks": "monthly"
+    },
+    "default": "One time"
+   },
+   "addons": {
+    "type": "string",
+    "title": "Add-ons (optional)",
+    "use": "addons",
+    "maxLength": 200,
+    "description": "Inside oven, Inside fridge, Inside cabinets, Laundry, Change sheets",
+    "map": {
+     "Inside oven": "oven",
+     "Inside fridge": "fridge",
+     "Inside cabinets": "cabinets",
+     "Laundry": "laundry",
+     "Change sheets": "sheets",
+     "Linens": "linens"
+    }
+   },
+   "loads": {
+    "type": "string",
+    "title": "Laundry loads (optional)",
+    "use": "qty:laundry",
+    "maxLength": 2
+   },
+   "beds": {
+    "type": "string",
+    "title": "Beds to change (optional)",
+    "use": "qty:sheets",
+    "maxLength": 2
+   }
+  },
+  "derive": [
+   {
+    "factor": "home",
+    "from": [
+     "bedrooms",
+     "bathrooms",
+     "sqft"
+    ]
+   }
+  ],
+  "advice": [
+   {
+    "when": {
+     "condition": [
+      "overdue",
+      "heavy"
+     ],
+     "service": [
+      "standard"
+     ]
+    },
+    "say": "It has been a while, so quote this first visit as a deep clean and the visits after it as standard cleans."
+   },
+   {
+    "when": {
+     "frequency": [
+      "biweekly",
+      "weekly",
+      "monthly"
+     ]
+    },
+    "say": "Regular plan: put the next 3 visits on your calendar today, same day and time."
+   },
+   {
+    "when": {
+     "service": [
+      "move_out"
+     ]
+    },
+    "say": "Move-outs: ask whether the power and water stay on, and take photos for the landlord or agent when you finish."
+   }
+  ]
+ },
+ "specials": [
+  "same_street"
+ ],
+ "won": {
+  "needs": "the address, how I get in (key, lockbox or door code), any pets, parking, and the rooms that matter most",
+  "prep_items": [
+   "clear counters and floors of clutter so I can reach every surface",
+   "put away valuables and anything fragile you'd rather I not move",
+   "let me know where to park and how I get in"
+  ],
+  "bring": [
+   "Vacuum with attachments",
+   "Microfiber cloths, one color for kitchens and another for bathrooms",
+   "All-purpose, glass and bathroom cleaners and a degreaser, with their labels",
+   "Scrub brushes, a grout brush and sponges",
+   "Mop, bucket, broom and dustpan",
+   "Gloves and trash bags"
+  ],
+  "photos": [
+   "Kitchen counters and sink, from the doorway",
+   "Stovetop",
+   "Each bathroom: sink, toilet and shower",
+   "One wide shot of the main room",
+   "Anything damaged, close up, before you start"
+  ],
+  "done": "your home is all done"
+ },
+ "proof": {
+  "what": "Deep clean, 3 bed 2 bath",
+  "result": "Kitchen, 2 bathrooms and floors done in 4 hours",
+  "thing": "home",
+  "private": "No faces or house numbers."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "One room cleaned free on {street}",
+   "side": [
+    "One room, your pick",
+    "About 30 minutes",
+    "First 3 homes"
+   ],
+   "includes": [
+    "Your pick: the kitchen counters and sink, or one bathroom",
+    "My own supplies",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address or scan the code",
+    "Pick a time{day_part}",
+    "I clean one room; you decide if you want more"
+   ],
+   "line": "I'm cleaning a home on {street}{day_part}, so the first 3 neighbors who text me get one room cleaned free: about 30 minutes, your pick of room. No cost and no catch.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm cleaning a home on {street}{day_part}, so the first 3 neighbors who text me get one room cleaned free (about 30 minutes, your pick). No cost and no catch. {phone_line}",
+   "minutes": 30,
+   "limit": 3,
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+    "Clean the first 3 rooms people ask for, and take a before and after photo of each.",
+    "Before you leave, give them the card with your price for the whole home.",
+    "Text a thank-you the same day with the photos, then one follow-up in 3 days."
+   ]
+  },
+  "partners": {
+   "realtors": {
+    "demo": "the kitchen and one bathroom at your next listing cleaned free, before the photos",
+    "eyebrow": "For {biz} sellers",
+    "headline": "Listing-ready deep clean",
+    "package": "deep",
+    "who": "First 3 sellers",
+    "card_line": "Listing with {biz}? Mention them when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "keller",
+     "coldwell",
+     "remax",
+     "re/max",
+     "century 21",
+     "compass",
+     "sotheby",
+     "exp realty",
+     "homes"
+    ],
+    "steps": [
+     "Send the message and the card today, with two days you can do it.",
+     "Do the sample before their listing photos. Take before and after photos from the same spots.",
+     "Send the photos to the agent the same day.",
+     "Ask once: would they leave your cards with sellers getting ready to list?"
+    ]
+   },
+   "property_managers": {
+    "demo": "one vacant unit's kitchen and bathroom cleaned free, with photos for your file",
+    "eyebrow": "For {biz} owners",
+    "headline": "Move-out cleans with photos for your file",
+    "package": "move_out",
+    "who": "First 3 units",
+    "card_line": "For units {biz} manages: book through your property manager.",
+    "words": [
+     "property management",
+     "property managers",
+     "management",
+     "leasing",
+     "rentals",
+     "apartments",
+     "residential"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Clean the sample unit within 48 hours of the key handoff and photograph every room.",
+     "Send the photos the same day for their file.",
+     "Ask once: could you clean their next move-out at your founding price?"
+    ]
+   },
+   "short_stay": {
+    "demo": "one turnover done free, with a photo checklist for you",
+    "eyebrow": "For {biz} hosts",
+    "headline": "Turnovers with a photo checklist",
+    "package": "turnover",
+    "who": "First 3 turnovers",
+    "card_line": "For {biz} properties: same-day turnovers between guests.",
+    "words": [
+     "vacation",
+     "stays",
+     "bnb",
+     "airbnb",
+     "guest",
+     "suites",
+     "cottage",
+     "cabin",
+     "short term",
+     "short-term",
+     "lodging"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Do the free turnover between two guests. Photograph every room when you finish.",
+     "Send the photo checklist to the host the same day.",
+     "Ask once: could you take their next three turnovers?"
+    ]
+   },
+   "movers": {
+    "demo": "one move-out clean of a kitchen free, for a customer of yours who asks",
+    "eyebrow": "For {biz} customers",
+    "headline": "Move-out clean the week you move",
+    "package": "move_out",
+    "who": "First 3 customers",
+    "card_line": "Moving with {biz}? Mention them when you book.",
+    "words": [
+     "moving",
+     "movers",
+     "storage",
+     "relocation",
+     "van lines",
+     "hauling"
+    ],
+    "steps": [
+     "Send the message and the cards today.",
+     "When their first customer asks, do the free kitchen and send them photos.",
+     "Drop off 20 more cards for their crew.",
+     "Ask once: would they hand your card to every customer who asks who cleans?"
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call, not a sourced fact",
+  "package": "standard",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "Same day as your neighbor",
+  "includes": [
+   "Dusting top to bottom",
+   "Kitchen and bathrooms scrubbed",
+   "Floors vacuumed and mopped"
+  ],
+  "how": [
+   "Text me your address or scan the code",
+   "I clean on {street}{day_part}",
+   "You check every room before I leave"
+  ],
+  "customer_ask": "Hi {customer}, thanks again for having me! I'm adding a couple more homes on {street}{day_part}. If a neighbor ever asks who cleans for you, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day before you clean there. On the door, never in or on a mailbox.",
+   "While you clean, say hi to anyone outside next door. Keep it short, and never say which neighbor: \"I clean a home here on your street.\"",
+   "Text your customer the intro ask after the clean, never before.",
+   "Mark each home on the sheet. A neighbor who books goes on the same day as your customer."
+  ],
+  "why": "Homes on one street mean less driving between jobs, so you can give neighbors a better price on the same day.",
+  "plan": "biweekly"
+ }
+}

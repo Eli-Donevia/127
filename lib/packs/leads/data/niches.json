@@ -1,0 +1,942 @@
+{
+  "about": "Pick a niche: 127's crowd scores for each business type (copied from research/crowd.json, the library thread's file; leads.test.js checks the copy still matches), plus a plain label, the words members use for it, the kind (b2b: you sell to businesses; home: you sell to households; online: not tied to a city), and what to count nearby on OpenStreetMap (buyers, partners who could refer people, or places to source from). Scores are our judgment, not data.",
+  "checked": "2026-10-19",
+  "source": "research/crowd.json",
+  "niches": {
+    "gym": {
+      "label": "Video editing for local gyms",
+      "sells": "short videos",
+      "kind": "b2b",
+      "pack": "Video editing for local gyms",
+      "first": "gym.first_clients",
+      "aliases": [
+        "gym videos",
+        "videos for gyms",
+        "short videos",
+        "reels",
+        "video editing",
+        "fitness videos",
+        "gym content"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "gyms and fitness studios",
+        "categories": [
+          "gyms",
+          "yoga"
+        ]
+      },
+      "crowd": {
+        "buyer": "Owner-run gyms and fitness studios",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Flagship. A sample Reel first. Pitch in the fall: January is when gyms sign up the most new members.",
+        "not_yet": [
+          "Don't buy a camera before your first paid client. Your phone shoots Reels.",
+          "Don't edit for weeks for free. One sample per gym is enough.",
+          "Don't pitch chains. Owner-run gyms decide in one visit."
+        ]
+      }
+    },
+    "frontdesk": {
+      "label": "Front desk for contractors",
+      "sells": "missed-call text back",
+      "kind": "b2b",
+      "pack": "Front desk for contractors",
+      "first": "frontdesk.first_25",
+      "aliases": [
+        "front desk",
+        "ai receptionist",
+        "ai front desk",
+        "answering service",
+        "missed calls",
+        "missed call text back",
+        "virtual receptionist",
+        "ai agent",
+        "ai automation",
+        "automation"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "plumbers, HVAC companies, roofers and electricians",
+        "categories": [
+          "contractors"
+        ]
+      },
+      "crowd": {
+        "buyer": "Home service contractors (plumbing, HVAC, roofing, electrical)",
+        "scores": {
+          "pain": 5,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 5
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Sell \"never miss a call\", not AI. Pitch before their busy season: spring for cooling and roofing, fall for heating.",
+        "not_yet": [
+          "Don't buy phone software before your first yes. Set it up on their account.",
+          "Don't say AI in your first message. Say you'll make sure they never miss a call.",
+          "Don't build anything custom yet. The setup is the product."
+        ]
+      }
+    },
+    "reviews": {
+      "label": "More Google reviews for local shops",
+      "sells": "review requests",
+      "kind": "b2b",
+      "pack": "More Google reviews for local shops",
+      "first": "reviews.first_25",
+      "aliases": [
+        "reviews",
+        "review management",
+        "reputation management",
+        "google reviews",
+        "reputation"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "salons, barbershops, nail salons, spas and auto shops",
+        "categories": [
+          "salons",
+          "barbers",
+          "nails",
+          "spas",
+          "auto"
+        ]
+      },
+      "crowd": {
+        "buyer": "Local shops and services",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Measurable: the review count goes up or it doesn't.",
+        "not_yet": [
+          "Don't buy, gate or trade for reviews. It breaks Google's rules and the FTC's.",
+          "Don't build a dashboard. A one-page monthly report is enough.",
+          "Don't pitch chains. Owner-run shops decide in one visit."
+        ]
+      }
+    },
+    "webdesign": {
+      "label": "Web design for local businesses",
+      "sells": "websites",
+      "kind": "b2b",
+      "pack": "Web design for local businesses",
+      "first": "webdesign.first_25",
+      "aliases": [
+        "web design",
+        "websites",
+        "website design",
+        "web development",
+        "web designer",
+        "wordpress",
+        "landing pages",
+        "site builder"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "trades, auto shops, salons, dentists and law firms",
+        "categories": [
+          "contractors",
+          "auto",
+          "salons",
+          "dentists",
+          "law"
+        ]
+      },
+      "crowd": {
+        "buyer": "Local businesses",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "A mock homepage is instant spec work.",
+        "not_yet": [
+          "Don't build your own portfolio site first. The mock homepages are your portfolio.",
+          "Don't learn a new site builder before your first sale.",
+          "Don't quote custom features. Sell one clear package."
+        ]
+      }
+    },
+    "social": {
+      "label": "Social media for restaurants and cafes",
+      "sells": "social media",
+      "kind": "b2b",
+      "pack": "Social media for restaurants and cafes",
+      "first": "social.first_25",
+      "aliases": [
+        "social media",
+        "social media management",
+        "instagram management",
+        "smm",
+        "content for restaurants",
+        "social"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "restaurants, cafes, bakeries and bars",
+        "categories": [
+          "restaurants",
+          "cafes",
+          "bakeries",
+          "bars"
+        ]
+      },
+      "crowd": {
+        "buyer": "Restaurants and cafes",
+        "scores": {
+          "pain": 4,
+          "can_pay": 2,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Thin margins and high churn. Lead with one clear result a month.",
+        "not_yet": [
+          "Don't sell 30 posts a month first. Start with one week they can see.",
+          "Don't buy a camera. A phone and good window light are enough.",
+          "Don't chase chains. Owner-run spots decide in one visit."
+        ]
+      }
+    },
+    "cleaning": {
+      "label": "House cleaning",
+      "sells": "cleaning",
+      "kind": "home",
+      "pack": "House cleaning",
+      "first": "cleaning.first_25",
+      "aliases": [
+        "cleaning",
+        "house cleaning",
+        "office cleaning",
+        "maid service",
+        "cleaner",
+        "commercial cleaning",
+        "janitorial"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents and property managers who could refer people to you",
+        "categories": [
+          "realtors"
+        ],
+        "tags": [
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homes and small offices",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Recurring. Spring, move season and the holidays are the peaks.",
+        "not_yet": [
+          "Don't buy commercial equipment before your fifth regular.",
+          "Don't build a website before your first 3 regulars. A Google profile and a price sheet are enough.",
+          "Don't fill your week with one-time deep cleans. Aim for recurring."
+        ]
+      }
+    },
+    "detailing": {
+      "label": "Mobile car detailing",
+      "sells": "car detailing",
+      "kind": "home",
+      "pack": "Mobile car detailing",
+      "first": "detailing.first_25",
+      "aliases": [
+        "detailing",
+        "car detailing",
+        "mobile detailing",
+        "auto detailing",
+        "car wash",
+        "car cleaning"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "car dealers and auto shops who could refer people to you",
+        "categories": [
+          "dealers",
+          "auto"
+        ]
+      },
+      "crowd": {
+        "buyer": "Car owners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2
+          ],
+          "where": "cold",
+          "play": "Sell interior details, holiday gift cards, and fleet or dealership work that runs all year."
+        },
+        "note": "Cash this week.",
+        "not_yet": [
+          "Don't buy a water tank and trailer before you've booked a full week.",
+          "Don't pay for a coating course before your first 10 details.",
+          "Don't design a logo before your first yes."
+        ]
+      }
+    },
+    "tutoring": {
+      "label": "Tutoring",
+      "sells": "tutoring",
+      "kind": "home",
+      "pack": "Tutoring",
+      "first": "tutoring.first_25",
+      "aliases": [
+        "tutoring",
+        "tutor",
+        "test prep",
+        "homework help",
+        "math tutoring",
+        "reading tutor",
+        "lessons"
+      ],
+      "count": {
+        "role": "families",
+        "what": "schools (where the parents are)",
+        "categories": [
+          "schools"
+        ]
+      },
+      "crowd": {
+        "buyer": "Parents",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": {
+          "months": [
+            6,
+            7
+          ],
+          "where": "all",
+          "play": "Sell summer catch-up packages and book fall slots now."
+        },
+        "note": "Safety rules with minors come first: parents book, and sessions happen where a parent can see.",
+        "not_yet": [
+          "Don't hand out flyers at a school without the school's okay.",
+          "Don't take on more subjects than you can teach well.",
+          "Don't message students directly. Talk to parents."
+        ]
+      }
+    },
+    "petcare": {
+      "label": "Dog walking and pet sitting",
+      "sells": "pet care",
+      "kind": "home",
+      "pack": "Dog walking and pet sitting",
+      "first": "petcare.first_25",
+      "aliases": [
+        "pet sitting",
+        "dog walking",
+        "pet care",
+        "dog walker",
+        "pet sitter",
+        "house sitting",
+        "dog sitting"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "vets, pet groomers and pet stores who could refer people to you",
+        "categories": [
+          "vets",
+          "groomers",
+          "petstores"
+        ]
+      },
+      "crowd": {
+        "buyer": "Pet owners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Trust first. Summer and the holidays are the busiest weeks for sitting.",
+        "not_yet": [
+          "Don't skip the meet and greet.",
+          "Don't take dogs you can't handle in your first month.",
+          "Don't pay for a booking app before you have 3 regulars."
+        ]
+      }
+    },
+    "photo": {
+      "label": "Photography for local businesses",
+      "sells": "photography",
+      "kind": "b2b",
+      "pack": "Photography for local businesses",
+      "first": "photo.first_25",
+      "aliases": [
+        "photography",
+        "photos",
+        "photographer",
+        "product photography",
+        "real estate photography",
+        "food photography"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "restaurants, real estate agents, boutiques, salons and med spas",
+        "categories": [
+          "restaurants",
+          "realtors",
+          "boutiques",
+          "salons",
+          "medspas"
+        ]
+      },
+      "crowd": {
+        "buyer": "Local businesses",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Needs gear. Start with what you own.",
+        "not_yet": [
+          "Don't buy a new camera before your first paid shoot.",
+          "Don't shoot weddings first. Start with local business shoots.",
+          "Don't take a week to edit. Deliver within 3 days."
+        ]
+      }
+    },
+    "ugc": {
+      "label": "UGC creator",
+      "sells": "UGC videos",
+      "kind": "online",
+      "pack": "UGC creator",
+      "first": "ugc.first_25",
+      "aliases": [
+        "ugc",
+        "user generated content",
+        "ugc creator",
+        "brand videos",
+        "ugc videos",
+        "content creator"
+      ],
+      "crowd": {
+        "buyer": "Online brands",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Online flagship: a sample clip first.",
+        "not_yet": [
+          "Don't buy a lighting kit before your first paid clip.",
+          "Don't pitch the biggest brands first. Small stores answer.",
+          "Don't chase followers. Brands pay for the clip, not your audience."
+        ]
+      }
+    },
+    "lawn": {
+      "label": "Lawn care and snow removal",
+      "sells": "lawn care",
+      "kind": "home",
+      "pack": "Lawn care and snow removal",
+      "first": "lawn.first_25",
+      "aliases": [
+        "lawn care",
+        "lawn",
+        "mowing",
+        "lawn mowing",
+        "yard work",
+        "landscaping",
+        "snow removal"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents and property managers who could refer people to you",
+        "categories": [
+          "realtors"
+        ],
+        "tags": [
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "where": "cold",
+          "play": "Sell snow removal and leaf cleanups, and book spring mowing now at this year's price."
+        },
+        "note": "Off season November to March up north.",
+        "not_yet": [
+          "Don't buy a trailer or a riding mower before your tenth regular.",
+          "Don't take jobs across town. Same street first.",
+          "Don't apply fertilizer or weed killer for pay before checking your state's license rule."
+        ]
+      }
+    },
+    "washing": {
+      "label": "Pressure washing and window cleaning",
+      "sells": "pressure washing",
+      "kind": "home",
+      "pack": "Pressure washing and window cleaning",
+      "first": "washing.first_25",
+      "aliases": [
+        "pressure washing",
+        "power washing",
+        "washing",
+        "window cleaning",
+        "soft washing",
+        "gutter cleaning"
+      ],
+      "count": {
+        "role": "buyers",
+        "what": "storefront restaurants and cafes, and property managers",
+        "categories": [
+          "restaurants",
+          "cafes"
+        ],
+        "tags": [
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homes and storefronts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2
+          ],
+          "where": "cold",
+          "play": "Book spring jobs now, and offer storefront window cleaning or holiday light installs."
+        },
+        "note": "Off season up north.",
+        "not_yet": [
+          "Don't buy a hot-water machine before your tenth job.",
+          "Don't blast roofs or soft siding at full pressure. Learn soft washing first.",
+          "Don't let wash water run into storm drains before you check your city's rules."
+        ]
+      }
+    },
+    "coaching": {
+      "label": "Coaching and consulting",
+      "sells": "coaching",
+      "kind": "online",
+      "pack": "Coaching and consulting",
+      "first": "coaching.first_25",
+      "aliases": [
+        "coaching",
+        "coach",
+        "life coaching",
+        "fitness coaching",
+        "business coaching",
+        "online coaching",
+        "consulting"
+      ],
+      "crowd": {
+        "buyer": "People who want one specific result",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Needs proof first. January is the busiest month to start.",
+        "not_yet": [
+          "Don't build a course before you've coached 3 people.",
+          "Don't pay for ads before you have a story you're allowed to share.",
+          "Don't pick a crowd wider than one kind of person and one result."
+        ]
+      }
+    },
+    "resale": {
+      "label": "Resale and flipping",
+      "sells": "reselling",
+      "kind": "online",
+      "pack": "Resale and flipping",
+      "first": "resale.first_25",
+      "aliases": [
+        "resale",
+        "reselling",
+        "flipping",
+        "thrift flipping",
+        "ebay",
+        "poshmark",
+        "resell"
+      ],
+      "count": {
+        "role": "sources",
+        "what": "thrift and second-hand shops to buy from",
+        "tags": [
+          "shop=second_hand",
+          "shop=charity"
+        ]
+      },
+      "crowd": {
+        "buyer": "Online buyers",
+        "scores": {
+          "pain": 2,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Inventory risk. Buy small and sell fast.",
+        "not_yet": [
+          "Don't buy in bulk before you've flipped 10 items.",
+          "Don't list on every site at once. Start with one.",
+          "Don't hold an item past 60 days. Drop the price and move it."
+        ]
+      }
+    },
+    "templates": {
+      "label": "Digital templates",
+      "sells": "templates",
+      "kind": "online",
+      "pack": "Digital templates",
+      "first": "templates.first_25",
+      "aliases": [
+        "templates",
+        "digital products",
+        "printables",
+        "canva templates",
+        "etsy digital",
+        "planners",
+        "digital downloads"
+      ],
+      "crowd": {
+        "buyer": "Online buyers",
+        "scores": {
+          "pain": 2,
+          "can_pay": 2,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Slow",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Crowded. Planners peak in December and January.",
+        "not_yet": [
+          "Don't make 50 templates before one sells.",
+          "Don't pay for ads before a listing sells on its own.",
+          "Don't copy a bestseller. Trademark and copyright rules apply."
+        ]
+      }
+    },
+    "faceless": {
+      "label": "Faceless channel",
+      "sells": "a faceless channel",
+      "kind": "online",
+      "pack": "Faceless channel",
+      "first": "faceless.first_25",
+      "aliases": [
+        "faceless",
+        "faceless youtube",
+        "faceless channel",
+        "youtube automation",
+        "faceless tiktok",
+        "cash cow channel"
+      ],
+      "crowd": {
+        "buyer": "Viewers, then advertisers",
+        "scores": {
+          "pain": 1,
+          "can_pay": 2,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Slow",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Months to a first $1.",
+        "not_yet": [
+          "Don't buy tools or a course before your first 30 uploads.",
+          "Don't use music or clips you don't have the rights to.",
+          "Don't count on ad money for months."
+        ]
+      }
+    }
+  }
+}

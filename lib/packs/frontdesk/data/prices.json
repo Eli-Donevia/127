@@ -1,0 +1,54 @@
+{
+  "checked": "2026-10-19",
+  "about": "Price model for kit quote. Ranges are bands inside what providers and freelancers charge (research/niches/frontdesk.json service_menu); where the band is narrower than the sources, that's a judgment call to keep a first offer easy to say yes to. Tool costs are paid by the client on their own accounts and are not in these prices.",
+  "sources": [
+    "https://www.advai.cloud/missed-call-text-back",
+    "https://instantbusinesspro.ai/services/missed-call-text-back",
+    "https://buldrr.com/blog/ai-receptionist-pricing",
+    "https://ghlscaleup.com/how-much-does-a-gohighlevel-expert-cost/",
+    "https://www.signpost.com/blog/how-much-does-an-answering-service-cost/",
+    "https://www.fiverr.com/gigs/missed-call-text-back"
+  ],
+  "unit": "client",
+  "packages": [
+    {
+      "id": "setup",
+      "label": "Front desk setup",
+      "unit": "one-time",
+      "range": [250, 1000],
+      "minutes": 240,
+      "includes": ["Missed-call text back on their number", "After-hours reply", "Booking link or request form", "Answers to the 10 questions callers ask most", "Texting registration on their account", "Test calls from two phones"],
+      "basis": "Sources: no setup fee (Nova Solutions) up to $1,000 setup plus monthly (Buldrr) and $2,000 to $4,000 agency builds; GoHighLevel freelancers $300 to $2,500 a project. The $250 to $1,000 band is a judgment call for a first offer."
+    },
+    {
+      "id": "care",
+      "label": "Monthly care: text back, booking and answers",
+      "unit": "month",
+      "range": [99, 300],
+      "minutes": 90,
+      "includes": ["Read the texts every week and fix wrong answers", "Keep hours, prices and the booking link current", "Same-day fix when a test call fails", "One-page report every month"],
+      "basis": "Sources: $99 a month (Nova Solutions), from $197 a month (Instant Business Pro), $300 to $500 a month (Buldrr)."
+    },
+    {
+      "id": "care_plus",
+      "label": "Monthly care with after-hours answering",
+      "unit": "month",
+      "range": [199, 500],
+      "minutes": 150,
+      "includes": ["Everything in monthly care", "After-hours calls answered by an AI receptionist or a live service on their account", "Call answers reviewed every week"],
+      "basis": "Sources: $300 to $500 a month for an agency-run AI receptionist (Buldrr); the answering tool itself is billed to the client (Jobber add-on $29, Rosie from $49, Smith.ai AI from $150)."
+    }
+  ],
+  "addons": [
+    { "id": "faq_page", "label": "FAQ page for their website from the same answers", "range": [100, 250], "minutes": 60, "basis": "judgment call" },
+    { "id": "review_text", "label": "Review request text after every finished job", "range": [50, 150], "minutes": 45, "basis": "judgment call" }
+  ],
+  "downsell": {
+    "id": "kit",
+    "label": "Front desk kit, they set it up",
+    "range": [99, 250],
+    "includes": ["Their missed-call and after-hours texts", "FAQ answers", "Booking flow", "A setup sheet for the tool they pick"],
+    "basis": "judgment call: a one-time kit for owners who want to do it themselves."
+  },
+  "factors": []
+}

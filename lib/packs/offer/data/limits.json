@@ -1,0 +1,5 @@
+{
+  "checked": "2026-10-19",
+  "instagram_bio": { "max": 150, "source": "https://later.com/blog/instagram-bio/", "note": "Later's guide, updated June 25, 2026: an Instagram bio has 150 characters. Line breaks count." },
+  "sms": { "gsm7_single": 160, "gsm7_part": 153, "ucs2_single": 70, "ucs2_part": 67, "source": "https://www.twilio.com/docs/glossary/what-sms-character-limit", "note": "Curly quotes and emoji switch a text to UCS-2, which cuts a segment to 70 characters. We write straight apostrophes." }
+}

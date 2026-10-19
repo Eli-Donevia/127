@@ -1,0 +1,305 @@
+{
+  "id": "ugc",
+  "name": "UGC creator",
+  "crowd": {
+    "buyer": "Online brands",
+    "scores": {
+      "pain": 3,
+      "can_pay": 4,
+      "findable": 3,
+      "growing": 4
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "off_season": null,
+    "note": "Online flagship: a sample clip first.",
+    "not_yet": [
+      "Don't buy a lighting kit before your first paid clip.",
+      "Don't pitch the biggest brands first. Small stores answer.",
+      "Don't chase followers. Brands pay for the clip, not your audience."
+    ]
+  },
+  "categories": {
+    "skincare": {
+      "label": "Skincare",
+      "stock": [
+        "skincare routine",
+        "applying face cream",
+        "bathroom mirror morning"
+      ],
+      "angle": "texture and the first 10 seconds of use",
+      "shots": [
+        "Hold {product} next to your face in window light",
+        "Close-up of the texture on the back of your hand",
+        "Apply it, then a slow smile to camera",
+        "Product on the counter with the label facing camera"
+      ],
+      "match": "serum|cream|moistur|cleanser|skin|spf|sunscreen|mask|toner|balm|oil|lotion|face|eye|exfoli"
+    },
+    "haircare": {
+      "label": "Hair care",
+      "stock": [
+        "woman brushing hair",
+        "hair care routine",
+        "bathroom shelf"
+      ],
+      "angle": "before and after styling, shown honestly",
+      "shots": [
+        "Hair as it is right now, no filter",
+        "Product in hand, label to camera",
+        "Work it through the ends",
+        "Finished hair turning toward the window"
+      ],
+      "match": "hair|shampoo|conditioner|scalp|brush|comb|styling|curl|detangl"
+    },
+    "makeup": {
+      "label": "Makeup",
+      "stock": [
+        "makeup application",
+        "makeup brushes",
+        "mirror makeup routine"
+      ],
+      "angle": "one quick look with one product",
+      "shots": [
+        "Bare skin, label to camera",
+        "Swatch on the wrist",
+        "Apply with fingers or a brush",
+        "Finished look in daylight"
+      ],
+      "match": "lip|mascara|brow|blush|foundation|concealer|makeup|liner|palette|gloss|bronzer|highlighter|powder|tint"
+    },
+    "pet": {
+      "label": "Pet products",
+      "stock": [
+        "dog playing at home",
+        "cat at home",
+        "pet food bowl"
+      ],
+      "angle": "the pet's real reaction",
+      "shots": [
+        "Pet waiting, product in frame",
+        "Open the package close to camera",
+        "Pet using or eating it",
+        "Product on the floor with the pet nearby"
+      ],
+      "match": "dog|cat|pet|treat|chew|leash|collar|litter|toy|kibble|harness|puppy"
+    },
+    "coffee-tea": {
+      "label": "Coffee and tea",
+      "stock": [
+        "pouring coffee",
+        "morning coffee kitchen",
+        "making tea"
+      ],
+      "angle": "the morning ritual in 15 seconds",
+      "shots": [
+        "{product} on the counter, label to camera",
+        "Close-up as you open it or pour",
+        "Steam and the first sip",
+        "{product} next to your mug"
+      ],
+      "match": "coffee|tea|matcha|espresso|brew|roast|bean|chai|latte|teapot|whisk"
+    },
+    "snacks-drinks": {
+      "label": "Snacks and drinks",
+      "stock": [
+        "opening snack bag",
+        "drink can kitchen",
+        "friends sharing snacks"
+      ],
+      "angle": "the first bite or sip on camera",
+      "shots": [
+        "Product in hand, label to camera",
+        "Open it close to the mic for the sound",
+        "First bite or sip and a real reaction",
+        "Product on a desk or in a bag"
+      ],
+      "match": "snack|chip|bar|drink|soda|water|juice|cookie|candy|chocolate|jerky|nut|granola|sparkling|protein|gummy|tea|coffee"
+    },
+    "home-kitchen": {
+      "label": "Home and kitchen",
+      "stock": [
+        "kitchen counter cooking",
+        "home organizing",
+        "cozy living room"
+      ],
+      "angle": "one problem it fixes at home",
+      "shots": [
+        "The messy before",
+        "Product unboxed on the counter",
+        "Using it, hands in frame",
+        "The tidy after"
+      ],
+      "match": "kitchen|pan|pot|knife|cook|bake|board|towel|storage|mug|glass|bottle|container|utensil|skillet|tray|bowl"
+    },
+    "candles": {
+      "label": "Candles and home scent",
+      "stock": [
+        "lighting a candle",
+        "cozy room candle",
+        "candle flame close up"
+      ],
+      "angle": "lighting it and the room it makes",
+      "shots": [
+        "Candle in hand, label to camera",
+        "Strike the match and light it",
+        "Flame close-up",
+        "Wide shot of the cozy room"
+      ],
+      "match": "candle|wax|wick|diffuser|incense|room spray|melt|match"
+    },
+    "jewelry": {
+      "label": "Jewelry",
+      "stock": [
+        "putting on necklace",
+        "jewelry close up",
+        "hands with rings"
+      ],
+      "angle": "how it looks on, in daylight",
+      "shots": [
+        "Box or pouch in hand",
+        "Open it close to camera",
+        "Put it on in the mirror",
+        "Close-up turning toward the light"
+      ],
+      "match": "necklace|ring|earring|bracelet|jewel|pendant|chain|hoop|charm|anklet|huggie|stud"
+    },
+    "activewear": {
+      "label": "Activewear",
+      "stock": [
+        "woman workout at home",
+        "running outdoors",
+        "yoga mat stretching"
+      ],
+      "angle": "a real move in the gear",
+      "shots": [
+        "Fit check in the mirror",
+        "Fabric stretch close-up",
+        "One real movement",
+        "Walk away shot"
+      ],
+      "match": "legging|bra|short|tank|jogger|hoodie|top|sock|activewear|running|yoga|gym|tight|jacket"
+    },
+    "baby-kids": {
+      "label": "Baby and kids",
+      "stock": [
+        "parent with toddler",
+        "baby nursery",
+        "kids playing at home"
+      ],
+      "angle": "a real moment of the day it helps",
+      "shots": [
+        "Product in hand, label to camera",
+        "The everyday moment it is for",
+        "Using it, hands in frame",
+        "Product back on the shelf"
+      ],
+      "match": "baby|kid|toddler|infant|nursery|diaper|bib|onesie|toy|swaddle|crib|stroller"
+    },
+    "cleaning": {
+      "label": "Cleaning products",
+      "stock": [
+        "cleaning kitchen counter",
+        "spray bottle cleaning",
+        "clean home"
+      ],
+      "angle": "one surface, before and after",
+      "shots": [
+        "The dirty surface",
+        "Bottle in hand, label to camera",
+        "Spray and wipe in one pass",
+        "The clean surface in daylight"
+      ],
+      "match": "clean|soap|detergent|laundry|spray|wipe|dish|scrub|sponge|refill|stain"
+    }
+  },
+  "fill_from": {
+    "cleaning": "home-kitchen",
+    "candles": "home-kitchen",
+    "pet": "baby-kids"
+  },
+  "service": {
+    "id": "ugc",
+    "label": "UGC brand finder",
+    "sell": "short product videos",
+    "verb": "make short product videos for small brands"
+  },
+  "first_clients": {
+    "founding_count": 3,
+    "founding_share": 0.75,
+    "basis": "The first video for each of your first 3 brands at three quarters of your price. At the $100 new-creator price that is $75, the bottom of the $75 to $150 beginner range (Elev8or, checked 2026-10-19).",
+    "ask": "honest feedback, a yes to showing the video in my portfolio once it's live, and a line I may quote, marked as from a founding client"
+  },
+  "objections": [
+    {
+      "id": "budget",
+      "topic": "the budget",
+      "q": "We don't have budget for this right now.",
+      "a": "Understood. The smallest way to try it is one video for one product, with organic use on your own accounts, site and emails."
+    },
+    {
+      "id": "portfolio",
+      "topic": "past work",
+      "q": "Do you have a portfolio or past work?",
+      "a": "I'm building my portfolio now, so I'd rather show you than tell you: the concept is made from your own product page, in the style I'd film it."
+    },
+    {
+      "id": "followers",
+      "topic": "follower count",
+      "q": "How many followers do you have?",
+      "a": "UGC goes on your accounts and in your ads, so my follower count doesn't change what you get: the video files and the right to use them, in writing."
+    },
+    {
+      "id": "gifted",
+      "topic": "free product",
+      "q": "Would you make it in exchange for free product?",
+      "a": "I only make paid videos, but I keep the first one small so it's easy to try, and the product you ship is the one I film."
+    },
+    {
+      "id": "results",
+      "topic": "results",
+      "q": "Can you promise views or sales?",
+      "a": "No one honest can promise views or sales: your offer, your ads and the timing decide that. What I promise is what I control: the video on time, one round of edits, and a redo if it misses the brief we agreed on."
+    },
+    {
+      "id": "usage",
+      "topic": "ad use",
+      "q": "Can we run it as an ad, and for how long?",
+      "a": "Yes. Every video comes with organic use: your own accounts, site and emails, for as long as you like. Running it as a paid ad is added per video, for 30 or 90 days from the first day you spend on it."
+    },
+    {
+      "id": "claims",
+      "topic": "what the video says",
+      "q": "Can you say you've used it for months, or that it fixed something?",
+      "a": "I only say what I saw and felt after using it, and only once I have. Claims about results need your proof behind them, so they come from you in the brief. That keeps us both inside the FTC's endorsement rules."
+    },
+    {
+      "id": "own",
+      "topic": "posting on my account",
+      "q": "Can you post it on your own account too?",
+      "a": "UGC is made for your accounts, but I can post it on mine too. Then it is labeled as an ad: I say \"This is an ad for {brand}\" in the video and add \"#ad Paid partnership with {brand}\" to the caption."
+    }
+  ],
+  "call_questions": [
+    "Which product matters most to you this quarter, and why that one?",
+    "Where will the videos run: your product page, your own posts, or paid ads?",
+    "How many new videos do you need in a month?",
+    "What has worked in your videos so far, and what hasn't?",
+    "Who approves the videos, and how fast can they say yes?",
+    "What must every video say or never say: claims, words or competitors?",
+    "When would you want the first one, and can you ship the product this week?"
+  ]
+}

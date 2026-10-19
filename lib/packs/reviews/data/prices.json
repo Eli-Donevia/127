@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-19",
+  "about": "Price model for kit quote. Bands sit below the managed review services in research/niches/reviews.json service_menu ($149 to $2,500 a month) and near the review software a shop would otherwise pay for ($15 to $125 a month); the exact bands are a judgment call to keep a first offer easy to say yes to. Printing is billed at cost.",
+  "sources": [
+    "https://www.commentassist.com/blog/services-manage-google-reviews",
+    "https://get.nicejob.com/pricing",
+    "https://gatherup.com/pricing/",
+    "https://www.brightlocal.com/pricing/",
+    "https://praising.ai/blog/google-review-management-software-pricing"
+  ],
+  "unit": "client",
+  "packages": [
+    {
+      "id": "setup",
+      "label": "Review setup",
+      "unit": "one-time",
+      "range": [99, 300],
+      "minutes": 120,
+      "includes": ["Their own review link and QR code, tested on two phones", "Counter card and handout cards, print-ready", "Review line for receipts and the thank-you email", "The ask for staff, written for their shop", "Reply templates for good and bad reviews", "Starting count and rating written down with the date"],
+      "basis": "judgment call, below managed services ($149 a month and up, CommentAssist comparison) and agency onboarding ($100 to $500, Praising.ai)."
+    },
+    {
+      "id": "care",
+      "label": "Monthly review care",
+      "unit": "month",
+      "range": [79, 199],
+      "minutes": 60,
+      "includes": ["A reply draft for every new review within 1 business day", "Fresh cards when they run low", "Check the link and the code still work", "One-page report every month"],
+      "basis": "Sources: managed service $149 a month (CommentAssist); review software $49 to $125 a month (BrightLocal, GatherUp, NiceJob). The band is a judgment call for a first offer."
+    }
+  ],
+  "addons": [
+    { "id": "texts", "label": "Review text after every visit, sent from their own tool", "range": [50, 150], "minutes": 45, "basis": "judgment call" },
+    { "id": "website", "label": "Reviews section on their website", "range": [75, 200], "minutes": 60, "basis": "judgment call" }
+  ],
+  "downsell": {
+    "id": "kit",
+    "label": "Review card kit, they print it",
+    "range": [49, 99],
+    "includes": ["Counter card and handout cards with their QR code", "The ask for staff", "Reply templates"],
+    "basis": "judgment call: a one-time kit for owners who want to do it themselves."
+  },
+  "factors": []
+}

@@ -1,0 +1,109 @@
+{
+  "checked": "2026-10-19",
+  "unit": "shoot",
+  "basis": "Ranges are our judgment inside the sourced market ranges for a first-year solo photographer serving local businesses (research/niches/photo.json, data/niche.json service_menu). Business shoot: Thumbtack commercial and local business photography $299 to $645 (average $440, about $198 an hour). Half day: 4 hours at about $150 to $300 an hour (Thumbtack $122 to $364 an hour; ZenBusiness brand day rates start at $800). One-hour shoot and the monthly session: StartCosts event photography $150 to $350 an hour, Thumbtack low-end $122 an hour. Headshots: Thumbtack $216 to $427 for one person, StartCosts $150 to $400; a team session at their place sits in the lower half. Listing photos: StartCosts $100 to $400 a property, ZenBusiness $100 to $300 for 25 to 30 photos, Thumbtack $236 to $394. Drone: Thumbtack example of $150 added for aerial photos.",
+  "sources": [
+    "https://www.thumbtack.com/p/photographer-prices",
+    "https://startcosts.com/photography",
+    "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+    "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+    "https://www.thumbtack.com/p/real-estate-photography-prices"
+  ],
+  "packages": [
+    {
+      "id": "business_shoot",
+      "label": "Business shoot",
+      "range": [299, 645],
+      "minutes": 360,
+      "includes": [
+        "Up to 2 hours at your place, from a shot list we agree first",
+        "25 edited photos in an online gallery within 3 days",
+        "Sized for your website, Google profile, posts and menus",
+        "Written permission to use them on your website, Google profile, posts, menus and ads"
+      ]
+    },
+    {
+      "id": "half_day",
+      "label": "Half-day shoot",
+      "range": [600, 1200],
+      "minutes": 660,
+      "includes": [
+        "Up to 4 hours at your place: your work, your space, the outside and your team",
+        "50 edited photos in an online gallery within 3 days",
+        "Headshots for up to 6 people, same light and look",
+        "Written permission to use them on your website, Google profile, posts, menus and ads"
+      ]
+    },
+    {
+      "id": "hour_shoot",
+      "label": "One-hour shoot",
+      "range": [150, 350],
+      "minutes": 180,
+      "includes": [
+        "1 hour at your place, from a short shot list",
+        "10 edited photos in an online gallery within 3 days",
+        "Written permission to use them on your website, Google profile, posts and menus"
+      ]
+    },
+    {
+      "id": "headshots",
+      "label": "Team headshots",
+      "range": [150, 300],
+      "unit": "person",
+      "minutes": 30,
+      "includes": [
+        "At your place, one backdrop or in your space",
+        "2 edited photos for each person, their pick",
+        "Same light and look for the whole team",
+        "In an online gallery within 3 days"
+      ]
+    },
+    {
+      "id": "listing",
+      "label": "Listing photos",
+      "range": [100, 400],
+      "unit": "property",
+      "minutes": 180,
+      "includes": [
+        "25 to 30 edited photos, inside and out",
+        "In your gallery within 24 hours",
+        "Sized for the MLS and listing sites"
+      ]
+    }
+  ],
+  "factors": [],
+  "addons": [
+    {
+      "id": "extra_hour",
+      "label": "Extra hour on site, with its edited photos",
+      "range": [122, 198],
+      "minutes": 120
+    },
+    {
+      "id": "drone",
+      "label": "Aerial photos (needs your FAA Part 107 certificate)",
+      "range": [150, 150],
+      "minutes": 60
+    }
+  ],
+  "care_plans": [
+    {
+      "id": "monthly_session",
+      "label": "Monthly photo session",
+      "range": [122, 300],
+      "unit": "month",
+      "minutes": 180,
+      "includes": [
+        "1 hour at your place each month, from a short shot list",
+        "10 new edited photos each month, in your gallery within 3 days",
+        "What's new comes first: dishes, products, the season, new faces",
+        "Month to month: stop any time before the next month"
+      ],
+      "summary": "1 hour at your place each month and 10 new edited photos in your gallery within 3 days"
+    }
+  ],
+  "care_sources": [
+    "https://startcosts.com/photography",
+    "https://www.thumbtack.com/p/photographer-prices"
+  ]
+}

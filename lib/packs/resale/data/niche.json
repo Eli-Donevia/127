@@ -1,0 +1,796 @@
+{
+ "id": "resale",
+ "name": "Resale and flipping",
+ "checked": "2026-10-19",
+ "research": "research/niches/resale.json",
+ "crowd": {
+  "buyer": "Online buyers",
+  "scores": {
+   "pain": 2,
+   "can_pay": 3,
+   "findable": 4,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "off_season": null,
+  "not_yet": [
+   "Don't buy in bulk before you've flipped 10 items.",
+   "Don't list on every site at once. Start with one.",
+   "Don't hold an item past 60 days. Drop the price and move it."
+  ],
+  "note": "Inventory risk. Buy small and sell fast.",
+  "basis": "research/crowd.json (our judgment); research/niches/resale.json has no sourced season."
+ },
+ "rules": [
+  "Genuine items only. No fakes, replicas or 'dupes', and never another brand's name on a look-alike.",
+  "Check recalls before you buy kids' items, baby gear and appliances. Selling a recalled product is illegal unless the recall fix was done, and the listing says so.",
+  "Skip cribs made before June 2011, wobbly or incomplete baby gear and kids' metal jewelry.",
+  "No fireworks, fuels, chemicals or other hazardous materials. Perfume, food, knives, tickets and gift cards have their own rules on each site.",
+  "Photograph and name every flaw. Undisclosed damage and 'not as described' are why buyers get refunds."
+ ],
+ "rules_sources": [
+  "https://www.ebay.com/help/policies/prohibited-restricted-items/counterfeit-item-policy?id=4276",
+  "https://www.mercari.com/us/help_center/article/603/",
+  "https://www.cpsc.gov/About-CPSC/Division-of-Field-Operations/FAQs-For-Buying-and-Selling-Products-Online",
+  "https://www.cpsc.gov/s3fs-public/254_ResellersGuide_2-5-25.pdf",
+  "https://poshmark.com/posh_protect"
+ ],
+ "routes": {
+  "closet": {
+   "label": "Your own closet and garage",
+   "when": "Tonight",
+   "how": "Start with 10 things you own: no money at risk while you learn photos, titles and shipping."
+  },
+  "thrift": {
+   "label": "Thrift stores",
+   "when": "Weekday mornings",
+   "how": "Go when new racks come out; check sold prices on your phone before you buy."
+  },
+  "yard": {
+   "label": "Yard and garage sales",
+   "when": "Friday and Saturday mornings",
+   "how": "Bring small bills; ask for a bundle price on several items."
+  },
+  "estate": {
+   "label": "Estate sales",
+   "when": "Day 2 or the last day for discounts",
+   "how": "Look at the sale photos online first and go early for the best items."
+  },
+  "marketplace": {
+   "label": "Local listings and free groups",
+   "when": "Evenings",
+   "how": "Look for underpriced and free items nearby; pick up in public places."
+  }
+ },
+ "categories": {
+  "clothing": {
+   "label": "Clothing and shoes",
+   "items": [
+    {
+     "name": "Name-brand jeans (Levi's 501, 505, 550)",
+     "weight": "1lb",
+     "where": "thrift",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Outdoor fleece and shell jackets (Patagonia, The North Face, Columbia)",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Wool and cashmere sweaters",
+     "weight": "1lb",
+     "where": "thrift",
+     "watch": "Check for moth holes and pilling; note every flaw in photos."
+    },
+    {
+     "name": "Workwear jackets and pants (Carhartt, Dickies)",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Running shoes in good condition",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Check soles and insoles; note every flaw in photos."
+    },
+    {
+     "name": "Leather boots",
+     "weight": "3lb",
+     "where": "estate",
+     "watch": "Check heels and soles; note every flaw in photos."
+    },
+    {
+     "name": "Vintage band and event t-shirts",
+     "weight": "8oz",
+     "where": "estate",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Athletic wear (lululemon, Nike, Under Armour)",
+     "weight": "8oz",
+     "where": "thrift",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Leather belts and bags",
+     "weight": "1lb",
+     "where": "estate",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Ski and snow pants",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Kids' snow boots and winter coats",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "Kids' item: check CPSC recalls before you buy. Remove hood and neck drawstrings on sizes 2T to 12."
+    },
+    {
+     "name": "Scrubs and work uniforms",
+     "weight": "1lb",
+     "where": "thrift",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Designer scarves and ties",
+     "weight": "8oz",
+     "where": "estate",
+     "watch": "Genuine only: check labels, tags and stitching."
+    }
+   ]
+  },
+  "home": {
+   "label": "Home and kitchen",
+   "items": [
+    {
+     "name": "Vintage Pyrex and CorningWare",
+     "weight": "3lb",
+     "where": "estate",
+     "watch": "Check for chips and faded patterns; pack well."
+    },
+    {
+     "name": "Cast iron pans (Lodge, Griswold, Wagner)",
+     "weight": "local",
+     "where": "yard",
+     "watch": "Heavy: local pickup or price shipping in."
+    },
+    {
+     "name": "Stand mixer attachments and bowls",
+     "weight": "3lb",
+     "where": "thrift",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Coffee makers and grinders",
+     "weight": "3lb",
+     "where": "thrift",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Small kitchen appliances (air fryers, blenders)",
+     "weight": "local",
+     "where": "thrift",
+     "watch": "Test it: power on, all parts, chargers that are the real brand. Check recalls."
+    },
+    {
+     "name": "Mid-century lamps and decor",
+     "weight": "local",
+     "where": "estate",
+     "watch": "Test the wiring; local pickup for big pieces."
+    },
+    {
+     "name": "Quilts and handmade blankets",
+     "weight": "3lb",
+     "where": "estate",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Matching sets of dishes or glasses",
+     "weight": "local",
+     "where": "estate",
+     "watch": "Count every piece; local pickup is safest."
+    },
+    {
+     "name": "Name-brand knives and cookware sets",
+     "weight": "3lb",
+     "where": "estate",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Picture frames and wall art",
+     "weight": "local",
+     "where": "yard",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Vacuum parts and attachments",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Match the model number in the title."
+    },
+    {
+     "name": "Holiday decor out of season",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "List a season ahead."
+    },
+    {
+     "name": "Furniture you can sell locally",
+     "weight": "local",
+     "where": "marketplace",
+     "watch": "Local pickup only; meet safely."
+    }
+   ]
+  },
+  "toys": {
+   "label": "Toys, games and media",
+   "items": [
+    {
+     "name": "Complete LEGO sets",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "Check every piece against the set number. Kids' item: check CPSC recalls before you buy."
+    },
+    {
+     "name": "Board games with all pieces",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Count the pieces; say so in the listing."
+    },
+    {
+     "name": "Video games and consoles",
+     "weight": "1lb",
+     "where": "yard",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Vinyl records",
+     "weight": "1lb",
+     "where": "estate",
+     "watch": "Check sleeves and play surface; note every flaw in photos."
+    },
+    {
+     "name": "Older-generation tech (iPods, film cameras, calculators)",
+     "weight": "1lb",
+     "where": "estate",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Collectible action figures in packages",
+     "weight": "1lb",
+     "where": "yard",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Trading cards in lots",
+     "weight": "8oz",
+     "where": "yard",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Puzzles with all pieces",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Say whether pieces were counted."
+    },
+    {
+     "name": "DVD and Blu-ray box sets",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Check discs for scratches."
+    },
+    {
+     "name": "Textbooks and test prep books (recent editions)",
+     "weight": "2lb",
+     "where": "thrift",
+     "watch": "Match the edition and ISBN."
+    },
+    {
+     "name": "Kids' books in sets",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "Kids' item: check CPSC recalls before you buy."
+    },
+    {
+     "name": "Model trains and track",
+     "weight": "2lb",
+     "where": "estate",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Musical instruments for beginners",
+     "weight": "local",
+     "where": "marketplace",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    }
+   ]
+  },
+  "tools": {
+   "label": "Tools, sports and outdoor",
+   "items": [
+    {
+     "name": "Power tools with batteries (DeWalt, Milwaukee, Makita)",
+     "weight": "3lb",
+     "where": "yard",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Hand tool sets",
+     "weight": "3lb",
+     "where": "estate",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Camping gear (tents, stoves, lanterns)",
+     "weight": "3lb",
+     "where": "yard",
+     "watch": "Set it up and check for missing parts. No fuel canisters."
+    },
+    {
+     "name": "Fishing reels and rods",
+     "weight": "2lb",
+     "where": "estate",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    },
+    {
+     "name": "Golf clubs and bags",
+     "weight": "local",
+     "where": "yard",
+     "watch": "Ship single clubs; sell full sets locally."
+    },
+    {
+     "name": "Bike parts and accessories",
+     "weight": "2lb",
+     "where": "yard",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Snowboard and ski gear",
+     "weight": "local",
+     "where": "marketplace",
+     "watch": "Check edges and bindings."
+    },
+    {
+     "name": "Weights and home gym gear",
+     "weight": "local",
+     "where": "marketplace",
+     "watch": "Heavy: local pickup only."
+    },
+    {
+     "name": "Hiking boots and backpacks",
+     "weight": "3lb",
+     "where": "thrift",
+     "watch": "Genuine only: check labels, tags and stitching."
+    },
+    {
+     "name": "Garden tools and planters",
+     "weight": "local",
+     "where": "yard",
+     "watch": "Note every flaw in photos."
+    },
+    {
+     "name": "Car accessories (roof racks, floor mats)",
+     "weight": "local",
+     "where": "marketplace",
+     "watch": "List the exact make, model and year it fits."
+    },
+    {
+     "name": "Sports team jerseys",
+     "weight": "8oz",
+     "where": "thrift",
+     "watch": "Genuine only: team logos without a license are counterfeit."
+    },
+    {
+     "name": "Binoculars and scopes",
+     "weight": "2lb",
+     "where": "estate",
+     "watch": "Test it: power on, all parts, chargers that are the real brand."
+    }
+   ]
+  }
+ },
+ "tax_rate_example": 0.07,
+ "tax_note": "eBay, Depop and Facebook charge their fee on the sales tax too. We use 7 percent tax, as in eBay's own fee example; your buyer's rate varies.",
+ "shipping": {
+  "basis": "USPS Ground Advantage commercial price for zone 5 (labels bought online), USPS Notice 123 effective October 4, 2026. Zones 1 to 9 run from about $1 less to about $4 more.",
+  "source": "https://pe.usps.com/text/dmm300/Notice123.htm",
+  "checked": "2026-10-19",
+  "classes": {
+   "8oz": {
+    "label": "Under 8 oz",
+    "cost": 8.24
+   },
+   "1lb": {
+    "label": "Up to 1 lb",
+    "cost": 9.29
+   },
+   "2lb": {
+    "label": "Up to 2 lb",
+    "cost": 10.5
+   },
+   "3lb": {
+    "label": "Up to 3 lb",
+    "cost": 12.12
+   },
+   "local": {
+    "label": "Local pickup",
+    "cost": 0
+   }
+  }
+ },
+ "platforms": [
+  {
+   "id": "ebay",
+   "name": "eBay",
+   "pct": 0.136,
+   "fixed": 0.4,
+   "fixed_small": 0.3,
+   "small_max": 10,
+   "base": [
+    "item",
+    "ship",
+    "tax"
+   ],
+   "label": "seller",
+   "title_max": 80,
+   "photos_max": 24,
+   "description_max": null,
+   "fee_text": "13.6% of item, shipping and tax, plus $0.40 per order ($0.30 for $10 or less)",
+   "source": "https://www.ebay.com/sellercenter/selling/seller-fees",
+   "checked": "2026-10-19"
+  },
+  {
+   "id": "poshmark",
+   "name": "Poshmark",
+   "pct": 0.2,
+   "flat": 2.95,
+   "flat_max": 15,
+   "base": [
+    "item"
+   ],
+   "label": "buyer",
+   "title_max": 80,
+   "photos_max": 16,
+   "description_max": 1500,
+   "fee_text": "$2.95 for sales $15 and under, 20% over $15; the buyer pays the label",
+   "source": "https://poshmark.com/terms",
+   "checked": "2026-10-19",
+   "limits_note": "Title and description limits from a search excerpt of Poshmark's support pages; check the counter in the app."
+  },
+  {
+   "id": "mercari",
+   "name": "Mercari",
+   "pct": 0.1,
+   "base": [
+    "item",
+    "ship"
+   ],
+   "label": "seller",
+   "title_max": 80,
+   "photos_max": 12,
+   "description_max": null,
+   "price_min": 1,
+   "price_max": 2000,
+   "fee_text": "10% of item price plus buyer-paid shipping, no processing fee",
+   "source": "https://www.mercari.com/us/help_center/article/169/",
+   "checked": "2026-10-19",
+   "limits_note": "Title limit from a third-party tool; check the counter in the app."
+  },
+  {
+   "id": "depop",
+   "name": "Depop",
+   "pct": 0.033,
+   "fixed": 0.45,
+   "base": [
+    "item",
+    "ship",
+    "tax"
+   ],
+   "label": "seller",
+   "title_max": null,
+   "photos_max": null,
+   "description_max": 1000,
+   "hashtags_max": 5,
+   "fee_text": "No selling fee in the US; 3.3% + $0.45 processing on item, shipping and tax",
+   "source": "https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges",
+   "checked": "2026-10-19",
+   "limits_note": "Fees from a search excerpt of Depop's help centre; limits from a third-party guide."
+  },
+  {
+   "id": "facebook",
+   "name": "Facebook Marketplace",
+   "pct": 0.1,
+   "min": 0.8,
+   "base": [
+    "item",
+    "ship",
+    "tax"
+   ],
+   "label": "seller",
+   "title_max": 100,
+   "photos_max": 10,
+   "description_max": null,
+   "local_free": true,
+   "fee_text": "Shipped: 10% of the whole order, $0.80 minimum. Local pickup paid in person: no fee",
+   "source": "https://www.facebook.com/legal/checkout_terms",
+   "checked": "2026-10-19",
+   "limits_note": "Title and photo limits from older third-party guides; check the form."
+  }
+ ],
+ "pricing": {
+  "watcher_off": 0.1,
+  "bundle_off": 0.15,
+  "markdowns": [
+   {
+    "day": 30,
+    "off": 0.1
+   },
+   {
+    "day": 45,
+    "off": 0.2
+   }
+  ],
+  "move_day": 60,
+  "min_profit": 5
+ },
+ "texts": {
+  "watchers": "Thanks for watching my {item}! I can do {price} with shipping as listed. Happy to answer any question about it.",
+  "bundle": "Bundle 2 or more of my items and I'll take {off} percent off, shipped together in one box.",
+  "move": "Day {day}: bundle it, take it local, or donate it and keep the receipt. Your cash is worth more than the shelf space."
+ },
+ "keep": {
+  "title": "Thank-you and repeat buyers",
+  "description": "For every order: a thank-you note for the package, a message after delivery asking for an honest rating, and a bundle offer for their next order.",
+  "client_title": "Buyer's name",
+  "done_example": "the Levi's 501 jeans",
+  "reward_default": "",
+  "file_word": "thank you note",
+  "card_title": "Thank you, {greet}!",
+  "card_footer": "Small shop, real person. Every item checked and every flaw named.",
+  "when_thanks": "In the package",
+  "when_review": "The day it's delivered",
+  "rules": [
+   "Ask every buyer the same way, not only the happy ones.",
+   "Never offer a discount or refund for a rating."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for buying {done}! If anything isn't right, message me and I'll make it right.",
+   "review_ask": "Hi {greet}, your order shows delivered. I hope it's just what you wanted. An honest rating helps a small seller like me: {review_link}. And if you want anything else from my shop, message me first and I'll bundle it into one box.",
+   "card_line": "Thanks for buying from {business}. New finds go up every week. Message me before you buy two or more and I'll bundle them into one box."
+  },
+  "business_fallback": "my shop"
+ },
+ "buyers": {
+  "rules": [
+   "Take payment only through the site, or cash in person for local pickup.",
+   "Never share a code that was texted to you, and never use a payment link a buyer sends.",
+   "Don't ship until the sale shows as paid in the app.",
+   "Meet local buyers in a busy public place in daylight, and bring someone if you can.",
+   "Counter once, close to your lowest price. Offer a bundle before a bigger cut.",
+   "A hold needs a time. Until then, keep answering other buyers."
+  ],
+  "intents": {
+   "available": {
+    "label": "Is it available?",
+    "means": "They want to know it is still for sale.",
+    "ship": "Yes, it's still available! You can buy it right on the listing, and it ships within 1 business day with tracking.",
+    "local": "Yes, it's still available! I can meet at {pickup}. What time works for you today or tomorrow?",
+    "next": "Answer within the hour if you can, then point them to buy or set a time."
+   },
+   "offer": {
+    "label": "An offer or \"lowest?\"",
+    "means": "They want a lower price.",
+    "accept_ship": "Deal at {amount}! Send it as an offer on the listing and I will accept it right away.",
+    "accept_local": "Deal at {amount}, cash at pickup. I can meet at {pickup}. What time works for you?",
+    "counter_ship": "Thanks for the offer! The best I can do is {counter}, and it ships within 1 business day. If you add another of my items, I will take {bundle_off} percent off both. Want it at {counter}?",
+    "counter_local": "Thanks for the offer! The best I can do is {counter}, cash at pickup. Want it at that price?",
+    "unknown": "Thanks for the offer! Let me check what I can do, and I'll get back to you today.",
+    "next": "Counter once. If they say no, let it go: the next buyer may pay your price.",
+    "judgment": true,
+    "lowest_ship": "The lowest I can do is {counter}, and it ships within 1 business day. If you add another of my items, I will take {bundle_off} percent off both.",
+    "lowest_local": "The lowest I can do is {counter}, cash at pickup. When could you meet?"
+   },
+   "hold": {
+    "label": "Can you hold it?",
+    "means": "They want you to keep it for them.",
+    "ship": "I can't hold it without payment, but it's yours the moment you buy it on the listing. I ship within 1 business day.",
+    "local": "I can hold it until {hold_until} if we set a time now. After that it goes to the next person who asks. What time works for you?",
+    "next": "Hold only with a set time, and keep answering other buyers until they pay or show up.",
+    "judgment": true
+   },
+   "late": {
+    "label": "Late or a new time",
+    "means": "They're late or want another time.",
+    "answer": "No problem. Can you confirm a new time today? I'll keep it for you until then, and after that it goes to the next person in line.",
+    "next": "One new time only. If they miss it, move on to the next buyer.",
+    "judgment": true
+   },
+   "no_show": {
+    "label": "They didn't show up",
+    "means": "They didn't come to the pickup you agreed.",
+    "answer": "Hi, I was at {pickup} at the time we agreed. Do you still want it? If I don't hear back today, it goes to the next person who asked.",
+    "next": "Send this once. If they don't answer today, sell it to the next buyer and don't hold for them again.",
+    "judgment": true
+   },
+   "authentic": {
+    "label": "Is it real?",
+    "means": "They want to know it is genuine.",
+    "answer": "Yes, it's genuine. The photos show the tags, labels and any serial number so you can check, and I'm happy to send more photos of anything you want to see.",
+    "next": "Only send this if you are certain it is genuine. If you are not, say so, or take the listing down.",
+    "check": "Only say this if you are certain the item is genuine.",
+    "sources": [
+     {
+      "publisher": "eBay Help, Counterfeit policy",
+      "url": "https://www.ebay.com/help/policies/prohibited-restricted-items/counterfeit-item-policy?id=4276",
+      "says": "Counterfeit or fake items aren't allowed. You may list an item only if you're certain it's genuine.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Poshmark, Posh Protect",
+      "url": "https://poshmark.com/posh_protect",
+      "says": "Buyers have 72 hours after delivery to open a return case for an item that is not authentic or not as described.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   "question": {
+    "label": "A question about the item",
+    "means": "They asked about the item.",
+    "answer": "Good question! Let me check and send you a photo in a few minutes.",
+    "next": "Answer with a photo or a measurement, never a guess."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for your message! It's still available. Is there anything you'd like to know or see?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "scams": [
+   {
+    "id": "code",
+    "label": "Asks for a code",
+    "match": "\\b(verification|verify|security|confirmation|6[- ]?digit) code|\\bsend (me )?(the|a|that|your) code|\\bcode (i|we) (sent|texted)|\\bgoogle voice",
+    "means": "They asked for a code that was texted to you.",
+    "why": "With that code they can set up a phone number or get into an account in your name.",
+    "sources": [
+     0
+    ]
+   },
+   {
+    "id": "outside",
+    "label": "Pay or talk outside the app",
+    "match": "\\b(zelle|cash ?app|venmo|paypal (friends|family|f&f)|wire( transfer)?|western union|moneygram|gift cards?|crypto|bitcoin|usdt)\\b|\\b(text|email|whatsapp|call) me (at|on)\\b|\\bmy (email|number|whatsapp) is\\b|\\b(pay|payment) (you )?outside\\b",
+    "means": "They want to pay or talk outside the app.",
+    "why": "Sites protect only sales paid through their own checkout, and a payment-app payment can be faked or reversed.",
+    "sources": [
+     0,
+     1
+    ]
+   },
+   {
+    "id": "overpay",
+    "label": "Overpayment or a check",
+    "match": "\\b(cheques?|money orders?|cashier'?s checks?|certified checks?|personal checks?|business checks?|(a|the|my) check (for|of|in the)|(mail|send) (you )?a check)\\b|\\boverpa(y|id|ying)\\b|\\bextra (money|amount|for (the )?(shipping|mover|pickup|courier))|\\bsend (back|the rest|the difference|me the difference)|\\brefund the (difference|extra)",
+    "means": "They offer more than your price, or a check.",
+    "why": "The payment bounces later, and you lose the item and any money you sent back.",
+    "sources": [
+     0
+    ]
+   },
+   {
+    "id": "courier",
+    "label": "Someone else picks up",
+    "match": "\\bmy (agent|mover|movers|cousin|driver|assistant|courier|shipping company)\\b|\\bshipping agent\\b|\\bcourier (will|to) (pick|collect)|\\bi('ll| will) send (a|my) (driver|mover|courier)",
+    "means": "They want a courier or someone else to collect after paying some other way.",
+    "why": "This is how fake-payment and overpayment scams usually collect the item.",
+    "judgment": true
+   },
+   {
+    "id": "notice",
+    "label": "A payment email or link",
+    "match": "\\b(payment|paypal|zelle|bank) (email|notification|receipt|confirmation)\\b|\\bclick (the|this|on the) link\\b|\\bupgrade (your|to a) business account\\b|\\bpending (until|payment)\\b|\\bcheck your (email|spam)\\b",
+    "means": "They point you to an email or link that says you were paid.",
+    "why": "Fake payment emails look real. Check your balance in the app itself, never through their link.",
+    "sources": [
+     0
+    ]
+   }
+  ],
+  "scam_ship": "Thanks, but I only take payment through {site}, and I don't share codes or contact details. If you'd like it, you can buy it right on the listing.",
+  "scam_local": "Thanks, but for local pickup I only take cash in person when we meet, and I don't share codes. If you'd like it, let me know a time today or tomorrow.",
+  "scam_next": "Don't send anything else, don't click their links, and don't ship until the sale shows as paid in the app. Report the account on the site, and report the scam at ReportFraud.ftc.gov.",
+  "sources": [
+   {
+    "publisher": "Federal Trade Commission",
+    "url": "https://consumer.ftc.gov/consumer-alerts/2022/07/selling-stuff-online-heres-how-avoid-scam",
+    "says": "Fake buyers send fake payment notices, 'overpay' and ask for the difference back, or ask for a verification code. Don't accept mobile payments from people you don't know, don't deposit a check for more than the price, and don't share codes.",
+    "page_date": "2022-07-27",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Mercari Help Center",
+    "url": "https://www.mercari.com/us/help_center/article/321",
+    "says": "Mercari doesn't protect transactions where payment is made outside the app or site, and asks users not to share contact or payment details.",
+    "checked": "2026-10-19"
+   }
+  ],
+  "pickup_default": "a busy public place nearby",
+  "hold_default": "tonight",
+  "accept_at": 0.9
+ },
+ "route": {
+  "kinds": [
+   {
+    "id": "estate",
+    "match": "\\b(estate sales?|auctions?|liquidation|downsizing)\\b",
+    "order": 1,
+    "minutes": 45,
+    "bring": "Cash in small bills, a tape measure and bags.",
+    "tip": "Get there before it opens: the best items go in the first hour. Day 2 or the last day brings discounts."
+   },
+   {
+    "id": "yard",
+    "match": "\\b(yard sales?|garage sales?|moving sales?|rummage|flea|swap meet|tag sales?|church sales?|block sales?|community sales?)\\b",
+    "order": 2,
+    "minutes": 20,
+    "bring": "Small bills and coins.",
+    "tip": "Ask for one price on several items, and check that anything electric works before you pay."
+   },
+   {
+    "id": "thrift",
+    "match": "\\b(thrift|goodwill|savers|salvation army|value village|habitat|restore|st\\.? vincent|consign\\w*|resale|second ?hand|hospice|charity|vintage)\\b",
+    "order": 3,
+    "minutes": 40,
+    "bring": "Your phone, charged, and a tape measure.",
+    "tip": "Ask which day new racks come out. Check sold prices on your phone before anything goes in the cart."
+   },
+   {
+    "id": "marketplace",
+    "match": "\\b(marketplace|offerup|craigslist|buy nothing|nextdoor|curb|free pile|porch|pick ?up)\\b",
+    "order": 4,
+    "minutes": 15,
+    "bring": "The exact cash agreed, and someone with you if you can.",
+    "tip": "Meet in a busy public place, look the item over before you pay, and walk away if it is not as described."
+   }
+  ],
+  "other": {
+   "id": "other",
+   "order": 3,
+   "minutes": 30,
+   "bring": "Your phone, charged, to check sold prices.",
+   "tip": "Check sold prices before you buy, and pay no more than your most-to-pay price."
+  },
+  "maps_note": "Google Maps opens each leg with up to 3 stops in between, which is what phones handle."
+ },
+ "sold": {
+  "caption": "Sold: {item}{on}{days}. {more}",
+  "more_link": "More finds like this in my shop: {link}",
+  "more_plain": "More finds like this coming soon.",
+  "rules": [
+   "Show what sold, never what you made on it.",
+   "Never a buyer's name, username or address."
+  ]
+ }
+}

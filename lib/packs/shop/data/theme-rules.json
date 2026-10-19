@@ -1,0 +1,57 @@
+{
+  "checked": "2026-10-19",
+  "sources": [
+    "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema",
+    "https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings",
+    "https://shopify.dev/docs/storefronts/themes/architecture/settings/sidebar-settings",
+    "https://shopify.dev/docs/storefronts/themes/architecture/limits",
+    "https://shopify.dev/docs/api/liquid/tags/stylesheet",
+    "https://shopify.dev/docs/api/liquid/tags/style",
+    "https://help.shopify.com/en/manual/online-store/themes/theme-structure/extend/edit-theme-code",
+    "https://help.shopify.com/en/manual/online-store/themes/theme-structure/sections-and-blocks"
+  ],
+  "schema": {
+    "onePerFile": "Each section can have only one {% schema %} tag, it must contain only valid JSON, and it can't sit inside another Liquid tag.",
+    "attributes": ["name", "tag", "class", "limit", "settings", "blocks", "max_blocks", "presets", "default", "locales", "enabled_on", "disabled_on"],
+    "tagValues": ["article", "aside", "div", "footer", "header", "section"],
+    "limitValues": [1, 2],
+    "uniqueSettingIds": "Setting IDs must be unique within a section, and within each block.",
+    "uniqueBlocks": "Block names and types must be unique within a section.",
+    "blockRequired": ["type", "name"],
+    "presetRequired": ["name"],
+    "presets": "Presets make the section show up in the theme editor's Add section picker.",
+    "enabledOnOrDisabledOn": "Use only one of enabled_on or disabled_on."
+  },
+  "settings": {
+    "standardRequired": ["type", "id", "label"],
+    "sidebarTypes": ["header", "paragraph"],
+    "sidebarRequired": ["type", "content"],
+    "range": "min, max and default are required numbers (not strings); step is optional, default 1.",
+    "richtext": "A default must use <p> or <ul> as the top-level tags.",
+    "inline_richtext": "Not wrapped in <p>; no line breaks.",
+    "image_picker": "No default attribute.",
+    "select": "options is required: an array of value and label.",
+    "checkbox": "Returns a boolean; false if no default.",
+    "color": "Returns a color; blank if no default."
+  },
+  "limits": {
+    "schemaName": 25,
+    "sectionsPerTemplate": 25,
+    "blocksPerSection": 50,
+    "liquidFileKB": 256
+  },
+  "css": {
+    "stylesheet": "Liquid isn't rendered inside {% stylesheet %} tags.",
+    "style": "{% style %} outputs a <style data-shopify> tag; color settings used inside it update live in the theme editor."
+  },
+  "pasteSteps": [
+    "Before you edit code, duplicate your theme as a backup: Online Store, then the ... button next to your theme, then Duplicate.",
+    "From your Shopify admin, go to Online Store, click the ... (horizontal menu) button next to your current theme, then Edit code.",
+    "In the file list, find the sections folder. Right-click it and choose New file. (Older code editors show an Add a new section link under Sections instead.)",
+    "Type the file name exactly as given, like sk-trust-bar.liquid, and press Enter.",
+    "Select everything in the new file, delete it, paste the whole section file, and click Save.",
+    "Go back to Online Store, click Edit theme (some admins say Customize), pick the page from the drop-down at the top (Home page, or Products for a product page).",
+    "In the sidebar click Add section, search for the section name, add it, then change the text, colors and images on the right. Click Save."
+  ],
+  "themeNeed": "The sections need an Online Store 2.0 theme: one where you can click Add section on product pages, not only on the home page."
+}

@@ -1,0 +1,80 @@
+{
+  "business": {
+    "name": "Reyes Mobile Detailing",
+    "what": "Mobile car detailing at your home or office",
+    "niche": "car detailing",
+    "offer": "Full interior and exterior detail in your driveway",
+    "price": 180,
+    "audience": "Busy parents and commuters in North Austin",
+    "city": "Austin",
+    "region": "TX",
+    "country": "US",
+    "timezone": "America/Chicago",
+    "stage": "first customers"
+  },
+  "voice": { "tone": "friendly, straight to the point", "avoid": "slang" },
+  "links": { "website": "", "instagram": "reyesdetails", "tiktok": "", "youtube": "" },
+  "goal": { "northNumber": "Cars booked per week", "buildTarget": "First 10 paying customers by Dec 15" },
+  "numbers": [],
+  "packs": {
+    "brand": { "palette": { "primary": "#0E4D64" } },
+    "sales": {
+      "settings": {
+        "payLink": "https://pay.reyesdetailing.example/book",
+        "payNote": "Zelle to (512) 555-0142, or cash or card on the day",
+        "taxRate": 0.0825,
+        "email": "jordan@reyesdetailing.example",
+        "phone": "(512) 555-0142",
+        "website": "reyesdetailing.example"
+      },
+      "counters": { "Q-2026": 3, "INV-2026": 2 },
+      "docs": [
+        {
+          "kind": "quote",
+          "number": "Q-2026-003",
+          "fp": "quote:sample3",
+          "date": "2026-10-14",
+          "customer": "Priya Shah",
+          "email": "priya.shah@mail.example",
+          "phone": "(512) 555-0187",
+          "title": "Full detail for a 2021 Toyota RAV4",
+          "totalCents": 24898,
+          "items": [
+            { "label": "Full interior and exterior detail", "qty": 1, "price": 180 },
+            { "label": "Pet hair removal", "qty": 1, "price": 40 },
+            { "label": "Headlight restore", "qty": 1, "price": 10 }
+          ]
+        }
+      ],
+      "invoices": [
+        {
+          "kind": "invoice",
+          "number": "INV-2026-002",
+          "fp": "invoice:sample2",
+          "date": "2026-10-09",
+          "due": "2026-10-16",
+          "customer": "Marcus Lee",
+          "email": "marcus.lee@mail.example",
+          "phone": "(512) 555-0163",
+          "title": "Interior refresh",
+          "totalCents": 12990,
+          "balanceCents": 12990,
+          "dueNowCents": 12990
+        },
+        {
+          "kind": "invoice",
+          "number": "INV-2026-001",
+          "fp": "invoice:sample1",
+          "date": "2026-10-12",
+          "due": "2026-10-26",
+          "customer": "Elena Garcia",
+          "email": "elena.garcia@mail.example",
+          "title": "Full detail and wax",
+          "totalCents": 25981,
+          "balanceCents": 25981,
+          "dueNowCents": 25981
+        }
+      ]
+    }
+  }
+}

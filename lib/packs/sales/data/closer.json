@@ -1,0 +1,57 @@
+{
+  "checked": "2026-10-19",
+  "about": "INTERNAL: the order of the sales call script, read from two podcast episode transcripts (auto-generated, so paraphrased, not quoted). Members never see the source, its author or the acronym: they see the plain step names in \"name\". Ids can keep internal words; titles, outputs and files cannot.",
+  "sources_file": "v2/workflows/library/research/closer-sources.json (not shipped with the packs)",
+  "rules": [
+    "Run the six steps in this order.",
+    "Every step is led by questions, not statements, so the buyer does the talking.",
+    "Overview past pain until they have nothing left to add, then recap it back to them.",
+    "Sell the destination, not the flight: talk about the result they get, not the process. Keep the pitch short and break it into about three points.",
+    "Normal people have concerns. Expect them, and practice the answers until they are automatic, flashcards included.",
+    "The sale is not finished at the yes. Buyers judge you on the first 24 hours after they pay, so make specific promises for that window and keep them early."
+  ],
+  "steps": [
+    {
+      "id": "why",
+      "name": "Why they're here",
+      "internal": "Clarify why they're here",
+      "goal": "Get them to say, in their own words, why they took this call and why now.",
+      "fromSource": "Ask what made them get on the call, what their goal is, why it matters, and what it would look like if the ideal outcome happened."
+    },
+    {
+      "id": "problem",
+      "name": "Name the problem",
+      "internal": "Label them with a problem",
+      "goal": "Say their problem back in one sentence and get a yes.",
+      "fromSource": "Summarize what you heard (what I'm hearing is you've done X and Y, and the missing piece has been Z) and confirm it is right."
+    },
+    {
+      "id": "tried",
+      "name": "What they've tried",
+      "internal": "Overview past pain",
+      "goal": "Learn what they already tried, why it didn't work, and what it has cost them.",
+      "fromSource": "Ask what they've tried before and why it didn't work. Keep going until there is nothing left, then recap the pain."
+    },
+    {
+      "id": "want",
+      "name": "Where they want to be",
+      "internal": "Sell the vacation",
+      "goal": "Paint the result in about three short points, then say the price and stop talking.",
+      "fromSource": "Sell the destination, not the flight. About three short points or stories tied to their problem."
+    },
+    {
+      "id": "worries",
+      "name": "Clear the worries",
+      "internal": "Explain away concerns",
+      "goal": "Find the real concern and answer it with a question back.",
+      "fromSource": "Concerns fall into a few groups: the offer itself, time, money, the decision maker, and fear of making a mistake. Walk them through the decision: do you like what you heard, do you think it will get you the result, then what is your main concern."
+    },
+    {
+      "id": "yes",
+      "name": "Lock in the yes",
+      "internal": "Reinforce the decision",
+      "goal": "Right after the yes, make them glad they said it, and keep every promise for the next 24 hours.",
+      "fromSource": "After the sale, send something that makes the buyer feel good about it, like a personal video or a handwritten card. Buyers judge the business on the first 24 hours after purchase."
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+{
+ "checked": "2026-10-19",
+ "unit": "visit",
+ "minimum": 40,
+ "minimum_basis": "Judgment call: LawnStarter puts the smallest mowing visits at $41.",
+ "base": "Prices are for a yard up to 1/4 acre and a 1 to 2 car driveway; the size factors scale them.",
+ "packages": [
+  {
+   "id": "mow",
+   "label": "Mowing visit",
+   "range": [
+    41,
+    75
+   ],
+   "minutes": 45,
+   "includes": [
+    "Mow at the right height",
+    "Trim along beds, fences and trees",
+    "Edge walks and driveway",
+    "Blow clippings off hard surfaces"
+   ],
+   "basis": "Up to 1/4 acre: LawnStarter $41 to $61; Lawn Love $45 to $75 per visit.",
+   "sources": [
+    {
+     "publisher": "LawnStarter",
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "says": "Lawn mowing costs $44 to $71 per visit, average $57; up to 1/4 acre $41 to $61; 1/4 to 1/2 acre $49 to $69; 1/2 to 1 acre $59 to $114.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Lawn Love",
+     "url": "https://lawnlove.com/blog/lawn-mowing-cost/",
+     "says": "Lawn mowing costs $45 to $75 per visit, most people pay $60.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/lawn-mowing-cost",
+     "says": "National average cost to hire a pro for lawn mowing is $56 to $163; low end $27, high end $367.",
+     "page_date": "2026-06-24",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/lawn-and-garden/maintain-a-lawn/",
+     "says": "Lawn mowing service $50 to $205 per visit; larger lawn maintenance services $120 to $430 per visit.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "cleanup",
+   "label": "Spring or fall yard cleanup",
+   "range": [
+    200,
+    500
+   ],
+   "minutes": 240,
+   "includes": [
+    "Leaves and sticks raked and bagged",
+    "Beds cleared of debris",
+    "First mow and edge of the season",
+    "Walks and drive blown clean"
+   ],
+   "basis": "Fixr: $200 to $500 for a 1/4 acre yard; HomeAdvisor: $190 to $1,000.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/yard-clean-up-service",
+     "says": "Yard clean-up $200 to $500, average $350 for a 1/4 acre yard including leaf and debris cleanup and removal.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/lawn-and-garden/maintain-a-lawn/",
+     "says": "Spring and fall cleanup $190 to $1,000.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "leaves",
+   "label": "Leaf cleanup",
+   "range": [
+    131,
+    374
+   ],
+   "minutes": 180,
+   "includes": [
+    "Leaves blown and raked from lawn and beds",
+    "Bagged or to the curb as your city wants",
+    "Walks, drive and steps cleared"
+   ],
+   "basis": "Thumbtack national average range; Fixr $150 to $550 (average $300 for 1/4 acre); HomeAdvisor $191 to $592.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/leaf-cleanup-prices",
+     "says": "Leaf cleanup national average $131 to $374, most pay about $222.",
+     "page_date": "2025-10-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/leaf-clean-up",
+     "says": "Leaf removal $150 to $550, average $300 for a 1/4 acre lawn; $400 to $700 per acre.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/lawn-and-garden/remove-leaves/",
+     "says": "Leaf removal $191 to $592, average $379; hauling can add $150 or more.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "aeration",
+   "label": "Core aeration",
+   "range": [
+    80,
+    250
+   ],
+   "minutes": 60,
+   "includes": [
+    "Core aeration of the whole lawn",
+    "Flags around sprinkler heads first",
+    "Cores left to break down"
+   ],
+   "basis": "Fixr: $80 to $250, average about $140; HomeAdvisor $76 to $207.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/lawn-aeration-cost",
+     "says": "National average $159 to $452, most pay about $268.",
+     "page_date": "2025-08-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/lawn-aeration",
+     "says": "Lawn aeration costs $80 to $250, average about $140; $0.02 to $0.10 per square foot.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/lawn-and-garden/aerate-a-lawn/",
+     "says": "Professional lawn aeration $76 to $207, most pay about $141; 10,000 sq ft lawn flat-rate quote $120 to $175.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "snow",
+   "label": "Snow clearing visit",
+   "range": [
+    30,
+    70
+   ],
+   "minutes": 30,
+   "unit": "visit",
+   "includes": [
+    "Driveway cleared",
+    "Front walk and steps shoveled"
+   ],
+   "basis": "HomeAdvisor: $30 to $70 per visit; Thumbtack Minneapolis example $35 to $60 by driveway size.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+     "says": "Snow removal $51 to $203 per visit, average $126; per visit $30 to $70, plowing closer to $100 for long driveways; per storm $30 to $100; per hour $25 to $75.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/snow-removal-service",
+     "says": "Snow removal $75 to $150, average $125; per visit $30 to $125; per event $50 to $200; per hour $25 to $75; per inch $12.50 to $25 for the first six inches.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/snow-plow-services-cost",
+     "says": "Snow plowing national average $90 to $212, most pay about $138; Minneapolis example $35 per visit for a 1 to 2 car driveway, $40 for 2 to 3 cars, $60 for a 3 car 150 foot driveway.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Lawn Love",
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "says": "Snow removal averages $105 per visit, most pay $45 to $160; pros charge $25 to $75 per hour with a $25 to $100 minimum.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "snow_season",
+   "label": "Snow season contract",
+   "range": [
+    200,
+    700
+   ],
+   "minutes": 30,
+   "unit": "season",
+   "includes": [
+    "Every snowfall over the trigger depth in the contract",
+    "Driveway, front walk and steps",
+    "Cleared before you leave for work"
+   ],
+   "basis": "HomeAdvisor: seasonal contracts $200 to $700; Lawn Love: most pay $300 to $1,000, usually November through March.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+     "says": "Seasonal contracts $200 to $700; contracts state the trigger depth, from 1.5 to 2 inches up to 4 to 6 inches.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Lawn Love",
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "says": "Average contract about $700, most pay $300 to $1,000 for the season; contracts usually run November through March.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/snow-plow-services-cost",
+     "says": "Some pros charge a flat monthly rate regardless of snowfall; a Minnesota example charges $120 to $130 a month by driveway size.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "lot",
+   "label": "Yard size",
+   "default": "q1",
+   "packages": [
+    "mow",
+    "cleanup",
+    "leaves",
+    "aeration"
+   ],
+   "basis": "LawnStarter mowing by lot: up to 1/4 acre $41 to $61, 1/4 to 1/2 acre $49 to $69, 1/2 to 1 acre $59 to $114 (ratios of the midpoints). Over 1 acre is a judgment call.",
+   "sources": [
+    {
+     "publisher": "LawnStarter",
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "says": "Lawn mowing costs $44 to $71 per visit, average $57; up to 1/4 acre $41 to $61; 1/4 to 1/2 acre $49 to $69; 1/2 to 1 acre $59 to $114.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "q1",
+     "label": "Up to 1/4 acre",
+     "short": "Up to 1/4 acre",
+     "mult": 1,
+     "max": {
+      "sqft": 10890
+     }
+    },
+    {
+     "id": "q2",
+     "label": "1/4 to 1/2 acre",
+     "short": "1/4 to 1/2",
+     "mult": 1.15,
+     "minutes": 15,
+     "max": {
+      "sqft": 21780
+     }
+    },
+    {
+     "id": "q3",
+     "label": "1/2 to 1 acre",
+     "short": "1/2 to 1 acre",
+     "mult": 1.7,
+     "minutes": 40,
+     "max": {
+      "sqft": 43560
+     }
+    },
+    {
+     "id": "q4",
+     "label": "Over 1 acre",
+     "short": "Over 1 acre",
+     "mult": 2.5,
+     "minutes": 90
+    }
+   ]
+  },
+  {
+   "id": "grass",
+   "label": "Grass",
+   "default": "normal",
+   "packages": [
+    "mow"
+   ],
+   "basis": "LawnStarter: some lawn businesses charge extra for lawns 12 inches and higher. The 1.5x is a judgment call.",
+   "sources": [
+    {
+     "publisher": "LawnStarter",
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "says": "Some lawn care businesses charge an extra fee for lawns 12 inches and higher.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "normal",
+     "label": "Regular height",
+     "mult": 1
+    },
+    {
+     "id": "long",
+     "label": "Overgrown, over 12 inches",
+     "mult": 1.5,
+     "minutes": 30
+    }
+   ]
+  },
+  {
+   "id": "driveway",
+   "label": "Driveway",
+   "default": "c1",
+   "packages": [
+    "snow",
+    "snow_season"
+   ],
+   "basis": "Thumbtack Minneapolis example: $35 for a 1 to 2 car driveway, $40 for 2 to 3 cars, $60 for a 3 car 150 foot driveway.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/snow-plow-services-cost",
+     "says": "Snow plowing national average $90 to $212, most pay about $138; Minneapolis example $35 per visit for a 1 to 2 car driveway, $40 for 2 to 3 cars, $60 for a 3 car 150 foot driveway.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "c1",
+     "label": "1 to 2 car",
+     "mult": 1
+    },
+    {
+     "id": "c2",
+     "label": "2 to 3 car",
+     "mult": 1.15,
+     "minutes": 10
+    },
+    {
+     "id": "c3",
+     "label": "3 car or long",
+     "mult": 1.7,
+     "minutes": 25
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "bushes",
+   "label": "Bush trimming",
+   "range": [
+    65,
+    185
+   ],
+   "minutes": 60,
+   "unit": "job",
+   "basis": "Lawn Love: $65 to $185 depending on the number and size of shrubs.",
+   "sources": [
+    {
+     "publisher": "Lawn Love",
+     "url": "https://lawnlove.com/pricing",
+     "says": "Bush trimming $65 to $185 depending on number and size of shrubs.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "salt",
+   "label": "Salt walks and steps",
+   "range": [
+    20,
+    50
+   ],
+   "minutes": 10,
+   "unit": "visit",
+   "packages": [
+    "snow",
+    "snow_season"
+   ],
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+     "says": "Sand and salt applications $20 to $40 per visit.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Lawn Love",
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "says": "A single salt application costs $20 to $50.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "weekly",
+   "label": "Weekly mowing plan",
+   "every": "week",
+   "discount": 0.08,
+   "packages": [
+    "mow"
+   ]
+  },
+  {
+   "id": "biweekly",
+   "label": "Every 2 weeks mowing plan",
+   "every": "2 weeks",
+   "discount": 0,
+   "packages": [
+    "mow"
+   ]
+  }
+ ],
+ "plans_basis": "Thumbtack example: once a week $83 per mow, once a month $89, just once $90 (weekly about 8% less). Every 2 weeks stays at the regular price per visit (judgment call).",
+ "plans_sources": [
+  {
+   "publisher": "Thumbtack",
+   "url": "https://www.thumbtack.com/p/lawn-service-prices",
+   "says": "Example property: once a week $83 per mow, once a month $89, just once $90; some companies give better rates for 6 or 12 month contracts.",
+   "page_date": "2026-04-13",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Thumbtack",
+   "url": "https://www.thumbtack.com/p/lawn-service-prices",
+   "says": "The more often they mow, the lower the cost per visit; some companies offer better rates for a 6 month or 1 year contract.",
+   "page_date": "2026-04-13",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://lawnlove.com/blog/hedge-trimming-cost/",
+  "https://lawnlove.com/blog/lawn-mowing-cost/",
+  "https://lawnlove.com/blog/snow-removal-cost/",
+  "https://lawnlove.com/pricing",
+  "https://www.fixr.com/costs/lawn-aeration",
+  "https://www.fixr.com/costs/leaf-clean-up",
+  "https://www.fixr.com/costs/snow-removal-service",
+  "https://www.fixr.com/costs/yard-clean-up-service",
+  "https://www.homeadvisor.com/cost/lawn-and-garden/aerate-a-lawn/",
+  "https://www.homeadvisor.com/cost/lawn-and-garden/fertilize-a-lawn/",
+  "https://www.homeadvisor.com/cost/lawn-and-garden/maintain-a-lawn/",
+  "https://www.homeadvisor.com/cost/lawn-and-garden/remove-leaves/",
+  "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+  "https://www.lawnstarter.com/blog/cost/bush-trimming-price/",
+  "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+  "https://www.thumbtack.com/p/lawn-aeration-cost",
+  "https://www.thumbtack.com/p/lawn-mowing-cost",
+  "https://www.thumbtack.com/p/lawn-service-prices",
+  "https://www.thumbtack.com/p/leaf-cleanup-prices",
+  "https://www.thumbtack.com/p/mulching-prices",
+  "https://www.thumbtack.com/p/snow-plow-services-cost",
+  "https://www.thumbtack.com/p/weed-control-cost"
+ ]
+}

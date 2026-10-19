@@ -1,0 +1,107 @@
+{
+  "checked": "2026-10-19",
+  "note": "Mail and print facts for flyers, door hangers and postcards. USPS facts are from USPS pages; print sizes are common shop sizes, not rules, so members check their printer's template.",
+  "eddm": {
+    "name": "Every Door Direct Mail Retail",
+    "price": "$0.26 per piece",
+    "price_quote": "EDDM Retail USPS Marketing Flats currently $0.26 per piece.",
+    "volume": "At least 200 and up to 5,000 pieces per day per ZIP Code.",
+    "weight": "Flats up to 3.3 oz.",
+    "address": "Postal Customer",
+    "indicia": [
+      "PRSRT STD",
+      "ECRWSS",
+      "U.S. POSTAGE",
+      "PAID",
+      "EDDM RETAIL"
+    ],
+    "indicia_rules": [
+      "Every EDDM mailpiece must include the EDDM Retail Indicia above and to the right of the address block.",
+      "The type font must be in all caps and at least a 4 point size."
+    ],
+    "indicia_placement_source": "https://about.usps.com/postal-bulletin/2011/pb22312/html/info_005.htm",
+    "indicia_placement": "Keep the indicia in the top right corner, inside the area 1.625 inches from the right edge and 1.375 inches from the top, at least 1/8 inch from the edges.",
+    "prep": [
+      "Bundle the pieces in stacks of 50 to 100, no taller than 6 inches.",
+      "Fill out and attach an EDDM facing slip to the top of every bundle.",
+      "Bring PS Form 3587 with the mailing.",
+      "Take the mailing to the Post Office for your selected ZIP Code.",
+      "Pay online with a card, or at the Post Office by cash, card or check."
+    ],
+    "tool": "https://www.usps.com/business/every-door-direct-mail.htm",
+    "source": "https://www.usps.com/business/every-door-direct-mail.htm",
+    "tool_note": "Use the route map on the EDDM page to pick carrier routes and see how many homes each has."
+  },
+  "flats": {
+    "rule": "A flat is more than 11-1/2 inches long, or more than 6-1/8 inches high, or more than 1/4 inch thick, and no larger than 15 by 12 by 3/4 inches.",
+    "eddm_ok_sizes": [
+      "6.25 x 9 in",
+      "6.25 x 11 in",
+      "8.5 x 11 in",
+      "9 x 12 in"
+    ],
+    "eddm_ok_note": "6 x 9 is too small for EDDM: one side must be over 6-1/8 inches high or over 11-1/2 inches long. Check the USPS Mailpiece Size Checker before you print.",
+    "source": "https://pe.usps.com/text/dmm300/101.htm"
+  },
+  "postcard": {
+    "rule": "A First-Class postcard is 3-1/2 to 4-1/4 inches high and 5 to 6 inches long, 0.007 to 0.016 inch thick.",
+    "source": "https://pe.usps.com/text/dmm300/101.htm"
+  },
+  "mailbox_law": {
+    "rule": "Never put flyers, door hangers or anything unstamped in or on a mailbox. Federal law (18 U.S.C. 1725) bans unstamped mailable matter in mailboxes and can mean a fine. Hang it on the door handle or leave it at the door.",
+    "source": "https://www.law.cornell.edu/uscode/text/18/1725"
+  },
+  "door_etiquette": [
+    "Skip any home with a No Soliciting or No Flyers sign.",
+    "Check your city's rules for handbills before a big drop; some cities and HOAs limit them.",
+    "Go in daylight, stay on paths and driveways, and never open gates.",
+    "Hang it on the door handle or tuck it in the frame so it can't blow onto the lawn."
+  ],
+  "sizes": {
+    "note": "Common sizes at print shops and online printers. They're conventions, not rules: download your printer's template if it differs.",
+    "letter": {
+      "label": "Flyer",
+      "w": 8.5,
+      "h": 11
+    },
+    "half_letter": {
+      "label": "Half-page flyer",
+      "w": 5.5,
+      "h": 8.5
+    },
+    "door_hanger": {
+      "label": "Door hanger",
+      "w": 4.25,
+      "h": 11,
+      "hole": 1.25
+    },
+    "business_card": {
+      "label": "Business card",
+      "w": 3.5,
+      "h": 2
+    },
+    "postcard": {
+      "label": "Postcard",
+      "w": 6,
+      "h": 4
+    },
+    "eddm_postcard": {
+      "label": "EDDM postcard",
+      "w": 9,
+      "h": 6.25
+    },
+    "yard_sign": {
+      "label": "Yard sign",
+      "w": 24,
+      "h": 18
+    },
+    "bleed": 0.125,
+    "safe": 0.125
+  },
+  "home_printing": [
+    "Print at 100 percent (Actual size), not Fit to page.",
+    "Turn on Background graphics so the colors print.",
+    "Use heavy paper (cardstock, 65 lb or more) for door hangers, cards and signs.",
+    "Print one test page first and check the QR code with your phone camera."
+  ]
+}

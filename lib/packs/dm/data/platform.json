@@ -1,0 +1,124 @@
+{
+  "checked": "2026-10-19",
+  "about": "ManyChat and Instagram messaging facts the dm pack prints in guides and checks copy against. Each fact names its source. ManyChat's site and help center block automated page fetches, so ManyChat facts were read from its help center and blog through web search on the checked date; Meta facts were read from Meta's developer docs directly.",
+  "manychat": {
+    "plans": {
+      "checked": "2026-10-19",
+      "activeContacts": "An Active Contact is someone who interacted with you through ManyChat in the current billing month. The count resets each billing month.",
+      "list": [
+        { "id": "free", "name": "Free", "monthly": 0, "yearlyPerMonth": 0, "activeContacts": 25, "liveAutomations": "4 at a time", "channels": 2, "includes": "Comment and DM automations, public replies, buttons and links", "source": "https://help.manychat.com/hc/en-us/articles/25800197498652-Free-plan" },
+        { "id": "essential", "name": "Essential", "monthly": 17, "yearlyPerMonth": 14, "activeContacts": 250, "liveAutomations": "Unlimited", "includes": "Adds email and phone capture, tags and Google Sheets sync. Over the limit costs $0.10 per extra Active Contact.", "source": "https://help.manychat.com/hc/en-us/articles/25800276116508-Essential-plan" },
+        { "id": "pro", "name": "Pro", "monthly": 39, "yearlyPerMonth": 29, "activeContacts": 2500, "liveAutomations": "Unlimited", "includes": "Adds email tool integrations such as Kit, Mailchimp and Klaviyo. Over the limit costs $0.05 per extra Active Contact on monthly billing.", "source": "https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan" },
+        { "id": "business", "name": "Business", "monthly": 99, "yearlyPerMonth": 69, "activeContacts": 7500, "liveAutomations": "Unlimited", "includes": "For bigger accounts. No free trial.", "source": "https://help.manychat.com/hc/en-us/articles/25800254159900-Business-plan" }
+      ],
+      "featureNotes": [
+        { "feature": "emailCapture", "plan": "essential", "text": "Saving emails and phone numbers from DMs is listed as an Essential plan feature.", "source": "https://help.manychat.com/hc/en-us/articles/25800276116508-Essential-plan" },
+        { "feature": "tags", "plan": "essential", "text": "Tags are listed with the Essential plan.", "source": "https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan" },
+        { "feature": "integrations", "plan": "pro", "text": "Sending captured emails straight to Kit, Mailchimp or Klaviyo uses ManyChat's integrations, listed with the Pro plan.", "source": "https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan" },
+        { "feature": "followUp", "plan": "unclear", "text": "We could not confirm which plan includes the follow-up message. If your app locks it, skip it until you upgrade.", "source": "https://help.manychat.com/hc/en-us/articles/16654065283100-Quick-Automation-Auto-DM-links-from-comments" }
+      ],
+      "caveat": "Prices can differ by country, and accounts made before March 2026 may still see older plans. Check manychat.com/pricing before you pay.",
+      "sources": [
+        "https://help.manychat.com/hc/en-us/articles/25800197498652-Free-plan",
+        "https://help.manychat.com/hc/en-us/articles/25800276116508-Essential-plan",
+        "https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan",
+        "https://help.manychat.com/hc/en-us/articles/25800254159900-Business-plan",
+        "https://help.manychat.com/hc/en-us/articles/25800323349020-Active-Contacts"
+      ]
+    },
+    "connect": {
+      "checked": "2026-10-19",
+      "account": "ManyChat works with an Instagram professional account (Creator or Business), not a personal one.",
+      "allowMessages": ["Settings and activity", "Messages and story replies", "Message controls", "Connected tools", "Allow access to messages"],
+      "allowMessagesNote": "Some app versions show the toggle under Message requests instead. Without it, ManyChat can show Connected and still not answer.",
+      "source": "https://help.manychat.com/hc/en-us/articles/14281308423452-Instagram-automation-troubleshooting"
+    },
+    "commentTrigger": {
+      "checked": "2026-10-19",
+      "postScope": ["A specific post or reel", "All your posts and reels", "Your next post or reel"],
+      "keywords": "Include words, exclude words, or any comment. Some accounts and Quick Automations don't offer exclude words.",
+      "firstCommentOnly": "The comment trigger only fires on the first comment a person leaves under a post or reel. Instagram sets this rule for every tool.",
+      "source": "https://help.manychat.com/hc/en-us/articles/14281316989724-Instagram-Post-and-Reel-Comments-trigger"
+    },
+    "quickAutomation": {
+      "checked": "2026-10-19",
+      "name": "Auto-DM links from comments",
+      "publicReplies": 3,
+      "parts": [
+        "Pick the post and the keywords",
+        "Public replies under the comment (you write 3, ManyChat rotates them)",
+        "Opening DM with a button",
+        "Ask to follow (optional)",
+        "Collect emails (optional)",
+        "Link message with a link button",
+        "Follow-up for people who didn't open the link"
+      ],
+      "sources": [
+        "https://help.manychat.com/hc/en-us/articles/16654065283100-Quick-Automation-Auto-DM-links-from-comments",
+        "https://manychat.com/blog/instagram-quick-automation-comment-to-dm-guide/"
+      ]
+    },
+    "limits": {
+      "checked": "2026-10-19",
+      "buttonTitle": 20,
+      "buttonsPerMessage": 3,
+      "textWithButtons": 640,
+      "textWithoutButtons": 1000,
+      "quickReplyTitle": 20,
+      "notes": [
+        "Button names must be 20 characters or fewer. ManyChat refuses longer ones with 'Button Title is longer than 20 symbols'.",
+        "A message with buttons can hold 640 characters; without buttons, 1,000. Longer ones won't publish.",
+        "Up to 3 buttons per message on Instagram. Quick replies can't open websites."
+      ],
+      "sources": [
+        "https://help.manychat.com/hc/en-us/articles/14281157003292-Buttons",
+        "https://help.manychat.com/hc/en-us/articles/14281308423452-Instagram-automation-troubleshooting",
+        "https://help.manychat.com/hc/en-us/articles/14281157129116-Quick-Reply-Buttons"
+      ]
+    },
+    "keywordTrigger": {
+      "checked": "2026-10-19",
+      "matching": ["Message is (exact)", "Message contains", "Message contains a whole word"],
+      "caseSensitive": false,
+      "note": "Use 'contains a whole word' so a keyword like HI doesn't fire on 'within'.",
+      "source": "https://help.manychat.com/hc/en-us/articles/14281211785884-How-to-use-Keywords-Trigger-in-Manychat"
+    },
+    "storyReplyTrigger": {
+      "checked": "2026-10-19",
+      "scope": ["All your stories", "One specific story"],
+      "matching": "A keyword in the reply, or any reply or reaction",
+      "source": "https://manychat.com/blog/instagram-story-reply-trigger-convert-channels/"
+    },
+    "windows": {
+      "checked": "2026-10-19",
+      "text": "ManyChat automations stop 24 hours after the person's last message. For the next 7 days you can still reply by hand from ManyChat's Inbox. Broadcasts to Instagram contacts outside the window aren't allowed, so collect an email if you want to reach people later.",
+      "source": "https://help.manychat.com/hc/en-us/articles/23358636027932-Understanding-messaging-windows"
+    }
+  },
+  "meta": {
+    "checked": "2026-10-19",
+    "standardWindowHours": 24,
+    "standardWindow": "Automated messages can go out within 24 hours of the person's last message to you. Promotional content is allowed inside that window.",
+    "humanAgentDays": 7,
+    "humanAgent": "The human agent tag lets a real person reply by hand for 7 days after the person's message. Automated messages are not allowed under it.",
+    "privateReplyDays": 7,
+    "privateReplies": "You can send one private message to a person who commented, within 7 days of the comment. You can keep talking only after they respond, and then the 24 hour window applies.",
+    "privateRepliesPerHour": 750,
+    "privateRepliesPerHourNote": "Meta's rate limit for private replies to comments on posts and reels: 750 calls per hour per professional account.",
+    "noOneTimeNotifications": "One-time notifications (a single message after the window) are not available on Instagram.",
+    "sources": [
+      "https://developers.facebook.com/documentation/business-messaging/messenger-platform/policy",
+      "https://developers.facebook.com/documentation/business-messaging/instagram-messaging/features/private-replies",
+      "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login/messaging-api",
+      "https://developers.facebook.com/docs/graph-api/overview/rate-limiting"
+    ]
+  },
+  "igme": {
+    "checked": "2026-10-19",
+    "format": "https://ig.me/m/USERNAME",
+    "withRef": "https://ig.me/m/USERNAME?ref=REF",
+    "refChars": "Letters, digits, dashes, underscores and equals signs",
+    "note": "Opens a DM with your account in the Instagram app (iOS and Android). It doesn't work on Instagram on the web.",
+    "source": "https://developers.facebook.com/documentation/business-messaging/instagram-messaging/features/ig-me-links"
+  }
+}

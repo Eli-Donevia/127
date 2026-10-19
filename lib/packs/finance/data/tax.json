@@ -1,0 +1,114 @@
+{
+  "checked": "2026-10-19",
+  "about": "US federal tax basics for a sole proprietor, read from IRS pages on the checked date. General information, not tax advice: members are told to check with a tax pro.",
+  "selfEmployment": {
+    "rate": 0.153,
+    "socialSecurity": 0.124,
+    "medicare": 0.029,
+    "netEarningsShare": 0.9235,
+    "threshold": 400,
+    "socialSecurityWageBase": { "2026": 184500 },
+    "additionalMedicare": { "rate": 0.009, "single": 200000, "marriedJoint": 250000, "marriedSeparate": 125000 },
+    "deductibleShare": 0.5,
+    "says": [
+      "The self-employment tax rate is 15.3%: 12.4% for social security and 2.9% for Medicare.",
+      "You owe it when your net earnings from self-employment are $400 or more.",
+      "When you estimate it, use only 92.35% (0.9235) of your net profit from self-employment.",
+      "For 2026, the social security part applies to the first $184,500 of combined wages and self-employment earnings.",
+      "You can deduct half (50%) of your self-employment tax when you figure your adjusted gross income."
+    ],
+    "sources": [
+      "https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes",
+      "https://www.irs.gov/pub/irs-pdf/f1040es.pdf"
+    ]
+  },
+  "estimated": {
+    "mustPay": "In most cases you must pay estimated tax if you expect to owe at least $1,000 in tax for the year after withholding and refundable credits.",
+    "safeHarbor": "You usually avoid the underpayment penalty if what you paid during the year is at least 90% of this year's tax or 100% of last year's tax (110% if last year's adjusted gross income was over $150,000).",
+    "firstYear": "You don't have to pay estimated tax for 2026 if you were a U.S. citizen or resident for all of 2025 and had no tax liability for the full 2025 tax year.",
+    "januaryException": "You don't have to make the payment due January 15, 2027, if you file your 2026 return by February 1, 2027, and pay the entire balance due with it.",
+    "holidayRule": "If a due date falls on a Saturday, Sunday or legal holiday, the payment is on time if made on the next day that isn't a Saturday, Sunday or holiday.",
+    "periods": [
+      { "months": [1, 2, 3], "label": "January 1 to March 31", "due": { "month": 4, "day": 15, "nextYear": false } },
+      { "months": [4, 5], "label": "April 1 to May 31", "due": { "month": 6, "day": 15, "nextYear": false } },
+      { "months": [6, 7, 8], "label": "June 1 to August 31", "due": { "month": 9, "day": 15, "nextYear": false } },
+      { "months": [9, 10, 11, 12], "label": "September 1 to December 31", "due": { "month": 1, "day": 15, "nextYear": true } }
+    ],
+    "published": {
+      "2026": ["2026-04-15", "2026-06-15", "2026-09-15", "2027-01-15"]
+    },
+    "precedents": {
+      "2021-q4": "2022-01-18",
+      "note": "The IRS moved the fourth 2021 payment to Tuesday, January 18, 2022, because January 15 was a Saturday and Monday was Martin Luther King Jr. Day.",
+      "source": "https://www.irs.gov/node/103891"
+    },
+    "pay": [
+      "IRS Direct Pay: free, straight from a checking or savings account, no sign-in needed (irs.gov/directpay).",
+      "Your IRS online account at IRS.gov/account, where you can also see past payments.",
+      "The IRS2Go app, by phone, or by mail with a Form 1040-ES voucher."
+    ],
+    "sources": [
+      "https://www.irs.gov/pub/irs-pdf/f1040es.pdf",
+      "https://www.irs.gov/publications/p505",
+      "https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes",
+      "https://www.irs.gov/payments/direct-pay"
+    ]
+  },
+  "brackets": {
+    "year": 2026,
+    "single": [[0, 0.1], [12400, 0.12], [50400, 0.22], [105700, 0.24], [201775, 0.32], [256225, 0.35], [640600, 0.37]],
+    "marriedJoint": [[0, 0.1], [24800, 0.12], [100800, 0.22], [211400, 0.24], [403550, 0.32], [512450, 0.35], [768700, 0.37]],
+    "headOfHousehold": [[0, 0.1], [17700, 0.12], [67450, 0.22], [105700, 0.24], [201750, 0.32], [256200, 0.35], [640600, 0.37]],
+    "standardDeduction": { "single": 16100, "marriedJoint": 32200, "headOfHousehold": 24150 },
+    "note": "Taxable income is what's left after deductions such as the standard deduction. Recent law also made the qualified business income deduction permanent, which can lower the income tax on business profit.",
+    "source": "https://www.irs.gov/pub/irs-pdf/f1040es.pdf"
+  },
+  "mileage": {
+    "rates": [
+      { "from": "2025-01-01", "to": "2025-12-31", "rate": 0.7, "source": "https://www.irs.gov/tax-professionals/standard-mileage-rates" },
+      { "from": "2026-01-01", "to": "2026-06-30", "rate": 0.725, "source": "https://www.irs.gov/newsroom/irs-sets-2026-business-standard-mileage-rate-at-725-cents-per-mile-up-25-cents" },
+      { "from": "2026-07-01", "to": "2026-12-31", "rate": 0.76, "source": "https://www.irs.gov/irb/2026-29_irb" }
+    ],
+    "says": [
+      "The IRS business standard mileage rate is 72.5 cents a mile for January 1 to June 30, 2026, and 76 cents a mile for July 1 to December 31, 2026 (Announcement 2026-11, after fuel prices rose).",
+      "The IRS sets this rate as the cost of operating a car for business use. You can use actual car costs instead of the standard rate.",
+      "For each business trip, record the date, where you went, the business purpose and the miles. Write it down at or near the time; a weekly log counts as timely."
+    ],
+    "nextYear": "The IRS usually announces the next year's rate in late December. Check irs.gov/mileage before you log 2027 trips.",
+    "sources": [
+      "https://www.irs.gov/tax-professionals/standard-mileage-rates",
+      "https://www.irs.gov/irb/2026-29_irb",
+      "https://www.irs.gov/publications/p463"
+    ]
+  },
+  "form1099k": {
+    "says": [
+      "Payment apps and online marketplaces send a Form 1099-K when your payments total over $20,000 in more than 200 transactions.",
+      "Card processors report card payments no matter how many payments you got or how much they were for.",
+      "Whether or not you receive a Form 1099-K, you must still report any income on your tax return."
+    ],
+    "source": "https://www.irs.gov/businesses/understanding-your-form-1099-k"
+  },
+  "records": {
+    "keep": [
+      { "what": "Money in", "examples": "Invoices, receipt books, deposit records for cash and card sales, and any Forms 1099 you receive." },
+      { "what": "Money out", "examples": "Receipts, invoices, card and account statements, and canceled checks or other proof of payment." },
+      { "what": "Equipment you buy", "examples": "Purchase invoices and proof of payment, with the date you bought it and what it cost." },
+      { "what": "Driving for work", "examples": "A mileage log: date, where you went, the business purpose and the miles." }
+    ],
+    "howLong": [
+      "Keep records for 3 years in most cases.",
+      "6 years if you left out income that was more than 25% of the income on your return.",
+      "7 years if you claim a loss from worthless securities or a bad debt deduction.",
+      "4 years for employment tax records once you have employees.",
+      "Keep records indefinitely if you don't file a return."
+    ],
+    "system": "You may choose any recordkeeping system suited to your business that clearly shows your income and expenses.",
+    "bank": "For most small businesses, the business checking account is the main source of entries in the business books.",
+    "sources": [
+      "https://www.irs.gov/businesses/small-businesses-self-employed/what-kind-of-records-should-i-keep",
+      "https://www.irs.gov/businesses/small-businesses-self-employed/how-long-should-i-keep-records",
+      "https://www.irs.gov/publications/p463"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "checked": "2026-10-19",
+  "note": "schema.org types the site pack writes into JSON-LD, picked by business type. Google asks for the most specific LocalBusiness subtype that fits. ProfessionalService is deprecated on schema.org (confused with Service), so coaches, agencies and consultants get LocalBusiness when they serve a place and Organization when they work online.",
+  "sources": [
+    "https://schema.org/LocalBusiness",
+    "https://schema.org/HomeAndConstructionBusiness",
+    "https://schema.org/AutomotiveBusiness",
+    "https://schema.org/HealthAndBeautyBusiness",
+    "https://schema.org/FoodEstablishment",
+    "https://schema.org/SportsActivityLocation",
+    "https://schema.org/ProfessionalService",
+    "https://developers.google.com/search/docs/appearance/structured-data/local-business",
+    "https://developers.google.com/search/docs/appearance/structured-data/profile-page"
+  ],
+  "localBusinessSubtypes": {
+    "HomeAndConstructionBusiness": ["Electrician", "GeneralContractor", "HVACBusiness", "HousePainter", "Locksmith", "MovingCompany", "Plumber", "RoofingContractor"],
+    "AutomotiveBusiness": ["AutoBodyShop", "AutoDealer", "AutoPartsStore", "AutoRental", "AutoRepair", "AutoWash", "GasStation", "MotorcycleDealer", "MotorcycleRepair"],
+    "HealthAndBeautyBusiness": ["BeautySalon", "DaySpa", "HairSalon", "HealthClub", "NailSalon", "TattooParlor"],
+    "FoodEstablishment": ["Bakery", "BarOrPub", "Brewery", "CafeOrCoffeeShop", "Distillery", "FastFoodRestaurant", "IceCreamShop", "Restaurant", "Winery"],
+    "SportsActivityLocation": ["BowlingAlley", "ExerciseGym", "GolfCourse", "HealthClub", "PublicSwimmingPool", "SkiResort", "SportsClub", "StadiumOrArena", "TennisComplex"]
+  },
+  "google": {
+    "localBusinessRequired": ["name", "address"],
+    "localBusinessRecommended": ["telephone", "url", "openingHoursSpecification", "priceRange", "geo"],
+    "profilePageRequired": ["mainEntity (Person or Organization)", "name"],
+    "profilePageImage": "Don't use placeholder images."
+  }
+}

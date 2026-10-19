@@ -1,0 +1,121 @@
+{
+  "checked": "2026-10-19",
+  "unit": "project",
+  "basis": "Ranges are our judgment inside the sourced market ranges for a first-year solo social media freelancer serving restaurants and cafes (research/niches/social.json). Monthly posts: Boomp $300 to $800 for a person who makes the posts, eClincher $300 to $800 for beginners. With a shoot: Boomp $500 to $1,500. 4 Reels: Apaya $800 to $1,500. Single posts: WebFX $40 to $150 each. A shoot on site: Thumbtack commercial photography $299 to $645 (research/niches/photo.json). Ads management: eClincher $500 to $2,000 a month.",
+  "sources": [
+    "https://boomp.net/resources/questions/how-much-does-social-media-cost-for-a-restaurant",
+    "https://eclincher.com/articles/social-media-management-pricing-rates-and-costs-for-2026",
+    "https://apaya.com/blog/how-much-to-charge-for-social-media-management",
+    "https://www.webfx.com/social-media/pricing/",
+    "https://socialrails.com/blog/social-media-marketing-for-restaurants",
+    "https://www.thumbtack.com/p/photographer-prices"
+  ],
+  "packages": [
+    {
+      "id": "trial_week",
+      "label": "Trial week of 3 posts",
+      "range": [
+        120,
+        450
+      ],
+      "minutes": 240,
+      "includes": [
+        "3 posts from your menu and your place, shot on a phone in good light",
+        "Captions with your prices as printed, and 3 to 5 hashtags",
+        "Every post goes to you for a yes first",
+        "Scheduled on the days we agree"
+      ]
+    },
+    {
+      "id": "reels_pack",
+      "label": "4 Reels",
+      "range": [
+        800,
+        1500
+      ],
+      "minutes": 720,
+      "includes": [
+        "4 short vertical videos (15 to 30 seconds) shot at your place",
+        "A shot list agreed before the shoot",
+        "Captions and cover frames",
+        "Music from the Meta Sound Collection, licensed for business accounts"
+      ]
+    },
+    {
+      "id": "shoot_day",
+      "label": "Menu photo shoot",
+      "range": [
+        299,
+        645
+      ],
+      "minutes": 300,
+      "includes": [
+        "Up to 2 hours at your place before service, in window light",
+        "20 edited photos of dishes, drinks, the room and the sign",
+        "For your posts, website, Google profile and delivery apps"
+      ]
+    }
+  ],
+  "factors": [],
+  "addons": [
+    {
+      "id": "extra_post",
+      "label": "Extra post",
+      "range": [
+        40,
+        150
+      ],
+      "minutes": 60
+    },
+    {
+      "id": "ads",
+      "label": "Ads management, a month (you pay Meta for the ads)",
+      "range": [
+        500,
+        2000
+      ],
+      "unit": "month",
+      "minutes": 360
+    }
+  ],
+  "care_plans": [
+    {
+      "id": "month",
+      "label": "Monthly posts",
+      "range": [
+        300,
+        800
+      ],
+      "unit": "month",
+      "minutes": 720,
+      "includes": [
+        "12 posts a month on Instagram and Facebook (3 a week)",
+        "Captions with your prices as printed, and 3 to 5 hashtags",
+        "Every post goes to you for a yes first",
+        "A one-page report each month"
+      ],
+      "summary": "3 posts a week on Instagram and Facebook, each one approved by you first, and a one-page report each month"
+    },
+    {
+      "id": "month_shoot",
+      "label": "Monthly posts with a shoot",
+      "range": [
+        500,
+        1500
+      ],
+      "unit": "month",
+      "minutes": 1080,
+      "includes": [
+        "Everything in Monthly posts",
+        "One 60 to 90 minute shoot at your place each month",
+        "2 Reels a month",
+        "A Google profile post each week"
+      ],
+      "summary": "a shoot at your place each month, 3 posts a week and 2 Reels, each one approved by you first, and a one-page report"
+    }
+  ],
+  "care_sources": [
+    "https://boomp.net/resources/questions/how-much-does-social-media-cost-for-a-restaurant",
+    "https://eclincher.com/articles/social-media-management-pricing-rates-and-costs-for-2026"
+  ]
+}

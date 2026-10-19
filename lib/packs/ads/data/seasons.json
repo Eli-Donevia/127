@@ -1,0 +1,10 @@
+{
+  "checked": "2026-10-19",
+  "note": "Kinds of business with a slow season in places with cold winters. Months are 1 to 12. Warm states are skipped.",
+  "warmStates": ["FL", "AZ", "HI", "TX", "LA", "NV"],
+  "slow": [
+    { "key": "lawn", "words": ["lawn", "mowing", "landscap", "yard care"], "months": [12, 1, 2], "what": "lawn care" },
+    { "key": "washing", "words": ["pressure wash", "power wash", "soft wash", "window clean", "gutter"], "months": [12, 1, 2], "what": "outdoor washing" },
+    { "key": "pool", "words": ["pool"], "months": [11, 12, 1, 2, 3], "what": "pool service" }
+  ]
+}

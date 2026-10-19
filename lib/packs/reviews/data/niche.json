@@ -1,0 +1,243 @@
+{
+ "id": "reviews",
+ "checked": "2026-10-19",
+ "about": "Facts for the reviews pack. Full research with every quote: research/niches/reviews.json. Crowd from research/crowd.json.",
+ "crowd": {
+  "buyer": "Local shops and services",
+  "scores": {
+   "pain": 4,
+   "can_pay": 3,
+   "findable": 5,
+   "growing": 4
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "off_season": null,
+  "note": "Measurable: the review count goes up or it doesn't.",
+  "not_yet": [
+   "Don't buy, gate or trade for reviews. It breaks Google's rules and the FTC's.",
+   "Don't build a dashboard. A one-page monthly report is enough.",
+   "Don't pitch chains. Owner-run shops decide in one visit."
+  ]
+ },
+ "shops": {
+  "salons": {
+   "label": "Hair salons",
+   "category": "salons",
+   "visit": "appointment",
+   "staff": "Ask while they pay: \"Would you mind leaving us a Google review? The card has a code, it takes 30 seconds.\""
+  },
+  "barbers": {
+   "label": "Barbershops",
+   "category": "barbers",
+   "visit": "cut",
+   "staff": "Ask while they pay: \"Would you mind leaving us a Google review? Scan the card, it takes 30 seconds.\""
+  },
+  "nails": {
+   "label": "Nail salons",
+   "category": "nails",
+   "visit": "appointment",
+   "staff": "Ask while they pay: \"Would you mind leaving us a Google review? Scan the card, it takes 30 seconds.\""
+  },
+  "spas": {
+   "label": "Day spas and massage",
+   "category": "spas",
+   "visit": "visit",
+   "staff": "Ask at checkout: \"If you have a minute later, we'd love a Google review. The code on this card opens it.\""
+  },
+  "auto": {
+   "label": "Auto repair shops",
+   "category": "auto",
+   "visit": "repair",
+   "staff": "Ask when you hand back the keys: \"Would you leave us a Google review? The code on this card opens it.\""
+  },
+  "dentists": {
+   "label": "Dental offices",
+   "category": "dentists",
+   "visit": "visit",
+   "staff": "Ask at checkout: \"Would you leave us a Google review? The code on this card opens it.\" Never mention treatment details in a reply."
+  },
+  "chiro": {
+   "label": "Chiropractors and PT",
+   "category": "chiro",
+   "visit": "visit",
+   "staff": "Ask at checkout: \"Would you leave us a Google review? The code on this card opens it.\" Never mention treatment details in a reply."
+  },
+  "cafes": {
+   "label": "Cafes and coffee shops",
+   "category": "cafes",
+   "visit": "visit",
+   "staff": "Put the card by the register and on the tables. Say it once at pickup: \"There's a code on the card if you want to review us.\""
+  },
+  "restaurants": {
+   "label": "Restaurants",
+   "category": "restaurants",
+   "visit": "meal",
+   "staff": "Put the card in the check folder for every table. Say it once: \"There's a code on the card if you'd like to leave a review.\""
+  },
+  "boutiques": {
+   "label": "Boutiques and gift shops",
+   "category": "boutiques",
+   "visit": "visit",
+   "staff": "Put a card in every bag. Say it once at the register: \"There's a code on the card if you'd like to review us.\""
+  },
+  "groomers": {
+   "label": "Pet groomers",
+   "category": "groomers",
+   "visit": "groom",
+   "staff": "Ask at pickup: \"Would you leave us a Google review? The code on this card opens it.\""
+  }
+ },
+ "service": {
+  "id": "reviews",
+  "label": "More Google reviews",
+  "sell": "getting more Google reviews",
+  "verb": "make review cards and review requests",
+  "why": "People read reviews before they pick a business, and most customers only leave one when they're asked.",
+  "offer": "I'd like to make you a free review card for {biz}: a counter card and handout cards with a QR code that opens your Google listing, plus the line your staff can say.",
+  "ask": "Want me to drop it off?",
+  "walkin": "Could I make you a free review card for the counter? It has a QR code that opens your Google listing so every customer can review you in 30 seconds. I'll bring it by this week.",
+  "follow1": "Floating this back up. The free review card for {biz} is still yours if you want it: a counter card with a code that opens your Google listing, ready to print.",
+  "subject": "A free review card for {biz}",
+  "gaps": {
+   "few_reviews": 30,
+   "no_reviews_shown": 24,
+   "low_rating": 18,
+   "no_site": 6,
+   "site_down": 4
+  },
+  "fit": {
+   "independent": 6,
+   "has_email": 4,
+   "owner_named": 4,
+   "booking": 2
+  },
+  "positives": []
+ },
+ "facts": [
+  {
+   "line": "97% of people read reviews for local businesses.",
+   "label": "BrightLocal Local Consumer Review Survey 2026 (vendor survey)",
+   "url": "https://www.brightlocal.com/research/local-consumer-review-survey/"
+  },
+  {
+   "line": "47% won't use a business with fewer than 20 reviews.",
+   "label": "BrightLocal 2026 (vendor survey)",
+   "url": "https://www.brightlocal.com/research/local-consumer-review-survey/"
+  },
+  {
+   "line": "74% care about reviews from the last three months.",
+   "label": "BrightLocal 2026 (vendor survey)",
+   "url": "https://www.brightlocal.com/research/local-consumer-review-survey/"
+  },
+  {
+   "line": "89% expect owners to reply to reviews.",
+   "label": "BrightLocal 2026 (vendor survey)",
+   "url": "https://www.brightlocal.com/research/local-consumer-review-survey/"
+  }
+ ],
+ "rules": [
+  {
+   "line": "Ask every customer the same way. Never ask only the happy ones.",
+   "url": "https://support.google.com/contributionpolicy/answer/7400114",
+   "label": "Google Maps user contributed content policy"
+  },
+  {
+   "line": "Nothing in exchange for a review: no discount, no gift, no entry into a draw.",
+   "url": "https://support.google.com/contributionpolicy/answer/7400114",
+   "label": "Google Maps user contributed content policy"
+  },
+  {
+   "line": "No review quotas for staff, and no reviews from owners, staff or family.",
+   "url": "https://support.google.com/contributionpolicy/answer/7400114",
+   "label": "Google Maps user contributed content policy"
+  },
+  {
+   "line": "Never write, buy or edit a review, and never pressure anyone to remove one.",
+   "url": "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers",
+   "label": "FTC Consumer Reviews and Testimonials Rule, in effect since October 21, 2024"
+  },
+  {
+   "line": "Text the review link only to customers who agreed to get texts, and honor STOP.",
+   "url": "https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf",
+   "label": "CTIA Messaging Principles"
+  }
+ ],
+ "own_link": {
+  "steps": "On a computer, open the Business Profile, select Read reviews, then Get more reviews, then copy the link or download the QR code.",
+  "url": "https://support.google.com/business/answer/16816815"
+ },
+ "qr": {
+  "min_inches": 0.8,
+  "quiet_modules": 4,
+  "sources": [
+   "https://www.qrcode.com/en/howto/code.html",
+   "https://bitly.com/blog/minimum-size-for-qr-code/"
+  ]
+ },
+ "print": [
+  {
+   "item": "25 business-card size cards",
+   "price": "$7.04",
+   "vendor": "Overnight Prints",
+   "url": "https://www.overnightprints.com/businesscards"
+  },
+  {
+   "item": "500 business cards, 14 pt",
+   "price": "$24.85",
+   "vendor": "GotPrint",
+   "url": "https://www.gotprint.com/products/business-cards/order.html"
+  }
+ ],
+ "first_clients": {
+  "founding_count": 3
+ },
+ "promises": [
+  "Cards and links live within 3 days of the yes, or the setup fee back.",
+  "A reply draft for every new review within 1 business day.",
+  "Cancel any month. The cards, links and templates stay yours."
+ ],
+ "objections": [
+  {
+   "q": "Can't you just get us reviews?",
+   "a": "No one honest can. Paying or trading for reviews breaks Google's policy and the FTC's rule. What works is asking every customer, every time, with one tap."
+  },
+  {
+   "q": "I only want the happy customers to review.",
+   "a": "I get it, but asking only happy customers is against Google's policy and could break the FTC Act. Ask everyone, and reply to every review: a calm reply to a bad review shows the next customer how you treat people."
+  },
+  {
+   "q": "We already ask.",
+   "a": "Then the card makes it one tap instead of a search. Check the date of your newest review: if it's months old, the ask isn't reaching people."
+  },
+  {
+   "q": "Customers won't bother.",
+   "a": "Most people read reviews, and a code at the counter makes it a 30-second job while they're still there."
+  },
+  {
+   "q": "What if someone leaves a bad review?",
+   "a": "Every good shop gets one. A calm reply within a day shows the next customer how you treat people, and a steady stream of recent reviews puts one bad day in context. I draft a reply to every review for you."
+  },
+  {
+   "q": "We don't have time for this.",
+   "a": "It takes almost none of yours: the card sits on the counter, the line goes on the receipt, and I draft every reply. Your team's part is one sentence at checkout."
+  },
+  {
+   "q": "It's too expensive.",
+   "a": "Fair. Review software alone often runs $49 to $125 a month, and it doesn't put a card in your customer's hand or draft your replies. Try the first month, and cancel any month."
+  }
+ ]
+}

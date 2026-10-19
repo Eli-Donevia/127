@@ -1,0 +1,153 @@
+{
+  "checked": "2026-10-19",
+  "about": "The concerns buyers raise most on a sales call, with what each one usually means and a question-led answer. Plain drafts in the member's voice, filled with their own facts (braces). Seven come up for every business; three more are picked for the kind of business. No statistics or claims about real businesses live here.",
+  "always": ["price", "think_about_it", "timing", "partner", "decision_maker", "time", "tried_before"],
+  "extrasByArchetype": {
+    "home": ["diy", "cheaper", "trust", "proof", "already_have", "send_info", "budget", "contract"],
+    "auto": ["diy", "cheaper", "trust", "proof", "already_have", "send_info", "budget", "contract"],
+    "personal": ["proof", "trust", "contract", "cheaper", "budget", "diy", "send_info", "already_have"],
+    "b2b": ["send_info", "already_have", "proof", "budget", "contract", "cheaper", "trust", "diy"],
+    "coaching": ["proof", "budget", "diy", "trust", "contract", "send_info", "cheaper", "already_have"],
+    "events": ["cheaper", "budget", "proof", "trust", "send_info", "contract", "diy", "already_have"],
+    "product": ["cheaper", "proof", "send_info", "trust", "budget", "already_have", "diy", "contract"],
+    "general": ["cheaper", "proof", "send_info", "trust", "diy", "budget", "already_have", "contract"]
+  },
+  "library": {
+    "price": {
+      "label": "Price",
+      "says": ["That's more than I wanted to spend.", "That's too expensive.", "Can you do it cheaper?"],
+      "means": "They don't yet see why it's worth the price to them, or they're comparing it to the wrong thing.",
+      "answer": "That's fair. Can I ask what you're comparing it to? Most of the price is that {difference}. If the total is the problem, we can start with {smaller} and add the rest later.",
+      "ask": "Is it the price itself, or not being sure it's worth it?",
+      "avoid": "Don't drop your price on the spot. Change what's included, not the price.",
+      "match": ["expensive", "too much", "cheaper", "price is", "pricey", "cost too", "costs too", "lower price", "discount", "out of my price", "a lot of money", "steep", "more than i", "more than we"]
+    },
+    "think_about_it": {
+      "label": "I need to think about it",
+      "says": ["I need to think about it.", "Let me sleep on it.", "I'll get back to you."],
+      "means": "There's a concern they haven't said out loud yet. Usually it's the price, the timing, or whether it will work for them.",
+      "answer": "Of course. So I know what to send you, what's the part you want to think over? Is it the price, the timing, or whether it'll work for you?",
+      "ask": "If this were an easy yes, what would have to be true?",
+      "avoid": "Don't push for a yes today. Find the real concern, answer that one, then offer to hold a date.",
+      "match": ["think about it", "think it over", "sleep on it", "get back to you", "let me think", "mull it over", "consider it", "need some time", "need time to"]
+    },
+    "timing": {
+      "label": "Not right now",
+      "says": ["Not right now, maybe next month.", "Call me after the holidays.", "It's not a good time."],
+      "means": "It isn't a priority yet, or something else is going on. Sometimes it's a polite no.",
+      "answer": "No problem at all. What's going on between now and then? If it helps, I can pencil you in for {laterDate} and check in with you a few days before.",
+      "ask": "What would make next month a better time than now?",
+      "avoid": "Don't just say \"okay, talk later.\" Agree on a date to check back in.",
+      "match": ["not right now", "not now", "next month", "after the holidays", "not a good time", "bad time", "later this year", "next year", "maybe later", "in the spring", "in a few months", "busy season", "reach out later", "circle back"]
+    },
+    "partner": {
+      "label": "I need to ask my partner",
+      "says": ["I need to talk to my husband first.", "Let me check with my wife.", "I have to ask my partner."],
+      "saysBusiness": ["I need to check with my business partner.", "My co-owner has to sign off."],
+      "means": "They want to share the decision, or they need an easy way to explain the price at home.",
+      "answer": "Makes sense, it's a shared decision. What do you think they'll ask first? I'll give you the short version so it's easy to explain, and I'm happy to do a quick call with you both.",
+      "ask": "If it were just up to you, would you go ahead?",
+      "avoid": "Don't go around them. Help them make the case to their partner.",
+      "match": ["husband", "wife", "my partner", "spouse", "girlfriend", "boyfriend", "fiance", "my other half", "talk to my", "check with my", "ask my", "co-owner", "business partner"]
+    },
+    "decision_maker": {
+      "label": "It's not my decision",
+      "says": ["I have to run it by my boss.", "The owner decides on this.", "It has to go through the office."],
+      "means": "They may like it but can't say yes. You need to know what the person who decides cares about.",
+      "answer": "Totally fair. What will they want to know first: the price, the timing, or the result? I'll send a one-page summary you can forward, and I'm glad to join a 10-minute call with them.",
+      "ask": "Is it your call how this gets done, or theirs?",
+      "avoid": "Don't send a long deck. Send one page and offer a short call with the person who signs.",
+      "match": ["my boss", "the owner", "run it by", "run this by", "approval", "sign off", "manager", "the board", "my team", "decision maker", "not my call", "not my decision", "the office", "corporate", "headquarters"]
+    },
+    "time": {
+      "label": "No time for this",
+      "says": ["I don't have time for this right now.", "I'm swamped.", "I can't take on one more thing."],
+      "means": "They think it will add work to their plate.",
+      "answer": "That's the point of it. From you it takes {effort}, and I handle the rest. {timeSaved}",
+      "ask": "If it took less than 10 minutes of your time, would it be worth doing now?",
+      "avoid": "Don't argue that they have time. Show how little it takes from them.",
+      "match": ["no time", "don't have time", "dont have time", "swamped", "too busy", "so busy", "slammed", "one more thing", "bandwidth", "plate is full"]
+    },
+    "tried_before": {
+      "label": "Tried it before",
+      "says": ["I tried something like this before and it didn't work.", "We had someone do this and it was a mess.", "I've been burned before."],
+      "means": "They were let down once and don't want to feel that again.",
+      "answer": "I'm glad you told me. What happened last time? Here's what I do differently: {difference}. {promise}",
+      "ask": "What would need to be different this time?",
+      "avoid": "Don't knock the last person. Ask what went wrong and show how you handle that part.",
+      "match": ["tried", "didn't work", "did not work", "burned", "bad experience", "last guy", "last person", "last company", "waste of money", "wasted money", "been there", "never again", "a mess"]
+    },
+    "cheaper": {
+      "label": "Someone's cheaper",
+      "says": ["I found someone cheaper.", "I got a lower quote.", "Another place quoted me less."],
+      "means": "They're comparing prices without comparing what's included.",
+      "answer": "Good to compare. Can you check what's included in theirs? Mine includes {included}. If you want a lower price, {smaller} is an option.",
+      "ask": "Apart from price, what would make you pick one over the other?",
+      "avoid": "Don't match their price. Compare what's included.",
+      "match": ["cheaper", "lower quote", "less money", "quoted me less", "better price", "better deal", "other quotes", "another quote", "other company", "someone else for", "beat that price", "price match"]
+    },
+    "diy": {
+      "label": "I can do it myself",
+      "says": ["I can just do it myself.", "My son usually does it.", "We'll figure it out ourselves."],
+      "means": "They're not sure it's worth paying someone for.",
+      "answer": "You definitely could. The question is whether you want to spend your time on it. {timeSaved} And it's done right the first time.",
+      "ask": "When did you last get a chance to do it yourself?",
+      "avoid": "Don't make it sound hard. Make it sound like time they get back.",
+      "match": ["do it myself", "do it ourselves", "diy", "figure it out", "handle it myself", "learn it myself", "my son", "my daughter", "my kid", "my nephew", "in house", "in-house"]
+    },
+    "send_info": {
+      "label": "Send me some info",
+      "says": ["Can you send me some info?", "Just email me something.", "Do you have a brochure?"],
+      "means": "Often a polite way out. Sometimes they really do want to read it first.",
+      "answer": "Sure. So I send the right thing, what do you want to know most: the price, what's included, or when I could start? I'll send that and check back with you on {day}.",
+      "ask": "What would you look for in it to decide?",
+      "avoid": "Don't send a brochure and wait. Send one page and set the date you'll follow up.",
+      "match": ["send me", "send some info", "send info", "email me", "brochure", "more information", "more info", "something in writing", "send over", "pricing sheet", "price list", "website link"]
+    },
+    "proof": {
+      "label": "Will it work for me?",
+      "says": ["How do I know it'll work?", "Do you have reviews?", "Have you done this for someone like me?"],
+      "means": "They want to see it working for someone like them before they pay.",
+      "answer": "Fair question. Here's what I can show you: {proof}. {promise}",
+      "ask": "What would you want to see to feel sure?",
+      "avoid": "Don't make up numbers or reviews. Show real work, even if it was for friends or family.",
+      "match": ["reviews", "work for me", "work for us", "how do i know", "how do we know", "examples", "portfolio", "references", "results", "proof", "done this before", "case study", "testimonials"]
+    },
+    "budget": {
+      "label": "No budget",
+      "says": ["We don't have the budget for this.", "Money's tight right now.", "It's not in the budget this month."],
+      "means": "The money isn't set aside yet, or this isn't a priority next to other bills.",
+      "answer": "Understood. Where does this sit next to the other things you're paying for? {smaller} fits a smaller budget, and you can add the rest later.",
+      "ask": "If budget weren't the issue, would this be the right fit?",
+      "avoid": "Don't guess what they can afford. Ask, then offer the smaller start.",
+      "match": ["budget", "money's tight", "money is tight", "can't afford", "cant afford", "cash is tight", "funds", "spend right now", "no money"]
+    },
+    "already_have": {
+      "label": "We already have someone",
+      "says": ["We already have someone for that.", "My cousin does it for us.", "We use another company."],
+      "means": "They're loyal, or they just haven't looked around in a while.",
+      "answer": "Good, that means it matters to you. How happy are you with them, out of 10? If it's not a 10, what would make it one?",
+      "ask": "What would they need to do better?",
+      "avoid": "Don't criticize the person they use now.",
+      "match": ["already have", "already use", "already got", "we use", "we have someone", "have a guy", "have a person", "have an agency", "our current", "someone who does", "my cousin", "my friend does"]
+    },
+    "trust": {
+      "label": "Who are you?",
+      "says": ["I've never heard of you.", "How long have you been doing this?", "Are you insured?"],
+      "means": "They don't know you yet and don't want to take a risk on someone new.",
+      "answer": "Fair question. I'm newer, which means you get me on every job and I care about each one. {promise}",
+      "ask": "What would help you feel comfortable trying me?",
+      "avoid": "Don't stretch the truth about how long you've been doing this. New and careful beats vague.",
+      "match": ["never heard", "how long have you", "who are you", "insured", "licensed", "new business", "just starting", "how many clients", "experience", "legit", "scam"]
+    },
+    "contract": {
+      "label": "Don't want to be locked in",
+      "says": ["I don't want to be locked into a contract.", "What if it doesn't work out?", "Is there a commitment?"],
+      "means": "They're worried about being stuck if it isn't a fit.",
+      "answer": "Makes sense. We can start with {smaller}, and you decide what's next after you see it.",
+      "ask": "What would you need to see in the first month to keep going?",
+      "avoid": "Don't hide your terms. Say plainly how to stop.",
+      "match": ["contract", "locked in", "lock in", "commitment", "commit", "cancel", "doesn't work out", "stuck with", "long term", "long-term", "sign anything"]
+    }
+  }
+}

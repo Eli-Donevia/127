@@ -1,0 +1,629 @@
+{
+  "id": "photo",
+  "checked": "2026-10-19",
+  "basis": "Facts from research/niches/photo.json (every number has its source and checked date). Crowd scores are our judgment from the playbook table, before real member data.",
+  "crowd": {
+    "buyer": "Local businesses",
+    "scores": {
+      "pain": 3,
+      "can_pay": 3,
+      "findable": 5,
+      "growing": 3
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "off_season": {
+      "months": [
+        1,
+        2
+      ],
+      "where": "all",
+      "play": "Sell headshot days to local businesses and book spring graduation and listing shoots."
+    },
+    "note": "Needs gear. Start with what you own. Busy months and the slow season come from research/niches/photo.json.",
+    "not_yet": [
+      "Don't buy a new camera before your first paid shoot.",
+      "Don't shoot weddings first. Start with local business shoots.",
+      "Don't take a week to edit. Deliver within 3 days."
+    ]
+  },
+  "service": "photography",
+  "buyers": [
+    "restaurants",
+    "realtors",
+    "boutiques",
+    "salons",
+    "gyms",
+    "medspas"
+  ],
+  "service_menu": [
+    {
+      "service": "Portrait session (family, couples, solo, graduation)",
+      "unit": "per session",
+      "range_usd": {
+        "low": 150,
+        "high": 600,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Portrait photography national average $277, range $212 to $362; averages by type: solo $219, graduation $232, couples $251, maternity $263, newborn $266, family and children $269.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "Standard portrait session $200 to $500; family session $250 to $600.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.thumbtack.com/p/family-portrait-prices",
+          "publisher": "Thumbtack",
+          "says": "Portrait photographers most commonly $250 to $300; lowest $150, highest $430.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Mini session (20 to 30 minutes)",
+      "unit": "per session",
+      "range_usd": {
+        "low": 100,
+        "high": 200,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "Mini session (20 to 30 min) $100 to $200.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Headshots",
+      "unit": "per person",
+      "range_usd": {
+        "low": 150,
+        "high": 427,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Professional headshots national average $304, range $216 to $427; by type: social media $206, professional $207, acting $203, modeling $220.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "Professional headshots $150 to $400.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Event photography",
+      "unit": "per hour",
+      "range_usd": {
+        "low": 122,
+        "high": 364,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "Event photography $150 to $350 per hour.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Photographers' national average hourly rate $164 (low-end $122, high-end $364); wedding and event photography averages $150 per hour.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Real estate listing photos",
+      "unit": "per property",
+      "range_usd": {
+        "low": 100,
+        "high": 400,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Real estate photography flat rate $236 to $394, average $305; hourly $123 to $272, average $150.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Professional listing photos at $100 to $300 per shoot; a standard package is 25 to 30 interior and exterior photos; agents often expect edited images within 24 hours.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "Real estate $100 to $400 per property.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.thumbtack.com/p/real-estate-photography-prices",
+          "publisher": "Thumbtack",
+          "says": "Example: $250 basic shoot package, plus $150 for aerial drone photos.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Commercial and local business photos (products, food, team, space)",
+      "unit": "per shoot",
+      "range_usd": {
+        "low": 299,
+        "high": 645,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Commercial photography national average $440, range $299 to $645 (about $198 per hour).",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Brand photography day rate plus usage licensing (later, for bigger clients)",
+      "unit": "per day",
+      "range_usd": {
+        "low": 800,
+        "high": 5000,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Brand photography day rates $800 to $5,000 plus licensing fees of $250 to $10,000; the license fee reflects usage scope, duration and channels.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "service": "Wedding photography (later step)",
+      "unit": "per wedding",
+      "range_usd": {
+        "low": 569,
+        "high": 1400,
+        "basis": "lowest low and highest high across the sources listed"
+      },
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/p/photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Average cost of wedding photography $872, range $656 to $1,158; wedding and event photography table average $756, range $569 to $1,005.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.thumbtack.com/p/wedding-photographer-prices",
+          "publisher": "Thumbtack",
+          "says": "Wedding photographers $122 to $450 per hour, most pay about $150 per hour; example packages $1,000 and $1,400.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "ladder": {
+    "spots": 3,
+    "off": 0.4,
+    "applies_to": [
+      "business_shoot",
+      "half_day"
+    ],
+    "ask": "an honest written testimonial I can quote, said plainly as a founding client, and permission to show the photos in my portfolio",
+    "step_up": "After 3 founding clients new clients pay the full menu price.",
+    "reviews_rule": "Ask for Google reviews separately, never tied to the discount (Google Maps content policy)."
+  },
+  "promise": "Your edited photos are in your online gallery within 3 days of the shoot. If a photo isn't right, I edit it again free, and if weather or a closure moves the shoot, the new date costs nothing.",
+  "job_checklist": [
+    "Two days before: confirm the date, the quiet hour, who will be there and the shot list in writing.",
+    "Check the place at that time of day: where the light comes from, what to move out of frame, where to park.",
+    "Shoot day: charged batteries, empty cards, the shot list; a signed release from anyone recognizable you may show in your own portfolio or ads.",
+    "Back up every card before you format it.",
+    "Cull and edit; deliver the gallery by the promised date (24 hours for listing photos), with file names that say what each photo shows.",
+    "After delivery: send the after-delivery message, help put the best ones on their website and Google profile, and offer the monthly session."
+  ],
+  "objections": [
+    {
+      "says": "We can just use a phone.",
+      "answer": "Fine for daily posts; for portraits, headshots and listings, show side-by-side light, posing and editing."
+    },
+    {
+      "says": "Why does a one-hour session cost that much?",
+      "answer": "The price covers planning, the shoot, editing time and delivery; list the edited images and gallery included."
+    },
+    {
+      "says": "Do we get all the photos?",
+      "answer": "Promise a number of finished, edited images and offer more as an add-on."
+    },
+    {
+      "says": "Can we use the photos for our business and ads?",
+      "answer": "Yes, under a written usage license; you keep the copyright unless the contract says otherwise."
+    },
+    {
+      "says": "What if it rains?",
+      "answer": "Agree a weather plan and backup date in the contract."
+    },
+    {
+      "says": "I hate being photographed.",
+      "answer": "Short session, guided posing, and a look at the first few frames on the back of the camera."
+    }
+  ],
+  "licenses": [
+    {
+      "item": "Business license and DBA",
+      "check": "No photography license exists in any state, but most cities want a business license, and a DBA if you use a business name.",
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+          "publisher": "U.S. Small Business Administration",
+          "says": "Licenses and permits depend on business activity and location; local governments set registration, licensing and permitting rules; research your own state, county and city; some licenses expire and must be renewed.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://startcosts.com/photography",
+          "publisher": "StartCosts",
+          "says": "No photography license is required in any state; you need standard business registration and a local business license where required; drone work has FAA requirements.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+          "publisher": "ZenBusiness",
+          "says": "If the business operates under a name different from the owner's legal name, the state usually requires a DBA registration.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Sales tax on prints and files",
+      "check": "Selling prints, albums or sometimes digital files can require a state sales tax permit.",
+      "sources": [
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Photographers who sell physical prints or digital files as taxable goods are typically required to register for a state sales tax permit.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Location permits for shoots",
+      "check": "City and state parks often want a permit for paid shoots; ask the park first. In national parks, the 2025 EXPLORE Act means most small shoots (8 or fewer people, hand-carried gear, public areas, no exclusive use) need no permit.",
+      "sources": [
+        {
+          "url": "https://www.nps.gov/aboutus/news/commercial-film-and-photo-permits.htm",
+          "publisher": "National Park Service",
+          "says": "In most cases, permits and fees are not required for filming or still photography involving eight or fewer individuals that occurs in areas open to the public, uses hand-carried equipment only, does not require exclusive use of a site, and does not impact resources or other visitors; entrance fees still apply.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/arts/commercial-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Shooting in public parks or on city streets often requires film or photography permits from the local governing authority.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Drone photos",
+      "check": "Any drone flight for pay needs an FAA Part 107 Remote Pilot Certificate: be at least 16, pass the knowledge test at an FAA-approved center, and complete free online recurrent training every 24 months.",
+      "sources": [
+        {
+          "url": "https://www.faa.gov/uas/commercial_operators/become_a_drone_pilot",
+          "publisher": "Federal Aviation Administration",
+          "says": "To become a certificated remote pilot: be at least 16, pass the initial aeronautical knowledge test at an FAA-approved testing center; complete online recurrent training (no cost) every 24 calendar months.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Flying a drone for a real estate listing is considered commercial use by the FAA; a Part 107 certificate is needed before charging clients for drone footage.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Copyright, model releases and usage",
+      "check": "You own the copyright in your photos from the moment you take them unless a contract says otherwise; registration is optional but needed before suing. Use model and property releases for any commercial use.",
+      "sources": [
+        {
+          "url": "https://www.copyright.gov/help/faq/faq-general.html",
+          "publisher": "U.S. Copyright Office",
+          "says": "Your work is under copyright protection the moment it is created and fixed; registration is voluntary, but you must register before bringing a lawsuit for infringement of a U.S. work.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.copyright.gov/about/fees.html",
+          "publisher": "U.S. Copyright Office",
+          "says": "Electronic registration: single author, one work $45; standard application $65; a group of published or unpublished photographs $55.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/arts/commercial-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Photographers must use model and property releases to secure permission for commercial use.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Insurance",
+      "check": "General liability (many venues require it) and equipment coverage.",
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+          "publisher": "U.S. Small Business Administration",
+          "says": "Lists common policies: general liability, product liability, professional liability, commercial property, home-based business insurance, and workers compensation; buy insurance required by law first, and taxes on employment insurance and workers compensation vary by state.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://startcosts.com/guides/photography-business-startup-costs",
+          "publisher": "StartCosts",
+          "says": "General liability insurance: venues require this; equipment insurance covers theft and damage.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "licenses_note": "General information, not legal advice. Rules differ by state, county and city: check your state and city.",
+  "where_buyers_look": [
+    {
+      "channel": "Google search, Maps and reviews",
+      "sources": [
+        {
+          "url": "https://www.brightlocal.com/research/local-consumer-review-survey/",
+          "publisher": "BrightLocal Local Consumer Review Survey 2026",
+          "says": "97% of consumers read reviews for local businesses; Google's share as a review source fell from 83% in 2025 to 71%; use of ChatGPT and other AI tools for local recommendations rose from 6% to 45%; 47% will not use a business with fewer than 20 reviews; 74% care about reviews from the last three months; 31% will only use a business with 4.5 stars or more and 68% with 4 or more; 80% are likely to use a business that responds to all of its reviews; 89% expect owners to respond.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Thumbtack",
+      "sources": [
+        {
+          "url": "https://www.thumbtack.com/pro",
+          "publisher": "Thumbtack",
+          "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads, which determines how many leads they get. Lead prices are not published.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Past clients and referrals",
+      "sources": [
+        {
+          "url": "https://startcosts.com/guides/seasonal-business-ideas",
+          "publisher": "StartCosts",
+          "says": "The seasonal changeover is a phone call to a list you already own, not a marketing campaign.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Real estate brokerages and agents",
+      "sources": [
+        {
+          "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+          "publisher": "ZenBusiness",
+          "says": "Market services to local real estate agents.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Instagram and portfolio site",
+      "sources": []
+    }
+  ],
+  "plays": [
+    {
+      "play": "Fall mini-session day",
+      "steps": [
+        "Pick one Saturday in September or October and one location; check the park's permit rules.",
+        "Offer 20-minute mini sessions at a set price with a fixed number of edited images, 8 to 10 slots.",
+        "Post the booking link to friends and two local parent groups (following each group's rules)."
+      ]
+    },
+    {
+      "play": "Shoot it first for a local business",
+      "steps": [
+        "Look up 5 local businesses whose Google or Instagram photos are dark or missing.",
+        "Ask the owner for 15 minutes to photograph 3 items, dishes or the storefront, free.",
+        "Send the edited photos with a simple monthly or per-shoot price."
+      ]
+    },
+    {
+      "play": "Listing photos for 3 real estate agents",
+      "steps": [
+        "Pick 3 agents with recent listings that have weak photos.",
+        "Offer their next listing at your standard package (25 to 30 photos) with 24-hour delivery."
+      ]
+    },
+    {
+      "play": "Headshot day at a coworking space or chamber event",
+      "steps": [
+        "Ask a coworking space or chamber of commerce to host a 3-hour headshot day.",
+        "Charge per person with 2 edited images; give the host a free headshot."
+      ]
+    },
+    {
+      "play": "Portfolio sessions with a release",
+      "steps": [
+        "Offer 5 friends or neighbors a reduced-rate session in return for a signed model release so you can show the photos.",
+        "Use the best 15 images on your site and Google profile."
+      ]
+    }
+  ],
+  "shots": {
+    "food": [
+      [
+        "product",
+        "Your best seller from above",
+        "Window light from the side, plate on your own table",
+        "Website hero and menu"
+      ],
+      [
+        "product",
+        "The same dish at 45 degrees",
+        "Low angle so the height shows, background soft",
+        "Delivery apps and Google profile"
+      ],
+      [
+        "action",
+        "Hands plating or pouring",
+        "Close, fast shutter, one hand in frame",
+        "Instagram and Reels covers"
+      ],
+      [
+        "space",
+        "The room from the door",
+        "Lights on, tables set, wide lens at chest height",
+        "Website and Google profile"
+      ],
+      [
+        "people",
+        "The owner or chef at the pass",
+        "Natural light, looking at the food, not the camera",
+        "About section and press"
+      ],
+      [
+        "outside",
+        "The storefront and sign",
+        "From across the street, late afternoon light",
+        "Google profile cover"
+      ],
+      [
+        "action",
+        "Prep in the kitchen",
+        "Steam, knife work, a quiet moment before service",
+        "Instagram"
+      ],
+      [
+        "product",
+        "A full table from above",
+        "Four to six plates, hands reaching in",
+        "Website and ads"
+      ],
+      [
+        "space",
+        "The counter or bar with drinks",
+        "Backlight on glasses, warm tones",
+        "Instagram"
+      ],
+      [
+        "product",
+        "Ingredients close up",
+        "Raw ingredients on a board, shallow focus",
+        "Menu headers"
+      ],
+      [
+        "product",
+        "The to-go bag with your name",
+        "On the counter, logo facing the camera",
+        "Delivery apps"
+      ],
+      [
+        "people",
+        "Staff at work who agreed to be in it",
+        "Candid, mid-task, smiling",
+        "Hiring posts and About"
+      ]
+    ],
+    "other": [
+      [
+        "product",
+        "Your best work up close",
+        "Window light from the side, plain background",
+        "Website hero"
+      ],
+      [
+        "action",
+        "The work in progress",
+        "Close on hands and tools, fast shutter",
+        "Instagram and Reels covers"
+      ],
+      [
+        "people",
+        "The owner portrait",
+        "Natural light, eye level, in the space",
+        "About section and Google profile"
+      ],
+      [
+        "space",
+        "The space from the door",
+        "Lights on, tidy, wide lens at chest height",
+        "Website and Google profile"
+      ],
+      [
+        "outside",
+        "The storefront and sign",
+        "From across the street, late afternoon light",
+        "Google profile cover"
+      ],
+      [
+        "people",
+        "Team at work who agreed to be in it",
+        "Candid, mid-task",
+        "About and hiring"
+      ],
+      [
+        "product",
+        "Before and after, same angle",
+        "Tripod, same light both times",
+        "Website and ads"
+      ],
+      [
+        "product",
+        "Details: tools, products, materials",
+        "Close, shallow focus",
+        "Instagram"
+      ],
+      [
+        "action",
+        "A customer moment with consent",
+        "From the side, faces only with a signed release",
+        "Website and ads"
+      ],
+      [
+        "space",
+        "The waiting area or counter",
+        "Wide and bright",
+        "Google profile"
+      ]
+    ]
+  },
+  "subjects": {
+    "people": "the team or owner",
+    "product": "your food or work up close",
+    "action": "work in progress",
+    "space": "the inside of the space",
+    "outside": "the outside and sign"
+  }
+}

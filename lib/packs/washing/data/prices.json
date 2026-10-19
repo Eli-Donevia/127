@@ -1,0 +1,712 @@
+{
+ "checked": "2026-10-19",
+ "unit": "job",
+ "minimum": 100,
+ "minimum_basis": "Housecall Pro: many pressure washing businesses set minimums between $100 and $250; HomeAdvisor: expect a minimum charge of about $100 to cover equipment and travel.",
+ "minimum_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+   "says": "Many pressure washing businesses set minimums between $100 and $250.",
+   "page_date": "2026-10-12",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "HomeAdvisor",
+   "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+   "says": "Expect a minimum charge of about $100 to cover equipment and travel.",
+   "page_date": "2026-06-17",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+   "says": "Many window cleaning businesses set minimums of $100 to $150 or more.",
+   "page_date": "2026-10-12",
+   "checked": "2026-10-19"
+  }
+ ],
+ "base": "Prices are for a one-story house of 1,500 to 2,500 sq ft; the house size factor scales the house wash, windows and gutters.",
+ "packages": [
+  {
+   "id": "house_wash",
+   "label": "House wash (soft wash)",
+   "unit": "house",
+   "range": [
+    220,
+    450
+   ],
+   "minutes": 150,
+   "includes": [
+    "Siding, trim and soffits soft washed",
+    "Front door and entry rinsed",
+    "Outside light fixtures wiped",
+    "Plants wet down before and after"
+   ],
+   "basis": "Thumbtack: national average $241 to $418, one story $218 to $363; HomeAdvisor: most projects $213 to $449; Housecall Pro: single-story $250 to $500. Fixr runs higher ($500 to $900 for 2,000 sq ft).",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/power-washing-prices",
+     "says": "National average to pressure wash a home $241 to $418; under 1,000 sq ft $190 to $291; 4,000 to 5,000 sq ft $550 to $834; 1 story $218 to $363, 2 stories $279 to $472, 3 stories $286 to $509.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Professional pressure washing for a home $213 to $449 for most projects (average $312); one-story house $150 to $750, two-story $400 to $1,400, three-story $700 to $1,800; minimum charge about $100.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-house",
+     "says": "House pressure washing $500 to $900, national average $700 for a 2,000 sq ft vinyl-sided home; low end about $300.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Single-story home $250 to $500; two-story home $400 to $800.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "windows",
+   "label": "Window cleaning, whole house",
+   "unit": "house",
+   "range": [
+    150,
+    300
+   ],
+   "minutes": 180,
+   "includes": [
+    "Glass inside and out",
+    "Screens brushed and rinsed",
+    "Sills and frames wiped",
+    "Hard water spots checked"
+   ],
+   "basis": "HomeAdvisor: $150 to $302, about $10 a window; Thumbtack: $184 to $387; Housecall Pro: most jobs $150 to $450.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "National average $184 to $387, most people pay about $266; 1 to 5 windows $99 to $194, 16 to 20 windows $187 to $368.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Professional window cleaning $150 to $302, average $221 or about $10 per window.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Window cleaning $190 to $460, average $310 for 22 double-hung windows with screens.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Total residential jobs often $150 to $450.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "driveway",
+   "label": "Driveway wash",
+   "unit": "driveway",
+   "range": [
+    100,
+    250
+   ],
+   "minutes": 90,
+   "includes": [
+    "Surface cleaner on the whole slab",
+    "Edges and expansion joints",
+    "Oil spots pretreated",
+    "Rinsed clean to the street"
+   ],
+   "basis": "HomeAdvisor: $100 to $250; Housecall Pro: $100 to $300; Fixr: $180 to $240 for 600 sq ft.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/cost-to-pressure-wash-driveway",
+     "says": "National average to pressure wash a driveway $220 to $473 (low end $128, high end $844).",
+     "page_date": "2026-06-04",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Average $100 to $250 to pressure wash a driveway; sidewalks add $50 to $100; $0.20 to $0.40 per sq ft for most outdoor concrete.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-driveway",
+     "says": "Driveway pressure washing $180 to $240, national average $225 for 600 sq ft; $0.30 to $0.40 per sq ft.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Driveway cleaning $100 to $300.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "deck",
+   "label": "Deck or patio wash",
+   "unit": "deck",
+   "range": [
+    100,
+    250
+   ],
+   "minutes": 90,
+   "includes": [
+    "Boards or pavers washed",
+    "Rails and steps",
+    "Furniture moved and put back"
+   ],
+   "basis": "Fixr: $100 to $200; HomeAdvisor: $100 to $250; Housecall Pro: $150 to $500.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-deck",
+     "says": "Deck pressure washing $100 to $200, national average $145 for 500 sq ft.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Pressure washing a deck or patio averages $100 to $200; power washing $100 to $250.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Deck cleaning $150 to $500.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/power-washing-prices",
+     "says": "Pressure washing a patio costs $252 to $447 on average.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "fence",
+   "label": "Fence wash",
+   "unit": "fence",
+   "range": [
+    125,
+    300
+   ],
+   "minutes": 120,
+   "includes": [
+    "Both sides where you can reach",
+    "Posts and caps",
+    "Low pressure on soft wood"
+   ],
+   "basis": "Fixr: $125 to $235 for 500 sq ft; HomeAdvisor: $150 to $300; Housecall Pro: $150 to $400.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-fence",
+     "says": "Wood fence pressure washing $125 to $235, average $180 for 500 sq ft.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Pressure washing most fences $150 to $300.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Fence cleaning $150 to $400.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "gutters",
+   "label": "Gutter cleaning",
+   "unit": "house",
+   "range": [
+    120,
+    250
+   ],
+   "minutes": 90,
+   "includes": [
+    "Gutters scooped and bagged",
+    "Downspouts checked for flow",
+    "Roof edge debris cleared"
+   ],
+   "basis": "HomeAdvisor: $119 to $234; Thumbtack: $163 to $333; Housecall Pro: single-story $100 to $180, two-story $150 to $275.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/gutter-cleaning-prices",
+     "says": "National average $163 to $333, most pay about $233; single-story $135 to $250, two-story $160 to $300.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-gutters-and-downspouts/",
+     "says": "Professional gutter cleaning $119 to $234, average $168; $0.95 to $2.25 per linear foot.",
+     "page_date": "2026-06-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/gutter-cleaning-prices/",
+     "says": "Many jobs $125 to $320; single-story $100 to $180, two-story $150 to $275, three-story $250 to $400+.",
+     "page_date": "2026-01-30",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "storefront",
+   "label": "Storefront windows",
+   "unit": "visit",
+   "range": [
+    40,
+    75
+   ],
+   "minutes": 30,
+   "includes": [
+    "Front glass and door inside and out",
+    "Frames and sills wiped",
+    "Same day and time each visit"
+   ],
+   "basis": "Housecall Pro: small recurring storefront accounts $40 to $75 a visit; StartCosts: storefronts contracted weekly or every two weeks.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Small recurring storefront accounts $40 to $75 per visit; example monthly exterior storefront cleaning at $60 per visit.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Storefront pricing per window $1 to $6 by tier (budget to premium); commercial storefronts contracted weekly or every two weeks.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "flatwork",
+   "label": "Concrete by the square foot",
+   "unit": "sq ft",
+   "rate": true,
+   "range": [
+    0.2,
+    0.4
+   ],
+   "minutes_per_unit": 0.15,
+   "factors": [
+    "grime"
+   ],
+   "basis": "HomeAdvisor: $0.20 to $0.40 a sq ft for most outdoor concrete; Fixr: $0.30 to $0.40.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/cost-to-pressure-wash-driveway",
+     "says": "National average to pressure wash a driveway $220 to $473 (low end $128, high end $844).",
+     "page_date": "2026-06-04",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Average $100 to $250 to pressure wash a driveway; sidewalks add $50 to $100; $0.20 to $0.40 per sq ft for most outdoor concrete.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-driveway",
+     "says": "Driveway pressure washing $180 to $240, national average $225 for 600 sq ft; $0.30 to $0.40 per sq ft.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Driveway cleaning $100 to $300.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "window",
+   "label": "Windows, inside and out",
+   "unit": "window",
+   "rate": true,
+   "range": [
+    6,
+    15
+   ],
+   "minutes_per_unit": 6,
+   "basis": "StartCosts: standard $6 to $10 a window inside and out; HomeAdvisor: about $10; Housecall Pro: $10 to $18.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Many window cleaning businesses charge $10 to $18 per window or $4 to $8 per pane.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "A single windowpane $4 to $15, average $10 for a standard two-pane window.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Per window inside and out: budget $4 to $6, standard $6 to $10, premium $10 to $15.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "home",
+   "label": "House",
+   "default": "h2",
+   "packages": [
+    "house_wash",
+    "windows",
+    "gutters"
+   ],
+   "basis": "Thumbtack: one story $218 to $363, two stories $279 to $472, three stories $286 to $509; under 1,000 sq ft $190 to $291, 4,000 to 5,000 sq ft $550 to $834. The steps between are our judgment.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/power-washing-prices",
+     "says": "National average to pressure wash a home $241 to $418; under 1,000 sq ft $190 to $291; 4,000 to 5,000 sq ft $550 to $834; 1 story $218 to $363, 2 stories $279 to $472, 3 stories $286 to $509.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Professional pressure washing for a home $213 to $449 for most projects (average $312); one-story house $150 to $750, two-story $400 to $1,400, three-story $700 to $1,800; minimum charge about $100.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-house",
+     "says": "House pressure washing $500 to $900, national average $700 for a 2,000 sq ft vinyl-sided home; low end about $300.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Single-story home $250 to $500; two-story home $400 to $800.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "h1",
+     "label": "Small house, under 1,500 sq ft",
+     "short": "Under 1,500 sq ft",
+     "mult": 0.85,
+     "minutes": -20
+    },
+    {
+     "id": "h2",
+     "label": "One story, 1,500 to 2,500 sq ft",
+     "short": "One story",
+     "mult": 1
+    },
+    {
+     "id": "h3",
+     "label": "Two stories, up to 3,500 sq ft",
+     "short": "Two stories",
+     "mult": 1.3,
+     "minutes": 45
+    },
+    {
+     "id": "h4",
+     "label": "Three stories or over 3,500 sq ft",
+     "short": "Three stories or big",
+     "mult": 1.7,
+     "minutes": 90
+    }
+   ]
+  },
+  {
+   "id": "grime",
+   "label": "Grime",
+   "default": "normal",
+   "packages": [
+    "house_wash",
+    "driveway",
+    "deck",
+    "fence"
+   ],
+   "basis": "Judgment call. Heavy mildew, algae or oil takes pretreatment and dwell time.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/power-washing-prices",
+     "says": "National average to pressure wash a home $241 to $418; under 1,000 sq ft $190 to $291; 4,000 to 5,000 sq ft $550 to $834; 1 story $218 to $363, 2 stories $279 to $472, 3 stories $286 to $509.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Professional pressure washing for a home $213 to $449 for most projects (average $312); one-story house $150 to $750, two-story $400 to $1,400, three-story $700 to $1,800; minimum charge about $100.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-house",
+     "says": "House pressure washing $500 to $900, national average $700 for a 2,000 sq ft vinyl-sided home; low end about $300.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Single-story home $250 to $500; two-story home $400 to $800.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "normal",
+     "label": "Normal dirt",
+     "mult": 1
+    },
+    {
+     "id": "heavy",
+     "label": "Heavy mildew, algae or stains",
+     "mult": 1.2,
+     "minutes": 30
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "gutter_add",
+   "label": "Gutter cleaning with a wash",
+   "range": [
+    50,
+    150
+   ],
+   "minutes": 60,
+   "unit": "house",
+   "basis": "HomeAdvisor: gutter cleaning $50 to $150 as an add-on to exterior work.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-a-roof/",
+     "says": "Common add-ons homeowners bundle with roof cleaning: pressure washing exterior surfaces $220 to $450; gutter cleaning $50 to $150; window cleaning $150 to $300.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/gutter-cleaning-prices",
+     "says": "A pro offers repeat discounts and combination discounts for pressure washing and gutter cleaning.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "sidewalks",
+   "label": "Sidewalks with a driveway",
+   "range": [
+    50,
+    100
+   ],
+   "minutes": 30,
+   "unit": "job",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Washing sidewalks at the same time as a driveway could cost an additional $50 to $100.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "driveway_add",
+   "label": "Driveway wash",
+   "range": [
+    100,
+    250
+   ],
+   "minutes": 90,
+   "unit": "driveway",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/cost-to-pressure-wash-driveway",
+     "says": "National average to pressure wash a driveway $220 to $473 (low end $128, high end $844).",
+     "page_date": "2026-06-04",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+     "says": "Average $100 to $250 to pressure wash a driveway; sidewalks add $50 to $100; $0.20 to $0.40 per sq ft for most outdoor concrete.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pressure-wash-driveway",
+     "says": "Driveway pressure washing $180 to $240, national average $225 for 600 sq ft; $0.30 to $0.40 per sq ft.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+     "says": "Driveway cleaning $100 to $300.",
+     "page_date": "2026-10-12",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "yearly",
+   "label": "Yearly plan",
+   "every": "year",
+   "discount": 0.1,
+   "packages": [
+    "house_wash"
+   ]
+  },
+  {
+   "id": "twice",
+   "label": "Every 6 months plan",
+   "every": "6 months",
+   "discount": 0.1,
+   "packages": [
+    "windows",
+    "gutters"
+   ]
+  },
+  {
+   "id": "monthly_store",
+   "label": "Route every month",
+   "every": "month",
+   "discount": 0,
+   "packages": [
+    "storefront"
+   ]
+  },
+  {
+   "id": "biweekly_store",
+   "label": "Route every 2 weeks",
+   "every": "2 weeks",
+   "discount": 0.1,
+   "packages": [
+    "storefront"
+   ]
+  }
+ ],
+ "plans_basis": "Judgment call. Housecall Pro: recurring discounts typically 10% to 20% off the single-visit rate, closer to 8% to 15% for quarterly plans; semi-annual plans stabilize seasonal demand. StartCosts: offer a 10% discount for recurring service.",
+ "plans_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+   "says": "Recurring discounts typically 10% to 20% off the single-visit rate, closer to 8% to 15% for quarterly plans, and up to 20% for monthly commitments.",
+   "page_date": "2026-10-12",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "StartCosts",
+   "url": "https://startcosts.com/window-cleaning",
+   "says": "Offer a 10% discount for recurring service.",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/gutter-cleaning-prices/",
+   "says": "Semi-annual or quarterly plans stabilize seasonal demand and reduce re-quoting.",
+   "page_date": "2026-01-30",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Thumbtack",
+   "url": "https://www.thumbtack.com/p/power-washing-prices",
+   "says": "Some pressure washing companies offer recurring maintenance plans.",
+   "page_date": "2026-01-05",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://startcosts.com/window-cleaning",
+  "https://www.fixr.com/costs/pressure-wash-deck",
+  "https://www.fixr.com/costs/pressure-wash-driveway",
+  "https://www.fixr.com/costs/pressure-wash-fence",
+  "https://www.fixr.com/costs/pressure-wash-house",
+  "https://www.fixr.com/costs/roof-cleaning",
+  "https://www.fixr.com/costs/window-cleaning",
+  "https://www.homeadvisor.com/cost/cleaning-services/clean-a-roof/",
+  "https://www.homeadvisor.com/cost/cleaning-services/clean-gutters-and-downspouts/",
+  "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+  "https://www.homeadvisor.com/cost/painting/powerwash-exterior-surfaces/",
+  "https://www.housecallpro.com/resources/gutter-cleaning-prices/",
+  "https://www.housecallpro.com/resources/how-to-price-pressure-washing-jobs/",
+  "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+  "https://www.thumbtack.com/p/cost-to-pressure-wash-driveway",
+  "https://www.thumbtack.com/p/gutter-cleaning-prices",
+  "https://www.thumbtack.com/p/power-washing-prices",
+  "https://www.thumbtack.com/p/roof-cleaning-cost",
+  "https://www.thumbtack.com/p/window-cleaning-prices"
+ ]
+}

@@ -1,0 +1,483 @@
+{
+ "id": "coaching",
+ "name": "Coaching and consulting",
+ "checked": "2026-10-19",
+ "research": "research/niches/coaching.json",
+ "what": "coaching",
+ "person_default": "new managers",
+ "result_default": "run their first team meetings with confidence",
+ "crowd": {
+  "buyer": "People who want one specific result",
+  "scores": {
+   "pain": 3,
+   "can_pay": 3,
+   "findable": 2,
+   "growing": 3
+  },
+  "first_dollar": "Medium",
+  "best_months": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "off_season": null,
+  "not_yet": [
+   "Don't build a course before you've coached 3 people.",
+   "Don't pay for ads before you have a story you're allowed to share.",
+   "Don't pick a crowd wider than one kind of person and one result."
+  ],
+  "note": "Needs proof first. January is the busiest month to start.",
+  "basis": "research/crowd.json (our judgment); research/niches/coaching.json has no sourced season, so months stay all year."
+ },
+ "rules": [
+  "No earnings, income or results claims in any message, story or offer. Talk about the work you do together, never what someone will earn or achieve.",
+  "The free session is free either way. Never ask for a positive story in return.",
+  "Share a story only with written permission, after the person approves the exact words.",
+  "Wherever a story appears, say the sessions were free, like: Jordan received free coaching sessions.",
+  "Leave out health, weight and money results, even true ones.",
+  "If something sounds like therapy, medical, legal or investment advice, refer it out."
+ ],
+ "texts": {
+  "people": [
+   "Hi {greet}! I'm starting {what} for {person} who want to {result}, and you were one of the first people I thought of. I'm giving a free first session to a few people while I start. Would you like one, or do you know someone who fits?",
+   "Hey {greet}, hope you're well! I've started coaching {person} who want to {result}. I'm offering a few free first sessions to get honest feedback on how I coach. Interested, or is there someone you'd pass this to?",
+   "Hi {greet}! Quick one: I now coach {person} who want to {result}. My first few sessions are free while I start out. If that's you or someone you know, could we talk for 20 minutes this week?"
+  ],
+  "follow_up": "Hi {greet}, no pressure on my coaching message. If it's not for you, would you mind passing it to one person who might want it? Thank you.",
+  "story_ask": "Thanks again for today. Would you be open to me sharing a short story about our work together? It's completely up to you, and the session was free either way. If yes, I'll send you the exact words to approve first, I'll say the session was free, and I won't mention money or health results.",
+  "group_ask": "Hi, I'm a member here and I've started coaching {person} who want to {result}. Would it be okay to offer a free first session to members who want that? Happy to follow whatever the group's rules are.",
+  "disclosure": "{name} received free coaching sessions.",
+  "next_people": [
+   "Hi {greet}! I coach {person} who want to {result}. The first session is free either way. Would that be useful for you, or for someone you know?",
+   "Hey {greet}, hope you're well! I've been coaching {person} who want to {result}. If that's you or someone on your team, I'd be glad to offer a free first session. Worth a quick chat?",
+   "Hi {greet}! Quick one: I now coach {person} who want to {result}. If you know someone who fits, would you mind passing my name along? The first session is free."
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my coaching message. If it's not for you, would you mind passing it to one person who might want it? Thank you.",
+  "next_subject": "A free first coaching session"
+ },
+ "offer": {
+  "name": "One-to-one coaching",
+  "unit": "session",
+  "length": "45 minutes",
+  "prices": {
+   "budget": 75,
+   "standard": 100,
+   "premium": 150
+  },
+  "range_text": "$75 to $150 a session for newer coaches",
+  "basis": "From research/niches/coaching.json (Noomii's guide and Thumbtack examples, checked 2026-10-19). ICF's 2023 survey average of $244 to $272 an hour is a ceiling for experienced coaches, not a starting price.",
+  "sources": [
+   "https://orgs.noomii.com/how-much-does-a-life-coach-cost/",
+   "https://www.thumbtack.com/p/life-coach-cost",
+   "https://coachingfederation.org/app/uploads/2023/04/2023ICFGlobalCoachingStudy_ExecutiveSummary.pdf"
+  ],
+  "includes": [
+   "A first session to agree on one result, in your words, and where you're starting",
+   "45-minute sessions, every week or every two weeks",
+   "A written recap within 24 hours with the actions you chose",
+   "One check-in message between sessions"
+  ],
+  "steps": [
+   "A free 20-minute call to see if we're a fit.",
+   "Session 1: one result, in your words, and where you're starting.",
+   "Every session: check last week's actions, work the next obstacle, choose 1 to 3 actions.",
+   "A recap from me within 24 hours."
+  ],
+  "promise": "If I miss a session or I'm late, the next one is free. If the first paid session isn't a fit, I refund it.",
+  "promise_note": "I don't promise results. You do the work; I bring the structure, the questions and the follow-up. Coaching isn't therapy, medical, legal or financial advice.",
+  "sheet_notes_title": "How I work",
+  "sheet_notes": [
+   "What you share stays private, except where the law requires otherwise.",
+   "Move or cancel a session with 24 hours' notice.",
+   "If something needs a therapist, doctor, lawyer or financial adviser, I'll say so and help you find one."
+  ],
+  "footer": "Pay per session or per block of 4.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.4,
+    "who": "First paying clients",
+    "note": "For honest feedback at the end. Sharing a story is optional and never part of the price."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.2,
+    "who": "Referrals",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it when your calendar is 80 percent full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free first session",
+    "price": 0,
+    "unit": "session",
+    "what": "One full session, free, for honest feedback. Free either way."
+   },
+   {
+    "kind": "Core",
+    "name": "Weekly session",
+    "price": "core",
+    "what": "45 minutes, same time each week."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Block of 4 sessions",
+    "times": 4,
+    "off": 0.1,
+    "unit": "block of 4",
+    "what": "Paid up front; your weekly time stays held."
+   },
+   {
+    "kind": "Bigger step",
+    "name": "3-month program: 12 sessions",
+    "times": 12,
+    "off": 0.15,
+    "unit": "program",
+    "what": "Weekly sessions and recaps for 12 weeks."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "Small group session",
+    "factor": 0.5,
+    "unit": "person per session",
+    "what": "4 to 6 people working on the same result."
+   }
+  ],
+  "ladder_word": "clients"
+ },
+ "keep": {
+  "title": "Reviews, referrals and stories",
+  "description": "After a block of sessions: a thank-you, an honest review ask with no reward attached, a referral ask, the consent-first story ask and a referral card. No results claims.",
+  "done_example": "our four sessions on running your team huddle",
+  "reward_default": "a free session",
+  "file_word": "referral card",
+  "card_title": "A coach {greet} recommends",
+  "card_footer": "Coaching, not therapy. No results are promised.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only.",
+   "A story is shared only with written consent, with the disclosure line when sessions were free, and never with money or health results."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for {done}. I've really enjoyed working with you.",
+   "review_ask": "Would you leave an honest review about what working together was like? Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If you know someone who wants the same kind of help, I'd be grateful for an introduction. When someone you refer books, you both get {reward}.",
+   "story_ask": "Would you be open to me sharing a short story about our work together? It's completely up to you. If yes, I'll send you the exact words to approve first and I won't mention money or health results.",
+   "card_line": "{business}: one-to-one coaching for one result, with a recap after every session."
+  },
+  "business_fallback": "Your coach"
+ },
+ "next": {
+  "prompts": [
+   "Former coworkers from your last two jobs who are {person}",
+   "People you studied or trained with",
+   "Members of groups you belong to (ask the organizer before you post)",
+   "People who asked you for advice on this in the past year",
+   "Friends of friends who fit: ask a friend for one introduction",
+   "Neighbors and parents you know from school, sports or church"
+  ]
+ },
+ "replies": {
+  "who_title": "Which person",
+  "ai_rules": [
+   "Never promise results, earnings or health outcomes. Coaching is the work you do together.",
+   "Coaching isn't therapy, medical, legal or financial advice. Refer those out.",
+   "The next step is the free first session. Say any price once, exactly as given."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great! Let's find a time for the free first session: 45 minutes, and we'll agree on the one result you want. What days work this week or next?",
+    "next": "Book the free session within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. Sessions are {rate}, {length} each, with a recap after every one. The first session is free either way, so you can see if it helps before deciding.",
+    "next": "Say the price once, then offer the free first session."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Would it help if I checked back in a month or two? The free first session stays open whenever the timing is right.",
+    "next": "Set a reminder for 6 weeks."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I coach {person} who want to {result}. Happy to answer any question, and the first session is free either way.",
+    "next": "Answer plainly, then offer the free session."
+   },
+   "covered": {
+    "label": "They have support",
+    "means": "They have a coach, mentor or program already.",
+    "answer": "Good to hear you've got support! If you ever want a second perspective, I'm around. Thanks for letting me know.",
+    "next": "Leave it there."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! It's easier to answer properly in a quick 20-minute call, free and with no pressure. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the call."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a quick 20-minute call be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to talk",
+    "means": "They want to talk it through first.",
+    "answer": "Happy to! {when_ask} It's a free 20-minute call, and I'll send you the link before we talk.",
+    "next": "Book it within 2 days, then run Prep a call before you talk."
+   }
+  },
+  "objections": [
+   {
+    "id": "cost",
+    "label": "It's too expensive",
+    "match": "\\b(too (expensive|much|pricey)|can't afford|cannot afford|out of (my|our) budget|cheaper|discount)\\b",
+    "means": "The price feels high to them.",
+    "answer": "That's fair. Two smaller ways in: a single session to see if it helps, or the small group at a lower price per person. The first session is free either way.",
+    "next": "Hold your price. Offer the single session or the group.",
+    "judgment": true
+   },
+   {
+    "id": "diy",
+    "label": "Can I just do this myself?",
+    "match": "\\b(myself|on my own|figure it out|youtube|books?|podcasts?)\\b",
+    "means": "They wonder if they need a coach at all.",
+    "answer": "Yes, plenty of people do. What coaching adds is a plan, a weekly check-in and someone to answer to. If you want to see the difference, the first session is free.",
+    "next": "Agree, then offer the free first session.",
+    "judgment": true
+   },
+   {
+    "id": "time",
+    "label": "I don't have time",
+    "match": "\\b(no time|(don'?t|do not) have (the )?time|too busy|so busy|swamped|worried about time|time for (this|it))\\b",
+    "means": "Time is the worry, not the idea.",
+    "answer": "That's fair, and it's the most common worry. We can meet every week or every other week, and the actions you choose are sized to the week you actually have. Want to try the free first session and see if it fits?",
+    "next": "Offer the lighter rhythm once, then let them decide.",
+    "judgment": true
+   },
+   {
+    "id": "results",
+    "label": "Do you have results?",
+    "match": "\\b(results|testimonials?|reviews|proof|success stor\\w*|track record|other clients|worked with before)\\b",
+    "means": "They want to know it works before they commit.",
+    "answer": "Honest answer: I'm new, so I don't have a stack of stories yet. That's why my first clients get a founding price. Any story I share later is one the client approved in writing.",
+    "next": "Be honest that you're new. Offer the free first session.",
+    "sources": [
+     {
+      "publisher": "Federal Trade Commission",
+      "url": "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers",
+      "says": "Fake or misrepresented testimonials are banned under 16 CFR Part 465, in effect since October 21, 2024.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "certified",
+    "label": "Are you certified?",
+    "match": "\\b(certif\\w*|credentials?|qualified|qualifications?|licensed|license)\\b",
+    "means": "They want to know your background.",
+    "answer": "Good question. Coaching isn't a licensed profession, so it's fair to ask about someone's background. Happy to walk you through mine on a short call, and I refer out anything that needs a licensed professional.",
+    "next": "On the call, be specific: your training and experience, nothing more.",
+    "judgment": true
+   },
+   {
+    "id": "therapy",
+    "label": "Is this like therapy?",
+    "match": "\\b(therap\\w*|counsel\\w*|depress\\w*|anxiety|mental health)\\b",
+    "means": "They're checking what coaching is and isn't.",
+    "answer": "No, coaching isn't therapy. It looks forward at one result you choose. If anything comes up that needs a therapist, I'll say so and help you find one.",
+    "next": "If they describe a mental health issue, refer them to a professional first.",
+    "sources": [
+     {
+      "publisher": "International Coaching Federation",
+      "url": "https://coachingfederation.org/wp-content/uploads/2024/12/icf-research-guide-referring-client-to-therapy.pdf",
+      "says": "Coaches refer clients with mental health issues to the appropriate professional for diagnosis and treatment.",
+      "checked": "2026-10-19",
+      "page_date": "2024-12"
+     }
+    ]
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "pay_when": "When they book",
+  "for_title": null,
+  "title": "Coaching{for}",
+  "default": "block4",
+  "packages": [
+   {
+    "id": "single",
+    "label": "Coaching session",
+    "detail": "45 minutes, one to one, with a recap",
+    "qty": 1,
+    "pick": "One session"
+   },
+   {
+    "id": "block4",
+    "label": "Coaching sessions, block of 4",
+    "short": "Block of 4",
+    "detail": "45 minutes each, with a recap after every session",
+    "qty": 4,
+    "off": 0.1,
+    "pick": "Block of 4 sessions"
+   },
+   {
+    "id": "program12",
+    "label": "Three-month coaching program, 12 sessions",
+    "short": "Program",
+    "detail": "12 weekly sessions with a recap after each",
+    "qty": 12,
+    "off": 0.15,
+    "pick": "3-month program (12 sessions)"
+   },
+   {
+    "id": "group",
+    "label": "Small group coaching seat",
+    "detail": "4 to 6 people working on the same result",
+    "qty": 1,
+    "factor": 0.5,
+    "pick": "Small group seat"
+   }
+  ],
+  "extra": null,
+  "notes": [
+   "Coaching isn't therapy, medical, legal or financial advice.",
+   "If I miss a session or I'm late, the next one is free. If the first paid session isn't a fit, I refund it."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder, and a printable coaching checklist with when to refer out.",
+  "who_title": "Client's name",
+  "who_word": "client",
+  "for_title": null,
+  "for_default": "",
+  "when_title": "First session day and time",
+  "where_title": "Where you meet",
+  "where": [
+   "Online",
+   "In person"
+  ],
+  "free_title": "Free sessions (a founding client)",
+  "booking": "Hi {greet}, I'm glad we're doing this! Our first session is {when}{where}. It's {deal}.{pay} I'll send the welcome kit with a few questions to answer before we start.",
+  "prep": "Before our first session, have a think about the one result you want, and bring one or two recent examples of where it gets hard. Short answers to the intake questions are plenty.",
+  "reminder": "Hi {greet}, looking forward to our session {when}. Bring one recent example of where it gets hard. Reply here if anything changes.",
+  "founding": "Founding client: at the end, ask {greet} for honest feedback you may quote as a founding client. A story is shared only with their written yes, and it says plainly that they paid a founding price.",
+  "free": "Free sessions: any story from {greet} says plainly that the sessions were free, like this: {greet} received free coaching sessions.",
+  "file_word": "coaching checklist",
+  "checklist_title": "Coaching checklist for {greet}",
+  "checklist": {
+   "Before session 1": [
+    "Send the welcome kit: intake questions and the one-page agreement.",
+    "Agree the price, how it's paid and the cancellation rule in writing.",
+    "Confirm the time and the video link or place."
+   ],
+   "Every session": [
+    "Check the actions they chose last time.",
+    "Coach the next obstacle.",
+    "End with 1 to 3 actions they choose, with dates.",
+    "Send a short recap within 24 hours."
+   ],
+   "Between and after": [
+    "One check-in message on the day an action is due.",
+    "Every 4 sessions: a progress review against where they started, in their words.",
+    "Last session: a written wrap-up, then ask for an honest story with written consent.",
+    "If anything points to a mental health, medical, legal or money-advice issue: pause and refer."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "International Coaching Federation",
+    "url": "https://coachingfederation.org/wp-content/uploads/2024/12/icf-research-guide-referring-client-to-therapy.pdf",
+    "says": "When a client is experiencing mental health issues, coaches should refer them to the appropriate professional for diagnosis and treatment.",
+    "checked": "2026-10-19",
+    "page_date": "2024-12"
+   }
+  ],
+  "sessions": true
+ },
+ "story": {
+  "who_title": "Client's name",
+  "for_title": null,
+  "what_example": "six sessions on running weekly one-to-ones",
+  "result_example": "She now runs a weekly one-to-one with each person on her team",
+  "quote_example": "I finally have a plan for my week instead of reacting to it.",
+  "anon": "A coaching client",
+  "named": "{greet}, a coaching client",
+  "photo": false,
+  "consent": "Hi {greet}! Would you be open to me sharing a short story about our work together? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer, and I won't mention money or health results. It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "review": "If you have a minute, would you leave an honest review about what working together was like? No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a client, shared with their written permission. {story_line} If you are one of the {person} who want to {result}, {reach}",
+  "disclosure": {
+   "founding": "{who} paid a founding price.",
+   "free": "{who} received free coaching sessions."
+  },
+  "rules": [
+   "Only the exact words they approved in writing.",
+   "No money, health or weight results, even true ones.",
+   "Nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "{person} who want to {result}",
+  "group": "pro",
+  "format": "flyer",
+  "print": false,
+  "google": false,
+  "headline": "Coaching for {person}",
+  "sub": "45-minute sessions to {result}, with a recap after every one.",
+  "bullets": [
+   "A free first session, free either way",
+   "One result, in your words",
+   "A recap and one check-in between sessions"
+  ],
+  "offer": "Free first session",
+  "cta": "Book a free session",
+  "tagline": "One-to-one coaching for one result, with a recap after every session.",
+  "design": "coach"
+ },
+ "call": {
+  "questions": [
+   "What made you reach out now?",
+   "What is the one result you want, in your own words?",
+   "Where are you with it today? Give me a recent example.",
+   "What have you tried already, and what happened?",
+   "What would be different in 3 months if this went well?",
+   "What might get in the way?"
+  ],
+  "close": "Would you like to start with {package}? I can send the details and the welcome kit today.",
+  "check_first": [
+   "Read their reply and your notes on them once more.",
+   "Have your price and the founding ladder in front of you: say the price once.",
+   "Know what you'd refer out: therapy, medical, legal or financial advice."
+  ]
+ }
+}

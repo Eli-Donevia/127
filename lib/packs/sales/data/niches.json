@@ -1,0 +1,2494 @@
+{
+  "checked": "2026-10-19",
+  "about": "Curated copy the sales tools use when AI is off: what buyers in each kind of business want, what they tried, how the work runs, what to include and leave out, and when to ask for referrals. Plain drafts for the member to edit. No prices, fees, statistics or claims about real businesses live here. Placeholders in braces are filled with the member's own facts.",
+  "archetypes": {
+    "home": {
+      "label": "home service",
+      "buyer": "customer",
+      "job": "job",
+      "horizon": "right after the first visit",
+      "deposit": 0,
+      "mood": "fresh",
+      "vacation": [
+        "You come home and it's done. You didn't lift a finger, and you didn't lose your weekend to it.",
+        "It gets handled on a schedule, so you stop thinking about it. You just notice it always looks right."
+      ],
+      "pains": [
+        "there's never a free weekend to get to it",
+        "the last person didn't show up when they said they would",
+        "it keeps getting pushed to next week"
+      ],
+      "tried": [
+        "doing it yourself on a Saturday",
+        "a cheaper person who stopped showing up",
+        "an app that sent someone different every time"
+      ],
+      "want": [
+        "it done right without thinking about it",
+        "your weekends back"
+      ],
+      "blocker": [
+        "there's no time to do it well",
+        "you haven't found someone reliable"
+      ],
+      "points": [
+        {
+          "title": "I show up when I say",
+          "say": "You get a set day and a reminder the night before, so you're never waiting around."
+        },
+        {
+          "title": "It's done right the first time",
+          "say": "I work from a checklist, and we walk it together before I leave."
+        },
+        {
+          "title": "You don't lift a finger",
+          "say": "All you do is {effort}. That's the whole job for you."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "You pick an option and a day. A deposit holds your spot if one is listed."
+        },
+        {
+          "when": "Day before",
+          "what": "You get a reminder with my arrival window."
+        },
+        {
+          "when": "The day",
+          "what": "I do the work from my checklist and walk it with you before I leave."
+        },
+        {
+          "when": "After",
+          "what": "You pay the balance, and we set the next visit if you want one."
+        }
+      ],
+      "included": [
+        "Everything listed in the option you pick",
+        "All supplies and equipment",
+        "A walk-through with you when it's done"
+      ],
+      "better": [
+        "Priority scheduling",
+        "Extra time on problem spots"
+      ],
+      "best": [
+        "A repeat visit on a set schedule",
+        "First pick of dates in busy weeks"
+      ],
+      "notIncluded": [
+        "Work not listed in your option (I'll quote it before I start)",
+        "Repairs or anything that needs a licensed trade",
+        "Moving heavy furniture or appliances"
+      ],
+      "priceDrivers": "the size of the space and how long since it was last done",
+      "effort": "let me in or leave the gate open",
+      "timeSaved": "You get your weekend back.",
+      "smaller": "a smaller first visit that covers the top priorities",
+      "proof": "before and after photos from jobs you've done, even for friends or family",
+      "difference": "I work from a written checklist, I show up in the window I give you, and we walk it together before I leave",
+      "promiseIdea": "If anything isn't right, tell me within 48 hours and I'll come back and fix it free.",
+      "peak": [
+        {
+          "when": "The walk-through when you finish",
+          "why": "They see the result and say thanks. That's the moment to ask."
+        },
+        {
+          "when": "When they book the next visit",
+          "why": "Booking again means they trust you."
+        },
+        {
+          "when": "When they text a thank-you or a photo",
+          "why": "Reply with thanks, then ask in the same message."
+        }
+      ],
+      "rebookDays": 30,
+      "referralReward": {
+        "referrer": "$20 off your next {job}",
+        "friend": "$20 off their first {job}"
+      }
+    },
+    "auto": {
+      "label": "car service",
+      "buyer": "customer",
+      "job": "detail",
+      "horizon": "the next time you open the car door",
+      "deposit": 0,
+      "mood": "bold",
+      "vacation": [
+        "You walk out and the car is done, right in your driveway. Clean seats, clear glass, and it smells new. You never drove anywhere or sat in a waiting room.",
+        "The car feels new again the next time you open the door, and you didn't give up a Saturday to get there."
+      ],
+      "pains": [
+        "the inside is wrecked from kids, dogs or work",
+        "car washes never touch the inside",
+        "there's no free Saturday to do it right"
+      ],
+      "tried": [
+        "the automatic car wash",
+        "doing it yourself in the driveway",
+        "a shop that kept the car all day"
+      ],
+      "want": [
+        "the car to feel new again",
+        "a clean car without losing a weekend"
+      ],
+      "blocker": [
+        "there's never a free Saturday",
+        "car washes don't do the inside"
+      ],
+      "points": [
+        {
+          "title": "I come to you",
+          "say": "Home or office, I bring everything I need. You don't drive anywhere or wait around."
+        },
+        {
+          "title": "Inside and out, by hand",
+          "say": "Seats, carpets, glass and paint, done by hand from a checklist."
+        },
+        {
+          "title": "You check it before I leave",
+          "say": "We walk around the car together, and anything you don't love, I fix on the spot."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option and a time. I confirm by text."
+        },
+        {
+          "when": "Night before",
+          "what": "A reminder with my arrival window."
+        },
+        {
+          "when": "Detail day",
+          "what": "I arrive with everything I need and get to work while you get on with your day."
+        },
+        {
+          "when": "Before I leave",
+          "what": "We walk the car together, then you pay."
+        }
+      ],
+      "included": [
+        "Hand wash and dry",
+        "Interior vacuum and wipe-down",
+        "Windows inside and out"
+      ],
+      "better": [
+        "Pet hair removal",
+        "Seat and carpet shampoo",
+        "Clay and wax on the paint"
+      ],
+      "best": [
+        "A monthly maintenance detail",
+        "Headlight restore",
+        "Priority booking"
+      ],
+      "notIncluded": [
+        "Paint correction or scratch removal unless listed",
+        "Mechanical work of any kind",
+        "Biohazard cleanup (quoted separately)"
+      ],
+      "priceDrivers": "the size of the car and how much pet hair or staining there is",
+      "effort": "hand me the keys",
+      "timeSaved": "You get your Saturday back.",
+      "smaller": "an exterior-only wash or an interior-only refresh",
+      "proof": "before and after photos of cars you've done, even your own or a friend's",
+      "difference": "I do it by hand from a checklist, I come to you, and we walk the car together before I leave",
+      "promiseIdea": "If any spot isn't right, tell me within 48 hours and I'll come back and fix it free.",
+      "peak": [
+        {
+          "when": "The walk-around when you finish",
+          "why": "They see the car and say wow. Ask right then."
+        },
+        {
+          "when": "When they book the next detail",
+          "why": "Booking again means they trust you."
+        },
+        {
+          "when": "When they send a thank-you or a photo",
+          "why": "Reply with thanks, then ask in the same message."
+        }
+      ],
+      "rebookDays": 30,
+      "referralReward": {
+        "referrer": "$20 off your next detail",
+        "friend": "$20 off their first detail"
+      }
+    },
+    "personal": {
+      "label": "personal service",
+      "buyer": "client",
+      "job": "session",
+      "horizon": "a month from now",
+      "deposit": 0,
+      "mood": "warm",
+      "vacation": [
+        "A month from now this is just part of your week, and the thing that used to stress you out is handled.",
+        "You stop guessing. You know what happens each week, and you can see it working."
+      ],
+      "pains": [
+        "it's hard to stay consistent alone",
+        "you're not sure where to start",
+        "the last person wasn't a good fit"
+      ],
+      "tried": [
+        "figuring it out with videos online",
+        "a big chain that made you feel like a number",
+        "putting it off until things calm down"
+      ],
+      "want": [
+        "this handled by someone you trust",
+        "steady progress without the guesswork"
+      ],
+      "blocker": [
+        "it's hard to stay consistent alone",
+        "you haven't found the right person"
+      ],
+      "points": [
+        {
+          "title": "We start where you are",
+          "say": "The first session is about you: what you want and what's in the way."
+        },
+        {
+          "title": "A plan that fits your week",
+          "say": "Sessions are on set days that work for you, so it actually happens."
+        },
+        {
+          "title": "You see progress early",
+          "say": "We check how it's going every session, so you always know."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option and your first session time."
+        },
+        {
+          "when": "First session",
+          "what": "We get clear on what you want and make a simple plan."
+        },
+        {
+          "when": "Weeks 1 to 4",
+          "what": "Sessions on set days, with a quick check on progress each time."
+        },
+        {
+          "when": "End of month 1",
+          "what": "We look at what's working and plan the next month."
+        }
+      ],
+      "included": [
+        "The sessions in the option you pick",
+        "A short written plan after the first session",
+        "Text check-ins between sessions"
+      ],
+      "better": [
+        "A progress review every two weeks",
+        "Flexible rescheduling with 24 hours notice"
+      ],
+      "best": [
+        "Priority session times each week",
+        "A written plan you keep"
+      ],
+      "notIncluded": [
+        "Sessions beyond the ones in your option",
+        "Supplies or materials unless listed",
+        "Travel outside my normal area"
+      ],
+      "priceDrivers": "how often we meet and how long each session is",
+      "effort": "show up for the sessions",
+      "timeSaved": "You stop spinning your wheels.",
+      "smaller": "a single session to see if it's a fit",
+      "proof": "a free first meeting or a sample session",
+      "difference": "you get the same person every time, a plan built around you, and a check on progress every session",
+      "promiseIdea": "If the first session isn't a fit, you don't pay for it.",
+      "peak": [
+        {
+          "when": "Right after their first win",
+          "why": "Progress feels new and exciting. That's when people talk about you."
+        },
+        {
+          "when": "When they tell you something changed",
+          "why": "They just said it out loud. Ask who else needs it."
+        },
+        {
+          "when": "At the end of the first month",
+          "why": "The review is a natural time to ask."
+        }
+      ],
+      "rebookDays": 28,
+      "referralReward": {
+        "referrer": "a free session for you",
+        "friend": "their first session at half price"
+      }
+    },
+    "b2b": {
+      "label": "business service",
+      "buyer": "client",
+      "job": "project",
+      "horizon": "90 days from now",
+      "deposit": 0.5,
+      "mood": "clean",
+      "vacation": [
+        "Ninety days from now this runs without you thinking about it, and you spend that time on the parts of the business only you can do.",
+        "It looks as good as the work you actually do, and you stop apologizing for it."
+      ],
+      "pains": [
+        "it keeps falling to the bottom of the list",
+        "it looks dated next to competitors",
+        "nobody on the team owns it"
+      ],
+      "tried": [
+        "doing it in-house between other jobs",
+        "a freelancer who disappeared halfway",
+        "a big agency that cost a lot and moved slowly"
+      ],
+      "want": [
+        "this handled without it eating your week",
+        "something that looks as good as the work you do"
+      ],
+      "blocker": [
+        "nobody has time to own it",
+        "past help didn't stick"
+      ],
+      "points": [
+        {
+          "title": "One clear plan",
+          "say": "We agree on what done looks like before I start, in writing."
+        },
+        {
+          "title": "I do the work, you approve it",
+          "say": "You give feedback at set check points. From you it takes {effort}."
+        },
+        {
+          "title": "It keeps working after I'm done",
+          "say": "You get everything you need to keep it going, and I'm a message away."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Week 1",
+          "what": "Kickoff call. I gather what I need from you."
+        },
+        {
+          "when": "Week 2",
+          "what": "First draft for you to review."
+        },
+        {
+          "when": "Week 3",
+          "what": "Your changes made. You approve the final."
+        },
+        {
+          "when": "Week 4",
+          "what": "Launch and handoff, with everything you need to keep it going."
+        }
+      ],
+      "included": [
+        "The work listed in the option you pick",
+        "One kickoff call",
+        "Two rounds of changes"
+      ],
+      "better": [
+        "A third round of changes",
+        "A 30-day check-in after launch"
+      ],
+      "best": [
+        "Ongoing monthly support",
+        "Priority turnaround on requests"
+      ],
+      "notIncluded": [
+        "Paid software, ad spend or other third-party fees",
+        "Work outside the scope above (quoted before I start)",
+        "Content you haven't supplied, unless it's listed"
+      ],
+      "priceDrivers": "how much there is to do and how fast you need it",
+      "effort": "a 30-minute kickoff call and quick feedback at two check points",
+      "timeSaved": "You stop spending nights on it.",
+      "smaller": "a smaller first phase you can build on later",
+      "proof": "a free sample made for their business before they pay",
+      "difference": "we agree on what done looks like in writing first, you approve each stage, and you get a date for every step",
+      "promiseIdea": "You approve each stage before we move on. If the first draft misses, I redo it free.",
+      "peak": [
+        {
+          "when": "The day it goes live",
+          "why": "They're proud of it and showing it around. Ask that week."
+        },
+        {
+          "when": "When they see the first result from it",
+          "why": "The first inquiry, booking or sale is the high point. Ask right then."
+        },
+        {
+          "when": "At the 30-day check-in",
+          "why": "A natural moment to ask who else could use it."
+        }
+      ],
+      "rebookDays": 30,
+      "referralReward": {
+        "referrer": "10% off your next month or project",
+        "friend": "10% off their first project"
+      }
+    },
+    "coaching": {
+      "label": "coaching",
+      "buyer": "client",
+      "job": "program",
+      "horizon": "90 days from now",
+      "deposit": 0,
+      "mood": "calm",
+      "vacation": [
+        "Ninety days from now you're not wondering what to do next. You have a plan, you work it every week, and you can see the progress.",
+        "You stop starting over. Every week you know the next three things to do, and someone is in your corner."
+      ],
+      "pains": [
+        "you know what you want but not the next step",
+        "you start strong and stall out",
+        "there's nobody holding you to it"
+      ],
+      "tried": [
+        "free videos and podcasts",
+        "a course you bought and didn't finish",
+        "trying to figure it out alone"
+      ],
+      "want": [
+        "a clear plan and someone in your corner",
+        "to stop starting over"
+      ],
+      "blocker": [
+        "there's no plan and no one holding you to it",
+        "there's too much information and no order to it"
+      ],
+      "points": [
+        {
+          "title": "We start with where you are",
+          "say": "The first session maps your goal and what's actually in the way."
+        },
+        {
+          "title": "A plan every week",
+          "say": "Every call ends with the next three things to do."
+        },
+        {
+          "title": "Someone holding you to it",
+          "say": "I check in between calls so you don't stall out."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Week 1",
+          "what": "Kickoff session. We map the goal and write the plan."
+        },
+        {
+          "when": "Weeks 2 to 11",
+          "what": "Weekly calls, with check-ins between them."
+        },
+        {
+          "when": "Week 6",
+          "what": "Mid-point review: what's working and what changes."
+        },
+        {
+          "when": "Week 12",
+          "what": "Final review and your plan for what's next."
+        }
+      ],
+      "included": [
+        "Weekly 1:1 calls",
+        "A written plan after the first call",
+        "Messages between calls on weekdays"
+      ],
+      "better": [
+        "A mid-point review at week 6",
+        "Templates and worksheets for your plan"
+      ],
+      "best": [
+        "Two calls a week in the first month",
+        "Priority replies"
+      ],
+      "notIncluded": [
+        "Doing the work for you: I coach, you do it",
+        "Calls outside the schedule above",
+        "Therapy, legal, tax or medical advice"
+      ],
+      "priceDrivers": "how long we work together and how often we meet",
+      "effort": "an hour a week for the call and the work you agree to",
+      "timeSaved": "You stop going in circles.",
+      "smaller": "a single strategy session with a written plan",
+      "proof": "a free 20-minute session where they leave with a next step either way",
+      "difference": "you leave every call with three next steps, and I check in between calls so you don't stall",
+      "promiseIdea": "If after the first two sessions it isn't helping, I'll refund what you paid.",
+      "peak": [
+        {
+          "when": "When they hit their first milestone",
+          "why": "They're excited and telling people. Ask that day."
+        },
+        {
+          "when": "When they tell you something changed",
+          "why": "They just said it out loud. Ask who else needs it."
+        },
+        {
+          "when": "At the final review",
+          "why": "A natural close to the program and a natural time to ask."
+        }
+      ],
+      "rebookDays": 90,
+      "referralReward": {
+        "referrer": "a free extra session",
+        "friend": "a free strategy session"
+      }
+    },
+    "events": {
+      "label": "events",
+      "buyer": "client",
+      "job": "event",
+      "horizon": "the morning after the event",
+      "deposit": 0.5,
+      "mood": "warm",
+      "vacation": [
+        "On the day, you're with your guests, not running around. Everything shows up on time, and the next morning people are still talking about it.",
+        "You get to enjoy your own event. The details are handled, and nothing lands on you."
+      ],
+      "pains": [
+        "the date is coming fast",
+        "the last vendor showed up late",
+        "you're juggling too many moving parts"
+      ],
+      "tried": [
+        "asking a friend to handle it",
+        "a big company that treated it like any other order",
+        "doing it all yourself"
+      ],
+      "want": [
+        "a day that runs itself",
+        "to enjoy your own event"
+      ],
+      "blocker": [
+        "there are too many moving parts",
+        "there's no one you trust to own it"
+      ],
+      "points": [
+        {
+          "title": "Your date is locked",
+          "say": "Once the deposit is in, the date is yours and nobody else's."
+        },
+        {
+          "title": "A plan for the day",
+          "say": "We walk through the timing a week out, so there are no surprises."
+        },
+        {
+          "title": "You stay with your guests",
+          "say": "I handle setup, the day itself and breakdown of my area."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option. The deposit holds your date."
+        },
+        {
+          "when": "Two weeks out",
+          "what": "We confirm details and headcount."
+        },
+        {
+          "when": "Week of",
+          "what": "A final timing call."
+        },
+        {
+          "when": "Event day",
+          "what": "Setup, the event, and breakdown of my area."
+        }
+      ],
+      "included": [
+        "Everything in the option you pick",
+        "A planning call before the event",
+        "Setup and breakdown of my area"
+      ],
+      "better": [
+        "Extra time on the day",
+        "A second planning call"
+      ],
+      "best": [
+        "Extra add-ons from the menu",
+        "First choice of date for your next event"
+      ],
+      "notIncluded": [
+        "Venue fees, permits or rentals not listed",
+        "Changes inside 7 days of the event (quoted first)",
+        "Travel outside my normal area"
+      ],
+      "priceDrivers": "the date, the headcount and how long the event runs",
+      "effort": "a 20-minute planning call and a final headcount",
+      "timeSaved": "You get to enjoy the day.",
+      "smaller": "a shorter package with the essentials",
+      "proof": "photos from past events or a tasting or sample",
+      "difference": "your date is locked in writing, we plan the timing a week out, and I handle my setup and breakdown",
+      "promiseIdea": "If I can't make your date for any reason, you get your deposit back in full.",
+      "peak": [
+        {
+          "when": "The day after the event",
+          "why": "They're still glowing. A thank-you text and the ask go together."
+        },
+        {
+          "when": "When they share photos",
+          "why": "They're showing it off. Ask who else has an event coming."
+        },
+        {
+          "when": "When a guest asks who did it",
+          "why": "That guest is your next client. Ask them to pass your number along."
+        }
+      ],
+      "rebookDays": 180,
+      "referralReward": {
+        "referrer": "a thank-you gift card",
+        "friend": "a free add-on for their event"
+      }
+    },
+    "product": {
+      "label": "product",
+      "buyer": "buyer",
+      "job": "order",
+      "horizon": "when the order lands",
+      "deposit": 0.5,
+      "mood": "premium",
+      "vacation": [
+        "The order shows up on time and looks exactly like the sample, so you reorder without a second thought.",
+        "You stop chasing suppliers. You approve one proof and the rest just arrives."
+      ],
+      "pains": [
+        "suppliers who miss dates",
+        "orders that don't match the sample",
+        "minimums that are too big to test"
+      ],
+      "tried": [
+        "big suppliers who never answer",
+        "overseas orders with long waits",
+        "making it yourself"
+      ],
+      "want": [
+        "a supplier you don't have to chase",
+        "orders that match the sample"
+      ],
+      "blocker": [
+        "past suppliers missed dates",
+        "minimums were too big to test"
+      ],
+      "points": [
+        {
+          "title": "You see it before you commit",
+          "say": "You approve a proof or sample before the full run."
+        },
+        {
+          "title": "Clear dates",
+          "say": "You get a ship date in writing, and an update if anything moves."
+        },
+        {
+          "title": "Easy to reorder",
+          "say": "Reorders are one message."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Approve the quote. The deposit starts your order."
+        },
+        {
+          "when": "Proof",
+          "what": "You approve a sample or mockup."
+        },
+        {
+          "when": "Production",
+          "what": "Made to the approved proof."
+        },
+        {
+          "when": "Ship",
+          "what": "Tracking sent the day it ships."
+        }
+      ],
+      "included": [
+        "The items and quantities listed",
+        "One proof or sample photo before production",
+        "Packing for shipping"
+      ],
+      "better": [
+        "Custom packaging or labels",
+        "A second proof round"
+      ],
+      "best": [
+        "Rush production",
+        "Stock held for your reorders"
+      ],
+      "notIncluded": [
+        "Shipping costs unless listed",
+        "Duties or import fees",
+        "Changes after you approve the proof"
+      ],
+      "priceDrivers": "the quantity and how custom it is",
+      "effort": "approve one proof",
+      "timeSaved": "You stop chasing suppliers.",
+      "smaller": "a smaller first order to test it",
+      "proof": "a sample or photos of past orders",
+      "difference": "you approve a proof before anything is made, and you get the ship date in writing",
+      "promiseIdea": "If anything arrives damaged, send me a photo within 7 days and I'll replace it.",
+      "peak": [
+        {
+          "when": "When the order arrives",
+          "why": "Unboxing is the high point. Ask in your delivery check-in."
+        },
+        {
+          "when": "When it sells through or they reorder",
+          "why": "Reordering means it worked for them."
+        },
+        {
+          "when": "When they post it",
+          "why": "They're proud of it. Thank them and ask."
+        }
+      ],
+      "rebookDays": 45,
+      "referralReward": {
+        "referrer": "free shipping on your next order",
+        "friend": "free shipping on their first order"
+      }
+    },
+    "general": {
+      "label": "business",
+      "buyer": "customer",
+      "job": "job",
+      "horizon": "a month from now",
+      "deposit": 0,
+      "mood": "clean",
+      "vacation": [
+        "A month from now this is handled, and you're not thinking about it anymore.",
+        "It's done right, on time, and you didn't have to chase anyone."
+      ],
+      "pains": [
+        "it keeps getting pushed to next week",
+        "the last person didn't follow through",
+        "there's no time to do it well"
+      ],
+      "tried": [
+        "doing it yourself",
+        "someone cheaper who didn't follow through",
+        "putting it off"
+      ],
+      "want": [
+        "it done right without chasing anyone",
+        "this off your plate"
+      ],
+      "blocker": [
+        "there's no time to do it well",
+        "you haven't found someone reliable"
+      ],
+      "points": [
+        {
+          "title": "Clear plan",
+          "say": "You know exactly what you get and when, in writing."
+        },
+        {
+          "title": "Done right",
+          "say": "I work from a checklist and you see it before it's done."
+        },
+        {
+          "title": "Easy for you",
+          "say": "All you do is {effort}."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option and a start date."
+        },
+        {
+          "when": "Start",
+          "what": "I confirm what I need from you."
+        },
+        {
+          "when": "The work",
+          "what": "Done to the plan, with an update along the way."
+        },
+        {
+          "when": "Finish",
+          "what": "You check it, then pay the balance."
+        }
+      ],
+      "included": [
+        "Everything listed in the option you pick",
+        "Updates along the way",
+        "A final check with you"
+      ],
+      "better": [
+        "Priority scheduling",
+        "An extra check-in"
+      ],
+      "best": [
+        "Ongoing support",
+        "First pick of dates"
+      ],
+      "notIncluded": [
+        "Work not listed in your option (quoted before I start)",
+        "Third-party fees",
+        "Travel outside my normal area"
+      ],
+      "priceDrivers": "how much there is to do and when you need it",
+      "effort": "answer a few questions at the start",
+      "timeSaved": "You get it off your plate.",
+      "smaller": "a smaller first step you can build on",
+      "proof": "examples of your work",
+      "difference": "you get the plan in writing, updates along the way, and a final check with me",
+      "promiseIdea": "If it isn't right, tell me within 48 hours and I'll fix it free.",
+      "peak": [
+        {
+          "when": "Right when you deliver",
+          "why": "They see the result. Ask then."
+        },
+        {
+          "when": "When they say thanks",
+          "why": "Reply with thanks, then ask."
+        },
+        {
+          "when": "At a check-in a few weeks later",
+          "why": "A natural time to ask."
+        }
+      ],
+      "rebookDays": 30,
+      "referralReward": {
+        "referrer": "$20 off your next order",
+        "friend": "$20 off their first order"
+      }
+    }
+  },
+  "niches": [
+    {
+      "id": "detailing",
+      "archetype": "auto",
+      "match": [
+        "detail",
+        "car wash",
+        "auto spa",
+        "ceramic coat",
+        "mobile wash"
+      ]
+    },
+    {
+      "id": "washing",
+      "archetype": "home",
+      "match": [
+        "pressure wash",
+        "power wash",
+        "soft wash",
+        "window clean",
+        "gutter",
+        "roof clean",
+        "exterior clean"
+      ],
+      "job": "wash",
+      "vacation": [
+        "The driveway, siding and windows look new again. The house looks like it did the day you moved in, and it took one morning you didn't have to be home for."
+      ],
+      "pains": [
+        "green and black stains on the siding",
+        "a slippery driveway or deck",
+        "windows you can't reach"
+      ],
+      "tried": [
+        "renting a pressure washer",
+        "a ladder and a bucket",
+        "putting it off another season"
+      ],
+      "want": [
+        "the house to look new again",
+        "it done safely without you on a ladder"
+      ],
+      "blocker": [
+        "the right equipment costs a lot to rent",
+        "it isn't safe to do from a ladder"
+      ],
+      "points": [
+        {
+          "title": "The right pressure for each surface",
+          "say": "Gentle on siding and paint, strong on concrete, so nothing gets damaged."
+        },
+        {
+          "title": "I protect what's around it",
+          "say": "Plants, windows and outdoor furniture get covered or moved first."
+        },
+        {
+          "title": "Done in a morning",
+          "say": "You don't need to be home. All you do is {effort}."
+        }
+      ],
+      "included": [
+        "Driveway and walkways",
+        "Front of the house siding",
+        "Rinse and cleanup after"
+      ],
+      "better": [
+        "All sides of the house",
+        "Deck or patio"
+      ],
+      "best": [
+        "Windows inside and out",
+        "A repeat wash in 6 months"
+      ],
+      "notIncluded": [
+        "Roof cleaning unless listed",
+        "Repairs to damaged siding or paint",
+        "Inside windows unless listed"
+      ],
+      "priceDrivers": "the square footage and which surfaces you want done",
+      "effort": "turn on the outside water",
+      "timeSaved": "You skip a weekend of rented equipment and ladders.",
+      "smaller": "just the driveway and walkway",
+      "proof": "before and after photos, even from your own driveway",
+      "promiseIdea": "If any spot isn't clean once it dries, I'll come back and redo it free.",
+      "peak": [
+        {
+          "when": "When they see it dry",
+          "why": "The before and after is obvious. Ask right then."
+        },
+        {
+          "when": "When a neighbor asks who did it",
+          "why": "They'll tell you about it. Ask them to pass your card along."
+        },
+        {
+          "when": "When they book the next wash",
+          "why": "Booking again means they trust you."
+        }
+      ],
+      "rebookDays": 180
+    },
+    {
+      "id": "cleaning",
+      "archetype": "home",
+      "match": [
+        "house clean",
+        "home clean",
+        "maid",
+        "cleaning service",
+        "move-out",
+        "move out clean",
+        "airbnb",
+        "turnover",
+        "residential clean",
+        "office clean",
+        "janitorial",
+        "cleaner",
+        "cleaning"
+      ],
+      "job": "clean",
+      "vacation": [
+        "You walk in after work and the whole place is clean. Kitchen wiped, bathrooms done, floors clean, and you didn't spend your Sunday on it."
+      ],
+      "pains": [
+        "Sunday turns into cleaning day",
+        "it never stays clean with kids and pets",
+        "the last cleaner skipped things"
+      ],
+      "tried": [
+        "splitting chores at home",
+        "a cleaner who rushed and skipped rooms",
+        "an app that sent a different person every time"
+      ],
+      "want": [
+        "a clean home without giving up your weekend",
+        "to walk into a clean house after work"
+      ],
+      "blocker": [
+        "there's no time left after work",
+        "past cleaners weren't consistent"
+      ],
+      "points": [
+        {
+          "title": "Same checklist every time",
+          "say": "Every room, every visit, from the same written checklist."
+        },
+        {
+          "title": "Someone you know",
+          "say": "You know who's coming, and you get a text when we're done."
+        },
+        {
+          "title": "You come home to it done",
+          "say": "All you do is {effort}."
+        }
+      ],
+      "included": [
+        "Kitchen counters, sink and appliance fronts",
+        "Bathrooms cleaned and disinfected",
+        "Floors vacuumed and mopped",
+        "Dusting of reachable surfaces"
+      ],
+      "better": [
+        "Inside the fridge and oven",
+        "Baseboards and door frames",
+        "Beds made with fresh linens"
+      ],
+      "best": [
+        "An every-two-weeks schedule",
+        "Inside cabinets and windows",
+        "Priority for holiday weeks"
+      ],
+      "notIncluded": [
+        "Outside windows",
+        "Moving heavy furniture",
+        "Mold, biohazard or post-construction cleanup (quoted separately)"
+      ],
+      "priceDrivers": "the number of bedrooms and bathrooms and how long since the last deep clean",
+      "effort": "leave a key or a door code",
+      "timeSaved": "You get your Sundays back.",
+      "smaller": "a 2-hour priority clean of the kitchen and bathrooms",
+      "proof": "photos of spaces you've cleaned, with the owner's OK",
+      "promiseIdea": "If we missed anything, tell me within 24 hours and I'll come back and clean it free.",
+      "peak": [
+        {
+          "when": "The walk-through at the end",
+          "why": "They see it sparkle. Ask right then."
+        },
+        {
+          "when": "When they switch to a regular schedule",
+          "why": "That's a vote of trust. Ask in the same conversation."
+        },
+        {
+          "when": "When they text that it looks great",
+          "why": "Reply with thanks, then ask."
+        }
+      ],
+      "rebookDays": 14
+    },
+    {
+      "id": "lawn",
+      "archetype": "home",
+      "match": [
+        "lawn",
+        "mowing",
+        "landscap",
+        "yard",
+        "snow removal",
+        "snow plow",
+        "leaf",
+        "garden"
+      ],
+      "job": "visit",
+      "vacation": [
+        "The yard looks sharp every week without you touching a mower. You pull into the driveway and it's just done."
+      ],
+      "pains": [
+        "the grass gets away from you in two weeks",
+        "weekends go to yard work",
+        "the HOA sent a notice"
+      ],
+      "tried": [
+        "doing it yourself",
+        "a neighbor's kid who stopped showing up",
+        "a big company that never answers the phone"
+      ],
+      "want": [
+        "a yard that looks good every week without you doing it"
+      ],
+      "blocker": [
+        "weekends are already full",
+        "the last crew wasn't reliable"
+      ],
+      "points": [
+        {
+          "title": "Same day every week",
+          "say": "You know when I'm coming, and you never have to call to remind me."
+        },
+        {
+          "title": "Mowed, edged and blown clean",
+          "say": "Not just a cut. Edges sharp, clippings off the walks."
+        },
+        {
+          "title": "A photo when it's done",
+          "say": "You get a text with a photo, so you know it's handled. All you do is {effort}."
+        }
+      ],
+      "included": [
+        "Mowing",
+        "Edging along walks and drives",
+        "Clippings blown off hard surfaces"
+      ],
+      "better": [
+        "Weeding the beds",
+        "Hedge and shrub trimming"
+      ],
+      "best": [
+        "Spring and fall cleanup",
+        "Priority visits after storms"
+      ],
+      "notIncluded": [
+        "Tree work above head height",
+        "Sprinkler repair",
+        "Hauling large debris (quoted separately)"
+      ],
+      "priceDrivers": "the size of the yard and how often you want it done",
+      "effort": "leave the gate unlocked",
+      "timeSaved": "You get your weekends back.",
+      "smaller": "one cut to see how you like it",
+      "proof": "before and after photos of yards you've done",
+      "promiseIdea": "If a spot gets missed, text me and I'll fix it within 48 hours, free.",
+      "peak": [
+        {
+          "when": "Right after the first cut",
+          "why": "The difference is obvious. Ask right then."
+        },
+        {
+          "when": "When they sign up for the season",
+          "why": "That's a vote of trust. Ask in the same conversation."
+        },
+        {
+          "when": "When a neighbor comments on the yard",
+          "why": "They'll mention it. Ask them to pass your number along."
+        }
+      ],
+      "rebookDays": 7
+    },
+    {
+      "id": "handyman",
+      "archetype": "home",
+      "match": [
+        "handyman",
+        "painting",
+        "painter",
+        "furniture assembly",
+        "junk removal",
+        "tv mount",
+        "drywall",
+        "home repair",
+        "odd jobs"
+      ],
+      "vacation": [
+        "The list that's been on the fridge for months is done in an afternoon, and it's done right."
+      ],
+      "pains": [
+        "a to-do list that keeps growing",
+        "small jobs nobody wants to take",
+        "contractors who don't call back"
+      ],
+      "tried": [
+        "YouTube and a free weekend",
+        "a big contractor who wasn't interested in small jobs",
+        "a friend who started and didn't finish"
+      ],
+      "want": [
+        "the list finally done",
+        "someone who actually shows up for small jobs"
+      ],
+      "blocker": [
+        "the jobs are too small for big contractors",
+        "there's no free weekend"
+      ],
+      "included": [
+        "The jobs listed in the option you pick",
+        "Materials if they're listed",
+        "Cleanup when I'm done"
+      ],
+      "better": [
+        "An extra hour for small fixes you add on the day",
+        "Haul-away of old parts"
+      ],
+      "best": [
+        "A standing monthly visit for your list",
+        "Priority booking"
+      ],
+      "notIncluded": [
+        "Electrical, plumbing or anything that needs a license",
+        "Permits",
+        "Materials not listed"
+      ],
+      "priceDrivers": "how many jobs are on the list and what materials they need",
+      "smaller": "the top two jobs on the list",
+      "promiseIdea": "If anything I fixed isn't right within 30 days, I'll come back and fix it free.",
+      "rebookDays": 60
+    },
+    {
+      "id": "tutoring",
+      "archetype": "personal",
+      "match": [
+        "tutor",
+        "test prep",
+        "sat prep",
+        "act prep",
+        "homework help",
+        "reading help",
+        "math help",
+        "lessons"
+      ],
+      "buyer": "family",
+      "vacation": [
+        "Homework stops being a fight at the kitchen table. Your kid walks into the next test knowing the material, and you're not the one teaching it at 9pm."
+      ],
+      "pains": [
+        "grades are slipping in one subject",
+        "homework turns into an argument",
+        "a big test is coming up"
+      ],
+      "tried": [
+        "helping with homework yourself",
+        "free videos online",
+        "a big tutoring center that felt like more school"
+      ],
+      "want": [
+        "your kid confident in the subject again",
+        "homework time without the fight"
+      ],
+      "blocker": [
+        "the material is past what you remember",
+        "the class moves too fast to catch up"
+      ],
+      "points": [
+        {
+          "title": "We find the gap first",
+          "say": "The first session finds exactly where it stopped making sense."
+        },
+        {
+          "title": "Same time every week",
+          "say": "Sessions on a set day, so it becomes routine instead of a fight."
+        },
+        {
+          "title": "You hear how it's going",
+          "say": "A short note after each session, so you always know."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "First session",
+          "what": "Find the gaps and set a plan."
+        },
+        {
+          "when": "Weeks 1 to 4",
+          "what": "Weekly sessions on the gaps, with practice in between."
+        },
+        {
+          "when": "Before the test",
+          "what": "A review session on what will be tested."
+        },
+        {
+          "when": "Check-in",
+          "what": "A progress note and the plan for next month."
+        }
+      ],
+      "included": [
+        "Weekly 1:1 sessions",
+        "A short progress note after each session",
+        "Practice work between sessions"
+      ],
+      "better": [
+        "Two sessions a week before big tests",
+        "Homework questions by message on weekdays"
+      ],
+      "best": [
+        "A test prep plan for the whole term",
+        "Priority session times"
+      ],
+      "notIncluded": [
+        "Doing homework for the student",
+        "Sessions beyond the ones in your option",
+        "Subjects not listed"
+      ],
+      "priceDrivers": "how many sessions a week and the subject",
+      "effort": "get them to the session, or online with the camera on",
+      "timeSaved": "You stop being the homework referee.",
+      "smaller": "a single session to find the gaps",
+      "proof": "a free first session or a sample lesson",
+      "promiseIdea": "If the first session isn't a fit, you don't pay for it.",
+      "peak": [
+        {
+          "when": "After the first better grade",
+          "why": "Parents talk to other parents. Ask that week."
+        },
+        {
+          "when": "When the student says it finally makes sense",
+          "why": "Share it with the parent and ask."
+        },
+        {
+          "when": "At the end of the term",
+          "why": "A natural check-in and a natural ask."
+        }
+      ],
+      "rebookDays": 7,
+      "referralReward": {
+        "referrer": "a free session for you",
+        "friend": "their first session free"
+      }
+    },
+    {
+      "id": "petcare",
+      "archetype": "personal",
+      "match": [
+        "dog walk",
+        "pet sit",
+        "pet care",
+        "dog sit",
+        "cat sit",
+        "pet groom",
+        "dog groom",
+        "house sit",
+        "boarding"
+      ],
+      "job": "visit",
+      "vacation": [
+        "You're at work or away and you don't worry about your pet once, because you get a photo and a note after every visit."
+      ],
+      "pains": [
+        "long workdays leave the dog alone",
+        "trips mean a kennel your pet hates",
+        "the last sitter never sent updates"
+      ],
+      "tried": [
+        "asking a neighbor",
+        "a big kennel",
+        "an app with a new person every time"
+      ],
+      "want": [
+        "your pet happy and looked after while you're gone"
+      ],
+      "blocker": [
+        "long days away",
+        "not knowing who's coming"
+      ],
+      "points": [
+        {
+          "title": "Same person every time",
+          "say": "Your pet gets to know me, and you know who's coming."
+        },
+        {
+          "title": "A photo and a note every visit",
+          "say": "You see how it went before you even ask."
+        },
+        {
+          "title": "Your routine, exactly",
+          "say": "Feeding, meds, walks and quirks, written down and followed."
+        }
+      ],
+      "included": [
+        "Walks or visits as listed",
+        "Fresh water and feeding",
+        "A photo and a note after each visit"
+      ],
+      "better": [
+        "Longer visits",
+        "Medication given as directed"
+      ],
+      "best": [
+        "Overnight stays",
+        "Priority for holidays"
+      ],
+      "notIncluded": [
+        "Vet visits or rides unless listed",
+        "Grooming unless listed",
+        "Pets with a bite history (talk to me first)"
+      ],
+      "priceDrivers": "how many pets, how long each visit is and how often",
+      "effort": "a meet-and-greet and a spare key",
+      "timeSaved": "You stop worrying at work.",
+      "smaller": "a single trial walk",
+      "proof": "a free meet-and-greet",
+      "promiseIdea": "If I ever miss a visit, your next week is free.",
+      "peak": [
+        {
+          "when": "After the first full week",
+          "why": "They've seen the photos and trust you. Ask then."
+        },
+        {
+          "when": "When they get back from a trip",
+          "why": "Relief is a strong moment. Ask in your welcome-home text."
+        },
+        {
+          "when": "When they reply to a photo with love",
+          "why": "Reply with thanks, then ask."
+        }
+      ],
+      "rebookDays": 7
+    },
+    {
+      "id": "fitness",
+      "archetype": "personal",
+      "match": [
+        "personal train",
+        "fitness coach",
+        "strength coach",
+        "pilates",
+        "yoga teacher",
+        "yoga instructor",
+        "trainer"
+      ],
+      "vacation": [
+        "A month from now working out is just part of your week. You know exactly what to do in every session, and you're not guessing anymore."
+      ],
+      "pains": [
+        "starting and stopping every few weeks",
+        "not knowing what to do at the gym",
+        "worrying about doing it wrong"
+      ],
+      "tried": [
+        "a gym membership you barely used",
+        "workout apps",
+        "group classes where nobody checked your form"
+      ],
+      "want": [
+        "a routine you actually stick to",
+        "to know you're doing it right"
+      ],
+      "blocker": [
+        "it's hard to stay consistent alone",
+        "nobody's checking your form"
+      ],
+      "points": [
+        {
+          "title": "A plan built for you",
+          "say": "Your goals, your schedule, your starting point."
+        },
+        {
+          "title": "Someone watching your form",
+          "say": "Every rep checked, so you do it right."
+        },
+        {
+          "title": "Sessions on the calendar",
+          "say": "Set days and times, so it actually happens."
+        }
+      ],
+      "included": [
+        "1:1 sessions as listed",
+        "A written plan",
+        "Form checks every session"
+      ],
+      "better": [
+        "A simple food guide",
+        "Text check-ins between sessions"
+      ],
+      "best": [
+        "Three sessions a week",
+        "A monthly progress review"
+      ],
+      "notIncluded": [
+        "Medical advice or rehab",
+        "Gym membership fees",
+        "Supplements"
+      ],
+      "priceDrivers": "how many sessions a week and how long each one is",
+      "effort": "show up for the sessions",
+      "smaller": "a single intro session with a plan",
+      "proof": "a free intro session",
+      "promiseIdea": "Come to every session in the first month, and if you don't like it, I'll refund the month.",
+      "rebookDays": 28
+    },
+    {
+      "id": "beauty",
+      "archetype": "personal",
+      "match": [
+        "hair",
+        "stylist",
+        "barber",
+        "nail",
+        "lash",
+        "brow",
+        "makeup",
+        "esthetic",
+        "salon",
+        "braid",
+        "wax"
+      ],
+      "job": "appointment",
+      "vacation": [
+        "You leave feeling like yourself again, and it holds up for weeks without you thinking about it."
+      ],
+      "pains": [
+        "it never looks the way you asked",
+        "booking is a hassle",
+        "it doesn't last"
+      ],
+      "tried": [
+        "the chain place down the street",
+        "doing it at home",
+        "someone new every time"
+      ],
+      "want": [
+        "to walk out loving it",
+        "someone who gets it right every time"
+      ],
+      "blocker": [
+        "past appointments didn't match what you asked for",
+        "booking is a hassle"
+      ],
+      "points": [
+        {
+          "title": "We talk before we start",
+          "say": "You show me what you want, and I tell you honestly what will work."
+        },
+        {
+          "title": "The time it needs",
+          "say": "No rushing to fit in the next person."
+        },
+        {
+          "title": "Easy to book again",
+          "say": "We set your next appointment before you leave."
+        }
+      ],
+      "included": [
+        "The service listed",
+        "A consultation before we start",
+        "Aftercare tips"
+      ],
+      "better": [
+        "A longer appointment with extra care",
+        "A product to take home"
+      ],
+      "best": [
+        "Standing appointments on a set schedule",
+        "Priority booking"
+      ],
+      "notIncluded": [
+        "Fixing another salon's work unless quoted",
+        "Products unless listed"
+      ],
+      "priceDrivers": "the service, the length and how much time it takes",
+      "effort": "show up, and send a photo of what you want",
+      "smaller": "a quick touch-up",
+      "proof": "photos of your work",
+      "promiseIdea": "If something isn't right, come back within 7 days and I'll fix it free.",
+      "peak": [
+        {
+          "when": "When they see the mirror",
+          "why": "The reaction is the moment. Ask right then."
+        },
+        {
+          "when": "When they rebook",
+          "why": "Booking again means they love it."
+        },
+        {
+          "when": "When they post a photo",
+          "why": "They're showing it off. Thank them and ask."
+        }
+      ],
+      "rebookDays": 35
+    },
+    {
+      "id": "bizphoto",
+      "archetype": "b2b",
+      "match": [
+        "business photograph",
+        "commercial photograph",
+        "product photograph",
+        "food photograph",
+        "brand photograph",
+        "photos for local",
+        "photos for business",
+        "photos for restaurant",
+        "photography for local",
+        "photography for business",
+        "photography for restaurant",
+        "menu photo",
+        "team headshot",
+        "real estate photograph"
+      ],
+      "job": "shoot",
+      "deposit": 0.5,
+      "mood": "premium",
+      "vacation": [
+        "Your website, Google profile and menu show your real food, your real space and your real team, the way they look on a good day. You have fresh photos ready for every post for months."
+      ],
+      "pains": [
+        "your photos are old, dark or taken on a phone between customers",
+        "your Google and website photos don't look like the place does now",
+        "you post the same few pictures over and over"
+      ],
+      "tried": [
+        "phone photos between customers",
+        "stock photos",
+        "a friend with a nice camera"
+      ],
+      "want": [
+        "photos that look like your place on its best day",
+        "a library of photos you can post for months"
+      ],
+      "blocker": [
+        "there's never a quiet hour to shoot",
+        "past photos took weeks to come back"
+      ],
+      "points": [
+        {
+          "title": "A shot list made for your business",
+          "say": "We agree the shots before the day: what you sell most, your space and your team at work."
+        },
+        {
+          "title": "Shot around your hours",
+          "say": "I work in your quiet hours, so customers and staff aren't in the way."
+        },
+        {
+          "title": "Ready for every place you use them",
+          "say": "Edited photos sized for your website, Google profile, menu and posts."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option and a date. The deposit holds it."
+        },
+        {
+          "when": "Before the shoot",
+          "what": "A short call for the shot list and the quietest time to shoot."
+        },
+        {
+          "when": "Shoot day",
+          "what": "I work through the list in your quiet hours."
+        },
+        {
+          "when": "Delivery",
+          "what": "Edited photos in an online gallery, sized for web, Google and social."
+        }
+      ],
+      "included": [
+        "The shoot time listed",
+        "Edited photos as listed",
+        "Sizes for your website, Google profile and posts"
+      ],
+      "better": [
+        "More edited photos",
+        "Short video clips for Reels and Stories"
+      ],
+      "best": [
+        "A shoot every season, so your photos stay current",
+        "Rush delivery"
+      ],
+      "notIncluded": [
+        "Props, food or styling not listed",
+        "Travel outside my normal area",
+        "Heavy retouching beyond normal edits"
+      ],
+      "priceDrivers": "how long the shoot runs, how many edited photos you want, and whether you want video clips too",
+      "effort": "a 15-minute call for the shot list and a quiet hour on the day",
+      "smaller": "a one-hour shoot of what you sell most",
+      "proof": "a free shot list made for their business, and your portfolio",
+      "difference": "we agree the shot list before the day, I shoot in your quiet hours, and every photo comes sized for where you'll use it",
+      "promiseIdea": "If a shot on our list doesn't come out the way we agreed, I'll reshoot it free.",
+      "peak": [
+        {
+          "when": "When the new photos go up",
+          "why": "They're proud of how the place looks. Ask that week."
+        },
+        {
+          "when": "When a customer mentions the photos",
+          "why": "It's fresh in their mind. Ask right then."
+        },
+        {
+          "when": "Before the next season",
+          "why": "A natural time to plan the next shoot and ask who else could use one."
+        }
+      ],
+      "rebookDays": 90
+    },
+    {
+      "id": "photo",
+      "archetype": "personal",
+      "match": [
+        "photograph",
+        "headshot",
+        "portrait",
+        "photo shoot",
+        "photoshoot",
+        "photos for"
+      ],
+      "job": "shoot",
+      "deposit": 0.3,
+      "mood": "premium",
+      "vacation": [
+        "You get the gallery back and you love how you look. You use the photos for years, and you stop hiding from the camera."
+      ],
+      "pains": [
+        "you hate how you look in photos",
+        "phone photos don't cut it",
+        "the last photographer took months to deliver"
+      ],
+      "tried": [
+        "a friend with a nice camera",
+        "phone photos",
+        "a studio that rushed the session"
+      ],
+      "want": [
+        "photos you're proud to use",
+        "to feel relaxed in front of the camera"
+      ],
+      "blocker": [
+        "you feel awkward on camera",
+        "past photos didn't look like you"
+      ],
+      "points": [
+        {
+          "title": "We plan it first",
+          "say": "Location, outfits and the shots you need, planned before the day."
+        },
+        {
+          "title": "I guide you the whole time",
+          "say": "You never wonder what to do with your hands. I tell you."
+        },
+        {
+          "title": "Your gallery, on time",
+          "say": "Edited photos in an online gallery on the date we agree."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Today",
+          "what": "Pick an option and a date. The deposit holds it."
+        },
+        {
+          "when": "Planning call",
+          "what": "Location, outfits and the shot list."
+        },
+        {
+          "when": "Shoot day",
+          "what": "I guide you through every shot."
+        },
+        {
+          "when": "Gallery",
+          "what": "Your edited photos, delivered on the date we agree."
+        }
+      ],
+      "included": [
+        "The session time listed",
+        "Edited photos as listed",
+        "An online gallery to download from"
+      ],
+      "better": [
+        "More edited photos",
+        "A second location"
+      ],
+      "best": [
+        "Prints or an album",
+        "Rush delivery"
+      ],
+      "notIncluded": [
+        "Travel outside my normal area",
+        "Heavy retouching beyond normal edits",
+        "Location or permit fees"
+      ],
+      "priceDrivers": "how long the session is and how many edited photos you want",
+      "effort": "pick a date and show up ready",
+      "timeSaved": "You stop putting it off.",
+      "smaller": "a 30-minute mini session",
+      "proof": "your portfolio",
+      "promiseIdea": "If you don't love at least 10 photos, I'll reshoot free.",
+      "peak": [
+        {
+          "when": "When they see the gallery",
+          "why": "It's the high point. Ask in your delivery message."
+        },
+        {
+          "when": "When they post a photo",
+          "why": "They're proud of it. Thank them and ask."
+        },
+        {
+          "when": "After their event",
+          "why": "Guests saw you work. Ask who asked about you."
+        }
+      ],
+      "rebookDays": 365
+    },
+    {
+      "id": "webdesign",
+      "archetype": "b2b",
+      "match": [
+        "web design",
+        "website",
+        "web develop",
+        "web dev",
+        "wordpress",
+        "squarespace",
+        "webflow",
+        "landing page"
+      ],
+      "job": "site",
+      "vacation": [
+        "Someone finds you on their phone at 9pm, sees what you do and what it costs in ten seconds, and books without calling. Your site finally looks as good as your work."
+      ],
+      "pains": [
+        "the site is old and hard to use on a phone",
+        "people call to ask things the site should answer",
+        "you're embarrassed to send people to it"
+      ],
+      "tried": [
+        "a do-it-yourself builder",
+        "a friend who built it years ago",
+        "an agency that cost a lot and took months"
+      ],
+      "want": [
+        "a site that answers questions and takes bookings while you work",
+        "a site you are proud to send people to"
+      ],
+      "blocker": [
+        "nobody has time to rebuild it",
+        "past builds were slow and expensive"
+      ],
+      "points": [
+        {
+          "title": "Built for phones first",
+          "say": "People look you up on their phones, so that's where I start."
+        },
+        {
+          "title": "It answers questions before they call",
+          "say": "What you do, what it costs and how to book, right on the first screen."
+        },
+        {
+          "title": "You can update it yourself",
+          "say": "You get a short video showing how to change text and photos."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Week 1",
+          "what": "Kickoff call. I collect your info, photos and logins."
+        },
+        {
+          "when": "Week 2",
+          "what": "First design for you to review."
+        },
+        {
+          "when": "Week 3",
+          "what": "Your changes and a final review."
+        },
+        {
+          "when": "Week 4",
+          "what": "Launch, plus a walkthrough video for you."
+        }
+      ],
+      "included": [
+        "A mobile-first site with up to 5 pages",
+        "A contact or booking button on every page",
+        "Basic search setup: page titles, descriptions and your Google profile link"
+      ],
+      "better": [
+        "Copywriting for every page",
+        "A booking or quote form sent to your email",
+        "A 30-day check-in after launch"
+      ],
+      "best": [
+        "A monthly care plan: updates, backups and small changes",
+        "A speed and search tune-up each quarter",
+        "Priority changes within 2 business days"
+      ],
+      "notIncluded": [
+        "Domain and hosting fees",
+        "Paid plugins or apps",
+        "Photography unless listed"
+      ],
+      "priceDrivers": "how many pages, who writes the words, and whether you need booking or a store",
+      "smaller": "a one-page site to start",
+      "proof": "a free mock homepage made for their business before they pay",
+      "promiseIdea": "If you don't love the first design, I'll redo it free before we build.",
+      "peak": [
+        {
+          "when": "Launch day",
+          "why": "They're proud and sharing the link. Ask that week."
+        },
+        {
+          "when": "The first inquiry or booking through the site",
+          "why": "Proof it works. Ask right then."
+        },
+        {
+          "when": "The 30-day check-in",
+          "why": "A natural time to ask who else needs a site."
+        }
+      ]
+    },
+    {
+      "id": "frontdesk",
+      "archetype": "b2b",
+      "match": [
+        "receptionist",
+        "front desk",
+        "missed call",
+        "missed-call",
+        "booking automation",
+        "ai automation",
+        "chatbot",
+        "automation",
+        "ai agent"
+      ],
+      "job": "setup",
+      "vacation": [
+        "A customer calls while you're on a job. They get a text back in seconds, pick a time, and they're booked before you even see your phone."
+      ],
+      "pains": [
+        "missed calls while you're working",
+        "people book with whoever answers first",
+        "after-hours calls go nowhere"
+      ],
+      "tried": [
+        "calling back at night",
+        "voicemail",
+        "a part-time person to answer the phone"
+      ],
+      "want": [
+        "every call answered, even mid-job",
+        "bookings that happen without you"
+      ],
+      "blocker": [
+        "you can't answer while you work",
+        "voicemail loses people"
+      ],
+      "points": [
+        {
+          "title": "Missed calls get a text back",
+          "say": "Within seconds, from your number, in your words."
+        },
+        {
+          "title": "They book themselves",
+          "say": "A booking link that fills your calendar, not your inbox."
+        },
+        {
+          "title": "Every lead in one place",
+          "say": "You see who called, what they asked and when they booked."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Day 1",
+          "what": "Setup call. We write your replies together."
+        },
+        {
+          "when": "Days 2 to 4",
+          "what": "I connect your number and calendar."
+        },
+        {
+          "when": "Day 5",
+          "what": "Test calls together until it's right."
+        },
+        {
+          "when": "Week 2",
+          "what": "Live, plus a check-in after the first week."
+        }
+      ],
+      "included": [
+        "Missed-call text-back setup",
+        "A booking link connected to your calendar",
+        "Reply templates for common questions"
+      ],
+      "better": [
+        "After-hours replies",
+        "Follow-up texts for open quotes"
+      ],
+      "best": [
+        "A monthly tune-up of your replies",
+        "Review requests after each job"
+      ],
+      "notIncluded": [
+        "Phone carrier or software fees",
+        "Answering calls live",
+        "Changes to your phone number"
+      ],
+      "priceDrivers": "how many phone lines and what needs to connect to your calendar",
+      "effort": "a 30-minute setup call and access to your calendar",
+      "smaller": "missed-call text-back only",
+      "proof": "a free mock of the text-back flow with their business name",
+      "promiseIdea": "If it isn't live and working in 7 days, you don't pay the setup fee.",
+      "peak": [
+        {
+          "when": "The first booking it catches",
+          "why": "Proof it works. Ask right then."
+        },
+        {
+          "when": "At the end of the first week",
+          "why": "They've seen it run. Ask in your check-in."
+        },
+        {
+          "when": "At the monthly check-in",
+          "why": "A natural time to ask who else misses calls."
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "archetype": "b2b",
+      "match": [
+        "social media",
+        "instagram manag",
+        "content for",
+        "smm",
+        "community manag",
+        "tiktok manag"
+      ],
+      "job": "month",
+      "vacation": [
+        "Your page posts every week without you thinking about it. People open it and see a busy, real place they want to visit, and you never wrote a caption."
+      ],
+      "pains": [
+        "the page hasn't posted in weeks",
+        "nobody has time to film or write captions",
+        "posts get no response"
+      ],
+      "tried": [
+        "posting when someone remembers",
+        "a staff member who left",
+        "boosting posts without a plan"
+      ],
+      "want": [
+        "a page that posts on its own",
+        "posts that look like the real place"
+      ],
+      "blocker": [
+        "nobody has time to own it",
+        "there's no plan, so it stalls"
+      ],
+      "points": [
+        {
+          "title": "A plan you approve each month",
+          "say": "You see every post before it goes up."
+        },
+        {
+          "title": "I make it, you approve it",
+          "say": "I film or use what you send, then edit and write the captions."
+        },
+        {
+          "title": "You see what worked",
+          "say": "A short monthly recap so we do more of what works."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "Week 1",
+          "what": "Kickoff call and your first month's plan."
+        },
+        {
+          "when": "Week 2",
+          "what": "First batch of posts for you to approve."
+        },
+        {
+          "when": "Weeks 2 to 4",
+          "what": "Posting on schedule."
+        },
+        {
+          "when": "Month end",
+          "what": "A short recap and next month's plan."
+        }
+      ],
+      "included": [
+        "8 posts a month",
+        "Captions and hashtags",
+        "A monthly plan you approve"
+      ],
+      "better": [
+        "4 short videos a month",
+        "Replies to comments on weekdays"
+      ],
+      "best": [
+        "A shoot day at your place each month",
+        "Stories 3 times a week",
+        "A monthly recap call"
+      ],
+      "notIncluded": [
+        "Paid ads spend",
+        "Replying to DMs on weekends",
+        "Influencer fees"
+      ],
+      "priceDrivers": "how many posts and videos a month, and whether I shoot on site",
+      "effort": "a 20-minute monthly call and access to your account",
+      "timeSaved": "You stop thinking about what to post.",
+      "smaller": "a 2-week trial with 4 posts",
+      "proof": "a free sample week of posts made for their page",
+      "promiseIdea": "You approve every post before it goes up. If you don't like one, I redo it.",
+      "peak": [
+        {
+          "when": "When a post gets their best response yet",
+          "why": "They're excited. Ask that day."
+        },
+        {
+          "when": "When a customer says they saw it",
+          "why": "Proof it works. Ask right then."
+        },
+        {
+          "when": "At the monthly recap",
+          "why": "A natural time to ask who else needs help."
+        }
+      ]
+    },
+    {
+      "id": "video",
+      "archetype": "b2b",
+      "match": [
+        "video edit",
+        "editing video",
+        "reels edit",
+        "short-form",
+        "short form",
+        "youtube edit",
+        "videograph"
+      ],
+      "job": "video",
+      "vacation": [
+        "Every week a new video goes up that looks like you hired a studio, and all you did was film on your phone."
+      ],
+      "pains": [
+        "you film but never edit",
+        "videos take hours you don't have",
+        "posts look amateur next to competitors"
+      ],
+      "tried": [
+        "editing on your phone at night",
+        "templates that all look the same",
+        "a freelancer who took weeks"
+      ],
+      "want": [
+        "videos that look pro without your evenings",
+        "a steady stream of posts"
+      ],
+      "blocker": [
+        "editing takes hours",
+        "past editors were slow"
+      ],
+      "points": [
+        {
+          "title": "You film, I do the rest",
+          "say": "Send raw clips from your phone. That's it."
+        },
+        {
+          "title": "Hooks and captions built in",
+          "say": "Every video opens strong and has captions for people watching with the sound off."
+        },
+        {
+          "title": "Ready to post",
+          "say": "Files sized for Reels, TikTok and Shorts, with a caption to paste."
+        }
+      ],
+      "included": [
+        "4 edited short videos a month",
+        "Captions on every video",
+        "Files sized for Reels, TikTok and Shorts"
+      ],
+      "better": [
+        "8 videos a month",
+        "A hook and post caption for each video"
+      ],
+      "best": [
+        "A filming day each month",
+        "Thumbnails and a posting schedule"
+      ],
+      "notIncluded": [
+        "Music licenses beyond platform libraries",
+        "Paid ads",
+        "Filming unless listed"
+      ],
+      "priceDrivers": "how many videos a month and how long they are",
+      "effort": "send me raw clips from your phone",
+      "smaller": "one sample video",
+      "proof": "a free sample video made from their own footage",
+      "promiseIdea": "Every video gets a round of changes before you post it.",
+      "peak": [
+        {
+          "when": "When a video gets their best views yet",
+          "why": "They're excited. Ask that day."
+        },
+        {
+          "when": "When they post the first one",
+          "why": "They're proud of it. Ask then."
+        },
+        {
+          "when": "At the monthly check-in",
+          "why": "A natural time to ask."
+        }
+      ]
+    },
+    {
+      "id": "reviews",
+      "archetype": "b2b",
+      "match": [
+        "review manag",
+        "reviews for",
+        "reputation",
+        "review generat",
+        "google review"
+      ],
+      "job": "setup",
+      "vacation": [
+        "Asking for reviews happens after every job without anyone remembering, and every happy customer gets a one-tap way to leave one."
+      ],
+      "pains": [
+        "only a handful of reviews",
+        "an old bad review sits at the top",
+        "staff forget to ask"
+      ],
+      "tried": [
+        "asking in person when someone remembers",
+        "a sign by the register",
+        "software nobody set up"
+      ],
+      "want": [
+        "a steady stream of real reviews",
+        "asking to happen without anyone remembering"
+      ],
+      "blocker": [
+        "nobody remembers to ask",
+        "the software never got set up"
+      ],
+      "points": [
+        {
+          "title": "The ask at the right moment",
+          "say": "Right after the job, by text, while it's fresh."
+        },
+        {
+          "title": "One tap to leave a review",
+          "say": "QR cards and links that go straight to your review page."
+        },
+        {
+          "title": "You see the count",
+          "say": "A monthly count of new reviews, so you know it's running."
+        }
+      ],
+      "included": [
+        "Review request text and email set up",
+        "Printed QR review cards",
+        "A monthly count of new reviews"
+      ],
+      "better": [
+        "Draft replies to every review",
+        "A staff script for asking at checkout"
+      ],
+      "best": [
+        "A monthly report call",
+        "Review highlights for your website and posts"
+      ],
+      "notIncluded": [
+        "Buying or writing reviews (never, it's against the rules)",
+        "Removing real reviews",
+        "Paid software unless listed"
+      ],
+      "priceDrivers": "how many locations and how customers check out",
+      "effort": "a 20-minute setup call and a list of recent customers",
+      "smaller": "the review text and QR cards only",
+      "proof": "a free review card kit made with their business name",
+      "promiseIdea": "If it isn't set up and running in 14 days, the first month is free.",
+      "peak": [
+        {
+          "when": "When the first new review comes in",
+          "why": "Proof it works. Ask right then."
+        },
+        {
+          "when": "At the monthly count",
+          "why": "A natural time to ask."
+        },
+        {
+          "when": "When a customer mentions a review",
+          "why": "They're seeing the result. Ask that day."
+        }
+      ]
+    },
+    {
+      "id": "ugc",
+      "archetype": "b2b",
+      "match": [
+        "ugc",
+        "user generated",
+        "user-generated",
+        "content creator for brands"
+      ],
+      "buyer": "brand",
+      "job": "video",
+      "vacation": [
+        "You get videos of a real person using your product, ready to run as ads, without casting, shipping to ten creators or chasing anyone."
+      ],
+      "pains": [
+        "ads look like ads",
+        "creators go quiet after getting the product",
+        "no time to brief and manage creators"
+      ],
+      "tried": [
+        "gifting product to influencers",
+        "making ads in-house",
+        "a marketplace with hit-or-miss creators"
+      ],
+      "want": [
+        "ads that feel real",
+        "creators who deliver on time"
+      ],
+      "blocker": [
+        "creators go quiet",
+        "in-house ads look like ads"
+      ],
+      "points": [
+        {
+          "title": "Hooks first",
+          "say": "Every video gets several openings so you can test what stops the scroll."
+        },
+        {
+          "title": "Real use, natural",
+          "say": "Filmed the way a real customer would use it."
+        },
+        {
+          "title": "Ready to run",
+          "say": "Delivered in the sizes you need, with raw footage."
+        }
+      ],
+      "included": [
+        "3 videos with 3 hooks each",
+        "Raw footage",
+        "Usage rights for organic posts"
+      ],
+      "better": [
+        "Paid ad usage rights for 90 days",
+        "6 videos"
+      ],
+      "best": [
+        "A monthly batch",
+        "Ads run from my account (whitelisting)"
+      ],
+      "notIncluded": [
+        "Product cost and shipping",
+        "Ad spend",
+        "Usage beyond the term listed"
+      ],
+      "priceDrivers": "how many videos and hooks, and how long you want ad usage rights",
+      "effort": "ship the product and a short brief",
+      "smaller": "a single test video",
+      "proof": "your portfolio of sample videos",
+      "promiseIdea": "Each video gets one round of changes free.",
+      "peak": [
+        {
+          "when": "When a video wins as an ad",
+          "why": "They're excited. Ask that week."
+        },
+        {
+          "when": "Delivery day",
+          "why": "They're seeing the work. Ask in your delivery note."
+        },
+        {
+          "when": "When they reorder",
+          "why": "A vote of trust. Ask then."
+        }
+      ]
+    },
+    {
+      "id": "bookkeeping",
+      "archetype": "b2b",
+      "match": [
+        "bookkeep",
+        "virtual assistant",
+        "admin support",
+        "va service",
+        "payroll",
+        "invoicing service"
+      ],
+      "job": "month",
+      "vacation": [
+        "At the end of every month your books are done, your inbox is under control, and you know exactly where the money went."
+      ],
+      "pains": [
+        "receipts in a shoebox",
+        "tax time panic",
+        "the inbox runs your day"
+      ],
+      "tried": [
+        "doing it at night",
+        "software you never set up",
+        "a relative who helps once a year"
+      ],
+      "want": [
+        "books that are done every month",
+        "your evenings back"
+      ],
+      "blocker": [
+        "there's no time to keep up",
+        "the software never got set up"
+      ],
+      "points": [
+        {
+          "title": "One handoff",
+          "say": "You connect your accounts once. I take it from there."
+        },
+        {
+          "title": "Done by a set date",
+          "say": "Every month, on the date we agree."
+        },
+        {
+          "title": "A report you can read in 5 minutes",
+          "say": "One page: what came in, what went out, what's due."
+        }
+      ],
+      "included": [
+        "Monthly bookkeeping for one account",
+        "Bank reconciliation",
+        "A one-page monthly summary"
+      ],
+      "better": [
+        "A second account",
+        "Receipt capture setup"
+      ],
+      "best": [
+        "Weekly updates",
+        "A year-end package for your tax preparer"
+      ],
+      "notIncluded": [
+        "Tax filing or tax advice",
+        "Payroll unless listed",
+        "Catch-up months (quoted separately)"
+      ],
+      "priceDrivers": "how many accounts and how many transactions a month",
+      "effort": "connect your accounts once",
+      "smaller": "a one-time catch-up of last month",
+      "proof": "a sample monthly summary with made-up numbers",
+      "promiseIdea": "If your books aren't done by the date we agree, that month is half price.",
+      "peak": [
+        {
+          "when": "The first clean month",
+          "why": "Relief is a strong moment. Ask then."
+        },
+        {
+          "when": "At tax time",
+          "why": "They see what it saved them. Ask then."
+        },
+        {
+          "when": "When they say they finally know their numbers",
+          "why": "They just said it out loud. Ask who else needs it."
+        }
+      ]
+    },
+    {
+      "id": "coaching",
+      "archetype": "coaching",
+      "match": [
+        "coach",
+        "consult",
+        "mentor",
+        "accountability",
+        "course",
+        "program"
+      ]
+    },
+    {
+      "id": "events",
+      "archetype": "events",
+      "match": [
+        "cater",
+        "dj",
+        "event plan",
+        "wedding",
+        "party",
+        "bartend",
+        "cake",
+        "balloon",
+        "event decor",
+        "rental",
+        "food truck",
+        "florist"
+      ]
+    },
+    {
+      "id": "product",
+      "archetype": "product",
+      "match": [
+        "wholesale",
+        "shopify",
+        "etsy",
+        "candle",
+        "jewelry",
+        "apparel",
+        "clothing",
+        "merch",
+        "print shop",
+        "custom order",
+        "bakery",
+        "soap",
+        "template",
+        "digital product",
+        "resale",
+        "reselling",
+        "flipping",
+        "store"
+      ]
+    }
+  ]
+}

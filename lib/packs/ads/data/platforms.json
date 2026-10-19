@@ -1,0 +1,41 @@
+{
+  "checked": "2026-10-19",
+  "note": "Ad text limits and rules checked on the platforms' own help pages on the date above. Prices and fees are not stored: the member's own numbers drive every calculation.",
+  "meta": {
+    "primaryTextFacebookFeed": { "recommended": "50 to 150", "source": "https://www.facebook.com/business/ads-guide/update/image/facebook-feed" },
+    "headlineFacebookFeed": 27,
+    "primaryTextInstagramFeed": 125,
+    "headlineInstagramFeed": 40,
+    "instagramFeedSource": "https://www.facebook.com/business/ads-guide/update/image/instagram-feed",
+    "primaryTextReels": 44,
+    "reelsSource": "https://www.facebook.com/business/ads-guide/update/video/instagram-reels",
+    "storySafeZone": { "top": "14%", "bottom": "35%", "sides": "6%", "source": "https://www.facebook.com/business/ads-guide/update/image/instagram-story" },
+    "description": { "max": 27, "note": "No official count; 27 is our house limit so it shows in full." },
+    "learningPhase": { "results": 50, "per": "week", "source": "https://www.facebook.com/business/help/112167992830700" },
+    "urlParameters": ["{{campaign.name}}", "{{adset.name}}", "{{ad.name}}", "{{placement}}", "{{site_source_name}}"],
+    "urlParametersSource": "https://www.facebook.com/business/help/2360940870872492",
+    "specialAdCategories": { "list": ["Housing (including home repairs and improvements)", "Employment", "Financial products and services", "Social issues, elections or politics"], "effect": "Fewer targeting options: no age, gender or ZIP targeting and a wider minimum radius.", "source": "https://www.facebook.com/business/help/298000447747885" }
+  },
+  "google": {
+    "rsa": { "headlines": 15, "headlineMax": 30, "descriptions": 4, "descriptionMax": 90, "pathMax": 15, "source": "https://support.google.com/google-ads/answer/7684791" },
+    "sitelinkTextMax": 25,
+    "sitelinkSource": "https://support.google.com/google-ads/answer/2375416",
+    "calloutMax": 25,
+    "calloutSource": "https://support.google.com/google-ads/answer/6079510",
+    "location": { "advice": "Use Presence: people in or regularly in your area, not people only interested in it.", "source": "https://support.google.com/google-ads/answer/1722038" },
+    "matchTypes": { "broad": "plain words", "phrase": "\"in quotes\"", "exact": "[in brackets]", "source": "https://support.google.com/google-ads/answer/7478529" },
+    "valueTrack": ["{campaignid}", "{adgroupid}", "{keyword}", "{matchtype}", "{device}"],
+    "valueTrackSource": "https://support.google.com/google-ads/answer/6305348"
+  },
+  "tiktok": {
+    "adTextMax": 100,
+    "rules": "No links in the ad text, @ mentions are not clickable, and hashtags only in hashtag challenges.",
+    "displayNameMax": 20,
+    "video": "9:16, at least 540x960",
+    "source": "https://ads.tiktok.com/help/article/tiktok-auction-in-feed-ads",
+    "utm": "TikTok Ads Manager can add UTM parameters for you when you set the destination URL.",
+    "utmSource": "https://ads.tiktok.com/help/article/track-offsite-web-events-with-utm-parameters"
+  },
+  "utm": { "required": ["utm_source", "utm_medium", "utm_campaign"], "optional": ["utm_content", "utm_term", "utm_id"], "note": "Values are case sensitive: keep them lowercase.", "source": "https://support.google.com/analytics/answer/10917952" },
+  "cardFee": { "note": "We estimate card fees at 2.9% plus 30 cents per payment (a common online rate); check current rates with your processor." }
+}

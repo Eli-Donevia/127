@@ -1,0 +1,54 @@
+{
+  "checked": "2026-10-19",
+  "sources": {
+    "policies": "https://help.shopify.com/en/manual/checkout-settings/refund-privacy-tos",
+    "testMode": "https://help.shopify.com/en/manual/payments/shopify-payments/testing-shopify-payments",
+    "shipping": "https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/setting-up-shipping-zones",
+    "password": "https://help.shopify.com/en/manual/online-store/themes/password-page",
+    "import": "https://help.shopify.com/en/manual/products/import-export/import-products",
+    "domains": "https://help.shopify.com/en/manual/domains",
+    "taxes": "https://help.shopify.com/en/manual/taxes",
+    "images": "https://help.shopify.com/en/manual/products/product-media/product-media-types",
+    "messaging": "https://help.shopify.com/en/manual/promoting-marketing/create-marketing/shopify-email",
+    "recommendations": "https://help.shopify.com/en/manual/online-store/search-and-discovery/product-recommendations",
+    "canSpam": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+    "formerPrice": "https://www.law.cornell.edu/cfr/text/16/233.1",
+    "productSeo": "https://help.shopify.com/en/manual/products/add-update-products",
+    "altText": "https://help.shopify.com/en/manual/products/product-media/add-alt-text",
+    "preferences": "https://help.shopify.com/en/manual/online-store/setting-up/preferences",
+    "futurePublishing": "https://help.shopify.com/en/manual/shopify-admin/productivity-tools/future-publishing"
+  },
+  "paths": {
+    "policies": "Settings > Policies. Under Written policies, click a policy. Insert template gives you a starting draft where it's offered.",
+    "policiesShow": "Shopify links your policies in the checkout footer, the return policy on the order review page and the shipping policy on product pages and the cart.",
+    "testMode": "Settings > Payments. In Shopify Payments click Manage, then in Test mode select Enable test mode and Save. Pay with card 4242424242424242, any future date, a two-word name and any 3-digit code. Turn test mode off before launch so real payments go through.",
+    "freeShipping": "Settings > Shipping and delivery. Open your shipping profile, click the menu next to a shipping option, Edit shipping option, select Offer free shipping and enter the minimum order amount. Done, then Save.",
+    "openStore": "Online Store. Click the Private label in the access setting, select Public, then Update (the first time it says Launch store).",
+    "import": "Products > Import > Add file > Upload and continue > Import products. A product CSV can't be over 15 MB.",
+    "domains": "Settings > Domains. Buy one from Shopify or connect one you own.",
+    "addSection": "Online Store > Edit theme > pick the template from the drop-down at the top > Add section.",
+    "complementary": "Shopify's Search & Discovery app: Product recommendations > Add recommendations, then pick up to 10 complementary products. Your theme needs a complementary products block.",
+    "productSeo": "Products > click the product > in Search engine listing click the pencil icon > enter the page title, meta description and (optional) URL handle > Save. Shopify says text past 70 characters (title) or 320 characters (description) might get cut off, and not to change a handle often.",
+    "altText": "Products > click the product > click the image to open Preview media > Add alt text > type it > Save alt text. Up to 512 characters; Shopify recommends 125 or fewer.",
+    "homeSeo": "Online Store > Preferences. In Social sharing image and SEO, enter a title and meta description for your store, then Save."
+  },
+  "rules": {
+    "tax": "Shopify's help center: tax is your responsibility. Check with a local tax authority or a tax accountant.",
+    "canSpam": "US CAN-SPAM: every marketing email needs your valid physical postal address and a clear way to opt out, opt-outs are honored within 10 business days, and the subject line must match the content. Email tools add the address and unsubscribe link from your account settings.",
+    "formerPrice": "FTC rule (16 CFR 233.1): a crossed-out compare-at price must be a real price you actually offered regularly for a reasonably substantial time. A made-up higher price is deceptive. Leave Compare-at price blank until you have a real former price.",
+    "images": "Shopify: square product images usually display best at 2048 x 2048 px; images can be up to 5000 x 5000 px (25 megapixels) and under 20 MB; PNG first, then JPEG. Keep one aspect ratio for featured images so collection pages line up."
+  },
+  "imageGuide": {
+    "bestSquarePx": 2048,
+    "maxPx": 5000,
+    "maxMB": 20
+  },
+  "messaging": "Shopify Messaging (formerly Shopify Email) sends email campaigns from your Shopify admin. Pricing depends on how many messages you send: check current rates.",
+  "schedule": [
+    "In your Shopify admin, go to Products and click the product name.",
+    "In the Product status section, check the status is Active. A product still in Draft at the scheduled time is not published.",
+    "In the Publishing section, click the calendar icon next to Online Store, then choose the date and time.",
+    "Click Schedule publishing, then click Save.",
+    "Check the time zone in Settings > General > Store defaults, so the product goes live at the right hour."
+  ]
+}

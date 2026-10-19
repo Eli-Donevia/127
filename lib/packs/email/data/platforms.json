@@ -1,0 +1,86 @@
+{
+  "checked": "2026-10-19",
+  "list": [
+    {
+      "id": "kit",
+      "name": "Kit",
+      "free": "Free plan for up to 10,000 subscribers with unlimited broadcasts. Sequences and visual automations need a paid plan.",
+      "freeSource": "https://help.kit.com/en/articles/16627071-the-kit-free-plan",
+      "tags": {
+        "firstName": "{{ subscriber.first_name | strip | default: \"there\" }}",
+        "unsubscribe": "{{ unsubscribe_url }}",
+        "address": "{{ address }}",
+        "content": "{{ message_content }}"
+      },
+      "tagNotes": "Filters like default do not work in subject lines, so subjects here never use the first name. A custom Kit template must include {{ message_content }}, an unsubscribe link and your address.",
+      "tagSources": ["https://help.kit.com/en/articles/2502633", "https://help.kit.com/en/articles/2810363"],
+      "previewMax": 150,
+      "previewSource": "https://help.kit.com/en/articles/4340430",
+      "steps": {
+        "sequence": ["In Kit, open Send, then Sequences, and make a new sequence.", "Add one email per row in the CSV. Paste the subject, the preview text and the body. Set each delay from the Send day column.", "Paste the button link into a button block.", "Make a visual automation: when someone joins your form, add them to this sequence.", "Send yourself a test of every email before you turn it on."],
+        "broadcast": ["In Kit, open Send, then Broadcasts, and make a new broadcast.", "Paste the subject, preview text and body.", "Pick who gets it, then schedule it for the date and time in the CSV.", "Send yourself a test first."],
+        "template": ["To use the HTML design: Send, then Email Templates, then make a new template with the HTML editor. Paste the Kit template file. It already holds {{ message_content }}, the unsubscribe link and the address tag."]
+      },
+      "import": "Grow, then Subscribers, then Add subscribers, then Import a CSV.",
+      "importSource": "https://help.kit.com/en/articles/2502555"
+    },
+    {
+      "id": "mailchimp",
+      "name": "Mailchimp",
+      "free": "Free plan for up to 250 contacts and 500 sends a month (250 a day). Custom coded templates and longer automations need a paid plan.",
+      "freeSource": "https://mailchimp.com/help/about-mailchimp-pricing-plans/",
+      "tags": {
+        "firstName": "*|FNAME|*",
+        "unsubscribe": "*|UNSUB|*",
+        "address": "*|LIST:ADDRESSLINE|*",
+        "preview": "*|MC_PREVIEW_TEXT|*",
+        "company": "*|LIST:COMPANY|*"
+      },
+      "tagNotes": "*|FNAME|* comes out blank when you don't have the name, so these emails open with a plain greeting instead.",
+      "tagSources": ["https://mailchimp.com/help/all-the-merge-tags-cheat-sheet/"],
+      "steps": {
+        "sequence": ["In Mailchimp, open Automations and build a customer journey (flow) that starts when someone joins your audience.", "Add one email per row in the CSV, with a wait step between them set from the Send day column.", "Paste the subject, preview text and body into each email.", "Send yourself a test of every email, then turn the flow on."],
+        "broadcast": ["In Mailchimp, create a regular email campaign.", "Paste the subject, preview text and body, or use Code your own and paste the HTML file.", "Schedule it for the date and time in the CSV, after a test send."],
+        "template": ["Campaigns, then Email templates, then Create template, then Code your own, then Paste in code. Paste the Mailchimp HTML file. It already holds *|UNSUB|* and your address tag."]
+      },
+      "templateSource": "https://mailchimp.com/help/import-a-custom-html-template/",
+      "cart": "Abandoned cart emails need your store connected to Mailchimp."
+    },
+    {
+      "id": "klaviyo",
+      "name": "Klaviyo",
+      "free": "Free plan for up to 250 profiles and 500 email sends a month, with flows included.",
+      "freeSource": "https://www.klaviyo.com/pricing",
+      "tags": {
+        "firstName": "{{ first_name|default:'there' }}",
+        "unsubscribe": "{% unsubscribe_link %}",
+        "address": "{{ organization.full_address }}"
+      },
+      "tagNotes": "A custom HTML template in Klaviyo must include an unsubscribe tag, and preview text goes inside the HTML for custom templates.",
+      "tagSources": ["https://help.klaviyo.com/hc/en-us/articles/360050759151"],
+      "steps": {
+        "sequence": ["In Klaviyo, open Flows and create a flow from scratch. For a welcome series, trigger it when someone is added to your list.", "Add one email per row in the CSV, with a time delay between them set from the Send day column.", "Paste the subject, preview text and body. Send a test of each one, then set the flow live."],
+        "cart": ["In Klaviyo, create a flow triggered by Started Checkout.", "Add the flow filter: Placed Order zero times since starting this flow, so buyers stop getting reminders.", "Add the three emails with the delays from the CSV. Test, then set it live."],
+        "broadcast": ["In Klaviyo, create an email campaign, paste the subject, preview text and body, and schedule it for the date and time in the CSV."],
+        "template": ["Content, then Templates, then Email templates, then Import. Paste the Klaviyo HTML file. It already holds the unsubscribe and address tags."]
+      }
+    },
+    {
+      "id": "beehiiv",
+      "name": "beehiiv",
+      "free": "Free plan for up to 2,500 subscribers. Automations beyond the welcome email need a paid plan.",
+      "freeSource": "https://www.beehiiv.com/pricing",
+      "tags": {},
+      "tagNotes": "beehiiv builds the email in its own editor, so paste the text version and keep beehiiv's footer on.",
+      "steps": {
+        "sequence": ["In beehiiv, open the welcome email settings and paste email 1.", "On a paid plan, open Automations and add the rest with the delays from the CSV.", "Send yourself a test first."],
+        "broadcast": ["In beehiiv, start a new post, paste the subject, preview text and body, and schedule it for the date and time in the CSV."],
+        "template": []
+      }
+    }
+  ],
+  "shopify": {
+    "cart": "Shopify Messaging can send an abandoned checkout email on its own. Its default wait is 10 hours, and you can change it.",
+    "source": "https://help.shopify.com/en/manual/promoting-marketing/create-marketing/abandoned-checkouts"
+  }
+}

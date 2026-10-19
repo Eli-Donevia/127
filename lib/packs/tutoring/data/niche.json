@@ -1,0 +1,602 @@
+{
+ "id": "tutoring",
+ "name": "Tutoring",
+ "checked": "2026-10-19",
+ "research": "research/niches/tutoring.json",
+ "what": "one-to-one tutoring",
+ "what_example": "math tutoring for grades 6 to 8",
+ "crowd": {
+  "buyer": "Parents",
+  "scores": {
+   "pain": 4,
+   "can_pay": 4,
+   "findable": 3,
+   "growing": 4
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   8,
+   9,
+   10,
+   11
+  ],
+  "off_season": {
+   "months": [
+    6,
+    7
+   ],
+   "where": "all",
+   "play": "Sell summer catch-up packages and book fall slots now."
+  },
+  "not_yet": [
+   "Don't hand out flyers at a school without the school's okay.",
+   "Don't take on more subjects than you can teach well.",
+   "Don't message students directly. Talk to parents."
+  ],
+  "note": "Safety rules with minors come first: parents book, and sessions happen where a parent can see.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/crowd.json (our judgment). Best months and the summer dip: research/niches/tutoring.json crowd hint, from its sources."
+ },
+ "safety": [
+  "Parents book and pay. You talk with parents, not students.",
+  "Sessions happen where a parent can see: at home with a parent nearby, at a library table, or online with a parent in the house.",
+  "No direct messages, texts or social follows with students. Links and reminders go to the parent.",
+  "Background checks aren't required for private tutoring in most places, but parents expect one: get one in your own name and offer to share it. Follow any rule your state or a school program has.",
+  "Collect contact details from parents only. The FTC's COPPA rule covers collecting information from children under 13 online."
+ ],
+ "partners": [
+  {
+   "id": "libraries",
+   "label": "Public libraries",
+   "search": {
+    "category": "public libraries",
+    "words": "public libraries"
+   },
+   "their_customers": "families",
+   "why": "come in for homework help and a quiet place to study",
+   "ask": "share my flyer if your community board allows it, and tell me your rules for tutoring in study rooms",
+   "give": "help with a free homework hour for families, if you host volunteer programs"
+  },
+  {
+   "id": "community",
+   "label": "Community and rec centers",
+   "search": {
+    "category": "community centers",
+    "words": "community and recreation centers"
+   },
+   "their_customers": "families",
+   "why": "look for after-school help",
+   "ask": "post my flyer if that fits your rules, or add me to your list of after-school resources",
+   "give": "run a free study skills session for parents and kids at a time that works for you"
+  },
+  {
+   "id": "homeschool",
+   "label": "Homeschool groups and co-ops",
+   "search": {
+    "category": "homeschool co-ops",
+    "words": "homeschool groups and co-ops"
+   },
+   "their_customers": "families",
+   "why": "want outside help with one subject, often math or writing",
+   "ask": "share my info with your families, following your group's rules on announcements",
+   "give": "give your members my founding price and a free 15-minute parent call"
+  },
+  {
+   "id": "parents",
+   "label": "Parent groups and PTAs",
+   "search": {
+    "category": "parent teacher associations",
+    "words": "PTA and parent groups"
+   },
+   "their_customers": "parents",
+   "why": "ask each other for tutor recommendations",
+   "ask": "share my info in your newsletter or group, if your rules allow business posts",
+   "give": "give a free 20-minute talk for parents on helping with homework"
+  }
+ ],
+ "texts": {
+  "people_word": "parents",
+  "person_label": "Parent you know",
+  "extra_label": "the safety rules and a parent call script",
+  "safety_title": "Safety first",
+  "find_tip": "Libraries and community centers come from OpenStreetMap once your city is set and business search is on. Homeschool groups and parent groups aren't in any business list: find them on your library's events page, your school district's site and local parent groups, then add them by hand.",
+  "people": [
+   "Hi {greet}! I just started {what} in {area}. I'm taking my first 3 families at {founding} while I get started. Parents book, and sessions happen where a parent can see. Would your family want a spot, or do you know a parent who might?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. My first 3 families get {founding}, and all I ask is honest feedback on how it's going. Could I tell you more, or is there a parent you'd pass this to?",
+   "Hey {greet}! I'm launching {what} in {area}. Sessions are at home with a parent nearby, at the library or online. My first 3 families get {founding}. Do you know a parent who might want it?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my tutoring message. If it's not for you, would you mind passing my number to one parent who might want it? Thank you.",
+  "next_people": [
+   "Hi {greet}! I tutor in {area} now: {what}, with a short note to parents after every session. I have room for a few more families at {rate}. Would your family want a spot, or do you know a parent who might?",
+   "Hi {greet}, hope you're well! I'm doing {what} here in {area}. Parents book, and sessions happen where a parent can see. Could I tell you more, or is there a parent you'd pass my number to?",
+   "Hey {greet}! Quick one: I tutor {what} in {area}, at home with a parent nearby, at the library or online, {rate}. Do you know a family who could use a hand this term?"
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my tutoring message. If it's not for you, would you mind passing my number to one parent who might want it? Thank you.",
+  "next_subject": "Tutoring in {area}"
+ },
+ "extra": [
+  {
+   "title": "Parent call script (15 minutes, free)",
+   "lines": [
+    "1. Thanks for making time. What made you think about tutoring now?",
+    "2. What's the subject, grade and teacher's main feedback? Any test dates coming up?",
+    "3. What has your child tried so far, and what helped?",
+    "4. Here's how I work: a first session to find the gaps, a plan for 4 weeks, and a short note to you after every session.",
+    "5. Safety: you book and pay, sessions happen where you can see, and I only message you, never your child.",
+    "6. My founding price is {founding}. Want to pick a first session time?"
+   ]
+  }
+ ],
+ "offer": {
+  "name": "One-to-one tutoring",
+  "unit": "session",
+  "length": "60 minutes",
+  "prices": {
+   "budget": 30,
+   "standard": 45,
+   "premium": 65
+  },
+  "range_text": "$18 to $100 an hour for K-12 tutoring",
+  "basis": "From research/niches/tutoring.json (StartCosts, Care.com and ZenBusiness pages, checked 2026-10-19). SAT and ACT prep runs $60 to $150 an hour.",
+  "sources": [
+   "https://startcosts.com/tutoring",
+   "https://www.care.com/c/how-much-does-a-tutor-cost/",
+   "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/"
+  ],
+  "includes": [
+   "A first session that finds where your child is and what to work on",
+   "A simple plan for the next 4 weeks",
+   "A short note to you after every session: what we covered, what to practice, what's next",
+   "Practice to do between sessions"
+  ],
+  "steps": [
+   "A free 15-minute call with you: goals, tests coming up, times that work.",
+   "First session: a quick look at recent work, then we start on the first gap.",
+   "Every session: check homework, teach one thing, practice it, check that it stuck.",
+   "After every session you get a short note from me."
+  ],
+  "promise": "If I miss a session or I'm late, the next one is free. If the first session isn't a fit, I refund it.",
+  "promise_note": "I don't promise grades or scores. I promise the work: every session as booked, a plan, and a note to you after each one.",
+  "sheet_notes_title": "Safety first",
+  "sheet_notes": [
+   "Parents book and pay. I talk with you about scheduling, not your child.",
+   "Sessions happen where a parent can see: at home with you nearby, at a library table, or online with you in the house.",
+   "I never message students directly. Links and reminders go to you."
+  ],
+  "footer": "Pay per session or per block of 4.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "Families you know",
+    "note": "For honest feedback after 4 sessions. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner families",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it again when your week is 80 percent full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free 15-minute parent call",
+    "price": 0,
+    "unit": "call",
+    "what": "Goals, test dates and times. No cost, no pressure."
+   },
+   {
+    "kind": "Core",
+    "name": "Weekly session",
+    "price": "core",
+    "what": "One 60-minute session a week at a set time."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Block of 4 sessions",
+    "times": 4,
+    "off": 0.05,
+    "unit": "block of 4",
+    "what": "Paid up front; the same weekly time stays held for your child."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Test-week extra session",
+    "factor": 1,
+    "what": "One more session in the week before a big test."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "Every-other-week session",
+    "factor": 1,
+    "what": "The same session every two weeks when weekly is too much."
+   },
+   {
+    "kind": "Slow season",
+    "name": "Summer catch-up: 6 sessions",
+    "times": 6,
+    "off": 0.1,
+    "unit": "summer block",
+    "what": "June and July, to keep skills fresh and hold a fall slot."
+   }
+  ],
+  "ladder_word": "families"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After a block of sessions: a thank-you to the parent, an honest review ask with no reward attached, a referral ask with a thank-you for both families, and a referral card.",
+  "client_title": "Parent's name",
+  "done_example": "four weeks of fractions practice with Maya",
+  "reward_default": "a free session",
+  "file_word": "referral card",
+  "card_title": "A tutor {greet} recommends",
+  "card_footer": "Parents book, and sessions happen where a parent can see.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only.",
+   "Write to the parent, never the student."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for trusting me with {done}. It's been a real pleasure working with your family.",
+   "review_ask": "Would you leave an honest review about what working together has been like? It helps other parents decide. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If you know a parent who might want help, I'd be grateful for an introduction. When a family you send my way books, you both get {reward}.",
+   "card_line": "{business}: one-to-one tutoring with a plan, a note to parents after every session, and safety first."
+  },
+  "business_fallback": "Your tutor"
+ },
+ "replies": {
+  "who_title": "Which parent or place",
+  "ai_rules": [
+   "Write to the parent or the place, never to a student.",
+   "Never promise a grade, a score or a result.",
+   "Say any price once, exactly as given. The next step is the free 15-minute parent call."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great to hear! The easiest first step is a free 15-minute call: I'll ask about the subject, the grade, any test dates and what times work. When suits you this week?",
+    "next": "Book the 15-minute call within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. It's {rate}, {length} one to one, with a short note to you after every session. Want to start with a free 15-minute call to see if it fits?",
+    "next": "Say the price once, then offer the free parent call."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Would it help if I checked back before the next test or report card? Either way, my number's here when you need it.",
+    "next": "Set a reminder for 4 to 6 weeks, or just before the next test."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I tutor {what} here in {area}. Parents book, sessions happen where a parent can see, and you get a note after every session. Happy to answer any question.",
+    "next": "Answer plainly, then offer the free parent call."
+   },
+   "covered": {
+    "label": "They have a tutor",
+    "means": "They have help already.",
+    "answer": "Good to hear you're covered! If you ever need a second option, say for test prep or a summer catch-up, I'm around. Thanks for letting me know.",
+    "next": "Leave it there. Ask again in late spring if it fits."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The honest answer depends on where your child is right now, so the best way to answer it properly is a free 15-minute call. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the free parent call."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free 15-minute call this week be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to talk",
+    "means": "The parent wants to talk first.",
+    "answer": "Happy to! {when_ask} It's a free 15-minute call: I'll ask about the subject, the grade, any test dates and what times work.",
+    "next": "Book the 15-minute call within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few flyers this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the flyers within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what families pay.",
+    "answer": "Families pay {rate}, booked and paid by parents, and the first parent call is free. Happy to drop off a flyer with the details.",
+    "next": "Say the price once, then offer the flyer."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back next term? Thanks for considering it.",
+    "next": "Set a reminder for next term."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, a local tutor for {what}. Parents book, sessions happen where a parent can see, and I follow your rules on posting. Happy to come by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already work with tutors or a program.",
+    "answer": "Good to hear your families have help. If you ever keep a list of local tutors for parents, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my info with families?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines)",
+    "means": "They have rules about posting or promoting.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share resources with families, like a newsletter or a list of local tutors, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   }
+  ],
+  "objections": [
+   {
+    "id": "free_help",
+    "label": "Can't we use free help?",
+    "match": "\\b(free (help|tutoring|practice|resources?)|khan|homework (club|help at school)|the school (has|offers)|teacher (helps|offers))",
+    "means": "They wonder why they'd pay when free help exists.",
+    "answer": "Yes, and you should use it! The free practice from school and the College Board is good, and I build the plan around it. What I add is one to one: finding exactly where your child gets stuck, explaining it another way, and a short note to you after every session. Want to try a free 15-minute call?",
+    "next": "Agree, then offer the free parent call.",
+    "sources": [
+     {
+      "publisher": "College Board",
+      "url": "https://satsuite.collegeboard.org/sat/practice-preparation",
+      "says": "Free SAT practice resources are available.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "promise",
+    "label": "Can you promise a better grade?",
+    "match": "\\b(guarantee|promise|will (he|she|they) (get|pass)|raise (his|her|their|the) (grade|score)|improve (his|her|their|the) (grade|score)|get an a\\b|bring (his|her|their) grade)",
+    "means": "They want a result promised.",
+    "answer": "I can't promise a grade or a score, and I'd be careful with anyone who does. What I can promise is the work: a first session that finds the gaps, a plan for the next 4 weeks, and a note to you after every session so you can see what's moving.",
+    "next": "Never promise a result. Offer the first session and the plan instead.",
+    "judgment": true
+   },
+   {
+    "id": "background",
+    "label": "Are you background checked?",
+    "match": "\\b(background(-| )check\\w*|checked out|vetted|references?|is it safe|safety)\\b",
+    "means": "They want to know their child is safe with you.",
+    "answer": "Good question, and every parent should ask it. Here's how I keep it safe: you book and pay, sessions happen where you can see (at home with you nearby, at a library table, or online with you in the house), and I only ever message you, never your child. I'll share my background check report before the first session.",
+    "next": "Send this once your background check report is in hand.",
+    "check": "Have your background check report ready to share before you send this.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/tutoring",
+      "says": "Most parents expect a background check when you work with minors.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "online",
+    "label": "Online or in person?",
+    "match": "\\b(online|zoom|virtual|in person|in-person|come to (our|the) house|at the library)\\b",
+    "means": "They're asking where sessions happen.",
+    "answer": "Either works. Online saves the drive and is often a little lower priced. In person can be at your home with you nearby or at a library table. Which would suit your child best?",
+    "next": "Let them pick, then book the free parent call.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/tutoring",
+      "says": "Online tutoring is often slightly lower priced than in-person and offers scheduling flexibility.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "rate",
+    "label": "More than they expected",
+    "match": "\\b(college student|cheaper|too (expensive|much|high)|lower (price|rate)|can you do (less|better)|out of (our|my) budget|discount)\\b",
+    "means": "The price feels high to them.",
+    "answer": "That's fair to ask. Tutoring runs from about $18 to over $100 an hour depending on the subject and grade. For {rate} you get a plan, one-to-one sessions and a note after each one. If weekly is a stretch, every other week works too, or a block of 4 paid up front costs a little less per session.",
+    "next": "Hold your price. Offer every other week or the block of 4.",
+    "sources": [
+     {
+      "publisher": "Care.com",
+      "url": "https://www.care.com/c/how-much-does-a-tutor-cost/",
+      "says": "Rates range from about $18 to over $100 an hour depending on subject, grade level and format.",
+      "checked": "2026-10-19",
+      "page_date": "2025-09-22"
+     }
+    ]
+   },
+   {
+    "id": "busy",
+    "label": "Too busy this term",
+    "match": "\\b(too busy|busy (this|right)|this semester|no time|sports season|practice (every|most))\\b",
+    "means": "Their week is full.",
+    "answer": "Totally understand. Two options that fit around a busy week: a short weekly online session, or a focused block before the next big test. When is your child's next test?",
+    "next": "Offer the smaller step tied to their next test date.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which family",
+  "pay_when": "When they book",
+  "for_title": "Student's first name (optional)",
+  "title": "Tutoring{for}",
+  "default": "block4",
+  "packages": [
+   {
+    "id": "single",
+    "label": "Tutoring session",
+    "detail": "60 minutes, one to one",
+    "qty": 1,
+    "pick": "One session"
+   },
+   {
+    "id": "block4",
+    "label": "Tutoring sessions, block of 4",
+    "short": "Block of 4",
+    "detail": "60 minutes each, weekly at a set time",
+    "qty": 4,
+    "off": 0.05,
+    "pick": "Block of 4 sessions"
+   },
+   {
+    "id": "summer6",
+    "label": "Summer catch-up sessions, block of 6",
+    "short": "Summer block",
+    "detail": "6 sessions across June and July",
+    "qty": 6,
+    "off": 0.1,
+    "pick": "Summer block of 6 sessions"
+   }
+  ],
+  "extra": {
+   "title": "Add a test-week extra session",
+   "label": "Test-week extra session",
+   "detail": "One more session in the week before a big test",
+   "qty": 1,
+   "factor": 1
+  },
+  "notes": [
+   "Parents book and pay. Sessions happen where a parent can see.",
+   "If I miss a session or I'm late, the next one is free. If the first session isn't a fit, I refund it."
+  ]
+ },
+ "win": {
+  "tool": "log_family",
+  "title": "Log the new family",
+  "description": "A family said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder to the parent, and a printable first session checklist with the safety rules.",
+  "who_title": "Parent's name",
+  "who_word": "parent",
+  "for_title": "Student's first name",
+  "for_default": "your child",
+  "when_title": "First session day and time",
+  "where_title": "Where sessions happen",
+  "where": [
+   "At home with a parent nearby",
+   "At a library table",
+   "Online with a parent home"
+  ],
+  "booking": "Hi {greet}, you're all set! {For_s} first session is {when}{where}. It's {deal}. I'll message you, never {for}, about times and changes.{pay}",
+  "prep": "Before the first session, could you send me a photo of {for}'s most recent test or homework, and anything the teacher has said? That's all I need to plan. If a test date is coming up, let me know that too.",
+  "reminder": "Hi {greet}, see you {when} for {for_s} session. Nothing to bring except recent homework and a pencil. Reply here if anything changes.",
+  "founding": "Founding family: after 4 sessions, ask {greet} for honest feedback you may quote as a founding family. Never ask for a review in exchange, and never use {for_s} name or photo.",
+  "file_word": "first session checklist",
+  "checklist_title": "First session checklist for {for_title}",
+  "checklist": {
+   "Before": [
+    "Confirm the day, time and place with the parent in writing.",
+    "Agree the rate, the package, when it's paid and the cancellation rule in writing.",
+    "Ask for a recent test or homework, and any test dates.",
+    "Have your background check report ready to share."
+   ],
+   "First session": [
+    "A parent can see or hear the session: at home nearby, at a library table, or in the house for online.",
+    "A short look at recent work and a few problems to find the gaps.",
+    "Teach one gap, practice it together, then check that it stuck.",
+    "Leave 10 to 15 minutes of practice for before next time."
+   ],
+   "After": [
+    "Send the parent a short note the same day: what you covered, what to practice, what is next.",
+    "Write a simple plan for the next 4 weeks.",
+    "Book the next session before you leave or log off."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "StartCosts",
+    "url": "https://startcosts.com/tutoring",
+    "says": "Use assessments to identify student needs, lesson plans and practice materials; for test prep, practice tests are essential.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "ZenBusiness",
+    "url": "https://www.zenbusiness.com/start-a-business/education/sat-act-test-prep-tutoring/",
+    "says": "Establish clear payment terms and cancellation policies upfront to prevent billing disputes.",
+    "checked": "2026-10-19",
+    "page_date": "2026-07-28"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Parent's name",
+  "for_title": "Student's first name (kept out of the story)",
+  "what_example": "8 weeks of fractions and word problems",
+  "result_example": "She now starts her math homework on her own, her mom says",
+  "quote_example": "She actually asks to do the practice now.",
+  "anon": "A parent in {area}",
+  "named": "{greet}, a parent in {area}",
+  "photo": false,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our sessions? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer, and I'd never use your child's name or photo. It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "review": "If you have a minute, would you leave an honest review about what working together has been like? It helps other parents decide. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a family I tutor, shared with their permission. {story_line} If your family could use a hand with {what}, {reach}",
+  "disclosure": {
+   "founding": "This family paid a founding price.",
+   "free": "This family's sessions were free."
+  },
+  "rules": [
+   "Only what the parent agreed to in writing. Never a student name, photo or school.",
+   "Only numbers they gave you. No grade or score promises.",
+   "Nothing in exchange for a story or a review."
+  ],
+  "for_example": "Maya",
+  "hide_for": "my student"
+ },
+ "ready": {
+  "audience": "Parents of K to 12 students",
+  "group": "lessons",
+  "format": "flyer",
+  "print": true,
+  "headline": "One-to-one tutoring in {area}",
+  "sub": "60-minute sessions with a plan, and a note to parents after every session.",
+  "bullets": [
+   "Parents book, and sessions happen where you can see",
+   "A plan for the next 4 weeks",
+   "At home, at the library or online"
+  ],
+  "offer": "Free 15-minute parent call",
+  "cta": "Book a free parent call",
+  "tagline": "One-to-one tutoring with a plan and a note to parents after every session.",
+  "design": "coach"
+ }
+}

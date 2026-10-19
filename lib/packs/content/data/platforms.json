@@ -1,0 +1,61 @@
+{
+  "checked": "2026-10-19",
+  "note": "Platform limits the content tools check in code. Each fact has its source. Anything not listed here is not stated as a number in member outputs.",
+  "instagram": {
+    "captionMax": 2200,
+    "captionSource": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/media",
+    "hashtagsMax": 5,
+    "hashtagsSource": "https://www.socialmediatoday.com/news/instagrams-implementing-new-limits-on-hashtag-use/808309/",
+    "hashtagsNote": "Up to 5 hashtags per post or Reel since December 2025.",
+    "carouselMaxApp": 20,
+    "carouselMaxApi": 10,
+    "carouselSource": "https://www.socialmediatoday.com/news/instagram-expands-carousels-to-20-frames/723792/",
+    "carouselNote": "Up to 20 slides in the app since August 2024; scheduling tools that post through the API take up to 10. We make 10 or fewer so either way works.",
+    "slide": {
+      "width": 1080,
+      "height": 1350,
+      "ratio": "4:5"
+    },
+    "reel": {
+      "width": 1080,
+      "height": 1920,
+      "ratio": "9:16"
+    }
+  },
+  "linkedin": {
+    "postMax": 3000,
+    "source": "https://www.linkedin.com/help/learning/answer/a528176"
+  },
+  "x": {
+    "postMax": 280,
+    "urlCounts": 23,
+    "source": "https://docs.x.com/fundamentals/counting-characters",
+    "note": "Every link counts as 23 characters, whatever its real length."
+  },
+  "threads": {
+    "postMax": 500,
+    "source": "https://developers.facebook.com/docs/threads/posts",
+    "note": "Text posts are limited to 500 characters; emoji count as their UTF-8 bytes. We write each post in plain text under 500."
+  },
+  "email": {
+    "canSpam": "Include your physical postal address and a clear way to opt out, and honor opt-outs within 10 business days.",
+    "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+  },
+  "disclosure": {
+    "rule": "If a creator is paid, gets free product or has a personal or business tie to you, they disclose it in the post itself: \"ad\" or \"sponsored\" works, and on video it goes in the video, not only the description.",
+    "source": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+  },
+  "search": {
+    "endpoint": "https://suggestqueries.google.com/complete/search",
+    "note": "Google's public autocomplete endpoint (no key). Returns what people type, not how often. No robots.txt on the host. Cached 7 days, about 10 requests a run."
+  },
+  "holidays": {
+    "source": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
+    "note": "Federal holidays computed by their rule (2026 and 2027 dates match OPM). Observances like Mother's Day and Small Business Saturday are computed the same way."
+  },
+  "exports": {
+    "youtube": "In YouTube Studio: Analytics, then Advanced mode (or See more), then Export current view.",
+    "youtubeSource": "https://support.google.com/youtube/answer/9717005",
+    "note": "For other apps we only say that their insights or analytics pages can export post stats, and that a sheet typed by hand works the same. We never read stats from an app or a profile ourselves."
+  }
+}

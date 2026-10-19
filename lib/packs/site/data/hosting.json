@@ -1,0 +1,90 @@
+{
+  "checked": "2026-10-19",
+  "note": "Free hosting facts the site pack writes into README.txt and the HQ view. Verified on the date above against the sources listed. Re-check before changing numbers.",
+  "netlify": {
+    "dropUrl": "https://app.netlify.com/drop",
+    "drop": {
+      "acceptsZip": true,
+      "acceptsFolder": true,
+      "accountToUpload": false,
+      "privateUntilClaimed": true,
+      "unclaimedExpire": true,
+      "summary": "Drag a folder or a ZIP onto app.netlify.com/drop. You get a link in seconds without an account. Netlify keeps an anonymous drop private (password protected) until someone signs up or logs in to claim it, and unclaimed drops expire on their own.",
+      "sources": [
+        "https://www.netlify.com/knowledge-base/netlify-drop-vs-vercel-drop/",
+        "https://www.netlify.com/blog/thirteen-years-of-netlify-drop"
+      ]
+    },
+    "freePlan": {
+      "price": 0,
+      "creditsPerMonth": 300,
+      "hardLimit": true,
+      "productionDeployCredits": 15,
+      "deployPreviewCredits": 0,
+      "bandwidthCreditsPerGB": 20,
+      "webRequestCreditsPer10k": 2,
+      "formSubmissions": "free and unlimited on all credit-based plans",
+      "whenCreditsRunOut": "every site on the account is paused and shows Site not available until the next billing cycle",
+      "customDomainsWithSsl": true,
+      "sources": [
+        "https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/",
+        "https://www.netlify.com/pricing/",
+        "https://www.netlify.com/changelog/2026-04-14-pricing-updates-april-2026.md"
+      ]
+    },
+    "forms": {
+      "attribute": "data-netlify=\"true\" on the form tag, plus a unique name attribute",
+      "honeypot": "netlify-honeypot=\"<field name>\" on the form tag, with that field present and hidden by CSS",
+      "successPage": "action attribute with a path from the site root that starts with /",
+      "detection": "Forms, then Enable form detection. Netlify scans deploys for forms starting with the next deploy.",
+      "dragAndDrop": "Works with drag and drop deploys: turn on form detection first, then drag the files onto the site's own Deploys page again (not the sites list, which makes a new site).",
+      "notifications": "Forms, then Submission notifications",
+      "replyTo": "An input named email lets the notification reply go to the person who sent the form.",
+      "spam": "Every submission is filtered by Akismet; honeypot catches are dropped.",
+      "maxRequestMB": 8,
+      "sources": [
+        "https://docs.netlify.com/forms/setup/",
+        "https://docs.netlify.com/manage/forms/spam-filters/",
+        "https://docs.netlify.com/manage/forms/notifications/",
+        "https://answers.netlify.com/t/form-submissions-are-not-appearing-in-netlify-dashboard/148640"
+      ]
+    },
+    "headers": {
+      "file": "_headers in the folder you deploy",
+      "source": "https://docs.netlify.com/manage/routing/headers/"
+    }
+  },
+  "cloudflarePages": {
+    "steps": "Workers and Pages, then Create application, then Get started, then Drag and drop your files. Name the project, drop the ZIP or folder, then Deploy site.",
+    "acceptsZip": true,
+    "dragAndDropMaxFiles": 1000,
+    "maxFileMiB": 25,
+    "canSwitchToGitLater": false,
+    "freePlan": {
+      "buildsPerMonth": 500,
+      "projectsPerAccount": 100,
+      "customDomainsPerProject": 100,
+      "staticRequests": "free and unlimited on free and paid plans"
+    },
+    "forms": "No Netlify-style form inbox: rebuild with the email form option.",
+    "headersFile": "_headers is read on Cloudflare Pages too",
+    "sources": [
+      "https://developers.cloudflare.com/pages/get-started/direct-upload/",
+      "https://developers.cloudflare.com/pages/platform/limits/",
+      "https://developers.cloudflare.com/pages/functions/pricing/"
+    ]
+  },
+  "githubPages": {
+    "freeNeedsPublicRepo": true,
+    "siteSizeLimitGB": 1,
+    "bandwidthSoftLimitGBPerMonth": 100,
+    "buildsPerHourSoftLimit": 10,
+    "commercialUse": "GitHub says Pages is not intended to be a free host for running an online business, e-commerce site or commercial SaaS, and should not handle sensitive transactions like passwords or card numbers.",
+    "steps": "Create a public repository, upload the files, then Settings, Pages, and publish from your main branch, root folder.",
+    "forms": "No form handling: rebuild with the email form option.",
+    "sources": [
+      "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
+      "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site"
+    ]
+  }
+}

@@ -1,0 +1,2129 @@
+{
+  "checked": "2026-10-19",
+  "note": "Business groups for local kits. Category names are Google Business Profile categories checked against a published list of Google's categories (https://daltonluka.com/blog/google-my-business-categories, May 2026); schema types are checked on schema.org. Services, bullets, headlines, FAQs and partner ideas are our starting drafts for the member to edit, not facts. best_months is our judgment of when demand is usually strongest.",
+  "board_spots": [
+    {
+      "id": "library",
+      "label": "Libraries",
+      "tags": [
+        "amenity=library"
+      ],
+      "phrases": [
+        "libraries"
+      ],
+      "tip": "Ask at the front desk; many have a community board and a stamp or date rule."
+    },
+    {
+      "id": "community",
+      "label": "Community centers",
+      "tags": [
+        "amenity=community_centre"
+      ],
+      "phrases": [
+        "community centres"
+      ],
+      "tip": "Ask the front desk where flyers go and how long they stay up."
+    },
+    {
+      "id": "laundry",
+      "label": "Laundromats",
+      "tags": [
+        "shop=laundry"
+      ],
+      "phrases": [
+        "laundries"
+      ],
+      "tip": "People wait here with time to read. Ask the attendant before you pin anything."
+    },
+    {
+      "id": "grocery",
+      "label": "Grocery stores",
+      "tags": [
+        "shop=supermarket"
+      ],
+      "phrases": [
+        "supermarkets"
+      ],
+      "tip": "Many have a board near the entrance or the restrooms. Ask customer service."
+    },
+    {
+      "id": "hardware",
+      "label": "Hardware stores",
+      "tags": [
+        "shop=hardware"
+      ],
+      "phrases": [
+        "hardware stores"
+      ],
+      "tip": "Homeowners shop here. Ask if they keep a board for local pros."
+    },
+    {
+      "id": "bakery",
+      "label": "Bakeries",
+      "tags": [
+        "shop=bakery"
+      ],
+      "phrases": [
+        "bakeries"
+      ],
+      "tip": "Buy something, then ask if you can leave a few cards by the register."
+    }
+  ],
+  "groups": [
+    {
+      "id": "auto",
+      "label": "Car care",
+      "match": "detail|car ?wash|auto|ceramic|tint|vehicle|headlight|upholster",
+      "icon": "car",
+      "mood": "bold",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "tint",
+          "name": "Window tinting service"
+        },
+        {
+          "match": "upholster",
+          "name": "Auto upholsterer"
+        },
+        {
+          "name": "Car detailing service"
+        }
+      ],
+      "secondary": [
+        "Car wash",
+        "Upholstery cleaning service",
+        "Window tinting service"
+      ],
+      "schema": "AutoWash",
+      "services": [
+        "Full detail",
+        "Interior detail",
+        "Exterior wash and wax",
+        "Pet hair removal",
+        "Headlight restoration",
+        "Engine bay cleaning"
+      ],
+      "bullets": [
+        "Interior vacuum, wipe down and windows",
+        "Hand wash, wax and tire shine",
+        "Pet hair and stain removal"
+      ],
+      "mobile_line": "At your home or office",
+      "headlines": [
+        "Your car, detailed in your driveway.",
+        "Inside and out, without leaving home.",
+        "A clean car, on your schedule.",
+        "Detailing that comes to you."
+      ],
+      "photos": [
+        "Before and after of the same seat or carpet, same angle",
+        "A finished car in good light, three-quarter view",
+        "Close up of a clean wheel and tire",
+        "You working on a car (a tool in hand, face visible)",
+        "Your setup: water, vacuum and products laid out neatly",
+        "A clean dashboard and center console",
+        "Your car or van, if it has your name on it",
+        "Logo or business card on a clean seat"
+      ],
+      "faq": [
+        {
+          "q": "How long does a detail take?",
+          "a": "It depends on the size and condition of the car. You'll get a time window when you book."
+        },
+        {
+          "q": "Do I need to be there?",
+          "hint": "One line: whether they need to be home, and how you get the keys (for example, keys under the mat)."
+        },
+        {
+          "q": "Do you need water or power from me?",
+          "hint": "One line: what you bring and what, if anything, you need from them."
+        },
+        {
+          "q": "Can you get pet hair out?",
+          "hint": "One line: whether pet hair removal is included or extra, and what it costs."
+        },
+        {
+          "q": "What if it rains?",
+          "hint": "One line: what happens to the appointment if it rains (for example, moved to the next dry day at no charge)."
+        },
+        {
+          "q": "How often should I get my car detailed?",
+          "a": "Most drivers book a full detail every few months and a quick interior clean in between. Kids, pets and long commutes mean more often."
+        }
+      ],
+      "tips": [
+        "Keep a small trash bag in a door pocket and empty it every time you get gas.",
+        "Floor mats take most of the dirt. Shake them out once a week.",
+        "Park in the shade when you can: sun bakes dust and bird droppings into the paint.",
+        "Wipe spills right away; sugar and coffee stain fast in hot cars."
+      ],
+      "partners": [
+        {
+          "id": "dealers",
+          "label": "Car dealerships",
+          "tags": [
+            "shop=car"
+          ],
+          "phrases": [
+            "car shops"
+          ],
+          "their_customers": "buyers",
+          "why": "want the car they just bought to stay looking new",
+          "ask": "hand my card to buyers who ask about keeping a car clean",
+          "give": "detail one of your lot cars so you can see the work"
+        },
+        {
+          "id": "repair",
+          "label": "Repair shops",
+          "tags": [
+            "shop=car_repair"
+          ],
+          "phrases": [
+            "car repair"
+          ],
+          "their_customers": "customers",
+          "why": "would love their car back clean as well as fixed",
+          "ask": "leave a stack of my cards at your counter",
+          "give": "point my customers to you when their car needs work"
+        },
+        {
+          "id": "offices",
+          "label": "Offices with staff parking",
+          "tags": [
+            "amenity=dentist"
+          ],
+          "phrases": [
+            "dentists"
+          ],
+          "their_customers": "staff",
+          "why": "have cars sitting in the lot all day",
+          "ask": "offer staff car details in your lot one day a month",
+          "give": "detail the owner's car free on the first visit"
+        }
+      ],
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "drop": "Streets with driveways, especially homes with two or more cars out front."
+    },
+    {
+      "id": "cleaning",
+      "label": "Cleaning",
+      "match": "clean|maid|janitor|housekeep|carpet|tidy|organiz",
+      "icon": "sparkle",
+      "mood": "fresh",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "janitor|office|commercial",
+          "name": "Janitorial service"
+        },
+        {
+          "match": "carpet",
+          "name": "Carpet cleaning service"
+        },
+        {
+          "match": "window",
+          "name": "Window cleaning service"
+        },
+        {
+          "name": "House cleaning service"
+        }
+      ],
+      "secondary": [
+        "Janitorial service",
+        "Carpet cleaning service",
+        "Window cleaning service",
+        "Upholstery cleaning service"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "Standard clean",
+        "Deep clean",
+        "Move-out clean",
+        "Weekly or every-other-week clean",
+        "Inside oven and fridge"
+      ],
+      "bullets": [
+        "Kitchens, bathrooms, floors and dusting",
+        "Weekly, every other week or one time",
+        "Deep cleans and move-out cleans"
+      ],
+      "mobile_line": "In your home, on your schedule",
+      "headlines": [
+        "Come home to a clean house.",
+        "Get your weekends back.",
+        "A clean home, on your schedule.",
+        "Less cleaning, more living."
+      ],
+      "photos": [
+        "Before and after of the same kitchen counter, same angle",
+        "A shining sink or faucet close up",
+        "A finished bathroom: mirror, sink and tub",
+        "You at work with your supplies (face visible)",
+        "Your caddy set up and ready to go",
+        "A made bed and a tidy bedroom",
+        "Clean floors with a little sunlight",
+        "Your car, if it has your name on it"
+      ],
+      "faq": [
+        {
+          "q": "Do I need to be home?",
+          "hint": "One line: whether they need to be home, and how you get in (a code, a key or a lockbox)."
+        },
+        {
+          "q": "Do you bring your own supplies?",
+          "hint": "One line: what you bring, and whether you'll use their products if they ask."
+        },
+        {
+          "q": "What's the difference between a standard clean and a deep clean?",
+          "a": "A standard clean keeps a home in good shape: kitchen, bathrooms, floors and dusting. A deep clean adds the build-up spots like baseboards, inside appliances and behind furniture."
+        },
+        {
+          "q": "Can I book every week or every other week?",
+          "a": "Yes, if you like. A recurring clean can keep the same day and time, so you don't have to rebook."
+        },
+        {
+          "q": "What if I'm not happy with something?",
+          "hint": "One line: your redo promise, only if you offer one (for example, tell me within 24 hours and I'll come back to fix it)."
+        },
+        {
+          "q": "Do you clean after a move?",
+          "a": "Yes, move-out and move-in cleans are available. Book a few days before the keys change hands."
+        }
+      ],
+      "tips": [
+        "Clean top to bottom: dust falls, so do floors last.",
+        "Let bathroom spray sit for a few minutes before you wipe; it does half the work.",
+        "A 10-minute reset every night keeps the weekend clean small.",
+        "Microfiber cloths and a squeegee beat paper towels on glass."
+      ],
+      "partners": [
+        {
+          "id": "realtors",
+          "label": "Real estate offices",
+          "tags": [
+            "office=estate_agent"
+          ],
+          "phrases": [
+            "estate agents"
+          ],
+          "their_customers": "clients",
+          "why": "need move-out and move-in cleans before closing day",
+          "ask": "hand my card to clients who are moving",
+          "give": "clean your next listing before its photos at my founding price"
+        },
+        {
+          "id": "laundry",
+          "label": "Laundromats",
+          "tags": [
+            "shop=laundry"
+          ],
+          "phrases": [
+            "laundries"
+          ],
+          "their_customers": "customers",
+          "why": "would rather spend Saturday on anything but chores",
+          "ask": "keep a few of my cards by the counter",
+          "give": "point my customers your way for comforters and big loads"
+        },
+        {
+          "id": "offices",
+          "label": "Small offices",
+          "tags": [
+            "amenity=dentist"
+          ],
+          "phrases": [
+            "dentists"
+          ],
+          "their_customers": "office managers",
+          "why": "need the office clean before patients arrive",
+          "ask": "introduce me to whoever handles cleaning",
+          "give": "clean the break room free on the first visit"
+        }
+      ],
+      "best_months": [
+        1,
+        3,
+        4,
+        5,
+        9,
+        11,
+        12
+      ],
+      "drop": "Busy neighborhoods with families, townhomes and newer houses."
+    },
+    {
+      "id": "yard",
+      "label": "Lawn and yard",
+      "match": "lawn|mow|landscap|yard|garden|snow|leaf|leaves|tree|hedge|mulch|sod|irrigat",
+      "icon": "leaf",
+      "mood": "fresh",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "snow",
+          "name": "Snow removal service"
+        },
+        {
+          "match": "tree",
+          "name": "Tree service"
+        },
+        {
+          "match": "landscap",
+          "name": "Landscaper"
+        },
+        {
+          "match": "garden",
+          "name": "Gardener"
+        },
+        {
+          "name": "Lawn care service"
+        }
+      ],
+      "secondary": [
+        "Landscaper",
+        "Gardener",
+        "Snow removal service",
+        "Gutter cleaning service"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "Weekly mowing",
+        "Edging and trimming",
+        "Leaf cleanup",
+        "Mulch and bed cleanup",
+        "Hedge trimming",
+        "Snow removal"
+      ],
+      "bullets": [
+        "Mowing, edging and blowing",
+        "Weekly or every other week",
+        "Spring and fall cleanups"
+      ],
+      "mobile_line": "Same day every week",
+      "headlines": [
+        "Your lawn, handled every week.",
+        "Never mow again this season.",
+        "A sharp yard without lifting a finger.",
+        "Weekends are for you, not the lawn."
+      ],
+      "photos": [
+        "Before and after of the same yard, same angle",
+        "Fresh stripes on a mowed lawn",
+        "A crisp edge along a driveway or sidewalk",
+        "You at work with your mower (face visible)",
+        "Your trailer or truck, if it has your name on it",
+        "A finished flower bed with fresh mulch",
+        "Leaf cleanup piles or bagged leaves",
+        "Your equipment lined up and clean"
+      ],
+      "faq": [
+        {
+          "q": "How often do you mow?",
+          "a": "Weekly in the growing season, or every other week if your lawn grows slowly. You pick."
+        },
+        {
+          "q": "Do I need to be home?",
+          "a": "No. We just need access to the yard: leave gates unlocked and pets inside on your day."
+        },
+        {
+          "q": "What happens when it rains?",
+          "a": "We shift to the next dry day and let you know."
+        },
+        {
+          "q": "Do you take the clippings?",
+          "hint": "One line: whether you bag clippings or mulch them back into the lawn."
+        },
+        {
+          "q": "Do you do one-time cleanups?",
+          "a": "Yes. Spring and fall cleanups can be booked once, even if you don't want weekly service."
+        },
+        {
+          "q": "Do you need a contract?",
+          "hint": "One line: how your plans work, and how a customer can stop."
+        }
+      ],
+      "tips": [
+        "Mow high: cutting only the top third keeps grass thicker and greener.",
+        "Water early in the morning, deeply and less often.",
+        "Sharp blades cut clean; dull ones tear and brown the tips.",
+        "Leave the clippings when they're short: they feed the lawn."
+      ],
+      "partners": [
+        {
+          "id": "hardware",
+          "label": "Hardware stores",
+          "tags": [
+            "shop=hardware"
+          ],
+          "phrases": [
+            "hardware stores"
+          ],
+          "their_customers": "customers",
+          "why": "ask who can do the yard work they don't have time for",
+          "ask": "pin my card on your community board",
+          "give": "buy my supplies from you"
+        },
+        {
+          "id": "garden",
+          "label": "Garden centers",
+          "tags": [
+            "shop=garden_centre"
+          ],
+          "phrases": [
+            "garden centres"
+          ],
+          "their_customers": "shoppers",
+          "why": "buy plants and need someone to put them in",
+          "ask": "keep my cards at the register for planting help",
+          "give": "point my customers to you for plants and mulch"
+        },
+        {
+          "id": "realtors",
+          "label": "Real estate offices",
+          "tags": [
+            "office=estate_agent"
+          ],
+          "phrases": [
+            "estate agents"
+          ],
+          "their_customers": "sellers",
+          "why": "need sharp curb appeal before listing photos",
+          "ask": "recommend me for pre-listing yard cleanups",
+          "give": "do a free curb check on your next listing"
+        }
+      ],
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "drop": "Streets with bigger lawns, and the houses right around every yard you already do."
+    },
+    {
+      "id": "washing",
+      "label": "Exterior washing",
+      "match": "pressure|power ?wash|soft ?wash|window clean|gutter|roof clean|deck|driveway|holiday light",
+      "icon": "drop",
+      "mood": "clean",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "window",
+          "name": "Window cleaning service"
+        },
+        {
+          "match": "gutter",
+          "name": "Gutter cleaning service"
+        },
+        {
+          "name": "Pressure washing service"
+        }
+      ],
+      "secondary": [
+        "Window cleaning service",
+        "Gutter cleaning service",
+        "Gutter service"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "Driveway and sidewalk washing",
+        "House soft wash",
+        "Deck and fence cleaning",
+        "Gutter cleaning",
+        "Window cleaning"
+      ],
+      "bullets": [
+        "Driveways, sidewalks and patios",
+        "Siding, decks and fences",
+        "Gutters and windows"
+      ],
+      "mobile_line": "We bring the water, the gear and the clean-up",
+      "headlines": [
+        "Bring back your curb appeal.",
+        "Grime off. Curb appeal on.",
+        "A cleaner house from the street in.",
+        "Your driveway called. It wants its color back."
+      ],
+      "photos": [
+        "Half-cleaned driveway (the before and after in one shot)",
+        "Clean siding in good light",
+        "A deck or fence before and after, same angle",
+        "You at work with your gear (face visible, safety glasses on)",
+        "Your rig or truck, if it has your name on it",
+        "Clear windows from the outside",
+        "Clean gutters close up",
+        "Your equipment laid out"
+      ],
+      "faq": [
+        {
+          "q": "Will pressure washing damage my siding?",
+          "a": "Siding and roofs get a low-pressure soft wash; high pressure is only for concrete and other hard surfaces."
+        },
+        {
+          "q": "Do I need to be home?",
+          "a": "No. We need an outside water spigot and clear access to the areas we're washing."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "Most driveways take an hour or two; a whole house takes longer. You'll get a time when you book."
+        },
+        {
+          "q": "Is it safe for my plants and pets?",
+          "hint": "One line: how you protect plants and what pets should do while you work."
+        },
+        {
+          "q": "How often should I wash my house?",
+          "a": "Once a year keeps most homes looking sharp. Shady or damp sides may need it more often."
+        },
+        {
+          "q": "How do I get a price?",
+          "a": "Send a photo of the area and the rough size, and you'll get a price back."
+        }
+      ],
+      "tips": [
+        "Clean gutters before the first big fall storm, not after.",
+        "Mildew loves the shady side of the house: check it first.",
+        "Sweep before you wash a deck; wet leaves stain.",
+        "Seal a deck a couple of days after cleaning, once it's fully dry."
+      ],
+      "partners": [
+        {
+          "id": "hardware",
+          "label": "Hardware stores",
+          "tags": [
+            "shop=hardware"
+          ],
+          "phrases": [
+            "hardware stores"
+          ],
+          "their_customers": "customers",
+          "why": "rent pressure washers and often wish someone else would do it",
+          "ask": "pin my card on your community board",
+          "give": "buy my supplies from you"
+        },
+        {
+          "id": "realtors",
+          "label": "Real estate offices",
+          "tags": [
+            "office=estate_agent"
+          ],
+          "phrases": [
+            "estate agents"
+          ],
+          "their_customers": "sellers",
+          "why": "want curb appeal before listing photos",
+          "ask": "recommend me for pre-listing washes",
+          "give": "wash the front walk of your next listing free"
+        }
+      ],
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "drop": "Streets with long driveways, light siding and older wood decks or fences."
+    },
+    {
+      "id": "home",
+      "label": "Home help",
+      "match": "handyman|handy|repair|paint|junk|haul|moving|mover|assembl|install|drywall|mount",
+      "icon": "wrench",
+      "mood": "warm",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "paint",
+          "name": "Painter"
+        },
+        {
+          "match": "junk|haul",
+          "name": "Junk removal service"
+        },
+        {
+          "match": "moving|mover",
+          "name": "Moving service"
+        },
+        {
+          "name": "Handyman/Handywoman/Handyperson"
+        }
+      ],
+      "secondary": [
+        "Painter",
+        "Junk removal service",
+        "Moving service"
+      ],
+      "schema": "HomeAndConstructionBusiness",
+      "schema_match": [
+        {
+          "match": "paint",
+          "type": "HousePainter"
+        },
+        {
+          "match": "moving|mover",
+          "type": "MovingCompany"
+        }
+      ],
+      "services": [
+        "Small repairs",
+        "Furniture assembly",
+        "TV and shelf mounting",
+        "Drywall patching",
+        "Interior painting",
+        "Junk removal"
+      ],
+      "bullets": [
+        "Small repairs and installs",
+        "Furniture assembly and TV mounting",
+        "Patching, painting and odd jobs"
+      ],
+      "mobile_line": "One visit, the whole list",
+      "headlines": [
+        "Your to-do list, finally done.",
+        "One call for the whole list.",
+        "The small jobs, handled.",
+        "Fix it this week, not someday."
+      ],
+      "photos": [
+        "Before and after of a repair, same angle",
+        "A mounted TV or shelf, level and clean",
+        "You at work with a tool in hand (face visible)",
+        "Your tools organized in a bag or truck",
+        "A finished paint job with clean edges",
+        "Assembled furniture in a finished room",
+        "Your truck or van, if it has your name on it",
+        "A clean-up shot: the room after you leave"
+      ],
+      "faq": [
+        {
+          "q": "Do you charge by the hour or by the job?",
+          "hint": "One line: how you price (by the hour, by the job, or a minimum visit) with your real numbers."
+        },
+        {
+          "q": "Can you do several small jobs in one visit?",
+          "a": "Yes. Send the whole list and we'll plan one visit to do as much as possible."
+        },
+        {
+          "q": "Do you bring materials?",
+          "hint": "One line: whether you buy materials or they do, and how you bill for them."
+        },
+        {
+          "q": "Do you clean up after?",
+          "a": "Yes. The work area gets cleaned up before we leave."
+        },
+        {
+          "q": "Are there jobs you don't do?",
+          "hint": "One line: jobs that need a licensed pro where you live (often electrical, gas and big plumbing), so customers know up front."
+        },
+        {
+          "q": "How soon can you come?",
+          "hint": "One line: your usual lead time, in plain words."
+        }
+      ],
+      "tips": [
+        "Keep a running list on your phone: small fixes are cheaper in one visit.",
+        "Take a photo of anything broken before you call; it speeds up the price.",
+        "Find your main water shut-off now, before you need it.",
+        "Use the right anchors for drywall: a stud finder saves walls."
+      ],
+      "partners": [
+        {
+          "id": "hardware",
+          "label": "Hardware stores",
+          "tags": [
+            "shop=hardware"
+          ],
+          "phrases": [
+            "hardware stores"
+          ],
+          "their_customers": "customers",
+          "why": "buy parts for jobs they'd rather not do themselves",
+          "ask": "pin my card on your community board",
+          "give": "buy my parts from you"
+        },
+        {
+          "id": "realtors",
+          "label": "Real estate offices",
+          "tags": [
+            "office=estate_agent"
+          ],
+          "phrases": [
+            "estate agents"
+          ],
+          "their_customers": "clients",
+          "why": "have punch lists before every sale and after every inspection",
+          "ask": "hand my card to clients with inspection fixes",
+          "give": "check your next listing's punch list for free"
+        }
+      ],
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "drop": "Older homes and streets where people just moved in."
+    },
+    {
+      "id": "pets",
+      "label": "Pet care",
+      "match": "dog|pet|cat|pupp|groom|kennel|paw",
+      "icon": "paw",
+      "mood": "playful",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "groom",
+          "name": "Pet groomer"
+        },
+        {
+          "match": "train",
+          "name": "Dog trainer"
+        },
+        {
+          "match": "daycare|day care",
+          "name": "Dog day care center"
+        },
+        {
+          "match": "sit|boarding|house",
+          "name": "Pet sitter"
+        },
+        {
+          "name": "Dog walker"
+        }
+      ],
+      "secondary": [
+        "Pet sitter",
+        "Dog walker",
+        "Pet groomer",
+        "House sitter"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "30-minute walk",
+        "60-minute walk",
+        "Drop-in visit",
+        "Overnight pet sitting",
+        "Puppy visits"
+      ],
+      "bullets": [
+        "Midday walks and drop-in visits",
+        "Pet sitting while you're away",
+        "Feeding, fresh water and play time"
+      ],
+      "mobile_line": "In your neighborhood, every weekday",
+      "headlines": [
+        "A happy dog while you're at work.",
+        "Midday walks for busy days.",
+        "Your pets, cared for while you're away.",
+        "Tired dog, happy home."
+      ],
+      "photos": [
+        "You walking a dog (face visible, leash in hand)",
+        "A happy dog mid-walk in your neighborhood",
+        "Your gear: leashes, bags, treats and water",
+        "A calm cat during a drop-in visit",
+        "Two dogs walking together on a nice street",
+        "A dog resting after a walk",
+        "Your car, if it has your name on it",
+        "Your business card next to a leash"
+      ],
+      "faq": [
+        {
+          "q": "Can we meet before the first walk?",
+          "a": "Yes. A short meet and greet comes first, so your pet gets to know their walker."
+        },
+        {
+          "q": "How do you get into my home?",
+          "hint": "One line: how keys or codes work and how you keep them safe."
+        },
+        {
+          "q": "Do you walk dogs together?",
+          "hint": "One line: solo walks, small groups, or both, and how you decide."
+        },
+        {
+          "q": "Do you send updates?",
+          "hint": "One line: how you update owners (a text, a photo), only if you do it every time."
+        },
+        {
+          "q": "What if my dog pulls or is nervous?",
+          "a": "Tell us at the meet and greet. We'll plan the route and the gear around your dog."
+        },
+        {
+          "q": "Are you insured?",
+          "hint": "One line, and only if it's true: who your policy is with. If you're not insured yet, leave this question out."
+        }
+      ],
+      "tips": [
+        "A midday walk helps dogs settle and sleep through the afternoon.",
+        "Hot pavement burns paws: if it's too hot for your hand, it's too hot for theirs.",
+        "Keep a spare leash and a copy of the vet's number by the door.",
+        "Short training games on walks make leash pulling easier to fix."
+      ],
+      "partners": [
+        {
+          "id": "vets",
+          "label": "Vet clinics",
+          "tags": [
+            "amenity=veterinary"
+          ],
+          "phrases": [
+            "veterinary surgeries"
+          ],
+          "their_customers": "clients",
+          "why": "ask who can check on pets after surgery or while they travel",
+          "ask": "keep my cards at the front desk",
+          "give": "point my clients to you for checkups"
+        },
+        {
+          "id": "petshops",
+          "label": "Pet stores",
+          "tags": [
+            "shop=pet"
+          ],
+          "phrases": [
+            "pet shops"
+          ],
+          "their_customers": "shoppers",
+          "why": "are exactly the people who need walks and pet sitting",
+          "ask": "pin my card on your community board",
+          "give": "buy treats and supplies from you"
+        }
+      ],
+      "best_months": [
+        5,
+        6,
+        7,
+        8,
+        11,
+        12
+      ],
+      "drop": "Streets near parks and apartments, and anywhere you see dogs at the windows."
+    },
+    {
+      "id": "beauty",
+      "label": "Hair and beauty",
+      "match": "hair|barber|nail|lash|brow|makeup|make-up|salon|stylist|beauty|wax|esthetic|massage",
+      "icon": "scissors",
+      "mood": "premium",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "barber",
+          "name": "Barber shop"
+        },
+        {
+          "match": "nail",
+          "name": "Nail salon"
+        },
+        {
+          "match": "makeup|make-up",
+          "name": "Make-up artist"
+        },
+        {
+          "match": "massage",
+          "name": "Massage therapist"
+        },
+        {
+          "match": "hair|stylist",
+          "name": "Hair salon"
+        },
+        {
+          "name": "Beauty salon"
+        }
+      ],
+      "secondary": [
+        "Hair salon",
+        "Beauty salon",
+        "Make-up artist"
+      ],
+      "schema": "BeautySalon",
+      "schema_match": [
+        {
+          "match": "hair|barber|stylist",
+          "type": "HairSalon"
+        },
+        {
+          "match": "nail",
+          "type": "NailSalon"
+        }
+      ],
+      "services": [
+        "Haircut",
+        "Color",
+        "Blowout",
+        "Event hair and makeup",
+        "Brows and lashes"
+      ],
+      "bullets": [
+        "Cuts, color and styling",
+        "Event and wedding looks",
+        "New clients welcome"
+      ],
+      "mobile_line": "I come to you for events",
+      "headlines": [
+        "Your next great hair day.",
+        "Look ready for anything.",
+        "Book your chair this week.",
+        "Leave feeling like you."
+      ],
+      "photos": [
+        "Before and after on the same client (with their permission)",
+        "Your chair or station, clean and lit well",
+        "You working (face visible), mid-cut or mid-application",
+        "A finished look from the side and back",
+        "Your products on a clean shelf",
+        "The front door or sign, if you have a space",
+        "A close up of detail work",
+        "A smiling client who agreed to be photographed"
+      ],
+      "faq": [
+        {
+          "q": "How do I book?",
+          "a": "Book online or send a text, and you'll get a confirmation with the time and address."
+        },
+        {
+          "q": "Do you take walk-ins?",
+          "hint": "One line: walk-ins yes or no, and the best way to get in fast."
+        },
+        {
+          "q": "What's your cancellation policy?",
+          "hint": "One line: your real policy (for example, 24 hours notice)."
+        },
+        {
+          "q": "Do you do event or wedding styling?",
+          "a": "Yes. Get in touch early with the date, the number of people and the location."
+        },
+        {
+          "q": "How should I come to my appointment?",
+          "hint": "One line: clean or unwashed hair, no makeup, and so on."
+        },
+        {
+          "q": "What forms of payment do you take?",
+          "hint": "One line: cash, cards and apps you accept."
+        }
+      ],
+      "tips": [
+        "Bring a photo of the look you want; it saves time and guesswork.",
+        "Book your next appointment before you leave: the best times go first.",
+        "Heat protectant before every blow-dry keeps color brighter longer.",
+        "For events, book a trial a few weeks ahead."
+      ],
+      "partners": [
+        {
+          "id": "florists",
+          "label": "Florists",
+          "tags": [
+            "shop=florist"
+          ],
+          "phrases": [
+            "florists"
+          ],
+          "their_customers": "wedding and event clients",
+          "why": "need hair and makeup for the same big days",
+          "ask": "pass my card to brides and event clients",
+          "give": "point my event clients to you for flowers"
+        },
+        {
+          "id": "hotels",
+          "label": "Hotels",
+          "tags": [
+            "tourism=hotel"
+          ],
+          "phrases": [
+            "hotels"
+          ],
+          "their_customers": "guests and wedding parties",
+          "why": "ask the front desk where to get ready for events",
+          "ask": "keep my cards at the front desk for events",
+          "give": "recommend your rooms to out-of-town wedding parties"
+        }
+      ],
+      "best_months": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "drop": "Skip doors for this one: cards at cafes, gyms and boutiques work better."
+    },
+    {
+      "id": "fitness",
+      "label": "Fitness",
+      "match": "personal train|fitness|yoga|pilates|gym|bootcamp|boot camp|workout|strength|running club",
+      "icon": "dumbbell",
+      "mood": "bold",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "yoga",
+          "name": "Yoga studio"
+        },
+        {
+          "match": "pilates",
+          "name": "Pilates studio"
+        },
+        {
+          "match": "gym",
+          "name": "Gym"
+        },
+        {
+          "name": "Personal trainer"
+        }
+      ],
+      "secondary": [],
+      "schema": "LocalBusiness",
+      "schema_match": [
+        {
+          "match": "gym|studio",
+          "type": "ExerciseGym"
+        }
+      ],
+      "services": [
+        "1-on-1 training session",
+        "Small group training",
+        "Intro session",
+        "Monthly coaching",
+        "Outdoor bootcamp"
+      ],
+      "bullets": [
+        "1-on-1 and small group sessions",
+        "A plan built around your week",
+        "Strength, mobility and conditioning"
+      ],
+      "mobile_line": "At your home, a park or the gym",
+      "headlines": [
+        "Get stronger this season.",
+        "Training that fits your week.",
+        "Your first session starts here.",
+        "Show up. We'll handle the plan."
+      ],
+      "photos": [
+        "You coaching a client (face visible, with their permission)",
+        "A small group mid-workout",
+        "Your equipment set up neatly",
+        "You demonstrating a move",
+        "The space or park where you train",
+        "A high five or finish moment",
+        "Your logo on a shirt or bag",
+        "A simple plan or schedule on a clipboard"
+      ],
+      "faq": [
+        {
+          "q": "I'm a beginner. Is this for me?",
+          "a": "Yes. Sessions start where you are and build from there."
+        },
+        {
+          "q": "Where do sessions happen?",
+          "hint": "One line: your studio, their home, a park or a gym, with the area."
+        },
+        {
+          "q": "How often should I train?",
+          "a": "Two or three sessions a week is a common start. We'll set a rhythm that fits your schedule."
+        },
+        {
+          "q": "What should I bring?",
+          "a": "Water, comfortable clothes and shoes you can move in."
+        },
+        {
+          "q": "Do you help with eating habits?",
+          "hint": "One line: what you do and don't advise on. Leave medical advice to doctors."
+        },
+        {
+          "q": "Can I try a session first?",
+          "hint": "One line: your intro session terms, only if you offer one."
+        }
+      ],
+      "tips": [
+        "Consistency beats intensity: three steady sessions a week beat one hard one.",
+        "Sleep is training too: aim for the same bedtime most nights.",
+        "Warm up for five minutes before lifting; your joints will thank you.",
+        "Write down every workout: progress you can see keeps you going."
+      ],
+      "partners": [
+        {
+          "id": "sports",
+          "label": "Sports centers",
+          "tags": [
+            "leisure=sports_centre"
+          ],
+          "phrases": [
+            "sports centres"
+          ],
+          "their_customers": "members",
+          "why": "want help with strength and recovery between games",
+          "ask": "let me run a free clinic for your members",
+          "give": "point my clients to your leagues and courts"
+        },
+        {
+          "id": "schools",
+          "label": "Schools",
+          "tags": [
+            "amenity=school"
+          ],
+          "phrases": [
+            "schools"
+          ],
+          "their_customers": "teachers and parents",
+          "why": "want a simple way to get stronger on a busy schedule",
+          "ask": "share my card in your staff room or parent newsletter",
+          "give": "run a free staff workout once a month"
+        }
+      ],
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9
+      ],
+      "drop": "Skip doors for this one: cards at cafes, sports centers and office buildings work better."
+    },
+    {
+      "id": "food",
+      "label": "Food and treats",
+      "match": "bak|cake|cookie|cupcake|cater|meal prep|chef|food truck|coffee|cafe|dessert|bread|pastr|ice cream",
+      "icon": "cake",
+      "mood": "warm",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "coffee",
+          "name": "Coffee shop"
+        },
+        {
+          "match": "cafe",
+          "name": "Cafe"
+        },
+        {
+          "match": "food truck|mobile cater",
+          "name": "Mobile caterer"
+        },
+        {
+          "match": "ice cream",
+          "name": "Ice cream shop"
+        },
+        {
+          "match": "bak|cake|cookie|cupcake|bread|pastr|dessert",
+          "name": "Bakery"
+        },
+        {
+          "name": "Caterer"
+        }
+      ],
+      "secondary": [
+        "Caterer",
+        "Bakery",
+        "Mobile caterer"
+      ],
+      "schema": "FoodEstablishment",
+      "schema_match": [
+        {
+          "match": "bak|cake|cookie|cupcake|bread|pastr|dessert",
+          "type": "Bakery"
+        },
+        {
+          "match": "coffee|cafe",
+          "type": "CafeOrCoffeeShop"
+        },
+        {
+          "match": "ice cream",
+          "type": "IceCreamShop"
+        }
+      ],
+      "services": [
+        "Custom orders",
+        "Party trays",
+        "Event catering",
+        "Weekly meal prep",
+        "Holiday boxes"
+      ],
+      "bullets": [
+        "Custom orders for any occasion",
+        "Party trays and events",
+        "Made fresh to order"
+      ],
+      "mobile_line": "Order ahead for pickup or delivery",
+      "headlines": [
+        "Made fresh, made local.",
+        "Your next party, catered.",
+        "Something sweet for every occasion.",
+        "Order once. Be the hero of the party."
+      ],
+      "photos": [
+        "Your best item, close up, in daylight",
+        "A full spread or party tray from above",
+        "You at work in the kitchen (face visible, hair tied back)",
+        "Packaging with your label",
+        "A slice or cross-section that shows the inside",
+        "A seasonal special",
+        "Your pickup spot or booth",
+        "A happy customer picking up (with permission)"
+      ],
+      "faq": [
+        {
+          "q": "How far ahead should I order?",
+          "hint": "One line: your real lead time (for example, 3 days for custom cakes)."
+        },
+        {
+          "q": "Do you deliver?",
+          "hint": "One line: pickup, delivery, or both, and the area."
+        },
+        {
+          "q": "Can you handle allergies?",
+          "hint": "One line, and only what's true: which allergens are in your kitchen. Never promise allergen-free unless it is."
+        },
+        {
+          "q": "Do you do events?",
+          "a": "Yes. Send the date, the number of guests and what you have in mind, and you'll get a menu and a price."
+        },
+        {
+          "q": "How do I pay?",
+          "hint": "One line: deposits, and the payment methods you take."
+        },
+        {
+          "q": "Can I customize my order?",
+          "a": "Yes. Tell us the occasion, colors and flavors, and we'll suggest what works best."
+        }
+      ],
+      "tips": [
+        "Order party food for about 10 percent more guests than you invited.",
+        "Store cookies with a slice of bread in the container to keep them soft.",
+        "Ask for pickup an hour before the party, not the morning of.",
+        "Seasonal flavors sell out first: order early in the holidays."
+      ],
+      "partners": [
+        {
+          "id": "worship",
+          "label": "Places of worship",
+          "tags": [
+            "amenity=place_of_worship"
+          ],
+          "phrases": [
+            "places of worship"
+          ],
+          "their_customers": "members",
+          "why": "host gatherings, holidays and celebrations",
+          "ask": "share my card with whoever plans events",
+          "give": "bring a tray for your next gathering at cost"
+        },
+        {
+          "id": "schools",
+          "label": "Schools",
+          "tags": [
+            "amenity=school"
+          ],
+          "phrases": [
+            "schools"
+          ],
+          "their_customers": "staff and parents",
+          "why": "order food for staff days, parties and fundraisers",
+          "ask": "pass my menu to the front office",
+          "give": "donate a tray to your next staff appreciation day"
+        },
+        {
+          "id": "florists",
+          "label": "Florists",
+          "tags": [
+            "shop=florist"
+          ],
+          "phrases": [
+            "florists"
+          ],
+          "their_customers": "event clients",
+          "why": "plan parties and weddings that need food too",
+          "ask": "pass my menu to event clients",
+          "give": "point my event clients to you for flowers"
+        }
+      ],
+      "best_months": [
+        2,
+        5,
+        6,
+        10,
+        11,
+        12
+      ],
+      "drop": "Skip doors for this one: samples at offices, schools and markets work better."
+    },
+    {
+      "id": "lessons",
+      "label": "Lessons and tutoring",
+      "match": "tutor|lesson|teach|music|piano|guitar|violin|math|reading|test prep|homework|language|swim|driving school",
+      "icon": "book",
+      "mood": "calm",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "music|piano|guitar|violin|drum|voice|singing",
+          "name": "Music instructor"
+        },
+        {
+          "match": "driving",
+          "name": "Driving school"
+        },
+        {
+          "match": "college|admission",
+          "name": "Educational consultant"
+        },
+        {
+          "name": "Tutoring service"
+        }
+      ],
+      "secondary": [
+        "Tutoring service",
+        "Educational consultant"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "1-on-1 tutoring",
+        "Homework help",
+        "Test prep",
+        "Reading support",
+        "Small group sessions"
+      ],
+      "bullets": [
+        "1-on-1 sessions",
+        "Homework help and test prep",
+        "A plan that follows the class"
+      ],
+      "mobile_line": "At your home, the library or online",
+      "headlines": [
+        "Homework help that clicks.",
+        "Confidence in every class.",
+        "Learn it, then love it.",
+        "Better grades start with one session."
+      ],
+      "photos": [
+        "You at a table with books and a laptop (face visible)",
+        "A student working (only with a parent's permission, or from behind)",
+        "Your materials laid out neatly",
+        "A whiteboard with a worked example",
+        "The library or space where you meet",
+        "Your instrument or teaching tools",
+        "A calendar or plan on the table",
+        "Your business card next to a notebook"
+      ],
+      "faq": [
+        {
+          "q": "Which subjects and grades do you teach?",
+          "hint": "One line: subjects and grades, specific and honest."
+        },
+        {
+          "q": "Where do sessions happen?",
+          "hint": "One line: their home, the library, online, or your place."
+        },
+        {
+          "q": "How long is a session?",
+          "hint": "One line: your session length and how often students usually meet."
+        },
+        {
+          "q": "How will I know it's working?",
+          "a": "You'll get a short update after sessions about what we covered and what's next."
+        },
+        {
+          "q": "Can you help before a big test?",
+          "a": "Yes. Get in touch a couple of weeks before the test so there's time to practice."
+        },
+        {
+          "q": "Do you work with students who are behind?",
+          "a": "Yes. We start where the student is and build up step by step."
+        }
+      ],
+      "tips": [
+        "Short daily practice beats one long weekend cram.",
+        "Have students explain a problem out loud: it shows what they really know.",
+        "Start test prep two to three weeks before the test.",
+        "Keep a homework spot with everything in one place."
+      ],
+      "partners": [
+        {
+          "id": "schools",
+          "label": "Schools",
+          "tags": [
+            "amenity=school"
+          ],
+          "phrases": [
+            "schools"
+          ],
+          "their_customers": "families",
+          "why": "ask teachers for help outside class",
+          "ask": "share my card with teachers and the parent newsletter",
+          "give": "run a free study skills session for families"
+        },
+        {
+          "id": "libraries",
+          "label": "Libraries",
+          "tags": [
+            "amenity=library"
+          ],
+          "phrases": [
+            "libraries"
+          ],
+          "their_customers": "families",
+          "why": "come in for homework help",
+          "ask": "post my flyer on your community board",
+          "give": "hold a free homework hour in one of your rooms"
+        }
+      ],
+      "best_months": [
+        1,
+        2,
+        3,
+        8,
+        9,
+        10
+      ],
+      "drop": "Skip doors for this one: school newsletters, library boards and parent groups work better."
+    },
+    {
+      "id": "bizphoto",
+      "label": "Business photography",
+      "match": "business photo|commercial photo|product photo|food photo|brand photo|photos? for (local|business|restaurant|shop)|photography for (local|business|restaurant|shop)|menu photo|team headshot|real estate photo",
+      "icon": "camera",
+      "mood": "premium",
+      "mobile": true,
+      "categories": [
+        {
+          "name": "Photographer"
+        }
+      ],
+      "secondary": [
+        "Commercial photographer",
+        "Photography service"
+      ],
+      "schema": "ProfessionalService",
+      "services": [
+        "Food and menu photos",
+        "Product photos",
+        "Team headshots",
+        "Photos of your space",
+        "Photos for your website and Google profile"
+      ],
+      "bullets": [
+        "Photos of your food, products, space and team",
+        "Shot in your quiet hours",
+        "Sized for your website, Google profile and posts"
+      ],
+      "mobile_line": "At your shop, restaurant or office",
+      "headlines": [
+        "Photos that look like your place on its best day.",
+        "Fresh photos for your website and Google.",
+        "Book a shoot in your quiet hours.",
+        "Your work, your space, your team."
+      ],
+      "photos": [
+        "Your three strongest business photos (with the owner's permission)",
+        "You with your camera (face visible)",
+        "A behind-the-scenes shot at a business shoot",
+        "A product or food shot you took",
+        "A team headshot (with permission)",
+        "Your lights set up on location",
+        "A shop or restaurant interior you shot (with permission)",
+        "A favorite local business you shot for (with permission)"
+      ],
+      "faq": [
+        {
+          "q": "How soon do I get my photos?",
+          "hint": "One line: your real delivery time."
+        },
+        {
+          "q": "How many photos do I get?",
+          "hint": "One line: your package details, honestly."
+        },
+        {
+          "q": "Do you shoot while we're open?",
+          "hint": "One line: when you like to shoot, like before opening or in a quiet hour."
+        },
+        {
+          "q": "Where can we use the photos?",
+          "hint": "One line: where they can use them (website, Google, posts, menus, ads)."
+        },
+        {
+          "q": "Do you bring lights?",
+          "hint": "One line: what you bring to a shoot."
+        },
+        {
+          "q": "Do you travel?",
+          "hint": "One line: your travel area and any travel fee."
+        }
+      ],
+      "tips": [
+        "Shoot food right after it's plated, while it looks its best.",
+        "Window light beats overhead lights for products.",
+        "Clear counters and tables before a shoot: clutter shows up in every photo.",
+        "Swap your Google photos each season so they match what you sell now."
+      ],
+      "partners": [
+        {
+          "id": "photographers",
+          "label": "Portrait and wedding photographers",
+          "tags": [
+            "craft=photographer",
+            "shop=photo"
+          ],
+          "phrases": [
+            "photographers"
+          ],
+          "their_customers": "families and couples, and businesses asking for shoots they don't take",
+          "why": "get asked for business shoots they pass on",
+          "ask": "send me the business shoots you pass on",
+          "give": "send you the weddings and family sessions I'm asked for"
+        },
+        {
+          "id": "hotels",
+          "label": "Hotels",
+          "tags": [
+            "tourism=hotel"
+          ],
+          "phrases": [
+            "hotels"
+          ],
+          "their_customers": "businesses holding meetings and events",
+          "why": "host business events that want photos",
+          "ask": "keep my card for event organizers",
+          "give": "photograph your meeting rooms for your listings"
+        }
+      ],
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        10
+      ],
+      "drop": "Skip home doors for this one: walk into shops and restaurants in a quiet hour instead, with one printed photo."
+    },
+    {
+      "id": "events",
+      "label": "Photo and events",
+      "match": "photo|wedding|event|dj|planner|florist|flower|party|balloon|decor",
+      "icon": "camera",
+      "mood": "premium",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "wedding photo",
+          "name": "Wedding photographer"
+        },
+        {
+          "match": "video",
+          "name": "Video production service"
+        },
+        {
+          "match": "photo",
+          "name": "Photographer"
+        },
+        {
+          "match": "florist|flower",
+          "name": "Florist"
+        },
+        {
+          "match": "plan|event|party|decor|balloon",
+          "name": "Event planner"
+        },
+        {
+          "name": "Photographer"
+        }
+      ],
+      "secondary": [
+        "Photographer",
+        "Wedding photographer",
+        "Event planner",
+        "Photography service"
+      ],
+      "schema": "ProfessionalService",
+      "services": [
+        "Portrait session",
+        "Family session",
+        "Event coverage",
+        "Headshots",
+        "Wedding coverage"
+      ],
+      "bullets": [
+        "Portraits, families and events",
+        "Headshots for work",
+        "Indoor and outdoor sessions"
+      ],
+      "mobile_line": "Anywhere in town",
+      "headlines": [
+        "Photos you'll actually frame.",
+        "Your moments, kept well.",
+        "Book your session this season.",
+        "Real moments, beautifully lit."
+      ],
+      "photos": [
+        "Your three strongest photos (with clients' permission)",
+        "You with your camera (face visible)",
+        "A behind-the-scenes shot at a session",
+        "A family or couple you photographed (with permission)",
+        "A headshot example",
+        "Your gear laid out",
+        "A print or album you delivered",
+        "A favorite local spot you shoot at"
+      ],
+      "faq": [
+        {
+          "q": "How soon do I get my photos?",
+          "hint": "One line: your real delivery time."
+        },
+        {
+          "q": "How many photos do I get?",
+          "hint": "One line: your package details, honestly."
+        },
+        {
+          "q": "Where do sessions happen?",
+          "a": "Anywhere that fits the look you want: a park, your home or a favorite spot. We'll pick it together."
+        },
+        {
+          "q": "What should we wear?",
+          "a": "Solid colors that go together, nothing with big logos. You'll get a short guide before the session."
+        },
+        {
+          "q": "How far ahead should I book?",
+          "a": "Book early for weekends and busy seasons; weekday sessions are easier to get."
+        },
+        {
+          "q": "Do you travel?",
+          "hint": "One line: your travel area and any travel fee."
+        }
+      ],
+      "tips": [
+        "The best light is the hour after sunrise and the hour before sunset.",
+        "Pick outfits that coordinate, not match.",
+        "Plan family photos before nap time, not after.",
+        "Print your favorites: photos on a wall get seen every day."
+      ],
+      "partners": [
+        {
+          "id": "florists",
+          "label": "Florists",
+          "tags": [
+            "shop=florist"
+          ],
+          "phrases": [
+            "florists"
+          ],
+          "their_customers": "wedding and event clients",
+          "why": "plan the same big days you photograph",
+          "ask": "pass my card to wedding and event clients",
+          "give": "photograph your arrangements for your website and posts"
+        },
+        {
+          "id": "hotels",
+          "label": "Hotels",
+          "tags": [
+            "tourism=hotel"
+          ],
+          "phrases": [
+            "hotels"
+          ],
+          "their_customers": "event and wedding guests",
+          "why": "host weddings, reunions and parties",
+          "ask": "keep my card with your event planner",
+          "give": "photograph your event space for your listings"
+        },
+        {
+          "id": "bakeries",
+          "label": "Bakeries",
+          "tags": [
+            "shop=bakery"
+          ],
+          "phrases": [
+            "bakeries"
+          ],
+          "their_customers": "party and wedding clients",
+          "why": "order cakes for the moments you photograph",
+          "ask": "leave a few cards by the register",
+          "give": "photograph your best cakes for your posts"
+        }
+      ],
+      "best_months": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "drop": "Skip doors for this one: partners, cafes and community boards work better."
+    },
+    {
+      "id": "pro",
+      "label": "Creative and professional services",
+      "match": "web|website|graphic|logo|brand|marketing|social media|seo|video edit|consult|bookkeep|accounting|tax|life coach|coach|assistant|copywrit|it support|computer|tech support",
+      "icon": "bulb",
+      "mood": "clean",
+      "mobile": false,
+      "online": true,
+      "categories": [
+        {
+          "match": "web|website",
+          "name": "Website designer"
+        },
+        {
+          "match": "graphic|logo|brand",
+          "name": "Graphic designer"
+        },
+        {
+          "match": "social media|seo|digital",
+          "name": "Internet marketing service"
+        },
+        {
+          "match": "marketing",
+          "name": "Marketing consultant"
+        },
+        {
+          "match": "video",
+          "name": "Video editing service"
+        },
+        {
+          "match": "computer|it support|tech support",
+          "name": "Computer repair service"
+        },
+        {
+          "match": "life coach|coach",
+          "name": "Life coach"
+        },
+        {
+          "match": "consult",
+          "name": "Business management consultant"
+        },
+        {
+          "name": "Consultant"
+        }
+      ],
+      "secondary": [
+        "Marketing consultant",
+        "Graphic designer",
+        "Website designer"
+      ],
+      "schema": "ProfessionalService",
+      "services": [
+        "Website design",
+        "Website updates",
+        "Google profile setup",
+        "Social media content",
+        "Logo and brand kit"
+      ],
+      "bullets": [
+        "Websites for local businesses",
+        "Google profile and listings setup",
+        "Social posts and photos"
+      ],
+      "mobile_line": "I meet local clients in person",
+      "headlines": [
+        "Look as good online as you are in person.",
+        "Your business, easy to find.",
+        "A website that takes bookings.",
+        "Local help for local businesses."
+      ],
+      "photos": [
+        "You at work at your desk (face visible)",
+        "A laptop showing a project you made (with the client's permission)",
+        "You meeting a client at their business",
+        "Before and after of a website or logo",
+        "Your workspace",
+        "A printed sample of your work",
+        "A local business you helped (with permission)",
+        "Your business card"
+      ],
+      "faq": [
+        {
+          "q": "How long does a project take?",
+          "hint": "One line: your usual timeline for your main service."
+        },
+        {
+          "q": "What do you need from me to start?",
+          "a": "A short call about your business, your logo and photos if you have them, and access to any accounts we'll work in."
+        },
+        {
+          "q": "Do you meet in person?",
+          "hint": "One line: where you meet local clients."
+        },
+        {
+          "q": "What does it cost?",
+          "hint": "One line: your starting price for the main service."
+        },
+        {
+          "q": "Can you update my existing site?",
+          "a": "Usually, yes. Send the address and what you'd like changed."
+        },
+        {
+          "q": "Who owns the work when it's done?",
+          "hint": "One line: what the client owns and keeps when the project is done."
+        }
+      ],
+      "tips": [
+        "Put your phone number at the top of every page of your website.",
+        "Answer reviews within a day: future customers read the replies.",
+        "One clear photo of your work beats ten stock photos.",
+        "Keep your hours the same on every listing."
+      ],
+      "partners": [
+        {
+          "id": "copyshops",
+          "label": "Print and copy shops",
+          "tags": [
+            "shop=copyshop"
+          ],
+          "phrases": [
+            "copy shops"
+          ],
+          "their_customers": "small business owners",
+          "why": "ask for help with designs, sites and listings",
+          "ask": "keep my cards at the counter",
+          "give": "point my clients to you for printing"
+        }
+      ],
+      "best_months": [
+        1,
+        2,
+        3,
+        8,
+        9
+      ],
+      "drop": "Skip doors for this one: walk into local businesses and offer one specific fix."
+    },
+    {
+      "id": "retail",
+      "label": "Shops and makers",
+      "match": "boutique|candle|soap|jewel|craft|vintage|thrift|resale|gift|clothing|apparel|plant shop|maker|handmade|store|shop",
+      "icon": "bag",
+      "mood": "playful",
+      "mobile": false,
+      "online": true,
+      "categories": [
+        {
+          "match": "candle",
+          "name": "Candle store"
+        },
+        {
+          "match": "gift",
+          "name": "Gift shop"
+        },
+        {
+          "match": "cloth|apparel|vintage|thrift|resale",
+          "name": "Clothing store"
+        },
+        {
+          "match": "boutique",
+          "name": "Boutique"
+        },
+        {
+          "name": "Gift shop"
+        }
+      ],
+      "secondary": [
+        "Gift shop",
+        "Boutique"
+      ],
+      "schema": "Store",
+      "services": [
+        "Gift sets",
+        "Custom orders",
+        "Local pickup",
+        "Gift wrapping"
+      ],
+      "bullets": [
+        "Gifts for every occasion",
+        "Custom and bulk orders",
+        "Made and sold locally"
+      ],
+      "mobile_line": "Local pickup available",
+      "headlines": [
+        "Gifts they'll actually keep.",
+        "Made here. Loved everywhere.",
+        "Shop small this season.",
+        "Find something you'll love."
+      ],
+      "photos": [
+        "Your best seller in daylight",
+        "Your table or shelf, styled",
+        "You making or packing an order (face visible)",
+        "A gift set wrapped and ready",
+        "Your market booth or storefront",
+        "A close up of the details",
+        "Packaging with your label",
+        "A seasonal display"
+      ],
+      "faq": [
+        {
+          "q": "Where can I buy in person?",
+          "hint": "One line: your shop, market days or pickup spot."
+        },
+        {
+          "q": "Do you ship?",
+          "hint": "One line: where you ship and how fast."
+        },
+        {
+          "q": "Can I order custom or in bulk?",
+          "a": "Yes. Send what you need and the date, and you'll get options and a price."
+        },
+        {
+          "q": "What's your return policy?",
+          "hint": "One line: your real policy."
+        },
+        {
+          "q": "Do you do gift wrapping?",
+          "hint": "One line: yes or no, and any cost."
+        },
+        {
+          "q": "When do new items come out?",
+          "hint": "One line: how often you add new things and where you announce them."
+        }
+      ],
+      "tips": [
+        "Shop small before the holiday rush for the best picks.",
+        "Gift sets make choosing easy: one price, ready to give.",
+        "Follow along for new drops and market days.",
+        "Ask about custom orders early for big occasions."
+      ],
+      "partners": [
+        {
+          "id": "florists",
+          "label": "Florists",
+          "tags": [
+            "shop=florist"
+          ],
+          "phrases": [
+            "florists"
+          ],
+          "their_customers": "gift buyers",
+          "why": "want a small gift to go with flowers",
+          "ask": "carry a few of my pieces by the register",
+          "give": "point my customers to you for flowers"
+        },
+        {
+          "id": "bakeries",
+          "label": "Bakeries",
+          "tags": [
+            "shop=bakery"
+          ],
+          "phrases": [
+            "bakeries"
+          ],
+          "their_customers": "customers",
+          "why": "buy treats for the same occasions",
+          "ask": "leave my cards by the register",
+          "give": "feature your treats at my next market booth"
+        }
+      ],
+      "best_months": [
+        2,
+        5,
+        10,
+        11,
+        12
+      ],
+      "drop": "Skip doors for this one: markets, cafes and partner shops work better."
+    },
+    {
+      "id": "general",
+      "label": "Local business",
+      "match": "",
+      "icon": "pin",
+      "mood": "clean",
+      "mobile": false,
+      "categories": [],
+      "secondary": [],
+      "schema": "LocalBusiness",
+      "services": [],
+      "bullets": [],
+      "mobile_line": "",
+      "headlines": [
+        "Your neighbors' new favorite local business.",
+        "Local, friendly and close by.",
+        "Say hi to your new neighbor."
+      ],
+      "photos": [
+        "You at work (face visible)",
+        "Your best work, in daylight",
+        "Your tools or workspace",
+        "The front door or sign, if you have a space",
+        "A happy customer (with permission)",
+        "Your logo",
+        "Before and after, same angle",
+        "A behind-the-scenes moment"
+      ],
+      "faq": [
+        {
+          "q": "What do you offer?",
+          "hint": "One line: your main service and who it's for."
+        },
+        {
+          "q": "How soon can I get started?",
+          "hint": "One line: your usual lead time."
+        },
+        {
+          "q": "How do I pay?",
+          "hint": "One line: the payment methods you take."
+        }
+      ],
+      "tips": [
+        "Save our number so you can text when you need us.",
+        "Ask about our next opening; spots fill up week to week.",
+        "Tell a neighbor: local businesses grow by word of mouth."
+      ],
+      "partners": [
+        {
+          "id": "community",
+          "label": "Community centers",
+          "tags": [
+            "amenity=community_centre"
+          ],
+          "phrases": [
+            "community centres"
+          ],
+          "their_customers": "visitors",
+          "why": "look for local help on the community board",
+          "ask": "post my flyer on your board",
+          "give": "volunteer at your next community event"
+        },
+        {
+          "id": "libraries",
+          "label": "Libraries",
+          "tags": [
+            "amenity=library"
+          ],
+          "phrases": [
+            "libraries"
+          ],
+          "their_customers": "visitors",
+          "why": "check the board for local services",
+          "ask": "post my flyer on your board",
+          "give": "run a free how-to session for your visitors"
+        }
+      ],
+      "best_months": [],
+      "drop": "Streets near where your customers already are."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "checked": "2026-10-19",
+  "note": "How the local pack reads OpenStreetMap data, and the rules it follows.",
+  "attribution": "Map data from OpenStreetMap contributors (ODbL)",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "nominatim": {
+    "url": "https://nominatim.openstreetmap.org",
+    "override_env": "OSM_NOMINATIM_URL",
+    "rules": [
+      "No more than 1 request per second for the whole application.",
+      "Identify the application with a User-Agent.",
+      "Cache results; don't repeat the same request.",
+      "No bulk or systematic queries; small searches for one member's request only."
+    ],
+    "source": "https://operations.osmfoundation.org/policies/nominatim/"
+  }
+}

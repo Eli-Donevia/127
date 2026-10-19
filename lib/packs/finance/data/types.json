@@ -1,0 +1,623 @@
+{
+ "about": "How the money desk recognizes a business type from the member's words, and what to price when 127 has no checked startup costs for that type yet. Item names only: no prices here. Prices come from research/niches (sourced) or from the member.",
+ "types": [
+  {
+   "id": "detailing",
+   "name": "mobile car detailing",
+   "kind": "local",
+   "mood": "bold",
+   "unit": "job",
+   "match": [
+    "detail",
+    "car wash",
+    "auto spa",
+    "ceramic coat",
+    "car care"
+   ],
+   "toPrice": [
+    [
+     "Pressure washer or pump sprayer",
+     "once"
+    ],
+    [
+     "Wet and dry vacuum",
+     "once"
+    ],
+    [
+     "Microfiber towels and applicators",
+     "once"
+    ],
+    [
+     "Soap, wax and interior cleaners",
+     "month"
+    ],
+    [
+     "Buckets, brushes and grit guards",
+     "once"
+    ],
+    [
+     "Water tank and hoses (if you work where there is no tap)",
+     "once"
+    ],
+    [
+     "General liability insurance",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "cleaning",
+   "name": "house cleaning",
+   "kind": "local",
+   "mood": "fresh",
+   "unit": "visit",
+   "match": [
+    "clean",
+    "maid",
+    "janitor",
+    "housekeep",
+    "turnover"
+   ],
+   "toPrice": [
+    [
+     "Vacuum",
+     "once"
+    ],
+    [
+     "Mop, bucket and broom",
+     "once"
+    ],
+    [
+     "Microfiber cloths",
+     "once"
+    ],
+    [
+     "Cleaning supplies",
+     "month"
+    ],
+    [
+     "General liability insurance",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "lawn",
+   "name": "lawn care",
+   "kind": "local",
+   "mood": "fresh",
+   "unit": "visit",
+   "match": [
+    "lawn",
+    "mow",
+    "yard",
+    "landscap",
+    "snow removal",
+    "snow plow",
+    "leaf"
+   ],
+   "toPrice": [
+    [
+     "Lawn mower",
+     "once"
+    ],
+    [
+     "String trimmer",
+     "once"
+    ],
+    [
+     "Leaf blower",
+     "once"
+    ],
+    [
+     "Gas and upkeep",
+     "month"
+    ],
+    [
+     "General liability insurance",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "washing",
+   "name": "pressure washing",
+   "kind": "local",
+   "mood": "clean",
+   "unit": "job",
+   "match": [
+    "pressure wash",
+    "power wash",
+    "soft wash",
+    "window clean",
+    "gutter",
+    "washing"
+   ],
+   "toPrice": [
+    [
+     "Pressure washer",
+     "once"
+    ],
+    [
+     "Surface cleaner",
+     "once"
+    ],
+    [
+     "Hoses and nozzles",
+     "once"
+    ],
+    [
+     "Ladder",
+     "once"
+    ],
+    [
+     "Detergents",
+     "month"
+    ],
+    [
+     "General liability insurance",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "tutoring",
+   "name": "tutoring",
+   "kind": "local",
+   "mood": "calm",
+   "unit": "session",
+   "match": [
+    "tutor",
+    "test prep",
+    "sat prep",
+    "act prep",
+    "lesson",
+    "teach"
+   ],
+   "toPrice": [
+    [
+     "Workbooks or practice tests",
+     "once"
+    ],
+    [
+     "Whiteboard or tablet",
+     "once"
+    ],
+    [
+     "Video call app",
+     "month"
+    ],
+    [
+     "Background check (if parents or schools ask)",
+     "once"
+    ]
+   ]
+  },
+  {
+   "id": "petcare",
+   "name": "dog walking and pet sitting",
+   "kind": "local",
+   "mood": "playful",
+   "unit": "visit",
+   "match": [
+    "dog walk",
+    "pet sit",
+    "pet care",
+    "dog sit",
+    "pet groom",
+    "dog groom",
+    "pet "
+   ],
+   "toPrice": [
+    [
+     "Leashes, waste bags and treats",
+     "once"
+    ],
+    [
+     "Pet first aid kit",
+     "once"
+    ],
+    [
+     "Pet care insurance and bond",
+     "month"
+    ],
+    [
+     "Booking app",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "photo",
+   "name": "photography",
+   "kind": "local",
+   "mood": "premium",
+   "unit": "session",
+   "match": [
+    "photo",
+    "headshot",
+    "portrait"
+   ],
+   "toPrice": [
+    [
+     "Camera body",
+     "once"
+    ],
+    [
+     "Lens",
+     "once"
+    ],
+    [
+     "Memory cards and a backup drive",
+     "once"
+    ],
+    [
+     "Editing software",
+     "month"
+    ],
+    [
+     "Gear and liability insurance",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "webdesign",
+   "name": "web design",
+   "kind": "online",
+   "mood": "clean",
+   "unit": "project",
+   "match": [
+    "web design",
+    "website",
+    "web dev",
+    "landing page"
+   ],
+   "toPrice": [
+    [
+     "Laptop (if you need a new one)",
+     "once"
+    ],
+    [
+     "Website builder or hosting",
+     "month"
+    ],
+    [
+     "Domain name",
+     "year"
+    ],
+    [
+     "Design tools",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "social",
+   "name": "social media management",
+   "kind": "online",
+   "mood": "playful",
+   "unit": "month of posts",
+   "match": [
+    "social media",
+    "instagram manag",
+    "content manag",
+    "smm"
+   ],
+   "toPrice": [
+    [
+     "Small light and tripod",
+     "once"
+    ],
+    [
+     "Scheduling app",
+     "month"
+    ],
+    [
+     "Design app",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "reviews",
+   "name": "review management",
+   "kind": "local",
+   "mood": "warm",
+   "unit": "client",
+   "match": [
+    "review"
+   ],
+   "toPrice": [
+    [
+     "Printing for review cards",
+     "once"
+    ],
+    [
+     "Card stock for QR cards",
+     "once"
+    ]
+   ]
+  },
+  {
+   "id": "frontdesk",
+   "name": "front desk and missed-call service",
+   "kind": "online",
+   "mood": "clean",
+   "unit": "client",
+   "match": [
+    "front desk",
+    "receptionist",
+    "missed call",
+    "answering",
+    "call handling"
+   ],
+   "toPrice": [
+    [
+     "Business phone number or texting app",
+     "month"
+    ],
+    [
+     "Booking tool",
+     "month"
+    ],
+    [
+     "Receptionist software",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "templates",
+   "name": "digital templates",
+   "kind": "online",
+   "mood": "playful",
+   "unit": "sale",
+   "match": [
+    "template",
+    "printable",
+    "etsy",
+    "gumroad",
+    "notion",
+    "planner",
+    "digital product"
+   ],
+   "toPrice": [
+    [
+     "Design app",
+     "month"
+    ],
+    [
+     "Mockup images",
+     "once"
+    ],
+    [
+     "Shop listing fees",
+     "once"
+    ]
+   ]
+  },
+  {
+   "id": "faceless",
+   "name": "a faceless content channel",
+   "kind": "online",
+   "mood": "bold",
+   "unit": "video",
+   "match": [
+    "faceless",
+    "youtube channel",
+    "tiktok channel",
+    "content channel"
+   ],
+   "toPrice": [
+    [
+     "Microphone",
+     "once"
+    ],
+    [
+     "Editing app",
+     "month"
+    ],
+    [
+     "Stock footage or music",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "ugc",
+   "name": "UGC content creation",
+   "kind": "online",
+   "mood": "playful",
+   "unit": "video",
+   "match": [
+    "ugc",
+    "user generated",
+    "creator content"
+   ],
+   "toPrice": [
+    [
+     "Ring light and tripod",
+     "once"
+    ],
+    [
+     "Microphone",
+     "once"
+    ],
+    [
+     "Editing app",
+     "month"
+    ]
+   ]
+  },
+  {
+   "id": "coaching",
+   "name": "coaching",
+   "kind": "online",
+   "mood": "calm",
+   "unit": "session",
+   "match": [
+    "coach",
+    "consult",
+    "mentor"
+   ],
+   "toPrice": [
+    [
+     "Scheduling app",
+     "month"
+    ],
+    [
+     "Video call app",
+     "month"
+    ],
+    [
+     "Workbook printing",
+     "once"
+    ]
+   ]
+  },
+  {
+   "id": "resale",
+   "name": "resale and flipping",
+   "kind": "online",
+   "mood": "warm",
+   "unit": "item sold",
+   "match": [
+    "resale",
+    "resell",
+    "flip",
+    "thrift",
+    "sneaker",
+    "reseller",
+    "vintage"
+   ],
+   "toPrice": [
+    [
+     "Starting inventory",
+     "once"
+    ],
+    [
+     "Shipping supplies",
+     "month"
+    ],
+    [
+     "Shipping scale",
+     "once"
+    ]
+   ]
+  },
+  {
+   "id": "video",
+   "name": "video editing",
+   "kind": "online",
+   "mood": "bold",
+   "unit": "video",
+   "match": [
+    "video edit",
+    "editing video",
+    "videograph",
+    "reels for",
+    "video for"
+   ],
+   "toPrice": [
+    [
+     "Editing app",
+     "month"
+    ],
+    [
+     "Microphone",
+     "once"
+    ],
+    [
+     "Storage drive",
+     "once"
+    ]
+   ]
+  }
+ ],
+ "generic": {
+  "toPrice": [
+   [
+    "Tools or equipment",
+    "once"
+   ],
+   [
+    "Supplies for your first 10 jobs",
+    "once"
+   ],
+   [
+    "Insurance",
+    "month"
+   ],
+   [
+    "Printing for flyers and cards",
+    "once"
+   ]
+  ]
+ },
+ "stages": {
+  "labels": {
+   "now": "Before your first customer",
+   "later": "After your first customers",
+   "when": "Only if it applies to you"
+  },
+  "rules": [
+   {
+    "match": "only once you hire|when you hire|employee|workers comp",
+    "stage": "when",
+    "why": "Only once you hire someone."
+   },
+   {
+    "match": "if applicable|if you drive|commercial auto",
+    "stage": "when",
+    "why": "Only if your insurer or state requires it. Ask your insurance agent."
+   },
+   {
+    "match": "\\bbond\\b",
+    "stage": "when",
+    "why": "When a client or your state asks for it."
+   },
+   {
+    "match": "snow",
+    "stage": "when",
+    "why": "Only if you sell snow removal, and after the contracts are signed."
+   },
+   {
+    "match": "\\(if |\\bif you\\b|if parents|if schools",
+    "stage": "when",
+    "why": "Only if this applies to you."
+   },
+   {
+    "match": "\\boptional\\b|local services ads|\\bads\\b|advertis",
+    "stage": "later",
+    "why": "Optional. Start with people you know and your neighborhood first."
+   },
+   {
+    "match": "scheduling|invoic|\\bcrm\\b|booking|field service software",
+    "stage": "later",
+    "why": "A free calendar and free invoices from your payment app work for your first customers."
+   },
+   {
+    "match": "\\(later\\b|, later\\b",
+    "stage": "later",
+    "why": "Sources list this as a later buy. Wait until your jobs need it."
+   },
+   {
+    "match": "water tank|generator|hot water unit|water-fed pole",
+    "stage": "later",
+    "why": "Use the customer's water and power at first. Buy it when your jobs need it."
+   },
+   {
+    "match": "trailer|\\btruck\\b|\\bvan\\b|wrap|\\bplow\\b|zero-turn",
+    "stage": "later",
+    "why": "Wait until your customers need it and their payments can cover it."
+   },
+   {
+    "match": "vehicle sign|magnetic|uniform|shirts|logo",
+    "stage": "later",
+    "why": "Nice to have. Your first customers come from people you talk to."
+   }
+  ],
+  "aggregate": ", total$|\\btotal\\b"
+ }
+}

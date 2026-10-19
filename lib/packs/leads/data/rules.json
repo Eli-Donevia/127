@@ -1,0 +1,90 @@
+{
+  "checked": "2026-10-19",
+  "note": "Rules the business finder follows, each with the page it comes from. Re-check the sources before changing any number here.",
+  "rules": [
+    {
+      "id": "can_spam",
+      "topic": "Cold email (US)",
+      "rule": "Commercial email, including business to business, needs honest header and subject lines, must say it is an ad or about your services, must include a valid physical postal address, must tell people how to opt out, and opt-outs must be honored within 10 business days. The sender is responsible even when someone else sends it.",
+      "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+      "how_we_follow_it": "Every email draft carries the member's mailing address (or a placeholder to fill in) and a P.S. that says it is about their services with a reply-to-opt-out line. Drafts are sent by the member, one at a time."
+    },
+    {
+      "id": "fcc_texts",
+      "topic": "Texts and calls to cell phones (US)",
+      "rule": "Autodialed or prerecorded calls and texts to wireless numbers need the person's prior consent.",
+      "source": "https://www.fcc.gov/sites/default/files/stop_unwanted_robocalls_and_texts.pdf",
+      "how_we_follow_it": "No cold text drafts. Calls are made by hand from the call sheet."
+    },
+    {
+      "id": "instagram_automation",
+      "topic": "Instagram DMs",
+      "rule": "Instagram's Terms of Use don't allow collecting information in an automated way or accessing the service through unauthorized automated means.",
+      "source": "https://help.instagram.com/581066165581870",
+      "how_we_follow_it": "We never read Instagram. DMs are drafts the member sends by hand; the Instagram handle comes from the business's own website."
+    },
+    {
+      "id": "places_storage",
+      "topic": "Google Places data",
+      "rule": "Places API content must not be pre-fetched, cached or stored beyond the allowed exceptions; the place ID is exempt from the caching restrictions. Attributions for place details must be shown.",
+      "source": "https://developers.google.com/maps/documentation/places/web-service/policies",
+      "how_we_follow_it": "Google results are never cached. CSVs, the Pipeline and saved files keep only the place ID, a Maps link built from it, and facts read off the business's own website. Run views that show Places data say Google Maps."
+    },
+    {
+      "id": "places_text_search",
+      "topic": "Google Places Text Search (New)",
+      "rule": "Up to 20 results a page, a nextPageToken for more, 60 results at most for one search.",
+      "source": "https://developers.google.com/maps/documentation/places/web-service/text-search",
+      "how_we_follow_it": "One search pulls up to 3 pages."
+    },
+    {
+      "id": "places_price",
+      "topic": "Google Places cost (our cost, not the member's)",
+      "rule": "Text Search Enterprise: $35 per 1,000 requests with 1,000 free a month. A request bills at the highest tier of any field it asks for; website, phone and rating are Enterprise fields.",
+      "source": "https://developers.google.com/maps/billing-and-pricing/pricing",
+      "how_we_follow_it": "A search is 1 to 3 requests, about $0.04 to $0.11 of our cost, priced at 8 credits."
+    },
+    {
+      "id": "place_details_reviews",
+      "topic": "Google reviews",
+      "rule": "Place Details returns at most 5 reviews, sorted by relevance, and the reviews field bills at the Enterprise + Atmosphere tier. Review authors must be credited wherever reviews are shown.",
+      "source": "https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places",
+      "how_we_follow_it": "The business finder and competitor intel never pull Google review text. Ratings and review counts are used only to rank inside a run and never appear in messages or exports."
+    },
+    {
+      "id": "nominatim",
+      "topic": "Finding a city on the map (OpenStreetMap Nominatim)",
+      "rule": "At most 1 request a second, an identifying User-Agent, cache results, and show attribution.",
+      "source": "https://operations.osmfoundation.org/policies/nominatim/",
+      "how_we_follow_it": "One request at a time with a pause, results cached for 30 days, and every OpenStreetMap list says (c) OpenStreetMap contributors."
+    },
+    {
+      "id": "osm_license",
+      "topic": "OpenStreetMap data",
+      "rule": "OpenStreetMap data is open data under the ODbL; credit \"(c) OpenStreetMap contributors\".",
+      "source": "https://www.openstreetmap.org/copyright",
+      "how_we_follow_it": "Lists and files from OpenStreetMap carry the credit."
+    },
+    {
+      "id": "maps_urls",
+      "topic": "Map and route links",
+      "rule": "Maps URLs open Google Maps with a search (query and query_place_id) or directions (origin, destination, travelmode, waypoints) without an API key. Up to three waypoints are supported on mobile browsers and nine otherwise; each waypoint can be a place name, an address or latitude,longitude. Page last updated 2026-10-16, read 2026-10-19.",
+      "source": "https://developers.google.com/maps/documentation/urls/get-started",
+      "how_we_follow_it": "Map links for Google listings use the place ID. Walk-in routes are split into legs of up to 4 stops (3 waypoints and the destination) built from OpenStreetMap coordinates, so every leg opens on a phone; each stop's own map link goes to OpenStreetMap."
+    },
+    {
+      "id": "yelp_foursquare",
+      "topic": "Other listing sites",
+      "rule": "Yelp and Foursquare data isn't used for outreach (library rule, BUILDING.md).",
+      "source": "BUILDING.md, Harness engine and new rules",
+      "how_we_follow_it": "Neither is a source here."
+    }
+  ],
+  "send_rules": [
+    "Before you send, open their website and check every line is still true.",
+    "Send each one yourself, one at a time. No bulk DMs or auto-senders.",
+    "Email: keep your mailing address and the opt-out line. If they say no, stop and don't email again.",
+    "Don't cold-text a cell number. Call, email, DM or walk in.",
+    "Follow up on day 3 and day 7, then stop. Mark replies in your Pipeline."
+  ]
+}

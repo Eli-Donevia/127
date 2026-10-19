@@ -1,0 +1,61 @@
+{
+  "checked": "2026-10-19",
+  "note": "Review rules the local pack follows and prints into members' kits. Plain summaries; the sources are the final word.",
+  "link": {
+    "place_id_form": "https://search.google.com/local/writereview?placeid=PLACE_ID",
+    "place_id_form_sources": [
+      "https://www.vendasta.com/blog/google-reviews-link/",
+      "https://whitespark.ca/blog/how-to-find-the-google-place-id-for-any-google-business-profile/"
+    ],
+    "short_form": "https://g.page/r/YOUR_ID/review",
+    "short_form_source": "https://support.google.com/business/answer/16816815",
+    "find_place_id": "Search your business name in Google's Place ID Finder and copy the ID it shows (it starts with ChIJ for most businesses).",
+    "find_place_id_url": "https://developers.google.com/maps/documentation/places/web-service/place-id",
+    "maps_search_form": "https://www.google.com/maps/search/?api=1&query=BUSINESS+NAME+CITY",
+    "maps_search_source": "https://developers.google.com/maps/documentation/urls/get-started"
+  },
+  "google": {
+    "rules": [
+      "Never offer anything for a review: no discounts, freebies, gifts, entries or payment. Google bans incentives for posting a review and for changing or removing one.",
+      "Ask every customer the same way. Asking only the happy ones (review gating), or steering unhappy customers away from Google, is against Google's rules.",
+      "Never discourage or block negative reviews.",
+      "No reviews from yourself, family, staff or anyone paid to post them.",
+      "Reply to every review, good and bad, politely and without private details."
+    ],
+    "quotes": [
+      "Google prohibits incentives such as payment, discounts, free goods and/or services in exchange for posting any review.",
+      "Discourage or prohibit negative reviews, or selectively solicit positive reviews from customers is listed as fake engagement."
+    ],
+    "sources": [
+      "https://support.google.com/contributionpolicy/answer/7400114",
+      "https://support.google.com/business/answer/3474122"
+    ]
+  },
+  "ftc": {
+    "rule": "16 CFR Part 465, Trade Regulation Rule on the Use of Consumer Reviews and Testimonials",
+    "effective": "2024-10-21",
+    "bans": [
+      "Fake reviews and testimonials, including ones written by AI or by people who never used the business.",
+      "Offering anything in exchange for a review that is conditioned on it being positive or negative.",
+      "Undisclosed reviews by owners, managers, staff or their relatives.",
+      "Company-controlled review websites that claim to be independent.",
+      "Review suppression: groundless legal threats, physical threats, intimidation or false accusations to stop or remove a negative review.",
+      "Buying or selling fake followers or views."
+    ],
+    "gating": "The rule doesn't ban review gating by name, but FTC staff say gating can still be deceptive under the FTC Act, and Google bans it outright.",
+    "penalties": "The FTC can seek civil penalties against people who knowingly break the rule.",
+    "sources": [
+      "https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials",
+      "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers"
+    ]
+  },
+  "yelp": {
+    "rule": "Yelp asks businesses not to ask for Yelp reviews at all. Point customers to Google instead, and let Yelp reviews come on their own.",
+    "source": "https://www.yelp-support.com/article/Don-t-Ask-for-Reviews?l=en_US",
+    "source_note": "Yelp's support page was down when we checked; the rule is also reported at https://searchengineland.com/yelp-increasingly-cracking-review-solicitation-across-internet-286290"
+  },
+  "asks": {
+    "timing": "Ask on the same day, right after the job is done and the customer has seen the result. A second, gentle reminder 3 days later is fine; stop after that.",
+    "wording": "Ask everyone the same neutral question (how did we do?) and send the same link to all of them."
+  }
+}

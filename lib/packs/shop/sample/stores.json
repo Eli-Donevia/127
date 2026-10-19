@@ -1,0 +1,1704 @@
+{
+  "note": "Made-up stores for sample runs. Every name, product and address is fictional; domains end in .example so nothing here points at a real business. Products the list doesn't spell out are filled in by lib/sample.js from the word banks below, the same way every run.",
+  "default": "birchandbloom.example",
+  "stores": {
+    "juniperandlane.example": {
+      "name": "Juniper & Lane",
+      "status": "open",
+      "theme": {
+        "name": "Dawn",
+        "version": "15.0.0",
+        "os2": true
+      },
+      "colors": {
+        "primary": "#2f4a3a",
+        "accent": "#c98b4a"
+      },
+      "meta": {
+        "city": "Asheville",
+        "province": "North Carolina",
+        "country": "US",
+        "currency": "USD"
+      },
+      "home": {
+        "title": "Juniper & Lane | Hand-poured soy candles from Asheville",
+        "description": "Small-batch soy candles in amber jars, poured by hand in Asheville, North Carolina.",
+        "h1": "Candles that smell like the mountains",
+        "emailForm": true,
+        "freeShipping": null,
+        "socials": {
+          "instagram": "juniperandlane"
+        },
+        "emails": [
+          "hello@juniperandlane.example"
+        ]
+      },
+      "apps": {},
+      "pixels": {
+        "google": true
+      },
+      "pages": {
+        "shipping": "/policies/shipping-policy",
+        "returns": "/policies/refund-policy",
+        "contact": "/pages/contact",
+        "about": "/pages/our-story",
+        "privacy": "/policies/privacy-policy"
+      },
+      "collections": [
+        {
+          "title": "All candles",
+          "handle": "candles",
+          "count": 7,
+          "image": true,
+          "description": false
+        },
+        {
+          "title": "Gift sets",
+          "handle": "gift-sets",
+          "count": 1,
+          "image": false,
+          "description": false
+        },
+        {
+          "title": "Candle care",
+          "handle": "candle-care",
+          "count": 3,
+          "image": false,
+          "description": false
+        }
+      ],
+      "products": [
+        {
+          "t": "Blue Ridge Morning Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "o": "Size",
+          "v": [
+            {
+              "t": "8 oz",
+              "p": 32
+            },
+            {
+              "t": "12 oz",
+              "p": 42
+            }
+          ],
+          "img": 2,
+          "alt": 0,
+          "w": 1200,
+          "tags": [
+            "soy",
+            "best seller",
+            "woodsy"
+          ],
+          "d": "Pine, cold air and fresh coffee. Our best seller.",
+          "created": "2026-03-02",
+          "updated": "2026-10-12"
+        },
+        {
+          "t": "Cedar & Smoke Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "o": "Size",
+          "v": [
+            {
+              "t": "8 oz",
+              "p": 32
+            },
+            {
+              "t": "12 oz",
+              "p": 42
+            }
+          ],
+          "img": 2,
+          "alt": 0,
+          "w": 1200,
+          "tags": [
+            "soy",
+            "woodsy"
+          ],
+          "d": "Cedarwood, campfire smoke and a little vanilla. Hand-poured soy wax in an amber jar with a cotton wick.",
+          "created": "2026-03-02",
+          "updated": "2026-10-09"
+        },
+        {
+          "t": "Fig & Black Tea Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "p": 32,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "soy",
+            "fruity"
+          ],
+          "d": "Ripe fig and black tea.",
+          "created": "2026-04-18",
+          "updated": "2026-09-30"
+        },
+        {
+          "t": "Sea Salt & Sage Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "p": 32,
+          "img": 4,
+          "alt": 4,
+          "w": 2048,
+          "tags": [
+            "soy",
+            "fresh",
+            "herbal"
+          ],
+          "d": "A clean, green scent: sea salt, crushed sage and a little driftwood. We pour every candle by hand in small batches in Asheville, so each jar is a little different.\nThe wax is 100 percent soy and the wick is cotton. Trim the wick to a quarter inch before you light it, and let the top melt all the way across the first time so it burns evenly to the bottom.\nAbout 50 hours of burn time. The amber jar makes a good pencil cup or planter when you're done.",
+          "created": "2026-05-06",
+          "updated": "2026-10-01"
+        },
+        {
+          "t": "Lavender Fields Wax Melts",
+          "ty": "Wax melt",
+          "art": "melt",
+          "p": 14,
+          "img": 1,
+          "alt": 0,
+          "w": 800,
+          "tags": [
+            "soy",
+            "floral"
+          ],
+          "d": "6 cubes.",
+          "created": "2026-05-20",
+          "updated": "2026-08-14"
+        },
+        {
+          "t": "The Evening Gift Set",
+          "ty": "Gift set",
+          "art": "giftset",
+          "p": 68,
+          "img": 3,
+          "alt": 1,
+          "w": 1600,
+          "tags": [
+            "gift",
+            "set"
+          ],
+          "d": "Three 4 oz candles in a kraft gift box: Cedar & Smoke, Fig & Black Tea and Lavender Fields.",
+          "created": "2026-09-01",
+          "updated": "2026-10-14"
+        },
+        {
+          "t": "Amber Jar Refill Kit",
+          "ty": "Kit",
+          "art": "kit",
+          "p": 24,
+          "img": 1,
+          "alt": 0,
+          "w": 1000,
+          "tags": [],
+          "d": "",
+          "created": "2026-06-11",
+          "updated": "2026-07-02"
+        },
+        {
+          "t": "Long Safety Matches",
+          "ty": "Accessory",
+          "art": "matches",
+          "p": 8,
+          "img": 1,
+          "alt": 0,
+          "w": 1000,
+          "tags": [
+            "accessory"
+          ],
+          "d": "Long matches in a glass jar with a striker on the lid.",
+          "created": "2026-03-02",
+          "updated": "2026-09-02"
+        },
+        {
+          "t": "Brass Wick Trimmer",
+          "ty": "Accessory",
+          "art": "trimmer",
+          "p": 18,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "accessory"
+          ],
+          "d": "Keeps the flame small and clean.",
+          "created": "2026-03-02",
+          "updated": "2026-08-20"
+        },
+        {
+          "t": "Spiced Cider Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "p": 34,
+          "img": 2,
+          "alt": 0,
+          "w": 1200,
+          "tags": [
+            "soy",
+            "seasonal"
+          ],
+          "so": true,
+          "d": "Apple cider, clove and cinnamon stick. Back every fall.",
+          "created": "2025-09-15",
+          "updated": "2026-01-05"
+        },
+        {
+          "t": "Mountain Laurel Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "p": 32,
+          "img": 1,
+          "alt": 0,
+          "w": 1200,
+          "tags": [
+            "soy",
+            "floral"
+          ],
+          "d": "Soft and floral, like the laurel that blooms on the trails in May.",
+          "created": "2026-04-02",
+          "updated": "2026-09-11"
+        },
+        {
+          "t": "Gift Wrap",
+          "ty": "Service",
+          "art": "giftset",
+          "p": 5,
+          "img": 1,
+          "alt": 0,
+          "w": 800,
+          "tags": [],
+          "d": "We wrap it in kraft paper with a sprig of dried juniper and a handwritten note.",
+          "created": "2026-03-02",
+          "updated": "2026-03-02"
+        }
+      ]
+    },
+    "birchandbloom.example": {
+      "name": "Birch & Bloom",
+      "status": "open",
+      "theme": {
+        "name": "Refresh",
+        "version": "15.1.0",
+        "os2": true
+      },
+      "colors": {
+        "primary": "#7a3b4f",
+        "accent": "#e2b8a3"
+      },
+      "meta": {
+        "city": "Asheville",
+        "province": "North Carolina",
+        "country": "US",
+        "currency": "USD"
+      },
+      "home": {
+        "title": "Birch & Bloom | Gifts, home goods and cards",
+        "description": "A small gift shop with goods for the home, the kitchen and the people you love.",
+        "h1": "Gifts for the people you love",
+        "emailForm": false,
+        "freeShipping": null,
+        "socials": {
+          "instagram": "birchandbloomshop",
+          "facebook": "https://www.facebook.com/birchandbloomshop"
+        },
+        "emails": [
+          "hello@birchandbloom.example"
+        ]
+      },
+      "apps": {},
+      "pixels": {
+        "meta": true
+      },
+      "pages": {
+        "shipping": "/policies/shipping-policy",
+        "returns": "/policies/refund-policy",
+        "contact": "/pages/contact",
+        "privacy": "/policies/privacy-policy"
+      },
+      "collections": [
+        {
+          "title": "New in",
+          "handle": "new-in",
+          "count": 12,
+          "image": true,
+          "description": false
+        },
+        {
+          "title": "Kitchen",
+          "handle": "kitchen",
+          "count": 14,
+          "image": true,
+          "description": false
+        },
+        {
+          "title": "Home",
+          "handle": "home",
+          "count": 11,
+          "image": false,
+          "description": false
+        },
+        {
+          "title": "Cards",
+          "handle": "cards",
+          "count": 9,
+          "image": false,
+          "description": false
+        }
+      ],
+      "products": [
+        {
+          "t": "Speckled Stoneware Mug",
+          "ty": "Mug",
+          "vendor": "Clay & Kiln",
+          "art": "mug",
+          "o": "Color",
+          "v": [
+            {
+              "t": "Oat",
+              "p": 28
+            },
+            {
+              "t": "Slate",
+              "p": 28
+            },
+            {
+              "t": "Moss",
+              "p": 28
+            }
+          ],
+          "img": 1,
+          "alt": 0,
+          "w": 1080,
+          "tags": [
+            "kitchen",
+            "ceramics"
+          ],
+          "d": "Our favorite mug. Holds 12 oz.",
+          "created": "2026-09-28",
+          "updated": "2026-10-15"
+        },
+        {
+          "t": "Linen Tea Towel, Botanical Print",
+          "ty": "Tea towel",
+          "vendor": "Birch & Bloom",
+          "art": "towel",
+          "p": 18,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "kitchen"
+          ],
+          "d": "100% linen.",
+          "created": "2026-08-30",
+          "updated": "2026-10-02"
+        },
+        {
+          "t": "Wildflower Honey, 12 oz",
+          "ty": "Pantry",
+          "vendor": "Laurel Hill Apiary",
+          "art": "jar",
+          "p": 16,
+          "img": 2,
+          "alt": 0,
+          "w": 1200,
+          "tags": [
+            "pantry",
+            "local"
+          ],
+          "d": "Raw honey from hives in the hills outside town. Spoon it into tea or over yogurt.",
+          "created": "2026-07-14",
+          "updated": "2026-10-10"
+        },
+        {
+          "t": "Hammered Brass Hoops",
+          "ty": "Earrings",
+          "vendor": "Wren Metalworks",
+          "art": "hoops",
+          "p": 46,
+          "img": 1,
+          "alt": 0,
+          "w": 1000,
+          "tags": [
+            "jewelry"
+          ],
+          "d": "Lightweight brass hoops.",
+          "created": "2026-06-21",
+          "updated": "2026-09-21"
+        },
+        {
+          "t": "Thank You Card Set of 6",
+          "ty": "Cards",
+          "vendor": "Paper Fox Press",
+          "art": "card",
+          "p": 14,
+          "img": 1,
+          "alt": 0,
+          "w": 800,
+          "tags": [
+            "cards"
+          ],
+          "d": "",
+          "created": "2026-05-05",
+          "updated": "2026-08-30"
+        },
+        {
+          "t": "Olive Wood Serving Spoon",
+          "ty": "Kitchen",
+          "vendor": "Birch & Bloom",
+          "art": "spoon",
+          "p": 22,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "kitchen"
+          ],
+          "d": "Each one is a little different.",
+          "created": "2026-05-20",
+          "updated": "2026-09-12"
+        },
+        {
+          "t": "Cotton Market Tote",
+          "ty": "Bag",
+          "vendor": "Birch & Bloom",
+          "art": "tote",
+          "p": 24,
+          "img": 2,
+          "alt": 1,
+          "w": 1200,
+          "tags": [
+            "bags"
+          ],
+          "d": "Heavy cotton canvas tote with long handles that fit over a coat. Holds a week of groceries or a library haul, and folds flat into a drawer.",
+          "created": "2026-04-01",
+          "updated": "2026-09-01"
+        },
+        {
+          "t": "Fern Ceramic Trinket Dish",
+          "ty": "Home",
+          "vendor": "Clay & Kiln",
+          "art": "dish",
+          "p": 20,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "home",
+            "ceramics"
+          ],
+          "d": "For rings and keys.",
+          "created": "2026-09-10",
+          "updated": "2026-10-11"
+        },
+        {
+          "t": "Beeswax Taper Candles, Pair",
+          "ty": "Candle",
+          "vendor": "Laurel Hill Apiary",
+          "art": "taper",
+          "p": 18,
+          "img": 1,
+          "alt": 0,
+          "w": 1000,
+          "tags": [
+            "home",
+            "candles"
+          ],
+          "d": "Hand-dipped beeswax tapers, 10 inches.",
+          "created": "2026-09-22",
+          "updated": "2026-10-13"
+        },
+        {
+          "t": "Mountain Print, 8x10",
+          "ty": "Art print",
+          "vendor": "Ink & Ridge",
+          "art": "print",
+          "p": 30,
+          "img": 1,
+          "alt": 0,
+          "w": 1100,
+          "tags": [
+            "art",
+            "local"
+          ],
+          "d": "Giclee print of the Blue Ridge at dusk. Unframed.",
+          "created": "2026-07-30",
+          "updated": "2026-09-05"
+        },
+        {
+          "t": "Wool Throw Blanket",
+          "ty": "Home",
+          "vendor": "Birch & Bloom",
+          "art": "throw",
+          "p": 128,
+          "img": 1,
+          "alt": 0,
+          "w": 1600,
+          "tags": [
+            "home"
+          ],
+          "d": "Warm and soft.",
+          "created": "2026-10-01",
+          "updated": "2026-10-16"
+        },
+        {
+          "t": "Herb Garden Seed Kit",
+          "ty": "Garden",
+          "vendor": "Greenhouse Supply Co",
+          "art": "kit",
+          "p": 26,
+          "img": 1,
+          "alt": 0,
+          "w": 900,
+          "tags": [
+            "garden"
+          ],
+          "d": "Basil, thyme and parsley seeds with 3 pots and soil discs.",
+          "created": "2026-03-12",
+          "updated": "2026-07-01"
+        }
+      ],
+      "generate": {
+        "count": 34,
+        "bank": "gift",
+        "quality": "low",
+        "vendors": [
+          "Clay & Kiln",
+          "Paper Fox Press",
+          "Wren Metalworks",
+          "Birch & Bloom",
+          "Laurel Hill Apiary"
+        ]
+      }
+    },
+    "saltandsage.example": {
+      "name": "Salt & Sage Candle Co.",
+      "status": "open",
+      "theme": {
+        "name": "Sense",
+        "version": "15.0.0",
+        "os2": true
+      },
+      "colors": {
+        "primary": "#3c5a6b",
+        "accent": "#d9c7a3"
+      },
+      "meta": {
+        "city": "Portland",
+        "province": "Maine",
+        "country": "US",
+        "currency": "USD"
+      },
+      "home": {
+        "title": "Salt & Sage Candle Co. | Coastal soy candles",
+        "description": "Coastal soy candles poured in small batches.",
+        "h1": "Coastal candles, poured by hand",
+        "emailForm": true,
+        "freeShipping": {
+          "text": "Free shipping on orders over $75",
+          "amount": 75
+        },
+        "socials": {
+          "instagram": "saltandsagecandles"
+        },
+        "emails": [
+          "hi@saltandsage.example"
+        ]
+      },
+      "apps": {
+        "reviews": [
+          "Judge.me"
+        ],
+        "email": [
+          "Klaviyo"
+        ],
+        "upsell": [
+          "Rebuy"
+        ],
+        "subscriptions": [
+          "Recharge"
+        ]
+      },
+      "pixels": {
+        "meta": true,
+        "tiktok": true,
+        "google": true,
+        "pinterest": true
+      },
+      "pages": {
+        "shipping": "/pages/shipping",
+        "returns": "/pages/returns",
+        "faq": "/pages/faq",
+        "contact": "/pages/contact",
+        "about": "/pages/about",
+        "privacy": "/policies/privacy-policy",
+        "terms": "/policies/terms-of-service",
+        "reviewsPage": "/pages/reviews",
+        "blog": "/blogs/journal"
+      },
+      "collections": [
+        {
+          "title": "Candles",
+          "handle": "candles",
+          "count": 18,
+          "image": true,
+          "description": true
+        },
+        {
+          "title": "Gift sets",
+          "handle": "gift-sets",
+          "count": 4,
+          "image": true,
+          "description": true
+        },
+        {
+          "title": "Subscriptions",
+          "handle": "subscriptions",
+          "count": 2,
+          "image": true,
+          "description": true
+        },
+        {
+          "title": "Accessories",
+          "handle": "accessories",
+          "count": 4,
+          "image": true,
+          "description": true
+        }
+      ],
+      "products": [
+        {
+          "t": "Low Tide Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "o": "Size",
+          "v": [
+            {
+              "t": "8 oz",
+              "p": 34
+            },
+            {
+              "t": "14 oz",
+              "p": 46
+            }
+          ],
+          "img": 6,
+          "alt": 6,
+          "w": 2048,
+          "tags": [
+            "soy",
+            "coastal",
+            "fresh"
+          ],
+          "d": "Sea air, wet stone and a little cedar. Low Tide smells like the walk to the water before anyone else is up.\nPoured by hand in small batches with soy wax and a cotton wick. Each candle is cured for two weeks before it ships so the scent fills a room.\nAbout 55 hours of burn time in the 8 oz and 90 in the 14 oz. Trim the wick to a quarter inch each time you light it.",
+          "created": "2025-11-02",
+          "updated": "2026-10-15"
+        },
+        {
+          "t": "Driftwood & Fig Soy Candle",
+          "ty": "Candle",
+          "art": "candle",
+          "o": "Size",
+          "v": [
+            {
+              "t": "8 oz",
+              "p": 34
+            },
+            {
+              "t": "14 oz",
+              "p": 46
+            }
+          ],
+          "img": 5,
+          "alt": 5,
+          "w": 2048,
+          "tags": [
+            "soy",
+            "coastal",
+            "fruity"
+          ],
+          "d": "Warm driftwood and ripe fig with a soft musk underneath. A cozy one for gray mornings.\nPoured by hand in small batches with soy wax and a cotton wick, cured for two weeks.\nAbout 55 hours of burn time in the 8 oz and 90 in the 14 oz.",
+          "created": "2025-11-02",
+          "updated": "2026-10-11"
+        }
+      ],
+      "generate": {
+        "count": 26,
+        "bank": "candle",
+        "quality": "high",
+        "priceMin": 28,
+        "priceMax": 46
+      }
+    },
+    "oakmossco.example": {
+      "name": "Oakmoss & Co.",
+      "status": "open",
+      "theme": {
+        "name": "Craft",
+        "version": "14.0.0",
+        "os2": true
+      },
+      "colors": {
+        "primary": "#4b4a2f",
+        "accent": "#b5764a"
+      },
+      "meta": {
+        "city": "Boulder",
+        "province": "Colorado",
+        "country": "US",
+        "currency": "USD"
+      },
+      "home": {
+        "title": "Oakmoss & Co. | Candles and home fragrance",
+        "description": "Candles and room sprays for slow evenings.",
+        "h1": "Slow evenings start here",
+        "emailForm": true,
+        "freeShipping": {
+          "text": "Free US shipping over $60",
+          "amount": 60
+        },
+        "socials": {
+          "instagram": "oakmossandco"
+        },
+        "emails": []
+      },
+      "apps": {
+        "reviews": [
+          "Loox"
+        ],
+        "email": [
+          "Omnisend"
+        ]
+      },
+      "pixels": {
+        "meta": true,
+        "google": true
+      },
+      "pages": {
+        "shipping": "/policies/shipping-policy",
+        "returns": "/policies/refund-policy",
+        "faq": "/pages/faq",
+        "contact": "/pages/contact",
+        "about": "/pages/about",
+        "privacy": "/policies/privacy-policy"
+      },
+      "collections": [
+        {
+          "title": "Candles",
+          "handle": "candles",
+          "count": 12,
+          "image": true,
+          "description": false
+        },
+        {
+          "title": "Room sprays",
+          "handle": "room-sprays",
+          "count": 4,
+          "image": true,
+          "description": false
+        }
+      ],
+      "products": [],
+      "generate": {
+        "count": 18,
+        "bank": "candle",
+        "quality": "medium",
+        "priceMin": 24,
+        "priceMax": 38
+      }
+    },
+    "maplecrumb.example": {
+      "name": "Maple Crumb Bakery",
+      "status": "not_shopify",
+      "platform": "Squarespace",
+      "home": {
+        "title": "Maple Crumb Bakery",
+        "description": "Neighborhood bakery: sourdough, pies and cookies.",
+        "emails": [
+          "orders@maplecrumb.example"
+        ]
+      }
+    },
+    "fernhollow.example": {
+      "name": "Fern Hollow Goods",
+      "status": "password"
+    }
+  },
+  "banks": {
+    "gift": {
+      "items": [
+        [
+          "Stoneware Bud Vase",
+          "Home",
+          "vase",
+          24
+        ],
+        [
+          "Linen Napkins, Set of 4",
+          "Kitchen",
+          "towel",
+          32
+        ],
+        [
+          "Walnut Cutting Board",
+          "Kitchen",
+          "board",
+          58
+        ],
+        [
+          "Letterpress Birthday Card",
+          "Cards",
+          "card",
+          6
+        ],
+        [
+          "Brass Bottle Opener",
+          "Kitchen",
+          "opener",
+          16
+        ],
+        [
+          "Cotton Waffle Hand Towel",
+          "Bath",
+          "towel",
+          22
+        ],
+        [
+          "Lavender Sachet Trio",
+          "Home",
+          "sachet",
+          15
+        ],
+        [
+          "Enamel Camp Mug",
+          "Kitchen",
+          "mug",
+          20
+        ],
+        [
+          "Pressed Flower Frame",
+          "Home",
+          "print",
+          38
+        ],
+        [
+          "Wooden Jigsaw Puzzle",
+          "Games",
+          "puzzle",
+          34
+        ],
+        [
+          "Hand Cream, Rose and Oat",
+          "Bath",
+          "bottle",
+          18
+        ],
+        [
+          "Silk Scrunchie Set",
+          "Accessories",
+          "scrunchie",
+          19
+        ],
+        [
+          "Ceramic Salt Cellar",
+          "Kitchen",
+          "dish",
+          26
+        ],
+        [
+          "Recipe Card Box",
+          "Kitchen",
+          "box",
+          30
+        ],
+        [
+          "Sterling Stack Ring",
+          "Jewelry",
+          "ring",
+          42
+        ],
+        [
+          "Dried Flower Bundle",
+          "Home",
+          "flowers",
+          28
+        ],
+        [
+          "Wool Felt Coasters",
+          "Home",
+          "coaster",
+          18
+        ],
+        [
+          "Notebook, Dot Grid",
+          "Paper",
+          "notebook",
+          16
+        ],
+        [
+          "Bamboo Dish Brush",
+          "Kitchen",
+          "brush",
+          12
+        ],
+        [
+          "Glass Water Carafe",
+          "Kitchen",
+          "bottle",
+          36
+        ],
+        [
+          "Botanical Wrapping Paper",
+          "Paper",
+          "card",
+          9
+        ],
+        [
+          "Soy Candle, Fig Leaf",
+          "Candle",
+          "candle",
+          30
+        ],
+        [
+          "Pocket Knife Keychain",
+          "Accessories",
+          "opener",
+          21
+        ],
+        [
+          "Knit Beanie",
+          "Accessories",
+          "beanie",
+          34
+        ],
+        [
+          "Spice Blend Gift Set",
+          "Pantry",
+          "jar",
+          32
+        ],
+        [
+          "Kids Watercolor Kit",
+          "Kids",
+          "kit",
+          25
+        ],
+        [
+          "Woven Bread Basket",
+          "Kitchen",
+          "basket",
+          29
+        ],
+        [
+          "Mini Succulent Planter",
+          "Garden",
+          "planter",
+          17
+        ],
+        [
+          "Coffee Pour Over Set",
+          "Kitchen",
+          "bottle",
+          48
+        ],
+        [
+          "Tea Sampler Tin",
+          "Pantry",
+          "tin",
+          22
+        ],
+        [
+          "Hand-Dyed Silk Ribbon",
+          "Paper",
+          "ribbon",
+          11
+        ],
+        [
+          "Baby Muslin Blanket",
+          "Kids",
+          "towel",
+          36
+        ],
+        [
+          "Cork Yoga Block",
+          "Wellness",
+          "box",
+          27
+        ],
+        [
+          "Matchbook Set",
+          "Home",
+          "matches",
+          7
+        ],
+        [
+          "Leather Luggage Tag",
+          "Accessories",
+          "tag",
+          24
+        ],
+        [
+          "Marble Ring Dish",
+          "Home",
+          "dish",
+          19
+        ]
+      ],
+      "thin": [
+        "A customer favorite.",
+        "Makes a great gift.",
+        "New this season.",
+        "One of our favorites.",
+        "Simple and pretty.",
+        "Limited stock.",
+        "",
+        "Gift ready."
+      ],
+      "full": [
+        "{title} is made in small runs by {vendor}. {detail} It comes ready to give, wrapped in tissue, and it's the kind of thing people keep using for years.",
+        "We picked {title} because it's the piece we reach for every day. {detail} Each one is a little different, so yours will have its own character.",
+        "{detail} {title} is from {vendor}, a small maker we've stocked since we opened. Wipe clean with a damp cloth."
+      ],
+      "details": {
+        "Home": "It sits well on a shelf, a nightstand or an entry table.",
+        "Kitchen": "It's sturdy enough for everyday use and looks good left out on the counter.",
+        "Cards": "Blank inside, with a kraft envelope.",
+        "Bath": "Gentle enough for daily use.",
+        "Accessories": "Light, simple and easy to wear every day.",
+        "Jewelry": "Made from recycled metal and finished by hand.",
+        "Paper": "Printed on heavy recycled stock.",
+        "Pantry": "Small batch, packed by hand.",
+        "Kids": "Made for small hands, with safe materials.",
+        "Garden": "Comes with a short care card.",
+        "Games": "A good one for slow weekends.",
+        "Wellness": "Light enough to carry to class.",
+        "Candle": "Soy wax with a cotton wick, about 40 hours of burn time."
+      }
+    },
+    "candle": {
+      "items": [
+        [
+          "Cedar Harbor Soy Candle",
+          "Candle",
+          "candle",
+          34
+        ],
+        [
+          "Sea Grass Soy Candle",
+          "Candle",
+          "candle",
+          34
+        ],
+        [
+          "Fireside Soy Candle",
+          "Candle",
+          "candle",
+          34
+        ],
+        [
+          "Bergamot & Linen Soy Candle",
+          "Candle",
+          "candle",
+          36
+        ],
+        [
+          "Pine Needle Soy Candle",
+          "Candle",
+          "candle",
+          32
+        ],
+        [
+          "Black Fig Soy Candle",
+          "Candle",
+          "candle",
+          32
+        ],
+        [
+          "Amber & Moss Soy Candle",
+          "Candle",
+          "candle",
+          36
+        ],
+        [
+          "Salted Grapefruit Soy Candle",
+          "Candle",
+          "candle",
+          32
+        ],
+        [
+          "Tobacco Leaf Soy Candle",
+          "Candle",
+          "candle",
+          38
+        ],
+        [
+          "White Tea Soy Candle",
+          "Candle",
+          "candle",
+          32
+        ],
+        [
+          "Coastal Room Spray",
+          "Room spray",
+          "bottle",
+          24
+        ],
+        [
+          "Cedar Room Spray",
+          "Room spray",
+          "bottle",
+          24
+        ],
+        [
+          "Reed Diffuser, Sea Salt",
+          "Diffuser",
+          "diffuser",
+          42
+        ],
+        [
+          "Travel Tin Trio",
+          "Gift set",
+          "tin",
+          30
+        ],
+        [
+          "Candle Care Kit",
+          "Accessory",
+          "trimmer",
+          28
+        ],
+        [
+          "Wick Trimmer",
+          "Accessory",
+          "trimmer",
+          16
+        ],
+        [
+          "Candle Snuffer",
+          "Accessory",
+          "trimmer",
+          18
+        ],
+        [
+          "Matches in a Jar",
+          "Accessory",
+          "matches",
+          9
+        ],
+        [
+          "Discovery Set of 4",
+          "Gift set",
+          "giftset",
+          44
+        ],
+        [
+          "Winter Woods Soy Candle",
+          "Candle",
+          "candle",
+          36
+        ],
+        [
+          "Rosemary Mint Soy Candle",
+          "Candle",
+          "candle",
+          32
+        ],
+        [
+          "Clove & Orange Soy Candle",
+          "Candle",
+          "candle",
+          34
+        ],
+        [
+          "Lavender Wax Melts",
+          "Wax melt",
+          "melt",
+          12
+        ],
+        [
+          "Vanilla Bean Wax Melts",
+          "Wax melt",
+          "melt",
+          12
+        ],
+        [
+          "Candle Subscription, Monthly",
+          "Subscription",
+          "giftset",
+          30
+        ],
+        [
+          "Gift Card",
+          "Gift card",
+          "card",
+          25
+        ]
+      ],
+      "thin": [
+        "A cozy one.",
+        "Smells amazing.",
+        "Hand-poured soy.",
+        "Our newest scent.",
+        ""
+      ],
+      "full": [
+        "{title}: {detail} Poured by hand in small batches with soy wax and a cotton wick, then cured for two weeks so the scent fills a room. Trim the wick to a quarter inch each time you light it, and let the top melt all the way across on the first burn.",
+        "{detail} We make {title} in small batches with soy wax and a cotton wick. It burns clean and slow, and the jar is easy to reuse when you're done. About 50 hours of burn time.",
+        "{title} is a quiet, warm scent for slow evenings. {detail} Hand-poured with soy wax and a cotton wick. Burn it for 2 to 3 hours at a time and keep it away from drafts."
+      ],
+      "details": {
+        "Candle": "Top notes you notice right away, a softer base that lingers after it's out.",
+        "Room spray": "Three sprays freshen a room in seconds.",
+        "Diffuser": "Flip the reeds once a week to refresh the scent.",
+        "Gift set": "Arrives in a gift box with a card.",
+        "Accessory": "Made to last and pretty enough to leave out.",
+        "Wax melt": "Each bar breaks into six cubes for a wax warmer.",
+        "Subscription": "A new scent every month. Skip or cancel anytime from your account.",
+        "Gift card": "Sent by email right away."
+      }
+    },
+    "apparel": {
+      "items": [
+        [
+          "Relaxed Linen Shirt",
+          "Shirt",
+          "shirt",
+          78
+        ],
+        [
+          "Wide Leg Trouser",
+          "Pants",
+          "pants",
+          92
+        ],
+        [
+          "Merino Crew Sweater",
+          "Sweater",
+          "sweater",
+          110
+        ],
+        [
+          "Cord Overshirt",
+          "Shirt",
+          "shirt",
+          88
+        ],
+        [
+          "Slip Dress",
+          "Dress",
+          "dress",
+          96
+        ],
+        [
+          "Knit Beanie",
+          "Hat",
+          "beanie",
+          34
+        ],
+        [
+          "Canvas Belt",
+          "Belt",
+          "belt",
+          38
+        ],
+        [
+          "Organic Cotton Tee",
+          "Tee",
+          "shirt",
+          36
+        ],
+        [
+          "Quilted Vest",
+          "Jacket",
+          "jacket",
+          120
+        ],
+        [
+          "Wool Socks, 2 Pack",
+          "Socks",
+          "socks",
+          28
+        ],
+        [
+          "Rain Shell Jacket",
+          "Jacket",
+          "jacket",
+          148
+        ],
+        [
+          "Denim Chore Coat",
+          "Jacket",
+          "jacket",
+          138
+        ],
+        [
+          "Silk Scarf",
+          "Accessories",
+          "scarf",
+          58
+        ],
+        [
+          "Leather Crossbody",
+          "Bag",
+          "tote",
+          124
+        ],
+        [
+          "Ribbed Tank",
+          "Top",
+          "shirt",
+          32
+        ],
+        [
+          "Wrap Skirt",
+          "Skirt",
+          "dress",
+          74
+        ]
+      ],
+      "thin": [
+        "Runs true to size.",
+        "Our best seller.",
+        "New color.",
+        "Soft and easy.",
+        "",
+        "Limited run."
+      ],
+      "full": [
+        "{title} is cut for everyday wear: easy through the body with clean lines. {detail} Machine wash cold and hang dry to keep the shape.",
+        "We designed {title} to be the piece you reach for most. {detail} Model is 5 ft 8 in and wears a small.",
+        "{detail} {title} is made in small runs, so colors sell through. Check the size guide before you order."
+      ],
+      "details": {
+        "Shirt": "Made from washed linen that softens every time you wear it.",
+        "Pants": "High rise with deep pockets.",
+        "Sweater": "Fine merino that's warm without the bulk.",
+        "Dress": "Bias cut so it moves with you.",
+        "Hat": "Rib knit with a fold-over cuff.",
+        "Belt": "Solid brass buckle.",
+        "Tee": "Heavyweight organic cotton.",
+        "Jacket": "Lined and built for cold mornings.",
+        "Socks": "Cushioned sole, reinforced heel.",
+        "Accessories": "Hand-rolled edges.",
+        "Bag": "Full-grain leather that darkens with use.",
+        "Top": "Stretch rib that holds its shape.",
+        "Skirt": "Adjustable wrap tie."
+      }
+    },
+    "outdoor": {
+      "items": [
+        [
+          "Trail Daypack 22L",
+          "Pack",
+          "pack",
+          128
+        ],
+        [
+          "Merino Hiking Socks",
+          "Socks",
+          "socks",
+          24
+        ],
+        [
+          "Insulated Water Bottle",
+          "Bottle",
+          "bottle",
+          38
+        ],
+        [
+          "Packable Down Jacket",
+          "Jacket",
+          "jacket",
+          210
+        ],
+        [
+          "Headlamp 400",
+          "Lighting",
+          "lamp",
+          48
+        ],
+        [
+          "Trekking Poles, Pair",
+          "Gear",
+          "poles",
+          96
+        ],
+        [
+          "Camp Hammock",
+          "Camp",
+          "hammock",
+          72
+        ],
+        [
+          "Fleece Pullover",
+          "Layer",
+          "sweater",
+          88
+        ],
+        [
+          "Trail Map Bandana",
+          "Accessories",
+          "scarf",
+          18
+        ],
+        [
+          "Bike Light Set",
+          "Bike",
+          "lamp",
+          52
+        ],
+        [
+          "Rain Pants",
+          "Layer",
+          "pants",
+          98
+        ],
+        [
+          "Enamel Camp Mug",
+          "Camp",
+          "mug",
+          20
+        ],
+        [
+          "First Aid Kit",
+          "Gear",
+          "kit",
+          34
+        ],
+        [
+          "Wool Beanie",
+          "Accessories",
+          "beanie",
+          30
+        ]
+      ],
+      "thin": [
+        "Trail tested.",
+        "Light and tough.",
+        "Staff pick.",
+        "",
+        ""
+      ],
+      "full": [
+        "{title} is what we carry on our own trips. {detail} Ask us in the shop and we'll fit it for you.",
+        "{detail} {title} packs small and holds up season after season. Backed by the maker's warranty.",
+        "We test everything we sell on local trails. {title}: {detail}"
+      ],
+      "details": {
+        "Pack": "Padded hip belt and a sleeve for a water bladder.",
+        "Socks": "Merino blend that stays warm when wet.",
+        "Bottle": "Keeps water cold for a full day.",
+        "Jacket": "Packs into its own pocket.",
+        "Lighting": "Rechargeable by USB.",
+        "Gear": "Aluminum with cork grips.",
+        "Camp": "Sets up in under five minutes.",
+        "Layer": "Breathable and quick to dry.",
+        "Accessories": "Printed with a local trail map.",
+        "Bike": "Front and rear lights with three modes."
+      }
+    },
+    "pantry": {
+      "items": [
+        [
+          "Small Batch Hot Sauce",
+          "Sauce",
+          "jar",
+          12
+        ],
+        [
+          "Apple Butter",
+          "Spread",
+          "jar",
+          11
+        ],
+        [
+          "Sourdough Crackers",
+          "Snack",
+          "box",
+          8
+        ],
+        [
+          "Wildflower Honey",
+          "Honey",
+          "jar",
+          16
+        ],
+        [
+          "Smoked Salt",
+          "Spice",
+          "tin",
+          10
+        ],
+        [
+          "Pimento Cheese",
+          "Deli",
+          "jar",
+          9
+        ],
+        [
+          "Pickled Okra",
+          "Pickles",
+          "jar",
+          10
+        ],
+        [
+          "Stone Ground Grits",
+          "Pantry",
+          "box",
+          9
+        ],
+        [
+          "Chocolate Sea Salt Bar",
+          "Chocolate",
+          "bar",
+          7
+        ],
+        [
+          "Cold Brew Pack",
+          "Coffee",
+          "box",
+          18
+        ],
+        [
+          "Breakfast Blend Coffee",
+          "Coffee",
+          "bag",
+          17
+        ],
+        [
+          "Chai Loose Leaf Tea",
+          "Tea",
+          "tin",
+          14
+        ],
+        [
+          "Fig Jam",
+          "Spread",
+          "jar",
+          11
+        ],
+        [
+          "Gift Box, Taste of the Mountains",
+          "Gift set",
+          "giftset",
+          58
+        ]
+      ],
+      "thin": [
+        "So good on everything.",
+        "Local favorite.",
+        "Small batch.",
+        "",
+        ""
+      ],
+      "full": [
+        "{title} is made in small batches by a local producer. {detail} Keep it in a cool, dry place.",
+        "{detail} We stock {title} because it's what we take to every potluck.",
+        "{title}: {detail} Made a few miles from the shop."
+      ],
+      "details": {
+        "Sauce": "Red peppers fermented for a month.",
+        "Spread": "Slow cooked with just fruit and a little sugar.",
+        "Snack": "Made with a 10-year-old starter.",
+        "Honey": "Raw and unfiltered.",
+        "Spice": "Smoked over hickory.",
+        "Deli": "Sharp cheddar and roasted peppers.",
+        "Pickles": "Crisp, with a little heat.",
+        "Pantry": "Ground at a local mill.",
+        "Chocolate": "70 percent dark chocolate.",
+        "Coffee": "Roasted every week.",
+        "Tea": "Black tea with ginger and cardamom.",
+        "Gift set": "Six favorites in a gift box."
+      }
+    },
+    "beauty": {
+      "items": [
+        [
+          "Oat Milk Soap Bar",
+          "Soap",
+          "bar",
+          9
+        ],
+        [
+          "Lip Balm Trio",
+          "Lip",
+          "tin",
+          14
+        ],
+        [
+          "Rose Face Oil",
+          "Face",
+          "bottle",
+          38
+        ],
+        [
+          "Shea Body Butter",
+          "Body",
+          "jar",
+          24
+        ],
+        [
+          "Clay Face Mask",
+          "Face",
+          "jar",
+          26
+        ],
+        [
+          "Bath Soak, Lavender",
+          "Bath",
+          "jar",
+          18
+        ],
+        [
+          "Beard Oil",
+          "Grooming",
+          "bottle",
+          22
+        ],
+        [
+          "Solid Shampoo Bar",
+          "Hair",
+          "bar",
+          16
+        ],
+        [
+          "Hand Salve",
+          "Body",
+          "tin",
+          12
+        ],
+        [
+          "Dry Brush",
+          "Tools",
+          "brush",
+          20
+        ]
+      ],
+      "thin": [
+        "Gentle and clean.",
+        "A favorite.",
+        "Small batch.",
+        ""
+      ],
+      "full": [
+        "{title} is made in small batches with plant oils. {detail} Patch test first if your skin is sensitive.",
+        "{detail} {title} is free of synthetic fragrance.",
+        "We make {title} by hand. {detail}"
+      ],
+      "details": {
+        "Soap": "Cold process, cured for six weeks.",
+        "Lip": "Beeswax and sunflower oil.",
+        "Face": "Lightweight and absorbs fast.",
+        "Body": "Whipped shea and cocoa butter.",
+        "Bath": "Epsom salt and dried lavender.",
+        "Grooming": "Jojoba and argan oil.",
+        "Hair": "Lasts about 60 washes.",
+        "Tools": "Natural fiber bristles."
+      }
+    }
+  }
+}

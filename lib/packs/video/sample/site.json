@@ -1,0 +1,24 @@
+{
+  "note": "Sample scan of a fictional business for the spec promo. Real runs read the site you paste.",
+  "reachable": true,
+  "url": "https://sunnysidepaws.example/",
+  "domain": "sunnysidepaws.example",
+  "title": "Sunnyside Paws Grooming | Dog grooming in Tampa",
+  "description": "Gentle dog grooming in South Tampa. Baths, full grooms and nail trims, by appointment.",
+  "h1": "Gentle grooming for happy dogs",
+  "headings": ["Full groom", "Bath and brush", "Nail trim", "Puppy's first groom", "Book online"],
+  "offer": { "kind": "free", "text": "Free nail trim with your first full groom", "snippet": "New here? Free nail trim with your first full groom." },
+  "prices": [
+    { "amount": 65, "per": null, "context": "Full groom from $65" },
+    { "amount": 40, "per": null, "context": "Bath and brush from $40" }
+  ],
+  "colors": { "primary": "#1f7a8c", "accent": "#f2a541", "source": "site css" },
+  "images": [],
+  "contacts": { "emails": [], "phones": ["(555) 010-0147"] },
+  "socials": { "instagram": "https://www.instagram.com/sunnysidepaws.example" },
+  "booking": [{ "name": "Square Appointments", "tier": "basic" }],
+  "hours": "Tuesday to Saturday, 8 to 5",
+  "people": [{ "name": "Dana", "role": "owner" }],
+  "city": "Tampa, FL",
+  "video": { "onSite": false, "kinds": [], "unknown": false }
+}

@@ -1,0 +1,66 @@
+{
+  "checked": "2026-10-19",
+  "about": "Start-up items almost every US business has, with the cost only where an official page states it. Everything else says to check your state, city or current rates.",
+  "items": [
+    {
+      "id": "ein",
+      "name": "EIN (business tax number) from the IRS",
+      "freq": "once",
+      "low": 0,
+      "high": 0,
+      "stage": "now",
+      "kinds": ["local", "online"],
+      "note": "Free from the IRS in minutes. Never pay a website for one.",
+      "says": "Use this tool to get an EIN directly from the IRS in minutes for free. Beware of websites that charge for an EIN. You never have to pay a fee for an EIN.",
+      "source": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number"
+    },
+    {
+      "id": "license",
+      "name": "Business registration and local license",
+      "freq": "once",
+      "low": null,
+      "high": null,
+      "stage": "now",
+      "kinds": ["local", "online"],
+      "note": "Fees vary by state, county and city. Check your state and city before your first job.",
+      "says": "The requirements and fees vary based on your business activities, location, and government rules.",
+      "source": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits"
+    },
+    {
+      "id": "payments",
+      "name": "Card payments app (Square Free or Stripe)",
+      "freq": "month",
+      "low": 0,
+      "high": 0,
+      "stage": "now",
+      "kinds": ["local", "online"],
+      "note": "No monthly fee on the standard plans. You pay a fee on each card payment instead.",
+      "says": "With Square Free, there are no monthly subscription costs. Stripe: no setup fees, monthly fees, or hidden fees.",
+      "source": "https://squareup.com/us/en/payments/our-fees"
+    },
+    {
+      "id": "gbp",
+      "name": "Google Business Profile",
+      "freq": "once",
+      "low": 0,
+      "high": 0,
+      "stage": "now",
+      "kinds": ["local"],
+      "note": "Free to create. It's how people nearby find you on Google Search and Maps.",
+      "says": "Yes, creating a Business Profile and listing your business on Google is free.",
+      "source": "https://business.google.com/en-all/business-profile/"
+    },
+    {
+      "id": "bank",
+      "name": "Separate business checking account",
+      "freq": "month",
+      "low": null,
+      "high": null,
+      "stage": "now",
+      "kinds": ["local", "online"],
+      "note": "Check current rates. It keeps business money apart, which makes taxes and your books simpler.",
+      "says": "For most small businesses, the business checking account is the main source of entries in the business books.",
+      "source": "https://www.irs.gov/businesses/small-businesses-self-employed/what-kind-of-records-should-i-keep"
+    }
+  ]
+}

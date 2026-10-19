@@ -1,0 +1,433 @@
+{
+  "checked": "2026-10-19",
+  "note": "Patterns that show an app is installed, matched against a store's public homepage and one product page (script hosts, the asyncLoad list, web pixel names). Detection can miss an app that loads late or only on some pages, so reports say what we saw, never that an app is missing for sure. No prices: app pricing changes, so members check the app's own listing.",
+  "source": "Script hosts read from live Shopify storefronts on 2026-10-19 (for example static.klaviyo.com, cdn.judge.me, static.rechargecdn.com) and the apps' own embed code.",
+  "categories": {
+    "reviews": {
+      "label": "Product reviews",
+      "apps": [
+        [
+          "Judge.me",
+          "judge\\.me|judgeme|jdgm-"
+        ],
+        [
+          "Yotpo",
+          "yotpo\\.com|staticw2\\.yotpo|yotpo-widget|yotpo-main"
+        ],
+        [
+          "Okendo",
+          "okendo\\.io|oke-reviews|okeReviews|okendo-reviews"
+        ],
+        [
+          "Loox",
+          "loox\\.io|loox-rating"
+        ],
+        [
+          "Stamped",
+          "stamped\\.io|stamped-reviews|stamped-badge"
+        ],
+        [
+          "Junip",
+          "junip\\.co|junip-"
+        ],
+        [
+          "Reviews.io",
+          "reviews\\.io|reviews\\.co\\.uk"
+        ],
+        [
+          "Trustpilot",
+          "widget\\.trustpilot\\.com"
+        ],
+        [
+          "Fera",
+          "fera\\.ai"
+        ],
+        [
+          "Air Reviews",
+          "air-reviews|airreviews"
+        ],
+        [
+          "Ali Reviews",
+          "alireviews"
+        ],
+        [
+          "Opinew",
+          "opinew\\.com"
+        ],
+        [
+          "Rivyo",
+          "rivyo"
+        ],
+        [
+          "Shopify Product Reviews",
+          "productreviews\\.shopifycdn\\.com"
+        ]
+      ]
+    },
+    "email": {
+      "label": "Email signup",
+      "apps": [
+        [
+          "Klaviyo",
+          "static\\.klaviyo\\.com|klaviyo\\.com/onsite|webPixelName\\\\?\"?:\\\\?\"Klaviyo"
+        ],
+        [
+          "Omnisend",
+          "omnisnippet|omnisend\\.com"
+        ],
+        [
+          "Privy",
+          "privy\\.com|widget\\.privy"
+        ],
+        [
+          "Mailchimp",
+          "chimpstatic\\.com|list-manage\\.com"
+        ],
+        [
+          "Shopify Forms",
+          "shopify-forms|forms\\.shopifyapps\\.com"
+        ],
+        [
+          "Justuno",
+          "justuno\\.com"
+        ],
+        [
+          "Wisepops",
+          "wisepops\\.com"
+        ],
+        [
+          "Kit",
+          "convertkit\\.com|ck\\.page"
+        ],
+        [
+          "Sendlane",
+          "sendlane\\.com"
+        ],
+        [
+          "Drip",
+          "getdrip\\.com"
+        ],
+        [
+          "Seguno",
+          "seguno\\.com"
+        ]
+      ]
+    },
+    "sms": {
+      "label": "Text message signup",
+      "apps": [
+        [
+          "Attentive",
+          "attn\\.tv|attentivemobile"
+        ],
+        [
+          "Postscript",
+          "postscript\\.io"
+        ],
+        [
+          "ElectricSMS",
+          "electricsms"
+        ],
+        [
+          "Yotpo SMS",
+          "smsbump"
+        ],
+        [
+          "Recart",
+          "recart\\.com"
+        ]
+      ]
+    },
+    "upsell": {
+      "label": "Upsells and bundles",
+      "apps": [
+        [
+          "Rebuy",
+          "rebuyengine"
+        ],
+        [
+          "ReConvert",
+          "reconvert|stilyoapps"
+        ],
+        [
+          "Frequently Bought Together",
+          "frequently-bought-together|codeblackbelt"
+        ],
+        [
+          "Bold",
+          "boldapps\\.net|boldcommerce"
+        ],
+        [
+          "Zipify OCU",
+          "zipify"
+        ],
+        [
+          "UpCart",
+          "upcart"
+        ],
+        [
+          "AfterSell",
+          "aftersell"
+        ],
+        [
+          "LimeSpot",
+          "limespot"
+        ],
+        [
+          "Candy Rack",
+          "candyrack|digismoothie"
+        ],
+        [
+          "Kaching Bundles",
+          "kaching-bundles|kachingbundles|kaching\\.app"
+        ],
+        [
+          "Fast Bundle",
+          "fastbundle"
+        ],
+        [
+          "Bundler",
+          "bundler\\.app"
+        ],
+        [
+          "Vitals",
+          "vitals\\.co|vitals\\.app"
+        ],
+        [
+          "Monster Cart",
+          "monster-cart|monstercart"
+        ],
+        [
+          "Shopify complementary products",
+          "complementary-products"
+        ]
+      ]
+    },
+    "subscriptions": {
+      "label": "Subscriptions",
+      "apps": [
+        [
+          "Recharge",
+          "rechargeapps|rechargecdn"
+        ],
+        [
+          "Skio",
+          "skio\\.com|skioplatform|skio-"
+        ],
+        [
+          "Loop Subscriptions",
+          "loopsubscriptions"
+        ],
+        [
+          "Seal Subscriptions",
+          "sealsubscriptions"
+        ],
+        [
+          "Appstle",
+          "appstle"
+        ],
+        [
+          "Shopify Subscriptions",
+          "subscriptions\\.shopifycdn|shopify-subscriptions"
+        ]
+      ]
+    },
+    "loyalty": {
+      "label": "Loyalty and referrals",
+      "apps": [
+        [
+          "Smile",
+          "smile\\.io|sweettooth\\.io"
+        ],
+        [
+          "LoyaltyLion",
+          "loyaltylion"
+        ],
+        [
+          "Rivo",
+          "rivo\\.io"
+        ],
+        [
+          "Growave",
+          "growave"
+        ],
+        [
+          "BON Loyalty",
+          "bonloyalty"
+        ],
+        [
+          "ReferralCandy",
+          "referralcandy"
+        ],
+        [
+          "Friendbuy",
+          "friendbuy"
+        ]
+      ]
+    },
+    "chat": {
+      "label": "Chat and support",
+      "apps": [
+        [
+          "Gorgias",
+          "gorgias"
+        ],
+        [
+          "Tidio",
+          "tidio\\.co"
+        ],
+        [
+          "Zendesk",
+          "zdassets\\.com"
+        ],
+        [
+          "Shopify Inbox",
+          "shopify-chat|shopifychat|inbox\\.shopify"
+        ],
+        [
+          "Re:amaze",
+          "reamaze"
+        ],
+        [
+          "Richpanel",
+          "richpanel"
+        ],
+        [
+          "Intercom",
+          "intercom\\.io|intercomcdn"
+        ],
+        [
+          "Gladly",
+          "gladly\\.com"
+        ],
+        [
+          "tawk.to",
+          "embed\\.tawk\\.to"
+        ],
+        [
+          "Crisp",
+          "client\\.crisp\\.chat"
+        ],
+        [
+          "LiveChat",
+          "livechatinc\\.com"
+        ]
+      ]
+    },
+    "bnpl": {
+      "label": "Pay later",
+      "apps": [
+        [
+          "Afterpay",
+          "afterpay"
+        ],
+        [
+          "Klarna",
+          "klarna"
+        ],
+        [
+          "Affirm",
+          "affirm\\.com"
+        ],
+        [
+          "Sezzle",
+          "sezzle"
+        ]
+      ]
+    },
+    "returns": {
+      "label": "Returns or tracking portal",
+      "apps": [
+        [
+          "Loop Returns",
+          "loopreturns"
+        ],
+        [
+          "AfterShip",
+          "aftership"
+        ],
+        [
+          "Narvar",
+          "narvar"
+        ],
+        [
+          "Redo",
+          "getredo|redo\\.com"
+        ]
+      ]
+    },
+    "protection": {
+      "label": "Shipping protection",
+      "apps": [
+        [
+          "Route",
+          "routeapp|route\\.com"
+        ],
+        [
+          "Seel",
+          "seel\\.com"
+        ],
+        [
+          "Corso",
+          "corso\\.com|corso-shipping"
+        ],
+        [
+          "Navidium",
+          "navidium"
+        ]
+      ]
+    },
+    "pagebuilder": {
+      "label": "Page builder",
+      "apps": [
+        [
+          "PageFly",
+          "pagefly"
+        ],
+        [
+          "GemPages",
+          "gempages"
+        ],
+        [
+          "Shogun",
+          "getshogun|shogun\\.cdn"
+        ],
+        [
+          "Replo",
+          "replo\\.app|replocdn|replo-"
+        ],
+        [
+          "EComposer",
+          "ecomposer"
+        ]
+      ]
+    },
+    "search": {
+      "label": "Search and filters",
+      "apps": [
+        [
+          "Searchanise",
+          "searchanise"
+        ],
+        [
+          "Boost",
+          "boostcommerce|bc-sf-filter"
+        ],
+        [
+          "Algolia",
+          "algolia"
+        ],
+        [
+          "Klevu",
+          "klevu"
+        ]
+      ]
+    }
+  },
+  "pixels": {
+    "meta": "connect\\.facebook\\.net/[^\"']*fbevents|facebook_pixel|fbq\\(",
+    "tiktok": "analytics\\.tiktok\\.com|ttq\\.load|\\\\?\"pixelCode\\\\?\"",
+    "google": "googletagmanager\\.com|google_tag_ids|googleadservices\\.com|gtag\\(",
+    "pinterest": "s\\.pinimg\\.com/ct|pintrk\\("
+  }
+}

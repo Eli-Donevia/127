@@ -1,0 +1,74 @@
+{
+  "checked": "2026-10-19",
+  "note": "Google Ads Editor CSV import, read on Google's own help pages on the date above. Headers are matched in English and ignore capitals and spaces. Each row is one item: a campaign, an ad group, a keyword or an ad. A blank cell means no change.",
+  "sources": {
+    "columns": "https://support.google.com/google-ads/editor/answer/57747",
+    "prepare": "https://support.google.com/google-ads/editor/answer/56368",
+    "import": "https://support.google.com/google-ads/editor/answer/30564",
+    "keywords": "https://support.google.com/google-ads/editor/answer/56501",
+    "bidStrategies": "https://support.google.com/google-ads/editor/answer/94241",
+    "rsa": "https://support.google.com/google-ads/answer/7684791",
+    "keywordLimit": "https://developers.google.com/google-ads/api/reference/rpc/v21/KeywordInfo",
+    "location": "https://support.google.com/google-ads/answer/1722038",
+    "budget": "https://support.google.com/google-ads/answer/6385083"
+  },
+  "columns": {
+    "campaign": "Campaign",
+    "campaignType": "Campaign type",
+    "campaignStatus": "Campaign status",
+    "budget": "Campaign daily budget",
+    "bidStrategyType": "Bid strategy type",
+    "networks": "Networks",
+    "languages": "Language targeting",
+    "adGroup": "Ad group",
+    "adGroupStatus": "Ad group status",
+    "maxCpc": "Max CPC",
+    "keyword": "Keyword",
+    "type": "Criterion type",
+    "status": "Status",
+    "headline": "Headline {n}",
+    "description": "Description {n}",
+    "path1": "Path 1",
+    "path2": "Path 2",
+    "finalUrl": "Final URL"
+  },
+  "values": {
+    "campaignType": "Search",
+    "status": [
+      "Enabled",
+      "Paused",
+      "Removed"
+    ],
+    "networks": "Google Search",
+    "networksNote": "Networks takes Google Search; Search Partners; Search; Display or Select, separated by semicolons. Search turns on both Google Search and Search Partners, so we use Google Search only.",
+    "bidStrategyType": "Manual CPC",
+    "languages": "en",
+    "languagesNote": "Language codes on the campaign row, separated by semicolons.",
+    "matchTypes": [
+      "Broad",
+      "Phrase",
+      "Exact"
+    ],
+    "matchTypesNote": "Broad is the default when no match type is given.",
+    "campaignNegative": "Campaign negative",
+    "budgetRule": "The daily budget must be greater than zero.",
+    "locationRule": "Each location goes on its own row; we leave locations for you to add in Editor."
+  },
+  "limits": {
+    "headlines": 15,
+    "headlineMax": 30,
+    "descriptions": 4,
+    "descriptionMax": 90,
+    "pathMax": 15,
+    "keywordMaxChars": 80,
+    "keywordMaxWords": 10
+  },
+  "importSteps": [
+    "Open Google Ads Editor and download your account (or select it).",
+    "Select Account > Import, then From file, and pick the CSV.",
+    "Review the column headers. If one is wrong, pick the right header from its drop-down.",
+    "Select Import, then Review imported changes. The changes show as proposed changes in your account.",
+    "Keep the changes, add your location (below), then post the changes to your account."
+  ],
+  "budget": "Google treats the daily budget as an average: on some days it can spend up to twice the daily amount and on others less, but never more than 30.4 times the daily budget in a month."
+}

@@ -1,0 +1,153 @@
+{
+  "checked": "2026-10-19",
+  "about": "Tools a client might use, with prices from each vendor's own pricing page on the date checked. The client pays for these on their own account. Recheck the page before you send a setup sheet: plans change.",
+  "tools": {
+    "quo": {
+      "name": "Quo (formerly OpenPhone)",
+      "role": "Business number with missed-call auto-reply",
+      "price": "Starter $19 per user a month, or $15 paid yearly; Business $33 ($23 yearly)",
+      "monthly": 19,
+      "extra": "Texting registration $19.50 one-time, plus $1.50 to $3 a month carrier fee",
+      "textback": "Missed-call auto-replies are on every plan.",
+      "url": "https://www.quo.com/pricing"
+    },
+    "jobber_ai": {
+      "name": "Jobber AI Receptionist",
+      "role": "Answers calls and texts 24/7 and books jobs inside Jobber",
+      "price": "$29 a month add-on to a Jobber plan",
+      "monthly": 29,
+      "extra": "Needs a Jobber plan: Core $49 a month ($29 yearly), Connect $139 ($99), Grow $199 ($149)",
+      "textback": "Answers over call or text and can book jobs.",
+      "url": "https://www.getjobber.com/pricing/"
+    },
+    "hcp_csr": {
+      "name": "Housecall Pro CSR AI",
+      "role": "AI call answering inside Housecall Pro",
+      "price": "No public price; ask Housecall Pro",
+      "monthly": null,
+      "extra": "Housecall Pro plans: Basic $79 a month ($59 yearly), Essentials $189 ($149), Max $329 ($299)",
+      "textback": "Ask Housecall Pro which plan includes it.",
+      "url": "https://www.housecallpro.com/pricing/"
+    },
+    "rosie": {
+      "name": "Rosie",
+      "role": "AI phone answering after hours",
+      "price": "$49 a month for 250 minutes; $149 for 1,000; $299 for 2,000; 7-day trial",
+      "monthly": 49,
+      "extra": "Website texting add-on $50 a month for 25 conversations",
+      "textback": null,
+      "url": "https://heyrosie.com/pricing"
+    },
+    "goodcall": {
+      "name": "Goodcall",
+      "role": "AI phone answering",
+      "price": "Starter $79 a month (100 unique customers), Growth $129, Scale $299",
+      "monthly": 79,
+      "extra": null,
+      "textback": null,
+      "url": "https://www.goodcall.com/pricing"
+    },
+    "smith_ai": {
+      "name": "Smith.ai AI Receptionist",
+      "role": "AI answering with a path to live people",
+      "price": "Free for 25 calls; Pro from $150 a month for 75 calls",
+      "monthly": 150,
+      "extra": "30 days' notice to cancel",
+      "textback": null,
+      "url": "https://smith.ai/pricing/ai-receptionist"
+    },
+    "smith_live": {
+      "name": "Smith.ai live receptionists",
+      "role": "People answer calls",
+      "price": "$300 a month for 30 calls; $810 for 90; $2,100 for 300; no setup fee",
+      "monthly": 300,
+      "extra": "30-day money back up to $1,000",
+      "textback": null,
+      "url": "https://smith.ai/pricing"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "role": "People answer calls",
+      "price": "$250 a month for 50 minutes; $395 for 100; $720 for 200",
+      "monthly": 250,
+      "extra": null,
+      "textback": null,
+      "url": "https://www.ruby.com/pricing/"
+    },
+    "calendly": {
+      "name": "Calendly",
+      "role": "Booking page",
+      "price": "Free plan with one event type; Standard $10 per seat a month",
+      "monthly": 0,
+      "extra": null,
+      "textback": null,
+      "url": "https://calendly.com/pricing"
+    },
+    "gcal": {
+      "name": "Google Calendar appointment schedule",
+      "role": "Booking page",
+      "price": "Free on a personal Google account; premium features need Workspace or Google One",
+      "monthly": 0,
+      "extra": "Set it up on a computer",
+      "textback": null,
+      "url": "https://support.google.com/calendar/answer/10729749"
+    }
+  },
+  "ten_dlc": {
+    "line": "Business texting from a regular number must be registered with the carriers (A2P 10DLC) under the client's business.",
+    "fees": "Through Twilio: sole proprietor or low-volume brand $4 one-time, plus $15 campaign vetting, plus $1.50 to $10 a month per campaign ($2 for sole proprietor). Through Quo: $19.50 one-time plus $1.50 to $3 a month.",
+    "timing": "Campaign approval usually takes under a week.",
+    "urls": [
+      "https://www.twilio.com/en-us/phone-numbers/a2p-10dlc",
+      "https://www.quo.com/pricing"
+    ],
+    "quo_one_time": 19.5
+  },
+  "stacks": {
+    "jobber": {
+      "label": "They use Jobber",
+      "tools": [
+        "jobber_ai"
+      ],
+      "booking": "Jobber online booking (their Client Hub link)",
+      "why": "Turn on the answering and texting add-on in the tool they already pay for."
+    },
+    "housecallpro": {
+      "label": "They use Housecall Pro",
+      "tools": [
+        "hcp_csr"
+      ],
+      "booking": "Housecall Pro online booking link",
+      "why": "Ask Housecall Pro to switch on CSR AI in the tool they already pay for."
+    },
+    "none": {
+      "label": "No field software",
+      "tools": [
+        "quo"
+      ],
+      "booking": "Calendly free plan or a Google Calendar appointment schedule",
+      "why": "A business number with a missed-call auto-reply is the smallest setup that works."
+    }
+  },
+  "after_hours": {
+    "textback": {
+      "label": "Text back only",
+      "tools": []
+    },
+    "ai": {
+      "label": "AI answers after hours",
+      "tools": [
+        "rosie",
+        "goodcall",
+        "smith_ai"
+      ]
+    },
+    "people": {
+      "label": "People answer",
+      "tools": [
+        "smith_live",
+        "ruby"
+      ]
+    }
+  }
+}

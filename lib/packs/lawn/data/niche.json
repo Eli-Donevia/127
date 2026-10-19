@@ -1,0 +1,1555 @@
+{
+ "id": "lawn",
+ "name": "Lawn care",
+ "pack_title": "Lawn care and snow removal",
+ "checked": "2026-10-19",
+ "summary": "Start a lawn care and snow removal business: your first 25 neighbors and partners, a price menu by yard size from real ranges, quotes from the curb and the right offer for the season where you live.",
+ "what": "lawn care",
+ "business_word": "Lawn Care",
+ "worker": "lawn pro",
+ "job": "mow",
+ "icon": "leaf",
+ "mood": "earthy",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Hi neighbor!",
+ "door_step3": "I do the work and text you a photo",
+ "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+ "promises": {
+  "first_25": "15 people you know and 10 local property managers, HOAs and agents, each with a message, plus door hangers with the offer that fits the season.",
+  "offer": "Your price menu by yard size, the first-clients ladder, a weekly plan, a snow contract and job math, on a one-page offer sheet.",
+  "quote": "Yard size, service and how often in; a quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, your regular plan, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the job: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+  "proof": "One yard turned into proof: a result card, a before-and-after collage from your photos, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 property managers, HOAs, agents and garden centers near you that are not in your Pipeline yet, with messages, saved for Do my day.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "One customer's street turned into a route: door hangers with a neighbor price, a sheet for the 20 nearest homes and an intro ask for your customer.",
+  "season_plan": "Twelve months of offers for where you live: what to sell each month, who to reach, what to presell, with a calendar file and a one-page plan."
+ },
+ "crowd": {
+  "buyer": "Homeowners",
+  "scores": {
+   "pain": 3,
+   "can_pay": 4,
+   "findable": 4,
+   "growing": 3
+  },
+  "first_dollar": "Fast in season",
+  "best_months": [
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "off_season": {
+   "months": [
+    12,
+    1,
+    2,
+    3
+   ],
+   "where": "cold",
+   "play": "Sell snow contracts in September and October, then book spring cleanups and season mowing plans in February and March."
+  },
+  "note": "Off season November to March up north.",
+  "not_yet": [
+   "Don't buy a trailer or a riding mower before your tenth regular.",
+   "Don't take jobs across town. Same street first.",
+   "Don't apply fertilizer or weed killer for pay before checking your state's license rule."
+  ],
+  "basis": "Scores, first $1, buyer and not-yet lines: research/crowd.json (our judgment). Best months and slow season: research/niches/lawn.json crowd hint, from its sources."
+ },
+ "buyers": [
+  {
+   "who": "Homeowners who want a weekly or every-other-week mow without contracts",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Older homeowners and people who cannot safely run equipment or shovel",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Landlords, property managers and homes for sale that need curb appeal",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "HOAs that hire one company for a whole subdivision (snow and common areas)",
+   "sources": [
+    {
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "publisher": "Lawn Love",
+     "says": "If an HOA hires a company for an entire subdivision, contract cost can be as low as $70 per unit.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Small commercial lots (snow per event)",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/snow-plow-services-cost",
+     "publisher": "Thumbtack",
+     "says": "Commercial example: about 20,000 sq ft with minimal obstacles $450 per snowfall; about 50,000 sq ft with obstacles $900 per snowfall.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Referrals, Nextdoor and Craigslist for local independents",
+   "sources": [
+    {
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "publisher": "LawnStarter",
+     "says": "Local independent mowers ($30 to $80): direct hire through referral, Craigslist or Nextdoor.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Booking apps such as LawnStarter, Lawn Love and GreenPal",
+   "sources": [
+    {
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "publisher": "LawnStarter",
+     "says": "Comparison: LawnStarter $44 to $71, Lawn Love $45 to $75, GreenPal $30 to $85 with competitive bidding; other on-demand apps $29 to $75.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Thumbtack and Angi quote requests",
+   "sources": [
+    {
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "publisher": "LawnStarter",
+     "says": "Thumbtack and Angi: $40 to $150, quote-based marketplace with variable vetting.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    },
+    {
+     "url": "https://www.thumbtack.com/pro",
+     "publisher": "Thumbtack",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads, which determines how many leads they get. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Google search and Maps reviews",
+   "sources": [
+    {
+     "url": "https://www.brightlocal.com/research/local-consumer-review-survey/",
+     "publisher": "BrightLocal Local Consumer Review Survey 2026",
+     "says": "97% of consumers read reviews for local businesses; Google's share as a review source fell from 83% in 2025 to 71%; use of ChatGPT and other AI tools for local recommendations rose from 6% to 45%; 47% will not use a business with fewer than 20 reviews; 74% care about reviews from the last three months; 31% will only use a business with 4.5 stars or more and 68% with 4 or more; 80% are likely to use a business that responds to all of its reviews; 89% expect owners to respond.",
+     "page_date": "2026-02-11 (modified 2026-09-14)",
+     "kind": "survey by a vendor of review software",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Lawn mower (push or self-propelled to start)",
+    "unit": "each",
+    "range_usd": [
+     170,
+     10000
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Lawn mower $300 to $2,500; push or self-propelled works for small lawns.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+      "says": "21 inch push mower $170 to $350 budget, $400 to $800 professional; commercial walk-behind 36 or 48 inch deck $1,000 to $5,000; zero-turn $3,000 to $10,000.",
+      "page_date": "2026-02-01",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+      "says": "Medium-grade gas mower $500 to $1,000.",
+      "page_date": "2026-09-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "String trimmer",
+    "unit": "each",
+    "range_usd": [
+     80,
+     500
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "String trimmer $100 to $300.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+      "says": "String trimmer or edger $80 to $150 budget, $200 to $500 professional.",
+      "page_date": "2026-02-01",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Leaf blower",
+    "unit": "each",
+    "range_usd": [
+     80,
+     500
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Leaf blower $100 to $400.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+      "says": "Backpack blower $80 to $200 budget, $250 to $500 professional.",
+      "page_date": "2026-02-01",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Edger",
+    "unit": "each",
+    "range_usd": [
+     100,
+     600
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Edger $100 to $300.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+      "says": "Edger $100 to $600.",
+      "page_date": "2026-09-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Hedge trimmer",
+    "unit": "each",
+    "range_usd": [
+     100,
+     400
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+      "says": "Hedge trimmer $100 to $400.",
+      "page_date": "2026-09-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+      "says": "Hedge trimmer $100 to $200 budget, $200 to $400 professional.",
+      "page_date": "2026-02-01",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Hand tools and safety gear",
+    "unit": "set",
+    "range_usd": [
+     100,
+     300
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Basic hand tools $50 to $150; safety gear $50 to $150.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Open utility trailer",
+    "unit": "each",
+    "range_usd": [
+     500,
+     3000
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Trailers $800 to $3,000.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+      "says": "Open trailer 5x8 or 6x12 $500 to $1,500 budget, $1,500 to $3,000 professional; enclosed $3,000 to $8,000.",
+      "page_date": "2026-02-01",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Snow blower",
+    "unit": "each",
+    "range_usd": [
+     305,
+     2720
+    ],
+    "note": "One source; check current retail prices.",
+    "sources": [
+     {
+      "publisher": "Lawn Love",
+      "url": "https://lawnlove.com/blog/snow-blower-cost/",
+      "says": "Average residential snow blower $1,055, most $305 to $1,800; single-stage averages $525, two-stage about $1,400, three-stage $2,720.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Business registration and licensing",
+    "unit": "one time",
+    "range_usd": [
+     250,
+     650
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Business registration and licensing $250 to $650.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Magnetic vehicle signs",
+    "unit": "each",
+    "range_usd": null,
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Removable magnetic signs, most cost $50 or less per sign.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Yard signs and door hangers",
+    "unit": "starter batch",
+    "range_usd": [
+     50,
+     300
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Yard signs and door hangers $50 to $300.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "General liability insurance",
+    "unit": "per month",
+    "range_usd": [
+     35,
+     167
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "General liability $35 to $70 per month depending on limits, state and size.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+      "says": "Lawn care businesses pay about $500 to $2,000 a year for insurance (about $42 to $167 a month).",
+      "page_date": "2026-09-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Commercial auto insurance (if applicable)",
+    "unit": "per month",
+    "range_usd": [
+     204,
+     204
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "About $204 per month, higher for high-value trucks or poor driving histories.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Fuel and maintenance",
+    "unit": "per year",
+    "range_usd": [
+     1000,
+     3000
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+      "says": "About $1,000 to $3,000 a year on fuel and maintenance.",
+      "page_date": "2026-09-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Scheduling, invoicing and payments software",
+    "unit": "per month",
+    "range_usd": [
+     29,
+     100
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Scheduling, invoicing and payments often run $30 to $100 per month.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Jobber",
+      "url": "https://www.getjobber.com/pricing/",
+      "says": "Plans starting at $29 per month (Core, one user, billed annually); higher tiers cost more and extra users are added per month.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Google Local Services Ads (optional)",
+    "unit": "per month",
+    "range_usd": [
+     150,
+     500
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "says": "Google Local Services Ads $150 to $500+ per month; charged per lead, not per click.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Card processing",
+    "unit": "per payment",
+    "range_usd": null,
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Square Help Center",
+      "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+      "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH via invoice 1% with $1 minimum.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Stripe",
+      "url": "https://stripe.com/pricing",
+      "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup or monthly fees.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your state and city.",
+  "items": [
+   {
+    "item": "General business license or registration",
+    "what_to_check": "City or county license; state registration for an LLC; DBA if you use a trade name.",
+    "sources": [
+     {
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "publisher": "U.S. Small Business Administration",
+      "says": "Licenses and permits depend on business activity and location; local governments set registration, licensing and permitting rules; research your own state, county and city; some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+      "publisher": "IRS",
+      "says": "Get an EIN directly from the IRS online in minutes for free.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Pesticide applicator certification (weed control, insect control, some fertilizer products)",
+    "what_to_check": "Many states require every commercial applicator to be certified, not only users of restricted use pesticides. Contact your state pesticide agency (usually the department of agriculture) before you sell weed or pest treatments.",
+    "sources": [
+     {
+      "url": "https://www.epa.gov/pesticide-worker-safety/how-get-certified-pesticide-applicator",
+      "publisher": "U.S. EPA",
+      "says": "States, territories and tribes certify applicators; many states require all commercial applicators to be certified, stricter than federal rules; contact the state certifying agency and the state Pesticide Safety Education Program.",
+      "page_date": "2026-03-11",
+      "checked": "2026-10-19"
+     },
+     {
+      "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+      "publisher": "Housecall Pro",
+      "says": "Sprayers for weed control or treatments: these services may require licensing depending on local regulations, so check before buying.",
+      "page_date": "2026-02-03",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "what_to_check": "Thrown rocks, broken windows, damaged sprinkler heads and slip claims in winter.",
+    "sources": [
+     {
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "publisher": "U.S. Small Business Administration",
+      "says": "Lists common policies: general liability, product liability, professional liability, commercial property, home-based business insurance, and workers compensation; buy insurance required by law first, and taxes on employment insurance and workers compensation vary by state.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "url": "https://www.thumbtack.com/p/lawn-mowing-cost",
+      "publisher": "Thumbtack",
+      "says": "Reputable lawn care companies are usually licensed and insured to protect the customer if an accident or damage occurs.",
+      "page_date": "2026-06-24",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Commercial auto and trailer rules",
+    "what_to_check": "A truck plus trailer rated 10,001 lb or more that crosses state lines is a commercial motor vehicle under federal rules (USDOT registration and safety rules). Some states have similar rules for in-state work; check your state DOT.",
+    "sources": [
+     {
+      "url": "https://www.law.cornell.edu/cfr/text/49/390.5",
+      "publisher": "49 CFR 390.5 via Legal Information Institute",
+      "says": "Commercial motor vehicle: a vehicle used in interstate commerce with a gross vehicle or combination weight rating or weight of 10,001 pounds or more.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Small engine rules (California) and local leaf blower rules",
+    "what_to_check": "California requires most newly made small off-road engines (mowers, leaf blowers) to be zero emission from model year 2024; existing compliant gas equipment can still be used. Some cities restrict gas leaf blowers or noise hours.",
+    "sources": [
+     {
+      "url": "https://ww2.arb.ca.gov/news/carb-approves-updated-regulations-requiring-most-new-small-road-engines-be-zero-emission-2024",
+      "publisher": "California Air Resources Board",
+      "says": "Most newly manufactured small off-road engines such as leaf blowers and lawn mowers must be zero emission starting with model year 2024; Californians can keep operating current compliant gas equipment.",
+      "checked": "2026-10-19"
+     }
+    ],
+    "note": "City noise and leaf blower rules vary; check your city code."
+   },
+   {
+    "item": "Snow work: sidewalk rules and written trigger depth",
+    "what_to_check": "Many cities make property owners clear sidewalks, so clients care about timing. Put the trigger depth and response time in the written contract.",
+    "sources": [
+     {
+      "url": "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+      "publisher": "HomeAdvisor",
+      "says": "Many cities require homeowners to clear the walkways bordering their property; each contract spells out the trigger amount and the timeframe for service.",
+      "page_date": "2026-06-19",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Before the season: written scope (mow, trim, edge, blow), frequency, price per visit, gate codes, pets, and the skip and rain-delay policy.",
+   "On arrival: walk the lawn and pick up sticks, toys, hoses and dog waste; note anything broken before you start.",
+   "Set mowing height for the grass type; follow the one-third rule (never cut more than a third of the blade at once).",
+   "Mow, then string trim around obstacles and fences, then edge along walks and driveway.",
+   "Blow clippings off concrete, porches and the street; clippings stay on the lawn unless bagging was agreed.",
+   "Close gates, take an after photo, note issues (bare spots, weeds, grubs) for an upsell later.",
+   "Invoice or charge the card on file the same day; ask happy clients for a review."
+  ],
+  "sources": [
+   {
+    "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+    "publisher": "LawnStarter",
+    "says": "Mowing, blowing clippings from concrete surfaces and edging the perimeter are typical mowing service features; follow the one-third rule.",
+    "page_date": "2026-10-06",
+    "checked": "2026-10-19"
+   },
+   {
+    "url": "https://www.thumbtack.com/p/lawn-mowing-cost",
+    "publisher": "Thumbtack",
+    "says": "Ask for a written agreement that details what is included, such as mowing, edge trimming and blowing clippings.",
+    "page_date": "2026-06-24",
+    "checked": "2026-10-19"
+   },
+   {
+    "url": "https://www.thumbtack.com/p/lawn-service-prices",
+    "publisher": "Thumbtack",
+    "says": "All-inclusive mow packages include mowing, weed-eating, edging and blowing, mulching or bagging clippings.",
+    "page_date": "2026-04-13",
+    "checked": "2026-10-19"
+   }
+  ],
+  "note": "Pre-walk, photos and the notes for upsells are common practice, a judgment call."
+ },
+ "objections": [
+  {
+   "objection": "The neighbor kid does it for less.",
+   "answer": "Insured, shows up every week on the same day, edges and blows every time.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/lawn-mowing-cost",
+     "says": "Check that the company is licensed and insured, which protects you from liability for accidents.",
+     "page_date": "2026-06-24",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "kid",
+    "for less",
+    "cheaper",
+    "too much",
+    "expensive",
+    "lower price",
+    "neighbor does"
+   ],
+   "say": "That makes sense, and if it works for you, great. With me you get the same day every week, edging and blowing every time, and if I miss a spot I'm back within 2 days to fix it free. Want a quote for your yard so you can compare?"
+  },
+  {
+   "objection": "I only need you every other week.",
+   "answer": "Offer every-other-week pricing with a long grass rule in writing.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "every other week",
+    "every 2 weeks",
+    "every two weeks",
+    "biweekly",
+    "not every week",
+    "less often"
+   ],
+   "say": "I can do every 2 weeks. The one thing: if the grass gets long in a wet spell, that visit can cost a little more, and I'll always tell you before I start."
+  },
+  {
+   "objection": "Will you actually show up every week?",
+   "answer": "Fixed service day, text when on the way, rain-delay rule in writing.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "show up",
+    "reliable",
+    "no show",
+    "flake",
+    "consistent",
+    "on time",
+    "every week?"
+   ],
+   "say": "Fair question. You get a set day, I text when I'm on my way, and if rain pushes me back I text you the new day before it happens."
+  },
+  {
+   "objection": "What does that price include?",
+   "answer": "Written scope listing mow, trim, edge and blow.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/lawn-mowing-cost",
+     "says": "Get the scope in writing to prevent misunderstandings and unexpected fees.",
+     "page_date": "2026-06-24",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "include",
+    "included",
+    "what do you do",
+    "what's in",
+    "what is in",
+    "cover"
+   ],
+   "say": "Every visit: mow at the right height, trim along beds and fences, edge the walks and driveway, and blow the clippings off the concrete. Bagging and bush trimming are extra, and I'll always ask first."
+  },
+  {
+   "objection": "I don't want a long contract.",
+   "answer": "Month to month with a small discount for prepaying the season.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "contract",
+    "locked in",
+    "commit",
+    "cancel",
+    "long term",
+    "sign"
+   ],
+   "say": "No long contract. It's month to month, and you can skip a week with a day of notice."
+  },
+  {
+   "objection": "What if snow comes at 3 a.m. before I leave for work? (snow)",
+   "answer": "Trigger depth and a clear-by time written into the contract.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/remove-snow/",
+     "says": "Contracts spell out the trigger amount and the timeframe for service.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "snow",
+    "3 a.m",
+    "3am",
+    "before work",
+    "plow",
+    "ice",
+    "icy"
+   ],
+   "say": "That's why the contract names a trigger depth and a clear-by time: once it's over [trigger depth] inches, your driveway and walk are clear by [time]. We set both together before the season."
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "Mow one street, door-hang the 20 neighbors",
+   "steps": [
+    "Start with one yard (family, friend or neighbor) and mow it on a fixed weekday.",
+    "That afternoon hang door hangers on the 10 houses on each side: 'I mow #12 every Tuesday. Add yours for $X per visit.'",
+    "Repeat on every new client's street so the route gets denser."
+   ],
+   "sources": [
+    {
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "says": "Knowingly depositing circulars or similar unstamped matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Leave door hangers on the door, never in or on the mailbox.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Judgment call. Door hangers go on doors, never in or on mailboxes; check city solicitation rules."
+  },
+  {
+   "play": "Overgrown lawn first-cut offer",
+   "steps": [
+    "Drive 3 neighborhoods on a weekday evening and list 30 overgrown or for-sale lawns.",
+    "Leave a door hanger with a flat first-cut price and the weekly price after.",
+    "For for-sale homes, call the listing agent with a curb-appeal offer."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Booking apps for early route density",
+   "steps": [
+    "Sign up on GreenPal or LawnStarter in your ZIP codes.",
+    "Bid or accept only jobs within 10 minutes of your first clients.",
+    "Leave a card with every app client for direct rebooking where the app's terms allow it."
+   ],
+   "sources": [
+    {
+     "url": "https://www.yourgreenpal.com/blog/lawnstarter-and-lawn-love-have-high-commission-rates",
+     "publisher": "GreenPal blog",
+     "says": "GreenPal takes 5 percent of each job.",
+     "page_date": "2026-08-07",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Read each app's terms before taking clients off the platform."
+  },
+  {
+   "play": "Snow contract presale in October",
+   "steps": [
+    "Hang 200 door hangers on driveways near your mowing clients with a seasonal contract price and trigger depth.",
+    "Offer existing mowing clients first spots, capped at the number your equipment can clear before 7 a.m."
+   ],
+   "sources": [
+    {
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "publisher": "Lawn Love",
+     "says": "Most homeowners pay $300 to $1,000 for a season contract; contracts usually run November through March.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Quantities are a judgment call."
+  },
+  {
+   "play": "Before and after post in neighborhood groups",
+   "steps": [
+    "Post one before and after photo set of a cleanup in the neighborhood Facebook group and on Nextdoor with your weekly price and service day.",
+    "Answer every comment within an hour."
+   ],
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "platform_fees": [
+  {
+   "platform": "GreenPal",
+   "fees": "GreenPal says it takes 5 percent of each job; Stripe card processing of 2.9 percent is separate.",
+   "sources": [
+    {
+     "url": "https://www.yourgreenpal.com/blog/lawnstarter-and-lawn-love-have-high-commission-rates",
+     "publisher": "GreenPal blog",
+     "says": "GreenPal takes 5 percent; Stripe's processing fee is 2.9 percent, so vendors should factor it into quotes. GreenPal also claims Lawn Love and LawnStarter take 15 to 20 percent (a competitor claim, not verified).",
+     "page_date": "2026-08-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "LawnStarter",
+   "fees": "Takes a commission on each completed job; the rate is not published. No sign-up fee.",
+   "sources": [
+    {
+     "url": "https://www.lawnstarter.com/lawn-care-businesses",
+     "publisher": "LawnStarter",
+     "says": "LawnStarter takes a small portion of the mowing price; nothing to sign up.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Thumbtack",
+   "fees": "Free to join; you pay per lead within a budget you set.",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/pro",
+     "publisher": "Thumbtack",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads, which determines how many leads they get. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Card processing",
+   "fees": "Square 2.6% + 15 cents in person, 3.3% + 30 cents online; Stripe 2.9% + 30 cents.",
+   "sources": [
+    {
+     "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+     "publisher": "Square Help Center",
+     "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH via invoice 1% with $1 minimum.",
+     "checked": "2026-10-19"
+    },
+    {
+     "url": "https://stripe.com/pricing",
+     "publisher": "Stripe",
+     "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup or monthly fees.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "Lawn care peaks March to November and pairs with snow removal in winter: same truck, route, customers and skill.",
+   "sources": [
+    {
+     "url": "https://startcosts.com/guides/seasonal-business-ideas",
+     "publisher": "StartCosts",
+     "says": "Lawn care peak Mar to Nov; season length is latitude. Lawn care pairs with snow removal (truck, route, customers, skill); a lawn customer who gets a note in October offering a snow contract costs nothing to acquire.",
+     "page_date": "2026-08-20",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Mowing season length depends on region: about 24 weeks in the Northeast, 26 in the Midwest, 34 in the West and Northwest, and 45 to 46 in the Southeast and Southwest.",
+   "sources": [
+    {
+     "url": "https://www.lawnstarter.com/blog/cost/lawn-mowing-price/",
+     "publisher": "LawnStarter",
+     "says": "Weekly mowing season: Northeast about 24 weeks, Southeast about 45, Midwest about 26, Southwest about 46, West and Northwest about 34.",
+     "page_date": "2026-10-06",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Cool-season grasses grow most in spring and fall; warm-season grasses grow fastest in late spring and summer, so visit frequency changes through the year.",
+   "sources": [
+    {
+     "url": "https://www.thumbtack.com/p/lawn-service-prices",
+     "publisher": "Thumbtack",
+     "says": "Cool-season grasses grow more during early spring and fall, while warm-season grasses grow faster during late spring and summer.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Fall is leaf cleanup season; spring brings cleanups, aeration and the first fertilizer rounds.",
+   "sources": [
+    {
+     "url": "https://www.fixr.com/costs/leaf-clean-up",
+     "publisher": "Fixr",
+     "says": "Most people pay about $300 for a fall leaf clean-up on a 1/4 acre lawn.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Spring timing is a judgment call."
+  },
+  {
+   "pattern": "Snow contracts usually run November through March; sell them in September and October.",
+   "sources": [
+    {
+     "url": "https://lawnlove.com/blog/snow-removal-cost/",
+     "publisher": "Lawn Love",
+     "says": "Snow removal contracts last the entire snowy season, usually November through March.",
+     "page_date": "2026-10-05",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Selling window is a judgment call."
+  }
+ ],
+ "default_costs": {
+  "perJob": 4,
+  "hourly": 25,
+  "monthlyFixed": 150,
+  "basis": "Defaults when you leave them empty, all judgment calls: about $4 of gas and string per mow, $25 an hour for your time, $150 a month fixed (insurance, phone, upkeep). Use your own numbers."
+ },
+ "partners": [
+  {
+   "id": "property_managers",
+   "label": "Property managers",
+   "one": "property management company",
+   "search": {
+    "words": "property management companies",
+    "osm": [
+     "office=property_management"
+    ]
+   },
+   "their_customers": "owners",
+   "why": "need lawns kept up and walks cleared between tenants",
+   "ask": "mow one of your vacant properties as a trial",
+   "give": "send a photo after every visit for your file",
+   "weight": 2
+  },
+  {
+   "id": "hoas",
+   "label": "HOAs and community managers",
+   "one": "HOA management company",
+   "search": {
+    "words": "HOA management company",
+    "osm": [
+     "office=association"
+    ]
+   },
+   "their_customers": "homeowners",
+   "why": "get letters about long grass and icy walks",
+   "ask": "leave my cards for homeowners who ask for a lawn or snow service",
+   "give": "give your homeowners my founding price",
+   "weight": 2
+  },
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "sellers",
+   "why": "need curb appeal before listing photos",
+   "ask": "leave my cards for sellers getting ready to list",
+   "give": "tidy up your next listing yard at my founding price",
+   "weight": 1
+  },
+  {
+   "id": "garden_centers",
+   "label": "Garden centers and hardware stores",
+   "one": "garden center",
+   "search": {
+    "words": "garden centers",
+    "osm": [
+     "shop=garden_centre",
+     "shop=hardware"
+    ]
+   },
+   "their_customers": "customers",
+   "why": "ask who can do the work for them",
+   "ask": "pin my card on your board",
+   "give": "point my customers to you for plants and supplies",
+   "weight": 1
+  }
+ ],
+ "lead_offers": [
+  {
+   "id": "snow",
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "slow": true,
+   "package": "snow_season",
+   "label": "Snow season contract",
+   "one": "snow season contract",
+   "many": "snow season contracts",
+   "follow_on": {
+    "package": "mow",
+    "plan": "weekly",
+    "say": "mowing every week"
+   },
+   "partners": [
+    "property_managers",
+    "hoas",
+    "realtors"
+   ]
+  },
+  {
+   "id": "spring_book",
+   "months": [
+    3
+   ],
+   "slow": true,
+   "package": "cleanup",
+   "label": "Spring cleanup, booked now",
+   "one": "spring cleanup",
+   "many": "spring cleanups",
+   "follow_on": {
+    "package": "mow",
+    "plan": "weekly",
+    "say": "mowing every week"
+   }
+  },
+  {
+   "id": "fall",
+   "months": [
+    9,
+    10,
+    11
+   ],
+   "package": "leaves",
+   "label": "Fall leaf cleanup",
+   "one": "fall leaf cleanup",
+   "many": "fall leaf cleanups",
+   "follow_on": {
+    "package": "snow_season",
+    "say": "a snow season contract",
+    "cold": true,
+    "alt": {
+     "package": "mow",
+     "plan": "weekly",
+     "say": "mowing every week"
+    }
+   }
+  },
+  {
+   "id": "spring",
+   "months": [
+    3,
+    4,
+    5
+   ],
+   "package": "cleanup",
+   "label": "Spring yard cleanup",
+   "one": "spring cleanup",
+   "many": "spring cleanups",
+   "follow_on": {
+    "package": "mow",
+    "plan": "weekly",
+    "say": "mowing every week"
+   }
+  },
+  {
+   "id": "main",
+   "package": "mow",
+   "label": "Weekly mowing",
+   "one": "first mow",
+   "many": "first mows",
+   "follow_on": {
+    "package": "mow",
+    "plan": "weekly",
+    "say": "mowing every week"
+   }
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.35,
+   "label": "Founding price",
+   "ask": "Permission to post before and after photos of the yard (no house numbers) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.15,
+   "label": "Early price",
+   "ask": "Same work, smaller discount, while you fill one street at a time."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once your weekly route is full."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "cleanup",
+   "label": "Spring or fall cleanup, founding price",
+   "note": "Gets you in the yard; sell the weekly plan while you are there."
+  },
+  "core": {
+   "package": "mow",
+   "note": "Priced by yard size."
+  },
+  "recurring": {
+   "package": "mow",
+   "plan": "weekly",
+   "note": "Same day every week, April to October. Skip a week with a day of notice."
+  },
+  "upsell": {
+   "addon": "bushes",
+   "note": "Offer it on the second visit, when you have seen the yard."
+  },
+  "downsell": {
+   "package": "mow",
+   "plan": "biweekly",
+   "note": "For people who say weekly is too much."
+  }
+ },
+ "offer": {
+  "who": "Homeowners who want a neat yard without giving up their Saturdays, starting on your own street.",
+  "outcome": "A yard mowed, trimmed and edged on the same day every week, and a clear driveway after it snows.",
+  "promise": "Miss a spot or a visit? Tell me and I come back within 2 days to fix it, free.",
+  "names": [
+   "Same Day Every Week Mowing",
+   "Neat Yard Plan",
+   "Four Season Yard Plan",
+   "Clear Driveway Plan"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Want one, or know a neighbor who would?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. I'm doing 3 {lead_many} at {founding} for a {ref} so I can get before and after photos. Want a spot, or know someone who might?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Interested, or know someone?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one neighbor who might want it? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If a neighbor comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. {plan} Bigger yards are a bit more. Want an exact quote? Send me your address and I'll take a look from the street.",
+   "not_now": "No problem! Can I check back before the season changes? And if a neighbor needs help with the yard, I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I mow, trim and edge, I blow the clippings off your walks, and if I miss a spot I come back within 2 days and fix it free.",
+   "covered": "Good to hear you're set! If they ever miss a week or you want a second quote next season, I'm happy to help. Mind if I check back in the spring?",
+   "yes": "Great! To get you on the schedule I just need the address, any gate code, and pets I should know about. I'll take a look from the street and confirm the price. What day works for the first visit?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}.{plan} {promise} Reply with a day that works and I'll put you on my route.",
+  "plan_terms": "Skip a week with a day of notice. No contract.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for having me today! I'll send your before and after photos tonight. {promise}",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+   "plan": "Hi {customer}, want me to keep it this way? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+   "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor could use the same, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. It's been a while since your {job}. Want me to save you a spot in the next couple of weeks?",
+   "checkin_days": 30,
+   "card_thanks": "Thank you for having me!",
+   "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "yard up to 1/4 acre",
+  "size_factor": "lot",
+  "fields": {
+   "service": {
+    "type": "string",
+    "title": "What they want",
+    "use": "package",
+    "map": {
+     "Mowing": "mow",
+     "Yard cleanup": "cleanup",
+     "Leaf cleanup": "leaves",
+     "Aeration": "aeration",
+     "Snow clearing visit": "snow",
+     "Snow season contract": "snow_season"
+    },
+    "default": "Mowing"
+   },
+   "lot": {
+    "type": "string",
+    "title": "Yard size",
+    "use": "factor:lot",
+    "map": {
+     "Up to 1/4 acre": "q1",
+     "1/4 to 1/2 acre": "q2",
+     "1/2 to 1 acre": "q3",
+     "Over 1 acre": "q4"
+    }
+   },
+   "sqft": {
+    "type": "string",
+    "title": "Lot square feet (optional)",
+    "maxLength": 7,
+    "description": "From the county map, if you have it"
+   },
+   "grass": {
+    "type": "string",
+    "title": "Grass height",
+    "use": "factor:grass",
+    "map": {
+     "Regular height": "normal",
+     "Overgrown, over 12 inches": "long"
+    },
+    "default": "Regular height"
+   },
+   "driveway": {
+    "type": "string",
+    "title": "Driveway (snow)",
+    "use": "factor:driveway",
+    "map": {
+     "1 to 2 car": "c1",
+     "2 to 3 car": "c2",
+     "3 car or long": "c3"
+    },
+    "default": "1 to 2 car"
+   },
+   "frequency": {
+    "type": "string",
+    "title": "How often",
+    "use": "plan",
+    "map": {
+     "One time": null,
+     "Every week": "weekly",
+     "Every 2 weeks": "biweekly"
+    },
+    "default": "One time"
+   },
+   "addons": {
+    "type": "string",
+    "title": "Add-ons (optional)",
+    "use": "addons",
+    "maxLength": 200,
+    "description": "Bush trimming, Salt walks and steps",
+    "map": {
+     "Bush trimming": "bushes",
+     "Salt walks and steps": "salt"
+    }
+   }
+  },
+  "derive": [
+   {
+    "factor": "lot",
+    "from": [
+     "sqft"
+    ]
+   }
+  ],
+  "advice": [
+   {
+    "when": {
+     "grass": [
+      "long"
+     ]
+    },
+    "say": "Overgrown lawns: charge the first cut at the long grass price, then the weekly price once it is back under control."
+   },
+   {
+    "when": {
+     "frequency": [
+      "weekly",
+      "biweekly"
+     ]
+    },
+    "say": "Put them on the same day as the other yards on their street. Same street first keeps drive time down."
+   },
+   {
+    "when": {
+     "service": [
+      "snow_season"
+     ]
+    },
+    "say": "Write the trigger depth in the contract (for example 2 inches) and the months it covers."
+   }
+  ]
+ },
+ "specials": [
+  "same_street",
+  "season_plan"
+ ],
+ "won": {
+  "needs": "the address, any gate code, pets, and where you want clippings to go",
+  "prep_items": [
+   "pick up toys, hoses and dog waste from the lawn",
+   "unlock the gate or send me the code",
+   "tell me about sprinkler heads, soft spots or new seed"
+  ],
+  "bring": [
+   "Mower, trimmer, edger and blower, fueled or charged",
+   "Spare trimmer line and a sharp blade",
+   "Rake, tarp and yard bags",
+   "Safety glasses and ear protection",
+   "Water and gloves"
+  ],
+  "photos": [
+   "The front lawn from the street",
+   "Driveway and walk edges, close up",
+   "The back lawn from the patio",
+   "Anything broken or bare before you start"
+  ],
+  "done": "your yard is all done"
+ },
+ "proof": {
+  "what": "Overgrown yard, first cut and edge",
+  "result": "Front and back mowed, edged and blown in 90 minutes",
+  "thing": "yard",
+  "private": "No faces or house numbers."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "Free edging on {street}",
+   "side": [
+    "Walks and curb edged",
+    "About 15 minutes",
+    "First 3 homes"
+   ],
+   "includes": [
+    "Sidewalk and driveway edges cut clean",
+    "Clippings blown off the concrete",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address or scan the code",
+    "I edge while I'm on {street}{day_part}",
+    "You see the difference from the curb"
+   ],
+   "line": "I'm mowing a yard on {street}{day_part}, so the first 3 neighbors who text me get their walks and curb edged free: about 15 minutes, no cost and no catch.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm mowing on {street}{day_part}, so the first 3 neighbors who text me get their walks and curb edged free (about 15 minutes). No cost and no catch. {phone_line}",
+   "minutes": 15,
+   "limit": 3,
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+    "Edge the first 3 homes that text, and take a photo from the curb before and after.",
+    "Hand them the card with your price before you leave.",
+    "Text a thank-you the same day with the photo, then one follow-up in 3 days."
+   ]
+  },
+  "partners": {
+   "property_managers": {
+    "demo": "one vacant property mowed, trimmed and edged free, with a photo for your file",
+    "eyebrow": "For {biz} owners",
+    "headline": "Vacant lawns kept up, a photo every visit",
+    "package": "mow",
+    "who": "First 3 properties",
+    "card_line": "For properties {biz} manages: book through your property manager.",
+    "words": [
+     "property management",
+     "management",
+     "leasing",
+     "rentals",
+     "residential"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Mow the sample property within the week and take a photo from the street.",
+     "Send the photo the same day for their file.",
+     "Ask once: could you take their vacant properties on a weekly route?"
+    ]
+   },
+   "hoas": {
+    "demo": "one common-area strip mowed and edged free, on a day your manager picks",
+    "eyebrow": "For {biz} homeowners",
+    "headline": "Lawns kept to the HOA standard",
+    "package": "mow",
+    "who": "First 3 homeowners",
+    "card_line": "Live in a community {biz} manages? Mention them when you book.",
+    "words": [
+     "hoa",
+     "association",
+     "community",
+     "homeowners",
+     "owners association"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Do the sample strip only with the manager's yes and on the day they pick.",
+     "Send before and after photos the same day.",
+     "Ask once: would they share your card with homeowners who get a lawn letter?"
+    ]
+   },
+   "realtors": {
+    "demo": "your next listing's front yard mowed, edged and blown free, before the photos",
+    "eyebrow": "For {biz} sellers",
+    "headline": "Curb appeal before the listing photos",
+    "package": "cleanup",
+    "who": "First 3 sellers",
+    "card_line": "Listing with {biz}? Mention them when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "keller",
+     "coldwell",
+     "remax",
+     "re/max",
+     "century 21",
+     "compass",
+     "exp realty",
+     "homes"
+    ],
+    "steps": [
+     "Send the message and the card today, with two days you can do it.",
+     "Do the front yard before their listing photos. Take a photo from the street before and after.",
+     "Send the photos to the agent the same day.",
+     "Ask once: would they leave your cards with sellers getting ready to list?"
+    ]
+   },
+   "garden_centers": {
+    "demo": "your store's front beds and walks edged and blown free",
+    "eyebrow": "For {biz} customers",
+    "headline": "The yard work your customers ask about",
+    "package": "cleanup",
+    "who": "First 3 customers",
+    "card_line": "Shop at {biz}? Mention them when you book.",
+    "words": [
+     "garden",
+     "nursery",
+     "hardware",
+     "feed",
+     "landscape supply",
+     "ace hardware",
+     "true value"
+    ],
+    "steps": [
+     "Walk in with the card and ask for the manager.",
+     "Edge and blow their front beds and walks on a quiet morning.",
+     "Ask to pin your card on their board.",
+     "Point your customers to them for plants and supplies, and tell them you did."
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call, not a sourced fact",
+  "package": "mow",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "Same day as your neighbor",
+  "includes": [
+   "Mowed at the right height",
+   "Trimmed and edged",
+   "Clippings blown off the concrete"
+  ],
+  "how": [
+   "Text me your address or scan the code",
+   "I'm on {street}{day_part}",
+   "Same day every week"
+  ],
+  "customer_ask": "Hi {customer}, thanks again! I'm adding a couple more yards on {street}{day_part}. If a neighbor ever asks who does your lawn, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day before you mow there. On the door, never in or on a mailbox.",
+   "While you mow, say hi to anyone outside. Keep it short, and never say which neighbor: \"I do a lawn here on your street.\"",
+   "Text your customer the intro ask after the visit, never before.",
+   "Mark each home on the sheet. A neighbor who books goes on the same day as your customer."
+  ],
+  "why": "Yards on one street mean less driving and unloading between jobs, so you can give neighbors a better price on the same day.",
+  "plan": "weekly"
+ },
+ "season_plan": {
+  "who": {
+   "snow": "Lawn customers, then property managers and HOAs",
+   "spring_book": "Last year's customers and everyone who asked in the fall",
+   "fall": "Every mowing customer, then their neighbors",
+   "spring": "Neighbors of your customers, then realtors",
+   "main": "People you know, neighbors of each customer, property managers"
+  },
+  "do": {
+   "snow": "Text every lawn customer about the snow contract, with the trigger depth and clear-by time.",
+   "spring_book": "Book spring cleanups now with a small deposit, earliest dates first.",
+   "fall": "Offer the leaf cleanup to every mowing customer, and the snow contract where winters are cold.",
+   "spring": "Door-hang the streets where you already mow, with a neighbor price.",
+   "main": "Fill each mowing day on one or two streets before you add a new area."
+  },
+  "plans": [
+   "Weekly mowing plan, April to October: the steady part of the year.",
+   "Snow contract where winters are cold: same truck, same customers.",
+   "Spring and fall cleanups: the founding offer that gets you into a yard."
+  ]
+ }
+}

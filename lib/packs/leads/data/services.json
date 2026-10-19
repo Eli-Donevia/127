@@ -1,0 +1,1125 @@
+{
+  "checked": "2026-10-19",
+  "source": "Funnels v2 First 25 engine, read only: v2/funnels/first25-mapping.md and v2/funnels/code/public/funnels/first25-data.js (copied 2026-10-19). From there: services video, social, web, ai, email, photo and other (labels, words, gap weights, fit points, offer, walk-in, follow-up and subject lines, buyers), the free-sample steps (specs) and hooks, the 7-day plan and the 3-question picker. The gap ids, detection rules and member-facing gap wording live in packs/_kit/leads.js (same source); the 7 replies live in packs/_kit/outreach.js. New in the library: services frontdesk, reviews, google, seo, ads, copy, brand, booking, bookkeeping and cleaning, every why and angle line, partners, and the gaps after no_facebook in the kit.",
+  "how_scoring_works": "Score = the points of every gap found that this service fixes, plus its fit points, kept between 1 and 99. Gaps are facts read off the business's own website (or that it has no website); listing facts (review count, rating) only count for scoring and never appear in messages or exports. Sort: score, then review count, then name.",
+  "services": {
+    "web": {
+      "label": "Websites",
+      "sell": "a new website",
+      "verb": "build websites",
+      "why": "People look at the website before they call. A broken, slow or dated one makes the business look closed.",
+      "angle": "Open on the one thing that is broken on their site, then offer a free mockup they can keep.",
+      "offer": "I'd like to make you a free mockup of a new homepage, and you keep it either way.",
+      "walkin": "Could I send you a free mockup of a new homepage for {biz}? Takes me a day.",
+      "follow1": "I made the homepage mockup. Here it is: [paste your link]. If you'd like it live, I can have it up in a week.",
+      "subject": "A free homepage mockup for {biz}",
+      "sample": "web",
+      "buyers": [
+        "contractors",
+        "auto",
+        "salons",
+        "restaurants",
+        "law",
+        "dentists",
+        "chiro"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "insurance"
+      ],
+      "gaps": {
+        "no_site": 44,
+        "site_down": 38,
+        "parked": 34,
+        "broken_link": 24,
+        "no_https": 20,
+        "no_mobile": 20,
+        "stale_footer": 14,
+        "no_booking": 8,
+        "no_form": 8,
+        "no_description": 5
+      },
+      "fit": {
+        "busy": 10,
+        "rated": 4,
+        "independent": 4
+      },
+      "aliases": [
+        "website",
+        "websites",
+        "web design",
+        "web designer",
+        "website design",
+        "web development",
+        "web developer",
+        "landing pages",
+        "wordpress",
+        "webflow",
+        "squarespace",
+        "wix"
+      ]
+    },
+    "social": {
+      "label": "Social media",
+      "sell": "social media",
+      "verb": "run social media",
+      "why": "Customers check Instagram before they visit. No account, or no link to it, looks like nobody is home.",
+      "angle": "Name the missing link or account, then offer 3 free posts in their colors.",
+      "offer": "I'd like to write and design your next 3 posts for free, so you can see the style first.",
+      "walkin": "Could I take a few photos this week and turn them into 3 free posts for you?",
+      "follow1": "I made the 3 posts. Here they are: [paste your link]. Use them either way. If you want more like this every week, let me know.",
+      "subject": "3 free posts for {biz}?",
+      "sample": "social",
+      "buyers": [
+        "restaurants",
+        "boutiques",
+        "salons",
+        "gyms",
+        "yoga",
+        "medspas"
+      ],
+      "partners": [
+        "photographers",
+        "venues",
+        "florists"
+      ],
+      "gaps": {
+        "no_instagram": 24,
+        "no_social": 16,
+        "no_tiktok": 14,
+        "no_facebook": 8,
+        "no_pixel": 8,
+        "no_video": 10,
+        "no_site": 12,
+        "site_down": 6,
+        "few_reviews": 8,
+        "stale_footer": 6,
+        "few_images": 6
+      },
+      "fit": {
+        "ads": 8,
+        "busy": 8,
+        "booking": 4,
+        "independent": 4
+      },
+      "aliases": [
+        "social",
+        "social media",
+        "social media management",
+        "smm",
+        "instagram",
+        "instagram management",
+        "content creation",
+        "posts",
+        "community management"
+      ]
+    },
+    "video": {
+      "label": "Short videos",
+      "sell": "short-form video",
+      "verb": "make short videos",
+      "why": "A 15-second clip shows the place better than any photo, and most local businesses have none on their site.",
+      "angle": "Say you couldn't find a video of their work, then offer one free reel from clips they already have.",
+      "offer": "I'd like to make you one free 15-second reel from clips you already have.",
+      "walkin": "Could I film 2 minutes of {film} this week and send you a free edit?",
+      "follow1": "I went ahead and made the sample reel. Here it is: [paste your link]. If you like it, I can make 4 to 8 a month for you.",
+      "subject": "A free reel for {biz}?",
+      "sample": "video",
+      "buyers": [
+        "gyms",
+        "yoga",
+        "restaurants",
+        "salons",
+        "medspas",
+        "realtors"
+      ],
+      "partners": [
+        "photographers",
+        "venues",
+        "realtors"
+      ],
+      "gaps": {
+        "no_video": 30,
+        "no_tiktok": 16,
+        "no_instagram": 10,
+        "no_youtube": 5,
+        "no_site": 14,
+        "site_down": 8,
+        "few_reviews": 6,
+        "stale_footer": 5,
+        "few_images": 6
+      },
+      "fit": {
+        "ads": 10,
+        "booking": 6,
+        "busy": 6,
+        "independent": 4
+      },
+      "aliases": [
+        "video",
+        "videos",
+        "short videos",
+        "short video",
+        "short-form video",
+        "short form video",
+        "reels",
+        "video editing",
+        "video editor",
+        "videography",
+        "video production",
+        "tiktok videos"
+      ]
+    },
+    "photo": {
+      "label": "Photography",
+      "sell": "photography",
+      "verb": "take photos",
+      "why": "Most local sites use 3 or 4 old photos. New ones show what a visit is like today.",
+      "angle": "Point at how few photos are on their site, then offer 3 free shots of their best work.",
+      "offer": "I'd like to shoot 3 free photos of your {what} so you can see the style.",
+      "walkin": "Could I take 10 photos of your {what} this week and send you the best 3 for free?",
+      "follow1": "Here are your 3 photos: [paste your link]. They are yours to use. If you want a full set every month, let me know.",
+      "subject": "Free photos for {biz}?",
+      "sample": "photo",
+      "buyers": [
+        "restaurants",
+        "realtors",
+        "boutiques",
+        "gyms",
+        "salons",
+        "medspas"
+      ],
+      "partners": [
+        "venues",
+        "florists",
+        "realtors"
+      ],
+      "gaps": {
+        "few_images": 26,
+        "no_instagram": 14,
+        "no_site": 14,
+        "site_down": 6,
+        "few_reviews": 8,
+        "stale_footer": 8,
+        "no_video": 4,
+        "missing_alt": 4
+      },
+      "fit": {
+        "busy": 10,
+        "rated": 4,
+        "ads": 6,
+        "independent": 4
+      },
+      "aliases": [
+        "photo",
+        "photos",
+        "photography",
+        "photographer",
+        "product photography",
+        "food photography",
+        "headshots"
+      ]
+    },
+    "email": {
+      "label": "Email marketing",
+      "sell": "email marketing",
+      "verb": "write email campaigns",
+      "why": "Customers who visited once are the easiest to bring back, and without a signup there's no way to reach them.",
+      "angle": "Say there's no way to join their list, then offer to write their first 3 emails free.",
+      "offer": "I'd like to write your first 3 emails for free, so you can see what it would look like.",
+      "walkin": "Could I write your first 3 customer emails for free and show you how to send them?",
+      "follow1": "I wrote the 3 emails. Here they are: [paste your link]. If you want, I can set up the signup form and send them for you.",
+      "subject": "3 free emails for {biz}?",
+      "sample": "email",
+      "buyers": [
+        "boutiques",
+        "restaurants",
+        "gyms",
+        "yoga",
+        "salons",
+        "medspas"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "boutiques"
+      ],
+      "gaps": {
+        "no_signup": 34,
+        "no_pixel": 8,
+        "no_site": 14,
+        "site_down": 6,
+        "few_reviews": 6,
+        "stale_footer": 6,
+        "no_instagram": 6
+      },
+      "fit": {
+        "busy": 10,
+        "ads": 8,
+        "booking": 4,
+        "independent": 4,
+        "sells_online": 6
+      },
+      "aliases": [
+        "email",
+        "emails",
+        "email marketing",
+        "newsletter",
+        "newsletters",
+        "email campaigns"
+      ]
+    },
+    "ai": {
+      "label": "AI booking and follow-up",
+      "sell": "AI booking and follow-up",
+      "verb": "set up AI booking and follow-up",
+      "why": "Questions that come in after hours go unanswered, and every booking still needs a phone call.",
+      "angle": "Name the missing booking or chat, then offer a free demo built from their own website.",
+      "offer": "I'd like to build you a free demo that answers booking questions for {biz}, so you can try it before you decide anything.",
+      "walkin": "Could I build you a free demo that answers your booking questions, using what is already on your website?",
+      "follow1": "I built the demo. Here it is answering real questions from your website: [paste your link]. Want me to set it up for real?",
+      "subject": "A free booking demo for {biz}",
+      "sample": "ai",
+      "buyers": [
+        "dentists",
+        "chiro",
+        "medspas",
+        "salons",
+        "contractors",
+        "law"
+      ],
+      "partners": [
+        "accountants",
+        "insurance",
+        "law"
+      ],
+      "gaps": {
+        "no_booking": 30,
+        "no_chat": 16,
+        "few_reviews": 14,
+        "no_form": 10,
+        "no_site": 10,
+        "site_down": 6
+      },
+      "fit": {
+        "busy": 10,
+        "ads": 6,
+        "independent": 4
+      },
+      "aliases": [
+        "ai",
+        "ai booking",
+        "ai automation",
+        "automation",
+        "automations",
+        "chatbot",
+        "chat bot",
+        "ai chatbot",
+        "ai receptionist",
+        "ai agent",
+        "ai assistant",
+        "ai front desk"
+      ]
+    },
+    "frontdesk": {
+      "label": "Missed-call text back",
+      "sell": "missed-call text back",
+      "verb": "set up missed-call text back and online booking",
+      "why": "A caller who gets voicemail often calls the next business on the list. A text back keeps the conversation going.",
+      "angle": "Name the missing booking, chat or tap-to-call, then offer the text their business would send after a missed call, free.",
+      "offer": "I'd like to write the text {biz} would send when you miss a call, free, so you can see how it works.",
+      "walkin": "Could I write the text your business sends back when you miss a call? It's free and takes me 10 minutes.",
+      "follow1": "Here's the missed-call text I wrote for you: [paste your link]. If you want it running on your number this week, I can set it up.",
+      "subject": "When {biz} misses a call",
+      "sample": "frontdesk",
+      "buyers": [
+        "contractors",
+        "plumbers",
+        "hvac",
+        "roofers",
+        "electricians",
+        "auto",
+        "dentists"
+      ],
+      "partners": [
+        "accountants",
+        "insurance",
+        "realtors"
+      ],
+      "gaps": {
+        "no_booking": 26,
+        "no_chat": 18,
+        "no_tap_to_call": 12,
+        "no_form": 10,
+        "no_email": 10,
+        "no_site": 8,
+        "site_down": 6,
+        "no_hours": 4
+      },
+      "fit": {
+        "busy": 10,
+        "ads": 6,
+        "independent": 4,
+        "has_email": 2
+      },
+      "aliases": [
+        "missed call",
+        "missed calls",
+        "missed-call text back",
+        "missed call text back",
+        "text back",
+        "front desk",
+        "answering service",
+        "virtual receptionist",
+        "call answering",
+        "receptionist"
+      ]
+    },
+    "reviews": {
+      "label": "Reviews and reputation",
+      "sell": "review requests",
+      "verb": "set up review requests",
+      "why": "People read reviews before they pick a business, and happy customers rarely leave one unless asked.",
+      "angle": "Say you couldn't find reviews on their site, then offer a free review card for the counter.",
+      "offer": "I'd like to make you a free review card for your counter, with a QR code that opens your Google listing.",
+      "walkin": "Could I make you a free card for the counter that asks every customer for an honest review? I'll drop it off this week.",
+      "follow1": "Here's the review card I made for {biz}: [paste your link]. Print it as is. If you want the follow-up texts too, I can set those up.",
+      "subject": "A free review card for {biz}",
+      "sample": "reviews",
+      "buyers": [
+        "dentists",
+        "chiro",
+        "salons",
+        "auto",
+        "contractors",
+        "restaurants"
+      ],
+      "partners": [
+        "accountants",
+        "insurance",
+        "photographers"
+      ],
+      "gaps": {
+        "few_reviews": 30,
+        "no_reviews_shown": 24,
+        "low_rating": 22,
+        "no_site": 6,
+        "site_down": 4,
+        "stale_footer": 4
+      },
+      "fit": {
+        "booking": 6,
+        "independent": 6,
+        "has_email": 4,
+        "owner_named": 4
+      },
+      "aliases": [
+        "reviews",
+        "review",
+        "reputation",
+        "reputation management",
+        "google reviews",
+        "review management",
+        "review requests"
+      ]
+    },
+    "google": {
+      "label": "Google Business Profile",
+      "sell": "Google Business Profile setup",
+      "verb": "set up and look after Google Business Profiles",
+      "why": "When someone searches for a business, its Google profile is often the first thing they see.",
+      "angle": "Name the missing hours, description or website, then offer a free list of the 5 fixes you'd make first.",
+      "offer": "I'd like to check your Google profile for free and send you the 5 fixes I'd make first.",
+      "walkin": "Could I check your Google profile for free and leave you a list of the 5 fixes I'd make?",
+      "follow1": "Here are the 5 fixes for your Google profile: [paste your link]. You can do them yourself, or I can do them this week.",
+      "subject": "5 quick fixes for {biz} on Google",
+      "sample": "google",
+      "buyers": [
+        "restaurants",
+        "auto",
+        "contractors",
+        "salons",
+        "dentists",
+        "chiro"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "insurance"
+      ],
+      "gaps": {
+        "no_site": 20,
+        "few_reviews": 14,
+        "no_hours": 14,
+        "no_schema": 10,
+        "no_description": 10,
+        "low_rating": 8,
+        "no_map": 6,
+        "stale_footer": 4
+      },
+      "fit": {
+        "independent": 6,
+        "busy": 4,
+        "owner_named": 4
+      },
+      "aliases": [
+        "google",
+        "google business profile",
+        "google profile",
+        "gbp",
+        "google my business",
+        "gmb",
+        "google maps",
+        "listings",
+        "local listings"
+      ]
+    },
+    "seo": {
+      "label": "Local SEO",
+      "sell": "local SEO",
+      "verb": "help local businesses show up on Google",
+      "why": "Google reads the page itself. Missing titles, descriptions and business details make it harder to rank for local searches.",
+      "angle": "Name one technical gap you found, then offer a free one-page check with the 5 fixes.",
+      "offer": "I'd like to send you a free one-page check of your homepage, with the 5 fixes I'd make first.",
+      "walkin": "Could I send you a free one-page check of your website, with the 5 fixes I'd make first?",
+      "follow1": "Here's the one-page check of your homepage: [paste your link]. The first 2 fixes take under an hour. Want me to do them?",
+      "subject": "5 fixes for {biz} on Google",
+      "sample": "seo",
+      "buyers": [
+        "contractors",
+        "dentists",
+        "law",
+        "chiro",
+        "auto",
+        "medspas"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "law"
+      ],
+      "gaps": {
+        "no_description": 18,
+        "no_schema": 16,
+        "no_h1": 14,
+        "thin_site": 14,
+        "no_mobile": 14,
+        "missing_alt": 12,
+        "no_https": 12,
+        "broken_link": 10,
+        "no_hours": 6,
+        "no_map": 6,
+        "stale_footer": 4
+      },
+      "fit": {
+        "busy": 6,
+        "rated": 4,
+        "independent": 4
+      },
+      "aliases": [
+        "seo",
+        "local seo",
+        "search engine optimization"
+      ]
+    },
+    "ads": {
+      "label": "Paid ads (Meta and Google)",
+      "sell": "ad management",
+      "verb": "run Facebook, Instagram and Google ads",
+      "why": "Without a pixel and a clear offer, ad money can't be measured or aimed at people who already visited.",
+      "angle": "Name the missing pixel or offer, then offer 3 free ad drafts for their best service.",
+      "offer": "I'd like to write you 3 free ad drafts for your best offer, so you can see the angle first.",
+      "walkin": "Could I write you 3 free ad drafts for your best service? You keep them either way.",
+      "follow1": "Here are the 3 ad drafts: [paste your link]. If you want to try one, I can set it up with a small test budget you choose.",
+      "subject": "3 free ad drafts for {biz}",
+      "sample": "ads",
+      "buyers": [
+        "medspas",
+        "dentists",
+        "contractors",
+        "gyms",
+        "restaurants",
+        "boutiques"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "realtors"
+      ],
+      "gaps": {
+        "no_pixel": 26,
+        "no_offer": 16,
+        "no_analytics": 14,
+        "no_booking": 8,
+        "no_form": 8,
+        "no_prices": 4
+      },
+      "fit": {
+        "booking": 8,
+        "busy": 8,
+        "sells_online": 8,
+        "ads": 6,
+        "independent": 4
+      },
+      "aliases": [
+        "ads",
+        "paid ads",
+        "facebook ads",
+        "meta ads",
+        "instagram ads",
+        "google ads",
+        "ppc",
+        "paid social",
+        "advertising",
+        "ad management",
+        "media buying"
+      ]
+    },
+    "copy": {
+      "label": "Website copywriting",
+      "sell": "website copy",
+      "verb": "write website copy",
+      "why": "Visitors decide in seconds. A homepage with few words, no offer and no prices leaves them guessing.",
+      "angle": "Name the missing offer or prices, then offer to rewrite their headline and first section free.",
+      "offer": "I'd like to rewrite your homepage headline and first section for free, so you can see the difference.",
+      "walkin": "Could I rewrite the top of your homepage for free? You'd have it tomorrow.",
+      "follow1": "Here's the rewrite of your homepage top: [paste your link]. Paste it in as is, or I can do the rest of the page.",
+      "subject": "A new homepage headline for {biz}",
+      "sample": "copy",
+      "buyers": [
+        "contractors",
+        "dentists",
+        "law",
+        "medspas",
+        "chiro",
+        "accountants"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "law"
+      ],
+      "gaps": {
+        "thin_site": 20,
+        "no_offer": 18,
+        "no_prices": 10,
+        "no_description": 10,
+        "no_h1": 10,
+        "no_reviews_shown": 8,
+        "stale_footer": 4
+      },
+      "fit": {
+        "busy": 6,
+        "rated": 4,
+        "independent": 4
+      },
+      "aliases": [
+        "copy",
+        "copywriting",
+        "copywriter",
+        "website copy",
+        "content writing",
+        "writing"
+      ]
+    },
+    "brand": {
+      "label": "Logo and branding",
+      "sell": "branding",
+      "verb": "design logos and brand kits",
+      "why": "A dated look makes a good business seem older than it is, and mismatched colors look careless.",
+      "angle": "Name the dated footer or thin photos, then offer a free one-page brand sheet.",
+      "offer": "I'd like to make you a free one-page brand sheet: your colors, fonts and logo use, cleaned up.",
+      "walkin": "Could I make you a free one-page brand sheet with your colors and logo, cleaned up?",
+      "follow1": "Here's your brand sheet: [paste your link]. Use it with any designer. If you want a refresh, I'd start from this.",
+      "subject": "A free brand sheet for {biz}",
+      "sample": "brand",
+      "buyers": [
+        "restaurants",
+        "boutiques",
+        "salons",
+        "contractors",
+        "cafes",
+        "bakeries"
+      ],
+      "partners": [
+        "photographers",
+        "accountants",
+        "boutiques"
+      ],
+      "gaps": {
+        "parked": 12,
+        "stale_footer": 12,
+        "few_images": 10,
+        "no_social": 10,
+        "no_site": 10,
+        "no_instagram": 8,
+        "no_mobile": 6,
+        "no_https": 4
+      },
+      "fit": {
+        "busy": 6,
+        "independent": 6,
+        "rated": 4
+      },
+      "aliases": [
+        "brand",
+        "branding",
+        "logo",
+        "logos",
+        "logo design",
+        "graphic design",
+        "design",
+        "brand kit",
+        "brand identity"
+      ]
+    },
+    "booking": {
+      "label": "Online booking setup",
+      "sell": "online booking",
+      "verb": "set up online booking",
+      "why": "Many customers would rather book online than call, and a booking page works when the front desk is busy.",
+      "angle": "Say you couldn't find a way to book online, then offer a free demo booking page with their services.",
+      "offer": "I'd like to set up a free demo booking page with your services, so you can click through it first.",
+      "walkin": "Could I set up a free demo booking page with your services? You can try it on your phone first.",
+      "follow1": "Here's the demo booking page: [paste your link]. Try a test booking. If you like it, I can connect it to your calendar.",
+      "subject": "A free booking page for {biz}",
+      "sample": "booking",
+      "buyers": [
+        "salons",
+        "barbers",
+        "spas",
+        "chiro",
+        "groomers",
+        "auto"
+      ],
+      "partners": [
+        "accountants",
+        "insurance",
+        "photographers"
+      ],
+      "gaps": {
+        "no_booking": 36,
+        "no_form": 10,
+        "no_tap_to_call": 8,
+        "no_chat": 6,
+        "no_hours": 6
+      },
+      "fit": {
+        "busy": 10,
+        "independent": 4,
+        "owner_named": 2
+      },
+      "aliases": [
+        "booking",
+        "online booking",
+        "scheduling",
+        "appointment booking",
+        "booking system",
+        "booking setup"
+      ]
+    },
+    "bookkeeping": {
+      "label": "Bookkeeping",
+      "sell": "bookkeeping",
+      "verb": "do bookkeeping",
+      "why": "Busy owners fall behind on the books, and catching up at tax time costs more than staying current.",
+      "angle": "Open on something true from their site (how they take bookings or payments), then offer a free review of one month.",
+      "offer": "I'd like to do a free 30-minute review of last month's books and send you what I'd tidy first.",
+      "walkin": "Could I do a free 30-minute review of one month of your books? No obligation.",
+      "follow1": "Following up on my note. The free 30-minute review is still on the table. Want me to pick a time?",
+      "subject": "A free month-end check for {biz}",
+      "ask": "Would that be useful?",
+      "sample": "other",
+      "buyers": [
+        "contractors",
+        "restaurants",
+        "salons",
+        "auto",
+        "dentists",
+        "boutiques"
+      ],
+      "partners": [
+        "insurance",
+        "law",
+        "realtors"
+      ],
+      "positives": [
+        "has_booking",
+        "has_platform"
+      ],
+      "gaps": {},
+      "fit": {
+        "busy": 26,
+        "independent": 16,
+        "rated": 10,
+        "owner_named": 10,
+        "has_email": 6,
+        "booking": 6
+      },
+      "aliases": [
+        "bookkeeping",
+        "bookkeeper",
+        "accounting",
+        "books",
+        "quickbooks",
+        "payroll"
+      ]
+    },
+    "cleaning": {
+      "label": "Office and commercial cleaning",
+      "sell": "commercial cleaning",
+      "verb": "clean offices and shops after hours",
+      "why": "A clean front room is the first thing customers notice, and owners rarely have time to keep it up.",
+      "angle": "Open on their hours (you work after they close), then offer one free after-hours clean.",
+      "offer": "I'd like to do one free after-hours clean of your front area, so you can see the quality first.",
+      "walkin": "Could I do one free after-hours clean of your front area this week, so you can see the quality?",
+      "follow1": "Following up on my note. The free after-hours clean is still yours. Want me to pick a night?",
+      "subject": "A free after-hours clean for {biz}",
+      "ask": "Would that be useful?",
+      "sample": "other",
+      "buyers": [
+        "dentists",
+        "law",
+        "accountants",
+        "salons",
+        "gyms",
+        "realtors"
+      ],
+      "partners": [
+        "realtors",
+        "insurance",
+        "venues"
+      ],
+      "positives": [
+        "has_hours"
+      ],
+      "gaps": {},
+      "fit": {
+        "busy": 20,
+        "independent": 16,
+        "rated": 10,
+        "owner_named": 8,
+        "has_email": 6
+      },
+      "aliases": [
+        "cleaning",
+        "commercial cleaning",
+        "office cleaning",
+        "janitorial",
+        "janitorial services",
+        "cleaning service",
+        "cleaning services",
+        "office cleaner"
+      ]
+    },
+    "other": {
+      "label": "Something else",
+      "sell": "my service",
+      "verb": "work with local businesses",
+      "why": "A free first job lets the owner judge your work before paying anything.",
+      "angle": "Open on something true from their site, then offer a small free first job.",
+      "offer": "I'd like to show you my work with a free first job, so you can decide after.",
+      "walkin": "Could I do a small first job for free so you can see the quality?",
+      "follow1": "Following up on my note. The free first job is still on the table. Want me to pick a day?",
+      "subject": "A free first job for {biz}?",
+      "ask": "Would that be useful?",
+      "sample": "other",
+      "buyers": [
+        "restaurants",
+        "gyms",
+        "salons",
+        "contractors",
+        "auto",
+        "boutiques",
+        "dentists",
+        "realtors",
+        "law",
+        "medspas",
+        "yoga",
+        "chiro"
+      ],
+      "partners": [
+        "accountants",
+        "insurance",
+        "photographers"
+      ],
+      "gaps": {
+        "no_site": 6,
+        "site_down": 4,
+        "broken_link": 4,
+        "stale_footer": 4,
+        "no_https": 3,
+        "no_mobile": 3
+      },
+      "fit": {
+        "busy": 26,
+        "rated": 14,
+        "independent": 16
+      },
+      "aliases": []
+    }
+  },
+  "hooks": {
+    "gyms": "POV: your first class at {biz}",
+    "yoga": "60 minutes at {biz}, in 15 seconds",
+    "restaurants": "The {thing} {city} keeps coming back for",
+    "salons": "Watch this {thing} come together",
+    "medspas": "What a visit to {biz} actually looks like",
+    "dentists": "Meet the team at {biz}",
+    "chiro": "What happens in your first session at {biz}",
+    "realtors": "Inside this {city} listing in 15 seconds",
+    "contractors": "One {thing}, start to finish",
+    "auto": "Before and after, {biz}",
+    "boutiques": "New at {biz} this week",
+    "law": "Meet the team at {biz}"
+  },
+  "specs": {
+    "video": {
+      "title": "Make one free reel for {biz}.",
+      "steps": [
+        "Grab 4 to 6 clips from their public Instagram or Facebook. The edit is only for them, so never post it.",
+        "Cut a 12 to 15 second vertical edit in CapCut: a hook in the first second, a cut on every beat, big captions.",
+        "Open on this line: \"{hook}\".",
+        "End on their name and one line: \"Come try a {thing}.\"",
+        "Export at 1080x1920 and upload it as an unlisted link you can paste into your follow-up."
+      ],
+      "board": [
+        [
+          "0 to 2s",
+          "On screen: \"{hook}\""
+        ],
+        [
+          "2 to 8s",
+          "Their 3 best clips, one cut on every beat"
+        ],
+        [
+          "8 to 12s",
+          "The moment people come for: {film}"
+        ],
+        [
+          "12 to 15s",
+          "Their logo and \"Come try a {thing}.\""
+        ]
+      ]
+    },
+    "social": {
+      "title": "Write and design 3 posts for {biz}.",
+      "steps": [
+        "Scroll their last 9 posts. Note which ones got the most comments.",
+        "Write 3 posts that do more of that: one behind the scenes, one customer favorite, one reason to come in this week.",
+        "Design them in Canva in their colors, with their logo small in a corner.",
+        "Put the 3 images and the captions in one link you can paste into your follow-up."
+      ]
+    },
+    "web": {
+      "title": "Mock up a new homepage for {biz}.",
+      "steps": [
+        "Screenshot their current homepage on your phone.",
+        "Ask Claude to write a new homepage for {biz}: one headline, 3 short sections and one button that says \"Book\" or \"Get a quote\".",
+        "Build the mockup in Framer, Canva or Lovable. Keep it to one screen on a phone.",
+        "Send the before and after side by side. People buy what they can see."
+      ]
+    },
+    "ai": {
+      "title": "Build a 2-minute booking demo for {biz}.",
+      "steps": [
+        "Copy their hours, services, prices and FAQs from their website into a doc.",
+        "Paste it into Claude and ask it to answer like their front desk. Test 10 real questions, like \"Do you have anything Saturday?\"",
+        "Record a 60-second screen video of it answering 3 of them.",
+        "Send the video, not a pitch. The demo does the selling."
+      ]
+    },
+    "email": {
+      "title": "Write the first 3 emails for {biz}.",
+      "steps": [
+        "Welcome: who they are and why people come back.",
+        "Favorite: their best seller or most booked {thing}, with one photo.",
+        "Come back: one reason to visit this month.",
+        "Mock them up in a free email template and send screenshots, with the text ready to paste."
+      ]
+    },
+    "photo": {
+      "title": "Shoot 10, send 3, for {biz}.",
+      "steps": [
+        "Visit as a customer. Ask before you take a single photo.",
+        "Shoot 10 photos of their best {what} in natural light, from their customers' point of view.",
+        "Edit the best 3 on your phone. Match the colors to their sign or logo.",
+        "Send them with one line: \"These are yours to use, free.\""
+      ]
+    },
+    "frontdesk": {
+      "title": "Write the missed-call text for {biz}.",
+      "steps": [
+        "Copy their hours, services and booking link (or phone) from their website.",
+        "Write the text in under 300 characters: who it's from, that you saw the missed call, one question (\"What can we help with?\") and the booking link.",
+        "Write 3 more: after hours, a quote request, and a reply to \"How much?\" that asks one question first.",
+        "Put all 4 on one page and send the link in your follow-up."
+      ]
+    },
+    "reviews": {
+      "title": "Make a review card for {biz}.",
+      "steps": [
+        "Find their Google listing and copy its \"Write a review\" link.",
+        "Make a QR code for that link and put it on a card in their colors: \"Enjoyed your visit? A quick review helps us a lot.\"",
+        "Write the 2-line text their staff can send after a visit, with the same link.",
+        "Send a photo of the printed card. Offer to drop off 50."
+      ]
+    },
+    "google": {
+      "title": "List 5 fixes for {biz} on Google.",
+      "steps": [
+        "Search their name and city on Google Maps on your phone.",
+        "Check: hours, a description, photos from the last 3 months, their website link, and whether they answer reviews.",
+        "Write the 5 fixes in order, each in one line, starting with the one a customer would notice first.",
+        "Send the list as a short note. They can do it themselves, which is why they'll trust you."
+      ]
+    },
+    "seo": {
+      "title": "Make a one-page homepage check for {biz}.",
+      "steps": [
+        "Use the facts from this report: description, H1 headline, schema, alt text, https and phone setup.",
+        "Pick the 5 fixes that matter most and write each one as \"What we found, why it matters, how to fix it\".",
+        "Add the before and after of their Google result: their current title and description, then yours.",
+        "Send it as one page. Offer to do the first 2 fixes free."
+      ]
+    },
+    "ads": {
+      "title": "Write 3 ad drafts for {biz}.",
+      "steps": [
+        "Pick their best service from their website. Use their own words and prices if they show them.",
+        "Write 3 short ads: one about the problem their customer has, one about how easy the first visit is, one with their offer.",
+        "Mock each up on a phone-sized image in their colors.",
+        "Send all 3 with one line: \"Want me to run one as a small test?\""
+      ]
+    },
+    "copy": {
+      "title": "Rewrite the top of {biz}'s homepage.",
+      "steps": [
+        "Copy their current headline and first paragraph.",
+        "Write a new headline that says who it's for and what they get, a 2-sentence intro, and one clear button.",
+        "Put the before and after side by side on one page.",
+        "Send it with one line: \"Paste it in as is, it's yours.\""
+      ]
+    },
+    "brand": {
+      "title": "Make a one-page brand sheet for {biz}.",
+      "steps": [
+        "Take their logo and colors from their website and sign.",
+        "Clean up the logo file, pick 2 fonts and set 3 colors with their codes.",
+        "Show the logo on light and dark backgrounds, and one sample post using the sheet.",
+        "Send it as one page they can hand to any designer."
+      ]
+    },
+    "booking": {
+      "title": "Set up a demo booking page for {biz}.",
+      "steps": [
+        "Copy their services, prices and hours from their website.",
+        "Set up a free booking page (Calendly, Square Appointments or Acuity) with those services.",
+        "Book a test appointment yourself and screenshot each step on your phone.",
+        "Send the link and the screenshots. Offer to connect it to their calendar."
+      ]
+    },
+    "other": {
+      "title": "Do one small free job for {biz}.",
+      "steps": [
+        "Pick the smallest piece of work that shows your quality in under an hour.",
+        "Take a before photo and an after photo.",
+        "Send both with one line: \"This one is on me. Want me to do the rest?\""
+      ]
+    }
+  },
+  "plan": [
+    "Make the free sample for #1. Send your message to #1 to #5.",
+    "Send #6 to #10. Walk into the 2 closest and use the walk-in line.",
+    "Follow up with #1 to #5. Send the sample you made.",
+    "Send #11 to #15. Make a sample for the best reply so far.",
+    "Follow up with #6 to #10. Ask anyone who replied for 15 minutes.",
+    "Send #16 to #25.",
+    "Last follow-ups. Write down every reply, even the no's. That list is your next week."
+  ],
+  "picker": {
+    "likes": [
+      {
+        "id": "film",
+        "label": "Filming and editing"
+      },
+      {
+        "id": "write",
+        "label": "Writing"
+      },
+      {
+        "id": "people",
+        "label": "Talking to people"
+      },
+      {
+        "id": "build",
+        "label": "Building things on a computer"
+      },
+      {
+        "id": "photo",
+        "label": "Taking photos"
+      },
+      {
+        "id": "ai",
+        "label": "Trying new apps and AI"
+      }
+    ],
+    "map": {
+      "film": [
+        "video",
+        "gyms",
+        "realtors"
+      ],
+      "write": [
+        "email",
+        "boutiques",
+        "yoga"
+      ],
+      "people": [
+        "social",
+        "restaurants",
+        "salons"
+      ],
+      "build": [
+        "web",
+        "contractors",
+        "dentists"
+      ],
+      "photo": [
+        "photo",
+        "restaurants",
+        "boutiques"
+      ],
+      "ai": [
+        "ai",
+        "medspas",
+        "dentists"
+      ]
+    },
+    "why": {
+      "video|gyms": "Gyms post all the time, classes are easy to film, and the owner is usually on site.",
+      "video|realtors": "Agents need a video for every listing, and most of the work happens on your laptop.",
+      "email|boutiques": "Boutiques sell to people who already love them, and email is how they bring them back.",
+      "email|yoga": "Studios live on regulars, and a weekly email keeps them in the loop.",
+      "social|restaurants": "Restaurants need fresh posts every week, and you can shoot them while you eat.",
+      "social|salons": "Salons sell on looks, so they need a steady feed of their work.",
+      "web|contractors": "People hire contractors from a Google search, so the website does the selling.",
+      "web|dentists": "New patients judge a dental office by its website before they ever call.",
+      "photo|restaurants": "Good food photos sell the dish, and you can shoot a menu in an afternoon.",
+      "photo|boutiques": "Every new arrival needs photos, and you can shoot a rack in an hour.",
+      "ai|medspas": "Med spas get the same booking questions every day, and a missed question is a missed booking.",
+      "ai|dentists": "Dental offices answer the same questions all day, and patients want answers after hours too."
+    },
+    "hoursNote": {
+      "15": "With 15 or more hours a week, you can work the whole list in 7 days.",
+      "lt5": "With under 5 hours a week, aim for 1 client first.",
+      "5to15": "With 5 to 15 hours a week, 2 or 3 clients is plenty to start."
+    }
+  },
+  "copy": {
+    "checked": "We checked each website on {date}. Things change, so look before you send.",
+    "saved": "We read {n} websites for you. That is about {time} of clicking by hand.",
+    "priceTip": "One package, one price per job, one start date. Make the first job an easy yes, and raise your price after 3 happy clients."
+  }
+}

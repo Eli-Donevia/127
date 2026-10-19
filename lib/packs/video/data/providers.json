@@ -1,0 +1,47 @@
+{
+  "checked": "2026-10-19",
+  "transcribe": {
+    "provider": "Deepgram",
+    "model": "nova-3",
+    "endpoint": "POST https://api.deepgram.com/v1/listen?model=nova-3&smart_format=true",
+    "auth": "Authorization: Token <DEEPGRAM_API_KEY> (harness need: transcribe)",
+    "body": "The audio bytes as the raw request body with the audio Content-Type, or JSON {\"url\": \"https://...\"} so Deepgram fetches the file itself",
+    "words": "results.channels[0].alternatives[0].words: word, punctuated_word (with smart_format), start, end, confidence",
+    "usdPerMinute": 0.0043,
+    "usdPerMinuteMultilingual": 0.0052,
+    "plan": "Pay As You Go, Nova-3 pre-recorded",
+    "how_we_send": "One request per minute of video: ffmpeg cuts that minute (plus 1.5 seconds each side) to 16 kHz mono MP3 and posts the bytes, so credits follow length (2 per minute).",
+    "sources": [
+      "https://deepgram.com/pricing",
+      "https://developers.deepgram.com/docs/pre-recorded-audio",
+      "https://developers.deepgram.com/reference/speech-to-text/listen-pre-recorded"
+    ]
+  },
+  "voice": {
+    "provider": "ElevenLabs",
+    "endpoint": "POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128",
+    "voices": "GET https://api.elevenlabs.io/v2/voices?category=premade&page_size=100",
+    "auth": "xi-api-key header (harness need: voice)",
+    "model": "eleven_flash_v2_5",
+    "timings": "with-timestamps returns audio_base64 and alignment.characters with character_start_times_seconds and character_end_times_seconds; we join characters into words for the captions",
+    "usdPer1kChars": 0.04,
+    "usdPer1kCharsMultilingual": 0.08,
+    "plan": "Pay as you go, Flash model",
+    "sources": [
+      "https://elevenlabs.io/docs/api-reference/text-to-speech/convert",
+      "https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps",
+      "https://elevenlabs.io/docs/api-reference/voices/search",
+      "https://elevenlabs.io/docs/models",
+      "https://elevenlabs.io/pricing/api"
+    ]
+  },
+  "stock": {
+    "provider": "Pexels",
+    "endpoint": "GET https://api.pexels.com/v1/videos/search?query=...&orientation=portrait&size=medium&per_page=15",
+    "auth": "Authorization: <PEXELS_API_KEY> (harness need: pexels)",
+    "usd": 0,
+    "limits": "200 requests per hour and 20,000 requests per month by default",
+    "attribution": "Show a prominent link to Pexels and credit the creator when possible, for example Video by Name on Pexels. Our promo tool lists every clip it used with its creator and link.",
+    "sources": ["https://www.pexels.com/api/documentation/"]
+  }
+}

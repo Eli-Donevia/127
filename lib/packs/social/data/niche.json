@@ -1,0 +1,351 @@
+{
+  "id": "social",
+  "checked": "2026-10-19",
+  "basis": "Facts from research/niches/social.json (every number has its source and checked date). Crowd scores are our judgment from the playbook table, before real member data.",
+  "crowd": {
+    "buyer": "Restaurants and cafes",
+    "scores": {
+      "pain": 4,
+      "can_pay": 2,
+      "findable": 5,
+      "growing": 3
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "off_season": null,
+    "note": "Thin margins and high churn. Lead with one clear result a month. Pitch 4 to 6 weeks before their big dates (judgment).",
+    "not_yet": [
+      "Don't sell 30 posts a month first. Start with one week they can see.",
+      "Don't buy a camera. A phone and good window light are enough.",
+      "Don't chase chains. Owner-run spots decide in one visit."
+    ]
+  },
+  "service": "social media",
+  "buyers": [
+    "restaurants",
+    "cafes",
+    "bakeries",
+    "bars"
+  ],
+  "starter_kit": [
+    {
+      "item": "Your phone and window light",
+      "cost": "You have it",
+      "note": "Don't buy a camera."
+    },
+    {
+      "item": "Scheduling: the restaurant's free Meta Business Suite, or Buffer or Metricool free plans",
+      "cost": "$0 to start",
+      "sources": [
+        {
+          "url": "https://buffer.com/pricing",
+          "publisher": "Buffer",
+          "says": "Free plan for 3 channels with 10 scheduled posts per channel; Essentials $5 a month per channel; Team $10 a month per channel.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://later.com/pricing/",
+          "publisher": "Later",
+          "says": "Starter $18.75 a month billed yearly (1 social set, 30 posts per profile); Growth $37.50 a month billed yearly.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://metricool.com/pricing/",
+          "publisher": "Metricool",
+          "says": "Free $0 for 1 brand and 20 posts a month; Starter from $20 a month billed yearly or $25 month to month.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://boomp.net/resources/questions/how-much-does-social-media-cost-for-a-restaurant",
+          "publisher": "Boomp",
+          "says": "Doing it yourself with Meta Business Suite costs nothing but the manager's time; a scheduler costs $0 to about $25 a month.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "General liability insurance (optional at first)",
+      "cost": "Median $30 to $33 a month",
+      "sources": [
+        {
+          "url": "https://www.insureon.com/media-business-insurance/social-media-companies",
+          "publisher": "Insureon",
+          "says": "Social media companies: general liability $33 a month, BOP $56 a month, media liability $78 a month (median of Insureon quotes).",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.insureon.com/consulting-business-insurance/marketing-consultants/cost",
+          "publisher": "Insureon",
+          "says": "Marketing consultants: general liability $30 a month ($357 a year); professional liability $59 a month.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "job_checklist": [
+    "Before you start: signed one-page agreement, first month paid, one goal for the month (for example, fill Tuesday nights) and how you will count it together.",
+    "Access: the owner adds you as a partner in Meta Business Suite and as a manager on their Google Business Profile. Never ask for passwords.",
+    "Facts sheet: menu with prices as printed, hours, specials, the owner's voice, words to avoid, allergy notes, what not to show.",
+    "Plan the month: 3 posts and 1 Reel a week, a Google profile post every week, dates that matter to them.",
+    "Shoot day: 60 to 90 minutes before service in window light, dish by dish, plus hands, prep, staff who agreed, the room and the sign.",
+    "Write captions: what it is, the price as printed, when to come, how to order or book; 3 to 5 hashtags.",
+    "Owner approval: one sheet with every post; nothing goes out without a yes.",
+    "Schedule in Meta Business Suite or the scheduler; reply to comments on the days you agreed.",
+    "Month end: a one-page report with counts you both can see (posts made, reach and saves from Insights, the goal count the owner kept) and next month's plan."
+  ],
+  "objections": [
+    {
+      "says": "We tried social media and it didn't bring anyone in.",
+      "answer": "Pick one goal for one month (for example, a slow night) and count it together with the owner; no promise of results, only of the posts on time."
+    },
+    {
+      "says": "My nephew or a server does our Instagram.",
+      "answer": "Offer a shoot day and a month of planned posts they can keep running, or help on weeks they are busy."
+    },
+    {
+      "says": "We can't afford it.",
+      "answer": "Start smaller: one week of posts or one shoot. Restaurants run on thin margins, so the first package stays small."
+    },
+    {
+      "says": "Our regulars know us. We don't need it.",
+      "answer": "New guests find places by word of mouth and walking by first, then Facebook and Instagram; posts give regulars something to share."
+    },
+    {
+      "says": "I don't want to give someone my password.",
+      "answer": "You never need it: partner access lets them choose exactly what you can touch and remove it any time."
+    }
+  ],
+  "licenses": [
+    {
+      "item": "General business license or registration",
+      "check": "City or county business license, state registration if you form an LLC, and a DBA if you use a name other than your own.",
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+          "publisher": "U.S. Small Business Administration",
+          "says": "Licenses and permits depend on business activity and location; research your own state, county and city.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "EIN",
+      "check": "Free from the IRS; handy for a business bank account.",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+          "publisher": "IRS",
+          "says": "Get an EIN directly from the IRS in minutes for free.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Who owns the photos and videos you make",
+      "check": "You own what you shoot unless a signed written agreement says otherwise. Put the usage you grant (their social accounts, website, menus) in the proposal, and keep the right to show the work in your portfolio.",
+      "sources": [
+        {
+          "url": "https://www.copyright.gov/circs/circ30.pdf",
+          "publisher": "U.S. Copyright Office, Circular 30",
+          "says": "A commissioned work is a work made for hire only in certain categories and only if the parties expressly agree in a written instrument signed by them.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Disclose any free meals or pay on your own posts",
+      "check": "If you post about a client on your own account, or get a free meal to feature a place, say so plainly in the post itself.",
+      "sources": [
+        {
+          "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+          "publisher": "Federal Trade Commission, Disclosures 101",
+          "says": "Disclose the relationship if you got anything of value to mention a product, such as free or discounted products or services; place the disclosure with the endorsement; don't use vague terms like sp, spon or collab.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Music in Reels",
+      "check": "Business accounts get Meta's Sound Collection, not the popular songs catalog. Use Sound Collection tracks or the restaurant's own sound.",
+      "sources": [
+        {
+          "url": "https://www.soundstripe.com/blogs/instagram-music-library",
+          "publisher": "Soundstripe (music licensing company)",
+          "says": "The Meta Sound Collection is available to every account type including business accounts, cleared for Facebook and Instagram only; a business account sees the Sound Collection instead of the licensed catalog.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Alcohol posts and ads",
+      "check": "Ads that show or invite people to drink must target 21 and older in the US and follow local law; check your state's rules on drink specials.",
+      "sources": [
+        {
+          "url": "https://transparency.meta.com/policies/ad-standards/restricted-goods-services/alcohol/",
+          "publisher": "Meta Advertising Standards: alcohol",
+          "says": "Ads promoting alcohol must comply with local laws and target people 21 and older in the United States; an invitation to an alcohol venue counts.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "People in your photos",
+      "check": "Ask staff and guests before they appear in a post; keep it to staff who agreed.",
+      "sources": []
+    }
+  ],
+  "licenses_note": "General information, not legal advice. Rules differ by state, county and city: check your state and city before you take paid jobs.",
+  "where_buyers_look": [
+    {
+      "channel": "In person: owners decide at the counter, between the lunch and dinner rush",
+      "sources": []
+    },
+    {
+      "channel": "Referrals from clients and partners",
+      "sources": [
+        {
+          "url": "https://sparktoro.com/blog/the-state-of-digital-agencies-in-2024-client-referrals-drive-agency-new-business-but-is-it-enough-and-are-sales-pipelines-a-cause-for-concern",
+          "publisher": "SparkToro (survey of agencies and consultants)",
+          "says": "66% of respondents said the top source of referrals for new business is their existing and past clients; referrals from partner companies were second at nearly 13%.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Their own guests' habits (why owners care)",
+      "sources": [
+        {
+          "url": "https://pos.toasttab.com/blog/data/how-guests-discover-new-restaurants",
+          "publisher": "Toast (survey of 1,446 US adults, Oct 9 to 15, 2025)",
+          "says": "Word of mouth is the top discovery channel at 38%, then walking or driving past at 30%; Facebook 27%, Instagram 15%, YouTube 15%, TikTok 14%; TikTok is the top discovery channel for Gen Z at 38%.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Platforms restaurants already use",
+      "sources": [
+        {
+          "url": "https://www.restaurantdive.com/news/restaurants-rethink-marketing-but-facebook-remains-king/560950/",
+          "publisher": "Restaurant Dive, citing Toast's 2019 Restaurant Success Report",
+          "says": "91% of restaurants use Facebook; Instagram use rose from 24% to 78% in a year.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "plays": [
+    {
+      "play": "A sample week first",
+      "steps": [
+        "List 25 owner-run restaurants and cafes near you (Your first 25).",
+        "Make a sample week for the best one from their own menu and photos as found: 3 post graphics in their colors, captions, and one Reel shot list.",
+        "Walk in between lunch and dinner with it on your phone, or send it with a short note; follow up on day 3 and day 7.",
+        "Never post it or present it as their account; it's a sample they can say yes to."
+      ]
+    },
+    {
+      "play": "Places you already go",
+      "steps": [
+        "Write down 10 spots where you're a regular.",
+        "Ask the owner for 10 minutes and show the sample week.",
+        "Offer the founding price for the first 3 in exchange for an honest testimonial you may quote."
+      ]
+    },
+    {
+      "play": "Partners who see owners every week",
+      "steps": [
+        "List suppliers, POS and delivery reps, a local food blogger, the chamber of commerce.",
+        "Show them one sample week and your one clear package.",
+        "Ask who could use help; thank them with a referral gift that isn't tied to any review."
+      ]
+    },
+    {
+      "play": "First 3 at a founding price",
+      "steps": [
+        "Offer a founding price to your first 3 in exchange for an honest testimonial you may quote and permission to show the work.",
+        "Say plainly that they were founding clients.",
+        "Never tie a Google review to the discount."
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "rule": "Up to 5 hashtags on an Instagram post or Reel",
+      "detail": "Instagram is moving every account to a 5 hashtag cap per caption. Write 3 to 5 that say what and where.",
+      "source": "https://www.socialmediatoday.com/news/instagram-implements-new-limits-on-hashtag-use/808309/"
+    },
+    {
+      "rule": "Reels can run up to 3 minutes; the profile grid is now tall, not square",
+      "detail": "Make feed posts 1080 by 1350 (4:5) and keep the words in the middle so the tall grid crop doesn't cut them.",
+      "source": "https://www.engadget.com/social-media/instagram-swoops-in-with-3-minute-reels-and-rectangular-profile-grids-as-the-tiktok-ban-gets-real-201316339.html"
+    },
+    {
+      "rule": "Business accounts use the Sound Collection for music",
+      "detail": "Popular songs may not be available to a restaurant's business account; plan Reels around original sound or Sound Collection tracks.",
+      "source": "https://www.soundstripe.com/blogs/instagram-music-library"
+    },
+    {
+      "rule": "Get access as a partner, not with their password",
+      "detail": "The owner adds you as a partner in their Meta business portfolio (Settings, Business settings, Partners, Add) and picks which pages and accounts you can use.",
+      "source": "https://www.leadsie.com/blog/give-meta-business-portfolio-access"
+    },
+    {
+      "rule": "No buying followers, views or reviews",
+      "detail": "Never buy followers or views for a client and never write reviews. Growth is reported as counted, not promised.",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials"
+    },
+    {
+      "rule": "No rewards for Google reviews",
+      "detail": "A restaurant can ask every guest for a review but can't offer a discount, a dessert or anything else for one, and can't ask only happy guests.",
+      "source": "https://support.google.com/contributionpolicy/answer/7400114?hl=en"
+    },
+    {
+      "rule": "Google Business Profile posts",
+      "detail": "Post updates and offers on the restaurant's Google profile too; use the Call now button instead of typing a phone number in the post.",
+      "source": "https://support.google.com/business/answer/7213077?hl=en"
+    },
+    {
+      "rule": "How often to post",
+      "detail": "3 to 5 feed posts or Reels a week is the common advice; 1 or 2 a week is the floor; Google profile at least once a week.",
+      "source": "https://buffer.com/resources/how-often-to-post-on-instagram/"
+    }
+  ],
+  "post": {
+    "width": 1080,
+    "height": 1350,
+    "hashtags_max": 5,
+    "days": [
+      "Monday",
+      "Wednesday",
+      "Friday"
+    ],
+    "reel_seconds": 15
+  },
+  "promise": "Every post goes to you for a yes before it goes out, and it goes out on the day we agreed. If a post isn't right, I redo it free.",
+  "ladder": {
+    "spots": 3,
+    "off": 0.3,
+    "months": 3,
+    "applies_to": [
+      "month",
+      "month_shoot"
+    ],
+    "ask": "an honest written testimonial I can quote, said plainly as a founding client, and permission to show the posts in my portfolio",
+    "step_up": "After the first 3 months the plan goes to the full price, and after 3 founding clients new clients pay the full menu price.",
+    "reviews_rule": "Ask for Google reviews separately, never tied to the discount (Google Maps content policy)."
+  }
+}

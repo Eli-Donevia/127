@@ -1,0 +1,43 @@
+{
+  "checked": "2026-10-19",
+  "note": "Rules for ads made by creators, read on the FTC, TikTok and Meta help pages on the date above. Not legal advice.",
+  "ftc": {
+    "source": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+    "rules": [
+      "Anyone paid, given the product free or at a discount, or with a family or business tie to you has to say so, even if they think their review is fair.",
+      "The disclosure goes with the post itself, not only in the profile or bio.",
+      "In a video, say it in the video, out loud and on screen, not only in the caption.",
+      "Plain words work: ad, advertisement or sponsored. Vague tags like sp, spon or collab do not.",
+      "Don't bury it in a pile of hashtags or links.",
+      "The platform's paid partnership label helps, but use it on top of their own disclosure, not instead of it.",
+      "On a live stream, repeat it now and then for people who join late."
+    ]
+  },
+  "tiktok": {
+    "source": "https://ads.tiktok.com/help/article/how-to-create-spark-ads-for-smart-campaigns-on-tiktok-ads-manager",
+    "name": "Spark Ads video code",
+    "creatorSteps": [
+      "In the TikTok app, make sure ad authorization is allowed for the account (Settings and privacy, or Creator tools).",
+      "Open the video, tap the three dots, then Ad settings.",
+      "Agree to the advertising terms if asked, and turn on Ad authorization.",
+      "Generate a video code and pick how long it lasts: 7, 30, 60 or 365 days.",
+      "Tap Copy code and send it to the business."
+    ],
+    "advertiserSteps": [
+      "In TikTok Ads Manager, go to Tools, then Creative library.",
+      "Click Spark ads posts, then Apply for authorization.",
+      "Paste the video code, click Search, and confirm it's the right video."
+    ],
+    "durations": [7, 30, 60, 365],
+    "notes": [
+      "One code covers one video.",
+      "The caption can't be edited once the post is authorized as an ad.",
+      "A private video becomes public once it's used in a campaign."
+    ]
+  },
+  "meta": {
+    "source": "https://www.facebook.com/business/help/442108830566254",
+    "note": "On Instagram and Facebook, a creator's post can run as a partnership ad from their handle only with their permission: a partnership ad code for one post, or account-level permission. They can withdraw it at any time. Meta's menus change, so follow the steps in Meta's help center when you set it up."
+  },
+  "durationsByUsage": { "30 days": 30, "60 days": 60, "12 months": 365 }
+}

@@ -1,0 +1,38 @@
+{
+  "note": "Profile limits the brand pack writes to. Only numbers a platform publishes are stored; where a platform does not publish one, limit is null, we write to a shorter target and tell the member to check the counter in the app.",
+  "platforms": {
+    "instagram": {
+      "label": "Instagram",
+      "field": "Bio",
+      "limit": 150,
+      "target": 150,
+      "rule": "Your bio can be up to 150 characters.",
+      "source": "https://help.instagram.com/728994388226960/",
+      "checked": "2026-10-19"
+    },
+    "tiktok": {
+      "label": "TikTok",
+      "field": "Bio",
+      "limit": null,
+      "target": 80,
+      "rule": "TikTok does not publish its bio limit on its help pages. We keep it to 80 characters; check the counter in the app before you save.",
+      "source": "https://support.tiktok.com/en/getting-started/setting-up-your-profile",
+      "checked": "2026-10-19"
+    },
+    "facebook": {
+      "label": "Facebook Page",
+      "field": "Intro",
+      "limit": null,
+      "target": 100,
+      "rule": "Facebook's help pages do not state the Page intro limit. We keep it to 100 characters; check the counter when you edit the intro.",
+      "source": "https://www.facebook.com/help/160672070698623/",
+      "checked": "2026-10-19"
+    }
+  },
+  "trademark": {
+    "label": "USPTO trademark search",
+    "url": "https://tmsearch.uspto.gov/",
+    "about": "https://www.uspto.gov/trademarks/search/federal-trademark-searching",
+    "checked": "2026-10-19"
+  }
+}

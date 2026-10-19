@@ -1,0 +1,96 @@
+{
+  "checked": "2026-10-19",
+  "note": "Free places to list a local business, most important first. Costs and rules change: each entry names its source.",
+  "sites": [
+    {
+      "id": "google",
+      "name": "Google Business Profile",
+      "url": "https://business.google.com/en-all/business-profile/",
+      "cost": "Free",
+      "why": "Puts you on Google Search and Google Maps, where most local customers look first.",
+      "fits": "Businesses that meet customers in person or travel to them",
+      "tip": "Use the exact same name, phone and web address everywhere else on this list.",
+      "source": "https://business.google.com/en-all/business-profile/",
+      "quote": "Yes, creating a Business Profile and listing your business on Google is free.",
+      "minutes": 20
+    },
+    {
+      "id": "apple",
+      "name": "Apple Business",
+      "url": "https://business.apple.com/",
+      "cost": "Free",
+      "why": "Your place card in Apple Maps and Siri on every iPhone. Apple Business replaced Apple Business Connect in April 2026.",
+      "fits": "Businesses with a location or a service area",
+      "tip": "Add your logo, photos and hours so the place card looks complete.",
+      "source": "https://www.apple.com/newsroom/2026/03/introducing-apple-business-a-new-all-in-one-platform-for-businesses-of-all-sizes/",
+      "minutes": 15
+    },
+    {
+      "id": "bing",
+      "name": "Bing Places",
+      "url": "https://www.bing.com/forbusiness",
+      "cost": "Free",
+      "why": "Shows you on Bing and Microsoft's apps and assistants.",
+      "fits": "Any local business",
+      "tip": "Import your Google profile: it fills the form in and can verify you at the same time.",
+      "source": "https://ppc.land/bing-places-for-business-migrates-to-bing-com-domain-with-import-tools/",
+      "minutes": 5
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook Page",
+      "url": "https://www.facebook.com/pages/create",
+      "cost": "Free to open and run (ads and boosted posts cost money)",
+      "why": "Neighbors check it for photos, hours and messages, and local groups link to it.",
+      "fits": "Any business",
+      "tip": "Turn on messaging and add your booking link to the button.",
+      "source": "https://help-center.dc-aws.godaddy.com/help/hva-er-en-facebook-bedriftside-41374?lc=en-US",
+      "minutes": 15
+    },
+    {
+      "id": "nextdoor",
+      "name": "Nextdoor Business Page",
+      "url": "https://business.nextdoor.com/en-us/getting-started/business-page",
+      "cost": "Free",
+      "why": "Neighbors recommend local services here, and your page collects those recommendations.",
+      "fits": "Local services and shops",
+      "tip": "Promote from the Business Page, not your personal account: Nextdoor allows only occasional informal offers from personal accounts.",
+      "rule_source": "https://blog.nextdoor.com/self-promotion-update",
+      "source": "https://business.nextdoor.com/en-us/getting-started/business-page",
+      "minutes": 10
+    },
+    {
+      "id": "yelp",
+      "name": "Yelp",
+      "url": "https://business.yelp.com/",
+      "cost": "Free listing (ads cost money)",
+      "why": "Many apps and car dashboards read Yelp's listings.",
+      "fits": "Any local business",
+      "tip": "Claim it and keep it accurate, but don't ask anyone for a Yelp review: Yelp asks businesses not to.",
+      "source": "https://business.yelp.com/",
+      "minutes": 10
+    },
+    {
+      "id": "bbb",
+      "name": "Better Business Bureau",
+      "url": "https://www.bbb.org/get-listed",
+      "cost": "Check bbb.org for current terms. Accreditation is optional and paid.",
+      "why": "Some homeowners check the BBB before they hire.",
+      "fits": "Home services and contractors",
+      "tip": "Request a business profile; you don't need to pay for accreditation to be listed.",
+      "source": "https://www.bbb.org/get-listed",
+      "minutes": 10
+    },
+    {
+      "id": "thumbtack",
+      "name": "Thumbtack",
+      "url": "https://www.thumbtack.com/",
+      "cost": "Free profile; you pay when you take on leads",
+      "why": "People book home, event, lesson and wellness pros there.",
+      "fits": "Services people book on Thumbtack",
+      "tip": "Set a weekly budget before you turn on leads, and fill in your profile first.",
+      "source": "https://www.housecallpro.com/resources/what-is-thumbtack-how-it-works/",
+      "minutes": 15
+    }
+  ]
+}

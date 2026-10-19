@@ -1,0 +1,347 @@
+{
+ "checked": "2026-10-19",
+ "unit": "car",
+ "minimum": 50,
+ "minimum_basis": "Judgment call. Housecall Pro: cover travel with a minimum service charge, a per-mile fee or zone add-ons.",
+ "base": "Prices are for a car or small sedan; the vehicle size factor scales them.",
+ "packages": [
+  {
+   "id": "maintenance",
+   "label": "Maintenance wash and vacuum",
+   "range": [
+    40,
+    100
+   ],
+   "minutes": 75,
+   "includes": [
+    "Hand wash and dry",
+    "Wheels and tires",
+    "Vacuum seats, carpets and mats",
+    "Wipe dash, doors and glass"
+   ],
+   "basis": "Housecall Pro: basic exterior wash $40 to $75; StartCosts: basic wash and vacuum $40 to $100.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+     "says": "Basic exterior wash $40 to $75.",
+     "page_date": "2026-09-14",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+     "says": "Basic wash and vacuum $40 to $100, 1 to 2 hours.",
+     "page_date": "2026-02-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "interior",
+   "label": "Interior detail",
+   "range": [
+    150,
+    350
+   ],
+   "minutes": 150,
+   "includes": [
+    "Deep vacuum, seats and carpets",
+    "Stains spot treated",
+    "Dash, vents and trim cleaned",
+    "Glass inside",
+    "Leather wiped and conditioned"
+   ],
+   "basis": "Housecall Pro: $150 to $350. Autodetailer.com: national average $217, median $200 (range $65 to $500).",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Interior detail $150 to $350: vacuum, dash and trim, carpets, mats, stains, glass, leather care.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Autodetailer.com",
+     "url": "https://autodetailer.com/mobile-detailing-prices-2026/",
+     "says": "Interior only: national average $217, median $200, range $65 to $500.",
+     "page_date": "2026-08-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "exterior",
+   "label": "Exterior detail",
+   "range": [
+    50,
+    350
+   ],
+   "minutes": 120,
+   "includes": [
+    "Hand wash and dry",
+    "Wheels, tires and wells",
+    "Wax or sealant",
+    "Windows and mirrors"
+   ],
+   "basis": "Housecall Pro: $50 to $350. Autodetailer.com: national average $177, median $160.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Exterior detail $50 to $350: hand wash, wheels and tires, wax or sealant, windows and mirrors.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Autodetailer.com",
+     "url": "https://autodetailer.com/mobile-detailing-prices-2026/",
+     "says": "Exterior only: national average $177, median $160, range $60 to $389.",
+     "page_date": "2026-08-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "full",
+   "label": "Full detail, inside and out",
+   "range": [
+    150,
+    500
+   ],
+   "minutes": 240,
+   "includes": [
+    "Everything in the interior detail",
+    "Everything in the exterior detail",
+    "Door jambs and trunk",
+    "Tire shine and trim dressing"
+   ],
+   "basis": "Housecall Pro: $150 to $500 and up; StartCosts: $225 to $500, 3 to 5 hours.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Full detail $150 to $500+: interior and exterior, clay bar, wax, pet hair, odor treatment.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+     "says": "Full interior plus exterior detail $225 to $500, 3 to 5 hours.",
+     "page_date": "2026-02-01",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+     "says": "Full interior and exterior detail $150 to $350+.",
+     "page_date": "2026-09-14",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "size",
+   "label": "Vehicle",
+   "default": "s1",
+   "basis": "Autodetailer.com averages: basic tier compact $142, midsize SUV $158, 3-row SUV or minivan $191; premium tier $395, $443 and $484 (ratios to the compact). Housecall Pro size bands agree.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Small (coupes, small sedans) $50 to $175; medium (wagons, large sedans) $175 to $250; large (small trucks, 2-row SUVs, vans) $225 to $400; extra-large (large trucks, 3-row SUVs) $500 to $650+.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Autodetailer.com",
+     "url": "https://autodetailer.com/mobile-detailing-prices-2026/",
+     "says": "Basic tier: compact about $142, midsize SUV $158, 3-row SUV or minivan about $191; premium tier: compact about $395, midsize SUV $443, 3-row about $484.",
+     "page_date": "2026-08-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "s1",
+     "label": "Car or small sedan",
+     "short": "Car",
+     "mult": 1
+    },
+    {
+     "id": "s2",
+     "label": "Small SUV, wagon or crossover",
+     "short": "Small SUV",
+     "mult": 1.15,
+     "minutes": 20
+    },
+    {
+     "id": "s3",
+     "label": "Large SUV, truck or minivan",
+     "short": "Large SUV or truck",
+     "mult": 1.35,
+     "minutes": 40
+    }
+   ]
+  },
+  {
+   "id": "condition",
+   "label": "Condition",
+   "default": "normal",
+   "packages": [
+    "maintenance",
+    "interior",
+    "full"
+   ],
+   "basis": "Judgment call. Housecall Pro: price pet hair and heavy stains as their own lines.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "A $150 base plus $70 for pet hair is easier to accept than a $220 total with no breakdown.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "normal",
+     "label": "Normal use",
+     "mult": 1
+    },
+    {
+     "id": "heavy",
+     "label": "Very dirty (kids, sand, food)",
+     "mult": 1.25,
+     "minutes": 45
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "pet_hair",
+   "label": "Pet hair removal",
+   "range": [
+    70,
+    70
+   ],
+   "minutes": 40,
+   "unit": "car",
+   "basis": "Housecall Pro example: $70 for pet hair on top of a $150 base.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "A $150 base plus $70 for pet hair is easier to accept than a $220 total with no breakdown.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "headlights",
+   "label": "Headlight restoration",
+   "range": [
+    50,
+    125
+   ],
+   "minutes": 45,
+   "unit": "pair",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Headlight restoration $50 to $125+.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "ozone",
+   "label": "Ozone odor removal",
+   "range": [
+    50,
+    150
+   ],
+   "minutes": 60,
+   "unit": "car",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Ozone odor removal $50 to $150.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "clay",
+   "label": "Clay bar treatment",
+   "range": [
+    50,
+    100
+   ],
+   "minutes": 45,
+   "unit": "car",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+     "says": "Clay bar treatment $50 to $100+.",
+     "page_date": "2026-10-16",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "monthly",
+   "label": "Monthly maintenance plan",
+   "every": "month",
+   "discount": 0.1,
+   "packages": [
+    "maintenance"
+   ]
+  },
+  {
+   "id": "biweekly",
+   "label": "Every 2 weeks maintenance plan",
+   "every": "2 weeks",
+   "discount": 0.15,
+   "packages": [
+    "maintenance"
+   ]
+  }
+ ],
+ "plans_basis": "Judgment call. Housecall Pro: a recurring monthly or quarterly rate for scheduled maintenance details locks in repeat business; ZenBusiness: loyalty discounts encourage recurring washes.",
+ "plans_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+   "says": "Subscription or membership pricing: a recurring monthly or quarterly rate for scheduled maintenance details; locks in repeat business.",
+   "page_date": "2026-10-16",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "ZenBusiness",
+   "url": "https://www.zenbusiness.com/start-a-business/automotive/auto-detailing/",
+   "says": "A loyalty program, such as a discount on the fifth or tenth wash, encourages recurring maintenance washes.",
+   "page_date": "2026-10-01",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://autodetailer.com/mobile-detailing-prices-2026/",
+  "https://startcosts.com/guides/auto-detailing-startup-costs",
+  "https://www.housecallpro.com/resources/how-much-to-charge-for-car-detailing/",
+  "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+  "https://www.thumbtack.com/p/mobile-car-detailing-prices"
+ ]
+}

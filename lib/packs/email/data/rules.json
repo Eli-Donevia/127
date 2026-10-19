@@ -1,0 +1,33 @@
+{
+  "checked": "2026-10-19",
+  "canSpam": {
+    "title": "CAN-SPAM basics (United States)",
+    "appliesTo": "Commercial email: any email that advertises or promotes what you sell, including emails to people who signed up.",
+    "rules": [
+      { "rule": "Honest From and Reply-To", "detail": "Your From name, From address and Reply-To must show who you are." },
+      { "rule": "Honest subject lines", "detail": "The subject line must match what is in the email. No fake RE: or FWD:." },
+      { "rule": "Say it is an ad", "detail": "A promotional email has to be identifiable as an ad. You have leeway in how you say it." },
+      { "rule": "Your mailing address", "detail": "Every email carries a valid postal address: a street address, a USPS post office box, or a private mailbox registered with a mail receiving agency." },
+      { "rule": "A clear way to opt out", "detail": "Every email explains how to stop getting your emails. An unsubscribe link in the footer does it." },
+      { "rule": "Honor opt-outs fast", "detail": "Stop emailing people within 10 business days of an opt-out. The opt-out has to keep working for at least 30 days after you send, can't cost money and can't ask for more than an email address." },
+      { "rule": "You are responsible for helpers", "detail": "If someone sends email for you, you are still responsible for following the law." }
+    ],
+    "penalty": "Each email that breaks the law can cost up to $53,088 under the FTC's January 2025 adjustment. The amount is adjusted every year, so check the FTC page for today's number.",
+    "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+  },
+  "gmail": {
+    "title": "Gmail's sender rules",
+    "allSenders": [
+      "Set up SPF or DKIM for the domain you send from. Your email tool shows the records to add.",
+      "Keep spam reports under 0.3% (Google suggests aiming for under 0.1%)."
+    ],
+    "bulkSenders": {
+      "threshold": "5,000 or more emails a day to Gmail addresses",
+      "rules": [
+        "SPF, DKIM and DMARC all set up",
+        "One-click unsubscribe in marketing emails, plus a visible unsubscribe link in the email"
+      ]
+    },
+    "source": "https://support.google.com/a/answer/81126"
+  }
+}

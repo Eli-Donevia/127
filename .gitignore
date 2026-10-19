@@ -1,5 +1,6 @@
 node_modules/
-data/
+# The site's own file store. Root only: packs keep data/ folders of their own (faceless, ugc).
+/data/
 .env
 .claude/
 side-by-side.md

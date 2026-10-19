@@ -1,0 +1,2443 @@
+{
+ "about": "Snapshot of research/niches starter costs for the money desk. Rebuild with: node packs/finance/lib/niches.js --sync",
+ "synced": "2026-10-19",
+ "niches": {
+  "cleaning": {
+   "id": "cleaning",
+   "name": "House cleaning",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Vacuum (commercial-grade costs more)",
+     "unit": "each",
+     "freq": "once",
+     "low": 100,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Mop, bucket and broom",
+     "unit": "set",
+     "freq": "once",
+     "low": 30,
+     "high": 100,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Microfiber cloths",
+     "unit": "starter stock",
+     "freq": "once",
+     "low": 20,
+     "high": 75,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Gloves and PPE",
+     "unit": "starter stock",
+     "freq": "once",
+     "low": 25,
+     "high": 100,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Caddy or storage bins",
+     "unit": "each",
+     "freq": "once",
+     "low": 20,
+     "high": 100,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Equipment and initial supplies, total",
+     "unit": "one time",
+     "freq": "once",
+     "low": 300,
+     "high": 2500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business registration, license and permits",
+     "unit": "one time or yearly",
+     "freq": "once",
+     "low": 0,
+     "high": 520,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Janitorial (surety) bond",
+     "unit": "per year",
+     "freq": "year",
+     "low": 100,
+     "high": 300,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Initial marketing (cards, door hangers, simple site)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 100,
+     "high": 1000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 48,
+     "high": 90,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Cleaning supplies and chemicals",
+     "unit": "per month",
+     "freq": "month",
+     "low": 50,
+     "high": 300,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/cleaning-business-startup-costs/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Scheduling and invoicing software for cleaners",
+     "unit": "per month",
+     "freq": "month",
+     "low": 19,
+     "high": 329,
+     "note": "A free calendar plus Square invoices also works for the first clients.",
+     "sources": [
+      {
+       "publisher": "ZenMaid",
+       "url": "https://www.zenmaid.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Jobber",
+       "url": "https://www.getjobber.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/pricing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "Percent fees, so no low/high dollar range.",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Workers compensation (only once you hire employees)",
+     "unit": "first year",
+     "freq": "year",
+     "low": 0,
+     "high": 2400,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Commercial auto insurance (if you drive for work)",
+     "unit": "first year",
+     "freq": "year",
+     "low": 1200,
+     "high": 1680,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Connecteam",
+       "url": "https://connecteam.com/e-how-start-small-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12
+   ],
+   "offSeason": {
+    "months": [
+     1,
+     2
+    ],
+    "where": "all"
+   },
+   "notYet": [
+    "Don't buy a commercial backpack vacuum before your tenth recurring client.",
+    "Don't pay for scheduling software before you pass about 40 visits a month; a calendar and Square invoices work.",
+    "Don't hire a helper before your calendar is full two weeks out."
+   ]
+  },
+  "coaching": {
+   "id": "coaching",
+   "name": "Coaching and consulting",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Coaching certificate or credential",
+     "unit": "optional",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "judgment call: not required by law to call yourself a coach; an ICF credential is voluntary. Skip it until you have coached your first 3 people.",
+     "sources": []
+    },
+    {
+     "item": "Business registration in your city or state",
+     "unit": "varies",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "Check your city and state; costs vary.",
+     "sources": [
+      {
+       "publisher": "U.S. Small Business Administration",
+       "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Booking page: Cal.com Free",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 0,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Cal.com",
+       "url": "https://cal.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Booking page: Calendly Free or Standard",
+     "unit": "per seat per month",
+     "freq": "month",
+     "low": 0,
+     "high": 10,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Calendly",
+       "url": "https://calendly.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Booking page: Acuity Scheduling Starter",
+     "unit": "per month",
+     "freq": "month",
+     "low": 16,
+     "high": 20,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Acuity Scheduling",
+       "url": "https://acuityscheduling.com/signup.php",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Booking page: Google Calendar appointment schedule",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 0,
+     "note": "Which features need a paid plan is listed on Google's comparison page; check it before you rely on payments or reminders.",
+     "sources": [
+      {
+       "publisher": "Google Calendar Help",
+       "url": "https://support.google.com/calendar/answer/10729749?hl=en",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Video calls: Zoom Basic or Pro",
+     "unit": "per user per month",
+     "freq": "month",
+     "low": 0,
+     "high": 16.99,
+     "note": "Google Meet or a phone call also works for first sessions.",
+     "sources": [
+      {
+       "publisher": "Zoom",
+       "url": "https://zoom.us/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't build a course before you've coached 3 people.",
+    "Don't pay for ads before you have a story you're allowed to share.",
+    "Don't pick a crowd wider than one kind of person and one result."
+   ]
+  },
+  "detailing": {
+   "id": "detailing",
+   "name": "Mobile car detailing",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Pressure washer (low PSI is safer on paint)",
+     "unit": "each",
+     "freq": "once",
+     "low": 120,
+     "high": 1600,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Vacuum (wet and dry) or interior extractor",
+     "unit": "each",
+     "freq": "once",
+     "low": 60,
+     "high": 600,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Dual-action polisher",
+     "unit": "each",
+     "freq": "once",
+     "low": 100,
+     "high": 600,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Water tank (50 to 100 gallons) and generator for sites without hookups",
+     "unit": "each",
+     "freq": "once",
+     "low": 50,
+     "high": 2500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Chemicals, towels and small supplies (starter stock)",
+     "unit": "starter stock",
+     "freq": "once",
+     "low": 275,
+     "high": 550,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Total equipment setup",
+     "unit": "one time",
+     "freq": "once",
+     "low": 800,
+     "high": 15000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/automotive/auto-detailing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business license",
+     "unit": "one time or yearly",
+     "freq": "once",
+     "low": 50,
+     "high": 200,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 40,
+     "high": 70,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Garage keepers liability (covers customer cars in your care)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 100,
+     "high": 300,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/auto-detailing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Detailing software (booking, invoices, photos)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 39,
+     "high": 199,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Mobile Tech RX",
+       "url": "https://www.mobiletechrx.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Urable",
+       "url": "https://www.urable.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-car-detailing-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    3,
+    4,
+    5,
+    6,
+    10,
+    11
+   ],
+   "offSeason": {
+    "months": [
+     12,
+     1,
+     2
+    ],
+    "where": "cold"
+   },
+   "notYet": [
+    "Don't buy a water tank and generator rig before your tenth paying driveway client; use the client's water and power.",
+    "Don't sell ceramic coatings before you have practiced paint correction on your own cars.",
+    "Don't buy a van or trailer before your weekdays are booked."
+   ]
+  },
+  "frontdesk": {
+   "id": "frontdesk",
+   "name": "Front desk for home service contractors",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Nothing required to start: the missed-call audit, scripts and booking flow are made with this pack, and the client's tools run on the client's accounts",
+     "unit": "each",
+     "freq": "once",
+     "low": 0,
+     "high": 0,
+     "note": "judgment call: a laptop and the phone you already own are enough. Don't buy phone software before your first yes.",
+     "sources": []
+    },
+    {
+     "item": "Texting registration for the client's business number (A2P 10DLC), paid on the client's account through their texting provider",
+     "unit": "one-time",
+     "freq": "once",
+     "low": 19,
+     "high": 59,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Twilio",
+       "url": "https://www.twilio.com/en-us/phone-numbers/a2p-10dlc",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Quo (formerly OpenPhone)",
+       "url": "https://www.quo.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Professional liability (errors and omissions) insurance for a tech business (optional, recommended once you take paid clients)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 88,
+     "high": 110,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/technology-business-insurance/cost",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/small-business-insurance/professional-liability/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance (optional)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 37,
+     "high": 37,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/technology-business-insurance/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't buy phone software before your first yes. Set it up on their account.",
+    "Don't say AI in your first message. Say you'll make sure they never miss a call.",
+    "Don't build anything custom yet. The setup is the product."
+   ]
+  },
+  "lawn": {
+   "id": "lawn",
+   "name": "Lawn care and snow removal",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Lawn mower (push or self-propelled to start)",
+     "unit": "each",
+     "freq": "once",
+     "low": 170,
+     "high": 10000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "String trimmer",
+     "unit": "each",
+     "freq": "once",
+     "low": 80,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Leaf blower",
+     "unit": "each",
+     "freq": "once",
+     "low": 80,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Edger",
+     "unit": "each",
+     "freq": "once",
+     "low": 100,
+     "high": 600,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Hedge trimmer",
+     "unit": "each",
+     "freq": "once",
+     "low": 100,
+     "high": 400,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Hand tools and safety gear",
+     "unit": "set",
+     "freq": "once",
+     "low": 100,
+     "high": 300,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Open utility trailer",
+     "unit": "each",
+     "freq": "once",
+     "low": 500,
+     "high": 3000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/lawn-care-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Snow blower",
+     "unit": "each",
+     "freq": "once",
+     "low": 305,
+     "high": 2720,
+     "note": "One source; check current retail prices.",
+     "sources": [
+      {
+       "publisher": "Lawn Love",
+       "url": "https://lawnlove.com/blog/snow-blower-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business registration and licensing",
+     "unit": "one time",
+     "freq": "once",
+     "low": 250,
+     "high": 650,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Magnetic vehicle signs",
+     "unit": "each",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Yard signs and door hangers",
+     "unit": "starter batch",
+     "freq": "once",
+     "low": 50,
+     "high": 300,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 35,
+     "high": 167,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Commercial auto insurance (if applicable)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 204,
+     "high": 204,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Fuel and maintenance",
+     "unit": "per year",
+     "freq": "year",
+     "low": 1000,
+     "high": 3000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/costs-start-lawn-service-landscaping/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Scheduling, invoicing and payments software",
+     "unit": "per month",
+     "freq": "month",
+     "low": 29,
+     "high": 100,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Jobber",
+       "url": "https://www.getjobber.com/pricing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Google Local Services Ads (optional)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 150,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/lawn-care-business-startup-cost/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "offSeason": {
+    "months": [
+     12,
+     1,
+     2,
+     3
+    ],
+    "where": "cold"
+   },
+   "notYet": [
+    "Don't buy a trailer before your tenth weekly customer.",
+    "Don't sell weed or insect treatments before you hold your state's applicator license.",
+    "Don't buy a zero-turn or a truck plow before the contracts that pay for it are signed."
+   ]
+  },
+  "petcare": {
+   "id": "petcare",
+   "name": "Dog walking and pet sitting",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Leashes, harnesses, waste bags, pet first aid kit, treats",
+     "unit": "starter kit",
+     "freq": "once",
+     "low": 100,
+     "high": 500,
+     "note": "StartCosts dog-walking and pet-sitting hub pages show no fixed publish date (their page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/dog-walking",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Background check",
+     "unit": "one time",
+     "freq": "once",
+     "low": 25,
+     "high": 75,
+     "note": "StartCosts dog-walking and pet-sitting hub pages show no fixed publish date (their page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/pet-sitting",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Pet first aid and CPR course (optional)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 30,
+     "high": 100,
+     "note": "Only one source checked; the Red Cross course page did not show a price in its page text.",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/pet-sitting",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business registration (LLC or license)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 0,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/pet-sitting",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Total startup",
+     "unit": "one time",
+     "freq": "once",
+     "low": 500,
+     "high": 5000,
+     "note": "StartCosts dog-walking and pet-sitting hub pages show no fixed publish date (their page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/animals/pet-sitting/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/pet-sitting",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Rover profile review fee (if you list on Rover)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 49,
+     "high": 79,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Rover Help Center",
+       "url": "https://support.rover.com/hc/en-us/articles/203062400-Is-Rover-free",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Pet care liability insurance with bonding",
+     "unit": "per year",
+     "freq": "year",
+     "low": 190,
+     "high": 500,
+     "note": "StartCosts dog-walking and pet-sitting hub pages show no fixed publish date (their page date updates daily).",
+     "sources": [
+      {
+       "publisher": "Pet Care Insurance",
+       "url": "https://www.petcareins.com/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/dog-walking",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Scheduling, GPS walk tracking and invoicing app",
+     "unit": "per month",
+     "freq": "month",
+     "low": 20,
+     "high": 50,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Time To Pet",
+       "url": "https://www.timetopet.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Precise Petcare",
+       "url": "https://www.precisepetcare.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/dog-walking-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Pet Sitters International membership (optional)",
+     "unit": "per year",
+     "freq": "year",
+     "low": 155,
+     "high": 160,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Pet Sitters International",
+       "url": "https://www.petsit.com/join",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    5,
+    6,
+    7,
+    8,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't pay for scheduling software before your tenth regular client; free tiers cover a solo walker.",
+    "Don't board dogs in your home before you check state licensing, zoning, your lease and HOA rules.",
+    "Don't take group walks in city parks before you check permit and group size rules."
+   ]
+  },
+  "photo": {
+   "id": "photo",
+   "name": "Photography (portraits, events, local business)",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Camera body (used full-frame is common to start)",
+     "unit": "each",
+     "freq": "once",
+     "low": 800,
+     "high": 4000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "First lens (50mm or 35mm prime) and later lenses",
+     "unit": "each",
+     "freq": "once",
+     "low": 200,
+     "high": 5000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/real-estate/real-estate-photography/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "External flash, memory cards, bag, tripod",
+     "unit": "set",
+     "freq": "once",
+     "low": 250,
+     "high": 650,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Computer and backup drive for editing",
+     "unit": "set",
+     "freq": "once",
+     "low": 680,
+     "high": 3000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Contract templates",
+     "unit": "one time",
+     "freq": "once",
+     "low": 50,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Total startup",
+     "unit": "one time",
+     "freq": "once",
+     "low": 2000,
+     "high": 10000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Editing software (Lightroom and Photoshop)",
+     "unit": "per year",
+     "freq": "year",
+     "low": 120,
+     "high": 660,
+     "note": "Adobe's own price page could not be fetched; check Adobe's current plan price before quoting it.",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/marketing/brand-photography/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Client gallery delivery (online galleries, print store)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 20,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Pixieset",
+       "url": "https://pixieset.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Portfolio website",
+     "unit": "per month",
+     "freq": "month",
+     "low": 19,
+     "high": 39,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Squarespace",
+       "url": "https://www.squarespace.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability and equipment insurance",
+     "unit": "per year",
+     "freq": "year",
+     "low": 350,
+     "high": 1400,
+     "note": "Ranges here add liability and equipment together where the source lists both. The StartCosts photography hub page shows no fixed publish date (its page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/photography-business-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/arts/commercial-photography/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/photography",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    4,
+    5,
+    6,
+    9,
+    10,
+    11
+   ],
+   "offSeason": {
+    "months": [
+     1,
+     2
+    ],
+    "where": "all"
+   },
+   "notYet": [
+    "Don't buy a backup body or extra lenses before paid shoots are on your calendar.",
+    "Don't fly a drone for pay before you hold an FAA Part 107 certificate.",
+    "Don't rent a studio before on-location sessions fill your weekends."
+   ]
+  },
+  "resale": {
+   "id": "resale",
+   "name": "Resale and flipping",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Shipping scale",
+     "unit": "one-time",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "judgment call: a kitchen or postal scale that reads ounces; label prices step up by weight, so guessing costs money.",
+     "sources": []
+    },
+    {
+     "item": "Mailers and boxes",
+     "unit": "varies",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "judgment call: poly mailers for clothes, reused boxes for hard goods. Priority Mail Flat Rate boxes cost the flat price whatever the weight.",
+     "sources": [
+      {
+       "publisher": "USPS Notice 123, Price List (effective October 4, 2026)",
+       "url": "https://pe.usps.com/text/dmm300/Notice123.htm",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Test inventory",
+     "unit": "first 10 items",
+     "freq": "once",
+     "low": null,
+     "high": null,
+     "note": "judgment call: start with things you already own, then buy only items you've checked in sold listings. Keep the first buys small.",
+     "sources": []
+    },
+    {
+     "item": "eBay Store subscription (optional, later)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 21.95,
+     "high": 21.95,
+     "note": "Not needed for a first seller: 250 free listings a month come without a Store.",
+     "sources": [
+      {
+       "publisher": "eBay Seller Center, Understanding selling fees",
+       "url": "https://www.ebay.com/sellercenter/selling/seller-fees",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Shipping labels",
+     "unit": "per package",
+     "freq": "once",
+     "low": 7.33,
+     "high": 23.15,
+     "note": "Poshmark provides a prepaid label paid by the buyer; on other sites the seller buys the label, often at commercial prices through the platform.",
+     "sources": [
+      {
+       "publisher": "USPS Notice 123, Price List (effective October 4, 2026)",
+       "url": "https://pe.usps.com/text/dmm300/Notice123.htm",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't buy in bulk before you've flipped 10 items.",
+    "Don't list on every site at once. Start with one.",
+    "Don't hold an item past 60 days. Drop the price and move it."
+   ]
+  },
+  "social": {
+   "id": "social",
+   "name": "Social media for restaurants and cafes",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Nothing required to start: a phone you own, window light and free apps",
+     "unit": "each",
+     "freq": "once",
+     "low": 0,
+     "high": 0,
+     "note": "judgment call; research/crowd.json not_yet says don't buy a camera.",
+     "sources": []
+    },
+    {
+     "item": "Scheduling tool (the restaurant's Meta Business Suite is free; a scheduler is optional)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 25,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Buffer",
+       "url": "https://buffer.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Later",
+       "url": "https://later.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Metricool",
+       "url": "https://metricool.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Boomp",
+       "url": "https://boomp.net/resources/questions/how-much-does-social-media-cost-for-a-restaurant",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Design and video editing apps",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 0,
+     "note": "Canva and CapCut both have free versions; their paid prices could not be read from their own pages today, so check current rates before you buy.",
+     "sources": []
+    },
+    {
+     "item": "General liability insurance (social media business)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 30,
+     "high": 33,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/media-business-insurance/social-media-companies",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/consulting-business-insurance/marketing-consultants/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Media liability or professional liability insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 59,
+     "high": 78,
+     "note": "Covers claims such as using a photo or song you had no right to use; ask an agent (judgment call).",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/media-business-insurance/social-media-companies",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/consulting-business-insurance/marketing-consultants/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't sell 30 posts a month first. Start with one week they can see.",
+    "Don't buy a camera. A phone and good window light are enough.",
+    "Don't chase chains. Owner-run spots decide in one visit."
+   ]
+  },
+  "tutoring": {
+   "id": "tutoring",
+   "name": "Tutoring",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Background check you can show parents",
+     "unit": "one time",
+     "freq": "once",
+     "low": 15.99,
+     "high": 100,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Wyzant Help Center",
+       "url": "https://support.wyzant.com/tutors/tutor-account/background-check-policy/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Curriculum, practice and assessment materials",
+     "unit": "starter stock",
+     "freq": "once",
+     "low": 50,
+     "high": 1500,
+     "note": "Official SAT practice resources from College Board are free; see builder notes.",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/education/sat-act-test-prep-tutoring/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Computer, webcam and microphone for online sessions",
+     "unit": "one time",
+     "freq": "once",
+     "low": 0,
+     "high": 1500,
+     "note": "Only one source checked; $0 assumes you already own a computer.",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business registration (optional LLC)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 50,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Website and first local marketing",
+     "unit": "one time",
+     "freq": "once",
+     "low": 0,
+     "high": 1000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Total startup",
+     "unit": "one time",
+     "freq": "once",
+     "low": 500,
+     "high": 10000,
+     "note": "The StartCosts tutoring page shows no fixed publish date (its page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Liability insurance (optional but common)",
+     "unit": "per year",
+     "freq": "year",
+     "low": 200,
+     "high": 800,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/childcare/childrens-tutoring/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/education/sat-act-test-prep-tutoring/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Scheduling, billing and video software",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 300,
+     "note": "Free video calling tools exist; paid plans are optional at the start.",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/tutoring",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/education/sat-act-test-prep-tutoring/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    9,
+    10,
+    11
+   ],
+   "offSeason": {
+    "months": [
+     6,
+     7
+    ],
+    "where": "all"
+   },
+   "notYet": [
+    "Don't rent a room or a learning center before your weekly hours are full.",
+    "Don't buy a test prep curriculum before you have used the free official SAT practice with a student.",
+    "Don't pay for scheduling and billing software before your tenth weekly student."
+   ]
+  },
+  "washing": {
+   "id": "washing",
+   "name": "Pressure washing and window cleaning",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Pressure washer, gas, 4 GPM or more",
+     "unit": "each",
+     "freq": "once",
+     "low": 1200,
+     "high": 6000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Surface cleaner (20 inch or larger) for flatwork",
+     "unit": "each",
+     "freq": "once",
+     "low": 150,
+     "high": 1000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Hoses, wand, nozzles and downstream injector",
+     "unit": "set",
+     "freq": "once",
+     "low": 280,
+     "high": 900,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Starter chemicals and safety gear",
+     "unit": "starter stock",
+     "freq": "once",
+     "low": 200,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Window cleaning starter kit (squeegees, scrubbers, belt bucket, ladders)",
+     "unit": "kit",
+     "freq": "once",
+     "low": 200,
+     "high": 1040,
+     "note": "The StartCosts window cleaning page shows no fixed publish date (its page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/window-cleaning",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Water-fed pole system (later, for high windows)",
+     "unit": "each",
+     "freq": "once",
+     "low": 1500,
+     "high": 5290,
+     "note": "The StartCosts window cleaning page shows no fixed publish date (its page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/window-cleaning",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Trailer or water tank for remote jobs (later)",
+     "unit": "each",
+     "freq": "once",
+     "low": 200,
+     "high": 5000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Total startup (pressure washing)",
+     "unit": "one time",
+     "freq": "once",
+     "low": 500,
+     "high": 15000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/start-a-pressure-washing-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business registration and license",
+     "unit": "one time or yearly",
+     "freq": "once",
+     "low": 50,
+     "high": 500,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance",
+     "unit": "per year",
+     "freq": "year",
+     "low": 500,
+     "high": 2000,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/cleaning/pressure-washing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Commercial auto (if the vehicle is used for work)",
+     "unit": "per year",
+     "freq": "year",
+     "low": 800,
+     "high": 2400,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/guides/pressure-washing-startup-costs",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Monthly operating costs, solo window cleaner",
+     "unit": "per month",
+     "freq": "month",
+     "low": 410,
+     "high": 930,
+     "note": "The StartCosts window cleaning page shows no fixed publish date (its page date updates daily).",
+     "sources": [
+      {
+       "publisher": "StartCosts",
+       "url": "https://startcosts.com/window-cleaning",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Field service software (quotes, scheduling, invoices)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 20,
+     "high": 329,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Jobber",
+       "url": "https://www.getjobber.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Housecall Pro",
+       "url": "https://www.housecallpro.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "ZenBusiness",
+       "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Card processing",
+     "unit": "per payment",
+     "freq": "payment",
+     "low": null,
+     "high": null,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Square Help Center",
+       "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Stripe",
+       "url": "https://stripe.com/pricing",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    3,
+    4,
+    5,
+    6,
+    9,
+    10,
+    11
+   ],
+   "offSeason": {
+    "months": [
+     12,
+     1,
+     2
+    ],
+    "where": "cold"
+   },
+   "notYet": [
+    "Don't buy a hot water unit or a trailer rig before your house washes book two weeks out.",
+    "Don't buy a water-fed pole before you have buildings that need the reach.",
+    "Don't take roof jobs before you have practiced soft washing on houses and have the insurance."
+   ]
+  },
+  "webdesign": {
+   "id": "webdesign",
+   "name": "Web design for local businesses",
+   "checked": "2026-10-19",
+   "items": [
+    {
+     "item": "Nothing required to start: the mock homepages are built with the site pack and hosted free",
+     "unit": "each",
+     "freq": "once",
+     "low": 0,
+     "high": 0,
+     "note": "judgment call: a laptop and a phone you already own are enough for the first clients.",
+     "sources": []
+    },
+    {
+     "item": "Your own .com domain (optional, first year)",
+     "unit": "per year",
+     "freq": "year",
+     "low": 10,
+     "high": 20,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Porkbun (registrar pricing page)",
+       "url": "https://porkbun.com/products/domains",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Cloudflare Registrar",
+       "url": "https://www.cloudflare.com/products/registrar/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "GoDaddy",
+       "url": "https://www.godaddy.com/resources/skills/how-much-does-a-website-cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Static site hosting for client sites",
+     "unit": "per month",
+     "freq": "month",
+     "low": 0,
+     "high": 20,
+     "note": "Each client should own their hosting account; you get access, not ownership (judgment call).",
+     "sources": [
+      {
+       "publisher": "Netlify",
+       "url": "https://www.netlify.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Cloudflare Pages docs",
+       "url": "https://developers.cloudflare.com/pages/platform/limits/",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Business email on the client's domain (optional, passed through)",
+     "unit": "per user per month",
+     "freq": "month",
+     "low": 7,
+     "high": 8.4,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Google Workspace Admin Help",
+       "url": "https://support.google.com/a/answer/1247360?hl=en",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "General liability insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 38,
+     "high": 38,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/technology-business-insurance/web-designers/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "Technology errors and omissions (professional liability) insurance",
+     "unit": "per month",
+     "freq": "month",
+     "low": 94,
+     "high": 94,
+     "note": "Many solo designers start with a clear contract and add E&O once client sites take payments or bookings (judgment call; ask an agent).",
+     "sources": [
+      {
+       "publisher": "Insureon",
+       "url": "https://www.insureon.com/technology-business-insurance/web-designers/cost",
+       "checked": "2026-10-19"
+      }
+     ]
+    },
+    {
+     "item": "A site builder plan, only when a client wants to edit the site themselves (client pays)",
+     "unit": "per month",
+     "freq": "month",
+     "low": 4,
+     "high": 139,
+     "note": "",
+     "sources": [
+      {
+       "publisher": "Squarespace",
+       "url": "https://www.squarespace.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "WordPress.com",
+       "url": "https://wordpress.com/pricing/",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Framer",
+       "url": "https://www.framer.com/pricing",
+       "checked": "2026-10-19"
+      },
+      {
+       "publisher": "Wix",
+       "url": "https://www.wix.com/plans",
+       "checked": "2026-10-19"
+      }
+     ]
+    }
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "offSeason": null,
+   "notYet": [
+    "Don't build your own portfolio site first. The mock homepages are your portfolio.",
+    "Don't learn a new site builder before your first sale.",
+    "Don't quote custom features. Sell one clear package."
+   ]
+  }
+ }
+}

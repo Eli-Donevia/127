@@ -1,0 +1,19 @@
+{
+  "checked": "2026-10-19",
+  "sources": {
+    "keystone": "https://en.wikipedia.org/wiki/Keystone_pricing"
+  },
+  "keystone": "Keystone pricing: a shop sets its retail price at double the wholesale price it paid. That is why many shops ask for a wholesale price near half your retail price.",
+  "keystoneNote": "It's a common habit, not a rule. Some shops want a bigger cut, some pay more for consignment terms. Ask each shop what they need before you print prices.",
+  "defaultWholesaleShare": 0.5,
+  "termsToSet": [
+    "Wholesale price per item",
+    "Minimum first order (in dollars or units)",
+    "Case pack (how many of each item come in a box)",
+    "Reorder minimum",
+    "Payment terms (paid upfront, or due within a set number of days)",
+    "Who pays shipping",
+    "Lead time (days from order to ship)",
+    "What happens with damaged items"
+  ]
+}

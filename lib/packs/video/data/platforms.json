@@ -1,0 +1,63 @@
+{
+  "checked": "2026-10-19",
+  "youtube": {
+    "titleMaxChars": 100,
+    "descriptionMaxBytes": 5000,
+    "tagsMaxChars": 500,
+    "tagsNote": "Commas between tags count, and a tag with a space counts as if it had quote marks around it",
+    "noAngleBrackets": "Titles and descriptions can't contain < or >",
+    "chapters": {
+      "firstAt": "00:00",
+      "minCount": 3,
+      "minSeconds": 10,
+      "order": "ascending"
+    },
+    "thumbnail": {
+      "aspect": "16:9 for videos, 9:16 for Shorts",
+      "minWidth": 640,
+      "formats": [
+        "JPG",
+        "PNG"
+      ],
+      "maxMBFromPhone": 2,
+      "maxMBFromComputer": 50,
+      "recommended": "3840 x 2160 for videos, 2160 x 3840 for Shorts",
+      "weMake": "1920 x 1080 JPG, kept under 2 MB so it uploads from a phone too",
+      "verified": "Custom thumbnails need a verified account",
+      "shortsWhere": "Custom Shorts thumbnails can only be added in YouTube Studio on a computer",
+      "minHeightShorts": 640,
+      "weMakeTall": "1080 x 1920 JPG under 2 MB"
+    },
+    "shortsMaxSeconds": 180,
+    "shortsAspect": "square or vertical",
+    "sources": [
+      "https://developers.google.com/youtube/v3/docs/videos",
+      "https://support.google.com/youtube/answer/9884579",
+      "https://support.google.com/youtube/answer/72431",
+      "https://support.google.com/youtube/answer/15424877"
+    ]
+  },
+  "vertical": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "file": "MP4, H.264 high profile, yuv420p, AAC 48 kHz stereo, faststart, under 25 MB for the 127 Library",
+    "textMargins": "Our layout rule, not a platform number: titles sit below the top 270 px and captions end above the bottom 670 px, with 65 px on the sides and extra room on the right, where Reels, TikTok and Shorts put their buttons and captions",
+    "reference": "https://www.facebook.com/business/help/980593475366490"
+  },
+  "notVerified": {
+    "note": "We could not verify these today, so the outputs say check current rules instead of a number",
+    "items": [
+      "Instagram hashtag limit per post",
+      "TikTok caption length",
+      "Instagram Reels maximum length"
+    ]
+  },
+  "captionFiles": {
+    "srt": "SubRip, HH:MM:SS,mmm timestamps, numbered cues",
+    "vtt": "WebVTT, starts with WEBVTT, HH:MM:SS.mmm timestamps",
+    "linesPerCue": 2,
+    "charsPerLine": 42,
+    "note": "42 characters and 2 lines per cue is our reading-speed rule for caption files, not a platform limit"
+  }
+}

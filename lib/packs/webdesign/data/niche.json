@@ -1,0 +1,368 @@
+{
+  "id": "webdesign",
+  "checked": "2026-10-19",
+  "basis": "Facts from research/niches/webdesign.json (every number has its source and checked date). Crowd scores are our judgment from the playbook table, before real member data.",
+  "crowd": {
+    "buyer": "Local businesses",
+    "scores": {
+      "pain": 3,
+      "can_pay": 3,
+      "findable": 5,
+      "growing": 3
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "off_season": null,
+    "note": "A mock homepage is instant spec work. Owners plan in January and before their own busy season (judgment).",
+    "not_yet": [
+      "Don't build your own portfolio site first. The mock homepages are your portfolio.",
+      "Don't learn a new site builder before your first sale.",
+      "Don't quote custom features. Sell one clear package."
+    ]
+  },
+  "service": "websites",
+  "buyers": [
+    "contractors",
+    "auto",
+    "salons",
+    "restaurants",
+    "law",
+    "dentists",
+    "chiro"
+  ],
+  "starter_kit": [
+    {
+      "item": "A laptop and phone you already own",
+      "cost": "You have it",
+      "note": "The mock homepages are your portfolio."
+    },
+    {
+      "item": "Hosting for client sites (Netlify or Cloudflare Pages free plans)",
+      "cost": "$0 to start",
+      "sources": [
+        {
+          "url": "https://www.netlify.com/pricing/",
+          "publisher": "Netlify",
+          "says": "Free $0 forever with a 300 credit limit a month (a production deploy is 15 credits, bandwidth 20 credits per GB, custom domains with SSL included); Personal $9 a month with 1,000 credits; Pro $20 a month.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://developers.cloudflare.com/pages/platform/limits/",
+          "publisher": "Cloudflare Pages docs",
+          "says": "Free plan: 500 builds a month, 1 build at a time, up to 20,000 files, 100 custom domains per project.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Your own .com domain (optional)",
+      "cost": "About $11 to $20 a year",
+      "sources": [
+        {
+          "url": "https://porkbun.com/products/domains",
+          "publisher": "Porkbun (registrar pricing page)",
+          "says": ".com registration $11.08, renewal $11.08, transfer $11.08.",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.cloudflare.com/products/registrar/",
+          "publisher": "Cloudflare Registrar",
+          "says": "Search and buy domains at cost (no markup).",
+          "checked": "2026-10-19"
+        },
+        {
+          "url": "https://www.godaddy.com/resources/skills/how-much-does-a-website-cost",
+          "publisher": "GoDaddy",
+          "says": "You can expect to pay around $20 a year for your domain.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "General liability insurance (optional at first)",
+      "cost": "Median $38 a month",
+      "sources": [
+        {
+          "url": "https://www.insureon.com/technology-business-insurance/web-designers/cost",
+          "publisher": "Insureon",
+          "says": "Web designers and businesses pay an average of $38 per month, or $459 annually, for general liability insurance (median of quotes through Insureon; $1 million per occurrence).",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "job_checklist": [
+    "Before you start: signed proposal, deposit paid, and the client's facts in writing (services, hours, phone, area, photos, logo, logins to their domain registrar and Google Business Profile).",
+    "Domain and hosting accounts in the client's name; you are added as a user.",
+    "Build phone-first from the template: hero with what they do and where, a tap-to-call button, services, hours, area or address, and one clear next step (call, book or quote form).",
+    "Unique page title and meta description; LocalBusiness JSON-LD with name, address, phone and hours.",
+    "Accessibility easy checks: alt text, one H1, heading order, color contrast, keyboard focus, form labels, zoom.",
+    "Speed: compress images, run PageSpeed Insights on the phone setting, fix anything in red.",
+    "Test the contact form, the call button and every link on a real phone.",
+    "Launch: connect the domain, check https, submit the sitemap in Google Search Console, update the website link on their Google Business Profile.",
+    "Hand off: a one-page guide with logins, how to ask for changes, and the care plan; ask for an honest testimonial you may quote and permission to show the before and after."
+  ],
+  "objections": [
+    {
+      "says": "I already have a website.",
+      "answer": "Show their current site next to the mock on a phone, with the 3 fixes found on their own pages."
+    },
+    {
+      "says": "My nephew or a friend does our website.",
+      "answer": "Respect it; leave the mock as a free idea they can hand to whoever builds it, and offer the care plan only."
+    },
+    {
+      "says": "I tried a website builder and never finished.",
+      "answer": "Most owners who try alone hit time limits; offer to finish it in a week at one clear price."
+    },
+    {
+      "says": "It costs too much.",
+      "answer": "One clear package, the founding price for the first 3, or a smaller one-page start with the care plan."
+    },
+    {
+      "says": "All my business comes from word of mouth.",
+      "answer": "People they refer still look them up; the site is where a referral checks the phone number, hours and work."
+    },
+    {
+      "says": "Who are you? You have no reviews.",
+      "answer": "Lead with the mock and the fix list as proof of work; offer the founding price for an honest testimonial."
+    }
+  ],
+  "licenses": [
+    {
+      "item": "General business license or registration",
+      "check": "City or county business license, state registration if you form an LLC, and a DBA if you use a name other than your own.",
+      "sources": [
+        {
+          "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+          "publisher": "U.S. Small Business Administration",
+          "says": "Licenses and permits depend on business activity and location; research your own state, county and city.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "EIN",
+      "check": "Free from the IRS; handy for a business bank account and needed to hire.",
+      "sources": [
+        {
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+          "publisher": "IRS",
+          "says": "Get an EIN directly from the IRS in minutes for free.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Who owns the site you build (copyright)",
+      "check": "A commissioned work is a work made for hire only in listed categories and with a written agreement signed by both sides; otherwise the creator keeps the copyright. Put a written assignment or license to the client in your proposal, and keep the right to show the work in your portfolio.",
+      "sources": [
+        {
+          "url": "https://www.copyright.gov/circs/circ30.pdf",
+          "publisher": "U.S. Copyright Office, Circular 30",
+          "says": "A work specially ordered or commissioned is a work made for hire only if it falls in certain categories and the parties expressly agree in a written instrument signed by them.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "The client owns the domain",
+      "check": "Register the domain in the client's name and account, with their email, and keep access as a user. The registrant is the one with rights and responsibilities.",
+      "sources": [
+        {
+          "url": "https://www.icann.org/resources/pages/benefits-2013-09-16-en",
+          "publisher": "ICANN, Registrants' Benefits and Responsibilities",
+          "says": "Registrants are entitled to their registration agreement and their registrar's transfer and renewal processes; they assume sole responsibility for the registration and must keep contact data accurate and respond to the registrar within 15 days.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "General liability and professional liability insurance",
+      "check": "Some clients ask for proof of insurance; E&O covers claims that your work caused a loss.",
+      "sources": [
+        {
+          "url": "https://www.insureon.com/technology-business-insurance/web-designers/cost",
+          "publisher": "Insureon",
+          "says": "Median premiums for web designers: general liability $38 a month; tech E&O $94 a month; cyber $111 a month.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "item": "Sales tax on web design or digital products",
+      "check": "A few states tax some digital services or website hosting you resell; ask your state revenue department before your first invoice.",
+      "sources": []
+    }
+  ],
+  "licenses_note": "General information, not legal advice. Rules differ by state, county and city: check your state and city before you take paid jobs.",
+  "where_buyers_look": [
+    {
+      "channel": "Recommendations from other professionals (accountants, printers, insurance agents)",
+      "sources": [
+        {
+          "url": "https://www.godaddy.com/resources/news/what-clients-want",
+          "publisher": "GoDaddy What Clients Want survey",
+          "says": "60% of small business owners considered recommendations from other professionals; 46% used recommendations from friends; 73% search for a web designer via recommendation from others.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Google search",
+      "sources": [
+        {
+          "url": "https://www.godaddy.com/resources/news/what-clients-want",
+          "publisher": "GoDaddy What Clients Want survey",
+          "says": "51% relied on Google or other online search providers.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Social media groups and recommendations",
+      "sources": [
+        {
+          "url": "https://www.godaddy.com/resources/news/what-clients-want",
+          "publisher": "GoDaddy What Clients Want survey",
+          "says": "37% checked social media recommendations (Facebook groups, Instagram).",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Marketplaces such as Upwork and Fiverr",
+      "sources": [
+        {
+          "url": "https://www.godaddy.com/resources/news/what-clients-want",
+          "publisher": "GoDaddy What Clients Want survey",
+          "says": "34% looked for recommendations in a marketplace such as Fiverr or Upwork.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "People they already know",
+      "sources": [
+        {
+          "url": "https://www.godaddy.com/resources/news/what-clients-want",
+          "publisher": "GoDaddy What Clients Want survey",
+          "says": "59% would choose a personal acquaintance over anyone else; providers with a personal relationship were 2.5 times more likely to be hired than someone recommended through an online platform; 64% would feel suspicious if a web pro had no reviews.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "plays": [
+    {
+      "play": "Mock homepage first",
+      "steps": [
+        "Write down 25 local businesses with no site, a dead site or a site that isn't set up for phones (Your first 25).",
+        "Make a mock homepage for the best one from their own facts: name, services, phone, hours and colors as found.",
+        "Send it with 3 fixes from their current site and a short note; follow up on day 3 and day 7.",
+        "Walk in with the mock on your phone if they're nearby and open."
+      ]
+    },
+    {
+      "play": "Five professionals who serve local businesses",
+      "steps": [
+        "Write down 5 people who see owners every week: an accountant, an insurance agent, a printer, a sign maker, a chamber of commerce contact.",
+        "Show them one mock and your one clear package.",
+        "Ask who they know with no site or an old one; thank them with a referral gift that isn't tied to any review."
+      ]
+    },
+    {
+      "play": "People you know first",
+      "steps": [
+        "Text 20 people you know: you're building sites for local businesses and taking 3 founding clients this month.",
+        "Ask which business they love that has no site or an old one."
+      ]
+    },
+    {
+      "play": "First 3 at a founding price",
+      "steps": [
+        "Offer your first 3 clients a founding price in exchange for an honest testimonial you may quote and permission to show the before and after.",
+        "Say plainly on your site that they were founding clients.",
+        "Ask for Google reviews separately, never tied to the discount."
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "rule": "Google ranks the phone version of a site",
+      "detail": "Google uses the mobile version of a site's content, crawled with the smartphone agent, for indexing and ranking. Every mock and every build is phone-first.",
+      "source": "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing"
+    },
+    {
+      "rule": "Core Web Vitals targets",
+      "detail": "Largest Contentful Paint within 2.5 seconds, Interaction to Next Paint under 200 milliseconds, Cumulative Layout Shift under 0.1. Check with PageSpeed Insights before launch.",
+      "source": "https://developers.google.com/search/docs/appearance/core-web-vitals"
+    },
+    {
+      "rule": "Google Business Profile website link",
+      "detail": "The profile's website must represent that business location; Google asks owners not to use links that redirect to other landing pages, including pages on social media sites. A real site to link is a fair reason to talk to a business with no site.",
+      "source": "https://support.google.com/business/answer/3038177?hl=en"
+    },
+    {
+      "rule": "LocalBusiness structured data",
+      "detail": "Add schema.org LocalBusiness (or Restaurant and similar) JSON-LD with name, address, phone and opening hours, then test it with the Rich Results Test.",
+      "source": "https://developers.google.com/search/docs/appearance/structured-data/local-business"
+    },
+    {
+      "rule": "Titles and descriptions",
+      "detail": "Each page gets a unique, clear title and a short meta description that describes it.",
+      "source": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    },
+    {
+      "rule": "Accessibility for businesses open to the public",
+      "detail": "The Department of Justice says the ADA applies to the websites of businesses open to the public. Run the W3C easy checks (alt text, page title, headings, contrast, keyboard focus, zoom, form labels) on every build.",
+      "source": "https://www.ada.gov/resources/web-guidance/"
+    },
+    {
+      "rule": "Cold email to businesses follows CAN-SPAM",
+      "detail": "No exception for business-to-business email: true sender, honest subject line, say it's an ad, a real postal address, an easy opt-out honored within 10 business days.",
+      "source": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+    },
+    {
+      "rule": "No invented reviews or testimonials on client sites",
+      "detail": "Don't write reviews or testimonials for a client's site, and don't hide negative ones. Empty review sections say 'Reviews coming soon' or are left out.",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials"
+    },
+    {
+      "rule": "Google reviews can't be rewarded",
+      "detail": "A founding price can buy an honest testimonial you may quote, said plainly as a founding client; a Google review must never be tied to a discount or gift.",
+      "source": "https://support.google.com/contributionpolicy/answer/7400114?hl=en"
+    },
+    {
+      "rule": "GitHub Pages is not for business sites",
+      "detail": "Host client sites on Netlify, Cloudflare Pages or the client's builder, not GitHub Pages.",
+      "source": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits"
+    }
+  ],
+  "partners": [
+    "accountants",
+    "insurance",
+    "photographers"
+  ],
+  "promise": "If you do not like the first draft, I redo it free. If the site is not live within 14 days of getting your photos and words, you do not pay for the build.",
+  "ladder": {
+    "spots": 3,
+    "off": 0.4,
+    "ask": "an honest written testimonial I can quote, said plainly as a founding client, and permission to show the before and after",
+    "step_up": "After 3 founding clients the price goes to the full menu price.",
+    "reviews_rule": "Ask for Google reviews separately, never tied to the discount (Google Maps content policy)."
+  }
+}

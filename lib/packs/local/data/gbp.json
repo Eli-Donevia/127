@@ -1,0 +1,106 @@
+{
+  "checked": "2026-10-19",
+  "note": "Google Business Profile facts the local pack writes into members' kits. Each section names its source. Re-check before relying on a number.",
+  "eligibility": {
+    "rule": "If your business either has a physical location that customers can visit, or travels to customers where they are, you can create a Business Profile on Google.",
+    "online_only": "A business that only sells online doesn't meet that rule, so skip the profile and list the business on the free directories instead.",
+    "service_area": "If you're a service-area business, you should hide your business address from customers.",
+    "name": "Including unnecessary information in your business name isn't permitted.",
+    "name_examples": "No taglines, store codes, phone numbers, web addresses, hours or locations in the name.",
+    "po_box": "P.O. boxes or mailboxes located at remote locations aren't acceptable.",
+    "virtual_office": "A virtual office isn't eligible for a Business Profile.",
+    "coworking": "Businesses can't list an office at a co-working space unless that office maintains clear signage.",
+    "phone": "The phone number must be under the direct control of the business.",
+    "redirects": "Do not provide phone numbers or URLs that redirect or refer users to landing pages.",
+    "source": "https://support.google.com/business/answer/3038177"
+  },
+  "description": {
+    "max_chars": 750,
+    "rules": [
+      "Do not exceed 750 characters.",
+      "No links and no HTML.",
+      "Describe the business itself: what you do, who you serve and where. Leave out sales, prices and promotions.",
+      "No misleading or offensive content."
+    ],
+    "source": "https://support.google.com/business/answer/3039617"
+  },
+  "categories": {
+    "primary": 1,
+    "additional_max": 9,
+    "rule": "Pick one primary category and up to 9 more. Choose categories that describe what the business is, not every service it offers, and never use them as keywords.",
+    "source": "https://support.google.com/business/answer/3039617",
+    "names_source": "https://daltonluka.com/blog/google-my-business-categories",
+    "names_note": "Category names were checked against a published list of Google's 4,046 categories (May 2026). Google's own picker is the final word: type the name and pick the closest match."
+  },
+  "service_areas": {
+    "max": 20,
+    "rule": "Up to 20 service areas. Google suggests keeping the area within about 2 hours of driving from where the business is based.",
+    "source": "https://support.google.com/business/answer/9157481"
+  },
+  "posts": {
+    "types": [
+      "Update",
+      "Offer",
+      "Event"
+    ],
+    "max_chars": 1500,
+    "max_chars_source": "https://help.metricool.com/en/article/scheduling-on-google-business-profile-1vyzm2h/",
+    "archive": "Posts older than 6 months are archived unless a date range is set.",
+    "offer_fields": "An offer has a title, start and end dates, and can add a coupon code, a link and terms.",
+    "buttons": [
+      "Book",
+      "Order",
+      "Shop",
+      "Learn more",
+      "Sign up",
+      "Call"
+    ],
+    "buttons_source": "https://developers.google.com/my-business/reference/rest/v4/accounts.locations.localPosts",
+    "source": "https://support.google.com/business/answer/7342169"
+  },
+  "photos": {
+    "format": "JPG or PNG",
+    "size": "10 KB to 5 MB",
+    "recommended": "720 x 720 pixels",
+    "minimum": "250 x 250 pixels",
+    "video": "Up to 30 seconds, up to 75 MB, 720p or higher",
+    "source": "https://support.google.com/business/answer/6103862"
+  },
+  "qa": {
+    "status": "gone",
+    "summary": "Google retired public Questions and Answers on profiles: the Q&A API was switched off on November 3, 2025 and Maps now shows an AI Ask button that answers from the profile, the website and reviews. So the FAQs in this kit go on your website and into your posts, where the Ask button can read them.",
+    "sources": [
+      "https://ppc.land/google-quietly-kills-q-a-for-an-ai-button-most-wont-use/",
+      "https://whitespark.ca/blog/with-google-qa-gone-you-need-a-maps-ask-a-question-strategy/",
+      "https://developers.google.com/my-business/reference/qanda/rest"
+    ]
+  },
+  "verification": {
+    "methods": [
+      "Phone call or text",
+      "Email",
+      "Video recording (Google recommends it when it's offered)",
+      "Live video call",
+      "Postcard by mail (most arrive within 14 days; the code expires after 30 days)",
+      "Instant verification (through Search Console or bulk verification)"
+    ],
+    "who_chooses": "Google decides which methods you're offered. You can't pick one that isn't shown.",
+    "source": "https://support.google.com/business/answer/7107242",
+    "video": {
+      "rules": [
+        "At least 30 seconds, one continuous take with no edits or breaks, recorded live.",
+        "Show where you are: street signs or nearby businesses.",
+        "Show that the business exists: equipment, tools, branded items or stock.",
+        "Show that you manage it: open a work area or vehicle, use a tool, or show business documents.",
+        "For a service-area business: show your tools or branded vehicle and do part of a service.",
+        "Don't show bank, tax or ID numbers, private information or other people's faces."
+      ],
+      "source": "https://support.google.com/business/answer/14271705"
+    }
+  },
+  "review_link": {
+    "how": "In your Business Profile on Google, open Read reviews (or Get more reviews) and tap Share or Ask for reviews to copy your review link. On a computer, Google also offers a QR code there; the link works on every phone.",
+    "short_form": "https://g.page/r/YOUR_ID/review",
+    "source": "https://support.google.com/business/answer/16816815"
+  }
+}

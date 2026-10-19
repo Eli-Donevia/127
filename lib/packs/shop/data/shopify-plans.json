@@ -1,0 +1,46 @@
+{
+  "checked": "2026-10-19",
+  "source": "https://www.shopify.com/pricing",
+  "region": "United States, USD. Rates differ in other countries.",
+  "note": "Online card rates when you use Shopify Payments. If you use another payment provider, Shopify adds its third-party transaction fee on top of that provider's own rate. Monthly prices are what Shopify lists when you pay monthly; paying yearly lists lower prices.",
+  "plans": {
+    "basic": {
+      "name": "Basic",
+      "monthly": 39,
+      "yearlyPerMonth": 29,
+      "card": { "rate": 0.029, "fixed": 0.3 },
+      "premiumCard": { "rate": 0.035, "fixed": 0.3 },
+      "internationalExtra": 0.01,
+      "thirdPartyFee": 0.02
+    },
+    "grow": {
+      "name": "Grow",
+      "monthly": 105,
+      "yearlyPerMonth": 79,
+      "card": { "rate": 0.027, "fixed": 0.3 },
+      "premiumCard": { "rate": 0.033, "fixed": 0.3 },
+      "internationalExtra": 0.01,
+      "thirdPartyFee": 0.01
+    },
+    "advanced": {
+      "name": "Advanced",
+      "monthly": 399,
+      "yearlyPerMonth": 299,
+      "card": { "rate": 0.025, "fixed": 0.3 },
+      "premiumCard": { "rate": 0.031, "fixed": 0.3 },
+      "internationalExtra": 0.01,
+      "thirdPartyFee": 0.006
+    },
+    "plus": {
+      "name": "Plus",
+      "monthlyFrom": 2300,
+      "card": { "rate": 0.0225, "fixed": 0.3 },
+      "premiumCard": { "rate": 0.0295, "fixed": 0.3 },
+      "internationalExtra": 0.01,
+      "thirdPartyFee": 0.002
+    }
+  },
+  "paypalWallet": "Starting at 3.49% + 49 cents (Shopify lists the same starting rate on every plan).",
+  "trial": "Shopify lists a free 3-day trial, then $1 a month for 3 months on most plans. Check the pricing page before you count on it.",
+  "order": ["basic", "grow", "advanced", "plus"]
+}

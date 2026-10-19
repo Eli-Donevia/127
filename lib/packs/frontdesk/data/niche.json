@@ -1,0 +1,373 @@
+{
+  "id": "frontdesk",
+  "checked": "2026-10-19",
+  "about": "Niche facts for the front desk pack. Every number keeps its source; full research with every quote is in research/niches/frontdesk.json. Lines marked judgment are our judgment, not sourced facts.",
+  "crowd": {
+    "buyer": "Home service contractors (plumbing, HVAC, roofing, electrical)",
+    "scores": {
+      "pain": 5,
+      "can_pay": 4,
+      "findable": 4,
+      "growing": 5
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "off_season": null,
+    "not_yet": [
+      "Don't buy phone software before your first yes. Set it up on their account.",
+      "Don't say AI in your first message. Say you'll make sure they never miss a call.",
+      "Don't build anything custom yet. The setup is the product."
+    ],
+    "note": "Sell \"never miss a call\", not AI. Pitch before their busy season: spring for cooling and roofing, fall for heating."
+  },
+  "trades": {
+    "plumbers": {
+      "label": "Plumbers",
+      "category": "plumbers",
+      "words": [
+        "drain",
+        "water heater",
+        "leak",
+        "sewer",
+        "faucet",
+        "toilet",
+        "pipe",
+        "repipe",
+        "garbage disposal",
+        "sump pump",
+        "gas line",
+        "water line",
+        "backflow",
+        "clog",
+        "tankless"
+      ],
+      "example_ask": "my water heater is leaking",
+      "example_service": "water heater repair",
+      "for": "plumbers",
+      "who": "plumbing businesses"
+    },
+    "hvac": {
+      "label": "Heating and cooling",
+      "category": "hvac",
+      "words": [
+        "furnace",
+        "air conditioning",
+        "air conditioner",
+        "ac repair",
+        "heat pump",
+        "ductless",
+        "mini split",
+        "duct",
+        "thermostat",
+        "tune-up",
+        "tune up",
+        "boiler",
+        "heating",
+        "cooling",
+        "indoor air"
+      ],
+      "example_ask": "my AC stopped blowing cold air",
+      "example_service": "AC repair",
+      "for": "HVAC companies",
+      "who": "heating and cooling businesses"
+    },
+    "electricians": {
+      "label": "Electricians",
+      "category": "electricians",
+      "words": [
+        "panel",
+        "wiring",
+        "rewire",
+        "outlet",
+        "ev charger",
+        "generator",
+        "lighting",
+        "ceiling fan",
+        "surge",
+        "breaker",
+        "circuit",
+        "electrical inspection"
+      ],
+      "example_ask": "half my outlets stopped working",
+      "example_service": "electrical repair",
+      "for": "electricians",
+      "who": "electrical contractors"
+    },
+    "roofers": {
+      "label": "Roofers",
+      "category": "roofers",
+      "words": [
+        "roof repair",
+        "roof replacement",
+        "shingle",
+        "gutter",
+        "roof inspection",
+        "storm damage",
+        "metal roof",
+        "flat roof",
+        "siding",
+        "skylight",
+        "leak repair",
+        "hail"
+      ],
+      "example_ask": "I have a leak in my ceiling after the storm",
+      "example_service": "roof leak repair",
+      "for": "roofers",
+      "who": "roofing companies"
+    },
+    "contractors": {
+      "label": "Home services (plumbing, HVAC, roofing, electrical)",
+      "category": "contractors",
+      "words": [
+        "repair",
+        "install",
+        "installation",
+        "replacement",
+        "maintenance",
+        "inspection",
+        "emergency"
+      ],
+      "example_ask": "I need someone to come look at a problem this week",
+      "example_service": "a repair visit",
+      "for": "contractors",
+      "who": "plumbing, HVAC, roofing and electrical businesses"
+    }
+  },
+  "service": {
+    "id": "frontdesk",
+    "label": "Never miss a call",
+    "sell": "making sure you never miss a call",
+    "verb": "set up missed-call text back and online booking",
+    "why": "A caller who reaches voicemail often calls the next business on the list. A text back keeps the conversation going.",
+    "offer": "I'd like to send you a free one-page missed-call plan for {biz}: the text your business would send when you miss a call, an after-hours reply, a booking flow and answers to the questions callers ask, all written from your website.",
+    "ask": "Want me to send it over?",
+    "walkin": "Could I leave you a free one-page plan for the calls you miss? It's written from your own website and takes me a day.",
+    "follow1": "Floating this back up. The free missed-call plan for {biz} is still yours if you want it: the text your number would send when you miss a call, written from your website.",
+    "subject": "When {biz} misses a call",
+    "gaps": {
+      "no_booking": 26,
+      "no_chat": 18,
+      "no_tap_to_call": 12,
+      "no_form": 10,
+      "no_hours": 10,
+      "no_email": 10,
+      "no_site": 8,
+      "site_down": 6
+    },
+    "fit": {
+      "busy": 10,
+      "ads": 6,
+      "independent": 4,
+      "has_email": 2
+    },
+    "positives": [
+      "has_hours",
+      "has_booking"
+    ]
+  },
+  "missed_call_facts": [
+    {
+      "line": "About 27% of calls to home services businesses go unanswered, and fewer than 3% of callers sent to voicemail leave a message.",
+      "label": "Invoca platform data from its customers, 2024",
+      "url": "https://www.invoca.com/blog/how-much-missed-sales-calls-cost-home-services-businesses"
+    },
+    {
+      "line": "Only 52% of callers to home services businesses reached a person.",
+      "label": "Invoca benchmark report, July 2026, averages across its customers",
+      "url": "https://invoca.com/reports/the-invoca-home-services-lead-conversion-benchmarks-report-2026"
+    },
+    {
+      "line": "In June 2025, 14.1% of calls to residential HVAC businesses came in after hours.",
+      "label": "ServiceTitan customer data, not nationally representative",
+      "url": "https://www.servicetitan.com/toolbox/state-of-the-trades/trends/hvac-summer-after-hours-call-spike"
+    },
+    {
+      "line": "65% of home service businesses don't show their hours online, 74% have no FAQ and 43% don't clearly list their service area.",
+      "label": "Jobber survey of 1,050 owners, December 2025",
+      "url": "https://www.getjobber.com/home-service-trends-report/"
+    },
+    {
+      "line": "On Google Local Services Ads, a call missed during business hours is a charged lead when the caller stays on the line over 20 seconds.",
+      "label": "Google's Local Services Ads rule",
+      "url": "https://support.google.com/localservices/answer/7195435?hl=en"
+    }
+  ],
+  "texting_rules": [
+    {
+      "rule": "A text back answers a call the customer made, so keep it about that call: who it is, one question, the booking link, how to stop.",
+      "url": "https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf"
+    },
+    {
+      "rule": "Every first text says how to stop. STOP, QUIT, END, CANCEL, UNSUBSCRIBE, REVOKE and OPT OUT all count; honor them right away (the rule allows 10 business days at most).",
+      "url": "https://www.law.cornell.edu/cfr/text/47/64.1200"
+    },
+    {
+      "rule": "No promotions to people who only called. Promotional texts need written consent.",
+      "url": "https://api.ctia.org/wp-content/uploads/2023/05/230523-CTIA-Messaging-Principles-and-Best-Practices-FINAL.pdf"
+    },
+    {
+      "rule": "Register the business number for texting (A2P 10DLC) under the client's business before going live; approval usually takes under a week.",
+      "url": "https://www.twilio.com/en-us/phone-numbers/a2p-10dlc"
+    },
+    {
+      "rule": "An AI voice never makes outbound calls without consent; it only answers.",
+      "url": "https://docs.fcc.gov/public/attachments/DOC-400393A1.txt"
+    }
+  ],
+  "recording": {
+    "all_party_states": [
+      "CA",
+      "CT",
+      "FL",
+      "IL",
+      "MD",
+      "MA",
+      "MT",
+      "NH",
+      "PA",
+      "WA"
+    ],
+    "line": "If calls are recorded, the greeting says so: \"This call may be recorded.\" Some states need every party's consent, and callers can be anywhere.",
+    "source": "https://www.dmlp.org/legal-guide/recording-phone-calls-and-conversations",
+    "note": "Digital Media Law Project list (page no longer updated). Federal law is one-party consent (18 U.S.C. 2511). Check your state."
+  },
+  "forwarding": {
+    "verizon": {
+      "label": "Verizon",
+      "on": "*71 then the 10-digit number",
+      "off": "*73",
+      "source": "https://www.verizon.com/support/call-forwarding-faqs/"
+    },
+    "att": {
+      "label": "AT&T",
+      "on": "*61* then the number then # (no answer), *62* (unreachable), *67* (busy)",
+      "off": "##61#, ##62#, ##67#",
+      "source": "https://support.google.com/voice/answer/165656"
+    },
+    "tmobile": {
+      "label": "T-Mobile",
+      "on": "**61* then the number then # (no answer), **62* (unreachable), **67* (busy)",
+      "off": "##004#",
+      "source": "https://www.t-mobile.com/support/plans-features/self-service-short-codes",
+      "kind": "search result excerpt, confirm on the page"
+    },
+    "other": {
+      "label": "Other carrier or landline",
+      "on": "Ask the carrier for conditional call forwarding (no answer and busy) to the answering number",
+      "off": "Ask the carrier",
+      "source": null
+    }
+  },
+  "job_checklist": [
+    "Signed agreement, and the client's facts in writing: business name, hours, services, service area, emergency policy, booking link, prices they're happy to share, who gets alerts.",
+    "Every account in the client's name (texting or answering tool, booking page). You are added as a user. Nothing on your card.",
+    "Register texting (A2P 10DLC) under the client's business before going live.",
+    "Paste the missed-call text, the after-hours text and the FAQ answers. Read them out loud with the owner.",
+    "Set conditional forwarding so only missed calls go to the answering line. The client keeps their number.",
+    "If calls are recorded, add the recording notice to the greeting.",
+    "Test from two phones: a call during hours, a call after hours, a STOP reply, a test booking, and the alert reaching the owner.",
+    "Go live. Send the owner the setup sheet with every login, setting and monthly cost.",
+    "Every week: read the texts, fix wrong answers, check the booking link.",
+    "Every month: send the one-page report with the numbers from their tools."
+  ],
+  "objections": [
+    {
+      "objection": "I answer my own phone.",
+      "reply": "You do, and that's why customers like you. This only kicks in on the calls you can't pick up: when you're on a roof, under a sink or asleep. You keep your number."
+    },
+    {
+      "objection": "Customers hate talking to robots.",
+      "reply": "Agreed. It starts with a text from your business, signed with your name, asking what they need. Anyone who wants you still gets your call back."
+    },
+    {
+      "objection": "It's too expensive.",
+      "reply": "Fair. Compare the monthly price with one job you'd lose to the next number on the list. Try the first month, and cancel any month."
+    },
+    {
+      "objection": "We already use Jobber or Housecall Pro.",
+      "reply": "Even better. I'll set up the answering and texting features in the tool you already pay for and keep the answers up to date."
+    },
+    {
+      "objection": "Is texting customers legal?",
+      "reply": "Replying to someone who just called you is a conversation they started. Your number gets registered for texting, every first text says how to stop, and STOP is honored right away."
+    },
+    {
+      "objection": "I don't want to change my number.",
+      "reply": "You don't. Only the calls you miss get forwarded, and you can switch it off with one code."
+    }
+  ],
+  "first_clients": {
+    "founding_count": 3,
+    "founding_terms": "Setup free and the first 3 months of care at half price. The ask: honest feedback, a testimonial the member may quote (said plainly as a founding client when quoted) and permission to show before and after numbers (no names unless they say yes). Never a review: reviews are asked for separately, with nothing attached.",
+    "step_up": "After 3 founding clients, the setup fee starts. After 6, full price on everything.",
+    "why": "judgment call: the first 3 buy proof, not profit. A case study with real numbers sells the next 10."
+  },
+  "promises": [
+    "Live on your number within 7 days of getting access to your accounts, or your setup fee back.",
+    "If a test call or text ever fails, I fix it the same day.",
+    "No contract on the monthly care. Cancel any month."
+  ],
+  "where_buyers_look": [
+    {
+      "channel": "Contractor peer groups and online communities (for example EGIA's Contractor Connect)",
+      "url": "https://www.contractingbusiness.com/contracting-business-success/article/21129635/egia-begins-contractor-connect-facebook-group"
+    },
+    {
+      "channel": "Trade associations and their local chapters (ACCA for HVAC)",
+      "url": "https://www.acca.org/membership"
+    },
+    {
+      "channel": "Free small business counseling: SBDC and SCORE",
+      "url": "https://www.sba.gov/local-assistance"
+    },
+    {
+      "channel": "The field software they already use (Jobber, Housecall Pro) and its add-ons",
+      "url": null,
+      "note": "judgment"
+    },
+    {
+      "channel": "Supply houses early in the morning",
+      "url": null,
+      "note": "judgment"
+    }
+  ],
+  "licenses": [
+    {
+      "item": "Business license or registration where you live",
+      "url": "https://www.sba.gov/counseling/launch-your-business/#licenses-permits"
+    },
+    {
+      "item": "Texting registration (A2P 10DLC) for each client's number, on their account",
+      "url": "https://www.twilio.com/en-us/phone-numbers/a2p-10dlc"
+    },
+    {
+      "item": "Professional liability (E&O) insurance once you have paying clients: median about $110 a month for tech businesses (Insureon customers)",
+      "url": "https://www.insureon.com/technology-business-insurance/cost"
+    }
+  ],
+  "partners": [
+    {
+      "id": "accountants",
+      "label": "Bookkeepers and accountants who work with trades",
+      "ask": "hand the free missed-call plan to contractor clients who complain about missed calls"
+    },
+    {
+      "id": "insurance",
+      "label": "Insurance agents who cover contractors",
+      "ask": "mention the free missed-call plan to contractors at renewal time"
+    }
+  ]
+}
