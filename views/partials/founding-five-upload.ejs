@@ -1,0 +1,23 @@
+<%# One Founding Five video (public/js/founding-five.js uploads it in 4 MB parts). Locals: slot (hello, start
+    or wYYYY-MM-DD), label, hint, video (stored or null), seconds (the length asked for), maxMb, mb, short,
+    remove (offer Delete), inForm (inside the application form, so Delete is a formaction button). %>
+<% var src = video ? '/app/founding-five/video/' + slot + '?v=' + video.id : ''; var del = '/app/founding-five/video/' + slot + '/delete'; %>
+<div class="ff-up" data-ff-upload="<%= slot %>" data-max="<%= maxMb %>" data-seconds="<%= seconds %>">
+  <% if (label) { %><div class="ff-up-head"><b><%= label %></b><% if (hint) { %><span class="small muted"><%= hint %></span><% } %></div><% } %>
+  <video class="ff-player" controls playsinline preload="metadata" <%= video ? '' : 'hidden' %> <% if (src) { %>src="<%= src %>"<% } %>></video>
+  <p class="small muted ff-have" <%= video ? '' : 'hidden' %>><%= video ? 'Uploaded ' + short(video.at) + ' · ' + mb(video.size) : '' %></p>
+  <div class="ff-row">
+    <label class="btn ghost sm ff-pick"><input type="file" accept="video/*" data-ff-file><span data-ff-pick-label><%= video ? 'Replace the video' : 'Upload a video' %></span></label>
+    <% if (video && remove) { %>
+      <% if (typeof inForm !== 'undefined' && inForm) { %>
+        <button class="link small ff-linkbtn" formaction="<%= del %>" formmethod="post" data-confirm-click="Delete this video?">Delete it</button>
+      <% } else { %>
+        <form method="post" action="<%= del %>" data-confirm="Delete this video?"><button class="link small ff-linkbtn">Delete it</button></form>
+      <% } %>
+    <% } %>
+  </div>
+  <div class="ff-bar" hidden><span></span></div>
+  <p class="small ff-status" aria-live="polite"></p>
+  <noscript><p class="small muted">Uploading needs JavaScript turned on.<%= slot === 'hello' ? ' You can paste a link instead.' : '' %></p></noscript>
+  <p class="tiny muted" style="margin:6px 0 0">MP4, MOV or WebM, up to <%= maxMb %> MB.</p>
+</div>

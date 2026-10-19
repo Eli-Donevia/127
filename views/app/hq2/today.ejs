@@ -27,6 +27,8 @@
       </section>
       <% } %>
 
+      <% if (typeof ffCard !== 'undefined' && ffCard) { %><%- include('../../partials/founding-five-card', { c: ffCard, hq: true }) %><% } %>
+
       <% if (urgent || !q.items.length) { %>
       <section class="hq-card h2-move" aria-labelledby="move-h">
         <span class="eyebrow">Your move<%= firstName ? ', ' + firstName : '' %></span>

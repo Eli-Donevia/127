@@ -23,6 +23,7 @@
 
 <% if (builderOffer.founding) { %><%- include('../partials/founding-bar') %><% } %>
 <% if (typeof nudge !== 'undefined' && nudge) { %><%- include('../partials/nudge') %><% } %>
+<% if (typeof ffCard !== 'undefined' && ffCard) { %><%- include('../partials/founding-five-card', { c: ffCard, hq: false }) %><% } %>
 
 <div class="grid g-main">
   <div class="grid" style="gap:16px">

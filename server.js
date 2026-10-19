@@ -38,6 +38,8 @@ const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
 const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
+const foundingFive = require('./lib/founding-five');
+const foundingFiveRoutes = require('./lib/founding-five-routes');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -886,6 +888,8 @@ app.get('/app', requireAuth, (req, res) => {
     foundingAlert: !!(user.foundingPrice && user.foundingNumber && user.tier === 'builder' && ((req.query.upgraded === 'builder') || req.query.welcome)),
     // 127 HQ card: last full week's North Number (Builder and up, while HQ_LIVE=true).
     hqCard: hq.liveFor(user) && hq.canUse(user) ? hq.dashCard(user) : null,
+    // The Founding Five (lib/founding-five.js): apply, applied, or Eli's answer.
+    ffCard: foundingFive.card(user),
   });
 });
 
@@ -1770,6 +1774,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await db.remove('hqConnections', user.id);
   // HQ v2: runs, Inbox, Pipeline, Library files, credits, wins and the business brain.
   await harness.forget(user.id);
+  // The Founding Five: the application, its videos and the five's weeks.
+  await foundingFive.forget(user.id);
   await db.remove('users', user.id);
 }
 
@@ -2033,6 +2039,14 @@ app.use(memberOps.routes({
   },
 }));
 
+// The Founding Five (lib/founding-five-routes.js): the application and the five's page at /app/founding-five,
+// its videos and sessions.ics, and Eli's pick sheet at /admin/founding-five.
+app.use(foundingFiveRoutes({
+  requireAuth, requireAdmin, isAdmin, flash, limit, TOO_FAST, track,
+  stageDraft: memberOps.stageDraft,
+  tell: ({ subject, text }) => (ADMIN_EMAILS[0] ? integrations.sendEmail({ to: ADMIN_EMAILS[0], subject, text }) : null),
+}));
+
 // Joins by ad for the ad desk (ops/growth/ads/intake.md section 4): counts only, no emails or names.
 // One row per Chicago date, ad (utm_*) and page. Optional ?from=YYYY-MM-DD&to=YYYY-MM-DD.
 app.get('/admin/joins.csv', require('./lib/export-token').orAdmin(requireAuth, requireAdmin), (req, res) => {
@@ -2090,6 +2104,14 @@ db.init().then(async () => {
     harness.tick().catch((err) => console.error('[harness] tick', err.message));
     harness.daily().catch((err) => console.error('[harness] daily', err.message));
   }, 60 * 1000).unref();
+  // The Founding Five: hello videos and applications go when Legal and Offer promised, and 127's copies of
+  // the five's recaps on Apr 6, 2027. Hourly; each pass does only what's due.
+  const ffSweep = () => {
+    foundingFive.purge().catch((err) => console.error('[founding-five] purge', err.message));
+    memberOps.forgetFfRecaps().catch((err) => console.error('[member-ops] recaps', err.message));
+  };
+  ffSweep();
+  setInterval(ffSweep, 60 * 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });

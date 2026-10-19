@@ -1,0 +1,183 @@
+<%- include('../partials/app-head') %>
+<%# The Founding Five (lib/founding-five.js, routes in lib/founding-five-routes.js). Locals: ff (the module),
+    v (ff.page: mode apply, applied, applied-closed, closed, result or five), values and errors (a form sent
+    back), joinUrl (the five only). Offer's words are conversion/offer.md section 4; Legal's boxes and note
+    are legal/handoffs/proof.md part 3. %>
+<%
+  var a = v.a, err = errors || {};
+  var sent = !!(a && a.submittedAt);
+  var val = values && Object.keys(values).length ? values
+    : sent ? { what: a.answers.what, where: a.answers.where, adult: 'yes', hours: a.answers.hours, done: a.answers.done, videoLink: a.videoLink, boxes: a.boxes || {} }
+    : { boxes: {} };
+  var ET = 'America/New_York';
+  var day = function (ms) { return new Date(ms).toLocaleDateString('en-US', { timeZone: ET, weekday: 'long', month: 'long', day: 'numeric' }); };
+  var short = function (iso) { return iso ? new Date(iso).toLocaleDateString('en-US', { timeZone: ET, month: 'short', day: 'numeric' }) : ''; };
+  var time = function (ms) { return new Date(ms).toLocaleTimeString('en-US', { timeZone: ET, hour: 'numeric', minute: '2-digit' }).replace(':00', '').replace(' PM', 'pm').replace(' AM', 'am'); };
+  var mb = function (n) { return (n / 1048576).toFixed(n < 10485760 ? 1 : 0) + ' MB'; };
+  var maxMb = Math.round(ff.maxVideo() / 1048576);
+  var e = function (k) { return err[k] ? '<p class="ff-err" role="alert">' + String(err[k]).replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>' : ''; };
+%>
+
+<% if (v.preview) { %><div class="alert info">Preview: applications aren't open for members right now, so what you send here is saved as a test. It never counts and it's deleted after 30 days.</div><% } %>
+
+<% if (v.mode === 'five') { var w = v.week, n = v.numbers || { sends: 0, replies: 0, calls: 0, yeses: 0 }; %>
+  <div class="page-head">
+    <div><div class="eyebrow">The Founding Five</div><h1><%= w ? 'Session ' + w.n + ' of ' + w.of + ': ' + day(w.sessionAt) : 'The four sessions are done.' %></h1></div>
+    <% if (w && joinUrl) { %><a class="btn" href="<%= joinUrl %>" target="_blank" rel="noopener">Join on Zoom <span class="arrow"></span></a><% } %>
+  </div>
+  <div class="grid g-main ff">
+    <div class="grid" style="gap:16px">
+      <% if (w) { %>
+      <form method="post" action="/app/founding-five/week" class="card pad-lg" id="week">
+        <div class="card-title"><div><div class="eyebrow">This week's numbers</div><h3 class="ff-h">Since <%= day(w.from) %></h3></div><% if (!v.fromHq) { %><span class="chip win">Saved</span><% } %></div>
+        <p class="small muted" style="margin-top:0"><%= v.fromHq ? "These are from HQ so far. Fix anything that's off, then save. Eli starts the session with them." : 'Saved. You can change them until the day after the session.' %></p>
+        <div class="ff-nums">
+          <% [['sends', 'Sends'], ['replies', 'Replies'], ['calls', 'Calls'], ['yeses', 'Yeses']].forEach(function (k) { %>
+            <label class="field"><span><%= k[1] %></span><input class="input" name="<%= k[0] %>" inputmode="numeric" pattern="[0-9]*" maxlength="5" value="<%= n[k[0]] || 0 %>"></label>
+          <% }) %>
+        </div>
+        <p class="tiny muted" style="margin:0 0 14px">Counts only, never money amounts.</p>
+        <button class="btn">Save this week</button>
+      </form>
+      <% } %>
+
+      <div class="card pad-lg" id="videos">
+        <div class="eyebrow">Your videos</div>
+        <%- include('../partials/founding-five-upload', { slot: 'start', label: 'Where I\'m starting', hint: '60 seconds, by Sunday, November 29.', video: a.startVideo, seconds: 60, maxMb: maxMb, mb: mb, short: short, remove: true }) %>
+        <% if (w) { %><%- include('../partials/founding-five-upload', { slot: 'w' + w.weekOf, label: 'This week', hint: '60 seconds on how the week went, before the session.', video: v.weekVideo, seconds: 60, maxMb: maxMb, mb: mb, short: short, remove: true }) %><% } %>
+      </div>
+
+      <div class="card pad-lg" id="pieces">
+        <div class="eyebrow">Pieces to OK</div>
+        <% if (!v.pieces.length) { %><p class="small muted" style="margin:8px 0 0">When 127 would like to share a clip, a story or a post from your build, it shows up here first. Nothing is shared without your yes.</p><% } %>
+        <% v.pieces.forEach(function (p) { %>
+          <div class="ff-piece">
+            <div class="ff-row"><b><%= p.title %></b><span class="chip line"><%= { clip: 'Clip', story: 'Story', video: 'Video' }[p.kind] || 'Clip' %></span><% if (p.status !== 'waiting') { %><span class="chip <%= p.status === 'yes' ? 'win' : 'line' %>"><%= { yes: 'You said yes', no: 'You said no', stopped: 'Stopped' }[p.status] %></span><% } %></div>
+            <% if (p.note) { %><p class="small muted" style="margin:6px 0 0"><%= p.note %></p><% } %>
+            <% if (p.link) { %><p class="small" style="margin:6px 0 0"><a class="link" href="<%= p.link %>" target="_blank" rel="noopener">See the piece</a></p><% } %>
+            <% if (p.status === 'waiting') { %>
+              <p class="small ff-ok"><%= v.okFor(p.kind) %></p>
+              <div class="ff-row">
+                <form method="post" action="/app/founding-five/pieces/<%= p.id %>/yes"><button class="btn sm">Yes, 127 may use it</button></form>
+                <form method="post" action="/app/founding-five/pieces/<%= p.id %>/no"><button class="btn ghost sm">No</button></form>
+              </div>
+            <% } else if (p.status === 'yes') { %>
+              <form method="post" action="/app/founding-five/pieces/<%= p.id %>/no" class="tiny muted ff-row" style="margin-top:8px" data-confirm="Stop 127 using this piece? It comes down from 127's own accounts, website and emails within 7 days."><span>You said yes on <%= short(p.answeredAt) %>.</span><button class="link tiny ff-linkbtn">Stop using it</button></form>
+            <% } else if (p.status === 'stopped') { %>
+              <p class="tiny muted" style="margin:8px 0 0">Stopped on <%= short(p.stoppedAt) %>. Nothing new uses it, and it comes down from 127's own accounts, website and emails within 7 days of that.</p>
+            <% } else { %>
+              <p class="tiny muted" style="margin:8px 0 0">You said no on <%= short(p.answeredAt) %>. It won't be used.</p>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="card pad-lg ff-side" id="sessions">
+      <div class="eyebrow" style="color:var(--accent)">The sessions</div>
+      <ul class="ff-sessions">
+        <% v.sessions.forEach(function (s) { %><li class="<%= s.end < v.now ? 'past' : '' %>"><b><%= s.n %></b><span><%= day(s.start) %>, <%= time(s.start) %> ET</span></li><% }) %>
+      </ul>
+      <p class="small" style="margin:14px 0 0"><a class="link" href="/app/founding-five/sessions.ics">Add all four to my calendar</a></p>
+      <p class="small muted" style="margin:16px 0 0">20 minutes: your numbers, one blocker each and one next step, then how many sends you'll do next week.</p>
+      <p class="small muted" style="margin:12px 0 0">What the other four share in the sessions stays private. Please don't record, screenshot or run your own note-taker.</p>
+    </div>
+  </div>
+
+<% } else if (v.mode === 'result') { %>
+  <div class="page-head"><div><div class="eyebrow">The Founding Five</div><h1><%= v.result === 'alternate' ? "You're an alternate." : v.result === 'left' ? 'Your place went to an alternate.' : 'Thanks for applying.' %></h1></div></div>
+  <div class="card pad-lg ff-result" style="max-width:720px">
+    <% if (v.result === 'left') { %>
+      <p style="margin:0">Your founding price, number and badge stay. Thanks for the weeks you were part of it.</p>
+    <% } else { %>
+      <p style="margin:0"><%= v.text %></p>
+      <p class="small muted" style="margin:14px 0 0">From Eli</p>
+    <% } %>
+  </div>
+
+<% } else if (v.mode === 'closed') { %>
+  <div class="page-head"><div><div class="eyebrow">Founding members, 18 or older</div><h1>The Founding Five</h1></div></div>
+  <div class="grid g-main ff">
+    <div class="card pad-lg">
+      <h3 class="ff-h" style="margin-top:0"><%= v.why === 'early' ? 'Applications open ' + v.opensLabel + ' at 10am ET.' : v.why === 'closed' ? 'Applications closed on Tuesday, November 24 at 11:59pm ET.' : v.why === 'plan' ? 'The Founding Five is for founding members on Builder or the Circle.' : 'The Founding Five is for founding members.' %></h3>
+      <% if (v.why === 'plan') { %><p class="small muted">Your plan is paused or on Free right now. <a class="link" href="/app/billing">See your membership</a>.</p><% } %>
+      <% if (v.why === 'early') { %><p class="small muted" style="margin-bottom:0">Five founding members get four 20-minute group build sessions with Eli. Applications close <%= v.closesLabel %>, and Eli picks on Wednesday, November 25.</p><% } %>
+    </div>
+    <div class="card pad-lg ff-side">
+      <div class="eyebrow" style="color:var(--accent)"><%= ff.CARD.label %></div>
+      <h3 class="ff-h"><%= ff.CARD.title %></h3>
+      <p class="small muted" style="margin:0"><%= ff.CARD.body %></p>
+    </div>
+  </div>
+
+<% } else { %>
+  <div class="page-head"><div><div class="eyebrow">Founding members, 18 or older</div><h1><%= sent ? 'Your Founding Five application' : 'Apply for the Founding Five' %></h1></div></div>
+
+  <% if (sent) { %>
+    <div class="alert win">Your application is in. Eli picks on Wednesday, November 25, and you'll hear that day.<%= v.mode === 'applied' ? ' You can change it until ' + v.closesLabel + '.' : '' %></div>
+  <% } %>
+  <% if (err.form) { %><div class="alert error"><%= err.form %></div><% } else if (Object.keys(err).length) { %><div class="alert error">A few answers need a look. They're marked below.</div><% } %>
+
+  <div class="grid g-main ff">
+    <% if (v.mode === 'applied-closed') { %>
+      <div class="card pad-lg">
+        <h3 class="ff-h" style="margin-top:0">What you sent</h3>
+        <dl class="ff-answers">
+          <dt><%= ff.QUESTIONS.what.label %></dt><dd><%= a.answers.what %></dd>
+          <dt><%= ff.QUESTIONS.where.label %></dt><dd><%= a.answers.where %></dd>
+          <dt><%= ff.QUESTIONS.hours.label %></dt><dd><%= a.answers.hours %></dd>
+          <dt><%= ff.QUESTIONS.done.label %></dt><dd><%= a.answers.done %></dd>
+          <dt>Your hello</dt><dd><% if (a.video) { %><video class="ff-player" controls playsinline preload="metadata" src="/app/founding-five/video/hello"></video><% } else if (a.videoLink) { %><a class="link" href="<%= a.videoLink %>" target="_blank" rel="noopener">Your link</a><% } %></dd>
+        </dl>
+      </div>
+    <% } else { %>
+      <form method="post" action="/app/founding-five" class="card pad-lg ff-form" data-ff-apply>
+        <label class="field"><span>1. <%= ff.QUESTIONS.what.label %> <em class="muted"><%= ff.QUESTIONS.what.hint %></em></span><textarea class="input" name="what" rows="3" maxlength="<%= ff.QUESTIONS.what.max %>"><%= val.what || '' %></textarea><%- e('what') %></label>
+        <label class="field"><span>2. <%= ff.QUESTIONS.where.label %> <em class="muted"><%= ff.QUESTIONS.where.hint %></em></span><input class="input" name="where" maxlength="<%= ff.QUESTIONS.where.max %>" autocomplete="address-level2" placeholder="Des Moines, IA" value="<%= val.where || '' %>"><%- e('where') %></label>
+        <fieldset class="field ff-choice">
+          <legend>3. <%= ff.QUESTIONS.adult.label %></legend>
+          <div class="seg">
+            <label><input type="radio" name="adult" value="yes" <%= val.adult === 'yes' ? 'checked' : '' %>><span>Yes</span></label>
+            <label><input type="radio" name="adult" value="no" <%= val.adult === 'no' ? 'checked' : '' %>><span>No</span></label>
+          </div>
+          <%- e('adult') %>
+        </fieldset>
+        <label class="field"><span>4. <%= ff.QUESTIONS.hours.label %></span><input class="input ff-short" name="hours" inputmode="decimal" maxlength="4" placeholder="5" value="<%= val.hours == null ? '' : val.hours %>"><%- e('hours') %></label>
+        <label class="field"><span>5. <%= ff.QUESTIONS.done.label %> <em class="muted"><%= ff.QUESTIONS.done.hint %></em></span><textarea class="input" name="done" rows="3" maxlength="<%= ff.QUESTIONS.done.max %>"><%= val.done || '' %></textarea><%- e('done') %></label>
+
+        <div class="field" id="video">
+          <span class="ff-label">6. <%= ff.QUESTIONS.video.label %></span>
+          <%- include('../partials/founding-five-upload', { slot: 'hello', label: '', hint: '', video: a && a.video, seconds: 30, maxMb: maxMb, mb: mb, short: short, remove: !sent || !!(a && a.videoLink), inForm: true }) %>
+          <label class="field ff-linkfield"><span>Or paste a link to it <em class="muted">(Google Drive, Dropbox or an unlisted YouTube video)</em></span><input class="input" type="url" name="videoLink" maxlength="500" placeholder="https://" value="<%= val.videoLink || '' %>"><%- e('videoLink') %></label>
+          <%- e('video') %>
+        </div>
+
+        <fieldset class="ff-boxes">
+          <legend>If you're picked</legend>
+          <% ff.BOXES.forEach(function (b) { var on = !!(val.boxes && val.boxes[b.key]); %>
+            <label class="check"><input type="checkbox" name="box_<%= b.key %>" <%= on ? 'checked' : '' %>><span><b><%= b.lead %></b> <%= b.rest %></span></label>
+            <%- e('box_' + b.key) %>
+          <% }) %>
+        </fieldset>
+        <p class="small muted ff-note"><%= ff.NOTE %></p>
+        <button class="btn"><%= sent ? 'Save my changes' : 'Send my application' %></button>
+      </form>
+    <% } %>
+
+    <div class="grid" style="gap:16px">
+      <div class="card pad-lg ff-side">
+        <div class="eyebrow" style="color:var(--accent)"><%= ff.CARD.label %></div>
+        <h3 class="ff-h"><%= ff.CARD.title %></h3>
+        <p class="small muted" style="margin:0"><%= ff.CARD.body %></p>
+      </div>
+      <% if (sent && !(a && a.decidedAt)) { %>
+        <form method="post" action="/app/founding-five/withdraw" class="card pad-lg" data-confirm="Withdraw your application? Your answers and your hello video are deleted now.">
+          <p class="small muted" style="margin:0 0 12px">Changed your mind? Withdrawing deletes your answers and your hello video now.<%= v.mode === 'applied' ? ' You can apply again until the close.' : '' %></p>
+          <button class="btn ghost sm">Withdraw my application</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+<% } %>
+<script src="/js/founding-five.js" defer></script>
+<%- include('../partials/app-foot') %>

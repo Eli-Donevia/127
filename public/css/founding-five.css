@@ -1,0 +1,73 @@
+/* The Founding Five: the application, the five's page (views/app/founding-five.ejs) and Eli's pick sheet
+   (views/admin/founding-five.ejs). */
+.ff .ff-h { font-family: var(--display); font-weight: 700; letter-spacing: -.04em; font-size: 24px; line-height: 1.1; margin: 8px 0 12px; }
+.ff-form .field > span em, .ff-linkfield > span em { font-style: normal; font-weight: 400; }
+.ff-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 10px; color: var(--ink-2); }
+.ff-err { margin: 8px 0 0; font-size: 13px; color: var(--danger); }
+.ff-choice { border: 0; padding: 0; margin: 0 0 18px; min-width: 0; }
+.ff-choice legend { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 10px; padding: 0; }
+.ff-short { max-width: 140px; }
+.ff-linkfield { margin: 16px 0 0; }
+.ff-boxes { border: 0; padding: 18px 0 0; margin: 4px 0 0; border-top: 1px solid var(--line); min-width: 0; }
+.ff-boxes legend { font-size: 13px; font-weight: 600; color: var(--ink); padding: 0; margin-bottom: 12px; }
+.ff-boxes .check { margin-bottom: 14px; line-height: 1.5; }
+.ff-boxes .check b { color: var(--ink); font-weight: 600; }
+.ff-boxes .ff-err { margin: -6px 0 14px 32px; }
+.ff-note { margin: 6px 0 22px; line-height: 1.55; }
+.ff-side { border-color: rgba(184,191,255,.22); }
+.ff-answers { margin: 0; }
+.ff-answers dt { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-top: 16px; }
+.ff-answers dt:first-child { margin-top: 0; }
+.ff-answers dd { margin: 6px 0 0; color: var(--ink); white-space: pre-line; }
+
+.ff-up { padding: 14px 0; border-top: 1px solid var(--line); }
+.ff-up:first-of-type { border-top: 0; padding-top: 6px; }
+.ff-up-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 10px; }
+.ff-player { display: block; width: 100%; max-width: 360px; max-height: 420px; border-radius: 12px; background: #000; margin-bottom: 8px; }
+.ff-player[hidden], .ff-have[hidden], .ff-bar[hidden] { display: none; }
+.ff-have { margin: 0 0 10px; }
+.ff-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.ff-row form { margin: 0; }
+.ff-pick { position: relative; cursor: pointer; }
+.ff-pick input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.ff-pick:focus-within { box-shadow: 0 0 0 3px rgba(184,191,255,.35); }
+.ff-linkbtn { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); text-decoration: underline; font: inherit; }
+.ff-bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin-top: 12px; max-width: 360px; }
+.ff-bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+.ff-status { margin: 8px 0 0; color: var(--ink-2); }
+.ff-status:empty { display: none; }
+.ff-status.ff-bad { color: var(--danger); }
+
+.ff-nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 12px; }
+.ff-nums .input { font-variant-numeric: tabular-nums; }
+.ff-piece { padding: 16px 0; border-top: 1px solid var(--line); }
+.ff-piece:first-of-type { border-top: 0; }
+.ff-ok { margin: 12px 0; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--ink-2); line-height: 1.55; }
+.ff-sessions { list-style: none; margin: 12px 0 0; padding: 0; }
+.ff-sessions li { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-top: 1px solid var(--line); color: var(--ink); }
+.ff-sessions li:first-child { border-top: 0; }
+.ff-sessions li b { font-family: var(--display); font-weight: 700; color: var(--accent); min-width: 14px; }
+.ff-sessions li.past { opacity: .5; }
+
+/* Eli's pick sheet */
+.ffa-sum { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.ffa-app { margin-bottom: 14px; }
+.ffa-app.is-picked { border-color: rgba(134,214,173,.4); }
+.ffa-app.is-alt { border-color: rgba(184,191,255,.4); }
+.ffa-app.is-test { border-style: dashed; }
+.ffa-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.ffa-head h3 { margin: 0; font-size: 18px; }
+.ffa-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; }
+.ffa-cols .ff-answers dd { font-size: 14px; }
+.ffa-scores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.ffa-scores label { display: block; font-size: 12px; color: var(--ink-2); }
+.ffa-scores select, .ffa-row select, .ffa-row input { height: 40px; font-size: 14px; }
+.ffa-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.ffa-row form { margin: 0; }
+.ffa-total { font-family: var(--display); font-weight: 700; font-size: 22px; }
+
+@media (max-width: 760px) {
+  .ff-nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ffa-cols { grid-template-columns: 1fr; }
+  .ff-player { max-width: 100%; }
+}

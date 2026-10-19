@@ -68,10 +68,14 @@
 <section class="ops-sec" id="drafts" style="margin-bottom:16px">
   <h3 style="margin:0 0 10px">Drafts to approve</h3>
   <% Object.keys(groups).forEach(function (kind) { %>
-    <div class="eyebrow" style="margin:14px 0 8px"><%= kind.replace(/_/g, ' ') %> · <%= groups[kind].length %></div>
+    <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:14px 0 8px">
+      <div class="eyebrow"><%= kind.replace(/_/g, ' ') %> · <%= groups[kind].length %></div>
+      <% if (groups[kind].length > 1 && kind !== 'circle_recap') { %><form method="post" action="/admin/ops/kinds/<%= encodeURIComponent(kind) %>/approve-all" onsubmit="return confirm('Approve all <%= groups[kind].length %> as staged? Edits you haven\'t approved one by one aren\'t kept.')"><button class="btn ghost sm">Approve all <%= groups[kind].length %></button></form><% } %>
+    </div>
     <% groups[kind].forEach(function (d) { %>
     <form method="post" action="/admin/ops/drafts/<%= d.id %>/approve" class="card pad-lg" id="draft-<%= d.id %>" style="margin-bottom:10px">
-      <div class="small"><b style="font-weight:500">To <%= d.recipient === 'circle' ? 'every Circle member and #call-notes' : (d.firstName || d.email) %></b><span class="muted"><%= d.tier ? ' · ' + planName(d.tier) : '' %><%= d.commercial ? ' · founder email (opt-in only)' : '' %></span></div>
+      <div class="small"><b style="font-weight:500">To <%= d.recipient === 'circle' ? 'every Circle member and #call-notes' : d.recipient === 'founding_five' ? (d.perMember || []).length + ' of the Founding Five, one email each' : (d.firstName || d.email) %></b><span class="muted"><%= d.tier ? ' · ' + planName(d.tier) : '' %><%= d.commercial ? ' · founder email (opt-in only)' : '' %><%= d.data && d.data.attach === 'ff_sessions' ? ' · with the sessions calendar file' : '' %></span></div>
+      <% if (d.perMember && d.perMember.length) { %><div class="tiny muted" style="margin:6px 0 0">Each gets their own first line: <% d.perMember.forEach(function (m, i) { %><%= i ? ' · ' : '' %><%= who(m.userId) %>: "<%= m.firstLine %>"<% }) %></div><% } %>
       <% if (d.reason) { %><p class="tiny muted" style="margin:4px 0 10px">Why: <%= d.reason %></p><% } %>
       <% if (d.error) { %><div class="alert error"><%= d.error %></div><% } %>
       <label class="field"><span>Subject</span><input class="input" name="subject" maxlength="140" value="<%= d.subject %>" required></label>

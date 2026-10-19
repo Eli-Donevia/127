@@ -1,0 +1,149 @@
+<%- include('../partials/app-head') %>
+<%# /admin/founding-five: Eli's pick sheet (lib/founding-five.js board). Phone first. Nothing here sends: "Stage
+    the picks" puts one draft per applicant in /admin/ops, and each still needs Approve. Locals: ff, b (board),
+    across (acrossFounding), joinSet, now. %>
+<%
+  var ET = 'America/New_York';
+  var when = function (iso) { return iso ? new Date(iso).toLocaleString('en-US', { timeZone: ET, month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET' : ''; };
+  var first = function (u) { return u ? ((u.name || '').trim().split(/\s+/)[0] || u.email) : 'Deleted account'; };
+  var real = b.list.filter(function (x) { return !x.a.test; });
+  var tests = b.list.filter(function (x) { return x.a.test; });
+  var five = real.filter(function (x) { return x.a.mark === 'picked' && x.a.decidedAt; });
+  var sug = function (id) { return b.suggested.five.indexOf(id) >= 0 ? 'Suggested pick' : b.suggested.alternates.indexOf(id) >= 0 ? 'Suggested alternate' : ''; };
+  var status = function (a) { return a.leftAt ? 'Left ' + when(a.leftAt) : a.steppedInAt ? 'Stepped in ' + when(a.steppedInAt) : ''; };
+  // Why a place may pass (offer.md section 4): only facts, and Eli decides.
+  var day = function (iso) { return iso ? new Date(iso).toLocaleDateString('en-US', { timeZone: ET, month: 'short', day: 'numeric' }) : ''; };
+  var u5 = function (u) { return !u ? 'account deleted' : u.pause && !u.pause.endedAt ? 'paused' : !ff.onPlan(u) ? 'not on Builder now' : u.cancelAtPeriodEnd ? 'cancels ' + (day(u.cancelAt) || 'at period end') : ''; };
+  var waitingAlts = real.filter(function (x) { return (x.a.mark === 'alt1' || x.a.mark === 'alt2') && x.a.decidedAt && !x.a.leftAt; }).sort(function (p, q) { return p.a.mark < q.a.mark ? -1 : 1; });
+%>
+<div class="page-head">
+  <div><div class="eyebrow">Founder view</div><h1>Founding Five</h1>
+    <div class="tiny muted" style="margin-top:6px">Applications <%= ff.isOpen(now) ? 'are open' : now < ff.opensAt() ? 'open ' + when(new Date(ff.opensAt()).toISOString()) : 'closed ' + when(new Date(ff.closesAt()).toISOString()) %>. Zoom link: <%= joinSet ? 'set' : 'not set yet (FOUNDING_FIVE_JOIN_URL in Replit production secrets, before you stage the picks)' %>.</div></div>
+  <div class="ff-row"><a href="/admin/ops" class="btn ghost sm">Ops</a><a href="/admin" class="btn ghost sm">Admin</a></div>
+</div>
+
+<div class="ff">
+<section class="card pad-lg" id="picks" style="margin-bottom:16px">
+  <div class="ffa-sum">
+    <span class="chip line"><%= b.count %> applied</span>
+    <span class="chip <%= b.picked === b.need.picked && b.count ? 'win' : 'line' %>">Picked <%= b.picked %> of <%= b.need.picked %></span>
+    <span class="chip <%= b.alternates >= b.need.alternates && b.count ? 'win' : 'line' %>">Alternates <%= b.alternates %> of <%= b.need.alternates %></span>
+    <span class="chip <%= b.mix.local >= 2 && b.mix.online >= 1 ? 'win' : 'line' %>">Mix: <%= b.mix.local %> local, <%= b.mix.online %> online</span>
+    <span class="chip line" title="Hello, start and weekly videos kept in the database. Each is deleted on the dates the application promised.">Videos: <%= b.videoBytes >= 1073741824 ? (b.videoBytes / 1073741824).toFixed(1) + ' GB' : Math.round(b.videoBytes / 1048576) + ' MB' %></span>
+  </div>
+  <p class="small muted" style="margin:0 0 14px">Score each one 1 to 3 on the four things, mark the business local or online, then mark five Picked and Alternate 1 and 2. The mix to fill: at least 2 local or service businesses and at least 1 online. Age and sex are never a reason, a score or a tie-break.</p>
+  <% if (!b.decided) { %>
+    <form method="post" action="/admin/founding-five/confirm" data-confirm="Confirm your picks? Everyone you left unmarked becomes Not picked, every applicant's card shows their answer, and the marks lock.">
+      <button class="btn" <%= b.count ? '' : 'disabled' %>>Confirm picks</button>
+    </form>
+  <% } else { %>
+    <p class="small" style="margin:0 0 12px">Picks confirmed <%= when(real.filter(function (x) { return x.a.decidedAt; })[0].a.decidedAt) %>. Each applicant's card shows their answer.</p>
+    <form method="post" action="/admin/founding-five/stage" data-confirm="Stage one message per applicant in Ops? Nothing sends until you approve.">
+      <button class="btn">Stage the picks in Ops</button>
+    </form>
+    <p class="tiny muted" style="margin:8px 0 0">Picked first (with the calendar file), then alternates, then not picked. <%= joinSet ? '' : 'Without the Zoom link, the picked messages keep [[join link]] and won\'t approve until it\'s filled.' %></p>
+  <% } %>
+</section>
+
+<% if (five.length) { %>
+<section id="five" style="margin-bottom:16px">
+  <h3 style="margin:0 0 10px">The five</h3>
+  <% five.forEach(function (x) { var a = x.a; %>
+  <div class="card pad-lg ffa-app is-picked">
+    <div class="ffa-head"><h3><%= first(x.u) %></h3><span class="small muted"><%= status(a) || 'Picked' %><% if (u5(x.u)) { %> · <span style="color:var(--danger)"><%= u5(x.u) %></span><% } %> · <% if (a.startVideo) { %><a class="link" href="/admin/founding-five/<%= a.id %>/video/start" target="_blank" rel="noopener">start video</a><% } else { %>no start video yet<% } %></span></div>
+    <% var wk = Object.keys(a.weeks || {}).sort(); if (wk.length) { %>
+      <p class="small" style="margin:0 0 8px"><% wk.forEach(function (k, i) { var w = a.weeks[k]; %><%= i ? ' · ' : '' %>Week of <%= k.slice(5) %>: <%= w.savedAt ? w.sends + ' sent, ' + w.replies + ' replies, ' + w.calls + ' calls, ' + w.yeses + ' yeses' : 'numbers not saved' %><% if (w.video) { %>, <a class="link" href="/admin/founding-five/<%= a.id %>/video/w<%= k %>" target="_blank" rel="noopener">video</a><% } %><% }) %></p>
+    <% } %>
+    <% (a.pieces || []).forEach(function (p) { %>
+      <div class="small ff-row" style="padding:6px 0;border-top:1px solid var(--line)"><span><b style="font-weight:500"><%= p.title %></b> <span class="muted">· <%= p.kind %> · <%= { waiting: 'waiting for their OK', yes: 'yes ' + when(p.answeredAt), no: 'no', stopped: 'stopped ' + when(p.stoppedAt) }[p.status] %></span></span>
+        <% if (p.status !== 'stopped') { %><form method="post" action="/admin/founding-five/<%= a.id %>/pieces/<%= p.id %>/stop" data-confirm="Mark it stopped? Nothing new may use it, and it comes down from 127's own accounts, website and emails within 7 days."><button class="link tiny ff-linkbtn">Stopped</button></form><% } %></div>
+    <% }) %>
+    <% if (!a.leftAt) { %>
+    <details style="margin-top:10px"><summary class="small">Add a piece for their OK</summary>
+      <form method="post" action="/admin/founding-five/<%= a.id %>/pieces" style="margin-top:10px">
+        <div class="ffa-row">
+          <select class="input" name="kind" style="max-width:120px"><% ff.PIECE_KINDS.forEach(function (k) { %><option value="<%= k %>"><%= k %></option><% }) %></select>
+          <input class="input" name="title" maxlength="140" placeholder="A 40-second clip from session 2" style="flex:1;min-width:200px">
+        </div>
+        <input class="input" name="link" type="url" maxlength="500" placeholder="Preview link (https://)" style="margin-top:8px">
+        <input class="input" name="note" maxlength="500" placeholder="A note for them (optional)" style="margin-top:8px">
+        <button class="btn sm" style="margin-top:8px">Add it</button>
+      </form>
+    </details>
+    <div class="ffa-row">
+      <form method="post" action="/admin/founding-five/<%= a.id %>/circle-fit"><input type="hidden" name="on" value="<%= a.circleFit ? '0' : '1' %>"><button class="btn ghost sm"><%= a.circleFit ? 'Circle fit: yes' : 'Mark Circle fit' %></button></form>
+      <% if (waitingAlts.length) { %>
+      <form method="post" action="/admin/founding-five/<%= a.id %>/step-in" class="ffa-row" style="margin:0" data-confirm="<%= first(x.u) %> leaves the five, and the alternate you picked steps in. Do this only after their place has passed (a cancel, a pause, a refund or their no) and the alternate said yes.">
+        <select class="input" name="next" style="max-width:220px"><% waitingAlts.forEach(function (y) { %><option value="<%= y.a.id %>"><%= ff.MARKS[y.a.mark] %>: <%= first(y.u) %><%= u5(y.u) ? ' (' + u5(y.u) + ')' : '' %></option><% }) %></select>
+        <button class="btn ghost sm">Place passes to them</button>
+      </form>
+      <% } else { %>
+      <form method="post" action="/admin/founding-five/<%= a.id %>/step-in" data-confirm="<%= first(x.u) %> leaves the five. No alternate is waiting, so the place stays empty."><button class="btn ghost sm">They leave the five</button></form>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
+<section id="apps">
+  <h3 style="margin:0 0 10px">Applications</h3>
+  <% if (!real.length) { %><p class="small muted">No applications yet.</p><% } %>
+  <% real.concat(tests).forEach(function (x) { var a = x.a; var u = x.u; var s = a.scores || {}; var tag = sug(a.id); %>
+  <div class="card pad-lg ffa-app<%= a.mark === 'picked' ? ' is-picked' : a.mark === 'alt1' || a.mark === 'alt2' ? ' is-alt' : '' %><%= a.test ? ' is-test' : '' %>" id="app-<%= a.id %>">
+    <div class="ffa-head">
+      <h3><%= first(u) %> <span class="small muted" style="font-weight:400"><%= u ? u.email : '' %><%= u && u.foundingNumber ? ' · founding #' + u.foundingNumber : '' %></span></h3>
+      <div class="ff-row">
+        <% if (a.test) { %><span class="chip line">Test</span><% } %>
+        <% if (u && !ff.isFounding(u)) { %><span class="chip line" style="color:var(--danger)">Not a founding member</span><% } %>
+        <% if (u && ff.isFounding(u) && u5(u)) { %><span class="chip line" style="color:var(--danger)"><%= u5(u).charAt(0).toUpperCase() + u5(u).slice(1) %></span><% } %>
+        <% if (tag && !b.decided) { %><span class="chip"><%= tag %></span><% } %>
+        <span class="chip <%= a.mark === 'picked' ? 'win' : a.mark ? '' : 'line' %>"><%= ff.MARKS[a.mark || ''] %></span>
+        <span class="ffa-total"><%= x.total %>/12</span>
+      </div>
+    </div>
+    <div class="ffa-cols">
+      <dl class="ff-answers">
+        <dt>Starting, and who pays</dt><dd><%= a.answers.what %></dd>
+        <dt>Based in</dt><dd><%= a.answers.where %></dd>
+        <dt>Hours a week</dt><dd><%= a.answers.hours %></dd>
+        <dt>Done so far</dt><dd><%= a.answers.done %></dd>
+        <dt>Hello video</dt><dd><% if (a.video) { %><video class="ff-player" controls playsinline preload="none" src="/admin/founding-five/<%= a.id %>/video"></video><% } else if (a.videoLink) { %><a class="link" href="<%= a.videoLink %>" target="_blank" rel="noopener noreferrer">Watch the video</a><% } else { %><span class="muted">Deleted <%= when(a.helloVideoDeletedAt) %></span><% } %></dd>
+        <dt>Boxes</dt><dd class="small muted">All four ticked <%= when(a.boxes && a.boxes.document) %> (words <%= a.wordsVersion %>). Applied <%= when(a.submittedAt) %>.</dd>
+      </dl>
+      <div>
+        <form method="post" action="/admin/founding-five/<%= a.id %>/score">
+          <div class="ffa-scores">
+            <% ff.SCORE_KEYS.forEach(function (k) { %>
+              <label><%= k[1] %>
+                <select class="input" name="<%= k[0] %>" <%= b.decided && !a.test ? 'disabled' : '' %>><option value="">–</option><% [1, 2, 3].forEach(function (n) { %><option value="<%= n %>" <%= Number(s[k[0]]) === n ? 'selected' : '' %>><%= n %></option><% }) %></select>
+              </label>
+            <% }) %>
+            <label>Business
+              <select class="input" name="kind" <%= b.decided && !a.test ? 'disabled' : '' %>><option value="">Not set</option><option value="local" <%= a.kind === 'local' ? 'selected' : '' %>>Local or service</option><option value="online" <%= a.kind === 'online' ? 'selected' : '' %>>Online</option></select>
+            </label>
+          </div>
+          <input class="input" name="note" maxlength="500" placeholder="Your note (only you see it)" value="<%= a.note || '' %>" style="margin-top:10px;height:40px;font-size:14px">
+          <% if (!b.decided || a.test) { %><button class="btn ghost sm" style="margin-top:8px">Save scores</button><% } %>
+        </form>
+        <% if (!a.decidedAt || a.test) { %>
+        <form method="post" action="/admin/founding-five/<%= a.id %>/mark" class="ffa-row">
+          <select class="input" name="mark" style="max-width:180px"><% ['', 'picked', 'alt1', 'alt2'].forEach(function (m) { %><option value="<%= m %>" <%= (a.mark || '') === m ? 'selected' : '' %>><%= ff.MARKS[m] %></option><% }) %></select>
+          <button class="btn sm">Mark</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</section>
+
+<section class="card pad-lg" style="margin-top:16px">
+  <div class="eyebrow">For first-win posts</div>
+  <p class="small" style="margin:8px 0 0"><%= across.line || 'Not yet: no founding member has finished their first four weeks.' %></p>
+  <p class="tiny muted" style="margin:6px 0 0">Legal S26: a post about a first win carries this line, from HQ's own numbers across all <%= across.founders %> founding members (<%= across.counted %> counted, <%= across.waiting %> still in their first four weeks).</p>
+</section>
+</div>
+<script src="/js/founding-five.js" defer></script>
+<%- include('../partials/app-foot') %>

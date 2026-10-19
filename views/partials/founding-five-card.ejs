@@ -1,0 +1,26 @@
+<%# The Founding Five card (lib/founding-five.js card()) on the dashboard and on HQ's Today. Locals: c (the
+    card: apply, applied, result, or five for the five after picks day), hq (true on Today). Kept out of bonus lists, countdowns and urgency lines
+    (Offer, conversion/offer.md section 4). %>
+<% var lines = c.state === 'result' ? c.text.split(/(?<=\.)\s+/) : []; %>
+<section class="<%= hq ? 'hq-card h2-move' : 'card pad-lg' %> ff-card" aria-labelledby="ff-card-h"<%- hq ? '' : ' style="margin-bottom:16px"' %>>
+  <% if (c.state === 'apply' && c.image) { %><img src="<%= c.image %>" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px"><% } %>
+  <span class="eyebrow"><%= c.label || 'The Founding Five' %></span>
+  <% if (c.state === 'apply') { %>
+    <h2 id="ff-card-h" class="<%= hq ? 'h2-steel' : '' %>"<%- hq ? '' : ' style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0"' %>><%= c.title %></h2>
+    <p<%- hq ? '' : ' class="small muted" style="margin:0 0 16px"' %>><%= c.body %></p>
+    <a class="btn" href="/app/founding-five"><%= c.cta %> <span class="arrow"></span></a>
+  <% } else if (c.state === 'applied') { %>
+    <h2 id="ff-card-h" class="<%= hq ? 'h2-steel' : '' %>"<%- hq ? '' : ' style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0"' %>>Your application is in.</h2>
+    <p<%- hq ? '' : ' class="small muted" style="margin:0 0 12px"' %>>Eli picks on Wednesday, November 25, and you'll hear that day.</p>
+    <a class="link small" href="/app/founding-five"><%= c.open ? 'See or change it' : 'See what you sent' %></a>
+  <% } else if (c.state === 'five') { %>
+    <h2 id="ff-card-h" class="<%= hq ? 'h2-steel' : '' %>"<%- hq ? '' : ' style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0"' %>><%= c.title %></h2>
+    <% if (c.lines.length) { %><p<%- hq ? '' : ' class="small muted" style="margin:0 0 16px"' %>><%= c.lines.join(' ') %></p><% } %>
+    <a class="btn" href="/app/founding-five">Open your Founding Five page <span class="arrow"></span></a>
+  <% } else { %>
+    <h2 id="ff-card-h" class="<%= hq ? 'h2-steel' : '' %>"<%- hq ? '' : ' style="font-family:var(--display);font-weight:700;letter-spacing:-.045em;font-size:26px;margin:8px 0"' %>><%= lines[0] %></h2>
+    <p<%- hq ? '' : ' class="small muted" style="margin:0 0 8px"' %>><%= lines.slice(1).join(' ') %></p>
+    <p class="tiny muted" style="margin:0 0 14px">From Eli</p>
+    <% if (c.five) { %><a class="btn" href="/app/founding-five">Open your Founding Five page <span class="arrow"></span></a><% } %>
+  <% } %>
+</section>
