@@ -8,7 +8,7 @@
   <div class="h2-grid">
     <div class="h2-stack">
       <section class="hq-card">
-        <span class="eyebrow"><%= wf.packTitle %></span>
+        <span class="eyebrow"><%= wf.packTitle %><% if (wf.step) { %> &middot; Step <%= wf.step.n %> of <%= wf.step.of %><% } %></span>
         <h1 class="hq-title" style="font-size:36px"><span class="steel"><%= wf.title %></span></h1>
         <p class="hq-lede"><%= wf.promise %></p>
         <div class="h2-value">

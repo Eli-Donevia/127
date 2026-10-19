@@ -867,6 +867,8 @@ test('Start with business types: pick one first, then your business leads and th
     const done = page.slice(page.indexOf('id="mine"'), page.indexOf('</section>', page.indexOf('id="mine"')));
     assert.match(done, /<span class="h2-tag win">1 of 2 done<\/span>/);
     assert.match(done, /<span class="h2-num done" aria-hidden="true"><\/span>[\s\S]*?<span class="win">Done<\/span>[\s\S]*?<span class="h2-num next" aria-hidden="true">2<\/span>[\s\S]*?Next: <\/span>Your house cleaning offer/);
+    assert.match(await html(await s.go('/app/hq/w/tclean.offer', { as: cleaner })), /<span class="eyebrow">House cleaning &middot; Step 2 of 2<\/span>/, "a business's workflow page says which step it is");
+    assert.match(await html(await s.go('/app/hq/w/rt.flow', { as: cleaner })), /<span class="eyebrow">[^<&]*<\/span>/, 'a tool says no step');
     assert.ok(page.indexOf('Start a different business') > page.indexOf('id="leads"'), 'the others fold at the end');
     assert.doesNotMatch(page, /id="type-tclean"/);
     assert.doesNotMatch(page, /Pick a business</);
