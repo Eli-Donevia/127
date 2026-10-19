@@ -145,9 +145,10 @@
     <div class="wrap h5-copy">
       <p class="lbl">Make today day one</p>
       <h1 class="h5-title"><span class="dim"><span>Your</span> <span>business</span> <span>idea,</span></span> <span class="st"><span>launched</span> <span>with</span> <span>AI.</span></span></h1>
-      <p class="h5-sub">30 days to a tested idea, a price, a first offer and a launch date, with AI at every step.</p>
+      <%# Before doors open, /start sends people to /founding, so A says what they can do today. %>
+      <p class="h5-sub">Validate it, build it and launch it with AI. <%= S === 'A' ? 'Joining the founding list is free, no card.' : 'Start free in under 5 minutes, no card.' %></p>
       <a href="<%= cta[0] %>" class="btn light big h5-btn"<%- tk('home_hero_primary') %>><%= cta[1] %> <span class="arrow"></span></a>
-      <p class="h5-note"><% if (S === 'A') { %><%= doorsLine %> No card to join.<% } else { %>No card. Under 5 minutes to start.<% } %><br>Built by Eli Christiansen, 4x founder.</p>
+      <p class="h5-note"><% if (S === 'A') { %><%= doorsLine %><br><% } %>Built by Eli Christiansen, 4x founder.</p>
     </div>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
@@ -181,7 +182,7 @@
       <div class="o5-head">
         <p class="lbl" data-reveal>Your first 30 days</p>
         <h2 class="h2" data-reveal><span class="dim">You don't finish with notes.</span> You finish with these.</h2>
-        <p class="sub" data-reveal>Every step ends with something you made. Here's a sample roadmap: Maya, who edits videos for local gyms.</p>
+        <p class="sub" data-reveal>Your 30-day roadmap ends with a scored idea, a price, a first offer and a launch calendar. Every step ends with something you made. Here's a sample roadmap: Maya, who edits videos for local gyms.</p>
       </div>
       <div class="o5-grid" data-o5-scroll>
         <% made.forEach(function (m, i) { %>
