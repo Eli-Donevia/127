@@ -281,6 +281,33 @@ test('the contract refuses a broken pack and says why', () => {
   assert.equal(packs.pack('bad'), null);
   assert.deepEqual(packs.checkPack({ id: 'biz', title: 'Biz', version: '1', business: 'yes', tools: [] }, () => null), ['business must be true or false']);
   assert.deepEqual(packs.checkPack({ id: 'biz', title: 'Biz', version: '1', business: true, tools: [] }, () => null), []);
+  const sched = (suggestSchedule) => packs.checkPack({ ...TP, id: 'tq', tools: [{ ...TP.tools[0], name: 'tq.list' }], workflows: [{ id: 'tq.flow', title: 'Flow', promise: 'Lists.', minutes: 1, tier: 'free', inputs: obj({}, []), steps: [{ id: 'one', tool: 'tq.list', input: { n: 1 } }], suggestSchedule }] }, (n) => (n === 'tq.list' ? { ...TP.tools[0], name: 'tq.list' } : null));
+  assert.deepEqual(sched({ cron: '0 7 * * 1', label: 'Every Monday at 7am' }), []);
+  assert.match(sched({ cron: '*/5 * * * *', label: 'Often' }).join(), /suggestSchedule\.cron must be/);
+  assert.match(sched({ cron: '0 7 * * 1' }).join(), /suggestSchedule needs a label/);
+  // The schedule check sits beside the inputs check, not in place of it.
+  const withInputs = (inputs, suggestSchedule) => packs.checkPack({ ...TP, id: 'tq', tools: [{ ...TP.tools[0], name: 'tq.list' }], workflows: [{ id: 'tq.flow', title: 'Flow', promise: 'Lists.', minutes: 1, tier: 'free', inputs, steps: [{ id: 'one', tool: 'tq.list', input: { n: 1 } }], suggestSchedule }] }, (n) => (n === 'tq.list' ? { ...TP.tools[0], name: 'tq.list' } : null));
+  assert.match(withInputs(obj({ when: { type: 'date' } }, []), { cron: '0 7 * * 1', label: 'Every Monday at 7am' }).join(), /unknown type/, "a scheduled workflow's inputs are still checked");
+  assert.deepEqual(withInputs(undefined), ['workflow tq.flow: inputs must be an object schema'], 'missing inputs: one problem, no schema noise');
+});
+
+test('a suggested schedule reads like cron, in the member\'s own time zone', () => {
+  const cron = require('../lib/harness/cron');
+  const weekly = cron.parse('0 7 * * 1');
+  assert.deepEqual([...weekly.dow], [1]);
+  assert.deepEqual([...cron.parse('0 8 * * 1-5').dow], [1, 2, 3, 4, 5]);
+  assert.deepEqual([...cron.parse('30 9 * * 0,7').dow], [0]);
+  for (const bad of ['', '0 7 * *', '* 7 * * 1', '0 * * * *', '60 7 * * 1', '0 7 32 * *', '*/15 7 * * 1', '0 7 * * 5-1']) assert.equal(cron.parse(bad), null, bad);
+  const t = cron.local(Date.parse('2026-11-09T13:30:00Z'), 'America/Chicago');
+  assert.deepEqual(t, { date: '2026-11-09', dow: 1, dom: 9, month: 11, minutes: 450 });
+  assert.equal(cron.local(Date.parse('2026-11-09T13:30:00Z'), 'Nowhere/Else').date, '2026-11-09', 'an unknown zone falls back to Chicago');
+  assert.equal(cron.dueToday(weekly, t), true);
+  assert.equal(cron.dueToday(weekly, { ...t, minutes: 419 }), false);
+  assert.equal(cron.dueToday(weekly, { ...t, dow: 2 }), false);
+  const monthly = cron.parse('0 9 28 * *');
+  assert.equal(cron.dueToday(monthly, { ...t, dom: 28, minutes: 540 }), true);
+  assert.equal(cron.dueToday(monthly, { ...t, dom: 27, minutes: 600 }), false);
+  assert.equal(cron.dueToday(cron.parse('0 9 1 * 1'), { ...t, dom: 1, dow: 3, minutes: 600 }), true, 'either day field counts when both are set');
 });
 
 test("a workflow without a job gets the one its id and title name most, over its promise's words", () => {

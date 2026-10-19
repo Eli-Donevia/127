@@ -31,6 +31,17 @@
       </section>
       <% } %>
 
+      <% var lower = function (t) { return t.charAt(0).toLowerCase() + t.slice(1); }; %>
+      <% if (repeat) { %>
+      <section class="hq-card" aria-labelledby="rep-h">
+        <span class="eyebrow" id="rep-h">Keep it going</span>
+        <p class="h2-sub" style="margin-top:6px">127 can run this again <b><%= lower(repeat.label) %></b> with the same answers. Each run uses about <%= repeat.credits %> credits and stops for your OK before anything goes out. Stop it any time on Runs.</p>
+        <form method="post" action="/app/hq/runs/<%= v.id %>/repeat" style="margin-top:12px"><button class="btn">Repeat it <%= lower(repeat.label) %> <span class="arrow"></span></button></form>
+      </section>
+      <% } else if (repeating) { %>
+      <p class="h2-sub" style="margin:0">This repeats <%= lower(repeating.label) %>. <a class="link" href="/app/hq/runs#repeats">Stop it on Runs</a>.</p>
+      <% } %>
+
       <section class="hq-card" aria-labelledby="steps-h">
         <span class="eyebrow" id="steps-h">Steps</span>
         <ul class="h2-steps" style="margin-top:6px">

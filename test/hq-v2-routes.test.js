@@ -1192,6 +1192,138 @@ test("Monday's card: from 8am local the week's sends are written and waiting; ap
   }
 });
 
+// ---------- repeats ----------
+
+const REP = {
+  id: 'trep',
+  title: 'Repeat tests',
+  version: '1.0.0',
+  summary: 'A weekly list.',
+  tools: [{ name: 'trep.note', title: 'Write a note', description: 'Writes one line.', kind: 'code', risk: 'read', credits: 1, input: obj({ city: { type: 'string' } }), output: obj({ text: { type: 'string' } }), run: async ({ city }) => ({ text: `25 more in ${city}` }) }],
+  workflows: [
+    {
+      id: 'trep.next',
+      title: 'Your next 25',
+      promise: 'Twenty-five more to reach out to.',
+      minutes: 2,
+      tier: 'free',
+      suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' },
+      inputs: obj({ city: { type: 'string', title: 'Your city' } }),
+      steps: [{ id: 'list', tool: 'trep.note', input: { city: '$inputs.city' } }, { id: 'ok', approve: { title: 'Check them' } }],
+      result: ['list'],
+    },
+    {
+      id: 'trep.pro',
+      title: 'Your next 50',
+      promise: 'Fifty more to reach out to.',
+      minutes: 2,
+      tier: 'builder',
+      suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' },
+      inputs: obj({ city: { type: 'string', title: 'Your city' } }),
+      steps: [{ id: 'list', tool: 'trep.note', input: { city: '$inputs.city' } }],
+      result: ['list'],
+    },
+  ],
+};
+
+test('repeats: a finished run offers its schedule, one tap keeps it, and it runs at that local time without piling up', async () => {
+  const r0 = packs.registerAll([{ pack: REP, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const reps = harness.schedules;
+  reps._setDeps({ now: () => now });
+  const u = await member();
+  const other = await member();
+  const only = (x) => x.id === u.id;
+  try {
+    let run = await engine.start(u, 'trep.next', { city: 'Ames' });
+    await engine.idle();
+    let page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
+    assert.doesNotMatch(page, /Keep it going/, 'not while it waits on them');
+    await s.go(`/app/hq/runs/${run.id}/answer/ok`, { as: u, form: {} });
+    await engine.idle();
+    page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
+    assert.match(page, /Keep it going/);
+    assert.match(page, /Repeat it every Monday at 7am/);
+    assert.match(page, /about \d+ credits and stops for your OK/);
+
+    let res = await s.go(`/app/hq/runs/${run.id}/repeat`, { as: u, form: {} });
+    assert.equal(where(res), `/app/hq/runs/${run.id}`);
+    assert.ok(flashes.some((f) => f.text === 'Your next 25 repeats every Monday at 7am. Stop it any time on Runs.'));
+    const [rep] = reps.list(u.id);
+    assert.deepEqual(rep.inputs, { city: 'Ames' });
+    assert.equal(rep.lastDate, '2026-11-04', 'never a second run the same day');
+    page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
+    assert.doesNotMatch(page, /Keep it going/);
+    assert.match(page, /This repeats every Monday at 7am\./);
+    flashes = [];
+    await s.go(`/app/hq/runs/${run.id}/repeat`, { as: u, form: {} });
+    assert.ok(flashes.some((f) => f.type === 'error'), 'once per workflow');
+    assert.equal(reps.list(u.id).length, 1);
+    assert.equal((await s.go(`/app/hq/runs/${run.id}/repeat`, { as: other, form: {} })).status, 404, "someone else's run");
+
+    // Monday 6am in Chicago: not yet. 7:30: it starts once, with the same answers.
+    now = Date.parse('2026-11-09T12:00:00Z');
+    assert.deepEqual(reps.due(only), []);
+    now = Date.parse('2026-11-09T13:30:00Z');
+    assert.equal(reps.due(only).length, 1);
+    process.env.HARNESS_REPEATS = 'off';
+    assert.deepEqual(reps.due(only), []);
+    delete process.env.HARNESS_REPEATS;
+    const ids = await reps.sweep({ enabledFor: only, start: engine.start });
+    assert.equal(ids.length, 1);
+    await engine.idle();
+    run = engine.get(u, ids[0]);
+    assert.equal(run.source, 'repeat');
+    assert.deepEqual(run.inputs, { city: 'Ames' });
+    assert.equal(run.status, 'waiting');
+    assert.deepEqual(reps.due(only), [], 'once a day');
+
+    // The next Monday it still waits on them: that turn is skipped, and Runs says why.
+    now = Date.parse('2026-11-16T14:00:00Z');
+    assert.deepEqual(await reps.sweep({ enabledFor: only, start: engine.start }), []);
+    assert.equal(reps.list(u.id)[0].runs, 1);
+    page = await html(await s.go('/app/hq/runs', { as: u }));
+    assert.match(page, /Repeats/);
+    assert.match(page, /Every Monday at 7am · ran 1 time · Skipped a turn: the last one is waiting on you\./);
+
+    // Stop: only theirs, and it's gone.
+    assert.equal((await s.go(`/app/hq/repeats/${rep.id}/stop`, { as: other, form: {} })).status, 404);
+    res = await s.go(`/app/hq/repeats/${rep.id}/stop`, { as: u, form: {} });
+    assert.equal(where(res), '/app/hq/runs');
+    assert.deepEqual(reps.list(u.id), []);
+    assert.doesNotMatch(await html(await s.go('/app/hq/runs', { as: u })), /id="repeats"/);
+
+    // A repeat never spends a member's one free run: a workflow above their plan (run on the free
+    // run) offers no repeat, and a repeat out of credits waits for next time instead.
+    const f = await member('free');
+    run = await engine.start(f, 'trep.pro', { city: 'Ames' });
+    assert.equal(run.freeRun, true);
+    await engine.idle();
+    assert.equal(engine.get(f, run.id).status, 'done');
+    assert.equal(reps.offer(f, engine.get(f, run.id)), null);
+    assert.doesNotMatch(await html(await s.go(`/app/hq/runs/${run.id}`, { as: f })), /Keep it going/);
+    await db.remove('runs', run.id); // the admin numbers' free-run median is checked later
+    const g = await member('free');
+    run = await engine.start(g, 'trep.next', { city: 'Ames' });
+    await engine.idle();
+    await s.go(`/app/hq/runs/${run.id}/answer/ok`, { as: g, form: {} });
+    await engine.idle();
+    await reps.create(g, engine.get(g, run.id));
+    now = Date.parse('2026-11-23T14:00:00Z');
+    process.env.HARNESS_CREDITS_FREE = '0';
+    try {
+      assert.deepEqual(await reps.sweep({ enabledFor: (x) => x.id === g.id, start: engine.start }), []);
+    } finally {
+      delete process.env.HARNESS_CREDITS_FREE;
+    }
+    assert.match(reps.list(g.id)[0].lastError, /credits/);
+    assert.equal(harness.ledger.freeRunAvailable(g), true, 'the free run is still theirs');
+  } finally {
+    reps._setDeps({ now: () => Date.now() });
+    unregister(['trep']);
+  }
+});
+
 // ---------- the next price ----------
 
 test('the next price: free case studies, then half, three quarters and full, per client only', async () => {

@@ -10,10 +10,11 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 
 ## 0. What changed since v1
 
-**In v1.4** (one line in a pack for one kind of business):
+**In v1.4** (nothing breaks; one new line for a business pack):
 
 - **`business: true`** on a pack that is a business a member starts (house cleaning, UGC, video editing for gyms); leave it out, or say `false`, for tools any business uses (offers, ads). Start opens on the member's own business, the one they picked or their words fit, with its workflows in your order, then the tools by job, then every other business folded. Another business's workflows also go last on Today and in the Ask bar's list, though the bar still finds them by name. `harness check` notes a pack with niches that doesn't say (section 2).
 - **`job`** is still optional. Left out, it's the job your workflow's id and title name most (its promise counts less), so "Your first 25" lands in Get leads; set it when you want another group (section 4).
+- **`suggestSchedule`** now does something: a finished run offers to repeat with the same answers, and one tap turns it on (section 4d).
 
 **In v1.3** (nothing to change in a pack):
 
@@ -123,6 +124,7 @@ Rules:
   job: 'leads',                     // optional: offer, leads, content, sales, ads, site, money or ops (guessed from the words if left out: the id and title count most). Start groups tools by job and puts the member's bottleneck first; a business pack's workflows stay together in your order.
   starter: true,                    // optional: a good first workflow for a new member of this niche
   hidden: false,                    // optional: true for workflows HQ starts itself (section 4c)
+  suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' }, // optional, v1.4: offer to repeat it (section 4d)
   inputs: { type: 'object', properties: { city: { type: 'string', title: 'Your city' } }, required: ['city'] },
   steps: [
     { id: 'gyms',   tool: 'gym.find_gyms', input: { city: '$inputs.city', limit: 40 } },
@@ -162,6 +164,14 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 ### 4c. Hidden workflows
 
 `hidden: true` workflows are started by HQ itself (Do my day's "Write it for me", call prep, Monday's card). They have no page, aren't on Start or the AI link's list, and never use a Free member's free run.
+
+### 4d. Repeats
+
+`suggestSchedule: { cron, label }` on a workflow worth running again with the same answers ("Your next 25" every Monday, a monthly report). When a member's run of it finishes, its page offers "Repeat it every Monday at 7am": one tap keeps that run's answers, and the harness starts the workflow at that time in the member's time zone (Your business, else Chicago). Each run costs its usual credits (never a free member's one free run, so a workflow above their plan offers no repeat) and stops at your approve steps like any other. A repeat runs at most once a day; if the last one is still running or waiting on the member, that turn is skipped, so runs never pile up. Members stop a repeat on Runs, and have at most 10.
+
+- `cron`: minute, hour, day of the month, month and weekday. Each is `*`, a number, a range (`1-5`) or a list (`1,15`); the minute and hour must be numbers. When both day fields are set, either one counts. No steps (`*/15`). Examples: `0 7 * * 1` Mondays at 7am, `0 8 * * 1-5` weekdays at 8am, `0 9 28 * *` the 28th of each month at 9am.
+- `label`: what the offer says, up to 60 characters, starting with a capital ("Every Monday at 7am").
+- Make a repeated run safe to repeat: skip people already in the member's Pipeline, date what you make.
 
 ## 5. Risk, and the one hard rule
 
