@@ -801,19 +801,64 @@ test('Google data (Legal L53) comes out at any depth of what a pack saves, but n
 
 test('the OpenStreetMap servers are one need, ready only with both set', () => {
   const needsLib = require('../lib/harness/needs');
-  const was = [process.env.OSM_OVERPASS_URL, process.env.OSM_NOMINATIM_URL];
+  const keys = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'TERMS_LIVE', 'PRIVACY_LIVE'];
+  const was = keys.map((k) => process.env[k]);
   try {
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     delete process.env.OSM_OVERPASS_URL;
     process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search?key=k';
     assert.equal(needsLib.read('osm'), null, 'both or nothing');
     process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
     assert.deepEqual(needsLib.read('osm'), { overpass: 'https://overpass.example/api/interpreter', nominatim: 'https://nominatim.example/search?key=k' });
     assert.deepEqual(needsLib.status().find((x) => x.name === 'osm'), { name: 'osm', label: 'OpenStreetMap servers (127 account)', ready: true });
+    assert.deepEqual(needsLib.pagesList(), []);
   } finally {
-    for (const [k, v] of [['OSM_OVERPASS_URL', was[0]], ['OSM_NOMINATIM_URL', was[1]]]) {
-      if (v === undefined) delete process.env[k];
-      else process.env[k] = v;
+    keys.forEach((k, i) => {
+      if (was[i] === undefined) delete process.env[k];
+      else process.env[k] = was[i];
+    });
+  }
+});
+
+test('a search of real businesses waits for the live Terms and Privacy pages, as First 25 does (Legal L71)', async () => {
+  const needsLib = require('../lib/harness/needs');
+  const keys = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'PLACES_API_KEY', 'TERMS_LIVE', 'PRIVACY_LIVE'];
+  const was = keys.map((k) => process.env[k]);
+  try {
+    process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search?key=k';
+    process.env.PLACES_API_KEY = 'test-key';
+    for (const [terms, privacy] of [[undefined, undefined], ['true', undefined], [undefined, 'true'], ['false', 'true'], ['true', 'TRUE']]) {
+      if (terms === undefined) delete process.env.TERMS_LIVE;
+      else process.env.TERMS_LIVE = terms;
+      if (privacy === undefined) delete process.env.PRIVACY_LIVE;
+      else process.env.PRIVACY_LIVE = privacy;
+      const at = `TERMS_LIVE=${terms}, PRIVACY_LIVE=${privacy}`;
+      for (const name of ['osm', 'places']) {
+        assert.equal(needsLib.available(name), false, `${name}: ${at}`);
+        assert.equal(needsLib.read(name), null, `${name}: ${at}`);
+        assert.deepEqual(needsLib.status().find((x) => x.name === name), { name, label: needsLib.NEEDS[name].label, ready: false, waits: 'Waits for the Terms and Privacy pages (TERMS_LIVE and PRIVACY_LIVE).', keySet: true });
+      }
+      assert.deepEqual(needsLib.pagesList(), [{ name: 'places', service: 'Google Places' }, { name: 'osm', service: 'OpenStreetMap servers' }]);
+      // Sources with no Terms line don't wait for the pages.
+      assert.equal(needsLib.available('render'), !!needsLib.ffmpeg());
     }
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
+    assert.ok(needsLib.available('osm') && needsLib.available('places'));
+    assert.deepEqual(needsLib.pagesList(), []);
+    // The /admin card says which keys are set and waiting, and only then.
+    const ejs = require('ejs');
+    const card = (pages) => ejs.renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), { hq2: { mode: 'admins', list: [], until: '2026-12-01', credits: 5000, allowances: {}, held: [], pages } });
+    assert.doesNotMatch(await card([]), /Terms and Privacy pages/);
+    delete process.env.PRIVACY_LIVE;
+    assert.match(await card(needsLib.pagesList()), /Set and waiting for the Terms and Privacy pages: Google Places, OpenStreetMap servers\. Business searches in HQ stay on samples until TERMS_LIVE and PRIVACY_LIVE are both on\./);
+  } finally {
+    keys.forEach((k, i) => {
+      if (was[i] === undefined) delete process.env[k];
+      else process.env[k] = was[i];
+    });
   }
 });
 
@@ -989,10 +1034,18 @@ test('Google names (Legal L53): fetched only with the key, a few a page, counted
   const calls = [];
   places._setDeps({ fetch: async (url) => (calls.push(url), { ok: true, json: async () => ({ displayName: { text: 'Gym ' + url.match(/place0+(\d)/)[1] }, attributions: [{ provider: 'Yelp' }] }) }) });
   const ids = Array.from({ length: 8 }, (_, i) => `ChIJplace0000000${i}`);
+  const pages = [process.env.TERMS_LIVE, process.env.PRIVACY_LIVE];
   try {
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     assert.equal((await places.names(ids)).size, 0, 'no key, no calls');
     assert.equal(calls.length, 0);
     process.env.GOOGLE_PLACES_KEY = 'k';
+    // With the key, but before the Terms page is live (Legal L71): no calls either.
+    delete process.env.TERMS_LIVE;
+    assert.equal((await places.names(ids)).size, 0, 'pages not live, no calls');
+    assert.equal(calls.length, 0);
+    process.env.TERMS_LIVE = 'true';
     const got = await places.names(ids, { limit: 3 });
     assert.equal(got.size, 3);
     assert.deepEqual(got.get(ids[1]), { name: 'Gym 1', credits: ['Yelp'] });
@@ -1006,6 +1059,7 @@ test('Google names (Legal L53): fetched only with the key, a few a page, counted
   } finally {
     delete process.env.GOOGLE_PLACES_KEY;
     delete process.env.HARNESS_MAX_DAY_USD;
+    [['TERMS_LIVE', pages[0]], ['PRIVACY_LIVE', pages[1]]].forEach(([k, v]) => (v === undefined ? delete process.env[k] : (process.env[k] = v)));
     places._setDeps({ fetch: (...a) => fetch(...a) });
   }
 });

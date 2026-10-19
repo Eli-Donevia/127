@@ -1,4 +1,4 @@
-<%# HQ v2 early access in /admin (lib/harness/access.js). Locals: hq2 ({ mode, list, until, credits, allowances, held }). %>
+<%# HQ v2 early access in /admin (lib/harness/access.js). Locals: hq2 ({ mode, list, until, credits, allowances, held, pages }). %>
 <% var modeSaid = { off: 'HQ v2 is off (HARNESS_V2 unset)', admins: 'HQ v2 is admins only', on: 'HQ v2 is on for everyone' }; %>
 <% var planSaid = { builder: 'Builder', circle: "the Founder's Circle" }; %>
 <% var n = function (x) { return Number(x || 0).toLocaleString('en-US'); }; %>
@@ -32,5 +32,8 @@
   <% } %>
   <% if (hq2.held && hq2.held.length) { var set = hq2.held.filter(function (h) { return h.keySet; }); %>
   <p class="tiny muted" style="margin:14px 0 0">Waiting for Legal: <%= hq2.held.map(function (h) { return h.service; }).join(', ') %>. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set. Until then HQ ignores the key and those tools use samples.<% if (set.length) { %> Set now and ignored: <%= set.map(function (h) { return h.service; }).join(', ') %>.<% } %></p>
+  <% } %>
+  <% if (hq2.pages && hq2.pages.length) { %>
+  <p class="tiny muted" style="margin:14px 0 0">Set and waiting for the Terms and Privacy pages: <%= hq2.pages.map(function (p) { return p.service; }).join(', ') %>. Business searches in HQ stay on samples until TERMS_LIVE and PRIVACY_LIVE are both on.</p>
   <% } %>
 </div>

@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.7)
+# How a workflow plugs into the 127 harness (contract v1.8)
 
-Owner: Harness v2 thread. Version 1.7, 2026-10-19 (v1 to v1.6 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.8, 2026-10-19 (v1 to v1.7 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -11,6 +11,12 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.8** (nothing to change in a pack; Legal L71):
+
+- **Business searches wait for the live Terms and Privacy pages.** `osm` and `places` count as on, and their Terms line shows, only while `TERMS_LIVE` and `PRIVACY_LIVE` are both `true`, the same check as First 25's. Until then their keys are ignored: a tool that needs one runs as a sample and `ctx.secret` gives one that wants it `null`, so build the sample path as well as the real one (section 6).
+- **The OK's version is the line as the member reads it:** its key is the words with the link's word filled in ("...agree to our Terms.") and the link, never the `{terms}` placeholder. HQ keeps the date the Terms page showed that day beside it, so a change to Section 13B alone needs no new OK (section 6).
+- **A deleted account's OKs stay 5 years** with only the OK and its email, then go. A close for age keeps none (section 6).
 
 **In v1.7** (nothing to change in a pack; Legal L67):
 
@@ -222,9 +228,9 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 
 **Held for Legal:** `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` aren't in 127's Privacy Policy, so Legal clears each one before its key goes into production (Oct 19). Until then the harness ignores the key even when it's set: a tool that needs one runs as a sample, and one that wants one gets `null`. Known problems: Gemini's free tier trains on what it's sent, and Hunter finds addresses beyond a business's own site, which First 25's "only published addresses" rule doesn't allow. Build so the tool is worth running without them.
 
-**Terms line for business searches** (Legal L53, L66, L67; `legal/handoffs/first-25.md` part 7): `osm` and `places` carry First 25's line, word for word: "Business info from OpenStreetMap. By searching, you agree to our Terms." and "Business info from Google Maps. By searching, you agree to our Terms, including Google Maps' terms." with Terms linked to Section 13B (`/terms#13b-first-25`). A workflow with a step that needs or wants one shows its line right under Run it while that source is on. When its steps may use both, it shows one line instead: "Business info from Google Maps and OpenStreetMap. By searching, you agree to our Terms, including Google Maps' terms." Each result still shows its own credit (below). The run keeps the lines it started under, with the sources each names.
+**Terms line for business searches** (Legal L53, L66, L67, L71; `legal/handoffs/first-25.md` part 7): `osm` and `places` carry First 25's line, word for word: "Business info from OpenStreetMap. By searching, you agree to our Terms." and "Business info from Google Maps. By searching, you agree to our Terms, including Google Maps' terms." with Terms linked to Section 13B (`/terms#13b-first-25`). Either source is on only while its key is set and the Terms and Privacy pages are both live (`TERMS_LIVE` and `PRIVACY_LIVE`, as First 25 checks); until then its key is ignored and searches use samples. A workflow with a step that needs or wants one shows its line right under Run it while that source is on. When its steps may use both, it shows one line instead: "Business info from Google Maps and OpenStreetMap. By searching, you agree to our Terms, including Google Maps' terms." Each result still shows its own credit (below). The run keeps the lines it started under, with the sources each names.
 
-- **The OK is taken in HQ, never on the AI link.** The first time a member runs a search from its page in HQ with a line showing, HQ keeps their OK to that line: the words, the sources, the date and the run. A line's words are its version, so a reworded line, or the combined line once Google joins OpenStreetMap, is new and needs a new OK there. Until the member has agreed to every line a workflow shows now, it starts only from its page: the AI link gives the member that link with their answers filled in, and a repeat skips its turns. After that, the AI link, repeats and Do my day start it. An admin's sample run needs no line, since it searches nothing. The member's OKs are deleted with their account.
+- **The OK is taken in HQ, never on the AI link.** The first time a member runs a search from its page in HQ with a line showing, HQ keeps their OK to that line: the words as they read them, the link, the sources, the date the Terms page showed that day (its "Last updated"), when, and the run. A line's version is its words as read, with the link's word filled in, and its link: a reworded line, a new link, or the combined line once Google joins OpenStreetMap is new and needs a new OK there, and a change to Section 13B alone doesn't. Until the member has agreed to every line a workflow shows now, it starts only from its page: the AI link gives the member that link with their answers filled in, and a repeat skips its turns. After that, the AI link, repeats and Do my day start it. An admin's sample run needs no line, since it searches nothing. When the account is deleted, its OKs stay 5 years with only the OK and the account's email (no member id, workflow or run), then go; a close for age keeps none.
 - **A step never searches a source its run's lines don't name:** a run started before the source went on (one waiting on the member's OK, say) stops at that step and says to run it from HQ.
 - **On the AI link,** nothing a Google search found goes through, the same as First 25's result email: no names, addresses, phone numbers, websites or ratings. A run whose lines name Google shows its steps' progress there, and its results, picks, drafts and step errors in HQ only. Its approvals that list what it found are answered in HQ; a plain OK still works. A run that searched OpenStreetMap shows them with First 25's credit, "Business listings © OpenStreetMap contributors (openstreetmap.org/copyright)", and so do Pipeline businesses from OpenStreetMap (section 13).
 
@@ -309,7 +315,7 @@ npm run harness -- list --packs <folder>
 npm run harness -- run gym.first_clients --packs <folder> --input city="Des Moines, IA" [--input clip=@path/to/clip.mp4] [--tier builder] [--pick 0,2] [--out <folder>] [--json]
 ```
 
-`--input key=@file` (or `@a.mp4,@b.mp4`) puts the file in the test member's Library and passes its id, as when a member picks it. Outside the site, the same engine is mirrored at `/mnt/project-files/v2/harness/module` (`node lib/harness/cli.js ...`).
+`--input key=@file` (or `@a.mp4,@b.mp4`) puts the file in the test member's Library and passes its id, as when a member picks it. A `--live` search of real businesses also needs `TERMS_LIVE=true` and `PRIVACY_LIVE=true` in your environment, as on the site; without them the CLI says so and the search uses samples. Outside the site, the same engine is mirrored at `/mnt/project-files/v2/harness/module` (`node lib/harness/cli.js ...`).
 
 ## 10. Views: how HQ shows an output
 

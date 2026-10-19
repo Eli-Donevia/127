@@ -26,6 +26,7 @@ const launch = require('./lib/launch');
 const waitlist = require('./lib/waitlist');
 const utmLib = require('./lib/utm');
 const billingRecords = require('./lib/billing-records');
+const legalDates = require('./lib/legal-date');
 const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const challenge = require('./lib/challenge');
@@ -100,10 +101,8 @@ const bySlug = Object.fromEntries(resources.map((r) => [r.slug, r]));
 const TRACK_NAMES = { start: 'Start', build: 'Build', grow: 'Grow' };
 
 // The "Last updated" date on the legal pages: the day the site was published (LEGAL_EFFECTIVE_DATE, YYYY-MM-DD).
-function legalEffectiveDate() {
-  const raw = /^\d{4}-\d{2}-\d{2}$/.test(process.env.LEGAL_EFFECTIVE_DATE || '') ? process.env.LEGAL_EFFECTIVE_DATE : '2026-10-16';
-  return new Date(raw + 'T12:00:00Z').toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' });
-}
+// HQ keeps the same date with a member's Terms OK (lib/legal-date.js).
+const legalEffectiveDate = legalDates.legalDateText;
 
 function currentUser(req) {
   return req.session && req.session.uid ? db.get('users', req.session.uid) : null;
@@ -1773,8 +1772,9 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await challenge.forget(user.email);
   // 127 HQ: saved Stripe and Shopify keys and the 127 link. The numbers themselves are on the user doc.
   await db.remove('hqConnections', user.id);
-  // HQ v2: runs, Inbox, Pipeline, Library files, credits, wins and the business brain.
-  await harness.forget(user.id);
+  // HQ v2: runs, Inbox, Pipeline, Library files, credits, wins and the business brain. Their OKs to HQ's
+  // Terms lines stay 5 years with the email only (Legal L71), except on a close for age.
+  await harness.forget(user.id, { email: user.email, keepAgreements: retainBilling });
   // The Founding Five: the application, its videos and the five's weeks.
   await foundingFive.forget(user.id);
   await db.remove('users', user.id);
@@ -1816,7 +1816,7 @@ app.get('/admin', requireAuth, requireAdmin, wrap(async (req, res) => {
     cv: await adminCircle(req),
     hqStats: hq.live() ? hq.stats() : null,
     // HQ v2 early access (lib/harness/access.js): the public build's founder, before HQ v2 opens to everyone.
-    hq2: { mode: harness.mode(), list: harness.access.list(), until: harness.access.defaultUntil(), credits: harness.access.DEFAULT_CREDITS, allowances: harness.ledger.allowances(), held: harness.needs.heldList() },
+    hq2: { mode: harness.mode(), list: harness.access.list(), until: harness.access.defaultUntil(), credits: harness.access.DEFAULT_CREDITS, allowances: harness.ledger.allowances(), held: harness.needs.heldList(), pages: harness.needs.pagesList() },
   });
 }));
 

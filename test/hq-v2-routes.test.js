@@ -1142,6 +1142,9 @@ test('Google businesses (Legal L53): the Pipeline keeps the place ID and 127\'s 
     return { ok: true, json: async () => ({ id, displayName: { text: names[id] }, attributions: [] }) };
   } });
   process.env.PLACES_API_KEY = 'test-key';
+  // Names come from Google only while the Terms and Privacy pages are live (Legal L71).
+  process.env.TERMS_LIVE = 'true';
+  process.env.PRIVACY_LIVE = 'true';
   const stored = (id) => JSON.stringify(db.get('pipeline', id));
   try {
     let r = await s.go('/app/hq/import/first25-mine', { as: u, form: {} });
@@ -1194,16 +1197,22 @@ test('Google businesses (Legal L53): the Pipeline keeps the place ID and 127\'s 
     const mcpText = (await require('../lib/harness/mcp').call(u, 'get_pipeline', {})).content[0].text;
     assert.match(mcpText, /a business on Google Maps \(https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=business&query_place_id=ChIJpeakfitnessAmes2\)/);
 
-    // Without the key nothing is fetched: the card says so and the placeholder keeps Copy off.
-    delete process.env.PLACES_API_KEY;
-    calls.length = 0;
-    page = await html(await s.go('/app/hq', { as: u }));
-    assert.equal(calls.length, 0);
-    assert.match(page, /<span data-gname-to>A business on Google Maps<\/span>/);
-    assert.match(page, /Fill in <b data-hole-text>\[business name\]<\/b> before you send it\./);
-    assert.match(page, /data-gname="/);
+    // Without the key, or with the key while the Privacy page isn't live, nothing is fetched: the card says so
+    // and the placeholder keeps Copy off.
+    for (const off of ['PRIVACY_LIVE', 'PLACES_API_KEY']) {
+      delete process.env[off];
+      calls.length = 0;
+      page = await html(await s.go('/app/hq', { as: u }));
+      assert.equal(calls.length, 0, off);
+      assert.match(page, /<span data-gname-to>A business on Google Maps<\/span>/);
+      assert.match(page, /Fill in <b data-hole-text>\[business name\]<\/b> before you send it\./);
+      assert.match(page, /data-gname="/);
+      process.env.PRIVACY_LIVE = 'true';
+    }
   } finally {
     delete process.env.PLACES_API_KEY;
+    delete process.env.TERMS_LIVE;
+    delete process.env.PRIVACY_LIVE;
     places._setDeps({ fetch: (...a) => fetch(...a) });
     imports._setDeps({ first25: () => require('../lib/first25'), first25Data: () => require('../public/funnels/first25-data.js') });
   }
@@ -1555,11 +1564,16 @@ test('a member types their city once: the first run that asks saves it to Your b
 const OSM_LINE = 'Business info from OpenStreetMap. By searching, you agree to our {terms}.';
 const BOTH_LINE = "Business info from Google Maps and OpenStreetMap. By searching, you agree to our {terms}, including Google Maps' terms.";
 const AGREE_FIRST = 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.';
-const MAP_ENV = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'GOOGLE_PLACES_API_KEY', 'PLACES_API_KEY', 'GOOGLE_PLACES_KEY'];
+const MAP_ENV = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'GOOGLE_PLACES_API_KEY', 'PLACES_API_KEY', 'GOOGLE_PLACES_KEY', 'TERMS_LIVE', 'PRIVACY_LIVE', 'LEGAL_EFFECTIVE_DATE'];
+// The servers set, with the Terms and Privacy pages live (Legal L71: searches wait for both).
 const osmOn = () => {
   process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
   process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search';
+  process.env.TERMS_LIVE = 'true';
+  process.env.PRIVACY_LIVE = 'true';
 };
+// A line's key: its words as the member reads them under Run it, and its link (Legal L71).
+const keyOf = (seen, href) => require('crypto').createHash('sha256').update(`${seen}\n${href}`).digest('hex').slice(0, 16);
 const AG = {
   id: 'tag',
   title: 'Terms line tests',
@@ -1612,11 +1626,28 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     await engine.idle();
     assert.equal(engine.get(v, waiting.id).status, 'waiting');
 
-    // Map servers on: OpenStreetMap's line, once, right under the button, with Terms linked to Section 13B.
+    // Map servers set while the Terms or Privacy page isn't live yet (Legal L71): no line, and the search uses
+    // samples, as First 25's does.
     osmOn();
+    delete process.env.PRIVACY_LIVE;
+    assert.deepEqual(engine.agreeLines(packs.workflow('tag.search')), []);
+    assert.equal(lines(await html(await s.go('/app/hq/w/tag.search', { as: u }))), 0);
+    run = await engine.start(u, 'tag.search', { city: 'Ames' });
+    assert.equal(run.agreed, undefined);
+    await engine.idle();
+    assert.equal(engine.get(u, run.id).steps.find.output.n, 3, 'samples, not a real search');
+    process.env.PRIVACY_LIVE = 'true';
+    process.env.TERMS_LIVE = 'false';
+    assert.deepEqual(engine.agreeLines(packs.workflow('tag.search')), []);
+
+    // Both pages live: OpenStreetMap's line, once, right under the button, with Terms linked to Section 13B.
+    process.env.TERMS_LIVE = 'true';
+    process.env.LEGAL_EFFECTIVE_DATE = '2026-11-02';
     const [line, ...extra] = engine.agreeLines(packs.workflow('tag.search'));
     assert.deepEqual(extra, []);
     assert.deepEqual(line, { key: line.key, text: OSM_LINE, href: '/terms#13b-first-25', sources: ['osm'] });
+    // Its key is the line as the member reads it, Terms filled in, with its link: not the {terms} placeholder.
+    assert.equal(line.key, keyOf('Business info from OpenStreetMap. By searching, you agree to our Terms.', '/terms#13b-first-25'));
     let page = await html(await s.go('/app/hq/w/tag.search?in_city=Ames', { as: u }));
     assert.equal(lines(page), 1);
     assert.match(page, new RegExp(`Run it <span class="arrow"></span></button>\\s*<input type="hidden" name="agree" value="${line.key}">\\s*<p class="hq-small h2-agree">Business info from OpenStreetMap\\. By searching, you agree to our <a href="/terms#13b-first-25">Terms</a>\\.</p>`));
@@ -1643,11 +1674,12 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     assert.match(where(res), /^\/app\/hq\/runs\/[\w-]+$/);
     run = engine.get(u, runOf(res));
     assert.deepEqual(run.agreed, [line]);
-    // And HQ keeps the member's OK (Legal L67): the line word for word (its key is its version), its source,
-    // the date and the run it came with.
+    // And HQ keeps the member's OK (Legal L67, L71): the line word for word as they read it (its key is its
+    // version), its link and source, the date /terms showed that day, when, and the run it came with.
     const { createdAt, updatedAt, ...ok } = db.get('agreements', `${u.id}:${line.key}`);
     assert.ok(createdAt && updatedAt);
-    assert.deepEqual(ok, { id: `${u.id}:${line.key}`, memberId: u.id, key: line.key, text: OSM_LINE, href: '/terms#13b-first-25', sources: ['osm'], at: new Date(now).toISOString(), workflowId: 'tag.search', runId: run.id, via: 'hq' });
+    assert.deepEqual(ok, { id: `${u.id}:${line.key}`, memberId: u.id, key: line.key, text: 'Business info from OpenStreetMap. By searching, you agree to our Terms.', href: '/terms#13b-first-25', sources: ['osm'], termsVersion: '2026-11-02', at: new Date(now).toISOString(), workflowId: 'tag.search', runId: run.id, via: 'hq' });
+    assert.equal(require('../lib/legal-date').legalDateText(), 'November 2, 2026', "the date /terms shows that day");
     await engine.idle();
     assert.equal(engine.get(u, run.id).steps.find.output.n, 25, 'it searched for real');
     // Once: the next run under the same line leaves the first OK as it was.
@@ -1736,10 +1768,43 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     page = await html(await s.go('/app/hq/w/tag.odd', { as: u }));
     assert.match(page, /<p class="hq-small h2-agree">Odd &lt;b&gt;data&lt;\/b&gt; &amp; more\. See our <a href="\/terms#odd">Terms<\/a>\.<\/p>/);
 
-    // Deleting the account deletes the member's OKs with everything else of theirs.
+    // A new Terms date alone needs no new OK (Legal L71): the line and its key stay, and so does the member's OK.
+    process.env.LEGAL_EFFECTIVE_DATE = '2026-12-01';
+    assert.deepEqual(engine.agreeLines(packs.workflow('gym.first_clients')), [line]);
+    assert.ok(engine.agreedTo(u, packs.workflow('gym.first_clients')));
+
+    // Deleting the account (Legal L71): the member's OKs stay 5 years with only the OK and the account's email,
+    // no member id, workflow or run; then they go.
+    const had = oks(v);
+    assert.equal(had.length, 2);
+    now = Date.parse('2026-12-02T15:00:00Z');
     await harness.forget(v.id);
     assert.deepEqual(oks(v), []);
+    const kept = db.filter('agreements', (a) => a.email === v.email);
+    assert.deepEqual(kept.map((a) => a.key).sort(), had.map((a) => a.key).sort());
+    for (const a of kept) {
+      const { id, createdAt: c, updatedAt: d, ...rest } = a;
+      const was = had.find((h) => h.key === a.key);
+      assert.deepEqual(rest, { email: v.email, key: was.key, text: was.text, href: was.href, sources: was.sources, termsVersion: was.termsVersion, at: was.at, via: 'hq', deletedAt: '2026-12-02T15:00:00.000Z', retainUntil: '2031-12-02T15:00:00.000Z' });
+      assert.ok(!JSON.stringify(a).includes(v.id), 'nothing ties it to the account but the email');
+    }
     assert.equal(oks(u).length, 1);
+    // Kept OKs count for no one: a new account on the same email agrees afresh.
+    assert.ok(!engine.agreedTo({ id: undefined, email: v.email }, packs.workflow('tag.search')));
+    // The daily job deletes them 5 years on, whether or not HQ v2 is on.
+    process.env.HARNESS_V2 = 'off';
+    now = Date.parse('2031-12-02T14:59:00Z');
+    await harness.daily(now);
+    assert.equal(db.filter('agreements', (a) => a.email === v.email).length, 2);
+    now = Date.parse('2031-12-02T15:00:00Z');
+    assert.equal(await engine.purgeAgreements(), 2);
+    assert.equal(db.filter('agreements', (a) => a.email === v.email).length, 0);
+    assert.equal(oks(u).length, 1, "a member's own OK stays");
+    process.env.HARNESS_V2 = 'on';
+    // A close for age keeps none of them (it keeps only its own record, lib/age-check.js).
+    await harness.forget(u.id, { keepAgreements: false });
+    assert.deepEqual(oks(u), []);
+    assert.equal(db.filter('agreements', (a) => a.email === u.email).length, 0);
 
     // A pack's line has to be text with a page on 127's site, tied to a source the tool uses.
     const check = (agree) => packs.checkPack({ id: 'tbad', title: 'Bad', version: '1', tools: [{ ...AG.tools[0], name: 'tbad.find', agree }] }, () => null).join('\n');
