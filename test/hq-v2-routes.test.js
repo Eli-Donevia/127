@@ -345,6 +345,16 @@ test('Start groups workflows by job, bottleneck first; a workflow page shows the
   assert.equal(await (await s.go('/app/hq/w/rt.nope', { as: free })).text(), 'app 404');
 });
 
+test("Start's Show all button has its own class, so the folds on Today, the queue and a run stay visible", () => {
+  const read = (f) => fs.readFileSync(path.join(__dirname, '..', f), 'utf8');
+  assert.match(read('views/app/hq2/start.ejs'), /<button type="button" class="h2-showall">/);
+  assert.match(read('views/app/hq2/today.ejs'), /<details class="h2-more"/);
+  // The folds are <details class="h2-more">: no rule aimed at them may hide them.
+  for (const [, sel, body] of read('public/css/hq2.css').matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (sel.split(',').some((x) => /\.h2-more(\[[^\]]*\])?\s*$/.test(x.trim()))) assert.doesNotMatch(body, /display:\s*none/, sel.trim());
+  }
+});
+
 test('a run: form to approval to a finished result with files, and nobody else can see it', async () => {
   const u = await member();
   const other = await member();

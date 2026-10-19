@@ -534,12 +534,12 @@
   if (search) {
     // A job longer than a row shows its best row on a wider screen until "Show all", or while searching.
     var clamp = function (searching) {
-      $$('.h2-more').forEach(function (b) {
+      $$('.h2-showall').forEach(function (b) {
         var g = b.closest('.h2-group');
-        g.classList.toggle('clamp', !searching && !g.hasAttribute('data-all'));
+        if (g) g.classList.toggle('clamp', !searching && !g.hasAttribute('data-all'));
       });
     };
-    $$('.h2-more').forEach(function (b) {
+    $$('.h2-showall').forEach(function (b) {
       b.addEventListener('click', function () {
         var g = b.closest('.h2-group');
         g.setAttribute('data-all', '');

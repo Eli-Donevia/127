@@ -120,11 +120,11 @@
 .h2-swipe { display: none; }
 /* Wider screens: each job shows its best row until "Show all" (hq2.js adds .clamp, so with the script
    off every card shows). */
-.h2-more { display: none; height: 34px; padding: 0 14px; margin-top: 10px; border: 1px solid var(--line); border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; align-items: center; }
-.h2-more:hover { border-color: var(--line-2); }
+.h2-showall { display: none; height: 34px; padding: 0 14px; margin-top: 10px; border: 1px solid var(--line); border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; align-items: center; }
+.h2-showall:hover { border-color: var(--line-2); }
 @media (min-width: 640px) {
   .h2-group.clamp .h2-cards.rail > .h2-card:nth-child(n+5) { display: none; }
-  .h2-group.clamp .h2-more { display: inline-flex; }
+  .h2-group.clamp .h2-showall { display: inline-flex; }
 }
 @media (min-width: 1001px) { .h2-group.clamp .h2-cards.rail > .h2-card:nth-child(4) { display: none; } }
 @media (max-width: 639px) {
