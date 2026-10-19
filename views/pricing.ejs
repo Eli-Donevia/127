@@ -14,17 +14,20 @@
         <div class="eyebrow">Membership</div>
         <h1 style="font-size:clamp(44px,6vw,72px)">Start free. Grow into it.</h1>
         <p>Every plan starts with the free assessment and a 30-day roadmap built for you. Upgrade when it's earned it. Cancel anytime.</p>
-        <% if (ps === 'A' && fp) { %><p class="pr-line">Doors open<%= launch.launchDate ? ' ' + launch.launchDate : ' soon' %>. The first <%= cap %> Builders pay $<%= fp %> a month, locked while they stay.</p>
-        <p class="consent-line honor-line">If checkout breaks on our side before the close, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p><% } %>
       </div>
+      <% if (ps === 'A' && fp) { %>
+      <div class="pr-offer"><%- include('partials/founding-offer') %>
+        <p class="consent-line honor-line">If checkout breaks on our side before the close, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p>
+      </div>
+      <% } %>
       <% if (ps === 'B') { %>
       <div class="pr-bar">
         <%- include('partials/countdown-line', { cdTarget: launch.closesAt, cdLabel: 'FOUNDING PRICE ENDS IN', cdShort: true }) %>
         <% if (launch.spotsLeft <= 25) { %><span class="mono pr-spots">· <%= launch.spotsLeft %> SPOTS LEFT</span><% } %>
-        <span class="pr-bar-copy">Builder is <%= fp ? '$' + fp + ' a month' : 'at the founding price' %>, locked while you stay. No Black Friday sale.</span>
+        <span class="pr-bar-copy">Builder is <%= fp ? '$' + fp + ' a month' : 'at the founding price' %>, locked for as long as you stay. No Black Friday sale.</span>
       </div>
       <% } %>
-      <%- include('partials/plans') %>
+      <%- include('partials/plans', { plansAnchor: true }) %>
     </div>
   </section>
   <section style="padding-top:24px">
@@ -53,8 +56,7 @@
   <% if (ps === 'B') { %>
   <section class="pr-close">
     <div class="wrap narrow center">
-      <h2 class="h2"><%= fp ? '$' + fp + ' a month.' : 'The founding price.' %><%= fp && fp * 12 / 365 < 1 ? ' Less than a dollar a day.' : '' %></h2>
-      <p class="sub" style="margin-left:auto;margin-right:auto">Founding members keep it for as long as they stay. It ends <%= launch.closesDay ? launch.closesDay + ' at ' + launch.closesTime : 'at the founding close' %>, or when <%= cap %> founding members join. There's no Black Friday sale.</p>
+      <div class="pr-offer"><%- include('partials/founding-offer') %></div>
       <% if (user && user.tier !== 'free') { %>
       <% } else if (user) { %>
       <form method="post" action="/app/billing/checkout/builder"><button class="btn" data-track="Plan Click" data-props='<%- JSON.stringify({ plan: "builder", state: ps }) %>'><%= fp ? 'Lock $' + fp + ' a month' : 'Lock the founding price' %></button></form>

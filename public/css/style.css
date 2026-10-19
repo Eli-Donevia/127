@@ -1673,7 +1673,7 @@ main .legal-foot { margin-top: 32px; }
 .h5r-demo{grid-area:demo;align-self:center;position:relative;isolation:isolate;padding:28px 0}
 .h5r .h5-title{margin:0 0 22px;font-size:clamp(44px,min(6vw,10.5vh),92px)}
 .h5r .h5-title .st > span:nth-child(1){animation-delay:0s}.h5r .h5-title .st > span:nth-child(2){animation-delay:.08s}.h5r .h5-title .st > span:nth-child(3){animation-delay:.16s}
-.h5r .h5-title .dim > span:nth-child(1){animation-delay:.3s}.h5r .h5-title .dim > span:nth-child(2){animation-delay:.38s}
+.h5r .h5-title .dim > span:nth-child(1){animation-delay:.3s}.h5r .h5-title .dim > span:nth-child(2){animation-delay:.38s}.h5r .h5-title .dim > span:nth-child(3){animation-delay:.46s}
 .h5r .h5-sub{margin:0;max-width:540px}
 .h5r .h5-halo{--glow-w:178%;--glow-h:142%;--floor:89%}
 .h5r-sheet{position:relative;max-width:520px;margin:0 auto;border-radius:22px;padding:22px 22px 16px;background:linear-gradient(180deg,rgba(23,23,28,.96),rgba(11,11,14,.97));border:1px solid rgba(255,255,255,.12);box-shadow:0 44px 90px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.1);animation:fadeUp 1s .3s both}
@@ -1708,6 +1708,11 @@ main .legal-foot { margin-top: 32px; }
 .h5r-chip input:focus-visible + span{outline:2px solid var(--primary);outline-offset:2px}
 .h5r-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;animation:fadeUp .9s .72s both}
 .h5r-row .input{margin:0;height:54px}
+/* The form is the plan: 1 pick what you sell, 2 your city, 3 you approve and send. */
+.h5r-chips legend,label.h5r-step{display:flex;align-items:center}
+label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);animation:fadeUp .9s .72s both}
+.h5r-num{display:inline-grid;place-items:center;flex:none;width:20px;height:20px;margin-right:10px;border-radius:50%;border:1px solid var(--line-2);font-family:var(--mono);font-size:10.5px;letter-spacing:0;color:var(--ink)}
+.h5r-send{display:flex;align-items:center;margin:14px 0 0;font-size:14.5px;color:var(--ink-2);animation:fadeUp .9s .8s both}
 .h5r .h5-note{text-align:left;margin-top:16px}
 .h5r .h5-note a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
 /* The hook carries the 3D mark in run mode */
@@ -1716,7 +1721,7 @@ main .legal-foot { margin-top: 32px; }
 .v5 .pain-lbl{margin:6px 0 80px}
 .pain-mark .wrap{text-align:left}
 @media (max-width:1000px){
-  .h5r-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "demo" "form";row-gap:24px}
+  .h5r-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "form" "demo";row-gap:24px}
   .h5r-demo{padding:4px 0}
   .h5r-form{max-width:none}
 }
@@ -1729,7 +1734,8 @@ main .legal-foot { margin-top: 32px; }
   .h5r-sheet{padding:15px 15px 6px;border-radius:18px}
   .h5r-where{font-size:22px;margin:8px 0 8px}
   .h5r-list li{grid-template-columns:24px minmax(0,1fr) auto 32px;padding:8px 0}
-  .h5r-list li:nth-child(n+4),.h5r-msg,.h5r-foot{display:none}
+  .h5r-list li:nth-child(n+4),.h5r-msg{display:none}
+  .h5r-foot{margin:8px 0 6px}
   .h5r-gaps i:nth-child(2){display:none}
   .h5r-score{width:32px;height:32px;font-size:11px}
   .h5r-chip-row{flex-wrap:nowrap;overflow-x:auto;margin-right:-20px;padding-right:20px;scrollbar-width:none}
@@ -1739,8 +1745,23 @@ main .legal-foot { margin-top: 32px; }
   .v5 .pain.pain-mark{padding-top:48px !important}
   .v5 .pain-lbl{margin-bottom:56px}
 }
-@media (prefers-reduced-motion:reduce){.h5r-sheet,.h5r-chips,.h5r-row,.h5r-sheet.is-run .h5r-list li{animation:none !important}}
+@media (prefers-reduced-motion:reduce){.h5r-sheet,.h5r-chips,.h5r-row,label.h5r-step,.h5r-send,.h5r-sheet.is-run .h5r-list li{animation:none !important}}
 .r5-why{margin:-12px 0 30px;max-width:460px;padding:14px 0 0;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink-2)}
 .r5-why b{color:var(--ink);font-weight:600}
 /* No sideways page scroll on phones: the step glow, the outputs rail and the hook section's halo stay inside their sections. */
 .v5 .w5,.v5 .o5,.v5 .pain-mark{overflow-x:clip}
+
+/* ---------- Pricing v2: the Circle first on desktop as the anchor, and the founding offer in its exact 3 lines ---------- */
+@media (min-width:1001px){.plans-anchor .plan-circle{order:-1}.plans-anchor .plan-free{order:1}}
+.pr-offer{max-width:720px;margin:0 auto 44px}
+.pr-close .pr-offer{margin-bottom:24px;text-align:left}
+.fo{border:1px solid var(--line-2);border-radius:20px;padding:22px 26px 12px;background:var(--surface)}
+.fo .eyebrow{margin:0 0 10px}
+.fo-doors{margin:0 0 4px;font-size:16px;font-weight:600;color:var(--ink)}
+.fo-lines{list-style:none;margin:0;padding:0}
+.fo-lines li{padding:12px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.5;color:var(--ink-2)}
+.fo-lines li:first-child{border-top:0;color:var(--ink);font-weight:600}
+.pr-offer .honor-line{margin-top:12px;text-align:center}
+@media (max-width:760px){.fo{padding:18px 18px 8px}.fo-lines li{font-size:15px}}
+/* Footer: who Eli is and what 127 does, on every page. */
+.foot-about{max-width:420px;margin:14px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-2)}

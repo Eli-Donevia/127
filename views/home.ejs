@@ -75,7 +75,8 @@
   var order = ['ask', 'offer-validator', 'interview-synthesizer', 'offer-stack', 'hook-writer', 'content-planner', 'outreach-writer', 'sales-call-prep', 'launch-planner', 'campaign-planner', 'workflow-recommender'];
   var toolList = order.map(function (s) { return tools.filter(function (t) { return t.slug === s; })[0]; }).filter(Boolean);
   var hqOn = process.env.HQ_LIVE === 'true'; // HQ goes on the homepage only when it's live for every member.
-  // Run mode (v2/hormozi-playbook.md 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
+  // Run mode (v2 playbook 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
+  // Only on real business data (server.js), with Legal's First 25 wording (05 rule 6a): the list and the words, never clients.
   // The demo rows are First 25's own sample run (gyms, Des Moines): made-up businesses, labeled Sample.
   var run = typeof first25 !== 'undefined' && first25;
   var f25Packs = [['video', 'Short videos'], ['social', 'Social media'], ['web', 'Websites'], ['ai', 'AI booking'], ['email', 'Email'], ['photo', 'Photos'], ['other', 'Something else']];
@@ -87,7 +88,7 @@
     ['Prairie Boxing', '4★ · 21 reviews', ['No video', '21 reviews'], 82]
   ];
 -%>
-<%- include('partials/head', { hbState: st === 'C' ? null : st }) %>
+<%- include('partials/head', { hbState: st === 'C' ? null : st, navQuiet: run }) %>
 <main class="v5" data-state="<%= st %>">
 
   <% if (run) { %>
@@ -95,9 +96,9 @@
   <section class="h5 h5r">
     <div class="wrap h5r-grid">
       <div class="h5r-copy">
-        <p class="lbl">Free · No signup to search</p>
-        <h1 class="h5-title h5r-title"><span class="st"><span>Your</span> <span>first</span> <span>25.</span></span> <span class="dim"><span>Found</span> <span>tonight.</span></span></h1>
-        <p class="h5-sub">Tell 127 what you sell and where. It finds 25 local businesses that could use it, checks what each one is missing and writes the first message. You approve every word.</p>
+        <p class="lbl">First 25 · Free · No signup to search</p>
+        <h1 class="h5-title h5r-title"><span class="st"><span>Your</span> <span>first</span> <span>25.</span></span> <span class="dim"><span>We</span> <span>find</span> <span>them.</span></span></h1>
+        <p class="h5-sub">Tell 127 what you sell and your city. You get 25 local businesses that could use it, what each one's website is missing and the message to send each one.</p>
       </div>
       <div class="h5r-demo" aria-hidden="true">
         <div class="h5-halo"></div>
@@ -114,15 +115,16 @@
         </div>
       </div>
       <form class="h5r-form" action="/first-25" method="get" data-h5r-form>
-        <fieldset class="h5r-chips"><legend>What do you sell?</legend>
+        <fieldset class="h5r-chips"><legend><span class="h5r-num">1</span>What do you sell?</legend>
           <div class="h5r-chip-row"><% f25Packs.forEach(function (pk, i) { %><label class="h5r-chip"><input type="radio" name="pack" value="<%= pk[0] %>"<%= i === 0 ? ' checked' : '' %>><span><%= pk[1] %></span></label><% }) %></div>
         </fieldset>
+        <label class="h5r-step" for="h5r-place"><span class="h5r-num">2</span>Your city<span class="sr-only"> and state, or ZIP code</span></label>
         <div class="h5r-row">
-          <label class="sr-only" for="h5r-place">Your city and state, or ZIP code</label>
           <input class="input" id="h5r-place" name="place" placeholder="Your city and state, or ZIP" autocomplete="address-level2" required minlength="2" maxlength="80">
           <input type="hidden" name="go" value="1">
           <button class="btn light big" type="submit"<%- tk('home_hero_primary', { cta: 'first25' }) %>>Find my first 25 <span class="arrow"></span></button>
         </div>
+        <p class="h5r-step h5r-send"><span class="h5r-num">3</span>You approve every message and send it yourself.</p>
         <p class="h5-note">Not sure what to sell? <a href="/first-25">Answer 3 questions and we'll pick.</a><br>Built by Eli Christiansen, 4x founder.</p>
       </form>
     </div>
@@ -276,14 +278,14 @@
         <p class="lbl" data-reveal>The free plan</p>
         <h2 class="h2" data-reveal>Here's what $0 gets you.</h2>
         <p class="sub" data-reveal><% if (S === 'A') { %>All of it is free when doors open<%= L.launchAbbr ? ' ' + L.launchAbbr : '' %>. Join the founding list and we'll tell you when they do.<% } else { %>No card and no trial clock. Keep it as long as you like, and upgrade when Builder is worth it to you.<% } %></p>
-        <% if (run) { %><p class="r5-why" data-reveal><b>Why give it away?</b> The list is free. The follow-ups, the calls and the delivery are where you'll want help. That's Builder.</p><% } %>
+        <% if (run) { %><p class="r5-why" data-reveal><b>Why give it away?</b> The list is free with your email. The follow-ups, the calls and the delivery are where you'll want help. That's Builder.</p><% } %>
         <a href="<%= cta[0] %>" class="btn light big"<%- tk('home_receipt_cta') %>><%= cta[1] %> <span class="arrow"></span></a>
       </div>
       <div class="r5-wrap" data-reveal>
         <figure class="r5-paper" aria-label="The free plan, itemized">
           <div class="r5-head"><div><b>127</b><span>Free plan</span></div><span class="r5-stamp" aria-hidden="true">Day 001</span></div>
           <ul>
-            <% if (run) { %><li><span>25</span><b>Local businesses for what you sell, each checked, each with a message</b><em>$0</em></li><% } %>
+            <% if (run) { %><li><span>25</span><b>Local businesses that could use what you sell, each website checked, each with a message (all 25 with your email)</b><em>$0</em></li><% } %>
             <li><span>1</span><b>Assessment, 13 questions</b><em>$0</em></li>
             <li><span>1</span><b>30-day roadmap, built from your answers</b><em>$0</em></li>
             <li><span>2</span><b>Weeks of steps, with their playbooks</b><em>$0</em></li>

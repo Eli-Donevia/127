@@ -183,6 +183,8 @@ app.use((req, res, next) => {
   res.locals.showDrafts = isAdmin(user) || process.env.SHOW_DRAFT_FLAGS === 'true';
   res.locals.devVerifyLink = DEV_LINKS && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
+  // First 25 on real business data (defined with the homepage route): the footer links it, the hero and bio page lead with it.
+  res.locals.first25Live = first25Live();
   res.locals.consentCopy = consent.copy;
   res.locals.legalEffectiveDate = legalEffectiveDate();
   res.locals.adConsentScript = adConsent.configScript(req);
@@ -332,9 +334,12 @@ function homeVideo() {
 }
 // hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
 // heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.
-// The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html); until then it keeps the v2 brand hero.
+// The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html) and searches real
+// businesses (FIRST25_SOURCE google or osm). On its made-up samples it can't say it finds anything (Legal 05 rule 6a),
+// so the v2 brand hero stays.
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop', first25: HOME_FIRST25 }));
+const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop', first25: first25Live() }));
 // Pricing meta description by launch state (conversion/pages/pricing.md).
 function pricingDescription() {
   const v = launch.view();
@@ -603,7 +608,7 @@ app.get('/founding/confirm', wrap(async (req, res) => {
 }));
 
 // Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
-app.get('/links', (req, res) => res.render('links', { title: 'Links', description: 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' }));
+app.get('/links', (req, res) => res.render('links', { title: 'Links', description: first25Live() ? 'Eli Christiansen: First 25, the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' : 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.', first25: first25Live() }));
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /admin\nDisallow: /api\nDisallow: /billing\nDisallow: /founding/status\nDisallow: /founding/confirm\nDisallow: /stack/guide\n\nSitemap: ${baseUrl(req)}/sitemap.xml\n`);

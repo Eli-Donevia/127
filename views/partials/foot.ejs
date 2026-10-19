@@ -1,9 +1,11 @@
 <footer class="foot">
   <div class="wrap">
     <div><a href="/" class="mark" style="margin:0"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+      <%# Who Eli is and what 127 does, on every page, for whoever lands here first (v2 playbook 2.2.7, "assume nothing"). %>
+      <p class="foot-about">127 is a roadmap and the tools to start your first business: who to sell to, what to say and what to charge. Built by Eli Christiansen, 4x founder.</p>
       <div class="tiny" style="margin-top:8px">Build with purpose. © <%= new Date().getFullYear() %> 127 Group LLC</div></div>
     <div>
-      <a href="/pricing">Membership</a><a href="/circle">Founder's Circle</a><a href="/score">Founder Score</a><a href="/idea-test">Idea Test</a><a href="/stack">Day One Stack</a><a href="/media-kit">Media kit</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/guidelines">Community guidelines</a><a href="/cookies">Cookie Notice</a><a href="/cookies" data-cookie-settings>Cookie settings</a><% if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') { %><a href="/membership-terms">Membership terms</a><% } %><a href="/login">Sign in</a>
+      <% if (typeof first25Live !== 'undefined' && first25Live) { %><a href="/first-25">First 25</a><% } %><a href="/pricing">Membership</a><a href="/circle">Founder's Circle</a><a href="/score">Founder Score</a><a href="/idea-test">Idea Test</a><a href="/stack">Day One Stack</a><a href="/media-kit">Media kit</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/guidelines">Community guidelines</a><a href="/cookies">Cookie Notice</a><a href="/cookies" data-cookie-settings>Cookie settings</a><% if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') { %><a href="/membership-terms">Membership terms</a><% } %><a href="/login">Sign in</a>
     </div>
   </div>
   <div class="wrap foot-legal"><%- include('earnings-note') %></div>

@@ -1,0 +1,12 @@
+<%# The founding offer in its exact 3 lines (conversion/offer.md section 4, "The 3-line version"). Don't paraphrase the terms.
+    Before doors open, one line above them says when they open. %>
+<% var foP = launch.foundingPrice; %>
+<div class="fo">
+  <div class="eyebrow">The founding offer</div>
+  <% if (launch.prelaunch) { %><p class="fo-doors">Doors open <%= launch.launchDay || 'soon' %><%= launch.launchDay && launch.launchTime ? ' at ' + launch.launchTime : '' %>.</p><% } %>
+  <ul class="fo-lines">
+    <li>Builder is <%= foP ? '$' + foP + ' a month' : 'the founding price' %> for founding members, locked for as long as you stay.</li>
+    <li>It ends <%= launch.closesDay ? launch.closesDay + ' at ' + launch.closesTime : 'at the founding close' %>, or when <%= launch.cap %> founding members join.</li>
+    <li>14 days to change your mind. No Black Friday sale.</li>
+  </ul>
+</div>

@@ -15,7 +15,9 @@
         <a href="/app" class="btn sm">Dashboard</a>
       <% } else { %>
         <a href="/login" class="btn ghost sm hide-sm">Sign in</a>
-        <% if (launch.prelaunch) { %><a href="/founding" class="btn sm">Join the waitlist</a><% } else { %><a href="/start" class="btn sm">Start free <span class="arrow"></span></a><% } %>
+        <%# navQuiet: the page's hero holds its one primary button (the homepage running First 25, v2 playbook 2.2.3), so this one goes ghost. %>
+        <% var navBtn = typeof navQuiet !== 'undefined' && navQuiet ? 'btn ghost sm' : 'btn sm'; %>
+        <% if (launch.prelaunch) { %><a href="/founding" class="<%= navBtn %>">Join the waitlist</a><% } else { %><a href="/start" class="<%= navBtn %>">Start free <span class="arrow"></span></a><% } %>
       <% } %>
       <details class="mnav">
         <summary aria-label="Menu"><span></span><span></span></summary>

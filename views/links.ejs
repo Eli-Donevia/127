@@ -3,12 +3,20 @@
 <%# Bio-link page: the fallback when ManyChat isn't live ("comment KEYWORD" -> tap the link in bio). %>
 <main class="links-wrap">
   <img src="/img/127-lockup-steel.svg" alt="127" class="links-logo" width="96" height="40">
-  <p class="links-sub">Eli Christiansen · Make today day one.</p>
+  <p class="links-sub">Eli Christiansen · Make today day one.<br>127 is a roadmap and the tools to start your first business.</p>
+  <%# First 25 leads the bio link once it searches real businesses (Funnels F1); in the founding window the founding price stays on top. %>
+  <% var f25 = typeof first25 !== 'undefined' && first25, inWindow = launch.foundingOpen && !launch.prelaunch; %>
   <nav class="links-list">
+    <% if (f25 && !inWindow) { %>
+      <a class="links-item primary" href="/first-25?utm_source=bio&utm_content=first25"><b>Find your first 25</b><span>25 local businesses to message, free with your email · Comment CLIENTS</span></a>
+    <% } %>
     <% if (launch.prelaunch || launch.foundingOpen) { %>
-      <a class="links-item primary" href="/founding?utm_source=bio&utm_content=founding"><b><%= launch.prelaunch ? 'Join the founding list' : 'Lock the founding price' %></b><span><%= launch.prelaunch && launch.launchDate ? 'Doors open ' + launch.launchDate : (launch.foundingPrice ? '$' + launch.foundingPrice + '/month, first ' + launch.cap + ' members' : 'Founding members') %></span></a>
+      <a class="links-item<%= f25 && launch.prelaunch ? '' : ' primary' %>" href="/founding?utm_source=bio&utm_content=founding"><b><%= launch.prelaunch ? 'Join the founding list' : 'Lock the founding price' %></b><span><%= launch.prelaunch && launch.launchDate ? 'Doors open ' + launch.launchDate : (launch.foundingPrice ? '$' + launch.foundingPrice + '/month, first ' + launch.cap + ' members' : 'Founding members') %></span></a>
     <% } else { %>
-      <a class="links-item primary" href="/start?utm_source=bio"><b>Get your free 30-day roadmap</b><span>3 minutes, no card</span></a>
+      <a class="links-item<%= f25 ? '' : ' primary' %>" href="/start?utm_source=bio"><b>Get your free 30-day roadmap</b><span>3 minutes, no card</span></a>
+    <% } %>
+    <% if (f25 && inWindow) { %>
+      <a class="links-item" href="/first-25?utm_source=bio&utm_content=first25"><b>Find your first 25</b><span>25 local businesses to message, free with your email · Comment CLIENTS</span></a>
     <% } %>
     <a class="links-item" href="/score?utm_source=bio&utm_content=roadmap"><b>Take the Founder Score</b><span>Comment ROADMAP · 90 seconds</span></a>
     <a class="links-item" href="/stack?utm_source=bio&utm_content=stack"><b>Get the Day One Stack</b><span>Comment STACK · my tools and 30 AI prompts</span></a>
