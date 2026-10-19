@@ -646,6 +646,10 @@ test('the Library refuses unknown types and enforces the quota', async () => {
   process.env.HARNESS_QUOTA_FREE_MB = '0.00001';
   try {
     await assert.rejects(library.save(user, 'big.txt', 'x'.repeat(100)), /Library is full/);
+    // A run's own files are kept past the space, so a run never stops halfway.
+    const kept = await library.save(user, 'reel.txt', 'x'.repeat(100), { runId: 'r1', stepId: 's1' });
+    assert.ok(library.used(user.id) > library.quota('free'));
+    assert.equal(await library.remove(user.id, kept.id), true);
   } finally {
     delete process.env.HARNESS_QUOTA_FREE_MB;
   }

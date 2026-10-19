@@ -1,0 +1,310 @@
+{
+ "note": "Website and Instagram facts for the fictional sample gyms in gyms.json. Sample mode only; never attached to a real business.",
+ "byName": {
+  "Ironleaf Strength Club": {
+   "site": {
+    "url": "https://ironleaf.example",
+    "domain": "ironleaf.example",
+    "title": "Ironleaf Strength Club",
+    "socials": {
+     "instagram": "ironleaf.sample",
+     "facebook": null,
+     "tiktok": null,
+     "youtube": null,
+     "x": null,
+     "linkedin": null
+    },
+    "video": {
+     "onSite": false,
+     "kinds": []
+    },
+    "booking": [
+     {
+      "name": "Mindbody",
+      "tier": "pro"
+     }
+    ],
+    "tracking": {
+     "metaPixel": true,
+     "googleAds": false,
+     "tiktokPixel": false,
+     "analytics": true
+    },
+    "offer": {
+     "kind": "free_class",
+     "text": "First class free",
+     "snippet": "Your first class free"
+    },
+    "monthlyPrice": 89,
+    "colors": {
+     "primary": "#c8ff2e",
+     "accent": "#0b0b0c",
+     "source": "sample"
+    },
+    "images": {
+     "logo": null,
+     "icon": null,
+     "ogImage": null,
+     "photos": []
+    },
+    "contacts": {
+     "emails": [
+      "hello@ironleaf.example"
+     ],
+     "phones": [
+      "+15550101200"
+     ]
+    },
+    "people": [
+     {
+      "name": "Dana Reyes",
+      "role": "owner"
+     }
+    ],
+    "links": {
+     "team": "https://ironleaf.example/coaches",
+     "about": null,
+     "pricing": null
+    },
+    "platform": "Squarespace",
+    "copyrightYear": 2024,
+    "testimonials": false,
+    "mobileReady": true,
+    "pagesRead": 2
+   },
+   "content": {
+    "source": "instagram",
+    "handle": "ironleaf.sample",
+    "followers": 1840,
+    "posts": 212,
+    "sampled": 12,
+    "daysSinceLastPost": 23,
+    "postsLast30": 2,
+    "postsPerWeek": 0.8,
+    "reelsShare": 0.17,
+    "medianEngagement": 14,
+    "engagementRate": 0.76
+   }
+  },
+  "Northside CrossFit Lab": {
+   "site": {
+    "url": "https://northsidecrossfit.example",
+    "domain": "northsidecrossfit.example",
+    "title": "Northside CrossFit Lab",
+    "socials": {
+     "instagram": "northside.sample",
+     "facebook": "https://www.facebook.com/example",
+     "tiktok": null,
+     "youtube": null,
+     "x": null,
+     "linkedin": null
+    },
+    "video": {
+     "onSite": false,
+     "kinds": []
+    },
+    "booking": [
+     {
+      "name": "PushPress",
+      "tier": "pro"
+     }
+    ],
+    "tracking": {
+     "metaPixel": false,
+     "googleAds": false,
+     "tiktokPixel": false,
+     "analytics": true
+    },
+    "offer": {
+     "kind": "free_consult",
+     "text": "No Sweat Intro",
+     "snippet": "Book a free No Sweat Intro"
+    },
+    "monthlyPrice": 175,
+    "colors": {
+     "primary": "#e4002b",
+     "accent": "#111111",
+     "source": "sample"
+    },
+    "images": {
+     "logo": null,
+     "icon": null,
+     "ogImage": null,
+     "photos": []
+    },
+    "contacts": {
+     "emails": [
+      "coach@northsidecrossfit.example"
+     ],
+     "phones": []
+    },
+    "people": [
+     {
+      "name": "Sam Okafor",
+      "role": "owner"
+     }
+    ],
+    "links": {
+     "team": null,
+     "about": "https://northsidecrossfit.example/about",
+     "pricing": "https://northsidecrossfit.example/pricing"
+    },
+    "platform": "WordPress",
+    "copyrightYear": 2026,
+    "testimonials": true,
+    "mobileReady": true,
+    "pagesRead": 3
+   },
+   "content": {
+    "source": "instagram",
+    "handle": "northside.sample",
+    "followers": 960,
+    "posts": 540,
+    "sampled": 12,
+    "daysSinceLastPost": 2,
+    "postsLast30": 14,
+    "postsPerWeek": 3.4,
+    "reelsShare": 0.42,
+    "medianEngagement": 31,
+    "engagementRate": 3.2
+   }
+  },
+  "Kinetic Pilates House": {
+   "site": {
+    "url": "https://kineticpilates.example",
+    "domain": "kineticpilates.example",
+    "title": "Kinetic Pilates House",
+    "socials": {
+     "instagram": "kinetic.sample",
+     "facebook": null,
+     "tiktok": null,
+     "youtube": null,
+     "x": null,
+     "linkedin": null
+    },
+    "video": {
+     "onSite": false,
+     "kinds": []
+    },
+    "booking": [
+     {
+      "name": "Mariana Tek",
+      "tier": "pro"
+     }
+    ],
+    "tracking": {
+     "metaPixel": true,
+     "googleAds": true,
+     "tiktokPixel": false,
+     "analytics": true
+    },
+    "offer": {
+     "kind": "intro_price",
+     "text": "New client offer",
+     "snippet": "New client offer: 3 classes"
+    },
+    "monthlyPrice": 189,
+    "colors": {
+     "primary": "#f2c6b6",
+     "accent": "#2b1b17",
+     "source": "sample"
+    },
+    "images": {
+     "logo": null,
+     "icon": null,
+     "ogImage": null,
+     "photos": []
+    },
+    "contacts": {
+     "emails": [
+      "studio@kineticpilates.example"
+     ],
+     "phones": []
+    },
+    "people": [],
+    "links": {
+     "team": "https://kineticpilates.example/instructors",
+     "about": null,
+     "pricing": null
+    },
+    "platform": "Squarespace",
+    "copyrightYear": 2026,
+    "testimonials": false,
+    "mobileReady": true,
+    "pagesRead": 2
+   },
+   "content": {
+    "source": "instagram",
+    "handle": "kinetic.sample",
+    "followers": 3100,
+    "posts": 388,
+    "sampled": 12,
+    "daysSinceLastPost": 5,
+    "postsLast30": 9,
+    "postsPerWeek": 2.1,
+    "reelsShare": 0.08,
+    "medianEngagement": 22,
+    "engagementRate": 0.71
+   }
+  },
+  "default": {
+   "site": {
+    "url": "https://yourgym.example",
+    "domain": "yourgym.example",
+    "title": "Sample Gym",
+    "socials": {
+     "instagram": null,
+     "facebook": null,
+     "tiktok": null,
+     "youtube": null,
+     "x": null,
+     "linkedin": null
+    },
+    "video": {
+     "onSite": false,
+     "kinds": []
+    },
+    "booking": [],
+    "tracking": {
+     "metaPixel": false,
+     "googleAds": false,
+     "tiktokPixel": false,
+     "analytics": false
+    },
+    "offer": {
+     "kind": "none",
+     "text": null,
+     "snippet": null
+    },
+    "monthlyPrice": null,
+    "colors": {
+     "primary": null,
+     "accent": null,
+     "source": null
+    },
+    "images": {
+     "logo": null,
+     "icon": null,
+     "ogImage": null,
+     "photos": []
+    },
+    "contacts": {
+     "emails": [],
+     "phones": []
+    },
+    "people": [],
+    "links": {
+     "team": null,
+     "about": null,
+     "pricing": null
+    },
+    "platform": null,
+    "copyrightYear": 2023,
+    "testimonials": false,
+    "mobileReady": true,
+    "pagesRead": 1
+   },
+   "content": null
+  }
+ }
+}

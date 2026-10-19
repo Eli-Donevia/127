@@ -14,7 +14,7 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 - **Tools:** `wants`, `tasks`, `viewMany`, `lane`, output `flags`, the 256 KB output cap, and `sample: true` on an output (section 3).
 - **Workflows:** `job`, `starter`, `proof`, `hidden`, `next` with reasons, and on steps `title`, `estimate` and `optional` (section 4). File inputs (`format: 'asset'`) and Pipeline inputs (`options: 'pipeline'`) (section 4b).
 - **ctx:** `ctx.asset(id)` and `ctx.leads.list / get / update`; leads carry messages and facts for Do my day (sections 7 and 13).
-- **Keys:** `hunter`, `transcribe` and `gemini` added; `places` reads `GOOGLE_PLACES_API_KEY` or `PLACES_API_KEY` (section 6).
+- **Keys:** `hunter`, `transcribe` and `gemini` added; `places` reads `GOOGLE_PLACES_API_KEY`, `PLACES_API_KEY` or `GOOGLE_PLACES_KEY` (section 6).
 - **Credits:** proposed allowances are now Free 50, Builder 1,000, Circle 3,000; sample output and failed steps cost nothing (section 8).
 - **Files:** more types (svg, ics, vcf, vtt, srt, mov, Shopify `.liquid`), 25 MB a file, members add their own (section 12).
 - **Testing:** `lib/harness/testing.js` and the CLI are real (section 9).
@@ -60,7 +60,7 @@ module.exports = {
   wants: ['hunter'],                // optional: keys it uses when they're set and works without
   tasks: ['score', 'write'],        // optional: the kinds of AI call it makes, so HQ can show which model does what
   credits: 2,                       // what one call costs the member, 0 to 500 (section 8)
-  lane: 'render',                   // optional: heavy work (video) runs in the render lane, a few at a time. Tools that need 'render' go there anyway.
+  lane: 'render',                   // optional: heavy work (video) runs in the render lane, one at a time server-wide unless HARNESS_RENDERS_AT_ONCE says more. Tools that need 'render' go there anyway.
   input: {                          // JSON Schema (subset, section 4b)
     type: 'object',
     properties: { city: { type: 'string', title: 'City' }, limit: { type: 'integer', minimum: 1, maximum: 60, default: 40 } },
@@ -151,7 +151,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 
 | name | what | read from |
 |---|---|---|
-| `places` | Google Places (127's account) | `GOOGLE_PLACES_API_KEY` or `PLACES_API_KEY` |
+| `places` | Google Places (127's account) | `GOOGLE_PLACES_API_KEY`, `PLACES_API_KEY` or `GOOGLE_PLACES_KEY` |
 | `instagram` | Instagram Business Discovery (127's account) | `IG_ACCESS_TOKEN` + `IG_USER_ID` |
 | `youtube` | YouTube Data API | `YOUTUBE_API_KEY` |
 | `pexels` | Pexels stock video | `PEXELS_API_KEY` |

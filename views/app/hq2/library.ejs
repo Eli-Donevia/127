@@ -9,7 +9,7 @@
     <div>
       <span class="eyebrow">Library</span>
       <h1 class="hq-title"><span class="dim">Everything 127</span><span class="steel">made for you.</span></h1>
-      <p class="hq-lede">Videos, lists, pages and docs from your runs, and files you add. <%= mb(used) %> of <%= mb(quota) %> used.</p>
+      <p class="hq-lede">Videos, lists, pages and docs from your runs, and files you add. <% if (used > quota) { %><%= mb(used) %> used, over your <%= mb(quota) %>. Your runs still save here; delete old files to add your own.<% } else { %><%= mb(used) %> of <%= mb(quota) %> used.<% } %></p>
     </div>
   </div>
   <section class="hq-card" data-upload aria-labelledby="up-h" style="margin-bottom:14px">
