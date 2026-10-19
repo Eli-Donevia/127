@@ -113,3 +113,14 @@ test('every page with the site footer carries the earnings line', () => {
   assert.match(foot, /include\('earnings-note'\)/);
   assert.match(fs.readFileSync(path.join(__dirname, '..', 'views', 'partials', 'earnings-note.ejs'), 'utf8'), /not a promise of income/);
 });
+
+test('a free 30-day roadmap says weeks 1 and 2 are the free part, in the same line (Legal L70)', () => {
+  const rules = (s) => check(s).filter((f) => f.rule === 'free-roadmap').length;
+  assert.equal(rules('Get your free 30-day roadmap.'), 1);
+  assert.equal(rules('Answer a few questions and get the full 30-day plan.'), 1);
+  assert.equal(rules('Comment ROADMAP for a 30-day plan that is free.'), 1);
+  assert.equal(rules('Comment ROADMAP for a 30-day plan, weeks 1 and 2 free.'), 0);
+  assert.equal(rules('Take the assessment and get weeks 1 and 2 of your 30-day roadmap free.'), 0);
+  assert.equal(rules("I'll send you a 30-day plan. The first two weeks are free."), 0);
+  assert.equal(rules('Start free. Your 30-day roadmap is built for you.'), 0);
+});

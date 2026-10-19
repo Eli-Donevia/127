@@ -13,7 +13,7 @@
     <% if (launch.prelaunch || launch.foundingOpen) { %>
       <a class="links-item<%= f25 && launch.prelaunch ? '' : ' primary' %>" href="/founding?utm_source=bio&utm_content=founding"><b><%= launch.prelaunch ? 'Join the founding list' : 'Lock the founding price' %></b><span><%= launch.prelaunch && launch.launchDate ? 'Doors open ' + launch.launchDate : (launch.foundingPrice ? '$' + launch.foundingPrice + '/month, first ' + launch.cap + ' members' : 'Founding members') %></span></a>
     <% } else { %>
-      <a class="links-item<%= f25 ? '' : ' primary' %>" href="/start?utm_source=bio"><b>Get your free 30-day roadmap</b><span>3 minutes, no card</span></a>
+      <a class="links-item<%= f25 ? '' : ' primary' %>" href="/start?utm_source=bio"><b>Start your 30-day roadmap free</b><span>3 minutes, weeks 1 and 2 free, no card</span></a>
     <% } %>
     <% if (f25 && inWindow) { %>
       <a class="links-item" href="/first-25?utm_source=bio&utm_content=first25"><b>Find your first 25</b><span>25 local businesses to message, free with your email · Comment CLIENTS</span></a>

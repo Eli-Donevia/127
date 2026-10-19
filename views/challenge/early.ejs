@@ -9,7 +9,7 @@
         <%- include('../partials/countdown', { cdTarget: chx.earlyAt }) %>
       <% } else { %>
         <h1><span class="dim">Doors open at</span> <span class="grad"><%= chx.etClock(chx.launchAt) %> ET for everyone.</span></h1>
-        <p class="lede">Early access is for people who checked in all five days of the Day One Challenge. Your free 30-day roadmap is ready at <%= chx.etClock(chx.launchAt) %>.</p>
+        <p class="lede">Early access is for people who checked in all five days of the Day One Challenge. Your 30-day roadmap is ready at <%= chx.etClock(chx.launchAt) %>, with weeks 1 and 2 free.</p>
         <%- include('../partials/countdown', { cdTarget: chx.launchAt }) %>
       <% } %>
     </div>
