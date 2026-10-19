@@ -1469,9 +1469,16 @@ test('a member types their city once: the first run that asks saves it to Your b
   }
 });
 
-// ---------- a search of real businesses: First 25's Terms line (Legal L53, L66) ----------
+// ---------- a search of real businesses: First 25's Terms line (Legal L53, L66, L67) ----------
 
 const OSM_LINE = 'Business info from OpenStreetMap. By searching, you agree to our {terms}.';
+const BOTH_LINE = "Business info from Google Maps and OpenStreetMap. By searching, you agree to our {terms}, including Google Maps' terms.";
+const AGREE_FIRST = 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.';
+const MAP_ENV = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'GOOGLE_PLACES_API_KEY', 'PLACES_API_KEY', 'GOOGLE_PLACES_KEY'];
+const osmOn = () => {
+  process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
+  process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search';
+};
 const AG = {
   id: 'tag',
   title: 'Terms line tests',
@@ -1492,20 +1499,23 @@ const AG = {
     { id: 'tag.search', title: 'Shops near you', promise: 'Shops near you.', minutes: 2, tier: 'free', suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' }, inputs: obj({ city: { type: 'string', title: 'Your city' } }), steps: [{ id: 'find', tool: 'tag.find', input: { city: '$inputs.city' } }, { id: 'more', tool: 'tag.more' }], result: ['find'] },
     { id: 'tag.odd', title: 'Odd one', promise: 'An odd line.', minutes: 1, tier: 'free', inputs: obj({}, []), steps: [{ id: 'odd', tool: 'tag.odd' }], result: ['odd'] },
     { id: 'tag.later', title: 'Shops after an OK', promise: 'Asks first, then finds shops.', minutes: 2, tier: 'free', inputs: obj({ city: { type: 'string', title: 'Your city' } }), steps: [{ id: 'ok', approve: { title: 'Look for shops?' } }, { id: 'find', tool: 'tag.find', input: { city: '$inputs.city' } }], result: ['find'] },
+    { id: 'tag.wide', title: 'More shops after an OK', promise: 'Asks first, then looks further.', minutes: 2, tier: 'free', inputs: obj({}, []), steps: [{ id: 'ok', approve: { title: 'Look further?' } }, { id: 'more', tool: 'tag.more' }], result: ['more'] },
   ],
 };
 
 test("a search of real businesses shows First 25's Terms line under Run it, and starts only once it's been read", async () => {
   const r0 = packs.registerAll([{ pack: AG, source: 'test' }]);
   assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
-  const ENV = ['OSM_OVERPASS_URL', 'OSM_NOMINATIM_URL', 'GOOGLE_PLACES_API_KEY', 'PLACES_API_KEY', 'GOOGLE_PLACES_KEY'];
-  const was = Object.fromEntries(ENV.map((k) => [k, process.env[k]]));
+  const was = Object.fromEntries(MAP_ENV.map((k) => [k, process.env[k]]));
   const reps = harness.schedules;
   reps._setDeps({ now: () => now });
   const mcp = require('../lib/harness/mcp');
+  const ai = async (who, name, args) => (await mcp.call(who, name, args, { base: 'https://127.test' })).content[0].text;
   const lines = (page) => (page.match(/<p class="hq-small h2-agree">/g) || []).length;
+  const oks = (x) => db.filter('agreements', (a) => a.memberId === x.id);
+  const runOf = (res) => where(res).split('/').pop();
   try {
-    for (const k of ENV) delete process.env[k];
+    for (const k of MAP_ENV) delete process.env[k];
     // Map servers off: the search shows sample businesses, so there's no line and nothing to agree to.
     const u = await member();
     assert.equal(lines(await html(await s.go('/app/hq/w/tag.search', { as: u }))), 0);
@@ -1522,11 +1532,10 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     assert.equal(engine.get(v, waiting.id).status, 'waiting');
 
     // Map servers on: OpenStreetMap's line, once, right under the button, with Terms linked to Section 13B.
-    process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
-    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search';
+    osmOn();
     const [line, ...extra] = engine.agreeLines(packs.workflow('tag.search'));
     assert.deepEqual(extra, []);
-    assert.deepEqual({ text: line.text, href: line.href }, { text: OSM_LINE, href: '/terms#13b-first-25' });
+    assert.deepEqual(line, { key: line.key, text: OSM_LINE, href: '/terms#13b-first-25', sources: ['osm'] });
     let page = await html(await s.go('/app/hq/w/tag.search?in_city=Ames', { as: u }));
     assert.equal(lines(page), 1);
     assert.match(page, new RegExp(`Run it <span class="arrow"></span></button>\\s*<input type="hidden" name="agree" value="${line.key}">\\s*<p class="hq-small h2-agree">Business info from OpenStreetMap\\. By searching, you agree to our <a href="/terms#13b-first-25">Terms</a>\\.</p>`));
@@ -1534,26 +1543,38 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     assert.ok(fs.readFileSync(path.join(__dirname, '..', 'public', 'funnels', 'first25-data.js'), 'utf8').includes(`osm: '${OSM_LINE}'`));
     // So does the gym pack's search (Gym G65), once.
     assert.deepEqual(packs.registerAll([{ pack: require('../lib/packs/gym'), source: 'test' }]).refused, []);
-    assert.deepEqual(engine.agreeLines(packs.workflow('gym.first_clients')).map((l) => l.key), [line.key]);
+    assert.deepEqual(engine.agreeLines(packs.workflow('gym.first_clients')), [line]);
     assert.equal(lines(await html(await s.go('/app/hq/w/gym.first_clients', { as: u }))), 1);
 
     // The run that started before them stops at its search instead of searching for real.
     await engine.answer(v, waiting.id, 'ok', { approved: true });
     await engine.idle();
     assert.equal(engine.get(v, waiting.id).status, 'failed');
-    assert.equal(engine.view(engine.get(v, waiting.id)).steps.find((x) => x.id === 'find').error, 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.');
+    assert.equal(engine.view(engine.get(v, waiting.id)).steps.find((x) => x.id === 'find').error, AGREE_FIRST);
 
     // Sent without the line (the page was open before the servers went on): back to the page with their answers.
     let res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames' } });
     assert.equal(where(res), '/app/hq/w/tag.search?in_city=Ames');
-    assert.ok(flashes.some((f) => f.type === 'error' && f.text === 'This workflow now searches real businesses. Run it from its page in HQ, and read the line under Run it first.'));
-    // With it: the run keeps the line the member read.
+    assert.ok(flashes.some((f) => f.type === 'error' && f.text === AGREE_FIRST));
+    assert.deepEqual(oks(u), []);
+    // With it: the run keeps the line the member read, with the source it names.
     res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames', agree: line.key } });
     assert.match(where(res), /^\/app\/hq\/runs\/[\w-]+$/);
-    run = engine.get(u, where(res).split('/').pop());
-    assert.deepEqual(run.agreed, [{ key: line.key, text: OSM_LINE, href: '/terms#13b-first-25' }]);
+    run = engine.get(u, runOf(res));
+    assert.deepEqual(run.agreed, [line]);
+    // And HQ keeps the member's OK (Legal L67): the line word for word (its key is its version), its source,
+    // the date and the run it came with.
+    const { createdAt, updatedAt, ...ok } = db.get('agreements', `${u.id}:${line.key}`);
+    assert.ok(createdAt && updatedAt);
+    assert.deepEqual(ok, { id: `${u.id}:${line.key}`, memberId: u.id, key: line.key, text: OSM_LINE, href: '/terms#13b-first-25', sources: ['osm'], at: new Date(now).toISOString(), workflowId: 'tag.search', runId: run.id, via: 'hq' });
     await engine.idle();
     assert.equal(engine.get(u, run.id).steps.find.output.n, 25, 'it searched for real');
+    // Once: the next run under the same line leaves the first OK as it was.
+    now += 3600e3;
+    res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames', agree: line.key } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    assert.deepEqual(oks(u).map((a) => [a.key, a.runId, a.at]), [[line.key, run.id, ok.at]]);
+    await engine.idle();
     // An admin's sample run searches nothing, so it needs no line.
     process.env.ADMIN_EMAILS = u.email;
     res = await s.go('/app/hq/w/tag.search/run', { as: u, form: { in_city: 'Ames', sample: '1' } });
@@ -1561,38 +1582,83 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     delete process.env.ADMIN_EMAILS;
     await engine.idle();
 
-    // Google on too: a step that may use either source shows both lines.
+    // The AI link: a member who hasn't agreed in HQ gets the page, with their answers filled in, and nothing starts.
+    const w = await member();
+    assert.match(await ai(w, 'list_workflows', { query: 'shops' }), /tag\.search: Shops near you\..* Starts in HQ: it searches real businesses, and the member reads a Terms line under Run it there\./);
+    let said = await ai(w, 'start_workflow', { workflow: 'tag.search', inputs: { city: 'Des Moines', nope: 'x' } });
+    assert.match(said, /^Shops near you searches real businesses, so the member starts it in HQ, where the line under Run it says which terms apply\. Once they have, you can start searches like it here\. Nothing started\. Give them this link, with their answers filled in: https:\/\/127\.test\/app\/hq\/w\/tag\.search\?in_city=Des\+Moines$/);
+    assert.deepEqual(engine.list(w), []);
+    // A member who agreed to the line in HQ: the AI link starts their searches under it, and never takes an OK itself.
+    assert.doesNotMatch(await ai(u, 'list_workflows', { query: 'shops' }), /Starts in HQ/);
+    said = await ai(u, 'start_workflow', { workflow: 'tag.search', inputs: { city: 'Des Moines' } });
+    assert.match(said, /^Started Shops near you \(run [\w-]+/);
+    run = engine.get(u, said.match(/\(run ([\w-]+)/)[1]);
+    assert.equal(run.source, 'ai');
+    assert.deepEqual(run.agreed, [line]);
+    assert.equal(oks(u).length, 1);
+    await engine.idle();
+
+    // The repeat set up before the servers went on waits until its member has agreed in HQ.
+    now = Date.parse('2026-11-09T13:30:00Z');
+    const only = (x) => x.id === v.id;
+    assert.deepEqual(await reps.sweep({ enabledFor: only, start: engine.start }), []);
+    assert.match(await html(await s.go('/app/hq/runs', { as: v })), /Every Monday at 7am · This workflow now searches real businesses\. Run it from its page in HQ, and read the line under Run it first\./);
+    // Their OK is to the line, so agreeing under it on any workflow's page counts.
+    res = await s.go('/app/hq/w/tag.later/run', { as: v, form: { in_city: 'Ames', agree: line.key } });
+    assert.match(where(res), /^\/app\/hq\/runs\//);
+    assert.deepEqual(oks(v).map((a) => [a.key, a.workflowId]), [[line.key, 'tag.later']]);
+    // And a run waiting before a search that may use Google, started under OpenStreetMap's line.
+    res = await s.go('/app/hq/w/tag.wide/run', { as: v, form: { agree: line.key } });
+    const wide = runOf(res);
+    await engine.idle();
+    now = Date.parse('2026-11-16T13:30:00Z');
+    let ids = await reps.sweep({ enabledFor: only, start: engine.start });
+    assert.equal(ids.length, 1);
+    assert.equal(engine.get(v, ids[0]).source, 'repeat');
+    assert.deepEqual(engine.get(v, ids[0]).agreed, [line]);
+    await engine.idle();
+
+    // Google on too: a search that may use either source shows one line naming both (Legal L67), and the gym's
+    // search, which uses OpenStreetMap only, keeps OpenStreetMap's.
     process.env.PLACES_API_KEY = 'test-key';
+    const [both, ...more] = engine.agreeLines(packs.workflow('tag.search'));
+    assert.deepEqual(more, []);
+    assert.deepEqual(both, { key: both.key, text: BOTH_LINE, href: '/terms#13b-first-25', sources: ['osm', 'places'] });
+    assert.notEqual(both.key, line.key);
     page = await html(await s.go('/app/hq/w/tag.search', { as: u }));
-    assert.equal(lines(page), 2);
-    assert.match(page, /<p class="hq-small h2-agree">Business info from Google Maps\. By searching, you agree to our <a href="\/terms#13b-first-25">Terms<\/a>, including Google Maps&#39; terms\.<\/p>/);
+    assert.equal(lines(page), 1);
+    assert.match(page, new RegExp(`<input type="hidden" name="agree" value="${both.key}">\\s*<p class="hq-small h2-agree">Business info from Google Maps and OpenStreetMap\\. By searching, you agree to our <a href="/terms#13b-first-25">Terms</a>, including Google Maps&#39; terms\\.</p>`));
+    assert.deepEqual(engine.agreeLines(packs.workflow('gym.first_clients')), [line]);
+    assert.deepEqual(engine.agreeLines(packs.workflow('tag.later')), [line]);
+    // The run started under OpenStreetMap's line stops before the step that may search Google.
+    await engine.answer(v, wide, 'ok', { approved: true });
+    await engine.idle();
+    assert.equal(engine.view(engine.get(v, wide)).steps.find((x) => x.id === 'more').error, AGREE_FIRST);
+    // A new line is a new version: the AI link and the repeat wait for the member's OK to it in HQ. Searches
+    // under the line they agreed to still start.
+    assert.match(await ai(u, 'start_workflow', { workflow: 'tag.search', inputs: { city: 'Ames' } }), /Nothing started\. Give them this link/);
+    assert.match(await ai(u, 'start_workflow', { workflow: 'tag.later', inputs: { city: 'Ames' } }), /^Started Shops after an OK/);
+    now = Date.parse('2026-11-23T13:30:00Z');
+    assert.deepEqual(await reps.sweep({ enabledFor: only, start: engine.start }), []);
+    res = await s.go('/app/hq/w/tag.search/run', { as: v, form: { in_city: 'Ames', agree: both.key } });
+    assert.deepEqual(engine.get(v, runOf(res)).agreed, [both]);
+    assert.deepEqual(oks(v).map((a) => [a.key, a.sources]).sort(), [[line.key, ['osm']], [both.key, ['osm', 'places']]].sort());
+    await engine.idle();
+    now = Date.parse('2026-11-30T13:30:00Z');
+    ids = await reps.sweep({ enabledFor: only, start: engine.start });
+    assert.equal(ids.length, 1);
+    assert.deepEqual(engine.get(v, ids[0]).agreed, [both]);
+    await engine.idle();
     delete process.env.PLACES_API_KEY;
 
     // A pack's own line is escaped, with only {terms} turned into the link.
     page = await html(await s.go('/app/hq/w/tag.odd', { as: u }));
     assert.match(page, /<p class="hq-small h2-agree">Odd &lt;b&gt;data&lt;\/b&gt; &amp; more\. See our <a href="\/terms#odd">Terms<\/a>\.<\/p>/);
 
-    // The AI link sends the member to HQ to start it, with their answers filled in, and starts nothing.
-    const before = engine.list(u).length;
-    const listed = (await mcp.call(u, 'list_workflows', { query: 'shops' }, { base: 'https://127.test' })).content[0].text;
-    assert.match(listed, /tag\.search: Shops near you\..* Starts in HQ: it searches real businesses, and the member reads a Terms line under Run it there\./);
-    const said = (await mcp.call(u, 'start_workflow', { workflow: 'tag.search', inputs: { city: 'Des Moines', nope: 'x' } }, { base: 'https://127.test' })).content[0].text;
-    assert.match(said, /Nothing started\. Give them this link, with their answers filled in: https:\/\/127\.test\/app\/hq\/w\/tag\.search\?in_city=Des\+Moines$/);
-    assert.equal(engine.list(u).length, before);
-
-    // The repeat set up before the servers went on waits until its member has read the line in HQ.
-    now = Date.parse('2026-11-09T13:30:00Z');
-    const only = (x) => x.id === v.id;
-    assert.deepEqual(await reps.sweep({ enabledFor: only, start: engine.start }), []);
-    assert.match(await html(await s.go('/app/hq/runs', { as: v })), /Every Monday at 7am · This workflow now searches real businesses\. Run it from its page in HQ, and read the line under Run it first\./);
-    res = await s.go('/app/hq/w/tag.search/run', { as: v, form: { in_city: 'Ames', agree: line.key } });
-    assert.match(where(res), /^\/app\/hq\/runs\//);
-    await engine.idle();
-    now = Date.parse('2026-11-16T13:30:00Z');
-    const ids = await reps.sweep({ enabledFor: only, start: engine.start });
-    assert.equal(ids.length, 1);
-    assert.deepEqual(engine.get(v, ids[0]).agreed.map((l) => l.key), [line.key]);
-    await engine.idle();
+    // Deleting the account deletes the member's OKs with everything else of theirs.
+    await harness.forget(v.id);
+    assert.deepEqual(oks(v), []);
+    assert.equal(oks(u).length, 1);
 
     // A pack's line has to be text with a page on 127's site, tied to a source the tool uses.
     const check = (agree) => packs.checkPack({ id: 'tbad', title: 'Bad', version: '1', tools: [{ ...AG.tools[0], name: 'tbad.find', agree }] }, () => null).join('\n');
@@ -1609,6 +1675,145 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     }
     reps._setDeps({ now: () => Date.now() });
     unregister(['tag', 'gym']);
+  }
+});
+
+// What a search found, on the AI link (Legal L67): nothing from Google, and OpenStreetMap with its credit.
+const AL = {
+  id: 'tal',
+  title: 'AI link search tests',
+  version: '1.0.0',
+  summary: 'What a search found, on the AI link.',
+  tools: [
+    {
+      name: 'tal.find', title: 'Find shops', description: 'Finds shops on Google Maps or OpenStreetMap.', kind: 'api', risk: 'read', credits: 1, wants: ['places', 'osm'],
+      input: obj({ city: { type: 'string' } }), output: obj({ shops: { type: 'array' } }),
+      run: async (input, ctx) => {
+        if (input.city === 'Nowhere') throw new Error('Iron Gym (irongym.example) did not load.');
+        const source = ctx.secret('places') ? 'google' : 'osm';
+        return { shops: [{ key: 's1', name: 'Iron Gym', phone: '515-555-0101', source }, { key: 's2', name: 'Lift House', phone: '515-555-0102', source }] };
+      },
+      view: (o) => [{ type: 'table', columns: [{ key: 'name', label: 'Shop' }, { key: 'phone', label: 'Phone' }], rows: o.shops }],
+    },
+    {
+      name: 'tal.write', title: 'Write to a shop', description: 'Drafts a note and adds the shop to the Pipeline.', kind: 'code', risk: 'draft', credits: 0,
+      input: obj({ shop: { type: 'object' } }), output: obj({ name: { type: 'string' }, text: { type: 'string' } }),
+      run: async ({ shop }, ctx) => {
+        await ctx.leads.upsert({ key: shop.key, name: shop.name, stage: 'found', data: { source: shop.source } });
+        return { name: shop.name, text: `Hi ${shop.name} team, a quick idea for you.` };
+      },
+    },
+  ],
+  workflows: [
+    {
+      id: 'tal.reach', title: 'Reach shops', promise: 'Finds shops and drafts notes.', minutes: 3, tier: 'free', inputs: obj({ city: { type: 'string', title: 'Your city' } }),
+      steps: [
+        { id: 'go', approve: { title: 'Ready to look?' } },
+        { id: 'find', tool: 'tal.find', input: { city: '$inputs.city' } },
+        { id: 'pick', approve: { title: 'Pick shops to write to', choose: '$find.shops', label: 'name' } },
+        { id: 'write', tool: 'tal.write', each: '$pick.chosen', input: { shop: '$item' } },
+        { id: 'check', approve: { title: 'Read your notes', items: '$write', label: 'name', field: 'text', edit: 'text' } },
+      ],
+      result: ['find'],
+    },
+  ],
+};
+
+test('the AI link keeps what a Google search found in HQ, and gives OpenStreetMap its credit', async () => {
+  const r0 = packs.registerAll([{ pack: AL, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const was = Object.fromEntries(MAP_ENV.map((k) => [k, process.env[k]]));
+  const mcp = require('../lib/harness/mcp');
+  const base = 'https://127.test';
+  const call = async (who, name, args) => (await mcp.call(who, name, args, { base })).content[0];
+  const ai = async (who, name, args) => (await call(who, name, args)).text;
+  const CREDIT = 'Business listings © OpenStreetMap contributors (openstreetmap.org/copyright)';
+  const FOUND = /Iron Gym|Lift House|515-555|irongym/;
+  try {
+    for (const k of MAP_ENV) delete process.env[k];
+    osmOn();
+    const u = await member();
+    const [osmLine] = engine.agreeLines(packs.workflow('tal.reach'));
+    let res = await s.go('/app/hq/w/tal.reach/run', { as: u, form: { in_city: 'Ames', agree: osmLine.key } });
+    let id = where(res).split('/').pop();
+    await engine.idle();
+    // A plain OK lists nothing, so the AI link may answer it.
+    assert.match(await ai(u, 'answer_inbox', { run: id, step: 'go', approved: true }), /^Answered\./);
+    await engine.idle();
+    // OpenStreetMap: the picks, the drafts and the results go with the credit.
+    let inbox = await ai(u, 'list_inbox', {});
+    assert.match(inbox, /Options:\n {2}\[0\] Iron Gym\n {2}\[1\] Lift House\n/);
+    assert.ok(inbox.endsWith(CREDIT), inbox);
+    assert.ok((await ai(u, 'get_run', { run: id })).includes(`[1] Lift House\n${CREDIT}`));
+    assert.match(await ai(u, 'answer_inbox', { run: id, step: 'pick', approved: true, chosen: ['0'] }), /^Answered\./);
+    await engine.idle();
+    inbox = await ai(u, 'list_inbox', {});
+    assert.match(inbox, /Hi Iron Gym team, a quick idea for you\.\n/);
+    assert.ok(inbox.endsWith(CREDIT), inbox);
+    assert.match(await ai(u, 'answer_inbox', { run: id, step: 'check', approved: true }), /^Answered\./);
+    await engine.idle();
+    let got = await ai(u, 'get_run', { run: id });
+    assert.match(got, /: done\./);
+    assert.ok(got.includes(`Results:\n- Iron Gym | 515-555-0101\n\n- Lift House | 515-555-0102\n\n${CREDIT}\n\nIn HQ: ${base}/app/hq/runs/${id}`), got);
+    // The Pipeline: a business a pack found on OpenStreetMap goes with the credit too.
+    got = await ai(u, 'get_pipeline', {});
+    assert.match(got, /: Iron Gym, Found\n/);
+    assert.ok(got.endsWith(`\n\n${CREDIT}`), got);
+
+    // Google on: one line for both sources, agreed in HQ. The AI link starts the search, and nothing it found
+    // comes back through it: no names, phones, picks, drafts or errors.
+    process.env.PLACES_API_KEY = 'test-key';
+    const [both] = engine.agreeLines(packs.workflow('tal.reach'));
+    assert.deepEqual(both.sources, ['osm', 'places']);
+    assert.match(await ai(u, 'start_workflow', { workflow: 'tal.reach', inputs: { city: 'Ames' } }), /Nothing started\. Give them this link/);
+    res = await s.go('/app/hq/w/tal.reach/run', { as: u, form: { in_city: 'Ames', agree: both.key } });
+    await engine.idle();
+    await engine.cancel(u, where(res).split('/').pop());
+    assert.match(await ai(u, 'list_workflows', { query: 'reach shops' }), /tal\.reach: Reach shops\..* Its results may include businesses from Google Maps, so they show in HQ only\./);
+    const said = await ai(u, 'start_workflow', { workflow: 'tal.reach', inputs: { city: 'Ames' } });
+    id = said.match(/^Started Reach shops \(run ([\w-]+)/)[1];
+    await engine.idle();
+    assert.match(await ai(u, 'answer_inbox', { run: id, step: 'go', approved: true }), /^Answered\./);
+    await engine.idle();
+    assert.equal(engine.get(u, id).steps.find.output.shops[0].source, 'google');
+    inbox = await ai(u, 'list_inbox', {});
+    assert.doesNotMatch(inbox, FOUND);
+    assert.ok(inbox.includes(`Waiting on the member: Pick shops to write to (run ${id}, step pick).\nIt may list businesses from Google Maps, so the member reads it and answers it in HQ: ${base}/app/hq/runs/${id}`), inbox);
+    got = await ai(u, 'get_run', { run: id });
+    assert.doesNotMatch(got, FOUND);
+    assert.match(got, /It may list businesses from Google Maps, so the member reads it and answers it in HQ/);
+    let refused = await call(u, 'answer_inbox', { run: id, step: 'pick', approved: true, chosen: ['0'] });
+    assert.equal(refused.text, `This approval may list businesses from Google Maps, so the member answers it in HQ: ${base}/app/hq/runs/${id}`);
+    assert.equal((await mcp.call(u, 'answer_inbox', { run: id, step: 'pick', approved: true }, { base })).isError, true);
+    assert.equal(engine.get(u, id).status, 'waiting');
+    // In HQ: the picks and the drafts. The drafts' approval stays in HQ too.
+    await engine.answer(u, id, 'pick', { approved: true, chosen: ['1'] });
+    await engine.idle();
+    assert.doesNotMatch(await ai(u, 'list_inbox', {}), FOUND);
+    refused = await call(u, 'answer_inbox', { run: id, step: 'check', approved: true });
+    assert.match(refused.text, /^This approval may list businesses from Google Maps/);
+    await engine.answer(u, id, 'check', { approved: true });
+    await engine.idle();
+    got = await ai(u, 'get_run', { run: id });
+    assert.match(got, /: done\./);
+    assert.doesNotMatch(got, FOUND);
+    assert.ok(got.endsWith(`Its results may include businesses from Google Maps, so they show in HQ only.\n\nIn HQ: ${base}/app/hq/runs/${id}`), got);
+    // A step's error can name a business, so a Google run's stays in HQ.
+    id = (await ai(u, 'start_workflow', { workflow: 'tal.reach', inputs: { city: 'Nowhere' } })).match(/\(run ([\w-]+)/)[1];
+    await engine.idle();
+    await ai(u, 'answer_inbox', { run: id, step: 'go', approved: true });
+    await engine.idle();
+    got = await ai(u, 'get_run', { run: id });
+    assert.match(got, /- Find shops: failed\. What went wrong is in HQ\./);
+    assert.doesNotMatch(got, FOUND);
+    // A sample run searched nothing, so it shows as before.
+    assert.deepEqual(engine.searched({ sample: true, agreed: [both] }), []);
+  } finally {
+    for (const [k, val] of Object.entries(was)) {
+      if (val === undefined) delete process.env[k];
+      else process.env[k] = val;
+    }
+    unregister(['tal']);
   }
 });
 

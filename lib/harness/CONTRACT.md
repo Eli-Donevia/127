@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.6)
+# How a workflow plugs into the 127 harness (contract v1.7)
 
-Owner: Harness v2 thread. Version 1.6, 2026-10-19 (v1 to v1.5 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.7, 2026-10-19 (v1 to v1.6 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -11,6 +11,12 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.7** (nothing to change in a pack; Legal L67):
+
+- **The member agrees once, in HQ.** The first time a member runs a search of real businesses from its page in HQ, HQ keeps their OK: the line word for word, the sources it names and the date. After that the AI link, their repeats and Do my day start their searches under that line; a reworded line, or a source joining it, needs a new OK on the page. The AI link never takes the OK (sections 4d and 6).
+- **One line for Google and OpenStreetMap together:** a workflow whose steps may use both shows "Business info from Google Maps and OpenStreetMap. By searching, you agree to our Terms, including Google Maps' terms." instead of two lines. A tool's own `agree` in a source's words counts as that source (section 6).
+- **The AI link and what a search found:** nothing a Google search found goes through it. A run that may have searched Google shows its progress on the AI link, and its results, picks, drafts and step errors in HQ only, the same as First 25's result email. One that searched OpenStreetMap shows them with First 25's credit. Keep `needs` and `wants` honest; the harness does the rest (section 6).
 
 **In v1.6** (nothing to change in a pack):
 
@@ -123,7 +129,7 @@ Rules:
 - Re-running a tool with the same input must be safe. The engine re-runs an unfinished step after a restart.
 - Throw an `Error` with a member-readable message when something fails ("Google didn't answer, try again in a minute"). The engine records it on the step; in an `each` step one failed item doesn't fail the others.
 - Plain text in anything a member reads: no markdown, no em dashes, no income claims, never Eli's figures, no time-saved claims (voice guide 7 and 15, Legal L12, playbook 1.4). The member is the sender of anything they send, never Eli.
-- **`agree`** (optional): a line HQ shows right under Run it on every workflow that uses the tool, each line once. `text` is plain text up to 300 characters; `{terms}` in it becomes a link reading "Terms" to `href`, which must be a page on 127's site (`/terms#...`). `when` names one of the tool's `needs` or `wants`, and the line shows only while that key is on; leave it out and it always shows. The workflow then starts only from HQ's Run it, as in section 6. You rarely need it: `osm` and `places` already bring First 25's line. Only Legal's words go here.
+- **`agree`** (optional): a line HQ shows right under Run it on every workflow that uses the tool, each line once. `text` is plain text up to 300 characters; `{terms}` in it becomes a link reading "Terms" to `href`, which must be a page on 127's site (`/terms#...`). `when` names one of the tool's `needs` or `wants`, and the line shows only while that key is on; leave it out and it always shows. Members agree to it on HQ's Run it, as in section 6. You rarely need it: `osm` and `places` already bring First 25's line, and a line in a source's words counts as that source. Only Legal's words go here.
 
 ## 4. A workflow
 
@@ -186,7 +192,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 - `cron`: minute, hour, day of the month, month and weekday. Each is `*`, a number, a range (`1-5`) or a list (`1,15`); the minute and hour must be numbers. When both day fields are set, either one counts. No steps (`*/15`). Examples: `0 7 * * 1` Mondays at 7am, `0 8 * * 1-5` weekdays at 8am, `0 9 28 * *` the 28th of each month at 9am.
 - `label`: what the offer says, up to 60 characters, starting with a capital ("Every Monday at 7am").
 - Make a repeated run safe to repeat: skip people already in the member's Pipeline, date what you make.
-- A repeat of a workflow with a Terms line (section 6) goes on only once its member has run it in HQ with that line showing. One set up while the source was off skips its turns until then, and Runs tells the member why.
+- A repeat of a workflow with a Terms line (section 6) goes on only once its member has agreed in HQ to the line it shows now. One set up while the source was off, or before its line changed, skips its turns until then, and Runs tells the member why.
 
 ## 5. Risk, and the one hard rule
 
@@ -214,7 +220,11 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 
 **Held for Legal:** `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` aren't in 127's Privacy Policy, so Legal clears each one before its key goes into production (Oct 19). Until then the harness ignores the key even when it's set: a tool that needs one runs as a sample, and one that wants one gets `null`. Known problems: Gemini's free tier trains on what it's sent, and Hunter finds addresses beyond a business's own site, which First 25's "only published addresses" rule doesn't allow. Build so the tool is worth running without them.
 
-**Terms line for business searches** (Legal L53, L66): `osm` and `places` carry First 25's line, word for word: "Business info from OpenStreetMap. By searching, you agree to our Terms." and "Business info from Google Maps. By searching, you agree to our Terms, including Google Maps' terms." with Terms linked to Section 13B (`/terms#13b-first-25`). A workflow with a step that needs or wants one shows its line right under Run it while that source is on (a step that may use either shows both), and the run keeps the lines the member read. While a line shows, the workflow starts only from HQ's Run it: the AI link sends the member there with their answers filled in, and an admin's sample run needs no line, since it searches nothing. A step never searches for real with a line its run didn't show: a run started before the source went on (one waiting on the member's OK, say) stops at that step and says to run it from HQ.
+**Terms line for business searches** (Legal L53, L66, L67; `legal/handoffs/first-25.md` part 7): `osm` and `places` carry First 25's line, word for word: "Business info from OpenStreetMap. By searching, you agree to our Terms." and "Business info from Google Maps. By searching, you agree to our Terms, including Google Maps' terms." with Terms linked to Section 13B (`/terms#13b-first-25`). A workflow with a step that needs or wants one shows its line right under Run it while that source is on. When its steps may use both, it shows one line instead: "Business info from Google Maps and OpenStreetMap. By searching, you agree to our Terms, including Google Maps' terms." Each result still shows its own credit (below). The run keeps the lines it started under, with the sources each names.
+
+- **The OK is taken in HQ, never on the AI link.** The first time a member runs a search from its page in HQ with a line showing, HQ keeps their OK to that line: the words, the sources, the date and the run. A line's words are its version, so a reworded line, or the combined line once Google joins OpenStreetMap, is new and needs a new OK there. Until the member has agreed to every line a workflow shows now, it starts only from its page: the AI link gives the member that link with their answers filled in, and a repeat skips its turns. After that, the AI link, repeats and Do my day start it. An admin's sample run needs no line, since it searches nothing. The member's OKs are deleted with their account.
+- **A step never searches a source its run's lines don't name:** a run started before the source went on (one waiting on the member's OK, say) stops at that step and says to run it from HQ.
+- **On the AI link,** nothing a Google search found goes through, the same as First 25's result email: no names, addresses, phone numbers, websites or ratings. A run whose lines name Google shows its steps' progress there, and its results, picks, drafts and step errors in HQ only. Its approvals that list what it found are answered in HQ; a plain OK still works. A run that searched OpenStreetMap shows them with First 25's credit, "Business listings © OpenStreetMap contributors (openstreetmap.org/copyright)", and so do Pipeline businesses whose `data.source` is `'osm'`.
 
 Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. A server's error can echo the request, key and all (Tracestrack puts it in the path, LocationIQ in `?key=`, the Graph API in `access_token`), so the engine keeps only the scheme and host of any URL in your step errors, `{ error }` items, `ctx.log` lines and the server log, and hides key-like values. Scrub what else you save in outputs yourself. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
 
