@@ -10,6 +10,9 @@ const express = require('express');
 process.env.SESSION_SECRET = process.env.SESSION_SECRET || 'test-secret';
 process.env.FIRST25_SAMPLE_PACE = '0';
 delete process.env.FIRST25_SOURCE;
+// The Terms and Privacy pages are live, so real-data tests can run (Legal L71). One test turns them off.
+process.env.TERMS_LIVE = 'true';
+process.env.PRIVACY_LIVE = 'true';
 
 const db = require('../lib/db');
 const E = require('../public/funnels/first25-engine.js');
@@ -580,6 +583,46 @@ test('Google mode needs saved lists that keep place IDs only, and a key (Legal L
       try { assert.equal(first25.sourceName(), 'google', k); } finally { delete process.env[k]; }
     }
   } finally { delete process.env.FIRST25_SOURCE; }
+});
+
+test('real searches and their Terms line wait for the live Terms and Privacy pages (Legal L71)', async () => {
+  process.env.OSM_NOMINATIM_URL = 'https://us1.locationiq.com/v1/search?key=liq-test-key';
+  process.env.OSM_OVERPASS_URL = 'https://api.tracestrack.com/overpass/tt-test-key/interpreter';
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  const realFetch = global.fetch, out = [];
+  global.fetch = async (url, init) => { const u = String(url); if (u.startsWith('http://127.0.0.1')) return realFetch(url, init); out.push(u); throw new Error('no map server'); };
+  try {
+    for (const source of ['osm', 'google']) {
+      process.env.FIRST25_SOURCE = source;
+      for (const [terms, privacy] of [[undefined, undefined], ['true', undefined], [undefined, 'true'], ['false', 'true']]) {
+        if (terms === undefined) delete process.env.TERMS_LIVE; else process.env.TERMS_LIVE = terms;
+        if (privacy === undefined) delete process.env.PRIVACY_LIVE; else process.env.PRIVACY_LIVE = privacy;
+        assert.equal(first25.sourceName(), 'sample', `${source}: TERMS_LIVE=${terms}, PRIVACY_LIVE=${privacy}`);
+        assert.equal(first25.injectPage({ params: {} }), '', 'no Terms line under the search button');
+      }
+    }
+    // A search on samples asks no map server, and a saved Google list doesn't ask Google again.
+    await serve(app(), async (base) => {
+      const res = await post(base, { pack: 'video', buyer: 'gyms', place: 'Indianola, IA' });
+      const last = (await res.text()).trim().split('\n').map((l) => JSON.parse(l)).pop();
+      assert.equal(last.run.source, 'sample');
+      const saved = await db.save('prospectRuns', { id: 'f25-l71', source: 'google', buyer: 'gyms', place: 'Ames, IA', prospects: [{ id: 'g-abc', rank: 1 }] });
+      const open = () => fetch(`${base}/api/first-25/r/${saved.id}/details`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ k: first25.sign(saved.id) }) });
+      const r = await open();
+      assert.equal(r.status, 429);
+      assert.equal((await r.json()).error, D.copy.details.fail);
+      assert.deepEqual(out, [], 'no map server asked');
+      // With both pages live, the same list asks Google (here it fails, so the page keeps its "didn't load" line).
+      process.env.TERMS_LIVE = 'true'; process.env.PRIVACY_LIVE = 'true';
+      assert.equal((await open()).status, 503);
+      assert.match(out[0], /^https:\/\/places\.googleapis\.com\//);
+    });
+    for (const source of ['osm', 'google']) { process.env.FIRST25_SOURCE = source; assert.equal(first25.sourceName(), source, `${source} with both pages live`); }
+  } finally {
+    global.fetch = realFetch;
+    process.env.TERMS_LIVE = 'true'; process.env.PRIVACY_LIVE = 'true';
+    delete process.env.FIRST25_SOURCE; delete process.env.OSM_NOMINATIM_URL; delete process.env.OSM_OVERPASS_URL; delete process.env.GOOGLE_PLACES_KEY;
+  }
 });
 
 test('OpenStreetMap on the live site needs our own or a paid server (Legal L53 part 2.4)', () => {
