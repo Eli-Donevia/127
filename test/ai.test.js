@@ -117,6 +117,10 @@ test('tool specs are valid for the tool page', () => {
     }
   }
   assert.equal(ai.TOOLS.filter((t) => t.tier === 'free').length, 2);
+  // Hormozi's name and book titles stay out of what members read, so out of what the AI is told to say too.
+  const HORMOZI = /hormozi|\$100M/i;
+  for (const t of ai.TOOLS) assert.doesNotMatch(`${t.name} ${t.blurb} ${t.instruction || ''} ${(t.starters || []).join(' ')}`, HORMOZI, t.slug);
+  assert.match(ai.TOOLS.find((t) => t.slug === 'offer-stack').instruction, /the value equation \(dream outcome, perceived likelihood, time delay, effort and sacrifice\)/);
 });
 
 test('the system prompt is the same for every member and caches', () => {
@@ -144,6 +148,8 @@ test('the system prompt is the same for every member and caches', () => {
   assert.match(p, /- \$50K in gross sales from a part-time e-commerce brand/);
   assert.match(p, /add right after it: "Eli's results aren't typical or a promise of what you'll earn\."/);
   assert.doesNotMatch(p, /multiple six-figure/);
+  assert.doesNotMatch(p, /hormozi|\$100M/i, "Hormozi's name and books stay out of the Playbook");
+  assert.match(p, /use the value equation \(dream outcome, perceived likelihood, time delay, effort and sacrifice\) by that plain name/);
   // Legal L45: the #3 ranking always says what it was #3 of.
   assert.match(p, /always say what it was #3 of: use the whole line or "#3 of 6,000\+ sales agents"/);
   assert.match(p, /- #3 in the country on a national vendor sales list of 6,000\+ agents \(2025\)/);
