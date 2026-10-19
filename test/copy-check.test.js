@@ -58,9 +58,38 @@ test('First 25 time claims are held (Legal S23), not failed, and only near the t
   assert.deepStrictEqual(rules('Your roadmap takes about 3 minutes to start.'), []);
 });
 
-test('a bare "Free" on First 25 is held (Legal S22) until it says what is free', () => {
+test('a bare "Free" or "No signup" on First 25 is held (Legal S22) until "all 25 with your email" is beside it', () => {
   assert.deepStrictEqual(check('Get 25 local businesses and the message to send each one. Free.').map((x) => [x.rule, x.severity]), [['first25-free', 'hold']]);
-  for (const s of ['First 25 · Free · No signup to search', '25 local businesses to message, free with your email', 'Top 3 free, all 25 with your email.', 'Start free. Your roadmap takes 3 minutes.', 'Start free and the Founder Score, side by side. One button: Find my first 25.']) assert.deepStrictEqual(rules(s), [], s);
+  const alone = check('First 25 · Free · No signup to search');
+  assert.ok(alone.length && alone.every((x) => x.rule === 'first25-free' && x.severity === 'hold'), 'No signup to search, alone next to 25');
+  for (const s of ['Top 3 free · All 25 with your email', '25 local businesses to message, free with your email', 'Top 3 free, all 25 with your email.', 'First 25 · Free · No signup to search · All 25 with your email', 'Start free. Your roadmap takes 3 minutes.', 'Start free and the Founder Score, side by side. One button: Find my first 25.']) assert.deepStrictEqual(rules(s), [], s);
+});
+
+test('a paid plan never says it gets members clients, leads or businesses (Legal L62), and free First 25 still can', () => {
+  const bad = [
+    'Builder gets you clients.',
+    '127 HQ finds leads for you every week.',
+    'The Circle brings in clients.',
+    'Builder turns your replies into a first client.',
+    'HQ hands members 25 businesses to pitch.',
+    'Members get fresh leads every Monday.',
+    'Run a workflow that finds leads, or open a list in HQ.',
+  ];
+  for (const s of bad) assert.ok(rules(s).includes('paid-plan-customers'), s);
+  const good = [
+    'Builder has Outreach Scripts, the One-Page Offer and the Pricing Worksheet.',
+    'Send it to your best customers. Builder has the scripts.',
+    'First 25 finds 25 local businesses that could use what you sell.',
+    'Find 10 potential customers today.',
+    'No paid plan gets you clients.',
+    "Builder doesn't find you clients. It has the scripts for the ones you find.",
+    'Builder members track paying customers in HQ.',
+  ];
+  for (const s of good) assert.deepStrictEqual(rules(s), [], s);
+  assert.deepStrictEqual(check('A fresh 25 every Monday in HQ.').map((x) => [x.rule, x.severity]), [['paid-plan-weekly-list', 'hold']]);
+  // Copy that is all about paid plans (the plan cards, the pricing page, HQ's pages) counts every sentence.
+  assert.deepStrictEqual(rules('Find leads'), []);
+  assert.ok(rules('Find leads', { paid: true }).includes('paid-plan-customers'));
 });
 
 test('what a reader never sees is not checked: comments, styles, scriptlet comments', () => {
@@ -73,7 +102,7 @@ test("the site's own copy has nothing that blocks (pages, funnel pages, challeng
   const files = siteFiles();
   assert.ok(files.length > 50, 'scans the site');
   const rel = files.map((f) => path.relative(path.join(__dirname, '..'), f).split(path.sep).join('/'));
-  for (const f of ['views/home.ejs', 'lib/waitlist.js', 'public/funnels/first25-data.js']) if (fs.existsSync(path.join(__dirname, '..', f))) assert.ok(rel.includes(f), `scans ${f}`);
+  for (const f of ['views/home.ejs', 'lib/waitlist.js', 'public/funnels/first25-data.js', 'lib/plans.js']) if (fs.existsSync(path.join(__dirname, '..', f))) assert.ok(rel.includes(f), `scans ${f}`);
   const found = run(files);
   for (const h of found.filter((f) => f.severity === 'hold')) t.diagnostic(`held: ${h.file}:${h.line} ${h.rule} "${h.match}"`);
   assert.deepStrictEqual(found.filter((f) => f.severity === 'block').map((f) => `${f.file}:${f.line} ${f.rule} "${f.match}"`), []);
