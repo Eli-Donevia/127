@@ -1620,3 +1620,5 @@ main .legal-foot { margin-top: 32px; }
 @media (prefers-reduced-motion: reduce){
   .h5-halo,.h5-title > span > span,.h5 .lbl,.h5-sub,.h5-btn,.h5-note{animation:none !important}
 }
+/* No sideways page scroll on phones: the step glow and the outputs rail stay inside their sections. */
+.v5 .w5,.v5 .o5{overflow-x:clip}
