@@ -10,6 +10,8 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 
 ## 0. What changed since v1
 
+**Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
 **In v1.5** (nothing breaks):
 
 - **Moving another pack's lead:** `ctx.leads.update(id, { stage })` moves any of the member's leads forward, like `upsert`, so a business pack that books someone another pack found keeps them one row in the Pipeline. A tool never moves a lead back or out of `won`; `lost` to `won` is allowed, since a booking beats an old no. `upsert` follows the same rule now (section 13).
@@ -201,6 +203,8 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | `gemini` | Google AI images, music and short video | `GEMINI_API_KEY` |
 | `render` | `ffmpeg` on the server | `FFMPEG_PATH` or `ffmpeg` on the path |
 | `stripe`, `shopify` | the member's own HQ connections | not wired into packs yet: always sample |
+
+**Held for Legal:** `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` aren't in 127's Privacy Policy, so Legal clears each one before its key goes into production (Oct 19). Until then the harness ignores the key even when it's set: a tool that needs one runs as a sample, and one that wants one gets `null`. Known problems: Gemini's free tier trains on what it's sent, and Hunter finds addresses beyond a business's own site, which First 25's "only published addresses" rule doesn't allow. Build so the tool is worth running without them.
 
 Read one with `ctx.secret('places')` (only names you declared). Never log it, put it in output, or send it anywhere but its own service. A server's error can echo the request, key and all (Tracestrack puts it in the path, LocationIQ in `?key=`, the Graph API in `access_token`), so the engine keeps only the scheme and host of any URL in your step errors, `{ error }` items, `ctx.log` lines and the server log, and hides key-like values. Scrub what else you save in outputs yourself. Keys are 127's accounts, set by Eli in the server's secrets; packs never ask members for keys.
 
