@@ -83,7 +83,7 @@
   var gaps = {
     site_down: { chip: 'Site down', why: "Their website didn't load when we checked.", say: "I tried your website this week and it didn't load for me." },
     broken_link: { chip: 'Broken link', why: 'The website link on their map listing goes to a missing page.', say: "The website link on your map listing goes to a page that doesn't exist anymore." },
-    no_site: { chip: 'No website', why: 'No website on their listing.', say: "I couldn't find a website for {biz}, just the Google listing." },
+    no_site: { chip: 'No website', why: 'No website on their listing.', say: "I couldn't find a website for {biz}, just your map listing." },
     no_video: { chip: 'No video', why: 'No video anywhere on their homepage.', say: "I was on your website and couldn't find any video of your {what}." },
     no_tiktok: { chip: 'No TikTok', why: 'No TikTok linked from their site.', say: "I couldn't find {biz} on TikTok." },
     no_youtube: { chip: 'No YouTube', why: 'No YouTube linked from their site.', say: "I didn't see a YouTube channel for {biz}." },
@@ -98,9 +98,11 @@
     no_https: { chip: 'Not secure', why: 'Their site has no https, so Chrome marks it "Not secure".', say: 'Your website shows as "Not secure" in Chrome.' },
     no_mobile: { chip: 'Not phone-ready', why: "Their site isn't set up for phones.", say: "Your website doesn't seem to be set up for phones." },
     slow: { chip: 'Slow site', why: 'Their homepage took over 3 seconds to respond when we checked.', say: 'Your homepage took a few seconds to load for me.' },
-    no_description: { chip: 'No Google blurb', why: 'No description for Google to show under their name.', say: "When I searched for {biz}, Google didn't show a description for your site." },
+    // Legal L53 part 3.4: the member didn't search, so the line says what the homepage is missing.
+    no_description: { chip: 'No search description', why: 'Their homepage has no description set for search results.', say: "Your homepage doesn't have a description set for search results." },
     few_images: { chip: 'Few photos', why: 'Fewer than 6 photos on their homepage.', say: 'Your website only has a few photos of your {what}.' },
-    few_reviews: { chip: '{reviews} reviews', why: '{reviews} Google reviews so far.', say: 'I saw you have {reviews} Google reviews.' },
+    // Google's numbers stay in the app, with the attribution, never in a message (Legal L53 part 3.4).
+    few_reviews: { chip: '{reviews} reviews', why: '{reviews} Google reviews so far.', say: "I noticed {biz} doesn't have many Google reviews yet." },
   };
 
   // Signals that make a business a better first client (they already spend on marketing, they're busy).
@@ -218,7 +220,7 @@
       steps: [
         'Scroll their last 9 posts. Note which ones got the most comments.',
         'Write 3 posts that do more of that: one behind the scenes, one customer favorite, one reason to come in this week.',
-        'Design them in Canva in their colors, with their logo small in a corner.',
+        "Design them in Canva in their colors, with their logo small in a corner. They're only for them, so never post them.",
         'Put the 3 images and the captions in one link you can paste into your follow-up.',
       ],
     },
@@ -227,7 +229,7 @@
       steps: [
         'Screenshot their current homepage on your phone.',
         'Ask Claude to write a new homepage for {biz}: one headline, 3 short sections and one button that says "Book" or "Get a quote".',
-        'Build the mockup in Framer, Canva or Lovable. Keep it to one screen on a phone.',
+        "Build the mockup in Framer, Canva or Lovable. Keep it to one screen on a phone. It's only for them, so never post it.",
         'Send the before and after side by side. People buy what they can see.',
       ],
     },
@@ -237,7 +239,7 @@
         'Copy their hours, services, prices and FAQs from their website into a doc.',
         'Paste it into Claude and ask it to answer like their front desk. Test 10 real questions, like "Do you have anything Saturday?"',
         'Record a 60-second screen video of it answering 3 of them.',
-        'Send the video, not a pitch. The demo does the selling.',
+        "Send the video, not a pitch. The demo does the selling. It's only for them, so never post it.",
       ],
     },
     email: {
@@ -246,7 +248,7 @@
         'Welcome: who they are and why people come back.',
         'Favorite: their best seller or most booked {thing}, with one photo.',
         'Come back: one reason to visit this month.',
-        'Mock them up in a free email template and send screenshots, with the text ready to paste.',
+        "Mock them up in a free email template and send screenshots, with the text ready to paste. They're only for them, so never post them.",
       ],
     },
     photo: {
@@ -271,12 +273,12 @@
   // ---------- the 7-day plan (first conversation, first client) ----------
   var plan = [
     'Make the free sample for #1. Send your message to #1 to #5.',
-    'Send #6 to #10. Walk into the 2 closest and use the walk-in line.',
-    'Follow up with #1 to #5. Send the sample you made.',
+    'Send #6 to #10. Walk into the 2 closest and use the walk-in line. Skip any with a "No soliciting" sign.',
+    'Follow up with #1 to #5, except anyone who said no. Send the sample you made.',
     'Send #11 to #15. Make a sample for the best reply so far.',
-    'Follow up with #6 to #10. Ask anyone who replied for 15 minutes.',
+    'Follow up with #6 to #10, except anyone who said no. Ask anyone who replied for 15 minutes.',
     'Send #16 to #25.',
-    'Last follow-ups. Write down every reply, even the no\'s. That list is your next week.',
+    'Last follow-ups, except anyone who said no. Write down every reply. That list is your next week.',
   ];
 
   // ---------- the tracker (the same stages as the HQ Pipeline, v2/harness/WORKFLOW-CONTRACT.md §7) ----------
@@ -339,7 +341,7 @@
     ['25 local businesses that could use what you sell', 'Ranked, with chains and closed ones taken out.'],
     ["What's missing on each one's website", 'In plain words, from a real check of their homepage.'],
     ['The message to send each one', 'A DM, an email, a walk-in line and 2 follow-ups.'],
-    ['A sample made for your #1', 'A mockup with their name on it, ready to screenshot and send.'],
+    ['A mock-up for your #1', 'With their name on it, plus the steps to make the real one.'],
     ['Send mode and a tracker', 'Work your top 5 in one sitting, then track who replied.'],
   ];
 
@@ -354,17 +356,20 @@
     surface: { reel: 'video', grid: 'Instagram', site: 'website', chat: 'chat', email: 'email', shots: 'photos' },
     notes: {
       // How to use it. Shown under the sample and in the email, so each one stands on its own.
-      reel: 'Make the real one from their clips with the steps below.',
-      grid: 'Screenshot it and send it with your message.',
-      site: 'Screenshot it and send it with your message. Swap in their real photos once they say yes.',
-      chat: 'Screenshot it and send it with your message.',
-      email: 'Screenshot it and send it with your message.',
+      // Samples stay private (Legal L53 part 3.5): shown only to that business, never posted.
+      reel: "Make the real one from their clips with the steps below. It's only for them, so never post it.",
+      grid: "Screenshot it and send it with your message. It's only for them, so never post it.",
+      site: "Screenshot it and send it with your message. Swap in their real photos once they say yes. It's only for them, so never post it.",
+      chat: "Screenshot it and send it with your message. It's only for them, so never post it.",
+      email: "Screenshot it and send it with your message. It's only for them, so never post it.",
       shots: 'Ask {biz} before you shoot, then send them the best 3.',
     },
     by: 'Sample by {me}',
     byNone: 'Sample',
     notReal: 'Not their real {surface}',
-    make: 'Make their sample',
+    make: 'Make their mock-up',
+    // For the email gate: what #1's sample is, in a few words.
+    short: { reel: 'a mock-up of a 15-second reel', grid: 'a mock-up of their next 9 posts', site: 'a mock-up of a new homepage', chat: 'a mock-up of a website chat', email: 'a mock-up of a welcome email', shots: 'a shot list' },
     chat: { hi: 'Hi, thanks for stopping by {biz}! Ask me anything, or I can book you in.', yes: 'Yes please', done: "Done. What's the best number to text the details to?", online: 'Online', type: 'Type a message' },
     email: {
       subject: 'Welcome to {biz}', pre: "Here's what to expect from us.",
@@ -447,10 +452,36 @@
     sampleNote: 'Sample businesses. They are made up so you can see how it works.',
     attribution: {
       sample: 'Sample data. These businesses are made up.',
-      google: 'Business listings from Google. Website checks by 127.',
+      // The page shows Google's attribution as its own mark next to this line (copy.gmaps, Legal L53 part 1.5).
+      google: 'Google Maps. Website checks by 127.',
       osm: 'Business listings © OpenStreetMap contributors (openstreetmap.org/copyright). Website checks by 127.',
     },
     emailOptOut: 'P.S. Not for you? Reply "no thanks" and I won\'t follow up.',
+    // Every cold email ends with the sender's mailing address and the opt-out (Legal L53 part 3.1, CAN-SPAM).
+    addr: { label: 'Your mailing address', placeholder: 'e.g. PO Box 123, Ames, IA 50010', help: 'US law asks for a mailing address in sales emails. A PO box or virtual mailbox works.' },
+    asEmail: 'Copy as email',
+    // A no ends it (Legal L53 part 3.2).
+    noFollow: "They said no, so this one doesn't get sent. A no ends it.",
+    followNote: 'If they said no, mark them Not now. A no ends it.',
+    walkNote: 'Call during business hours. If you walk in, skip any business with a "No soliciting" sign.',
+    // The fact in each message, with a link to see it for yourself (Legal L53 part 3.4).
+    check: 'Check it first ↗',
+    // Live searches name their source under the button (Legal L53 parts 1.6 and 2.5). {terms} links /terms#13b-first-25.
+    srcLine: {
+      google: "Business info from Google Maps. By searching, you agree to our {terms}, including Google Maps' terms.",
+      osm: 'Business info from OpenStreetMap. By searching, you agree to our {terms}.',
+    },
+    gmaps: 'Google Maps',
+    checksBy: 'Website checks by 127.',
+    // A saved Google list keeps place IDs only, so it loads names from Google Maps each time it opens (Legal L53 part 1.1).
+    details: {
+      loading: 'Loading your list from Google Maps.',
+      fail: "Some business names didn't load from Google Maps just now. Your messages, samples and tracker are all here. Refresh to try again.",
+    },
+    noName: '[business name]',
+    csvGoogle: 'Download your tracker for Sheets or Notion',
+    csvGoogleNote: 'Business names stay on Google Maps, so the file has a map link for each one instead.',
+    csvGoogleFile: 'Business names and details come from Google Maps and stay there. Open each map link to see them.',
     follow2: "Last note from me. If {sell} isn't a priority right now, no problem at all. If it is, the first one is still free.",
     // A count we can stand behind: {checks} is the number of website checks in first25-engine.js. No time-saved claims until timed by hand (R21).
     saved: 'We read {n} websites and checked each one for {checks} things.',
@@ -464,10 +495,30 @@
     // The next problem, named (what the free tool leaves undone).
     nextLabel: "What's left",
     next: 'You have {n} names and {n} drafts.',
-    nextSub: "Next comes the part most people skip: the day 3 follow-up, the call, and a price they can say yes to. That's where you'll want help.",
+    nextSub: 'Next comes the part most people skip: the day 3 follow-up, the call, and a price they can say yes to.',
+    // Free next to Builder (playbook 1.5, the decoy). Builder lines are only things Builder has today
+    // (conversion/offer.md §2). builderHq shows only when the HQ card is on (results-data.js first25.hq).
+    compare: {
+      freeLabel: 'Free', builderLabel: 'Builder adds',
+      free: ['Your {n}, ranked, with what each one is missing', 'The first message and 2 follow-ups for each', 'Reply scripts for 7 moments', 'A mock-up for #1, and the steps for a free sample for your top 3', 'A file for Sheets or Notion'],
+      freeNoSample: ['Your {n}, ranked, with what each one is missing', 'The first message and 2 follow-ups for each', 'Reply scripts for 7 moments', 'The steps for a free sample for your top 3', 'A file for Sheets or Notion'],
+      builder: ['The Pricing Worksheet and One-Page Offer, so your price is ready when they ask', 'The Outreach Scripts', "Eli's Playbook for the replies, about 300 AI messages a month", 'All 4 weeks of your roadmap'],
+      builderHq: ['Your {n} in 127 HQ, with follow-ups dated and tracked'],
+      email: "Free gives you the list, the messages, the follow-ups and the reply scripts. Builder adds the Pricing Worksheet, the One-Page Offer, the Outreach Scripts and Eli's Playbook for the replies.",
+    },
+    // The email gate when there's a sample for #1 (results-kit.js R.gate copy).
+    gateSample: 'Get all {n}, plus {short} for {biz}.',
+    gateLine: 'All {n} ranked, a DM, email and walk-in line for each, 2 follow-ups, the steps for a free sample for your top 3, and a file for Sheets or Notion.',
+    peek: 'Mock-up for {biz} · Unlocks with your email',
     savedHead: 'Your {n} are saved.',
     capped: 'Live search is at its limit for today, so this is a sample list. Come back tomorrow for real businesses near you.',
-    emailSample: 'We made a sample for #1, {biz}: {title}. Open your list to see it. {note}',
+    emailSample: 'We made a mock-up for #1, {biz}: {title}. Open your list to see it. {note}',
+    // Google runs: the email carries 127's own findings and the link, never a business name (Legal L53 part 1.3).
+    emailFound: 'What we found on their websites:',
+    emailTop1: 'Your #1: {why}',
+    emailSampleGoogle: "We made a mock-up for #1: {title}. Open your list to see it, with the steps to make the real one. It's only for them, so never post it.",
+    emailRestGoogle: 'Every name, message, reply script and your tracker are on your list page.',
+    csvLineGoogle: 'Download your tracker for Sheets or Notion: {url}',
   };
 
   return { buyers: buyers, gaps: gaps, fits: fits, packs: packs, specs: specs, hooks: hooks, plan: plan, stages: stages, replies: replies, picker: picker, stack: stack, mock: mock, niches: niches, copy: copy };

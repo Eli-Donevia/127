@@ -7,7 +7,7 @@ window.RESULTS = {
     score: { label: 'Get your full result.', line: 'Your reasons, your #1 move and your roadmap preview, sent to your inbox.', button: 'Send my results' },
     stack: { label: 'Get the Day One Stack.', line: '10 tools, 30 copy-paste prompts and the $0 day-one stack.', button: 'Send me the guide' },
     idea: { label: 'Get your 7-day test plan.', line: 'Your 7-day test plan, 3 customer questions and who to talk to.', button: 'Send my results' },
-    first25: { sticky: 'Get all 25 and every message by email.', label: 'Get all 25 and every message.', line: 'All 25 ranked, a DM, email and walk-in line for each, 2 follow-ups, free samples for your top 3, and a file for Sheets or Notion.', button: 'Send me my 25' },
+    first25: { sticky: 'Get all 25 and every message by email.', label: 'Get all 25 and every message.', line: 'All 25 ranked, a DM, email and walk-in line for each, 2 follow-ups, the steps for a free sample for your top 3, and a file for Sheets or Notion.', button: 'Send me my 25' },
     toast: 'Sent. Check your inbox.',
     sticky: 'Get your full result by email.',
   },

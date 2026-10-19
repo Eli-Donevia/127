@@ -94,6 +94,35 @@
     return { score: Math.max(1, Math.min(99, Math.round(raw))), gaps: gaps, fits: fits, unchecked: !!b.website && !(b.site && b.site.checked) };
   };
 
+  // The words for each gap and fit, from the business as it is now. Saved lists keep only the ids and points,
+  // so a line that quotes Google's numbers ("23 Google reviews") is filled from a fresh fetch, never stored
+  // (Legal L53). A line that needs a number we don't have is left out.
+  E.words = function (b, buyerId) {
+    var v = vars(b, buyerId);
+    var fill = function (list, T, chip) {
+      return (list || []).map(function (g) {
+        var t = T[g.id];
+        if (!t) return null;
+        var o = { id: g.id, points: g.points, why: E.fill(t.why, v) };
+        if (chip) o.chip = E.fill(t.chip, v);
+        return /\{\w+\}/.test(o.why + (o.chip || '')) ? null : o;
+      }).filter(Boolean);
+    };
+    return { gaps: fill(b.gaps, D.gaps, true), fits: fill(b.fits, D.fits, false) };
+  };
+
+  // The facts a message states: the first gap in the DM, the first 2 in the email (E.messages), so the
+  // page can put a "Check it first" link at each one (Legal L53 part 3.4).
+  E.facts = function (b, tab) {
+    var n = tab === 'dm' ? 1 : tab === 'email' ? 2 : 0;
+    return (b.gaps || []).filter(function (g) { return D.gaps[g.id] && D.gaps[g.id].say; }).slice(0, n);
+  };
+  // Where to see a fact for yourself: their website for what we read there, the map listing for the rest.
+  E.checkLink = function (b, gapId) {
+    if (['no_site', 'few_reviews', 'broken_link'].indexOf(gapId) !== -1) return b.mapsUrl || null;
+    return b.website && !/\.example(\/|$)/.test(b.website) ? b.website : null;
+  };
+
   // ---------- rank ----------
   // "Grit Fitness LLC" and "Grit Fitness" are one business.
   var baseName = function (s) { return norm(s).replace(/ (llc|inc|co|company|corp|ltd|pllc|pc|the) /g, ' ').replace(/ (llc|inc|co|company|corp|ltd|pllc|pc|the) /g, ' ').trim(); };
@@ -142,7 +171,7 @@
     no_youtube: 'don\'t link a YouTube', no_instagram: 'don\'t link an Instagram', no_facebook: 'don\'t link a Facebook page', no_pixel: 'have no ad pixel',
     no_booking: 'have no online booking', no_chat: 'have no chat', no_form: 'have no contact form', no_signup: 'have no email signup',
     stale_footer: 'have a footer at least 2 years old', no_https: 'aren\'t secure (no https)', no_mobile: 'aren\'t set up for phones', slow: 'took over 3 seconds to load',
-    no_description: 'have no description for Google', few_images: 'have under 6 photos on their homepage', few_reviews: 'have under 40 Google reviews',
+    no_description: 'have no description for search results', few_images: 'have under 6 photos on their homepage', few_reviews: 'have under 40 Google reviews',
   };
   E.headlineLine = function (h) { return h.n + ' of ' + h.of + ' ' + (LINES[h.id] || ''); };
 
@@ -162,13 +191,18 @@
     var say2 = says[1] ? 'Also, ' + E.fill(says[1], v).replace(/^(\w)(?!['’ ])/, function (c) { return c.toLowerCase(); }) : '';
     var offer = E.fill(P.offer, v);
     var intro = E.fill('I\'m {me}, and I {verb} for {many} in {city}.', v);
+    // An email ends with the sender's name, mailing address and the opt-out (Legal L53 part 3.1). DMs, calls and walk-ins don't.
+    var sign = '\n\n' + v.me + '\n' + (ctx.addr || '[your mailing address]') + '\n\n' + D.copy.emailOptOut;
+    var follow1 = E.fill('Hi {biz} team, it\'s {me} again. ', v) + E.fill(P.follow1, v), follow2 = E.fill(D.copy.follow2, v);
     return {
       dm: E.fill('Hi {biz} team. ', v) + intro + ' ' + say1 + ' ' + offer + ' No cost, no catch. Want me to send it over?',
       subject: E.fill(P.subject, v),
-      email: E.fill('Hi {biz} team,', v) + '\n\n' + [say1, say2].filter(Boolean).join(' ') + '\n\n' + intro + ' ' + offer + '\n\nIf you like it, we can talk. If not, it\'s yours to keep.\n\nWant me to send it?\n\n' + v.me + '\n\n' + D.copy.emailOptOut,
+      email: E.fill('Hi {biz} team,', v) + '\n\n' + [say1, say2].filter(Boolean).join(' ') + '\n\n' + intro + ' ' + offer + '\n\nIf you like it, we can talk. If not, it\'s yours to keep.\n\nWant me to send it?' + sign,
       walkin: E.fill('Hi, I\'m {me}. I {verb} for local {many}. ', v) + E.fill(P.walkin, v),
-      follow1: E.fill('Hi {biz} team, it\'s {me} again. ', v) + E.fill(P.follow1, v),
-      follow2: E.fill(D.copy.follow2, v),
+      follow1: follow1,
+      follow2: follow2,
+      follow1Email: follow1 + sign,
+      follow2Email: follow2 + sign,
     };
   };
 
@@ -275,28 +309,33 @@
   };
 
   // ---------- CSV (Sheets, Notion, Airtable) ----------
-  // Google listing fields beyond the name, website and Maps link stay out of the file (Google Maps Platform
-  // terms forbid exporting their content); OpenStreetMap and sample runs include phone and address.
+  // Google runs leave out every Google field, names and websites included (Legal L53 part 1.4): the file keeps
+  // 127's own findings, the messages and a map link built from the place ID. OpenStreetMap and sample runs
+  // include everything.
+  var GOOGLE_COLS = ['Business', 'Website', 'Phone', 'Address'];
   E.csv = function (run) {
     var google = run.source === 'google';
-    var head = ['Rank', 'Business', 'Score', 'Gaps', 'Why', 'Website', 'Instagram', 'Phone', 'Address', 'Map link', 'DM', 'Email subject', 'Email', 'Walk-in or call', 'Follow-up day 3', 'Follow-up day 7', 'Status'];
+    var head = ['Rank', 'Business', 'Score', 'Gaps', 'Why', 'Website', 'Instagram', 'Phone', 'Address', 'Map link', 'DM', 'Email subject', 'Email', 'Walk-in or call', 'Follow-up day 3', 'Follow-up day 7', 'Day 3 by email', 'Day 7 by email', 'Status'];
+    var keep = head.map(function (h) { return !(google && GOOGLE_COLS.indexOf(h) !== -1); });
+    var only = function (cells) { return cells.filter(function (x, i) { return keep[i]; }); };
     var esc = function (x) {
       var t = String(x == null ? '' : x);
       if (/^[=+\-@\t\r]/.test(t)) t = "'" + t; // never a spreadsheet formula
       return '"' + t.replace(/"/g, '""') + '"';
     };
-    var rows = [head.map(esc).join(',')];
+    var rows = [only(head).map(esc).join(',')];
     (run.prospects || []).forEach(function (b) {
       var m = b.msg || {};
-      rows.push([
+      rows.push(only([
         b.rank, b.name, b.score, (b.gaps || []).map(function (g) { return g.chip; }).join('; '),
         (b.gaps || []).concat(b.fits || []).map(function (g) { return g.why; }).join(' '),
         b.website || '', b.instagram || ((b.site && b.site.socials && b.site.socials.instagram) ? '@' + b.site.socials.instagram : ''),
-        google ? '' : (b.phone || ''), google ? '' : (b.address || ''), b.mapsUrl || '',
-        m.dm, m.subject, m.email, m.walkin, m.follow1, m.follow2, E.stageLabel(((run.status || {})[b.rank] || {}).s),
-      ].map(esc).join(','));
+        b.phone || '', b.address || '', b.mapsUrl || '',
+        m.dm, m.subject, m.email, m.walkin, m.follow1, m.follow2, m.follow1Email, m.follow2Email, E.stageLabel(((run.status || {})[b.rank] || {}).s),
+      ]).map(esc).join(','));
     });
     var attr = (D.copy.attribution || {})[run.source];
+    if (google) rows.push('', esc(D.copy.csvGoogleFile));
     if (attr) rows.push('', esc(attr));
     return rows.join('\r\n');
   };
@@ -367,6 +406,9 @@
           pixel: chance(0.3), gads: chance(0.18), form: chance(0.55), signup: chance(0.24), viewport: chance(0.9), description: chance(0.72),
           footerYear: fy, images: Math.floor(Math.pow(r(), 1.6) * 34),
         } : { checked: true, ok: false, error: 'timeout' };
+        // Every third one lists an email on its site, so a sample shows the email way to reach them too.
+        // Set without drawing from r(), so the same place still gives the same businesses.
+        if (loads && out.length % 3 === 0) b.site.email = 'hello@' + slug(name) + '.example';
       }
       out.push(b);
     }

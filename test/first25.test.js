@@ -89,7 +89,7 @@ test('messages name the business, the sender and the city, and stay honest', () 
   assert.match(m.dm, /^Hi Grit Fitness team\. I'm Maya, and I make short videos for gyms in Des Moines\. I was on your website and couldn't find any video of your classes\./);
   assert.match(m.dm, /No cost, no catch\. Want me to send it over\?$/);
   assert.match(m.email, /couldn't find any video of your classes\. Also, i couldn't find Grit Fitness on TikTok\.|couldn't find any video of your classes\. Also, /);
-  assert.match(m.email, /\n\nMaya\n\nP\.S\. Not for you\? Reply "no thanks"/);
+  assert.match(m.email, /\n\nMaya\n\[your mailing address\]\n\nP\.S\. Not for you\? Reply "no thanks"/);
   for (const [k, t] of Object.entries(m)) {
     assert.doesNotMatch(t, /\{\w+\}/, `${k} has an unfilled field`);
     assert.doesNotMatch(t, /—/, `${k} has an em dash`);
@@ -130,8 +130,10 @@ test('the CSV never carries a formula, and Google runs leave out phone and addre
   assert.match(csvOsm, /"515-555-0101","2 Main St"/);
   assert.match(csvOsm, /OpenStreetMap contributors/);
   const csvG = E.csv({ ...built, source: 'google' });
-  assert.doesNotMatch(csvG, /515-555-01|Main St/);
-  assert.match(csvG, /Business listings from Google/);
+  assert.doesNotMatch(csvG, /515-555-01|Main St|https:\/\/[ab]\.com/);
+  assert.match(csvG, /^"Rank","Score","Gaps","Why","Instagram","Map link","DM"/);
+  assert.match(csvG, /Business names and details come from Google Maps/);
+  assert.match(csvG, /Google Maps\. Website checks by 127\./);
   assert.equal(csvG.split('\r\n').filter((l) => /"Not contacted"$/.test(l)).length, 2);
 });
 
@@ -440,9 +442,12 @@ test('the email carries the top 10, the links and the 7 days, written for the na
   assert.match(m.text, new RegExp(`Your list and tracker stay here until ${until}\\.`));
   assert.match(m.text, /^Here are 25 gyms in Des Moines, ranked by the gaps you fix/m);
   // The sample made for #1, how to use it, then the steps for the real one.
-  assert.match(m.text, /We made a sample for #1, [^:]+: their 15-second reel\. Open your list to see it\. Make the real one from their clips with the steps below\.\n\nBefore you message #1/);
+  assert.match(m.text, /We made a mock-up for #1, [^:]+: their 15-second reel\. Open your list to see it\. Make the real one from their clips with the steps below\. It's only for them, so never post it\.\n\nBefore you message #1/);
   // The next problem, named, right before the launch block.
   assert.match(m.text, /You have 25 names and 25 drafts\. Next comes the part most people skip/);
+  // Free next to Builder, with no totals.
+  assert.match(m.text, /Free gives you the list, the messages, the follow-ups and the reply scripts\. Builder adds the Pricing Worksheet/);
+  assert.doesNotMatch(m.text, /\$\d+ (?:value|worth)|worth \$|total value/i);
   assert.match(m.text, /Sample businesses\./);
   assert.match(m.text, /\[state now\]$/);
   const lost = first25.emailText({ name: 'Jordan', data: { run_id: saved.id, k: 'bad' } }, (state) => `[state ${state}]`);
@@ -514,22 +519,27 @@ test('niche pages open on one service and buyer, and unknown ones go to the main
     assert.equal(nope.status, 302);
     assert.equal(nope.headers.get('location'), '/first-25?place=Ames&go=1');
     const main = await (await fetch(base + '/first-25')).text();
-    assert.match(main, /<title>Your first 25, found in a minute · 127<\/title>/);
+    assert.match(main, /<title>Your first 25\. We find them\. · 127<\/title>/);
     assert.doesNotMatch(main, /F25_NICHE/);
   });
 });
 
 // ---------- the cost guard ----------
-test('Google mode stays on hold until saved lists keep place IDs only (Legal L53)', () => {
+test('Google mode needs saved lists that keep place IDs only, and a key (Legal L53)', () => {
   process.env.FIRST25_SOURCE = 'google';
   process.env.GOOGLE_PLACES_KEY = 'test-key';
-  try { assert.equal(first25.sourceName(), 'sample'); } finally { delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
+  try {
+    assert.equal(first25._test.L53.placeIdsOnly, true);
+    assert.equal(first25.sourceName(), 'google');
+    first25._test.L53.placeIdsOnly = false;
+    assert.equal(first25.sourceName(), 'sample');
+  } finally { first25._test.L53.placeIdsOnly = true; delete process.env.GOOGLE_PLACES_KEY; }
+  try { assert.equal(first25.sourceName(), 'sample', 'no key, no Google'); } finally { delete process.env.FIRST25_SOURCE; }
 });
 
 test('past the daily cap, a live search still answers, on labeled sample businesses', async () => {
   process.env.FIRST25_SOURCE = 'google';
   process.env.GOOGLE_PLACES_KEY = 'test-key';
-  first25._test.L53.placeIdsOnly = true;
   try {
     await serve(app((key) => key === 'f25:all'), async (base) => {
       const res = await post(base, { pack: 'video', buyer: 'gyms', place: 'Ames, IA' });
@@ -540,59 +550,239 @@ test('past the daily cap, a live search still answers, on labeled sample busines
       assert.equal(out.run.capped, true);
       assert.deepEqual(db.get('prospectRuns', out.run.id).cost, { requests: 0, usd: 0 });
     });
-  } finally { first25._test.L53.placeIdsOnly = false; delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
+  } finally { delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
 });
 
-test('a live run counts its Places requests and what they cost', async () => {
+// A fake Places API (New): Text Search in pages of 20 and Place Details, counting each kind of request.
+// hide: place IDs the search no longer returns, so opening a list has to ask Place Details for them.
+const W = ['Anchor', 'Birch', 'Cedar', 'Dune', 'Ember', 'Fable', 'Granite', 'Harbor', 'Ivy', 'Juniper', 'Kestrel', 'Linden', 'Maple', 'Nimbus', 'Onyx', 'Pine', 'Quarry', 'Ridge', 'Summit', 'Timber'];
+const jsonRes = (o) => new Response(JSON.stringify(o), { status: 200, headers: { 'content-type': 'application/json' } });
+function fakePlaces({ websites = false } = {}) {
+  const calls = { search: 0, details: 0 }, hide = new Set(), realFetch = global.fetch;
+  const place = (page, i) => ({
+    id: `p${page}-${i}`, displayName: { text: `${W[i]} ${page === 1 ? 'Athletics' : 'Boxing'}` }, shortFormattedAddress: `${i + 1} Main St, Ames`,
+    nationalPhoneNumber: `(515) 555-${1000 + page * 100 + i}`, rating: 4.5, userRatingCount: 30 + i, businessStatus: 'OPERATIONAL',
+    ...(websites ? { websiteUri: `http://${W[i].toLowerCase()}-${page}.com` } : {}),
+  });
+  global.fetch = async (url, init) => {
+    const u = String(url);
+    if (u.startsWith('https://places.googleapis.com/v1/places:searchText')) {
+      calls.search++;
+      const page = JSON.parse(init.body).pageToken ? 2 : 1;
+      return jsonRes({ places: W.map((w, i) => place(page, i)).filter((p) => !hide.has(p.id)), ...(page === 1 ? { nextPageToken: 'next' } : {}) });
+    }
+    if (u.startsWith('https://places.googleapis.com/v1/places/')) {
+      calls.details++;
+      const [, page, i] = decodeURIComponent(u.split('/places/')[1].split('?')[0]).match(/^p(\d)-(\d+)$/);
+      return jsonRes(place(Number(page), Number(i)));
+    }
+    return realFetch(url, init);
+  };
+  return { calls, hide, restore: () => { global.fetch = realFetch; } };
+}
+const GOOGLE_DETAILS = /Athletics|Boxing|Main St|555-|[a-z]+-[12]\.com|reviews so far|stars on Google/;
+
+test('a Google list is saved as place IDs and our own work, never the listing (Legal L53)', async () => {
   process.env.FIRST25_SOURCE = 'google';
   process.env.GOOGLE_PLACES_KEY = 'test-key';
-  first25._test.L53.placeIdsOnly = true;
-  const realFetch = global.fetch;
-  const W = ['Anchor', 'Birch', 'Cedar', 'Dune', 'Ember', 'Fable', 'Granite', 'Harbor', 'Ivy', 'Juniper', 'Kestrel', 'Linden', 'Maple', 'Nimbus', 'Onyx', 'Pine', 'Quarry', 'Ridge', 'Summit', 'Timber'];
-  let calls = 0;
-  global.fetch = async (url, init) => {
-    if (!String(url).startsWith('https://places.googleapis.com/')) return realFetch(url, init);
-    const page = ++calls;
-    const places = W.map((w, i) => ({ id: `p${page}-${i}`, displayName: { text: `${w} ${page === 1 ? 'Athletics' : 'Boxing'}` }, shortFormattedAddress: `${i + 1} Main St, Ames`, rating: 4.5, userRatingCount: 30 + i, businessStatus: 'OPERATIONAL', googleMapsUri: `https://maps.google.com/?cid=${page}${i}` }));
-    return new Response(JSON.stringify({ places, ...(page === 1 ? { nextPageToken: 'next' } : {}) }), { status: 200, headers: { 'content-type': 'application/json' } });
-  };
+  const g = fakePlaces({ websites: true });
+  let reads = 0;
   try {
-    const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA' }, () => {});
-    assert.equal(doc.source, 'google');
-    assert.equal(calls, 2);
-    assert.deepEqual(doc.cost, { requests: 2, usd: 0.07 });
-    // The same search again comes from the cache and costs nothing.
-    const again = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA' }, () => {});
-    assert.equal(calls, 2);
-    assert.deepEqual(again.cost, { requests: 0, usd: 0 });
+    await withSite({ '/': (q, s) => { reads++; s.writeHead(200, { 'content-type': 'text/html' }); s.end(HOME); } }, async () => {
+      const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA', me: 'Maya' }, () => {});
+      assert.equal(g.calls.search, 2);
+      assert.deepEqual(doc.cost, { requests: 2, usd: 0.07 });
+      // The result shown right after the search has the names.
+      const now = first25.view(doc);
+      assert.equal(now.source, 'google');
+      assert.equal(now.details, undefined);
+      assert.match(now.prospects[0].msg.dm, /^Hi \w+ (Athletics|Boxing) team\./);
+      // The saved list has none of them: the place ID, our scores, gaps and website checks only.
+      const stored = db.get('prospectRuns', doc.id);
+      assert.equal(stored.live, undefined);
+      assert.doesNotMatch(JSON.stringify(stored), GOOGLE_DETAILS);
+      for (const p of stored.prospects) {
+        assert.match(p.id, /^g-p[12]-\d+$/);
+        for (const k of ['name', 'website', 'phone', 'address', 'rating', 'reviews', 'mapsUrl']) assert.equal(p[k], undefined, `${k} is not saved`);
+        for (const x of p.gaps.concat(p.fits)) assert.deepEqual(Object.keys(x).sort(), ['id', 'points']);
+        assert.equal(p.site.checked, true);
+      }
+      // Google results never go in the list cache. Website checks are kept by place ID, without the URL.
+      assert.equal(first25._test.listCache.get('google|gyms|ames, ia'), null);
+      const hit = first25._test.siteCache.get('g:' + stored.prospects[0].id);
+      assert.ok(hit && hit.checked);
+      assert.equal(hit.url, undefined);
+      // The same search again asks Google again, but reads no website twice.
+      const read = reads;
+      const again = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA' }, () => {});
+      assert.equal(g.calls.search, 4);
+      assert.deepEqual(again.cost, { requests: 2, usd: 0.07 });
+      assert.equal(reads, read, 'website checks came from the place ID cache');
+
+      // Opened later, the list has a map link per business and tells the page to fetch the rest.
+      const v = first25.view(stored);
+      assert.equal(v.details, true);
+      assert.equal(v.prospects[0].name, '[business name]');
+      assert.match(v.prospects[0].mapsUrl, /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=gyms%20in%20Ames%2C%20IA&query_place_id=p[12]-\d+$/);
+      assert.match(v.prospects[0].msg.dm, /^Hi \[business name\] team\./);
+      // The email, the CSV, the follow-up email fields and the HQ rows carry no Google details.
+      const k = first25.sign(stored.id);
+      const lead = { email: 'maya@example.com', name: 'Maya', source: 'first-25', data: { run_id: stored.id, k } };
+      const mail = first25.emailText(lead, () => '[state]');
+      const csv = E.csv(v);
+      const props = first25.nurtureProps(lead);
+      const rows = first25.pipeline(stored, 'Maya');
+      for (const out of [mail.text, csv, JSON.stringify(props), JSON.stringify(rows)]) assert.doesNotMatch(out, GOOGLE_DETAILS);
+      assert.match(mail.text, /What we found on their websites:\n\d+ of \d+ /);
+      assert.match(mail.text, /Your #1: /);
+      assert.match(mail.text, /Download your tracker for Sheets or Notion: /);
+      assert.match(mail.text, /Website checks by 127\.\n\n\[state\]$/);
+      assert.match(csv, /query_place_id=p[12]-\d+/);
+      assert.equal(props.first25_source, 'google');
+      assert.ok(rows.every((r) => r.company === '' && /^p[12]-\d+$/.test(r.data.place_id) && !r.links.website && !r.links.phone && /^https:\/\/www\.google\.com\/maps/.test(r.links.map)));
+      assert.match(rows[0].data.messages.dm, /\[business name\]/);
+    });
   } finally {
-    global.fetch = realFetch;
-    first25._test.L53.placeIdsOnly = false;
+    g.restore();
     delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY;
   }
 });
 
+test('opening a saved Google list fetches its names again by place ID and keeps none of them', async () => {
+  process.env.FIRST25_SOURCE = 'google';
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  const g = fakePlaces();
+  const ask = (base, id, k) => fetch(`${base}/api/first-25/r/${id}/details`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ k }) });
+  try {
+    const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA', me: 'Maya' }, () => {});
+    const stored = db.get('prospectRuns', doc.id), k = first25.sign(stored.id);
+    // The search no longer returns 2 of them, so those 2 come from Place Details.
+    g.hide.add(stored.prospects[0].id.slice(2));
+    g.hide.add(stored.prospects[1].id.slice(2));
+    await serve(app(), async (base) => {
+      const r = await ask(base, stored.id, k);
+      assert.equal(r.status, 200);
+      assert.equal(r.headers.get('cache-control'), 'no-store');
+      const j = await r.json();
+      assert.equal(j.prospects.length, stored.prospects.length);
+      assert.equal(j.prospects[0].rank, 1);
+      assert.match(j.prospects[0].name, /Athletics|Boxing/);
+      assert.equal(j.prospects[0].reviews >= 30, true);
+      assert.equal(g.calls.details, 2);
+      // Nothing from Google was saved. What opening it cost us was.
+      const after = db.get('prospectRuns', stored.id);
+      assert.doesNotMatch(JSON.stringify(after), GOOGLE_DETAILS);
+      assert.deepEqual(after.opens, { n: 1, requests: 4, usd: 0.11 });
+      assert.equal((await ask(base, stored.id, 'bad')).status, 404);
+      // Sample and OpenStreetMap lists have nothing to fetch.
+      assert.deepEqual(await (await ask(base, saved.id, first25.sign(saved.id))).json(), { prospects: [] });
+    });
+    // Past the daily limits the list still opens, with a message instead of the names.
+    await serve(app((key) => key.startsWith('f25d:')), async (base) => {
+      const r = await ask(base, stored.id, k);
+      assert.equal(r.status, 429);
+      assert.match((await r.json()).error, /didn't load from Google Maps/);
+    });
+  } finally {
+    g.restore();
+    delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY;
+  }
+});
+
+test('the search pages name a live source and link the terms (Legal L53)', () => {
+  assert.equal(first25.injectPage({ params: {} }), '');
+  process.env.FIRST25_SOURCE = 'osm';
+  try {
+    assert.equal(first25.injectPage({ params: { niche: 'gyms' } }), '<script>window.F25_SOURCE="osm";</script>\n<script>window.F25_NICHE="gyms";</script>\n');
+  } finally { delete process.env.FIRST25_SOURCE; }
+  assert.match(D.copy.srcLine.google, /^Business info from Google Maps\. By searching, you agree to our \{terms\}, including Google Maps' terms\.$/);
+  assert.match(D.copy.srcLine.osm, /^Business info from OpenStreetMap\. By searching, you agree to our \{terms\}\.$/);
+});
+
+test('OpenStreetMap city lookups take turns, once a second, and once per place (Legal L53 part 2.3)', async () => {
+  const realFetch = global.fetch, hits = [];
+  global.fetch = async (url, init) => {
+    const u = String(url);
+    if (u.includes('/search?')) { hits.push(Date.now()); return jsonRes([{ boundingbox: ['41.9', '42.1', '-93.8', '-93.5'], lat: '42.0', lon: '-93.6' }]); }
+    if (u.includes('interpreter')) return jsonRes({ elements: [] });
+    return realFetch(url, init);
+  };
+  try {
+    const B = E.buyer('gyms');
+    await Promise.all([first25._test.fromOsm(B, 'Ames, IA'), first25._test.fromOsm(B, 'Ames, IA'), first25._test.fromOsm(B, 'Boone, IA')]);
+    assert.equal(hits.length, 2, 'Ames once, Boone once');
+    assert.ok(hits[1] - hits[0] >= 1000, 'a second apart');
+    await first25._test.fromOsm(B, ' ames,  IA ');
+    assert.equal(hits.length, 2, 'a place looked up before comes from the cache');
+  } finally { global.fetch = realFetch; }
+});
+
+// ---------- the messages members send (Legal L53 part 3) ----------
+test('every cold email ends with the mailing address and the opt-out, and DMs carry neither', () => {
+  const b = { name: 'Lantern Gym', gaps: [{ id: 'no_video' }] };
+  const blank = E.messages(b, 'video', 'gyms', { me: 'Maya', city: 'Ames' });
+  assert.match(blank.email, /\n\nMaya\n\[your mailing address\]\n\nP\.S\. Not for you\? Reply "no thanks"/);
+  const m = E.messages(b, 'video', 'gyms', { me: 'Maya', city: 'Ames', addr: 'PO Box 12, Ames, IA 50010' });
+  for (const k of ['email', 'follow1Email', 'follow2Email']) assert.match(m[k], /\n\nMaya\nPO Box 12, Ames, IA 50010\n\nP\.S\. Not for you\? Reply "no thanks" and I won't follow up\.$/, k);
+  for (const k of ['dm', 'walkin', 'follow1', 'follow2']) assert.doesNotMatch(m[k], /PO Box|P\.S\./, k);
+  assert.match(D.copy.addr.help, /US law asks for a mailing address in sales emails\. A PO box or virtual mailbox works\./);
+  // Honest subjects: an offer, never "Re:" or "Quick question".
+  for (const P of Object.values(D.packs)) assert.doesNotMatch(P.subject, /^re:|quick question/i);
+});
+
+test('each fact in a message can be checked first, and Google numbers stay out of messages', () => {
+  const b = { name: 'Lantern Gym', website: 'https://lanterngym.com', mapsUrl: 'https://www.google.com/maps/search/?api=1&query=x&query_place_id=abc', reviews: 12,
+    gaps: [{ id: 'few_reviews', points: 14 }, { id: 'no_video', points: 10 }, { id: 'no_tiktok', points: 8 }] };
+  assert.deepEqual(E.facts(b, 'dm').map((g) => g.id), ['few_reviews']);
+  assert.deepEqual(E.facts(b, 'email').map((g) => g.id), ['few_reviews', 'no_video']);
+  assert.deepEqual(E.facts(b, 'walkin'), []);
+  assert.equal(E.checkLink(b, 'few_reviews'), b.mapsUrl);
+  assert.equal(E.checkLink(b, 'no_video'), 'https://lanterngym.com');
+  assert.equal(E.checkLink({ website: 'https://lantern.example' }, 'no_video'), null);
+  const m = E.messages(b, 'ai', 'gyms', { me: 'Maya', city: 'Ames' });
+  assert.match(m.dm, /I noticed Lantern Gym doesn't have many Google reviews yet\./);
+  for (const t of Object.values(m)) assert.doesNotMatch(t, /\b12\b/);
+  assert.equal(D.gaps.no_description.say, "Your homepage doesn't have a description set for search results.");
+  // Gap words come from the business as it is now; a line that needs a number we don't have drops out.
+  assert.equal(E.words(b, 'gyms').gaps[0].chip, '12 reviews');
+  assert.deepEqual(E.words({ ...b, reviews: null }, 'gyms').gaps.map((g) => g.id), ['no_video', 'no_tiktok']);
+});
+
+test('samples stay private, a no ends the follow-ups, and nothing is ever a text', () => {
+  for (const k of ['video', 'social', 'web', 'ai', 'email']) assert.match(D.specs[k].steps.join(' '), /never post/, k);
+  for (const k of ['reel', 'grid', 'site', 'chat', 'email']) assert.match(D.mock.notes[k], /only for them, so never post it/, k);
+  assert.match(D.plan[1], /Skip any with a "No soliciting" sign\./);
+  assert.match(D.plan[2], /except anyone who said no/);
+  assert.match(D.copy.noFollow, /A no ends it\./);
+  assert.match(D.copy.walkNote, /"No soliciting"/);
+  const fs = require('fs'), path = require('path');
+  for (const f of ['public/funnels/first-25.js', 'public/funnels/first25-engine.js', 'public/funnels/first25-data.js', 'public/funnels/first25-mock.js', 'lib/first25.js']) {
+    assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', f), 'utf8'), /sms:/i, f);
+  }
+});
+
 // ---------- the follow-up emails and HQ ----------
-test('the follow-up email fields name their list, and page data can never overwrite source', () => {
+test('the follow-up email fields carry their list and what we found, never a business name, and page data can never overwrite source', () => {
   const funnels = require('../lib/funnels');
   const k = first25.sign(saved.id);
   const lead = { email: 'jordan@example.com', name: 'Jordan', source: 'first-25', data: { run_id: saved.id, k, source: 'sample', pack: 'video' }, utm: { source: 'instagram' } };
   const p = funnels._test.eventProps(lead);
   assert.equal(p.source, 'first-25');
   assert.equal(p.utm_source, 'instagram');
-  assert.equal(p.first25_top1, saved.prospects[0].name);
-  assert.equal(p.first25_top2, saved.prospects[1].name);
   assert.equal(p.first25_count, 25);
   assert.equal(p.first25_city, 'Des Moines');
   assert.match(p.first25_list_url, new RegExp(`/first-25/r/${saved.id}\\?k=${k}$`));
-  assert.match(p.first25_top1_dm, /I'm Jordan, and I make short videos for gyms in Des Moines/);
-  assert.match(p.first25_top1_day3, /it's Jordan again/);
+  assert.ok(p.first25_top1_why);
   assert.equal(p.first25_sample, 'Their 15-second reel');
   assert.equal(p.first25_is_sample, true);
+  assert.equal(p.first25_source, 'sample');
+  // Legal L53 part 1.3: no names, and no messages with names in them, from any source.
+  for (const key of ['first25_top1', 'first25_top2', 'first25_top3', 'first25_top1_dm', 'first25_top1_day3']) assert.equal(p[key], undefined, key);
+  for (const b of saved.prospects) for (const v of Object.values(p)) assert.ok(typeof v !== 'string' || !v.includes(b.name), `no business name in ${v}`);
   for (const [key, v] of Object.entries(p)) if (typeof v === 'string') assert.doesNotMatch(v, /\{\w+\}|undefined/, `${key} is filled`);
   // A bad signature adds nothing, and the other funnels never get these fields.
   assert.deepEqual(first25.nurtureProps({ ...lead, data: { run_id: saved.id, k: 'bad' } }), {});
-  assert.equal(funnels._test.eventProps({ ...lead, source: 'founder-score' }).first25_top1, undefined);
+  assert.equal(funnels._test.eventProps({ ...lead, source: 'founder-score' }).first25_list_url, undefined);
 });
 
 test('the HQ import gives one Pipeline row per business, with its tracker stage', async () => {

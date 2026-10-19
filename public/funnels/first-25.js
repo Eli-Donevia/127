@@ -5,9 +5,10 @@
 (function () {
   var K = window.K127, F = window.F25, D = window.FIRST25, R = K.R, RD = window.RESULTS, esc = K.esc;
   var $ = function (id) { return document.getElementById(id); };
-  var st = { pack: 'video', run: null, unlocked: false, open: {}, status: {}, mock: {} };
+  var st = { pack: 'video', run: null, unlocked: false, open: {}, status: {}, mock: {}, addr: '' };
   var M = window.F25MOCK;
-  var SAVED = '127-first25-last';
+  var SAVED = '127-first25-last', ADDR = '127-first25-addr';
+  try { st.addr = localStorage.getItem(ADDR) || ''; } catch (e) {}
 
   // ---------- form ----------
   var form = $('f25Form'), err = $('err'), go = $('go');
@@ -31,6 +32,13 @@
     st.pack = b.getAttribute('data-pack');
     renderPacks();
   });
+  // A live search names its source and the terms under the button (Legal L53 parts 1.6 and 2.5).
+  (function () {
+    var t = window.F25_SOURCE && D.copy.srcLine[window.F25_SOURCE];
+    if (!t || !$('srcLine')) return;
+    $('srcLine').innerHTML = esc(t).replace('{terms}', '<a href="/terms#13b-first-25">Terms</a>');
+    $('srcLine').hidden = false;
+  })();
   $('stack').innerHTML = D.stack.map(function (x) {
     return '<li><span class="ck" aria-hidden="true"></span><span><b>' + esc(x[0]) + '</b>' + esc(x[1]) + '</span></li>';
   }).join('');
@@ -248,8 +256,13 @@
     drawList();
     if (!st.unlocked) {
       var gate = $('gateWrap');
+      // The sample for #1 shows through the gate, blurred: the thing the email unlocks, with their name on it.
+      var top1 = run.prospects[0], m1 = M && top1 ? F.mock(top1, run.pack, run.buyer, { me: run.me, city: run.city, service: run.service }) : null;
+      var n = run.prospects.length;
       R.gate(gate, {
         magnet: 'first25',
+        copy: m1 ? { label: F.fill(D.copy.gateSample, { n: n, short: D.mock.short[m1.kind], biz: top1.name }), line: F.fill(D.copy.gateLine, { n: n }) } : null,
+        before: m1 ? '<div class="f25-peek" aria-hidden="true">' + M.render(m1).replace(/ data-reel /g, ' ') + '<span class="f25-peek-tag">' + esc(F.fill(D.copy.peek, { biz: top1.name })) + '</span></div>' : '',
         data: function () { return { run_id: run.id, k: run.k, pack: run.pack, buyer: run.buyer, place: run.place, city: run.city, count: run.prospects.length, list_source: run.source }; },
         onDone: function () {
           st.unlocked = true;
@@ -279,6 +292,7 @@
       '<div class="label lilac">Your First 25</div>' +
       '<h2 class="h1 steel" style="margin-top:12px">' + esc(cap(B.many)) + ' in ' + esc(run.city) + '.</h2>' +
       (run.sample ? '<div class="f25-banner">' + esc(run.capped ? D.copy.capped : D.copy.sampleNote) + '</div>' : '') +
+      (run.detailsFailed ? '<div class="f25-banner">' + esc(D.copy.details.fail) + '</div>' : '') +
       '<div class="f25-stats">' + tiles.slice(0, 3).join('') + '</div>' +
       (saved ? '<p class="f25-saved">' + esc(saved) + '</p>' : '') +
       '<div class="f25-problem"><h3 class="h3" style="margin:0 0 8px">' + esc(D.copy.problem) + '</h3><p class="fog" style="margin:0">' + esc(D.copy.problemSub) + '</p></div>' +
@@ -287,15 +301,25 @@
 
   function drawList() {
     var run = st.run;
-    $('top').innerHTML = run.prospects.slice(0, 5).map(function (b, i) { return card(b, i === 0 || st.unlocked); }).join('');
+    // The top 3 come with their messages before the email, all 25 after it ("Top 3 free, all 25 with your email", Legal S22).
+    $('top').innerHTML = run.prospects.slice(0, 5).map(function (b, i) { return card(b, i < 3 || st.unlocked); }).join('');
     $('rest').innerHTML = run.prospects.slice(5).map(function (b) { return st.open[b.rank] ? card(b, true) : row(b); }).join('');
     drawTracker();
     if (M) M.start($('result'));
   }
 
+  // Google's mark wherever its listings show without a Google map (Legal L53 part 1.5).
+  function gm() { return '<span class="f25-gm">' + esc(D.copy.gmaps) + '</span>'; }
+  // "Check it first" at each fact a message states, linked to where they can see it (Legal L53 part 3.4).
+  function check(b, id) {
+    var u = !st.run.sample && F.checkLink(b, id);
+    return u ? ' <a class="f25-check" href="' + esc(u) + '" target="_blank" rel="noopener nofollow">' + esc(D.copy.check) + '</a>' : '';
+  }
+
   function card(b, withMsg) {
-    var meta = [b.rating ? b.rating + '★' : '', b.reviews != null ? b.reviews + ' reviews' : '', b.address || ''].filter(Boolean).join(' · ');
-    var why = (b.gaps || []).slice(0, 3).map(function (g) { return '<li class="gap">' + esc(g.why) + '</li>'; })
+    var meta = [b.rating ? Math.round(b.rating * 10) / 10 + '★' : '', b.reviews != null ? b.reviews + ' reviews' : '', b.address || ''].filter(Boolean).join(' · ');
+    var facts = F.facts(b, 'email').map(function (g) { return g.id; });
+    var why = (b.gaps || []).slice(0, 3).map(function (g) { return '<li class="gap">' + esc(g.why) + (facts.indexOf(g.id) !== -1 ? check(b, g.id) : '') + '</li>'; })
       .concat((b.fits || []).filter(function (f) { return f.id !== 'independent'; }).slice(0, 1).map(function (f) { return '<li>' + esc(f.why) + '</li>'; }));
     if (!why.length) why.push('<li>' + esc(b.unchecked ? "We couldn't read their website, so this score leans on their listing." : 'Independent, not a chain. The owner decides.') + '</li>');
     var links = [];
@@ -305,7 +329,7 @@
     if (b.mapsUrl) links.push('<a href="' + esc(b.mapsUrl) + '" target="_blank" rel="noopener nofollow">Map ↗</a>');
     return '<article class="f25-card' + (b.rank <= 3 ? ' top' : '') + '" data-rank="' + b.rank + '">' +
       '<div class="f25-head"><div><div class="f25-rank">#' + b.rank + (st.run.sample ? ' · Sample' : '') + '</div><h3 class="f25-name">' + esc(b.name) + '</h3>' +
-        (meta ? '<div class="f25-sub">' + esc(meta) + '</div>' : '') + '</div>' +
+        (meta ? '<div class="f25-sub">' + esc(meta) + '</div>' + (st.run.source === 'google' ? '<div class="f25-src">' + gm() + '</div>' : '') : '') + '</div>' +
         '<div class="f25-ring" style="--p:' + b.score + '"><b>' + b.score + '</b><span>score</span></div></div>' +
       ((b.gaps || []).length ? '<div class="f25-chips">' + b.gaps.slice(0, 4).map(function (g) { return '<span class="chip lilac">' + esc(g.chip) + '</span>'; }).join('') + '</div>' : '') +
       '<ul class="f25-why">' + why.join('') + '</ul>' +
@@ -326,21 +350,31 @@
   }
 
   var TABS = [['dm', 'DM'], ['email', 'Email'], ['walkin', 'Walk-in or call'], ['follow1', 'Day 3'], ['follow2', 'Day 7']];
+  var FOLLOW = { follow1: 'follow1Email', follow2: 'follow2Email' };
   function messages(b) {
     return '<div class="f25-msg" data-msg="' + b.rank + '">' +
       '<div class="f25-tabs" role="tablist">' + TABS.map(function (t, i) { return '<button type="button" class="f25-tab" role="tab" data-tab="' + t[0] + '" aria-selected="' + (i === 0) + '">' + t[1] + '</button>'; }).join('') + '</div>' +
-      '<pre class="f25-text" data-text>' + marked(msgText(b, 'dm')) + '</pre>' +
-      '<div class="row"><button type="button" class="btn ghost" data-copy>Copy</button></div>' +
+      '<div data-body>' + msgBody(b, 'dm') + '</div>' +
     '</div>';
+  }
+  // A follow-up to a business that said no isn't sent, so its tab says so instead (Legal L53 part 3.2).
+  // Follow-ups sent by email get the sign-off, mailing address and opt-out (part 3.1).
+  function msgBody(b, tab) {
+    if (FOLLOW[tab] && stageOf(b.rank) === 'lost') return '<p class="f25-text f25-no">' + esc(D.copy.noFollow) + '</p>';
+    return '<pre class="f25-text" data-text>' + marked(msgText(b, tab)) + '</pre>' +
+      '<div class="row"><button type="button" class="btn ghost" data-copy>Copy</button>' +
+      (FOLLOW[tab] ? '<button type="button" class="btn ghost" data-copy-email>' + esc(D.copy.asEmail) + '</button></div><p class="gate-small f25-fnote">' + esc(D.copy.followNote) + '</p>' : '</div>');
   }
   function locked(b) {
     return '<div class="f25-msg"><div class="f25-lock"><span class="tease">' + esc((b.msg ? b.msg.dm : '').slice(0, 64)) + '</span><span class="ink" style="flex:none">Message ready</span></div></div>';
   }
   function msgText(b, tab) {
     var m = b.msg || {};
-    if (tab === 'email') return 'Subject: ' + m.subject + '\n\n' + m.email;
-    return m[tab] || '';
+    if (tab === 'email') return withAddr('Subject: ' + m.subject + '\n\n' + m.email);
+    return withAddr(m[tab] || '');
   }
+  // The mailing address saved in send mode fills the placeholder in every email on the page.
+  function withAddr(t) { return st.addr ? String(t).split('[your mailing address]').join(st.addr) : t; }
   // [your name], [paste your link], [your price] and the rest stand out, so nobody sends one by mistake.
   function marked(t) { return esc(t).replace(/\[([a-z' ]{2,30})\]/g, '<span class="ph">[$1]</span>'); }
 
@@ -366,7 +400,15 @@
       if (tab) {
         var box = tab.closest('[data-msg]'), b = byRank(box.getAttribute('data-msg'));
         Array.prototype.forEach.call(box.querySelectorAll('[data-tab]'), function (t) { t.setAttribute('aria-selected', String(t === tab)); });
-        box.querySelector('[data-text]').innerHTML = marked(msgText(b, tab.getAttribute('data-tab')));
+        box.querySelector('[data-body]').innerHTML = msgBody(b, tab.getAttribute('data-tab'));
+        return;
+      }
+      var ce = e.target.closest('[data-copy-email]');
+      if (ce) {
+        var box3 = ce.closest('[data-msg]'), b3 = byRank(box3.getAttribute('data-msg'));
+        var cur3 = box3.querySelector('[aria-selected="true"]').getAttribute('data-tab');
+        K.copy(withAddr((b3.msg || {})[FOLLOW[cur3]] || ''));
+        K.track('First25 Copy', { kind: cur3 + '_email', rank: b3.rank });
         return;
       }
       var cp = e.target.closest('[data-copy]');
@@ -382,6 +424,9 @@
         var holder = sb.closest('[data-stage-for]'), r = Number(holder.getAttribute('data-stage-for')), v = sb.getAttribute('data-st');
         setStage(r, stageOf(r) === v ? 'found' : v);
         Array.prototype.forEach.call(holder.querySelectorAll('[data-st]'), function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-st') === stageOf(r))); });
+        // Not now ends the follow-ups, so an open Day 3 or Day 7 tab updates right away.
+        var mb = holder.parentNode.querySelector('[data-msg]'), on = mb && mb.querySelector('[aria-selected="true"]');
+        if (mb) mb.querySelector('[data-body]').innerHTML = msgBody(byRank(r), on ? on.getAttribute('data-tab') : 'dm');
         return;
       }
       var mk = e.target.closest('[data-mock]');
@@ -469,7 +514,7 @@
     var href = function (b, c) {
       if (c.id !== 'email') return c.href;
       var m = b.msg || {};
-      return c.href + '?subject=' + encodeURIComponent(m.subject || '') + '&body=' + encodeURIComponent(m.email || '');
+      return c.href + '?subject=' + encodeURIComponent(m.subject || '') + '&body=' + encodeURIComponent(withAddr(m.email || ''));
     };
     function draw() {
       if (i >= q.length) {
@@ -484,16 +529,20 @@
       var b = q[i], sample = st.run.sample;
       ch = F.channels(b, st.run.pack).slice(0, 3);
       var c = ch[pick] || ch[0];
+      // The fact the message states, with a link to check it (the email states 2; a walk-in opens like the DM).
+      var fs = F.facts(b, c.text === 'email' ? 'email' : 'dm');
       box.innerHTML = '<div class="f25-send-in">' +
         '<div class="f25-send-top"><span class="label lilac">Send mode · ' + (i + 1) + ' of ' + q.length + '</span><button type="button" class="f25-x" data-x aria-label="Close">×</button></div>' +
         '<div class="f25-meter"><span style="width:' + Math.round((100 * i) / q.length) + '%"></span></div>' +
         '<div class="f25-rank" style="margin-top:20px">#' + b.rank + (sample ? ' · Sample' : '') + '</div>' +
-        '<h3 class="f25-name">' + esc(b.name) + '</h3>' +
-        ((b.gaps || [])[0] ? '<p class="fog" style="margin:6px 0 0;font-size:15px">' + esc(b.gaps[0].why) + '</p>' : '') +
+        '<h3 class="f25-name">' + esc(b.name) + '</h3>' + (st.run.source === 'google' ? '<div class="f25-src">' + gm() + '</div>' : '') +
+        (fs.length ? '<ul class="f25-facts">' + fs.map(function (g) { return '<li>' + esc(g.why) + check(b, g.id) + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="f25-chan"><div class="label">Send it by</div><div class="f25-tabs">' + ch.map(function (x, j) {
           return '<button type="button" class="f25-tab" data-ch="' + j + '" aria-selected="' + (x === c) + '">' + esc(x.label) + '</button>';
         }).join('') + '</div>' + (c.to ? '<div class="f25-to">' + esc(c.to) + '</div>' : '') + '</div>' +
         '<pre class="f25-text">' + marked(text(b, c)) + '</pre>' +
+        (c.text === 'email' ? addrField() : '') +
+        (c.text === 'walkin' ? '<p class="gate-small" style="margin:8px 0 0">' + esc(D.copy.walkNote) + '</p>' : '') +
         '<div class="f25-send-acts">' +
           (c.href && !sample ? '<a class="btn block" data-go href="' + esc(href(b, c)) + '" target="_blank" rel="noopener">Copy and open ' + esc(OPEN[c.id] || 'it') + '</a>' : '<button type="button" class="btn block" data-copyonly>Copy message</button>') +
           '<div class="f25-send-row"><button type="button" class="btn ghost" data-sent>Mark sent ✓</button><button type="button" class="link" data-skip>Skip</button></div>' +
@@ -502,6 +551,17 @@
       var first = box.querySelector('[data-go], [data-copyonly]');
       if (first) first.focus({ preventScroll: true });
     }
+    // The mailing address, saved on this device for next time, fills in as they type.
+    box.addEventListener('input', function (e) {
+      if (!e.target.matches('[data-addr]')) return;
+      st.addr = e.target.value.trim().slice(0, 120);
+      try { localStorage.setItem(ADDR, st.addr); } catch (x) {}
+      var b = q[i], c = ch[pick] || ch[0];
+      if (!b || !c) return;
+      box.querySelector('.f25-text').innerHTML = marked(text(b, c));
+      var go = box.querySelector('[data-go]');
+      if (go) go.setAttribute('href', href(b, c));
+    });
     box.addEventListener('click', function (e) {
       var t = e.target;
       if (t.closest('[data-x]')) return close();
@@ -522,12 +582,30 @@
     draw();
   }
 
+  // Every cold email carries the sender's mailing address (Legal L53 part 3.1).
+  function addrField() {
+    return '<label class="field f25-addr"><span>' + esc(D.copy.addr.label) + '</span>' +
+      '<input class="input" data-addr maxlength="120" autocomplete="street-address" placeholder="' + esc(D.copy.addr.placeholder) + '" value="' + esc(st.addr) + '"></label>' +
+      '<p class="gate-small" style="margin:6px 0 0">' + esc(D.copy.addr.help) + '</p>';
+  }
+
   // ---------- after the email ----------
+  // Free next to Builder: what this tool leaves undone and what Builder adds. No totals.
+  function compare(run, G) {
+    var C = D.copy.compare, n = run.prospects.length;
+    var free = (F.mockKind(run.pack) ? C.free : C.freeNoSample).map(function (t) { return F.fill(t, { n: n }); });
+    var adds = C.builder.concat(G.hq && G.hq.on ? C.builderHq.map(function (t) { return F.fill(t, { n: n }); }) : []);
+    var col = function (label, items, cls) { return '<div class="f25-col ' + cls + '"><div class="label">' + esc(label) + '</div><ul>' + items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'; };
+    return '<div class="f25-compare">' + col(C.freeLabel, free, 'free') + col(C.builderLabel, adds, 'adds') + '</div>';
+  }
+
   function drawAfter() {
-    var run = st.run, G = RD.first25 || {}, el = $('after');
+    var run = st.run, G = RD.first25 || {}, el = $('after'), google = run.source === 'google';
+    // A Google list's file keeps our findings and a map link for each, not Google's names (Legal L53 part 1.4).
+    var csvLabel = google ? D.copy.csvGoogle : 'Download all ' + run.prospects.length + ' for Sheets or Notion';
     var csvBtn = K.onSite && run.id !== 'preview'
-      ? '<a class="btn block" href="/first-25/r/' + encodeURIComponent(run.id) + '.csv?k=' + encodeURIComponent(run.k) + '" data-csv>Download all ' + run.prospects.length + ' for Sheets or Notion</a>'
-      : '<button type="button" class="btn block" data-csv>Download all ' + run.prospects.length + ' for Sheets or Notion</button>';
+      ? '<a class="btn block" href="/first-25/r/' + encodeURIComponent(run.id) + '.csv?k=' + encodeURIComponent(run.k) + '" data-csv>' + esc(csvLabel) + '</a>'
+      : '<button type="button" class="btn block" data-csv>' + esc(csvLabel) + '</button>';
     var hq = G.hq && G.hq.on ? '<div class="card f25-hq" style="margin-top:14px"><div class="label lilac">' + esc(G.hq.label) + '</div><h3 class="h3" style="margin:10px 0 8px">' + esc(G.hq.heading) + '</h3><p class="fog">' + esc(G.hq.body) + '</p></div>' : '';
     var kept = K.onSite && run.id !== 'preview';
     var until = run.keepUntil ? new Date(run.keepUntil).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'America/New_York' }) : '';
@@ -537,17 +615,18 @@
         '<div class="label lilac">' + esc(D.copy.nextLabel) + '</div>' +
         '<h3 class="h3" style="margin:10px 0 8px">' + esc(F.fill(D.copy.next, { n: run.prospects.length })) + '</h3>' +
         '<p class="fog" style="margin:0">' + esc(D.copy.nextSub) + '</p>' +
+        compare(run, G) +
         (keep ? '<p class="f25-keep"><b>' + esc(F.fill(D.copy.savedHead, { n: run.prospects.length })) + '</b> ' + esc(keep) + '</p>' : '') +
       '</div>' +
       '<div class="card" style="margin-top:14px">' +
         '<div class="label">Your first 7 days</div>' +
         '<ol class="f25-plan">' + D.plan.map(function (p, i) { return '<li><b>Day ' + (i + 1) + '</b><span>' + esc(p) + '</span></li>'; }).join('') + '</ol>' +
-        '<div style="margin-top:14px">' + csvBtn + '</div>' +
+        '<div style="margin-top:14px">' + csvBtn + '</div>' + (google ? '<p class="gate-small center">' + esc(D.copy.csvGoogleNote) + '</p>' : '') +
         '<p class="gate-small center">Tap any business above to open its messages.</p>' +
       '</div>' +
       '<div class="card" style="margin-top:14px" id="replies"></div>' +
       '<div id="stateBlock"></div>' + hq +
-      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + esc(run.attribution || '') + '</p>' +
+      '<p class="f25-attr">' + esc(F.fill(D.copy.checked, { date: new Date(run.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) })) + ' ' + credits(run) + '</p>' +
       '<div class="f25-again"><a class="link" href="/first-25" data-again>Run another search</a></div>';
     drawReplies(run.prospects[0] && run.prospects[0].rank);
     var csv = el.querySelector('[data-csv]');
@@ -568,6 +647,17 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     R.block($('stateBlock'), { magnet: 'first25', key: null, onStart: function () { location.href = K.href('/start?from=first-25'); } });
+  }
+
+  // Credits: Google's mark and any provider Google names (Legal L53 part 1.5), or OpenStreetMap's copyright as a link (part 2.2).
+  function credits(run) {
+    if (run.source === 'google') {
+      return gm() + ' ' + esc(D.copy.checksBy) + (run.attributions || []).map(function (a) {
+        return ' · ' + (a.uri ? '<a href="' + esc(a.uri) + '" target="_blank" rel="noopener nofollow">' + esc(a.provider) + '</a>' : esc(a.provider));
+      }).join('');
+    }
+    var t = esc(run.attribution || '');
+    return run.source === 'osm' ? t.replace('openstreetmap.org/copyright', '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>') : t;
   }
 
   // What to say when they answer, written for one business on the list.
@@ -599,11 +689,39 @@
 
   $('who').innerHTML = R.who();
 
+  // A saved Google list keeps place IDs only (Legal L53), so its names, websites and ratings load from Google Maps
+  // each time it opens. The words that quote them and the messages are written here once they arrive.
+  function hydrate(run) {
+    $('intro').hidden = true; $('formWrap').hidden = true;
+    var el = $('result');
+    el.hidden = false;
+    el.innerHTML = '<div class="f25-loading" role="status">' + esc(D.copy.details.loading) + '</div>';
+    return fetch('/api/first-25/r/' + encodeURIComponent(run.id) + '/details', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ k: run.k }) })
+      .then(function (r) { if (!r.ok) throw new Error('details'); return r.json(); })
+      .then(function (j) {
+        var by = {}, ctx = { me: run.me, city: run.city, service: run.service };
+        (j.prospects || []).forEach(function (p) { by[p.rank] = p; });
+        run.prospects.forEach(function (b) {
+          var f = by[b.rank];
+          if (!f) return;
+          Object.assign(b, f, F.words(Object.assign({}, b, f, b.ids), run.buyer));
+          delete b.ids;
+          b.msg = F.messages(b, run.pack, run.buyer, ctx);
+          if (b.spec) b.spec = F.spec(b, run.pack, run.buyer, ctx);
+        });
+        run.attributions = j.attributions || [];
+        if ((j.prospects || []).length < run.prospects.length) run.detailsFailed = true;
+        return run;
+      })
+      .catch(function () { run.detailsFailed = true; return run; });
+  }
+
   // The saved list from the email (/first-25/r/:id): open it unlocked, no form.
   if (window.F25_RUN) {
     st.unlocked = true;
-    show(window.F25_RUN);
+    if (window.F25_RUN.details && K.onSite) hydrate(window.F25_RUN).then(show);
+    else show(window.F25_RUN);
   } else if (window.F25_RUN === null) {
-    fail('That list has expired. Run a new one, it takes a minute.');
+    fail('That list has expired. Run a new one for free.');
   }
 })();

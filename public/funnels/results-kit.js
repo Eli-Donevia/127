@@ -30,9 +30,10 @@
   function p(s, L, cls) { var t = line(s, L); return t ? '<p class="' + (cls || 'fog') + '">' + esc(t) + '</p>' : ''; }
 
   // ---------- the gate (§3): name, email, box, small line, terms, button ----------
+  // o.copy overrides the magnet's label and line for this result; o.before is trusted HTML shown above them.
   R.gate = function (el, o) {
-    var g = D.gate[o.magnet];
-    el.innerHTML = '<form class="card halo gate stack-s" novalidate>' +
+    var g = Object.assign({}, D.gate[o.magnet], o.copy || {});
+    el.innerHTML = '<form class="card halo gate stack-s" novalidate>' + (o.before || '') +
       '<h3 class="h3" style="margin:0">' + esc(g.label) + '</h3>' +
       '<p class="gate-line">' + esc(g.line) + '</p>' +
       (o.name === false ? '' : '<input class="input" type="text" name="name" placeholder="First name (optional)" autocomplete="given-name" maxlength="60">') +
