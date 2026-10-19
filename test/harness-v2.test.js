@@ -625,6 +625,24 @@ test('schema: form strings are coerced, defaults filled, and the API copy is str
   assert.equal(api.properties.tags.maxItems, undefined);
 });
 
+test('schema: a blank number, yes/no, list or pick-one counts as not given (the library\'s finance plans sent "")', () => {
+  const s = obj({
+    cash: { type: 'number', title: 'Cash on hand' },
+    months: { type: 'integer', default: 12 },
+    mode: { type: 'string', enum: ['lean', 'full'] },
+    tags: { type: 'array', items: { type: 'string' } },
+    ok: { type: 'boolean' },
+    note: { type: 'string' },
+    maybe: { type: ['number', 'null'] },
+  }, []);
+  const v = schema.validate(s, { cash: '', months: ' ', mode: '', tags: '', ok: '', note: '', maybe: '' }, { coerce: true });
+  assert.equal(v.ok, true, v.text);
+  assert.deepEqual(v.value, { months: 12, note: '', maybe: null });
+  const need = schema.validate(obj({ cash: { type: 'number', title: 'Cash on hand' } }, ['cash']), { cash: '' }, { coerce: true });
+  assert.equal(need.text, 'Cash on hand is required.');
+  assert.equal(schema.validate(s, { cash: '' }).ok, false, 'a tool\'s own output gets no such pass');
+});
+
 test('refs resolve inputs, steps, items and indexes', () => {
   const scope = { inputs: { city: 'Ames' }, steps: { gyms: { list: [{ name: 'A' }, { name: 'B' }] }, vids: ['v0', 'v1'] }, item: { name: 'B' }, index: 1 };
   assert.deepEqual(refs.resolve({ c: '$inputs.city', first: '$gyms.list.0.name', me: '$item.name', v: '$vids.$index', cash: '$$5' }, scope), { c: 'Ames', first: 'A', me: 'B', v: 'v1', cash: '$5' });

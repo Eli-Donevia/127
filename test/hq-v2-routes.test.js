@@ -1187,7 +1187,7 @@ test('files: add your own to the Library, pick one in a workflow, and the new ki
   assert.match(r.headers.get('content-security-policy'), /sandbox/);
   r = await s.go(`${svg.url}?preview=1`, { as: u });
   assert.match(r.headers.get('content-disposition'), /^inline/);
-  assert.match(r.headers.get('content-security-policy'), /sandbox/);
+  assert.match(r.headers.get('content-security-policy'), /; sandbox allow-top-navigation-to-custom-protocols$/, 'sms:, tel: and mailto: links open; scripts, forms and pop-ups stay off');
   for (const [name, type] of [['team.vcf', 'text/vcard'], ['launch.ics', 'text/calendar'], ['clip.srt', 'application/x-subrip'], ['clip.vtt', 'text/vtt'], ['raw.mov', 'video/quicktime']]) {
     r = await up(u, name, '', 'x');
     assert.equal(r.status, 200, name);
