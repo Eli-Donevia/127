@@ -865,6 +865,8 @@ test('Start with business types: pick one first, then your business leads and th
     assert.ok(list.findIndex((w) => w.id === 'tclean.first_25') < list.findIndex((w) => w.id === 'rt.flow'), 'their business before the tools');
     assert.ok(list.findIndex((w) => w.id === 'twalk.first_25') > list.findIndex((w) => w.id === 'rf.pick'), "another business's workflows last");
     assert.equal((await harness.ask(cleaner, 'dog walking first 25')).pick.id, 'twalk.first_25', 'the Ask bar still finds them');
+    const listed = (await require('../lib/harness/mcp').call(cleaner, 'list_workflows', {})).content[0].text;
+    assert.ok(listed.indexOf('tclean.first_25') < listed.indexOf('rt.flow') && listed.indexOf('rt.flow') < listed.indexOf('twalk.first_25'), "the AI link's list goes in Start's order");
     move = harness.today(cleaner).move;
     assert.equal(move.kind, 'leads');
     assert.equal(move.href, '/app/hq/w/tclean.first_25', "Today's first 25 is their business's");
