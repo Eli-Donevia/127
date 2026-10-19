@@ -241,7 +241,7 @@ test.before(async () => {
   packs.reset();
   const r = packs.registerAll([{ pack: RT, source: 'test' }, { pack: RF, source: 'test' }, { pack: hqPack, source: 'hq' }]);
   assert.deepEqual(r.refused, [], JSON.stringify(r.refused));
-  for (const lib of [harness.pipeline, harness.activation, harness.wins, harness.monday]) lib._setDeps({ now: () => now });
+  for (const lib of [harness.pipeline, harness.activation, harness.wins, harness.monday, harness.access]) lib._setDeps({ now: () => now });
   s = await server();
 });
 test.after(async () => {
@@ -493,6 +493,69 @@ test('Your business saves what every workflow reads, and Set up follows it', asy
   process.env.HQ_LIVE = 'off';
   setup = await html(await s.go('/app/hq/setup', { as: u }));
   assert.doesNotMatch(setup, /Connect Stripe/, 'no connections page to send them to');
+});
+
+test("early access: an admin gives one member HQ v2, with Builder inside HQ and the credits they set until a date, once their email is confirmed; Remove takes it back", async () => {
+  process.env.HARNESS_V2 = 'admins';
+  const admin = await member('free');
+  process.env.ADMIN_EMAILS = admin.email;
+  const kid = await member('free', { emailVerified: false });
+  const give = (form, as = admin) => s.go('/admin/hq2/access', { as, form });
+  const v2 = async () => /Your move/.test(await html(await s.go('/app/hq', { as: kid })));
+  assert.equal(await v2(), false, 'HQ v1 before');
+  assert.equal((await give({ email: kid.email, until: '2026-12-08' }, kid)).status, 404, 'admins only');
+  assert.equal(where(await give({ email: 'nobody@127.test', until: '2026-12-08' })), '/admin#hq2');
+  assert.match(flashes.pop().text, /No 127 account uses nobody@127\.test yet/);
+  await give({ email: kid.email, until: '2026-11-01' });
+  assert.match(flashes.pop().text, /Pick a date after today/);
+  await give({ email: kid.email, until: '2026-12-08', credits: '-5' });
+  assert.match(flashes.pop().text, /Credits a month: a whole number from 0 to 20,000/);
+  assert.equal(db.get('users', kid.id).hqV2, undefined, 'nothing saved on a mistake');
+
+  await give({ email: ` ${kid.email.toUpperCase()} `, until: '2026-12-08', plan: 'builder', credits: '5,000' });
+  assert.match(flashes.pop().text, /gets HQ v2, with Builder inside HQ and 5,000 credits a month until 2026-12-08, once they confirm their email/);
+  assert.equal(await v2(), false, 'not before their email is confirmed');
+  assert.equal(harness.ledger.tierOf(db.get('users', kid.id)), 'free');
+  await db.save('users', { ...db.get('users', kid.id), emailVerified: true });
+  assert.equal(await v2(), true);
+  assert.equal(harness.ledger.tierOf(db.get('users', kid.id)), 'builder', 'Builder inside HQ');
+  assert.equal(harness.ledger.usage(db.get('users', kid.id)).allowance, 5000, "the grant's credits, above Builder's 1,000");
+  assert.doesNotMatch(await html(await s.go('/app/hq/w/rt.paid', { as: kid })), /Part of Builder/, "Builder's workflows open");
+  assert.equal(db.get('users', kid.id).tier, 'free', 'billing untouched');
+  const [row] = harness.access.list().filter((g) => g.id === kid.id);
+  assert.deepEqual([row.until, row.confirmed, row.planOn, row.by, row.plan, row.credits], ['2026-12-08', true, true, admin.email, 'builder', 5000]);
+  const panel = await require('ejs').renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), {
+    hq2: { mode: 'admins', list: harness.access.list(), until: harness.access.defaultUntil(), credits: harness.access.DEFAULT_CREDITS, allowances: harness.ledger.allowances() },
+  });
+  assert.match(panel, /HQ v2 is admins only/);
+  assert.match(panel, /Has HQ v2, with Builder inside HQ and 5,000 credits a month until 2026-12-08/);
+  assert.match(panel, /name="until" value="2026-12-19"/, 'about six weeks out by default');
+  assert.match(panel, /name="credits" value="5000"/);
+  assert.match(panel, /<option value="builder" selected>Builder<\/option>/, 'Builder unless the admin picks the Circle');
+
+  // Giving it again changes the plan and credits, keeping when it started; a smaller number keeps the plan's own allowance.
+  const since = db.get('users', kid.id).hqV2.at;
+  now += 3600e3;
+  await give({ email: kid.email, until: '2026-12-08', plan: 'circle', credits: '0' });
+  assert.match(flashes.pop().text, /has HQ v2, with the Founder's Circle inside HQ and 3,000 credits a month until 2026-12-08\./);
+  assert.equal(db.get('users', kid.id).hqV2.at, since);
+  assert.equal(harness.ledger.tierOf(db.get('users', kid.id)), 'circle');
+  await give({ email: kid.email, until: '2026-12-08', credits: '5000' });
+  flashes.pop();
+
+  // The plan ends after its last day (midnight Eastern); HQ v2 stays.
+  now = Date.parse('2026-12-09T04:59:00Z');
+  assert.equal(harness.ledger.tierOf(db.get('users', kid.id)), 'builder');
+  now = Date.parse('2026-12-09T05:01:00Z');
+  assert.equal(harness.ledger.tierOf(db.get('users', kid.id)), 'free');
+  assert.equal(harness.ledger.usage(db.get('users', kid.id)).allowance, 50, "Free's own credits again");
+  assert.equal(await v2(), true, 'HQ v2 stays');
+
+  assert.equal(where(await s.go(`/admin/hq2/access/${kid.id}/remove`, { as: admin, form: {} })), '/admin#hq2');
+  assert.match(flashes.pop().text, /back on HQ v1\. Their runs, Pipeline and files are kept/);
+  assert.equal(await v2(), false);
+  process.env.HARNESS_V2 = 'on';
+  assert.equal(await v2(), true, 'everyone, once HQ v2 is on');
 });
 
 test('admin status is admins only', async () => {

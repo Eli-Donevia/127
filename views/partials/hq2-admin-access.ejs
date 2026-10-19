@@ -1,0 +1,33 @@
+<%# HQ v2 early access in /admin (lib/harness/access.js). Locals: hq2 ({ mode, list, until, credits, allowances }). %>
+<% var modeSaid = { off: 'HQ v2 is off (HARNESS_V2 unset)', admins: 'HQ v2 is admins only', on: 'HQ v2 is on for everyone' }; %>
+<% var planSaid = { builder: 'Builder', circle: "the Founder's Circle" }; %>
+<% var n = function (x) { return Number(x || 0).toLocaleString('en-US'); }; %>
+<div class="card pad-lg" id="hq2" style="margin-bottom:16px">
+  <div class="card-title"><h3>HQ v2 early access</h3><span class="small muted"><%= modeSaid[hq2.mode] || hq2.mode %></span></div>
+  <p class="small muted" style="margin:-6px 0 14px">Give one member HQ v2 before it opens to everyone, like the public build's founder. Until the date you pick they get a plan inside HQ (its workflows, not its calls) and the credits you set; their billing doesn't change. Builder has <%= n(hq2.allowances.builder) %> credits a month. Checking gyms by hand costs about 17 credits a gym, so the box starts at <%= n(hq2.credits) %>. It starts once they confirm their email, and Remove takes it away (their work stays).</p>
+  <form method="post" action="/admin/hq2/access" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:300px" aria-label="Their email">
+    <select class="input" name="plan" style="max-width:190px" aria-label="Plan inside HQ">
+      <option value="builder" selected>Builder</option>
+      <option value="circle">Founder's Circle</option>
+    </select>
+    <label class="small muted" style="display:flex;gap:8px;align-items:center">Credits a month <input class="input" type="number" name="credits" value="<%= hq2.credits %>" min="0" max="20000" step="100" required style="max-width:110px"></label>
+    <label class="small muted" style="display:flex;gap:8px;align-items:center">Until <input class="input" type="date" name="until" value="<%= hq2.until %>" required style="max-width:170px"></label>
+    <button class="btn sm">Give access</button>
+  </form>
+  <% if (hq2.list.length) { %>
+  <div class="scroll-x" style="margin-top:14px"><table class="t">
+    <thead><tr><th>Member</th><th>Since</th><th>Where it stands</th><th></th></tr></thead>
+    <tbody>
+    <% hq2.list.forEach(function (g) { var what = (planSaid[g.plan] || 'Builder') + ' inside HQ and ' + n(Math.max(g.credits, hq2.allowances[g.plan] || 0)) + ' credits a month'; %>
+      <tr>
+        <td><%= g.name || g.email %><% if (g.name) { %><div class="tiny muted"><%= g.email %></div><% } %></td>
+        <td class="small"><%= String(g.at || '').slice(0, 10) %></td>
+        <td class="small"><%= !g.confirmed ? 'Waiting for them to confirm their email' : g.planOn ? 'Has HQ v2, with ' + what + ' until ' + g.until + (g.paid ? ' (they also pay for a plan)' : '') : 'Has HQ v2; ' + what + ' ended ' + g.until %></td>
+        <td><form method="post" action="/admin/hq2/access/<%= g.id %>/remove" onsubmit="return confirm('Take HQ v2 away from this member? Their work stays.')"><button class="btn ghost sm">Remove</button></form></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
