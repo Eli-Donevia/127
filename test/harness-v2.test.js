@@ -781,3 +781,10 @@ test("harness check flags 127's own copy in a pack (titles, promises, inputs), n
   assert.deepEqual(found.map((f) => f.split(':')[0]), ['pack summary', 'workflow cc.flow promise', 'workflow cc.flow input city']);
   assert.deepEqual(packs.copyFindings(pack, null), [], 'no copy check installed: nothing to report');
 });
+
+test("the site's own packs pass 127's copy check (what Start and the plan show)", () => {
+  for (const id of fs.readdirSync(path.join(__dirname, '..', 'lib', 'packs'))) {
+    if (!fs.existsSync(path.join(__dirname, '..', 'lib', 'packs', id, 'index.js'))) continue;
+    assert.deepEqual(packs.copyFindings(require(`../lib/packs/${id}`)), [], `${id} has copy to fix`);
+  }
+});
