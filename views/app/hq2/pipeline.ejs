@@ -32,7 +32,7 @@
     <% board.forEach(function (c) { %><a class="h2-tag<%= stage === c.stage ? ' dfy' : '' %>" href="/app/hq/pipeline?stage=<%= c.stage %>"><%= c.label %> <span data-col-count="<%= c.stage %>"><%= c.leads.length %></span></a><% }) %>
   </nav>
   <% if (!total) { %>
-    <div class="hq-card"><p class="h2-sub" style="margin:0">No one here yet. Open a First 25 list and tap Work your 25 in HQ, or run a workflow. Each business lands here with its first message written.</p><a class="btn" style="margin-top:14px" href="/app/hq/start#leads">Pick a workflow <span class="arrow"></span></a></div>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">No one here yet. Open a First 25 list and bring it into HQ, or run a workflow. Each business lands here with its first message written.</p><a class="btn" style="margin-top:14px" href="/app/hq/start#leads">Pick a workflow <span class="arrow"></span></a></div>
   <% } else { %>
   <div class="h2-board<%= stage ? ' one' : '' %>">
     <% cols.forEach(function (c) { %>
