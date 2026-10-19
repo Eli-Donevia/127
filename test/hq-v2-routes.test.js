@@ -140,6 +140,20 @@ const RF = {
       },
       view: (o) => [{ type: 'text', text: `${o.name}: ${o.bytes} bytes` }],
     },
+    {
+      name: 'rf.find_lead',
+      title: 'Find the business',
+      description: 'Finds one business in the Pipeline by name.',
+      kind: 'code',
+      risk: 'read',
+      credits: 0,
+      input: obj({ gym: { type: 'string' } }),
+      output: obj({ found: { type: 'boolean' }, name: { type: 'string' } }),
+      run: async ({ gym }, ctx) => {
+        const l = (await ctx.leads.list({ all: true })).find((x) => x.name === gym);
+        return { found: !!l, name: gym };
+      },
+    },
   ],
   workflows: [
     {
@@ -152,6 +166,17 @@ const RF = {
       inputs: obj({ clip: { type: 'string', format: 'asset', title: 'Your clip', accept: 'video/*,.txt' } }),
       steps: [{ id: 'read', tool: 'rf.read_clip', input: { clip: '$inputs.clip' } }],
       result: ['read'],
+    },
+    {
+      id: 'rf.pick',
+      title: 'Prep one client',
+      promise: 'Starts from a business in your Pipeline.',
+      minutes: 1,
+      tier: 'free',
+      job: 'sales',
+      inputs: obj({ gym: { type: 'string', title: 'Which gym', options: 'pipeline' } }),
+      steps: [{ id: 'find', tool: 'rf.find_lead', input: { gym: '$inputs.gym' } }],
+      result: ['find'],
     },
   ],
 };
@@ -1027,6 +1052,25 @@ test('files: add your own to the Library, pick one in a workflow, and the new ki
   const lib = await html(await s.go('/app/hq/library', { as: u }));
   assert.match(lib, /Add your own files/);
   assert.match(lib, /Contacts/);
+});
+
+test("an input with options: 'pipeline' suggests the member's own businesses, and still takes a typed name", async () => {
+  const u = await member();
+  const other = await member();
+  await P.upsert(u.id, 'test', { key: 'a', name: 'Iron Temple' });
+  const gone = await P.upsert(u.id, 'test', { key: 'b', name: 'Gone Gym' });
+  await P.move(u.id, gone.id, 'lost');
+  await P.upsert(other.id, 'test', { key: 'c', name: 'Not Yours Gym' });
+  const page = await html(await s.go('/app/hq/w/rf.pick', { as: u }));
+  assert.match(page, /<input class="input" id="in-gym" name="in_gym" value="" list="in-gym-names" autocomplete="off" required><datalist id="in-gym-names"><option value="Iron Temple"><\/datalist>/);
+  assert.match(page, /Pick one from your Pipeline, or type a name\./);
+  assert.doesNotMatch(page, /Gone Gym|Not Yours Gym/);
+  const r = await s.go('/app/hq/w/rf.pick/run', { as: u, form: { in_gym: 'Iron Temple' } });
+  await engine.idle();
+  const run = engine.get(u, where(r).split('/').pop());
+  assert.deepEqual(run.steps.find.output, { found: true, name: 'Iron Temple' });
+  const list = (await require('../lib/harness/mcp').call(u, 'list_workflows', {})).content[0].text;
+  assert.match(list, /gym \(a business in the member's Pipeline, by name\)/);
 });
 
 // ---------- admin numbers ----------

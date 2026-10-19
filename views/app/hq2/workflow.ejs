@@ -52,11 +52,12 @@
           <label class="field" for="<%= id %>">
             <span><%= f.label %><%= f.required ? '' : ' (optional)' %></span>
             <% if (f.control === 'select') { %><select class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><% if (!f.required) { %><option value="">Choose</option><% } %><% f.options.forEach(function (o) { %><option<%= String(o) === f.value ? ' selected' : '' %>><%= o %></option><% }) %></select>
+            <% } else if (f.control === 'lead') { %><input class="input" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>" list="<%= id %>-names" autocomplete="off"<%= f.required ? ' required' : '' %>><datalist id="<%= id %>-names"><% f.names.forEach(function (n) { %><option value="<%= n %>"><% }) %></datalist>
             <% } else if (f.control === 'textarea') { %><textarea class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><%= f.value %></textarea>
             <% } else if (f.control === 'check') { %><span class="check"><input type="checkbox" id="<%= id %>" name="in_<%= f.key %>"<%= f.value === 'true' ? ' checked' : '' %>> Yes</span>
             <% } else if (f.control === 'number') { %><input class="input" type="number" inputmode="numeric" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>"<%= f.min !== undefined ? ' min=' + f.min : '' %><%= f.max !== undefined ? ' max=' + f.max : '' %><%= f.required ? ' required' : '' %>>
             <% } else { %><input class="input" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>"<%= f.required ? ' required' : '' %>><% } %>
-            <% if (f.hint) { %><span class="hint"><%= f.hint %><%= f.control === 'list' ? ' (separate with commas)' : '' %></span><% } %>
+            <% if (f.hint || f.control === 'lead') { %><span class="hint"><%= f.hint %><%= f.control === 'list' ? ' (separate with commas)' : f.control === 'lead' ? (f.hint ? ' ' : '') + (f.names.length ? 'Pick one from your Pipeline, or type a name.' : 'Type the name. Businesses in your Pipeline show here as you type.') : '' %></span><% } %>
           </label>
           <% }) %>
         </div>
