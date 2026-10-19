@@ -534,7 +534,32 @@ test('Google mode needs saved lists that keep place IDs only, and a key (Legal L
     first25._test.L53.placeIdsOnly = false;
     assert.equal(first25.sourceName(), 'sample');
   } finally { first25._test.L53.placeIdsOnly = true; delete process.env.GOOGLE_PLACES_KEY; }
-  try { assert.equal(first25.sourceName(), 'sample', 'no key, no Google'); } finally { delete process.env.FIRST25_SOURCE; }
+  try {
+    assert.equal(first25.sourceName(), 'sample', 'no key, no Google');
+    // The key works under the name HQ's setup notes gave Eli, too.
+    for (const k of ['PLACES_API_KEY', 'GOOGLE_PLACES_API_KEY']) {
+      process.env[k] = 'test-key';
+      try { assert.equal(first25.sourceName(), 'google', k); } finally { delete process.env[k]; }
+    }
+  } finally { delete process.env.FIRST25_SOURCE; }
+});
+
+test('OpenStreetMap on the live site needs our own or a paid server (Legal L53 part 2.4)', () => {
+  const was = process.env.NODE_ENV;
+  process.env.FIRST25_SOURCE = 'osm';
+  try {
+    delete process.env.NODE_ENV;
+    assert.equal(first25.sourceName(), 'osm', 'the public servers are fine for testing');
+    process.env.NODE_ENV = 'production';
+    assert.equal(first25.sourceName(), 'sample', 'never on the live site');
+    process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
+    assert.equal(first25.sourceName(), 'sample', 'both servers, not one');
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example';
+    assert.equal(first25.sourceName(), 'osm');
+  } finally {
+    if (was === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = was;
+    delete process.env.FIRST25_SOURCE; delete process.env.OSM_OVERPASS_URL; delete process.env.OSM_NOMINATIM_URL;
+  }
 });
 
 test('past the daily cap, a live search still answers, on labeled sample businesses', async () => {
