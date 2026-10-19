@@ -28,7 +28,7 @@ function start() {
   geo.center();
   geo.scale(0.022, -0.022, 0.022);
   geo.computeVertexNormals();
-  const mat = new THREE.MeshPhysicalMaterial({ color: 0xeef0f6, metalness: 1, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 1.8 });
+  const mat = new THREE.MeshPhysicalMaterial({ color: 0xeef0f6, metalness: 1, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 2.2 });
   const mark = new THREE.Mesh(geo, mat);
   const group = new THREE.Group();
   group.add(mark);
@@ -37,15 +37,16 @@ function start() {
   const key = new THREE.DirectionalLight(0xffffff, 3); key.position.set(4, 5, 6); scene.add(key);
   const front = new THREE.DirectionalLight(0xffffff, 1.6); front.position.set(-2, 1, 8); scene.add(front);
   const rim = new THREE.DirectionalLight(0xb8bfff, 4); rim.position.set(-6, -2, -4); scene.add(rim);
-  const warm = new THREE.PointLight(0xd8b46e, 30, 30); warm.position.set(5, -3, 3); scene.add(warm);
+  // Halo-white kicker (gold is kept for the Circle).
+  const warm = new THREE.PointLight(0xe3e6f1, 30, 30); warm.position.set(5, -3, 3); scene.add(warm);
 
   function size() {
     const r = canvas.getBoundingClientRect();
     const w = Math.max(1, r.width), h = Math.max(1, r.height);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // keep the mark the same visual width on narrow canvases
-    camera.position.z = w / h < 1 ? 11 / (w / h) * 0.8 : 11;
+    // keep the mark the same visual width on narrow canvases; data-fit > 1 brings the camera closer
+    camera.position.z = (w / h < 1 ? 11 / (w / h) * 0.8 : 11) / (parseFloat(canvas.dataset.fit) || 1);
     camera.updateProjectionMatrix();
   }
   size();

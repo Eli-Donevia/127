@@ -1,6 +1,7 @@
 <%
-  // Homepage, final copy from conversion/pages/homepage.md. States (section 1): A1/A2 before doors open
-  // (A1 while Day One Challenge sign-ups are open), B the founding window, C evergreen. All from server time.
+  // Homepage, v2 of the platform (v2/design in the project files). One button in the hero, the end result up top,
+  // real outputs instead of feature tables. States from conversion/pages/homepage.md section 1: A1/A2 before doors
+  // open (A1 while Day One Challenge sign-ups are open), B the founding window, C evergreen. All from server time.
   var st = hState;
   var S = st.charAt(0); // A, B or C
   var L = launch;
@@ -9,14 +10,13 @@
   var closesAt = L.closesAbbr ? L.closesAbbr + ' at ' + L.closesTime : null; // "Tue, Nov 24 at 11:59pm ET"
   var doorsLine = doorsAt ? 'Doors open ' + doorsAt + '.' : 'Doors open soon.';
   var rc = resources.length;
-  var aiB = PLANS.builder.aiRunsPerMonth;
+  var rFree = resources.filter(function (r) { return r.tier === 'free'; }).length;
   var refN = L.referralsForReward;
   // Plausible click goals (section 14): state only, never personal data.
   var tk = function (ev, extra) { var p = { state: st }; for (var k in (extra || {})) p[k] = extra[k]; return " data-track=\"" + ev + "\" data-props='" + JSON.stringify(p) + "'"; };
-  var hero = S === 'A' ? { p: ['/founding', 'Join the founding list'], s: ['/score', 'Take the 90-second Founder Score'] }
-           : S === 'B' ? { p: ['/start', 'Get my roadmap'], s: ['/founding', 'See the founding price'] }
-           : { p: ['/start', 'Start free'], s: ['/score', 'Take the 90-second Founder Score'] };
-  var weeksCta = S === 'A' ? ['/founding', 'Join the founding list'] : S === 'B' ? ['/start', 'Get my roadmap'] : ['/start', 'Start free'];
+  // One way in (Homepage clarity review), labeled by state as conversion/pages/homepage.md does:
+  // A joins the founding list, B gets the roadmap, C starts free.
+  var cta = S === 'A' ? ['/founding', 'Join the founding list'] : S === 'B' ? ['/start', 'Get my roadmap'] : ['/start', 'Start free'];
   // The B "3-line version" (sections 10 and 12), word for word.
   var bLines = [
     'Builder is ' + PM + ' for founding members, locked for as long as you stay.',
@@ -24,9 +24,6 @@
     '14 days to change your mind. No Black Friday sale.'
   ];
   // O23: no still-watch (reads as luxury) or eli-plane (travel next to money messaging).
-  var wallA = ['eli-stage-full', 'desk-overhead', 'eli-popup-01', 'still-timer', 'eli-hotel-corner', 'eli-gym-portrait'];
-  var wallB = ['eli-headphones', 'eli-award-night', 'hotel-desk', 'eli-popup-02', 'bible-open', 'eli-stockroom-square'];
-  var wallC = ['eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'desk-flatlay', 'still-timer', 'eli-headphones'];
   var reel = ['eli-stage-full', 'eli-popup-01', 'desk-overhead', 'eli-stockroom-square', 'eli-award-night', 'eli-hotel-corner', 'eli-gym-portrait', 'eli-popup-02', 'still-timer', 'hotel-desk', 'eli-headphones'];
   // Ticker: Eli's credentials as he set them (Oct 16), worded per Legal L49 (legal/handoffs/eli-credentials.md).
   // The valuation is a money figure, so the static earnings line sits under the ticker (compliance-review C13).
@@ -39,36 +36,49 @@
     '100K+ followers built',
     'Fintech category winner at Best of the Midwest (Iowa Startup Week)'
   ];
+  // What day 30 looks like: one demo member's outputs, labeled as a sample (voice section 7: never invent results).
+  // Jordan edits videos for local gyms (voice section 15's local-service example).
+  var made = [
+    { week: 1, plan: 'Free', title: 'A tested idea.', tool: 'The Idea Test' },
+    { week: 2, plan: 'Free', title: 'Proof from real people.', tool: 'Validation Interview Scripts' },
+    { week: 3, plan: 'Builder', title: 'A price and a first offer.', tool: 'The One-Page Offer' },
+    { week: 4, plan: 'Builder', title: 'A launch date.', tool: 'Launch Checklist Generator' }
+  ];
+  // The AI tools (lib/ai.js TOOLS), each with the finished thing it hands back.
+  var outputs = {
+    'ask': 'One next action, every time',
+    'offer-validator': 'A scored idea before you spend a dollar',
+    'interview-synthesizer': 'The patterns, your buyers\' exact words and a straight verdict',
+    'offer-stack': 'A one-page offer: the promise, what\'s included, the price',
+    'hook-writer': '10 first lines for your next post, and the 2 to test first',
+    'content-planner': 'A week of posts built around your offer',
+    'outreach-writer': 'A first message, 2 follow-ups and your replies',
+    'sales-call-prep': 'The questions, the price line and honest answers to objections',
+    'launch-planner': 'A dated, day-by-day launch plan',
+    'campaign-planner': 'A small, capped campaign with a stop rule',
+    'workflow-recommender': 'What to automate or hand off first'
+  };
+  var order = ['ask', 'offer-validator', 'interview-synthesizer', 'offer-stack', 'hook-writer', 'content-planner', 'outreach-writer', 'sales-call-prep', 'launch-planner', 'campaign-planner', 'workflow-recommender'];
+  var toolList = order.map(function (s) { return tools.filter(function (t) { return t.slug === s; })[0]; }).filter(Boolean);
+  var hqOn = process.env.HQ_LIVE === 'true'; // HQ goes on the homepage only when it's live for every member.
 -%>
 <%- include('partials/head', { hbState: st === 'C' ? null : st }) %>
-<main class="v4" data-state="<%= st %>">
+<main class="v5" data-state="<%= st %>">
 
-  <!-- HERO: kinetic headline, 3D chrome 127, drifting wall of Eli's photos -->
-  <section class="hx">
-    <div class="hx-wall" aria-hidden="true">
-      <% [wallA, wallB, wallC].forEach(function (col, ci) { %>
-      <div class="hx-col c<%= ci %>"><div class="hx-track">
-        <% col.concat(col).forEach(function (n) { %><img src="/img/wall/<%= n %>.jpg" alt="" width="480" height="600" <%= ci ? 'loading="lazy"' : '' %>><% }) %>
-      </div></div>
-      <% }) %>
-    </div>
-    <%# The live 3D mark on desktop; phones, reduced motion and low-power devices get the pre-rendered loop (or its poster) instead. %>
+  <!-- HERO: the bio's promise, one button, the 3D 127 under a halo -->
+  <section class="h5">
+    <%# The halo ring sits behind the mark. The live 3D mark runs on desktop; phones, reduced motion and low-power devices get the pre-rendered loop (or its poster) instead. %>
     <div class="hx-mark" aria-hidden="true">
-      <canvas id="hero3d"></canvas>
+      <div class="h5-halo"></div>
+      <canvas id="hero3d" data-fit="1.08"></canvas>
       <picture><source media="(max-width: 760px)" srcset="/img/hero-loop-mobile-poster.jpg" width="1080" height="1350"><img class="hx-poster" src="/img/hero-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async"></picture>
     </div>
-    <div class="wrap hx-copy">
-      <h1 class="kin"><span class="dim"><span>Make</span> <span>today</span></span><br><span><span>day</span> <span>one.</span></span></h1>
-      <% if (S === 'A') { %>
-      <p class="hx-value">Your first business can cost $0. 127 gives you a roadmap built from your answers, the playbooks and tools to work each step, and Eli's Playbook when you get stuck. <%= doorsLine %></p>
-      <% } else { %>
-      <p class="hx-value">Your first business can cost $0. Answer 13 questions in 3 minutes and get a roadmap built from your answers, with the playbooks and tools to work each step.</p>
-      <% } %>
-      <div class="hx-ctas">
-        <a href="<%= hero.p[0] %>" class="btn light big"<%- tk('home_hero_primary') %>><%= hero.p[1] %> <span class="arrow"></span></a>
-        <a href="<%= hero.s[0] %>" class="btn ghost big"<%- tk('home_hero_secondary') %>><%= hero.s[1] %></a>
-      </div>
-      <div class="hx-note">$0 to start. The free plan is free. No card.</div>
+    <div class="wrap h5-copy">
+      <p class="lbl">Make today day one</p>
+      <h1 class="h5-title"><span class="dim"><span>Your</span> <span>business</span> <span>idea,</span></span> <span class="st"><span>launched</span> <span>with</span> <span>AI.</span></span></h1>
+      <p class="h5-sub">30 days to a tested idea, a price, a first offer and a launch date, with AI at every step.</p>
+      <a href="<%= cta[0] %>" class="btn light big h5-btn"<%- tk('home_hero_primary') %>><%= cta[1] %> <span class="arrow"></span></a>
+      <p class="h5-note"><% if (S === 'A') { %><%= doorsLine %> No card to join.<% } else { %>No card. Under 5 minutes to start.<% } %><br>Built by Eli Christiansen, 4x founder.</p>
     </div>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
@@ -83,92 +93,152 @@
       <p class="lit">You have 5 ideas and 0 customers.</p>
       <p class="lit">You bought the program. You never finished it.</p>
       <p class="lit">You're waiting until you feel ready.</p>
-      <p class="lit punch">Ready is a decision.<br><span>127 gives you the plan to back it up.</span></p>
+      <p class="lit punch">Ready is a decision.<br><span>Make it today.</span></p>
     </div>
   </section>
 
-  <!-- HOW IT WORKS: sticky 3D device, real screens -->
-  <section class="story-wrap" id="how">
-    <div class="wrap story-grid">
-      <div class="story-steps">
-        <div class="story-intro" data-reveal>
-          <h2 class="h2">Your first 30 days, mapped.</h2>
-          <p class="sub">No theory. A plan built from your answers, and everything you need to finish it.</p>
-        </div>
-        <div class="story-step on">
-          <span class="num">01</span>
-          <h3>Tell us where you are.</h3>
-          <p>13 questions on your stage, goal, hours and budget. 3 minutes, no account.</p>
-          <img class="story-inline" src="/img/shot-question.jpg" alt="" loading="lazy">
-        </div>
-        <div class="story-step">
-          <span class="num">02</span>
-          <h3>Get your roadmap.</h3>
-          <p>2 to 3 steps a week for 4 weeks, each linked to the playbook or tool that gets it done. Weeks 1 and 2 are free.</p>
-          <img class="story-inline" src="/img/shot-roadmap.jpg" alt="" loading="lazy">
-        </div>
-        <div class="story-step" id="library">
-          <span class="num">03</span>
-          <h3>Do the work, not the reading.</h3>
-          <p><span class="cu" data-to="<%= rc %>"><%= rc %></span> playbooks, worksheets and tools. Each one ends with something you made: a scored idea, a script, a price, a launch calendar.</p>
-          <img class="story-inline" src="/img/shot-playbook.jpg" alt="" loading="lazy">
-        </div>
-        <div class="story-step">
-          <span class="num">04</span>
-          <h3>Get unstuck with Eli's Playbook.</h3>
-          <p>It's built on Eli's methods and works from your assessment and your roadmap, so its answers fit where you are this week.</p>
-          <img class="story-inline" src="/img/shot-chat.jpg" alt="" loading="lazy">
-        </div>
-      </div>
-      <div class="story-stage" aria-hidden="true">
-        <div class="device">
-          <img class="story-screen on" src="/img/shot-question.jpg" alt="" loading="lazy">
-          <img class="story-screen" src="/img/shot-roadmap.jpg" alt="" loading="lazy">
-          <img class="story-screen" src="/img/shot-playbook.jpg" alt="" loading="lazy">
-          <img class="story-screen" src="/img/shot-chat.jpg" alt="" loading="lazy">
-        </div>
-        <div class="device-glow"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCT WALKTHROUGH: Video's film of the real app (demo member, no prices, no Eli figures). Nothing loads until tapped. -->
-  <section class="walk-sec">
+  <!-- DAY 30: the end result, as the real things a member makes (a labeled sample) -->
+  <section class="o5" id="how">
     <div class="wrap">
-      <h2 class="h2" data-reveal>See it in a minute.</h2>
-      <p class="sub" data-reveal>The real product: the assessment, your roadmap, a playbook worksheet and Eli's Playbook.</p>
-      <div class="video-frame walk-frame" data-reveal data-src-wide="/video/walkthrough-16x9.mp4" data-src-tall="/video/walkthrough-9x16.mp4">
-        <picture><source media="(max-width: 760px)" srcset="/img/walkthrough-9x16.jpg" width="720" height="1280"><img src="/img/walkthrough-16x9.jpg" alt="The 127 member dashboard: Do step one today." width="1280" height="720" loading="lazy" decoding="async"></picture>
-        <button class="video-play" type="button" aria-label="Play the product walkthrough" data-track="Walkthrough Play"><span></span></button>
+      <div class="o5-head">
+        <p class="lbl" data-reveal>Your first 30 days</p>
+        <h2 class="h2" data-reveal><span class="dim">You don't finish with notes.</span> You finish with these.</h2>
+        <p class="sub" data-reveal>Every step ends with something you made. Here's a sample roadmap: Jordan, who edits videos for local gyms.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- WHAT STOPS YOU, AND WHAT'S IN 127 FOR IT (section 6.2) -->
-  <section class="stops">
-    <div class="wrap">
-      <h2 class="h2" data-reveal>What stops first-time founders.</h2>
-      <div class="stops-list" role="table" aria-label="What stops first-time founders, and what's in 127 for it">
-        <div class="stops-row stops-head" role="row"><span role="columnheader">What stops you</span><span role="columnheader">What's in 127</span><span role="columnheader">Plan</span></div>
-        <% [
-          ['"I don\'t have money."', '$0 to start. The first moves, picking one idea and talking to people who have the problem, cost nothing.', 'Free'],
-          ['"I don\'t know what to start."', 'The assessment and a roadmap built for your stage, on your track: Start, Build or Grow.', 'Free: weeks 1 and 2. Builder: all 4.'],
-          ['"I don\'t know if my idea is any good."', 'The Idea Test and the Validation Interview Scripts. Builder adds the Business Model Worksheet.', 'Free and Builder'],
-          ['"I don\'t know what to say or what to charge."', 'The One-Page Offer, the Pricing Worksheet, the Outreach Scripts.', 'Builder'],
-          ['"Nobody knows I exist."', 'The 30-Day Content Calendar. Builder adds the Hook & Caption Bank, Brand Basics in an Afternoon and the Landing Page Brief.', 'Free and Builder'],
-          ['"I can\'t tell if it\'s working."', 'The Founder KPI Dashboard and the Weekly CEO Review.', 'Builder'],
-          ['"I get stuck and have no one to ask."', "Eli's Playbook, built on Eli's methods. It knows your roadmap. Builder adds every AI tool and feedback on your worksheet answers.", 'Free and Builder']
-        ].forEach(function (r) { %>
-        <div class="stops-row" role="row" data-reveal>
-          <span class="stops-q" role="cell"><%= r[0] %></span>
-          <span class="stops-a" role="cell"><%= r[1] %></span>
-          <span class="stops-p" role="cell"><% r[2].split(/(?<=\.) /).forEach(function (t) { %><span class="plan-tag <%= /^Free/.test(t) && !/Builder/.test(t) ? 'is-free' : /^Builder/.test(t) ? 'is-builder' : 'is-both' %>"><%= t %></span><% }) %></span>
-        </div>
+      <div class="o5-grid" data-o5-scroll>
+        <% made.forEach(function (m, i) { %>
+        <article class="o5-card" data-reveal>
+          <div class="o5-top"><span>Week <%= m.week %></span><span class="o5-plan<%= m.plan === 'Free' ? ' is-free' : '' %>"><%= m.plan %></span></div>
+          <h3><%= m.title %></h3>
+          <div class="o5-art">
+            <% if (i === 0) { %>
+            <div class="art-row"><b>Video editing for local gyms</b><span class="art-score">72<small>/100</small></span></div>
+            <div class="art-verdict">Promising</div>
+            <% [['Will they pay', 8], ['Numbers and channel', 7], ['Edge', 6], ['Market direction', 8], ['Inside knowledge', 7]].forEach(function (c) { %>
+            <div class="art-bar"><span><%= c[0] %></span><i style="--v:<%= c[1] * 10 %>%"></i><em><%= c[1] %></em></div>
+            <% }) %>
+            <% } else if (i === 1) { %>
+            <div class="art-k">Screener</div>
+            <p class="art-q">1. When was the last time you posted a video for the gym?</p>
+            <p class="art-q">2. What did you do about it?</p>
+            <div class="art-k">Conversations</div>
+            <div class="art-tally"><% for (var n = 0; n < 10; n++) { %><i class="<%= n < 6 ? 'on' : '' %>"></i><% } %><em>6 of 10</em></div>
+            <% } else if (i === 2) { %>
+            <div class="art-k">The promise</div>
+            <p class="art-q">4 short videos a month for your gym, edited and ready to post.</p>
+            <div class="art-k">What's included</div>
+            <p class="art-q">Filming plan · Edits · Captions · 1 revision</p>
+            <div class="art-row art-price"><span>Pilot price</span><b>$150 for the first month</b></div>
+            <% } else { %>
+            <% [['Mon', 'Post the before and after'], ['Tue', 'Message 10 gym owners'], ['Wed', 'Send 2 follow-ups'], ['Thu', 'Prep the sales call'], ['Fri', 'Launch']].forEach(function (d, k) { %>
+            <div class="art-day<%= k === 4 ? ' is-launch' : '' %>"><span><%= d[0] %></span><b><%= d[1] %></b></div>
+            <% }) %>
+            <% } %>
+          </div>
+          <div class="o5-foot"><span><%= m.tool %></span><span>Sample</span></div>
+        </article>
         <% }) %>
       </div>
-      <p class="stops-line">Every playbook, every AI tool, all 4 weeks of your roadmap.</p>
+      <div class="o5-end" data-reveal>
+        <p>Weeks 1 and 2 are free. Weeks 3 and 4 come with Builder.</p>
+        <a href="<%= cta[0] %>" class="btn ink big"<%- tk('home_weeks_cta') %>><%= cta[1] %> <span class="arrow"></span></a>
+      </div>
     </div>
   </section>
+
+  <!-- HOW IT WORKS: four moves next to the real product (Video's walkthrough, demo member) -->
+  <section class="w5">
+    <div class="wrap w5-grid">
+      <div class="w5-copy">
+        <p class="lbl" data-reveal>How it works</p>
+        <h2 class="h2" data-reveal>3 minutes to start.<br><span class="dim">Then one step at a time.</span></h2>
+        <ol class="w5-steps">
+          <li data-reveal><span class="n">01</span><div><h3>Tell us where you are.</h3><p>13 questions on your stage, goal, hours and budget. About 3 minutes, no account.</p></div></li>
+          <li data-reveal><span class="n">02</span><div><h3>Get your 30-day roadmap.</h3><p>2 to 3 steps a week, built for your stage, on the Start, Build or Grow track.</p></div></li>
+          <li data-reveal><span class="n">03</span><div><h3>Do each step with AI.</h3><p>Every step opens the playbook or AI tool that gets it done.</p></div></li>
+          <li data-reveal><span class="n">04</span><div><h3>Get unstuck with Eli's Playbook.</h3><p>It's built on Eli's methods and works from your roadmap, so its answers fit where you are this week.</p></div></li>
+        </ol>
+      </div>
+      <figure class="w5-film" data-reveal>
+        <div class="w5-glow" aria-hidden="true"></div>
+        <video class="lazy-loop" muted loop playsinline preload="none" poster="/img/walkthrough-9x16.jpg" data-src="/video/walkthrough-9x16-app.mp4" width="720" height="1280" aria-label="The 127 app on a phone: the assessment, a roadmap, the Idea Test and Eli's Playbook"></video>
+        <figcaption>The real app. Demo member.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- THE AI TOOLS: what each one hands back -->
+  <section class="t5" id="library">
+    <img class="t5-art" src="/img/v2/glass-7.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1200" height="1500">
+    <div class="wrap">
+      <div class="t5-head">
+        <p class="lbl" data-reveal>AI tools</p>
+        <h2 class="h2" data-reveal>Tools that hand you<br><span class="dim">the finished thing.</span></h2>
+        <p class="sub" data-reveal>Each one works from your roadmap and ends with something you can use today.</p>
+      </div>
+      <ul class="t5-grid">
+        <% toolList.forEach(function (t) { %>
+        <li class="t5-tool" data-reveal>
+          <div class="t5-name"><b><%= t.name %></b><span class="o5-plan<%= t.tier === 'free' ? ' is-free' : '' %>"><%= t.tier === 'free' ? 'Free' : 'Builder' %></span></div>
+          <p><span aria-hidden="true">→</span> <%= outputs[t.slug] %></p>
+        </li>
+        <% }) %>
+        <li class="t5-tool is-lib" data-reveal>
+          <div class="t5-name"><b>The Library</b></div>
+          <p><span aria-hidden="true">→</span> <%= rc %> playbooks, worksheets and templates. <%= rFree %> are free.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- WHAT $0 GETS YOU: the free plan, itemized like a receipt. Real items only, no made-up "values". -->
+  <section class="r5">
+    <div class="wrap r5-grid">
+      <div class="r5-copy">
+        <p class="lbl" data-reveal>The free plan</p>
+        <h2 class="h2" data-reveal>Here's what $0 gets you.</h2>
+        <p class="sub" data-reveal><% if (S === 'A') { %>All of it is free when doors open<%= L.launchAbbr ? ' ' + L.launchAbbr : '' %>. Join the founding list and we'll tell you when they do.<% } else { %>No card and no trial clock. Keep it as long as you like, and upgrade when Builder is worth it to you.<% } %></p>
+        <a href="<%= cta[0] %>" class="btn light big"<%- tk('home_receipt_cta') %>><%= cta[1] %> <span class="arrow"></span></a>
+      </div>
+      <div class="r5-wrap" data-reveal>
+        <figure class="r5-paper" aria-label="The free plan, itemized">
+          <div class="r5-head"><div><b>127</b><span>Free plan</span></div><span class="r5-stamp" aria-hidden="true">Day 001</span></div>
+          <ul>
+            <li><span>1</span><b>Assessment, 13 questions</b><em>$0</em></li>
+            <li><span>1</span><b>30-day roadmap, built from your answers</b><em>$0</em></li>
+            <li><span>2</span><b>Weeks of steps, with their playbooks</b><em>$0</em></li>
+            <li><span>1</span><b>The Idea Test</b><em>$0</em></li>
+            <li><span>1</span><b>Validation Interview Scripts</b><em>$0</em></li>
+            <li><span>1</span><b>30-Day Content Calendar</b><em>$0</em></li>
+            <li><span>1</span><b>Idea &amp; Offer Validator, with AI</b><em>$0</em></li>
+            <li><span><%= PLANS.free.aiRunsPerMonth %></span><b>Eli's Playbook messages a month</b><em>$0</em></li>
+            <li><span>1</span><b>Progress, milestones and the wins board</b><em>$0</em></li>
+          </ul>
+          <div class="r5-total"><span>Total</span><b>$0.00</b></div>
+          <p class="r5-foot">No card · Nothing to cancel</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <% if (hqOn) { %>
+  <!-- 127 HQ: shown once HQ is live for every member (HQ_LIVE=true) -->
+  <section class="q5">
+    <div class="wrap q5-grid">
+      <div>
+        <p class="lbl" data-reveal>127 HQ</p>
+        <h2 class="h2" data-reveal>Then run it<br><span class="dim">from one screen.</span></h2>
+        <p class="sub" data-reveal>Your numbers in one place, filled in from Stripe and Shopify. HQ finds the leak and gives you one call for the week.</p>
+      </div>
+      <ul class="q5-list">
+        <li data-reveal><b>Your North Number</b><span>The one number for this month, with a 12-week line.</span></li>
+        <li data-reveal><b>The leak and the call</b><span>Your weakest step, then double down, pause or kill.</span></li>
+        <li data-reveal><b>Numbers that fill themselves</b><span>Sales and revenue from Stripe and Shopify, plus your 127 link for anything else.</span></li>
+        <li data-reveal><b>Read my week</b><span>Eli's Playbook reads 12 weeks and names one test to run.</span></li>
+      </ul>
+    </div>
+  </section>
+  <% } %>
 
   <!-- PHOTO REEL -->
   <section class="reel" aria-label="Photos of Eli building">
@@ -220,25 +290,6 @@
     </div>
   </section>
 
-  <!-- THE FIRST 4 WEEKS: process, not results (section 8) -->
-  <section class="days">
-    <div class="wrap">
-      <h2 class="h2" data-reveal>What your first 4 weeks look like.</h2>
-      <div class="days-row">
-        <% [
-          ['Pick one idea, on purpose.', 'Score it with the Idea Test. Picked on purpose, not on mood.', 'Free'],
-          ['Talk to people who have the problem.', 'Scripts that make the first conversation easy, so you hear it in their words.', 'Free'],
-          ['Shape an offer and a price.', 'The One-Page Offer and the Pricing Worksheet.', 'Builder'],
-          ['Put it in front of people.', 'A content calendar, outreach scripts and a scorecard so you keep going after day 30.', 'Builder']
-        ].forEach(function (w, i) { %>
-        <div class="day" data-reveal><div class="day-top"><span>Week <%= i + 1 %></span><span class="plan-tag <%= w[2] === 'Free' ? 'is-free' : 'is-builder' %>"><%= w[2] %></span></div><h3><%= w[0] %></h3><p><%= w[1] %></p></div>
-        <% }) %>
-      </div>
-      <p class="days-note">That's the Start track. If you're already selling, your roadmap picks the Build or Grow track instead.</p>
-      <div class="days-cta" data-reveal><a href="<%= weeksCta[0] %>" class="btn light big"<%- tk('home_weeks_cta') %>><%= weeksCta[1] %> <span class="arrow"></span></a></div>
-    </div>
-  </section>
-
   <!-- THESIS (section 9) -->
   <div class="verse-block">
     <div class="wrap">
@@ -249,14 +300,13 @@
   </div>
 
   <!-- PRICING TEASER (section 10) -->
-  <section id="membership">
+  <section id="membership" class="p5">
     <div class="wrap">
       <div class="section-head center">
         <h2>Start free. Upgrade when it's earned it.</h2>
         <p>Every plan includes your roadmap, built from your answers.</p>
       </div>
       <%- include('partials/plans', { plansEvent: 'home_pricing_cta', plansState: st }) %>
-      <p class="price-count"><%= rc %> playbooks, worksheets and tools. About <%= aiB %> AI messages a month. All 4 weeks.</p>
       <% if (S === 'A') { %>
       <div class="price-state">
         <p><%= doorsLine %> Builder is <%= PM %> for the first <%= L.cap %> founding members, until <%= closesAt || 'the founding close' %>. The founding list gets you the reminders.</p>
@@ -301,11 +351,10 @@
           <div class="share-link"><code data-ref-link></code><button type="button" class="btn sm" data-ref-copy data-track="home_ref_copy">Copy link</button></div>
         </div>
       </div>
-      <a href="/score" class="cta-alt"<%- tk('home_final_secondary') %>>Take the 90-second Founder Score</a>
       <% } else if (S === 'B') { %>
       <p class="three-lines"><% bLines.forEach(function (l) { %><span><%= l %></span><% }) %></p>
       <div class="cta-row">
-        <a href="/start" class="btn light big"<%- tk('home_final_primary') %>>Get my roadmap <span class="arrow"></span></a>
+        <a href="/start" class="btn light big"<%- tk('home_final_primary') %>>Start free <span class="arrow"></span></a>
         <a href="/founding/lock" class="cta-alt"<%- tk('home_final_secondary') %>>Lock <%= PM %></a>
       </div>
       <p class="cta-under">$0 to start. No card.</p>
@@ -315,7 +364,6 @@
       <p>$0 to start. The free plan is free, and Builder is $29 a month when you want all 4 weeks.</p>
       <div class="cta-row">
         <a href="/start" class="btn light big"<%- tk('home_final_primary') %>>Start free <span class="arrow"></span></a>
-        <a href="/score" class="cta-alt"<%- tk('home_final_secondary') %>>Take the 90-second Founder Score</a>
       </div>
       <% } %>
     </div>
@@ -350,16 +398,17 @@ document.readyState === 'complete' ? idle() : addEventListener('load', idle, { o
 </script>
 <script>
 (function () {
-  // Below-the-fold photo backgrounds and the Finovate stage loop load only when they get near the screen.
+  // Below-the-fold photo backgrounds and the looping clips load only when they get near the screen,
+  // and the clips pause again when they leave it.
   var els = document.querySelectorAll('.verse-block, .cta-photo');
   var vids = document.querySelectorAll('video.lazy-loop');
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var save = navigator.connection && navigator.connection.saveData;
-  function startVid(v) { if (still || save || v.src) return; v.src = v.getAttribute('data-src'); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  function startVid(v) { if (still || save) return; if (!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
   if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); vids.forEach(startVid); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('bg-in'); io.unobserve(e.target); } }); }, { rootMargin: '800px 0px' });
   els.forEach(function (e) { io.observe(e); });
-  var vo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { startVid(e.target); vo.unobserve(e.target); } }); }, { rootMargin: '300px 0px' });
+  var vo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) startVid(e.target); else if (e.target.src) e.target.pause(); }); }, { rootMargin: '200px 0px' });
   vids.forEach(function (v) { vo.observe(v); });
 
   // FAQ opens (home_faq_open, prop q).
