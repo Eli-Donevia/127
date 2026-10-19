@@ -1050,6 +1050,7 @@ test('the next price: free case studies, then half, three quarters and full, per
   assert.equal(L.price, 'Free');
   assert.equal(L.left, 3);
   assert.match(L.script, /I'm taking on 3 gyms this month for free, as case studies/);
+  assert.doesNotMatch(L.script, /review/i, 'never a review in return for free work');
   for (const k of ['a', 'b', 'c', 'd']) {
     const l = await P.upsert(u.id, 'test', { key: k, name: k });
     await P.move(u.id, l.id, 'won');
@@ -1059,7 +1060,8 @@ test('the next price: free case studies, then half, three quarters and full, per
   assert.equal(L.price, '$250/mo');
   assert.equal(L.left, 2);
   assert.equal(L.then.price, '$375/mo');
-  assert.match(L.script, /\(\$250\/mo instead of \$500\/mo\)/);
+  assert.equal(L.script, "My first case studies are done, so I have 2 spots left at $250/mo before my price goes to $375/mo.");
+  assert.doesNotMatch(L.script, /usual|instead of/i, 'never a price nobody has paid yet');
   assert.deepEqual(L.steps.map((x) => x.price), ['Free', '$250/mo', '$375/mo', '$500/mo']);
   assert.doesNotMatch(JSON.stringify(L), /\$1,?000|\$2,?000/, 'never a total across clients');
 });
