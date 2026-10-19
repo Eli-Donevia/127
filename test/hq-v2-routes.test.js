@@ -659,7 +659,7 @@ test('Write it for me, an answer to a reply, call prep and a yes, each from the 
   assert.ok(file, 'the call prep page is in the Library');
   const md = (await harness.library.read(u.id, file.id)).buf.toString('utf8');
   assert.match(md, /## Ask/);
-  assert.match(md, /Done for you, monthly \(\$500\/mo\)/);
+  assert.match(md, /Every month, handled \(\$500\/mo\)/);
   page = await html(await s.go('/app/hq', { as: u }));
   assert.match(page, new RegExp(`href="/app/hq/runs/${prep.id}">Open your call prep`));
 

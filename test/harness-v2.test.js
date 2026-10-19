@@ -713,3 +713,19 @@ test('forgetting a member removes their runs, inbox, pipeline, files and credits
   assert.equal(await db.getBlob(file.id), null);
   assert.equal(db.filter('credits', (c) => c.memberId === user.id).length, 0);
 });
+
+test("harness check flags 127's own copy in a pack (titles, promises, inputs), never members' work", () => {
+  const fake = { check: (t) => (/guarantee|land \d+ clients/i.test(t) ? [{ severity: 'block', match: t.match(/guarantee|land \d+ clients/i)[0], why: 'no' }] : /in a minute/.test(t) ? [{ severity: 'hold', match: 'in a minute', why: 'held' }] : []) };
+  const pack = {
+    id: 'cc',
+    title: 'Copy pack',
+    summary: 'Find gyms and land 3 clients.',
+    tools: [{ name: 'cc.write', title: 'Write it' }],
+    workflows: [
+      { id: 'cc.flow', title: 'Get it done in a minute', promise: 'Money back guarantee.', steps: [{ id: 'ok', approve: { title: 'Pick 3' } }], inputs: obj({ city: { type: 'string', title: 'City', description: 'Where you land 2 clients' } }) },
+    ],
+  };
+  const found = packs.copyFindings(pack, fake);
+  assert.deepEqual(found.map((f) => f.split(':')[0]), ['pack summary', 'workflow cc.flow promise', 'workflow cc.flow input city']);
+  assert.deepEqual(packs.copyFindings(pack, null), [], 'no copy check installed: nothing to report');
+});
