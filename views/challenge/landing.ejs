@@ -42,10 +42,11 @@
   ];
   var wall = [
     ['eli-stage-full', 'morning-coffee', 'eli-popup-02', 'still-timer', 'eli-headphones', 'desk-overhead'],
-    ['eli-award-night', 'desk-flatlay', 'eli-stockroom-square', 'eli-plane', 'still-watch', 'eli-popup-01'],
+    // O23: no still-watch (reads as luxury) or eli-plane (travel next to money messaging).
+    ['eli-award-night', 'desk-flatlay', 'eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'eli-popup-01'],
     ['eli-stage-portrait', 'hotel-desk', 'eli-gym-portrait', 'bible-open', 'eli-hotel-corner', 'eli-headphones']
   ];
-  var reel = ['eli-popup-01', 'desk-overhead', 'eli-stage-full', 'still-timer', 'eli-stockroom-square', 'morning-coffee', 'eli-award-night', 'eli-plane', 'eli-popup-02', 'desk-flatlay', 'eli-headphones', 'eli-hotel-corner'];
+  var reel = ['eli-popup-01', 'desk-overhead', 'eli-stage-full', 'still-timer', 'eli-stockroom-square', 'morning-coffee', 'eli-award-night', 'eli-gym-portrait', 'eli-popup-02', 'desk-flatlay', 'eli-headphones', 'eli-hotel-corner'];
   // One word per span so the headline can stagger in.
   function words(text, start) {
     return text.split(' ').map(function (w, i) { return '<span style="--i:' + (start + i) + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>'; }).join(' ');

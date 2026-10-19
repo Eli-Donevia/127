@@ -11,7 +11,8 @@
   var moves = ['Pick one.', 'Find 10 people.', 'Have the conversation.', 'Write the offer.', 'Ask for a yes.'];
   var wall = [
     ['eli-stage-full', 'morning-coffee', 'eli-popup-02', 'still-timer', 'eli-headphones', 'desk-overhead'],
-    ['eli-award-night', 'desk-flatlay', 'eli-stockroom-square', 'eli-plane', 'still-watch', 'eli-popup-01'],
+    // O23: no still-watch (reads as luxury) or eli-plane (travel next to money messaging).
+    ['eli-award-night', 'desk-flatlay', 'eli-stockroom-square', 'morning-coffee', 'eli-stage-portrait', 'eli-popup-01'],
     ['eli-stage-portrait', 'hotel-desk', 'eli-gym-portrait', 'bible-open', 'eli-hotel-corner', 'eli-headphones']
   ];
   function words(text, start) {
@@ -32,19 +33,18 @@
       <% if (!after) { %>
       <p class="chl-label">The Day One Challenge</p>
       <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words("This week's challenge", 0) %></span><br><span><%- words('is underway.', 3) %></span></h1>
-      <p class="hx-value">Registration closed Friday at noon. 127 opens Tuesday, November 17 at 10am ET, and your 30-day roadmap starts with the same five moves.</p>
+      <p class="hx-value">Registration closed Friday at noon. 127 opens Tuesday, November 17 at 10am ET. If you're at the idea stage, your 30-day roadmap starts where the challenge did.</p>
       <p class="chl-over-live">Watch the debrief live on Monday, November 16 at 8pm ET on Instagram <span class="mono">@elichristiansen_</span>. It's public.</p>
       <div class="hx-ctas"><a href="/founding" class="btn light big">Join the founding list <span class="arrow"></span></a></div>
       <p class="chl-over-note"><%= price !== null ? 'Founding members get Builder at $' + price + '/month, locked for as long as they stay.' : 'Founding members get Builder at a lower price, locked for as long as they stay.' %> $29 after November 24.</p>
       <% } else { %>
-      <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words('The Day One Challenge is now', 0) %></span><br><span><%- words('week one of your roadmap.', 6) %></span></h1>
-      <p class="hx-value">Take the 3-minute assessment and start your free 30-day roadmap. The same five moves, plus 25 more days.</p>
+      <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words('The challenge is over.', 0) %></span><br><span><%- words('Your roadmap starts today.', 4) %></span></h1>
+      <p class="hx-value">Take the 3-minute assessment and get weeks 1 and 2 of your 30-day roadmap free. If you're at the idea stage, it starts where the challenge did.</p>
       <div class="hx-ctas"><a href="/start?ref=challenge" class="btn light big">Build my free roadmap <span class="arrow"></span></a></div>
       <% } %>
 
       <ol class="chl-moves<%= after ? ' plus' : '' %>">
         <% moves.forEach(function (m, i) { %><li><b>Day 0<%= i + 1 %></b><span><%= m %></span></li><% }) %>
-        <% if (after) { %><li class="more"><b>+25</b><span>more days</span></li><% } %>
       </ol>
     </div>
   </section>

@@ -145,7 +145,7 @@
   <section class="ch-block">
     <div class="wrap">
       <span class="lbl">If you're stuck</span>
-      <div class="ch-stuck"><% d.stuck.forEach(function (s) { %><details><summary>“<%= s.q %>”</summary><p><%- md(s.a) %></p></details><% }) %></div>
+      <div class="ch-stuck"><% d.stuck.forEach(function (s) { %><details><summary>“<%= s.q %>”</summary><p><%- md(s.a) %></p><% if (s.a_first25 && first25Real) { %><p><%- md(s.a_first25) %></p><% } %></details><% }) %></div>
     </div>
   </section>
 
