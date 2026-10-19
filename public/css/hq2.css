@@ -3,6 +3,7 @@
    lavender accent is 127 working for you, gold stays the Circle's. Phone first. */
 
 .h2 { max-width: 1120px; }
+.h2 [hidden] { display: none !important; } /* a card the search hides is display:flex otherwise */
 .h2 .eyebrow { color: var(--slate); }
 .h2 section:not(.hq-card) { padding: 0; }
 .h2 svg.i { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
@@ -115,6 +116,30 @@
 .h2-group { margin-top: 26px; }
 .h2-group:first-of-type { margin-top: 8px; }
 .h2-group > .h2-row { margin-bottom: 10px; }
+/* On a phone each job's workflows are one row to swipe, so Start stays a few screens long. */
+.h2-swipe { display: none; }
+@media (max-width: 639px) {
+  .h2-cards.rail { display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 0 16px 4px; scroll-padding-inline: 16px; scrollbar-width: none; }
+  .h2-cards.rail::-webkit-scrollbar { display: none; }
+  .h2-cards.rail > .h2-card { flex: 0 0 84%; scroll-snap-align: start; }
+  .h2-cards.rail > .h2-card:hover { transform: none; }
+  .h2-swipe { display: inline; align-self: flex-end; font-family: var(--mono); font-size: 12px; color: var(--slate); white-space: nowrap; }
+}
+
+/* business types on Start: one folded row each, its workflows inside */
+.h2-typelist { display: grid; gap: 8px; align-items: start; }
+@media (min-width: 1001px) { .h2-typelist { grid-template-columns: repeat(2, minmax(0, 1fr)); } .h2-type[open] { grid-column: 1 / -1; } }
+.h2-type { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); min-width: 0; }
+.h2-type > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.h2-type > summary::-webkit-details-marker { display: none; }
+.h2-type > summary::after { content: '+'; flex: none; width: 16px; text-align: center; color: var(--accent); font-size: 18px; line-height: 1; }
+.h2-type[open] > summary::after { content: '\2212'; }
+.h2-type > summary .t { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.h2-type > summary b { font-size: 16px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
+.h2-type > summary .t span { color: var(--ink-2); font-size: 14px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.h2-type[open] > summary .t span { display: block; }
+.h2-type-body { padding: 0 16px 16px; display: grid; gap: 12px; justify-items: start; }
+.h2-type-body .h2-cards { width: 100%; }
 
 /* workflow page */
 .h2-value { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }

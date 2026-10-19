@@ -1,22 +1,30 @@
 <%- include('../../partials/app-head') %>
-<%# HQ v2 Start: every workflow, grouped by the job it does, the member's bottleneck first. %>
+<%# HQ v2 Start: the member's business first, then every tool grouped by the job it does (their bottleneck first; on a phone each job is one row to swipe), then the other business types folded (harness.start). %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <div class="hq-head" style="margin-bottom:8px">
     <div>
       <span class="eyebrow">Start</span>
       <h1 class="hq-title"><span class="dim">Pick a job.</span><span class="steel">127 does it.</span></h1>
-      <p class="hq-lede">Each one runs in the background and stops for your OK before anything goes out. Your bottleneck right now is <b><%= bottleneck.title.toLowerCase() %></b>, so those come first.</p>
+      <p class="hq-lede">Each one runs in the background and stops for your OK before anything goes out. <% if (mine) { %>Your business comes first, then your bottleneck right now: <b><%= bottleneck.title.toLowerCase() %></b>.<% } else { %>Your bottleneck right now is <b><%= bottleneck.title.toLowerCase() %></b>, so those come first.<% } %></p>
     </div>
   </div>
   <input class="h2-search" type="search" id="wf-search" placeholder="Search workflows" aria-label="Search workflows" value="<%= q %>">
+  <% if (mine) { %>
+  <section class="h2-group" id="mine" aria-labelledby="g-mine">
+    <div class="h2-row"><div><span class="eyebrow">Your business</span><h2 class="h2-h" id="g-mine"><%= mine.title %></h2><p class="h2-sub" style="margin-top:2px"><%= mine.summary %><% if (types.length) { %> <a class="link" href="#types">Not yours? Pick another.</a><% } %></p></div></div>
+    <div class="h2-cards three"><% mine.items.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: bottleneck.job }) %><% }) %></div>
+  </section>
+  <% } %>
+  <% if (pickFirst) { %><%- include('../../partials/hq2-types', { types: types, heading: 'Pick a business', blurb: 'Each one comes with its own workflows, from your first 25 to the offer, prices and scripts. Open one to see them, then make it yours.' }) %><% } %>
   <% var order = groups.slice().sort(function (a, b) { return (b.id === bottleneck.job) - (a.id === bottleneck.job); }); %>
   <% order.forEach(function (g) { %>
   <section class="h2-group" id="<%= g.id %>" aria-labelledby="g-<%= g.id %>">
-    <div class="h2-row"><div><h2 class="h2-h" id="g-<%= g.id %>"><%= g.title %><% if (g.id === bottleneck.job) { %> <span class="h2-tag dfy" style="vertical-align:middle">Your bottleneck</span><% } %></h2><p class="h2-sub" style="margin-top:2px"><%= g.blurb %></p></div></div>
-    <div class="h2-cards three"><% g.items.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: bottleneck.job }) %><% }) %></div>
+    <div class="h2-row"><div><h2 class="h2-h" id="g-<%= g.id %>"><%= g.title %><% if (g.id === bottleneck.job) { %> <span class="h2-tag dfy" style="vertical-align:middle">Your bottleneck</span><% } %></h2><p class="h2-sub" style="margin-top:2px"><%= g.blurb %></p></div><% if (g.items.length > 1) { %><span class="h2-swipe" aria-hidden="true"><%= g.items.length %> &rarr;</span><% } %></div>
+    <div class="h2-cards three rail"><% g.items.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: bottleneck.job }) %><% }) %></div>
   </section>
   <% }) %>
+  <% if (!pickFirst && types.length) { %><%- include('../../partials/hq2-types', { types: types, heading: mine ? 'Start a different business' : 'Start a business', blurb: 'Each one comes with its own workflows, from your first 25 to the offer, prices and scripts. Open one to see them.' }) %><% } %>
   <p class="h2-empty" id="wf-none" hidden>Nothing matches. Try fewer words, or tell 127 what you want done above.</p>
 </div>
 <script src="/js/hq2.js" defer></script>

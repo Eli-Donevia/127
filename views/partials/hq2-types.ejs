@@ -1,0 +1,15 @@
+<%# Business types on Start (harness.start().types), each folded with its workflows inside so the search still finds them. Locals: types, heading, blurb. %>
+<section class="h2-group" id="types" aria-labelledby="g-types">
+  <div class="h2-row"><div><h2 class="h2-h" id="g-types"><%= heading %></h2><p class="h2-sub" style="margin-top:2px"><%= blurb %></p></div></div>
+  <div class="h2-typelist">
+    <% types.forEach(function (t) { %>
+    <details class="h2-type" id="type-<%= t.id %>">
+      <summary><span class="t"><b><%= t.title %></b><span><%= t.summary %></span></span><span class="h2-tag"><%= t.count %> workflow<%= t.count === 1 ? '' : 's' %></span></summary>
+      <div class="h2-type-body">
+        <form method="post" action="/app/hq/start/business"><input type="hidden" name="pack" value="<%= t.id %>"><button class="btn sm">Make this my business</button></form>
+        <div class="h2-cards three"><% t.items.forEach(function (w) { %><%- include('hq2-card', { w: w, fitJob: null }) %><% }) %></div>
+      </div>
+    </details>
+    <% }) %>
+  </div>
+</section>

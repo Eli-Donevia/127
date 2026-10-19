@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.3)
+# How a workflow plugs into the 127 harness (contract v1.4)
 
-Owner: Harness v2 thread. Version 1.3, 2026-10-19 (v1 to v1.2 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.4, 2026-10-19 (v1 to v1.3 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -9,6 +9,11 @@ The idea in one line: a **pack** is one folder of plain Node code that gives the
 Code: CommonJS, Node 20, no new npm packages without telling the Harness thread (system tools like `ffmpeg` are declared, see 7).
 
 ## 0. What changed since v1
+
+**In v1.4** (one line in a pack for one kind of business):
+
+- **`business: true`** on a pack that is a business a member starts (house cleaning, UGC, video editing for gyms); leave it out, or say `false`, for tools any business uses (offers, ads). Start opens on the member's own business, the one they picked or their words fit, with its workflows in your order, then the tools by job, then every other business folded. Another business's workflows also go last on Today and in the Ask bar's list, though the bar still finds them by name. `harness check` notes a pack with niches that doesn't say (section 2).
+- **`job`** is still optional. Left out, it's the job your workflow's id and title name most (its promise counts less), so "Your first 25" lands in Get leads; set it when you want another group (section 4).
 
 **In v1.3** (nothing to change in a pack):
 
@@ -59,6 +64,7 @@ module.exports = {
   version: '0.1.0',
   summary: 'Find gyms, show them what better video looks like, and write the messages to send them.',
   niches: ['video editing', 'gyms', 'fitness', 'local business'],  // matched against the member's business on Start
+  business: true,                             // v1.4: a business a member starts; leave out (or false) for tools any business uses
   system: ['ffmpeg'],                         // optional, informational: what the server must have installed
   tools: [require('./tools/find-gyms'), /* ... */],
   workflows: [/* section 4 */],
@@ -114,7 +120,7 @@ Rules:
   proof: 'A ranked list of 25 gyms, 3 spec videos and every message written', // optional: "You get" on the workflow page
   minutes: 20,                      // honest member time, not machine time
   tier: 'builder',                  // 'free' | 'builder' | 'circle'
-  job: 'leads',                     // optional: offer, leads, content, sales, ads, site, money or ops (guessed from the words if left out). Start groups by job and puts the member's bottleneck first.
+  job: 'leads',                     // optional: offer, leads, content, sales, ads, site, money or ops (guessed from the words if left out: the id and title count most). Start groups tools by job and puts the member's bottleneck first; a business pack's workflows stay together in your order.
   starter: true,                    // optional: a good first workflow for a new member of this niche
   hidden: false,                    // optional: true for workflows HQ starts itself (section 4c)
   inputs: { type: 'object', properties: { city: { type: 'string', title: 'Your city' } }, required: ['city'] },

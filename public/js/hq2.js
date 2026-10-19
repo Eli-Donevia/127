@@ -543,6 +543,20 @@
           c.hidden = !ok;
           if (ok) shown++;
         });
+        // A folded business type opens while the search finds something in it, and folds back after.
+        $$('.h2-type', g).forEach(function (d) {
+          var hits = $$('.h2-card', d).filter(function (c) { return !c.hidden; }).length;
+          d.hidden = !hits;
+          if (words.length) {
+            if (!d.hasAttribute('data-open')) d.setAttribute('data-open', d.open ? '1' : '');
+            d.open = hits > 0;
+          } else if (d.hasAttribute('data-open')) {
+            d.open = d.getAttribute('data-open') === '1';
+            d.removeAttribute('data-open');
+          }
+        });
+        var swipe = $('.h2-swipe', g);
+        if (swipe) { swipe.textContent = shown + ' \u2192'; swipe.hidden = shown < 2; }
         g.hidden = !shown;
         if (shown) any = true;
       });

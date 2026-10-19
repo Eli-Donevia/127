@@ -279,6 +279,20 @@ test('the contract refuses a broken pack and says why', () => {
   const r = packs.register(bad);
   assert.deepEqual(r.loaded, []);
   assert.equal(packs.pack('bad'), null);
+  assert.deepEqual(packs.checkPack({ id: 'biz', title: 'Biz', version: '1', business: 'yes', tools: [] }, () => null), ['business must be true or false']);
+  assert.deepEqual(packs.checkPack({ id: 'biz', title: 'Biz', version: '1', business: true, tools: [] }, () => null), []);
+});
+
+test("a workflow without a job gets the one its id and title name most, over its promise's words", () => {
+  const { jobOf } = harness.jobs;
+  const wf = (id, title, promise, job) => ({ id, title, promise, job });
+  assert.equal(jobOf(wf('leads.first_25', 'Your first 25', 'Local businesses whose website is missing or broken, ranked, with the message for each.')), 'leads');
+  assert.equal(jobOf(wf('shop.first_25', 'Your first 25 stores to pitch', 'Small Shopify stores with a weak product page.')), 'leads');
+  assert.equal(jobOf(wf('offer.builder', 'Offer builder', 'One page with the promise, the price and a website-ready block.')), 'offer');
+  assert.equal(jobOf(wf('shop.audit_store', 'Audit a Shopify store', 'Reads its public pages and lists the fixes.')), 'site');
+  assert.equal(jobOf(wf('brand.social_profiles', 'Set up your social profiles', 'Bios, names and links for each.')), 'content');
+  assert.equal(jobOf(wf('x.any', 'Your first 25', 'Whatever.', 'money')), 'money', 'a job the pack sets wins');
+  assert.equal(jobOf(wf('x.plain', 'Tidy up', 'Nothing it names.')), 'ops');
 });
 
 test('the playbooks pack loads every AI tool as a workflow', () => {

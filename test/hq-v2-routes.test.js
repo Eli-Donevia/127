@@ -807,6 +807,80 @@ test('a Free member out of credits sees the founding offer, and a small hidden w
   }
 });
 
+// Two business types (contract v1.4 `business: true`) next to the tool packs above.
+const bizPack = (id, title, niches) => ({
+  id,
+  title,
+  version: '1.0.0',
+  business: true,
+  summary: `Start ${title.toLowerCase()} with your first 25.`,
+  niches,
+  tools: [{ name: `${id}.note`, title: 'Write a note', description: 'Writes one line.', kind: 'code', risk: 'read', credits: 0, input: obj({}, []), output: obj({ text: { type: 'string' } }), run: async () => ({ text: 'ok' }) }],
+  workflows: [
+    { id: `${id}.first_25`, title: 'Your first 25', promise: `Twenty-five people who might want ${title.toLowerCase()}.`, minutes: 3, tier: 'free', job: 'leads', inputs: obj({}, []), steps: [{ id: 'n', tool: `${id}.note` }], result: ['n'] },
+    { id: `${id}.offer`, title: `Your ${title.toLowerCase()} offer`, promise: 'The offer and its price.', minutes: 1, tier: 'free', job: 'offer', inputs: obj({}, []), steps: [{ id: 'n', tool: `${id}.note` }], result: ['n'] },
+  ],
+});
+function unregister(ids) {
+  for (const id of ids) {
+    packs.registry.packs.delete(id);
+    for (const [name, t] of packs.registry.tools) if (t.pack === id) packs.registry.tools.delete(name);
+    for (const [wid, wf] of packs.registry.workflows) if (wf.pack === id) packs.registry.workflows.delete(wid);
+  }
+}
+
+test('Start with business types: pick one first, then your business leads and the others fold; search still finds them', async () => {
+  const r = packs.registerAll([{ pack: bizPack('tclean', 'House cleaning', ['cleaning', 'house cleaning']), source: 'test' }, { pack: bizPack('twalk', 'Dog walking', ['dog walking', 'pet sitting']), source: 'test' }]);
+  assert.deepEqual(r.refused, [], JSON.stringify(r.refused));
+  try {
+    // No business yet (their onboarding category names none): picking one comes before the tools.
+    const fresh = await member();
+    let page = await html(await s.go('/app/hq/start', { as: fresh }));
+    assert.doesNotMatch(page, /id="mine"/);
+    assert.ok(page.indexOf('Pick a business') > 0 && page.indexOf('Pick a business') < page.indexOf('id="leads"'), 'Pick a business comes before the job groups');
+    assert.match(page, /<details class="h2-type" id="type-tclean">/);
+    assert.match(page, /<details class="h2-type" id="type-twalk">[\s\S]*?href="\/app\/hq\/w\/twalk\.first_25"[\s\S]*?<\/details>/, 'its workflows sit inside, for the search');
+    const groups = page.slice(page.indexOf('id="leads"'));
+    assert.match(groups, /First gym clients/);
+    assert.doesNotMatch(groups.slice(0, groups.indexOf('</section>')), /Your first 25/, 'no business type in the job groups');
+    assert.equal(harness.businessTypes(fresh).filter((t) => t.mine).length, 0);
+
+    // Their own words fit one: it leads, in its own order, and the other folds at the end.
+    const cleaner = await member();
+    await harness.brain.update(cleaner, { business: { what: 'I clean houses in Ames' } });
+    page = await html(await s.go('/app/hq/start', { as: cleaner }));
+    assert.match(page, /<span class="eyebrow">Your business<\/span><h2 class="h2-h" id="g-mine">House cleaning<\/h2>/);
+    assert.match(page, /Your business comes first/);
+    const mine = page.slice(page.indexOf('id="mine"'), page.indexOf('</section>', page.indexOf('id="mine"')));
+    assert.ok(mine.indexOf('tclean.first_25') > 0 && mine.indexOf('tclean.first_25') < mine.indexOf('tclean.offer'), 'the pack order');
+    assert.doesNotMatch(mine, /twalk/);
+    assert.ok(page.indexOf('Start a different business') > page.indexOf('id="leads"'), 'the others fold at the end');
+    assert.doesNotMatch(page, /id="type-tclean"/);
+    assert.doesNotMatch(page, /Pick a business</);
+    const list = harness.catalog(cleaner);
+    assert.ok(list.findIndex((w) => w.id === 'tclean.first_25') < list.findIndex((w) => w.id === 'rt.flow'), 'their business before the tools');
+    assert.ok(list.findIndex((w) => w.id === 'twalk.first_25') > list.findIndex((w) => w.id === 'rf.pick'), "another business's workflows last");
+    assert.equal((await harness.ask(cleaner, 'dog walking first 25')).pick.id, 'twalk.first_25', 'the Ask bar still finds them');
+
+    // Picking one makes it theirs, over their words; a tool pack or nonsense changes nothing.
+    let res = await s.go('/app/hq/start/business', { as: cleaner, form: { pack: 'twalk' } });
+    assert.equal(where(res), '/app/hq/start#mine');
+    assert.equal(harness.brain.snapshot(cleaner).business.niche, 'Dog walking');
+    assert.ok(flashes.some((f) => f.text === 'Dog walking is your business now. Its workflows come first.'));
+    page = await html(await s.go('/app/hq/start', { as: cleaner }));
+    assert.match(page, /id="g-mine">Dog walking</);
+    assert.match(page, /id="type-tclean"/);
+    for (const pack of ['rt', 'nope', '']) {
+      res = await s.go('/app/hq/start/business', { as: cleaner, form: { pack } });
+      assert.equal(where(res), '/app/hq/start');
+    }
+    assert.equal(harness.brain.snapshot(cleaner).business.niche, 'Dog walking');
+    assert.equal((await s.go('/app/hq/start/business', { form: { pack: 'tclean' } })).status, 404, 'signed out: HQ v2 is off');
+  } finally {
+    unregister(['tclean', 'twalk']);
+  }
+});
+
 test("the queue's own workflows stay off Start, their pages and the AI link's list", async () => {
   const u = await member();
   const start = await html(await s.go('/app/hq/start', { as: u }));
