@@ -4,7 +4,7 @@
   <%- include('../../partials/hq2-nav') %>
   <section class="hq-card h2-move" style="max-width:680px" aria-labelledby="imp-h">
     <span class="eyebrow">First 25<%= p.sample ? ' · Sample list' : '' %></span>
-    <h2 id="imp-h" class="h2-steel">Work your <%= p.count %> in HQ</h2>
+    <h2 id="imp-h" class="h2-steel">Bring your <%= p.count %> businesses into HQ</h2>
     <p><%= p.count %> businesses<%= p.place || p.city ? ' in ' + (p.place || p.city) : '' %> go into your Pipeline with their first messages and follow-ups written. Each day, Do my day lines up who to message next.</p>
     <% if (p.top.length) { %><p class="hq-small">Starting with <%= p.top.join(', ') %>.</p><% } %>
     <form method="post" action="/app/hq/import/first25/<%= p.id %>" style="margin-top:16px">

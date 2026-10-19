@@ -16,7 +16,7 @@
     <%- include('../../partials/hq2-path', { items: mine.items, next: mine.next }) %>
   </section>
   <% } %>
-  <% if (pickFirst) { %><%- include('../../partials/hq2-types', { types: types, heading: 'Pick a business', blurb: 'Each one is a path of steps 127 does with you, from your first 25 and your offer to answering replies and keeping customers. Open one to see its steps, then make it yours.' }) %><% } %>
+  <% if (pickFirst) { %><%- include('../../partials/hq2-types', { types: types, heading: 'Pick a business', blurb: 'Each one is a path of steps 127 does with you, from your first 25 and your offer to answering replies and delivering the work. Open one to see its steps, then make it yours.' }) %><% } %>
   <% var order = groups.slice().sort(function (a, b) { return (b.id === bottleneck.job) - (a.id === bottleneck.job); }); %>
   <% order.forEach(function (g) { %>
   <section class="h2-group" id="<%= g.id %>" aria-labelledby="g-<%= g.id %>">
@@ -25,7 +25,7 @@
     <% if (g.items.length > 3) { %><button type="button" class="h2-showall">Show all <%= g.items.length %></button><% } %>
   </section>
   <% }) %>
-  <% if (!pickFirst && types.length) { %><%- include('../../partials/hq2-types', { types: types, heading: mine ? 'Start a different business' : 'Start a business', blurb: 'Each one is a path of steps 127 does with you, from your first 25 and your offer to answering replies and keeping customers. Open one to see its steps.' }) %><% } %>
+  <% if (!pickFirst && types.length) { %><%- include('../../partials/hq2-types', { types: types, heading: mine ? 'Start a different business' : 'Start a business', blurb: 'Each one is a path of steps 127 does with you, from your first 25 and your offer to answering replies and delivering the work. Open one to see its steps.' }) %><% } %>
   <p class="h2-empty" id="wf-none" hidden>Nothing matches. Try fewer words, or tell 127 what you want done above.</p>
 </div>
 <script src="/js/hq2.js" defer></script>

@@ -331,7 +331,7 @@ test('Talk to 127: go somewhere, log what you did, ask how it is going, or get a
 test('Start groups workflows by job, bottleneck first; a workflow page shows the plan and prefills the form', async () => {
   const free = await member('free');
   const start = await html(await s.go('/app/hq/start', { as: free }));
-  assert.match(start, /Find leads|leads/i);
+  assert.match(start, /Reach out/);
   assert.match(start, /First gym clients/);
   assert.match(start, /Builder gym report/);
   const page = await html(await s.go('/app/hq/w/rt.flow?in_city=Ames', { as: free }));
@@ -962,7 +962,7 @@ test('a First 25 link brings the list into the Pipeline with its messages writte
     assert.equal(where(r), '/app/hq');
     assert.match(flashes.pop().text, /expired/);
     const page = await html(await s.go('/app/hq/import/first25/f25run1?k=good', { as: u }));
-    assert.match(page, /Work your 2 in HQ/);
+    assert.match(page, /Bring your 2 businesses into HQ/);
     assert.match(page, /in Ames, IA/);
     r = await s.go('/app/hq/import/first25/f25run1', { as: u, form: { k: 'good' } });
     assert.equal(where(r), '/app/hq#day');
@@ -1143,7 +1143,7 @@ test("the real First 25 module: a member's own list comes in with every reason, 
     assert.equal(byRank(2).nextAt, '2026-11-06T15:00:00.000Z', 'the follow-up is dated from when they sent it');
     // The emailed link to the same list: its confirm page, and nothing new to add.
     const link = `/app/hq/import/first25/${doc.id}?k=${first25.sign(doc.id)}`;
-    assert.match(await html(await s.go(link, { as: u })), /Work your 25 in HQ/);
+    assert.match(await html(await s.go(link, { as: u })), /Bring your 25 businesses into HQ/);
     await s.go(`/app/hq/import/first25/${doc.id}`, { as: u, form: { k: first25.sign(doc.id) } });
     assert.match(flashes.pop().text, /already in your Pipeline/);
     assert.equal(P.list(u.id).length, 25);
