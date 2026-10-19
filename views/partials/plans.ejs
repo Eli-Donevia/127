@@ -32,8 +32,8 @@
     <h3><%= p.name %></h3>
     <% if (k === 'builder' && fp) { %>
       <div class="price"><span class="amt">$<%= fp %></span><span class="per">/ month</span></div>
-      <div class="founding-note"><%= ps === 'A' ? 'Founding price for the first ' + cap + (launch.launchDate ? ' · opens ' + launch.launchDate : '') : 'Founding price, locked while you stay' %></div>
-      <div class="plan-small"><%= ps === 'A' ? 'Builder is $29 after ' + (launch.closesDate || 'the founding window') : 'Ends ' + (launch.closesDate ? launch.closesDate + ', ' + launch.closesTime : 'at the founding close') + '. Then $29.' %></div>
+      <div class="founding-note"><%= ps === 'A' ? 'Founding price for the first ' + cap + (launch.launchDate ? ' · opens ' + launch.launchDate : '') + '. Locked as long as you stay.' : 'Founding price, locked as long as you stay' %></div>
+      <div class="plan-small"><%= ps === 'A' ? '($29 for new Builders after ' + (launch.closesDate || 'the founding window') + ')' : 'Ends ' + (launch.closesDate ? launch.closesDate + ', ' + launch.closesTime : 'at the founding close') + '. ($29 for new Builders after that.)' %></div>
     <% } else if (k === 'free') { %>
       <div class="price"><span class="amt">$0</span><span class="per">No card</span></div>
     <% } else if (k === 'circle') { %>
