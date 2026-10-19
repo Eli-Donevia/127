@@ -528,6 +528,16 @@ test("a Google list's mock-up shows only the name and city, and says how to send
   assert.equal(E.mock(real, 'photo', 'gyms', {}).say, '');
 });
 
+// ---------- what Builder and 127 HQ add (Legal L62) ----------
+test('the lines about Builder and 127 HQ say what they have, never that a plan gets you clients or leads (Legal L62)', () => {
+  const sandbox = { window: {} };
+  require('node:vm').runInNewContext(require('node:fs').readFileSync(require.resolve('../public/funnels/results-data.js'), 'utf8'), sandbox);
+  const G = sandbox.window.RESULTS.first25, C = D.copy.compare;
+  for (const t of [...C.builder, ...C.builderHq, C.email, G.resource, G.builder, G.hq.heading, G.hq.body]) {
+    assert.doesNotMatch(t, /\b(?:clients?|customers?|leads?|prospects?)\b|\{n\}|\b25\b|\bevery (?:week|monday)\b/i, t);
+  }
+});
+
 // ---------- niche doors ----------
 test('niche pages open on one service and buyer, and unknown ones go to the main page', async () => {
   for (const [id, n] of Object.entries(D.niches)) {

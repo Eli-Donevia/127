@@ -128,11 +128,13 @@ window.RESULTS = {
   first25: {
     a1: 'Day 2 of the challenge, {day2}, is Find 10 people. You already have 25.',
     a2: 'On {doorsShort}, your roadmap opens on the Start track. This list is your head start on it.',
-    resource: "You have the list. Builder's Outreach Scripts and Eli's Playbook help you turn the replies into a first client.",
+    // Paid-plan lines say what Builder and HQ have, never that they get you clients or leads (Legal L62, until a lawyer rules).
+    resource: "You have the list. Builder adds the Outreach Scripts and the Pricing Worksheet, so you're ready when they reply.",
     start: 'Start free. Your roadmap turns this list into your first conversation, one step at a time.',
     builder: "Builder, ${builderPrice} a month: the full library, Outreach Scripts and Eli's Playbook.",
-    // Turn on when 127 HQ runs First 25 for members every week (Harness v2 thread). Until then it never shows.
-    hq: { on: false, label: '127 HQ', heading: 'A fresh 25 every Monday.', body: '127 HQ runs this search for you every week, tracks who replied, and writes your follow-ups.' },
+    // Turn on when 127 HQ is ready for members (Harness v2 thread). Until then it never shows. It talks about tracking only:
+    // "a fresh 25 every week" waits for a lawyer's ruling on Legal L62.
+    hq: { on: false, label: '127 HQ', heading: 'Every reply, tracked.', body: '127 HQ dates each follow-up, tracks who replied, and writes your next note.' },
   },
 
   // Idea Test, by verdict (§11). a2: roadmap.js Start week 1 opens with the Idea Test itself.
