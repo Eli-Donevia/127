@@ -640,6 +640,28 @@ test('the pipeline never moves a lead backwards', async () => {
   assert.equal(pipeline.counts(user.id).contacted, 1);
 });
 
+test("without ffmpeg, a workflow that makes video won't start (sample data can't stand in for a render)", async () => {
+  const needsLib = require('../lib/harness/needs');
+  const obj = (properties) => ({ type: 'object', properties, required: [] });
+  const RV = {
+    id: 'rv', title: 'Render test', version: '1.0.0', summary: 'A video for the render test.',
+    tools: [{ name: 'rv.reel', title: 'Make a Reel', description: 'Makes a sample Reel.', kind: 'code', risk: 'draft', needs: ['render'], credits: 0, input: obj({}), output: obj({ ok: { type: 'boolean' } }), run: async () => ({ ok: true }) }],
+    workflows: [{ id: 'rv.make', title: 'Make a Reel', promise: 'One sample Reel.', tier: 'free', minutes: 2, inputs: obj({}), steps: [{ id: 'reel', tool: 'rv.reel', input: {} }] }],
+  };
+  assert.deepEqual(packs.register(RV).refused, []);
+  const user = await member('builder');
+  const was = process.env.FFMPEG_PATH;
+  process.env.FFMPEG_PATH = '/nonexistent/ffmpeg';
+  needsLib._resetFfmpeg();
+  try {
+    await assert.rejects(engine.start(user, 'rv.make', {}), (err) => err.status === 503 && /Making videos isn't switched on yet/.test(err.message));
+  } finally {
+    if (was === undefined) delete process.env.FFMPEG_PATH;
+    else process.env.FFMPEG_PATH = was;
+    needsLib._resetFfmpeg();
+  }
+});
+
 test('Google names (Legal L53): fetched only with the key, a few a page, counted against the day cap, and stopped by it', async () => {
   const places = require('../lib/harness/places');
   const calls = [];
