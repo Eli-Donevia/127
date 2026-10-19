@@ -526,3 +526,51 @@ test('under 18: nothing flags without the marker, whatever ages the member menti
   assert.equal(demo.demo, true);
   assert.equal(demo.flags, undefined);
 });
+
+test('HQ screenshot read: structured output, never a forced tool call (Opus 5.5 rejects one)', async () => {
+  const metrics = [{ id: 'sales', label: 'Sales' }, { id: 'revenue', label: 'Revenue', money: true }];
+  const img = [{ type: 'image/png', data: 'iVBORw0KGgo=' }];
+  const found = { source: 'Stripe dashboard', from: '2026-12-07', to: '2026-12-13', currency: 'USD', numbers: [{ metric: 'sales', value: 3, seen: 'Payments' }, { metric: 'revenue', value: 147.5 }] };
+  const ai = load(KEY);
+  const fake = fakeClient([reply(JSON.stringify(found))]);
+  ai._test.setClient(fake);
+  assert.deepEqual(await ai.readScreenshots(img, metrics, member()), { demo: false, ...found });
+  const { kind, params: p } = fake.calls[0];
+  assert.equal(kind, 'messages', 'no server-side fallbacks here');
+  assert.equal(p.tool_choice, undefined);
+  assert.equal(p.tools, undefined);
+  assert.equal(p.max_tokens, 4000);
+  assert.equal(p.output_config.effort, 'low');
+  assert.equal(p.output_config.format.type, 'json_schema');
+  const s = p.output_config.format.schema;
+  assert.equal(s.additionalProperties, false, 'structured outputs need additionalProperties: false on every object');
+  assert.equal(s.properties.numbers.items.additionalProperties, false);
+  assert.deepEqual(s.properties.numbers.items.properties.metric.enum, ['sales', 'revenue']);
+  assert.deepEqual(s.required, ['numbers']);
+  assert.deepEqual(p.messages[0].content[0], { type: 'image', source: { type: 'base64', media_type: 'image/png', data: 'iVBORw0KGgo=' } });
+  assert.match(p.messages[0].content.at(-1).text, /The member tracks: sales = Sales; revenue = Revenue \(money\)\. Read the screenshot and report the numbers\.$/);
+  // Declined, cut off or not JSON: the member is asked for a clearer screenshot. An API error reads as unavailable.
+  for (const bad of [reply('{"numbers": []}', { stop_reason: 'refusal' }), reply('{"numbers": [{"met', { stop_reason: 'max_tokens' }), reply('No numbers here.'), reply('{"source": "Stripe"}')]) {
+    ai._test.setClient(fakeClient([bad]));
+    assert.deepEqual(await ai.readScreenshots(img, metrics, member()), { demo: false, error: true, text: "Couldn't read numbers from that. Try a clearer screenshot." });
+  }
+  ai._test.setClient(fakeClient([apiError(500, 'Overloaded')]));
+  assert.match((await ai.readScreenshots(img, metrics, member())).text, /unavailable right now/);
+  // The same request on Haiku 5.5 (the Free model if R02 moves it), and through the real SDK.
+  const haiku = load({ ...KEY, ANTHROPIC_MODEL_FREE: 'claude-haiku-5-5' });
+  const Anthropic = require('@anthropic-ai/sdk');
+  let seen;
+  const fetch = async (url, init) => {
+    seen = { url: String(url), body: JSON.parse(init.body) };
+    return new Response(JSON.stringify(reply(JSON.stringify(found), { model: 'claude-haiku-5-5' })), { status: 200, headers: { 'content-type': 'application/json', 'request-id': 'req_test' } });
+  };
+  haiku._test.setClient(new Anthropic({ apiKey: 'sk-test', fetch, maxRetries: 0 }));
+  assert.deepEqual(await haiku.readScreenshots(img, metrics, member()), { demo: false, ...found });
+  assert.match(seen.url, /\/v1\/messages$/);
+  assert.equal(seen.body.model, 'claude-haiku-5-5');
+  assert.equal(seen.body.tool_choice, undefined);
+  assert.equal(seen.body.output_config.format.type, 'json_schema');
+  assert.equal(seen.body.output_config.effort, 'low');
+  // No key: a labeled demo with no numbers. (load() clears the key, so this goes last.)
+  assert.deepEqual(await load().readScreenshots(img, metrics, member()), { demo: true, numbers: [], source: '', note: 'Demo mode: no API key is set, so nothing was read.' });
+});
