@@ -520,9 +520,16 @@ test('niche pages open on one service and buyer, and unknown ones go to the main
 });
 
 // ---------- the cost guard ----------
+test('Google mode stays on hold until saved lists keep place IDs only (Legal L53)', () => {
+  process.env.FIRST25_SOURCE = 'google';
+  process.env.GOOGLE_PLACES_KEY = 'test-key';
+  try { assert.equal(first25.sourceName(), 'sample'); } finally { delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
+});
+
 test('past the daily cap, a live search still answers, on labeled sample businesses', async () => {
   process.env.FIRST25_SOURCE = 'google';
   process.env.GOOGLE_PLACES_KEY = 'test-key';
+  first25._test.L53.placeIdsOnly = true;
   try {
     await serve(app((key) => key === 'f25:all'), async (base) => {
       const res = await post(base, { pack: 'video', buyer: 'gyms', place: 'Ames, IA' });
@@ -533,12 +540,13 @@ test('past the daily cap, a live search still answers, on labeled sample busines
       assert.equal(out.run.capped, true);
       assert.deepEqual(db.get('prospectRuns', out.run.id).cost, { requests: 0, usd: 0 });
     });
-  } finally { delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
+  } finally { first25._test.L53.placeIdsOnly = false; delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY; }
 });
 
 test('a live run counts its Places requests and what they cost', async () => {
   process.env.FIRST25_SOURCE = 'google';
   process.env.GOOGLE_PLACES_KEY = 'test-key';
+  first25._test.L53.placeIdsOnly = true;
   const realFetch = global.fetch;
   const W = ['Anchor', 'Birch', 'Cedar', 'Dune', 'Ember', 'Fable', 'Granite', 'Harbor', 'Ivy', 'Juniper', 'Kestrel', 'Linden', 'Maple', 'Nimbus', 'Onyx', 'Pine', 'Quarry', 'Ridge', 'Summit', 'Timber'];
   let calls = 0;
@@ -559,6 +567,7 @@ test('a live run counts its Places requests and what they cost', async () => {
     assert.deepEqual(again.cost, { requests: 0, usd: 0 });
   } finally {
     global.fetch = realFetch;
+    first25._test.L53.placeIdsOnly = false;
     delete process.env.FIRST25_SOURCE; delete process.env.GOOGLE_PLACES_KEY;
   }
 });
