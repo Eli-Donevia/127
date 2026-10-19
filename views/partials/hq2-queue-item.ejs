@@ -52,7 +52,7 @@
     <div class="h2-q-msg">
       <div class="h2-q-subject"<%- first.subject ? '' : ' hidden' %>>Subject: <span data-subject><%= first.subject || '' %></span></div>
       <textarea data-text rows="5" maxlength="4000" aria-label="Message to <%= it.name %>"><%= first.text %></textarea>
-      <p class="h2-q-hole" data-hole<%- it.hole ? '' : ' hidden' %>>Fill in <b data-hole-text><%= it.hole %></b> before you send it.</p>
+      <p class="h2-q-hole" data-hole<%- it.hole ? '' : ' hidden' %>>Fill in <b data-hole-text><%= it.hole %></b> before you send it.<% if (it.holeHelp) { %> <span data-hole-help="<%= it.holeHelp %>"<%- it.text.indexOf(it.holeHelp) < 0 ? ' hidden' : '' %>><a href="/app/hq/brain#business_address">Save your mailing address once</a> and every email gets it.</span><% } %></p>
     </div>
     <div class="h2-q-acts">
       <a class="btn<%= it.hole ? ' off' : '' %>" data-go href="<%= first.href %>" target="_blank" rel="noopener"<%- it.hole ? ' aria-disabled="true"' : '' %> data-clip="<%= first.copy ? '1' : '' %>" data-way-id="<%= first.id %>"><%= GO[first.id] || 'Open' %></a>

@@ -640,6 +640,97 @@ test('the pipeline never moves a lead backwards', async () => {
   assert.equal(pipeline.counts(user.id).contacted, 1);
 });
 
+test("a reply a pack logs is dated, a pack can mark the member's answer sent, and messages keep their lines", async () => {
+  const todayLib = require('../lib/harness/today');
+  pipeline._setDeps({ now: () => now });
+  todayLib._setDeps({ now: () => now });
+  const iso = (ms) => new Date(ms).toISOString();
+  try {
+    const user = await member('builder');
+    let l = await pipeline.upsert(user.id, 'tp', { key: 'r1', name: 'Gym One', stage: 'contacted', sentAt: iso(T0 - 2 * 864e5), msg: { email: 'Hi,\r\n\r\n\r\nA  free Reel?\n\nSam\nPO Box 9' } });
+    assert.equal(l.nextAt, iso(T0 + 864e5), 'the first follow-up 3 days after it was sent');
+    assert.equal(l.msg.email, 'Hi,\n\nA free Reel?\n\nSam\nPO Box 9', 'paragraphs and the footer lines stay');
+    now += 36e5;
+    l = await pipeline.upsert(user.id, 'tp', { key: 'r1', stage: 'replied', reply: 'How much?\nAnd when?' });
+    assert.equal(l.repliedAt, iso(now), 'dated when it arrives');
+    assert.equal(l.nextAt, null, 'no follow-ups after a reply');
+    assert.equal(l.reply, 'How much?\nAnd when?');
+    assert.equal(l.answeredAt, undefined);
+    const given = iso(T0 - 36e5);
+    let r2 = await pipeline.upsert(user.id, 'tp', { key: 'r2', name: 'Gym Two', stage: 'replied', repliedAt: given });
+    assert.equal(r2.repliedAt, given, "the pack's own time");
+    const r3 = await pipeline.upsert(user.id, 'tp', { key: 'r3', name: 'Gym Three', stage: 'replied', repliedAt: iso(now + 864e5) });
+    assert.equal(r3.repliedAt, iso(now), 'never in the future');
+    let q = todayLib.queue(user).items.filter((i) => i.kind === 'reply');
+    assert.deepEqual(q.map((i) => i.name), ['Gym Two', 'Gym One', 'Gym Three'], 'oldest reply first');
+    assert.deepEqual(q.map((i) => i.why.split('.')[0]), ['Replied 2 hours ago', 'Replied just now', 'Replied just now']);
+
+    // Answered: { answered: true } now, or { answeredAt }, never before the reply, only on a reply.
+    now += 36e5;
+    l = await pipeline.upsert(user.id, 'tp', { key: 'r1', answered: true });
+    assert.equal(l.answeredAt, iso(now));
+    r2 = await pipeline.update(user.id, r2.id, { answeredAt: iso(T0 - 5 * 36e5) });
+    assert.equal(r2.answeredAt, given, 'an answer is never before the reply');
+    const c = await pipeline.upsert(user.id, 'tp', { key: 'c1', name: 'Gym C', stage: 'contacted', answered: true });
+    assert.equal(c.answeredAt, undefined);
+    q = todayLib.queue(user).items.filter((i) => i.kind === 'reply');
+    assert.deepEqual(q.map((i) => i.name), ['Gym Three'], 'answered replies leave Do my day');
+    assert.equal(todayLib.scoreboard(user).this.replies, 3);
+  } finally {
+    pipeline._setDeps({ now: () => Date.now() });
+    todayLib._setDeps({ now: () => Date.now() });
+  }
+});
+
+test('Google data (Legal L53) comes out at any depth of what a pack saves, but not what 127 found on the business\'s own site', async () => {
+  const user = await member('builder');
+  const l = await pipeline.upsert(user.id, 'tp', {
+    key: 'gplaces:ChIJabcdefghij123',
+    name: 'Iron Temple',
+    data: {
+      name: 'Iron Temple', lat: 41.6, lon: -93.6, topGap: 'Only 23 Google reviews', owner: 'Jane', touches: [{ note: 'Called Iron Temple, they liked it' }],
+      row: {
+        gym: { name: 'Iron Temple', address: '1 Main St', phone: '515-555-0100', website: 'https://iron.test', lat: 41.6, lon: -93.6, category: 'crossfit' },
+        competitors: [{ name: 'Rival Gym', km: 2 }],
+        gaps: [{ id: 'reels', evidence: 'Iron Temple posts no Reels' }, { id: 'rating', evidence: 'Rated 4.8 from 120 reviews' }],
+        site: { people: [{ name: 'Jane Doe', role: 'Owner' }], url: 'https://iron.test' },
+        contact: { owner: { name: 'Jane' }, email: 'jane@iron.test', phone: '515-555-0100' },
+      },
+    },
+  });
+  assert.equal(l.name, '');
+  assert.deepEqual(l.data, {
+    owner: 'Jane',
+    touches: [{ note: 'Called [business name], they liked it' }],
+    row: {
+      gym: { category: 'crossfit' },
+      competitors: [{ km: 2 }],
+      gaps: [{ id: 'reels', evidence: '[business name] posts no Reels' }, { id: 'rating' }],
+      site: { people: [{ name: 'Jane Doe', role: 'Owner' }], url: 'https://iron.test' },
+      contact: { owner: { name: 'Jane' }, email: 'jane@iron.test' },
+    },
+    place_id: 'ChIJabcdefghij123',
+  });
+});
+
+test('the OpenStreetMap servers are one need, ready only with both set', () => {
+  const needsLib = require('../lib/harness/needs');
+  const was = [process.env.OSM_OVERPASS_URL, process.env.OSM_NOMINATIM_URL];
+  try {
+    delete process.env.OSM_OVERPASS_URL;
+    process.env.OSM_NOMINATIM_URL = 'https://nominatim.example/search?key=k';
+    assert.equal(needsLib.read('osm'), null, 'both or nothing');
+    process.env.OSM_OVERPASS_URL = 'https://overpass.example/api/interpreter';
+    assert.deepEqual(needsLib.read('osm'), { overpass: 'https://overpass.example/api/interpreter', nominatim: 'https://nominatim.example/search?key=k' });
+    assert.deepEqual(needsLib.status().find((x) => x.name === 'osm'), { name: 'osm', label: 'OpenStreetMap servers (127 account)', ready: true });
+  } finally {
+    for (const [k, v] of [['OSM_OVERPASS_URL', was[0]], ['OSM_NOMINATIM_URL', was[1]]]) {
+      if (v === undefined) delete process.env[k];
+      else process.env[k] = v;
+    }
+  }
+});
+
 test("without ffmpeg, a workflow that makes video won't start (sample data can't stand in for a render)", async () => {
   const needsLib = require('../lib/harness/needs');
   const obj = (properties) => ({ type: 'object', properties, required: [] });

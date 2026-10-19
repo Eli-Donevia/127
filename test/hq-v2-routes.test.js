@@ -614,7 +614,8 @@ test('Write it for me, an answer to a reply, call prep and a yes, each from the 
   assert.equal(engine.get(u, j.run).workflowId, 'hq.message');
   let lead = P.get(u.id, l.id);
   assert.match(lead.msg.dm, /^Hi Iron Temple team\. I'm Rae, and I do short videos for gyms\. I noticed you post every day but have no Reels\./);
-  assert.match(lead.msg.email, /Reply "no thanks" and I won't follow up\.$/);
+  // The email ends with who it's from, the mailing address (a placeholder until it's saved) and a way to say no.
+  assert.match(lead.msg.email, /Want me to send it\?\n\nRae\n\[Your business address, required in marketing email\]\n\nNot interested\? Reply "no thanks" and I won't email again\.$/);
   assert.equal(harness.ledger.usage(u).used, 0, 'a sample answer costs no credits');
   let page = await html(await s.go('/app/hq', { as: u }));
   assert.match(page, /I noticed you post every day but have no Reels\./);
@@ -673,6 +674,78 @@ test('Write it for me, an answer to a reply, call prep and a yes, each from the 
 
   // The page reached through a run for a hidden workflow goes back to Do my day.
   assert.match(await html(await s.go(`/app/hq/runs/${prep.id}`, { as: u })), /Back to Do my day/);
+});
+
+test('every email Do my day hands out says who it is from, a mailing address and how to say no; DMs and calls carry none of it', async () => {
+  const u = await member('builder', { name: 'Rae Okafor' });
+  await harness.brain.update(u, { business: { name: 'Lift Studio' } });
+  const ADDR = todayLib.ADDRESS_LINE;
+  const BOX = 'PO Box 9, Des Moines, IA 50309';
+  const NO = 'Not interested? Reply "no thanks" and I won\'t email again.';
+  const way = (it, id) => it.ways.find((w) => w.id === id);
+  const item = (name) => todayLib.queue(u).items.find((i) => i.name === name);
+  // A pack that writes its emails and follow-ups with no footer.
+  const a = await P.upsert(u.id, 'test', { key: 'a', name: 'Alpha Gym', score: 90, links: { email: 'hi@alpha.test' }, msg: { subject: 'A Reel for Alpha Gym', email: 'Hi Alpha Gym team,\n\nWant a free Reel?\n\nRae', follow1: 'Checking you saw my note.', follow2: 'Last note from me.' } });
+  // The gym pack: Instagram first, and its emails already end with the footer.
+  const foot = `\n\nRae\nLift Studio\n${ADDR}\n\n${NO}`;
+  const b = await P.upsert(u.id, 'test', { key: 'b', name: 'Bravo Gym', score: 80, channel: 'ig', links: { instagram: IG('bravogym'), email: 'hi@bravo.test', phone: '+1 515 555 0100' }, msg: { dm: 'Hi Bravo Gym team, want a free Reel?', subject: 'A Reel for Bravo Gym', email: `Hi Bravo Gym team,\n\nWant a free Reel?${foot}`, walkin: 'Hi, I am Rae.', follow1: `Checking in.${foot}`, follow2: `Last note.${foot}` } });
+  // A First 25 list: its own placeholder and opt-out.
+  const c = await P.upsert(u.id, 'test', { key: 'c', name: 'Charlie Gym', score: 70, links: { email: 'hi@charlie.test' }, msg: { email: 'Hi Charlie Gym team,\n\nAn idea.\n\nRae\n[your mailing address]\n\nP.S. Not for you? Reply "no thanks" and I won\'t follow up.' } });
+
+  let A = item('Alpha Gym');
+  assert.equal(way(A, 'email').text, `Hi Alpha Gym team,\n\nWant a free Reel?${foot}`);
+  assert.equal(A.hole, ADDR, 'the address placeholder keeps the button off');
+  assert.equal(A.holeHelp, ADDR);
+  let B = item('Bravo Gym');
+  assert.equal(way(B, 'ig').text, 'Hi Bravo Gym team, want a free Reel?');
+  assert.equal(way(B, 'email').text, `Hi Bravo Gym team,\n\nWant a free Reel?${foot}`, "the pack's own footer stays as it is");
+  assert.equal(B.hole, '', 'Instagram first: nothing to fill in');
+  assert.equal(B.holeHelp, ADDR, 'switching to Email shows where to save the address');
+  assert.equal(way(item('Charlie Gym'), 'email').text, `Hi Charlie Gym team,\n\nAn idea.\n\nRae\n${ADDR}\n\nP.S. Not for you? Reply "no thanks" and I won't follow up.`, "First 25's placeholder reads as HQ's");
+  let page = await html(await s.go('/app/hq', { as: u }));
+  assert.match(page, /<a href="\/app\/hq\/brain#business_address">Save your mailing address once<\/a> and every email gets it\./);
+  assert.match(await html(await s.go('/app/hq/brain', { as: u })), /id="business_address" name="business_address"/);
+
+  // Saved once in Your business, it's in every email and the button works.
+  assert.equal(where(await s.go('/app/hq/brain', { as: u, form: { business_address: BOX } })), '/app/hq/brain');
+  assert.equal(harness.brain.snapshot(u).business.name, 'Lift Studio', 'the other fields stay');
+  const sent = `\n\nRae\nLift Studio\n${BOX}\n\n${NO}`;
+  A = item('Alpha Gym');
+  assert.equal(way(A, 'email').text, `Hi Alpha Gym team,\n\nWant a free Reel?${sent}`);
+  assert.equal(A.hole, '');
+  assert.match(way(A, 'email').href, /&body=Hi%20Alpha%20Gym%20team.*PO%20Box%209/);
+  B = item('Bravo Gym');
+  assert.equal(way(B, 'email').text, `Hi Bravo Gym team,\n\nWant a free Reel?${sent}`);
+  assert.equal(way(B, 'call').text, 'Hi, I am Rae.');
+  const C = item('Charlie Gym');
+  assert.match(way(C, 'email').text, new RegExp(`\\nRae\\n${BOX}\\n\\nP\\.S\\. Not for you`));
+  page = await html(await s.go('/app/hq', { as: u }));
+  assert.doesNotMatch(page, /Save your mailing address once/);
+
+  // Follow-ups: by email with the footer, as a DM or a call without it.
+  for (const l of [a, b]) await s.go(`/app/hq/queue/${l.id}/sent`, { as: u, json: {} });
+  now += 3 * 864e5;
+  B = item('Bravo Gym');
+  assert.equal(B.kind, 'follow');
+  assert.equal(way(B, 'ig').text, 'Checking in.');
+  assert.equal(way(B, 'call').text, 'Checking in.');
+  assert.equal(way(B, 'email').subject, 'Re: A Reel for Bravo Gym');
+  assert.equal(way(B, 'email').text, `Checking in.${sent}`);
+  assert.equal(way(item('Alpha Gym'), 'email').text, `Checking you saw my note.${sent}`);
+
+  // An answer to a reply, by email, too.
+  await P.update(u.id, a.id, { msg: { answer: 'Happy to. A 10-minute call is easiest.\n\nRae' } });
+  await P.move(u.id, a.id, 'replied');
+  A = item('Alpha Gym');
+  assert.equal(A.kind, 'reply');
+  assert.equal(way(A, 'email').text, `Happy to. A 10-minute call is easiest.${sent}`);
+
+  // Monday's card keeps the placeholder on the lead, so a changed address reaches every unsent email.
+  const save = hqPack.tools.find((t) => t.name === 'hq.save_week');
+  const ctx = { member: { id: u.id, firstName: 'Rae' }, brain: harness.brain.snapshot(u), leads: { update: async (id, patch) => P.update(u.id, id, patch) } };
+  await save.run({ id: c.id, key: 'email', text: way(C, 'email').text, week: '2026-11-02' }, ctx);
+  assert.match(P.get(u.id, c.id).msg.email, /\nRae\n\[Your business address, required in marketing email\]\n\nP\.S\./);
+  assert.doesNotMatch(P.get(u.id, c.id).msg.email, /PO Box/);
 });
 
 test('a win: the card, its consent record, the Circle once ever, and only shared wins reach the proof library', async () => {

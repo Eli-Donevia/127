@@ -1,7 +1,7 @@
-# How a workflow plugs into the 127 harness (contract v1.1)
+# How a workflow plugs into the 127 harness (contract v1.2)
 
-Owner: Harness v2 thread. Version 1.1, 2026-10-19 (v1 was earlier the same day; section 0 lists what
-changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
+Owner: Harness v2 thread. Version 1.2, 2026-10-19 (v1 and v1.1 were earlier the same day; section 0
+lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
 The idea in one line: a **pack** is one folder of plain Node code that gives the harness some **tools** and some **workflows**. The harness does everything else: the form, running steps in the background, picking the AI model, the member's approvals, the Pipeline, files, credits, the HQ screens, and the same workflows inside Claude and ChatGPT (the member's AI link).
@@ -9,6 +9,15 @@ The idea in one line: a **pack** is one folder of plain Node code that gives the
 Code: CommonJS, Node 20, no new npm packages without telling the Harness thread (system tools like `ffmpeg` are declared, see 7).
 
 ## 0. What changed since v1
+
+**In v1.2:**
+
+- **Emails** (Legal L55): Do my day ends every email it hands out, first messages, follow-ups and answers alike, with the member's name, business, mailing address and a "no thanks" line, and takes those lines off the Instagram, Facebook and call versions. Write each message once (section 13).
+- **Leads:** `repliedAt`, and `answered: true` or `answeredAt` when your workflow logs the member's answer (section 13). Messages keep their line breaks.
+- **Keys:** `osm`, the OpenStreetMap servers First 25 also reads (section 6). The brain has `business.address` (section 6b).
+- **Google Places:** the engine drops Google's fields at any depth of a lead's `data`, not only the top (section 6).
+
+**In v1.1:**
 
 - **Loader.** Folders starting with `_` or `.` are skipped (put shared helpers in `_kit`), and so is any folder whose `index.js` doesn't export a pack with an `id`. Every pack's tools load before any workflow is checked, so a workflow can use another pack's tools; no `uses` list is needed (an extra `uses` key is ignored). A workflow whose tools come from a refused pack is dropped, with the reason logged.
 - **Tools:** `wants`, `tasks`, `viewMany`, `lane`, output `flags`, the 256 KB output cap, and `sample: true` on an output (section 3).
@@ -154,6 +163,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | name | what | read from |
 |---|---|---|
 | `places` | Google Places (127's account) | `GOOGLE_PLACES_API_KEY`, `PLACES_API_KEY` or `GOOGLE_PLACES_KEY` |
+| `osm` | OpenStreetMap: an Overpass and a Nominatim server, 127's own or paid (the public ones are for testing only) | `OSM_OVERPASS_URL` + `OSM_NOMINATIM_URL`, read as `{ overpass, nominatim }` |
 | `instagram` | Instagram Business Discovery (127's account) | `IG_ACCESS_TOKEN` + `IG_USER_ID` |
 | `youtube` | YouTube Data API | `YOUTUBE_API_KEY` |
 | `pexels` | Pexels stock video | `PEXELS_API_KEY` |
@@ -170,7 +180,7 @@ Read one with `ctx.secret('places')` (only names you declared). Never log it, pu
 
 **Google Places terms** (Legal L53; `legal/handoffs/first-25.md` part 1 and `gym-video.md` part 3). 127 may keep a place ID for as long as it likes, and nothing else from Google: not the name, address, phone, website, rating, review count or Maps link, in the Pipeline, `ctx.remember`, `ctx.cache`, a saved file or an export.
 
-- Save a Google business with `key: 'gplaces:<place id>'` (or `placeId`), plus your own work: scores, gap ids, what you found on the business's own website (its Instagram, Facebook, email), and your messages. The engine enforces it on every `ctx.leads.upsert` and `update`: it drops Google's fields, swaps any Google name in your messages, facts and note for `[business name]`, and drops facts that quote Google's numbers.
+- Save a Google business with `key: 'gplaces:<place id>'` (or `placeId`), plus your own work: scores, gap ids, what you found on the business's own website (its Instagram, Facebook, email), and your messages. The engine enforces it on every `ctx.leads.upsert` and `update`: it drops Google's fields (name, address, phone, website, rating, `lat`, `lon` and the like) at any depth of `data`, swaps any Google name in your messages, facts, note and data for `[business name]`, and drops facts and data lines that quote Google's numbers. Under `site`, `contact`, `owner`, `people`, `insta`, `touches` and `followUps`, people's names you found on the business's own site stay.
 - When a tool reads a Google lead (`ctx.leads.get / list`), its name is `[business name]`. Write messages with that placeholder; HQ fills it in with the name it fetches when the member opens the lead, and the placeholder keeps Copy off until then.
 - Keep Google's ratings and review counts out of messages. Use a Google name in this run's own output only (what the member sees right now), never in what you save.
 - Spreadsheets and other files you save leave out every Google field; a Maps link built from the place ID (`https://www.google.com/maps/search/?api=1&query=<words>&query_place_id=<id>`) is fine.
@@ -181,7 +191,7 @@ Read one with `ctx.secret('places')` (only names you declared). Never log it, pu
 
 ```js
 ctx.brain = {
-  business: { name, what, niche, offer, price, audience, city, region, country, timezone, stage },
+  business: { name, what, niche, offer, price, audience, city, region, country, timezone, stage, address },
   voice: { tone, avoid },
   links: { website, instagram, tiktok, youtube, booking },
   goal: { northNumber, buildTarget },
@@ -190,7 +200,7 @@ ctx.brain = {
 }
 ```
 
-Every field can be missing; check before use. A pack saves its own facts with `await ctx.remember('offer_price', 450)` (stored under `brain.packs.<pack id>`, visible to the member).
+Every field can be missing; check before use. `address` is the member's mailing address for email footers; Do my day adds it for you (section 13). A pack saves its own facts with `await ctx.remember('offer_price', 450)` (stored under `brain.packs.<pack id>`, visible to the member).
 
 ## 7. The ctx a tool gets
 
@@ -284,12 +294,15 @@ A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and 
 
 ## 13. Leads and Do my day
 
-A lead is `{ key, name, company, source, stage, links, note, data, warm, score, channel, facts, msg, reply, sentAt, week }`:
+A lead is `{ key, name, company, source, stage, links, note, data, warm, score, channel, facts, msg, reply, sentAt, repliedAt, answered, answeredAt, week }`:
 
 - `stage`: `found`, `contacted`, `replied`, `call`, `won`, `lost`. `links`: `website`, `instagram`, `tiktok`, `youtube`, `facebook`, `linkedin`, `maps` (https), `email`, `phone`. `data`: anything of yours, up to 8 KB.
 - `score` (0 to 100): best first in Do my day. `channel`: `ig`, `email`, `fb`, `site` or `call`, where the first message goes. `facts`: up to 5 one-line reasons the message cites ("They post every day but have no Reels"). `warm`: someone the member knows.
-- `msg`: the messages, already written: `dm`, `subject`, `email`, `walkin`, `follow1`, `follow2`, and `answer` (a reply to their reply). Do my day hands these out ready to send, with one tap opening Instagram, Gmail or the phone. Keep `[placeholders]` out, or the member has to fill them before the buttons work.
+- `msg`: the messages, already written: `dm`, `subject`, `email`, `walkin`, `follow1`, `follow2`, and `answer` (a reply to their reply). Do my day hands these out ready to send, with one tap opening Instagram, Gmail or the phone. Keep `[placeholders]` out, or the member has to fill them before the buttons work (the address placeholder below and `[business name]` are the exceptions). Line breaks are kept.
+- **Emails** (US CAN-SPAM, Legal L55): every email Do my day hands out, first messages, follow-ups and answers alike, ends with the member's first name, their business, a mailing address and a "no thanks" line (`Not interested? Reply "no thanks" and I won't email again.`). HQ adds whatever's missing on the Email and website versions and takes those lines off the Instagram, Facebook and call versions, so write `follow1`, `follow2` and `answer` once, signed with the first name or not signed. If you write the footer yourself, put `[Your business address, required in marketing email]` where the address goes: HQ swaps in the address the member saved in Your business, and until there is one the placeholder keeps Copy off and links to where to save it.
 - `sentAt`: a lead that arrives already contacted gets its first follow-up 3 days after this (then 4 days after the second message; none after the third).
+- `repliedAt`: a lead that arrives at `replied` (or moves there) is dated now, or at `repliedAt` if you give it, so Do my day can say how long it has waited.
+- `answered: true` or `answeredAt`: your workflow logged that the member sent their answer to the reply (an "I sent it" step, say), so Do my day stops asking for one. On `upsert` or `ctx.leads.update`, for a lead at `replied`.
 - `placeId`: a business found through Google Places (or `key: 'gplaces:<place id>'`). It's stored without its name and Google's fields; see section 6.
 
 Do my day picks each morning's 25 (up to 100, the member's choice) from every pack's leads: answers to replies first, then calls to prep, follow-ups due, then the best new ones. So a pack that finds businesses should upsert them with `msg`, `facts`, `score` and `channel`, and everything else is HQ's job.

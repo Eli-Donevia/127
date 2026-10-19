@@ -244,7 +244,7 @@
 
   // ---------- Do my day ----------
   // A draft that still holds a [placeholder] can't be copied or opened until it's filled in.
-  var HOLE = /\[[^\]\n]{2,40}\]/;
+  var HOLE = /\[[^\]\n]{2,60}\]/;
   var lock = function (card) {
     var ta = $('[data-text]', card);
     var go = $('[data-go]', card);
@@ -258,6 +258,9 @@
       note.hidden = !m;
       var b = $('[data-hole-text]', note);
       if (b && m) b.textContent = m[0];
+      // The address placeholder: one save in Your business fills every email.
+      var help = $('[data-hole-help]', note);
+      if (help) help.hidden = ta.value.indexOf(help.getAttribute('data-hole-help')) < 0;
     }
   };
   var mailto = function (href, subject, body) {
