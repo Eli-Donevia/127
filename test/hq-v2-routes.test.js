@@ -829,6 +829,51 @@ test("the member's own First 25 list, found by their email, comes in with one ta
   }
 });
 
+test("the real First 25 module: a member's own list comes in with every reason, link and tracker date", async () => {
+  const first25 = require('../lib/first25');
+  const u = await member('builder', { name: 'Rae Okafor' });
+  const doc = await first25.run({ pack: 'video', buyer: 'gyms', place: 'Ames, IA', me: 'Maya' }, () => {});
+  try {
+    // The sample source makes labeled sample lists, which HQ never offers; this one stands in for a real one.
+    assert.equal(doc.sample, true);
+    await db.save('leads', { email: u.email, name: 'Maya', source: 'first-25', data: { run_id: doc.id, k: first25.sign(doc.id) } });
+    assert.equal(await imports.first25Mine(u), null, 'a sample list is never offered');
+    doc.sample = false;
+    doc.status = { 2: { s: 'contacted', at: '2026-11-03T15:00:00.000Z' } };
+    await db.save('prospectRuns', doc);
+    const rows = first25.leadsFor(u.email);
+    assert.equal(rows.length, 25);
+    const mine = await imports.first25Mine(u);
+    assert.equal(mine.count, 25);
+    assert.equal(mine.fresh, 25);
+    assert.equal(mine.city, 'Ames');
+    const r = await s.go('/app/hq/import/first25-mine', { as: u, form: {} });
+    assert.equal(where(r), '/app/hq#day');
+    const leads = P.list(u.id);
+    assert.equal(leads.length, 25);
+    const byRank = (n) => leads.find((l) => l.data.rank === n);
+    assert.match(byRank(1).msg.dm, /I'm Rae/, "written for the member's HQ name");
+    assert.ok(byRank(1).facts.length && byRank(1).facts.every((f) => /\s/.test(f)), `reasons, not ids: ${JSON.stringify(byRank(1).facts)}`);
+    assert.equal(byRank(2).stage, 'contacted');
+    assert.equal(byRank(2).nextAt, '2026-11-06T15:00:00.000Z', 'the follow-up is dated from when they sent it');
+    // The emailed link to the same list: its confirm page, and nothing new to add.
+    const link = `/app/hq/import/first25/${doc.id}?k=${first25.sign(doc.id)}`;
+    assert.match(await html(await s.go(link, { as: u })), /Work your 25 in HQ/);
+    await s.go(`/app/hq/import/first25/${doc.id}`, { as: u, form: { k: first25.sign(doc.id) } });
+    assert.match(flashes.pop().text, /already in your Pipeline/);
+    assert.equal(P.list(u.id).length, 25);
+    // The rows alone (list already gone) still give sentences, never gap ids.
+    await db.remove('prospectRuns', doc.id);
+    imports._setDeps({ first25: () => ({ leadsFor: () => JSON.parse(JSON.stringify(rows)) }) });
+    const fallback = await imports.first25Mine(u);
+    assert.equal(fallback.fresh, 0, 'the same businesses, the same leads');
+    for (const l of fallback.leads) assert.ok(l.facts.every((f) => /\s/.test(f)), JSON.stringify(l.facts));
+  } finally {
+    imports._setDeps({ first25: () => require('../lib/first25') });
+    await db.remove('prospectRuns', doc.id).catch(() => {});
+  }
+});
+
 // ---------- Monday's card ----------
 
 test("Monday's card: from 8am local the week's sends are written and waiting; approving puts them first in Do my day", async () => {

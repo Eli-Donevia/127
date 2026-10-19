@@ -36,6 +36,8 @@ const templates = require('./lib/templates');
 const hq = require('./lib/hq');
 const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
+const harness = require('./lib/harness');
+const harnessRoutes = require('./lib/harness/routes');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -196,8 +198,9 @@ app.use((req, res, next) => {
   res.locals.tplForPlaybook = templates.forPlaybook;
   res.locals.tplKinds = templates.KINDS;
   res.locals.canAccess = canAccess;
-  // 127 HQ (lib/hq.js): the nav item and the dashboard card show while HQ_LIVE=true (HQ_LIVE=admins: admins only).
-  res.locals.hqLive = hq.liveFor(user);
+  // 127 HQ (lib/hq.js): the nav item and the dashboard card show while HQ_LIVE=true (HQ_LIVE=admins: admins only),
+  // and for the members HQ v2 is on for (lib/harness, HARNESS_V2).
+  res.locals.hqLive = hq.liveFor(user) || harness.enabledFor(user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -1765,6 +1768,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await challenge.forget(user.email);
   // 127 HQ: saved Stripe and Shopify keys and the 127 link. The numbers themselves are on the user doc.
   await db.remove('hqConnections', user.id);
+  // HQ v2: runs, Inbox, Pipeline, Library files, credits, wins and the business brain.
+  await harness.forget(user.id);
   await db.remove('users', user.id);
 }
 
@@ -1990,6 +1995,23 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
 app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
 
+// HQ v2 (lib/harness): Today with Do my day, Start, the Inbox, Pipeline, Library and runs. Mounted before
+// HQ v1, so /app/hq is v2 for the members HARNESS_V2 is on for; everyone else falls through to v1.
+harness.hooks({
+  // Activation steps, wins, Monday cards and the budget alarms, as events (lib/integrations.js).
+  emit: (type, payload) => integrations.emit(type, payload),
+  // Under review for age (Legal L42): no new runs, and running ones stop at their next step.
+  guard: (user) => (ageCheck.underReview(user) ? ageCheck.PAUSE_MESSAGE : null),
+  // An AI answer inside a run carried the under-18 marker: the same pause as the Playbook's.
+  flag: async (user, run, stepId, out) => {
+    const f = ai.underAgeFlag(out);
+    if (!f) return;
+    const said = wordsOf(run.inputs).slice(0, 2000);
+    await ageCheck.flag(user, { source: 'hq', excerpt: said ? [{ from: 'member', text: said, at: run.createdAt || null }] : [], statedAge: f.statedAge != null ? f.statedAge : ageCheck.statedAge(said) });
+  },
+});
+app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
+
 // 127 HQ (lib/hq-routes.js): /app/hq, its connections and Read my week. Falls through to the 404 while HQ_LIVE is off.
 app.use(hqRoutes({ requireAuth, flash, track, reserveAi, refundAi, ageFromAi, aiRunsLeft }));
 
@@ -2059,6 +2081,13 @@ db.init().then(async () => {
     hq.tick().catch((err) => console.error('[hq] tick', err.message));
     hqHarness.tick().catch((err) => console.error('[hq] check-in', err.message));
   }, 5 * 60 * 1000).unref();
+  // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
+  // (and Monday's cards every 10), and clear old runs and cache once a day.
+  harness.init();
+  setInterval(() => {
+    harness.tick().catch((err) => console.error('[harness] tick', err.message));
+    harness.daily().catch((err) => console.error('[harness] daily', err.message));
+  }, 60 * 1000).unref();
   app.listen(PORT, '0.0.0.0', () => console.log(`127 running on http://localhost:${PORT}`));
   if (process.env.NODE_ENV !== 'test' && !process.env.NODE_TEST_CONTEXT) require('./lib/reminders').start();
 });
