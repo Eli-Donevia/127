@@ -102,7 +102,7 @@ window.RESULTS = {
     growing: {
       a1: 'Find out why it works. Day 3, {day3}: Have the conversation, with your best customers.',
       a2: "On {doorsShort}, your roadmap opens on the Grow track. Week 1 finds out what's working.",
-      resource: "Something works. Builder's Outreach Scripts help you reach more people like your best customers.",
+      resource: "Something works. Builder's Outreach Scripts help you write to more people like the ones you already serve.",
       start: "Start free. Your roadmap opens on the Grow track, starting with what's working.",
       builder: "Builder, ${builderPrice} a month: weeks 3 and 4, Outreach Scripts and Eli's Playbook.",
     },
