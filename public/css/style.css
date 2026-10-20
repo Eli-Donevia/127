@@ -1210,18 +1210,18 @@ main .legal-foot { margin-top: 32px; }
 .hbar-top a:hover{border-bottom-color:var(--ink)}
 .hbar-top .cd-line{margin:0;font-size:12px;letter-spacing:.12em}
 
-/* hero mark: live 3D over its poster on desktop, pre-rendered loop on phones */
-.hx-mark{position:absolute;right:-1%;top:44%;width:min(44vw,680px);height:min(32vw,460px);transform:translateY(-50%);z-index:-1;pointer-events:none;mix-blend-mode:lighten}
-.hx-mark #hero3d{position:absolute;inset:0;right:auto;top:auto;width:100%;height:100%;margin:0;transform:none;z-index:2}
-.hx-mark picture{position:absolute;inset:0}
-.hx-poster,.hx-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity 1s ease;background:transparent}
-.hx-loop{opacity:0;z-index:1}
+/* hero mark: First Light (v2/design/motion), the glass 127's loop over its poster, which is the loop's first frame.
+   The frames fade to black at their edges and lighten lets the page show through the black, so the light has no box.
+   The sections it sits in carry the page color, because lighten blends inside their isolated group. */
+.hx-mark{position:relative;width:min(680px,100%);height:clamp(220px,min(26vw,38vh),340px);margin:0 auto;z-index:-1;flex:none;pointer-events:none;mix-blend-mode:lighten}
+.hx-mark picture,.hx-loop{position:absolute;left:50%;top:50%;width:var(--fl-w,106%);aspect-ratio:16/9;transform:translate(-50%,var(--fl-y,-55%))}
+.hx-poster{width:100%;height:100%;object-fit:cover;animation:flIn 1.8s .1s cubic-bezier(.2,.8,.2,1) both}
+.hx-loop{height:auto;object-fit:cover;opacity:0;transition:opacity 1s ease}
 .hx-mark.is-playing .hx-loop{opacity:1}
-.hx-mark.is-playing picture,#hero3d.on ~ picture{opacity:0;transition:opacity 1.2s ease}
-/* The live mark fills about 82% of its box; the poster (mark = 49% of the frame) is scaled to match for a clean crossfade. */
-@media (min-width:1001px){.hx-poster{transform:scale(1.65)}}
-@media (max-width:1000px){.hx-mark{position:relative;right:auto;top:auto;transform:none;width:100%;height:220px;margin:-10px 0 6px}}
-@media (max-width:760px){.hx-mark{height:240px}.hx-poster,.hx-loop{object-fit:cover}}
+.hx-mark.is-playing picture{opacity:0;transition:opacity 1.2s ease}
+@keyframes flIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:none}}
+@media (max-width:760px){.hx-mark{height:250px;--fl-w:104%;--fl-y:-50%}}
+@media (prefers-reduced-motion:reduce){.hx-poster{animation:none}}
 
 /* what stops first-time founders */
 .stops{padding-top:40px !important}
@@ -1444,9 +1444,8 @@ main .legal-foot { margin-top: 32px; }
 .btn.ink:hover{box-shadow:0 10px 30px -10px rgba(10,10,14,.5)}
 
 /* hero */
-.h5{position:relative;min-height:calc(100vh - 68px);min-height:calc(100svh - 68px);display:flex;flex-direction:column;padding:28px 0 0 !important;overflow:hidden;isolation:isolate;text-align:center}
-.v5 .hx-mark{position:relative;right:auto;top:auto;transform:none;width:min(680px,100%);height:clamp(220px,min(26vw,38vh),340px);margin:0 auto;z-index:-1;flex:none}
-/* the halo: a soft backlight behind the mark, cut by a glossy floor (as in the v2 Blender renders) */
+.h5{position:relative;min-height:calc(100vh - 68px);min-height:calc(100svh - 68px);display:flex;flex-direction:column;padding:28px 0 0 !important;overflow:hidden;isolation:isolate;text-align:center;background:var(--bg)}
+/* the halo: a soft backlight behind First 25's sample run, cut by a glossy floor (as in the v2 Blender renders) */
 .h5-halo{position:absolute;left:50%;top:50%;width:var(--glow-w,150%);height:var(--glow-h,130%);transform:translate(-50%,-50%);border-radius:50%;
   background:radial-gradient(closest-side,rgba(244,245,251,.82),rgba(226,229,244,.62) 26%,rgba(200,206,248,.36) 46%,rgba(184,191,255,.15) 66%,rgba(184,191,255,.045) 84%,transparent);
   -webkit-mask-image:linear-gradient(#000 var(--floor,81%),rgba(0,0,0,.28) calc(var(--floor,81%) + .4%),transparent 100%);mask-image:linear-gradient(#000 var(--floor,81%),rgba(0,0,0,.28) calc(var(--floor,81%) + .4%),transparent 100%);
@@ -1454,7 +1453,6 @@ main .legal-foot { margin-top: 32px; }
 .h5-halo::after{content:'';position:absolute;left:4%;right:4%;top:var(--floor,81%);height:1px;background:linear-gradient(90deg,transparent,rgba(227,230,241,.35) 28%,rgba(255,255,255,.8) 50%,rgba(227,230,241,.35) 72%,transparent)}
 @keyframes haloIn{from{opacity:0;transform:translate(-50%,-50%) scale(.86)}to{opacity:1;transform:translate(-50%,-50%)}}
 @keyframes haloBreath{to{opacity:.78;transform:translate(-50%,-50%) scale(1.04,1.02)}}
-.v5 .hx-poster,.v5 .hx-loop{mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent);mask-image:radial-gradient(closest-side,#000 62%,transparent)}
 .h5-copy{position:relative;margin-top:6px;padding-bottom:56px}
 .h5 .lbl{margin-bottom:22px;animation:fadeUp .9s .1s both}
 .h5-title{font-family:var(--display);font-weight:800;font-size:clamp(46px,min(7.4vw,12.5vh),108px);line-height:.9;letter-spacing:-.062em;margin:0 auto 26px;max-width:1160px}
@@ -1592,9 +1590,6 @@ main .legal-foot { margin-top: 32px; }
 @media (max-width:760px){
   .v5 section{padding:80px 0}
   .h5{padding-top:8px !important;min-height:auto}
-  .v5 .hx-mark{height:250px}
-  .h5-halo{--glow-w:132%;--glow-h:112%;--floor:83%}
-  .v5 .hx-poster,.v5 .hx-loop{transform:scale(.86)}
   .h5-title > span{display:inline}
   .h5-copy{margin-top:0;padding-bottom:44px}
   .h5-title{font-size:clamp(40px,11.8vw,60px);margin-bottom:22px}
@@ -1715,8 +1710,8 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 .h5r-send{display:flex;align-items:center;margin:14px 0 0;font-size:14.5px;color:var(--ink-2);animation:fadeUp .9s .8s both}
 .h5r .h5-note{text-align:left;margin-top:16px}
 .h5r .h5-note a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
-/* The hook carries the 3D mark in run mode */
-.v5 .pain.pain-mark{position:relative;isolation:isolate;padding-top:72px !important;text-align:center}
+/* The hook carries the glass mark in run mode */
+.v5 .pain.pain-mark{position:relative;isolation:isolate;padding-top:72px !important;text-align:center;background:var(--bg)}
 .pain-mark .hx-mark{margin:0 auto}
 .v5 .pain-lbl{margin:6px 0 80px}
 .pain-mark .wrap{text-align:left}

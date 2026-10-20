@@ -337,14 +337,13 @@ function homeVideo() {
   if (!fs.existsSync(f)) return null;
   return { title, src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
 }
-// hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form;
-// heroMobile (HERO_MOBILE=loop|3d, default loop) picks the phone hero: the pre-rendered loop or the live WebGL mark.
+// hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form.
 // The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html) and searches real
 // businesses (FIRST25_SOURCE google or osm). On its made-up samples it can't say it finds anything (Legal 05 rule 6a),
 // so the v2 brand hero stays.
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', heroMobile: process.env.HERO_MOBILE === '3d' ? '3d' : 'loop', first25: first25Live() }));
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live() }));
 // Pricing meta description by launch state (conversion/pages/pricing.md).
 function pricingDescription() {
   const v = launch.view();

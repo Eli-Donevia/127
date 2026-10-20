@@ -136,11 +136,9 @@
   <% } else { %>
   <!-- HERO: the bio's promise, one button, the 3D 127 under a halo -->
   <section class="h5">
-    <%# The halo ring sits behind the mark. The live 3D mark runs on desktop; phones, reduced motion and low-power devices get the pre-rendered loop (or its poster) instead. %>
+    <%# First Light (v2/design/motion): the glass 127 under its halo. The poster is the loop's first frame and shows at once; the loop fades in over it after load, except with reduced motion or Save-Data. %>
     <div class="hx-mark" aria-hidden="true">
-      <div class="h5-halo"></div>
-      <canvas id="hero3d" data-fit="1.08"></canvas>
-      <picture><source media="(max-width: 760px)" srcset="/img/hero-loop-mobile-poster.jpg" width="1080" height="1350"><img class="hx-poster" src="/img/hero-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async"></picture>
+      <picture><source media="(max-width: 760px)" srcset="/img/first-light-phone.jpg" width="960" height="540"><img class="hx-poster" src="/img/first-light.jpg" alt="" width="1600" height="900" decoding="async"></picture>
     </div>
     <div class="wrap h5-copy">
       <p class="lbl">Make today day one</p>
@@ -157,13 +155,11 @@
   </section>
   <% } %>
 
-  <!-- THE HOOK (in run mode the 3D 127 moves here, under its halo: the brand moment after the demo) -->
+  <!-- THE HOOK (in run mode the glass 127 moves here, under its halo: the brand moment after the demo) -->
   <section class="pain<%= run ? ' pain-mark' : '' %>">
     <% if (run) { %>
     <div class="hx-mark" aria-hidden="true">
-      <div class="h5-halo"></div>
-      <canvas id="hero3d" data-fit="1.08"></canvas>
-      <picture><source media="(max-width: 760px)" srcset="/img/hero-loop-mobile-poster.jpg" width="1080" height="1350"><img class="hx-poster" src="/img/hero-loop-16x9-poster.jpg" alt="" width="1920" height="1080" decoding="async" loading="lazy"></picture>
+      <picture><source media="(max-width: 760px)" srcset="/img/first-light-phone.jpg" width="960" height="540"><img class="hx-poster" src="/img/first-light.jpg" alt="" width="1600" height="900" decoding="async" loading="lazy"></picture>
     </div>
     <p class="lbl pain-lbl">Make today day one</p>
     <% } %>
@@ -451,30 +447,25 @@
     </div>
   </section>
 </main>
-<script type="importmap">{ "imports": { "three": "/js/vendor/three.module.min.js" } }</script>
 <script type="module">
-// Hero mark. Desktop: the live 3D mark starts after the page has loaded, over its poster.
-// Phones (unless HERO_MOBILE=3d), reduced motion and low-power devices: no WebGL. Phones and low-power get the
-// pre-rendered loop; reduced motion keeps the still poster.
+// Hero mark: the First Light loop fades in over its poster once the page has loaded. Reduced motion and Save-Data keep
+// the poster. Phones get a smaller file.
 const mm = (q) => matchMedia(q).matches;
-const still = mm('(prefers-reduced-motion: reduce)');
+const still = mm('(prefers-reduced-motion: reduce)') || !!(navigator.connection || {}).saveData;
 const phone = mm('(max-width: 760px)');
-const phoneLoop = <%- JSON.stringify(heroMobile !== '3d') %>; // HERO_MOBILE=loop (default) or 3d
-const c = navigator.connection || {};
-const low = !!c.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
 const box = document.querySelector('.hx-mark');
 function loop() {
-  const name = phone ? 'hero-loop-mobile' : 'hero-loop-16x9';
+  const name = phone ? 'first-light-loop-phone' : 'first-light-loop';
   const v = document.createElement('video');
   Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: true, className: 'hx-loop' });
   v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
-  v.poster = '/img/' + name + '-poster.jpg';
+  v.poster = '/img/' + (phone ? 'first-light-phone' : 'first-light') + '.jpg';
   v.innerHTML = '<source src="/video/' + name + '.webm" type="video/webm"><source src="/video/' + name + '.mp4" type="video/mp4">';
   v.addEventListener('playing', () => box.classList.add('is-playing'), { once: true });
   box.appendChild(v);
   const p = v.play(); if (p && p.catch) p.catch(() => {});
 }
-const go = () => (still ? null : ((phone && phoneLoop) || low) ? loop() : import('/js/hero3d.js'));
+const go = () => (still || !box ? null : loop());
 const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 1500 }) : setTimeout(go, 200));
 document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
 </script>
