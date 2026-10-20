@@ -208,6 +208,7 @@
       var gate = $('gateWrap');
       R.gate(gate, {
         magnet: M,
+        copy: DRAW[M].gate ? DRAW[M].gate(run) : null,
         before: DRAW[M].tease(run),
         data: function () { return { run_id: run.id, k: run.k, door: M }; },
         onDone: function () {
@@ -233,6 +234,8 @@
     T = [];
     $('free').innerHTML = DRAW[M].free(st.run);
     $('full').innerHTML = st.unlocked ? DRAW[M].full(st.run) + files(st.run) : '';
+    var fix = $('result').querySelector('form.dr-fix');
+    if (fix) fix.onsubmit = rebuild;
   }
 
   function head(run) {
@@ -313,12 +316,16 @@
     site: {
       free: function (run) {
         var p = fileOf(run, 'preview');
-        return p && p.open ? '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>' : '';
+        return (p && p.open ? '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>' : '') +
+          // What the site still needs sits under the page until the email gate, then heads the steps.
+          (!st.unlocked && run.result.ready === false ? '<div class="dr-sec">' + almost(run) + '</div>' : '');
       },
       tease: function () { return ''; },
+      // Legal D49: while the build lists what's missing, the gate doesn't call the site ready.
+      gate: function (run) { return run.result.ready === false ? C.gateAlmost : null; },
       full: function (run) {
         var x = run.result;
-        return '<div class="dr-sec">' + label(C.result.deploy) + '<ol class="dr-steps">' + C.result.deploySteps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="dr-sub">' + esc(C.result.yours) + '</p></div>' +
+        return '<div class="dr-sec">' + (x.ready === false ? almost(run) + '<p class="dr-sub">' + esc(C.result.then) + '</p>' : label(C.result.deploy)) + '<ol class="dr-steps">' + C.result.deploySteps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="dr-sub">' + esc(C.result.yours) + '</p></div>' +
           (x.share.length ? '<div class="dr-sec">' + label(C.result.share) + x.share.map(function (s) { return msg(s.label, s.text, 'share'); }).join('') + '</div>' : '') +
           (x.photos.length ? '<div class="dr-sec">' + label(C.result.photos) + '<p class="dr-sub">' + esc(C.result.photosLine) + '</p><table class="dr-rows">' + x.photos.map(function (p) {
             return '<tr><td>' + esc(p.file) + '</td><td>' + esc(p.alt || '') + '</td><td class="num">' + esc(p.size || '') + '</td></tr>';
@@ -357,6 +364,27 @@
       (f.how ? '<p class="dr-try">' + esc(f.how) + '</p>' : '') +
       (f.impact === 'high' ? '<span class="dr-tag hi">' + esc(C.result.high) + '</span>' : '') +
       (f.minutes ? '<span class="dr-tag">' + esc(fill(C.result.minutes, { n: f.minutes })) + '</span>' : '') + '</div>';
+  }
+
+  // Legal D49: a site built without what it needs says "Almost ready to put online" and lists it, like README.txt.
+  // The email stays optional on the form, so it can be added here and the site built again.
+  function almost(run) {
+    var x = run.result, F = C.result.fix;
+    return label(C.result.almost) + '<ol class="dr-steps">' + x.blockers.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol>' +
+      '<p class="dr-sub">' + esc(C.result.almostAgain) + '</p>' +
+      (run.input && run.input.email ? '' : '<form class="dr-fix" novalidate><input class="input" type="email" name="email" placeholder="' + esc(F.placeholder) + '" aria-label="' + esc(F.label) + '" autocomplete="email" maxlength="120">' +
+        '<button class="btn" type="submit">' + esc(F.button) + ' <span class="arrow"></span></button><div class="form-err" hidden></div></form>');
+  }
+  function rebuild(e) {
+    e.preventDefault();
+    var f = e.target, v = f.email.value.trim(), er = f.querySelector('.form-err');
+    if (!K.validEmail(v)) { er.textContent = C.result.fix.error; er.hidden = false; f.email.focus(); return; }
+    if (form.elements.email) form.elements.email.value = v;
+    // A new run, so it gets its own result and its own email gate.
+    if (st.sticky) st.sticky.remove();
+    st.sticky = null;
+    st.unlocked = false;
+    start(Object.assign({}, st.run.input, { email: v }));
   }
 
   function brand(b) {

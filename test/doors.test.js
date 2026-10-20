@@ -153,6 +153,9 @@ test('each door runs end to end offline: streamed steps, then the result with it
   assert.equal(saved.creator.sample, false);
   const site = saved.site.result;
   assert.equal(site.business, 'Fern Hill Pottery');
+  // The email is optional (Legal D49), so the sample site, which has none, lists it as what to add first.
+  assert.equal(site.ready, false);
+  assert.match(site.blockers.join(' '), /^Add your email/);
   assert.ok(saved.site.files.some((f) => f.key === 'zip' && f.type === 'application/zip') && saved.site.files.some((f) => f.key === 'preview' && f.open));
   const o = saved.offer.result;
   assert.ok(o.score >= 0 && o.after >= o.score);
@@ -388,6 +391,29 @@ test('the email gate claims the result, and the email is rebuilt from the saved 
   }
   assert.match(funnels.deliveryEmail({ name: '', source: 'store-audit', data: { run_id: saved.store.id, k: saved.store.k } }, null).text, /Sample data, made up to show how it works/);
   assert.match(funnels.deliveryEmail({ name: '', source: 'offer-score', data: { run_id: saved.offer.id, k: saved.offer.k } }, null).text, /out of 100\. How clear and strong your offer reads today\. It isn't a prediction of sales\./);
+});
+
+test('a site without its email says "Almost ready to put online" and what to add first, never that it\'s ready (Legal D49)', async () => {
+  ON();
+  const S = D.doors.site;
+  const email = (v) => funnels.deliveryEmail({ name: '', email: 'a@b.co', source: S.source, data: { run_id: v.id, k: v.k } }, null).text;
+  const almost = email(saved.site);
+  assert.match(almost, /Almost ready to put online:\n1\. Add your email: .+\nBuild it again with these filled in before you put it online\. Your result page has a box to add it and build it again\.\n\nThen put it online free:\n1\. Download the ZIP\./);
+  assert.doesNotMatch(almost, /Put it online free tonight|ready to publish/);
+  // The gate's words for such a site don't call it ready either.
+  assert.match(S.gateAlmost.label, /almost ready to put online/);
+  assert.doesNotMatch(S.gateAlmost.label + S.gateAlmost.line, /ready to publish|tonight/);
+  // With the email, the same site is ready, and the email says so the usual way.
+  await serve(app(), async (base) => {
+    const ls = await lines(await run(base, 'site', { ...INPUT.site, email: 'hello@fernhill.example' }));
+    const v = ls[ls.length - 1].run;
+    assert.equal(v.result.ready, true);
+    assert.deepEqual(v.result.blockers, []);
+    assert.equal(v.input.email, 'hello@fernhill.example', 'the page has it, so it asks for nothing');
+    const ready = email(v);
+    assert.match(ready, /Put it online free tonight:\n1\. Download the ZIP\./);
+    assert.doesNotMatch(ready, /Almost ready/);
+  });
 });
 
 test('the lead form knows the four doors, each with its own consent wording', () => {
