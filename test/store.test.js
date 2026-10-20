@@ -221,13 +221,19 @@ test('bad ids, path traversal, .tpl downloads and unknown kinds are refused', ()
     { ...base, id: 'q9', links: [{ label: 'x', url: 'javascript:alert(1)', type: 'copy' }] },
     { ...base, id: 'q10', makeItMine: { ...base.makeItMine, tokens: ['business.secret'] } },
     { ...base, id: 'q11', flag: 'lower-case' },
+    { ...base, id: 'q12', links: [{ label: 'x', url: '//evil.example/app', type: 'open' }] },
+    { ...base, id: 'q13', links: [{ label: 'x', url: '/app//evil.example', type: 'open' }] },
+    { ...base, id: 'q14', links: [{ label: 'x', url: '/app/../admin', type: 'open' }] },
+    { ...base, id: 'q15', links: [{ label: 'x', url: '/app/\\evil.example', type: 'open' }] },
+    { ...base, id: 'q16', links: [{ label: 'x', url: '/admin/hq', type: 'open' }] },
+    { ...base, id: 'q17', links: [{ label: 'x', url: '/app/hq"onmouseover=x', type: 'open' }] },
     base,
     { ...base },
   ];
   const w = fx.writeStore({ items: bad, files });
   const lib = store.load(w.dir, { promptsFile: w.promptsFile });
   assert.deepEqual(lib.items.map((i) => i.id), ['quote'], 'only the one good item, once');
-  for (const id of ['bad id "../quote"', 'bad id "Quote"', 'q2: bad file path', 'q3: bad file path', "q4: a .tpl source can't be a download", 'q5: bad preview path', 'q6: unknown kind', 'q7: businessTypes', "q8: tier gold isn't a plan key", 'q9: bad link', 'q10: unknown token', 'q11: bad flag', 'quote: duplicate id']) {
+  for (const id of ['bad id "../quote"', 'bad id "Quote"', 'q2: bad file path', 'q3: bad file path', "q4: a .tpl source can't be a download", 'q5: bad preview path', 'q6: unknown kind', 'q7: businessTypes', "q8: tier gold isn't a plan key", 'q9: bad link', 'q10: unknown token', 'q11: bad flag', 'q12: bad link', 'q13: bad link', 'q14: bad link', 'q15: bad link', 'q16: bad link', 'q17: bad link', 'quote: duplicate id']) {
     assert.ok(lib.problems.some((p) => p.startsWith(id)), `${id} in ${lib.problems.join(' | ')}`);
   }
   assert.throws(() => store.load(w.dir, { strict: true, promptsFile: w.promptsFile }), /q2: bad file path/);
@@ -235,6 +241,19 @@ test('bad ids, path traversal, .tpl downloads and unknown kinds are refused', ()
   assert.match(store.load(w.dir, { promptsFile: w.promptsFile }).problems[0], /contract isn't a schema kind/);
   // No store.json yet: an empty Store, not a crash.
   assert.equal(store.load(path.join(w.dir, 'nowhere')).items.length, 0);
+});
+
+test('links: https outside links open in a new tab; same-site /app/ paths are kept as internal', () => {
+  const { items, files } = fx.standard();
+  const base = items[0];
+  const links = [
+    { label: 'Make it mine', url: '/app/hq/w/site.build_tonight?in_design=foundry', type: 'open' },
+    { label: 'Make a copy', url: 'https://docs.google.com/spreadsheets/d/abc/copy', type: 'copy' },
+  ];
+  const w = fx.writeStore({ items: [{ ...base, links }], files });
+  const lib = store.load(w.dir, { promptsFile: w.promptsFile });
+  assert.deepEqual(lib.problems, []);
+  assert.deepEqual(lib.items[0].links.map((l) => [l.url, l.internal]), [[links[0].url, true], [links[1].url, false]]);
 });
 
 test('resolveFile: listed downloads and previews only; a .tpl on disk is never served', () => {

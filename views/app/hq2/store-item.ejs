@@ -90,7 +90,7 @@
         <% if (item.links.length) { %>
         <section class="hq-card" aria-labelledby="ln-h">
           <span class="eyebrow" id="ln-h">Open it in your tools</span>
-          <div class="h2-actions"><% item.links.forEach(function (l) { %><a class="hq-pill" href="<%= l.url %>" target="_blank" rel="noopener noreferrer"><%= l.label || linkWord[l.type] %></a><% }) %></div>
+          <div class="h2-actions"><% item.links.forEach(function (l) { %><a class="hq-pill" href="<%= l.url %>"<% if (!l.internal) { %> target="_blank" rel="noopener noreferrer"<% } %>><%= l.label || linkWord[l.type] %></a><% }) %></div>
         </section>
         <% } %>
       <% } %>
