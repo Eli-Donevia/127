@@ -652,3 +652,46 @@ test('Legal L76: held connectors, Airtable signs in, Calendly reaches no AI, pla
     packs.workflow = wfOf;
   }
 });
+
+test('Legal K5: 30 days after a paid plan ends, every key and sign-in goes; a pause keeps them', async () => {
+  const lapse = require('../lib/lapse');
+  lapse._reset();
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_NOTION = 'on';
+  process.env.CONNECTOR_GDRIVE = 'on';
+  process.env.OAUTH_GOOGLE_ID = 'g';
+  process.env.OAUTH_GOOGLE_SECRET = 'gs';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  notionOk();
+  await connectors.connectKey(boss, 'notion', { token: NOTION });
+  const c = hq.connOf(boss.id);
+  c.apps.gdrive = { secret: hq.enc(JSON.stringify({ access: 'g-acc', refresh: 'g-ref' })), status: 'ok', kind: 'oauth' };
+  await hq.saveConn(c);
+  on('POST', /oauth2\.googleapis\.com\/revoke/, {});
+  const now = Date.now();
+
+  assert.equal(lapse.ended(boss), null, 'paid');
+  // A pause keeps everything.
+  Object.assign(boss, { tier: 'free', pausedTier: 'builder', canceledAt: new Date(now - 40 * 864e5).toISOString() });
+  await db.save('users', boss);
+  assert.equal(lapse.due(boss), false);
+  assert.equal(await lapse.sweep({ force: true }), 0);
+  // Moved to Free 29 days ago: kept, and the date it goes is known.
+  Object.assign(boss, { pausedTier: null, canceledAt: new Date(now - 29 * 864e5).toISOString() });
+  await db.save('users', boss);
+  assert.equal(lapse.deleteOn(boss).slice(0, 10), new Date(now + 864e5).toISOString().slice(0, 10));
+  assert.equal(await lapse.sweep({ force: true }), 0);
+  assert.ok(connectors.credsOf(boss.id, 'notion'));
+  // 31 days: both go, the sign-in is revoked at Google, and the log says why.
+  const seen = [];
+  lapse.onLapse('studio-test', async (u) => seen.push(u.id));
+  assert.equal(await lapse.sweep({ force: true, now: now + 2 * 864e5 }), 1);
+  assert.equal(connectors.credsOf(boss.id, 'notion'), null);
+  assert.equal(connectors.credsOf(boss.id, 'gdrive'), null);
+  assert.ok(calls.some((x) => /googleapis\.com\/revoke/.test(x.url)));
+  assert.match(log.list(boss.id, { app: 'notion' })[0].what, /paid plan ended over 30 days ago/);
+  assert.equal(log.list(boss.id, { app: 'notion' })[0].who, '127');
+  assert.deepEqual(seen, [boss.id], 'other owners (Studio) get the same timer');
+  // Again: nothing left, nothing breaks.
+  assert.equal(await lapse.sweep({ force: true, now: now + 3 * 864e5 }), 1);
+});
