@@ -54,10 +54,10 @@
         keyword: 'AUDIT',
         track: 'Store Audit Run',
         title: 'Store audit · 127',
-        description: 'Paste your Shopify store. Get a score out of 100 on 25 checks, every fix ranked, and your product page rebuilt with the fixes. Free.',
+        description: 'Paste your Shopify store. Get a score out of 100, every fix ranked, and your product page rebuilt with the fixes. Free.',
         chip: 'Free · Full audit with your email',
         h1: 'Your store, audited. Your product page, rebuilt.',
-        lede: 'Paste your store. 127 reads it the way a shopper sees it, scores 25 checks from photos to shipping, ranks every fix and mocks up your product page with the fixes applied.',
+        lede: 'Paste your store. 127 reads it the way a shopper sees it, checks it from photos to shipping, ranks every fix and mocks up your product page with the fixes applied.',
         fields: [
           { name: 'store', label: 'Your store', placeholder: 'yourstore.com', required: true, max: 300, auto: 'url' },
           // G3: ticked by the visitor before every run, never ticked for them (a sample store needs no tick).
@@ -69,9 +69,9 @@
         ownerError: 'Tick the box to confirm you own or run this store.',
         button: 'Audit my store',
         scan: 'Auditing {store}',
-        progress: ['Reading your store', 'Scoring 25 checks', 'Rebuilding your product page', 'Saving your report'],
+        progress: ['Reading your store', 'Scoring your store', 'Rebuilding your product page', 'Saving your report'],
         gate: { label: 'Get the full audit and your page mock-up.', line: 'Every fix with what we saw, your product page rebuilt with the fixes, and a product by product sheet.', button: 'Send my audit', sticky: 'Get the full audit and your page mock-up by email.' },
-        free: ['A score out of 100 on 25 checks', 'Every fix, ranked, with what we saw', 'Your product page rebuilt with the fixes', 'A product by product sheet of what to fix'],
+        free: ['A score out of 100, from photos to shipping', 'Every fix, ranked, with what we saw', 'Your product page rebuilt with the fixes', 'A product by product sheet of what to fix'],
         builder: ['shop.theme_sections', 'shop.compare_stores', 'shop.price_products', 'shop.launch_emails', 'shop.product_drop'],
         result: { heading: 'Your store scored {score} out of 100.', fixes: 'Your top fixes', more: '{n} more fixes in the full audit', strengths: 'Already working', mock: 'Your product page, rebuilt', mockTag: 'Mock-up', mockLine: 'A mock-up of {product} with the fixes applied, from your own photos and words, with numbered notes. It\'s just for you, and 127 never publishes it.', photos: 'photos per product', words: 'words in a typical description', high: 'High impact', minutes: 'About {n} min' },
         // A store the audit can't read (shop.audit's statuses).
@@ -137,7 +137,7 @@
       offer: {
         path: '/offer-score',
         source: 'offer-score',
-        keyword: 'OFFER',
+        keyword: 'GRADE',
         track: 'Offer Score Run',
         title: 'Offer score · 127',
         description: 'Describe your coaching or digital product. Get it scored out of 100, the 3 fixes that raise it most, a rewrite, and a freebie built and ready to post. Free.',

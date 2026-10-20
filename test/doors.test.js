@@ -143,6 +143,8 @@ test('each door runs end to end offline: streamed steps, then the result with it
   assert.equal(saved.store.sample, true, 'the sample store is labeled a sample');
   assert.ok(s.score >= 0 && s.score <= 100 && s.fixes.length > 3 && s.mock && s.mock.product.title);
   assert.deepEqual(saved.store.files.map((f) => f.key).sort(), ['issues', 'mock', 'report']);
+  // How many checks a store gets depends on what's on it, so the door's copy never names a number.
+  assert.doesNotMatch(JSON.stringify(D.doors.store), /\d+ checks/);
   const c = saved.creator.result;
   assert.equal(c.brands.length, 25);
   assert.match(c.brands[0].msg.dm, /^Hi .+ team!/);
