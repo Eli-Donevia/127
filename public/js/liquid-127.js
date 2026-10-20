@@ -3,12 +3,16 @@
 // bevelled here) and the pond is a height field run as a wave equation on the GPU. Each pixel marches a ray through
 // both: the glass refracts and reflects a studio of soft lights (one of them follows the pointer), the pond mirrors
 // the glass and the lights, and you can see the glass's glow through the water while it's under.
-//   liquid127(stage, { small, reveal, capture, onSlow }) -> Promise (resolves once it's drawing)
+//   liquid127(stage, { small, reveal, scrub, capture, onSlow }) -> Promise (resolves once it's drawing)
+//   scrub: () => 0..1, how far the page has scrolled through the hero's pin; the rise follows the first 65% of it
+//   pop: true lights it with the accent (#7C8CFF) as well as white; setPop(bool) changes it live
 //
 // It's alive: the 127 floats and sways, turns toward the pointer on a spring, its surface moves like liquid, a hover
 // sends a ripple through the glass, the pointer drags a wake through the pond, and a click drops a stone and makes the
-// glass wobble. On opening it forms out of the water: the pond swells, a mound of liquid climbs out of it still joined
-// to the surface, gathers into the 127 and pulls free, dripping. Scrolling on runs that backwards.
+// glass wobble. It forms out of the water: the pond swells, a mound of liquid climbs out of it still joined to the
+// surface, gathers into the 127 and pulls free, dripping. With scrub the page opens on the still pond and the first
+// bit of scroll plays that rise (scrolling back sinks it again); without, it plays on opening. Scrolling past the hero
+// runs it back into the water.
 
 const K = 2.4 / 290.8;                         // scene units per unit of the mark's path (the 127 is 2.4 wide)
 const SW = 350.5778 * K, SH = 197.2 * K, SR = 60 * K;   // the distance field's extent and range, in scene units
@@ -57,9 +61,10 @@ uniform vec4 uMark;          // the mark's middle (xyz) and its stretch (w)
 uniform mat3 uRot;           // scene to mark
 uniform float uForm, uMerge, uWobble, uGlow, uKey, uFade;
 uniform vec4 uPoke[4];       // ripples through the glass: where on its face (x, y), strength, age
-uniform vec3 uPtr;           // the pointer's light: where it points (x, y) and how strong
+uniform vec3 uPtr;
+uniform float uPop;           // how much of the light is the accent colour           // the pointer's light: where it points (x, y) and how strong
 out vec4 o;
-const vec3 HALO = vec3(0.89, 0.90, 0.95);
+const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.30, 0.36, 1.0);   // #7C8CFF, in linear light, a touch hotter
 const vec3 BG = vec3(BGC);
 const float SW_ = SWV, SH_ = SHV, SR_ = SRV, DEPTH_ = DEPTHV, BEVEL_ = BEVELV;
 const vec4 WB_ = vec4(WBV);
@@ -126,15 +131,16 @@ vec3 sky(vec3 d, float key) {
   vec3 c = vec3(0.010, 0.010, 0.013) * exp(-abs(d.y) * 5.0);
   // a broad soft glow straight behind: what lights the glass from within, as the halo did
   vec2 bq = vec2(d.x, d.y - 0.12) / max(-d.z, 1e-3);
-  c += HALO * 0.55 * step(0.0, -d.z) * exp(-dot(bq, bq * vec2(1.6, 3.4)) / 0.16);
-  c += HALO * 2.6 * panel(d, normalize(vec3(-0.85, 0.18, -1.0)), vec3(0, 1, 0), 0.08, 0.9);
-  c += HALO * 2.6 * panel(d, normalize(vec3(0.85, 0.18, -1.0)), vec3(0, 1, 0), 0.08, 0.9);
+  c += mix(HALO, POP * 1.5, uPop * 0.6) * 0.55 * step(0.0, -d.z) * exp(-dot(bq, bq * vec2(1.6, 3.4)) / 0.16);
+  c += mix(HALO, POP * 1.6, uPop) * 2.6 * panel(d, normalize(vec3(-0.85, 0.18, -1.0)), vec3(0, 1, 0), 0.08, 0.9);
+  c += mix(HALO, POP * 1.6, uPop * 0.35) * 2.6 * panel(d, normalize(vec3(0.85, 0.18, -1.0)), vec3(0, 1, 0), 0.08, 0.9);
   c += vec3(0.72, 0.75, 1.0) * 0.9 * panel(d, normalize(vec3(0.0, 0.05, -1.0)), vec3(0, 1, 0), 0.9, 0.12);
   c += HALO * 1.6 * uKey * key * panel(d, normalize(vec3(0.15, 1.0, 0.35)), vec3(0, 0, -1), 0.7, 0.35);
   c += HALO * 0.18 * panel(d, normalize(vec3(-0.4, 0.25, 1.0)), vec3(0, 1, 0), 0.6, 0.4);
   vec3 pc = normalize(vec3(uPtr.x * 1.4, 0.35 + uPtr.y * 0.6, 1.0));
-  c += HALO * 3.2 * uPtr.z * pow(max(dot(d, pc), 0.0), 900.0);
-  c += HALO * 0.25 * uPtr.z * pow(max(dot(d, pc), 0.0), 60.0);
+  vec3 pl = mix(HALO, POP * 1.4, uPop);
+  c += pl * 3.2 * uPtr.z * pow(max(dot(d, pc), 0.0), 900.0);
+  c += pl * 0.25 * uPtr.z * pow(max(dot(d, pc), 0.0), 60.0);
   return c;
 }
 // what the pond mirrors: only the void, a faint sheen and the pointer's light (no glow or strips, so it stays dark)
@@ -143,7 +149,7 @@ vec3 skyW(vec3 d) {
   // a low, wide, faint sheen far behind, so the ripples have something to catch
   c += HALO * 0.16 * step(0.0, -d.z) * exp(-pow(d.y / max(-d.z, 1e-3) - 0.06, 2.0) / 0.004) * exp(-d.x * d.x / 0.5);
   vec3 pc = normalize(vec3(uPtr.x * 1.4, 0.35 + uPtr.y * 0.6, 1.0));
-  c += HALO * 2.0 * uPtr.z * pow(max(dot(d, pc), 0.0), 900.0);
+  c += mix(HALO, POP * 1.4, uPop) * 2.0 * uPtr.z * pow(max(dot(d, pc), 0.0), 900.0);
   return c;
 }
 vec3 env(vec3 d) { return d.y >= 0.0 ? sky(d, 1.0) : sky(vec3(d.x, -d.y, d.z), 0.0) * 0.06 + vec3(0.003, 0.003, 0.004); }
@@ -175,7 +181,7 @@ vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
   vec3 col = refl * (F * 1.1 + 0.03);
   if (uGlow > 0.0) {
     vec3 rt = refract(rd, n, 1.0 / 1.33); q = p; t = 0.0;
-    for (int i = 0; i < 24; i++) { float d = glass(q); if (d < 0.004) { col += HALO * 0.5 * uGlow * exp(-t * 1.8) * (0.5 + 0.5 * dot(gnorm(q), -rt)); break; } q += rt * max(d, 0.01); t += max(d, 0.01); if (t > 2.0) break; }
+    for (int i = 0; i < 24; i++) { float d = glass(q); if (d < 0.004) { col += mix(HALO, POP * 1.3, uPop) * 0.5 * uGlow * exp(-t * 1.8) * (0.5 + 0.5 * dot(gnorm(q), -rt)); break; } q += rt * max(d, 0.01); t += max(d, 0.01); if (t > 2.0) break; }
   }
   return col;
 }
@@ -230,12 +236,58 @@ void main() {
   .replace('DEPTHV', DEPTH.toFixed(3)).replace('BEVELV', BEVEL.toFixed(3)).replace('WBV', WB.join(', '))
   .replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
 
+// The swarm: points of light that lift off the pond and stream into the 127's shape, then pour into the glass as it
+// forms. Each point has a seed on the water (x, z, two randoms) and a place on the mark (in the mark's own space).
+const PV = `#version 300 es
+precision highp float;
+in vec4 aS; in vec3 aT;
+uniform vec2 uRes; uniform float uDpr; uniform vec4 uFrame;
+uniform float uP, uAbs, uTime, uSize, uPop; uniform vec3 uC; uniform mat3 uRot;
+out float vA; out vec3 vC;
+void main() {
+  float r1 = aS.z, r2 = aS.w;
+  float k = clamp((uP - r1 * 0.45) / 0.55, 0.0, 1.0), e = k * k * (3.0 - 2.0 * k), m = sin(3.14159 * e);
+  vec3 tg = uC + transpose(uRot) * aT, c = vec3(aS.x, 0.02, aS.y) - tg;
+  // on the way it swirls round the mark and lifts, most in the middle of its run
+  float a = (r2 - 0.5) * 5.0 * m;
+  vec3 p = tg + (1.0 - e) * vec3(c.x * cos(a) - c.z * sin(a), c.y, c.x * sin(a) + c.z * cos(a));
+  p.y += m * (0.2 + 0.55 * r2);
+  p += (m * 0.05 + 0.006) * vec3(sin(uTime * 1.3 + r1 * 40.0), sin(uTime * 1.7 + r2 * 30.0), cos(uTime * 1.1 + r1 * 20.0));
+  vec3 ro = vec3(CAMV), fw = normalize(vec3(AIMV) - ro), rt = normalize(cross(fw, vec3(0, 1, 0))), up = cross(rt, fw);
+  vec3 v = p - ro; float z = dot(v, fw);
+  vec2 u = vec2(0.5 + dot(v, rt) / z / (2.0 * TANV_ * 16.0 / 9.0), 0.5 - dot(v, up) / z / (2.0 * TANV_));
+  vec2 q = (uFrame.xy + u * uFrame.zw) * uDpr;
+  gl_Position = vec4(q.x / uRes.x * 2.0 - 1.0, 1.0 - q.y / uRes.y * 2.0, 0.0, 1.0);
+  gl_PointSize = uSize * uDpr * (uFrame.z / 1280.0) * (0.6 + 0.8 * r2) * 5.6 / z;
+  vA = smoothstep(0.0, 0.12, k) * (1.0 - uAbs) * (0.6 + 0.6 * r1);
+  // with the pop most points are the accent, a few stay white-hot
+  vC = mix(vec3(0.86, 0.89, 1.0), r2 > 0.82 ? vec3(0.92, 0.94, 1.0) : vec3(0.22, 0.30, 1.0) * 1.5, uPop);
+}`.replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
+const PF = `#version 300 es
+precision highp float;
+in float vA; in vec3 vC; out vec4 o;
+void main() { vec2 d = gl_PointCoord - 0.5; o = vec4(vC * exp(-dot(d, d) * 18.0) * vA, 1.0); }`;
+// points on the mark from its distance field: most on the outline (anywhere through its depth), the rest on its faces
+function markPoints(img, n) {
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0);
+  const px = x.getImageData(0, 0, c.width, c.height).data, out = new Float32Array(n * 3);
+  for (let i = 0, tries = 0; i < n && tries < n * 60; tries++) {
+    const u = Math.random(), v = Math.random(), o = (Math.floor(v * c.height) * c.width + Math.floor(u * c.width)) * 4;
+    const d = ((px[o] * 256 + px[o + 1]) / 65535 - 0.5) * 2 * SR;
+    const edge = d < 0.004 && d > -0.03;
+    if (!(edge || (d < 0 && Math.random() < 0.3))) continue;
+    out.set([(u - 0.5) * SW, (0.5 - v) * SH, edge ? (Math.random() * 2 - 1) * DEPTH : (Math.random() < 0.5 ? -DEPTH : DEPTH)], i * 3); i++;
+  }
+  return out;
+}
+
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const easeOut = (v, p = 3) => 1 - Math.pow(1 - clamp(v), p);
 const inOut = (v) => { v = clamp(v); return v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2; };
 const ramp = (t, a, b, f = easeOut) => f((t - a) / (b - a));
-// The rise, in seconds: the pond swells, the mass climbs out, gathers into the 127, pulls free of the water, settles
-const R = { swell: [0.2, 1.4], up: [0.6, 3.6], form: [1.2, 3.9], free: [2.6, 3.9], glow: [0.0, 1.2], key: [1.0, 3.6], end: 5.0, deep: 1.75 };
+// The rise, in seconds (after the swarm's R.swarm): the pond swells, the mass climbs out, gathers into the 127, pulls free of the water, settles
+const R = { swarm: 2.2, swell: [0.2, 1.4], up: [0.6, 3.6], form: [1.2, 3.9], free: [2.6, 3.9], glow: [0.0, 1.2], key: [1.0, 3.6], end: 5.0, deep: 1.75 };
 
 function load(src) {
   return fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.blob(); })
@@ -318,14 +370,33 @@ export async function liquid127(stage, opts = {}) {
   gl.useProgram(pr);
   gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
   tex(0); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB8, gl.RGB, gl.UNSIGNED_BYTE, sdfImg);
-  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr']
+  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr', 'uPop']
     .forEach((n) => { U[n] = gl.getUniformLocation(pr, n === 'uPoke' ? 'uPoke[0]' : n); });
   gl.uniform1i(U.uSdf, 0); gl.uniform1i(U.uW, 1);
   step();
 
+  // ---- the swarm ----
+  const NP = opts.small ? 3600 : 9000, swarm = { n: NP };
+  {
+    const p = gl.createProgram();
+    gl.attachShader(p, sh(gl.VERTEX_SHADER, PV)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, PF));
+    gl.bindAttribLocation(p, 1, 'aS'); gl.bindAttribLocation(p, 2, 'aT'); gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+    swarm.p = p; swarm.U = {};
+    ['uRes', 'uDpr', 'uFrame', 'uP', 'uAbs', 'uTime', 'uSize', 'uPop', 'uC', 'uRot'].forEach((k) => { swarm.U[k] = gl.getUniformLocation(p, k); });
+    const seed = new Float32Array(NP * 4);
+    for (let i = 0; i < NP; i++) seed.set([(Math.random() * 2 - 1) * 2.4, -1.6 + Math.random() * 2.4, Math.random(), Math.random()], i * 4);
+    swarm.vao = gl.createVertexArray(); gl.bindVertexArray(swarm.vao);
+    [[1, 4, seed], [2, 3, markPoints(sdfImg, NP)]].forEach(([loc, k, data]) => {
+      const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, k, gl.FLOAT, false, 0, 0);
+    });
+    gl.bindVertexArray(null); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  }
+
   // ---- state ----
   const S = { start: null, reveal: opts.reveal !== false, ptr: null, lastMove: -1e9, scroll: 0, prev: 0, acc: 0,
-    yaw: 0, yawV: 0, pitch: 0, pitchV: 0, sq: 0, sqV: 0, lx: 0, ly: 0, lk: 0, pokes: [], wet: null, stone: null, wasY: null, freed: false, drips: [], nextDrip: null };
+    yaw: 0, yawV: 0, pitch: 0, pitchV: 0, sq: 0, sqV: 0, lx: 0, ly: 0, lk: 0, pokes: [], ph: 0, dph: 0, pop: opts.pop ? 1 : 0, popT: opts.pop ? 1 : 0, wet: null, stone: null, wasY: null, freed: false, drips: [], nextDrip: null };
   let dpr = 1, W = 0, H = 0, frame = [0, 0, 1, 1], scale = opts.scale || (opts.small ? 0.55 : 0.75), slow = 0, stopped = false;
   const fps = opts.fps || (opts.small ? 30 : 60);
   const size = () => {
@@ -382,46 +453,62 @@ export async function liquid127(stage, opts = {}) {
       slow = 0;
       if (scale > 0.4) { scale -= 0.12; size(); } else { stopped = true; if (opts.onSlow) opts.onSlow(); }
     }
-    const rv = S.reveal ? t : R.end + t;
+    // rv: how far into the rise; ck: the clock its life runs on (the same, unless the scroll drives the rise)
+    let rv = S.reveal ? t : R.end + t, ck = rv;
+    const scrub = opts.scrub && S.reveal;
+    if (scrub) {
+      // the rise follows the scroll, with a little liquid lag; once it's free it settles in its own time
+      const p = clamp(opts.scrub() / 0.65), was = S.ph, top = R.free[1] + R.swarm;
+      if (p > 0.995 && S.ph >= top - 0.05) S.ph = Math.min(R.end + 1.5 + R.swarm, S.ph + dt);
+      else { S.ph = Math.min(S.ph, top); S.ph += (p * top - S.ph) * (1 - Math.exp(-dt * 5)); }
+      S.dph = S.ph - was; rv = S.ph; ck = R.end + t;
+    }
+    // first the swarm gathers into the 127's shape (sw), then the liquid climbs up into it (rv, R.swarm later)
+    const sw = S.reveal ? rv : 1e3;
+    if (S.reveal) rv -= R.swarm;
     // the rise
     const v = clamp((rv - R.up[0]) / (R.up[1] - R.up[0]));
     let y = REST - R.deep * Math.pow(1 - v, 2.4);
-    let form = ramp(rv, ...R.form, inOut), merge = 0.42 * (1 - ramp(rv, ...R.free, inOut)), glow = 1 - ramp(rv, R.up[1] - 0.8, R.up[1] + 0.4);
-    let key = 0.35 + 0.65 * ramp(rv, ...R.key), fade = 0.25 + 0.75 * ramp(rv, 0, 1.2);
+    let form = ramp(rv, ...R.form, inOut), merge = 0.42 * (1 - ramp(rv, ...R.free, inOut)), glow = (1 - ramp(rv, R.up[1] - 0.8, R.up[1] + 0.4)) * ramp(rv, 0.2, 0.9);
+    let key = 0.35 + 0.65 * ramp(rv, ...R.key), fade = 0.25 + 0.75 * ramp(scrub ? t : rv, 0, 1.2);
     const wob = 0.0035 + 0.02 * (1 - ramp(rv, R.free[1] - 0.5, R.end + 1.5, (x) => x));
     // alive: it floats and sways on its own, and turns to the pointer on a spring
     const idle = !S.ptr || now - S.lastMove > 2600;
     const fl = ramp(rv, R.free[0], R.end + 0.5, inOut);
-    y += fl * (0.03 * Math.sin(2 * Math.PI * rv / 6.2) + 0.012 * Math.sin(2 * Math.PI * rv / 9.7));
-    const yawT = (idle ? 0.09 * Math.sin(2 * Math.PI * rv / 11) : (clamp(S.ptr[0], -0.2, 1.2) - 0.5) * 0.8) * fl;
-    const pitchT = (idle ? 0.035 * Math.sin(2 * Math.PI * rv / 8.3 + 1) : (clamp(S.ptr[1], -0.2, 1.2) - 0.45) * 0.32) * fl;
+    y += fl * (0.03 * Math.sin(2 * Math.PI * ck / 6.2) + 0.012 * Math.sin(2 * Math.PI * ck / 9.7));
+    const yawT = (idle ? 0.09 * Math.sin(2 * Math.PI * ck / 11) : (clamp(S.ptr[0], -0.2, 1.2) - 0.5) * 0.8) * fl;
+    const pitchT = (idle ? 0.035 * Math.sin(2 * Math.PI * ck / 8.3 + 1) : (clamp(S.ptr[1], -0.2, 1.2) - 0.45) * 0.32) * fl;
     const spring = (x, vv, tgt, k, c) => { const a = k * (tgt - x) - c * vv; vv += a * dt; return [x + vv * dt, vv]; };
     [S.yaw, S.yawV] = spring(S.yaw, S.yawV, yawT, 26, 5.5);
     [S.pitch, S.pitchV] = spring(S.pitch, S.pitchV, pitchT, 26, 5.5);
     [S.sq, S.sqV] = spring(S.sq, S.sqV, 0, 160, 7);
     // the pointer's light
-    const lxT = S.ptr && !idle ? (S.ptr[0] - 0.5) * 2 : 0.6 * Math.sin(rv * 0.4), lyT = S.ptr && !idle ? (0.5 - S.ptr[1]) * 2 : 0.2;
+    const lxT = S.ptr && !idle ? (S.ptr[0] - 0.5) * 2 : 0.6 * Math.sin(ck * 0.4), lyT = S.ptr && !idle ? (0.5 - S.ptr[1]) * 2 : 0.2;
     const la = 1 - Math.exp(-dt * (idle ? 1.2 : 6));
     S.lx += (lxT - S.lx) * la; S.ly += (lyT - S.ly) * la; S.lk += ((rv > 3 ? (idle ? 0.5 : 1) : 0) - S.lk) * (1 - Math.exp(-dt * 2));
     // scrolling on: back into the water
     const s = S.scroll;
-    if (s > 0.03) {
-      const k = inOut((s - 0.12) / 0.5);
-      form = Math.min(form, 1 - inOut((s - 0.03) / 0.4)); y = Math.min(y, REST - R.deep * 0.9 * k * k);
-      merge = Math.max(merge, 0.42 * inOut((s - 0.03) / 0.3)); key *= 1 - 0.5 * s;
+    if (s > 0.12) {
+      const k = inOut((s - 0.2) / 0.5);
+      form = Math.min(form, 1 - inOut((s - 0.12) / 0.4)); y = Math.min(y, REST - R.deep * 0.9 * k * k);
+      merge = Math.max(merge, 0.42 * inOut((s - 0.12) / 0.3)); key *= 1 - 0.5 * s;
     }
     // the pond: it swells first, rings where the mass breaks through, and drops as it pulls free
-    if (rv > R.swell[0] && rv < R.swell[1] && S.reveal) drop(0, -0.02, 0.5, 0.06 * Math.sin(Math.PI * (rv - R.swell[0]) / (R.swell[1] - R.swell[0])));
+    // (driven by the scroll, it swells as fast as the scroll moves it, and only on the way up)
+    if (rv > R.swell[0] && rv < R.swell[1] && S.reveal) drop(0, -0.02, 0.5, 0.06 * Math.sin(Math.PI * (rv - R.swell[0]) / (R.swell[1] - R.swell[0])) * (scrub ? clamp(S.dph * 60, 0, 2) : 1));
+    // before the first scroll, the still pond stirs now and then, as if something were under it
+    if (scrub && rv < 0.05) { if (S.invite === undefined) S.invite = ck + 1.6; if (ck > S.invite) { drop(0, -0.02, 0.4, 1.0); S.invite = ck + 3.4; } }
     const bottom = y - HALF, wasB = S.wasY === null ? bottom : S.wasY; S.wasY = bottom;
     if (bottom < 0 && bottom + 2 * HALF > 0 && wasB < bottom && Math.random() < 0.5) {
       const f = FEET[Math.floor(Math.random() * 3)]; drop(f[0] + Math.random() * (f[1] - f[0]), (Math.random() - 0.5) * 0.3, 0.07, 0.9 * clamp((bottom - wasB) * 60 / 0.8));
     }
+    if (S.freed && merge > 0.2) S.freed = false;            // sunk back (scrolled up): it can drip free again
     if (!S.freed && merge < 0.05 && S.reveal && rv < R.end + 1) {
-      S.freed = true; FEET.forEach((f, i) => S.drips.push({ t: rv + 0.05 + 0.13 * i, x: (f[0] + f[1]) / 2 }));
+      S.freed = true; FEET.forEach((f, i) => S.drips.push({ t: ck + 0.05 + 0.13 * i, x: (f[0] + f[1]) / 2 }));
     }
-    if (S.nextDrip === null) S.nextDrip = rv + 3;
-    if (rv > S.nextDrip && fl > 0.9) { const f = FEET[Math.floor(Math.random() * 3)]; S.drips.push({ t: rv + 0.25, x: f[0] + Math.random() * (f[1] - f[0]) }); S.nextDrip = rv + 2.5 + Math.random() * 4; }
-    S.drips = S.drips.filter((d) => { if (rv < d.t) return true; drop(d.x, 0.0, 0.05, 2.4); return false; });
+    if (S.nextDrip === null) S.nextDrip = ck + 3;
+    if (ck > S.nextDrip && fl > 0.9) { const f = FEET[Math.floor(Math.random() * 3)]; S.drips.push({ t: ck + 0.25, x: f[0] + Math.random() * (f[1] - f[0]) }); S.nextDrip = ck + 2.5 + Math.random() * 4; }
+    S.drips = S.drips.filter((d) => { if (ck < d.t) return true; drop(d.x, 0.0, 0.05, 2.4); return false; });
     if (S.stone) { const h = hitAt(S.stone, y); S.stone = null;
       if (h && h.f === 'pond') drop(h.x, h.z, 0.12, 5); else if (h) { S.sqV -= 1.2; S.pokes.push({ x: h.x, y: h.y, a: 0.02, age: 0 }); } }
     S.acc = Math.min(S.acc + dt, 4 / 60);
@@ -433,14 +520,28 @@ export async function liquid127(stage, opts = {}) {
     gl.uniform2f(U.uRes, cv.width, cv.height); gl.uniform1f(U.uDpr, dpr); gl.uniform4fv(U.uFrame, frame);
     gl.uniform1f(U.uTime, t); gl.uniform1f(U.uGrain, opts.grain ?? 0.03);
     gl.uniform4f(U.uMark, 0, y, 0, 1 + S.sq);
-    const cy = Math.cos(S.yaw), sy = Math.sin(S.yaw), cp = Math.cos(S.pitch), sp = Math.sin(S.pitch);
+    const cy = Math.cos(S.yaw), sy = Math.sin(S.yaw), cp = Math.cos(S.pitch), sp_ = Math.sin(S.pitch);
     // scene to mark: undo the yaw (about y), then the pitch (about x); column-major
-    gl.uniformMatrix3fv(U.uRot, false, new Float32Array([cy, sy * sp, sy * cp, 0, cp, -sp, -sy, cy * sp, cy * cp]));
+    gl.uniformMatrix3fv(U.uRot, false, new Float32Array([cy, sy * sp_, sy * cp, 0, cp, -sp_, -sy, cy * sp_, cy * cp]));
     gl.uniform1f(U.uForm, form); gl.uniform1f(U.uMerge, merge); gl.uniform1f(U.uWobble, wob); gl.uniform1f(U.uGlow, glow);
     gl.uniform1f(U.uKey, key); gl.uniform1f(U.uFade, fade);
     const pk = new Float32Array(16); S.pokes.forEach((p, j) => pk.set([p.x, p.y, p.a, p.age], j * 4)); gl.uniform4fv(U.uPoke, pk);
     gl.uniform3f(U.uPtr, S.lx, S.ly, S.lk);
+    S.pop += (S.popT - S.pop) * (1 - Math.exp(-dt * 3)); gl.uniform1f(U.uPop, S.pop);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
+    // the swarm streams in over the first part of the rise and pours into the glass as it forms
+    const sp = clamp(sw / R.swarm), sa = ramp(rv, 1.6, 3.9, (x) => x);
+    if (sp > 0 && sa < 1) {
+      const P = swarm.U;
+      gl.useProgram(swarm.p); gl.bindVertexArray(swarm.vao);
+      gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
+      gl.uniform2f(P.uRes, cv.width, cv.height); gl.uniform1f(P.uDpr, dpr); gl.uniform4fv(P.uFrame, frame);
+      gl.uniform1f(P.uP, sp); gl.uniform1f(P.uAbs, sa); gl.uniform1f(P.uTime, t); gl.uniform1f(P.uSize, opts.small ? 4.2 : 3.6);
+      gl.uniform3f(P.uC, 0, REST, 0); gl.uniform1f(P.uPop, S.pop);
+      gl.uniformMatrix3fv(P.uRot, false, new Float32Array([cy, sy * sp_, sy * cp, 0, cp, -sp_, -sy, cy * sp_, cy * cp]));
+      gl.drawArrays(gl.POINTS, 0, swarm.n);
+      gl.disable(gl.BLEND); gl.bindVertexArray(null); gl.useProgram(pr);
+    }
   };
 
   let raf = 0, onScreen = true, last = 0;
@@ -458,5 +559,5 @@ export async function liquid127(stage, opts = {}) {
   stage.appendChild(cv);
   if (opts.capture) return { cv, draw, S };
   go();
-  return { cv, reveal: S.reveal };
+  return { cv, reveal: S.reveal, setPop: (on) => { S.popT = on ? 1 : 0; } };
 }

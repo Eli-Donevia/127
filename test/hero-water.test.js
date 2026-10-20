@@ -45,13 +45,23 @@ test('the homepage asks for the liquid hero only with both flags on', () => {
   assert.match(v, /import\('\/js\/first-light\.js'\)\.then\(\(\{ firstLight \}\) => firstLight\(fl\.querySelector\('\.fl-stage'\), \{ \.\.\.opts, base: '\/img\/fl\/' \}\)\)/);
 });
 
-test('the 127 rises out of the pond only where the live hero can play it, and the poster backs it up', () => {
+test('the 127 forms on scroll only where the live hero can play it, and the poster backs it up', () => {
   const v = fs.readFileSync(path.join(ROOT, 'views/home.ejs'), 'utf8');
   // the still pond replaces the poster only on a real GPU with motion welcome, with a 5 s fallback to the poster
   assert.match(v, /failIfMajorPerformanceCaveat: true/);
-  assert.match(v, /s\.classList\.add\('is-pond'\); s\.flPond = setTimeout\(function \(\) \{ s\.classList\.remove\('is-pond'\); \}, 5000\);/);
+  assert.match(v, /s\.classList\.add\('is-pond'\); w\.classList\.add\('is-scrub'\);/);
+  assert.match(v, /s\.flPond = setTimeout\(function \(\) \{ s\.classList\.remove\('is-pond'\); w\.classList\.remove\('is-scrub'\); \}, 5000\);/);
   assert.match(v, /get reveal\(\) \{ clearTimeout\(fl\.flPond\); return pond\(\); \}/);
-  assert.match(v, /\.catch\(\(\) => \{ clearTimeout\(fl\.flPond\); fl\.classList\.remove\('is-pond'\); \}\)/);
+  assert.match(v, /\.catch\(unpin\)/);
+  // the pin wraps the hero only with water, and the rise follows the scroll only while it's pinned
+  assert.match(v, /<% if \(heroWater\) \{ %><div class="fl-scrub"><% \} %>/);
+  assert.match(v, /<% if \(heroLive && heroWater\) \{ %><\/div><% \} %>/);
+  assert.match(v, /if \(pin && pond\(\)\) opts\.scrub = scrub;/);
   const css = fs.readFileSync(path.join(ROOT, 'public/css/style.css'), 'utf8');
   assert.match(css, /\.fl\.is-pond \.fl-stage picture\{opacity:0\}/);
+  // the spacer is a child (not padding), so the sticky hero has room to hold
+  assert.match(css, /\.fl-scrub\.is-scrub::after\{content:'';display:block;height:85svh\}/);
+  assert.match(css, /\.fl-scrub\.is-scrub>\.fl\{position:sticky;top:68px\}/);
+  const src = fs.readFileSync(path.join(ROOT, 'public/js/liquid-127.js'), 'utf8');
+  for (const k of ['const scrub = opts.scrub && S.reveal;', 'gl.drawArrays(gl.POINTS, 0, swarm.n);', 'setPop: (on) =>']) assert.ok(src.includes(k), k);
 });

@@ -141,17 +141,22 @@
   <% } else { %>
   <% if (heroLive) { %>
   <!-- HERO: the bio's promise and one button, set on the floor under the glass 127, lit live -->
+  <%# With water the hero sits in .fl-scrub: where the rise can play, it holds still for a short scroll (is-scrub)
+      while the 127 forms out of the pond, then the page scrolls on. %>
+  <% if (heroWater) { %><div class="fl-scrub"><% } %>
   <section class="fl" data-fl<% if (heroWater) { %> data-fl-water<% } %>>
-    <% if (heroWater) { %><%# With water the 127 rises out of the pond on opening. Where that can play (a real GPU, motion
-        welcome), the still water shows first instead of the poster; if the live hero isn't drawing within 5 s, the
-        poster fades in and the hero picks up at rest. Software WebGL (as in Lighthouse) keeps the poster from the start. %>
+    <% if (heroWater) { %><%# With water the page opens on the still pond and the first bit of scroll raises the 127 out
+        of it. Where that can play (a real GPU, motion welcome), the still water shows instead of the poster and the
+        hero is pinned for the rise; if the live hero isn't drawing within 5 s, the poster fades in, the pin goes and
+        the hero picks up at rest. Software WebGL (as in Lighthouse) keeps the poster from the start. %>
     <script>(function (s) { try {
       if (matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection || {}).saveData) return;
       var g = document.createElement('canvas').getContext('webgl2', { failIfMajorPerformanceCaveat: true }); if (!g) return;
       var x = g.getExtension('WEBGL_debug_renderer_info'), l = g.getExtension('WEBGL_lose_context');
       var soft = x && /swiftshader|llvmpipe|softpipe|software|basic render|mesa offscreen/i.test(g.getParameter(x.UNMASKED_RENDERER_WEBGL));
       if (l) l.loseContext(); if (soft) return;
-      s.classList.add('is-pond'); s.flPond = setTimeout(function () { s.classList.remove('is-pond'); }, 5000);
+      var w = s.parentNode; s.classList.add('is-pond'); w.classList.add('is-scrub');
+      s.flPond = setTimeout(function () { s.classList.remove('is-pond'); w.classList.remove('is-scrub'); }, 5000);
     } catch (e) {} })(document.currentScript.parentNode);</script>
     <% } %>
     <%# First Light, live (public/js/first-light.js): the poster is the lit mark at rest and shows at once. After load the
@@ -194,6 +199,7 @@
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
   </section>
+  <% if (heroLive && heroWater) { %></div><% } %>
   <% } %>
 
   <% if (typeof doors !== 'undefined' && doors) { %>
@@ -514,12 +520,17 @@ if (fl) {
     // With water, if the still pond is showing (is-pond, set at the top of the hero) the 127 rises out of it; the
     // choice is made the moment it starts drawing, so the poster's 5 s fallback can't fire in between.
     const pond = () => fl.classList.contains('is-pond');
-    const opts = { small: phone, get reveal() { clearTimeout(fl.flPond); return pond(); }, onSlow: () => fl.classList.remove('is-live') };
+    // With the pin (is-scrub), the rise follows how far the page has scrolled through it.
+    const pin = fl.parentElement.classList.contains('fl-scrub') ? fl.parentElement : null;
+    const scrub = () => { const r = pin.getBoundingClientRect(), top = parseFloat(getComputedStyle(fl).top) || 0; return (top - r.top) / Math.max(1, r.height - fl.offsetHeight); };
+    const unpin = () => { clearTimeout(fl.flPond); fl.classList.remove('is-pond'); if (pin) pin.classList.remove('is-scrub'); };
+    const opts = { small: phone, get reveal() { clearTimeout(fl.flPond); return pond(); }, onSlow: () => { fl.classList.remove('is-live'); if (pin) pin.classList.remove('is-scrub'); } };
+    if (pin && pond()) opts.scrub = scrub;
     const live = () => (water
       ? import('/js/liquid-127.js').then(({ liquid127 }) => liquid127(fl.querySelector('.fl-stage'), opts))
       : import('/js/first-light.js').then(({ firstLight }) => firstLight(fl.querySelector('.fl-stage'), { ...opts, base: '/img/fl/' })))
       .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); fl.classList.remove('is-pond'); })
-      .catch(() => { clearTimeout(fl.flPond); fl.classList.remove('is-pond'); });
+      .catch(unpin);
     const later = () => ('requestIdleCallback' in window ? requestIdleCallback(live, { timeout: pond() ? 400 : 2500 }) : setTimeout(live, 300));
     document.readyState === 'complete' ? later() : addEventListener('load', later, { once: true });
   }

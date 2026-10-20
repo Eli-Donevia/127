@@ -1807,6 +1807,9 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 .fl[data-fl-water] .fl-copy{padding-top:calc(var(--floor) + var(--wet))}
 .fl[data-fl-water] .fl-stage picture{transition:opacity .9s ease}
 .fl.is-pond .fl-stage picture{opacity:0}
+/* the scroll-driven rise: the hero holds still under the nav for a short scroll while the 127 forms out of the pond */
+.fl-scrub.is-scrub::after{content:'';display:block;height:85svh}
+.fl-scrub.is-scrub>.fl{position:sticky;top:68px}
 .fl-stage{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .fl-stage picture{position:absolute;display:block;left:50%;top:var(--top);width:var(--fw);aspect-ratio:16/9;transform:translateX(-50%)}
 /* the poster is the LCP element: no animation, so it counts the moment it paints (the live canvas fades in over it) */
