@@ -1,9 +1,10 @@
-<%# HQ v2 early access in /admin (lib/harness/access.js). Locals: hq2 ({ mode, list, until, credits, allowances, held, pages }). %>
+<%# HQ v2 early access in /admin (lib/harness/access.js). Locals: hq2 ({ mode, setting, list, until, credits, allowances, held, pages }). %>
 <% var modeSaid = { off: 'HQ v2 is off (HARNESS_V2 unset)', admins: 'HQ v2 is admins only', on: 'HQ v2 is on for everyone' }; %>
 <% var planSaid = { builder: 'Builder', circle: "the Founder's Circle" }; %>
 <% var n = function (x) { return Number(x || 0).toLocaleString('en-US'); }; %>
 <div class="card pad-lg" id="hq2" style="margin-bottom:16px">
   <div class="card-title"><h3>HQ v2 early access</h3><span class="small muted"><%= modeSaid[hq2.mode] || hq2.mode %></span></div>
+  <% if (hq2.setting === 'on' && hq2.mode !== 'on') { %><p class="small" style="margin:0 0 10px">HARNESS_V2 is on, but members get HQ v2 only once TERMS_LIVE and PRIVACY_LIVE are both on (Legal L74). Until then it's admins and early access only.</p><% } %>
   <p class="small muted" style="margin:-6px 0 14px">Give one member HQ v2 before it opens to everyone, like the public build's founder. Until the date you pick they get a plan inside HQ (its workflows, not its calls) and the credits you set; their billing doesn't change. Builder has <%= n(hq2.allowances.builder) %> credits a month. Checking gyms by hand costs about 17 credits a gym, so the box starts at <%= n(hq2.credits) %>. It starts once they confirm their email, and Remove takes it away (their work stays).</p>
   <form method="post" action="/admin/hq2/access" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
     <input class="input" type="email" name="email" placeholder="member@email.com" required style="max-width:300px" aria-label="Their email">

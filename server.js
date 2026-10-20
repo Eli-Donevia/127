@@ -1815,7 +1815,7 @@ app.get('/admin', requireAuth, requireAdmin, wrap(async (req, res) => {
     cv: await adminCircle(req),
     hqStats: hq.live() ? hq.stats() : null,
     // HQ v2 early access (lib/harness/access.js): the public build's founder, before HQ v2 opens to everyone.
-    hq2: { mode: harness.mode(), list: harness.access.list(), until: harness.access.defaultUntil(), credits: harness.access.DEFAULT_CREDITS, allowances: harness.ledger.allowances(), held: harness.needs.heldList(), pages: harness.needs.pagesList() },
+    hq2: { mode: harness.mode(), setting: harness.setting(), list: harness.access.list(), until: harness.access.defaultUntil(), credits: harness.access.DEFAULT_CREDITS, allowances: harness.ledger.allowances(), held: harness.needs.heldList(), pages: harness.needs.pagesList() },
   });
 }));
 

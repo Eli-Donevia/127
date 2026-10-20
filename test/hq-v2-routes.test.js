@@ -251,6 +251,9 @@ test.beforeEach(() => {
   now = T0;
   flashes = [];
   process.env.HARNESS_V2 = 'on';
+  // Members get HQ v2 only while the Terms and Privacy pages are live (Legal L74).
+  process.env.TERMS_LIVE = 'true';
+  process.env.PRIVACY_LIVE = 'true';
   process.env.HQ_LIVE = 'true';
   delete process.env.ADMIN_EMAILS;
 });
@@ -742,7 +745,7 @@ test('Write it for me, an answer to a reply, call prep and a yes, each from the 
   assert.equal(j.win, `/app/hq/win?lead=${l.id}`);
   page = await html(await s.go(j.win, { as: u }));
   assert.match(page, /Iron Temple/);
-  assert.match(page, /No amounts\. 127 never asks for or shows money\./);
+  assert.match(page, /Leave your client's name out\. No amounts: 127 never asks for or shows money\./);
   assert.ok(harness.activation.state(u.id).a5, 'the first win');
 
   // The page reached through a run for a hidden workflow goes back to Do my day.
@@ -869,7 +872,7 @@ test('a win: the card, its consent record, the Circle once ever, and only shared
   assert.match(page, /data-wincard/);
   assert.match(page, /Want Eli in your corner/);
   assert.match(page, /Apply for a seat/);
-  assert.match(page, /You agreed to: "127 may share this win with my first name only\." on /);
+  assert.match(page, /You agreed to: "127&#39;s team can see this win and may ask to share it, with my first name only\." on /);
   page = await html(await s.go(winPath, { as: u }));
   assert.doesNotMatch(page, /Want Eli in your corner/, 'the Circle shows once, ever');
   assert.equal(await (await s.go(winPath, { as: other })).text(), 'app 404');
@@ -885,7 +888,7 @@ test('a win: the card, its consent record, the Circle once ever, and only shared
   const proof = (await json(await s.go('/admin/harness/proof', { as: u }))).proof.filter((x) => x.id === id || x.kind === 'talk');
   assert.equal(proof.length, 1, 'only the shared win');
   assert.equal(proof[0].name, 'Rae');
-  assert.equal(proof[0].consentText, '127 may share this win with my name and my business name.');
+  assert.equal(proof[0].consentText, "127's team can see this win and may ask to share it, with my name and my business name.");
   delete process.env.ADMIN_EMAILS;
 
   r = await s.go(`/app/hq/win/${id}/delete`, { as: u, form: {} });
@@ -1199,6 +1202,8 @@ test('Google businesses (Legal L53): the Pipeline keeps the place ID and 127\'s 
 
     // Without the key, or with the key while the Privacy page isn't live, nothing is fetched: the card says so
     // and the placeholder keeps Copy off.
+    // Members don't get HQ v2 while the Privacy page isn't live (Legal L74), so this looks as an admin.
+    process.env.ADMIN_EMAILS = u.email;
     for (const off of ['PRIVACY_LIVE', 'PLACES_API_KEY']) {
       delete process.env[off];
       calls.length = 0;
@@ -1344,6 +1349,9 @@ test("made-up businesses stay in the Pipeline, tagged Sample, but are never a ne
   monday._reset();
   try {
     for (const k of MAP_ENV) delete process.env[k];
+    // HQ v2 stays on for members only while both pages are live (Legal L74).
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     let q = todayLib.queue(u);
     assert.deepEqual(q.items, []);
     assert.deepEqual([q.samples, q.real, q.osm], [2, 0, false]);
@@ -1361,6 +1369,9 @@ test("made-up businesses stay in the Pipeline, tagged Sample, but are never a ne
     const find = harness.catalog(u).find((w) => !w.locked && w.job === 'leads');
     assert.equal(todayLib.nextMove(u, harness.moveDeps).href, find ? `/app/hq/w/${find.id}` : '/app/hq/pipeline');
     for (const k of MAP_ENV) delete process.env[k];
+    // HQ v2 stays on for members only while both pages are live (Legal L74).
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     // Monday 8am: samples alone get no card.
     now = Date.parse('2026-11-09T14:00:00Z');
     await todayLib.log(u.id, 'cold', 1);
@@ -1611,6 +1622,9 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
   const runOf = (res) => where(res).split('/').pop();
   try {
     for (const k of MAP_ENV) delete process.env[k];
+    // HQ v2 stays on for members only while both pages are live (Legal L74).
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     // Map servers off: the search shows sample businesses, so there's no line and nothing to agree to.
     const u = await member();
     assert.equal(lines(await html(await s.go('/app/hq/w/tag.search', { as: u }))), 0);
@@ -1630,6 +1644,8 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     // samples, as First 25's does.
     osmOn();
     delete process.env.PRIVACY_LIVE;
+    // Members don't get HQ v2 then (Legal L74), so this looks as an admin.
+    process.env.ADMIN_EMAILS = u.email;
     assert.deepEqual(engine.agreeLines(packs.workflow('tag.search')), []);
     assert.equal(lines(await html(await s.go('/app/hq/w/tag.search', { as: u }))), 0);
     run = await engine.start(u, 'tag.search', { city: 'Ames' });
@@ -1639,6 +1655,7 @@ test("a search of real businesses shows First 25's Terms line under Run it, and 
     process.env.PRIVACY_LIVE = 'true';
     process.env.TERMS_LIVE = 'false';
     assert.deepEqual(engine.agreeLines(packs.workflow('tag.search')), []);
+    delete process.env.ADMIN_EMAILS;
 
     // Both pages live: OpenStreetMap's line, once, right under the button, with Terms linked to Section 13B.
     process.env.TERMS_LIVE = 'true';
@@ -1878,6 +1895,9 @@ test('the AI link keeps what a Google search found in HQ, and gives OpenStreetMa
   const FOUND = /Iron Gym|Lift House|515-555|irongym/;
   try {
     for (const k of MAP_ENV) delete process.env[k];
+    // HQ v2 stays on for members only while both pages are live (Legal L74).
+    process.env.TERMS_LIVE = 'true';
+    process.env.PRIVACY_LIVE = 'true';
     osmOn();
     const u = await member();
     const [osmLine] = engine.agreeLines(packs.workflow('tal.reach'));
@@ -2209,4 +2229,53 @@ test('an hqOnly workflow (contract v1.9, Legal L72): the AI link names it with i
   // A pack can't set it to anything but true or false.
   const bad = packs.register({ id: 'rq2', title: 'Bad', version: '1.0.0', summary: 'x', tools: [], workflows: [{ id: 'rq2.x', hqOnly: 'yes', title: 'X', promise: 'X', minutes: 1, tier: 'free', inputs: obj({}, []), steps: [{ id: 'note', tool: 'rq.note' }] }] });
   assert.match(JSON.stringify(bad.refused), /hqOnly must be true or false/);
+});
+
+test('Legal L74: members get HQ v2 only while both pages are live; old runs go even with HQ v2 off; a deleted account\'s running step saves nothing after', async () => {
+  const u = await member();
+  const admin = await member();
+  // HARNESS_V2=on, the Privacy page not live: admins and early access only.
+  delete process.env.PRIVACY_LIVE;
+  process.env.ADMIN_EMAILS = admin.email;
+  assert.equal(harness.setting(), 'on');
+  assert.equal(harness.mode(), 'admins');
+  assert.equal(harness.enabledFor(u), false);
+  assert.equal(harness.enabledFor(admin), true);
+  process.env.PRIVACY_LIVE = 'true';
+  process.env.TERMS_LIVE = 'false';
+  assert.equal(harness.mode(), 'admins');
+  process.env.TERMS_LIVE = 'true';
+  assert.equal(harness.mode(), 'on');
+  assert.equal(harness.enabledFor(u), true);
+  delete process.env.ADMIN_EMAILS;
+
+  // The 180-day sweep runs with HQ v2 off.
+  now = Date.parse('2033-01-01T15:00:00Z');
+  const old = await engine.start(u, 'rt.paid', {});
+  await engine.idle();
+  assert.equal(engine.get(u, old.id).status, 'done');
+  process.env.HARNESS_V2 = 'off';
+  now = Date.parse('2033-07-01T15:00:00Z');
+  await harness.daily(now);
+  assert.equal(db.get('runs', old.id), null);
+  process.env.HARNESS_V2 = 'on';
+
+  // A step still going when the account is deleted is stopped and let finish; the run doesn't come back.
+  let release;
+  const gate = new Promise((r) => { release = r; });
+  const r = packs.register({
+    id: 'rs', title: 'Slow', version: '1.0.0', summary: 'A slow step.', niches: ['tests'],
+    tools: [{ name: 'rs.slow', title: 'Slow', description: 'Waits.', kind: 'code', risk: 'read', credits: 1, input: obj({}, []), output: obj({ ok: { type: 'boolean' } }), run: async () => { await gate; return { ok: true }; }, view: () => [{ type: 'text', text: 'Done.' }] }],
+    workflows: [{ id: 'rs.slow', title: 'Slow', promise: 'Waits.', minutes: 1, tier: 'free', job: 'ops', inputs: obj({}, []), steps: [{ id: 'a', tool: 'rs.slow' }, { id: 'b', tool: 'rs.slow' }], result: ['b'] }],
+  });
+  assert.deepEqual(r.refused, [], JSON.stringify(r.refused));
+  const v = await member();
+  const run = await engine.start(v, 'rs.slow', {});
+  await new Promise((res) => setTimeout(res, 50));
+  const gone = harness.forget(v.id);
+  setTimeout(release, 50);
+  await gone;
+  await engine.idle();
+  assert.equal(db.get('runs', run.id), null);
+  assert.equal(db.filter('runs', (x) => x.memberId === v.id).length, 0);
 });
