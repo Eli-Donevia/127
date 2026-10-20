@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.9)
+# How a workflow plugs into the 127 harness (contract v1.10)
 
-Owner: Harness v2 thread. Version 1.8, 2026-10-19 (v1 to v1.7 were earlier the same day; section 0
+Owner: Harness v2 thread. Version 1.10, 2026-10-20 (v1 to v1.9 were earlier; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -11,6 +11,14 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.10** (Oct 20; nothing breaks):
+
+- **`act` tools are allowed** for a member's own connections (Hub's connectors: `needs: ['stripe']` and the like), always after an `approve` step, and only in a held pack until Legal clears it. Section 5.
+- **`held: true` on a pack** checks it at load time but keeps it off until `PACKS_ON` names it (`PACKS_ON=ads,billing` or `all`). Use it for anything Legal hasn't cleared yet. Section 2.
+- **`roles` on a pack** adds AI team roles (`HQ_TEAM`): `{ id, title, job, skills, workflows, connectors: { read, write }, needsOk, budget }`. A role's runs carry `source: 'team:<id>'`, use only the connections its card lists, and stop at its monthly credit budget. Section 2.
+- **`ctx.brain.search(q, { limit })`** finds passages in the member's Brain docs (their offers, FAQs, SOPs, notes) with a title and an HQ link to cite; `ctx.brain.rules` (their house rules) and `ctx.brain.logged` (numbers they log) are in the snapshot. All three are empty while `BRAIN_DOCS` is off. Section 6b.
+- **House rules reach every write, plan and deep AI call** on their own: you don't add them. A write whose answer uses a phrase the member banned is retried once.
 
 **In v1.9** (Legal L72, L73):
 
@@ -98,9 +106,24 @@ module.exports = {
   niches: ['video editing', 'gyms', 'fitness', 'local business'],  // matched against the member's business on Start
   business: true,                             // v1.4: a business a member starts (Start shows its workflows as numbered steps in your order); leave out (or false) for tools any business uses
   system: ['ffmpeg'],                         // optional, informational: what the server must have installed
+  held: true,                                 // optional, v1.10: checked, but off until PACKS_ON names it (or is "all"); for anything Legal hasn't cleared
+  roles: [/* optional, v1.10: AI team roles, below */],
   tools: [require('./tools/find-gyms'), /* ... */],
   workflows: [/* section 4 */],
 };
+```
+
+**AI team roles** (v1.10, `HQ_TEAM`). A role is a card the member hires in one tap. Its skills (`skills`: ids from Skills, or `wf:<workflow id>` for one of yours with `suggestSchedule` and no required inputs) turn on under its name, and the member starts its `workflows` from its card. A role with the same id as one of 127's replaces it.
+
+```js
+roles: [{
+  id: 'ads_manager', title: 'Ads manager',
+  job: 'Drafts your ads, watches what they spend, and tells you what to cut.',
+  skills: ['wf:ads.weekly_check'], workflows: ['ads.draft_campaign', 'ads.weekly_check'],
+  connectors: { read: ['meta_ads'], write: [] },  // what its runs may read; in v2.0 a role's runs never change an account (write is ignored)
+  needsOk: ['Every ad before it goes live', 'Any change to a budget'],
+  budget: 300,                                     // credits a month; its runs stop there
+}],
 ```
 
 ## 3. A tool
@@ -214,7 +237,11 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 
 - `read`: looks things up. `draft`: writes something for the member to check. Both run without asking.
 - `act`: anything that reaches a customer, posts, spends money or makes a promise (send an email or DM, publish a post, book, charge). **An `act` step must come after an `approve` step and run on what it approved: `{ tool: 'x.send', each: '$check.items', approvedBy: 'check' }` (or `'$check.chosen'`).** The engine refuses the workflow at load time otherwise, and refuses the call at run time if that approval isn't `approved: true`. A member's AI can't give that approval. This is Eli's rule: a human approves anything that reaches a customer, moves money or makes a promise.
-- v2.0 ships no `act` tools: messages are drafts the member copies, or opens in their own Gmail or Instagram with one tap. Sending from 127 comes later, with Legal.
+- **When an `act` tool is allowed (v1.10).** Only to change the member's own account through a connection they made in HQ (Hub's connectors: `needs: ['stripe']`, `['meta_ads']` and the rest of `connectors.PACKABLE`), and only when all three hold:
+  1. **It needs the connection.** `ctx.secret('<id>')` gives an `act` step a client whose `writes.*` work; the same client in a `read` or `draft` step refuses every write. Each write lands in the member's Activity log before it runs, with the approval that allowed it.
+  2. **An `approve` step comes first** and the `act` step runs on what it approved (above). The approval card says exactly what will change, in the member's words: "Refund $40 to Jo", "Pause the ad set Summer promo". The AI link, Ask 127 and an AI team role can't approve it, and a run an AI team role started can't write at all in v2.0.
+  3. **The pack is `held: true`** until Legal clears it in `v2/turnkey/LEGAL-ASKS.md`. It loads only where `PACKS_ON` names it, so admins can test it while members can't see it.
+- Still no `act` tools that message a customer, post, or spend money outside the member's own connected accounts: messages are drafts the member copies, or opens in their own Gmail or Instagram with one tap. Sending from 127 comes later, with Legal.
 
 ## 6. Keys, sample data and the business brain
 
@@ -232,7 +259,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | `transcribe` | Speech to text (Deepgram) | `DEEPGRAM_API_KEY` |
 | `gemini` | Google AI images, music and short video | `GEMINI_API_KEY` |
 | `render` | `ffmpeg` on the server | `FFMPEG_PATH` or `ffmpeg` on the path |
-| `stripe`, `shopify` | the member's own HQ connections | not wired into packs yet: always sample |
+| `stripe`, `meta_ads`, `notion` and the rest of `connectors.PACKABLE` | the member's own HQ connections (Hub, `v2/turnkey/hub/README.md`) | the member connects it in HQ; `ctx.secret` gives a client, never the key. Sample until they connect |
 
 **Held for Legal:** `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` aren't in 127's Privacy Policy, so Legal clears each one before its key goes into production (Oct 19). Until then the harness ignores the key even when it's set: a tool that needs one runs as a sample, and one that wants one gets `null`. Known problems: Gemini's free tier trains on what it's sent, and Hunter finds addresses beyond a business's own site, which First 25's "only published addresses" rule doesn't allow. Build so the tool is worth running without them.
 
@@ -269,6 +296,16 @@ ctx.brain = {
 ```
 
 Every field can be missing; check before use. `address` is the member's mailing address for email footers; Do my day adds it for you (section 13). A pack saves its own facts with `await ctx.remember('offer_price', 450)` (stored under `brain.packs.<pack id>`, visible to the member).
+
+v1.10, while `BRAIN_DOCS` is on for the member (empty or missing otherwise):
+
+```js
+ctx.brain.rules   // { principles, sops, checks }: their house rules, already in your AI calls' system prompt
+ctx.brain.logged  // [{ name, value, before, at }]: the numbers they log, latest first
+ctx.brain.search('refund policy', { limit: 5 })
+// -> [{ title, heading, text, link, score }]: passages from their own docs, best first. Cite the title;
+//    link is the doc's page in HQ. Don't copy a whole doc into an output, and never into ctx.remember.
+```
 
 ## 7. The ctx a tool gets
 

@@ -1,0 +1,55 @@
+<%- include('../../partials/app-head') %>
+<%# One AI team role: its week, skills, workflows, budget, pause and let go. Locals: t (team.view), acts. %>
+<% var R = t.report; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/team">AI team</a></p>
+  <section class="hq-card">
+    <div class="h2-row"><h1 class="h2-h"><%= t.name %></h1><span class="h2-tag"><%= t.status === 'paused' ? 'Paused' : 'Working' %></span></div>
+    <p class="h2-sub"><%= t.job %></p>
+    <p class="hq-small">Always asks you before: <%= t.needsOk.join('; ').toLowerCase() %>.</p>
+  </section>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="wk-h">
+    <h2 class="h2-h" id="wk-h" style="font-size:18px">This week</h2>
+    <p class="h2-sub"><%= R.done %> done<%= R.waiting ? ', ' + R.waiting + ' waiting on you' : '' %><%= R.failed ? ', ' + R.failed + ' stopped on an error' : '' %>. <%= R.spentMonth %> of <%= R.budget %> credits used this month.</p>
+    <% if (R.runs.length) { %><ul class="h2-list" style="margin-top:8px"><% R.runs.forEach(function (r) { %><li class="h2-row" style="padding:8px 0;border-top:1px solid var(--line)"><a class="link" href="/app/hq/runs/<%= r.id %>"><%= r.title %></a><span class="hq-small" style="margin:0"><%= r.status %> · <%= String(r.at).slice(0, 10) %></span></li><% }) %></ul><% } %>
+  </section>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="sk-h">
+    <h2 class="h2-h" id="sk-h" style="font-size:18px">On a schedule</h2>
+    <% if (!R.skills.length) { %><p class="h2-empty">Nothing on a schedule. Start its work below when you need it.</p><% } %>
+    <% R.skills.forEach(function (s) { %><p class="h2-sub"><%= s.name %>: <%= s.label.toLowerCase() %><%= s.schedule && s.schedule.lastError ? '. ' + s.schedule.lastError : '' %></p><% }) %>
+  </section>
+  <% if (t.workflows.length) { %>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="do-h">
+    <h2 class="h2-h" id="do-h" style="font-size:18px">Have it do one now</h2>
+    <div class="h2-stack" style="margin-top:12px;gap:8px">
+      <% t.workflows.forEach(function (w) { %>
+      <form method="post" action="/app/hq/team/<%= t.id %>/start" class="h2-row" style="border-top:1px solid var(--line);padding-top:8px">
+        <input type="hidden" name="workflow" value="<%= w.id %>">
+        <span style="min-width:0;flex:1"><span><%= w.title %></span><span class="hq-small" style="display:block;margin:2px 0 0"><%= w.promise %></span></span>
+        <button class="hq-pill"><%= w.required ? 'Fill it in' : 'Start' %></button>
+      </form>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="set-h">
+    <h2 class="h2-h" id="set-h" style="font-size:18px">Budget and status</h2>
+    <form method="post" action="/app/hq/team/<%= t.id %>/budget" class="h2-row" style="margin-top:12px;justify-content:flex-start;align-items:flex-end">
+      <label class="field" style="margin:0;width:160px"><span>Credits a month</span><input class="input" name="budget" type="number" inputmode="numeric" min="10" max="5000" value="<%= t.budget %>"></label>
+      <button class="hq-pill">Save</button>
+    </form>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+      <form method="post" action="/app/hq/team/<%= t.id %>/pause"><% if (t.status === 'paused') { %><input type="hidden" name="resume" value="1"><button class="btn">Resume <span class="arrow"></span></button><% } else { %><button class="hq-pill">Pause</button><% } %></form>
+      <form method="post" action="/app/hq/team/<%= t.id %>/let-go" data-confirm="Let <%= t.name %> go? Its skills turn off. What it made stays on Runs."><button class="hq-link-btn">Let go</button></form>
+    </div>
+  </section>
+  <% if (acts.length) { %>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="act-h">
+    <h2 class="h2-h" id="act-h" style="font-size:18px">Its activity</h2>
+    <% acts.forEach(function (a) { %><div class="h2-act"><time datetime="<%= a.at %>"><%= a.at.slice(5, 16).replace('T', ' ') %></time><div class="what"><%= a.action %><%= a.what ? ': ' + a.what : '' %><% if (a.link) { %> <a class="link" href="<%= a.link %>">Open</a><% } %></div></div><% }) %>
+  </section>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

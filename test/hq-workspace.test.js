@@ -150,6 +150,16 @@ test('every workspace page is off by default, admins-only when set to admins', a
   process.env.ADMIN_EMAILS = u.email;
   assert.equal((await s.go('/app/hq/activity', { as: u })).status, 200);
   assert.match(await (await s.go('/app/hq/brain', { as: u })).text(), /href="\/app\/hq\/activity"/);
+  // "on" reaches members only while the Terms and Privacy pages are live; until then it's admins only.
+  process.env.HQ_ACTIVITY = 'on';
+  process.env.ADMIN_EMAILS = '';
+  process.env.PRIVACY_LIVE = 'false';
+  assert.equal(harness.flags.on('HQ_ACTIVITY', u), false);
+  process.env.ADMIN_EMAILS = u.email;
+  assert.equal(harness.flags.on('HQ_ACTIVITY', u), true);
+  process.env.PRIVACY_LIVE = 'true';
+  process.env.ADMIN_EMAILS = '';
+  assert.equal(harness.flags.on('HQ_ACTIVITY', u), true);
 });
 
 // ---------- held packs ----------
@@ -322,4 +332,269 @@ test('Activity: runs, approvals and Brain changes, filtered, as CSV, and gone wi
   const v = await member();
   await activity.add(v, { kind: 'brain', action: 'x' });
   assert.equal(activity.list(v.id).length, 0);
+});
+
+// ---------- Skills ----------
+const skills = require('../lib/harness/skills');
+const team = require('../lib/harness/team');
+const schedules = require('../lib/harness/schedules');
+const mcp = require('../lib/harness/mcp');
+const agent = require('../lib/harness/agent');
+const prompts = require('../lib/harness/prompts');
+const ledger = require('../lib/harness/ledger');
+const tick = () => new Promise((r) => setImmediate(r));
+
+test('Skills: on, off, run now, locked on Free, and a SKILL.md for Claude', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/skills', { as: u })).status, 404);
+  process.env.HQ_SKILLS = 'on';
+  const page = await (await s.go('/app/hq/skills', { as: u })).text();
+  assert.match(page, /Daily numbers/);
+  assert.match(page, /Monday card/);
+  assert.equal((await s.go('/app/hq/skills/daily_numbers/on', { as: u, form: {} })).status, 302);
+  const sch = skills.scheduleOf(u.id, 'daily_numbers');
+  assert.equal(sch.workflowId, 'hq.daily_numbers');
+  assert.equal(skills.list(u).find((x) => x.id === 'daily_numbers').status, 'on');
+  assert.match(flashes.at(-1).text, /Daily numbers is on: every day at 7am/);
+  const r = await s.go('/app/hq/skills/daily_numbers/run', { as: u, form: {} });
+  assert.match(r.headers.get('location'), /^\/app\/hq\/runs\//);
+  await engine.idle();
+  const run = db.get('runs', r.headers.get('location').split('/').pop());
+  assert.equal(run.source, 'hq');
+  assert.equal(run.status, 'done', JSON.stringify(run.timeline));
+  const zip = readZip(Buffer.from(await (await s.go('/app/hq/skills/daily_numbers/skill.zip', { as: u })).arrayBuffer()));
+  const md = zip.find((f) => f.name === '127-daily-numbers/SKILL.md').data.toString();
+  assert.match(md, /^---\nname: 127-daily-numbers\n/);
+  assert.match(md, /run_skill` with `\{ "skill": "daily_numbers" \}/);
+  assert.match(md, /Only call `answer_inbox` after the member says yes/);
+  await s.go('/app/hq/skills/daily_numbers/off', { as: u, form: {} });
+  assert.equal(skills.scheduleOf(u.id, 'daily_numbers'), null);
+  const free = await member('free');
+  assert.equal(skills.list(free).find((x) => x.id === 'weekly_working').status, 'locked');
+  await s.go('/app/hq/skills/weekly_working/on', { as: free, form: {} });
+  assert.match(flashes.at(-1).text, /part of Builder/);
+  assert.equal(skills.scheduleOf(free.id, 'weekly_working'), null);
+  await assert.rejects(skills.turnOn(u, 'monday_card'), /always on/);
+});
+
+// ---------- AI team ----------
+test('AI team: hire turns on its skills, pause and budget hold its turns, connections are scoped, let go turns them off', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/team', { as: u })).status, 404);
+  process.env.HQ_TEAM = 'on';
+  const gallery = await (await s.go('/app/hq/team', { as: u })).text();
+  assert.match(gallery, /Sales rep/);
+  const r = await s.go('/app/hq/team/hire/sales_rep', { as: u, form: { budget: '50' } });
+  const t = team.list(u)[0];
+  assert.equal(r.headers.get('location'), `/app/hq/team/${t.id}`);
+  assert.equal(t.budget, 50);
+  const sch = skills.scheduleOf(u.id, 'daily_numbers');
+  assert.equal(sch.team, t.id);
+  await assert.rejects(team.hire(u, 'sales_rep'), /already have a Sales rep/);
+  assert.equal(team.allows(t.id, 'gmail'), true);
+  assert.equal(team.allows(t.id, 'gmail', true), false);
+  assert.equal(team.allows(t.id, 'stripe'), false);
+  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Sales rep/);
+
+  // Paused: the sweep skips its skill and says why.
+  await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: {} });
+  assert.equal(team.get(u, t.id).status, 'paused');
+  const due = async () => {
+    const x = db.get('schedules', sch.id);
+    x.lastDate = '2000-01-01';
+    x.cron = '0 0 * * *';
+    await db.save('schedules', x);
+    const ids = await schedules.sweep({ enabledFor: () => true, start: (...a) => engine.start(...a) });
+    await engine.idle();
+    return { ids, after: db.get('schedules', sch.id) };
+  };
+  let out = await due();
+  assert.deepEqual(out.ids, []);
+  assert.match(out.after.lastError, /Sales rep is paused/);
+  // Back to work: the run is the role's, and the Activity log says so.
+  process.env.HQ_ACTIVITY = 'on';
+  await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: { resume: '1' } });
+  out = await due();
+  assert.equal(out.ids.length, 1);
+  assert.equal(db.get('runs', out.ids[0]).source, `team:${t.id}`);
+  assert.ok(activity.list(u.id, { who: 'Sales rep' }).some((a) => a.action === 'started'));
+  assert.equal(team.report(u, t).done, 1);
+  // Off for the member: its turns skip too.
+  delete process.env.HQ_TEAM;
+  assert.match(team.holds(t.id, u), /switched off/);
+  process.env.HQ_TEAM = 'on';
+  await assert.rejects(team.setBudget(u, t.id, 5), /between 10 and 5,000/);
+  await assert.rejects(team.start(u, t.id, 'ws.look'), /doesn't do that one/);
+  await s.go(`/app/hq/team/${t.id}/let-go`, { as: u, form: {} });
+  assert.equal(team.list(u).length, 0);
+  assert.equal(skills.scheduleOf(u.id, 'daily_numbers'), null);
+  assert.match(team.holds(t.id, u), /gone/);
+});
+
+// ---------- the AI link's Brain tools ----------
+test('AI link: Brain tools only with their flags; notes, decisions, numbers and search; Make Claude your admin', async () => {
+  const u = await member();
+  const names = () => mcp.toolsFor(u).map((t) => t.name);
+  assert.ok(!names().includes('brain_search'));
+  assert.equal((await s.go('/app/hq/admin-setup', { as: u })).status, 404);
+  process.env.HQ_MCP_BRAIN = 'on';
+  assert.ok(!names().includes('brain_search')); // needs BRAIN_DOCS too
+  process.env.BRAIN_DOCS = 'on';
+  process.env.HQ_ACTIVITY = 'on';
+  assert.ok(['brain_search', 'add_note', 'log_decision', 'log_number'].every((n) => names().includes(n)));
+  assert.ok(!names().includes('list_skills'));
+  assert.equal(await mcp.call(u, 'list_skills', {}), null);
+  assert.match(mcp.instructionsFor(u), /search it with brain_search/);
+  const call = async (name, args) => (await mcp.call(u, name, args, { base: 'https://127.test' })).content[0].text;
+  assert.match(await call('add_note', { title: 'Refunds', text: 'Full refund within 14 days, no questions.', tags: ['policy'] }), /Saved "Refunds" to the member's Brain: https:\/\/127\.test\/app\/hq\/brain\/docs\//);
+  assert.match(await call('brain_search', { query: 'refund policy' }), /\[1\] Refunds/);
+  assert.match(await call('log_decision', { decision: 'Raise the price to $40', why: 'Booked out' }), /Logged: Raise the price/);
+  assert.match(await call('log_number', { name: 'Calls booked', value: 4 }), /Logged Calls booked: 4/);
+  assert.equal(docs.decisions(u.id)[0].by, 'Your Claude');
+  assert.equal(docs.numbers(u.id)[0].value, 4);
+  process.env.HQ_SKILLS = 'on';
+  assert.match(await call('list_skills', {}), /daily_numbers: Daily numbers/);
+  assert.match(await call('run_skill', { skill: 'daily_numbers' }), /Started Daily numbers/);
+  await engine.idle();
+  assert.match(await call('activity', {}), /Your Claude: added a note: Refunds/);
+  assert.equal((await mcp.call(u, 'run_skill', { skill: 'nope' })).isError, true);
+  await tick();
+  assert.ok(activity.list(u.id, { who: 'Your Claude' }).some((a) => a.action === 'logged a decision'));
+  const page = await (await s.go('/app/hq/admin-setup', { as: u })).text();
+  assert.match(page, /Make Claude your admin/);
+  const zip = readZip(Buffer.from(await (await s.go('/app/hq/admin-setup/skill.zip', { as: u })).arrayBuffer()));
+  assert.match(zip[0].data.toString(), /^---\nname: 127-admin/);
+});
+
+// ---------- Ask 127 ----------
+test('Ask 127: sample answers without a key, slash commands, and every action waits for an OK', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/ask', { as: u })).status, 404);
+  process.env.HQ_AGENT = 'on';
+  process.env.BRAIN_DOCS = 'on';
+  await docs.save(u.id, { title: 'Hours', body: 'We open at 7am on weekdays.' });
+  const left = ledger.left(u);
+  await s.go('/app/hq/ask', { as: u, form: { text: 'Look in my Brain for when we open' } });
+  let msgs = agent.messages(u);
+  assert.equal(msgs.length, 2);
+  assert.equal(msgs[1].sample, true);
+  assert.match(msgs[1].text, /Your Brain says: We open at 7am/);
+  assert.deepEqual(msgs[1].sources.map((x) => x.title), ['Hours']);
+  const a = msgs[1].actions[0];
+  assert.equal(a.workflow, 'ws.look');
+  assert.equal(a.status, 'proposed');
+  assert.equal(ledger.left(u), left); // samples are free
+  assert.equal(db.filter('runs', (r) => r.memberId === u.id).length, 0);
+  const page = await (await s.go('/app/hq/ask', { as: u })).text();
+  assert.match(page, new RegExp(`action="/app/hq/ask/act/${a.id}"`));
+  // It needs an answer, so OK opens its form; nothing runs until the member starts it there.
+  const r = await s.go(`/app/hq/ask/act/${a.id}`, { as: u, form: { ok: '1' } });
+  assert.equal(r.headers.get('location'), '/app/hq/w/ws.look?');
+  assert.equal(db.filter('runs', (x) => x.memberId === u.id).length, 0);
+  assert.equal((await agent.act(u, a.id, true)).status, 'open'); // a second tap does nothing new
+
+  // Slash commands: no AI, no credits.
+  for (const text of ['/number Calls booked 4', '/decide Open Saturdays, because demand', '/note Parking: Free lot behind the shop', '/search parking', '/help', '/nope']) await agent.send(u, text);
+  msgs = agent.messages(u);
+  assert.equal(docs.numbers(u.id)[0].value, 4);
+  assert.equal(docs.decisions(u.id)[0].text, 'Open Saturdays');
+  assert.equal(docs.decisions(u.id)[0].why, 'demand');
+  assert.match(msgs.at(-5).text, /\[1\] Parking/);
+  assert.match(msgs.at(-3).text, /\/run what you want done/);
+  assert.match(msgs.at(-1).text, /I don't know \/nope/);
+  assert.equal(ledger.left(u), left);
+  // /<prompt id> with one answer runs that prompt.
+  const one = prompts.load().prompts.find((p) => (p.variables || []).filter((v) => !v.optional).length === 1);
+  const sl = await agent.slash(u, `/${one.id} my answer here`);
+  assert.match(sl.prompt, /my answer here/);
+  await s.go('/app/hq/ask/clear', { as: u, form: {} });
+  assert.equal(agent.messages(u).length, 0);
+});
+
+test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, credits, and each kind of action', async () => {
+  process.env.HQ_AGENT = 'on';
+  process.env.BRAIN_DOCS = 'on';
+  process.env.HQ_SKILLS = 'on';
+  process.env.HQ_ACTIVITY = 'on';
+  const u = await member();
+  await docs.save(u.id, { title: 'Business brain', body: 'Mobile dog grooming in Austin. Owner: Ana.' });
+  await docs.save(u.id, { title: 'Prices', body: 'A full groom is $85 and a bath is $45.' });
+  const blank = { workflow: '', skill: '', inputs: [], text: '', why: '', name: '', value: '' };
+  const reply = {
+    answer: 'A full groom is $85 [1].',
+    cite: [1, 9],
+    actions: [
+      { ...blank, type: 'start_workflow', label: 'Look it up', workflow: 'ws.look', inputs: [{ key: 'q', value: 'prices' }, { key: 'bad', value: 'x' }] },
+      { ...blank, type: 'log_number', label: 'Log it', name: 'Grooms this week', value: '12' },
+      { ...blank, type: 'add_note', label: 'Save it', text: 'Ask about the dog\'s age first.', why: 'Intake' },
+      { ...blank, type: 'run_skill', label: 'Run it', skill: 'daily_numbers' },
+    ],
+  };
+  const seen = [];
+  const fake = async (p) => { seen.push(p); return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model }; };
+  anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
+  const left = ledger.left(u);
+  try {
+    await agent.send(u, 'How much is a full groom?');
+  } finally {
+    anthropic._setClient(null);
+  }
+  const sys = seen[0].system.map((b) => b.text).join('\n');
+  assert.match(sys, /Mobile dog grooming in Austin/);
+  assert.doesNotMatch(sys, /Paste the founder's business brain here/);
+  assert.match(sys, /You are Ask 127/);
+  const user = seen[0].messages[0].content.at(-1).text;
+  assert.match(user, /ws\.look: Look in my Brain/);
+  assert.match(user, /A full groom is \$85/);
+  assert.equal(ledger.left(u), left - agent.cost());
+  const m = agent.messages(u).at(-1);
+  assert.deepEqual(m.sources.map((x) => x.title), ['Prices']);
+  assert.deepEqual(m.actions.map((x) => x.type), ['start_workflow', 'log_number', 'add_note']); // three at most
+  assert.deepEqual(m.actions[0].inputs, { q: 'prices' });
+  for (const x of m.actions) assert.equal((await agent.act(u, x.id, true)).status, 'done', x.type);
+  await engine.idle();
+  assert.equal(docs.numbers(u.id)[0].value, 12);
+  assert.ok(docs.list(u.id).some((d) => d.title === 'Intake' && d.source === 'agent'));
+  await tick();
+  const acts = activity.list(u.id, { who: 'Ask 127' }).map((a) => a.action);
+  assert.ok(['answered', 'logged a number', 'added a note', 'started'].every((x) => acts.includes(x)), acts.join());
+  // Out of credits: it says so and spends nothing.
+  process.env.HQ_AGENT_CREDITS = String(ledger.left(u) + 1);
+  await assert.rejects(agent.send(u, 'Hi'), /uses \d+ credits and you have/);
+  delete process.env.HQ_AGENT_CREDITS;
+});
+
+// ---------- Prompts ----------
+test('Prompts: forms from variables, filled in, locked by plan, never showing where they came from', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/prompts', { as: u })).status, 404);
+  process.env.HQ_PROMPTS = 'on';
+  const L = prompts.load();
+  assert.equal(L.prompts.length, 61);
+  assert.ok(L.prompts.every((p) => !('origin' in p)));
+  assert.ok(!/"origin"/.test(fs.readFileSync(path.join(__dirname, '..', 'content', 'prompts', 'manifest.json'), 'utf8')));
+  const list = await (await s.go('/app/hq/prompts', { as: u })).text();
+  assert.match(list, /The Idea Test/);
+  const p = prompts.get('start.idea_test');
+  const page = await (await s.go('/app/hq/prompts/start.idea_test', { as: u })).text();
+  for (const v of p.variables) assert.match(page, new RegExp(`name="v_${v.key}"`));
+  const form = Object.fromEntries(p.variables.map((v) => [`v_${v.key}`, v.optional ? '' : `ans-${v.key}`]));
+  const filled = await (await s.go('/app/hq/prompts/start.idea_test', { as: u, form: { ...form, fill: '1' } })).text();
+  assert.match(filled, /Your prompt/);
+  assert.match(filled, /ans-ideas/);
+  assert.doesNotMatch(filled, /\{\{ideas\}\}/);
+  // Missing answers stay as a bracketed label; optional ones drop out.
+  assert.match(prompts.fill(p, {}), /\[[^\]]+\]/);
+  const paid = L.prompts.find((x) => x.tier === 'builder');
+  const free = await member('free');
+  assert.match(await (await s.go(`/app/hq/prompts/${paid.id}`, { as: free })).text(), /This prompt is part of Builder/);
+  assert.match(await (await s.go('/app/hq/prompts', { as: free })).text(), /h2-tag">Builder/);
+  assert.equal((await s.go(`/app/hq/prompts/${paid.id}`, { as: free, form: { fill: '1' } })).headers.get('location'), `/app/hq/prompts/${paid.id}`);
+  assert.equal((await s.go('/app/hq/prompts/nope', { as: u })).status, 404);
+  // Send to Ask 127: one message showing the prompt's title.
+  process.env.HQ_AGENT = 'on';
+  const r = await s.go('/app/hq/prompts/start.idea_test', { as: u, form: { ...form, ask: '1' } });
+  assert.equal(r.headers.get('location'), '/app/hq/ask#end');
+  assert.equal(agent.messages(u)[0].text, 'Prompt: The Idea Test');
+  assert.match(prompts.system('My brain text'), /My brain text/);
 });

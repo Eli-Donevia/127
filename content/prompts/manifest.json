@@ -1,0 +1,2699 @@
+{
+ "name": "127 prompt library",
+ "version": 1,
+ "generatedAt": "2026-10-20T03:32:55.042Z",
+ "variableSyntax": "{{key}}",
+ "count": 61,
+ "counts": {
+  "free": 27,
+  "builder": 34
+ },
+ "groups": [
+  {
+   "id": "start",
+   "title": "Start: pick it and prove it",
+   "intro": "Use these before you build anything. They test an idea against real demand, find who already sells it, and get you talking to buyers this week.",
+   "file": "library/01-start.md",
+   "prompts": [
+    "start.idea_test",
+    "start.business_match",
+    "start.competitor_teardown",
+    "start.customer_interviews",
+    "start.market_brief",
+    "start.pmf_check"
+   ]
+  },
+  {
+   "id": "brain",
+   "title": "Business brain: give your AI the context once",
+   "intro": "The fastest way to skip prompting is to stop re-explaining your business. These prompts build a \"business brain\" (a Notion page, an Obsidian vault, or a project in Claude or ChatGPT) that every other prompt can read.",
+   "file": "library/02-brain.md",
+   "prompts": [
+    "brain.founder_interview",
+    "brain.workspace_instructions",
+    "brain.vault_setup",
+    "brain.capture_to_actions",
+    "brain.weekly_learnings"
+   ]
+  },
+  {
+   "id": "offer",
+   "title": "Offer: make it too good to ignore",
+   "intro": "A good offer does the selling for you. These prompts build an offer, a free lead magnet, a price ladder and a sales page that people find hard to say no to, without hype or promises you can't keep.",
+   "file": "library/03-offer.md",
+   "prompts": [
+    "offer.builder",
+    "offer.free_magnet",
+    "offer.price_ladder",
+    "offer.pricing_floor",
+    "offer.sales_page",
+    "offer.objection_bank"
+   ]
+  },
+  {
+   "id": "outreach",
+   "title": "Outreach: find buyers and start conversations",
+   "intro": "Every business starts with the first 25 people who might buy. These prompts help you build that list, show each one something useful, write the message, follow up, and get ready for the call. You approve and send everything yourself.",
+   "file": "library/04-outreach.md",
+   "prompts": [
+    "outreach.first_25",
+    "outreach.first_message",
+    "outreach.follow_ups",
+    "outreach.reply_copilot",
+    "outreach.call_prep",
+    "outreach.comment_to_dm",
+    "outreach.warm_network",
+    "outreach.brand_pitch"
+   ]
+  },
+  {
+   "id": "content",
+   "title": "Content and hooks: get seen by the right people",
+   "intro": "Find an angle, repeat what works, and turn one idea into a week of posts. These prompts write hooks, scripts, calendars and a voice guide so your content sounds like you.",
+   "file": "library/05-content.md",
+   "prompts": [
+    "content.hook_bank",
+    "content.calendar_30",
+    "content.repurpose",
+    "content.voice_guide",
+    "content.performance_read"
+   ]
+  },
+  {
+   "id": "video",
+   "title": "Video: script, shoot, generate and edit",
+   "intro": "Video sells. These prompts write scripts, plan shoots, write prompts for AI video and voice tools, build an edit plan, and make a spec video to pitch a business before they pay you.",
+   "file": "library/06-video.md",
+   "prompts": [
+    "video.short_script",
+    "video.spec_promo",
+    "video.ai_shot_prompts",
+    "video.voiceover",
+    "video.edit_plan",
+    "video.long_form"
+   ]
+  },
+  {
+   "id": "website",
+   "title": "Website and store: look like the real thing",
+   "intro": "A site that looks cheap costs you buyers. These prompts build animated landing pages, steal good ideas from great sites, fix a weak hero, and launch a store that converts.",
+   "file": "library/07-website.md",
+   "prompts": [
+    "website.landing_build",
+    "website.hero_10x",
+    "website.reference_teardown",
+    "website.prospect_mockup",
+    "website.store_launch",
+    "website.conversion_audit"
+   ]
+  },
+  {
+   "id": "finance",
+   "title": "Finance and forecasting: know your numbers",
+   "intro": "Simple numbers beat gut feel. These prompts build a forecast, check your unit economics, read your week, and tell you how long your cash lasts. They plan and explain; they are not tax, legal or investment advice.",
+   "file": "library/08-finance.md",
+   "prompts": [
+    "finance.forecast",
+    "finance.unit_economics",
+    "finance.weekly_numbers",
+    "finance.cash_runway",
+    "finance.quote_invoice"
+   ]
+  },
+  {
+   "id": "ops",
+   "title": "Ops and SOPs: run it without you in every step",
+   "intro": "A business is only worth what it is when you are not there. These prompts plan your day, write your processes down, find what to automate, and turn repeat work into a reusable skill your AI runs for you.",
+   "file": "library/09-ops.md",
+   "prompts": [
+    "ops.do_my_day",
+    "ops.sop_writer",
+    "ops.automation_map",
+    "ops.skill_packager",
+    "ops.client_onboarding",
+    "ops.weekly_review",
+    "ops.hire_brief"
+   ]
+  },
+  {
+   "id": "review",
+   "title": "Review: the 10x pass",
+   "intro": "Most first drafts are fine. Fine loses. Run these on anything before it goes out: an offer, a page, a script, a plan. They find what is generic, unclear or untrue, and push it to the version you would be proud of.",
+   "file": "library/10-review.md",
+   "prompts": [
+    "review.ten_x",
+    "review.slop_check",
+    "review.five_second",
+    "review.brand_consistency",
+    "review.claims_check",
+    "review.skeptic",
+    "review.premortem"
+   ]
+  }
+ ],
+ "prompts": [
+  {
+   "id": "start.idea_test",
+   "group": "start",
+   "title": "The Idea Test",
+   "tier": "free",
+   "when": "You have one to five business ideas and want a straight answer on which one to start, before you spend a dollar.",
+   "prompt": "You are a blunt, experienced founder reviewing my business ideas. No cheerleading. Your job is to stop me wasting a year on the wrong one.\n\nMy ideas:\n{{ideas}}\n\nAbout me: {{about_me}}\nTime I can put in each week: {{hours}}\nMoney I can spend to start: {{budget}}\n\nScore each idea 1 to 5 on these seven questions. For each score, write the proof in one line. If there is no proof, the score can't go above 2.\n1. Problem: does it solve a problem people already pay money to fix, or add value people pay for (saves time, peace of mind, education)? Name who pays today and what they pay for now.\n2. Economics: what does one sale earn after costs? How many sales would cover my monthly costs?\n3. Channels: how would the first 25 buyers find me, and what does it cost to get into that channel?\n4. Differentiator: why me? Faster, cheaper, better quality, a better model, an unfair advantage I already have?\n5. Market direction: is this market growing or shrinking? Cite what you know and say how sure you are.\n6. AI impact: is AI making this business easier to run, or making it obsolete?\n7. Time to first sale: how many days until a stranger pays me, if I start today?\n\nThen:\n- Rank the ideas in a table.\n- Pick one winner. Say why in three sentences.\n- Name the single biggest risk in the winner and the cheapest way to test it this week.\n- Name the kind of insider I should talk to (someone who lives this problem or sells to these buyers) and write the exact message to ask them for 15 minutes.\n\nRules: be specific to my situation, not generic. If two ideas tie within 3 points, break the tie on time to first sale, then cost to start. Don't ideate new ideas unless all of mine score under 15.",
+   "variables": [
+    {
+     "key": "ideas",
+     "label": "Your ideas, one line each: what you sell and to whom",
+     "example": "1. Short promo videos for local gyms\n2. A Shopify store for minimalist gym bags\n3. Math tutoring for middle schoolers"
+    },
+    {
+     "key": "about_me",
+     "label": "Your skills, experience and anything unfair you have",
+     "example": "I edit video in CapCut, I lift 5 days a week, 2K followers on Instagram"
+    },
+    {
+     "key": "hours",
+     "label": "Hours a week",
+     "example": "12"
+    },
+    {
+     "key": "budget",
+     "label": "Starting budget",
+     "example": "$300"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "ideas": "1. Short promo videos for local gyms / 2. A Shopify store for minimalist gym bags / 3. Math tutoring for middle schoolers",
+     "about_me": "I edit video in CapCut, I lift 5 days a week, 2K followers on Instagram",
+     "hours": "12",
+     "budget": "$300"
+    },
+    "youGet": "A scored table, one pick (likely the gym videos, since you have the skill and gyms already pay for content), the riskiest assumption, a 7-day test and the message to send an insider.",
+    "filled": "You are a blunt, experienced founder reviewing my business ideas. No cheerleading. Your job is to stop me wasting a year on the wrong one.\n\nMy ideas:\n1. Short promo videos for local gyms / 2. A Shopify store for minimalist gym bags / 3. Math tutoring for middle schoolers\n\nAbout me: I edit video in CapCut, I lift 5 days a week, 2K followers on Instagram\nTime I can put in each week: 12\nMoney I can spend to start: $300\n\nScore each idea 1 to 5 on these seven questions. For each score, write the proof in one line. If there is no proof, the score can't go above 2.\n1. Problem: does it solve a problem people already pay money to fix, or add value people pay for (saves time, peace of mind, education)? Name who pays today and what they pay for now.\n2. Economics: what does one sale earn after costs? How many sales would cover my monthly costs?\n3. Channels: how would the first 25 buyers find me, and what does it cost to get into that channel?\n4. Differentiator: why me? Faster, cheaper, better quality, a better model, an unfair advantage I already have?\n5. Market direction: is this market growing or shrinking? Cite what you know and say how sure you are.\n6. AI impact: is AI making this business easier to run, or making it obsolete?\n7. Time to first sale: how many days until a stranger pays me, if I start today?\n\nThen:\n- Rank the ideas in a table.\n- Pick one winner. Say why in three sentences.\n- Name the single biggest risk in the winner and the cheapest way to test it this week.\n- Name the kind of insider I should talk to (someone who lives this problem or sells to these buyers) and write the exact message to ask them for 15 minutes.\n\nRules: be specific to my situation, not generic. If two ideas tie within 3 points, break the tie on time to first sale, then cost to start. Don't ideate new ideas unless all of mine score under 15."
+   },
+   "tools": [
+    "Web search",
+    "Perplexity"
+   ],
+   "pairsWith": [
+    "Idea Scorecard template"
+   ]
+  },
+  {
+   "id": "start.business_match",
+   "group": "start",
+   "title": "Business match",
+   "tier": "free",
+   "when": "You want to start something but don't have an idea yet, and you want three options that fit your skills, time and money.",
+   "prompt": "Act as a practical business advisor. Suggest exactly three businesses I could start, matched to me.\n\nWhat I'm good at or enjoy: {{skills}}\nWhere I live: {{city}}\nHours a week: {{hours}}\nStarting budget: {{budget}}\nWhat I don't want: {{avoid}}\n\nRules for the three:\n- At least one is a local or service business (people near me pay me to do something). At least one can run online.\n- Each must be something where a beginner can make a first sale within 30 days.\n- No business that needs a license I don't have, inventory over my budget, or an audience I don't have yet.\n\nFor each business give:\n- One-line description: what I sell, to whom, for roughly what price per job or per item.\n- Who already pays for this today, and how they find it.\n- My first 25: the type of 25 people or businesses I would contact first, and where I'd find them.\n- What I'd show them: one sample or mock-up I could make before anyone pays me.\n- Startup cost and the tools I'd need.\n- Score 1 to 5 on: how painful the problem is, who pays, how easy buyers are to find, growth, and time to first sale.\n\nEnd with your pick and the first three things I do tomorrow, each under 30 minutes.",
+   "variables": [
+    {
+     "key": "skills",
+     "label": "Skills and interests",
+     "example": "Photography, talking to people, cars"
+    },
+    {
+     "key": "city",
+     "label": "City or area",
+     "example": "Columbus, Ohio"
+    },
+    {
+     "key": "hours",
+     "label": "Hours a week",
+     "example": "15"
+    },
+    {
+     "key": "budget",
+     "label": "Starting budget",
+     "example": "$500"
+    },
+    {
+     "key": "avoid",
+     "label": "Anything you want to rule out",
+     "example": "Nothing that needs me on calls all day",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "skills": "Photography, talking to people, cars",
+     "city": "Columbus, Ohio",
+     "hours": "15",
+     "budget": "$500",
+     "avoid": "Nothing that needs me on calls all day"
+    },
+    "youGet": "Three scored options (for example photos for local car dealers, mobile detailing, a preset pack sold online), each with its first 25, a sample to make, and tomorrow's three moves.",
+    "filled": "Act as a practical business advisor. Suggest exactly three businesses I could start, matched to me.\n\nWhat I'm good at or enjoy: Photography, talking to people, cars\nWhere I live: Columbus, Ohio\nHours a week: 15\nStarting budget: $500\nWhat I don't want: Nothing that needs me on calls all day\n\nRules for the three:\n- At least one is a local or service business (people near me pay me to do something). At least one can run online.\n- Each must be something where a beginner can make a first sale within 30 days.\n- No business that needs a license I don't have, inventory over my budget, or an audience I don't have yet.\n\nFor each business give:\n- One-line description: what I sell, to whom, for roughly what price per job or per item.\n- Who already pays for this today, and how they find it.\n- My first 25: the type of 25 people or businesses I would contact first, and where I'd find them.\n- What I'd show them: one sample or mock-up I could make before anyone pays me.\n- Startup cost and the tools I'd need.\n- Score 1 to 5 on: how painful the problem is, who pays, how easy buyers are to find, growth, and time to first sale.\n\nEnd with your pick and the first three things I do tomorrow, each under 30 minutes."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "start.competitor_teardown",
+   "group": "start",
+   "title": "Five-player teardown",
+   "tier": "builder",
+   "when": "You picked a business and want to know how the people already winning at it find buyers, price, and deliver.",
+   "prompt": "Research five businesses or creators already doing what I want to do, and turn them into a playbook I can copy the good parts of.\n\nWhat I'm starting: {{business}}\nWhere I sell (city, online, or both): {{market}}\nNames I already know of, if any: {{known}}\n\nFor each of the five:\n- Who they are and what they sell, with prices you can find.\n- Where their buyers come from: channels, content formats, offers, lead magnets. Quote real examples.\n- What makes them different, in one line.\n- What customers praise and complain about (reviews, comments, threads).\n- One thing they do that I should copy, and one gap I could beat them on.\n\nThen give me:\n1. A comparison table of the five.\n2. The three patterns all the winners share.\n3. The gap in the market: what nobody is doing well.\n4. My positioning line in one sentence, built on that gap.\n5. Five things to test in my first 30 days, in order.\n\nRules: only use facts you can source, and link or name the source. If you can't verify a number, say so. Don't copy anyone's income claims or customer results into my plan.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "What you are starting",
+     "example": "Weekly social video packages for independent coffee shops"
+    },
+    {
+     "key": "market",
+     "label": "Where you sell",
+     "example": "Austin, Texas, plus remote clients"
+    },
+    {
+     "key": "known",
+     "label": "Competitors you already know",
+     "example": "@brewreels on Instagram",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Weekly social video packages for independent coffee shops",
+     "market": "Austin, Texas, plus remote clients",
+     "known": "@brewreels on Instagram"
+    },
+    "youGet": "Five sourced case studies, a comparison table, the shared patterns, the gap, a one-line position and a 30-day test list.",
+    "filled": "Research five businesses or creators already doing what I want to do, and turn them into a playbook I can copy the good parts of.\n\nWhat I'm starting: Weekly social video packages for independent coffee shops\nWhere I sell (city, online, or both): Austin, Texas, plus remote clients\nNames I already know of, if any: @brewreels on Instagram\n\nFor each of the five:\n- Who they are and what they sell, with prices you can find.\n- Where their buyers come from: channels, content formats, offers, lead magnets. Quote real examples.\n- What makes them different, in one line.\n- What customers praise and complain about (reviews, comments, threads).\n- One thing they do that I should copy, and one gap I could beat them on.\n\nThen give me:\n1. A comparison table of the five.\n2. The three patterns all the winners share.\n3. The gap in the market: what nobody is doing well.\n4. My positioning line in one sentence, built on that gap.\n5. Five things to test in my first 30 days, in order.\n\nRules: only use facts you can source, and link or name the source. If you can't verify a number, say so. Don't copy anyone's income claims or customer results into my plan."
+   },
+   "tools": [
+    "Web search",
+    "Perplexity",
+    "Apify"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "start.customer_interviews",
+   "group": "start",
+   "title": "Customer interview kit",
+   "tier": "free",
+   "when": "Before you build. You want to learn how buyers solve the problem today and whether they would pay you to solve it.",
+   "prompt": "Write me a customer interview kit for this business. I want to learn the truth, not hear compliments.\n\nBusiness: {{business}}\nWho I'll interview: {{who}}\nWhat I most need to learn: {{unknowns}}\n\nGive me:\n1. A 3-line message to ask for a 15-minute call or visit. Friendly, specific, no pitch.\n2. Ten interview questions about their past behavior, not opinions. Start with how they handle this today, what it costs them, what they've tried, and what they'd change. No \"would you buy\" questions.\n3. Three follow-up prompts to dig deeper when they say something interesting.\n4. The signals that mean \"real problem, will pay\" and the signals that mean \"polite, won't pay\".\n5. A one-page note template to fill in after each call.\n6. After 10 interviews, how to decide: build, change, or drop it.\n\nKeep my questions short enough to say out loud.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business idea",
+     "example": "Pressure washing for restaurants"
+    },
+    {
+     "key": "who",
+     "label": "Who you will interview",
+     "example": "Owners or managers of 10 local restaurants"
+    },
+    {
+     "key": "unknowns",
+     "label": "What you most need to learn",
+     "example": "How often they clean outside, who does it now, what they pay"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Pressure washing for restaurants",
+     "who": "Owners or managers of 10 local restaurants",
+     "unknowns": "How often they clean outside, who does it now, what they pay"
+    },
+    "youGet": "An ask message, ten behavior questions, follow-ups, buy and no-buy signals, a note template and a decision rule.",
+    "filled": "Write me a customer interview kit for this business. I want to learn the truth, not hear compliments.\n\nBusiness: Pressure washing for restaurants\nWho I'll interview: Owners or managers of 10 local restaurants\nWhat I most need to learn: How often they clean outside, who does it now, what they pay\n\nGive me:\n1. A 3-line message to ask for a 15-minute call or visit. Friendly, specific, no pitch.\n2. Ten interview questions about their past behavior, not opinions. Start with how they handle this today, what it costs them, what they've tried, and what they'd change. No \"would you buy\" questions.\n3. Three follow-up prompts to dig deeper when they say something interesting.\n4. The signals that mean \"real problem, will pay\" and the signals that mean \"polite, won't pay\".\n5. A one-page note template to fill in after each call.\n6. After 10 interviews, how to decide: build, change, or drop it.\n\nKeep my questions short enough to say out loud."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "start.market_brief",
+   "group": "start",
+   "title": "Market research brief",
+   "tier": "builder",
+   "when": "You need the numbers and trends behind a market fast: size, growth, buyers, prices, and where AI is changing it.",
+   "prompt": "Write a research brief on this market. I'll use it to decide whether to go in and how.\n\nMarket: {{market}}\nGeography: {{geography}}\nQuestion I need answered: {{question}}\n\nCover:\n1. Who buys, how many there are, and what they spend on this today. Give ranges with sources.\n2. Is it growing or shrinking, and why. Name the forces.\n3. How AI is changing it: what gets cheaper, what gets automated, what new demand shows up.\n4. Pricing: what buyers pay at the low, middle and high end, with examples.\n5. Channels: where buyers look for this, ranked by how reachable they are for a newcomer.\n6. Risks: regulation, licensing, seasonality, platform dependence.\n7. The answer to my question, in one paragraph, with your confidence level.\n\nRules: cite every number. Mark anything older than two years. Say \"unknown\" instead of guessing. End with three next steps I can do this week.",
+   "variables": [
+    {
+     "key": "market",
+     "label": "The market",
+     "example": "Mobile car detailing"
+    },
+    {
+     "key": "geography",
+     "label": "Where",
+     "example": "Mid-size US cities"
+    },
+    {
+     "key": "question",
+     "label": "The decision you are making",
+     "example": "Is there room for one more detailer here, and what would it take to build a steady weekly route?"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "market": "Mobile car detailing",
+     "geography": "Mid-size US cities",
+     "question": "Is there room for one more detailer here, and what would it take to build a steady weekly route?"
+    },
+    "youGet": "A sourced brief with buyers, growth, AI impact, price bands, ranked channels, risks and a direct answer with a confidence level.",
+    "filled": "Write a research brief on this market. I'll use it to decide whether to go in and how.\n\nMarket: Mobile car detailing\nGeography: Mid-size US cities\nQuestion I need answered: Is there room for one more detailer here, and what would it take to build a steady weekly route?\n\nCover:\n1. Who buys, how many there are, and what they spend on this today. Give ranges with sources.\n2. Is it growing or shrinking, and why. Name the forces.\n3. How AI is changing it: what gets cheaper, what gets automated, what new demand shows up.\n4. Pricing: what buyers pay at the low, middle and high end, with examples.\n5. Channels: where buyers look for this, ranked by how reachable they are for a newcomer.\n6. Risks: regulation, licensing, seasonality, platform dependence.\n7. The answer to my question, in one paragraph, with your confidence level.\n\nRules: cite every number. Mark anything older than two years. Say \"unknown\" instead of guessing. End with three next steps I can do this week."
+   },
+   "tools": [
+    "Web search",
+    "Perplexity",
+    "Claude Research"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "start.pmf_check",
+   "group": "start",
+   "title": "Demand check",
+   "tier": "builder",
+   "when": "You've had some sales or conversations and want an honest read on whether people really want this, and what to double down on.",
+   "prompt": "Read my results and tell me honestly whether I have real demand, and what to do more of.\n\nWhat I sell: {{offer}}\nWhat has happened so far (sales, replies, conversations, numbers): {{results}}\nWhat customers have said, word for word if possible: {{feedback}}\n\nAnswer:\n1. Demand verdict: strong, early signs, or not yet. Back it with my own numbers.\n2. What's working: the channels, messages or buyers that convert best. Ask \"why did this work when the others didn't?\" and answer it.\n3. What to double down on this month, and what to stop.\n4. What buyers are really paying for, in their words, versus what I think I'm selling.\n5. One change to the offer that would make it easier to say yes to.\n6. The number I should track weekly to know if it's getting better.\n\nRules: don't soften it. If the data is too thin to say, tell me exactly what data to collect in the next 14 days.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell and the price",
+     "example": "Website refresh for local salons, $600 one-time"
+    },
+    {
+     "key": "results",
+     "label": "Your numbers so far",
+     "example": "60 messages sent, 9 replies, 4 calls, 2 sales, both from Instagram DMs"
+    },
+    {
+     "key": "feedback",
+     "label": "What customers said",
+     "example": "\"I just want people to be able to book online.\" \"My nephew made the old one.\""
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Website refresh for local salons, $600 one-time",
+     "results": "60 messages sent, 9 replies, 4 calls, 2 sales, both from Instagram DMs",
+     "feedback": "\"I just want people to be able to book online.\" \"My nephew made the old one.\""
+    },
+    "youGet": "A demand verdict, the reason Instagram DMs win, a stop and double-down list, the real job buyers hire you for (online booking), an offer tweak and one weekly number.",
+    "filled": "Read my results and tell me honestly whether I have real demand, and what to do more of.\n\nWhat I sell: Website refresh for local salons, $600 one-time\nWhat has happened so far (sales, replies, conversations, numbers): 60 messages sent, 9 replies, 4 calls, 2 sales, both from Instagram DMs\nWhat customers have said, word for word if possible: \"I just want people to be able to book online.\" \"My nephew made the old one.\"\n\nAnswer:\n1. Demand verdict: strong, early signs, or not yet. Back it with my own numbers.\n2. What's working: the channels, messages or buyers that convert best. Ask \"why did this work when the others didn't?\" and answer it.\n3. What to double down on this month, and what to stop.\n4. What buyers are really paying for, in their words, versus what I think I'm selling.\n5. One change to the offer that would make it easier to say yes to.\n6. The number I should track weekly to know if it's getting better.\n\nRules: don't soften it. If the data is too thin to say, tell me exactly what data to collect in the next 14 days."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "brain.founder_interview",
+   "group": "brain",
+   "title": "Interview me into a business brain",
+   "tier": "free",
+   "when": "Day one with any AI tool. Twenty minutes of answering questions saves you hours of re-explaining later.",
+   "prompt": "Interview me so you can write a \"business brain\" document that any AI can read before helping me.\n\nAsk me one question at a time. Wait for my answer. Ask a sharper follow-up when my answer is vague. Cover, in this order:\n1. What I sell, to whom, and the price.\n2. Why customers buy, in their words. Who I'm not for.\n3. My goal for the next 90 days, as a number I control (messages sent, calls booked, sales made).\n4. My channels: where customers come from today.\n5. My voice: three words for how I sound, words I never use, an example of something I wrote that sounds like me.\n6. My tools and accounts.\n7. My constraints: hours, budget, anything off-limits.\n8. My principles: how I make decisions and how I treat customers.\n9. What's already decided, so nobody re-asks it.\n\nStart with: {{starting_point}}\n\nWhen I say \"done\", write the business brain as one document with these headings: Business, Customer, Offer and pricing, Goal and the number I track, Channels, Voice, Tools, Constraints, Principles, Decisions log, Open questions. Keep it under two pages. Use my words where you can. Then tell me where to paste it so you and other AI tools read it every time.",
+   "variables": [
+    {
+     "key": "starting_point",
+     "label": "One line to start the interview",
+     "example": "I edit short videos for gyms and I'm trying to land my first 5 monthly clients."
+    }
+   ],
+   "example": {
+    "inputs": {
+     "starting_point": "I edit short videos for gyms and I'm trying to land my first 5 monthly clients."
+    },
+    "youGet": "About 15 questions, one at a time, then a two-page business brain you paste into your Claude or ChatGPT project instructions, Notion or Obsidian.",
+    "filled": "Interview me so you can write a \"business brain\" document that any AI can read before helping me.\n\nAsk me one question at a time. Wait for my answer. Ask a sharper follow-up when my answer is vague. Cover, in this order:\n1. What I sell, to whom, and the price.\n2. Why customers buy, in their words. Who I'm not for.\n3. My goal for the next 90 days, as a number I control (messages sent, calls booked, sales made).\n4. My channels: where customers come from today.\n5. My voice: three words for how I sound, words I never use, an example of something I wrote that sounds like me.\n6. My tools and accounts.\n7. My constraints: hours, budget, anything off-limits.\n8. My principles: how I make decisions and how I treat customers.\n9. What's already decided, so nobody re-asks it.\n\nStart with: I edit short videos for gyms and I'm trying to land my first 5 monthly clients.\n\nWhen I say \"done\", write the business brain as one document with these headings: Business, Customer, Offer and pricing, Goal and the number I track, Channels, Voice, Tools, Constraints, Principles, Decisions log, Open questions. Keep it under two pages. Use my words where you can. Then tell me where to paste it so you and other AI tools read it every time."
+   },
+   "tools": [
+    "Claude Projects",
+    "ChatGPT Projects",
+    "Notion",
+    "Obsidian"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "brain.workspace_instructions",
+   "group": "brain",
+   "title": "Write my AI workspace instructions",
+   "tier": "free",
+   "when": "You have a business brain and want your AI to follow your rules automatically in every chat (project instructions, custom instructions or a CLAUDE.md file).",
+   "prompt": "Turn my business brain into standing instructions for my AI workspace. These instructions will load before every conversation, so they must be short, specific and testable.\n\nMy business brain:\n{{brain}}\n\nWhere they'll live: {{where}}\n\nWrite, in this order:\n1. Role: one sentence on who you are for my business.\n2. Context: the five facts you must always remember.\n3. Principles: up to eight rules for how to work (for example: lead with the answer, finish the work instead of describing it, state assumptions, ask at most one question when blocked).\n4. Operating procedures: for my three most common jobs, the steps you follow.\n5. Acceptance criteria: the checklist every output must pass before you show it to me (voice, accuracy, no made-up facts or results, a clear next action).\n6. Never: things you must never do (promise results, invent numbers or reviews, send anything without my OK).\n7. Output defaults: length, format, and how to end each answer.\n\nKeep it under 500 words. Then give me three test prompts I can run to check the instructions work.",
+   "variables": [
+    {
+     "key": "brain",
+     "label": "Paste your business brain",
+     "example": "(the document from \"Interview me into a business brain\")"
+    },
+    {
+     "key": "where",
+     "label": "Where the instructions will live",
+     "example": "Claude project instructions"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "brain": "Business: weekly Reels for local gyms, $450 a month. Customer: owner-run gyms with under 300 members. Goal: 5 monthly clients by Dec 31...",
+     "where": "Claude project instructions"
+    },
+    "youGet": "A sub-500-word instruction set with role, context, principles, procedures, acceptance criteria and never-do rules, plus three test prompts.",
+    "filled": "Turn my business brain into standing instructions for my AI workspace. These instructions will load before every conversation, so they must be short, specific and testable.\n\nMy business brain:\nBusiness: weekly Reels for local gyms, $450 a month. Customer: owner-run gyms with under 300 members. Goal: 5 monthly clients by Dec 31...\n\nWhere they'll live: Claude project instructions\n\nWrite, in this order:\n1. Role: one sentence on who you are for my business.\n2. Context: the five facts you must always remember.\n3. Principles: up to eight rules for how to work (for example: lead with the answer, finish the work instead of describing it, state assumptions, ask at most one question when blocked).\n4. Operating procedures: for my three most common jobs, the steps you follow.\n5. Acceptance criteria: the checklist every output must pass before you show it to me (voice, accuracy, no made-up facts or results, a clear next action).\n6. Never: things you must never do (promise results, invent numbers or reviews, send anything without my OK).\n7. Output defaults: length, format, and how to end each answer.\n\nKeep it under 500 words. Then give me three test prompts I can run to check the instructions work."
+   },
+   "tools": [
+    "Claude Projects",
+    "ChatGPT custom instructions",
+    "Claude Code (CLAUDE.md)"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "brain.vault_setup",
+   "group": "brain",
+   "title": "Set up my second brain (Notion or Obsidian)",
+   "tier": "builder",
+   "when": "You want one place where decisions, files, numbers and lessons live, laid out so an AI can find the right context fast.",
+   "prompt": "Design a second brain for my business in {{app}}. It should be simple enough that I actually keep it up, and organized so an AI can pull the right context with the source.\n\nMy business: {{business}}\nWhat I already have scattered around: {{existing}}\n\nGive me:\n1. The folder or page structure, as a tree. Include: Business brain (the one-page summary), Customers, Offers, Content, Sales pipeline, Numbers (weekly scorecard), Decisions (one note per decision), Meetings and calls, Lessons, SOPs, Templates, Archive.\n2. A naming rule for files and notes, with dates, so they sort and search well.\n3. Templates for: a decision note, a meeting note, a weekly review, an SOP, a customer note. Each template has the fields an AI would need (date, who, what was decided, why, what changes, link to source).\n4. Where to move each thing I already have.\n5. A 10-minute weekly routine to keep it current.\n6. How to give my AI access: what to export or connect, and what to keep private.\n\nKeep it to what one person can maintain. No more than 12 top-level folders.",
+   "variables": [
+    {
+     "key": "app",
+     "label": "Notion or Obsidian",
+     "example": "Obsidian"
+    },
+    {
+     "key": "business",
+     "label": "Your business in one line",
+     "example": "Digital planner templates sold on Etsy and my own Shopify store"
+    },
+    {
+     "key": "existing",
+     "label": "What you have now and where",
+     "example": "Notes app ideas, a Google Sheet of sales, Canva folders, DMs with customers"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "app": "Obsidian",
+     "business": "Digital planner templates sold on Etsy and my own Shopify store",
+     "existing": "Notes app ideas, a Google Sheet of sales, Canva folders, DMs with customers"
+    },
+    "youGet": "A vault tree, naming rules, five note templates, a move-in plan for your scattered files, a weekly routine and an AI access plan.",
+    "filled": "Design a second brain for my business in Obsidian. It should be simple enough that I actually keep it up, and organized so an AI can pull the right context with the source.\n\nMy business: Digital planner templates sold on Etsy and my own Shopify store\nWhat I already have scattered around: Notes app ideas, a Google Sheet of sales, Canva folders, DMs with customers\n\nGive me:\n1. The folder or page structure, as a tree. Include: Business brain (the one-page summary), Customers, Offers, Content, Sales pipeline, Numbers (weekly scorecard), Decisions (one note per decision), Meetings and calls, Lessons, SOPs, Templates, Archive.\n2. A naming rule for files and notes, with dates, so they sort and search well.\n3. Templates for: a decision note, a meeting note, a weekly review, an SOP, a customer note. Each template has the fields an AI would need (date, who, what was decided, why, what changes, link to source).\n4. Where to move each thing I already have.\n5. A 10-minute weekly routine to keep it current.\n6. How to give my AI access: what to export or connect, and what to keep private.\n\nKeep it to what one person can maintain. No more than 12 top-level folders."
+   },
+   "tools": [
+    "Obsidian",
+    "Notion",
+    "Google Drive"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "brain.capture_to_actions",
+   "group": "brain",
+   "title": "Turn a call, voice note or meeting into actions",
+   "tier": "free",
+   "when": "Right after a sales call, client meeting, or a voice memo of ideas. Paste the transcript or notes.",
+   "prompt": "Here is a transcript or rough notes from {{source}}:\n\n{{transcript}}\n\nTurn it into:\n1. Summary: five lines max.\n2. Decisions made, each with who decided and why.\n3. Action items as a checklist: owner, task, due date. If no date was said, suggest one and mark it \"suggested\".\n4. Follow-up message to send the other person, ready to paste, under 120 words, in my voice: {{voice}}\n5. Anything said that should update my business brain (new pricing, new objection, a customer quote worth keeping). Quote it word for word.\n6. Open questions nobody answered.\n\nDon't add anything that wasn't said. If something is unclear, list it under open questions instead of guessing.",
+   "variables": [
+    {
+     "key": "source",
+     "label": "What it was",
+     "example": "a discovery call with a gym owner"
+    },
+    {
+     "key": "transcript",
+     "label": "Paste the transcript or notes",
+     "example": "(paste from Granola, Otter or your voice memo app)"
+    },
+    {
+     "key": "voice",
+     "label": "Three words for how you sound",
+     "example": "direct, friendly, short"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "source": "a discovery call with a gym owner",
+     "transcript": "Owner Dana says posting is inconsistent, front desk films on a phone, wants more trial signups in January, budget unclear, asked for a sample...",
+     "voice": "direct, friendly, short"
+    },
+    "youGet": "A five-line summary, decisions, a dated checklist, a ready follow-up message promising the sample, brain updates (the January goal, the budget objection) and open questions.",
+    "filled": "Here is a transcript or rough notes from a discovery call with a gym owner:\n\nOwner Dana says posting is inconsistent, front desk films on a phone, wants more trial signups in January, budget unclear, asked for a sample...\n\nTurn it into:\n1. Summary: five lines max.\n2. Decisions made, each with who decided and why.\n3. Action items as a checklist: owner, task, due date. If no date was said, suggest one and mark it \"suggested\".\n4. Follow-up message to send the other person, ready to paste, under 120 words, in my voice: direct, friendly, short\n5. Anything said that should update my business brain (new pricing, new objection, a customer quote worth keeping). Quote it word for word.\n6. Open questions nobody answered.\n\nDon't add anything that wasn't said. If something is unclear, list it under open questions instead of guessing."
+   },
+   "tools": [
+    "Granola",
+    "Wispr Flow",
+    "Voice memos",
+    "Otter"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "brain.weekly_learnings",
+   "group": "brain",
+   "title": "Weekly lessons and decisions log",
+   "tier": "builder",
+   "when": "Every Friday or Sunday. Ten minutes to record what you learned so you stop relearning it.",
+   "prompt": "Help me close out my week. Here's what happened:\n\n{{week}}\n\nWrite three short sections for my business brain:\n1. Lessons: what worked, what didn't, and why. Each lesson is one line starting with a verb (\"Send the sample first\", \"Stop cold-calling after 6pm\").\n2. Decisions: anything I decided or should decide now, as a decision note (date, decision, why, what changes, how I'd undo it).\n3. Do more of: the one thing that worked best this week and how to do twice as much of it next week.\n\nThen ask me the one question that would make next week better, and stop.",
+   "variables": [
+    {
+     "key": "week",
+     "label": "What happened this week, rough notes are fine",
+     "example": "Sent 80 DMs, 6 replies, all from gyms that post less than once a week. Two calls, one yes at $350. Email got 0 replies."
+    }
+   ],
+   "example": {
+    "inputs": {
+     "week": "Sent 80 DMs, 6 replies, all from gyms that post less than once a week. Two calls, one yes at $350. Email got 0 replies."
+    },
+    "youGet": "Verb-first lessons (target gyms that rarely post, drop cold email for now), a decision note, a \"do twice as much\" plan and one sharp question.",
+    "filled": "Help me close out my week. Here's what happened:\n\nSent 80 DMs, 6 replies, all from gyms that post less than once a week. Two calls, one yes at $350. Email got 0 replies.\n\nWrite three short sections for my business brain:\n1. Lessons: what worked, what didn't, and why. Each lesson is one line starting with a verb (\"Send the sample first\", \"Stop cold-calling after 6pm\").\n2. Decisions: anything I decided or should decide now, as a decision note (date, decision, why, what changes, how I'd undo it).\n3. Do more of: the one thing that worked best this week and how to do twice as much of it next week.\n\nThen ask me the one question that would make next week better, and stop."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "offer.builder",
+   "group": "offer",
+   "title": "Offer builder",
+   "tier": "free",
+   "when": "You know what you do and who for, and you want an offer that is easy to say yes to.",
+   "prompt": "Build me an offer that's hard to refuse. Honest, specific, no hype.\n\nWhat I do: {{service}}\nWho it's for: {{buyer}}\nWhat they want most (in their words): {{dream}}\nWhat I'd charge today: {{price}}\nWhat makes buyers hesitate: {{objections}}\n\nWork through four levers and show your thinking for each:\n1. Outcome: what they get, stated as something concrete they can see (a finished thing, a number they control), not a vague benefit.\n2. Believability: what proof I can show before they pay (a sample, a demo on their own business, a before and after, a process they can see).\n3. Speed: how to get them a first visible result fast. What can they have in 48 hours?\n4. Effort: what I can take off their plate entirely so they barely lift a finger.\n\nThen:\n- List every obstacle a buyer has, and for each one, the piece of the offer that removes it (a tool, a step I do for them, a bonus).\n- Name each bonus. Say what it is and which fear it kills. No dollar \"value\" totals.\n- Risk reversal that I can actually honor (a trial, a first deliverable before payment, cancel anytime). No promise of results.\n- A clear name for the offer.\n- The offer written as a one-paragraph pitch and as a 3-line DM.\n- What I should charge, with reasoning tied to the value to the buyer.\n\nRules: never promise revenue, customers or results for the buyer. Promise what I will deliver and when.",
+   "variables": [
+    {
+     "key": "service",
+     "label": "What you do",
+     "example": "4 short promo videos a month for a gym"
+    },
+    {
+     "key": "buyer",
+     "label": "Who buys it",
+     "example": "Owner-run gyms with 100 to 400 members"
+    },
+    {
+     "key": "dream",
+     "label": "What they want, in their words",
+     "example": "\"More people walking in for a trial without me having to post every day\""
+    },
+    {
+     "key": "price",
+     "label": "Your current price",
+     "example": "$400 a month"
+    },
+    {
+     "key": "objections",
+     "label": "Why they hesitate",
+     "example": "Burned by an agency, no time to film, not sure videos work"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "service": "4 short promo videos a month for a gym",
+     "buyer": "Owner-run gyms with 100 to 400 members",
+     "dream": "\"More people walking in for a trial without me having to post every day\"",
+     "price": "$400 a month",
+     "objections": "Burned by an agency, no time to film, not sure videos work"
+    },
+    "youGet": "An offer built on a free sample video of their own gym, a 1-hour monthly filming visit so they do nothing, month-to-month terms, named bonuses, a pitch paragraph, a DM and a price recommendation.",
+    "filled": "Build me an offer that's hard to refuse. Honest, specific, no hype.\n\nWhat I do: 4 short promo videos a month for a gym\nWho it's for: Owner-run gyms with 100 to 400 members\nWhat they want most (in their words): \"More people walking in for a trial without me having to post every day\"\nWhat I'd charge today: $400 a month\nWhat makes buyers hesitate: Burned by an agency, no time to film, not sure videos work\n\nWork through four levers and show your thinking for each:\n1. Outcome: what they get, stated as something concrete they can see (a finished thing, a number they control), not a vague benefit.\n2. Believability: what proof I can show before they pay (a sample, a demo on their own business, a before and after, a process they can see).\n3. Speed: how to get them a first visible result fast. What can they have in 48 hours?\n4. Effort: what I can take off their plate entirely so they barely lift a finger.\n\nThen:\n- List every obstacle a buyer has, and for each one, the piece of the offer that removes it (a tool, a step I do for them, a bonus).\n- Name each bonus. Say what it is and which fear it kills. No dollar \"value\" totals.\n- Risk reversal that I can actually honor (a trial, a first deliverable before payment, cancel anytime). No promise of results.\n- A clear name for the offer.\n- The offer written as a one-paragraph pitch and as a 3-line DM.\n- What I should charge, with reasoning tied to the value to the buyer.\n\nRules: never promise revenue, customers or results for the buyer. Promise what I will deliver and when."
+   },
+   "tools": [],
+   "pairsWith": [
+    "One-Page Offer template"
+   ]
+  },
+  {
+   "id": "offer.free_magnet",
+   "group": "offer",
+   "title": "A free thing that feels dumb to give away",
+   "tier": "builder",
+   "when": "You need a lead magnet people actually want: so useful they wonder why it is free.",
+   "prompt": "Design a free lead magnet for my business that's so useful people wonder why I give it away.\n\nMy business: {{business}}\nMy buyer: {{buyer}}\nWhat I sell after the free thing: {{paid_offer}}\n\nRules for the free thing:\n- It solves one real problem completely, not a teaser.\n- It shows the buyer a second problem they didn't know they had, which my paid offer fixes.\n- It's finished work they can use today (a list, an audit of their own business, a sample, a calculator, a template filled in for them), not a PDF of tips.\n- I can deliver it in under 15 minutes each, or automate it.\n\nGive me five ideas. For each: what it is, the problem it solves, the problem it reveals, how I deliver it, and why it leads to the paid offer. Rank them.\n\nThen for the top idea write:\n1. The headline and one-line promise.\n2. The 3 questions or inputs I collect from them.\n3. What they get back, section by section.\n4. The last line that points to my paid offer, without pressure.\n5. Three hooks for posts that drive people to it.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Google Business Profile setup for local contractors"
+    },
+    {
+     "key": "buyer",
+     "label": "Your buyer",
+     "example": "Roofers and HVAC companies with under 10 staff"
+    },
+    {
+     "key": "paid_offer",
+     "label": "What you sell afterward",
+     "example": "$500 profile and review system setup"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Google Business Profile setup for local contractors",
+     "buyer": "Roofers and HVAC companies with under 10 staff",
+     "paid_offer": "$500 profile and review system setup"
+    },
+    "youGet": "Five ranked ideas (for example a free 10-point audit of their own profile next to their top 3 competitors), plus the headline, inputs, deliverable outline, soft close and three hooks for the winner.",
+    "filled": "Design a free lead magnet for my business that's so useful people wonder why I give it away.\n\nMy business: Google Business Profile setup for local contractors\nMy buyer: Roofers and HVAC companies with under 10 staff\nWhat I sell after the free thing: $500 profile and review system setup\n\nRules for the free thing:\n- It solves one real problem completely, not a teaser.\n- It shows the buyer a second problem they didn't know they had, which my paid offer fixes.\n- It's finished work they can use today (a list, an audit of their own business, a sample, a calculator, a template filled in for them), not a PDF of tips.\n- I can deliver it in under 15 minutes each, or automate it.\n\nGive me five ideas. For each: what it is, the problem it solves, the problem it reveals, how I deliver it, and why it leads to the paid offer. Rank them.\n\nThen for the top idea write:\n1. The headline and one-line promise.\n2. The 3 questions or inputs I collect from them.\n3. What they get back, section by section.\n4. The last line that points to my paid offer, without pressure.\n5. Three hooks for posts that drive people to it."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "offer.price_ladder",
+   "group": "offer",
+   "title": "Price ladder and money model",
+   "tier": "builder",
+   "when": "You have one offer and want the full path: a way in, a main offer, an upgrade, a smaller option, and a monthly plan.",
+   "prompt": "Design a simple money model for my business. One of each, in order, and only things I can deliver.\n\nMy main offer and price: {{main_offer}}\nMy buyer: {{buyer}}\nMy costs per sale: {{costs}}\nHours I can deliver per week: {{capacity}}\n\nBuild:\n1. Way in: a free or low-price first step that gets a buyer to try me.\n2. Main offer: tighten what I have.\n3. Upgrade: something bigger for buyers who want more. When to offer it (the moment they'd want it).\n4. Smaller option: for people who say no to the main offer. What I remove to make it cheaper.\n5. Monthly plan: what repeats every month so revenue continues.\n\nFor each: what it is, price, what it costs me, the margin, and the exact moment I offer it.\n\nThen show the math in a table: if I get 10 buyers into the way in each month, with your best-guess conversion at each step, what lands each month. Label every conversion rate as an assumption I should test. Flag any step that eats too much of my time for my capacity.",
+   "variables": [
+    {
+     "key": "main_offer",
+     "label": "Your main offer and price",
+     "example": "Custom meal plan, $120 one-time"
+    },
+    {
+     "key": "buyer",
+     "label": "Your buyer",
+     "example": "Busy parents who want to lose 10 to 20 pounds"
+    },
+    {
+     "key": "costs",
+     "label": "Your cost per sale",
+     "example": "About 2 hours of my time, $5 in software"
+    },
+    {
+     "key": "capacity",
+     "label": "Hours you can deliver weekly",
+     "example": "10"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "main_offer": "Custom meal plan, $120 one-time",
+     "buyer": "Busy parents who want to lose 10 to 20 pounds",
+     "costs": "About 2 hours of my time, $5 in software",
+     "capacity": "10"
+    },
+    "youGet": "A free grocery-list starter, the tightened plan, a monthly check-in upgrade, a template-only downsell and a membership, each priced with margins, plus a 10-buyer math table with assumptions flagged.",
+    "filled": "Design a simple money model for my business. One of each, in order, and only things I can deliver.\n\nMy main offer and price: Custom meal plan, $120 one-time\nMy buyer: Busy parents who want to lose 10 to 20 pounds\nMy costs per sale: About 2 hours of my time, $5 in software\nHours I can deliver per week: 10\n\nBuild:\n1. Way in: a free or low-price first step that gets a buyer to try me.\n2. Main offer: tighten what I have.\n3. Upgrade: something bigger for buyers who want more. When to offer it (the moment they'd want it).\n4. Smaller option: for people who say no to the main offer. What I remove to make it cheaper.\n5. Monthly plan: what repeats every month so revenue continues.\n\nFor each: what it is, price, what it costs me, the margin, and the exact moment I offer it.\n\nThen show the math in a table: if I get 10 buyers into the way in each month, with your best-guess conversion at each step, what lands each month. Label every conversion rate as an assumption I should test. Flag any step that eats too much of my time for my capacity."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "offer.pricing_floor",
+   "group": "offer",
+   "title": "What should I charge?",
+   "tier": "free",
+   "when": "You're about to quote a price and you're guessing.",
+   "prompt": "Help me price this. Show the math.\n\nWhat I'm selling: {{service}}\nWho buys it: {{buyer}}\nTime it takes me: {{time}}\nMy costs (tools, materials, travel): {{costs}}\nWhat competitors charge, if known: {{competitors}}\n\nWork out:\n1. My floor: the lowest price where this is still worth my time. Use an hourly target of {{hourly_target}} plus costs.\n2. The buyer's value: what this is worth to them (a new customer's value to their business, hours saved, money saved). Show the assumptions.\n3. The market range from competitors.\n4. A recommended price with a one-line reason, and a \"good, better, best\" set of three options.\n5. How to say the price: frame the cost as the smallest true number (per week, per video, per day), and the value as the biggest true number.\n6. What to say when they say \"too expensive\", three ways, none of them a discount.\n\nLabel every assumption. Don't invent competitor prices; say \"unknown\" if you can't find them.",
+   "variables": [
+    {
+     "key": "service",
+     "label": "What you sell",
+     "example": "Full interior and exterior car detail"
+    },
+    {
+     "key": "buyer",
+     "label": "Who buys",
+     "example": "Commuters and small car dealers"
+    },
+    {
+     "key": "time",
+     "label": "Time per job",
+     "example": "3 hours plus 30 minutes driving"
+    },
+    {
+     "key": "costs",
+     "label": "Your costs per job",
+     "example": "$18 in products, $6 in gas"
+    },
+    {
+     "key": "competitors",
+     "label": "Competitor prices",
+     "example": "Shop down the road charges $180",
+     "optional": true
+    },
+    {
+     "key": "hourly_target",
+     "label": "Your hourly target",
+     "example": "$40 an hour"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "service": "Full interior and exterior car detail",
+     "buyer": "Commuters and small car dealers",
+     "time": "3 hours plus 30 minutes driving",
+     "costs": "$18 in products, $6 in gas",
+     "competitors": "Shop down the road charges $180",
+     "hourly_target": "$40 an hour"
+    },
+    "youGet": "A floor around $165, the value to a dealer of a car that sells faster, a market range, a recommended price with three tiers, cost framing (\"under $6 a week for a monthly plan\") and three no-discount answers.",
+    "filled": "Help me price this. Show the math.\n\nWhat I'm selling: Full interior and exterior car detail\nWho buys it: Commuters and small car dealers\nTime it takes me: 3 hours plus 30 minutes driving\nMy costs (tools, materials, travel): $18 in products, $6 in gas\nWhat competitors charge, if known: Shop down the road charges $180\n\nWork out:\n1. My floor: the lowest price where this is still worth my time. Use an hourly target of $40 an hour plus costs.\n2. The buyer's value: what this is worth to them (a new customer's value to their business, hours saved, money saved). Show the assumptions.\n3. The market range from competitors.\n4. A recommended price with a one-line reason, and a \"good, better, best\" set of three options.\n5. How to say the price: frame the cost as the smallest true number (per week, per video, per day), and the value as the biggest true number.\n6. What to say when they say \"too expensive\", three ways, none of them a discount.\n\nLabel every assumption. Don't invent competitor prices; say \"unknown\" if you can't find them."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "offer.sales_page",
+   "group": "offer",
+   "title": "Sales page that converts",
+   "tier": "builder",
+   "when": "You need a landing or sales page for your offer, written so a stranger understands it in five seconds.",
+   "prompt": "Write a sales page for this offer. A stranger must understand what it is, who it's for and what to do next within five seconds of landing.\n\nOffer: {{offer}}\nBuyer: {{buyer}}\nProof I can show (only real things): {{proof}}\nCall to action: {{cta}}\nVoice: {{voice}}\n\nSections, in order:\n1. Hero: headline (under 10 words, concrete outcome), subhead (who it's for and how), one button.\n2. The problem, in the buyer's words.\n3. What you get: 3 to 5 deliverables, each a concrete thing.\n4. How it works: 3 steps.\n5. Proof: only what I gave you. If I gave nothing, use a demonstration (show the work) instead of testimonials.\n6. Objections answered as a short FAQ (price, time, \"will this work for me\", how to cancel).\n7. The offer stack and price, with the risk reversal I can honor.\n8. Final call to action.\n\nRules: no hype words (revolutionary, game-changing, unlock), no invented reviews, numbers or logos, no promises of results the buyer gets. Short sentences. After the page, list the three lines you think are weakest and rewrite them.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "The offer and price",
+     "example": "Same-week website for local trades, $750, live in 7 days"
+    },
+    {
+     "key": "buyer",
+     "label": "Who it is for",
+     "example": "Plumbers, electricians and handymen with no website or a bad one"
+    },
+    {
+     "key": "proof",
+     "label": "Real proof you have",
+     "example": "3 sites built for friends, before and after screenshots",
+     "optional": true
+    },
+    {
+     "key": "cta",
+     "label": "What they click",
+     "example": "Get a free homepage mock-up"
+    },
+    {
+     "key": "voice",
+     "label": "Your voice",
+     "example": "Plain, confident, no jargon"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Same-week website for local trades, $750, live in 7 days",
+     "buyer": "Plumbers, electricians and handymen with no website or a bad one",
+     "proof": "3 sites built for friends, before and after screenshots",
+     "cta": "Get a free homepage mock-up",
+     "voice": "Plain, confident, no jargon"
+    },
+    "youGet": "A full page draft from hero to FAQ, using your three before-and-afters as proof, plus rewrites of its three weakest lines.",
+    "filled": "Write a sales page for this offer. A stranger must understand what it is, who it's for and what to do next within five seconds of landing.\n\nOffer: Same-week website for local trades, $750, live in 7 days\nBuyer: Plumbers, electricians and handymen with no website or a bad one\nProof I can show (only real things): 3 sites built for friends, before and after screenshots\nCall to action: Get a free homepage mock-up\nVoice: Plain, confident, no jargon\n\nSections, in order:\n1. Hero: headline (under 10 words, concrete outcome), subhead (who it's for and how), one button.\n2. The problem, in the buyer's words.\n3. What you get: 3 to 5 deliverables, each a concrete thing.\n4. How it works: 3 steps.\n5. Proof: only what I gave you. If I gave nothing, use a demonstration (show the work) instead of testimonials.\n6. Objections answered as a short FAQ (price, time, \"will this work for me\", how to cancel).\n7. The offer stack and price, with the risk reversal I can honor.\n8. Final call to action.\n\nRules: no hype words (revolutionary, game-changing, unlock), no invented reviews, numbers or logos, no promises of results the buyer gets. Short sentences. After the page, list the three lines you think are weakest and rewrite them."
+   },
+   "tools": [],
+   "pairsWith": [
+    "website.landing_build"
+   ]
+  },
+  {
+   "id": "offer.objection_bank",
+   "group": "offer",
+   "title": "Objection bank",
+   "tier": "free",
+   "when": "Before sales calls or DMs, so you never freeze when someone pushes back.",
+   "prompt": "List the objections my buyers will raise and write honest answers I can say out loud.\n\nWhat I sell: {{offer}}\nBuyer: {{buyer}}\nObjections I've already heard: {{heard}}\n\nGive me the 12 most likely objections, grouped as: price, timing, trust, \"I can do it myself\", \"need to ask someone\", and fit.\nFor each:\n- What they say.\n- What they usually mean underneath.\n- A short answer (under 40 words) that's honest and builds trust. Ask a question back when that works better than an answer.\n- When to walk away instead.\n\nNo pressure tactics, fake urgency, or discounts as the default answer.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "Monthly lawn care, $140 a month"
+    },
+    {
+     "key": "buyer",
+     "label": "Who buys",
+     "example": "Homeowners in newer subdivisions"
+    },
+    {
+     "key": "heard",
+     "label": "Objections you already heard",
+     "example": "\"My kid does it.\" \"I only need it in summer.\"",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Monthly lawn care, $140 a month",
+     "buyer": "Homeowners in newer subdivisions",
+     "heard": "\"My kid does it.\" \"I only need it in summer.\""
+    },
+    "youGet": "Twelve grouped objections with what they mean, 40-word answers, question-backs and when to walk away.",
+    "filled": "List the objections my buyers will raise and write honest answers I can say out loud.\n\nWhat I sell: Monthly lawn care, $140 a month\nBuyer: Homeowners in newer subdivisions\nObjections I've already heard: \"My kid does it.\" \"I only need it in summer.\"\n\nGive me the 12 most likely objections, grouped as: price, timing, trust, \"I can do it myself\", \"need to ask someone\", and fit.\nFor each:\n- What they say.\n- What they usually mean underneath.\n- A short answer (under 40 words) that's honest and builds trust. Ask a question back when that works better than an answer.\n- When to walk away instead.\n\nNo pressure tactics, fake urgency, or discounts as the default answer."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.first_25",
+   "group": "outreach",
+   "title": "Build your list of 25",
+   "tier": "free",
+   "when": "You know what you sell and need a list of real people or businesses to contact first, with a reason to contact each one.",
+   "prompt": "Help me build my first 25: the 25 people or businesses I should contact first.\n\nWhat I sell: {{offer}}\nWho buys it: {{buyer}}\nWhere: {{where}}\n\nStep 1. Tell me exactly where to find them (search terms, directories, platforms, hashtags, communities) and what to look for so I can build the list myself from their own websites and profiles. Don't copy listings out of Google Maps.\nStep 2. Give me the columns for my list: name, website or profile, contact route, the gap I noticed, how bad the gap is (1 to 5), and why they'd care.\nStep 3. Give me the gaps to check for each one, specific to my offer (for example: no website, no booking link, last post 3 months ago, no creator content in their ads, weak product photos).\nStep 4. Give me a scoring rule to rank the 25 so I start with the most likely buyers.\nStep 5. For the top 3, tell me the one free sample or mock-up I could make that shows them the fix.\n\nIf I paste my list back in, rank it and write a first line for each one that mentions the specific gap I found.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "UGC-style product videos, $150 per video"
+    },
+    {
+     "key": "buyer",
+     "label": "Who buys",
+     "example": "Small skincare brands that run Instagram ads but post no creator content"
+    },
+    {
+     "key": "where",
+     "label": "City, region or online",
+     "example": "Online, US brands"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "UGC-style product videos, $150 per video",
+     "buyer": "Small skincare brands that run Instagram ads but post no creator content",
+     "where": "Online, US brands"
+    },
+    "youGet": "Where to find 25 brands (the Meta Ad Library, hashtags, Shopify stores), list columns, gaps to check, a ranking rule and a sample idea for the top 3.",
+    "filled": "Help me build my first 25: the 25 people or businesses I should contact first.\n\nWhat I sell: UGC-style product videos, $150 per video\nWho buys it: Small skincare brands that run Instagram ads but post no creator content\nWhere: Online, US brands\n\nStep 1. Tell me exactly where to find them (search terms, directories, platforms, hashtags, communities) and what to look for so I can build the list myself from their own websites and profiles. Don't copy listings out of Google Maps.\nStep 2. Give me the columns for my list: name, website or profile, contact route, the gap I noticed, how bad the gap is (1 to 5), and why they'd care.\nStep 3. Give me the gaps to check for each one, specific to my offer (for example: no website, no booking link, last post 3 months ago, no creator content in their ads, weak product photos).\nStep 4. Give me a scoring rule to rank the 25 so I start with the most likely buyers.\nStep 5. For the top 3, tell me the one free sample or mock-up I could make that shows them the fix.\n\nIf I paste my list back in, rank it and write a first line for each one that mentions the specific gap I found."
+   },
+   "tools": [
+    "Web search",
+    "Google Sheets",
+    "Notion",
+    "Apify"
+   ],
+   "pairsWith": [
+    "Pipeline Tracker template"
+   ]
+  },
+  {
+   "id": "outreach.first_message",
+   "group": "outreach",
+   "title": "First message with a sample attached",
+   "tier": "free",
+   "when": "You have someone on your list and a gap you noticed. You want a first message that gets read, not ignored.",
+   "prompt": "Write my first message to this prospect. Short, specific to them, and it gives before it asks.\n\nWho: {{prospect}}\nWhat I noticed about them: {{gap}}\nWhat I made for them (sample, mock-up, audit): {{sample}}\nWhat I sell: {{offer}}\nChannel: {{channel}}\nMy name and business: {{me}}\n\nRules:\n- Under 80 words for a DM, under 120 for email.\n- First line is about them, not me. Mention the specific thing I noticed.\n- Point to the sample I made. No attachment walls, no \"hop on a call\" in the first message.\n- One easy question to reply to.\n- No flattery that sounds automated, no fake urgency, no promise of results.\n- If it's an email: include my business name, a mailing address line placeholder [ADDRESS], and a one-line way to opt out (\"Not interested? Reply no and I won't follow up\").\n\nWrite three versions: plain, warm, and bold. Then tell me which you'd send and why.",
+   "variables": [
+    {
+     "key": "prospect",
+     "label": "Who you are writing to",
+     "example": "Iron Valley Fitness, owner Marcus"
+    },
+    {
+     "key": "gap",
+     "label": "What you noticed",
+     "example": "Last Reel was in July; their class schedule is only in a blurry story highlight"
+    },
+    {
+     "key": "sample",
+     "label": "What you made for them",
+     "example": "A 20-second Reel cut from their own tagged clips"
+    },
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "4 Reels a month"
+    },
+    {
+     "key": "channel",
+     "label": "DM or email",
+     "example": "Instagram DM"
+    },
+    {
+     "key": "me",
+     "label": "Your name and business",
+     "example": "Jordan, Reps Media"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "prospect": "Iron Valley Fitness, owner Marcus",
+     "gap": "Last Reel was in July; their class schedule is only in a blurry story highlight",
+     "sample": "A 20-second Reel cut from their own tagged clips",
+     "offer": "4 Reels a month",
+     "channel": "Instagram DM",
+     "me": "Jordan, Reps Media"
+    },
+    "youGet": "Three DMs under 80 words that open on their July gap, point to the sample Reel and end on one easy question, plus a pick.",
+    "filled": "Write my first message to this prospect. Short, specific to them, and it gives before it asks.\n\nWho: Iron Valley Fitness, owner Marcus\nWhat I noticed about them: Last Reel was in July; their class schedule is only in a blurry story highlight\nWhat I made for them (sample, mock-up, audit): A 20-second Reel cut from their own tagged clips\nWhat I sell: 4 Reels a month\nChannel: Instagram DM\nMy name and business: Jordan, Reps Media\n\nRules:\n- Under 80 words for a DM, under 120 for email.\n- First line is about them, not me. Mention the specific thing I noticed.\n- Point to the sample I made. No attachment walls, no \"hop on a call\" in the first message.\n- One easy question to reply to.\n- No flattery that sounds automated, no fake urgency, no promise of results.\n- If it's an email: include my business name, a mailing address line placeholder [ADDRESS], and a one-line way to opt out (\"Not interested? Reply no and I won't follow up\").\n\nWrite three versions: plain, warm, and bold. Then tell me which you'd send and why."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.follow_ups",
+   "group": "outreach",
+   "title": "Follow-up sequence",
+   "tier": "builder",
+   "when": "Someone didn't reply. Most yeses come after the second or third touch.",
+   "prompt": "Write a follow-up sequence for prospects who didn't reply to my first message.\n\nFirst message I sent: {{first_message}}\nWhat I sell: {{offer}}\nChannel: {{channel}}\n\nWrite 4 follow-ups:\n- Day 3: a short bump that adds one new useful thing (a tip, a second idea, a result from the sample).\n- Day 7: a different angle (a question about their goal, or a quick before and after).\n- Day 14: social proof or a demonstration, only if I have it: {{proof}}\n- Day 21: a polite close-the-loop message that makes it easy to say \"not now\".\n\nRules: each under 60 words, no guilt (\"just bumping this\", \"did you see my last message\"), each one stands alone. Respect a \"no\": if they say no or stop, they come off the list. Give me a reminder schedule I can paste into my calendar or tracker.",
+   "variables": [
+    {
+     "key": "first_message",
+     "label": "Your first message",
+     "example": "Hey Marcus, saw your last Reel was July so I cut a 20s one from your tagged clips..."
+    },
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "4 Reels a month for $400"
+    },
+    {
+     "key": "channel",
+     "label": "Channel",
+     "example": "Instagram DM"
+    },
+    {
+     "key": "proof",
+     "label": "Proof you can mention",
+     "example": "Another gym got 3 trial signups from the first Reel",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "first_message": "Hey Marcus, saw your last Reel was July so I cut a 20s one from your tagged clips...",
+     "offer": "4 Reels a month for $400",
+     "channel": "Instagram DM",
+     "proof": "Another gym got 3 trial signups from the first Reel"
+    },
+    "youGet": "Four follow-ups on days 3, 7, 14 and 21, each with a new angle and under 60 words, plus a paste-ready reminder schedule.",
+    "filled": "Write a follow-up sequence for prospects who didn't reply to my first message.\n\nFirst message I sent: Hey Marcus, saw your last Reel was July so I cut a 20s one from your tagged clips...\nWhat I sell: 4 Reels a month for $400\nChannel: Instagram DM\n\nWrite 4 follow-ups:\n- Day 3: a short bump that adds one new useful thing (a tip, a second idea, a result from the sample).\n- Day 7: a different angle (a question about their goal, or a quick before and after).\n- Day 14: social proof or a demonstration, only if I have it: Another gym got 3 trial signups from the first Reel\n- Day 21: a polite close-the-loop message that makes it easy to say \"not now\".\n\nRules: each under 60 words, no guilt (\"just bumping this\", \"did you see my last message\"), each one stands alone. Respect a \"no\": if they say no or stop, they come off the list. Give me a reminder schedule I can paste into my calendar or tracker."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.reply_copilot",
+   "group": "outreach",
+   "title": "Reply copilot",
+   "tier": "free",
+   "when": "Someone replied and you want the best next message, fast.",
+   "prompt": "A prospect replied. Help me answer well.\n\nWhat I sell: {{offer}}\nThe conversation so far:\n{{thread}}\n\nDo this:\n1. What they're really saying or asking, in one line.\n2. Where they are: curious, interested, objecting, ready, or not a fit.\n3. My goal for this reply (get a call, send a price, send a sample, close, or exit politely).\n4. Two reply options under 60 words each, in a natural texting tone.\n5. If they asked about price, give the price plainly and anchor it to what they get.\n6. What not to say.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "Bookkeeping for food trucks, $200 a month"
+    },
+    {
+     "key": "thread",
+     "label": "Paste the conversation",
+     "example": "Me: ...\nThem: \"how much is it and do I have to switch from my spreadsheet?\""
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Bookkeeping for food trucks, $200 a month",
+     "thread": "Me: noticed your truck is at 3 events a week, are you tracking sales per event? / Them: \"how much is it and do I have to switch from my spreadsheet?\""
+    },
+    "youGet": "A read (interested, worried about switching), the goal (book a 15-minute call), two replies that state $200 plainly and say you can start from their spreadsheet, and what to avoid.",
+    "filled": "A prospect replied. Help me answer well.\n\nWhat I sell: Bookkeeping for food trucks, $200 a month\nThe conversation so far:\nMe: noticed your truck is at 3 events a week, are you tracking sales per event? / Them: \"how much is it and do I have to switch from my spreadsheet?\"\n\nDo this:\n1. What they're really saying or asking, in one line.\n2. Where they are: curious, interested, objecting, ready, or not a fit.\n3. My goal for this reply (get a call, send a price, send a sample, close, or exit politely).\n4. Two reply options under 60 words each, in a natural texting tone.\n5. If they asked about price, give the price plainly and anchor it to what they get.\n6. What not to say."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.call_prep",
+   "group": "outreach",
+   "title": "Call prep in 60 seconds",
+   "tier": "builder",
+   "when": "You have a sales call coming up and want a plan for it.",
+   "prompt": "Prep me for a sales call.\n\nWho: {{prospect}}\nWhat I know about them: {{notes}}\nWhat I sell and the price: {{offer}}\nCall length: {{length}}\n\nGive me:\n1. Their likely goal and biggest problem, in one line each.\n2. A call plan in this order, with one or two questions per step:\n   a. Why they took the call.\n   b. The problem, in their words.\n   c. What they've tried, and why it didn't work.\n   d. What it looks like when this is fixed (their business, not money promises).\n   e. Their concerns.\n   f. The decision: how to ask for it plainly.\n3. How I explain the offer in under 45 seconds.\n4. The three objections most likely here, with short answers.\n5. What I send right after the call, ready to paste.\n\nKeep it to one page I can glance at during the call.",
+   "variables": [
+    {
+     "key": "prospect",
+     "label": "Who the call is with",
+     "example": "Priya, owner of a two-chair salon"
+    },
+    {
+     "key": "notes",
+     "label": "What you know",
+     "example": "Books by text only, no website, said weekends are slammed but weekdays are dead"
+    },
+    {
+     "key": "offer",
+     "label": "Offer and price",
+     "example": "Website with online booking, $650 plus $30 a month"
+    },
+    {
+     "key": "length",
+     "label": "Call length",
+     "example": "20 minutes"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "prospect": "Priya, owner of a two-chair salon",
+     "notes": "Books by text only, no website, said weekends are slammed but weekdays are dead",
+     "offer": "Website with online booking, $650 plus $30 a month",
+     "length": "20 minutes"
+    },
+    "youGet": "A one-page plan with six-step questions, a 45-second pitch, three objection answers and a follow-up message.",
+    "filled": "Prep me for a sales call.\n\nWho: Priya, owner of a two-chair salon\nWhat I know about them: Books by text only, no website, said weekends are slammed but weekdays are dead\nWhat I sell and the price: Website with online booking, $650 plus $30 a month\nCall length: 20 minutes\n\nGive me:\n1. Their likely goal and biggest problem, in one line each.\n2. A call plan in this order, with one or two questions per step:\n   a. Why they took the call.\n   b. The problem, in their words.\n   c. What they've tried, and why it didn't work.\n   d. What it looks like when this is fixed (their business, not money promises).\n   e. Their concerns.\n   f. The decision: how to ask for it plainly.\n3. How I explain the offer in under 45 seconds.\n4. The three objections most likely here, with short answers.\n5. What I send right after the call, ready to paste.\n\nKeep it to one page I can glance at during the call."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.comment_to_dm",
+   "group": "outreach",
+   "title": "Comment-to-DM automation script",
+   "tier": "builder",
+   "when": "You post content and want people who comment a keyword to get your free thing by DM automatically (ManyChat or similar).",
+   "prompt": "Write a comment-to-DM flow for my post.\n\nFree thing I'm giving: {{freebie}}\nKeyword people comment: {{keyword}}\nWhat I sell after: {{offer}}\nPlatform: {{platform}}\n\nWrite:\n1. The call to action line for the post and the caption.\n2. The public auto-reply to the comment (3 short variations so it doesn't look spammy).\n3. DM 1: opens with \"Heads up, this DM is automated.\" then delivers the link in under 40 words.\n4. DM 2 (if no click in 24 hours): one helpful nudge.\n5. DM 3 (after they use it): one question to start a real conversation, which I answer myself.\n6. When to hand the conversation to me, a human.\n7. Tags or fields to save (keyword, date, clicked, replied).\n\nRules: say it's automated, respect the platform's messaging rules and windows, no fake scarcity, no promise of results.",
+   "variables": [
+    {
+     "key": "freebie",
+     "label": "The free thing",
+     "example": "My content calendar template for personal trainers"
+    },
+    {
+     "key": "keyword",
+     "label": "The keyword",
+     "example": "PLAN"
+    },
+    {
+     "key": "offer",
+     "label": "What you sell after",
+     "example": "Monthly Reels for trainers, $300 a month"
+    },
+    {
+     "key": "platform",
+     "label": "Platform",
+     "example": "Instagram"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "freebie": "My content calendar template for personal trainers",
+     "keyword": "PLAN",
+     "offer": "Monthly Reels for trainers, $300 a month",
+     "platform": "Instagram"
+    },
+    "youGet": "A post CTA, three comment replies, a 3-DM flow that opens with the automated-DM line, a human hand-off rule and the tags to save.",
+    "filled": "Write a comment-to-DM flow for my post.\n\nFree thing I'm giving: My content calendar template for personal trainers\nKeyword people comment: PLAN\nWhat I sell after: Monthly Reels for trainers, $300 a month\nPlatform: Instagram\n\nWrite:\n1. The call to action line for the post and the caption.\n2. The public auto-reply to the comment (3 short variations so it doesn't look spammy).\n3. DM 1: opens with \"Heads up, this DM is automated.\" then delivers the link in under 40 words.\n4. DM 2 (if no click in 24 hours): one helpful nudge.\n5. DM 3 (after they use it): one question to start a real conversation, which I answer myself.\n6. When to hand the conversation to me, a human.\n7. Tags or fields to save (keyword, date, clicked, replied).\n\nRules: say it's automated, respect the platform's messaging rules and windows, no fake scarcity, no promise of results."
+   },
+   "tools": [
+    "ManyChat",
+    "Instagram"
+   ],
+   "pairsWith": [
+    "Comment-to-DM recipe"
+   ]
+  },
+  {
+   "id": "outreach.warm_network",
+   "group": "outreach",
+   "title": "Warm network and referral asks",
+   "tier": "free",
+   "when": "Before cold outreach. The people who already know you are the fastest first customers and referrals.",
+   "prompt": "Help me turn the people I already know into first conversations and referrals, without being weird about it.\n\nWhat I'm starting: {{business}}\nWho I know (groups, not names): {{network}}\n\nGive me:\n1. A list exercise: 10 prompts to jog my memory for who to message (for example \"who owns a business\", \"who just started a job at a company that buys this\").\n2. Three messages: one to friends and family, one to old coworkers or classmates, one to people who own businesses. Each under 70 words. The ask is either \"would you use this\" or \"who do you know who would\".\n3. A referral ask for every happy customer, with what I offer in return (if anything) that's honest and simple.\n4. A tracker layout: name, how I know them, asked on, response, referral given.\n\nRules: no pressure, no pitching on the first line, easy to say no.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "What you are starting",
+     "example": "Dog walking and pet sitting"
+    },
+    {
+     "key": "network",
+     "label": "Groups of people you know",
+     "example": "Church small group, my old job at a coffee shop, neighbors, college friends"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Dog walking and pet sitting",
+     "network": "Church small group, my old job at a coffee shop, neighbors, college friends"
+    },
+    "youGet": "Ten memory prompts, three warm messages, a referral ask and a simple tracker.",
+    "filled": "Help me turn the people I already know into first conversations and referrals, without being weird about it.\n\nWhat I'm starting: Dog walking and pet sitting\nWho I know (groups, not names): Church small group, my old job at a coffee shop, neighbors, college friends\n\nGive me:\n1. A list exercise: 10 prompts to jog my memory for who to message (for example \"who owns a business\", \"who just started a job at a company that buys this\").\n2. Three messages: one to friends and family, one to old coworkers or classmates, one to people who own businesses. Each under 70 words. The ask is either \"would you use this\" or \"who do you know who would\".\n3. A referral ask for every happy customer, with what I offer in return (if anything) that's honest and simple.\n4. A tracker layout: name, how I know them, asked on, response, referral given.\n\nRules: no pressure, no pitching on the first line, easy to say no."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "outreach.brand_pitch",
+   "group": "outreach",
+   "title": "Brand pitch for creators",
+   "tier": "builder",
+   "when": "You're a UGC creator or influencer and want to pitch brands for paid content.",
+   "prompt": "Write a pitch to a brand for paid content.\n\nBrand: {{brand}}\nWhat I noticed about their content or ads: {{gap}}\nMy niche and audience: {{me}}\nWhat I'd make for them: {{deliverable}}\nSample I can show: {{sample}}\n\nWrite:\n1. An email (under 120 words) and a DM (under 60 words). First line is about their brand. Point to my sample. One clear ask.\n2. Three content ideas specific to their product, each with a hook line.\n3. A simple rate card: per video, a 3-pack, and usage rights options. Mark these as starting points I should adjust.\n4. A follow-up for day 5.\n\nRules: no inflated audience numbers, no claims about sales I'll drive. Include my business name and an opt-out line in the email.",
+   "variables": [
+    {
+     "key": "brand",
+     "label": "The brand",
+     "example": "Trailmix Co., a small hiking snack brand"
+    },
+    {
+     "key": "gap",
+     "label": "What you noticed",
+     "example": "Runs Meta ads with only studio product shots, no people using it"
+    },
+    {
+     "key": "me",
+     "label": "Your niche and audience",
+     "example": "Outdoor and hiking creator, 6K followers, mostly women 22 to 34"
+    },
+    {
+     "key": "deliverable",
+     "label": "What you would make",
+     "example": "3 vertical UGC videos with raw files"
+    },
+    {
+     "key": "sample",
+     "label": "Sample you can show",
+     "example": "A spec ad I shot with their bars on a trail last weekend"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "brand": "Trailmix Co., a small hiking snack brand",
+     "gap": "Runs Meta ads with only studio product shots, no people using it",
+     "me": "Outdoor and hiking creator, 6K followers, mostly women 22 to 34",
+     "deliverable": "3 vertical UGC videos with raw files",
+     "sample": "A spec ad I shot with their bars on a trail last weekend"
+    },
+    "youGet": "An email and DM built around your spec ad, three hooked content ideas, a starting rate card and a day-5 follow-up.",
+    "filled": "Write a pitch to a brand for paid content.\n\nBrand: Trailmix Co., a small hiking snack brand\nWhat I noticed about their content or ads: Runs Meta ads with only studio product shots, no people using it\nMy niche and audience: Outdoor and hiking creator, 6K followers, mostly women 22 to 34\nWhat I'd make for them: 3 vertical UGC videos with raw files\nSample I can show: A spec ad I shot with their bars on a trail last weekend\n\nWrite:\n1. An email (under 120 words) and a DM (under 60 words). First line is about their brand. Point to my sample. One clear ask.\n2. Three content ideas specific to their product, each with a hook line.\n3. A simple rate card: per video, a 3-pack, and usage rights options. Mark these as starting points I should adjust.\n4. A follow-up for day 5.\n\nRules: no inflated audience numbers, no claims about sales I'll drive. Include my business name and an opt-out line in the email."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "content.hook_bank",
+   "group": "content",
+   "title": "Hook bank",
+   "tier": "free",
+   "when": "You need scroll-stopping first lines for videos or posts about your business.",
+   "prompt": "Write 30 hooks for short videos about my business. A hook is the first line said or shown in the first 2 seconds.\n\nMy business: {{business}}\nWho I want watching: {{audience}}\nWhat they struggle with: {{pain}}\nProof or story I can use (only true things): {{story}}\n\nGive 5 hooks in each of these styles:\n1. Call out the viewer (\"If you own a gym and...\").\n2. A surprising number or fact (true and sourced, or from my own work).\n3. Before and after.\n4. A mistake people make.\n5. \"I tried X so you don't have to\" or a demonstration.\n6. A strong opinion they'll want to argue with.\n\nRules: under 12 words each, plain language, no clickbait I can't pay off in the video, no income claims, no \"you won't believe\". Mark your top 5 and say what the video must show in the first 5 seconds to pay each one off.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Meal prep delivery for nurses on night shift"
+    },
+    {
+     "key": "audience",
+     "label": "Who should watch",
+     "example": "Night-shift nurses in my city"
+    },
+    {
+     "key": "pain",
+     "label": "What they struggle with",
+     "example": "Eating vending machine food at 3am, no time to cook"
+    },
+    {
+     "key": "story",
+     "label": "A true story or proof",
+     "example": "My sister is a night nurse and I started cooking for her crew",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Meal prep delivery for nurses on night shift",
+     "audience": "Night-shift nurses in my city",
+     "pain": "Eating vending machine food at 3am, no time to cook",
+     "story": "My sister is a night nurse and I started cooking for her crew"
+    },
+    "youGet": "30 hooks in six styles (for example \"Night shift nurses: what did you eat at 3am?\"), the top 5 marked, and what each video must show first.",
+    "filled": "Write 30 hooks for short videos about my business. A hook is the first line said or shown in the first 2 seconds.\n\nMy business: Meal prep delivery for nurses on night shift\nWho I want watching: Night-shift nurses in my city\nWhat they struggle with: Eating vending machine food at 3am, no time to cook\nProof or story I can use (only true things): My sister is a night nurse and I started cooking for her crew\n\nGive 5 hooks in each of these styles:\n1. Call out the viewer (\"If you own a gym and...\").\n2. A surprising number or fact (true and sourced, or from my own work).\n3. Before and after.\n4. A mistake people make.\n5. \"I tried X so you don't have to\" or a demonstration.\n6. A strong opinion they'll want to argue with.\n\nRules: under 12 words each, plain language, no clickbait I can't pay off in the video, no income claims, no \"you won't believe\". Mark your top 5 and say what the video must show in the first 5 seconds to pay each one off."
+   },
+   "tools": [],
+   "pairsWith": [
+    "Hook Bank template"
+   ]
+  },
+  {
+   "id": "content.calendar_30",
+   "group": "content",
+   "title": "30-day content calendar",
+   "tier": "free",
+   "when": "You want a month of posts planned in one sitting so you stop staring at a blank screen.",
+   "prompt": "Plan 30 days of content for my business.\n\nBusiness: {{business}}\nAudience: {{audience}}\nPlatforms: {{platforms}}\nPosts per week I can actually make: {{frequency}}\nWhat I sell and the free thing I give away: {{offers}}\n\nBuild:\n1. Three content pillars with one line each (for example: show the work, teach one thing, behind the scenes).\n2. A calendar table: date, platform, pillar, hook, format (talking head, screen recording, before and after, carousel), what to film or design, call to action.\n3. Mix: about 70% useful or entertaining, 20% proof and process, 10% direct offers.\n4. One weekly \"repeat what worked\" slot: remake last week's best post in a new way.\n5. A batch plan: how to film or make the whole week in one session.\n\nRules: realistic for one person, no trends that need a big budget, every CTA points to my free thing or a DM keyword.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Math tutoring for grades 6 to 8"
+    },
+    {
+     "key": "audience",
+     "label": "Who you want to reach",
+     "example": "Parents in my school district"
+    },
+    {
+     "key": "platforms",
+     "label": "Where you post",
+     "example": "Instagram and Facebook groups"
+    },
+    {
+     "key": "frequency",
+     "label": "Posts per week",
+     "example": "4"
+    },
+    {
+     "key": "offers",
+     "label": "Paid offer and free thing",
+     "example": "$45 an hour tutoring; free \"where is my kid stuck\" 10-minute quiz"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Math tutoring for grades 6 to 8",
+     "audience": "Parents in my school district",
+     "platforms": "Instagram and Facebook groups",
+     "frequency": "4",
+     "offers": "$45 an hour tutoring; free \"where is my kid stuck\" 10-minute quiz"
+    },
+    "youGet": "Three pillars, a 16-post calendar with hooks and formats, a repeat-what-worked slot and a one-session batch plan.",
+    "filled": "Plan 30 days of content for my business.\n\nBusiness: Math tutoring for grades 6 to 8\nAudience: Parents in my school district\nPlatforms: Instagram and Facebook groups\nPosts per week I can actually make: 4\nWhat I sell and the free thing I give away: $45 an hour tutoring; free \"where is my kid stuck\" 10-minute quiz\n\nBuild:\n1. Three content pillars with one line each (for example: show the work, teach one thing, behind the scenes).\n2. A calendar table: date, platform, pillar, hook, format (talking head, screen recording, before and after, carousel), what to film or design, call to action.\n3. Mix: about 70% useful or entertaining, 20% proof and process, 10% direct offers.\n4. One weekly \"repeat what worked\" slot: remake last week's best post in a new way.\n5. A batch plan: how to film or make the whole week in one session.\n\nRules: realistic for one person, no trends that need a big budget, every CTA points to my free thing or a DM keyword."
+   },
+   "tools": [],
+   "pairsWith": [
+    "30-Day Content Calendar template"
+   ]
+  },
+  {
+   "id": "content.repurpose",
+   "group": "content",
+   "title": "One idea, ten posts",
+   "tier": "builder",
+   "when": "You made one good piece of content (a video, a call, a blog post) and want to get ten posts out of it.",
+   "prompt": "Turn this one piece of content into ten posts.\n\nSource (transcript, post or notes):\n{{source}}\n\nPlatforms: {{platforms}}\nMy voice: {{voice}}\n\nMake:\n1. Three short video scripts (under 45 seconds each): hook, 3 beats, call to action.\n2. Two carousels: slide-by-slide text, 6 to 8 slides each.\n3. Two text posts (one story, one list).\n4. One email to my list.\n5. Two quote graphics: the line and a one-line caption.\n\nKeep each piece standalone. Don't repeat the same hook twice. Note which piece to post first and why.",
+   "variables": [
+    {
+     "key": "source",
+     "label": "Paste the original",
+     "example": "(transcript of a 6-minute video on how I price detailing jobs)"
+    },
+    {
+     "key": "platforms",
+     "label": "Where you post",
+     "example": "TikTok, Instagram, LinkedIn"
+    },
+    {
+     "key": "voice",
+     "label": "Your voice",
+     "example": "Direct, a little funny, no jargon"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "source": "Transcript of a 6-minute video on how I price detailing jobs: floor price, what dealers pay, why I stopped discounting...",
+     "platforms": "TikTok, Instagram, LinkedIn",
+     "voice": "Direct, a little funny, no jargon"
+    },
+    "youGet": "Three scripts, two carousels, two text posts, an email and two quote graphics, with a posting order.",
+    "filled": "Turn this one piece of content into ten posts.\n\nSource (transcript, post or notes):\nTranscript of a 6-minute video on how I price detailing jobs: floor price, what dealers pay, why I stopped discounting...\n\nPlatforms: TikTok, Instagram, LinkedIn\nMy voice: Direct, a little funny, no jargon\n\nMake:\n1. Three short video scripts (under 45 seconds each): hook, 3 beats, call to action.\n2. Two carousels: slide-by-slide text, 6 to 8 slides each.\n3. Two text posts (one story, one list).\n4. One email to my list.\n5. Two quote graphics: the line and a one-line caption.\n\nKeep each piece standalone. Don't repeat the same hook twice. Note which piece to post first and why."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "content.voice_guide",
+   "group": "content",
+   "title": "Brand voice and look guide",
+   "tier": "builder",
+   "when": "You want everything you post, write and design to look and sound like one brand.",
+   "prompt": "Write a one-page brand guide for my business so everything I make looks and sounds consistent.\n\nBusiness: {{business}}\nWho it's for: {{audience}}\nThree words for how it should feel: {{feel}}\nBrands I admire and why: {{references}}\nExamples of my writing: {{samples}}\n\nInclude:\n1. Positioning in one sentence.\n2. Voice: we are / we are not table, writing rules, words to use and avoid.\n3. Three taglines to choose from.\n4. Visual direction: a color palette (hex codes), two fonts (free ones), photo style, and what to never do.\n5. Templates to make once: post, story, thumbnail, email header. Describe each layout.\n6. A before and after: rewrite one of my samples in the new voice.\n\nKeep it premium and simple. One page.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Wedding and event photography"
+    },
+    {
+     "key": "audience",
+     "label": "Who it is for",
+     "example": "Couples 25 to 35 planning small weddings"
+    },
+    {
+     "key": "feel",
+     "label": "Three words",
+     "example": "warm, calm, honest"
+    },
+    {
+     "key": "references",
+     "label": "Brands you admire",
+     "example": "Aesop for calm, Patagonia for honesty",
+     "optional": true
+    },
+    {
+     "key": "samples",
+     "label": "Something you wrote",
+     "example": "My Instagram bio and last caption"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Wedding and event photography",
+     "audience": "Couples 25 to 35 planning small weddings",
+     "feel": "warm, calm, honest",
+     "references": "Aesop for calm, Patagonia for honesty",
+     "samples": "My Instagram bio and last caption"
+    },
+    "youGet": "A one-page guide with positioning, voice rules, tagline options, palette and fonts, template layouts and a rewritten sample.",
+    "filled": "Write a one-page brand guide for my business so everything I make looks and sounds consistent.\n\nBusiness: Wedding and event photography\nWho it's for: Couples 25 to 35 planning small weddings\nThree words for how it should feel: warm, calm, honest\nBrands I admire and why: Aesop for calm, Patagonia for honesty\nExamples of my writing: My Instagram bio and last caption\n\nInclude:\n1. Positioning in one sentence.\n2. Voice: we are / we are not table, writing rules, words to use and avoid.\n3. Three taglines to choose from.\n4. Visual direction: a color palette (hex codes), two fonts (free ones), photo style, and what to never do.\n5. Templates to make once: post, story, thumbnail, email header. Describe each layout.\n6. A before and after: rewrite one of my samples in the new voice.\n\nKeep it premium and simple. One page."
+   },
+   "tools": [
+    "Canva",
+    "Figma"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "content.performance_read",
+   "group": "content",
+   "title": "What is working in my content?",
+   "tier": "builder",
+   "when": "Once a week or month. Paste your post stats and find out what to double down on.",
+   "prompt": "Here are my recent posts and their numbers:\n\n{{posts}}\n\nMy goal for content is: {{goal}}\n\nAnalyze:\n1. My top 3 and bottom 3 posts by the metric that matters for my goal (not just views).\n2. What the winners share: hook style, topic, format, length, first frame, posting time. Ask \"why did this work when the others didn't\" and answer it.\n3. Patterns in comments: questions people keep asking (these are my next posts).\n4. Three posts to make next week that remake my winners in a new way.\n5. What to stop doing.\n6. One experiment to run next week, with how I'll know if it worked.\n\nUse my numbers. If the sample is too small to trust, say so.",
+   "variables": [
+    {
+     "key": "posts",
+     "label": "Paste posts and numbers",
+     "example": "Post | hook | views | saves | shares | follows | DMs\n..."
+    },
+    {
+     "key": "goal",
+     "label": "What content should do for you",
+     "example": "Get DMs from gym owners"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "posts": "12 posts with hook, views, saves, shares, follows and DMs",
+     "goal": "Get DMs from gym owners"
+    },
+    "youGet": "Winners and losers by DMs, the shared pattern, comment-driven post ideas, three remakes, a stop list and one experiment.",
+    "filled": "Here are my recent posts and their numbers:\n\n12 posts with hook, views, saves, shares, follows and DMs\n\nMy goal for content is: Get DMs from gym owners\n\nAnalyze:\n1. My top 3 and bottom 3 posts by the metric that matters for my goal (not just views).\n2. What the winners share: hook style, topic, format, length, first frame, posting time. Ask \"why did this work when the others didn't\" and answer it.\n3. Patterns in comments: questions people keep asking (these are my next posts).\n4. Three posts to make next week that remake my winners in a new way.\n5. What to stop doing.\n6. One experiment to run next week, with how I'll know if it worked.\n\nUse my numbers. If the sample is too small to trust, say so."
+   },
+   "tools": [
+    "Instagram Insights",
+    "TikTok Analytics",
+    "Google Sheets"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "video.short_script",
+   "group": "video",
+   "title": "Short video script",
+   "tier": "free",
+   "when": "You have a topic and need a 15 to 60 second script that hooks, keeps people watching and ends with one action.",
+   "prompt": "Write a short video script.\n\nTopic: {{topic}}\nWho's watching: {{audience}}\nLength: {{length}}\nCall to action: {{cta}}\nOn camera or voiceover: {{format}}\n\nStructure:\n1. Hook (first 2 seconds): what I say and what's on screen.\n2. Setup (why this matters to them), one line.\n3. Three beats: each one line of speech plus the shot or on-screen text.\n4. Payoff: the thing they came for.\n5. Call to action, one line.\n\nAlso give: on-screen captions (short, punchy), the B-roll shot list, and two alternate hooks. Keep sentences short enough to say in one breath. No claims I can't back up.",
+   "variables": [
+    {
+     "key": "topic",
+     "label": "Topic",
+     "example": "3 signs your gym's Instagram is costing you trial signups"
+    },
+    {
+     "key": "audience",
+     "label": "Who is watching",
+     "example": "Gym owners"
+    },
+    {
+     "key": "length",
+     "label": "Length",
+     "example": "35 seconds"
+    },
+    {
+     "key": "cta",
+     "label": "Call to action",
+     "example": "Comment AUDIT and I'll check yours free"
+    },
+    {
+     "key": "format",
+     "label": "On camera or voiceover",
+     "example": "On camera, filmed on my phone"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "topic": "3 signs your gym's Instagram is costing you trial signups",
+     "audience": "Gym owners",
+     "length": "35 seconds",
+     "cta": "Comment AUDIT and I'll check yours free",
+     "format": "On camera, filmed on my phone"
+    },
+    "youGet": "A timed script with hook, three beats and CTA, captions, a B-roll list and two alternate hooks.",
+    "filled": "Write a short video script.\n\nTopic: 3 signs your gym's Instagram is costing you trial signups\nWho's watching: Gym owners\nLength: 35 seconds\nCall to action: Comment AUDIT and I'll check yours free\nOn camera or voiceover: On camera, filmed on my phone\n\nStructure:\n1. Hook (first 2 seconds): what I say and what's on screen.\n2. Setup (why this matters to them), one line.\n3. Three beats: each one line of speech plus the shot or on-screen text.\n4. Payoff: the thing they came for.\n5. Call to action, one line.\n\nAlso give: on-screen captions (short, punchy), the B-roll shot list, and two alternate hooks. Keep sentences short enough to say in one breath. No claims I can't back up."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "video.spec_promo",
+   "group": "video",
+   "title": "Spec promo video for a prospect",
+   "tier": "builder",
+   "when": "You want to pitch a local business by showing them a video made for them before they've paid you.",
+   "prompt": "Plan a 15 to 30 second spec promo video for this business. I'll make it before they pay me and use it in my first message.\n\nBusiness: {{business}}\nWhat I can use: {{assets}}\nWhat they want more of: {{goal}}\nStyle: {{style}}\n\nGive me:\n1. The concept in one line.\n2. A shot-by-shot plan (5 to 8 shots): what's on screen, length, on-screen text, transition.\n3. Voiceover or caption script, if any.\n4. Music direction (mood and tempo, royalty-free).\n5. For any shot I don't have footage for, a text-to-video prompt I can paste into an AI video tool. Describe subject, action, camera move, lighting, lens and mood. Keep people generic, no real people's faces or logos I don't have rights to.\n6. The end card: their name, one line, and a call to action for their customers.\n7. Export settings for Reels, TikTok and Stories.\n\nRules: use only their public photos or clips that I'm allowed to use, or my own footage. Label it \"Sample made for [business]\" when I send it.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "The business",
+     "example": "Northside Boxing Club"
+    },
+    {
+     "key": "assets",
+     "label": "Footage and photos you can use",
+     "example": "6 clips I filmed outside, their logo from their site, 3 tagged member photos they reposted"
+    },
+    {
+     "key": "goal",
+     "label": "What they want more of",
+     "example": "January trial class signups"
+    },
+    {
+     "key": "style",
+     "label": "Style",
+     "example": "Gritty, fast cuts, black and white with red text"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Northside Boxing Club",
+     "assets": "6 clips I filmed outside, their logo from their site, 3 tagged member photos they reposted",
+     "goal": "January trial class signups",
+     "style": "Gritty, fast cuts, black and white with red text"
+    },
+    "youGet": "A one-line concept, a 7-shot plan with text and timings, a caption script, music direction, AI video prompts for the two missing shots, an end card and export settings.",
+    "filled": "Plan a 15 to 30 second spec promo video for this business. I'll make it before they pay me and use it in my first message.\n\nBusiness: Northside Boxing Club\nWhat I can use: 6 clips I filmed outside, their logo from their site, 3 tagged member photos they reposted\nWhat they want more of: January trial class signups\nStyle: Gritty, fast cuts, black and white with red text\n\nGive me:\n1. The concept in one line.\n2. A shot-by-shot plan (5 to 8 shots): what's on screen, length, on-screen text, transition.\n3. Voiceover or caption script, if any.\n4. Music direction (mood and tempo, royalty-free).\n5. For any shot I don't have footage for, a text-to-video prompt I can paste into an AI video tool. Describe subject, action, camera move, lighting, lens and mood. Keep people generic, no real people's faces or logos I don't have rights to.\n6. The end card: their name, one line, and a call to action for their customers.\n7. Export settings for Reels, TikTok and Stories.\n\nRules: use only their public photos or clips that I'm allowed to use, or my own footage. Label it \"Sample made for [business]\" when I send it."
+   },
+   "tools": [
+    "CapCut",
+    "Higgsfield",
+    "Runway",
+    "ElevenLabs"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "video.ai_shot_prompts",
+   "group": "video",
+   "title": "AI video shot prompts",
+   "tier": "builder",
+   "when": "You want B-roll, product shots or scenes from an AI video tool and need prompts that come out right the first time.",
+   "prompt": "Write text-to-video prompts for these shots. I'll paste them into {{tool}}.\n\nWhat the video is for: {{purpose}}\nShots I need: {{shots}}\nLook and feel: {{look}}\nAspect ratio and length per clip: {{format}}\n\nFor each shot write one prompt with, in this order: subject, action, setting, camera (angle, lens in mm, movement such as slow push-in or handheld), lighting, color and mood, and what to avoid (text, extra fingers, logos, warped faces).\nThen write:\n- An image prompt for a first frame, if the tool supports image-to-video.\n- A short negative prompt.\n- Two variations to try if the first result misses.\n\nKeep each prompt under 80 words. Make the shots match each other so they cut together (same light, same palette, same lens family). No real people's likeness, no brand logos I don't own.",
+   "variables": [
+    {
+     "key": "tool",
+     "label": "The AI video tool",
+     "example": "Higgsfield"
+    },
+    {
+     "key": "purpose",
+     "label": "What the video is for",
+     "example": "A 20-second ad for a mobile coffee cart at office parks"
+    },
+    {
+     "key": "shots",
+     "label": "Shots you need",
+     "example": "Espresso pour close-up, cart at sunrise, hands passing a cup, steam over a latte"
+    },
+    {
+     "key": "look",
+     "label": "Look and feel",
+     "example": "Warm morning light, film grain, calm"
+    },
+    {
+     "key": "format",
+     "label": "Aspect ratio and clip length",
+     "example": "9:16, 5 seconds each"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "tool": "Higgsfield",
+     "purpose": "A 20-second ad for a mobile coffee cart at office parks",
+     "shots": "Espresso pour close-up, cart at sunrise, hands passing a cup, steam over a latte",
+     "look": "Warm morning light, film grain, calm",
+     "format": "9:16, 5 seconds each"
+    },
+    "youGet": "Four matched shot prompts with camera, lens and lighting, first-frame image prompts, a negative prompt and two fallbacks per shot.",
+    "filled": "Write text-to-video prompts for these shots. I'll paste them into Higgsfield.\n\nWhat the video is for: A 20-second ad for a mobile coffee cart at office parks\nShots I need: Espresso pour close-up, cart at sunrise, hands passing a cup, steam over a latte\nLook and feel: Warm morning light, film grain, calm\nAspect ratio and length per clip: 9:16, 5 seconds each\n\nFor each shot write one prompt with, in this order: subject, action, setting, camera (angle, lens in mm, movement such as slow push-in or handheld), lighting, color and mood, and what to avoid (text, extra fingers, logos, warped faces).\nThen write:\n- An image prompt for a first frame, if the tool supports image-to-video.\n- A short negative prompt.\n- Two variations to try if the first result misses.\n\nKeep each prompt under 80 words. Make the shots match each other so they cut together (same light, same palette, same lens family). No real people's likeness, no brand logos I don't own."
+   },
+   "tools": [
+    "Higgsfield",
+    "Runway",
+    "Kling",
+    "Veo",
+    "fal"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "video.voiceover",
+   "group": "video",
+   "title": "Voiceover script and voice direction",
+   "tier": "builder",
+   "when": "You want a voiceover for a video, read by you or an AI voice tool.",
+   "prompt": "Write a voiceover for this video and direct the read.\n\nVideo: {{video}}\nLength: {{length}}\nVoice: {{voice}}\n\nGive me:\n1. The script, timed to the length, with line breaks where the voice should pause. Mark emphasis with CAPS on one word per line at most.\n2. Words per second check: say if it fits the length at a natural pace.\n3. Direction for the read: pace, energy, tone, where to smile.\n4. Settings to try in an AI voice tool (stability and style as low, medium or high) and why.\n5. Pronunciation notes for names or brand words, spelled out.\n\nOnly use an AI voice that I own or have rights to. Never clone a real person's voice without their written permission.",
+   "variables": [
+    {
+     "key": "video",
+     "label": "What the video shows",
+     "example": "A 30-second tour of a home bakery's holiday menu"
+    },
+    {
+     "key": "length",
+     "label": "Length",
+     "example": "30 seconds"
+    },
+    {
+     "key": "voice",
+     "label": "The voice you want",
+     "example": "Warm, friendly, a little playful, female"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "video": "A 30-second tour of a home bakery's holiday menu",
+     "length": "30 seconds",
+     "voice": "Warm, friendly, a little playful, female"
+    },
+    "youGet": "A paced script with pauses and emphasis, a timing check, read direction, AI voice settings and pronunciation notes.",
+    "filled": "Write a voiceover for this video and direct the read.\n\nVideo: A 30-second tour of a home bakery's holiday menu\nLength: 30 seconds\nVoice: Warm, friendly, a little playful, female\n\nGive me:\n1. The script, timed to the length, with line breaks where the voice should pause. Mark emphasis with CAPS on one word per line at most.\n2. Words per second check: say if it fits the length at a natural pace.\n3. Direction for the read: pace, energy, tone, where to smile.\n4. Settings to try in an AI voice tool (stability and style as low, medium or high) and why.\n5. Pronunciation notes for names or brand words, spelled out.\n\nOnly use an AI voice that I own or have rights to. Never clone a real person's voice without their written permission."
+   },
+   "tools": [
+    "ElevenLabs",
+    "CapCut"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "video.edit_plan",
+   "group": "video",
+   "title": "Edit plan from raw footage",
+   "tier": "free",
+   "when": "You have raw clips and need a fast plan to cut them into a short video in CapCut or any editor.",
+   "prompt": "I have raw footage and need an edit plan.\n\nWhat I filmed (list clips with a few words each and their length): {{clips}}\nWhat the final video is for: {{goal}}\nTarget length: {{length}}\n\nGive me:\n1. The story order: which clips, in what order, trimmed to what length.\n2. The hook: which moment to open on and why.\n3. Cuts: where to cut on action, where to use a jump cut, where to hold.\n4. Text on screen, line by line with timings.\n5. Sound: music mood, where the beat drops, sound effects worth adding.\n6. Captions style and color.\n7. A step-by-step for CapCut on a phone, numbered, so I can follow it without thinking.\n8. A checklist before export: first frame, safe zones for captions, audio levels, length.",
+   "variables": [
+    {
+     "key": "clips",
+     "label": "Your clips",
+     "example": "Clip 1: wide shot of the gym 12s; Clip 2: coach yelling count 8s; Clip 3: deadlift slow-mo 6s..."
+    },
+    {
+     "key": "goal",
+     "label": "What the video is for",
+     "example": "Instagram Reel announcing a 6am class"
+    },
+    {
+     "key": "length",
+     "label": "Target length",
+     "example": "20 seconds"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "clips": "Clip 1: wide shot of the gym 12s; Clip 2: coach yelling count 8s; Clip 3: deadlift slow-mo 6s; Clip 4: sunrise outside 5s",
+     "goal": "Instagram Reel announcing a 6am class",
+     "length": "20 seconds"
+    },
+    "youGet": "A trimmed clip order, the opening moment, cut points, timed on-screen text, sound plan, caption style, CapCut steps and an export checklist.",
+    "filled": "I have raw footage and need an edit plan.\n\nWhat I filmed (list clips with a few words each and their length): Clip 1: wide shot of the gym 12s; Clip 2: coach yelling count 8s; Clip 3: deadlift slow-mo 6s; Clip 4: sunrise outside 5s\nWhat the final video is for: Instagram Reel announcing a 6am class\nTarget length: 20 seconds\n\nGive me:\n1. The story order: which clips, in what order, trimmed to what length.\n2. The hook: which moment to open on and why.\n3. Cuts: where to cut on action, where to use a jump cut, where to hold.\n4. Text on screen, line by line with timings.\n5. Sound: music mood, where the beat drops, sound effects worth adding.\n6. Captions style and color.\n7. A step-by-step for CapCut on a phone, numbered, so I can follow it without thinking.\n8. A checklist before export: first frame, safe zones for captions, audio levels, length."
+   },
+   "tools": [
+    "CapCut",
+    "Premiere Rush",
+    "Descript"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "video.long_form",
+   "group": "video",
+   "title": "Long video outline",
+   "tier": "builder",
+   "when": "You want to make a 5 to 15 minute YouTube or podcast-style video that builds trust and sends people to your offer.",
+   "prompt": "Outline a long video.\n\nTopic: {{topic}}\nAudience: {{audience}}\nLength: {{length}}\nWhat I want viewers to do after: {{cta}}\n\nGive me:\n1. Five title options and three thumbnail ideas (text under 4 words each).\n2. The first 30 seconds word for word: proof (why listen to me, only true things), promise (what they'll get), plan (what's coming).\n3. Chapters with timestamps, each with the point, an example or demo, and a re-hook line to keep people watching.\n4. Where to mention my offer (once in the middle, once at the end) and the exact wording.\n5. Ten clips I can cut from it for shorts, with timestamps.",
+   "variables": [
+    {
+     "key": "topic",
+     "label": "Topic",
+     "example": "How I found my first 10 lawn care customers with $0 in ads"
+    },
+    {
+     "key": "audience",
+     "label": "Audience",
+     "example": "People starting a lawn or landscaping side business"
+    },
+    {
+     "key": "length",
+     "label": "Length",
+     "example": "12 minutes"
+    },
+    {
+     "key": "cta",
+     "label": "What viewers do after",
+     "example": "Download my free pricing sheet"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "topic": "How I found my first 10 lawn care customers with $0 in ads",
+     "audience": "People starting a lawn or landscaping side business",
+     "length": "12 minutes",
+     "cta": "Download my free pricing sheet"
+    },
+    "youGet": "Titles, thumbnails, a scripted first 30 seconds, timestamped chapters with re-hooks, offer mentions and ten clip timestamps.",
+    "filled": "Outline a long video.\n\nTopic: How I found my first 10 lawn care customers with $0 in ads\nAudience: People starting a lawn or landscaping side business\nLength: 12 minutes\nWhat I want viewers to do after: Download my free pricing sheet\n\nGive me:\n1. Five title options and three thumbnail ideas (text under 4 words each).\n2. The first 30 seconds word for word: proof (why listen to me, only true things), promise (what they'll get), plan (what's coming).\n3. Chapters with timestamps, each with the point, an example or demo, and a re-hook line to keep people watching.\n4. Where to mention my offer (once in the middle, once at the end) and the exact wording.\n5. Ten clips I can cut from it for shorts, with timestamps."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "website.landing_build",
+   "group": "website",
+   "title": "Build an animated landing page",
+   "tier": "builder",
+   "when": "You want a real, working one-page site with motion that feels premium, built by an AI that writes code (Claude, ChatGPT, Replit, Lovable, v0).",
+   "prompt": "Build me a single-file landing page (HTML, CSS and vanilla JavaScript in one file, no build step) that I can publish today.\n\nBusiness: {{business}}\nCopy (or write it for me from this): {{copy}}\nBrand: colors {{colors}}, feel {{feel}}\nPrimary action: {{cta}}\n\nDesign bar: it should feel like a premium, funded product, not a template. Minimal, lots of space, big confident type, one accent color.\n\nSections: hero, the problem, what you get, how it works (3 steps), proof or demonstration, FAQ, final call to action, footer.\n\nMotion (tasteful, fast, never in the way):\n- Hero headline reveals word by word on load (under 900ms total).\n- Elements fade and rise 16px as they scroll into view (IntersectionObserver).\n- A subtle animated background in the hero (slow gradient drift, grain, or a canvas particle field), under 5% CPU.\n- Buttons have a magnetic hover and a press state.\n- Numbers count up when they come into view.\n- Respect prefers-reduced-motion: no movement, everything visible.\n\nTechnical: mobile first, loads in under 2 seconds, semantic HTML, alt text, visible focus states, contrast AA, no external libraries unless from a CDN with a pinned version. The call to action button links to {{cta_link}}.\n\nAfter the code, list: what to replace (images, links), and three ways to make it 10x better next.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Pressure washing for driveways and storefronts in Tampa"
+    },
+    {
+     "key": "copy",
+     "label": "Your copy or the key facts",
+     "example": "Same-week service, before and after photos, from $129, fully insured"
+    },
+    {
+     "key": "colors",
+     "label": "Brand colors",
+     "example": "near-black #0B0B0C, white, accent #3BA7FF"
+    },
+    {
+     "key": "feel",
+     "label": "Feel",
+     "example": "clean, sharp, confident"
+    },
+    {
+     "key": "cta",
+     "label": "Primary action",
+     "example": "Get a free quote"
+    },
+    {
+     "key": "cta_link",
+     "label": "Where the button goes",
+     "example": "https://cal.com/yourname/quote"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Pressure washing for driveways and storefronts in Tampa",
+     "copy": "Same-week service, before and after photos, from $129, fully insured",
+     "colors": "near-black #0B0B0C, white, accent #3BA7FF",
+     "feel": "clean, sharp, confident",
+     "cta": "Get a free quote",
+     "cta_link": "https://cal.com/yourname/quote"
+    },
+    "youGet": "One HTML file with word-by-word hero reveal, scroll fades, a drifting gradient, magnetic buttons, a before-and-after section and reduced-motion support, plus a replace list and three upgrade ideas.",
+    "filled": "Build me a single-file landing page (HTML, CSS and vanilla JavaScript in one file, no build step) that I can publish today.\n\nBusiness: Pressure washing for driveways and storefronts in Tampa\nCopy (or write it for me from this): Same-week service, before and after photos, from $129, fully insured\nBrand: colors near-black #0B0B0C, white, accent #3BA7FF, feel clean, sharp, confident\nPrimary action: Get a free quote\n\nDesign bar: it should feel like a premium, funded product, not a template. Minimal, lots of space, big confident type, one accent color.\n\nSections: hero, the problem, what you get, how it works (3 steps), proof or demonstration, FAQ, final call to action, footer.\n\nMotion (tasteful, fast, never in the way):\n- Hero headline reveals word by word on load (under 900ms total).\n- Elements fade and rise 16px as they scroll into view (IntersectionObserver).\n- A subtle animated background in the hero (slow gradient drift, grain, or a canvas particle field), under 5% CPU.\n- Buttons have a magnetic hover and a press state.\n- Numbers count up when they come into view.\n- Respect prefers-reduced-motion: no movement, everything visible.\n\nTechnical: mobile first, loads in under 2 seconds, semantic HTML, alt text, visible focus states, contrast AA, no external libraries unless from a CDN with a pinned version. The call to action button links to https://cal.com/yourname/quote.\n\nAfter the code, list: what to replace (images, links), and three ways to make it 10x better next."
+   },
+   "tools": [
+    "Claude artifacts",
+    "Replit",
+    "Lovable",
+    "v0",
+    "Cursor"
+   ],
+   "pairsWith": [
+    "offer.sales_page"
+   ]
+  },
+  {
+   "id": "website.hero_10x",
+   "group": "website",
+   "title": "Make the hero 10x better",
+   "tier": "free",
+   "when": "Your homepage top section feels flat, generic or \"AI\". You want it to hook a stranger in five seconds.",
+   "prompt": "Here's my current homepage hero (the first screen people see):\n\nHeadline: {{headline}}\nSubhead: {{subhead}}\nButton: {{button}}\nVisual: {{visual}}\nWho it's for: {{audience}}\n\nCritique it hard:\n1. The 5-second test: what would a stranger think this business does? Is that right?\n2. What feels generic, vague or \"AI-made\", line by line.\n3. What's missing: a concrete outcome, who it's for, proof, a reason to act now.\n\nThen give me three new heroes, each a different direction:\nA. Outcome-led (the result they get).\nB. Demonstration-led (show the product working in the hero).\nC. Bold and brand-led (a strong line, premium feel).\nFor each: headline under 10 words, subhead under 20, button text, the visual described precisely (layout, motion, imagery), and a one-line reason it works.\n\nRules: no buzzwords (unlock, revolutionize, seamless, supercharge), no claims I can't prove, no invented numbers. Pick the one you'd ship and say why.",
+   "variables": [
+    {
+     "key": "headline",
+     "label": "Current headline",
+     "example": "Elevate your brand with stunning visuals"
+    },
+    {
+     "key": "subhead",
+     "label": "Current subhead",
+     "example": "We help businesses grow through creative content solutions"
+    },
+    {
+     "key": "button",
+     "label": "Current button text",
+     "example": "Learn more"
+    },
+    {
+     "key": "visual",
+     "label": "What the hero shows",
+     "example": "Stock photo of a camera on a desk"
+    },
+    {
+     "key": "audience",
+     "label": "Who it is for",
+     "example": "Restaurants and cafes in Denver"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "headline": "Elevate your brand with stunning visuals",
+     "subhead": "We help businesses grow through creative content solutions",
+     "button": "Learn more",
+     "visual": "Stock photo of a camera on a desk",
+     "audience": "Restaurants and cafes in Denver"
+    },
+    "youGet": "A line-by-line teardown and three new heroes (for example \"Your menu, filmed this week.\" over an autoplaying 6-second food reel), with a pick.",
+    "filled": "Here's my current homepage hero (the first screen people see):\n\nHeadline: Elevate your brand with stunning visuals\nSubhead: We help businesses grow through creative content solutions\nButton: Learn more\nVisual: Stock photo of a camera on a desk\nWho it's for: Restaurants and cafes in Denver\n\nCritique it hard:\n1. The 5-second test: what would a stranger think this business does? Is that right?\n2. What feels generic, vague or \"AI-made\", line by line.\n3. What's missing: a concrete outcome, who it's for, proof, a reason to act now.\n\nThen give me three new heroes, each a different direction:\nA. Outcome-led (the result they get).\nB. Demonstration-led (show the product working in the hero).\nC. Bold and brand-led (a strong line, premium feel).\nFor each: headline under 10 words, subhead under 20, button text, the visual described precisely (layout, motion, imagery), and a one-line reason it works.\n\nRules: no buzzwords (unlock, revolutionize, seamless, supercharge), no claims I can't prove, no invented numbers. Pick the one you'd ship and say why."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "website.reference_teardown",
+   "group": "website",
+   "title": "Learn from a great site",
+   "tier": "builder",
+   "when": "You found a site, brand or studio you love and want to borrow what makes it great without copying it.",
+   "prompt": "I want my site to feel as good as these references:\n\n{{references}}\n\nMy business: {{business}}\nMy current site or plan: {{current}}\n\nFor each reference, break down:\n1. Layout and spacing: grid, whitespace, section rhythm.\n2. Typography: fonts or similar free alternatives, sizes, weights, case.\n3. Color and texture.\n4. Motion: what moves, when, and how fast.\n5. Copy style: how they talk.\n6. The single detail that makes it feel premium.\n\nThen:\n- A list of 10 specific moves to apply to my site, ranked by impact for effort.\n- What not to copy (things that fit their brand but not mine, or would look like a knockoff).\n- A one-paragraph design brief I can hand to a designer or an AI site builder.",
+   "variables": [
+    {
+     "key": "references",
+     "label": "Links or names of sites you love",
+     "example": "linear.app, stripe.com, a design studio portfolio I like"
+    },
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Freelance brand designer for local restaurants"
+    },
+    {
+     "key": "current",
+     "label": "Your current site or plan",
+     "example": "A Squarespace template with a big photo and a contact form"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "references": "linear.app, stripe.com, a design studio portfolio I like",
+     "business": "Freelance brand designer for local restaurants",
+     "current": "A Squarespace template with a big photo and a contact form"
+    },
+    "youGet": "A breakdown of each reference, ten ranked moves for your site, a do-not-copy list and a designer-ready brief.",
+    "filled": "I want my site to feel as good as these references:\n\nlinear.app, stripe.com, a design studio portfolio I like\n\nMy business: Freelance brand designer for local restaurants\nMy current site or plan: A Squarespace template with a big photo and a contact form\n\nFor each reference, break down:\n1. Layout and spacing: grid, whitespace, section rhythm.\n2. Typography: fonts or similar free alternatives, sizes, weights, case.\n3. Color and texture.\n4. Motion: what moves, when, and how fast.\n5. Copy style: how they talk.\n6. The single detail that makes it feel premium.\n\nThen:\n- A list of 10 specific moves to apply to my site, ranked by impact for effort.\n- What not to copy (things that fit their brand but not mine, or would look like a knockoff).\n- A one-paragraph design brief I can hand to a designer or an AI site builder."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "website.prospect_mockup",
+   "group": "website",
+   "title": "Homepage mock-up for a prospect",
+   "tier": "builder",
+   "when": "You sell websites and want to show a business what their new homepage could look like before they pay.",
+   "prompt": "Make a homepage mock-up for a business I want to pitch. It's a sample to show them, not their live site.\n\nBusiness: {{business}}\nWhat their current site gets wrong: {{problems}}\nWhat their customers need to do on the site: {{jobs}}\nTheir public info I can use (services, hours, area, photos): {{info}}\n\nBuild a single HTML file with: a hero that says what they do and where, a clear booking or call button, services with prices if public, proof (their real public reviews only, quoted with the source, or leave a placeholder), service area, hours, and a footer. Mobile first. Fast. Clean.\n\nPut a small banner at the top: \"Sample homepage made for {{business}} by {{me}}.\"\n\nAfter the code, write a 3-line message to send them with a screenshot, pointing to the two biggest improvements.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "The business",
+     "example": "Ramirez Plumbing"
+    },
+    {
+     "key": "problems",
+     "label": "What their site gets wrong",
+     "example": "No phone number on mobile, no prices, last updated 2019"
+    },
+    {
+     "key": "jobs",
+     "label": "What customers need to do",
+     "example": "Call for an emergency, book a quote, see service area"
+    },
+    {
+     "key": "info",
+     "label": "Their public info",
+     "example": "Services from their Facebook page, hours, 3 Google reviews they posted on their site"
+    },
+    {
+     "key": "me",
+     "label": "Your name or business",
+     "example": "Sam Lee Web"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Ramirez Plumbing",
+     "problems": "No phone number on mobile, no prices, last updated 2019",
+     "jobs": "Call for an emergency, book a quote, see service area",
+     "info": "Services from their Facebook page, hours, 3 Google reviews they posted on their site",
+     "me": "Sam Lee Web"
+    },
+    "youGet": "A clearly labeled sample homepage with a tap-to-call hero and service area, plus a 3-line pitch message.",
+    "filled": "Make a homepage mock-up for a business I want to pitch. It's a sample to show them, not their live site.\n\nBusiness: Ramirez Plumbing\nWhat their current site gets wrong: No phone number on mobile, no prices, last updated 2019\nWhat their customers need to do on the site: Call for an emergency, book a quote, see service area\nTheir public info I can use (services, hours, area, photos): Services from their Facebook page, hours, 3 Google reviews they posted on their site\n\nBuild a single HTML file with: a hero that says what they do and where, a clear booking or call button, services with prices if public, proof (their real public reviews only, quoted with the source, or leave a placeholder), service area, hours, and a footer. Mobile first. Fast. Clean.\n\nPut a small banner at the top: \"Sample homepage made for Ramirez Plumbing by Sam Lee Web.\"\n\nAfter the code, write a 3-line message to send them with a screenshot, pointing to the two biggest improvements."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "website.store_launch",
+   "group": "website",
+   "title": "Store launch plan",
+   "tier": "builder",
+   "when": "You are opening a Shopify, Etsy or similar store and want it set up to sell from day one.",
+   "prompt": "Plan my store launch.\n\nWhat I sell: {{products}}\nPlatform: {{platform}}\nWho buys: {{buyer}}\nLaunch date: {{date}}\nBudget: {{budget}}\n\nGive me:\n1. Store structure: pages, collections, navigation.\n2. Product page template: title formula, the first three lines of the description, what photos to shoot (list of 6), size or spec details, shipping and returns in plain words.\n3. Pricing check: cost, price, margin per item, and the free-shipping threshold that makes sense.\n4. Apps or settings to turn on first (reviews, email capture, abandoned cart, analytics), only the essentials.\n5. A drop-style launch: 14-day countdown plan with content each day, an early-access list, and launch day steps.\n6. The 10 things to check before going live (checkout test, tax, shipping zones, policies, mobile speed).\n\nRules: no fake scarcity or fake reviews. If I say \"limited\", it has to be true.",
+   "variables": [
+    {
+     "key": "products",
+     "label": "What you sell",
+     "example": "Three heavyweight blank tees and a hoodie, small batch"
+    },
+    {
+     "key": "platform",
+     "label": "Platform",
+     "example": "Shopify"
+    },
+    {
+     "key": "buyer",
+     "label": "Who buys",
+     "example": "College athletes and gym-goers 18 to 28"
+    },
+    {
+     "key": "date",
+     "label": "Launch date",
+     "example": "December 5"
+    },
+    {
+     "key": "budget",
+     "label": "Budget",
+     "example": "$1,200 for inventory and launch"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "products": "Three heavyweight blank tees and a hoodie, small batch",
+     "platform": "Shopify",
+     "buyer": "College athletes and gym-goers 18 to 28",
+     "date": "December 5",
+     "budget": "$1,200 for inventory and launch"
+    },
+    "youGet": "Store map, a product page template with a shot list, margin math, a short app list, a 14-day drop plan and a go-live checklist.",
+    "filled": "Plan my store launch.\n\nWhat I sell: Three heavyweight blank tees and a hoodie, small batch\nPlatform: Shopify\nWho buys: College athletes and gym-goers 18 to 28\nLaunch date: December 5\nBudget: $1,200 for inventory and launch\n\nGive me:\n1. Store structure: pages, collections, navigation.\n2. Product page template: title formula, the first three lines of the description, what photos to shoot (list of 6), size or spec details, shipping and returns in plain words.\n3. Pricing check: cost, price, margin per item, and the free-shipping threshold that makes sense.\n4. Apps or settings to turn on first (reviews, email capture, abandoned cart, analytics), only the essentials.\n5. A drop-style launch: 14-day countdown plan with content each day, an early-access list, and launch day steps.\n6. The 10 things to check before going live (checkout test, tax, shipping zones, policies, mobile speed).\n\nRules: no fake scarcity or fake reviews. If I say \"limited\", it has to be true."
+   },
+   "tools": [
+    "Shopify",
+    "Etsy",
+    "Stripe",
+    "Canva"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "website.conversion_audit",
+   "group": "website",
+   "title": "Why is my site not converting?",
+   "tier": "free",
+   "when": "People visit but don't buy, book or sign up.",
+   "prompt": "Audit my site for conversion. Be direct.\n\nSite URL or pasted page text: {{site}}\nWhat I want visitors to do: {{goal}}\nTraffic and numbers, if I have them: {{numbers}}\n\nCheck:\n1. Clarity: in 5 seconds, can a stranger tell what it is, who it's for, and what to do next?\n2. Value: is the end result clear and concrete?\n3. Friction: steps, form fields, load time, mobile layout, broken links.\n4. Trust: proof, real photos, contact info, policies.\n5. Call to action: is there one main action, repeated, above the fold?\n\nGive me the top 10 fixes ranked by impact for effort, each with the exact new copy or change. Then one A/B test to run first and how long to run it.",
+   "variables": [
+    {
+     "key": "site",
+     "label": "Your URL or page text",
+     "example": "https://example-cleaning.com"
+    },
+    {
+     "key": "goal",
+     "label": "What visitors should do",
+     "example": "Book a first cleaning"
+    },
+    {
+     "key": "numbers",
+     "label": "Your numbers",
+     "example": "400 visits a month, 3 bookings",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "site": "https://example-cleaning.com",
+     "goal": "Book a first cleaning",
+     "numbers": "400 visits a month, 3 bookings"
+    },
+    "youGet": "A five-point audit and ten ranked fixes with rewritten copy (for example a price-from line and a booking button above the fold), plus a first A/B test.",
+    "filled": "Audit my site for conversion. Be direct.\n\nSite URL or pasted page text: https://example-cleaning.com\nWhat I want visitors to do: Book a first cleaning\nTraffic and numbers, if I have them: 400 visits a month, 3 bookings\n\nCheck:\n1. Clarity: in 5 seconds, can a stranger tell what it is, who it's for, and what to do next?\n2. Value: is the end result clear and concrete?\n3. Friction: steps, form fields, load time, mobile layout, broken links.\n4. Trust: proof, real photos, contact info, policies.\n5. Call to action: is there one main action, repeated, above the fold?\n\nGive me the top 10 fixes ranked by impact for effort, each with the exact new copy or change. Then one A/B test to run first and how long to run it."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "finance.forecast",
+   "group": "finance",
+   "title": "12-month forecast",
+   "tier": "builder",
+   "when": "You want to see where the business could be in a year under three scenarios, and what has to be true for each.",
+   "prompt": "Build a simple 12-month forecast for my business as a table I can paste into a spreadsheet.\n\nWhat I sell and prices: {{offers}}\nWhere I am today (customers, monthly revenue, monthly costs): {{today}}\nWhere my buyers come from and what it costs: {{channels}}\nHours I can work: {{hours}}\n\nMake three scenarios: slow, expected, strong. For each month show: new customers, customers lost, total customers, revenue, costs (fixed and variable), profit, and cash at month end.\n\nRules:\n- List every assumption in its own table (conversion rates, churn, price changes, hours per customer) so I can change them. Label each as \"my data\" or \"your guess\".\n- Flag the month I run out of hours to deliver, if I do, and what I'd need to hire or automate.\n- Show the formulas in plain words so I can rebuild them.\n- This is a planning tool, not a promise. Say which two assumptions matter most and how to test them in the next 30 days.",
+   "variables": [
+    {
+     "key": "offers",
+     "label": "Offers and prices",
+     "example": "Monthly social video package $450; one-off promo video $250"
+    },
+    {
+     "key": "today",
+     "label": "Where you are now",
+     "example": "3 monthly clients, $1,350 a month, costs $120 a month"
+    },
+    {
+     "key": "channels",
+     "label": "Where your buyers come from",
+     "example": "Instagram DMs to local gyms, about 100 a week, $0"
+    },
+    {
+     "key": "hours",
+     "label": "Hours you can work weekly",
+     "example": "25"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offers": "Monthly social video package $450; one-off promo video $250",
+     "today": "3 monthly clients, $1,350 a month, costs $120 a month",
+     "channels": "Instagram DMs to local gyms, about 100 a week, $0",
+     "hours": "25"
+    },
+    "youGet": "Three month-by-month scenarios, an assumptions table you can edit, the month you hit your hour limit, plain-word formulas and the two assumptions to test first.",
+    "filled": "Build a simple 12-month forecast for my business as a table I can paste into a spreadsheet.\n\nWhat I sell and prices: Monthly social video package $450; one-off promo video $250\nWhere I am today (customers, monthly revenue, monthly costs): 3 monthly clients, $1,350 a month, costs $120 a month\nWhere my buyers come from and what it costs: Instagram DMs to local gyms, about 100 a week, $0\nHours I can work: 25\n\nMake three scenarios: slow, expected, strong. For each month show: new customers, customers lost, total customers, revenue, costs (fixed and variable), profit, and cash at month end.\n\nRules:\n- List every assumption in its own table (conversion rates, churn, price changes, hours per customer) so I can change them. Label each as \"my data\" or \"your guess\".\n- Flag the month I run out of hours to deliver, if I do, and what I'd need to hire or automate.\n- Show the formulas in plain words so I can rebuild them.\n- This is a planning tool, not a promise. Say which two assumptions matter most and how to test them in the next 30 days."
+   },
+   "tools": [
+    "Google Sheets",
+    "Excel",
+    "Stripe",
+    "QuickBooks"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "finance.unit_economics",
+   "group": "finance",
+   "title": "Unit economics and payback",
+   "tier": "builder",
+   "when": "Before you spend on ads or tools. You want to know what a customer is worth and what you can afford to pay to get one.",
+   "prompt": "Work out my unit economics.\n\nPrice and billing: {{price}}\nCost to deliver one month of service: {{delivery_cost}}\nPayment fees: {{fees}}\nHow long customers stay on average (or my guess): {{retention}}\nWhat I spend on marketing now, and what it brought in: {{acquisition}}\n\nCalculate and explain in plain words:\n1. Gross profit per customer in the first 30 days.\n2. Gross profit over a customer's lifetime.\n3. The most I can spend in marketing per new sale and still break even in 30 days.\n4. The most I should ever pay (lifetime profit divided by 3).\n5. My current cost per customer, if I gave you the numbers, and whether it's healthy.\n6. Three ways to raise first-30-day cash (an upfront fee, an annual option, an add-on) and the effect of each.\n\nShow the math step by step. Mark guesses clearly.",
+   "variables": [
+    {
+     "key": "price",
+     "label": "Price and billing",
+     "example": "$29 a month subscription"
+    },
+    {
+     "key": "delivery_cost",
+     "label": "Your cost to serve one customer monthly",
+     "example": "$4 in software and AI"
+    },
+    {
+     "key": "fees",
+     "label": "Payment fees",
+     "example": "2.9% plus 30 cents"
+    },
+    {
+     "key": "retention",
+     "label": "How long customers stay",
+     "example": "About 6 months"
+    },
+    {
+     "key": "acquisition",
+     "label": "Marketing spend and what it brought in",
+     "example": "$300 a month on ads, 12 new signups last month"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "price": "$29 a month subscription",
+     "delivery_cost": "$4 in software and AI",
+     "fees": "2.9% plus 30 cents",
+     "retention": "About 6 months",
+     "acquisition": "$300 a month on ads, 12 new signups last month"
+    },
+    "youGet": "About $24 of first-month profit, about $144 lifetime, a $24 break-even and $48 ceiling per customer, your current $25 cost flagged as tight, and three cash-raising options.",
+    "filled": "Work out my unit economics.\n\nPrice and billing: $29 a month subscription\nCost to deliver one month of service: $4 in software and AI\nPayment fees: 2.9% plus 30 cents\nHow long customers stay on average (or my guess): About 6 months\nWhat I spend on marketing now, and what it brought in: $300 a month on ads, 12 new signups last month\n\nCalculate and explain in plain words:\n1. Gross profit per customer in the first 30 days.\n2. Gross profit over a customer's lifetime.\n3. The most I can spend in marketing per new sale and still break even in 30 days.\n4. The most I should ever pay (lifetime profit divided by 3).\n5. My current cost per customer, if I gave you the numbers, and whether it's healthy.\n6. Three ways to raise first-30-day cash (an upfront fee, an annual option, an add-on) and the effect of each.\n\nShow the math step by step. Mark guesses clearly."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "finance.weekly_numbers",
+   "group": "finance",
+   "title": "Read my week",
+   "tier": "free",
+   "when": "Every Monday. Paste your numbers and get the one move for the week.",
+   "prompt": "Here are my numbers for the last few weeks:\n\n{{numbers}}\n\nMy goal this quarter: {{goal}}\n\nTell me:\n1. The one number that matters most right now, and whether it's up or down.\n2. Where the funnel leaks: the step with the biggest drop (for example messages to replies, replies to calls, calls to sales).\n3. Why that might be happening, two likely causes.\n4. My one move this week to fix the leak, specific enough to put on a calendar.\n5. What to stop, pause or keep.\n6. A one-line note to my future self for next Monday.\n\nKeep it under 200 words. Use my numbers, don't invent any.",
+   "variables": [
+    {
+     "key": "numbers",
+     "label": "Your weekly numbers",
+     "example": "Week | posts | DMs sent | replies | calls | sales | revenue\nW1 | 4 | 60 | 5 | 2 | 1 | $350\nW2 | 3 | 90 | 4 | 0 | 0 | $0"
+    },
+    {
+     "key": "goal",
+     "label": "Your quarter goal",
+     "example": "8 paying monthly clients"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "numbers": "W1: 4 posts, 60 DMs, 5 replies, 2 calls, 1 sale, $350 / W2: 3 posts, 90 DMs, 4 replies, 0 calls, 0 sales",
+     "goal": "8 paying monthly clients"
+    },
+    "youGet": "The leak is replies to calls, two likely causes, one move (ask for the call in your second reply with two time options), a stop list and a note for next week.",
+    "filled": "Here are my numbers for the last few weeks:\n\nW1: 4 posts, 60 DMs, 5 replies, 2 calls, 1 sale, $350 / W2: 3 posts, 90 DMs, 4 replies, 0 calls, 0 sales\n\nMy goal this quarter: 8 paying monthly clients\n\nTell me:\n1. The one number that matters most right now, and whether it's up or down.\n2. Where the funnel leaks: the step with the biggest drop (for example messages to replies, replies to calls, calls to sales).\n3. Why that might be happening, two likely causes.\n4. My one move this week to fix the leak, specific enough to put on a calendar.\n5. What to stop, pause or keep.\n6. A one-line note to my future self for next Monday.\n\nKeep it under 200 words. Use my numbers, don't invent any."
+   },
+   "tools": [],
+   "pairsWith": [
+    "Weekly Scorecard template"
+   ]
+  },
+  {
+   "id": "finance.cash_runway",
+   "group": "finance",
+   "title": "Cash runway and spending check",
+   "tier": "builder",
+   "when": "You want to know how long your money lasts and which costs to cut first.",
+   "prompt": "Check my cash and spending.\n\nCash I have now: {{cash}}\nMonthly revenue (average of last 3 months): {{revenue}}\nEvery recurring cost (name, amount, what it does): {{costs}}\nOne-off costs coming up: {{upcoming}}\n\nGive me:\n1. Monthly burn and runway in months, at today's numbers.\n2. Each recurring cost rated keep, cut, or downgrade, with the reason (does it make money, save real time, or neither).\n3. Free or cheaper swaps for anything I should downgrade.\n4. Runway after the cuts.\n5. The revenue I'd need to break even each month.\n6. A rule for future spending: what a new tool must do to earn its place.\n\nUse only the numbers I gave you. This is planning help, not financial advice.",
+   "variables": [
+    {
+     "key": "cash",
+     "label": "Cash on hand",
+     "example": "$2,400"
+    },
+    {
+     "key": "revenue",
+     "label": "Average monthly revenue",
+     "example": "$900"
+    },
+    {
+     "key": "costs",
+     "label": "Recurring costs",
+     "example": "Adobe $60, CapCut Pro $10, ChatGPT $20, Claude $20, Squarespace $23, Canva $15, ads $200"
+    },
+    {
+     "key": "upcoming",
+     "label": "Upcoming one-off costs",
+     "example": "New camera lens $400 in January",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "cash": "$2,400",
+     "revenue": "$900",
+     "costs": "Adobe $60, CapCut Pro $10, ChatGPT $20, Claude $20, Squarespace $23, Canva $15, ads $200",
+     "upcoming": "New camera lens $400 in January"
+    },
+    "youGet": "Burn and runway, keep-cut-downgrade calls on each tool (for example drop one of the two AI subscriptions), runway after cuts, break-even revenue and a spending rule.",
+    "filled": "Check my cash and spending.\n\nCash I have now: $2,400\nMonthly revenue (average of last 3 months): $900\nEvery recurring cost (name, amount, what it does): Adobe $60, CapCut Pro $10, ChatGPT $20, Claude $20, Squarespace $23, Canva $15, ads $200\nOne-off costs coming up: New camera lens $400 in January\n\nGive me:\n1. Monthly burn and runway in months, at today's numbers.\n2. Each recurring cost rated keep, cut, or downgrade, with the reason (does it make money, save real time, or neither).\n3. Free or cheaper swaps for anything I should downgrade.\n4. Runway after the cuts.\n5. The revenue I'd need to break even each month.\n6. A rule for future spending: what a new tool must do to earn its place.\n\nUse only the numbers I gave you. This is planning help, not financial advice."
+   },
+   "tools": [
+    "Google Sheets",
+    "Your bank export",
+    "QuickBooks"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "finance.quote_invoice",
+   "group": "finance",
+   "title": "Quote and invoice writer",
+   "tier": "free",
+   "when": "A customer said yes or asked for a price, and you need a clean quote or invoice now.",
+   "prompt": "Write a quote for this job that's clear enough that the customer says yes without questions.\n\nCustomer: {{customer}}\nThe job: {{job}}\nMy prices: {{prices}}\nTerms I want (deposit, due date, cancellation): {{terms}}\nMy business details: {{me}}\n\nInclude: a short summary of the job in their words, line items with quantities and prices, what's included and not included, timeline, total, deposit and how to pay, how long the quote is valid, and a one-line yes (\"Reply YES and I'll send the deposit link\").\n\nThen write the matching invoice text for after they say yes, and a polite reminder for 3 days after the due date. Keep both friendly and short.",
+   "variables": [
+    {
+     "key": "customer",
+     "label": "Customer",
+     "example": "Lena Park, homeowner"
+    },
+    {
+     "key": "job",
+     "label": "The job",
+     "example": "Paint two bedrooms and a hallway, walls only, she supplies paint"
+    },
+    {
+     "key": "prices",
+     "label": "Your prices",
+     "example": "$350 per bedroom, $200 hallway, $40 materials"
+    },
+    {
+     "key": "terms",
+     "label": "Your terms",
+     "example": "30% deposit to book, rest on completion, 48 hours notice to reschedule"
+    },
+    {
+     "key": "me",
+     "label": "Your business details",
+     "example": "Brush & Roll Painting, Ana Torres, (555) 010-2233"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "customer": "Lena Park, homeowner",
+     "job": "Paint two bedrooms and a hallway, walls only, she supplies paint",
+     "prices": "$350 per bedroom, $200 hallway, $40 materials",
+     "terms": "30% deposit to book, rest on completion, 48 hours notice to reschedule",
+     "me": "Brush & Roll Painting, Ana Torres, (555) 010-2233"
+    },
+    "youGet": "A $940 quote with scope, exclusions, timeline, a $282 deposit line and a YES reply prompt, plus the invoice text and a reminder.",
+    "filled": "Write a quote for this job that's clear enough that the customer says yes without questions.\n\nCustomer: Lena Park, homeowner\nThe job: Paint two bedrooms and a hallway, walls only, she supplies paint\nMy prices: $350 per bedroom, $200 hallway, $40 materials\nTerms I want (deposit, due date, cancellation): 30% deposit to book, rest on completion, 48 hours notice to reschedule\nMy business details: Brush & Roll Painting, Ana Torres, (555) 010-2233\n\nInclude: a short summary of the job in their words, line items with quantities and prices, what's included and not included, timeline, total, deposit and how to pay, how long the quote is valid, and a one-line yes (\"Reply YES and I'll send the deposit link\").\n\nThen write the matching invoice text for after they say yes, and a polite reminder for 3 days after the due date. Keep both friendly and short."
+   },
+   "tools": [
+    "Stripe",
+    "QuickBooks",
+    "Square",
+    "Google Docs"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.do_my_day",
+   "group": "ops",
+   "title": "Do my day",
+   "tier": "free",
+   "when": "Every morning. Paste your list, pipeline and calendar and get the exact order to do things in.",
+   "prompt": "Plan my day. I have {{hours}} hours for the business today.\n\nMy goal this week: {{goal}}\nMy pipeline (who's where): {{pipeline}}\nMy to-do list: {{todos}}\nFixed commitments today: {{calendar}}\n\nGive me:\n1. The three things that move the goal most. Do these first.\n2. A time-blocked schedule for my available hours, with 10-minute buffers.\n3. Who to message today and the first line for each (follow-ups due, warm replies, new outreach count).\n4. What to drop, delegate or push to tomorrow, and why.\n5. One thing to automate or template so I never do it by hand again.\n\nBe ruthless. If my list is too long for my hours, cut it and say what you cut.",
+   "variables": [
+    {
+     "key": "hours",
+     "label": "Hours available",
+     "example": "3"
+    },
+    {
+     "key": "goal",
+     "label": "This week's goal",
+     "example": "Book 3 sales calls"
+    },
+    {
+     "key": "pipeline",
+     "label": "Your pipeline",
+     "example": "2 replied and waiting on me, 5 follow-ups due, 1 call tomorrow"
+    },
+    {
+     "key": "todos",
+     "label": "Your to-do list",
+     "example": "Edit sample video, redo logo, post Reel, invoice Dana, research email tools"
+    },
+    {
+     "key": "calendar",
+     "label": "Fixed commitments",
+     "example": "Work 9 to 5, gym 6pm"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "hours": "3",
+     "goal": "Book 3 sales calls",
+     "pipeline": "2 replied and waiting on me, 5 follow-ups due, 1 call tomorrow",
+     "todos": "Edit sample video, redo logo, post Reel, invoice Dana, research email tools",
+     "calendar": "Work 9 to 5, gym 6pm"
+    },
+    "youGet": "Top three (answer the 2 replies, send the 5 follow-ups, finish the sample), an evening schedule, message openers, a cut list (logo and tool research) and one thing to template.",
+    "filled": "Plan my day. I have 3 hours for the business today.\n\nMy goal this week: Book 3 sales calls\nMy pipeline (who's where): 2 replied and waiting on me, 5 follow-ups due, 1 call tomorrow\nMy to-do list: Edit sample video, redo logo, post Reel, invoice Dana, research email tools\nFixed commitments today: Work 9 to 5, gym 6pm\n\nGive me:\n1. The three things that move the goal most. Do these first.\n2. A time-blocked schedule for my available hours, with 10-minute buffers.\n3. Who to message today and the first line for each (follow-ups due, warm replies, new outreach count).\n4. What to drop, delegate or push to tomorrow, and why.\n5. One thing to automate or template so I never do it by hand again.\n\nBe ruthless. If my list is too long for my hours, cut it and say what you cut."
+   },
+   "tools": [
+    "Google Calendar",
+    "Notion",
+    "Todoist"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.sop_writer",
+   "group": "ops",
+   "title": "Write the SOP",
+   "tier": "free",
+   "when": "You do something more than twice. Write it down once so you, a helper or your AI can do it the same way every time.",
+   "prompt": "Turn how I do this task into a standard operating procedure.\n\nThe task: {{task}}\nHow I do it now (brain dump, voice note transcript, or rough steps): {{steps}}\nWho will follow it: {{who}}\n\nWrite the SOP with:\n1. Purpose and when to run it.\n2. What you need before starting (accounts, files, info).\n3. Numbered steps, each one action, with the tool and where to click or what to type.\n4. Done means: an acceptance checklist the result must pass.\n5. Common mistakes and how to avoid them.\n6. Time it should take.\n7. What to escalate to me and when.\n\nThen mark which steps an AI could do, which a template could replace, and which need a human.",
+   "variables": [
+    {
+     "key": "task",
+     "label": "The task",
+     "example": "Onboarding a new monthly video client"
+    },
+    {
+     "key": "steps",
+     "label": "How you do it now",
+     "example": "Send contract, get deposit, make Drive folder, ask for logo and brand colors, book first shoot, add to content calendar..."
+    },
+    {
+     "key": "who",
+     "label": "Who follows it",
+     "example": "Me now, a part-time editor later"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "task": "Onboarding a new monthly video client",
+     "steps": "Send contract, get deposit, make Drive folder, ask for logo and brand colors, book first shoot, add to content calendar",
+     "who": "Me now, a part-time editor later"
+    },
+    "youGet": "A numbered SOP with prerequisites, a done checklist, mistakes to avoid, timing, escalation rules and AI, template and human tags on each step.",
+    "filled": "Turn how I do this task into a standard operating procedure.\n\nThe task: Onboarding a new monthly video client\nHow I do it now (brain dump, voice note transcript, or rough steps): Send contract, get deposit, make Drive folder, ask for logo and brand colors, book first shoot, add to content calendar\nWho will follow it: Me now, a part-time editor later\n\nWrite the SOP with:\n1. Purpose and when to run it.\n2. What you need before starting (accounts, files, info).\n3. Numbered steps, each one action, with the tool and where to click or what to type.\n4. Done means: an acceptance checklist the result must pass.\n5. Common mistakes and how to avoid them.\n6. Time it should take.\n7. What to escalate to me and when.\n\nThen mark which steps an AI could do, which a template could replace, and which need a human."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.automation_map",
+   "group": "ops",
+   "title": "What should I automate?",
+   "tier": "builder",
+   "when": "You feel busy but not productive. You want to know which jobs to automate, template, delegate or drop.",
+   "prompt": "Audit my week and build an automation plan.\n\nWhat my business does: {{business}}\nEvery recurring task, how often, and minutes each time: {{tasks}}\nTools I use: {{tools}}\nBudget for new tools per month: {{budget}}\n\nFor each task decide: automate, template, delegate, batch, or drop. Then:\n1. Rank by hours saved per month for the effort to set up.\n2. For the top 5, give the exact setup: trigger, steps, tools, and what a human still checks. Prefer tools I already have.\n3. Which tasks an AI assistant could run on a schedule (a daily or weekly report, a draft queue) with my approval before anything sends.\n4. What must never be automated (anything that sends money, signs agreements, or speaks for me without review).\n5. Total hours saved per month and total new cost.\n\nKeep the setup steps beginner-friendly.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Residential cleaning, 2 cleaners plus me"
+    },
+    {
+     "key": "tasks",
+     "label": "Recurring tasks with frequency and minutes",
+     "example": "Reply to quote requests daily 30m; schedule cleaners weekly 60m; send invoices weekly 45m; post on Facebook 3x a week 20m; review requests after each job 5m"
+    },
+    {
+     "key": "tools",
+     "label": "Tools you use",
+     "example": "Google Workspace, Square, Facebook, Jobber trial"
+    },
+    {
+     "key": "budget",
+     "label": "Monthly tool budget",
+     "example": "$50"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Residential cleaning, 2 cleaners plus me",
+     "tasks": "Reply to quote requests daily 30m; schedule cleaners weekly 60m; send invoices weekly 45m; post on Facebook 3x a week 20m; review requests after each job 5m",
+     "tools": "Google Workspace, Square, Facebook, Jobber trial",
+     "budget": "$50"
+    },
+    "youGet": "Each task tagged, a ranked list, setup steps for the top 5 (for example an auto-sent Square invoice and a templated quote reply), scheduled AI jobs, a never-automate list and the hours saved.",
+    "filled": "Audit my week and build an automation plan.\n\nWhat my business does: Residential cleaning, 2 cleaners plus me\nEvery recurring task, how often, and minutes each time: Reply to quote requests daily 30m; schedule cleaners weekly 60m; send invoices weekly 45m; post on Facebook 3x a week 20m; review requests after each job 5m\nTools I use: Google Workspace, Square, Facebook, Jobber trial\nBudget for new tools per month: $50\n\nFor each task decide: automate, template, delegate, batch, or drop. Then:\n1. Rank by hours saved per month for the effort to set up.\n2. For the top 5, give the exact setup: trigger, steps, tools, and what a human still checks. Prefer tools I already have.\n3. Which tasks an AI assistant could run on a schedule (a daily or weekly report, a draft queue) with my approval before anything sends.\n4. What must never be automated (anything that sends money, signs agreements, or speaks for me without review).\n5. Total hours saved per month and total new cost.\n\nKeep the setup steps beginner-friendly."
+   },
+   "tools": [
+    "Zapier",
+    "Make",
+    "n8n",
+    "Claude",
+    "ManyChat",
+    "Google Apps Script"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.skill_packager",
+   "group": "ops",
+   "title": "Turn a repeat job into an AI skill",
+   "tier": "builder",
+   "when": "You keep giving your AI the same instructions. Package them once as a reusable skill, project, or custom GPT.",
+   "prompt": "I keep asking AI to do this job and re-explaining it every time. Package it as a reusable skill.\n\nThe job: {{job}}\nThe instructions and corrections I usually give (paste past prompts and tweaks): {{history}}\nWhat a great result looks like (paste one if you have it): {{good_example}}\n\nWrite the skill with:\n1. Name and a one-line description of when to use it.\n2. Inputs it needs from me (as a short list).\n3. Step-by-step instructions the AI follows.\n4. Rules, including every correction from my history turned into a rule (\"Always...\", \"Never...\").\n5. Output format.\n6. A self-check the AI runs before showing me the result.\n7. One worked example.\n\nKeep it under 600 words so it loads fast. Then tell me where to save it in my AI tool.",
+   "variables": [
+    {
+     "key": "job",
+     "label": "The repeat job",
+     "example": "Writing captions for client Reels"
+    },
+    {
+     "key": "history",
+     "label": "Your past prompts and tweaks",
+     "example": "\"shorter\", \"no emojis\", \"start with the hook not the gym name\", \"always end with the booking link\", \"less salesy\""
+    },
+    {
+     "key": "good_example",
+     "label": "A great past result",
+     "example": "Your 6am crew is waiting. First class free this week. Link in bio.",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "job": "Writing captions for client Reels",
+     "history": "\"shorter\", \"no emojis\", \"start with the hook not the gym name\", \"always end with the booking link\", \"less salesy\"",
+     "good_example": "Your 6am crew is waiting. First class free this week. Link in bio."
+    },
+    "youGet": "A named skill with inputs, steps, rules built from your five corrections, an output format, a self-check and an example, ready to save.",
+    "filled": "I keep asking AI to do this job and re-explaining it every time. Package it as a reusable skill.\n\nThe job: Writing captions for client Reels\nThe instructions and corrections I usually give (paste past prompts and tweaks): \"shorter\", \"no emojis\", \"start with the hook not the gym name\", \"always end with the booking link\", \"less salesy\"\nWhat a great result looks like (paste one if you have it): Your 6am crew is waiting. First class free this week. Link in bio.\n\nWrite the skill with:\n1. Name and a one-line description of when to use it.\n2. Inputs it needs from me (as a short list).\n3. Step-by-step instructions the AI follows.\n4. Rules, including every correction from my history turned into a rule (\"Always...\", \"Never...\").\n5. Output format.\n6. A self-check the AI runs before showing me the result.\n7. One worked example.\n\nKeep it under 600 words so it loads fast. Then tell me where to save it in my AI tool."
+   },
+   "tools": [
+    "Claude Skills",
+    "Claude Projects",
+    "Custom GPTs"
+   ],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.client_onboarding",
+   "group": "ops",
+   "title": "Client onboarding kit",
+   "tier": "builder",
+   "when": "You just closed a customer and want them to feel taken care of from minute one.",
+   "prompt": "Build my onboarding kit for new customers.\n\nWhat I sell: {{offer}}\nWhat I need from them to start: {{needs}}\nHow we'll work together: {{cadence}}\n\nWrite:\n1. Welcome message (same day): thanks, what happens next, and when.\n2. Intake form questions (no more than 10, plain language).\n3. A kickoff call agenda (20 minutes).\n4. A first-week timeline they can see.\n5. The \"first win\" I deliver in the first 7 days, and how I tell them about it.\n6. A check-in message for day 30 asking what's working and what to change.\n7. A simple handover folder structure.\n\nWarm, organized and short. Nothing that promises results I don't control.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell",
+     "example": "Monthly bookkeeping for food trucks"
+    },
+    {
+     "key": "needs",
+     "label": "What you need from them",
+     "example": "Bank read access, Square login, last 3 months of receipts"
+    },
+    {
+     "key": "cadence",
+     "label": "How you work together",
+     "example": "Monthly report by the 5th, text for quick questions"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Monthly bookkeeping for food trucks",
+     "needs": "Bank read access, Square login, last 3 months of receipts",
+     "cadence": "Monthly report by the 5th, text for quick questions"
+    },
+    "youGet": "A welcome message, a 10-question intake, a kickoff agenda, a week-one timeline, a first-win plan, a day-30 check-in and a folder layout.",
+    "filled": "Build my onboarding kit for new customers.\n\nWhat I sell: Monthly bookkeeping for food trucks\nWhat I need from them to start: Bank read access, Square login, last 3 months of receipts\nHow we'll work together: Monthly report by the 5th, text for quick questions\n\nWrite:\n1. Welcome message (same day): thanks, what happens next, and when.\n2. Intake form questions (no more than 10, plain language).\n3. A kickoff call agenda (20 minutes).\n4. A first-week timeline they can see.\n5. The \"first win\" I deliver in the first 7 days, and how I tell them about it.\n6. A check-in message for day 30 asking what's working and what to change.\n7. A simple handover folder structure.\n\nWarm, organized and short. Nothing that promises results I don't control."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "ops.weekly_review",
+   "group": "ops",
+   "title": "Weekly CEO review",
+   "tier": "builder",
+   "when": "Once a week, 20 minutes. Step out of the work and steer the business.",
+   "prompt": "Run my weekly CEO review. Ask me these one at a time and wait for each answer:\n1. What were this week's numbers? (I'll paste them.)\n2. What was the best thing that happened, and why did it work?\n3. What was the worst, and what would I do differently?\n4. What did customers say this week, word for word?\n5. What am I avoiding?\n\nThen write my review:\n- Scorecard vs last week.\n- Keep, stop, start.\n- The one priority for next week and the first step, scheduled.\n- One thing to systemize so it happens without me.\n- One person to thank or reconnect with.\n\nMy business: {{business}}\nMy current goal: {{goal}}",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Dog grooming van"
+    },
+    {
+     "key": "goal",
+     "label": "Your current goal",
+     "example": "40 repeat customers on a 6-week schedule"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Dog grooming van",
+     "goal": "40 repeat customers on a 6-week schedule"
+    },
+    "youGet": "Five questions one at a time, then a scorecard, keep-stop-start, next week's priority with a first step, a system to build and a thank-you.",
+    "filled": "Run my weekly CEO review. Ask me these one at a time and wait for each answer:\n1. What were this week's numbers? (I'll paste them.)\n2. What was the best thing that happened, and why did it work?\n3. What was the worst, and what would I do differently?\n4. What did customers say this week, word for word?\n5. What am I avoiding?\n\nThen write my review:\n- Scorecard vs last week.\n- Keep, stop, start.\n- The one priority for next week and the first step, scheduled.\n- One thing to systemize so it happens without me.\n- One person to thank or reconnect with.\n\nMy business: Dog grooming van\nMy current goal: 40 repeat customers on a 6-week schedule"
+   },
+   "tools": [],
+   "pairsWith": [
+    "Weekly Scorecard template",
+    "brain.weekly_learnings"
+   ]
+  },
+  {
+   "id": "ops.hire_brief",
+   "group": "ops",
+   "title": "First helper brief",
+   "tier": "builder",
+   "when": "You're ready to pay someone for a few hours a week and want the job clear before you post it.",
+   "prompt": "Help me hire my first helper.\n\nWhat I want off my plate: {{work}}\nHours a week and budget: {{budget}}\nMust-have skills: {{skills}}\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about past work.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for.\n\nKeep it fair: clear pay, no unpaid trial work, contractor or employee status noted as something to check locally.",
+   "variables": [
+    {
+     "key": "work",
+     "label": "What to hand off",
+     "example": "Editing 12 short videos a week from my raw clips"
+    },
+    {
+     "key": "budget",
+     "label": "Hours and budget",
+     "example": "10 hours a week, $20 to $25 an hour"
+    },
+    {
+     "key": "skills",
+     "label": "Must-have skills",
+     "example": "CapCut or Premiere, captions, fast turnaround"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "Editing 12 short videos a week from my raw clips",
+     "budget": "10 hours a week, $20 to $25 an hour",
+     "skills": "CapCut or Premiere, captions, fast turnaround"
+    },
+    "youGet": "A job post, a paid 90-minute edit test with a scoring sheet, interview questions, a first-week plan and red flags.",
+    "filled": "Help me hire my first helper.\n\nWhat I want off my plate: Editing 12 short videos a week from my raw clips\nHours a week and budget: 10 hours a week, $20 to $25 an hour\nMust-have skills: CapCut or Premiere, captions, fast turnaround\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about past work.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for.\n\nKeep it fair: clear pay, no unpaid trial work, contractor or employee status noted as something to check locally."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.ten_x",
+   "group": "review",
+   "title": "The 10x pass",
+   "tier": "free",
+   "when": "You (or your AI) finished something and it is \"good enough\". Run this before you ship it.",
+   "prompt": "Here's something I made:\n\n{{work}}\n\nWhat it's for: {{goal}}\nWho it's for: {{audience}}\n\nPretend you just finished this yourself, looked at it again and said: \"Wow, I can't believe I thought I'd stop here.\" Now make it 10x better.\n\n1. Be honest first: score it 1 to 10 on how well it does its job, and list the five biggest weaknesses. Be specific (quote the weak parts).\n2. Name what a 10 out of 10 version would do that this doesn't. Think: clearer, more useful, more specific to the audience, less effort for them, more proof, better looking, more memorable.\n3. Rebuild it. Deliver the full improved version, not a list of suggestions.\n4. Show what changed and why, in a short table.\n5. Give me one bold idea that would make it 100x, even if it's harder.\n\nRules: keep everything true. No invented facts, results, reviews or numbers. Don't make it longer unless longer is better.",
+   "variables": [
+    {
+     "key": "work",
+     "label": "Paste what you made",
+     "example": "(your offer, page copy, script, email or plan)"
+    },
+    {
+     "key": "goal",
+     "label": "What it needs to do",
+     "example": "Get gym owners to reply to a cold DM"
+    },
+    {
+     "key": "audience",
+     "label": "Who it is for",
+     "example": "Busy owners of small gyms"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "Hey! I make videos for gyms. Would you be interested in working together? Let me know!",
+     "goal": "Get gym owners to reply to a cold DM",
+     "audience": "Busy owners of small gyms"
+    },
+    "youGet": "A 3 out of 10 score with five quoted weaknesses, the full rebuilt DM (opens on their specific gap and points to a sample made for them), a change table and one 100x idea.",
+    "filled": "Here's something I made:\n\nHey! I make videos for gyms. Would you be interested in working together? Let me know!\n\nWhat it's for: Get gym owners to reply to a cold DM\nWho it's for: Busy owners of small gyms\n\nPretend you just finished this yourself, looked at it again and said: \"Wow, I can't believe I thought I'd stop here.\" Now make it 10x better.\n\n1. Be honest first: score it 1 to 10 on how well it does its job, and list the five biggest weaknesses. Be specific (quote the weak parts).\n2. Name what a 10 out of 10 version would do that this doesn't. Think: clearer, more useful, more specific to the audience, less effort for them, more proof, better looking, more memorable.\n3. Rebuild it. Deliver the full improved version, not a list of suggestions.\n4. Show what changed and why, in a short table.\n5. Give me one bold idea that would make it 100x, even if it's harder.\n\nRules: keep everything true. No invented facts, results, reviews or numbers. Don't make it longer unless longer is better."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.slop_check",
+   "group": "review",
+   "title": "Is this high quality or AI filler?",
+   "tier": "free",
+   "when": "Anything an AI helped make. Catch the generic, robotic or padded parts before a customer does.",
+   "prompt": "Review this for quality the way a sharp, skeptical customer would. Tell me honestly if it reads like generic AI output.\n\n{{work}}\n\nCheck for:\n1. Generic lines that could be about any business. Quote each one.\n2. AI tells: stock filler openers, lists of three adjectives, \"unlock\", \"elevate\", \"seamless\", em dashes everywhere, everything in perfect parallel lists, vague claims.\n3. Padding: sentences that say nothing.\n4. Missing specifics: where a real number, name, example, or detail from my business should be.\n5. Things that sound untrue or overpromised.\n6. Visual tells, if it's a design: stock-photo feel, default gradients, everything centered, no hierarchy.\n\nScore it: human and specific (keep), mixed (fix), or generic (redo). Then rewrite the worst five parts using these real details from my business: {{details}}",
+   "variables": [
+    {
+     "key": "work",
+     "label": "Paste the text or describe the design",
+     "example": "(your About page)"
+    },
+    {
+     "key": "details",
+     "label": "Real details about your business",
+     "example": "Started cutting hair in my garage at 17, 400 clients, Tuesday walk-ins, $25 fades"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "At FreshCuts, we are passionate about elevating your style. Our dedicated team delivers seamless, top-quality grooming experiences tailored to you.",
+     "details": "Started cutting hair in my garage at 17, 400 clients, Tuesday walk-ins, $25 fades"
+    },
+    "youGet": "Every generic line quoted, AI tells flagged, a \"generic, redo\" score and a rewrite built on the garage story, Tuesday walk-ins and $25 fades.",
+    "filled": "Review this for quality the way a sharp, skeptical customer would. Tell me honestly if it reads like generic AI output.\n\nAt FreshCuts, we are passionate about elevating your style. Our dedicated team delivers seamless, top-quality grooming experiences tailored to you.\n\nCheck for:\n1. Generic lines that could be about any business. Quote each one.\n2. AI tells: stock filler openers, lists of three adjectives, \"unlock\", \"elevate\", \"seamless\", em dashes everywhere, everything in perfect parallel lists, vague claims.\n3. Padding: sentences that say nothing.\n4. Missing specifics: where a real number, name, example, or detail from my business should be.\n5. Things that sound untrue or overpromised.\n6. Visual tells, if it's a design: stock-photo feel, default gradients, everything centered, no hierarchy.\n\nScore it: human and specific (keep), mixed (fix), or generic (redo). Then rewrite the worst five parts using these real details from my business: Started cutting hair in my garage at 17, 400 clients, Tuesday walk-ins, $25 fades"
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.five_second",
+   "group": "review",
+   "title": "Five-second clarity test",
+   "tier": "free",
+   "when": "Before you publish a page, post, ad or pitch. If a stranger can't get it in five seconds, it fails.",
+   "prompt": "Act as a stranger who has never heard of my business. You see this for five seconds:\n\n{{work}}\n\nAnswer as that stranger:\n1. What is this?\n2. Who is it for? Is it for me?\n3. What do I get, as an end result?\n4. What should I do next?\n5. Why should I trust it?\n\nThen step out of character and compare your answers to what I intended: {{intent}}\nFor every gap, give me the exact rewrite that closes it. Keep the rewrites shorter than the originals.",
+   "variables": [
+    {
+     "key": "work",
+     "label": "Paste the page, ad or post",
+     "example": "(your homepage top section)"
+    },
+    {
+     "key": "intent",
+     "label": "What you want them to understand",
+     "example": "We build booking websites for salons in a week, from $650. Book a free mock-up."
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "Beauty, simplified. Modern digital solutions for modern salons. [Get started]",
+     "intent": "We build booking websites for salons in a week, from $650. Book a free mock-up."
+    },
+    "youGet": "A stranger's five answers (probably \"some salon software?\"), the gaps against your intent and shorter rewrites that say \"booking website, one week, from $650\".",
+    "filled": "Act as a stranger who has never heard of my business. You see this for five seconds:\n\nBeauty, simplified. Modern digital solutions for modern salons. [Get started]\n\nAnswer as that stranger:\n1. What is this?\n2. Who is it for? Is it for me?\n3. What do I get, as an end result?\n4. What should I do next?\n5. Why should I trust it?\n\nThen step out of character and compare your answers to what I intended: We build booking websites for salons in a week, from $650. Book a free mock-up.\nFor every gap, give me the exact rewrite that closes it. Keep the rewrites shorter than the originals."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.brand_consistency",
+   "group": "review",
+   "title": "Brand consistency sweep",
+   "tier": "builder",
+   "when": "You have made a lot of things fast (posts, pages, emails, decks) and want them to look and sound like one brand.",
+   "prompt": "Check these pieces against my brand guide and make them consistent.\n\nMy brand guide (or the key rules): {{guide}}\n\nThe pieces:\n{{pieces}}\n\nFor each piece:\n1. Name: the business name and product names used exactly right?\n2. Voice: matches the rules? Quote lines that don't.\n3. Visual notes: colors, fonts, logo use, photo style (from what I described).\n4. Claims and numbers: consistent across pieces? Flag any piece that says something different from the others (prices, dates, what's included).\n5. Fix: the corrected text.\n\nEnd with a short list of rules I should add to my guide so this doesn't happen again.",
+   "variables": [
+    {
+     "key": "guide",
+     "label": "Your brand rules",
+     "example": "Name is \"Northline\", never \"NorthLine Co\". Calm and direct. Navy and sand. No exclamation points. Price $95 a visit."
+    },
+    {
+     "key": "pieces",
+     "label": "Paste the pieces",
+     "example": "(Instagram bio, homepage hero, welcome email, flyer text)"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "guide": "Name is \"Northline\", never \"NorthLine Co\". Calm and direct. Navy and sand. No exclamation points. Price $95 a visit.",
+     "pieces": "Bio: \"NorthLine Co! Best dog walks in town!!\" / Flyer: \"Walks from $85\" / Email: \"Welcome to Northline.\""
+    },
+    "youGet": "Each piece checked, the name and price mismatches flagged ($85 vs $95), corrected text and new guide rules.",
+    "filled": "Check these pieces against my brand guide and make them consistent.\n\nMy brand guide (or the key rules): Name is \"Northline\", never \"NorthLine Co\". Calm and direct. Navy and sand. No exclamation points. Price $95 a visit.\n\nThe pieces:\nBio: \"NorthLine Co! Best dog walks in town!!\" / Flyer: \"Walks from $85\" / Email: \"Welcome to Northline.\"\n\nFor each piece:\n1. Name: the business name and product names used exactly right?\n2. Voice: matches the rules? Quote lines that don't.\n3. Visual notes: colors, fonts, logo use, photo style (from what I described).\n4. Claims and numbers: consistent across pieces? Flag any piece that says something different from the others (prices, dates, what's included).\n5. Fix: the corrected text.\n\nEnd with a short list of rules I should add to my guide so this doesn't happen again."
+   },
+   "tools": [],
+   "pairsWith": [
+    "content.voice_guide"
+   ]
+  },
+  {
+   "id": "review.claims_check",
+   "group": "review",
+   "title": "Claims and compliance check",
+   "tier": "free",
+   "when": "Before any ad, sales page, email or post goes out. Catch promises that could get you in trouble or lose trust.",
+   "prompt": "Check this marketing for claims that could mislead people, break platform rules, or lose trust.\n\n{{work}}\n\nWhere it will run: {{channel}}\nWhat I can actually prove: {{proof}}\n\nFlag, quoting each line:\n1. Promised results (money, customers, weight lost, rankings, timeframes) that I can't back up.\n2. Income or earnings claims, or \"results not typical\" problems.\n3. Testimonials, reviews, logos or numbers I can't prove are real and permitted.\n4. Fake urgency or scarcity (a deadline or \"only 3 left\" that isn't true).\n5. Missing disclosures: paid partnerships, affiliate links, automated messages, AI-generated images of people.\n6. Before and after or health claims that platforms restrict.\n7. Email basics: business name, mailing address and a way to opt out.\n\nFor each flag, give a safe rewrite that keeps the selling power. This is a common-sense check, not legal advice; say when something needs a lawyer.",
+   "variables": [
+    {
+     "key": "work",
+     "label": "Paste the ad, page or email",
+     "example": "(your ad copy)"
+    },
+    {
+     "key": "channel",
+     "label": "Where it runs",
+     "example": "Facebook and Instagram ads"
+    },
+    {
+     "key": "proof",
+     "label": "What you can prove",
+     "example": "12 clients so far, 2 written reviews with permission"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "Double your bookings in 30 days or your money back! Only 2 spots left!",
+     "channel": "Facebook and Instagram ads",
+     "proof": "12 clients so far, 2 written reviews with permission"
+    },
+    "youGet": "The results promise and the spots claim flagged, with rewrites that sell what you deliver (for example \"We set up and run your booking page in 7 days\") and a note on what to verify.",
+    "filled": "Check this marketing for claims that could mislead people, break platform rules, or lose trust.\n\nDouble your bookings in 30 days or your money back! Only 2 spots left!\n\nWhere it will run: Facebook and Instagram ads\nWhat I can actually prove: 12 clients so far, 2 written reviews with permission\n\nFlag, quoting each line:\n1. Promised results (money, customers, weight lost, rankings, timeframes) that I can't back up.\n2. Income or earnings claims, or \"results not typical\" problems.\n3. Testimonials, reviews, logos or numbers I can't prove are real and permitted.\n4. Fake urgency or scarcity (a deadline or \"only 3 left\" that isn't true).\n5. Missing disclosures: paid partnerships, affiliate links, automated messages, AI-generated images of people.\n6. Before and after or health claims that platforms restrict.\n7. Email basics: business name, mailing address and a way to opt out.\n\nFor each flag, give a safe rewrite that keeps the selling power. This is a common-sense check, not legal advice; say when something needs a lawyer."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.skeptic",
+   "group": "review",
+   "title": "Red-team it as a skeptical buyer",
+   "tier": "builder",
+   "when": "Before a pitch, launch or price change. Hear every reason to say no before a real buyer says it.",
+   "prompt": "Play my toughest potential buyer. Read this and tear it apart.\n\n{{work}}\n\nThe buyer: {{buyer}}\nWhat they use instead of me today: {{alternative}}\n\nAs the buyer:\n1. Your gut reaction in one sentence.\n2. Ten reasons you'd say no, from most to least likely.\n3. The questions you'd ask before paying.\n4. What would make you say yes today.\n\nThen as my advisor:\n5. Which three objections are fatal, and how to fix the offer (not just the words) for each.\n6. What proof I need to collect next.\n7. Why the buyer's current alternative might beat me, and the honest case for why I'm better.",
+   "variables": [
+    {
+     "key": "work",
+     "label": "Your pitch, offer or page",
+     "example": "(your one-page offer)"
+    },
+    {
+     "key": "buyer",
+     "label": "The buyer",
+     "example": "Owner of a busy taco truck, skeptical of marketers"
+    },
+    {
+     "key": "alternative",
+     "label": "What they do today",
+     "example": "Their cousin posts on Instagram sometimes"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "work": "Monthly social media management for food trucks, $500 a month, 12 posts and stories",
+     "buyer": "Owner of a busy taco truck, skeptical of marketers",
+     "alternative": "Their cousin posts on Instagram sometimes"
+    },
+    "youGet": "A blunt reaction, ten ranked objections, buyer questions, a yes trigger, three fatal objections with offer fixes, a proof plan and an honest comparison with the cousin.",
+    "filled": "Play my toughest potential buyer. Read this and tear it apart.\n\nMonthly social media management for food trucks, $500 a month, 12 posts and stories\n\nThe buyer: Owner of a busy taco truck, skeptical of marketers\nWhat they use instead of me today: Their cousin posts on Instagram sometimes\n\nAs the buyer:\n1. Your gut reaction in one sentence.\n2. Ten reasons you'd say no, from most to least likely.\n3. The questions you'd ask before paying.\n4. What would make you say yes today.\n\nThen as my advisor:\n5. Which three objections are fatal, and how to fix the offer (not just the words) for each.\n6. What proof I need to collect next.\n7. Why the buyer's current alternative might beat me, and the honest case for why I'm better."
+   },
+   "tools": [],
+   "pairsWith": []
+  },
+  {
+   "id": "review.premortem",
+   "group": "review",
+   "title": "Pre-mortem",
+   "tier": "builder",
+   "when": "Before you commit time or money to a launch, hire, tool or big change.",
+   "prompt": "It's {{horizon}} from now and this plan failed. Tell me why.\n\nThe plan: {{plan}}\nMy resources: {{resources}}\n\n1. List the 8 most likely reasons it failed, from most to least likely.\n2. For each: the early warning sign I'd see in the first two weeks, and what I'd do then.\n3. Which failure is about doing too much at once, and what to cut so I focus.\n4. The cheapest test this week that would tell me if the plan holds up.\n5. A go or no-go checklist for the day I commit.",
+   "variables": [
+    {
+     "key": "horizon",
+     "label": "How far ahead",
+     "example": "90 days"
+    },
+    {
+     "key": "plan",
+     "label": "The plan",
+     "example": "Launch a meal prep business and a fitness coaching offer and a TikTok channel at the same time"
+    },
+    {
+     "key": "resources",
+     "label": "Your time and money",
+     "example": "15 hours a week, $800"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "horizon": "90 days",
+     "plan": "Launch a meal prep business and a fitness coaching offer and a TikTok channel at the same time",
+     "resources": "15 hours a week, $800"
+    },
+    "youGet": "Eight failure reasons with warning signs, a clear \"do one thing\" cut, a test for this week and a go or no-go checklist.",
+    "filled": "It's 90 days from now and this plan failed. Tell me why.\n\nThe plan: Launch a meal prep business and a fitness coaching offer and a TikTok channel at the same time\nMy resources: 15 hours a week, $800\n\n1. List the 8 most likely reasons it failed, from most to least likely.\n2. For each: the early warning sign I'd see in the first two weeks, and what I'd do then.\n3. Which failure is about doing too much at once, and what to cut so I focus.\n4. The cheapest test this week that would tell me if the plan holds up.\n5. A go or no-go checklist for the day I commit."
+   },
+   "tools": [],
+   "pairsWith": []
+  }
+ ],
+ "harness": "harness.md"
+}

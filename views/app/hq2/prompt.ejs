@@ -1,0 +1,40 @@
+<%- include('../../partials/app-head') %>
+<%# One prompt from the library as a form built from its variables. Never shows where it came from. Locals: p, locked, values, filled, agentOn, command. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/prompts">Prompts</a></p>
+  <section class="hq-card">
+    <h1 class="h2-h"><%= p.title %></h1>
+    <p class="h2-sub"><%= p.when %></p>
+    <% if (p.example && p.example.youGet) { %><p class="hq-small">You get: <%= p.example.youGet %></p><% } %>
+    <% if (p.tools && p.tools.length) { %><p class="hq-small">Works well with: <%= p.tools.join(', ') %></p><% } %>
+  </section>
+  <% if (locked) { %>
+  <section class="hq-card" style="margin-top:16px"><p class="h2-sub" style="margin:0">This prompt is part of Builder.</p><a class="btn" style="margin-top:12px" href="/app/billing">See Builder <span class="arrow"></span></a></section>
+  <% } else { %>
+  <form method="post" action="/app/hq/prompts/<%= p.id %>" class="hq-card h2-stack" style="margin-top:16px">
+    <% (p.variables || []).forEach(function (v) { var long = (v.example || '').length > 80; %>
+    <label class="field">
+      <span><%= v.label %><%= v.optional ? ' (optional)' : '' %></span>
+      <% if (long) { %><textarea class="input" name="v_<%= v.key %>" rows="3" maxlength="4000" placeholder="<%= v.example %>"<%= v.optional ? '' : ' required' %>><%= values[v.key] || '' %></textarea>
+      <% } else { %><input class="input" name="v_<%= v.key %>" maxlength="4000" placeholder="<%= v.example %>" value="<%= values[v.key] || '' %>"<%= v.optional ? '' : ' required' %>><% } %>
+    </label>
+    <% }) %>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" name="fill" value="1">Fill it in <span class="arrow"></span></button>
+      <% if (agentOn) { %><button class="hq-pill" name="ask" value="1">Send to Ask 127</button><% } %>
+    </div>
+  </form>
+  <% if (filled) { %>
+  <section class="hq-card blk-copy" style="margin-top:16px" aria-labelledby="filled-h">
+    <div class="h2-row"><h2 class="h2-h" id="filled-h" style="font-size:18px">Your prompt</h2><button type="button" class="hq-pill" data-copy>Copy</button></div>
+    <pre class="h2-doc" id="filled" style="margin-top:12px"><%= filled %></pre>
+  </section>
+  <% } else if (p.example && p.example.filled) { %>
+  <details class="hq-card" style="margin-top:16px"><summary class="link">See it filled in</summary><pre class="h2-doc" style="margin-top:12px"><%= p.example.filled %></pre></details>
+  <% } %>
+  <% if (agentOn) { %><p class="hq-small">In Ask 127, type <%= command %> to run it.</p><% } %>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

@@ -1,0 +1,35 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Skills (lib/harness/skills.js): jobs 127 does on a schedule. Locals: list, teamNames, mcp. %>
+<% var badge = { on: 'On', off: 'Off', locked: 'Builder', coming: 'Coming soon', builtIn: 'Always on' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Skills</span>
+      <h1 class="hq-title"><span class="dim">Jobs that do</span><span class="steel">themselves.</span></h1>
+      <p class="hq-lede">Turn one on and 127 runs it on time, in your time zone. Each run uses its usual credits, and anything it drafts waits for your OK. Nothing is sent for you.</p>
+    </div>
+  </div>
+  <div class="h2-stack">
+    <% list.forEach(function (s) { %>
+    <section class="hq-card" aria-labelledby="sk-<%= s.id.replace(/[^a-z0-9]/gi, '-') %>">
+      <div class="h2-row">
+        <h2 class="h2-h" id="sk-<%= s.id.replace(/[^a-z0-9]/gi, '-') %>" style="font-size:18px"><%= s.name %></h2>
+        <span class="h2-tag"><%= badge[s.status] %></span>
+      </div>
+      <p class="h2-sub"><%= s.what %></p>
+      <p class="hq-small"><%= s.label %><% if (s.status === 'on' || s.status === 'off') { %> · about <%= s.credits %> credits a run<% } %><% if (s.team && teamNames[s.team]) { %> · run by your <%= teamNames[s.team] %><% } %><% if (s.schedule && s.schedule.lastError) { %> · <%= s.schedule.lastError %><% } %></p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <% if (s.status === 'off') { %><form method="post" action="/app/hq/skills/<%= encodeURIComponent(s.id) %>/on"><button class="btn">Turn on <span class="arrow"></span></button></form><% } %>
+        <% if (s.status === 'on') { %><form method="post" action="/app/hq/skills/<%= encodeURIComponent(s.id) %>/off"><button class="hq-pill">Turn off</button></form><% } %>
+        <% if (s.status === 'on' || s.status === 'off') { %><form method="post" action="/app/hq/skills/<%= encodeURIComponent(s.id) %>/run"><button class="hq-pill">Run now</button></form><% } %>
+        <% if (s.status === 'locked') { %><a class="hq-pill" href="/app/billing">See Builder</a><% } %>
+        <% if (mcp && (s.status === 'on' || s.status === 'off')) { %><a class="hq-pill" href="/app/hq/skills/<%= encodeURIComponent(s.id) %>/skill.zip">Get this skill for Claude</a><% } %>
+      </div>
+    </section>
+    <% }) %>
+  </div>
+  <% if (mcp) { %><p class="hq-small">"Get this skill for Claude" gives a SKILL.md your own Claude runs through your AI link. <a href="/app/hq/admin-setup">Make Claude your admin</a> first.</p><% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

@@ -1,0 +1,30 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 prompt library (lib/harness/prompts.js, content/prompts). Locals: groups, agentOn. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Prompts</span>
+      <h1 class="hq-title"><span class="dim">Skip the prompting.</span><span class="steel">Fill in the blanks.</span></h1>
+      <p class="hq-lede">Prompts for every part of running your business. Fill one in, then copy it into any AI<%= agentOn ? ', or send it to Ask 127' : '' %>.</p>
+    </div>
+  </div>
+  <div class="h2-stack">
+    <% groups.forEach(function (g) { %>
+    <section class="hq-card" aria-labelledby="pg-<%= g.id %>">
+      <h2 class="h2-h" id="pg-<%= g.id %>" style="font-size:18px"><%= g.title %></h2>
+      <p class="h2-sub"><%= g.intro %></p>
+      <ul class="h2-list" style="margin-top:10px">
+        <% g.prompts.forEach(function (p) { %>
+        <li style="padding:10px 0;border-top:1px solid var(--line)">
+          <div class="h2-row"><a class="link" href="/app/hq/prompts/<%= p.id %>"><%= p.title %></a><% if (p.locked) { %><span class="h2-tag">Builder</span><% } %></div>
+          <div class="hq-small" style="margin:2px 0 0"><%= p.when %></div>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+    <% }) %>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

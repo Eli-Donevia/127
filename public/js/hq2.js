@@ -174,6 +174,18 @@
     if (msg && !window.confirm(msg)) e.preventDefault();
   }, true);
 
+  // ---------- Ask 127: open at the latest message; Enter sends, Shift+Enter is a new line ----------
+  var ask = $('form[data-ask]');
+  if (ask) {
+    var end = $('#end');
+    if (end && end.previousElementSibling) end.scrollIntoView({ block: 'end' });
+    var box = $('textarea', ask);
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && box.value.trim()) { e.preventDefault(); ask.requestSubmit ? ask.requestSubmit() : ask.submit(); }
+    });
+    ask.addEventListener('submit', function () { $$('button', ask).forEach(function (b) { b.disabled = true; b.textContent = 'Thinking'; }); });
+  }
+
   // ---------- approvals: hold "pick up to N" ----------
   $$('form.h2-ask[data-max]').forEach(function (f) {
     var max = parseInt(f.getAttribute('data-max'), 10);

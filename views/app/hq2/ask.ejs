@@ -1,0 +1,48 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Ask 127 (lib/harness/agent.js): chat grounded in the member's Brain, Pipeline, numbers and runs. Every action is a card the member taps OK on. Locals: msgs, cost, help, draft. %>
+<% var actLabel = { start_workflow: 'Starts a run', run_skill: 'Runs a skill', log_decision: 'Logs a decision', add_note: 'Saves a note to your Brain', log_number: 'Logs a number' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Ask 127</span>
+      <h1 class="hq-title"><span class="dim">Ask anything</span><span class="steel">about your business.</span></h1>
+      <p class="hq-lede">It knows your Brain, your Pipeline, your numbers and your runs. It can start work for you, and it always asks first. <%= cost %> credits a message. Type / for shortcuts.</p>
+    </div>
+  </div>
+  <section class="hq-card h2-chat" aria-label="Chat">
+    <% if (!msgs.length) { %>
+    <p class="h2-empty">Try: "What should I do today?" "Write a reply to someone who says we're too expensive." "Plan my week of posts."</p>
+    <% } %>
+    <% msgs.forEach(function (m) { %>
+    <div class="h2-msg <%= m.role === 'user' ? 'me' : 'ai' %>">
+      <div class="h2-msg-t"><%= m.text %></div>
+      <% if (m.sources && m.sources.length) { %><div class="hq-small" style="margin:6px 0 0">From your Brain: <% m.sources.forEach(function (s, i) { %><%= i ? ', ' : '' %><a href="<%= s.link %>"><%= s.n ? '[' + s.n + '] ' : '' %><%= s.title %></a><% }) %></div><% } %>
+      <% (m.actions || []).forEach(function (a) { %>
+      <div class="h2-actcard">
+        <div><b><%= a.label %></b><span class="hq-small" style="display:block;margin:2px 0 0"><%= actLabel[a.type] %><%= a.title ? ': ' + a.title : '' %><%= a.credits ? ', about ' + a.credits + ' credits' : '' %><%= a.text && a.type !== 'add_note' ? ': ' + a.text : '' %><%= a.name ? ': ' + a.name + ' ' + a.value : '' %></span></div>
+        <% if (a.status === 'proposed') { %>
+        <div style="display:flex;gap:6px">
+          <form method="post" action="/app/hq/ask/act/<%= a.id %>"><input type="hidden" name="ok" value="1"><button class="hq-pill">OK</button></form>
+          <form method="post" action="/app/hq/ask/act/<%= a.id %>"><input type="hidden" name="ok" value="0"><button class="hq-link-btn">No thanks</button></form>
+        </div>
+        <% } else if (a.status === 'done') { %><a class="link" href="<%= a.link %>">Done. Open</a>
+        <% } else if (a.status === 'open') { %><a class="link" href="<%= a.link %>">Open it to start</a>
+        <% } else { %><span class="hq-small" style="margin:0"><%= a.error ? a.error : 'Skipped' %></span><% } %>
+      </div>
+      <% }) %>
+      <% if (m.sample) { %><div class="hq-small" style="margin:6px 0 0">Sample</div><% } %>
+    </div>
+    <% }) %>
+    <span id="end"></span>
+  </section>
+  <form method="post" action="/app/hq/ask" class="h2-composer" data-ask>
+    <label for="ask-in" class="sr-only">Message</label>
+    <textarea class="input" id="ask-in" name="text" rows="2" maxlength="4000" required placeholder="Ask 127"><%= draft %></textarea>
+    <button class="btn">Send <span class="arrow"></span></button>
+  </form>
+  <details style="margin-top:10px"><summary class="hq-small" style="display:inline">Shortcuts</summary><ul class="h2-list"><% help.forEach(function (h) { %><li class="hq-small" style="margin:4px 0 0"><%= h %></li><% }) %></ul></details>
+  <% if (msgs.length) { %><form method="post" action="/app/hq/ask/clear" data-confirm="Start a fresh chat? This one is deleted." style="margin-top:6px"><button class="hq-link-btn">Start a fresh chat</button></form><% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
