@@ -1,12 +1,12 @@
 <%- include('../../partials/app-head') %>
-<%# One AI team role: its week, skills, workflows, budget, pause and let go. Locals: t (team.view), acts. %>
+<%# One AI helper: its week, skills, workflows, budget, pause and remove. Locals: t (team.view), acts. %>
 <% var R = t.report; %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/team">AI team</a></p>
   <section class="hq-card">
     <div class="h2-row"><h1 class="h2-h"><%= t.name %></h1><span class="h2-tag"><%= t.status === 'paused' ? 'Paused' : 'Working' %></span></div>
-    <p class="h2-sub"><%= t.job %></p>
+    <p class="h2-sub">AI helper · <%= t.job %> · Uses: <%= t.uses.length ? t.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= t.budget %> credits a month</p>
     <p class="hq-small">Always asks you before: <%= t.needsOk.join('; ').toLowerCase() %>.</p>
   </section>
   <section class="hq-card" style="margin-top:16px" aria-labelledby="wk-h">
@@ -41,7 +41,7 @@
     </form>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
       <form method="post" action="/app/hq/team/<%= t.id %>/pause"><% if (t.status === 'paused') { %><input type="hidden" name="resume" value="1"><button class="btn">Resume <span class="arrow"></span></button><% } else { %><button class="hq-pill">Pause</button><% } %></form>
-      <form method="post" action="/app/hq/team/<%= t.id %>/let-go" data-confirm="Let <%= t.name %> go? Its skills turn off. What it made stays on Runs."><button class="hq-link-btn">Let go</button></form>
+      <form method="post" action="/app/hq/team/<%= t.id %>/let-go" data-confirm="Remove <%= t.name %> from your team? Its skills turn off. What it made stays on Runs."><button class="hq-link-btn">Remove from my team</button></form>
     </div>
   </section>
   <% if (acts.length) { %>

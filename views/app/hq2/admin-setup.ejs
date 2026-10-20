@@ -6,14 +6,15 @@
     <div>
       <span class="eyebrow">Make Claude your admin</span>
       <h1 class="hq-title"><span class="dim">Your email, calendar</span><span class="steel">and business in one chat.</span></h1>
-      <p class="hq-lede">Your own Claude reads your inbox and calendar with the connectors you turn on inside Claude, and works with 127 through your AI link. 127 never sees your email. Nothing is sent without your yes.</p>
+      <p class="hq-lede">Your own Claude reads your inbox and calendar with the connectors you turn on inside Claude, and works with 127 through your AI link. Nothing is sent without your yes.</p>
+      <p class="hq-small">Gmail and Calendar connect inside Claude, under your own account with Anthropic. 127 doesn't get your email or calendar unless your Claude sends something to HQ, like a note.</p>
     </div>
   </div>
   <ol class="h2-stack" style="list-style:none;padding:0;margin:0">
     <li class="hq-card"><span class="eyebrow">Step 1</span><h2 class="h2-h" style="font-size:18px;margin-top:6px">Add 127 to Claude</h2><p class="h2-sub">Copy your AI link, then in Claude add it as a custom connector (in Claude's settings, under Connectors).</p><a class="hq-pill" style="margin-top:12px" href="/app/hq/connect#ai">Get your AI link</a></li>
     <li class="hq-card"><span class="eyebrow">Step 2</span><h2 class="h2-h" style="font-size:18px;margin-top:6px">Turn on Gmail and Google Calendar in Claude</h2><p class="h2-sub">Same place in Claude's settings. Those connect your Google account to your Claude, not to 127.</p></li>
     <li class="hq-card"><span class="eyebrow">Step 3</span><h2 class="h2-h" style="font-size:18px;margin-top:6px">Add the 127 admin skill</h2><p class="h2-sub">It tells Claude how to run your morning: your numbers, what's waiting in 127, today's meetings with context from your Brain, and replies drafted in your voice for you to check.</p><a class="hq-pill" style="margin-top:12px" href="/app/hq/admin-setup/skill.zip">Download the skill (.zip)</a><p class="hq-small">In Claude's settings, add it under Skills.<% if (skillsOn) { %> Each skill on your <a href="/app/hq/skills">Skills</a> page has its own too.<% } %></p></li>
-    <li class="hq-card"><span class="eyebrow">Step 4</span><h2 class="h2-h" style="font-size:18px;margin-top:6px">Say "morning"</h2><p class="h2-sub">Or try: "Draft replies to the emails waiting on me." "Log that we're moving weekly mowing to $50." "What did my sales rep do this week?"</p></li>
+    <li class="hq-card"><span class="eyebrow">Step 4</span><h2 class="h2-h" style="font-size:18px;margin-top:6px">Say "morning"</h2><p class="h2-sub">Or try: "Draft replies to the emails waiting on me." "Log that we're moving weekly mowing to $50." "What did my sales helper do this week?"</p></li>
   </ol>
   <% if (!brainOn) { %><p class="hq-small">Search and notes in your Brain switch on when your Brain's docs do.</p><% } %>
 </div>

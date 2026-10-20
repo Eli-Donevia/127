@@ -383,18 +383,20 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   assert.equal((await s.go('/app/hq/team', { as: u })).status, 404);
   process.env.HQ_TEAM = 'on';
   const gallery = await (await s.go('/app/hq/team', { as: u })).text();
-  assert.match(gallery, /Sales rep/);
+  assert.match(gallery, /Sales helper/);
+  assert.match(gallery, /AI helper · Finds people to talk to[^<]* · Uses: Gmail, Calendly \(reads only\) · Budget: 400 credits a month/);
+  assert.doesNotMatch(gallery, /\bHire\b/);
   const r = await s.go('/app/hq/team/hire/sales_rep', { as: u, form: { budget: '50' } });
   const t = team.list(u)[0];
   assert.equal(r.headers.get('location'), `/app/hq/team/${t.id}`);
   assert.equal(t.budget, 50);
   const sch = skills.scheduleOf(u.id, 'daily_numbers');
   assert.equal(sch.team, t.id);
-  await assert.rejects(team.hire(u, 'sales_rep'), /already have a Sales rep/);
+  await assert.rejects(team.hire(u, 'sales_rep'), /already have a Sales helper/);
   assert.equal(team.allows(t.id, 'gmail'), true);
   assert.equal(team.allows(t.id, 'gmail', true), false);
   assert.equal(team.allows(t.id, 'stripe'), false);
-  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Sales rep/);
+  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Sales helper/);
 
   // Paused: the sweep skips its skill and says why.
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: {} });
@@ -410,14 +412,14 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   };
   let out = await due();
   assert.deepEqual(out.ids, []);
-  assert.match(out.after.lastError, /Sales rep is paused/);
+  assert.match(out.after.lastError, /Sales helper is paused/);
   // Back to work: the run is the role's, and the Activity log says so.
   process.env.HQ_ACTIVITY = 'on';
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: { resume: '1' } });
   out = await due();
   assert.equal(out.ids.length, 1);
   assert.equal(db.get('runs', out.ids[0]).source, `team:${t.id}`);
-  assert.ok(activity.list(u.id, { who: 'Sales rep' }).some((a) => a.action === 'started'));
+  assert.ok(activity.list(u.id, { who: 'Sales helper' }).some((a) => a.action === 'started'));
   assert.equal(team.report(u, t).done, 1);
   // Off for the member: its turns skip too.
   delete process.env.HQ_TEAM;
@@ -521,6 +523,7 @@ test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, c
   await docs.save(u.id, { title: 'Prices', body: 'A full groom is $85 and a bath is $45.' });
   const blank = { workflow: '', skill: '', inputs: [], text: '', why: '', name: '', value: '' };
   const reply = {
+    under18: false,
     answer: 'A full groom is $85 [1].',
     cite: [1, 9],
     actions: [
@@ -597,4 +600,69 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   assert.equal(r.headers.get('location'), '/app/hq/ask#end');
   assert.equal(agent.messages(u)[0].text, 'Prompt: The Idea Test');
   assert.match(prompts.system('My brain text'), /My brain text/);
+});
+
+// ---------- Legal L76 ----------
+test('L76: card numbers and SSNs are masked in Brain docs, and the Public toggle says who can see a doc', async () => {
+  process.env.BRAIN_DOCS = 'on';
+  const u = await member();
+  const d = await docs.save(u.id, { title: 'Card 4242 4242 4242 4242', body: 'Pay with 4111-1111-1111-1111. SSN 123-45-6789. Call 555-123-4567. Order 1234 5678 9012 3456.', frontmatter: { ssn: 'SSN: 123456789' } });
+  assert.equal(d.title, 'Card [card ending 4242]');
+  assert.equal(d.body, 'Pay with [card ending 1111]. SSN [SSN ending 6789]. Call 555-123-4567. Order 1234 5678 9012 3456.');
+  assert.equal(d.frontmatter.ssn, 'SSN: [SSN ending 6789]');
+  assert.equal(docs.search(u.id, '4242424242424242').length, 0);
+  const page = await (await s.go('/app/hq/brain', { as: u })).text();
+  assert.match(page, /Anyone who uses your site chat can get answers from this doc\. Keep other people's details out\./);
+  assert.match(page, /Add only what you have the right to use\. Keep card and bank numbers, passwords and health details out\./);
+  assert.match(page, /These go with every AI request HQ makes for you\. Keep other people's details and secrets out\./);
+  assert.match(await (await s.go(`/app/hq/brain/docs/${d.id}`, { as: u })).text(), /Anyone who uses your site chat can get answers from this doc/);
+});
+
+test('L76: a fresh chat deletes the old one, chats go 180 days after their last message, and the under-18 marker pauses Ask 127 with only the member\'s words', async () => {
+  process.env.HQ_AGENT = 'on';
+  process.env.BRAIN_DOCS = 'on';
+  const u = await member();
+  await agent.send(u, '/help');
+  assert.ok(db.get('agentChats', u.id));
+  await agent.clear(u);
+  assert.equal(db.get('agentChats', u.id), null);
+  // 180 days
+  const old = await member();
+  await agent.send(old, '/help');
+  const c = db.get('agentChats', old.id);
+  c.messages.forEach((m) => { m.at = new Date(Date.now() - 181 * 864e5).toISOString(); });
+  c.updatedAt = c.messages[0].at;
+  db.get('agentChats', old.id).updatedAt = c.updatedAt; // updatedAt is stamped on save; set it after
+  await agent.send(u, '/help');
+  assert.equal(await agent.purge(Date.now()), 1);
+  assert.equal(db.get('agentChats', old.id), null);
+  assert.ok(db.get('agentChats', u.id));
+  // Under 18
+  await docs.save(u.id, { title: 'Secret plan', body: 'Our margin is 62 percent.' });
+  const blank = { workflow: '', skill: '', inputs: [], text: '', why: '', name: '', value: '' };
+  const fake = async (p) => ({ content: [{ type: 'text', text: JSON.stringify({ under18: true, answer: 'Thanks for telling me.', cite: [], actions: [blank].slice(0, 0) }) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model });
+  anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
+  try {
+    await agent.send(u, "I'm 15 and want to sell my margin plan");
+  } finally {
+    anthropic._setClient(null);
+  }
+  const who = db.get('users', u.id);
+  assert.equal(who.ageReview.status, 'open');
+  assert.equal(who.ageReview.source, 'ask');
+  assert.ok(who.ageReview.excerpt.every((m) => m.from === 'member'));
+  assert.ok(!JSON.stringify(who.ageReview.excerpt).includes('62 percent'));
+  await assert.rejects(agent.send(who, 'Hi'), /18 and older/);
+});
+
+test('L76: the AI link never starts a hidden workflow, and skills say whose content they are', async () => {
+  process.env.HQ_SKILLS = 'on';
+  const u = await member();
+  const out = await mcp.call(u, 'start_workflow', { workflow: 'hq.daily_numbers', inputs: {} });
+  assert.equal(out.isError, true);
+  assert.match(out.content[0].text, /isn't one you can start here/);
+  assert.equal(db.filter('runs', (r) => r.memberId === u.id).length, 0);
+  const md = skills.skillMd(skills.get('daily_numbers')).body;
+  assert.match(md, /^---\n[\s\S]*?\n---\n\n127 content for your own business, under 127's Terms \(Section 11\)\. Don't share or sell it\.\n\n# Daily numbers/);
+  assert.match(prompts.get('finance.forecast').note, /not tax, legal or investment advice/);
 });

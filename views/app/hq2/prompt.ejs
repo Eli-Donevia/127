@@ -7,6 +7,7 @@
     <h1 class="h2-h"><%= p.title %></h1>
     <p class="h2-sub"><%= p.when %></p>
     <% if (p.example && p.example.youGet) { %><p class="hq-small">You get: <%= p.example.youGet %></p><% } %>
+    <% if (p.note) { %><p class="hq-small"><%= p.note %></p><% } %>
     <% if (p.tools && p.tools.length) { %><p class="hq-small">Works well with: <%= p.tools.join(', ') %></p><% } %>
   </section>
   <% if (locked) { %>

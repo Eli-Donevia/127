@@ -6,7 +6,7 @@
   <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/brain#docs">Your Brain</a><%= view.path ? ' / ' + view.path : '' %></p>
   <section class="hq-card">
     <h1 class="h2-h"><%= d.title %></h1>
-    <p class="hq-small"><%= srcLabel[d.source] || d.source %> · <%= view.chars.toLocaleString('en-US') %> characters · updated <%= String(d.updatedAt || '').slice(0, 10) %><%= d.public ? ' · Public: customers can get answers from this' : '' %></p>
+    <p class="hq-small"><%= srcLabel[d.source] || d.source %> · <%= view.chars.toLocaleString('en-US') %> characters · updated <%= String(d.updatedAt || '').slice(0, 10) %><%= d.public ? ' · Public: anyone who uses your site chat can get answers from it' : '' %></p>
     <% if (view.tags.length) { %><div class="h2-chips" style="margin-top:8px"><% view.tags.forEach(function (t) { %><a class="h2-tag" href="/app/hq/brain?q=<%= encodeURIComponent(t) %>#docs">#<%= t %></a><% }) %></div><% } %>
     <% var fm = Object.keys(d.frontmatter || {}).filter(function (k) { return k !== 'tags' && k !== 'tag'; }); if (fm.length) { %>
     <table class="h2-table" style="margin-top:12px"><tbody><% fm.slice(0, 20).forEach(function (k) { var v = d.frontmatter[k]; %><tr><th scope="row"><%= k %></th><td><%= Array.isArray(v) ? v.join(', ') : v %></td></tr><% }) %></tbody></table>
@@ -25,7 +25,7 @@
       <label class="field"><span>Title</span><input class="input" name="title" maxlength="140" value="<%= d.title %>" required></label>
       <label class="field"><span>Text</span><textarea class="input" name="body" rows="14" required><%= d.body %></textarea></label>
       <label class="field"><span>Tags</span><input class="input" name="tags" maxlength="200" value="<%= view.tags.join(', ') %>"></label>
-      <label class="h2-opt"><input type="checkbox" name="public"<%= d.public ? ' checked' : '' %>> <span>Public: OK to answer customers from this<small>Only public docs are ever used to answer your customers. Leave clients' details out of public docs.</small></span></label>
+      <label class="h2-opt"><input type="checkbox" name="public"<%= d.public ? ' checked' : '' %>> <span>Public<small>Anyone who uses your site chat can get answers from this doc. Keep other people's details out.</small></span></label>
       <div><button class="btn">Save <span class="arrow"></span></button></div>
     </form>
   </details>

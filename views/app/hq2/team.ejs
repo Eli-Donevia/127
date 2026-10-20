@@ -1,12 +1,12 @@
 <%- include('../../partials/app-head') %>
-<%# HQ v2 AI team (lib/harness/team.js): roles hired in one tap. Locals: mine, gallery. %>
+<%# HQ v2 AI team (lib/harness/team.js): AI helpers added in one tap. Each card uses Legal's line (L76 R1, R3). Locals: mine, gallery. %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <div class="hq-head" style="margin-bottom:8px">
     <div>
       <span class="eyebrow">AI team</span>
-      <h1 class="hq-title"><span class="dim">Hire help</span><span class="steel">in one tap.</span></h1>
-      <p class="hq-lede">Each role has a job, the skills it runs, a monthly credit budget and a weekly report. It follows your house rules, and everything it drafts waits for your OK. You send every message yourself.</p>
+      <h1 class="hq-title"><span class="dim">AI helpers,</span><span class="steel">one tap each.</span></h1>
+      <p class="hq-lede">Each helper has a job, the skills it runs, a monthly credit budget and a weekly report. It follows your house rules, and everything it drafts waits for your OK. You send every message yourself.</p>
     </div>
   </div>
   <% if (mine.length) { %>
@@ -15,22 +15,23 @@
     <% mine.forEach(function (t) { %>
     <a class="hq-card h2-hit" href="/app/hq/team/<%= t.id %>">
       <span class="h2-row"><span class="h2-h" style="font-size:17px"><%= t.name %></span><span class="h2-tag"><%= t.status === 'paused' ? 'Paused' : 'Working' %></span></span>
+      <span class="hq-small" style="margin:0">AI helper · <%= t.job %> · Uses: <%= t.uses.length ? t.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= t.budget %> credits a month</span>
       <span class="h2-hit-t"><%= t.report.done %> done this week<%= t.report.waiting ? ', ' + t.report.waiting + ' waiting on you' : '' %> · <%= t.report.spentMonth %> of <%= t.budget %> credits this month</span>
     </a>
     <% }) %>
   </div>
   <% } %>
-  <h2 class="h2-h" style="font-size:18px;margin:24px 0 12px">Roles</h2>
+  <h2 class="h2-h" style="font-size:18px;margin:24px 0 12px">Helpers you can add</h2>
   <div class="h2-stack">
     <% gallery.forEach(function (r) { %>
     <section class="hq-card" aria-labelledby="role-<%= r.id %>">
       <h3 class="h2-h" id="role-<%= r.id %>" style="font-size:17px"><%= r.title %></h3>
-      <p class="h2-sub"><%= r.job %></p>
+      <p class="h2-sub">AI helper · <%= r.job %> · Uses: <%= r.uses.length ? r.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= r.budget %> credits a month</p>
       <p class="hq-small"><%= r.can %> workflow<%= r.can === 1 ? '' : 's' %><%= r.skills.length ? ' · runs ' + r.skills.join(', ') : '' %> · always asks you before: <%= (r.needsOk || []).join('; ').toLowerCase() %></p>
       <% if (r.ready) { %>
       <form method="post" action="/app/hq/team/hire/<%= r.id %>" class="h2-row" style="margin-top:12px;justify-content:flex-start;align-items:flex-end">
         <label class="field" style="margin:0;width:160px"><span>Credits a month</span><input class="input" name="budget" type="number" inputmode="numeric" min="10" max="5000" value="<%= r.budget %>"></label>
-        <button class="btn">Hire <span class="arrow"></span></button>
+        <button class="btn">Add to my team <span class="arrow"></span></button>
       </form>
       <% } else { %><p class="h2-empty">Not ready on your plan yet.</p><% } %>
     </section>

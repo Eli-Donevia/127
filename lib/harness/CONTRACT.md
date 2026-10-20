@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.10)
+# How a workflow plugs into the 127 harness (contract v1.11)
 
-Owner: Harness v2 thread. Version 1.10, 2026-10-20 (v1 to v1.9 were earlier; section 0
+Owner: Harness v2 thread. Version 1.11, 2026-10-20 (v1 to v1.10 were earlier; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -11,6 +11,11 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.11** (Oct 20; Legal L76, nothing breaks):
+
+- A pack with `act` steps goes to Legal by id, with its `act` steps listed, before it's switched on; and a refund is the only `act` that moves money out of a member's account (section 5).
+- The AI link never starts a `hidden` workflow; skills still run through `run_skill`.
 
 **In v1.10** (Oct 20; nothing breaks):
 
@@ -240,7 +245,8 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 - **When an `act` tool is allowed (v1.10).** Only to change the member's own account through a connection they made in HQ (Hub's connectors: `needs: ['stripe']`, `['meta_ads']` and the rest of `connectors.PACKABLE`), and only when all three hold:
   1. **It needs the connection.** `ctx.secret('<id>')` gives an `act` step a client whose `writes.*` work; the same client in a `read` or `draft` step refuses every write. Each write lands in the member's Activity log before it runs, with the approval that allowed it.
   2. **An `approve` step comes first** and the `act` step runs on what it approved (above). The approval card says exactly what will change, in the member's words: "Refund $40 to Jo", "Pause the ad set Summer promo". The AI link, Ask 127 and an AI team role can't approve it, and a run an AI team role started can't write at all in v2.0.
-  3. **The pack is `held: true`** until Legal clears it in `v2/turnkey/LEGAL-ASKS.md`. It loads only where `PACKS_ON` names it, so admins can test it while members can't see it.
+  3. **The pack is `held: true`** until Legal clears it. Send the pack's id to Legal with its `act` steps listed (L76 H10); Legal clears it in DECISIONS when each step meets A1 and its connection's rules (K11, F4 and F5 for Stripe, D1 for ads, F9 for refunds). Until then it loads only where `PACKS_ON` names it, so admins can test it while members can't see it.
+- **Money never moves out of a member's account, except a refund** (Legal L76 F9): back to the original payment only, for no more than the charge, on an approval card that shows the customer, the amount and the charge. No `act` step pays, transfers or spends from a member's account otherwise.
 - Still no `act` tools that message a customer, post, or spend money outside the member's own connected accounts: messages are drafts the member copies, or opens in their own Gmail or Instagram with one tap. Sending from 127 comes later, with Legal.
 
 ## 6. Keys, sample data and the business brain

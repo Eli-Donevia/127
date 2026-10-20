@@ -4,6 +4,7 @@
 <section class="hq-card h2-form" id="rules" aria-labelledby="rules-h" style="margin-top:16px">
   <h2 class="h2-h" id="rules-h" style="font-size:18px">House rules</h2>
   <p class="h2-sub">How your business works. Every workflow, Ask 127 and your own Claude read these before they write anything for you. Words you ban under Checks are checked on every draft.</p>
+  <p class="hq-small">These go with every AI request HQ makes for you. Keep other people's details and secrets out.</p>
   <form method="post" action="/app/hq/brain/rules" class="h2-stack" style="margin-top:14px">
     <label class="field"><span>Principles</span><textarea class="input" name="principles" rows="4" maxlength="8000" placeholder="Example: We answer every customer the same day. We never discount on the first call. Simple beats clever."><%= bd.rules.principles %></textarea></label>
     <label class="field"><span>How we do things</span><textarea class="input" name="sops" rows="5" maxlength="8000" placeholder="Your standard ways of working. Example: New client: send the welcome email, book the kickoff within 3 days, add them to the client sheet."><%= bd.rules.sops %></textarea><span class="hint">Longer SOPs work better as docs below. Keep the short version here.</span></label>
@@ -33,13 +34,14 @@
     <span data-upload data-upload-url="/app/hq/brain/docs/upload" data-upload-import="notion"><label class="hq-pill">Import a Notion export (.zip)<input type="file" data-upload-input hidden accept=".zip"></label> <span class="hq-small" data-upload-msg aria-live="polite"></span></span>
   </div>
   <p class="hq-small">Markdown, text, CSV, HTML, Word and PDF. 127 keeps the text, not the file. Obsidian keeps your [[links]], tags and properties; import the same vault again to refresh it. In Notion: Settings, Export, Markdown &amp; CSV.</p>
+  <p class="hq-small">Add only what you have the right to use. Keep card and bank numbers, passwords and health details out. <a href="/terms#13d-your-brain-ask-127-your-ai-team-site-chat-and-studio">Terms</a></p>
   <details style="margin-top:12px">
     <summary class="hq-pill" style="list-style:none">Write or paste a doc</summary>
     <form method="post" action="/app/hq/brain/docs" class="h2-stack" style="margin-top:12px">
       <label class="field"><span>Title</span><input class="input" name="title" maxlength="140" required placeholder="Example: Our refund policy"></label>
       <label class="field"><span>Text</span><textarea class="input" name="body" rows="8" required placeholder="Paste or write it here. Markdown works: # headings, - lists, [[links]] to other docs, #tags."></textarea></label>
       <label class="field"><span>Tags</span><input class="input" name="tags" maxlength="200" placeholder="Example: policy, clients"></label>
-      <label class="h2-opt"><input type="checkbox" name="public"> <span>Public: OK to answer customers from this</span></label>
+      <label class="h2-opt"><input type="checkbox" name="public"> <span>Public<small>Anyone who uses your site chat can get answers from this doc. Keep other people's details out.</small></span></label>
       <div><button class="btn">Add to my Brain <span class="arrow"></span></button></div>
     </form>
   </details>
