@@ -1,0 +1,101 @@
+<%- include('../../partials/app-head') %>
+<%# A Store item (lib/store-routes.js): preview, what it is, how to use it, downloads gated by plan, outside links, a prompt pack's prompts (text only where the member's plan covers that prompt), and Make it mine. %>
+<% var lockIcon = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+   var linkWord = { copy: 'Make a copy', duplicate: 'Duplicate', open: 'Open' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="st-back"><a class="link" href="/app/hq/store">&larr; Store</a></p>
+  <div class="h2-grid">
+    <div class="h2-stack">
+      <section class="hq-card">
+        <div class="h2-chips">
+          <span class="h2-tag"><%= card.kindLabel %></span>
+          <% if (card.coming) { %><span class="h2-tag st-soon">Coming soon</span><% } %>
+          <% if (card.locked) { %><span class="h2-tag <%= item.tier === 'circle' ? 'gold' : 'lock' %>"><%- lockIcon %><%= planName %></span><% } %>
+          <% types.forEach(function (t) { %><span class="h2-tag"><%= t %></span><% }) %>
+        </div>
+        <h1 class="hq-title" style="font-size:36px"><span class="steel"><%= item.title %></span></h1>
+        <p class="hq-lede"><%= item.summary %></p>
+        <% if (item.disclaimer) { %><p class="st-note"><%= item.disclaimer %></p><% } %>
+        <% if (item.minutes || item.output) { %>
+        <div class="h2-value">
+          <% if (item.output) { %><div><span>What you end up with</span><b><%= item.output %></b></div><% } %>
+          <% if (item.minutes) { %><div><span>Your time</span><b>About <%= item.minutes %> min</b></div><% } %>
+        </div>
+        <% } %>
+      </section>
+
+      <% if (card.preview) { %>
+      <figure class="hq-card st-preview"><img src="<%= card.preview %>" alt="A preview of <%= item.title %>"></figure>
+      <% } %>
+
+      <% if (item.howTo && item.howTo.length) { %>
+      <section class="hq-card" aria-labelledby="how-h">
+        <span class="eyebrow" id="how-h">How to use it</span>
+        <ol class="st-how"><% item.howTo.forEach(function (s) { %><li><%= s %></li><% }) %></ol>
+      </section>
+      <% } %>
+
+      <% if (prompts.length) { %>
+      <section class="hq-card" aria-labelledby="pr-h">
+        <span class="eyebrow" id="pr-h"><%= item.groupTitle || 'The prompts' %></span>
+        <div class="st-prompts">
+          <% prompts.forEach(function (p) { %>
+          <div class="st-prompt<%= p.locked ? ' locked' : '' %>">
+            <div class="h2-row"><h3><%= p.title %></h3><% if (p.locked) { %><span class="h2-tag <%= p.tier === 'circle' ? 'gold' : 'lock' %>"><%- lockIcon %><%= p.tier === 'circle' ? "Founder's Circle" : 'Builder' %></span><% } %></div>
+            <% if (p.when) { %><p class="h2-sub">When: <%= p.when %></p><% } %>
+            <% if (p.text) { %>
+            <div class="blk blk-copy" style="margin-top:10px">
+              <div class="h2-row"><span class="eyebrow">Prompt</span><span class="h2-chips"><button type="button" data-copy>Copy</button></span></div>
+              <pre><%= p.text %></pre>
+            </div>
+            <% } else if (p.locked) { %>
+            <p class="hq-small">Part of <%= p.tier === 'circle' ? "Founder's Circle" : 'Builder' %>. <a href="/app/billing">See plans</a></p>
+            <% } %>
+          </div>
+          <% }) %>
+        </div>
+      </section>
+      <% } %>
+    </div>
+
+    <div class="h2-stack">
+      <% if (card.coming) { %>
+      <section class="hq-card"><span class="eyebrow">Coming soon</span><p class="h2-sub">This one is still being made. It shows up here, ready to download, once it's done.</p></section>
+      <% } else if (card.locked) { %>
+      <section class="hq-card" id="unlock"><span class="eyebrow"><%- lockIcon %> <%= planName %></span><p class="h2-sub"><%= item.title %> is part of <%= planName %>, with every template in the Store and Make it mine on each one.</p><div class="h2-actions"><a class="hq-pill" href="/app/billing">See <%= planName %></a></div></section>
+      <% } else { %>
+        <% if (mine) { %>
+        <form class="hq-card h2-form" method="post" action="/app/hq/store/<%= item.id %>/make">
+          <span class="eyebrow">Make it mine</span>
+          <p class="h2-sub">127 fills this in with the details from Your business and saves it to your Library. No AI, about <%= mine.credits %> credit<%= mine.credits === 1 ? '' : 's' %>.</p>
+          <% if (mine.fills.length) { %>
+          <ul class="st-fills"><% mine.fills.forEach(function (f) { %><li class="<%= f.have ? 'have' : '' %>"><span><%= f.label %></span><b><%= f.have ? 'From Your business' : 'Not saved yet' %></b></li><% }) %></ul>
+          <% if (mine.fills.some(function (f) { return !f.have; })) { %><p class="hq-small">Anything not saved yet keeps a blank like [Your business] to fill in. <a href="/app/hq/brain">Add it in Your business</a></p><% } %>
+          <% } %>
+          <div style="margin-top:12px">
+            <% if (mine.email) { %><label class="field" for="st-email"><span>Email for customers (optional)</span><input class="input" type="email" id="st-email" name="email" maxlength="120" autocomplete="email"></label><% } %>
+            <% if (mine.phone) { %><label class="field" for="st-phone"><span>Phone for customers (optional)</span><input class="input" type="tel" id="st-phone" name="phone" maxlength="40" autocomplete="tel"></label><% } %>
+          </div>
+          <div class="h2-actions"><button class="btn">Make it mine <span class="arrow"></span></button></div>
+        </form>
+        <% } %>
+        <% if (downloads.length) { %>
+        <section class="hq-card" aria-labelledby="dl-h">
+          <span class="eyebrow" id="dl-h">Download</span>
+          <ul class="st-files"><% downloads.forEach(function (d) { %><li><a class="hq-pill ghost" href="<%= d.href %>" download><%= d.label %></a><% if (d.size) { %><span class="hq-small"><%= d.size %></span><% } %></li><% }) %></ul>
+          <% if (mine) { %><p class="hq-small">These are the clean files, with blanks like [Your business] to fill in.</p><% } %>
+        </section>
+        <% } %>
+        <% if (item.links.length) { %>
+        <section class="hq-card" aria-labelledby="ln-h">
+          <span class="eyebrow" id="ln-h">Open it in your tools</span>
+          <div class="h2-actions"><% item.links.forEach(function (l) { %><a class="hq-pill" href="<%= l.url %>" target="_blank" rel="noopener noreferrer"><%= l.label || linkWord[l.type] %></a><% }) %></div>
+        </section>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

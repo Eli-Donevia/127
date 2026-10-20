@@ -1,0 +1,52 @@
+<%- include('../../partials/app-head') %>
+<%# HQ Store (lib/store.js, STORE_V2): every template kind in one gallery. Chips filter by kind and business type, the box searches; all three are plain links and a GET form, so it works without scripts. %>
+<% var lockIcon = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>'; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Store</span>
+      <h1 class="hq-title"><span class="dim">Every template.</span><span class="steel">One tap to make it yours.</span></h1>
+      <p class="hq-lede">Sheets, docs, Notion systems, decks, prompts and more. Make it mine fills one in with the details from Your business and saves it to your Library.</p>
+    </div>
+  </div>
+  <form class="st-search" method="get" action="/app/hq/store" role="search">
+    <% if (kind) { %><input type="hidden" name="kind" value="<%= kind %>"><% } %>
+    <% if (type) { %><input type="hidden" name="type" value="<%= type %>"><% } %>
+    <input class="h2-search" type="search" name="q" value="<%= q %>" placeholder="Search the Store" aria-label="Search the Store" maxlength="80" enterkeyhint="search">
+  </form>
+  <nav class="st-chips" aria-label="Kind">
+    <a class="st-chip<%= !kind ? ' on' : '' %>" href="<%= href({ kind: '' }) %>"<%- !kind ? ' aria-current="true"' : '' %>>All</a>
+    <% facets.kinds.forEach(function (k) { %><a class="st-chip<%= kind === k.key ? ' on' : '' %>" href="<%= href({ kind: k.key }) %>"<%- kind === k.key ? ' aria-current="true"' : '' %>><%= k.label %></a><% }) %>
+  </nav>
+  <nav class="st-chips" aria-label="Business type">
+    <a class="st-chip<%= !type ? ' on' : '' %>" href="<%= href({ type: '' }) %>"<%- !type ? ' aria-current="true"' : '' %>>Any business</a>
+    <% facets.types.forEach(function (t) { %><a class="st-chip<%= type === t.key ? ' on' : '' %>" href="<%= href({ type: t.key }) %>"<%- type === t.key ? ' aria-current="true"' : '' %>><%= t.label %></a><% }) %>
+  </nav>
+
+  <% if (empty) { %>
+    <div class="hq-card"><p class="h2-sub" style="margin:0">The Store is being stocked. Check back soon.</p></div>
+  <% } else if (!items.length) { %>
+    <p class="h2-empty">Nothing matches. Try fewer words, or another chip. <a class="link" href="/app/hq/store">Show everything</a></p>
+  <% } else { %>
+  <div class="st-grid">
+    <% items.forEach(function (c) { %>
+    <a class="st-card<%= c.locked ? ' locked' : '' %><%= c.coming ? ' coming' : '' %>" href="/app/hq/store/<%= c.id %>">
+      <div class="st-thumb"><% if (c.preview) { %><img src="<%= c.preview %>" alt="" loading="lazy"><% } else { %><span class="st-thumb-k"><%= c.kindShort %></span><% } %></div>
+      <div class="st-body">
+        <h3><%= c.title %></h3>
+        <p><%= c.summary %></p>
+        <% if (c.disclaimer) { %><p class="st-note"><%= c.disclaimer %></p><% } %>
+        <div class="meta">
+          <span class="h2-tag"><%= c.kindLabel %></span>
+          <% if (c.coming) { %><span class="h2-tag st-soon">Coming soon</span><% } %>
+          <% if (c.locked) { %><span class="h2-tag <%= c.tier === 'circle' ? 'gold' : 'lock' %>"><%- lockIcon %><%= c.tier === 'circle' ? "Founder's Circle" : 'Builder' %></span><% } else if (c.mine && !c.coming) { %><span class="h2-tag dfy">Make it mine</span><% } %>
+        </div>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

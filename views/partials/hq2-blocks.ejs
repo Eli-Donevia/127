@@ -16,7 +16,7 @@
   <% if (b.type === 'metrics') { %>
     <div class="blk blk-metrics"><% b.items.forEach(function (m) { %><div class="blk-metric"><span><%= m.label %></span><b><%= fmt(m.value, m.format) %></b><% if (m.note) { %><small><%= m.note %></small><% } %></div><% }) %></div>
   <% } else if (b.type === 'text') { %>
-    <div class="blk blk-text"><%= b.text %></div>
+    <div class="blk blk-text<%= b.muted ? ' muted' : '' %>"><%= b.text %></div>
   <% } else if (b.type === 'table') { var shown = b.rows.slice(0, b.limit), rest = b.rows.slice(b.limit); %>
     <div class="blk">
       <% if (b.title) { %><div class="eyebrow" style="margin-bottom:8px"><%= b.title %></div><% } %>

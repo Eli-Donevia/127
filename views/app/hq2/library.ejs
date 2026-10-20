@@ -2,7 +2,7 @@
 <%# HQ v2 Library: every file a workflow made for the member. %>
 <% var mb = function (n) { return n >= 1048576 ? (Math.round(n / 104857.6) / 10) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; };
    var kindOf = function (t) { return /^video\//.test(t) ? 'video' : /^image\//.test(t) ? 'image' : t === 'text/html' ? 'html' : 'file'; };
-   var label = { 'text/csv': 'Spreadsheet', 'application/pdf': 'PDF', 'text/plain': 'Text', 'text/markdown': 'Doc', 'text/html': 'Web page', 'application/zip': 'Zip', 'application/json': 'Data', 'text/calendar': 'Calendar', 'text/vcard': 'Contacts', 'text/vtt': 'Captions', 'application/x-subrip': 'Captions', 'image/svg+xml': 'Image' }; %>
+   var label = { 'text/csv': 'Spreadsheet', 'application/pdf': 'PDF', 'text/plain': 'Text', 'text/markdown': 'Doc', 'text/html': 'Web page', 'application/zip': 'Zip', 'application/json': 'Data', 'text/calendar': 'Calendar', 'text/vcard': 'Contacts', 'text/vtt': 'Captions', 'application/x-subrip': 'Captions', 'image/svg+xml': 'Image', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word doc', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Spreadsheet', 'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'Slides' }; %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <div class="hq-head" style="margin-bottom:8px">
