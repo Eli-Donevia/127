@@ -2133,3 +2133,80 @@ test('admin numbers: spend against the cap with alarms, cost per free run, and f
     harness.hooks({ emit: () => {} });
   }
 });
+
+test('Delete this run (Legal L73): the run, its answers, results, files and Inbox cards go; the member\'s own files and leads stay', async () => {
+  const u = await member();
+  const other = await member();
+  const mine = await harness.library.save(u, 'notes.txt', 'my own notes', { type: 'text/plain' });
+  // A finished run with files, and one still waiting on the member.
+  let r = await s.go('/app/hq/w/rt.flow/run', { as: u, form: { in_city: 'Ames' } });
+  const done = where(r).split('/').pop();
+  await engine.idle();
+  await engine.answer(u, done, 'pick', { approved: true, chosen: ['0'] });
+  await engine.idle();
+  assert.equal(engine.get(u, done).status, 'done');
+  const made = harness.library.list(u.id, { runId: done });
+  assert.ok(made.length >= 1);
+  r = await s.go('/app/hq/w/rt.flow/run', { as: u, form: { in_city: 'Boone' } });
+  const waiting = where(r).split('/').pop();
+  await engine.idle();
+  assert.equal(engine.get(u, waiting).status, 'waiting');
+  assert.ok(db.filter('inbox', (i) => i.runId === waiting).length);
+  const leads = harness.pipeline.list(u.id).length;
+
+  const page = await html(await s.go(`/app/hq/runs/${done}`, { as: u }));
+  assert.match(page, /action="\/app\/hq\/runs\/[\w-]+\/delete" data-confirm="Delete this run for good\?/);
+
+  // Nobody else can delete it.
+  assert.equal(await (await s.go(`/app/hq/runs/${done}/delete`, { as: other, form: {} })).text(), 'app 404');
+  assert.ok(engine.get(u, done));
+
+  r = await s.go(`/app/hq/runs/${done}/delete`, { as: u, form: {} });
+  assert.equal(where(r), '/app/hq/runs');
+  assert.match(flashes.pop().text, /^Deleted\./);
+  assert.equal(engine.get(u, done), null);
+  assert.equal(db.get('runs', done), null);
+  for (const f of made) {
+    assert.equal(db.get('assets', f.id), null);
+    assert.equal(await db.getBlob(f.id), null);
+  }
+  assert.ok(harness.library.get(u.id, mine.id), "the member's own file stays");
+  assert.equal(harness.pipeline.list(u.id).length, leads, 'leads stay in the Pipeline');
+  assert.equal(await (await s.go(`/app/hq/runs/${done}`, { as: u })).text(), 'app 404');
+
+  // A run still waiting stops and goes, with its Inbox card.
+  r = await s.go(`/app/hq/runs/${waiting}/delete`, { as: u, form: {} });
+  assert.equal(where(r), '/app/hq/runs');
+  assert.equal(db.get('runs', waiting), null);
+  assert.equal(db.filter('inbox', (i) => i.runId === waiting).length, 0);
+  assert.equal(harness.inbox.count(u.id), 0);
+});
+
+test('an hqOnly workflow (contract v1.9, Legal L72): the AI link names it with its HQ page, never its fields, and never starts it', async () => {
+  const r = packs.register({
+    id: 'rq',
+    title: 'HQ only tests',
+    version: '1.0.0',
+    summary: 'A private intake.',
+    niches: ['trainers'],
+    tools: [{ name: 'rq.note', title: 'Note', description: 'Keeps one word.', kind: 'code', risk: 'read', credits: 1, input: obj({ result: { type: 'string', enum: ['Go', 'Hold'] } }), output: obj({ ok: { type: 'boolean' } }), run: async () => ({ ok: true }), view: () => [{ type: 'text', text: 'Saved.' }] }],
+    workflows: [{ id: 'rq.intake', hqOnly: true, title: 'Private intake', promise: 'Keeps one word.', minutes: 1, tier: 'free', job: 'ops', inputs: obj({ result: { type: 'string', enum: ['Go', 'Hold'] } }), steps: [{ id: 'note', tool: 'rq.note', input: { result: '$inputs.result' } }], result: ['note'] }],
+  });
+  assert.deepEqual(r.refused, [], JSON.stringify(r.refused));
+  const u = await member();
+  const mcp = require('../lib/harness/mcp');
+  const ai = async (name, args) => (await mcp.call(u, name, args, { base: 'https://127.test' })).content[0].text;
+  const list = await ai('list_workflows', { query: 'private intake' });
+  assert.match(list, /rq\.intake: Private intake\. .* Starts in HQ only, where the member fills it in: https:\/\/127\.test\/app\/hq\/w\/rq\.intake/);
+  assert.doesNotMatch(list, /Go \| Hold|Fields:/);
+  const started = await ai('start_workflow', { workflow: 'rq.intake', inputs: { result: 'Hold' } });
+  assert.match(started, /starts in HQ only.*Nothing started.*https:\/\/127\.test\/app\/hq\/w\/rq\.intake$/s);
+  assert.doesNotMatch(started, /Hold/);
+  assert.equal(engine.list(u).length, 0);
+  // In HQ it runs like any other workflow.
+  const res = await s.go('/app/hq/w/rq.intake/run', { as: u, form: { in_result: 'Go' } });
+  assert.match(where(res), /^\/app\/hq\/runs\//);
+  // A pack can't set it to anything but true or false.
+  const bad = packs.register({ id: 'rq2', title: 'Bad', version: '1.0.0', summary: 'x', tools: [], workflows: [{ id: 'rq2.x', hqOnly: 'yes', title: 'X', promise: 'X', minutes: 1, tier: 'free', inputs: obj({}, []), steps: [{ id: 'note', tool: 'rq.note' }] }] });
+  assert.match(JSON.stringify(bad.refused), /hqOnly must be true or false/);
+});

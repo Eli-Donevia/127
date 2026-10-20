@@ -1,4 +1,4 @@
-# How a workflow plugs into the 127 harness (contract v1.8)
+# How a workflow plugs into the 127 harness (contract v1.9)
 
 Owner: Harness v2 thread. Version 1.8, 2026-10-19 (v1 to v1.7 were earlier the same day; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
@@ -11,6 +11,11 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.9** (Legal L72, L73):
+
+- **`hqOnly: true` on a workflow** keeps its answers out of AI chats. The AI link lists it with a link to its page in HQ, without its fields, and never starts it. Use it when an answer is sensitive about someone other than the member, like a client's health form result (`trainer.intake_plan`). Section 4c.
+- **"Delete this run"** in HQ removes a run, its answers, results and log, the files it made and its Inbox cards at once (a run still going stops first). Files the member added, leads it saved to the Pipeline, a repeat and the credits used stay. Nothing to change in a pack: keep what a run makes in the run and its files, and only what the member should keep after a deletion in the Pipeline or memory.
 
 **In v1.8** (nothing to change in a pack; Legal L71):
 
@@ -152,6 +157,7 @@ Rules:
   job: 'leads',                     // optional: offer, leads, content, sales, ads, site, money or ops (guessed from the words if left out: the id and title count most). Start groups tools by job and puts the member's bottleneck first; a business pack's workflows stay together in your order.
   starter: true,                    // optional: a good first workflow for a new member of this niche
   hidden: false,                    // optional: true for workflows HQ starts itself (section 4c)
+  hqOnly: false,                    // optional, v1.9: true keeps its answers out of AI chats (section 4c)
   suggestSchedule: { cron: '0 7 * * 1', label: 'Every Monday at 7am' }, // optional, v1.4: offer to repeat it (section 4d)
   inputs: { type: 'object', properties: { city: { type: 'string', title: 'Your city' } }, required: ['city'] },
   steps: [
@@ -192,6 +198,8 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 ### 4c. Hidden workflows
 
 `hidden: true` workflows are started by HQ itself (Do my day's "Write it for me", call prep, Monday's card). They have no page, aren't on Start or the AI link's list, and never use a Free member's free run.
+
+`hqOnly: true` workflows (v1.9) have a page and run like any other, but start in HQ only: the AI link names them with a link to their page, never their fields, and refuses to start them. A run's view still shows on the AI link, so keep anything sensitive out of the view too (in its files, private to the member).
 
 ### 4d. Repeats
 

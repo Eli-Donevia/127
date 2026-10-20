@@ -72,6 +72,7 @@
         </div>
         <p class="hq-small">Started <%= stamp(v.createdAt, true) %> ET<%= v.endedAt ? '. Ended ' + stamp(v.endedAt, true) + ' ET' : '' %>.</p>
         <% if (isAdmin && v.sample && v.status === 'done') { %><form method="post" action="/app/hq/runs/<%= v.id %>/showcase"><button class="hq-link-btn">Make this the example on the workflow page</button></form><% } %>
+        <form method="post" action="/app/hq/runs/<%= v.id %>/delete" data-confirm="Delete this run for good? Its answers, results, the files it made and its Inbox cards go now<%= ended ? '' : ', and it stops' %>. Files you added to your Library, leads in your Pipeline and any repeat stay."><button class="hq-link-btn">Delete this run</button></form>
       </section>
 
       <% if (next.length && ended) { %>
