@@ -14,7 +14,7 @@ function load(flag) {
   finally { if (old === undefined) delete process.env.SITE_MOTION; else process.env.SITE_MOTION = old; fresh(); }
 }
 const KINDS = ['local-service', 'studio', 'restaurant', 'coach', 'portfolio', 'product', 'agency', 'creator'];
-const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'market', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack'];
+const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'market', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack', 'nightfall', 'rotunda', 'assembly', 'lumen', 'bloom'];
 
 test('the animated designs show only with SITE_MOTION=on', () => {
   assert.equal(load().T.TEMPLATES.filter((t) => t.animated).length, 0);
@@ -86,4 +86,39 @@ test('scroll-lit words wait in a readable color, never dimmed out (a reader and 
     const css = require('fs').readFileSync(path.join(dir, f), 'utf8');
     assert.ok(!/html\.m [^{]*(\.w\b|\.lw\b)[^{]*\{[^}]*opacity:\.[0-4]/.test(css), f);
   }
+});
+
+// The five reel designs (0028): each keeps to the budget and to the rules for its kind of motion.
+test('the reel designs: light pages, WebGL only in Lumen and only the careful way, frames only when given', async () => {
+  const { facts, site } = load('on');
+  const build = async (id, input) => (await site.buildSite(null, { facts: facts.factsFrom(null, input, { own: false }), template: id, render: false })).files.find((f) => f.name === 'index.html').data;
+  const base = { business: 'Tern Audio', product: 'Tern One', what: 'Wireless speaker', included: 'Aluminum shell\nTwo-way driver\nReplaceable battery', services: 'Tern One, $249', buy: 'https://buy.stripe.com/test_x', email: 'a@b.example' };
+  for (const id of ['nightfall', 'rotunda', 'assembly', 'lumen', 'bloom']) {
+    const html = await build(id, base);
+    const bytes = Buffer.byteLength(html.replace(/@font-face\{[^}]*\}/g, ''));
+    assert.ok(bytes < 70000, `${id}: ${bytes} bytes of HTML, CSS and script`);
+    assert.ok(!/#d8b46e/i.test(html), `${id}: 127's Circle gold`);
+    assert.ok(!/https?:\/\/(fonts\.|cdn|unpkg)/.test(html), `${id}: something from outside`);
+    const webgl = /getContext\('webgl'/.test(html);
+    assert.equal(webgl, id === 'lumen', `${id}: WebGL`);
+    if (webgl) {
+      assert.match(html, /Math\.min\(devicePixelRatio\|\|1,2\)\*\.5/, 'half resolution, device pixel ratio capped at 2');
+      assert.match(html, /innerWidth<768\)return/, 'phones keep the CSS light');
+      assert.match(html, /addEventListener\('load'/, 'starts after load');
+      assert.match(html, /IntersectionObserver\(function\(es\)\{vis=/, 'stops off screen');
+      assert.match(html, /classList\.contains\('mp'\)/, 'stops when motion is paused');
+      assert.match(html, /class="lm-fb"/, 'a CSS fallback under the canvas');
+    }
+  }
+  const plain = await build('assembly', base);
+  assert.ok(!/data-frames=/.test(plain) && !/<canvas/.test(plain), 'no frames given: the CSS layers, no canvas');
+  const seq = await build('assembly', { ...base, frames: 120 });
+  assert.match(seq, /data-frames="120"/);
+  assert.match(seq, /<canvas class="as-seq"/);
+  for (const x of ['Aluminum shell', 'Two-way driver', 'Replaceable battery']) assert.ok(plain.includes(`</b>${x}</span>`), `a callout for ${x}`);
+  const night = await build('nightfall', base);
+  assert.equal((night.match(/class="nf-num"/g) || []).length, 4, 'four chapter numerals');
+  const ring = await build('rotunda', { business: 'Arlo', what: 'Architecture photographer', work: 'One | a\nTwo | b\nThree | c', email: 'a@b.example' });
+  assert.equal((ring.match(/class="rt-card dup"[^>]*aria-hidden="true"/g) || []).length, 7, 'the repeats around the ring are hidden from screen readers');
+  assert.equal((ring.match(/class="rt-case"/g) || []).length, 3, 'a case study for each piece');
 });
