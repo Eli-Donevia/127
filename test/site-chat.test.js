@@ -166,7 +166,7 @@ test("S2, S8: the opening before the visitor types, the line under the box, fram
   assert.match(res.headers.get('content-security-policy'), /frame-ancestors https:\/\/glowdetail\.com https:\/\/www\.glowdetail\.com$/);
   assert.equal(res.headers.get('cache-control'), 'no-store');
   const html = await res.text();
-  assert.ok(html.includes("Hi! I&#39;m Glow Mobile Detailing&#39;s AI assistant. I answer from Glow Mobile Detailing&#39;s own info and can get things wrong, so check anything important with them. This chat is saved for Glow Mobile Detailing, and 127 runs it for them. Please don&#39;t share card numbers or health details here."));
+  assert.ok(html.includes("Hi! I&#39;m Glow Mobile Detailing&#39;s AI assistant. I answer from Glow Mobile Detailing&#39;s own info and can get things wrong, so check anything important with them. This chat is saved for Glow Mobile Detailing, and 127 runs it for them with Anthropic&#39;s AI. Please don&#39;t share card numbers or health details here."));
   assert.ok(html.indexOf('AI assistant') < html.indexOf('<textarea'), 'the opening comes before the box');
   assert.match(html, /AI assistant · Saved for Glow Mobile Detailing · <a href="\/site-chat"[^>]*>Run by 127<\/a> · <a href="https:\/\/glowdetail\.com\/privacy"[^>]*>Privacy<\/a>/);
   assert.match(html, /data-page="https:\/\/glowdetail\.com\/prices"/, 'only the page address, no query');
