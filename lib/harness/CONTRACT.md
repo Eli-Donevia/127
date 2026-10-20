@@ -1,4 +1,4 @@
-# How a workflow plugs into the 127 harness (contract v1.11)
+# How a workflow plugs into the 127 harness (contract v1.12)
 
 Owner: Harness v2 thread. Version 1.11, 2026-10-20 (v1 to v1.10 were earlier; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
@@ -11,6 +11,11 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.12** (Oct 20; nothing breaks):
+
+- `ownAccount: true` on an output says the call ran on the member's own provider account (they paid the provider). It costs `OWN_ACCOUNT_CREDIT_PCT` percent of the tool's credits (section 8), and counts only if the call opened that account with `ctx.secret`.
+- HQ's run route, like the AI link, never starts a `hidden` workflow.
 
 **In v1.11** (Oct 20; Legal L76, nothing breaks):
 
@@ -342,6 +347,8 @@ ctx.brain.search('refund policy', { limit: 5 })
 ## 8. Credits
 
 Members see credits, not dollars. Each tool's `credits` is per call (per item in an `each`). The Run button shows the estimate ("About 24 credits"); a run starts only with enough left. Credits are charged **after** a call succeeds with real output: failed calls and sample output (section 3) cost nothing. Proposed monthly allowances (Eli's call): Free 50, Builder 1,000, Circle 3,000. A Free member also gets one Builder workflow free, once (never a hidden one). As a guide, 1 credit is about $0.01 of our cost: price a tool at about 2 times what it costs us, rounded up.
+
+When a call ran on the member's own provider account (a Studio provider or another connection from Hub, opened with `ctx.secret`), return `ownAccount: true` with the output. That call costs `OWN_ACCOUNT_CREDIT_PCT` percent of the tool's credits, rounded (Eli's call: none, 10% or full; 100 until he sets it). A call that didn't open the member's account pays in full whatever it says. The estimate on Run stays the full price.
 
 ## 9. Testing
 

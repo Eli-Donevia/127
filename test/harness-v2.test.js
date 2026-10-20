@@ -912,6 +912,52 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
   }
 });
 
+test("a call on the member's own provider account costs OWN_ACCOUNT_CREDIT_PCT of its credits, only if it opened that account", async () => {
+  const connectors = require('../lib/harness/connectors');
+  const obj = (properties) => ({ type: 'object', properties, required: [] });
+  const OA = {
+    id: 'oa', title: 'Own account test', version: '1.0.0', summary: 'A render on the member\'s own account.',
+    tools: [{
+      name: 'oa.render', title: 'Render it', description: 'Renders on the member\'s account.', kind: 'api', risk: 'read', needs: ['notion'], credits: 10,
+      input: obj({ open: { type: 'boolean' }, own: { type: 'boolean' } }), output: obj({ ok: { type: 'boolean' }, ownAccount: { type: 'boolean' } }),
+      run: async (input, ctx) => {
+        if (input.open) ctx.secret('notion');
+        return { ok: true, ownAccount: !!input.own };
+      },
+    }],
+    workflows: [{ id: 'oa.make', title: 'Render it', promise: 'One render.', tier: 'free', minutes: 1, inputs: obj({ open: { type: 'boolean' }, own: { type: 'boolean' } }), steps: [{ id: 'render', tool: 'oa.render', input: { open: '$inputs.open', own: '$inputs.own' } }] }],
+  };
+  assert.deepEqual(packs.register(OA).refused, []);
+  const was = { ready: connectors.ready, clientFor: connectors.clientFor, pct: process.env.OWN_ACCOUNT_CREDIT_PCT };
+  connectors.ready = (u, id) => id === 'notion';
+  connectors.clientFor = (u, id) => (id === 'notion' ? { request: async () => ({}) } : null);
+  const user = await member('builder');
+  const used = async (inputs) => {
+    const run = await engine.start(user, 'oa.make', inputs);
+    await engine.idle();
+    const got = engine.get(user, run.id);
+    assert.equal(got.status, 'done', JSON.stringify(got.steps));
+    return [got.credits.used, !!got.steps.render.ownAccount];
+  };
+  try {
+    delete process.env.OWN_ACCOUNT_CREDIT_PCT;
+    assert.deepEqual(await used({ open: true, own: true }), [10, true], 'full price until Eli sets it');
+    process.env.OWN_ACCOUNT_CREDIT_PCT = '10';
+    assert.deepEqual(await used({ open: true, own: true }), [1, true]);
+    assert.deepEqual(await used({ open: true, own: false }), [10, false], 'paid on 127\'s account');
+    assert.deepEqual(await used({ open: false, own: true }), [10, false], 'saying so without opening the account counts for nothing');
+    process.env.OWN_ACCOUNT_CREDIT_PCT = '0';
+    assert.deepEqual(await used({ open: true, own: true }), [0, true]);
+    process.env.OWN_ACCOUNT_CREDIT_PCT = 'half';
+    assert.deepEqual(await used({ open: true, own: true }), [10, true], 'a setting that is not a number keeps full price');
+  } finally {
+    connectors.ready = was.ready;
+    connectors.clientFor = was.clientFor;
+    if (was.pct === undefined) delete process.env.OWN_ACCOUNT_CREDIT_PCT;
+    else process.env.OWN_ACCOUNT_CREDIT_PCT = was.pct;
+  }
+});
+
 test('no key a server echoes reaches a step error, a log line or the server log (Tracestrack, LocationIQ, the Graph API)', async () => {
   const text = require('../lib/harness/text');
   const KEYS = ['trk9f8e7d6c5b4a39281706f5e4d3c2b1a0', 'pk.1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d', 'EAAGm0PX4ZCpsBAKZB1a2b3c4d5e6f7g8h9'];
