@@ -322,6 +322,12 @@ test('Make it mine fills each file, saves <id>-<business>.<ext>, and lists what 
     // A Builder item for a free member, a coming item, and the Store switched off.
     await assert.rejects(runTool(tool, { item: 'first-sale-math' }, makeCtx({ sample: false, member: { tier: 'free' } })), /part of Builder/);
     await assert.rejects(runTool(tool, { item: 'deck-pitch' }, makeCtx({ sample: false })), /can't be filled in yet/);
+    // Your business empty and no form answers: the result doesn't claim it was filled in.
+    const blank = tool.view(await runTool(tool, { item: 'quote' }, makeCtx({ sample: false, member: { tier: 'free' }, brain: { business: {}, links: {}, packs: {} } })));
+    assert.match(blank[0].text, /Your business is empty, so most of it still reads like the blank template/);
+    assert.ok(!blank.some((b) => b.type === 'text' && /filled in with your details/.test(b.text)));
+    assert.match(blocks[0].text, /filled in with your details/);
+    assert.doesNotMatch(storePack.workflows[0].promise, /already in it/);
     const sheet = await runTool(tool, { item: 'first-sale-math' }, makeCtx({ sample: false, brain: { business: { price: '29' } } }));
     assert.equal(sheet.files[0].asset.name, 'first-sale-math-mine.xlsx');
     assert.deepEqual(sheet.cellsLeft, ['Start here!B3', 'Math & more!D5']);
