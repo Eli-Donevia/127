@@ -200,7 +200,8 @@ app.use((req, res, next) => {
   res.locals.legalEffectiveDate = legalEffectiveDate();
   // HQ credits on the plan cards once HQ v2 is on for every member, and on Membership once it's on for this member (Terms 4 and 6, Legal L77).
   res.locals.hqCredits = harness.mode() === 'on' ? harness.ledger.allowances() : null;
-  res.locals.myHqCredits = user && harness.enabledFor(user) ? harness.ledger.allowance(user) : null;
+  res.locals.hq2ForMe = !!user && harness.enabledFor(user);
+  res.locals.myHqCredits = res.locals.hq2ForMe ? harness.ledger.allowance(user) : null;
   res.locals.adConsentScript = adConsent.configScript(req);
   res.locals.builderOffer = builderOffer(req, user, res.locals.launch);
   res.locals.fmtDate = fmtDate;

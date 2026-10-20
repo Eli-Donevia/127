@@ -37,7 +37,7 @@
     </div>
     <nav>
       <% nav.forEach(function(n){ var on = n[0]==='/app' ? path==='/app' : n[0]==='/admin' ? path==='/admin' : path.indexOf(n[0])===0 || (n[0]==='/app/library' && path.indexOf('/app/templates')===0); %>
-        <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %><% if (n[0]==='/app/hq' && userPlan.key==='free' && !(pauseInfo && pauseInfo.paused)) { %><span class="lock" style="color:var(--accent)">Builder</span><% } %></a>
+        <a href="<%= n[0] %>" class="<%= on ? 'on' : '' %>"><%- n[2] %><%= n[1] %><% if (n[0]==='/app/circle' && userPlan.key!=='circle') { %><span class="lock">Apply</span><% } %><% if (n[0]==='/app/hq' && userPlan.key==='free' && !(pauseInfo && pauseInfo.paused) && !(typeof hq2ForMe !== 'undefined' && hq2ForMe)) { %><span class="lock" style="color:var(--accent)">Builder</span><% } %></a>
       <% }) %>
     </nav>
     <div class="side-foot">

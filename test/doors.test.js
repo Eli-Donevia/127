@@ -94,6 +94,19 @@ test('off by default: no picker, the pages fall through to the 404 and runs are 
   assert.equal(doors.picker(null).doors.length, 5);
 });
 
+test('FRONT_DOORS=on counts as on, like the HQ switches (the Oct 20 go-live used "on")', () => {
+  ON();
+  for (const v of ['on', 'ON', 'true']) {
+    process.env.FRONT_DOORS = v;
+    assert.equal(doors.on(), true, v);
+  }
+  for (const v of ['admins', 'off', '']) {
+    process.env.FRONT_DOORS = v;
+    assert.equal(doors.on(), false, v);
+  }
+  process.env.FRONT_DOORS = 'true';
+});
+
 test('the picker has five doors, First 25 first, and each free tool has its page', async () => {
   ON();
   const p = doors.picker(null);
