@@ -1,8 +1,9 @@
 <%# The Builder map (lib/builder-map.js): everything in Builder, drawn from the library and the AI tools themselves, so it
-    matches the product on the day (Legal 05 rule 6). The wide map on desktop, the fan view on phones. %>
+    matches the product on the day (Legal 05 rule 6). The wide map on desktop, the fan view on phones. While /pricing sells HQ
+    (lib/hq-offer.js), the map isn't all of Builder, so bmTitle names what it shows. %>
 <section class="bm" aria-labelledby="bm-h">
   <div class="wrap">
-    <div class="section-head center"><div class="eyebrow">What's inside</div><h2 id="bm-h">Everything in Builder, on one map.</h2><p>Each AI tool is linked to the playbooks it works from.</p></div>
+    <div class="section-head center"><div class="eyebrow">What's inside</div><h2 id="bm-h"><%= typeof bmTitle !== 'undefined' && bmTitle ? bmTitle : 'Everything in Builder, on one map.' %></h2><p>Each AI tool is linked to the playbooks it works from.</p></div>
     <figure class="bm-fig">
       <div class="bm-art bm-art-wide"><%- builderMap.wide %></div>
       <div class="bm-art bm-art-phone"><%- builderMap.phone %></div>

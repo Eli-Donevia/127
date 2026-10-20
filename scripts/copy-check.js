@@ -19,7 +19,7 @@ const EMAILS = ['lib/billing-emails.js', 'lib/circle-emails.js', 'lib/waitlist.j
 const TOOL_OUTPUT = ['public/funnels/first25-data.js', 'public/funnels/first25-engine.js', 'public/funnels/first-25.js', 'public/funnels/results-data.js'];
 // Copy that is all about paid plans: the plan names and features, the plan cards, the Builder map and the pricing page.
 // Every sentence counts as paid-plan copy here (Legal L62), so none of it says a plan gets members clients, leads or businesses.
-const PAID_COPY = ['lib/plans.js', 'views/partials/plans.ejs', 'views/partials/builder-map.ejs', 'views/pricing.ejs'];
+const PAID_COPY = ['lib/plans.js', 'lib/hq-offer.js', 'views/partials/plans.ejs', 'views/partials/builder-map.ejs', 'views/partials/hq-stack.ejs', 'views/pricing.ejs'];
 const isPaidCopy = (p) => PAID_COPY.includes(path.relative(ROOT, p).split(path.sep).join('/'));
 
 function walk(dir, exts) {
@@ -37,7 +37,7 @@ function walk(dir, exts) {
 function siteFiles() {
   const views = walk(path.join(ROOT, 'views'), /\.ejs$/).filter((p) => !LEGAL.test(p.split(path.sep).join('/')));
   const pages = walk(path.join(ROOT, 'public', 'funnels'), /\.html$/);
-  return [...views, ...pages, path.join(ROOT, 'content', 'challenge.json'), path.join(ROOT, 'content', 'onboarding.json'), ...[...EMAILS, ...TOOL_OUTPUT, 'lib/plans.js'].map((f) => path.join(ROOT, f))].filter((p) => fs.existsSync(p));
+  return [...views, ...pages, path.join(ROOT, 'content', 'challenge.json'), path.join(ROOT, 'content', 'onboarding.json'), ...[...EMAILS, ...TOOL_OUTPUT, 'lib/plans.js', 'lib/hq-offer.js'].map((f) => path.join(ROOT, f))].filter((p) => fs.existsSync(p));
 }
 
 // Views carry the earnings line through the site footer (partials/foot.ejs includes partials/earnings-note.ejs).

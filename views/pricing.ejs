@@ -6,14 +6,22 @@
   var cap = launch.cap;
   // The founding call row comes off after the call (December 1, 8pm ET).
   var showCallRow = Date.now() < Date.parse('2026-12-02T05:00:00Z');
+  // The workspace offer (lib/hq-offer.js, offer.md section 1A) once HQ is on for members; until then, the roadmap.
+  var hqo = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.show ? hqOffer : null;
 %>
 <main>
   <section style="padding-bottom:48px">
     <div class="wrap">
       <div class="section-head">
+        <% if (hqo && hqo.preview) { %><p class="hqs-preview mono">Admin preview. Members see this page once HQ is on for everyone and HQ_OFFER=on.</p><% } %>
         <div class="eyebrow">Membership</div>
+        <% if (hqo) { %>
+        <h1 style="font-size:clamp(44px,6vw,72px)">Run your business from one screen.</h1>
+        <p><%= hqo.line %> Start free, no card. Upgrade when it's earned it. Cancel anytime.</p>
+        <% } else { %>
         <h1 style="font-size:clamp(44px,6vw,72px)">Start free. Grow into it.</h1>
         <p>Every plan starts with the free assessment and a 30-day roadmap built for you, with weeks 1 and 2 free. Upgrade when it's earned it. Cancel anytime.</p>
+        <% } %>
       </div>
       <% if (ps === 'A' && fp) { %>
       <div class="pr-offer"><%- include('partials/founding-offer') %>
@@ -30,7 +38,8 @@
       <%- include('partials/plans', { plansAnchor: true }) %>
     </div>
   </section>
-  <%- include('partials/builder-map') %>
+  <% if (hqo) { %><%- include('partials/hq-stack') %><% } %>
+  <%- include('partials/builder-map', hqo ? { bmTitle: 'Your roadmap and playbooks, on one map.' } : {}) %>
   <section style="padding-top:24px">
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">Compare</div><h2>What each plan includes.</h2></div>
@@ -38,6 +47,7 @@
         <table class="t">
           <thead><tr><th></th><th>Free</th><th>Builder</th><th>Founder's Circle</th></tr></thead>
           <tbody>
+            <% if (hqo) hqo.compare.forEach(function (r) { %><tr><td><%= r[0] %></td><td><%= r[1] %></td><td><%= r[2] %></td><td><%= r[3] %></td></tr><% }) %>
             <tr><td>Founder assessment and 30-day roadmap</td><td>Weeks 1 and 2</td><td>Full</td><td>Full</td></tr>
             <tr><td>Playbooks, worksheets and calculators</td><td>Starter 3, plus what weeks 1 and 2 use</td><td>All <%= resourceCount %></td><td>All <%= resourceCount %></td></tr>
             <tr><td>Eli's Playbook (AI)</td><td>Chat + Idea Validator · <%= PLANS.free.aiRunsPerMonth %> messages/mo</td><td>Every tool · about <%= PLANS.builder.aiRunsPerMonth %>/mo</td><td>Every tool · about <%= PLANS.circle.aiRunsPerMonth %>/mo</td></tr>

@@ -1830,3 +1830,21 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
   .fl-hud{display:none}
 }
 @media (prefers-reduced-motion:reduce){.fl-stage img,.fl-title > span > span,.fl-row,.fl-note,.fl-hud,.fl-hud .tl::before{animation:none !important}}
+/* Builder as a stack on /pricing (views/partials/hq-stack.ejs, lib/hq-offer.js) */
+.hqs{padding:40px 0 24px}
+.hqs .section-head{margin-bottom:28px}
+.hqs .section-head p.hqs-count{color:var(--ink);font-size:16px}
+.hqs-group+.hqs-group{margin-top:30px}
+.hqs-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+/* Flex, so a short last row fills the width however many cards are on */
+.hqs-grid{display:flex;flex-wrap:wrap;gap:14px}
+.hqs-card{flex:1 1 calc(33.333% - 10px);min-width:0;display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px}
+.hqs-says{margin:0;font-size:13.5px;color:var(--muted)}
+.hqs-card h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.hqs-does{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.hqs-free{margin:auto 0 0;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.hqs-ok{margin:30px 0 0;text-align:center;font-size:16px;color:var(--ink)}
+.hqs-keep{margin:8px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.hqs-preview{display:inline-block;margin:0 0 18px;padding:6px 14px;border:1px dashed var(--line);border-radius:999px;font-size:12px;color:var(--ink-2)}
+@media (max-width:1000px){.hqs-card{flex-basis:calc(50% - 7px)}}
+@media (max-width:760px){.hqs-card{flex-basis:100%}}

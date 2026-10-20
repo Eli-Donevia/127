@@ -26,6 +26,17 @@
       items: PLANS.circle.features,
     },
   };
+  // While the workspace offer shows (lib/hq-offer.js, offer.md section 1A), the cards sell HQ. Prices, flags and buttons stay.
+  var hqCards = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.show ? hqOffer.cards : null;
+  var hqKeep = hqCards && hqOffer.keep ? ' ' + hqOffer.keep : '';
+  if (hqCards) {
+    CARDS.free.line = hqCards.free.line;
+    CARDS.free.items = hqCards.free.items;
+    CARDS.builder.flag = fp ? 'Founding price' : hqCards.builder.flag;
+    CARDS.builder.line = hqCards.builder.line;
+    CARDS.builder.items = hqCards.builder.items;
+    CARDS.circle.items = hqCards.circle.items;
+  }
   if (circleCapacity !== 4) CARDS.circle.line = circleCapacity + ' founders. A weekly call with Eli. Two in-person gatherings a year.';
 %>
 <div class="plans plans-v5<%= anchor ? ' plans-anchor' : '' %>">
@@ -68,7 +79,7 @@
       <% } else { %>
       <a href="<%= ps === 'B' ? '/founding/lock' : '/start?ref=pricing' %>" class="btn block"<%- tr('builder') %>><%= bLabel %></a>
       <% } %>
-      <% if (ps !== 'A') { %><div class="plan-under">14 days to change your mind.</div><% } %>
+      <% if (ps !== 'A') { %><div class="plan-under">14 days to change your mind.<%= hqKeep %></div><% } %>
     <% } else { %>
       <% if (ps === 'A' && !user) { %>
       <a href="/founding" class="btn light block"<%- tr('circle') %>>Join the founding list</a>

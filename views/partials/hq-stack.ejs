@@ -1,0 +1,25 @@
+<%# Builder as a stack (lib/hq-offer.js, conversion/offer.md section 1A): each card is one thing members say stops them, and
+    the part of Builder for it. A card shows only while what it names is on for members, and every number comes from the
+    product on the day (Legal 05 rule 6). No dollar values (offer.md section 6). %>
+<section class="hqs" aria-labelledby="hqs-h">
+  <div class="wrap">
+    <div class="section-head center"><div class="eyebrow">What's in Builder</div><h2 id="hqs-h">Everything in Builder.</h2><p class="hqs-count"><%= hqOffer.count %></p></div>
+    <% [['core', 'Your HQ'], ['more', 'Also in Builder']].forEach(function (g) { var rows = hqOffer.stack.filter(function (r) { return r.group === g[0]; }); if (!rows.length) return; %>
+    <div class="hqs-group">
+      <div class="hqs-label"><%= g[1] %></div>
+      <div class="hqs-grid">
+        <% rows.forEach(function (r) { %>
+        <div class="hqs-card" data-row="<%= r.id %>">
+          <p class="hqs-says">"<%= r.says %>"</p>
+          <h3><%= r.name %></h3>
+          <p class="hqs-does"><%= r.does %></p>
+          <% if (r.free) { %><p class="hqs-free mono"><%= r.free === true ? 'Also on Free' : 'On Free: ' + r.free %></p><% } %>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% }) %>
+    <p class="hqs-ok">The busywork, done. The decisions stay yours.</p>
+    <% if (hqOffer.keep) { %><p class="hqs-keep"><%= hqOffer.keep %></p><% } %>
+  </div>
+</section>

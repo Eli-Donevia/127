@@ -41,6 +41,7 @@ const hqHarness = require('./lib/hq-harness');
 const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
+const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
 const onboarding = require('./content/onboarding.json');
@@ -204,6 +205,8 @@ app.use((req, res, next) => {
   // 127 HQ (lib/hq.js): the nav item and the dashboard card show while HQ_LIVE=true (HQ_LIVE=admins: admins only),
   // and for the members HQ v2 is on for (lib/harness, HARNESS_V2).
   res.locals.hqLive = hq.liveFor(user) || harness.enabledFor(user);
+  // The workspace offer (lib/hq-offer.js): the plan cards sell HQ once it's on for members (HQ_OFFER=on). Off costs nothing.
+  res.locals.hqOffer = hqOffer.forPage();
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -345,13 +348,18 @@ function homeVideo() {
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live() }));
-// Pricing meta description by launch state (conversion/pages/pricing.md).
-function pricingDescription() {
+// Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
+function pricingDescription(offer = {}) {
   const v = launch.view();
-  if ((v.prelaunch || v.foundingOpen) && v.foundingPrice) return `Start free. Builder is $${v.foundingPrice} a month, locked while you stay, for the first ${v.cap} founding members until ${v.closesDate || 'the founding close'}. Then $29.`;
-  return `Start free. Builder is $29 a month for the full library and every AI tool. The ${CIRCLE_CAPACITY}-seat Founder's Circle is by application.`;
+  const what = offer.live ? 'your business HQ, with every workflow and every template' : null;
+  if ((v.prelaunch || v.foundingOpen) && v.foundingPrice) return `Start free. Builder is $${v.foundingPrice} a month${what ? ` for ${what}` : ''}, locked while you stay, for the first ${v.cap} founding members until ${v.closesDate || 'the founding close'}. Then $29.`;
+  return `Start free. Builder is $29 a month for ${what || 'the full library and every AI tool'}. The ${CIRCLE_CAPACITY}-seat Founder's Circle is by application.`;
 }
-app.get('/pricing', (req, res) => res.render('pricing', { title: 'Membership', description: pricingDescription(), resourceCount: resources.length, builderMap: builderMap.forPage() }));
+// The workspace offer shows once it's on for members; an admin can look first at /pricing?preview=hq (lib/hq-offer.js).
+app.get('/pricing', (req, res) => {
+  const offer = hqOffer.forPage({ preview: isAdmin(req.user) && req.query.preview === 'hq' });
+  res.render('pricing', { title: 'Membership', description: pricingDescription(offer), resourceCount: resources.length, builderMap: builderMap.forPage(), hqOffer: offer });
+});
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 100K+ followers built, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
