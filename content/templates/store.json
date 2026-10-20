@@ -1,14 +1,14 @@
 {
  "name": "127 Store",
  "version": "2026-10-20.1",
- "generatedAt": "2026-10-20T04:22:50Z",
+ "generatedAt": "2026-10-20T04:57:44Z",
  "flag": "STORE_V2",
- "count": 98,
- "ready": 97,
+ "count": 99,
+ "ready": 98,
  "makeItMine": 42,
  "counts": {
   "site": {
-   "ready": 12,
+   "ready": 13,
    "coming": 0
   },
   "shopify": {
@@ -219,8 +219,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-agency/preview.html",
-     "bytes": 57507,
-     "sha256": "c840f9a0a78a3941552fe37e80111da99d36b396e11292f6b8e5db70a6f03caa"
+     "bytes": 57890,
+     "sha256": "921cfa5207a35cbbfe23008a5f58622641f6be62de46d98e41b9ece73e4d4736"
     }
    ],
    "links": [
@@ -263,8 +263,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-coach/preview.html",
-     "bytes": 47374,
-     "sha256": "827c51d819a2449c73ee6d6344729a1bd257a979423ac97bd7bde5f5a1216bd9"
+     "bytes": 47757,
+     "sha256": "37370c83a4d604d01fb7a6a9f3c5d89ea685ff911a15b713f263c5ca93fdc23e"
     }
    ],
    "links": [
@@ -309,8 +309,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-creator/preview.html",
-     "bytes": 61971,
-     "sha256": "1abf1c7835f7c44718990239f7314d607dda4d10d3661fec004673323a49386f"
+     "bytes": 62354,
+     "sha256": "433c2316875d6a44630789f1b16fcd513a3a451b6a34e407287a02cf502eca47"
     }
    ],
    "links": [
@@ -354,8 +354,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-event/preview.html",
-     "bytes": 56669,
-     "sha256": "4c6ee7713929a3524f1a4d132044e41be6cbe71cc679a3b53e8811414d9f99e7"
+     "bytes": 57008,
+     "sha256": "9db3c03fb665f3b396238ef60a8de03b7d0d7e0337376a60651cd7fd6b52f757"
     }
    ],
    "links": [
@@ -399,8 +399,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-link-in-bio/preview.html",
-     "bytes": 35269,
-     "sha256": "9e3e6e0875bb9a24a5f88fb49d03b1461cee5d9e71de630ac3ce020d6549b1a4"
+     "bytes": 35652,
+     "sha256": "cb061ff0c6a3d1d23528a0390549e8fb2c11ba973be56ad10dc680d6ab89bee4"
     }
    ],
    "links": [
@@ -445,8 +445,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-local-service/preview.html",
-     "bytes": 53609,
-     "sha256": "f12251e9538f1cfc3e8a9eb8f38f14f8125aa9f46ed38ac57ff40559c0ecb3eb"
+     "bytes": 53992,
+     "sha256": "1dbcebd3e68089db8ccafc4129773db3ab314a9f79e8d16ab425d9c783fe40a3"
     }
    ],
    "links": [
@@ -490,8 +490,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-portfolio/preview.html",
-     "bytes": 70473,
-     "sha256": "f4b16649bf0706fc090636aa9573f118f2ecf1082bfe1a92bcc70d7d9144f0e2"
+     "bytes": 70856,
+     "sha256": "19406f0c3d93ae598257587ccc62d3c5464b84b49cc4efead857f1642783695d"
     }
    ],
    "links": [
@@ -535,8 +535,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-product-landing/preview.html",
-     "bytes": 46971,
-     "sha256": "a2505fd3786d9a79e26dac5db54a40d6f1d3517f308d7cf6242f4c8dfcc1d993"
+     "bytes": 47310,
+     "sha256": "d4d56d29c70cde70757fbd1564b61fe9136c9bd20910118002817e8db43f8c0a"
     }
    ],
    "links": [
@@ -581,8 +581,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-restaurant/preview.html",
-     "bytes": 78431,
-     "sha256": "42de4542968120f4e74d38e996fe1a28882a6be4efb5ac41a5e1b290637b3cea"
+     "bytes": 78814,
+     "sha256": "5786608794243ed5d88c94979093388fe1a64aa83fa20271f2baebff82ec1c74"
     }
    ],
    "links": [
@@ -627,8 +627,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-studio/preview.html",
-     "bytes": 62176,
-     "sha256": "99e9520dd82ed0f5c3e3ca6c7d19ebd01c49386c2f2b0d2ff641a1ce588cd1fb"
+     "bytes": 62559,
+     "sha256": "f3ecef75d697cb5767913d81982d0a094ea9fa8e72e4deaa068cd5f790a667c5"
     }
    ],
    "links": [
@@ -644,6 +644,53 @@
    "design": "atelier",
    "livePreview": "atelier/preview.html",
    "phonePreview": "atelier/phone.png"
+  },
+  {
+   "id": "site-shop",
+   "title": "Small shop website",
+   "kind": "site",
+   "businessTypes": [
+    "ecom"
+   ],
+   "tier": "builder",
+   "summary": "For makers with a few products: best sellers fanned out by the headline, a product grid with filters, your story, and shipping and returns.",
+   "tags": [
+    "shop",
+    "candles",
+    "jewelry",
+    "skincare",
+    "merch",
+    "handmade",
+    "store",
+    "website",
+    "animated",
+    "market"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-shop/preview.html",
+     "bytes": 65343,
+     "sha256": "370c49b667e081b9723391f33ff943b02972d597ac3579b64d0ccebdecda05b5"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=market",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "market",
+   "livePreview": "market/preview.html",
+   "phonePreview": "market/phone.png"
   },
   {
    "id": "site-saas",
@@ -672,8 +719,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-saas/preview.html",
-     "bytes": 49189,
-     "sha256": "bca70da1f41d412e474e5e08625a32e6b41d5fab6f6d9d900cfa716bcd639936"
+     "bytes": 49528,
+     "sha256": "9dbc80bf4dce1679ebb4e5a5766b4439097c36db0d02401a8dc4108ec948d41f"
     }
    ],
    "links": [
@@ -717,8 +764,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-waitlist/preview.html",
-     "bytes": 33837,
-     "sha256": "8456faea8aa0ba0dbf810cf41071aea835939d63e92046a45ab61aaff0621c30"
+     "bytes": 34211,
+     "sha256": "38d73f26230f1306113c0eb2f9e06cf58839add6bde7d5bfb0e8d1269499a926"
     }
    ],
    "links": [
@@ -1249,7 +1296,13 @@
      "sha256": "fb063eec24153d5de50c2fc8df8f211d47db3572f5181f1e6f4b7e068c6a9c0e"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/19sHXDgERVDbqCd6vvoqfj9rN7mUx7QcKPcC18NaPQig/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-content-planner.xlsx"
@@ -1630,7 +1683,13 @@
      "sha256": "7979567998d95885e866c1aaf7216adb8a324fbc9d40bea02237994c9040803a"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/17W9nbvp_zS1BHFnaZBoArI5pd6cCIdnYAwLG88bTP1I/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-conversation-tracker.xlsx"
@@ -1678,7 +1737,13 @@
      "sha256": "63e55c5e574390ef50ee19ca6300dd03ad62e216e7a24b4db23490f46ba3b3b9"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1y0eigtYcs8wox07MjA-6RU6WVvGeyRsnbPGNmCCxZIs/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-first-sale-math.xlsx"
@@ -1821,7 +1886,13 @@
      "sha256": "b0fe733dd63e5187ca4dc751456d746cf2dbd518a997bf6865da93f5230c2c28"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1NiAUv8PBHnfM_eHxtL2e_Vb0v-G7kVE-OtSENt-8Dtk/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-hours-audit.xlsx"
@@ -1876,7 +1947,13 @@
      "sha256": "c9b0e966f2d86de733b0c76bcc26adeb530df94d83bf8564b935756cb8cb10b5"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1vjVe_ZlO7qbDmpd5sFuWFxA2PRtQFJfMD6DYnmYW_yU/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-idea-scorecard.xlsx"
@@ -1938,7 +2015,13 @@
      "sha256": "cfccef83a1e5d8017e16ba45499b0b1b296e0ba536dd918d6aeb34703f10e0eb"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1BTOwryxoLwfzdqRqMKMcJzE4ZkHqPobejwp9Hrk8pPU/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-interview-synthesis.xlsx"
@@ -2128,7 +2211,13 @@
      "sha256": "742575ede2ca4d878a5da298aea15dbbeb8c2c3647f10590263eaf3b12e653a0"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1QuqaRsH0L4ax1vehYoAQiAQEFAjg7MIUg-mfZLgw8ZA/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-objection-log.xlsx"
@@ -2245,7 +2334,13 @@
      "sha256": "6db0fda2c6f05c110f8dee376a6fe08a635898c42a24900214c0af8cfea93438"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1et3--PhpnO6QCuyivwaHSkWcXmw4gA67kuR3yCSbY2U/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-pricing-lab.xlsx"
@@ -2305,7 +2400,13 @@
      "sha256": "477bfbfa64ed3d5871ca4f563a6ef593d09d9d56c537975a66b21efd711bfa7b"
     }
    ],
-   "links": [],
+   "links": [
+    {
+     "label": "Make a copy in Google Sheets",
+     "url": "https://docs.google.com/spreadsheets/d/1SJmPtiexyfbXMdgeY7cgqnTW0KRJNRIW_x6LDQAaW4I/copy",
+     "type": "copy"
+    }
+   ],
    "makeItMine": {
     "files": [
      "127-stack-audit.xlsx"
