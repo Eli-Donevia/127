@@ -5,6 +5,7 @@
 process.env.STRIPE_SECRET_KEY = 'sk_test_fake';
 process.env.STRIPE_WEBHOOK_SECRET = 'whsec_test_fake';
 process.env.FOUNDING_CLOSES_AT = new Date(Date.now() + 7 * 864e5).toISOString();
+process.env.LAUNCH_AT = new Date(Date.now() - 864e5).toISOString(); // doors open, so the founding window is open
 process.env.BASE_URL = 'https://127.test';
 process.env.FOUNDING_PRICE = '19';
 

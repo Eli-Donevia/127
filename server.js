@@ -569,9 +569,10 @@ app.get('/f/:code', (req, res) => {
 // It stays live after launch because old posts and DMs link to it.
 function foundingPage() {
   const v = launch.view();
-  const state = v.prelaunch ? 'A' : v.foundingOpen ? 'B' : 'C';
+  const state = v.prelaunch || v.upcoming ? 'A' : v.foundingOpen ? 'B' : 'C';
   const pm = v.foundingPrice ? `$${v.foundingPrice} a month` : 'a founding price';
   const base = { fState: state, resourceCount: resources.length };
+  if (state === 'A' && v.upcoming) return { ...base, title: 'Founding members', description: `The 127 founding price opens${v.launchDate ? ` ${v.launchDate}` : ' soon'}: Builder for ${pm}, locked while you stay. The free plan is open now.` };
   if (state === 'A') {
     const ch = v.challenge.open ? ` Free 5-day challenge with Eli, ${v.challenge.dates}.` : '';
     return { ...base, title: 'Founding members', description: `Join the 127 founding list. Builder for ${pm}, locked while you stay, when doors open${v.launchDate ? ` ${v.launchDate}` : ''}.${ch}` };

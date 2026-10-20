@@ -15,7 +15,7 @@
       <% if (fcB) { %>
       <div><dt>Founding price ends</dt><dd><%= launch.closesShort || 'Soon' %></dd></div>
       <% } else { %>
-      <div><dt>Doors open</dt><dd><%= launch.launchShort || 'Soon' %></dd></div>
+      <div><dt><%= launch.upcoming ? 'Founding price opens' : 'Doors open' %></dt><dd><%= launch.launchShort || 'Soon' %></dd></div>
       <% } %>
     </dl>
     <div class="f5-name"><span data-f5-name data-default="Your name"><%= fcName || 'Your name' %></span><em><%= fcNo %></em></div>

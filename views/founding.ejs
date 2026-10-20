@@ -29,9 +29,13 @@
   <section class="hero plain founding-hero f5">
     <div class="wrap f5-grid">
     <div class="f5-copy">
-      <div class="eyebrow fm-hero-label">FOUNDING LIST<%= launch.launchShort ? ' · DOORS OPEN ' + launch.launchShort : '' %></div>
+      <div class="eyebrow fm-hero-label">FOUNDING LIST<%= launch.launchShort ? (launch.upcoming ? ' · OPENS ' : ' · DOORS OPEN ') + launch.launchShort : '' %></div>
       <h1><span class="dim-ink">Be one of</span> <span class="grad">the first <%= cap %>.</span></h1>
+      <% if (launch.upcoming) { %>
+      <p class="lede">The founding price opens<%= launch.launchDate ? ' on ' + launch.launchDate + (launch.launchTime ? ' at ' + launch.launchTime : '') : ' soon' %>. The first <%= cap %> Builders pay <%= PM %>, locked for as long as they stay<%= launch.closesDate ? ' ($29 for new Builders after ' + launch.closesDate + ')' : '' %>. The free plan is open now.</p>
+      <% } else { %>
       <p class="lede">127 opens<%= launch.launchDate ? ' on ' + launch.launchDate : ' soon' %>: a roadmap built for you, plus the playbooks, AI tools and templates to work it. The first <%= cap %> Builders pay <%= PM %>, locked for as long as they stay.</p>
+      <% } %>
 
       <form method="post" action="/founding" class="wl-form" id="join">
         <% if (error) { %><div class="alert error"><%= error %></div><% } %>
@@ -46,7 +50,8 @@
         <button class="btn light">Join the founding list <span class="arrow"></span></button>
       </form>
 
-      <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: 'DOORS OPEN IN', cdShort: false }) %>
+      <%- include('partials/countdown-line', { cdTarget: launch.launchAt, cdLabel: launch.upcoming ? 'FOUNDING PRICE OPENS IN' : 'DOORS OPEN IN', cdShort: false }) %>
+      <% if (launch.upcoming) { %><p class="small muted"><a href="/start?ref=founding-upcoming">Start free now</a>. Your roadmap and 127 HQ are open today.</p><% } %>
     </div>
     <%- include('partials/founding-card', { fcSt: 'A' }) %>
     </div>

@@ -70,3 +70,36 @@ test('homepage labels and state follow launch env (homepage.md sections 1 and 3)
     assert.strictEqual(launch.homeState(), 'C');
   });
 });
+
+test('before doors open with no PRELAUNCH: founding is upcoming (waitlist on /founding), not open, sign-ups not gated', () => {
+  const FUTURE = new Date(Date.now() + 864e5).toISOString();
+  const PAST = new Date(Date.now() - 864e5).toISOString();
+  const LATER = new Date(Date.now() + 7 * 864e5).toISOString();
+  withEnv({ PRELAUNCH: undefined, LAUNCH_AT: FUTURE, FOUNDING_CLOSES_AT: LATER, FOUNDING_PRICE: undefined }, () => {
+    const v = launch.view();
+    assert.strictEqual(v.prelaunch, false);
+    assert.strictEqual(v.upcoming, true);
+    assert.strictEqual(v.foundingOpen, false);
+    assert.strictEqual(v.foundingPrice, 19);
+  });
+  // Doors open: the founding window is open and the waitlist state ends.
+  withEnv({ PRELAUNCH: undefined, LAUNCH_AT: PAST, FOUNDING_CLOSES_AT: LATER }, () => {
+    const v = launch.view();
+    assert.strictEqual(v.upcoming, false);
+    assert.strictEqual(v.foundingOpen, true);
+  });
+  // PRELAUNCH=true keeps its own gate; upcoming is only for open sign-ups.
+  withEnv({ PRELAUNCH: 'true', LAUNCH_AT: FUTURE }, () => {
+    assert.strictEqual(launch.view().prelaunch, true);
+    assert.strictEqual(launch.view().upcoming, false);
+  });
+});
+
+test('the code defaults are doors Nov 17 10am ET and a founding close at the end of Nov 24 ET', () => {
+  withEnv({ LAUNCH_AT: undefined, FOUNDING_CLOSES_AT: undefined }, () => {
+    const v = launch.view();
+    assert.strictEqual(v.launchDay, 'Tuesday, November 17');
+    assert.strictEqual(v.launchTime, '10am ET');
+    assert.strictEqual(v.closesDate, 'November 24');
+  });
+});
