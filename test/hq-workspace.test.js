@@ -666,3 +666,18 @@ test('L76: the AI link never starts a hidden workflow, and skills say whose cont
   assert.match(md, /^---\n[\s\S]*?\n---\n\n127 content for your own business, under 127's Terms \(Section 11\)\. Don't share or sell it\.\n\n# Daily numbers/);
   assert.match(prompts.get('finance.forecast').note, /not tax, legal or investment advice/);
 });
+
+test('L76 B7: after a paid plan ends, Brain exports and Library downloads still work', async () => {
+  process.env.BRAIN_DOCS = 'on';
+  const u = await member('builder');
+  await docs.save(u.id, { title: 'Offer', body: 'Weekly mowing, $45.' });
+  const f = await require('../lib/harness/library').save(u, 'plan.md', '# My plan', { runId: 'r1' });
+  u.tier = 'free';
+  await db.save('users', u);
+  const zip = await s.go('/app/hq/brain/export?format=obsidian', { as: u });
+  assert.equal(zip.status, 200);
+  assert.ok(readZip(Buffer.from(await zip.arrayBuffer())).some((x) => /Offer\.md$/.test(x.name)));
+  const file = await s.go(`/app/hq/files/${f.id}?download=1`, { as: u });
+  assert.equal(file.status, 200);
+  assert.equal(await file.text(), '# My plan');
+});
