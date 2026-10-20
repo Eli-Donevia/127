@@ -7,7 +7,7 @@
     <div>
       <span class="eyebrow">Ask 127</span>
       <h1 class="hq-title"><span class="dim">Ask anything</span><span class="steel">about your business.</span></h1>
-      <p class="hq-lede">It knows your Brain, your Pipeline, your numbers and your runs. It can start work for you, and it always asks first. <%= cost %> credits a message. Type / for shortcuts.</p>
+      <p class="hq-lede">It knows your Brain, your Pipeline, your numbers and your runs. It can start work for you, and it always asks first. <%= cost %> credit<%= cost === 1 ? '' : 's' %> a message. Type / for shortcuts.</p>
     </div>
   </div>
   <section class="hq-card h2-chat" aria-label="Chat">
@@ -20,7 +20,7 @@
       <% if (m.sources && m.sources.length) { %><div class="hq-small" style="margin:6px 0 0">From your Brain: <% m.sources.forEach(function (s, i) { %><%= i ? ', ' : '' %><a href="<%= s.link %>"><%= s.n ? '[' + s.n + '] ' : '' %><%= s.title %></a><% }) %></div><% } %>
       <% (m.actions || []).forEach(function (a) { %>
       <div class="h2-actcard">
-        <div><b><%= a.label %></b><span class="hq-small" style="display:block;margin:2px 0 0"><%= actLabel[a.type] %><%= a.title ? ': ' + a.title : '' %><%= a.credits ? ', about ' + a.credits + ' credits' : '' %><%= a.text && a.type !== 'add_note' ? ': ' + a.text : '' %><%= a.name ? ': ' + a.name + ' ' + a.value : '' %></span></div>
+        <div><b><%= a.label %></b><span class="hq-small" style="display:block;margin:2px 0 0"><%= actLabel[a.type] %><%= a.title ? ': ' + a.title : '' %><%= a.credits ? ', about ' + a.credits + ' credit' + (a.credits === 1 ? '' : 's') : '' %><%= a.text && a.type !== 'add_note' ? ': ' + a.text : '' %><%= a.name ? ': ' + a.name + ' ' + a.value : '' %></span></div>
         <% if (a.status === 'proposed') { %>
         <div style="display:flex;gap:6px">
           <form method="post" action="/app/hq/ask/act/<%= a.id %>"><input type="hidden" name="ok" value="1"><button class="hq-pill">OK</button></form>

@@ -20,7 +20,7 @@
       <% if (it.prepRun) { %>
         <a class="btn" href="/app/hq/runs/<%= it.prepRun %>">Open your call prep <span class="arrow"></span></a>
       <% } else { %>
-        <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Prep the call</button><span class="h2-q-cost">About <%= cost.prep %> credits</span></form>
+        <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Prep the call</button><span class="h2-q-cost">About <%= cost.prep %> credit<%= cost.prep === 1 ? '' : 's' %></span></form>
       <% } %>
       <form method="post" action="/app/hq/queue/<%= it.id %>/won" data-qact="won"><button class="hq-pill win">They said yes</button></form>
       <form method="post" action="/app/hq/queue/<%= it.id %>/lost" data-qact="lost"><button class="hq-pill ghost">Not now</button></form>
@@ -30,12 +30,12 @@
     <form class="h2-q-reply" method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write">
       <label for="said-<%= it.id %>">What did they say?</label>
       <textarea id="said-<%= it.id %>" name="text" rows="3" maxlength="3000" placeholder="Paste their reply here"><%= it.reply || '' %></textarea>
-      <div class="h2-q-acts"><button class="btn">Draft my answer</button><span class="h2-q-cost">About <%= cost.reply %> credits</span></div>
+      <div class="h2-q-acts"><button class="btn">Draft my answer</button><span class="h2-q-cost">About <%= cost.reply %> credit<%= cost.reply === 1 ? '' : 's' %></span></div>
     </form>
 
   <% } else if (it.needsDraft) { %>
     <div class="h2-q-acts">
-      <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Write it for me</button><span class="h2-q-cost">About <%= cost.write %> credits</span></form>
+      <form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="btn">Write it for me</button><span class="h2-q-cost">About <%= cost.write %> credit<%= cost.write === 1 ? '' : 's' %></span></form>
       <form method="post" action="/app/hq/queue/<%= it.id %>/skip" data-qact="skip"><button class="hq-pill ghost">Not today</button></form>
     </div>
 
@@ -67,7 +67,7 @@
     <form class="h2-q-reply" method="post" action="/app/hq/queue/<%= it.id %>/replied" data-qact="replied">
       <label for="rep-<%= it.id %>">They replied? Paste what they said and 127 drafts your answer.</label>
       <textarea id="rep-<%= it.id %>" name="text" rows="3" maxlength="3000" placeholder="Their reply"></textarea>
-      <div class="h2-q-acts"><button class="hq-pill">They replied</button><span class="h2-q-cost">About <%= cost.reply %> credits with their words</span></div>
+      <div class="h2-q-acts"><button class="hq-pill">They replied</button><span class="h2-q-cost">About <%= cost.reply %> credit<%= cost.reply === 1 ? '' : 's' %> with their words</span></div>
     </form>
     <div class="h2-q-acts">
       <% if (written) { %><form method="post" action="/app/hq/queue/<%= it.id %>/write" data-qact="write"><button class="hq-pill ghost">Write it again</button></form><% } %>

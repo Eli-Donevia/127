@@ -37,7 +37,7 @@
       <form method="post" action="/app/hq/site-chat/off"><button class="hq-pill">Turn it off</button></form>
       <form method="post" action="/app/hq/site-chat/key" data-confirm="Make a new code? The old one stops working until you replace it on your site."><button class="hq-link-btn">Get a new code</button></form>
     </div>
-    <p class="hq-small">Each answer uses <%= cost %> credits. When you're out, it asks visitors to leave their details for you instead.</p>
+    <p class="hq-small">Each answer uses <%= cost %> credit<%= cost === 1 ? '' : 's' %>. When you're out, it asks visitors to leave their details for you instead.</p>
     <% } else if (need.length) { %>
     <p class="h2-sub">Add <%= need.join(', ') %> above first.</p>
     <% } else { %>
@@ -45,7 +45,7 @@
       <label class="check"><input type="checkbox" name="covered" required> <span><%= lines.covers %></span></label>
       <p class="hq-small" style="margin:0">127's site templates include a privacy notice that covers it. On any other site, check yours names the chat and that 127 runs it for you.</p>
       <label class="check"><input type="checkbox" name="kids" required> <span>My site isn't meant for children.</span></label>
-      <p class="hq-small" style="margin:0"><%= lines.responsible %> Each answer uses <%= cost %> credits.</p>
+      <p class="hq-small" style="margin:0"><%= lines.responsible %> Each answer uses <%= cost %> credit<%= cost === 1 ? '' : 's' %>.</p>
       <div><button class="btn">Turn on site chat <span class="arrow"></span></button></div>
     </form>
     <% } %>

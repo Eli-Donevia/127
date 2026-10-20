@@ -35,7 +35,7 @@
         <h2 id="move-h" class="h2-steel"><%= t.move.title %></h2>
         <% if (t.move.detail) { %><p><%= t.move.detail %></p><% } %>
         <a class="btn" href="<%= t.move.href %>"><%= t.move.cta %> <span class="arrow"></span></a>
-        <% if (!q.items.length && t.move.kind !== 'inbox' && t.move.kind !== 'samples' && !(typeof f25 !== 'undefined' && f25)) { %><div class="h2-why">Have a First 25 list already? Open it and bring it into HQ. Every business lands here with its first message drafted for you to send.</div><% } %>
+        <% if (!q.items.length && t.move.kind !== 'inbox' && t.move.kind !== 'samples' && !(typeof f25 !== 'undefined' && f25) && typeof first25Live !== 'undefined' && first25Live) { %><div class="h2-why">No First 25 list yet? <a class="link" href="/first-25">Find your first 25</a> with this email and every business lands here with its first message drafted for you to send.</div><% } %>
       </section>
       <% } %>
 

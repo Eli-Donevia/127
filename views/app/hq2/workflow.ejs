@@ -42,7 +42,7 @@
           <% fields.forEach(function (f) { var id = 'in-' + f.key; %>
           <% if (f.control === 'asset' || f.control === 'assets') { %>
           <div class="field" role="group" aria-labelledby="<%= id %>-l" data-pick data-name="in_<%= f.key %>">
-            <span id="<%= id %>-l"><%= f.label %><%= f.required ? '' : ' (optional)' %></span>
+            <span id="<%= id %>-l"><%= f.label %><%= f.required || /\(optional\)\s*$/i.test(f.label) ? '' : ' (optional)' %></span>
             <% if (f.control === 'asset') { %><select class="input" id="<%= id %>" name="in_<%= f.key %>" aria-labelledby="<%= id %>-l"<%= f.required ? ' required' : '' %>><option value="">Choose a file</option><% f.files.forEach(function (x) { %><option value="<%= x.id %>"<%= x.id === f.value ? ' selected' : '' %>><%= x.name %></option><% }) %></select>
             <% } else { %><span class="h2-opts" data-pick-list><% f.files.forEach(function (x) { %><label class="h2-opt"><input type="checkbox" name="in_<%= f.key %>" value="<%= x.id %>"<%= f.value.split(', ').indexOf(x.id) >= 0 ? ' checked' : '' %>><span><%= x.name %></span></label><% }) %></span><% } %>
             <span class="h2-actions" style="margin-top:6px"><label class="hq-pill ghost">Add a file<input type="file" data-upload-input hidden<% if (f.accept) { %> accept="<%= f.accept %>"<% } %><%= f.control === 'assets' ? ' multiple' : '' %>></label><span class="hq-small" data-upload-msg aria-live="polite"><%= f.files.length ? '' : 'Nothing in your Library fits yet. Add one here.' %></span></span>
@@ -50,7 +50,7 @@
           </div>
           <% return; } %>
           <label class="field" for="<%= id %>">
-            <span><%= f.label %><%= f.required ? '' : ' (optional)' %></span>
+            <span><%= f.label %><%= f.required || /\(optional\)\s*$/i.test(f.label) ? '' : ' (optional)' %></span>
             <% if (f.control === 'select') { %><select class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><% if (!f.required) { %><option value="">Choose</option><% } %><% f.options.forEach(function (o) { %><option<%= String(o) === f.value ? ' selected' : '' %>><%= o %></option><% }) %></select>
             <% } else if (f.control === 'lead') { %><input class="input" id="<%= id %>" name="in_<%= f.key %>" value="<%= f.value %>" list="<%= id %>-names" autocomplete="off"<%= f.required ? ' required' : '' %>><datalist id="<%= id %>-names"><% f.names.forEach(function (n) { %><option value="<%= n %>"><% }) %></datalist>
             <% } else if (f.control === 'textarea') { %><textarea class="input" id="<%= id %>" name="in_<%= f.key %>"<%= f.required ? ' required' : '' %>><%= f.value %></textarea>
@@ -68,7 +68,7 @@
           <input type="hidden" name="agree" value="<%= a.key %>">
           <p class="hq-small h2-agree"><% a.text.split('{terms}').forEach(function (part, i) { %><% if (i) { %><a href="<%= a.href %>">Terms</a><% } %><%= part %><% }) %></p>
           <% }) %>
-          <p class="hq-small"><%= wf.freeRun ? 'Your one free Builder run. No card needed.' : 'About ' + wf.credits + ' credits. You have ' + wf.usage.left.toLocaleString('en-US') + ' left this month.' %></p>
+          <p class="hq-small"><%= wf.freeRun ? 'Your one free Builder run. No card needed.' : 'About ' + wf.credits + ' credit' + (wf.credits === 1 ? '' : 's') + '. You have ' + wf.usage.left.toLocaleString('en-US') + ' left this month.' %></p>
           <% if (isAdmin) { %><button class="hq-link-btn" name="sample" value="1">Run with sample data (admin, for the example)</button><% } %>
         <% } else { %>
           <a class="btn block" href="<%= wf.tier === 'circle' ? '/app/circle' : '/app/billing' %>"><%= wf.tier === 'circle' ? "Part of the Founder's Circle" : 'Part of Builder' %></a>

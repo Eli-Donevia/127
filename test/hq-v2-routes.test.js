@@ -348,6 +348,30 @@ test('Start groups workflows by job, bottleneck first; a workflow page shows the
   assert.equal(await (await s.go('/app/hq/w/rt.nope', { as: free })).text(), 'app 404');
 });
 
+test('a workflow form says "(optional)" once and a 1-credit cost says "1 credit"; Today offers First 25 only while it finds real businesses', async () => {
+  const ONE = {
+    id: 'one',
+    title: 'One credit',
+    version: '1.0.0',
+    summary: 'A small one.',
+    tools: [{ name: 'one.say', title: 'Say it', description: 'Says it back.', kind: 'code', risk: 'read', credits: 1, input: obj({ a: { type: 'string' }, b: { type: 'string' }, c: { type: 'string' } }), output: obj({ text: { type: 'string' } }), run: async ({ a }) => ({ text: a || '' }) }],
+    workflows: [{ id: 'one.say', title: 'Say one thing', promise: 'Says one thing.', minutes: 1, tier: 'free', inputs: { type: 'object', required: ['a'], properties: { a: { type: 'string', title: 'What to say' }, b: { type: 'string', title: 'A note (optional)' }, c: { type: 'string', title: 'Who it is for' } } }, steps: [{ id: 'say', tool: 'one.say', input: { a: '$inputs.a', b: '$inputs.b', c: '$inputs.c' } }], result: ['say'] }],
+  };
+  const r0 = packs.registerAll([{ pack: ONE, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const u = await member('builder');
+  const page = await html(await s.go('/app/hq/w/one.say', { as: u }));
+  assert.match(page, /A note \(optional\)</);
+  assert.doesNotMatch(page, /\(optional\) \(optional\)/);
+  assert.match(page, /Who it is for \(optional\)/);
+  assert.match(page, /About 1 credit\. You have/);
+  assert.doesNotMatch(page, /\b1 credits\b/);
+  const card = await html(await s.go('/app/hq/start', { as: u }));
+  assert.doesNotMatch(card, /\b1 credits\b/);
+  // First 25 runs on made-up samples in tests, so a sample run has no list to bring in: no dead line.
+  assert.doesNotMatch(await html(await s.go('/app/hq', { as: u })), /First 25 list/);
+});
+
 test("Start's Show all button has its own class, so the folds on Today, the queue and a run stay visible", () => {
   const read = (f) => fs.readFileSync(path.join(__dirname, '..', f), 'utf8');
   assert.match(read('views/app/hq2/start.ejs'), /<button type="button" class="h2-showall">/);
@@ -1463,7 +1487,7 @@ test('repeats: a finished run offers its schedule, one tap keeps it, and it runs
     page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
     assert.match(page, /Keep it going/);
     assert.match(page, /Repeat it every Monday at 7am/);
-    assert.match(page, /about \d+ credits and stops for your OK/);
+    assert.match(page, /about \d+ credits? and stops for your OK/);
 
     let res = await s.go(`/app/hq/runs/${run.id}/repeat`, { as: u, form: {} });
     assert.equal(where(res), `/app/hq/runs/${run.id}`);
@@ -1535,7 +1559,7 @@ test('repeats: a finished run offers its schedule, one tap keeps it, and it runs
     } finally {
       delete process.env.HARNESS_CREDITS_FREE;
     }
-    assert.match(reps.list(g.id)[0].lastError, /credits/);
+    assert.match(reps.list(g.id)[0].lastError, /credits?\b/);
     assert.equal(harness.ledger.freeRunAvailable(g), true, 'the free run is still theirs');
   } finally {
     reps._setDeps({ now: () => Date.now() });

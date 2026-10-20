@@ -162,6 +162,15 @@ test('every workspace page is off by default, admins-only when set to admins', a
   assert.equal(harness.flags.on('HQ_ACTIVITY', u), true);
 });
 
+test("an admin's address that hasn't confirmed its email gets no admins switch", async () => {
+  const u = await member('builder', { emailVerified: false });
+  process.env.HQ_ACTIVITY = 'admins';
+  process.env.ADMIN_EMAILS = u.email.toUpperCase();
+  assert.equal(harness.flags.on('HQ_ACTIVITY', u), false);
+  assert.equal((await s.go('/app/hq/activity', { as: u })).status, 404);
+  assert.equal(harness.flags.on('HQ_ACTIVITY', { ...u, emailVerified: true }), true);
+});
+
 // ---------- held packs ----------
 test('a held pack is checked but loads only when PACKS_ON names it', () => {
   const held = { ...WS, id: 'wsheld', held: true, tools: [{ ...WS.tools[0], name: 'wsheld.look' }], workflows: [{ ...WS.workflows[0], id: 'wsheld.look', steps: [{ id: 'look', tool: 'wsheld.look', input: { q: '$inputs.q' } }] }] };

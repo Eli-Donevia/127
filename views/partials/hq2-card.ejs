@@ -5,7 +5,7 @@
   <div class="meta">
     <span class="h2-tag dfy">127 does it</span>
     <span class="h2-tag"><%= w.minutes %> min of yours</span>
-    <span class="h2-tag"><%= w.credits ? 'About ' + w.credits + ' credits' : 'Free' %></span>
+    <span class="h2-tag"><%= w.credits ? 'About ' + w.credits + ' credit' + (w.credits === 1 ? '' : 's') : 'Free' %></span>
     <% if (w.locked) { %><span class="h2-tag <%= w.tier === 'circle' ? 'gold' : 'lock' %>"><%= w.tier === 'circle' ? "Founder's Circle" : 'Builder' %></span><% } %>
   </div>
 </a>

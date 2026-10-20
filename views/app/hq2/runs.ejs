@@ -23,7 +23,7 @@
   <% } else { %>
     <div class="hq-card">
       <ul class="h2-steps">
-        <% runs.forEach(function (r) { %><li><span class="h2-dot <%= r.status %>"></span><div class="h2-row" style="align-items:flex-start"><div style="min-width:0"><a class="t link" href="/app/hq/runs/<%= r.id %>"><%= r.title %></a><div class="s"><%= said[r.status] || r.status %> · <%= stamp(r.endedAt || r.createdAt) %> ET</div></div><span class="h2-tag"><%= r.freeRun ? 'Free run' : ((r.credits && r.credits.used) || 0) + ' credits' %></span></div></li><% }) %>
+        <% runs.forEach(function (r) { %><li><span class="h2-dot <%= r.status %>"></span><div class="h2-row" style="align-items:flex-start"><div style="min-width:0"><a class="t link" href="/app/hq/runs/<%= r.id %>"><%= r.title %></a><div class="s"><%= said[r.status] || r.status %> · <%= stamp(r.endedAt || r.createdAt) %> ET</div></div><span class="h2-tag"><%= r.freeRun ? 'Free run' : ((r.credits && r.credits.used) || 0) + ' credit' + (((r.credits && r.credits.used) || 0) === 1 ? '' : 's') %></span></div></li><% }) %>
       </ul>
     </div>
   <% } %>

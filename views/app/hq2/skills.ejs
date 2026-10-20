@@ -18,7 +18,7 @@
         <span class="h2-tag"><%= badge[s.status] %></span>
       </div>
       <p class="h2-sub"><%= s.what %></p>
-      <p class="hq-small"><%= s.label %><% if (s.status === 'on' || s.status === 'off') { %> · about <%= s.credits %> credits a run<% } %><% if (s.team && teamNames[s.team]) { %> · run by your <%= teamNames[s.team] %><% } %><% if (s.schedule && s.schedule.lastError) { %> · <%= s.schedule.lastError %><% } %></p>
+      <p class="hq-small"><%= s.label %><% if (s.status === 'on' || s.status === 'off') { %> · about <%= s.credits %> credit<%= s.credits === 1 ? '' : 's' %> a run<% } %><% if (s.team && teamNames[s.team]) { %> · run by your <%= teamNames[s.team] %><% } %><% if (s.schedule && s.schedule.lastError) { %> · <%= s.schedule.lastError %><% } %></p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
         <% if (s.status === 'off') { %><form method="post" action="/app/hq/skills/<%= encodeURIComponent(s.id) %>/on"><button class="btn">Turn on <span class="arrow"></span></button></form><% } %>
         <% if (s.status === 'on') { %><form method="post" action="/app/hq/skills/<%= encodeURIComponent(s.id) %>/off"><button class="hq-pill">Turn off</button></form><% } %>

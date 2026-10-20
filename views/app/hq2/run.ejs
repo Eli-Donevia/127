@@ -35,7 +35,7 @@
       <% if (repeat) { %>
       <section class="hq-card" aria-labelledby="rep-h">
         <span class="eyebrow" id="rep-h">Keep it going</span>
-        <p class="h2-sub" style="margin-top:6px">127 can run this again <b><%= lower(repeat.label) %></b> with the same answers. Each run uses about <%= repeat.credits %> credits and stops for your OK before anything goes out. Stop it any time on Runs.</p>
+        <p class="h2-sub" style="margin-top:6px">127 can run this again <b><%= lower(repeat.label) %></b> with the same answers. Each run uses about <%= repeat.credits %> credit<%= repeat.credits === 1 ? '' : 's' %> and stops for your OK before anything goes out. Stop it any time on Runs.</p>
         <form method="post" action="/app/hq/runs/<%= v.id %>/repeat" style="margin-top:12px"><button class="btn">Repeat it <%= lower(repeat.label) %> <span class="arrow"></span></button></form>
       </section>
       <% } else if (repeating) { %>
