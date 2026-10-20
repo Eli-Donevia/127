@@ -1,0 +1,40 @@
+// The site pack's privacy notice and store policies (Legal L76 W1, W3): every site gets privacy.html, linked in every
+// footer and under every form; blocks follow what the site uses; a site needs a name and an email, a store both policies.
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { factsFrom } = require('../lib/packs/site/lib/facts');
+const { buildSite } = require('../lib/packs/site/lib/site');
+const ex = require('../lib/packs/site/sample/examples.json');
+
+const { rankTemplates } = require('../lib/packs/site/lib/pick');
+const build = (input, opts = {}) => { const facts = factsFrom(null, input, { own: false }); return buildSite(null, { facts, template: rankTemplates(facts)[0].id, render: false, ...opts }); };
+const file = (r, name) => { const f = r.files.find((x) => x.name === name); return f ? String(f.data) : null; };
+
+test('every site gets a privacy notice, linked in the footer and under its forms', async () => {
+  const r = await build({ ...ex['site.quick_site'] });
+  const p = file(r, 'privacy.html'), index = file(r, 'index.html');
+  assert.ok(p && /This notice explains what Reyes Mobile Detailing collects through this website/.test(p));
+  assert.match(p, /Last updated/);
+  assert.match(p, /our website host, Netlify;/);
+  assert.match(p, /When you book with us/);
+  assert.ok(!/When you buy from us|Our email list|Texts\./.test(p));
+  assert.ok(!/not legal advice/i.test(p), 'the starter label stays off the page');
+  assert.match(index, /<a href="privacy\.html">Privacy<\/a><\/p>\n<\/footer>|class="legal-links"/);
+  assert.match(index, /We'll only use this to reply to you\. <a href="privacy\.html">Privacy<\/a>/);
+  assert.deepEqual(r.blockers, []);
+  assert.match(file(r, 'README.txt'), /Starter privacy notice, not legal advice/);
+});
+
+test('no email, no going online; a store needs its shipping and returns policies', async () => {
+  const noEmail = { business: 'Harbor Lane', what: 'Dog grooming', phone: '813-555-0100' };
+  assert.ok((await build(noEmail)).blockers.some((b) => /email/.test(b)));
+  assert.deepEqual((await build(noEmail, { mode: 'prospect' })).blockers, []);
+  const shop = { business: 'Halden Goods', what: 'Insulated water bottles', email: 'hi@halden.example', buy: 'https://halden.myshopify.com/products/one' };
+  const r1 = await build(shop);
+  assert.equal(r1.blockers.length, 2);
+  const r2 = await build({ ...shop, shipping: 'Ships in 2 business days.', returns: '30-day returns on unused bottles.' });
+  assert.deepEqual(r2.blockers, []);
+  assert.match(file(r2, 'policies.html'), /30-day returns on unused bottles/);
+  assert.match(file(r2, 'index.html'), /policies\.html">Shipping and returns/);
+  assert.match(file(r2, 'privacy.html'), /When you buy from us[\s\S]*Shopify handles your payment/);
+});
