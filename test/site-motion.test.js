@@ -14,7 +14,7 @@ function load(flag) {
   finally { if (old === undefined) delete process.env.SITE_MOTION; else process.env.SITE_MOTION = old; fresh(); }
 }
 const KINDS = ['local-service', 'studio', 'restaurant', 'coach', 'portfolio', 'product', 'agency', 'creator'];
-const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack'];
+const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'market', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack'];
 
 test('the animated designs show only with SITE_MOTION=on', () => {
   assert.equal(load().T.TEMPLATES.filter((t) => t.animated).length, 0);
@@ -39,4 +39,29 @@ test('each animated design builds a standalone page from a few facts', async () 
     assert.ok(!/<script[^>]+src=/.test(html), `${id}: outside script`);
     assert.ok(!/\$\d/.test(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '')), `${id}: a price nobody gave`);
   }
+});
+
+test('a shop with several products gets Market, one product with a Buy link gets Launch, only with SITE_MOTION=on', () => {
+  const pick = (flag, input) => {
+    const old = process.env.SITE_MOTION;
+    if (flag) process.env.SITE_MOTION = flag; else delete process.env.SITE_MOTION;
+    fresh();
+    try { return require(path.join(SITE, 'pick')).rankTemplates(require(path.join(SITE, 'facts')).factsFrom(null, input, { own: false }))[0].id; }
+    finally { if (old === undefined) delete process.env.SITE_MOTION; else process.env.SITE_MOTION = old; fresh(); }
+  };
+  const candles = { business: 'Ember & Oak', what: 'Hand-poured soy candles', services: 'Cedar, $28\nFig, $28\nSalt Air, $32', email: 'a@b.example' };
+  const bottle = { business: 'Halden', what: 'Insulated steel water bottle', services: 'Halden One, $38', buy: 'https://buy.stripe.com/test_x', shipping: 'Ships in 2 days', returns: '30 days', email: 'a@b.example' };
+  assert.equal(pick('on', candles), 'market');
+  assert.equal(pick('on', { ...candles, buy: 'https://emberandoak.etsy.com' }), 'market');
+  assert.equal(pick('on', bottle), 'launch');
+  assert.equal(pick('on', { business: 'Shine', what: 'Mobile car detailing', email: 'a@b.example' }), 'beacon');
+  assert.equal(pick(null, candles), 'studio');
+});
+
+test('Market without a Buy link asks to order through a form', async () => {
+  const { facts, site } = load('on');
+  const f = facts.factsFrom(null, { business: 'Ember & Oak', what: 'Candles', services: 'Cedar, $28\nFig, $28', email: 'a@b.example' }, { own: false });
+  const r = await site.buildSite(null, { facts: f, template: 'market', render: false });
+  assert.match(r.preview, /id="f-order"/);
+  assert.ok(!r.preview.includes('policies.html'));
 });
