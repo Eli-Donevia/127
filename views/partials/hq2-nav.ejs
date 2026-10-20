@@ -7,10 +7,11 @@
    if (F.HQ_TEAM) tabs.splice(tabs.length - 2, 0, ['team', '/app/hq/team', 'AI team']);
    if (F.HQ_SITE_AGENT) tabs.splice(tabs.length - 2, 0, ['site-chat', '/app/hq/site-chat', 'Site chat']);
    if (F.HQ_PROMPTS) tabs.splice(tabs.length - 2, 0, ['prompts', '/app/hq/prompts', 'Prompts']);
+   if (F.HQ_SCRIPTS) tabs.splice(tabs.length - 2, 0, ['scripts', '/app/hq/scripts', 'AI scripts']);
    if (F.HQ_ACTIVITY) tabs.splice(tabs.length - 1, 0, ['activity', '/app/hq/activity', 'Activity']);
    // The Store (lib/store.js): just before Library, as W9 orders the tabs.
    if (F.STORE_V2) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['store', '/app/hq/store', 'Store']);
-   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab; %>
+   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab === 'brief' || tab === 'briefs' || tab === 'script' ? 'scripts' : tab; %>
 <% if (typeof ws === 'undefined' || !ws) { %>
 <nav class="h2-tabs" aria-label="HQ">
   <% tabs.forEach(function (t) { %><a href="<%= t[1] %>" class="<%= here === t[0] ? 'on' : '' %>"<%- here === t[0] ? ' aria-current="page"' : '' %>><%= t[2] %><% if (t[0] === 'inbox' && inboxCount) { %><span class="n" aria-label="<%= inboxCount %> waiting"><%= inboxCount %></span><% } %></a><% }) %>
