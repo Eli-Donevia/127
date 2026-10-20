@@ -45,7 +45,8 @@ async function fakeFetch(url, opts = {}) {
   if (!r) return new Response('{}', { status: 404 });
   const out = typeof r.reply === 'function' ? r.reply(url, opts) : r.reply;
   const status = out && out.$status ? out.$status : 200;
-  return new Response(JSON.stringify(out && out.$status ? out.body || {} : out), { status, headers: { 'content-type': 'application/json' } });
+  const body = status >= 300 && status < 400 ? null : JSON.stringify(out && out.$status ? out.body || {} : out);
+  return new Response(body, { status, headers: { 'content-type': 'application/json', ...((out && out.$headers) || {}) } });
 }
 
 let stripeCalls = [];
@@ -754,4 +755,26 @@ test('Studio providers on the member\'s own account: a key in, a host-locked req
   await lapse.sweep({ force: true });
   assert.equal(connectors.credsOf(boss.id, 'runway'), null);
   assert.equal(connectors.credsOf(boss.id, 'fal'), null);
+});
+
+test('Studio clients follow redirects only within the provider\'s hosts, and the key stays on its own host', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_GOOGLE_GEMINI = 'on';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  const GK = 'AIza' + 'g'.repeat(35);
+  on('GET', /generativelanguage\.googleapis\.com\/v1beta\/models/, { models: [] });
+  assert.equal((await connectors.connectKey(boss, 'google_gemini', { key: GK })).ok, true);
+  const gm = connectors.clientFor(boss, 'google_gemini');
+
+  on('GET', /files\/abc:download/, { $status: 302, $headers: { location: 'https://video-downloads.googleusercontent.com/v/abc' } });
+  on('GET', /video-downloads\.googleusercontent\.com\/v\/abc/, 'VIDEO');
+  const file = await gm.request('/v1beta/files/abc:download', { query: { alt: 'media' }, raw: true });
+  assert.ok(Buffer.isBuffer(file.body));
+  const hop = calls.find((x) => /googleusercontent/.test(x.url));
+  assert.equal(hop.headers['x-goog-api-key'], undefined, 'the key never follows to another host');
+  assert.equal(calls.find((x) => /abc:download/.test(x.url)).headers['x-goog-api-key'], GK);
+
+  on('GET', /files\/bad:download/, { $status: 302, $headers: { location: 'https://evil.test/x' } });
+  await assert.rejects(() => gm.request('/v1beta/files/bad:download', { raw: true }), /somewhere it doesn't go/);
+  assert.ok(!calls.some((x) => /evil\.test/.test(x.url)));
 });
