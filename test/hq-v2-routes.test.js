@@ -372,6 +372,12 @@ test('a workflow form says "(optional)" once and a 1-credit cost says "1 credit"
   assert.doesNotMatch(await html(await s.go('/app/hq', { as: u })), /First 25 list/);
 });
 
+test('Talk to 127 keeps the voice on the device when the browser can (Legal L78)', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'hq2.js'), 'utf8');
+  assert.match(src, /Rec\.available\(\{ langs: \[talkLang\], processLocally: true \}\)\.then\(function \(s\) \{ onDevice = s === 'available'; \}/);
+  assert.match(src, /if \(onDevice\) rec\.processLocally = true;/);
+});
+
 test("Start's Show all button has its own class, so the folds on Today, the queue and a run stay visible", () => {
   const read = (f) => fs.readFileSync(path.join(__dirname, '..', f), 'utf8');
   assert.match(read('views/app/hq2/start.ejs'), /<button type="button" class="h2-showall">/);

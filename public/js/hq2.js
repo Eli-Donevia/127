@@ -130,6 +130,15 @@
 
   var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
   var rec = null;
+  var talkLang = document.documentElement.lang || 'en-US';
+  // When the browser can recognize speech on the device, keep the voice there (Legal L78's suggestion).
+  // Checked once on load, so the tap itself still starts listening straight away.
+  var onDevice = false;
+  if (Rec && typeof Rec.available === 'function') {
+    try {
+      Rec.available({ langs: [talkLang], processLocally: true }).then(function (s) { onDevice = s === 'available'; }, function () {});
+    } catch (err) { onDevice = false; }
+  }
   if (orb) orb.addEventListener('click', function () {
     if (!Rec) {
       input.focus();
@@ -139,7 +148,8 @@
     if (rec) return rec.stop();
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     rec = new Rec();
-    rec.lang = document.documentElement.lang || 'en-US';
+    rec.lang = talkLang;
+    if (onDevice) rec.processLocally = true;
     rec.interimResults = true;
     rec.maxAlternatives = 1;
     var heard = '';
