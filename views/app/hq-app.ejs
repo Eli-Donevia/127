@@ -23,6 +23,7 @@
     </div>
     <% if (d.conn && d.conn.error) { %><p class="hq-small" style="color:var(--danger)"><%= d.conn.error %></p><% } %>
 
+    <% if (d.claude && d.status !== 'connected' && d.status !== 'broken') { %><p class="hq-small">For now, your own Claude can work in <%= d.claude %>. <a class="link" href="/app/hq/admin-setup">Make Claude your admin</a>.</p><% } %>
     <% if (d.status === 'legal' && d.waits) { %>
       <p class="hq-small">Not yet. <%= d.waits %></p>
     <% } else if (d.status === 'legal') { %>

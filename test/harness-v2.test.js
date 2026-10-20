@@ -362,7 +362,13 @@ test('a run lists, scores, waits for a pick, writes, waits for edits, acts, slee
   assert.equal(ask.items.length, 2);
   assert.equal(ask.edit, 'text');
 
-  await engine.answer(user, run.id, 'check', { approved: true, items: { 1: 'Hi Thing 3, I fixed this myself.' } });
+  // The check feeds an act step, so each draft is its own OK, ticked in HQ by the member (Eli, Oct 20).
+  assert.equal(ask.act, true);
+  await assert.rejects(engine.answer(user, run.id, 'check', { approved: true }), /Tick each one you want done/);
+  await assert.rejects(engine.answer(user, run.id, 'check', { approved: true, chosen: ['0', '1'] }, { who: 'Your Claude' }), /answer it in HQ/);
+  engine.ACT_CLEARED.add('tp.send');
+  await engine.answer(user, run.id, 'check', { approved: true, chosen: ['0', '1'], items: { 1: 'Hi Thing 3, I fixed this myself.' } });
+  engine.ACT_CLEARED.delete('tp.send');
   await engine.idle();
   run = engine.get(user, run.id);
   assert.equal(run.status, 'sleeping');
@@ -385,6 +391,36 @@ test('a run lists, scores, waits for a pick, writes, waits for edits, acts, slee
   assert.ok(done.result.some((b) => b.type === 'metric' && b.label === 'Thing 1'));
   assert.deepEqual(done.next, ['tp.keep'], 'next drops workflows that do not exist');
   assert.match(done.timeline.map((t) => t.text).join('\n'), /You picked 2\./);
+  assert.match(done.timeline.map((t) => t.text).join('\n'), /You OK'd 2\./);
+});
+
+test("an act tool Legal hasn't cleared by id runs for admins only, and only on what was ticked", async () => {
+  const user = await member('builder');
+  const was = process.env.ADMIN_EMAILS;
+  const go = async () => {
+    let run = await engine.start(user, 'tp.full', { n: 3 });
+    await engine.idle();
+    await engine.answer(user, run.id, 'pick', { chosen: ['0', '2'] });
+    await engine.idle();
+    await engine.answer(user, run.id, 'check', { approved: true, chosen: ['1'] });
+    await engine.idle();
+    return engine.get(user, run.id);
+  };
+  try {
+    sent.length = 0;
+    process.env.ADMIN_EMAILS = '';
+    let run = await go();
+    assert.equal(run.steps.send.status, 'failed');
+    assert.match(run.steps.send.error, /waiting on Legal/);
+    assert.equal(sent.length, 0);
+    process.env.ADMIN_EMAILS = user.email;
+    run = await go();
+    assert.notEqual(run.steps.send.status, 'failed');
+    assert.equal(sent.length, 1, 'only the ticked draft');
+    assert.equal(sent[0].text, run.steps.drafts.output[1].text);
+  } finally {
+    process.env.ADMIN_EMAILS = was;
+  }
 });
 
 test('one failed item keeps the step; every item failing stops the run, and retry redoes only what failed', async () => {

@@ -352,7 +352,9 @@ test('needs: a tool that needs a member account runs as a sample until it is con
   await assert.rejects(() => ctx.secret('stripe').writes.createProduct({ name: 'Mug' }), /need your OK first/);
 
   // An approved act step can write, and the write is logged first.
-  const act = mk(boss, { name: 't.invoice', needs: ['stripe'], risk: 'act' });
+  const act = ctxLib.make({ user: boss, run: { id: 'r1', inputs: {} }, step: { id: 's1', approvedBy: 'ok' }, tool: { name: 't.invoice', needs: ['stripe'], risk: 'act' }, pack: 't', index: 0 });
+  // An act step with no approve step behind it still can't write.
+  await assert.rejects(() => mk(boss, { name: 't.invoice', needs: ['stripe'], risk: 'act' }).secret('stripe').writes.createProduct({ name: 'Mug' }), /need your OK first/);
   const inv = await act.secret('stripe').writes.createInvoice({ customer: 'cus_1', items: [{ description: 'Lesson', amount: 50 }] });
   assert.equal(inv.status, 'draft');
   assert.deepEqual(stripeCalls.find((x) => x[0] === 'invoiceItems.create')[1].amount, 5000);
@@ -585,7 +587,10 @@ test('Legal L76: held connectors, Airtable signs in, Calendly reaches no AI, pla
     assert.ok(connectors.detail(boss, id).waits, id);
   }
   assert.equal(connectors.startOauth(boss, 'gmail', 'https://127.test'), null);
-  assert.match(connectors.detail(boss, 'gmail').waits, /Make Claude your admin/);
+  assert.match(connectors.detail(boss, 'gmail').waits, /comes later/);
+  // Gmail and Calendar: the member's own Claude for now, 127's app later (Eli, Oct 20).
+  assert.equal(connectors.detail(boss, 'gmail').claude, 'your Gmail');
+  assert.equal(connectors.detail(boss, 'gcal').claude, 'your Calendar');
   assert.equal(needs.available('tiktok_ads', boss), false);
 
   // Airtable: no pasted token; sign-in with PKCE, then a client that uses the fresh token.
