@@ -21,6 +21,11 @@
     return keep;
   };
   R.lead = function (magnet) { try { return JSON.parse(localStorage.getItem(KEY(magnet)) || 'null') || {}; } catch (e) { return {}; } };
+  // A signed-in member's plan from the server (lib/funnels.js page()): { tier }, or null for a visitor.
+  R.me = function () { return window.K127_ME || null; };
+  // Whether the block after the email is the evergreen card: after the founding window (state C), or for a member
+  // already on a paid plan during it, who has no founding offer to take. Pages show their own HQ card only when it isn't.
+  R.evergreen = function (L) { var me = R.me(); return L.state === 'C' || (L.state === 'B' && !!me && me.tier !== 'free'); };
   R.launch = function (magnet) {
     var L = window.K127_LAUNCH || R.lead(magnet).launch || { state: 'C' };
     L.thing = THING[magnet];
@@ -83,7 +88,8 @@
   };
 
   // ---------- after the email ----------
-  // o: { magnet, key (archetype key or verdict), onStart(), lines (a page's own a1, a2, resource, start, builder) }
+  // o: { magnet, key (archetype key or verdict), onStart(), lines (a page's own a1, a2, resource, start, builder),
+  //      bring (the result's confirm screen in 127 HQ, for a signed-in member) }
   R.block = function (el, o) {
     var L = R.launch(o.magnet), lead = R.lead(o.magnet);
     var lines = o.lines || (o.magnet === 'score' ? D.score[o.key] : o.magnet === 'stack' ? D.stack : o.magnet === 'first25' ? D.first25 : Object.assign({ a2: D.idea.a2, start: D.idea.start }, D.idea[o.key]));
@@ -94,10 +100,10 @@
       var ch = L.challenge;
       if (L.state === 'A1' && ch && ch.open) h += challengeCard(L, lead, lines);
       else h += doorsCard(L, lines);
-    } else if (L.state === 'B') {
+    } else if (!R.evergreen(L)) {
       h += openCard(L, lines, o.magnet);
     } else {
-      h += evergreenCard(L, lines);
+      h += evergreenCard(L, lines, o);
     }
     el.innerHTML = h;
     bind(el, L, lead, o);
@@ -175,14 +181,19 @@
     '</div>';
   }
 
-  function evergreenCard(L, lines) {
-    var E = D.evergreen;
+  // A signed-in member gets their way in (the result's confirm screen, or their dashboard) instead of Start free, and
+  // Builder's line only while they're on Free.
+  function evergreenCard(L, lines, o) {
+    var E = D.evergreen, me = R.me();
+    var builder = !me || me.tier === 'free' ? '<p class="fog" style="margin-top:16px">' + esc(line(lines.builder, L)) + ' <a class="link" href="/pricing" data-r="builder">' + esc(E.builder) + '</a></p>' : '';
     return '<div class="card accent result-block" style="margin-top:14px">' +
       '<h3 class="h3" style="margin:0 0 8px">' + esc(lines.heading || E.heading) + '</h3>' +
-      p(lines.start, L, 'ink') +
-      '<button class="btn block" type="button" data-r="start" style="margin-top:10px">' + esc(E.start) + ' <span class="arrow"></span></button>' +
-      '<p class="gate-small center">' + esc(E.zero) + '</p>' +
-      '<p class="fog" style="margin-top:16px">' + esc(line(lines.builder, L)) + ' <a class="link" href="/pricing" data-r="builder">' + esc(E.builder) + '</a></p>' +
+      (me
+        ? '<a class="btn block" href="' + esc(o.bring || '/app') + '" data-r="in" style="margin-top:10px">' + esc(o.bring ? E.bring : E.open) + ' <span class="arrow"></span></a>'
+        : p(lines.start, L, 'ink') +
+          '<button class="btn block" type="button" data-r="start" style="margin-top:10px">' + esc(E.start) + ' <span class="arrow"></span></button>' +
+          '<p class="gate-small center">' + esc(E.zero) + '</p>') +
+      builder +
     '</div>';
   }
 
@@ -220,6 +231,7 @@
     on('roadmap', function () { K.track('qr_roadmap_click', Object.assign({ magnet: m }, who)); o.onStart(); });
     on('lock', function () { K.track('qr_lock_click', Object.assign({ magnet: m }, who)); });
     on('start', function () { K.track('qr_start_free_click', Object.assign({ magnet: m }, who)); o.onStart(); });
+    on('in', function () { K.track('qr_member_in_click', Object.assign({ magnet: m, to: o.bring ? 'import' : 'app' }, who)); });
     on('builder', function () { K.track('qr_builder_click', Object.assign({ magnet: m }, who)); });
     on('optin', function (e) {
       var b = e.currentTarget, wrap = el.querySelector('[data-r="optin-wrap"]');

@@ -508,13 +508,13 @@
     nextSub: 'Next comes the part most people skip: the day 3 follow-up, the call, and a price they can say yes to.',
     // Free next to Builder (playbook 1.5, the decoy). Builder lines are only things Builder has today
     // (conversion/offer.md §2), never that a plan gets you clients or leads (Legal L62).
-    // builderHq shows only when the HQ card is on (results-data.js first25.hq).
+    // freeHq shows while 127 HQ takes the list at signup (run.hq, results-data.js first25.hq), as the doors' freeLine does.
     compare: {
       freeLabel: 'Free', builderLabel: 'Builder adds',
       free: ['Your {n}, ranked, with what each one is missing', 'The first message and 2 follow-ups for each', 'Reply scripts for 7 moments', 'A mock-up for #1, and the steps for a free sample for your top 3', 'A file for Sheets or Notion'],
       freeNoSample: ['Your {n}, ranked, with what each one is missing', 'The first message and 2 follow-ups for each', 'Reply scripts for 7 moments', 'The steps for a free sample for your top 3', 'A file for Sheets or Notion'],
       builder: ['The Pricing Worksheet and One-Page Offer, so your price is ready when they ask', 'The Outreach Scripts', "Eli's Playbook for the replies, about 300 AI messages a month", 'All 4 weeks of your roadmap'],
-      builderHq: ['Follow-ups dated and tracked in 127 HQ'],
+      freeHq: ['Saved in your free 127 HQ, with each follow-up dated'],
       email: "Free gives you the list, the messages, the follow-ups and the reply scripts. Builder adds the Pricing Worksheet, the One-Page Offer, the Outreach Scripts and Eli's Playbook for the replies.",
     },
     // The email gate when there's a sample for #1 (results-kit.js R.gate copy).

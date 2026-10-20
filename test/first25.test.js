@@ -459,6 +459,31 @@ test('the email carries the top 10, the links and the 7 days, written for the na
   assert.match(lost.text, /\[state C\]$/);
 });
 
+test("Start free goes to the list's own signup into 127 HQ while HQ is on for members, the roadmap otherwise", () => {
+  const lead = { name: 'Jordan', data: { run_id: saved.id, k: first25.sign(saved.id) } };
+  const start = () => {
+    let url = null;
+    first25.emailText(lead, (state, u) => { url = u; return ''; });
+    return url;
+  };
+  const base = (process.env.BASE_URL || 'https://127group.io').replace(/\/$/, '');
+  delete process.env.HARNESS_V2;
+  assert.equal(first25.view(saved).hq, false);
+  assert.equal(start(), null, 'no HQ signup: the email keeps the roadmap link');
+  const funnels = require('../lib/funnels');
+  const after = () => funnels.deliveryEmail({ ...lead, email: 'jordan@example.com', source: 'first-25' }, null, { ...funnels._test.launchInfo(), state: 'C' }).text;
+  assert.match(after(), new RegExp(`Your roadmap is ready\\. Start free\\. Your roadmap turns this list into your first conversation, one step at a time\\.\\nStart free: ${base}/start\\?from=first-25\\n`));
+  process.env.HARNESS_V2 = 'on';
+  try {
+    assert.equal(first25.view(saved).hq, true);
+    assert.equal(start(), `${base}/start/first25/${saved.id}?k=${first25.sign(saved.id)}`);
+    // After the founding window the email's last block is the HQ card, in the page's words (tracking only, Legal L62).
+    assert.match(after(), new RegExp(`Every reply, tracked\\. 127 HQ dates each follow-up, tracks who replied, and writes your next note\\.\\nStart free: ${base}/start/first25/${saved.id}\\?k=${first25.sign(saved.id)}\\n`));
+  } finally {
+    delete process.env.HARNESS_V2;
+  }
+});
+
 // ---------- the sample made for #1 ----------
 test('every service gets a sample for #1, built only from what we found', () => {
   global.window = { matchMedia: () => ({ matches: false }) };
@@ -536,12 +561,29 @@ test('the lines about Builder and 127 HQ say what they have, never that a plan g
   const sandbox = { window: {} };
   require('node:vm').runInNewContext(require('node:fs').readFileSync(require.resolve('../public/funnels/results-data.js'), 'utf8'), sandbox);
   const G = sandbox.window.RESULTS.first25, C = D.copy.compare;
-  for (const t of [...C.builder, ...C.builderHq, C.email, G.resource, G.builder, G.hq.heading, G.hq.body]) {
+  for (const t of [...C.builder, ...C.freeHq, C.email, G.resource, G.builder, G.hq.heading, G.hq.body, G.hq.bring]) {
     assert.doesNotMatch(t, /\b(?:clients?|customers?|leads?|prospects?)\b|\{n\}|\b25\b|\bevery (?:week|monday)\b/i, t);
   }
 });
 
 // ---------- niche doors ----------
+test("a signed-in member's page carries their plan, so a result offers their way into HQ instead of Start free", async () => {
+  let user = null;
+  const a = express();
+  a.use((req, res, next) => { req.user = user; next(); });
+  a.use(require('../lib/funnels')());
+  await serve(a, async (base) => {
+    let r = await fetch(base + '/first-25');
+    assert.equal(r.status, 200);
+    assert.doesNotMatch(await r.text(), /K127_ME/);
+    assert.equal(r.headers.get('cache-control'), 'no-cache');
+    user = { id: 'u1', email: 'b@example.com', tier: 'builder' };
+    r = await fetch(base + '/first-25');
+    assert.match(await r.text(), /<script>window\.K127_ME=\{"tier":"builder"\};<\/script>/);
+    assert.equal(r.headers.get('cache-control'), 'private, no-cache', 'a page with their plan in it stays out of shared caches');
+  });
+});
+
 test('niche pages open on one service and buyer, and unknown ones go to the main page', async () => {
   for (const [id, n] of Object.entries(D.niches)) {
     assert.ok(D.packs[n.pack].buyers.includes(n.buyer), `${id}: ${n.pack} sells to ${n.buyer}`);

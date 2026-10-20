@@ -40,7 +40,7 @@
       builderNote: 'Every send, post or charge waits for your OK.',
       nextLabel: 'Free and Builder',
       nextHeading: "What's free, and what Builder adds.",
-      hq: { label: '127 HQ', heading: "It's waiting in your HQ.", body: 'Start free and this result is saved in 127 HQ, where the next step for your business is one tap.', start: 'Start free', signin: 'Have an account? Bring it in', freeLine: 'Saved in your free 127 HQ, ready for the next step' },
+      hq: { label: '127 HQ', heading: "It's waiting in your HQ.", body: 'Start free and this result is saved in 127 HQ, where the next step for your business is one tap.', start: 'Start free', signin: 'Have an account? Bring it in', freeLine: 'Saved in your free 127 HQ, ready for the next step', bring: 'Bring it into 127 HQ', bodyIn: 'Bring this result into your 127 HQ, where the next step for your business is one tap.' },
       files: 'Your files',
       fileOpen: 'Open',
       fileGet: 'Download',

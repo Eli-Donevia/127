@@ -72,6 +72,9 @@ window.RESULTS = {
     start: 'Start free',
     zero: '$0 to start. No card.',
     builder: 'Become a Builder',
+    // For a signed-in member, in place of Start free.
+    bring: 'Bring it into 127 HQ',
+    open: 'Open your dashboard',
   },
 
   // One set of lines per Founder Score archetype (§5.4, §6.2, §7). Keys match score-data.js.
@@ -132,9 +135,10 @@ window.RESULTS = {
     resource: "You have the list. Builder adds the Outreach Scripts and the Pricing Worksheet, so you're ready when they reply.",
     start: 'Start free. Your roadmap turns this list into your first conversation, one step at a time.',
     builder: "Builder, ${builderPrice} a month: the full library, Outreach Scripts and Eli's Playbook.",
-    // Turn on when 127 HQ is ready for members (Harness v2 thread). Until then it never shows. It talks about tracking only:
-    // "a fresh 25 every week" waits for a lawyer's ruling on Legal L62.
-    hq: { on: false, label: '127 HQ', heading: 'Every reply, tracked.', body: '127 HQ dates each follow-up, tracks who replied, and writes your next note.' },
+    // Shows once 127 HQ is on for members (run.hq, lib/first25.js view()): Start free makes a free account and brings the
+    // list in (lib/doors.js /start/first25/:id, then HQ's confirm screen). It talks about tracking only: "a fresh 25
+    // every week" waits for a lawyer's ruling on Legal L62.
+    hq: { label: '127 HQ', heading: 'Every reply, tracked.', body: '127 HQ dates each follow-up, tracks who replied, and writes your next note.', start: 'Start free', signin: 'Have an account? Bring it in', bring: 'Bring it into 127 HQ' },
   },
 
   // Idea Test, by verdict (§11). a2: roadmap.js Start week 1 opens with the Idea Test itself.

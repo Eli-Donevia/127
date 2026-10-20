@@ -422,10 +422,13 @@
   function drawAfter() {
     var run = st.run, X = C.copy, H = X.hq, el = $('after');
     var join = '/start/door/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k);
-    var signin = '/login?next=' + encodeURIComponent('/app/hq/import/door/' + run.id + '?k=' + run.k);
+    var bring = '/app/hq/import/door/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k), signin = '/login?next=' + encodeURIComponent(bring);
+    // A signed-in member goes straight to the confirm screen, with no Start free or sign-in.
+    var me = R.me();
     // Joining opens with the founding window (state B); before it, the founding list is the next step. After it
-    // (state C), the state block's own card is the HQ card, so it isn't shown twice.
-    var L = R.launch(M), hqNow = run.hq && (L.state === 'B' || L.state === 'C');
+    // (state C), and for a member already on a paid plan, the state block's own card is the HQ card, so it isn't
+    // shown twice (results-kit.js R.evergreen).
+    var L = R.launch(M), hqNow = run.hq && (L.state === 'B' || L.state === 'C'), ever = R.evergreen(L);
     var free = C.free.concat(hqNow ? [H.freeLine] : []);
     var adds = (run.builder || []).map(function (w) { return w.title; });
     var col = function (title, items, cls) { return '<div class="f25-col ' + cls + '">' + label(title) + '<ul>' + items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'; };
@@ -437,17 +440,19 @@
         (adds.length ? '<p class="gate-small">' + esc(X.builderNote) + '</p>' : '') +
         (run.keepUntil ? '<p class="f25-keep">' + esc(fill(X.saved, { days: C.keepDays })) + '</p>' : '') +
       '</div>' +
-      (hqNow && L.state === 'B' ? '<div class="card f25-hq dr-hq" style="margin-top:14px"><div class="label lilac">' + esc(H.label) + '</div>' +
-        '<h3 class="h3" style="margin:10px 0 8px">' + esc(H.heading) + '</h3><p class="fog" style="margin:0">' + esc(H.body) + '</p>' +
-        '<div class="row"><a class="btn" href="' + esc(join) + '" data-hq="start">' + esc(H.start) + ' <span class="arrow"></span></a>' +
-        '<a class="btn ghost" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a></div></div>' : '') +
+      (hqNow && !ever ? '<div class="card f25-hq dr-hq" style="margin-top:14px"><div class="label lilac">' + esc(H.label) + '</div>' +
+        '<h3 class="h3" style="margin:10px 0 8px">' + esc(H.heading) + '</h3><p class="fog" style="margin:0">' + esc(me ? H.bodyIn : H.body) + '</p>' +
+        '<div class="row">' + (me
+          ? '<a class="btn" href="' + esc(bring) + '" data-hq="bring">' + esc(H.bring) + ' <span class="arrow"></span></a>'
+          : '<a class="btn" href="' + esc(join) + '" data-hq="start">' + esc(H.start) + ' <span class="arrow"></span></a>' +
+            '<a class="btn ghost" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a>') + '</div></div>' : '') +
       '<div id="stateBlock"></div>' +
-      (hqNow && L.state === 'C' ? '<p class="gate-small center" style="margin-top:12px"><a class="link" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a></p>' : '') +
+      (hqNow && ever && !me ? '<p class="gate-small center" style="margin-top:12px"><a class="link" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a></p>' : '') +
       '<div class="f25-again"><a class="link" href="' + esc(C.path) + '">' + esc(X.again) + '</a></div>';
     Array.prototype.forEach.call(el.querySelectorAll('[data-hq]'), function (a) {
       a.addEventListener('click', function () { K.track('Door HQ', { door: M, via: a.getAttribute('data-hq') }); });
     });
-    R.block($('stateBlock'), { magnet: M, key: null, lines: C.lines, onStart: function () { location.href = hqNow ? join : '/start?from=' + encodeURIComponent(C.source); } });
+    R.block($('stateBlock'), { magnet: M, key: null, lines: C.lines, bring: hqNow ? bring : null, onStart: function () { location.href = hqNow ? join : '/start?from=' + encodeURIComponent(C.source); } });
   }
 
   // A store the audit can't read: what happened, and the way back to the form.

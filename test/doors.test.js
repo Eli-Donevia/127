@@ -289,6 +289,22 @@ test("past the day's live cap a store audit still answers, on the labeled sample
   });
 });
 
+test("a sample store audit never counts toward the day's live cap, so it's never told the cap is reached", async () => {
+  ON();
+  const keys = [];
+  await serve(app({ limited: (key) => (keys.push(key), key === 'door:live') }), async (base) => {
+    let ls = await lines(await run(base, 'store', INPUT.store));
+    let v = ls[ls.length - 1].run;
+    assert.equal(v.sample, true);
+    assert.equal(v.capped, false, 'the sample store reads nothing live, so the cap never comes up');
+    assert.ok(!keys.includes('door:live'));
+    ls = await lines(await run(base, 'store', { store: 'realstore.com', owner: true }));
+    v = ls[ls.length - 1].run;
+    assert.equal(v.capped, true);
+    assert.deepEqual(keys.filter((k) => k === 'door:live'), ['door:live'], 'a real store counts once');
+  });
+});
+
 test("a live store the audit can't read says why, and nothing is saved", async () => {
   ON();
   const before = db.all('doorRuns').length;
@@ -465,6 +481,48 @@ test('the account step makes a free account and goes to the import, or sends the
     const r = await fetch(`${base}/start/door/${v.id}?k=${v.k}`, { redirect: 'manual' });
     assert.equal(r.headers.get('location'), '/founding');
   });
+});
+
+test("First 25's list takes the same account step, into HQ's First 25 confirm screen", async () => {
+  ON();
+  const first25 = require('../lib/first25');
+  const list = await db.save('prospectRuns', { pack: 'video', buyer: 'gyms', place: 'Des Moines, IA', city: 'Des Moines', source: 'sample', sample: true, prospects: [] });
+  const k = first25.sign(list.id), go = `/app/hq/import/first25/${list.id}?k=${k}`;
+  await db.save('leads', { email: 'jordan@example.com', name: 'Jordan', source: 'first-25', data: { run_id: list.id, k } });
+  const made = [];
+  const createMember = async (req, o) => {
+    made.push(o);
+    return db.save('users', { email: o.email, name: o.name, tier: 'free' });
+  };
+  await serve(app({ createMember }), async (base) => {
+    let r = await fetch(`${base}/start/first25/${list.id}?k=${k}`);
+    assert.equal(r.status, 200);
+    const page = await r.text();
+    assert.match(page, /Bring your First 25 list into 127 HQ/);
+    assert.match(page, new RegExp(`action="/start/first25/${list.id}"`));
+    assert.match(page, /value="jordan@example\.com"/, 'the email from the gate is filled in');
+    assert.match(page, new RegExp(`/login\\?next=${encodeURIComponent(go)}`));
+    r = await fetch(`${base}/start/first25/${list.id}?k=${saved.creator.k}`, { redirect: 'manual' });
+    assert.equal(r.headers.get('location'), '/start', "a door's signature never opens a list");
+    r = await fetch(`${base}/start/first25/${list.id}`, { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ k, email: 'jordan@example.com', password: 'longenough', name: 'Jordan' }).toString() });
+    assert.equal(r.status, 302);
+    assert.equal(r.headers.get('location'), go);
+    assert.equal(made[0].fallbackSource, 'funnel:first-25');
+  });
+  await serve(app({ user: { id: 'u1', email: 'x@y.co' } }), async (base) => {
+    const r = await fetch(`${base}/start/first25/${list.id}?k=${k}`, { redirect: 'manual' });
+    assert.equal(r.headers.get('location'), go, 'signed in: straight to the confirm screen');
+  });
+  // While HQ isn't on for members, there's no account step to take the list into.
+  process.env.HARNESS_V2 = 'admins';
+  try {
+    await serve(app({ createMember }), async (base) => {
+      const r = await fetch(`${base}/start/first25/${list.id}?k=${k}`, { redirect: 'manual' });
+      assert.equal(r.headers.get('location'), '/start');
+    });
+  } finally {
+    ON();
+  }
 });
 
 test('into 127 HQ: files to the Library, brands to the Pipeline, only empty facts, nothing twice', async () => {

@@ -600,10 +600,10 @@
 
   // ---------- after the email ----------
   // Free next to Builder: what this tool leaves undone and what Builder adds. No totals.
-  function compare(run, G) {
+  function compare(run, hqNow) {
     var C = D.copy.compare, n = run.prospects.length;
-    var free = (F.mockKind(run.pack) ? C.free : C.freeNoSample).map(function (t) { return F.fill(t, { n: n }); });
-    var adds = C.builder.concat(G.hq && G.hq.on ? C.builderHq.map(function (t) { return F.fill(t, { n: n }); }) : []);
+    var free = (F.mockKind(run.pack) ? C.free : C.freeNoSample).concat(hqNow ? C.freeHq : []).map(function (t) { return F.fill(t, { n: n }); });
+    var adds = C.builder;
     var col = function (label, items, cls) { return '<div class="f25-col ' + cls + '"><div class="label">' + esc(label) + '</div><ul>' + items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'; };
     return '<div class="f25-compare">' + col(C.freeLabel, free, 'free') + col(C.builderLabel, adds, 'adds') + '</div>';
   }
@@ -615,8 +615,20 @@
     var csvBtn = K.onSite && run.id !== 'preview'
       ? '<a class="btn block" href="/first-25/r/' + encodeURIComponent(run.id) + '.csv?k=' + encodeURIComponent(run.k) + '" data-csv>' + esc(csvLabel) + '</a>'
       : '<button type="button" class="btn block" data-csv>' + esc(csvLabel) + '</button>';
-    var hq = G.hq && G.hq.on ? '<div class="card f25-hq" style="margin-top:14px"><div class="label lilac">' + esc(G.hq.label) + '</div><h3 class="h3" style="margin:10px 0 8px">' + esc(G.hq.heading) + '</h3><p class="fog">' + esc(G.hq.body) + '</p></div>' : '';
     var kept = K.onSite && run.id !== 'preview';
+    // 127 HQ takes the saved list at signup (lib/doors.js /start/first25/:id, then HQ's confirm screen), as it takes a
+    // front door's result: its own card in the founding window (state B); after it (C), and for a member already on a
+    // paid plan, the state block's card is the HQ card (results-kit.js R.evergreen). A signed-in member goes straight
+    // to the confirm screen.
+    var L = R.launch('first25'), H = G.hq || {}, me = R.me(), hqNow = kept && run.hq && (L.state === 'B' || L.state === 'C'), ever = R.evergreen(L);
+    var join = '/start/first25/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k);
+    var bring = '/app/hq/import/first25/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k), signin = '/login?next=' + encodeURIComponent(bring);
+    var hq = hqNow && !ever ? '<div class="card f25-hq" style="margin-top:14px"><div class="label lilac">' + esc(H.label) + '</div>' +
+      '<h3 class="h3" style="margin:10px 0 8px">' + esc(H.heading) + '</h3><p class="fog" style="margin:0">' + esc(H.body) + '</p>' +
+      '<div class="row">' + (me
+        ? '<a class="btn" href="' + esc(bring) + '" data-hq="bring">' + esc(H.bring) + ' <span class="arrow"></span></a>'
+        : '<a class="btn" href="' + esc(join) + '" data-hq="start">' + esc(H.start) + ' <span class="arrow"></span></a>' +
+          '<a class="btn ghost" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a>') + '</div></div>' : '';
     var until = run.keepUntil ? new Date(run.keepUntil).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'America/New_York' }) : '';
     var keep = kept && until ? F.fill(D.copy.keep, { date: until }) : '';
     el.innerHTML =
@@ -624,7 +636,7 @@
         '<div class="label lilac">' + esc(D.copy.nextLabel) + '</div>' +
         '<h3 class="h3" style="margin:10px 0 8px">' + esc(F.fill(D.copy.next, { n: run.prospects.length })) + '</h3>' +
         '<p class="fog" style="margin:0">' + esc(D.copy.nextSub) + '</p>' +
-        compare(run, G) +
+        compare(run, hqNow) +
         (keep ? '<p class="f25-keep"><b>' + esc(F.fill(D.copy.savedHead, { n: run.prospects.length })) + '</b> ' + esc(keep) + '</p>' : '') +
       '</div>' +
       '<div class="card" style="margin-top:14px">' +
@@ -634,7 +646,8 @@
         '<p class="gate-small center">Tap any business above to open its messages.</p>' +
       '</div>' +
       '<div class="card" style="margin-top:14px" id="replies"></div>' +
-      '<div id="stateBlock"></div>' + hq +
+      hq + '<div id="stateBlock"></div>' +
+      (hqNow && ever && !me ? '<p class="gate-small center" style="margin-top:12px"><a class="link" href="' + esc(signin) + '" data-hq="signin">' + esc(H.signin) + '</a></p>' : '') +
       '<div class="f25-again"><a class="link" href="/first-25" data-again>Run another search</a></div>';
     drawReplies(run.prospects[0] && run.prospects[0].rank);
     var csv = el.querySelector('[data-csv]');
@@ -654,7 +667,11 @@
       $('result').hidden = true; $('intro').hidden = false; $('formWrap').hidden = false;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    R.block($('stateBlock'), { magnet: 'first25', key: null, onStart: function () { location.href = K.href('/start?from=first-25'); } });
+    Array.prototype.forEach.call(el.querySelectorAll('[data-hq]'), function (a) {
+      a.addEventListener('click', function () { K.track('First25 HQ', { via: a.getAttribute('data-hq') }); });
+    });
+    // As the HQ card, the evergreen card says what HQ does with the list, the way the doors' lines do.
+    R.block($('stateBlock'), { magnet: 'first25', key: null, lines: hqNow ? Object.assign({}, G, { heading: H.heading, start: H.body }) : null, bring: hqNow ? bring : null, onStart: function () { location.href = K.href(hqNow ? join : '/start?from=first-25'); } });
   }
 
   // Credits: Google's mark and any provider Google names (Legal L53 part 1.5), or OpenStreetMap's copyright as a link (part 2.2).

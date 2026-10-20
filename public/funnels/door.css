@@ -49,8 +49,6 @@ textarea.input { min-height: 104px; resize: vertical; line-height: 1.5; padding-
 .dr-fix { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .dr-fix .input { flex: 1 1 220px; }
 .dr-fix .form-err { flex-basis: 100%; }
-.dr-hq .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-.dr-hq .row .btn { flex: 1 1 200px; }
 .dr-fail { margin-top: 30px; }
 
 @media (min-width: 720px) {

@@ -27,6 +27,13 @@ test('state follows the server clock: A1, A2, B, C', () => {
   process.env.PRELAUNCH = 'true';
 });
 
+test('a daily limit counts each try, so a limit of 0 stops the first one too', () => {
+  const { limited } = funnels._test;
+  assert.equal(limited('test:zero', 0), true);
+  assert.equal(limited('test:one', 1), false);
+  assert.equal(limited('test:one', 1), true);
+});
+
 test('dates and prices come from the launch config', () => {
   const L = at('2026-10-27T12:00:00Z', launchInfo);
   assert.equal(L.doors, 'Tue, Nov 17');
