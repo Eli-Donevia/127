@@ -10,7 +10,7 @@ does) and `CHOREO_DEFAULTS`.
 
 ```js
 {
-  intro:  'assemble' | 'develop' | 'pour' | 'unfold' | 'type' | 'none',
+  intro:  'assemble' | 'develop' | 'pour' | 'unfold' | 'type' | 'mask' | 'stamp' | 'draw' | 'none',
   alive:  ['drift' | 'pointer' | 'tap' | 'scroll', ...]  or  ['still'],
   scroll: 'scrub' | 'pin' | 'scene' | 'roadmap' | 'none',
   pace:   'calm' | 'medium' | 'fast',
@@ -46,7 +46,8 @@ does) and `CHOREO_DEFAULTS`.
 |---|---|
 | `data-ci="head"` | The headline. Its words (or letters) play the intro. A design that splits it itself marks the pieces `data-ci-part`. Screen readers get the plain text. |
 | `data-ci="subject"` | The hero's main thing (a photo, the product, a card). It forms the intro's way. |
-| `data-ci="then"` | What follows (lead, buttons, small facts). Rises in, in page order, once the idea has played. |
+| `data-ci="then"` | What follows (lead, buttons, small facts). Arrives in page order once the idea has played, the way `data-ci-from` says: `rise` (default; `--ci-rise` sets how far), `mask` (wipes up from its baseline), `fade`, or `side`. |
+| `data-pop` | On the head: its pop gesture. `line` draws a line in the member's colour under the last word (set below the descenders), `trail` lands the letters in that colour and cools them to their own, `line trail` both. Left off: no gesture, and the design shows its pop its own way. |
 | `data-alive="1"` | Moves at rest on springs. The number is its strength (about 0.2 to 2). Put it on an element inside or around a `data-ci` one, not on the same element. |
 | `data-sc` | The scroll moment's section. The runtime sets `--p` (0 to 1) on it and `--pi` and class `on` on each `data-sc-part`; `pin` also sets `cur` on the current part. `data-sc-stage` is the box that sticks (with it, progress is measured while the stage is stuck). `data-sc-line` scales with `--p` (scrub). |
 | `data-rm` | A roadmap (`lib/templates/roadmap.js`): the member's steps, services, menu groups or options as nodes on a line ending at the page's button. Its line draws and its nodes pop in, in order, with the scroll; backwards when scrolling up. Plays for every `scroll` value except `none`. |
@@ -73,6 +74,15 @@ Anything below the fold when the page opens plays its intro when it scrolls into
 - `type`: the headline is typed out letter by letter with a caret; the subject wipes on from the left. For software,
   writing, digital products.
   `{ intro: 'type' }`
+- `mask`: the words rise out of their own baseline as if from behind a rule; the subject is uncovered from the bottom
+  up. For editorial and quiet confidence.
+  `{ intro: 'mask' }`
+- `stamp`: each word is pressed onto the page a beat apart, like type in a press; the subject is printed in with a
+  flash of ink. For posters, tickets, labels.
+  `{ intro: 'stamp' }`
+- `draw`: the words settle from wide tracking while the subject's own line drawing draws itself (its SVG paths with
+  `pathLength="1"`, or every path in it). For anything the design draws in line.
+  `{ intro: 'draw' }`
 - `none`: the hero is there at once.
   `{ intro: 'none' }`
 
@@ -121,11 +131,12 @@ Every choreo page sets `--pop` to the member's own brand colour (`--primary-text
 read on the page) and uses it as light on the subject, one pop per view, never as a big flat fill or a glow behind
 things:
 
-- the headline's letters land in the member's colour and cool to their own as the intro plays (a colour trail), then
-  one line in that colour draws in under the headline's last word;
+- the head's gesture, if the design asks for one with `data-pop` (a colour trail as the letters land, a line drawn
+  under the last word); each design picks its own, so the 18 don't share one signature;
 - the roadmap's line draws in that colour with a comet riding its tip (a dot and a short trail that catches up on
   springs), and the current node fills with it;
-- links underline in it on hover; buttons press in and spring back, barely past where they started;
+- links underline in it on hover; buttons press in and spring back, barely past where they started (one spring per
+  page, `bounce` 0.1, for every intro, the subject and the buttons);
 - the `type` caret is that colour.
 
 A headline blended into its own light (lumen) keeps its colour: its light is already the pop. 127's own colours are
