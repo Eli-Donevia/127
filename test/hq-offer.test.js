@@ -187,13 +187,17 @@ test('the prompt library shows and counts only while HQ_PROMPTS is on for member
   reset();
 });
 
-test("Legal's keep-it line (L76) shows only with HQ_OFFER_KEEP, under the Builder button and the stack", () => {
+test("Legal's keep-it line (L76) shows only with HQ_OFFER_KEEP and Brain docs on, under the Builder button and the stack", () => {
   reset();
   membersOn();
   let p = offer.forPage();
   assert.equal(p.keep, '');
   assert.ok(!renderCards(p).includes('yours to keep') && !renderStack(p).includes('yours to keep'));
   process.env.HQ_OFFER_KEEP = 'on';
+  assert.equal(offer.forPage().keep, '', 'the Brain export that keeps it true is behind BRAIN_DOCS');
+  process.env.BRAIN_DOCS = 'admins';
+  assert.equal(offer.forPage().keep, '', 'Brain docs for admins only is not for members');
+  process.env.BRAIN_DOCS = 'on';
   p = offer.forPage();
   assert.equal(p.keep, 'Anything you make is yours to keep, even if you cancel.');
   assert.ok(renderCards(p).includes('14 days to change your mind. Anything you make is yours to keep, even if you cancel.'));
