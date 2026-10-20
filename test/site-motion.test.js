@@ -65,3 +65,17 @@ test('Market without a Buy link asks to order through a form', async () => {
   assert.match(r.preview, /id="f-order"/);
   assert.ok(!r.preview.includes('policies.html'));
 });
+
+test('a design the member names comes first, even when another fits better', () => {
+  process.env.SITE_MOTION = 'on';
+  fresh();
+  try {
+    const { rankTemplates } = require(path.join(SITE, 'pick'));
+    const f = require(path.join(SITE, 'facts')).factsFrom(null, require('../lib/packs/site/sample/examples.json')['site.quick_site'], { own: false });
+    for (const id of IDS) assert.equal(rankTemplates(f, { prefer: id })[0].id, id);
+    assert.equal(rankTemplates(f, { prefer: 'studio' })[0].id, 'studio');
+  } finally {
+    delete process.env.SITE_MOTION;
+    fresh();
+  }
+});
