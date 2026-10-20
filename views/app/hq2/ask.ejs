@@ -19,6 +19,7 @@
       <div class="h2-msg-t"><%= m.text %></div>
       <% if (m.sources && m.sources.length) { %><div class="hq-small" style="margin:6px 0 0">From your Brain: <% m.sources.forEach(function (s, i) { %><%= i ? ', ' : '' %><a href="<%= s.link %>"><%= s.n ? '[' + s.n + '] ' : '' %><%= s.title %></a><% }) %></div><% } %>
       <% (m.actions || []).forEach(function (a) { %>
+      <% if (a.type === 'plan') { %><%- include('../../partials/hq2-plan', { a: a, left: typeof usage !== 'undefined' && usage ? usage.left : null }) %><% return; } %>
       <div class="h2-actcard">
         <div><b><%= a.label %></b><span class="hq-small" style="display:block;margin:2px 0 0"><%= actLabel[a.type] %><%= a.title ? ': ' + a.title : '' %><%= a.credits ? ', about ' + a.credits + ' credit' + (a.credits === 1 ? '' : 's') : '' %><%= a.text && a.type !== 'add_note' ? ': ' + a.text : '' %><%= a.name ? ': ' + a.name + ' ' + a.value : '' %></span></div>
         <% if (a.status === 'proposed') { %>

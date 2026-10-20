@@ -128,7 +128,7 @@ test.beforeEach(() => {
   process.env.HARNESS_V2 = 'on';
   process.env.TERMS_LIVE = 'true';
   process.env.PRIVACY_LIVE = 'true';
-  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT']) delete process.env[k];
+  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS']) delete process.env[k];
 });
 process.on('exit', () => {
   try {
@@ -714,6 +714,129 @@ test('AI scripts: each step filled from the blanks once, library prompts and bri
 });
 
 // ---------- Legal L76 ----------
+test('Ask 127 plans (HQ_PLANNER): libraries in the context, a priced plan card, ticked steps run, and Talk goes through it', async () => {
+  process.env.HQ_AGENT = 'on';
+  process.env.HQ_ACTIVITY = 'on';
+  const u = await member();
+  const blank = { workflow: '', skill: '', inputs: [], text: '', why: '', name: '', value: '' };
+  const offer = [['service', 'Dog grooming'], ['buyer', 'Busy dog owners'], ['dream', 'A clean dog without the drive'], ['price', '$85'], ['objections', 'Too pricey']].map(([key, value]) => ({ key, value }));
+  const reply = {
+    under18: false,
+    answer: 'Here is a plan.',
+    cite: [],
+    actions: [{ ...blank, type: 'log_number', label: 'Log it', name: 'Grooms', value: '3' }],
+    plan: {
+      title: 'A better offer this week',
+      steps: [
+        { ref: 'workflow:ws.look', does: 'Find your prices', inputs: [{ key: 'q', value: 'prices' }, { key: 'bad', value: 'x' }] },
+        { ref: 'prompt:offer.builder', does: 'Shape the offer', inputs: offer },
+        { ref: 'workflow:nope', does: 'Made up', inputs: [] },
+      ],
+      connect: ['meta_ads'],
+    },
+  };
+  const seen = [];
+  const fake = async (p) => { seen.push(p); return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model }; };
+  anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
+  try {
+    // Off: no plan in the schema, the context or the reply.
+    await agent.send(u, 'Help me build an offer and look in my Brain for prices');
+    assert.doesNotMatch(seen[0].messages[0].content.at(-1).text, /Things a plan can use/);
+    assert.ok(!agent.messages(u).at(-1).actions.some((a) => a.type === 'plan'));
+
+    process.env.HQ_PLANNER = 'on';
+    await agent.send(u, 'Help me build an offer and look in my Brain for prices');
+    const sent = seen.at(-1).messages[0].content.at(-1).text;
+    assert.match(sent, /Things a plan can use \(ref = kind:id\)/);
+    assert.match(sent, /- workflow:ws\.look: Look in my Brain/);
+    assert.match(sent, /- prompt:offer\.builder: Offer builder/);
+    assert.match(sent, /The member has no apps connected\./);
+    assert.match(seen.at(-1).system.map((b) => b.text).join('\n'), /Plans: when the member wants an outcome/);
+    const m = agent.messages(u).at(-1);
+    const plan = m.actions[0];
+    assert.equal(plan.type, 'plan');
+    assert.equal(plan.title, 'A better offer this week');
+    assert.deepEqual(plan.steps.map((x) => [x.kind, x.ref]), [['workflow', 'ws.look'], ['prompt', 'offer.builder']], 'unknown refs are dropped');
+    assert.deepEqual(plan.steps[0].inputs, { q: 'prices' });
+    assert.equal(plan.steps[1].credits, agent.cost());
+    assert.equal(plan.credits, plan.steps[0].credits + agent.cost());
+    assert.deepEqual(plan.connect, [], 'only apps they could connect now');
+    assert.deepEqual(plan.using.map((x) => x.label), ['Workflow: Look in my Brain', 'Prompt: Offer builder']);
+
+    // The card: each step with what it uses and costs, the total, and one button.
+    const page = await (await s.go('/app/hq/ask', { as: u })).text();
+    assert.match(page, /Run this plan/);
+    assert.match(page, /Prompt: Offer builder · about 2 credits · about 2 min/);
+    assert.match(page, new RegExp(`About ${plan.credits} credits</b> · about ${plan.minutes} min of your time · you have [\\d,]+ left`));
+
+    // Untick the prompt: only the workflow starts.
+    const r = await s.go(`/app/hq/ask/act/${plan.id}`, { as: u, form: [['plan', '1'], ['ok', '1'], ['step', '0']] });
+    assert.equal(r.status, 302);
+    await engine.idle();
+    let done = agent.messages(u).flatMap((x) => x.actions || []).find((a) => a.id === plan.id);
+    assert.equal(done.status, 'done');
+    assert.deepEqual(done.steps.map((x) => x.status), ['done', 'skipped']);
+    assert.match(done.steps[0].link, /^\/app\/hq\/runs\//);
+    await tick();
+    assert.ok(activity.list(u.id, { who: 'Ask 127' }).some((a) => a.action === 'ran a plan'));
+
+    // A new plan with both ticked: the prompt runs as an Ask 127 message under the card.
+    await agent.send(u, 'Help me build an offer and look in my Brain for prices');
+    const p2 = agent.messages(u).at(-1).actions[0];
+    const before = agent.messages(u).length;
+    done = await agent.act(u, p2.id, true, { steps: [0, 1] });
+    assert.deepEqual(done.steps.map((x) => x.status), ['done', 'done']);
+    const after = agent.messages(u);
+    assert.equal(after.length, before + 2);
+    assert.equal(after.at(-2).text, 'Offer builder');
+    assert.match(seen.at(-1).messages[0].content.at(-1).text, /Dog grooming/);
+
+    // With Connections on, the apps they could connect come from the gallery, by name only.
+    process.env.CONNECTORS = 'on';
+    process.env.CONNECTOR_STRIPE = 'on';
+    process.env.ADMIN_EMAILS = u.email; // Stripe waits on Legal for members; an admin can connect it
+    process.env.HQ_SECRET = 'x'.repeat(40);
+    const lib = require('../lib/harness/planner').gather(u, 'stripe invoices and payments');
+    assert.ok(lib.apps.could.some((a) => a.id === 'stripe'), JSON.stringify(lib.apps));
+    assert.ok(lib.apps.could.every((a) => Object.keys(a).join() === 'id,name,reads,writes'));
+    for (const k of ['CONNECTORS', 'CONNECTOR_STRIPE', 'ADMIN_EMAILS', 'HQ_SECRET']) delete process.env[k];
+
+    // Talk to 127 sends anything that isn't a quick log or jump to Ask 127 while plans are on.
+    const t = await (await s.go('/app/hq/talk', { as: u, json: { text: 'Help me build an offer and look in my Brain for prices' } })).json();
+    assert.equal(t.kind, 'plan');
+    assert.equal(t.nav, '/app/hq/ask#end');
+    assert.match(t.say, /^Here's a plan: A better offer this week\. About \d+ credits\./);
+  } finally {
+    anthropic._setClient(null);
+    delete process.env.HQ_PLANNER;
+  }
+});
+
+test("Ask 127 plans use AI scripts and Briefs while HQ_SCRIPTS is on, never one above the member's plan", async () => {
+  process.env.HQ_AGENT = 'on';
+  process.env.HQ_PLANNER = 'on';
+  const planner = require('../lib/harness/planner');
+  const scripts = require('../lib/harness/scripts');
+  const q = 'website hero ad offer page outreach content numbers research';
+  const free = await member('free');
+  const builder = await member('builder');
+  assert.ok(!planner.gather(builder, q).items.some((i) => i.kind === 'script' || i.kind === 'brief'), 'off without HQ_SCRIPTS');
+  process.env.HQ_SCRIPTS = 'on';
+  const mine = (u) => planner.gather(u, q).items.filter((i) => i.kind === 'script').map((i) => i.id);
+  const freeIds = mine(free);
+  assert.ok(freeIds.length > 0);
+  for (const id of freeIds) assert.equal(scripts.get(id).tier, 'free', id);
+  assert.ok(mine(builder).some((id) => scripts.get(id).tier === 'builder'));
+  // A script step opens the script's page, priced by its steps.
+  const lib = planner.gather(builder, q);
+  const sc = lib.items.find((i) => i.kind === 'script');
+  assert.equal(sc.minutes, 3 * scripts.get(sc.id).steps.length);
+  const plan = planner.clean({ title: 'Go', steps: [{ ref: `script:${sc.id}`, does: 'Run the script', inputs: [] }], connect: [] }, lib, builder);
+  await planner.run(builder, plan, null, { start: async () => ({}), runPrompt: async () => {} });
+  assert.deepEqual([plan.steps[0].status, plan.steps[0].link], ['open', `/app/hq/scripts/${sc.id}`]);
+  assert.match(planner.context(lib), /AI scripts:\n- script:/);
+});
+
 test('L76: card numbers and SSNs are masked in Brain docs, and the Public toggle says who can see a doc', async () => {
   process.env.BRAIN_DOCS = 'on';
   const u = await member();

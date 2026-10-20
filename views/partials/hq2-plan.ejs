@@ -1,0 +1,30 @@
+<%# An Ask 127 plan (HQ_PLANNER, lib/harness/planner.js). Locals: a (the plan action), left (credits left, optional). %>
+<% var KIND = { workflow: 'Workflow', prompt: 'Prompt', script: 'AI script', template: 'Template', brief: 'Brief', helper: 'AI helper', skill: 'Skill' }; %>
+<form class="h2-actcard h2-plan" method="post" action="/app/hq/ask/act/<%= a.id %>" style="display:block">
+  <input type="hidden" name="plan" value="1">
+  <span class="eyebrow">Plan</span>
+  <b style="display:block;margin:4px 0 0"><%= a.title %></b>
+  <div class="h2-chips" style="margin-top:8px"><% a.using.forEach(function (u) { %><span class="h2-tag<%= u.kind === 'app' ? ' win' : '' %>"><%= u.label %></span><% }) %></div>
+  <ol class="h2-plan-steps" style="margin:10px 0 0;padding-left:20px">
+    <% a.steps.forEach(function (s) { %>
+    <li style="margin:6px 0">
+      <% if (a.status === 'proposed') { %><label class="h2-opt" style="display:inline-flex"><input type="checkbox" name="step" value="<%= s.i %>" checked><span><b><%= s.does %></b> <small><%= KIND[s.kind] %>: <%= s.title %> · <%= s.credits ? 'about ' + s.credits + ' credit' + (s.credits === 1 ? '' : 's') : 'no credits' %> · about <%= s.minutes %> min</small></span></label>
+      <% } else { %><b><%= s.does %></b> <span class="hq-small" style="margin:0"><%= KIND[s.kind] %>: <%= s.title %>.</span>
+        <% if (s.status === 'done') { %><a class="link" href="<%= s.link %>"><%= s.kind === 'prompt' ? 'Answered below' : 'Started. Open' %></a>
+        <% } else if (s.status === 'open') { %><a class="link" href="<%= s.link %>">Open it to finish</a>
+        <% } else if (s.status === 'failed') { %><span class="hq-small" style="margin:0"><%= s.error %></span>
+        <% } else if (s.status === 'skipped') { %><span class="hq-small" style="margin:0">Left out</span>
+        <% } else { %><span class="hq-small" style="margin:0">Starting</span><% } %>
+      <% } %>
+    </li>
+    <% }) %>
+  </ol>
+  <% if (a.connect && a.connect.length && a.status === 'proposed') { %><p class="hq-small">Connect <% a.connect.forEach(function (x, i) { %><%= i ? (i === a.connect.length - 1 ? ' or ' : ', ') : '' %><a class="link" href="<%= x.link %>"><%= x.name %></a><% }) %> and the plan can use it too.</p><% } %>
+  <% if (a.status === 'proposed') { %>
+  <p class="hq-small"><b>About <%= a.credits %> credit<%= a.credits === 1 ? '' : 's' %></b> · about <%= a.minutes %> min of your time<%= typeof left === 'number' ? ' · you have ' + left.toLocaleString('en-US') + ' left' : '' %>. Untick any step you don't want. Nothing is sent, posted or changed in an account without your own OK.</p>
+  <div style="display:flex;gap:6px">
+    <button class="hq-pill" name="ok" value="1">Run this plan</button>
+    <button class="hq-link-btn" name="ok" value="0" formnovalidate>No thanks</button>
+  </div>
+  <% } else if (a.status === 'dismissed') { %><p class="hq-small">Not run.</p><% } %>
+</form>
