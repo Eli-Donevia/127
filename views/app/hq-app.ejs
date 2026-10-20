@@ -21,14 +21,16 @@
     </div>
     <% if (d.conn && d.conn.error) { %><p class="hq-small" style="color:var(--danger)"><%= d.conn.error %></p><% } %>
 
-    <% if (d.status === 'legal') { %>
+    <% if (d.status === 'legal' && d.waits) { %>
+      <p class="hq-small">Not yet. <%= d.waits %></p>
+    <% } else if (d.status === 'legal') { %>
       <p class="hq-small">Waiting on Legal. Our lawyer is adding <%= d.name %> to the Privacy Policy, then you can connect it here.</p>
     <% } else if (d.status === 'coming') { %>
       <p class="hq-small">Coming soon. <%= d.auth === 'oauth' ? '127 is finishing its app with ' + (d.provider || d.name) + ', so you can sign in with one tap.' : 'This one switches on shortly.' %></p>
     <% } else if (d.auth === 'oauth' && (d.status === 'connect' || d.status === 'broken')) { %>
       <form method="post" action="/app/hq/apps/<%= d.id %>/start" style="margin-top:14px">
         <button class="hq-btn halo"<%= ageReview ? ' disabled' : '' %>>Sign in with <%= d.provider || d.name %></button>
-        <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's data with 127. You can disconnect any time.</p>
+        <%- include('partials/hq-agree', { d: d }) %>
       </form>
     <% } else if (d.auth === 'key' && (d.status === 'connect' || d.status === 'broken' || (d.v1 && !d.conn))) { %>
       <% if (d.v1 && !d.conn) { %><p class="hq-small"><%= d.id === 'stripe' ? 'Your HQ numbers already use the key on the Stripe card. For invoices, payment links and money reports, add a workflows key here.' : 'Your HQ numbers already come from the Shopify webhook. For product and order reports and product drafts, add an Admin API token here.' %></p><% } %>
@@ -41,11 +43,11 @@
         <% }) %>
         <p class="hq-small">127 checks it with <%= d.name %>, encrypts it and never shows it again.</p>
         <button class="hq-btn halo" style="margin-top:14px" data-busy="Checking with <%= d.name %>…"<%= ageReview ? ' disabled' : '' %>>Connect <%= d.name %></button>
-        <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's data with 127.</p>
+        <%- include('partials/hq-agree', { d: d }) %>
       </form>
     <% } %>
     <% if (d.conn) { %>
-      <form method="post" action="/app/hq/apps/<%= d.id %>/disconnect" data-confirm="Disconnect <%= d.name %>? 127 deletes its copy of the key. Delete it in <%= d.name %> too."><button class="hq-link-btn ember">Disconnect <%= d.name %></button></form>
+      <form method="post" action="/app/hq/apps/<%= d.id %>/disconnect" data-confirm="Disconnect <%= d.name %>? <%= d.revokes ? '127 removes its access at ' + d.name + ' and deletes its copy.' : '127 deletes its copy. Remove 127 in ' + d.name + ' too.' %> What HQ got from <%= d.name %> comes out of your runs; what you made from it stays."><button class="hq-link-btn ember">Disconnect <%= d.name %></button></form>
     <% } %>
   </section>
 

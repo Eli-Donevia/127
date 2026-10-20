@@ -2100,6 +2100,7 @@ db.init().then(async () => {
     hq.tick().catch((err) => console.error('[hq] tick', err.message));
     hqHarness.tick().catch((err) => console.error('[hq] check-in', err.message));
     require('./lib/harness/connectors').log.purge().catch((err) => console.error('[connectors] purge', err.message));
+    require('./lib/harness/connectors').sweep().catch((err) => console.error('[connectors] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.

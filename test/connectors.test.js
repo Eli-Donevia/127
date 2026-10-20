@@ -255,7 +255,7 @@ test('a pasted key: shape checked, tested with the provider, encrypted, logged; 
   assert.equal(log.list(boss.id)[0].kind, 'connector');
   assert.equal(log.list(boss.id)[0].action, 'connect');
 
-  assert.equal(await connectors.disconnect(boss, 'notion'), true);
+  assert.equal((await connectors.disconnect(boss, 'notion')).ok, true);
   assert.equal(connectors.credsOf(boss.id, 'notion'), null);
   assert.match(log.list(boss.id)[0].what, /Disconnected Notion/);
 
@@ -375,18 +375,18 @@ test('needs: a tool that needs a member account runs as a sample until it is con
 
 test('OAuth: state and PKCE out, the same state back within 15 minutes, tokens stored and refreshed', async () => {
   process.env.CONNECTORS = 'admins';
-  process.env.CONNECTOR_GMAIL = 'on';
+  process.env.CONNECTOR_GDRIVE = 'on';
   const boss = await member('builder', { email: 'boss@127.test' });
-  assert.equal(connectors.startOauth(boss, 'gmail', 'https://127.test'), null, 'no Google app yet');
+  assert.equal(connectors.startOauth(boss, 'gdrive', 'https://127.test'), null, 'no Google app yet');
   process.env.OAUTH_GOOGLE_ID = 'g-id';
   process.env.OAUTH_GOOGLE_SECRET = 'g-secret';
-  const go = connectors.startOauth(boss, 'gmail', 'https://127.test');
+  const go = connectors.startOauth(boss, 'gdrive', 'https://127.test');
   const u = new URL(go.url);
   assert.equal(u.origin + u.pathname, 'https://accounts.google.com/o/oauth2/v2/auth');
   assert.equal(u.searchParams.get('redirect_uri'), 'https://127.test/app/hq/connect/google/callback');
   assert.equal(u.searchParams.get('state'), go.pending.state);
   assert.equal(u.searchParams.get('code_challenge_method'), 'S256');
-  assert.match(u.searchParams.get('scope'), /gmail\.readonly/);
+  assert.equal(u.searchParams.get('scope'), 'https://www.googleapis.com/auth/drive.file', 'drive.file only (Legal O1)');
   assert.equal(u.searchParams.get('access_type'), 'offline');
 
   assert.match((await connectors.finishOauth(boss, go.pending, 'google', { code: 'c', state: 'wrong' }, 'https://127.test')).error, /didn't match/);
@@ -397,15 +397,23 @@ test('OAuth: state and PKCE out, the same state back within 15 minutes, tokens s
     if (b.get('grant_type') === 'refresh_token') return { access_token: 'acc-2', expires_in: 3600 };
     assert.equal(b.get('code_verifier'), go.pending.verifier);
     assert.equal(b.get('client_secret'), 'g-secret');
-    return { access_token: 'acc-1', refresh_token: 'ref-1', expires_in: 30, scope: 'gmail' };
+    return { access_token: 'acc-1', refresh_token: 'ref-1', expires_in: 30, scope: 'drive.file' };
   });
   const out = await connectors.finishOauth(boss, go.pending, 'google', { code: 'the-code', state: go.pending.state }, 'https://127.test');
-  assert.deepEqual(out, { ok: true, app: 'gmail', name: 'Gmail' });
+  assert.deepEqual(out, { ok: true, app: 'gdrive', name: 'Google Drive' });
   assert.doesNotMatch(JSON.stringify(db.get('hqConnections', boss.id)), /acc-1|ref-1/);
   // 30 seconds left: the client refreshes before use and keeps the refresh token.
-  const c = connectors.clientFor(boss, 'gmail');
+  const c = connectors.clientFor(boss, 'gdrive');
   assert.equal(await c.token(), 'acc-2');
-  assert.equal(connectors.credsOf(boss.id, 'gmail').refresh, 'ref-1');
+  assert.equal(connectors.credsOf(boss.id, 'gdrive').refresh, 'ref-1');
+
+  // Disconnect revokes at Google as well as deleting (Legal O2).
+  on('POST', /oauth2\.googleapis\.com\/revoke/, {});
+  const off = await connectors.disconnect(boss, 'gdrive');
+  assert.deepEqual(off, { ok: true, revoked: true });
+  assert.equal(new URLSearchParams(calls.find((x) => /revoke/.test(x.url)).body).get('token'), 'ref-1');
+  assert.equal(connectors.credsOf(boss.id, 'gdrive'), null);
+  assert.match(log.list(boss.id)[0].what, /removed 127's access at Google Drive/);
 });
 
 test('the pages: a connector page, a key through the form, sign-in redirect and callback, 404 when off', async () => {
@@ -422,7 +430,8 @@ test('the pages: a connector page, a key through the form, sign-in redirect and 
   assert.equal(page.status, 200);
   const html = await page.text();
   assert.match(html, /Internal integration secret/);
-  assert.match(html, /connected accounts terms/);
+  assert.match(html, /you confirm it's your account and agree to our <a href="\/terms#13a-connected-accounts-and-hq">Terms<\/a>\. HQ reads: pages you share with 127\./i);
+  assert.match(html, /HQ sends Anthropic, our AI provider, only what that task needs/);
 
   notionOk();
   const r = await s.go('/app/hq/apps/notion/connect', { as: boss, form: { token: NOTION } });
@@ -556,4 +565,90 @@ test('account deletion forgets saved keys, the Activity log and dashboards', asy
   assert.equal(connectors.credsOf(boss.id, 'notion'), null);
   assert.equal(log.list(boss.id).length, 0);
   assert.equal(dashboards.boards(boss).length, 0);
+});
+
+// ---------- Legal L76 ----------
+
+test('Legal L76: held connectors, Airtable signs in, Calendly reaches no AI, platform data leaves runs', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.DASHBOARDS = 'admins';
+  for (const id of ['GMAIL', 'QUICKBOOKS', 'ETSY', 'CANVA', 'TIKTOK_ADS', 'AIRTABLE', 'CALENDLY', 'SHOPIFY']) process.env[`CONNECTOR_${id}`] = 'on';
+  process.env.OAUTH_GOOGLE_ID = 'g';
+  process.env.OAUTH_GOOGLE_SECRET = 'gs';
+  const boss = await member('builder', { email: 'boss@127.test' });
+
+  // Held for everyone, admins too, with the reason on the page.
+  for (const id of ['gmail', 'quickbooks', 'etsy', 'canva', 'tiktok_ads']) {
+    assert.equal(connectors.allowed(boss, id), false, id);
+    assert.equal(connectors.detail(boss, id).status, 'legal', id);
+    assert.ok(connectors.detail(boss, id).waits, id);
+  }
+  assert.equal(connectors.startOauth(boss, 'gmail', 'https://127.test'), null);
+  assert.match(connectors.detail(boss, 'gmail').waits, /Make Claude your admin/);
+  assert.equal(needs.available('tiktok_ads', boss), false);
+
+  // Airtable: no pasted token; sign-in with PKCE, then a client that uses the fresh token.
+  assert.equal(apps.APPS.airtable, undefined);
+  assert.equal(connectors.catalog.byId.airtable.auth, 'oauth');
+  process.env.OAUTH_AIRTABLE_ID = 'a';
+  process.env.OAUTH_AIRTABLE_SECRET = 'as';
+  const go = connectors.startOauth(boss, 'airtable', 'https://127.test');
+  const u = new URL(go.url);
+  assert.equal(u.origin + u.pathname, 'https://airtable.com/oauth2/v1/authorize');
+  assert.equal(u.searchParams.get('code_challenge_method'), 'S256');
+  on('POST', /airtable\.com\/oauth2\/v1\/token/, { access_token: 'air-1', refresh_token: 'air-r', expires_in: 3600 });
+  assert.equal((await connectors.finishOauth(boss, go.pending, 'airtable', { code: 'x', state: go.pending.state }, 'https://127.test')).ok, true);
+  on('GET', /api\.airtable\.com\/v0\/meta\/bases/, { bases: [{ id: 'app1', name: 'Clients' }] });
+  assert.deepEqual(await connectors.clientFor(boss, 'airtable').bases(), [{ id: 'app1', name: 'Clients' }]);
+  assert.equal(calls.find((x) => /meta\/bases/.test(x.url)).headers.authorization, 'Bearer air-1');
+
+  // Calendly: connects by key, fills a dashboard tile, but packs (which use AI) never get it, and a
+  // Skill's report leaves it out.
+  on('GET', /api\.calendly\.com\/users\/me/, { resource: { uri: 'https://api.calendly.com/users/U1', name: 'Pat' } });
+  on('GET', /api\.calendly\.com\/scheduled_events/, { collection: [{ name: 'Call', start_time: new Date(Date.now() + 864e5).toISOString() }] });
+  assert.equal((await connectors.connectKey(boss, 'calendly', { token: 'c'.repeat(48) })).ok, true);
+  assert.equal(connectors.ready(boss, 'calendly'), false);
+  assert.equal(connectors.clientFor(boss, 'calendly'), null);
+  assert.equal(needs.available('calendly', boss), false);
+  assert.equal(connectors.ready(boss, 'calendly', { noAi: true }), true);
+  const b = (await dashboards.create(boss, { template: 'coach' })).board;
+  const v = await dashboards.view(boss, b);
+  const cal = v.tiles.find((t) => t.metric === 'calendly:upcoming');
+  assert.equal(cal.empty, undefined, 'the tile fills in');
+  assert.equal(cal.noAi, true);
+  assert.ok(!(await dashboards.snapshot(boss, b.id)).lines.some((l) => /booking/i.test(l)));
+  const page = await (await s.go('/app/hq/apps/calendly', { as: boss })).text();
+  assert.doesNotMatch(page, /Anthropic/, 'no AI sentence on its agree line');
+
+  // Platform data leaves runs: on disconnect at once, and after a platform's keepHours otherwise.
+  on('POST', /admin\/oauth\/access_token|shopify/, {});
+  on('GET', /myshopify\.com\/admin\/api\/[^/]+\/shop\.json/, { shop: { name: 'Rivera Goods' } });
+  on('GET', /myshopify\.com\/admin\/api\/[^/]+\/orders\.json/, { orders: [{ id: 1, total_price: '20.00', line_items: [{ title: 'Mug', quantity: 1 }] }] });
+  assert.equal((await connectors.connectKey(boss, 'shopify', { shop: 'rivera', token: SHPAT })).ok, true);
+  const packs = require('../lib/harness/packs');
+  const wfOf = packs.workflow;
+  packs.workflow = (id) => (id === 'wf-test' ? { steps: [{ id: 'orders', tool: 'shop.orders' }, { id: 'draft', tool: 'ai.write' }, { id: 'when', tool: 'cal.read' }] } : wfOf(id));
+  try {
+    const run = { id: 'run-1', memberId: boss.id, workflowId: 'wf-test', status: 'done', steps: { orders: { status: 'done', output: { orders: ['Mug'] } }, draft: { status: 'done', output: { text: 'Your draft' } }, when: { status: 'done', output: { next: 'Tue' } } } };
+    await db.save('runs', run);
+    await connectors.clientFor(boss, 'shopify', { runId: 'run-1', tool: 'shop.orders' }).orders({ sinceDays: 7 });
+    await connectors.clientFor(boss, 'calendly', { noAi: true, runId: 'run-1', tool: 'cal.read' }).bookings({ daysAhead: 7 });
+    assert.ok(!JSON.stringify(db.get('hqConnections', boss.id).touched).includes('Mug'), 'the index keeps ids, never data');
+
+    // Calendly keeps 24 hours: nothing goes before, the step is stripped after.
+    assert.equal(await connectors.sweep({ force: true }), 0);
+    assert.equal(await connectors.sweep({ force: true, now: Date.now() + 25 * 36e5 }), 1);
+    assert.equal(db.get('runs', 'run-1').steps.when.output.removed, true);
+    assert.deepEqual(db.get('runs', 'run-1').steps.orders.output, { orders: ['Mug'] }, 'Shopify has no shorter limit');
+
+    const off = await connectors.disconnect(boss, 'shopify');
+    assert.equal(off.ok, true);
+    const after = db.get('runs', 'run-1');
+    assert.equal(after.steps.orders.output.removed, true);
+    assert.match(after.steps.orders.output.note, /Shopify data removed/);
+    assert.deepEqual(after.steps.draft.output, { text: 'Your draft' }, 'what the member made stays');
+    assert.match(log.list(boss.id, { app: 'shopify' })[0].what, /removed Shopify data from 1 run/);
+  } finally {
+    packs.workflow = wfOf;
+  }
 });
