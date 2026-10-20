@@ -1,0 +1,51 @@
+<%- include('../../partials/app-head') %>
+<%# Read my week (HQ_PREMIUM, lib/harness/week.js, Legal L79): the member's own activity this week against last.
+    Only their own counts, an activity target they set, no forecast or comparison with anyone (RW6, RW8). The AI
+    line is fetched by hq-premium.js when the page is open and shows only if it passes the server check (RW2, RW4). %>
+<% var ROWS = [['touches', 'Messages sent'], ['replies', 'Replies'], ['calls', 'Calls booked'], ['yeses', 'Yeses']]; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Read my week · <%= wk.from %> to <%= wk.to %></span>
+      <h1 class="hq-title"><span class="dim">Your week,</span><span class="steel">on one page.</span></h1>
+    </div>
+  </div>
+  <article class="hqp-week">
+    <section class="hq-card" aria-labelledby="wk-h">
+      <span class="eyebrow" id="wk-h">This week and last</span>
+      <table class="hqp-week-t">
+        <thead><tr><th scope="col"><span class="sr-only">What</span></th><th scope="col">This week</th><th scope="col">Last week</th></tr></thead>
+        <tbody>
+          <% ROWS.forEach(function (r, i) { var a = wk.this[r[0]], b = wk.last[r[0]], max = Math.max(a, b, 1); %>
+          <tr style="--i:<%= i %>">
+            <th scope="row"><%= r[1] %></th>
+            <td><b><%= a %></b><span class="bar" aria-hidden="true"><i style="width:<%= Math.round(a / max * 100) %>%"></i></span></td>
+            <td><%= b %><span class="bar last" aria-hidden="true"><i style="width:<%= Math.round(b / max * 100) %>%"></i></span></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <p class="hq-small">127 finished <%= wk.jobs %> job<%= wk.jobs === 1 ? '' : 's' %> for you this week and used <%= wk.credits %> credit<%= wk.credits === 1 ? '' : 's' %>. Your daily target is <%= wk.target %> message<%= wk.target === 1 ? '' : 's' %>, set in <a class="link" href="/app/hq/brain#g-goal">Your business</a>.</p>
+      <% if (wk.quiet) { %><p class="hq-small">Nothing logged yet these two weeks. Messages you mark sent on Today and the replies in your Pipeline show up here.</p><% } %>
+    </section>
+
+    <% if (!wk.quiet) { %>
+    <section class="hq-card hqp-week-line" data-week-line hidden aria-live="polite">
+      <span class="eyebrow">What stood out</span>
+      <p class="h2-sub" data-week-text></p>
+      <p class="hq-small">Written by AI from this week's activity in HQ. Check it before you act on it.</p>
+    </section>
+    <% } %>
+
+    <section class="hq-card" aria-labelledby="wk-pb">
+      <span class="eyebrow" id="wk-pb">Eli's Playbook</span>
+      <p class="h2-sub" style="margin-top:6px">Want a deeper read? Eli's Playbook reads your last 12 weeks of HQ numbers and names one test to run.</p>
+      <a class="btn sm" href="/app/hq?v1=1#read" style="margin-top:10px">Open Eli's Playbook</a>
+    </section>
+
+    <p class="hq-foot">These are your own numbers from HQ. They aren't a forecast.</p>
+  </article>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

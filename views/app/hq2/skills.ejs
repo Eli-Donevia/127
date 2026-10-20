@@ -10,6 +10,14 @@
       <p class="hq-lede">Turn one on and 127 runs it on time, in your time zone. Each run uses its usual credits, and anything it drafts waits for your OK. Nothing is sent for you.</p>
     </div>
   </div>
+  <% if (typeof saved !== 'undefined' && saved.length) { %>
+  <section class="hq-card" id="saved" aria-labelledby="saved-h" style="margin-bottom:14px">
+    <span class="eyebrow" id="saved-h">Saved from your runs</span>
+    <ul class="h2-steps" style="margin-top:6px">
+      <% saved.forEach(function (s) { %><li><span class="h2-dot <%= s.lastError ? 'failed' : 'sleeping' %>"></span><div class="h2-row" style="align-items:flex-start"><div style="min-width:0"><span class="t"><%= s.title %></span><div class="s"><%= s.label %><%= s.runs ? ' · ran ' + s.runs + (s.runs === 1 ? ' time' : ' times') : '' %><%= s.lastError ? ' · ' + s.lastError : '' %></div></div><form method="post" action="/app/hq/repeats/<%= s.id %>/stop" data-confirm="Stop <%= s.title %>? Its saved answers go too. Everything it already made stays."><input type="hidden" name="back" value="skills"><button class="hq-link-btn">Stop</button></form></div></li><% }) %>
+    </ul>
+  </section>
+  <% } %>
   <div class="h2-stack">
     <% list.forEach(function (s) { %>
     <section class="hq-card" aria-labelledby="sk-<%= s.id.replace(/[^a-z0-9]/gi, '-') %>">

@@ -112,7 +112,7 @@
       <% } %>
 
       <section class="hq-card" id="score" aria-labelledby="score-h">
-        <div class="h2-row"><span class="eyebrow" id="score-h">This week</span><span class="tiny" style="color:var(--slate)">Against last week</span></div>
+        <div class="h2-row"><span class="eyebrow" id="score-h">This week</span><% if (P) { %><a class="link tiny" href="/app/hq/week">Read my week</a><% } else { %><span class="tiny" style="color:var(--slate)">Against last week</span><% } %></div>
         <% if (P) { var RG = [['a', 52, 'Sent today', h.today, h.target, 'Your day: ' + h.target], ['b', 38, 'Replies this week', s.this.replies, Math.max(1, s.last.replies), 'Last week ' + s.last.replies], ['s', 24, 'Calls booked this week', s.this.calls, Math.max(1, s.last.calls), 'Last week ' + s.last.calls]]; %>
         <div class="hqp-rings<%= h.done ? ' closed' : '' %>">
           <svg viewBox="0 0 120 120" aria-hidden="true"><% RG.forEach(function (r) { var c = 2 * Math.PI * r[1], f = Math.min(1, r[3] / r[4]); %><circle class="tr <%= r[0] %>" cx="60" cy="60" r="<%= r[1] %>" style="--c:<%= c.toFixed(1) %>"/><circle class="v <%= r[0] %>" cx="60" cy="60" r="<%= r[1] %>" style="--c:<%= c.toFixed(1) %>;--o:<%= (c * (1 - f)).toFixed(1) %>"/><% }) %></svg>

@@ -1579,6 +1579,56 @@ test('repeats: a finished run offers its schedule, one tap keeps it, and it runs
   }
 });
 
+test('HQ_PREMIUM: a finished run offers "Save this as a skill"; Not now hides it, Save keeps it, and Stop on Skills removes it (Legal L79)', async () => {
+  const r0 = packs.registerAll([{ pack: REP, source: 'test' }]);
+  assert.deepEqual(r0.refused, [], JSON.stringify(r0.refused));
+  const env = { HQ_PREMIUM: 'on', HQ_SKILLS: 'on', TERMS_LIVE: 'true', PRIVACY_LIVE: 'true' };
+  const was = Object.fromEntries(Object.keys(env).map((k) => [k, process.env[k]]));
+  Object.assign(process.env, env);
+  const reps = harness.schedules;
+  const u = await member();
+  try {
+    const done = async () => {
+      const run = await engine.start(u, 'trep.next', { city: 'Ames' });
+      await engine.idle();
+      await s.go(`/app/hq/runs/${run.id}/answer/ok`, { as: u, form: {} });
+      await engine.idle();
+      return run;
+    };
+    let run = await done();
+    let page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
+    assert.match(page, /Save this as a skill/);
+    assert.match(page, /about \d+ credits?, and anything it drafts waits for your OK before it goes out\. Stop it any time on Skills\./);
+    assert.doesNotMatch(page, /Keep it going/);
+
+    // Not now: nothing saved, and the card stays hidden for that workflow.
+    assert.equal(where(await s.go(`/app/hq/runs/${run.id}/skill/later`, { as: u, form: {} })), `/app/hq/runs/${run.id}`);
+    assert.equal(reps.list(u.id).length, 0);
+    run = await done();
+    page = await html(await s.go(`/app/hq/runs/${run.id}`, { as: u }));
+    assert.doesNotMatch(page, /Save this as a skill/);
+
+    // Save takes the member's tap, and lands on Skills.
+    await s.go(`/app/hq/runs/${run.id}/skill`, { as: u, form: {} });
+    const [rep] = reps.list(u.id);
+    assert.equal(rep.savedAs, 'skill');
+    assert.deepEqual(rep.inputs, { city: 'Ames' });
+    page = await html(await s.go('/app/hq/skills', { as: u }));
+    assert.match(page, /Saved from your runs/);
+    assert.match(page, /Your next 25/);
+
+    // Stop on Skills removes it the way Stop on Runs does, saved answers included.
+    assert.equal(where(await s.go(`/app/hq/repeats/${rep.id}/stop`, { as: u, form: { back: 'skills' } })), '/app/hq/skills#saved');
+    assert.equal(reps.list(u.id).length, 0);
+  } finally {
+    for (const [k, val] of Object.entries(was)) {
+      if (val === undefined) delete process.env[k];
+      else process.env[k] = val;
+    }
+    unregister(['trep']);
+  }
+});
+
 test('a member types their city once: the first run that asks saves it to Your business, and never overwrites it', async () => {
   packs.registerAll([{ pack: REP, source: 'test' }]);
   try {

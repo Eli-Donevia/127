@@ -331,3 +331,19 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp-team > .hq-card:hover .hqp-orbit i { animation: hqpOrbit 2.4s linear infinite; }
 .hqp-team > .hq-card:hover .hqp-orbit i::before { background: var(--pop); }
 @keyframes hqpOrbit { to { transform: rotate(360deg); } }
+
+/* Read my week: one page, this week against last as paired bars (this week in green, last week in grey) */
+.hqp-week { display: grid; gap: 14px; max-width: 760px; }
+.hqp-week-t { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.hqp-week-t th, .hqp-week-t td { text-align: left; padding: 12px 8px 12px 0; border-top: 1px solid var(--line); font-weight: 400; vertical-align: middle; }
+.hqp-week-t thead th { border-top: 0; font: 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--slate); padding-bottom: 6px; }
+.hqp-week-t tbody th { color: var(--ink-2); font-size: 14px; width: 34%; }
+.hqp-week-t td { width: 33%; color: var(--muted); font-size: 14px; }
+.hqp-week-t td b { color: var(--ink); font-size: 20px; font-weight: 600; }
+.hqp-week-t .bar { display: block; height: 4px; margin-top: 6px; border-radius: 4px; background: rgba(255,255,255,.06); overflow: hidden; max-width: 180px; }
+.hqp-week-t .bar i { display: block; height: 100%; background: var(--sig); border-radius: 4px; transform-origin: left; animation: hqpGrowX .9s var(--out) both; animation-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.hqp-week-t .bar.last i { background: rgba(255,255,255,.28); }
+@keyframes hqpGrowX { from { transform: scaleX(0); } }
+.hqp-week-line { border-color: var(--line-2); }
+.hqp-week-line .h2-sub { margin: 6px 0 2px; font-size: 17px; color: var(--ink); }
+@media print { .ws-rail, .ws-bar-phone, .ws-phone-top, .hqp-hz, .h2-talk, .hqp-uses { display: none !important; } }

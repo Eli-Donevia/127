@@ -38,8 +38,26 @@
         <p class="h2-sub" style="margin-top:6px">127 can run this again <b><%= lower(repeat.label) %></b> with the same answers. Each run uses about <%= repeat.credits %> credit<%= repeat.credits === 1 ? '' : 's' %> and stops for your OK before anything goes out. Stop it any time on Runs.</p>
         <form method="post" action="/app/hq/runs/<%= v.id %>/repeat" style="margin-top:12px"><button class="btn">Repeat it <%= lower(repeat.label) %> <span class="arrow"></span></button></form>
       </section>
+      <% } else if (typeof skillCard !== 'undefined' && skillCard) { %>
+      <section class="hq-card hqp-skill" aria-labelledby="sk-h">
+        <span class="eyebrow" id="sk-h">Save this as a skill</span>
+        <p class="h2-sub" style="margin-top:6px">127 can do this again <b><%= lower(skillCard.label) %></b> with the same answers. Each run uses about <%= skillCard.credits %> credit<%= skillCard.credits === 1 ? '' : 's' %>, and anything it drafts waits for your OK before it goes out. Stop it any time on Skills.</p>
+        <div class="h2-row" style="margin-top:12px;justify-content:flex-start;gap:12px">
+          <form method="post" action="/app/hq/runs/<%= v.id %>/skill"><button class="btn">Save as a skill <span class="arrow"></span></button></form>
+          <form method="post" action="/app/hq/runs/<%= v.id %>/skill/later"><button class="hq-link-btn">Not now</button></form>
+        </div>
+      </section>
       <% } else if (repeating) { %>
-      <p class="h2-sub" style="margin:0">This repeats <%= lower(repeating.label) %>. <a class="link" href="/app/hq/runs#repeats">Stop it on Runs</a>.</p>
+      <p class="h2-sub" style="margin:0"><% if (repeating.savedAs === 'skill') { %>This is saved as a skill, <%= lower(repeating.label) %>. <a class="link" href="/app/hq/skills#saved">Stop it on Skills</a>.<% } else { %>This repeats <%= lower(repeating.label) %>. <a class="link" href="/app/hq/runs#repeats">Stop it on Runs</a>.<% } %></p>
+      <% } %>
+
+      <% if (typeof ownClaude !== 'undefined' && ownClaude) { %>
+      <section class="hq-card hqp-own" aria-labelledby="oc-h">
+        <span class="eyebrow" id="oc-h">Keep going in your own Claude</span>
+        <p class="h2-sub" style="margin-top:6px">Copy this into Claude. It reads your 127 Brain and this run through your AI link.</p>
+        <div class="blk-copy" style="margin-top:12px"><div class="h2-row"><span class="tiny" style="color:var(--slate)">For Claude</span><button type="button" data-copy aria-label="Copy the prompt for Claude">Copy</button></div><pre><%= ownClaude.prompt %></pre></div>
+        <p class="hq-small">Claude reads what your AI link allows, under your own terms with Anthropic and your settings there. <a href="/privacy#7a-hq-and-connected-accounts">What's shared</a></p>
+      </section>
       <% } %>
 
       <section class="hq-card" aria-labelledby="steps-h">

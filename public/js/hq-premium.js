@@ -229,3 +229,15 @@
   };
   form.addEventListener('input', count);
 })();
+
+// Read my week: ask for the "What stood out" line now that the member has the page open. It may come back empty
+// (no clear pattern, AI off, or the line didn't pass the server's check), and then the card stays hidden.
+(function () {
+  var card = document.querySelector('.shell.hqp [data-week-line]');
+  if (!card || !window.fetch) return;
+  fetch('/app/hq/week/line.json', { credentials: 'same-origin', headers: { Accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !d.line) return;
+    card.querySelector('[data-week-text]').textContent = d.line;
+    card.hidden = false;
+  }).catch(function () {});
+})();

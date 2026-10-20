@@ -37,3 +37,29 @@ test('the Connections gallery carries a brand mark where Simple Icons has one', 
   for (const id of Object.keys(icons)) assert.ok(catalog.byId[id], id);
   assert.ok(icons.stripe && /^M/.test(icons.stripe));
 });
+
+test('Read my week: the AI line is one sentence and never about money, promises or Eli (Legal L79 RW4)', () => {
+  const week = require('../lib/harness/week');
+  assert.equal(week.clean('Most replies came from gyms you wrote to in the morning. Keep going.'), 'Most replies came from gyms you wrote to in the morning.');
+  for (const bad of ['You made $400 this week.', 'Your sales went up.', 'This will get you more calls.', 'Revenue is climbing.', 'We guarantee more replies.', 'Eli would send more in the morning.', 'You got paid twice.']) assert.equal(week.clean(bad), null, bad);
+  assert.equal(week.clean(''), null);
+});
+
+test('Read my week: what the AI line may see is counts only (Legal L79 RW1)', () => {
+  const week = require('../lib/harness/week');
+  const db = require('../lib/db');
+  const now = Date.now();
+  const at = new Date(now - 60 * 60 * 1000).toISOString();
+  const lead = { id: 'wk-test-lead', memberId: 'wk-test', pack: 'gym', key: 'k', name: 'Joe Smith', company: 'Joe Gym', note: 'secret note', links: { email: 'joe@example.com' }, stage: 'replied', history: [{ at, stage: 'contacted' }, { at, stage: 'replied' }] };
+  db.save('pipeline', lead);
+  try {
+    const c = week.counts({ id: 'wk-test' });
+    const text = JSON.stringify(c);
+    for (const leak of ['Joe', 'joe@example.com', 'secret', 'Smith']) assert.ok(!text.includes(leak), leak);
+    const rows = Object.values(c.thisWeek).concat(Object.values(c.lastWeek));
+    assert.ok(rows.length > 0);
+    for (const r of rows) assert.deepEqual(Object.keys(r).sort(), ['calls', 'replies', 'sent', 'yeses']);
+  } finally {
+    db.remove('pipeline', 'wk-test-lead');
+  }
+});
