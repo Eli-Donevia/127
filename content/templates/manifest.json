@@ -1,7 +1,7 @@
 {
  "name": "127 templates and workflows library",
  "version": 1,
- "generatedAt": "2026-10-16T10:31:22Z",
+ "generatedAt": "2026-10-19T20:55:09Z",
  "count": 37,
  "counts": {
   "sheet": 13,
@@ -542,7 +542,7 @@
     }
    ],
    "preview": "files/one-page-offer/preview.png",
-   "reviewedByEli": false
+   "reviewedByEli": true
   },
   {
    "slug": "business-model-canvas",
@@ -949,7 +949,7 @@
     }
    ],
    "preview": "files/pipeline-tracker/preview.png",
-   "reviewedByEli": false
+   "reviewedByEli": true
   },
   {
    "slug": "stack-audit",
@@ -1355,7 +1355,7 @@
     }
    ],
    "preview": "files/launch-countdown/preview.png",
-   "reviewedByEli": false
+   "reviewedByEli": true
   },
   {
    "slug": "money-setup-checklist",
@@ -1909,7 +1909,7 @@
     }
    ],
    "preview": "files/weekly-scorecard/preview.png",
-   "reviewedByEli": false
+   "reviewedByEli": true
   },
   {
    "slug": "content-planner",
@@ -2002,7 +2002,7 @@
     "Winners"
    ],
    "howTo": [
-    "Browse the Hook bank tab. Filter by type: story, mistake, contrarian, how-to, result, behind the scenes.",
+    "Browse the Hook bank tab. Filter by type: story, mistake, contrarian, how-to, list, result, behind the scenes, call-out, comparison, experiment. Each hook has a filled example.",
     "In My hooks, write ten hooks for your niche. Put the template number in the # column and the type fills in.",
     "Say each hook out loud. If it sounds like an ad, rewrite it until it sounds like you.",
     "After posting, log views, saves and DMs at 48 hours. The sheet compares each one to your average.",
@@ -2010,7 +2010,7 @@
     "Review your winner in Winners and write three remixes: same winning element, new topic."
    ],
    "minutes": 30,
-   "summary": "42 fill-in-the-blank hooks, 10 caption templates and 10 calls to action, plus a log that shows which hook type works for your audience.",
+   "summary": "60 fill-in-the-blank hooks with a filled example each, 10 caption templates and 10 calls to action, plus a log that shows which hook type works for you.",
    "output": "Ten hooks written for your niche, the hook type that beats your average, and three remixes of your best post.",
    "useWhen": "Week 2 of the Grow track, and at the start of every batching session.",
    "aiPrompt": "Check that the member's hooks are specific to their niche with real words, numbers or tools instead of blanks, that every hook type is tried, that no hook claims a fake result, and that the winning post review names a real reason it worked.",
@@ -2032,43 +2032,43 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/hook-bank/127-hook-bank.xlsx",
-     "bytes": 18955,
-     "sha256": "aabaef5e3f41310877146c524e686ff10a5850b6a3bdf9d77faad7665b5b4cf7"
+     "bytes": 22262,
+     "sha256": "7332ce01744047e89a138d2ad053afa5870f46dc86a37eb37d721b317473798d"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/hook-bank/127-hook-bank-example.xlsx",
-     "bytes": 19618,
-     "sha256": "7895e43fc6d84cf7940e322e32d50ac04225ce3366e21cf77a467a029cd794bb"
+     "bytes": 22912,
+     "sha256": "1e7160d647345b045411cb9d6c50b9d3a25d9f53dae919d899239b23346d9941"
     },
     {
      "format": "csv",
      "label": "CSV for Notion, Attio or any sheet",
      "file": "files/hook-bank/127-hook-bank-captions.csv",
-     "bytes": 962,
-     "sha256": "f9d2867f27814eda306c6bc30bc1880fc2b0e95c5be5630c33b7ca2f0b53ee4f"
+     "bytes": 1187,
+     "sha256": "f2042f7dcc39d7514499bcb237c8aa938558a3fe67afc36c1be8c7d1b8d760e7"
     },
     {
      "format": "csv",
      "label": "CSV for Notion, Attio or any sheet",
      "file": "files/hook-bank/127-hook-bank-ctas.csv",
-     "bytes": 527,
-     "sha256": "a7bf53c2c8cd85438cf4624837e1f71881b783c78c4b062d39511d2bb72fe2b0"
+     "bytes": 800,
+     "sha256": "15f9fdfc4d1e00f3b3b88388e3efb0d8ba8d63b25e96cdee1968bf526a3b95d1"
     },
     {
      "format": "csv",
      "label": "CSV for Notion, Attio or any sheet",
      "file": "files/hook-bank/127-hook-bank-my-hooks.csv",
      "bytes": 663,
-     "sha256": "8d7857604621152641989af61986fc8b18eaa018b37dcf6de8c91996a4155de9"
+     "sha256": "0ea8ce7414e8db8b356245a8819cdf402893a9600f970413b2faaaab02a7b3ba"
     },
     {
      "format": "csv",
      "label": "CSV for Notion, Attio or any sheet",
      "file": "files/hook-bank/127-hook-bank-templates.csv",
-     "bytes": 3214,
-     "sha256": "25cfe8544cbb8648d7b7931dabeb6d97148b8954dadee1f8204ce53b0fa9297c"
+     "bytes": 9163,
+     "sha256": "fa7d4d92ac03b4c328065727834ca1c9d4dc9cdf6263e19785ec066a4482bea9"
     },
     {
      "format": "csv",
@@ -2889,7 +2889,7 @@
     }
    ],
    "preview": "files/recipe-comment-to-dm/preview.png",
-   "reviewedByEli": false
+   "reviewedByEli": true
   },
   {
    "slug": "recipe-lead-form",
@@ -3688,8 +3688,8 @@
      "format": "zip",
      "label": "Notion import pack (ZIP)",
      "file": "files/founder-os-notion/127-founder-os-notion.zip",
-     "bytes": 24743,
-     "sha256": "4555189b2493c6eab970a07315bf9c986795689cbbf6a94e29ca25f1ac0b5720"
+     "bytes": 26614,
+     "sha256": "837afc2493a55ba7c33a419ecde19a6c18d6a6e5b256e11233afc7afd30e0842"
     },
     {
      "format": "guide",
@@ -3702,8 +3702,8 @@
      "format": "md",
      "label": "Home page (Markdown)",
      "file": "files/founder-os-notion/127-founder-os-home.md",
-     "bytes": 2019,
-     "sha256": "9a8500d87eb707016afaac876d35b4931d4e89c4e3aa5d3abf098dbd92467a9e"
+     "bytes": 2043,
+     "sha256": "56022133e6163ac8dc48036c91ec6beba2598bcda3c9096d174c97c5d6f0ffab"
     }
    ],
    "preview": null,

@@ -1,43 +1,61 @@
-#,Type,Hook template (fill the [brackets]),Works for pillar
-1,Story,I started [business] with [small amount or resource]. Here's what happened.,You
-2,Story,A year ago I was [old situation]. Today I'm [new situation].,You
-3,Story,The day I almost quit [thing] was the day [turning point].,You
-4,Story,My first customer for [offer] came from [unexpected place].,You
-5,Story,Nobody believed [thing] would work. Here's what I did anyway.,You
-6,Story,This is what [number] weeks of building [business] looks like.,You
-7,Story,I didn't think I was qualified to [goal]. Here's what changed.,You
-8,Mistake,I wasted [time or money] on [thing] so you don't have to.,Teach or You
-9,Mistake,The biggest mistake I made starting [business]: [mistake].,Teach or You
-10,Mistake,Stop [common action] if you want [result].,Teach or You
-11,Mistake,[Number] mistakes I made in my first [timeframe] of [business].,Teach or You
-12,Mistake,"If you're doing [common habit], you're losing [result].",Teach or You
-13,Mistake,I tried [popular advice]. It didn't work. Here's why.,Teach or You
-14,Mistake,Don't [action] until you've done this first.,Teach or You
-15,Contrarian,Unpopular opinion: you don't need [common belief] to [result].,Teach
-16,Contrarian,Everyone says [advice]. I think that's wrong.,Teach
-17,Contrarian,[Popular thing] is overrated. Do this instead.,Teach
-18,Contrarian,The worst advice I got about [topic]: [advice].,Teach
-19,Contrarian,You don't have a [problem] problem. You have a [real problem] problem.,Teach
-20,Contrarian,Nobody talks about this part of [topic].,Teach
-21,Contrarian,[Thing people fear] isn't the hard part. [Real hard part] is.,Teach
-22,How-to,How to [result] in [timeframe] without [pain].,Teach
-23,How-to,Here's exactly how I'd [result] if I started today.,Teach
-24,How-to,[Number] steps to [result]. Save this.,Teach
-25,How-to,The [number]-minute fix for [problem].,Teach
-26,How-to,How I [result] using only [tool or phone].,Teach
-27,How-to,Do this before you [common action].,Teach
-28,How-to,The easiest way to [result] for [specific person].,Teach
-29,Result,This [before] became [after] in [timeframe].,Proof
-30,Result,How [customer type] went from [before] to [after].,Proof
-31,Result,What [price or amount] gets you with [offer].,Proof
-32,Result,We just [milestone]. Here's what actually made the difference.,Proof
-33,Result,Watch this [thing] go from [before] to [after].,Proof
-34,Result,[Customer] said [exact quote]. Here's what we did.,Proof
-35,Result,"My [first / tenth / best] [sale, client, drop] and what I learned.",Proof
-36,Behind the scenes,A day running [business] while [other commitment].,You or Proof
-37,Behind the scenes,What goes into one [product or service] that nobody sees.,You or Proof
-38,Behind the scenes,Packing orders for [business]. Come with me.,You or Proof
-39,Behind the scenes,Here's what my [setup / workspace / process] actually looks like.,You or Proof
-40,Behind the scenes,"The part of [business] I hate, and why I do it anyway.",You or Proof
-41,Behind the scenes,Honest update: week [number] of building [business].,You or Proof
-42,Behind the scenes,Here's how a [service] session actually goes.,You or Proof
+#,Type,Hook template (fill the [brackets]),Filled example,Works for pillar,Rule
+1,Story,I started [business] with [small amount or resource]. Here's what month one looked like.,I started a sneaker cleaning business with $60 and a toothbrush.,You,
+2,Story,[Time] ago I [old situation]. Now I [new situation].,Six months ago I couldn't edit a video. Now I edit for 4 podcasts.,You,
+3,Story,"The day I almost quit [thing], [what happened].","The day I almost quit making candles, a local shop asked to stock them.",You,
+4,Story,My first customer came from [unexpected place].,My first resume client came from a comment I left on a Reddit thread.,You,
+5,Story,Everyone told me [doubt]. Here's what happened when I tried anyway.,Everyone told me college students won't pay for meal prep.,You,
+6,Story,This is what [number] weeks of building [business] actually looks like.,This is what 8 weeks of building a phone repair business actually looks like.,You,
+7,Mistake,I wasted [time or money] on [thing] so you don't have to.,I wasted $200 on cleaning kits so you don't have to.,Teach or You,
+8,Mistake,Stop [common action] if you want [result].,Stop washing suede with water if you want it to last.,Teach or You,
+9,Mistake,[Number] mistakes I made in my first [timeframe] of [business].,3 mistakes I made in my first month of selling candles.,Teach or You,
+10,Mistake,"If you're still [common habit], you're losing [result].","If you're still pricing by the hour, you're losing your best clients.",Teach or You,
+11,Mistake,Don't [action] until you've [done this first].,Don't print 500 stickers until you've sold 50.,Teach or You,
+12,Mistake,The [mistake] almost every [person] makes with [thing].,The mistake almost every new seller makes with shipping costs.,Teach or You,
+13,Contrarian,Unpopular opinion: you don't need [common belief] to [result].,Unpopular opinion: you don't need a camera to start a video editing business.,Teach,Only if you believe it and back it up in the post
+14,Contrarian,Everyone says [advice]. Here's why I stopped.,Everyone says post every day. Here's why I post 3 times a week.,Teach,Only if you believe it and back it up in the post
+15,Contrarian,[Popular thing] is overrated for [person]. Do this instead.,Meal kits are overrated for college students.,Teach,Only if you believe it and back it up in the post
+16,Contrarian,You don't have a [surface problem] problem. You have a [real problem] problem.,You don't have a views problem. You have a first-2-seconds problem.,Teach,Only if you believe it and back it up in the post
+17,Contrarian,[Thing people fear] isn't the hard part. [Real hard part] is.,Getting your first client isn't the hard part. Getting your second one is.,Teach,Only if you believe it and back it up in the post
+18,Contrarian,The worst advice I got about [topic] was [advice].,The worst advice I got about pricing was to start cheap and raise it later.,Teach,Only if you believe it and back it up in the post
+19,How-to,How to [result] in [timeframe] without [pain].,How to clean white midsoles in 5 minutes without bleach.,Teach,
+20,How-to,Here's exactly how I'd [result] if I started today.,Here's exactly how I'd get my first editing client if I started today.,Teach,
+21,How-to,The [number]-minute fix for [problem].,The 2-minute fix for a resume that gets no replies.,Teach,
+22,How-to,How I [result] using only [tool or phone].,How I film product videos using only my phone and a window.,Teach,
+23,How-to,Do this before you [common action].,Do this before you send your first invoice.,Teach,
+24,How-to,The easiest way to [result] if you're [specific situation].,The easiest way to meal prep if you live in a dorm with no stove.,Teach,
+25,List,"[Number] [things] I tested, ranked from worst to best.","5 sneaker cleaners I tested, ranked from worst to best.",Teach,
+26,List,[Number] free tools I use every week to [result].,4 free tools I use every week to run my tutoring business.,Teach,
+27,List,[Number] signs your [thing] is [problem].,3 signs your resume is getting filtered out before a human sees it.,Teach,
+28,List,[Number] things I wish I knew before [milestone].,3 things I wish I knew before my first market stall.,Teach,
+29,List,[Number] [things] under [$ amount] that [result].,3 lighting setups under $20 that make phone videos look professional.,Teach,
+30,List,My [number]-step [process] for [result]. Copy it.,My 4-step packing checklist for orders that never arrive broken.,Teach,
+31,Result,This [before] became [after] in [timeframe].,This yellowed midsole went white again in 20 minutes.,Proof,"Real results only: yours, or a customer's shared with permission"
+32,Result,How [customer type] went from [before] to [after].,How a nursing student went from 0 interview calls to 3 in two weeks.,Proof,"Real results only: yours, or a customer's shared with permission"
+33,Result,What [price] gets you with [offer].,What $25 gets you with my resume review.,Proof,"Real results only: yours, or a customer's shared with permission"
+34,Result,"[Customer] said ""[exact words]."" Here's what we did.","A client said ""I finally get algebra."" Here's what we changed.",Proof,"Real results only: yours, or a customer's shared with permission"
+35,Result,"My [first, 10th or 100th] [sale, client or order] and what it taught me.",My 10th order and the packing mistake it exposed.,Proof,"Real results only: yours, or a customer's shared with permission"
+36,Result,Watch this [thing] go from [before] to [after].,Watch this $8 thrifted jacket go from stained to resale ready.,Proof,"Real results only: yours, or a customer's shared with permission"
+37,Behind the scenes,A day running [business] while [other commitment].,A day running a candle business while working a full-time job.,You or Proof,
+38,Behind the scenes,What goes into one [product or service] that nobody sees.,What goes into one $30 logo that nobody sees.,You or Proof,
+39,Behind the scenes,Packing [number] orders for [business]. Come with me.,Packing 14 orders for my sticker shop.,You or Proof,
+40,Behind the scenes,Here's what my [setup or process] actually looks like.,Here's what my $0 editing setup actually looks like.,You or Proof,
+41,Behind the scenes,Honest update: week [number] of building [business].,Honest update: week 6 of building a meal prep business.,You or Proof,
+42,Behind the scenes,"The part of [business] I hate, and why I do it anyway.","The part of tutoring I hate, and why I do it anyway.",You or Proof,
+43,Call-out,"If you're a [specific person] who [situation], this is for you.","If you're a student athlete who hates cooking, this is for you.",Teach,
+44,Call-out,This is for every [person] who's tired of [pain].,This is for every freelancer who's tired of chasing invoices.,Teach,
+45,Call-out,Do you [common behavior]? Here's what it's doing to [thing].,Do you machine-wash your sneakers? Here's what it's doing to the glue.,Teach,
+46,Call-out,Raise your hand if you've ever [relatable pain].,Raise your hand if you've ever bought a planner and quit by February.,Teach,
+47,Call-out,Only watch this if you [qualifier].,Only watch this if you sell something under $50.,Teach,
+48,Call-out,POV: you [relatable moment].,POV: you finally clean the sneakers you've been hiding in your closet.,Teach,
+49,Comparison,[Option A] vs [option B]: which one actually [result]?,$5 cleaner vs $25 cleaner: which one actually works?,Teach or Proof,
+50,Comparison,I tested [cheap thing] and [expensive thing] for [timeframe]. Here's the verdict.,I tested a $12 and a $60 ring light for a week.,Teach or Proof,
+51,Comparison,What [amount] gets you at [place A] vs [place B].,What $50 gets you at a local print shop vs online.,Teach or Proof,
+52,Comparison,"Beginner [thing] vs pro [thing], same [tool].","Beginner lighting vs pro lighting, same phone.",Teach or Proof,
+53,Comparison,[Task] the slow way vs the fast way.,Packing orders the slow way vs the fast way.,Teach or Proof,
+54,Comparison,What [customers] expect vs what actually happens.,What clients expect from a logo designer vs what actually happens.,Teach or Proof,
+55,Experiment,I tried [thing] for [timeframe]. Here's what happened.,I sold at a farmers market for 4 weekends.,Proof or You,"Only if you ran it, and show the real outcome"
+56,Experiment,Can you [result] with only [constraint]? Let's find out.,Can you start a business with only $50?,Proof or You,"Only if you ran it, and show the real outcome"
+57,Experiment,I let [person or group] decide [thing] for my business.,I let my followers pick my next candle scent.,Proof or You,"Only if you ran it, and show the real outcome"
+58,Experiment,Testing [popular claim] so you don't have to.,Testing the viral toothpaste sneaker trick so you don't have to.,Proof or You,"Only if you ran it, and show the real outcome"
+59,Experiment,Day [number] of [challenge].,Day 1 of turning $100 into a real business.,Proof or You,"Only if you ran it, and show the real outcome"
+60,Experiment,I [did something unusual] to get [result]. Was it worth it?,I handed out 100 flyers to find tutoring clients.,Proof or You,"Only if you ran it, and show the real outcome"

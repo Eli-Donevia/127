@@ -16,7 +16,7 @@
 - **Pipeline**: Every person you might sell to, with a stage and a next step date.
 - **Conversations**: Your discovery conversations: who, when, what they said.
 - **Content Calendar**: 30 days of posts with pillar, hook, format and results.
-- **Hook Bank**: 42 fill-in-the-blank hooks, by type.
+- **Hook Bank**: Fill-in-the-blank hooks by type, each with a filled example.
 - **Weekly Scorecard**: Your five numbers every Monday, plus your call for the week.
 - **Objection Log**: Every "but" you hear, in their words, and how you answered it.
 - **One-Page Offer**: the 127 template as a page you fill in.
