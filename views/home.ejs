@@ -149,8 +149,10 @@
     <div class="wrap fl-copy">
       <h1 class="fl-title"><span class="dim"><span>Your</span> <span>business</span> <span>idea,</span></span> <span class="st"><span>launched</span> <span>with</span> <span>AI.</span></span></h1>
       <div class="fl-row">
-        <%# Before doors open, /start sends people to /founding, so A says what they can do today. %>
-        <p class="fl-sub">Validate it, build it and launch it with AI. <%= S === 'A' ? 'Joining the founding list is free, no card.' : 'Start free in under 5 minutes, no card.' %></p>
+        <%# Before doors open, /start sends people to /founding, so A says what they can do today. Once HQ_OFFER is on,
+            Offer's line (offer.md 1A, res.locals.hqOffer) says what HQ is instead. %>
+        <% var hqLine = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.show && hqOffer.line; %>
+        <p class="fl-sub"><% if (hqLine) { %><%= hqLine %><% } else { %>Validate it, build it and launch it with AI. <%= S === 'A' ? 'Joining the founding list is free, no card.' : 'Start free in under 5 minutes, no card.' %><% } %></p>
         <a href="<%= cta[0] %>" class="btn light big"<%- tk('home_hero_primary') %>><%= cta[1] %> <span class="arrow"></span></a>
       </div>
       <p class="fl-note"><% if (S === 'A') { %><%= doorsLine %> <% } %>Built by Eli Christiansen, 4x founder.</p>
