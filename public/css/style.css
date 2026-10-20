@@ -1574,6 +1574,24 @@ main .legal-foot { margin-top: 32px; }
 .q5-list b{display:block;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.025em}
 .q5-list span{display:block;margin-top:6px;color:var(--ink-2);font-size:14.5px}
 
+/* What are you building? The front doors (views/partials/doors.ejs, only with FRONT_DOORS) */
+.d5-head{max-width:760px}
+.d5-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.d5-grid li{display:flex}
+html.js .d5-grid li[data-reveal]{transition-delay:calc(var(--i,0) * .06s)}
+.d5-door{flex:1;display:flex;flex-direction:column;gap:10px;padding:22px 20px 20px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.008));color:var(--ink);text-decoration:none;transition:border-color .25s ease,transform .25s ease,background-color .25s ease}
+.d5-door:hover,.d5-door:focus-visible{border-color:rgba(255,255,255,.3);transform:translateY(-2px);background-color:rgba(255,255,255,.02)}
+.d5-door b{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.1;letter-spacing:-.035em}
+.d5-for{font-size:13.5px;line-height:1.45;color:var(--muted)}
+.d5-get{flex:1;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.d5-go{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:14.5px;font-weight:600;color:var(--ink)}
+.d5-road{margin:28px 0 0;font-size:15px;color:var(--ink-2)}
+.d5-road a{color:var(--ink);text-underline-offset:3px}
+.ds .d5{padding:40px 0 64px}
+@media (max-width:1100px){.d5-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.d5-grid{grid-template-columns:1fr}.d5-door{padding:20px 18px 18px}.ds .d5{padding:24px 0 48px}}
+@media (prefers-reduced-motion: reduce){.d5-door{transition:none}.d5-door:hover{transform:none}}
+
 /* final CTA, left-aligned over the photo (as v4) */
 .v5 .cta-photo{text-align:left;background-position:right center;background-size:auto 120%}
 .v5 .cta-photo::before{background:linear-gradient(90deg,rgba(6,6,7,1) 0%,rgba(6,6,7,.85) 45%,rgba(6,6,7,.2) 100%),linear-gradient(180deg,rgba(6,6,7,1),transparent 25%,transparent 75%,rgba(6,6,7,1))}

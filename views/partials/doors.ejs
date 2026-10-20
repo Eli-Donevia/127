@@ -1,0 +1,26 @@
+<%# The front doors (lib/doors.js, copy in public/funnels/doors-data.js): "What are you building?" on / and /start, only
+    while FRONT_DOORS is on. Each door is a free tool that does the first piece of work for that kind of business.
+    Locals: doors (doors-data.js picker), doorEvent (the click goal). %>
+<% var ev = typeof doorEvent !== 'undefined' ? doorEvent : 'door_pick'; %>
+<section class="d5" id="doors">
+  <div class="wrap">
+    <div class="d5-head">
+      <p class="lbl" data-reveal><%= doors.label %></p>
+      <h2 class="h2" data-reveal><%= doors.heading %></h2>
+      <p class="sub" data-reveal><%= doors.sub %></p>
+    </div>
+    <ul class="d5-grid">
+      <% doors.doors.forEach(function (d, i) { %>
+      <li data-reveal style="--i:<%= i %>">
+        <a class="d5-door" href="<%= d.href %>" data-track="<%= ev %>" data-props='<%- JSON.stringify({ door: d.id }) %>'>
+          <b><%= d.label %></b>
+          <span class="d5-for"><%= d.for %></span>
+          <span class="d5-get"><%= d.result %></span>
+          <span class="d5-go"><%= d.cta %> <span class="arrow"></span></span>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+    <p class="d5-road" data-reveal><a href="/start?roadmap=1" data-track="<%= ev %>" data-props='<%- JSON.stringify({ door: "roadmap" }) %>'><%= doors.roadmap %></a></p>
+  </div>
+</section>

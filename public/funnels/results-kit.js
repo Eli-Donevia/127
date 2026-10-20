@@ -6,9 +6,10 @@
 (function () {
   var K = window.K127, D = window.RESULTS, esc = K.esc;
   var R = {};
-  var THING = { score: 'results', stack: 'guide', idea: 'results', first25: 'list' };
-  var SOURCE = { score: 'founder-score', stack: 'day-one-stack', idea: 'idea-test', first25: 'first-25' };
-  var FROM = { score: 'score', stack: 'stack', idea: 'idea-test', first25: 'first-25' };
+  // The front doors (door.js, doors-data.js) are magnets too: store, creator, site, offer.
+  var THING = { score: 'results', stack: 'guide', idea: 'results', first25: 'list', store: 'audit', creator: 'list', site: 'site', offer: 'results' };
+  var SOURCE = { score: 'founder-score', stack: 'day-one-stack', idea: 'idea-test', first25: 'first-25', store: 'store-audit', creator: 'brand-list', site: 'site-tonight', offer: 'offer-score' };
+  var FROM = { score: 'score', stack: 'stack', idea: 'idea-test', first25: 'first-25', store: 'store-audit', creator: 'brand-list', site: 'site-tonight', offer: 'offer-score' };
 
   // ---------- what the server said ----------
   var KEY = function (magnet) { return '127-result-' + magnet; };
@@ -82,10 +83,10 @@
   };
 
   // ---------- after the email ----------
-  // o: { magnet, key (archetype key or verdict), onStart() }
+  // o: { magnet, key (archetype key or verdict), onStart(), lines (a page's own a1, a2, resource, start, builder) }
   R.block = function (el, o) {
     var L = R.launch(o.magnet), lead = R.lead(o.magnet);
-    var lines = o.magnet === 'score' ? D.score[o.key] : o.magnet === 'stack' ? D.stack : o.magnet === 'first25' ? D.first25 : Object.assign({ a2: D.idea.a2, start: D.idea.start }, D.idea[o.key]);
+    var lines = o.lines || (o.magnet === 'score' ? D.score[o.key] : o.magnet === 'stack' ? D.stack : o.magnet === 'first25' ? D.first25 : Object.assign({ a2: D.idea.a2, start: D.idea.start }, D.idea[o.key]));
     var A = L.state === 'A1' || L.state === 'A2';
     var h = '';
     if (A) {
@@ -177,7 +178,7 @@
   function evergreenCard(L, lines) {
     var E = D.evergreen;
     return '<div class="card accent result-block" style="margin-top:14px">' +
-      '<h3 class="h3" style="margin:0 0 8px">' + esc(E.heading) + '</h3>' +
+      '<h3 class="h3" style="margin:0 0 8px">' + esc(lines.heading || E.heading) + '</h3>' +
       p(lines.start, L, 'ink') +
       '<button class="btn block" type="button" data-r="start" style="margin-top:10px">' + esc(E.start) + ' <span class="arrow"></span></button>' +
       '<p class="gate-small center">' + esc(E.zero) + '</p>' +

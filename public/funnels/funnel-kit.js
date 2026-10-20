@@ -26,7 +26,7 @@
 
   // name: 'Quiz Start' | 'Quiz Complete' | 'Lead' | 'Share' | 'Idea Test Run' ...
   // Quiz starts are also counted on the server (the revenue dashboard can't read Plausible).
-  var STARTS = { 'Quiz Start': 'founder-score', 'Idea Test Run': 'idea-test', 'First25 Search': 'first-25' };
+  var STARTS = { 'Quiz Start': 'founder-score', 'Idea Test Run': 'idea-test', 'First25 Search': 'first-25', 'Store Audit Run': 'store-audit', 'Brand List Run': 'brand-list', 'Site Tonight Run': 'site-tonight', 'Offer Score Run': 'offer-score' };
   K.track = function (name, props) {
     props = props || {};
     if (STARTS[name] && K.onSite) {

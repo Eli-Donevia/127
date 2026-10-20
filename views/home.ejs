@@ -178,6 +178,11 @@
   </section>
   <% } %>
 
+  <% if (typeof doors !== 'undefined' && doors) { %>
+  <!-- WHAT ARE YOU BUILDING? The front doors, one free tool per kind of business (FRONT_DOORS, lib/doors.js) -->
+  <%- include('partials/doors', { doors: doors, doorEvent: 'home_door' }) %>
+  <% } %>
+
   <!-- THE HOOK (in run mode the glass 127 moves here, under its halo: the brand moment after the demo) -->
   <section class="pain<%= run ? ' pain-mark' : '' %>">
     <% if (run) { %>

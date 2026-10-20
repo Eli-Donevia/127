@@ -13,10 +13,10 @@ const { check } = require('../lib/copy-check');
 const ROOT = path.join(__dirname, '..');
 // Legal pages must say "no guarantee", so they're out. So are the member library and the tools' prompts.
 const LEGAL = /partials\/(terms-of-service|privacy-policy|membership-terms|circle-agreement|earnings-disclaimer|cookie-notice)\.ejs$/;
-const EMAILS = ['lib/billing-emails.js', 'lib/circle-emails.js', 'lib/waitlist.js', 'lib/challenge.js', 'lib/funnels.js', 'lib/hq-harness.js', 'lib/member-ops.js', 'lib/age-check.js', 'lib/founding-five.js', 'lib/founding-five-routes.js'];
-// Tool output: what First 25 writes for people (the message to each business, what each website is missing, the page's own lines)
-// and the results pages' lines, including what they say about Builder and 127 HQ (Legal L62).
-const TOOL_OUTPUT = ['public/funnels/first25-data.js', 'public/funnels/first25-engine.js', 'public/funnels/first-25.js', 'public/funnels/results-data.js'];
+const EMAILS = ['lib/billing-emails.js', 'lib/circle-emails.js', 'lib/waitlist.js', 'lib/challenge.js', 'lib/funnels.js', 'lib/hq-harness.js', 'lib/member-ops.js', 'lib/age-check.js', 'lib/founding-five.js', 'lib/founding-five-routes.js', 'lib/doors.js'];
+// Tool output: what First 25 writes for people (the message to each business, what each website is missing, the page's own lines),
+// the front doors' pages and picker, and the results pages' lines, including what they say about Builder and 127 HQ (Legal L62).
+const TOOL_OUTPUT = ['public/funnels/first25-data.js', 'public/funnels/first25-engine.js', 'public/funnels/first-25.js', 'public/funnels/doors-data.js', 'public/funnels/door.js', 'public/funnels/results-data.js'];
 // Copy that is all about paid plans: the plan names and features, the plan cards, the Builder map and the pricing page.
 // Every sentence counts as paid-plan copy here (Legal L62), so none of it says a plan gets members clients, leads or businesses.
 const PAID_COPY = ['lib/plans.js', 'lib/hq-offer.js', 'views/partials/plans.ejs', 'views/partials/builder-map.ejs', 'views/partials/hq-stack.ejs', 'views/pricing.ejs'];

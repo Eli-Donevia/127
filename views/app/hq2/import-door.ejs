@@ -1,0 +1,30 @@
+<%- include('../../partials/app-head') %>
+<%# Bring a front door's result into HQ (lib/harness/imports.js importDoor). Locals: p (doorPreview). %>
+<% var s = p.summary || {}; var files = p.files + ' file' + (p.files === 1 ? '' : 's'); %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <section class="hq-card h2-move" style="max-width:680px" aria-labelledby="imp-h">
+    <span class="eyebrow"><%= p.title %><%= p.sample ? ' · Sample' : '' %></span>
+    <% if (p.door === 'store') { %>
+    <h2 id="imp-h" class="h2-steel">Bring your store audit into HQ</h2>
+    <p><%= s.name || 'Your store' %> scored <%= s.score %> out of 100. The full audit<%= s.mock ? ', your rebuilt product page' : '' %> and the product sheet go into your Library (<%= files %>), and the store goes into Your business.</p>
+    <% } else if (p.door === 'creator') { %>
+    <h2 id="imp-h" class="h2-steel">Bring your <%= p.leads %> brands into HQ</h2>
+    <p><%= p.leads %> <%= String(s.category || '').toLowerCase().replace(/ products$/, '') %> brands go into your Pipeline with their first messages and follow-ups written, and the list and your clip brief go into your Library (<%= files %>). Each day, Do my day lines up who to message next.</p>
+    <% } else if (p.door === 'site') { %>
+    <h2 id="imp-h" class="h2-steel">Bring your site into HQ</h2>
+    <p>The page for <%= s.business || 'your business' %>, the ZIP for free hosting and its preview go into your Library (<%= files %>), and your business goes into Your business.</p>
+    <% } else { %>
+    <h2 id="imp-h" class="h2-steel">Bring your offer score into HQ</h2>
+    <p>Your offer scored <%= s.score %> out of 100<%= s.after != null ? ', ' + s.after + ' with the 3 fixes' : '' %>. The score report<%= s.magnet ? ' and your freebie' : '' %> go into your Library (<%= files %>), and what you sell goes into Your business.</p>
+    <% } %>
+    <% if (p.sample) { %><p class="hq-small">This ran on a sample, so only its files come in.</p><% } %>
+    <% if (p.again) { %><p class="hq-small">You brought this in before. Doing it again adds nothing twice.</p><% } %>
+    <form method="post" action="/app/hq/import/door/<%= p.id %>" style="margin-top:16px">
+      <input type="hidden" name="k" value="<%= p.k %>">
+      <button class="btn">Bring it in <span class="arrow"></span></button>
+    </form>
+    <p class="hq-small" style="margin-top:12px">Only what's empty in Your business gets filled in. Nothing is sent or posted: you do each step yourself.</p>
+  </section>
+</div>
+<%- include('../../partials/app-foot') %>

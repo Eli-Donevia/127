@@ -1,0 +1,14 @@
+<%- include('partials/doc-start') %>
+<%# /start with the front doors on (FRONT_DOORS): "What are you building?" first, then a free tool or the roadmap. %>
+<body class="bare">
+  <div class="bare-top">
+    <a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <a href="/login" class="small link">Have an account? Sign in</a>
+  </div>
+  <main class="v5 ds">
+    <%- include('partials/doors', { doors: picker, doorEvent: 'start_door' }) %>
+    <%- include('partials/legal-footer', { privacyTerms: true }) %>
+  </main>
+  <%- include('partials/track-clicks') %>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<%- include('partials/doc-start') %>
+<%# The front doors' account step (lib/doors.js /start/door/:id): a free account, then the result comes into 127 HQ
+    on the next screen, where nothing is saved until they confirm. Locals: p (doors.preview), error, form, next. %>
+<body class="bare">
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a><a href="/login?next=<%= encodeURIComponent(next) %>" class="small link">Have an account? Sign in</a></div>
+  <main class="auth-card fade-in">
+    <div class="eyebrow">127 HQ · Free</div>
+    <h1 style="margin-top:12px">Bring your <%= p.title.toLowerCase() %> into 127 HQ</h1>
+    <p class="muted" style="margin:0 0 28px">First, your free account. On the next screen you see what comes in, and nothing is saved until you say so.</p>
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <form method="post" action="/start/door/<%= p.id %>">
+      <input type="hidden" name="k" value="<%= p.k %>">
+      <label class="field"><span>Name</span><input class="input" name="name" autocomplete="name" maxlength="80" value="<%= form.name || '' %>" autofocus></label>
+      <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email" value="<%= form.email || '' %>"></label>
+      <label class="field"><span>Password</span><input class="input" type="password" name="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters"></label>
+      <label class="check" style="margin:4px 0 18px"><input type="checkbox" name="optin" <%= form.optin ? 'checked' : '' %>> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>
+      <p class="consent-line" style="margin:0 0 18px">By creating an account, you confirm you're 18 or older and agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
+      <button class="btn light block">Start free and bring it in <span class="arrow"></span></button>
+    </form>
+  </main>
+</body>
+</html>

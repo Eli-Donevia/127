@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--OG-->
+<title>127</title>
+<meta name="description" content="A free tool from 127: a finished first piece of work for your business, before you pay anything.">
+<!--/OG-->
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/funnels/funnels.css">
+<link rel="stylesheet" href="/funnels/first-25.css">
+<link rel="stylesheet" href="/funnels/door.css">
+<!--TRACKERS-->
+</head>
+<body>
+<div class="bg-grid"></div><div class="glow"></div>
+<!-- One page for the four front doors (lib/doors.js). window.DOOR says which door; window.DOOR_RUN is a saved result. -->
+<header class="f-top">
+  <a href="/" class="mark" aria-label="127"><span class="num">127</span></a>
+  <a href="/#doors" class="aside" data-site>Other free tools</a>
+</header>
+
+<main>
+  <section class="narrow hero" id="intro">
+    <span class="chip"><span class="dot"></span><span id="chip"></span></span>
+    <h1 class="h-display steel" id="h1"></h1>
+    <p class="lede" id="lede"></p>
+  </section>
+
+  <section class="narrow" id="formWrap">
+    <form id="doorForm" class="card halo stack-m" novalidate>
+      <div class="stack-m" id="fields"></div>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button class="btn block" type="submit" id="go"></button>
+      <div class="form-err" id="err" hidden></div>
+      <div class="form-note" id="note"></div>
+      <button type="button" class="dr-sample" id="sample" hidden></button>
+    </form>
+
+    <div class="card f25-stack">
+      <div class="label">What you get, free</div>
+      <ul class="f25-stack-list" id="stack"></ul>
+    </div>
+  </section>
+
+  <section class="narrow f25-scan" id="scan" hidden aria-live="polite">
+    <div class="label lilac" id="scanLabel">Working</div>
+    <h2 class="h2" style="margin-top:12px" id="scanTitle"></h2>
+    <div class="f25-meter"><span id="meter"></span></div>
+    <ol class="f25-log" id="log"></ol>
+  </section>
+
+  <section class="narrow" id="result" hidden aria-live="polite"></section>
+
+  <section class="narrow section" id="whoWrap"><div id="who"></div></section>
+  <noscript><div class="narrow" style="padding:40px 0">This free tool needs JavaScript turned on.</div></noscript>
+</main>
+
+<footer class="f-foot">
+  <div class="earn">127 is education and tools, not a promise of income. Results vary. <a href="/earnings-disclaimer">Earnings disclaimer</a></div>
+  <div class="verse">Unless the Lord builds the house, the builders labor in vain. Psalm 127:1</div>
+  <div>© 127 Group LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/cookies">Cookie Notice</a> · <a href="/cookies" data-cookie-settings>Cookie settings</a></div>
+</footer>
+<script src="/funnels/funnel-kit.js"></script>
+<script src="/funnels/results-data.js"></script>
+<script src="/funnels/results-kit.js"></script>
+<script src="/funnels/doors-data.js"></script>
+<script src="/funnels/door.js"></script>
+</body>
+</html>

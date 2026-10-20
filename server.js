@@ -45,6 +45,7 @@ const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
+const doors = require('./lib/doors');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -348,7 +349,8 @@ function homeVideo() {
 // so the v2 brand hero stays.
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live() }));
+// doors: "What are you building?" under the hero while the front doors are on (FRONT_DOORS, lib/doors.js).
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
   const v = launch.view();
@@ -383,6 +385,10 @@ function prelaunchGate(req) {
 app.get('/start', (req, res) => {
   if (prelaunchGate(req)) return res.redirect('/founding');
   if (req.user && req.user.roadmap && !req.query.retake) return res.redirect('/app');
+  // With the front doors on, a plain /start asks "What are you building?" first. Any link that carries
+  // something (?roadmap=1 from the picker, ?from=, a hero answer, a retake) goes straight to the questions.
+  const picker = !req.user && !Object.keys(req.query).length && doors.picker(req.user);
+  if (picker) return res.render('doors-start', { title: 'What are you building?', description: picker.sub, picker, layout: 'bare' });
   // The homepage hero asks the first question inline; carry that answer in and skip ahead.
   const first = onboarding.questions[0];
   const picked = first.options.find((o) => o.value === req.query[first.id]);
@@ -1778,6 +1784,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   for (const t of mine('ideaTests', (t) => leadRefs.has(t.id))) await db.remove('ideaTests', t.id);
   for (const l of leads) await db.remove('leads', l.id);
   for (const w of mine('waitlist', (w) => w.email === user.email)) await db.remove('waitlist', w.id);
+  // Front door results the email unlocked, with their files.
+  await doors.forget(user.email);
   await challenge.forget(user.email);
   // 127 HQ: saved Stripe and Shopify keys and the 127 link. The numbers themselves are on the user doc.
   await db.remove('hqConnections', user.id);
@@ -2011,7 +2019,8 @@ app.get('/admin/export.csv', requireAuth, requireAdmin, (req, res) => {
 });
 
 // Founder Score (/score), Day One Stack (/stack) and the free Idea Test (/idea-test).
-app.use(require('./lib/funnels')({ requireAuth, requireAdmin }));
+// The front doors' short account step into 127 HQ (/start/door/:id) uses createMember and the pre-launch gate.
+app.use(require('./lib/funnels')({ requireAuth, requireAdmin, createMember, prelaunchGate }));
 
 // HQ v2 (lib/harness): Today with Do my day, Start, the Inbox, Pipeline, Library and runs. Mounted before
 // HQ v1, so /app/hq is v2 for the members HARNESS_V2 is on for; everyone else falls through to v1.
