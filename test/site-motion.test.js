@@ -79,3 +79,11 @@ test('a design the member names comes first, even when another fits better', () 
     fresh();
   }
 });
+
+test('scroll-lit words wait in a readable color, never dimmed out (a reader and an audit see real contrast)', () => {
+  const dir = path.join(SITE, 'templates/motion');
+  for (const f of require('fs').readdirSync(dir).filter((x) => x.endsWith('.js'))) {
+    const css = require('fs').readFileSync(path.join(dir, f), 'utf8');
+    assert.ok(!/html\.m [^{]*(\.w\b|\.lw\b)[^{]*\{[^}]*opacity:\.[0-4]/.test(css), f);
+  }
+});
