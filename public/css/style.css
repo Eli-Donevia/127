@@ -1802,6 +1802,9 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
    --fw is the picture's width (16:9); --top lifts it so the mark sits high; --floor is where its floor line lands. */
 .fl{--fw:min(88vw,1280px,calc((100svh - 68px - 400px) / .5625 / .7));--top:calc(var(--fw) * -.045);--floor:calc(var(--fw) * .5625 * .738 + var(--top));
   position:relative;min-height:calc(100vh - 68px);min-height:calc(100svh - 68px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;background:var(--bg);touch-action:pan-y}
+/* with the water (HERO_WATER) the mark floats, so the copy sits a little lower to show the water and the mark's reflection */
+.fl[data-fl-water]{--fw:min(88vw,1280px,calc((100svh - 68px - 460px) / .5625 / .7));--wet:clamp(34px,7.5vh,80px)}
+.fl[data-fl-water] .fl-copy{padding-top:calc(var(--floor) + var(--wet))}
 .fl-stage{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .fl-stage picture{position:absolute;display:block;left:50%;top:var(--top);width:var(--fw);aspect-ratio:16/9;transform:translateX(-50%)}
 .fl-stage img{display:block;width:100%;height:auto;animation:flIn 1.8s .1s cubic-bezier(.2,.8,.2,1) both}
@@ -1839,6 +1842,7 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 
 @media (max-width:760px){
   .fl{--fw:126vw;--top:-5vw;min-height:auto}
+  .fl[data-fl-water]{--fw:126vw;--top:-1.5vw;--wet:30px}
   .fl-copy{padding-bottom:40px}
   .fl-title{font-size:clamp(40px,11.4vw,58px);letter-spacing:-.05em}
   .fl-title > span{display:inline}

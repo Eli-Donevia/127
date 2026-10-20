@@ -76,6 +76,9 @@
   var toolList = order.map(function (s) { return tools.filter(function (t) { return t.slug === s; })[0]; }).filter(Boolean);
   var hqOn = process.env.HQ_LIVE === 'true'; // HQ goes on the homepage only when it's live for every member.
   var heroLive = process.env.HERO_LIVE === 'true'; // the live First Light hero (public/js/first-light.js); off keeps the loop hero
+  // With it, the floating glass 127 over water that ripples under the pointer (passes in /img/flw). Off keeps the standing mark.
+  var heroWater = heroLive && process.env.HERO_WATER === 'true';
+  var flDir = heroWater ? '/img/flw/' : '/img/fl/';
   // Run mode (v2 playbook 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
   // Only on real business data (server.js), with Legal's First 25 wording (05 rule 6a): the list and the words, never clients.
   // The demo rows are First 25's own sample run (gyms, Des Moines): made-up businesses, labeled Sample.
@@ -137,13 +140,13 @@
   <% } else { %>
   <% if (heroLive) { %>
   <!-- HERO: the bio's promise and one button, set on the floor under the glass 127, lit live -->
-  <section class="fl" data-fl>
+  <section class="fl" data-fl<% if (heroWater) { %> data-fl-water<% } %>>
     <%# First Light, live (public/js/first-light.js): the poster is the lit mark at rest and shows at once. After load the
         same picture is drawn live over it, from the light passes in /img/fl: the reveal plays (when the passes arrive
-        fast), then the halo breathes and a soft light follows the pointer. Reduced motion, Save-Data or no WebGL2 keep
-        the poster. %>
+        fast), then the halo breathes and a soft light follows the pointer. With HERO_WATER the mark floats over water
+        (passes in /img/flw) and the pointer ripples both. Reduced motion, Save-Data or no WebGL2 keep the poster. %>
     <div class="fl-stage" aria-hidden="true">
-      <picture><source media="(max-width: 760px)" srcset="/img/fl/rest-s.jpg" width="960" height="540"><img src="/img/fl/rest.jpg" alt="" width="1600" height="900" decoding="async" fetchpriority="high"></picture>
+      <picture><source media="(max-width: 760px)" srcset="<%= flDir %>rest-s.jpg" width="960" height="540"><img src="<%= flDir %>rest.jpg" alt="" width="1600" height="900" decoding="async" fetchpriority="high"></picture>
     </div>
     <div class="fl-hud" aria-hidden="true"><span class="tl" data-fl-day>Day 001</span><span class="tr">Make today day one</span><span class="bl" data-fl-hint>Move to light it</span><span class="br">Scroll</span></div>
     <div class="wrap fl-copy">
@@ -488,11 +491,12 @@ const fl = document.querySelector('[data-fl]');
 if (fl) {
   const day = fl.querySelector('[data-fl-day]');
   day.textContent = 'Day 001 · ' + new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).replace(/,/g, '');
-  if (!mm('(hover: hover)')) fl.querySelector('[data-fl-hint]').textContent = 'Drag to light it';
+  const water = fl.hasAttribute('data-fl-water'), hover = mm('(hover: hover)');
+  if (water || !hover) fl.querySelector('[data-fl-hint]').textContent = water ? (hover ? 'Move through the water' : 'Drag through the water') : 'Drag to light it';
   if (!still) {
     // If the passes arrive while the poster is still coming up, the reveal plays live; later, it picks up at rest.
     import('/js/first-light.js').then(({ firstLight }) =>
-      firstLight(fl.querySelector('.fl-stage'), { small: phone, reveal: performance.now() < 900 }))
+      firstLight(fl.querySelector('.fl-stage'), { small: phone, reveal: performance.now() < 900, water, base: water ? '/img/flw/' : '/img/fl/' }))
       .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); })
       .catch(() => {});
   }
