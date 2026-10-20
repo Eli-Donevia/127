@@ -1,0 +1,93 @@
+{
+  "studio.product_ad": {
+    "photo": "@sample/product.jpg",
+    "product": "soy candles in amber jars",
+    "hook": "The candle that smells like a cabin weekend",
+    "look": "warm and cozy",
+    "aspect": "9:16"
+  },
+  "studio.ugc_ad": {
+    "product": "soy candles in amber jars",
+    "points": "Hand poured in small batches\n50 hour burn\n$24, free local pickup",
+    "audience": "people who want a calmer evening at home",
+    "photo": "@sample/product.jpg",
+    "voice": "female",
+    "aspect": "9:16"
+  },
+  "studio.talking_ad": {
+    "face": "@sample/face.jpg",
+    "product": "mobile dog grooming",
+    "points": "We come to your driveway\nOne dog at a time, no cages\nBook a first groom online",
+    "voice": "male",
+    "aspect": "9:16",
+    "consent": true
+  },
+  "studio.faceless_video": {
+    "topic": "3 things to check before you hire a lawn service",
+    "points": "Ask what is included in a visit\nAsk how they handle rain days\nAsk for a written price per visit",
+    "voice": "female",
+    "look": "bright and clean",
+    "aspect": "9:16"
+  },
+  "studio.image_ads": {
+    "product": "soy candles in amber jars",
+    "photo": "@sample/product.jpg",
+    "price": 24,
+    "look": "warm and cozy"
+  },
+  "studio.video_ads": {
+    "product": "soy candles in amber jars",
+    "photo": "@sample/product.jpg",
+    "price": 24,
+    "aspect": "9:16"
+  },
+  "studio.ai_broll": {
+    "video": "@sample/talk.mp4",
+    "topic": "how we clean a car interior",
+    "aspect": "9:16"
+  },
+  "studio.ai_clips": {
+    "about": "a cozy reading nook at night with a candle burning",
+    "kind": "cinematic",
+    "count": 2,
+    "aspect": "9:16"
+  },
+  "studio.video_prompts": {
+    "product": "a soy candle in an amber jar",
+    "model": "kling",
+    "pack": "product",
+    "brand_color": "#C2410C"
+  },
+  "studio.plan_shots": {
+    "kind": "before_after",
+    "subject": "house cleaning",
+    "person": "a woman in a work apron",
+    "count": 6,
+    "model": "veo"
+  },
+  "studio.edit_video": {
+    "video": "@sample/talk.mp4",
+    "hook": "3 things to check before you light a candle",
+    "aspect": "9:16",
+    "style": "bold",
+    "line": "Hand poured soy candles"
+  },
+  "studio.hook_variants": {
+    "video": "@sample/talk.mp4",
+    "topic": "how to make a soy candle burn evenly"
+  },
+  "studio.reframe_all": {
+    "video": "@sample/talk.mp4",
+    "aspects": [
+      "9:16",
+      "1:1",
+      "4:5",
+      "16:9"
+    ],
+    "fill": "blur"
+  },
+  "studio.brand_outro": {
+    "video": "@sample/talk.mp4",
+    "line": "Hand poured soy candles, Tulsa"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "cinematic",
+  "title": "Cinematic looks",
+  "summary": "Light, lens and film looks that make a brand film or an ad feel shot on a real set.",
+  "checked": "2026-10-20",
+  "media": "video",
+  "slots": {"setting":"a sunlit workshop"},
+  "examples": ["a neighborhood bakery","a yoga studio","a handmade jewelry line","a mobile barber","a bike repair shop"],
+  "templates": [
+    {"id":"ci-golden-hour","title":"Golden hour","camera":"tracking","use":"Warm, hopeful, outdoors.","subject":"{person}","action":"walks toward the camera holding {product}","setting":"{setting}","light":"golden hour sun low behind, warm lens flare","lens":"35mm","style":"warm cinematic film look"},
+    {"id":"ci-window-light","title":"Window light portrait","camera":"dolly_in","use":"Quiet and personal.","subject":"{person}","action":"pauses at work and looks out the window","setting":"{setting}","light":"soft window light from one side, deep shadows on the other","lens":"85mm, shallow depth of field","style":"intimate portrait film"},
+    {"id":"ci-hard-light","title":"One hard light","camera":"static","use":"Bold and graphic.","subject":"{product}","action":"sits in a single pool of hard light","setting":"a dark set","light":"one hard spotlight from above, crisp shadows","style":"high-contrast commercial"},
+    {"id":"ci-neon-night","title":"Neon night","camera":"tracking","use":"City energy, nightlife, late hours.","subject":"{person}","action":"walks past glowing shop signs","setting":"a city street at night after rain","light":"neon reflections on wet pavement","lens":"anamorphic lens","style":"moody night film"},
+    {"id":"ci-haze","title":"Light haze","camera":"crane_down","use":"Soft, dreamy, premium.","subject":"{product}","action":"rests on a table as haze drifts through beams of light","setting":"{setting}","light":"volumetric light beams through haze","style":"atmospheric commercial"},
+    {"id":"ci-16mm","title":"16mm film grain","camera":"handheld","use":"Nostalgic and handmade.","subject":"{person}","action":"works with their hands at a bench","setting":"{setting}","light":"natural daylight","style":"shot on 16mm film, soft grain, warm tones"},
+    {"id":"ci-35mm-portrait","title":"35mm documentary","camera":"arc","use":"Honest, real people at work.","subject":"{person}","action":"talks with a neighbor at the counter of {business}","setting":"{setting}","light":"practical shop lights","lens":"35mm","style":"documentary film look"},
+    {"id":"ci-anamorphic","title":"Anamorphic wide","camera":"dolly_out","use":"Big, filmic establishing shots.","subject":"the front of {business}","action":"opens for the day as lights turn on","setting":"a street in {city} at dawn","light":"blue hour with warm windows","lens":"anamorphic lens, wide aspect","style":"cinematic establishing shot"},
+    {"id":"ci-silhouette","title":"Silhouette","camera":"static","use":"Dramatic shapes against a bright sky.","subject":"{person}","action":"stands in silhouette against the sunset","setting":"an open field","light":"strong backlight, sunset sky","style":"graphic silhouette"},
+    {"id":"ci-rain-window","title":"Rain on the glass","camera":"rack_focus","use":"Cozy and calm.","subject":"{product}","action":"comes into focus behind rain drops on a window","setting":"a cozy room","light":"soft grey daylight and a warm lamp","style":"calm mood film"},
+    {"id":"ci-candle-low-key","title":"Low key warmth","camera":"dolly_in","use":"Evening, intimate, crafted.","subject":"{product}","action":"glows in the warm light of a few candles","setting":"a dark wooden table","light":"low-key candlelight","style":"warm moody still life"},
+    {"id":"ci-overhead-sun","title":"Bright noon pop","camera":"top_down","use":"Fresh, bright, summer.","subject":"{product}","action":"casts a crisp shadow in bright sun","setting":"a colorful tabletop in {brand_color}","light":"hard midday sun","style":"bold summer look"},
+    {"id":"ci-slow-motion","title":"Slow motion moment","camera":"static","use":"Make a small action feel big.","subject":"{person}","action":"tosses flour or water into the air in slow motion","setting":"{setting}","light":"backlight catching every particle","style":"high frame rate slow motion"},
+    {"id":"ci-mirror-reflect","title":"Reflection shot","camera":"pan","use":"Layered and clever.","subject":"{person}","action":"is seen in a mirror while working","setting":"{setting}","light":"soft practical light","style":"artful reflection"},
+    {"id":"ci-dutch","title":"Tilted tension","camera":"static","use":"The problem moment in a story.","subject":"{person}","action":"looks at a mess with frustration","setting":"{setting}","light":"cool harsh light","style":"tense, tilted dutch angle"},
+    {"id":"ci-warm-cool","title":"Warm and cool split","camera":"arc","use":"A modern teal and orange grade.","subject":"{person}","action":"holds {product} and turns toward the light","setting":"{setting}","light":"warm key light, cool fill","style":"teal and orange grade"},
+    {"id":"ci-black-white","title":"Black and white","camera":"dolly_in","use":"Timeless, craft, heritage.","subject":"{person}","action":"works carefully on {product}","setting":"a workshop","light":"single window light","style":"black and white film, rich contrast"},
+    {"id":"ci-dawn-mist","title":"Morning mist","camera":"aerial_pullback","use":"Outdoor services and early starts.","subject":"{person}","action":"starts the day's work outside","setting":"a quiet street in {city} with morning mist","light":"soft dawn light","style":"calm cinematic opener"},
+    {"id":"ci-practical-glow","title":"Shop light glow","camera":"through","use":"Inviting interiors.","subject":"the inside of {business}","action":"glows warmly as the camera enters","setting":"","light":"warm practical lamps","style":"inviting interior film"},
+    {"id":"ci-macro-dew","title":"Macro with droplets","camera":"macro_push","use":"Fresh, clean, natural.","subject":"{product}","action":"is covered in tiny water droplets","setting":"dark background","light":"crisp backlight","lens":"macro lens","style":"fresh commercial"},
+    {"id":"ci-hero-sunset","title":"Sunset hero","camera":"hero_low","use":"The finishing shot.","subject":"{person}","action":"stands proudly next to the finished work","setting":"{setting}","light":"sunset glow behind","style":"uplifting closing shot"},
+    {"id":"ci-color-backdrop","title":"Brand color set","camera":"orbit","use":"Your color everywhere in the frame.","subject":"{product}","action":"floats gently above a pedestal","setting":"a set painted in {brand_color}","light":"soft gradient light","style":"graphic brand film"}
+  ]
+}

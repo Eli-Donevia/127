@@ -1,0 +1,33 @@
+{
+  "id": "faceless",
+  "title": "Faceless videos",
+  "summary": "B-roll, kinetic text backgrounds and hands-only shots for videos where you never show your face.",
+  "checked": "2026-10-20",
+  "media": "video",
+  "slots": {"setting":"a calm, tidy room"},
+  "examples": ["a budgeting course","a houseplant shop","a study tips channel","a bookkeeping service","a home organizing service"],
+  "templates": [
+    {"id":"fa-hands-desk","title":"Hands at the desk","camera":"top_down","use":"Writing, planning, studying.","subject":"a pair of hands","action":"writes in a notebook next to a cup of coffee","setting":"a tidy wooden desk","light":"soft morning light","style":"calm faceless b-roll"},
+    {"id":"fa-hands-laptop","title":"Typing close-up","camera":"rack_focus","use":"Online work, courses, services.","subject":"hands typing on a laptop","action":"type steadily as focus shifts to the screen glow","setting":"a home office","light":"warm lamp light","style":"cozy work b-roll"},
+    {"id":"fa-text-bg-gradient","title":"Moving color background","camera":"static","use":"A clean background for big on-screen words.","subject":"a soft gradient of {brand_color} and white","action":"shifts slowly like flowing silk","setting":"","light":"even glow","style":"minimal motion background, room for text in the center, full frame"},
+    {"id":"fa-text-bg-paper","title":"Paper texture background","camera":"static","use":"Warm background for quotes and tips.","subject":"a sheet of textured paper","action":"lifts slightly as soft shadows of leaves move across","setting":"","light":"dappled sunlight","style":"calm background, clear space for text, full frame"},
+    {"id":"fa-text-bg-bokeh","title":"Soft lights background","camera":"static","use":"Night and cozy topics.","subject":"out of focus warm lights","action":"drift and twinkle slowly","setting":"","light":"warm bokeh","style":"dreamy background for text, full frame"},
+    {"id":"fa-city-morning","title":"City morning","camera":"aerial_pullback","use":"Openers and transitions.","subject":"a city waking up","action":"traffic and people start to move","setting":"{city} at sunrise","light":"soft sunrise","style":"establishing b-roll"},
+    {"id":"fa-coffee-pour","title":"Coffee pour","camera":"macro_push","use":"A calm start to any tips video.","subject":"coffee","action":"pours into a white cup","setting":"a kitchen counter","light":"morning window light","style":"satisfying b-roll","audio":{"sfx":"a gentle pour"}},
+    {"id":"fa-plants","title":"Plants in the light","camera":"pan","use":"Growth, calm, home topics.","subject":"houseplants on a windowsill","action":"leaves move in a light breeze","setting":"a bright room","light":"sunlight through sheer curtains","style":"soft lifestyle b-roll"},
+    {"id":"fa-hands-product","title":"Hands with your product","camera":"static","use":"Show the product without a face.","subject":"a pair of hands","action":"picks up {product} and turns it to the camera","setting":"{setting}","light":"soft daylight","style":"hands-only demo"},
+    {"id":"fa-hands-sort","title":"Sorting and organizing","camera":"top_down","use":"Organizing, budgeting, planning.","subject":"a pair of hands","action":"sorts receipts into neat piles","setting":"a clean desk","light":"even daylight","style":"satisfying organizing b-roll"},
+    {"id":"fa-phone-scroll","title":"Phone in hand","camera":"pov","use":"Apps, social, online tools.","subject":"a phone","action":"is scrolled with one thumb","setting":"a couch","light":"evening lamp light","style":"POV b-roll, screen blurred"},
+    {"id":"fa-walk-feet","title":"Walking feet","camera":"tracking","use":"Progress, steps, journeys.","subject":"a pair of sneakers","action":"walk along a sidewalk","setting":"a street in {city}","light":"afternoon sun","style":"low tracking b-roll"},
+    {"id":"fa-clouds-timelapse","title":"Clouds rolling by","camera":"hyperlapse","use":"Time passing, big ideas.","subject":"clouds","action":"roll fast over the rooftops","setting":"a skyline","light":"shifting daylight","style":"timelapse b-roll"},
+    {"id":"fa-books","title":"Books and pages","camera":"macro_push","use":"Learning and study topics.","subject":"the pages of an open book","action":"turn slowly in a breeze","setting":"a library table","light":"warm lamp light","style":"cozy study b-roll"},
+    {"id":"fa-kitchen-chop","title":"Chopping close-up","camera":"static","use":"Recipes and meal prep.","subject":"hands chopping vegetables","action":"slice in a steady rhythm","setting":"a kitchen counter","light":"bright daylight","style":"recipe b-roll","audio":{"sfx":"knife on a cutting board"}},
+    {"id":"fa-whiteboard","title":"Notes on a board","camera":"dolly_in","use":"Explainers and how-tos.","subject":"a hand","action":"draws simple arrows and boxes on a whiteboard","setting":"a bright office","light":"even light","style":"explainer b-roll"},
+    {"id":"fa-cash-free","title":"Calculator and coffee","camera":"top_down","use":"Money topics without showing cash.","subject":"a calculator, a pen and a coffee","action":"a hand taps the calculator and writes a note","setting":"a desk","light":"soft daylight","style":"calm finance b-roll"},
+    {"id":"fa-rain-window","title":"Rain on the window","camera":"static","use":"Calm and reflective topics.","subject":"rain drops","action":"run down a window","setting":"a cozy room","light":"grey daylight and a warm lamp","style":"calm b-roll"},
+    {"id":"fa-light-sweep","title":"Light sweep logo space","camera":"static","use":"End card with room for your name.","subject":"a clean surface in {brand_color}","action":"a soft beam of light sweeps across","setting":"","light":"soft sweep","style":"minimal end card background, full frame"},
+    {"id":"fa-hands-craft","title":"Hands making","camera":"macro_push","use":"Crafts and handmade goods.","subject":"hands","action":"shape and finish {product}","setting":"a workbench","light":"warm workshop light","style":"craft b-roll"},
+    {"id":"fa-map-travel","title":"Map and pins","camera":"top_down","use":"Local guides and travel topics.","subject":"a paper map of {city}","action":"a hand places small pins on it","setting":"a table","light":"soft daylight","style":"local guide b-roll"},
+    {"id":"fa-screen-glow","title":"Screen glow at night","camera":"dolly_out","use":"Late-night work and focus.","subject":"a laptop screen","action":"glows in a dark room as the camera pulls back","setting":"a quiet bedroom desk","light":"blue screen light","style":"moody b-roll, screen blurred"}
+  ]
+}

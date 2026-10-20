@@ -1,0 +1,210 @@
+{
+  "checked": "2026-10-20",
+  "about": "How each AI model maker says to write prompts, from their own guides. lib/prompts.js reads this to shape every prompt per model. maxChars is the longest prompt we build for that model: the maker's documented cap where one is published (basis: documented), else our own cap kept well under any limit seen (basis: house).",
+  "models": {
+    "higgsfield": {
+      "label": "Higgsfield",
+      "media": "video",
+      "order": ["subject", "action", "setting", "motion", "light", "style"],
+      "style": "short sentences",
+      "maxChars": 600,
+      "maxCharsBasis": "house",
+      "maxWords": 90,
+      "negative": false,
+      "seconds": [5, 10],
+      "aspects": ["9:16", "16:9", "1:1"],
+      "notes": [
+        "Pick the camera move as a preset in Higgsfield (Dolly In, 360 Orbit, Crane Up, FPV Drone and more). The preset does the move; the words say what the subject does while it happens.",
+        "Say the speed and where the shot starts and ends, or results drift between tries.",
+        "Pick a starting photo that suits the move: subject centered for orbits, dolly and zooms, a wide scene for FPV and handheld, a close-up for POV.",
+        "Change one thing at a time between tries: the move, then the lens, then the depth of field."
+      ],
+      "fromImage": "The photo is the first frame. Write what the subject does and how fast; the preset handles the camera.",
+      "sources": [
+        "https://higgsfield.ai/camera-controls",
+        "https://higgsfield.ai/blog/WAN-AI-Camera-Control-Your-Guide-to-Cinematic-Motion"
+      ]
+    },
+    "kling": {
+      "label": "Kling",
+      "media": "video",
+      "order": ["subject", "action", "setting", "camera", "light", "mood", "style"],
+      "style": "one or two sentences, subject first",
+      "maxChars": 2500,
+      "maxCharsFromImage": 500,
+      "maxCharsBasis": "documented (Kling API limits as published in the ComfyUI Kling nodes: 2500 text to video, 500 image to video)",
+      "maxWords": 120,
+      "negative": true,
+      "negativeDefault": "blurry, warped hands, extra fingers, distorted face, flicker, garbled text, watermark, low quality",
+      "seconds": [5, 10],
+      "aspects": ["9:16", "16:9", "1:1"],
+      "notes": [
+        "Kling reads subject, subject movement, scene, then camera language, lighting and atmosphere.",
+        "Use one main camera move per shot and say its speed: slow, stable pan left, no sudden motion.",
+        "Plain camera words beat vague ones: slow dolly in, pull back, orbit slowly, static camera.",
+        "Describe a start and end frame for reveals: start on a close-up of the label, then pull back.",
+        "Kling takes a separate negative prompt for things to keep out."
+      ],
+      "fromImage": "Keep the subject description short and steady; spend the words on what moves and how the camera moves.",
+      "sources": [
+        "https://kling.ai/blog/kling-ai-prompt-guide",
+        "https://kling.ai/blog/kling-ai-camera-control-video-guide",
+        "https://docs.comfy.org/zh/built-in-nodes/KlingTextToVideoNode"
+      ]
+    },
+    "veo": {
+      "label": "Google Veo",
+      "media": "video",
+      "order": ["camera", "subject", "action", "setting", "light", "style", "audio"],
+      "style": "full sentences, camera first",
+      "maxChars": 1200,
+      "maxCharsBasis": "house",
+      "maxWords": 170,
+      "negative": true,
+      "negativeDefault": "blurry footage, warped hands, distorted faces, on-screen text, watermark",
+      "seconds": [4, 6, 8],
+      "aspects": ["16:9", "9:16"],
+      "audio": true,
+      "notes": [
+        "Google's formula: cinematography, then subject, action, context, then style and ambiance.",
+        "Veo makes sound. Write dialogue in quotes after who says it, sound effects after SFX:, and background sound after Ambient noise:.",
+        "Describe what you want rather than what to leave out: a quiet street with no cars reads better than no cars.",
+        "Length, resolution and shape are settings, not prompt words: 4, 6 or 8 seconds, 16:9 or 9:16.",
+        "Keep one speaker per clip: one voice lip-syncs far more reliably than two."
+      ],
+      "fromImage": "Veo animates a start image, or a start and end frame: describe the change between them and the sound.",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/turn-the-prompt-rewriter-off"
+      ]
+    },
+    "runway": {
+      "label": "Runway",
+      "media": "video",
+      "order": ["camera", "subject", "action", "setting", "light", "style"],
+      "style": "[camera] shot of [subject] [action] in [setting]; with a photo: The camera [move] as the subject [action].",
+      "maxChars": 1000,
+      "maxCharsBasis": "documented (Runway API promptText up to 1,000 characters)",
+      "maxWords": 120,
+      "negative": false,
+      "seconds": [5, 10],
+      "aspects": ["16:9", "9:16", "1:1"],
+      "notes": [
+        "Runway's template: [camera] shot of [subject] [action] in [environment], then any supporting detail.",
+        "Positive words only. Describe what you want to see; negative phrasing can backfire.",
+        "Start simple and add one detail at a time between tries.",
+        "If you see unwanted cuts, try the longer length or add: continuous, seamless shot.",
+        "For no camera movement: the locked-off camera remains perfectly still."
+      ],
+      "fromImage": "With a photo, write almost only about motion: The camera [move] as the subject [action]. Describing what the photo already shows can reduce motion.",
+      "sources": [
+        "https://academy.runwayml.com/prompt-guide",
+        "https://help.runwayml.com/hc/en-us/articles/39789879462419-Gen-4-Video-Prompting-Guide",
+        "https://www.tomsguide.com/ai/ai-image-video/runway-now-lets-you-write-1000-character-prompts-to-generate-ai-videos-i-put-it-to-the-test"
+      ]
+    },
+    "luma": {
+      "label": "Luma Ray",
+      "media": "video",
+      "order": ["subject", "action", "setting", "style", "camera", "light", "motion"],
+      "style": "about 100 words or fewer, present tense, action first",
+      "maxChars": 700,
+      "maxCharsBasis": "house (Luma suggests about 100 words)",
+      "maxWords": 100,
+      "negative": false,
+      "seconds": [5, 10],
+      "aspects": ["16:9", "9:16", "1:1", "4:5"],
+      "avoidWords": ["hyper-realistic", "hyperrealistic", "8k", "masterpiece"],
+      "notes": [
+        "Order: main subject, action, details, scene, style, camera move.",
+        "Positive only: Luma treats negative prompting as counterproductive.",
+        "Name one specific move (dolly forward, slow pan right, camera circles slowly) and add a secondary motion like dust, fabric or reflections.",
+        "Present tense, about 100 words. Skip filler like hyper-realistic.",
+        "A 5 second clip holds one clear action; 10 seconds can hold a beginning, middle and end."
+      ],
+      "fromImage": "Use your photo as the start keyframe (or end keyframe) and write the motion that happens from it.",
+      "sources": [
+        "https://lumalabs.ai/learning-hub/dream-machine-how-to-generate-with-ray2",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+        "https://docs.lumalabs.ai/docs/video-generation"
+      ]
+    },
+    "sora": {
+      "label": "Sora-style",
+      "media": "video",
+      "order": ["scene", "cinematography", "actions", "dialogue"],
+      "style": "a short scene paragraph, then Cinematography, Actions in beats, and Dialogue blocks",
+      "maxChars": 1200,
+      "maxCharsBasis": "house (the guide favors shorter prompts)",
+      "maxWords": 180,
+      "negative": false,
+      "seconds": [4, 8, 12],
+      "aspects": ["9:16", "16:9"],
+      "audio": true,
+      "notes": [
+        "Write the scene in plain prose, then a Cinematography line (shot and mood), then the actions as timed beats.",
+        "One camera move, one subject action and one lighting recipe per shot.",
+        "Shorter clips follow the prompt more closely: two 4 second clips often beat one 8 second clip.",
+        "Dialogue goes in its own block and stays brief: one or two short lines in 4 seconds.",
+        "Leave out what doesn't matter; the model fills it in. Length and size are settings, not prompt words."
+      ],
+      "fromImage": "The image anchors the first frame; write what happens next.",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    "flux": {
+      "label": "FLUX",
+      "media": "image",
+      "order": ["subject", "action", "style", "setting", "light", "lens", "text"],
+      "style": "subject first, 30 to 80 words",
+      "maxChars": 600,
+      "maxCharsBasis": "house (FLUX guide: 30 to 80 words is usually ideal)",
+      "maxWords": 90,
+      "negative": false,
+      "aspects": ["1:1", "4:5", "9:16", "16:9"],
+      "notes": [
+        "FLUX weighs early words most: lead with the subject, then the action, style and context.",
+        "No negative prompts. Describe the opposite: empty instead of no people, brightly lit instead of not dark.",
+        "Put any words for the image in quotes and say where they go, how big and what color.",
+        "Attach each hex color to one object: a backdrop in color #1F6FEB.",
+        "Name a camera, lens, aperture or film look for a photo feel instead of professional photo."
+      ],
+      "sources": [
+        "https://docs.bfl.ai/guides/prompting_guide_flux2",
+        "https://docs.bfl.ai/guides/prompting_guide_t2i_negative"
+      ]
+    },
+    "imagen": {
+      "label": "Imagen and Gemini image",
+      "media": "image",
+      "order": ["subject", "setting", "style", "light", "lens", "text"],
+      "style": "subject, context, style; full sentences for Gemini image",
+      "maxChars": 900,
+      "maxCharsBasis": "house",
+      "maxWords": 130,
+      "negative": true,
+      "negativeDefault": "blurry, distorted hands, extra fingers, watermark, cluttered background",
+      "aspects": ["1:1", "3:4", "4:3", "9:16", "16:9"],
+      "maxTextChars": 25,
+      "notes": [
+        "Build from subject, context and background, then style. Add detail one round at a time.",
+        "Keep words in the image to 25 characters or fewer, and no more than three short phrases.",
+        "A negative prompt lists things plainly (wall, frame), without no or don't.",
+        "Photo words that work: close-up, aerial, from below, natural or dramatic light, bokeh, 35mm, 50mm, macro, wide angle.",
+        "On the Gemini API, Imagen has given way to Gemini image (Nano Banana): the same prompts work, written as full sentences."
+      ],
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/img-gen-prompt-guide",
+        "https://ai.google.dev/gemini-api/docs/imagen",
+        "https://ai.google.dev/gemini-api/docs/image-generation"
+      ]
+    }
+  },
+  "general": [
+    "Describe motion, not the picture, when you animate a photo.",
+    "One camera move and one main action per shot.",
+    "Never put a real person's name or another company's logo in a prompt.",
+    "UGC-style shots are your own demo or a creator you hire who says they were paid. Never script a customer review."
+  ]
+}

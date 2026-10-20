@@ -864,7 +864,7 @@ test('a search of real businesses waits for the live Terms and Privacy pages, as
 
 test("outside services Legal hasn't cleared stay off with their key set, and /admin says why", async () => {
   const needsLib = require('../lib/harness/needs');
-  const KEYS = { YOUTUBE_API_KEY: 'yt', PEXELS_API_KEY: 'px', ELEVENLABS_API_KEY: 'el', DEEPGRAM_API_KEY: 'dg', GEMINI_API_KEY: 'gm', HUNTER_API_KEY: 'hu' };
+  const KEYS = { YOUTUBE_API_KEY: 'yt', PEXELS_API_KEY: 'px', ELEVENLABS_API_KEY: 'el', DEEPGRAM_API_KEY: 'dg', GEMINI_API_KEY: 'gm', HUNTER_API_KEY: 'hu', LUMAAI_API_KEY: 'lu' };
   const was = Object.fromEntries(Object.keys(KEYS).map((k) => [k, process.env[k]]));
   const obj = (properties) => ({ type: 'object', properties, required: [] });
   const seen = [];
@@ -880,7 +880,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
   assert.deepEqual(packs.register(LG).refused, []);
   try {
     Object.assign(process.env, KEYS);
-    for (const name of ['youtube', 'pexels', 'voice', 'transcribe', 'gemini', 'hunter']) {
+    for (const name of ['youtube', 'pexels', 'voice', 'transcribe', 'gemini', 'hunter', 'luma_ai']) {
       assert.equal(needsLib.available(name), false, name);
       assert.equal(needsLib.read(name), null, name);
       const st = needsLib.status().find((x) => x.name === name);
@@ -890,7 +890,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
     }
     assert.match(needsLib.status().find((x) => x.name === 'gemini').held, /trains on what it is sent/);
     assert.match(needsLib.status().find((x) => x.name === 'hunter').held, /beyond a business's own site/);
-    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['Pexels', true], ['ElevenLabs', true], ['Deepgram', true], ['Gemini', true], ['Hunter', true]]);
+    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['Pexels', true], ['ElevenLabs', true], ['Deepgram', true], ['Gemini', true], ['Hunter', true], ['Luma AI', true]]);
     assert.equal(needsLib.held('places'), false, 'Google Places is under L53, not held');
 
     // A tool that needs a held service runs as a sample and gets no key, even with every key set.
@@ -902,8 +902,8 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
 
     // Eli sees the list on /admin's HQ v2 card.
     const card = await require('ejs').renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), { hq2: { mode: 'admins', list: [], until: '2026-12-01', credits: 5000, allowances: {}, held: needsLib.heldList() } });
-    assert.match(card, /Waiting for Legal: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter\. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set\./);
-    assert.match(card, /Set now and ignored: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter\./);
+    assert.match(card, /Waiting for Legal: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter, Luma AI\. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set\./);
+    assert.match(card, /Set now and ignored: YouTube Data API, Pexels, ElevenLabs, Deepgram, Gemini, Hunter, Luma AI\./);
   } finally {
     for (const [k, v] of Object.entries(was)) {
       if (v === undefined) delete process.env[k];

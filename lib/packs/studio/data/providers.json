@@ -1,0 +1,876 @@
+{
+  "checked": "2026-10-20",
+  "note": "Every price is our cost in US dollars on the maker's pay-as-you-go API, read from the maker's own pages on the checked date. Plugins in lib/providers compute usd(req) from these numbers. Where a fact could not be confirmed it says unverified: true and what we assumed; where a page showed two rates we keep the higher one so a member is never charged less than the call costs us.",
+  "fal": {
+    "service": "fal",
+    "key": "fal (FAL_KEY)",
+    "auth": "Authorization: Key <FAL_KEY>",
+    "base": "https://queue.fal.run",
+    "submit": "POST https://queue.fal.run/{endpoint id} with the model input as JSON. The answer has request_id, status_url, response_url and cancel_url.",
+    "status": "GET {status_url} (https://queue.fal.run/{owner}/{app}/requests/{request_id}/status). status is IN_QUEUE, IN_PROGRESS or COMPLETED; a COMPLETED answer may carry error and error_type when the run failed.",
+    "result": "GET {response_url} (https://queue.fal.run/{owner}/{app}/requests/{request_id}). Video at video.url, images at images[].url, music at audio_file.url, sound at audio.url.",
+    "subpaths": "Status and result URLs use only the owner and app (fal-ai/kling-video), never the full endpoint path, which answers 405. We use the URLs from the submit answer and only accept them on queue.fal.run.",
+    "files_in": "Model pages say a file input takes a URL or a Base64 data URI. fal's CDN page says data URIs make requests large and are not recommended past a few KB, so we cap each inline file at 20 MB.",
+    "files_in_unverified": {
+      "unverified": true,
+      "assumed": "Data URIs are accepted for audio and video inputs of the lipsync models and up to 20 MB each. The pages state data URI support for file inputs in general, not for these fields, and give no size limit."
+    },
+    "sources": [
+      "https://fal.ai/docs/model-apis/model-endpoints/queue",
+      "https://fal.ai/docs/documentation/model-apis/fal-cdn",
+      "https://fal.ai/pricing"
+    ],
+    "account127": "waits",
+    "ownAccount": true,
+    "account127_why": "Waits for fal's written OK (its terms bar service-bureau use and use for third parties) and a no-training term (fal may build models from usage data, keeps inputs and outputs 90 days, serves public links by default).",
+    "policy": "https://fal.ai/legal/acceptable-use-policy",
+    "attribution": null,
+    "storage": {
+      "headers": {
+        "X-Fal-Store-IO": "0",
+        "X-Fal-Object-Lifecycle-Preference": {
+          "expiration_duration_seconds": 3600
+        }
+      },
+      "what": "X-Fal-Store-IO: 0 on every request stops fal keeping request inputs and outputs (90 days by default). X-Fal-Object-Lifecycle-Preference with expiration_duration_seconds 3600 makes result files expire after an hour; lib/gen saves each result to the Library at once (V6).",
+      "private_links": {
+        "unverified": true,
+        "assumed": "fal's lifecycle header also takes an initial_acl (for example default forbid) to make result files private, but the docs read do not say how a private file is then downloaded, so we do not set it. The files stay public links that expire in an hour. Set initial_acl once fal's File Access Controls page confirms the download path."
+      },
+      "sources": [
+        "https://fal.ai/docs/documentation/model-apis/media-expiration",
+        "https://fal.ai/docs/documentation/development/working-with-files",
+        "https://fal.ai/docs/documentation/model-apis/fal-cdn"
+      ]
+    },
+    "licenses": "Each fal model has its own license; fal marks commercial models with a Commercial use badge and others Research only. We offer only Commercial use models (V9), checked on each model page.",
+    "policy_sources": [
+      "https://fal.ai/legal/acceptable-use-policy",
+      "https://fal.ai/legal/terms-of-service",
+      "https://fal.ai/docs/documentation/model-apis/faq"
+    ],
+    "models": {
+      "fal-kling-3-std": {
+        "label": "Kling 3.0 Standard",
+        "kind": "video",
+        "endpoints": {
+          "image": "fal-ai/kling-video/v3/standard/image-to-video",
+          "text": "fal-ai/kling-video/v3/standard/text-to-video"
+        },
+        "fields": "prompt, duration as a string \"3\" to \"15\", aspect_ratio 16:9, 9:16 or 1:1 (text only; image clips follow the image), start_image_url (image), negative_prompt, generate_audio (default true)",
+        "seconds": [
+          3,
+          5,
+          10,
+          15
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "audio": false,
+        "usdPerSecond": 0.084,
+        "usdPerSecondAudio": 0.126,
+        "how_we_send": "generate_audio false (silent, the cheaper rate); the studio adds its own voice and music.",
+        "sources": [
+          "https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video",
+          "https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video/api",
+          "https://fal.ai/models/fal-ai/kling-video/v3/standard/text-to-video",
+          "https://fal.ai/models/fal-ai/kling-video/v3/standard/text-to-video/api"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-wan-3": {
+        "label": "Wan 3.0 (720p, with sound)",
+        "kind": "video",
+        "endpoints": {
+          "image": "alibaba/wan-3.0/image-to-video",
+          "text": "alibaba/wan-3.0/text-to-video"
+        },
+        "fields": "prompt, start_image_url (image), resolution 480p, 720p or 1080p, aspect_ratio adaptive, 16:9, 4:3, 1:1, 3:4 or 9:16, duration integer, audio boolean (default true)",
+        "seconds": [
+          5,
+          10,
+          15
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "audio": true,
+        "resolution": "720p",
+        "usdPerSecond": 0.1,
+        "usdPerSecondByResolution": {
+          "480p": 0.05,
+          "720p": 0.1,
+          "1080p": 0.2
+        },
+        "unverified": true,
+        "assumed": "The price page gives one rate per resolution and does not say sound changes it, so we price sound on at the same rate. The schema gives no duration range; fal's Wan 3 page says 2 to 30 seconds.",
+        "sources": [
+          "https://fal.ai/models/alibaba/wan-3.0/image-to-video",
+          "https://fal.ai/models/alibaba/wan-3.0/image-to-video/api",
+          "https://fal.ai/models/alibaba/wan-3.0/text-to-video/api",
+          "https://fal.ai/wan-3"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-kling-3-pro": {
+        "label": "Kling 3.0 Pro (with sound)",
+        "kind": "video",
+        "endpoints": {
+          "image": "fal-ai/kling-video/v3/pro/image-to-video"
+        },
+        "seconds": [
+          3,
+          5,
+          10,
+          15
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "audio": true,
+        "usdPerSecond": 0.112,
+        "usdPerSecondAudio": 0.168,
+        "unverified": true,
+        "assumed": "Same input fields as Kling 3.0 Standard image to video (price checked on the Pro page, fields read on the Standard page).",
+        "sources": [
+          "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-flux-2": {
+        "label": "FLUX.2",
+        "kind": "image",
+        "endpoints": {
+          "text": "fal-ai/flux-2"
+        },
+        "fields": "prompt, image_size (a preset or { width, height } from 512 to 2048), num_images, seed, output_format",
+        "aspects": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "4:5",
+          "3:4",
+          "4:3"
+        ],
+        "sizes": {
+          "1:1": [
+            1024,
+            1024
+          ],
+          "9:16": [
+            768,
+            1344
+          ],
+          "16:9": [
+            1344,
+            768
+          ],
+          "4:5": [
+            896,
+            1120
+          ],
+          "3:4": [
+            864,
+            1152
+          ],
+          "4:3": [
+            1152,
+            864
+          ]
+        },
+        "maxCount": 4,
+        "usdPerMegapixel": 0.012,
+        "unverified": true,
+        "assumed": "The page does not say how part megapixels round; we count width x height / 1,048,576 rounded up to a tenth, at least 1. maxCount 4 is our own cap.",
+        "sources": [
+          "https://fal.ai/models/fal-ai/flux-2",
+          "https://fal.ai/models/fal-ai/flux-2/api",
+          "https://fal.ai/pricing"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-flux-3": {
+        "label": "FLUX.3",
+        "kind": "image",
+        "endpoints": {
+          "text": "blackforestlabs/flux-3/text-to-image"
+        },
+        "fields": "prompt, aspect_ratio (auto, 21:9 to 1:2 including 9:16, 4:5, 1:1, 16:9), resolution 512sq, 768sq, 1k, 2k or 4k, output_format jpeg or png. No num_images, so one image per call.",
+        "aspects": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "4:5",
+          "3:4",
+          "4:3"
+        ],
+        "maxCount": 1,
+        "usdPerImage": 0.048,
+        "resolution": "1k",
+        "sources": [
+          "https://fal.ai/models/blackforestlabs/flux-3/text-to-image/llms.txt",
+          "https://fal.ai/pricing"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-sync-lipsync": {
+        "label": "sync lipsync 1.9",
+        "kind": "lipsync",
+        "from": [
+          "audio",
+          "video"
+        ],
+        "endpoints": {
+          "video": "fal-ai/sync-lipsync"
+        },
+        "fields": "video_url, audio_url, model (lipsync-1.9.0-beta default), sync_mode cut_off, loop, bounce, silence or remap",
+        "usdPerMinute": 0.7,
+        "sources": [
+          "https://fal.ai/models/fal-ai/sync-lipsync",
+          "https://fal.ai/models/fal-ai/sync-lipsync/llms.txt"
+        ],
+        "license": "Commercial use (badge; the spec table says: Commercial use via fal partnership)",
+        "commercial": true
+      },
+      "fal-h3-lipsync": {
+        "label": "MiniMax H3 Max Lip Sync (480p)",
+        "kind": "lipsync",
+        "from": [
+          "audio",
+          "image"
+        ],
+        "endpoints": {
+          "image": "minimax/h3-max/lip-sync/image-to-video"
+        },
+        "fields": "image_url (aspect 0.4 to 2.5), audio_url (at least 5 seconds, up to 15 minutes), resolution 480P, 768P, 1080P or 2K. The clip runs as long as the audio.",
+        "resolution": "480P",
+        "usdPerSecond": 0.05,
+        "usdPerSecondByResolution": {
+          "480P": 0.05,
+          "768P": 0.08,
+          "1080P": 0.16,
+          "2K": 0.32
+        },
+        "longMultiplier": 1.2,
+        "longOverSeconds": 15,
+        "minSeconds": 5,
+        "sources": [
+          "https://fal.ai/models/minimax/h3-max/lip-sync/image-to-video/llms.txt"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-cassette-music": {
+        "label": "CassetteAI Music",
+        "kind": "music",
+        "endpoints": {
+          "text": "cassetteai/music-generator"
+        },
+        "fields": "prompt, duration in seconds 10 to 180",
+        "minSeconds": 10,
+        "maxSeconds": 180,
+        "usdPerMinute": 0.02,
+        "sources": [
+          "https://fal.ai/models/cassetteai/music-generator/llms.txt",
+          "https://fal.ai/pricing"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      },
+      "fal-sonilo-sfx": {
+        "label": "Sonilo Sound Effects 1.1",
+        "kind": "sfx",
+        "endpoints": {
+          "text": "sonilo/v1.1/text-to-sound-effects"
+        },
+        "fields": "prompt, duration 0.5 to 180 seconds (default 8), audio_format wav, mp3, aac or flac",
+        "minSeconds": 0.5,
+        "maxSeconds": 180,
+        "usdPerSecond": 0.0018,
+        "sources": [
+          "https://fal.ai/models/sonilo/v1.1/text-to-sound-effects/llms.txt",
+          "https://fal.ai/pricing"
+        ],
+        "license": "Commercial use (badge on the model page)",
+        "commercial": true
+      }
+    },
+    "not_used": {
+      "fal-ai/veo3.1 and fal-ai/veo3.1/fast/image-to-video": "fal says these endpoints are deprecated on November 17, 2026 (Veo 3.1 Fast was $0.10 a second silent, $0.15 with sound at 720p or 1080p).",
+      "bytedance/seedance-2.5/image-to-video": "About $0.2205 a second at 480p and $0.4730 at 720p, with sound: more than twice Wan 3.0."
+    }
+  },
+  "higgsfield": {
+    "service": "Higgsfield",
+    "key": "higgsfield (HIGGSFIELD_API_KEY and HIGGSFIELD_API_SECRET, read as { key, secret })",
+    "auth": "Authorization: Key <key id>:<key secret> (the older hf-api-key and hf-secret headers are still accepted)",
+    "base": "https://api.higgsfield.ai",
+    "submit": "POST https://api.higgsfield.ai/{model path} with the model's JSON parameters and an Idempotency-Key header. The answer has status queued, request_id, status_url and cancel_url.",
+    "status": "GET https://api.higgsfield.ai/requests/{request_id}/status. status is queued, in_progress, completed, failed, nsfw or canceled; completed carries images[].url, video.url or audio.url.",
+    "files_in": "Model inputs take a public https URL. For our own files: POST https://api.higgsfield.ai/files/generate-upload-url with { content_type } gives upload_url, upload_headers and public_url; PUT the bytes to upload_url with those headers and no Higgsfield key, then pass public_url as image_url. The upload URL lasts one hour. Data URIs are not mentioned.",
+    "billing": "Prepaid US dollar balance (minimum top up $5). Failed and NSFW-flagged requests are not charged. There is an estimate endpoint for an exact quote; outputs are kept at least seven days.",
+    "sources": [
+      "https://docs.higgsfield.ai/docs/authentication.md",
+      "https://docs.higgsfield.ai/docs/quickstart.md",
+      "https://docs.higgsfield.ai/docs/concepts/requests.md",
+      "https://docs.higgsfield.ai/docs/concepts/file-uploads.md",
+      "https://docs.higgsfield.ai/docs/api-reference/requests/get-request-status.md",
+      "https://docs.higgsfield.ai/docs/concepts/billing-and-retention.md",
+      "https://higgsfield.ai/creator-hub/help-center/integrations/what-is-the-higgsfield-api"
+    ],
+    "account127": "waits",
+    "ownAccount": true,
+    "account127_why": "Waits for a written agreement that excludes training and confirms HQ use. Its terms let it train on content and bar acting as a pass-through. Commercial use of outputs is fine.",
+    "policy": "https://higgsfield.ai/terms-of-use-agreement",
+    "policy_note": "Higgsfield has no separate usage policy page; its rules are Section 5, User Conduct and Certain Restrictions, of the Terms of Use Agreement (last updated July 26, 2026). Section 8 adds that third-party models carry their makers own rules too, the stricter one governing.",
+    "attribution": null,
+    "policy_sources": [
+      "https://higgsfield.ai/terms-of-use-agreement"
+    ],
+    "models": {
+      "hf-kling-3-std": {
+        "label": "Kling 3.0 Standard",
+        "kind": "video",
+        "endpoints": {
+          "image": "kling-video/v3.0/std/image-to-video",
+          "text": "kling-video/v3.0/std/text-to-video"
+        },
+        "fields": "prompt (up to 2,500 characters), duration 3 to 15 (default 5), sound on or off (default on), image_url (image to video, first frame), aspect_ratio 16:9, 9:16 or 1:1 (text to video only)",
+        "seconds": [
+          3,
+          5,
+          10,
+          15
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "audio": false,
+        "usdPerSecond": 0.126,
+        "unverified": true,
+        "assumed": "The model page shows $0.042 and $0.063 a second at 50% off (standard $0.084 and $0.126) and labels them by clip length, which reads like a page error; they match fal's sound off and sound on rates. We send sound off and price at the highest standard rate, $0.126 a second, until the estimate endpoint is checked with a live key.",
+        "sources": [
+          "https://docs.higgsfield.ai/docs/models/kling-3.md",
+          "https://docs.higgsfield.ai/docs/models/kling-3/standard-image-to-video.md",
+          "https://docs.higgsfield.ai/docs/models/kling-3/standard-text-to-video.md",
+          "https://open.higgsfield.ai/models/kling-video/v3.0/std/image-to-video/playground"
+        ]
+      },
+      "hf-kling-3-pro": {
+        "label": "Kling 3.0 Pro (with sound)",
+        "kind": "video",
+        "endpoints": {
+          "image": "kling-video/v3.0/pro/image-to-video"
+        },
+        "seconds": [
+          3,
+          5,
+          10,
+          15
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "audio": true,
+        "usdPerSecond": 0.168,
+        "unverified": true,
+        "assumed": "The page shows $0.056 and $0.084 a second at 50% off, standard $0.112 and $0.168; we price at $0.168. Input fields assumed the same as the Standard image to video page.",
+        "sources": [
+          "https://open.higgsfield.ai/models/kling-video/v3.0/pro/image-to-video/playground",
+          "https://docs.higgsfield.ai/docs/models/kling-3.md"
+        ]
+      },
+      "hf-soul-2": {
+        "label": "Soul 2 (1080p)",
+        "kind": "image",
+        "endpoints": {
+          "text": "higgsfield-ai/soul/v2/standard"
+        },
+        "fields": "prompt, aspect_ratio 9:16, 16:9, 4:3, 3:4, 1:1, 2:3 or 3:2 (default 1:1), resolution 720p or 1080p, batch_size 1 or 4, seed 1 to 1000000, enhance_prompt",
+        "aspects": [
+          "9:16",
+          "16:9",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "resolution": "1080p",
+        "usdPerImage": 0.0057,
+        "usdPerImageByResolution": {
+          "720p": 0.0032,
+          "1080p": 0.0057
+        },
+        "batches": [
+          1,
+          4
+        ],
+        "sources": [
+          "https://docs.higgsfield.ai/docs/models/soul-2/generate.md",
+          "https://open.higgsfield.ai/models/higgsfield-ai/soul/v2/standard/playground"
+        ]
+      }
+    }
+  },
+  "runway": {
+    "service": "Runway",
+    "key": "runway (RUNWAYML_API_SECRET)",
+    "auth": "Authorization: Bearer <RUNWAYML_API_SECRET> and X-Runway-Version: 2024-11-06",
+    "version": "2024-11-06",
+    "base": "https://api.dev.runwayml.com/v1",
+    "submit": "POST /v1/image_to_video, /v1/text_to_video or /v1/text_to_image; the answer has the task id.",
+    "status": "GET /v1/tasks/{id}. status is PENDING, THROTTLED, RUNNING, SUCCEEDED, FAILED or CANCELLED. SUCCEEDED has output (an array of URLs); FAILED has failure and sometimes failureCode.",
+    "files_in": "promptImage takes an https URL, a Runway upload URI or a base64 data URI (data:image/png;base64,...). Each base64 input is capped at 5 MB.",
+    "usdPerCredit": 0.01,
+    "sources": [
+      "https://docs.dev.runwayml.com/guides/using-the-api/",
+      "https://docs.dev.runwayml.com/guides/models/",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+      "https://docs.dev.runwayml.com/api-details/api_changelog/",
+      "https://raw.githubusercontent.com/runwayml/sdk-node/main/src/resources/image-to-video.ts",
+      "https://raw.githubusercontent.com/runwayml/sdk-node/main/src/resources/text-to-video.ts",
+      "https://raw.githubusercontent.com/runwayml/sdk-node/main/src/resources/text-to-image.ts",
+      "https://raw.githubusercontent.com/runwayml/sdk-node/main/src/resources/tasks.ts"
+    ],
+    "account127": "waits",
+    "ownAccount": true,
+    "account127_why": "Waits for an Enterprise agreement with no training and zero retention; its standard terms let Runway train on inputs and outputs.",
+    "policy": "https://runwayml.com/safety/usage-policy",
+    "policy_note": "Runway's Usage Policy (last updated March 6, 2026); runwayml.com now redirects to runway.com.",
+    "attribution": {
+      "text": "Powered by Runway",
+      "url": "https://runwayml.com"
+    },
+    "attribution_rule": "Runway: When attributing to Runway, please use \"Powered by Runway\" and link to Runwayml.com from the user interface. Logos (dark and light, PNG and SVG) are on the same page. Legal V8: show it wherever Runway is used, also through a member's own account.",
+    "policy_sources": [
+      "https://runwayml.com/safety/usage-policy",
+      "https://docs.dev.runwayml.com/usage/attribution/",
+      "https://runwayml.com/terms-and-conditions"
+    ],
+    "models": {
+      "rw-gen4-turbo": {
+        "label": "Gen-4 Turbo",
+        "kind": "video",
+        "model": "gen4_turbo",
+        "from": [
+          "image"
+        ],
+        "fields": "promptImage (required), promptText (optional, up to 1,000 characters), ratio 1280:720, 720:1280, 1104:832, 832:1104, 960:960 or 1584:672, duration, seed",
+        "seconds": [
+          5,
+          10
+        ],
+        "ratios": {
+          "16:9": "1280:720",
+          "9:16": "720:1280",
+          "1:1": "960:960"
+        },
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "audio": false,
+        "creditsPerSecond": 5,
+        "usdPerSecond": 0.05,
+        "durations": "Any length from 2 to 10 seconds since October 8, 2025 (API changelog); the SDK types it as a plain number. We offer 5 and 10.",
+        "sources": [
+          "https://docs.dev.runwayml.com/guides/pricing/",
+          "https://docs.dev.runwayml.com/api-details/api_changelog/"
+        ]
+      },
+      "rw-gen4.5": {
+        "label": "Gen-4.5",
+        "kind": "video",
+        "model": "gen4.5",
+        "from": [
+          "text",
+          "image"
+        ],
+        "fields": "promptText (required, up to 1,000 characters), duration 2 to 10, ratio 1280:720 or 720:1280 for text to video (image to video also takes 1104:832, 960:960, 832:1104, 1584:672), promptImage for image to video",
+        "seconds": [
+          5,
+          10
+        ],
+        "ratios": {
+          "16:9": "1280:720",
+          "9:16": "720:1280"
+        },
+        "aspects": [
+          "16:9",
+          "9:16"
+        ],
+        "audio": false,
+        "creditsPerSecond": 12,
+        "usdPerSecond": 0.12,
+        "sources": [
+          "https://docs.dev.runwayml.com/guides/pricing/"
+        ]
+      },
+      "rw-gen4-image": {
+        "label": "Gen-4 Image (1080p)",
+        "kind": "image",
+        "model": "gen4_image",
+        "from": [
+          "text"
+        ],
+        "fields": "promptText (up to 1,000 characters), ratio such as 1920:1080, 1080:1920, 1080:1080, referenceImages (up to 3, optional)",
+        "ratios": {
+          "16:9": "1920:1080",
+          "9:16": "1080:1920",
+          "1:1": "1080:1080",
+          "3:4": "1080:1440"
+        },
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "3:4"
+        ],
+        "maxCount": 1,
+        "creditsPerImage": 8,
+        "usdPerImage": 0.08,
+        "creditsPerImageByResolution": {
+          "720p": 5,
+          "1080p": 8
+        },
+        "sources": [
+          "https://docs.dev.runwayml.com/guides/pricing/"
+        ]
+      }
+    }
+  },
+  "luma": {
+    "service": "Luma",
+    "key": "luma (LUMAAI_API_KEY)",
+    "auth": "Authorization: Bearer <key>",
+    "base": "https://agents.lumalabs.ai/v1",
+    "submit": "POST /v1/generations with model, type, prompt, aspect_ratio and (video) a video object. Answers 201 with id, state queued and an empty output.",
+    "status": "GET /v1/generations/{id} until state is completed or failed. completed has output: [{ type, url }] with a presigned URL that lasts one hour; failed has failure_reason and failure_code.",
+    "files_in": "start_frame, end_frame and keyframes take an ImageRef: { url } (public), { data, media_type } (inline base64, for small files), a file_id from the Files API, or a generation_id. Images up to 50 MB and 8000 px a side. So image to video works without a public link.",
+    "api_versions": "Luma's older Dream Machine API (https://api.lumalabs.ai/dream-machine/v1/generations/video, models ray-2 and ray-flash-2, durations 5s or 9s, keyframes by public URL only) now points to the Luma Agents API as the latest. Its prices are no longer listed, so we use the Agents API.",
+    "key_unverified": {
+      "unverified": true,
+      "assumed": "The harness key LUMAAI_API_KEY is an Agents API key (Luma's docs call it LUMA_AGENTS_API_KEY). If the key came from the older Dream Machine console it may be refused with 401; the member then reads that the key was refused."
+    },
+    "sources": [
+      "https://docs.agents.lumalabs.ai/",
+      "https://docs.agents.lumalabs.ai/guides/videos/generation",
+      "https://docs.agents.lumalabs.ai/guides/images/generation",
+      "https://docs.agents.lumalabs.ai/guides/pricing/",
+      "https://lumalabs.ai/api/pricing",
+      "https://docs.lumalabs.ai/docs/api",
+      "https://docs.lumalabs.ai/reference/creategeneration"
+    ],
+    "account127": "cleared",
+    "ownAccount": true,
+    "account127_why": "Cleared: Luma does not train on API inputs. Studio names Luma on the tool and never sells Luma access by itself; members are told output is AI-made (V4) and follow its usage rules (V8).",
+    "policy": "https://lumalabs.ai/legal/content-moderation-policy",
+    "policy_note": "Luma's API Terms of Use (last updated April 28, 2026) bind API users to its Acceptable Use Policy without linking one (lumalabs.ai/aup answers 404). We link the Content Moderation Policy (last updated April 23, 2026), its public list of banned content. The API terms ask for \"Powered by Luma\" only when Luma asks in writing, so no attribution now.",
+    "attribution": null,
+    "policy_sources": [
+      "https://lumalabs.ai/legal/content-moderation-policy",
+      "https://lumalabs.ai/legal/api-terms-of-use",
+      "https://lumalabs.ai/legal/terms-of-service"
+    ],
+    "models": {
+      "luma-ray-3.2": {
+        "label": "Ray3.2 (720p)",
+        "kind": "video",
+        "model": "ray-3.2",
+        "from": [
+          "text",
+          "image"
+        ],
+        "fields": "prompt (1 to 6,000 characters), aspect_ratio 9:16, 3:4, 1:1, 4:3, 16:9 or 21:9, video.duration 5s or 10s (10s not with start_frame), video.resolution 360p, 540p, 720p or 1080p, video.start_frame",
+        "seconds": [
+          5,
+          10
+        ],
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "audio": false,
+        "resolution": "720p",
+        "usdPerClip": {
+          "5": 0.3,
+          "10": 0.9
+        },
+        "usdPerClipByResolution": {
+          "540p": {
+            "5": 0.15,
+            "10": 0.45
+          },
+          "720p": {
+            "5": 0.3,
+            "10": 0.9
+          },
+          "1080p": {
+            "5": 1.2,
+            "10": 3.6
+          }
+        },
+        "rule": "With a start image the clip is always 5 seconds (10s is not allowed with start_frame).",
+        "pricesNote": "Luma says video rates may change before general availability.",
+        "sources": [
+          "https://docs.agents.lumalabs.ai/guides/pricing/",
+          "https://lumalabs.ai/api/pricing",
+          "https://docs.agents.lumalabs.ai/guides/videos/generation"
+        ]
+      },
+      "luma-uni-1": {
+        "label": "Uni-1",
+        "kind": "image",
+        "model": "uni-1",
+        "from": [
+          "text"
+        ],
+        "fields": "prompt, type image, aspect_ratio 3:1, 2:1, 16:9, 3:2, 1:1, 2:3, 9:16, 1:2 or 1:3, output_format png or jpeg",
+        "aspects": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "maxCount": 1,
+        "usdPerImage": 0.0404,
+        "sources": [
+          "https://docs.agents.lumalabs.ai/guides/pricing/",
+          "https://docs.agents.lumalabs.ai/guides/images/generation"
+        ],
+        "unverified": true,
+        "assumed": "Images use the same POST /v1/generations and GET /v1/generations/{id} as video (the image guide shows the same queued answer and output array but its curl path was not read)."
+      }
+    }
+  },
+  "voice": {
+    "service": "ElevenLabs",
+    "key": "voice (ELEVENLABS_API_KEY)",
+    "auth": "xi-api-key header",
+    "base": "https://api.elevenlabs.io",
+    "voices": "GET https://api.elevenlabs.io/v2/voices?category=premade&page_size=100 (verified 2026-10-19 by the video pack)",
+    "answers": "All three calls answer at once with the audio bytes (MP3), so start() returns files and nothing is polled.",
+    "sources": [
+      "https://elevenlabs.io/docs/api-reference/text-to-speech/convert",
+      "https://elevenlabs.io/docs/api-reference/text-to-sound-effects/convert",
+      "https://elevenlabs.io/docs/api-reference/music/compose",
+      "https://elevenlabs.io/docs/models",
+      "https://elevenlabs.io/pricing/api"
+    ],
+    "account127": "waits",
+    "ownAccount": true,
+    "account127_why": "Waits for its OEM terms (a Scale, Business or Enterprise plan) and confirmation that its training opt-out covers API use, or Zero Retention Mode. Its free plan gives no commercial license, so through a member account their plan decides (V9).",
+    "policy": "https://elevenlabs.io/use-policy",
+    "policy_note": "ElevenLabs Prohibited Use Policy (last updated 09 October 2026).",
+    "attribution": null,
+    "policy_sources": [
+      "https://elevenlabs.io/use-policy",
+      "https://elevenlabs.io/terms-of-use"
+    ],
+    "models": {
+      "el-flash-2.5": {
+        "label": "Flash v2.5",
+        "kind": "voice",
+        "endpoint": "POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}?output_format=mp3_44100_128",
+        "model": "eleven_flash_v2_5",
+        "maxChars": 40000,
+        "usdPer1kChars": 0.04,
+        "sources": [
+          "https://elevenlabs.io/pricing/api",
+          "https://elevenlabs.io/docs/models"
+        ]
+      },
+      "el-v3": {
+        "label": "Eleven v3",
+        "kind": "voice",
+        "endpoint": "POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}?output_format=mp3_44100_128",
+        "model": "eleven_v3",
+        "maxChars": 5000,
+        "usdPer1kChars": 0.08,
+        "sources": [
+          "https://elevenlabs.io/pricing/api",
+          "https://elevenlabs.io/docs/models"
+        ]
+      },
+      "el-sfx": {
+        "label": "Sound Effects v2",
+        "kind": "sfx",
+        "endpoint": "POST https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_128",
+        "model": "eleven_text_to_sound_v2",
+        "fields": "text, duration_seconds 0.5 to 30 (inferred from the prompt when left out), prompt_influence 0 to 1 (default 0.3), loop",
+        "minSeconds": 0.5,
+        "maxSeconds": 30,
+        "usdPerMinute": 0.12,
+        "unverified": true,
+        "assumed": "The API price page lists Sound Effects at $0.120 per minute. When no length is asked for we price the 30 second maximum.",
+        "sources": [
+          "https://elevenlabs.io/docs/api-reference/text-to-sound-effects/convert",
+          "https://elevenlabs.io/pricing/api"
+        ]
+      },
+      "el-music": {
+        "label": "Eleven Music v2.5",
+        "kind": "music",
+        "endpoint": "POST https://api.elevenlabs.io/v1/music?output_format=mp3_44100_128",
+        "model": "music_v2_5",
+        "fields": "prompt, music_length_ms 3,000 to 600,000, model_id music_v1, music_v2 or music_v2_5, force_instrumental",
+        "minSeconds": 3,
+        "maxSeconds": 120,
+        "usdPerMinute": 0.15,
+        "unverified": true,
+        "assumed": "The API price page gives one Music rate ($0.150 per minute) without splitting it by model. The API allows 600 seconds; we cap at 120 so the one call finishes inside the harness's 60 second fetch limit (generation time is not documented).",
+        "sources": [
+          "https://elevenlabs.io/docs/api-reference/music/compose",
+          "https://elevenlabs.io/pricing/api",
+          "https://elevenlabs.io/docs/models"
+        ]
+      }
+    }
+  },
+  "gemini": {
+    "service": "Gemini",
+    "key": "gemini (GEMINI_API_KEY)",
+    "auth": "x-goog-api-key header",
+    "base": "https://generativelanguage.googleapis.com/v1beta",
+    "paid_only": "Use a paid tier key only. Google's price page says free tier inputs and outputs are used to improve Google's products (Used to improve our products: Free Tier Yes, Paid Tier No). The models below have no free tier.",
+    "submit": "POST https://generativelanguage.googleapis.com/v1beta/interactions with model, input (a string, or [{ type: 'image', data, mime_type }, { type: 'text', text }]) and response_format { type: 'video' | 'image', aspect_ratio, resolution | image_size }.",
+    "status": "GET https://generativelanguage.googleapis.com/v1beta/interactions/{id}. status in_progress, requires_action, completed, failed or cancelled. The finished media is base64 in steps[] (type model_output) content[] items { type: 'video' | 'image', mime_type, data }.",
+    "background_unverified": {
+      "unverified": true,
+      "assumed": "Video is started with background: true and polled with GET interactions/{id}. Google's background execution guide documents this for Gemini models and agents but does not name Omni video; a synchronous video call would run past the harness's 60 second fetch limit."
+    },
+    "veo": "Veo 3.1 Preview (veo-3.1-generate-preview, veo-3.1-fast-generate-preview, veo-3.1-lite-generate-preview) through :predictLongRunning and operations polling is deprecated and shuts down on October 22, 2026; Google points to gemini-omni-1.1-flash. We do not offer Veo. For the record: Veo 3.1 Lite was $0.05 a second at 720p, Fast $0.10, Standard $0.40, with sound.",
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/omni",
+      "https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash",
+      "https://ai.google.dev/gemini-api/docs/background-execution",
+      "https://ai.google.dev/gemini-api/docs/image-generation",
+      "https://ai.google.dev/gemini-api/docs/veo",
+      "https://ai.google.dev/gemini-api/docs/video"
+    ],
+    "account127": "cleared",
+    "ownAccount": true,
+    "account127_why": "Cleared on the paid tier only: there Google doesn't use prompts or results to improve its products and keeps them briefly for abuse checks. 127's GEMINI_API_KEY must be on a paid tier project. Keep SynthID (V4).",
+    "policy": "https://policies.google.com/terms/generative-ai/use-policy",
+    "policy_note": "Google's Generative AI Prohibited Use Policy (last modified December 17, 2024), which the Gemini API Additional Terms require.",
+    "attribution": null,
+    "policy_sources": [
+      "https://policies.google.com/terms/generative-ai/use-policy",
+      "https://ai.google.dev/gemini-api/terms",
+      "https://ai.google.dev/gemini-api/docs/usage-policies"
+    ],
+    "models": {
+      "gm-omni-flash": {
+        "label": "Gemini Omni 1.1 Flash (720p)",
+        "kind": "video",
+        "model": "gemini-omni-1.1-flash",
+        "from": [
+          "text",
+          "image"
+        ],
+        "fields": "input (prompt, plus an image item for image to video), response_format { type: video, aspect_ratio 16:9 or 9:16, resolution 360p, 720p, 1080p or 4k }, generation_config.video_config.task text_to_video or image_to_video. No length control: the model makes 3 to 10 seconds.",
+        "seconds": [
+          10
+        ],
+        "aspects": [
+          "16:9",
+          "9:16"
+        ],
+        "audio": true,
+        "resolution": "720p",
+        "tokensPerSecond720p": 5792,
+        "usdPerMillionVideoTokens": 17.5,
+        "usdPerSecond": 0.10136,
+        "usdInputAllowance": 0.005,
+        "rule": "The length is the model's choice (3 to 10 seconds), so we price the 10 second most it can make.",
+        "unverified": true,
+        "assumed": "Sound is included (Omni clips come with sound per the Omni guide); the input allowance of $0.005 covers the prompt and one start image at $1.50 per million input tokens.",
+        "sources": [
+          "https://ai.google.dev/gemini-api/docs/pricing",
+          "https://ai.google.dev/gemini-api/docs/omni",
+          "https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash"
+        ]
+      },
+      "gm-nano-banana-2-lite": {
+        "label": "Nano Banana 2 Lite",
+        "kind": "image",
+        "model": "gemini-3.1-flash-lite-image",
+        "from": [
+          "text"
+        ],
+        "fields": "response_format { type: image, aspect_ratio 1:1, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9 or 21:9, image_size 1K (Lite makes 1K only) }",
+        "aspects": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "4:5",
+          "3:4",
+          "4:3"
+        ],
+        "imageSize": "1K",
+        "maxCount": 1,
+        "usdPerImage": 0.0336,
+        "usdInputAllowance": 0.002,
+        "sources": [
+          "https://ai.google.dev/gemini-api/docs/pricing",
+          "https://ai.google.dev/gemini-api/docs/image-generation"
+        ]
+      },
+      "gm-nano-banana-2": {
+        "label": "Nano Banana 2",
+        "kind": "image",
+        "model": "gemini-3.1-flash-image",
+        "from": [
+          "text",
+          "image"
+        ],
+        "fields": "input text (and an image item to edit or restyle a photo), response_format { type: image, aspect_ratio, image_size 512, 1K, 2K or 4K }",
+        "aspects": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "4:5",
+          "3:4",
+          "4:3"
+        ],
+        "imageSize": "1K",
+        "maxCount": 1,
+        "usdPerImage": 0.067,
+        "usdInputAllowance": 0.003,
+        "unverified": true,
+        "assumed": "Aspect ratios: the image guide lists them only for the Lite model; we assume the same list here.",
+        "sources": [
+          "https://ai.google.dev/gemini-api/docs/pricing",
+          "https://ai.google.dev/gemini-api/docs/image-generation"
+        ]
+      }
+    }
+  },
+  "legal": {
+    "ruling": "/mnt/project-files/legal/handoffs/turnkey.md (Row 8: Studio providers, V1 to V10, part 5)",
+    "account127": "'cleared' means lib/gen may use 127's own key (ctx.secret) for it, paid with credits. 'waits' means only the member's own account (their key in Connections, Media group) can use it until Legal clears a written term.",
+    "ownAccount": "true: the member can connect their own account (row 8, way 2), cleared for all six. Their plan there decides commercial rights (V9), and the card says: \"{Provider} works for you under your own account and its terms, including whether it trains on what you send and what your plan there lets you do with what it makes.\"",
+    "each_tool": "Made with {provider} · [Usage rules]({policy}). Add \"Powered by Runway\", with a link, wherever Runway is used (V8)."
+  }
+}
