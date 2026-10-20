@@ -221,6 +221,8 @@ test('bad ids, path traversal, .tpl downloads and unknown kinds are refused', ()
     { ...base, id: 'q9', links: [{ label: 'x', url: 'javascript:alert(1)', type: 'copy' }] },
     { ...base, id: 'q10', makeItMine: { ...base.makeItMine, tokens: ['business.secret'] } },
     { ...base, id: 'q11', flag: 'lower-case' },
+    { ...base, id: 'q18', tier: 'circle' },
+    { ...base, id: 'q19', price: '$9' },
     { ...base, id: 'q12', links: [{ label: 'x', url: '//evil.example/app', type: 'open' }] },
     { ...base, id: 'q13', links: [{ label: 'x', url: '/app//evil.example', type: 'open' }] },
     { ...base, id: 'q14', links: [{ label: 'x', url: '/app/../admin', type: 'open' }] },
@@ -233,7 +235,7 @@ test('bad ids, path traversal, .tpl downloads and unknown kinds are refused', ()
   const w = fx.writeStore({ items: bad, files });
   const lib = store.load(w.dir, { promptsFile: w.promptsFile });
   assert.deepEqual(lib.items.map((i) => i.id), ['quote'], 'only the one good item, once');
-  for (const id of ['bad id "../quote"', 'bad id "Quote"', 'q2: bad file path', 'q3: bad file path', "q4: a .tpl source can't be a download", 'q5: bad preview path', 'q6: unknown kind', 'q7: businessTypes', "q8: tier gold isn't a plan key", 'q9: bad link', 'q10: unknown token', 'q11: bad flag', 'q12: bad link', 'q13: bad link', 'q14: bad link', 'q15: bad link', 'q16: bad link', 'q17: bad link', 'quote: duplicate id']) {
+  for (const id of ['bad id "../quote"', 'bad id "Quote"', 'q2: bad file path', 'q3: bad file path', "q4: a .tpl source can't be a download", 'q5: bad preview path', 'q6: unknown kind', 'q7: businessTypes', "q8: tier gold isn't a plan key", 'q9: bad link', 'q10: unknown token', 'q11: bad flag', 'q12: bad link', 'q13: bad link', 'q14: bad link', 'q15: bad link', 'q16: bad link', 'q17: bad link', 'q18: tier circle: Store items are free or come with Builder', "q19: price: Store items aren't sold one by one", 'quote: duplicate id']) {
     assert.ok(lib.problems.some((p) => p.startsWith(id)), `${id} in ${lib.problems.join(' | ')}`);
   }
   assert.throws(() => store.load(w.dir, { strict: true, promptsFile: w.promptsFile }), /q2: bad file path/);

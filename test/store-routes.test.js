@@ -177,6 +177,10 @@ test('STORE_V2 on before Terms and Privacy are live: a member sees no Store, an 
 test('the gallery: chips, search, Coming soon, Builder locks for a free member, and Legal\'s note', async () => {
   const u = await member('free');
   const page = await html(await s.go('/app/hq/store', { as: u }));
+  // Eli, Oct 20: every Store item comes with Builder, nothing sold one by one.
+  assert.match(page, /Every template here comes with Builder, and the ones without a Builder tag work on any plan too\. Nothing is sold one by one\./);
+  const gallery = page.slice(page.indexOf('class="hq-head"'));
+  assert.doesNotMatch(gallery.slice(0, gallery.indexOf('<footer') > 0 ? gallery.indexOf('<footer') : undefined), /\$\d|[Cc]heckout|Buy /, 'no per-item prices or checkout in the Store');
   for (const t of ['Quote', 'First-Sale Math', 'Notion CRM', 'Business brain prompts', 'Pitch deck']) assert.match(page, new RegExp(`<h3>${t}</h3>`));
   assert.doesNotMatch(page, /Agency site/, 'its own flag is off');
   assert.match(page, /aria-current="page"[^>]*>Store<|class="on" aria-current="page">Store</);
