@@ -1,5 +1,5 @@
 <%- include('../../partials/app-head') %>
-<%# One brief: a guided form (sections, text and chips) that code turns into one build-ready brief. Locals: k, B (lib/harness/briefs), locked, answers, out, agentOn. %>
+<%# One brief: a guided form (sections, text and chips) that code turns into one build-ready brief. Locals: k, B (lib/harness/briefs), locked, answers, out, build, agentOn. %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/scripts">AI scripts</a> · <a href="/app/hq/briefs">Briefs</a></p>
@@ -17,6 +17,7 @@
     <p class="hq-small br-ready" style="margin:10px 14px 0"><% if (out.ready) { %>Ready to build.<% } else { %>Still needed: <%= out.missing.join(', ') %>. The AI will ask for these.<% } %><% if (out.helps.length) { %> Would help: <%= out.helps.join(', ') %>.<% } %></p>
     <pre class="h2-doc" style="margin-top:12px"><%= out.text %></pre>
   </section>
+  <% if (build) { %><a class="btn" style="margin-top:16px" href="<%= build %>">Build it with Site in a night <span class="arrow"></span></a><% } %>
   <p class="hq-small">Paste it into any AI with your files attached<%= agentOn ? ', or send it to Ask 127 below' : '' %>. Change an answer and tap Make my brief again to update it.</p>
   <% } %>
   <form method="post" action="/app/hq/briefs/<%= k.id %>" class="h2-stack" style="margin-top:16px">

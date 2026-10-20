@@ -624,10 +624,17 @@ test('Briefs: a guided form becomes one build-ready brief with a Never list and 
   for (const f of briefs.fields(site)) assert.match(page, new RegExp(`name="v_${f.key}"`));
   // The lessons are on before anyone ticks anything.
   assert.match(page, /value="staged_glow" checked/);
+  const siteForm = { v_business: 'Northside Detailing', v_what: 'Mobile detailing', v_action: 'Book a detail', v_look: 'first_light', v_avoid: 'floor_line', make: '1' };
+  // Without the site pack there's no Build button; with it, the brief opens Build your website tonight filled in.
+  assert.doesNotMatch(await (await s.go('/app/hq/briefs/site', { as: u, form: siteForm })).text(), /Build it with Site in a night/);
+  assert.deepEqual(packs.register(require('../lib/packs/site')).refused, []);
   const html = await (await s.go('/app/hq/briefs/site', { as: u, form: { v_business: 'Northside Detailing', v_what: 'Mobile detailing', v_action: 'Book a detail', v_look: 'first_light', v_avoid: 'floor_line', make: '1' } })).text();
   assert.match(html, /Your brief/);
   assert.match(html, /Still needed: Who it&#39;s for, Mood in three words/);
   const out = html.match(/<pre class="h2-doc"[^>]*>([\s\S]*?)<\/pre>/)[1];
+  // A Website brief opens Build your website tonight with its answers filled in.
+  assert.match(html, /href="\/app\/hq\/w\/site\.build_tonight\?in_business=Northside\+Detailing&amp;in_what=Mobile\+detailing&amp;in_look=Light\+and\+glow"/);
+  assert.match(html, /Build it with Site in a night/);
   assert.match(out, /Who it&#39;s for: \[ASK\]/);
   assert.match(out, /The one button reads &#34;Book a detail&#34;/);
   assert.match(out, /Light is the only decoration/);
