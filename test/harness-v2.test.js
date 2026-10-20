@@ -635,6 +635,28 @@ test('fetch only reaches the public web, on every redirect', async () => {
   } finally {
     ctxLib._setDeps({ lookup: (host) => require('dns').promises.lookup(host, { all: true }), fetch: (...a) => fetch(...a) });
   }
+  // A tool's own headers go only to the first host, on every hop (Hub's rule): never to a host it was sent on to.
+  const seen = [];
+  const NEXT = { 'https://api.test/file': 'https://cdn.test/a', 'https://cdn.test/a': 'https://api.test/b', 'https://api.test/b': 'https://cdn.test/c' };
+  ctxLib._setDeps({
+    lookup: async () => [{ address: '93.184.216.34' }],
+    fetch: async (url, o) => {
+      seen.push({ url, headers: o.headers });
+      return NEXT[url] ? new Response(null, { status: 302, headers: { location: NEXT[url] } }) : new Response('ok', { status: 200 });
+    },
+  });
+  try {
+    const f = ctxLib.makeFetch({ memberId: 'm1', run: { fetches: 0 } });
+    await f('https://api.test/file', { headers: { Authorization: 'Bearer k1', 'X-Api-Key': 'k2', Accept: 'video/mp4' } });
+    assert.deepEqual(seen.map((x) => x.url), ['https://api.test/file', 'https://cdn.test/a', 'https://api.test/b', 'https://cdn.test/c']);
+    assert.equal(seen[0].headers.Authorization, 'Bearer k1');
+    assert.equal(seen[2].headers['X-Api-Key'], 'k2', 'back on the first host');
+    for (const x of [seen[1], seen[3]]) assert.deepEqual(x.headers, { accept: 'video/mp4' });
+    assert.equal((await f('https://cdn.test/c')).status, 200, 'no headers given: none added');
+    assert.equal(seen[4].headers, undefined);
+  } finally {
+    ctxLib._setDeps({ lookup: (host) => require('dns').promises.lookup(host, { all: true }), fetch: (...a) => fetch(...a) });
+  }
 });
 
 test('spending stops at the daily limit', () => {
