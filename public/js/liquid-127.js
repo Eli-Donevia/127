@@ -1,23 +1,23 @@
-// Liquid 127: the homepage's water hero, drawn as a real 3D scene every frame. The 127 is a signed distance field
-// (its outline baked into /img/liquid/mark-sdf.png by v2/design/motion/src/liquid-sdf.py, extruded and rounded here)
-// and the pond is a height field run as a wave equation on the GPU. Each pixel marches a ray through both.
+// Liquid 127: the homepage's water hero, drawn as a real 3D scene every frame. The glass 127 is a signed distance
+// field (its outline baked into /img/liquid/mark-sdf.png by v2/design/motion/src/liquid-sdf.py, extruded and
+// bevelled here) and the pond is a height field run as a wave equation on the GPU. Each pixel marches a ray through
+// both: the glass refracts and reflects a studio of soft lights (one of them follows the pointer), the pond mirrors
+// the glass and the lights, and you can see the glass's glow through the water while it's under.
 //   liquid127(stage, { small, reveal, scrub, capture, onSlow }) -> Promise (resolves once it's drawing)
-//   scrub: () => 0..1, how far the page has scrolled through the hero's pin; the birth follows the first 65% of it
+//   scrub: () => 0..1, how far the page has scrolled through the hero's pin; the rise follows the first 65% of it
 //   pop: true lights it with the accent (#7C8CFF) as well as white; setPop(bool) changes it live
 //
-// It's a living thing, a black symbiote born out of the pond: a swarm of wet black beads lifts off the water into the
-// 127's shape while tendrils whip up toward it, the 127 knits itself from them, and most tendrils sink back, leaving
-// three under its feet. Alive at rest: it sways, turns toward the pointer on a spring, its skin crawls, a tendril now
-// and then reaches up to feel for it, one reaches for the pointer, the pointer drags a wake through the pond and a
-// click makes it twitch. Scrolling past the hero runs the birth backwards, into the pond.
-//
-// The skin's wet highlights and its iridescent walls are ported from shaders (MIT, Shader Effects Inc.): the Goo and
-// Obsidian materials, https://github.com/shader-effects-inc/shaders (license in /js/LICENSE-shaders.txt)
+// It's alive: the 127 floats and sways, turns toward the pointer on a spring, its surface moves like liquid, a hover
+// sends a ripple through the glass, the pointer drags a wake through the pond, and a click drops a stone and makes the
+// glass wobble. It forms out of the water: the pond swells, a mound of liquid climbs out of it still joined to the
+// surface, gathers into the 127 and pulls free, dripping. With scrub the page opens on the still pond and the first
+// bit of scroll plays that rise (scrolling back sinks it again); without, it plays on opening. Scrolling past the hero
+// runs it back into the water.
 
 const K = 2.4 / 290.8;                         // scene units per unit of the mark's path (the 127 is 2.4 wide)
 const SW = 350.5778 * K, SH = 197.2 * K, SR = 60 * K;   // the distance field's extent and range, in scene units
 const HALF = 72.6 * K;                         // half the mark's height
-const LIFT = 0.25, DEPTH = 0.15, BEVEL = 0.045; // how far it floats, half its thickness, its rounded edge
+const LIFT = 0.25, DEPTH = 0.15, BEVEL = 0.028; // how far it floats, half its thickness, its rounded edge
 const REST = LIFT + HALF;                      // the mark's middle, at rest
 const CAM = [0, 0.62, 5.6], AIM = [0, 0.78, 0], TANV = 0.215;
 const WB = [-4.5, -7.0, 9.0, 10.5];            // the pond's simulated patch: x, z (z toward the camera), width, depth
@@ -61,11 +61,8 @@ uniform vec4 uMark;          // the mark's middle (xyz) and its stretch (w)
 uniform mat3 uRot;           // scene to mark
 uniform float uForm, uMerge, uWobble, uGlow, uKey, uFade;
 uniform vec4 uPoke[4];       // ripples through the glass: where on its face (x, y), strength, age
-uniform vec3 uPtr;  // the pointer's light: where it points (x, y) and how strong
-uniform float uPop;          // how much of the light is the accent colour
-#define NT 8
-uniform vec4 uTA[NT], uTB[NT], uTC[NT];
-uniform vec3 uTLo, uTHi;   // a box around every tendril that's out, so the rest of the scene can skip them   // the tendrils: base + reach, bend + thickness, tip
+uniform vec3 uPtr;
+uniform float uPop;           // how much of the light is the accent colour           // the pointer's light: where it points (x, y) and how strong
 out vec4 o;
 const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.30, 0.36, 1.0);   // #7C8CFF, in linear light, a touch hotter
 const vec3 BG = vec3(BGC);
@@ -86,20 +83,21 @@ float mark2(vec2 p) {
   float d = ((s.r * 65280.0 + s.g * 255.0) / 65535.0 - 0.5) * 2.0 * SR_;
   return d + length((uv - c) * vec2(SW_, SH_));
 }
-// the 127: the outline extruded and rounded, its skin always moving. Unformed it isn't there yet; it knits itself in
-// patches as the organism builds it (uForm 0 to 1).
-float markD(vec3 p) {
+// the glass: the outline extruded and rounded, then made liquid
+float glass(vec3 p) {
   vec3 q = uRot * (p - uMark.xyz); q.y /= uMark.w;
   // far from it, a box is enough (and saves the texture)
   vec3 b = abs(q) - vec3(1.3, 0.72, 0.3);
-  float box = length(max(b, 0.0)), u = 1.0 - uForm;
-  if (box > 0.3 || uForm < 0.01) return max(box * 0.9, 0.0) + 0.3 * u;
+  float box = length(max(b, 0.0));
+  if (box > 0.35 + 0.4 * (1.0 - uForm)) return box;
   vec2 w = vec2(mark2(q.xy) + BEVEL_, abs(q.z) - DEPTH_ + BEVEL_);
   float d = min(max(w.x, w.y), 0.0) + length(max(w, 0.0)) - BEVEL_;
-  float n = noise(q * vec3(3.0, 2.6, 3.0) + vec3(0.0, -uTime * 0.6, uTime * 0.4)) - 0.5;
-  n += 0.35 * (noise(q * 9.0 + vec3(uTime * 1.1, 0.0, -uTime * 0.8)) - 0.5);
-  d += n * uWobble + u * (0.36 + 0.32 * noise(q * 2.2 + 7.3));
-  // a ripple running out from where it was touched
+  // unformed, it's a swollen, moving mass of water; formed, its surface still moves a hair
+  float u = 1.0 - uForm;
+  float n = noise(q * vec3(1.7, 1.4, 1.7) + vec3(0.0, -uTime * 0.9, uTime * 0.3)) - 0.5;
+  n += 0.3 * (noise(q * 4.2 + vec3(uTime * 0.7, -uTime * 1.3, 0.0)) - 0.5);
+  d += n * (0.5 * u * u + uWobble) - 0.16 * u;
+  // a ripple running out from where the glass was touched
   for (int i = 0; i < 4; i++) {
     if (uPoke[i].z <= 0.0) continue;
     float r = length(q.xy - uPoke[i].xy), a = uPoke[i].w;
@@ -107,38 +105,6 @@ float markD(vec3 p) {
   }
   return d;
 }
-float capsule(vec3 p, vec3 a, vec3 b, float ra, float rb) {
-  vec3 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0); return length(pa - ba * h) - mix(ra, rb, h);
-}
-vec3 bez(vec3 a, vec3 c, vec3 b, float t) { float s = 1.0 - t; return s * s * a + 2.0 * s * t * c + t * t * b; }
-// the tendrils: each a bent strand out of the pond (base), reaching some way (uTA.w) toward its tip, thinning as it goes
-float tendrils(vec3 p) {
-  vec3 bo = max(uTLo - p, p - uTHi);
-  float d = length(max(bo, 0.0)) + 0.05;
-  if (d > 0.25) return d;
-  d = 1e3;
-  for (int i = 0; i < NT; i++) {
-    float L = uTA[i].w; if (L < 0.01) continue;
-    vec3 a = uTA[i].xyz, c = uTB[i].xyz, e = uTC[i].xyz; float r = uTB[i].w;
-    vec3 mid = (a + 2.0 * c + e) * 0.25;
-    float bd = length(p - mid) - (length(e - a) * 0.6 + length(c - (a + e) * 0.5) + r + 0.1);
-    if (bd > 0.2) { d = min(d, bd); continue; }
-    vec3 p0 = a;
-    // short ones need fewer pieces
-    int ns = int(clamp(length(e - a) * L * 6.0, 2.0, 7.0));
-    for (int k = 1; k <= 7; k++) {
-      if (k > ns) break;
-      float t0 = L * float(k - 1) / float(ns), t1 = L * float(k) / float(ns);
-      vec3 p1 = bez(a, c, e, t1);
-      // thick where it leaves the water, thinning to a point
-      float r0 = r * (1.0 - 0.75 * t0 / max(L, 0.3)) * (1.0 + 0.6 * exp(-t0 * 9.0)), r1 = r * (1.0 - 0.75 * t1 / max(L, 0.3)) * (1.0 + 0.6 * exp(-t1 * 9.0));
-      d = min(d, capsule(p, p0, p1, r0, r1));
-      p0 = p1;
-    }
-  }
-  return d;
-}
-float glass(vec3 p) { return smin(markD(p), tendrils(p), 0.1); }
 // the pond: a long low swell under the simulated ripples
 float water(vec2 P) {
   vec2 uv = (P - WB_.xy) / WB_.zw;
@@ -170,8 +136,7 @@ vec3 sky(vec3 d, float key) {
   c += mix(HALO, POP * 1.6, uPop * 0.35) * 2.6 * panel(d, normalize(vec3(0.85, 0.18, -1.0)), vec3(0, 1, 0), 0.08, 0.9);
   c += vec3(0.72, 0.75, 1.0) * 0.9 * panel(d, normalize(vec3(0.0, 0.05, -1.0)), vec3(0, 1, 0), 0.9, 0.12);
   c += HALO * 1.6 * uKey * key * panel(d, normalize(vec3(0.15, 1.0, 0.35)), vec3(0, 0, -1), 0.7, 0.35);
-  c += HALO * 0.5 * panel(d, normalize(vec3(-0.4, 0.25, 1.0)), vec3(0, 1, 0), 0.6, 0.4);
-  c += mix(HALO, POP * 1.5, uPop * 0.5) * 2.2 * panel(d, normalize(vec3(0.0, 0.55, 1.0)), vec3(0, 1, 0), 1.4, 0.05);
+  c += HALO * 0.18 * panel(d, normalize(vec3(-0.4, 0.25, 1.0)), vec3(0, 1, 0), 0.6, 0.4);
   vec3 pc = normalize(vec3(uPtr.x * 1.4, 0.35 + uPtr.y * 0.6, 1.0));
   vec3 pl = mix(HALO, POP * 1.4, uPop);
   c += pl * 3.2 * uPtr.z * pow(max(dot(d, pc), 0.0), 900.0);
@@ -188,31 +153,37 @@ vec3 skyW(vec3 d) {
   return c;
 }
 vec3 env(vec3 d) { return d.y >= 0.0 ? sky(d, 1.0) : sky(vec3(d.x, -d.y, d.z), 0.0) * 0.06 + vec3(0.003, 0.003, 0.004); }
-// the organism's skin: black and wet. Only what it reflects shows: long highlights from the lights, and at grazing
-// angles an oily sheen (neutral, or the accent with the pop)
-vec3 shadeGoo(vec3 p, vec3 rd, vec3 n) {
-  float c = clamp(-dot(rd, n), 0.0, 1.0), gz = 1.0 - c, F = 0.04 + 0.96 * pow(gz, 4.0);
+// the glass, from outside: reflection, and what's seen through it (bent in, across and out, each colour a little
+// differently), dimmed by the depth of glass it crossed
+vec3 shadeGlass(vec3 p, vec3 rd, vec3 n, bool full) {
+  float c = clamp(-dot(rd, n), 0.0, 1.0), F = 0.04 + 0.96 * pow(1.0 - c, 5.0);
   vec3 refl = env(reflect(rd, n));
-  // Obsidian: faces looking at you stay black; walls turning away light up with a flowing gradient (steel, or the
-  // accent with the pop)
-  float rim = smoothstep(0.3, 0.75, gz), ph = dot(p, vec3(0.8, 0.5, 0.3)) * 1.6 + gz * 0.9 + uTime * 0.2;
-  float f = abs(fract(ph) * 2.0 - 1.0);
-  vec3 iri = mix(mix(vec3(0.10, 0.11, 0.13), HALO * 0.55, smoothstep(0.2, 0.8, f)),
-                 mix(POP * 0.35, mix(POP * 1.3, HALO, 0.35), smoothstep(0.2, 0.8, f)), uPop);
-  // Goo: a wet key light, a tight core with a halo and a glint
-  vec3 L = normalize(vec3(-0.35, 0.8, 0.55)), H = normalize(L - rd);
-  float ndh = clamp(dot(n, H), 0.0, 1.0);
-  float wet = pow(ndh, 232.0) * 1.7 + pow(ndh, 32.0) * 0.25 + smoothstep(0.992, 0.999, ndh) * 1.9;
-  vec3 col = vec3(0.0022, 0.0022, 0.0028) + iri * rim * mix(0.22, 0.55, uPop);
-  return col + refl * F * 1.3 + mix(iri, vec3(1.0), 0.6) * wet * 0.35 * uKey;
+  vec3 r2 = refract(rd, n, 1.0 / 1.47), q = p - n * (max(glass(p), 0.0) + 0.006);   // the hit can sit a hair outside
+  float len = 0.0;
+  if (full) {
+    for (int i = 0; i < INNER; i++) { float d = -glass(q); if (d < 0.002) break; q += r2 * max(d, 0.008); len += max(d, 0.008); }
+  } else { q += r2 * 0.25; len = 0.25; }
+  vec3 n2 = -gnorm(q), t;
+  vec3 col;
+  vec3 a = refract(r2, n2, 1.44), b = refract(r2, n2, 1.47), e = refract(r2, n2, 1.51);
+  if (dot(b, b) < 0.5) { b = reflect(r2, n2); a = b; e = b; }
+  col = vec3(env(dot(a, a) < 0.5 ? b : a).r, env(b).g, env(dot(e, e) < 0.5 ? b : e).b);
+  col *= exp(-len * vec3(0.55, 0.45, 0.32)) * 0.96;
+  col += vec3(0.02, 0.022, 0.03) * uGlow;
+  return mix(col, refl, F);
 }
-// the pond: a dark mirror of the organism and the lights
+// the pond: a dark mirror of the glass and the lights, and under it the glass's glow while it's below
 vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
   float c = clamp(-dot(rd, n), 0.0, 1.0), F = 0.02 + 0.98 * pow(1.0 - c, 5.0);
   vec3 rr = reflect(rd, n), q = p + rr * 0.01, refl = skyW(rr);
   float t = 0.0;
-  for (int i = 0; i < REFL; i++) { float d = glass(q); if (d < 0.002) { refl = shadeGoo(q, rr, gnorm(q)); break; } q += rr * d; t += d; if (t > 9.0) break; }
-  return refl * (F * 1.1 + 0.03);
+  for (int i = 0; i < REFL; i++) { float d = glass(q); if (d < 0.002) { refl = shadeGlass(q, rr, gnorm(q), false); break; } q += rr * d; t += d; if (t > 9.0) break; }
+  vec3 col = refl * (F * 1.1 + 0.03);
+  if (uGlow > 0.0) {
+    vec3 rt = refract(rd, n, 1.0 / 1.33); q = p; t = 0.0;
+    for (int i = 0; i < 24; i++) { float d = glass(q); if (d < 0.004) { col += mix(HALO, POP * 1.3, uPop) * 0.5 * uGlow * exp(-t * 1.8) * (0.5 + 0.5 * dot(gnorm(q), -rt)); break; } q += rt * max(d, 0.01); t += max(d, 0.01); if (t > 2.0) break; }
+  }
+  return col;
 }
 // AgX with the Punchy look, as the clips were graded in Blender
 vec3 agxC(vec3 x) { vec3 x2 = x * x, x4 = x2 * x2;
@@ -249,7 +220,7 @@ void main() {
     float w = p.y - water(p.xz);
     // where the glass and the pond are still one, the surface is a blend of both
     float k = uMerge > 0.001 ? clamp(0.5 + 0.5 * (w - g) / uMerge, 0.0, 1.0) : step(g, w);
-    vec3 cg = k > 0.01 ? shadeGoo(p, rd, uMerge > 0.001 && k < 0.99 ? snorm(p) : gnorm(p)) : vec3(0.0);
+    vec3 cg = k > 0.01 ? shadeGlass(p, rd, uMerge > 0.001 && k < 0.99 ? snorm(p) : gnorm(p), true) : vec3(0.0);
     vec3 cw = k < 0.99 ? shadeWater(p, rd, k > 0.01 ? snorm(p) : wnorm(p.xz)) : vec3(0.0);
     col = mix(cw, cg, k);
     col = mix(col, vec3(0.0), sm(9.0, 22.0, t));            // the far pond fades into the dark
@@ -265,8 +236,8 @@ void main() {
   .replace('DEPTHV', DEPTH.toFixed(3)).replace('BEVELV', BEVEL.toFixed(3)).replace('WBV', WB.join(', '))
   .replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
 
-// The swarm: wet black beads that lift off the pond and stream into the 127's shape, then melt into its skin as it
-// forms. Each point has a seed on the water (x, z, two randoms) and a place on the mark (in the mark's own space).
+// The drops: water lifts out of the pond in columns under each figure and fills the 127's shape from the bottom up,
+// then pours into the glass as it forms. Each point has a seed on the water (x, z, two randoms) and a place on the mark (in the mark's own space).
 const PV = `#version 300 es
 precision highp float;
 in vec4 aS; in vec3 aT;
@@ -274,35 +245,32 @@ uniform vec2 uRes; uniform float uDpr; uniform vec4 uFrame;
 uniform float uP, uAbs, uTime, uSize, uPop; uniform vec3 uC; uniform mat3 uRot;
 out float vA; out vec3 vC;
 void main() {
-  float r1 = aS.z, r2 = aS.w;
-  float k = clamp((uP - r1 * 0.45) / 0.55, 0.0, 1.0), e = k * k * (3.0 - 2.0 * k), m = sin(3.14159 * e);
-  vec3 tg = uC + transpose(uRot) * aT, c = vec3(aS.x, 0.02, aS.y) - tg;
-  // on the way it swirls round the mark and lifts, most in the middle of its run
-  float a = (r2 - 0.5) * 5.0 * m;
-  vec3 p = tg + (1.0 - e) * vec3(c.x * cos(a) - c.z * sin(a), c.y, c.x * sin(a) + c.z * cos(a));
-  p.y += m * (0.2 + 0.55 * r2);
-  // they move together, in streams, like one creature (the field follows where each is headed)
-  p += m * 0.12 * vec3(sin(tg.y * 4.0 + uTime * 1.5 + r1), sin(tg.x * 3.0 - uTime * 1.2), cos(tg.x * 2.0 + tg.y * 3.0 + uTime));
+  float r1 = aS.z, r2 = aS.w, hy = clamp((aT.y + 0.62) / 1.24, 0.0, 1.0);
+  vec3 tg = uC + transpose(uRot) * aT;
+  // each drop leaves the water under its place, climbs its column and curls in; the bottom fills first
+  vec3 st = vec3(tg.x + (r2 - 0.5) * 0.35, 0.0, tg.z + 0.15 + (r1 - 0.5) * 0.5), c = vec3(st.x, tg.y * 0.75 + 0.05, st.z);
+  float k = clamp((uP - 0.5 * hy - 0.18 * r1) / 0.3, 0.0, 1.0), e = k * k * (3.0 - 2.0 * k), m = sin(3.14159 * e);
+  vec3 p = mix(mix(st, c, e), mix(c, tg, e), e);
   p += (m * 0.03 + 0.004) * vec3(sin(uTime * 1.3 + r1 * 40.0), sin(uTime * 1.7 + r2 * 30.0), cos(uTime * 1.1 + r1 * 20.0));
   vec3 ro = vec3(CAMV), fw = normalize(vec3(AIMV) - ro), rt = normalize(cross(fw, vec3(0, 1, 0))), up = cross(rt, fw);
   vec3 v = p - ro; float z = dot(v, fw);
   vec2 u = vec2(0.5 + dot(v, rt) / z / (2.0 * TANV_ * 16.0 / 9.0), 0.5 - dot(v, up) / z / (2.0 * TANV_));
   vec2 q = (uFrame.xy + u * uFrame.zw) * uDpr;
   gl_Position = vec4(q.x / uRes.x * 2.0 - 1.0, 1.0 - q.y / uRes.y * 2.0, 0.0, 1.0);
-  gl_PointSize = uSize * uDpr * (uFrame.z / 1280.0) * (0.4 + 1.0 * r2 * r2) * 5.6 / z;
-  vA = smoothstep(0.0, 0.12, k) * (1.0 - uAbs) * (0.6 + 0.6 * r1);
-  // the colour of the light caught on each bead: white, or with the pop mostly the accent
-  vC = mix(vec3(0.9, 0.92, 1.0), r2 > 0.85 ? vec3(0.92, 0.94, 1.0) : vec3(0.35, 0.42, 1.0) * 1.4, uPop);
+  gl_PointSize = uSize * uDpr * (uFrame.z / 1280.0) * (0.55 + 0.9 * r2 * r2) * 5.6 / z;
+  vA = smoothstep(0.0, 0.06, k) * (1.0 - uAbs) * (0.7 + 0.6 * r1) * mix(1.0, 0.5, clamp((z - 5.35) / 0.45, 0.0, 1.0));
+  // with the pop most points are the accent, a few stay white-hot
+  vC = mix(vec3(0.86, 0.89, 1.0), r2 > 0.82 ? vec3(0.92, 0.94, 1.0) : vec3(0.22, 0.30, 1.0) * 1.5, uPop);
 }`.replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
 const PF = `#version 300 es
 precision highp float;
 in float vA; in vec3 vC; out vec4 o;
-// each point is a wet black bead: dark, with a glint of light and a rim
+// a drop of water: clear, so mostly its rim and a glint
 void main() {
   vec2 d = gl_PointCoord * 2.0 - 1.0; float r2 = dot(d, d); if (r2 > 1.0) discard;
   vec3 n = vec3(d.x, -d.y, sqrt(1.0 - r2));
-  float hl = pow(max(dot(n, normalize(vec3(-0.35, 0.6, 0.7))), 0.0), 26.0), rim = pow(1.0 - n.z, 3.0);
-  o = vec4(vec3(0.006, 0.006, 0.008) + vC * (hl * 1.1 + rim * 0.22), vA * smoothstep(1.0, 0.75, r2));
+  float hl = pow(max(dot(n, normalize(vec3(-0.35, 0.65, 0.7))), 0.0), 34.0), rim = pow(1.0 - n.z, 2.0);
+  o = vec4(vC * (0.08 + rim * 0.6 + hl * 1.6) * vA * smoothstep(1.0, 0.7, r2), 1.0);
 }`;
 // points on the mark from its distance field: most on the outline (anywhere through its depth), the rest on its faces
 function markPoints(img, n) {
@@ -323,11 +291,8 @@ const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const easeOut = (v, p = 3) => 1 - Math.pow(1 - clamp(v), p);
 const inOut = (v) => { v = clamp(v); return v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2; };
 const ramp = (t, a, b, f = easeOut) => f((t - a) / (b - a));
-// The birth, in seconds: the pond bulges, a swarm of beads lifts off it into the 127's shape while tendrils whip up out
-// of the water toward it; the 127 knits itself from them, and most of the tendrils sink back, leaving two strands
-const R = { swell: [0.05, 0.6], swarm: [0, 2.0], ten: [0.3, 1.9], grow: [1.3, 3.0], absorb: [1.8, 3.0], retract: [2.9, 3.9], key: [1.0, 3.0], end: 4.2 };
-// where the other tendrils come out of the pond (x, z); the first three stand under the 127's feet and stay
-const TBASE = [[-1.7, 0.4], [0.5, -0.6], [-0.6, 0.7], [1.75, 0.15], [1.0, 0.7]];
+// The rise, in seconds (after the swarm's R.swarm): the pond swells, the mass climbs out, gathers into the 127, pulls free of the water, settles
+const R = { swarm: 2.2, swell: [0.2, 1.4], up: [0.6, 3.6], form: [1.2, 3.9], free: [2.6, 3.9], glow: [0.0, 1.2], key: [1.0, 3.6], end: 5.0, deep: 1.75 };
 
 function load(src) {
   return fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.blob(); })
@@ -410,13 +375,13 @@ export async function liquid127(stage, opts = {}) {
   gl.useProgram(pr);
   gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
   tex(0); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB8, gl.RGB, gl.UNSIGNED_BYTE, sdfImg);
-  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr', 'uPop', 'uTA', 'uTB', 'uTC', 'uTLo', 'uTHi']
-    .forEach((n) => { U[n] = gl.getUniformLocation(pr, ['uPoke', 'uTA', 'uTB', 'uTC'].includes(n) ? n + '[0]' : n); });
+  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr', 'uPop']
+    .forEach((n) => { U[n] = gl.getUniformLocation(pr, n === 'uPoke' ? 'uPoke[0]' : n); });
   gl.uniform1i(U.uSdf, 0); gl.uniform1i(U.uW, 1);
   step();
 
   // ---- the swarm ----
-  const NP = opts.small ? 3600 : 9000, swarm = { n: NP };
+  const NP = opts.small ? 9000 : 22000, swarm = { n: NP };
   {
     const p = gl.createProgram();
     gl.attachShader(p, sh(gl.VERTEX_SHADER, PV)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, PF));
@@ -427,29 +392,17 @@ export async function liquid127(stage, opts = {}) {
     const seed = new Float32Array(NP * 4);
     for (let i = 0; i < NP; i++) seed.set([(Math.random() * 2 - 1) * 2.4, -1.6 + Math.random() * 2.4, Math.random(), Math.random()], i * 4);
     swarm.vao = gl.createVertexArray(); gl.bindVertexArray(swarm.vao);
-    [[1, 4, seed], [2, 3, markPoints(sdfImg, NP)]].forEach(([loc, k, data]) => {
+    const tgs = markPoints(sdfImg, NP); swarm.feet = Array.from({ length: 64 }, () => { const j = Math.floor(Math.random() * NP); return [tgs[j * 3], tgs[j * 3 + 2]]; });
+    [[1, 4, seed], [2, 3, tgs]].forEach(([loc, k, data]) => {
       const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
       gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, k, gl.FLOAT, false, 0, 0);
     });
     gl.bindVertexArray(null); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   }
 
-  // ---- the tendrils: where each comes out of the pond and where on the 127 it reaches (in the 127's own space) ----
-  const TEN = [];
-  {
-    FEET.forEach(([a, b]) => { const x = (a + b) / 2; TEN.push({ base: [x * 1.05, -0.05, 0.04], tip: [x, -HALF + 0.04, 0], r: 0.075 }); });
-    const pts = markPoints(sdfImg, 600);
-    TBASE.forEach(([bx, bz], i) => {
-      let best = 0, bs = 1e9;
-      for (let j = 0; j < 600; j++) { const sc = Math.abs(pts[j * 3] - bx * 0.85) + 0.35 * Math.random() - 0.1 * pts[j * 3 + 1] * (i % 2); if (sc < bs) { bs = sc; best = j; } }
-      TEN.push({ base: [bx, -0.05, bz], tip: [pts[best * 3], pts[best * 3 + 1], pts[best * 3 + 2]], r: 0.055 + 0.02 * Math.random() });
-    });
-    TEN.forEach((T) => { T.L = 0; });
-  }
-
   // ---- state ----
   const S = { start: null, reveal: opts.reveal !== false, ptr: null, lastMove: -1e9, scroll: 0, prev: 0, acc: 0,
-    yaw: 0, yawV: 0, pitch: 0, pitchV: 0, sq: 0, sqV: 0, lx: 0, ly: 0, lk: 0, pokes: [], ph: 0, dph: 0, twitch: 0, probe: null, nextProbe: 6, reachK: 0, reachAt: null, ten: new Float32Array(96), pop: opts.pop ? 1 : 0, popT: opts.pop ? 1 : 0, wet: null, stone: null, wasY: null, freed: false, drips: [], nextDrip: null };
+    yaw: 0, yawV: 0, pitch: 0, pitchV: 0, sq: 0, sqV: 0, lx: 0, ly: 0, lk: 0, pokes: [], ph: 0, dph: 0, pop: opts.pop ? 1 : 0, popT: opts.pop ? 1 : 0, wet: null, stone: null, wasY: null, freed: false, drips: [], nextDrip: null };
   let dpr = 1, W = 0, H = 0, frame = [0, 0, 1, 1], scale = opts.scale || (opts.small ? 0.55 : 0.75), slow = 0, stopped = false;
   const fps = opts.fps || (opts.small ? 30 : 60);
   const size = () => {
@@ -506,28 +459,33 @@ export async function liquid127(stage, opts = {}) {
       slow = 0;
       if (scale > 0.4) { scale -= 0.12; size(); } else { stopped = true; if (opts.onSlow) opts.onSlow(); }
     }
-    // ph: how far into the birth; ck: the clock its life runs on
-    let ph = S.reveal ? t : R.end + 1.5 + t, ck = ph;
+    // rv: how far into the rise; ck: the clock its life runs on (the same, unless the scroll drives the rise)
+    let rv = S.reveal ? t : R.end + t, ck = rv;
     const scrub = opts.scrub && S.reveal;
     if (scrub) {
-      // the birth follows the scroll, with a little lag; once it's whole it settles in its own time
-      const p = clamp(opts.scrub() / 0.65), was = S.ph;
-      if (p > 0.995 && S.ph >= R.end - 0.05) S.ph = Math.min(R.end + 1.5, S.ph + dt);
-      else { S.ph = Math.min(S.ph, R.end); S.ph += (p * R.end - S.ph) * (1 - Math.exp(-dt * 5)); }
-      S.dph = S.ph - was; ph = S.ph; ck = R.end + 1.5 + t;
+      // the rise follows the scroll, with a little liquid lag; once it's free it settles in its own time
+      const p = clamp(opts.scrub() / 0.65), was = S.ph, top = R.free[1] + R.swarm;
+      if (p > 0.995 && S.ph >= top - 0.05) S.ph = Math.min(R.end + 1.5 + R.swarm, S.ph + dt);
+      else { S.ph = Math.min(S.ph, top); S.ph += (p * top - S.ph) * (1 - Math.exp(-dt * 5)); }
+      S.dph = S.ph - was; rv = S.ph; ck = R.end + t;
     }
-    // scrolling on past the hero runs it backwards, into the pond
-    const s = S.scroll;
-    if (s > 0.12) ph = Math.min(ph, R.end * (1 - inOut((s - 0.12) / 0.5)));
-    const idle = !S.ptr || now - S.lastMove > 2600, whole = ramp(ph, R.grow[1] - 0.4, R.end + 1, inOut);
-    let y = REST + whole * (0.022 * Math.sin(2 * Math.PI * ck / 6.2) + 0.01 * Math.sin(2 * Math.PI * ck / 9.7));
-    const form = ramp(ph, ...R.grow, inOut), merge = 0.08;
-    const key = 0.35 + 0.65 * ramp(ph, ...R.key), fade = 0.25 + 0.75 * ramp(scrub ? t : ph, 0, 1.2);
-    S.twitch *= Math.exp(-dt * 3);
-    const wob = 0.014 + 0.03 * (1 - whole) + 0.03 * S.twitch;
-    // alive: it sways on its own and turns to the pointer on a spring
-    const yawT = (idle ? 0.09 * Math.sin(2 * Math.PI * ck / 11) : (clamp(S.ptr[0], -0.2, 1.2) - 0.5) * 0.8) * whole;
-    const pitchT = (idle ? 0.035 * Math.sin(2 * Math.PI * ck / 8.3 + 1) : (clamp(S.ptr[1], -0.2, 1.2) - 0.45) * 0.32) * whole;
+    // first the drops fill the 127's shape (sw), then the liquid climbs up into it (rv, R.swarm later)
+    const sw = S.reveal ? rv : 1e3;
+    if (S.reveal) rv -= R.swarm;
+    // where the drops leave the water, the pond rings
+    if (S.reveal && sw > 0 && sw < R.swarm * 0.9 && Math.random() < 0.5) { const [fx, fz] = swarm.feet[Math.floor(Math.random() * 64)]; drop(fx, fz + 0.1, 0.06, 0.4 + Math.random() * 0.5); }
+    // the rise
+    const v = clamp((rv - R.up[0]) / (R.up[1] - R.up[0]));
+    let y = REST - R.deep * Math.pow(1 - v, 2.4);
+    let form = ramp(rv, ...R.form, inOut), merge = 0.42 * (1 - ramp(rv, ...R.free, inOut)), glow = (1 - ramp(rv, R.up[1] - 0.8, R.up[1] + 0.4)) * ramp(rv, 0.2, 0.9);
+    let key = 0.35 + 0.65 * ramp(rv, ...R.key), fade = 0.25 + 0.75 * ramp(scrub ? t : rv, 0, 1.2);
+    const wob = 0.0035 + 0.02 * (1 - ramp(rv, R.free[1] - 0.5, R.end + 1.5, (x) => x));
+    // alive: it floats and sways on its own, and turns to the pointer on a spring
+    const idle = !S.ptr || now - S.lastMove > 2600;
+    const fl = ramp(rv, R.free[0], R.end + 0.5, inOut);
+    y += fl * (0.03 * Math.sin(2 * Math.PI * ck / 6.2) + 0.012 * Math.sin(2 * Math.PI * ck / 9.7));
+    const yawT = (idle ? 0.09 * Math.sin(2 * Math.PI * ck / 11) : (clamp(S.ptr[0], -0.2, 1.2) - 0.5) * 0.8) * fl;
+    const pitchT = (idle ? 0.035 * Math.sin(2 * Math.PI * ck / 8.3 + 1) : (clamp(S.ptr[1], -0.2, 1.2) - 0.45) * 0.32) * fl;
     const spring = (x, vv, tgt, k, c) => { const a = k * (tgt - x) - c * vv; vv += a * dt; return [x + vv * dt, vv]; };
     [S.yaw, S.yawV] = spring(S.yaw, S.yawV, yawT, 26, 5.5);
     [S.pitch, S.pitchV] = spring(S.pitch, S.pitchV, pitchT, 26, 5.5);
@@ -535,36 +493,32 @@ export async function liquid127(stage, opts = {}) {
     // the pointer's light
     const lxT = S.ptr && !idle ? (S.ptr[0] - 0.5) * 2 : 0.6 * Math.sin(ck * 0.4), lyT = S.ptr && !idle ? (0.5 - S.ptr[1]) * 2 : 0.2;
     const la = 1 - Math.exp(-dt * (idle ? 1.2 : 6));
-    S.lx += (lxT - S.lx) * la; S.ly += (lyT - S.ly) * la; S.lk += ((ph > 3 ? (idle ? 0.5 : 1) : 0) - S.lk) * (1 - Math.exp(-dt * 2));
-    // the pond bulges first (driven by the scroll, as fast as the scroll moves it), and stirs before the first scroll
-    if (ph > R.swell[0] && ph < R.swell[1] && S.reveal) drop(0, -0.02, 0.5, 0.06 * Math.sin(Math.PI * (ph - R.swell[0]) / (R.swell[1] - R.swell[0])) * (scrub ? clamp(S.dph * 60, 0, 2) : 1));
-    if (scrub && ph < 0.05) { if (S.invite === undefined) S.invite = ck + 1.6; if (ck > S.invite) { drop(0, -0.02, 0.4, 1.0); S.invite = ck + 3.4; } }
-    // the tendrils: they whip up out of the water toward the 127 and sink back, two stay as strands; at rest one now
-    // and then reaches up to feel for it, and one reaches for the pointer
-    const cyR = Math.cos(S.yaw), syR = Math.sin(S.yaw), cpR = Math.cos(S.pitch), spR = Math.sin(S.pitch);
-    const toWorld = (q) => [cyR * q[0] + syR * spR * q[1] + syR * cpR * q[2], cpR * q[1] - spR * q[2], -syR * q[0] + cyR * spR * q[1] + cyR * cpR * q[2]];
-    if (whole > 0.9 && ck > S.nextProbe) { S.probe = { i: 3 + Math.floor(Math.random() * 4), t: ck }; S.nextProbe = ck + 5 + Math.random() * 5; }
-    const reach = S.ptr && !idle && whole > 0.9 ? hitAt(S.ptr, y) : null;
-    S.reachK += ((reach ? 1 : 0) - S.reachK) * (1 - Math.exp(-dt * 4));
-    if (reach) S.reachAt = reach.f === 'glass' ? [reach.x, y + reach.y, DEPTH + 0.06] : [reach.x, 0.35, reach.z];
-    TEN.forEach((T, i) => {
-      const g = ramp(ph, R.ten[0] + 0.08 * i, R.ten[1] + 0.08 * i, (x) => 1 - Math.pow(1 - x, 3) * Math.cos(x * 4.5));
-      const anchor = i < 3;
-      let L = clamp(g, 0, 1.15) * (anchor ? 1 : 1 - ramp(ph, R.retract[0] + 0.07 * i, R.retract[1] + 0.07 * i, inOut));
-      let rad = T.r * (anchor ? 1 - 0.35 * ramp(ph, ...R.retract, inOut) : 1);
-      if (S.probe && S.probe.i === i) { const a = (ck - S.probe.t) / 3.2; if (a < 1) L = Math.max(L, 0.75 * Math.sin(Math.PI * a)); }
-      const w = toWorld(T.tip); let tip = [w[0], w[1] + y, w[2]], base = T.base;
-      if (i === 7 && S.reachK > 0.01) { tip = S.reachAt || tip; base = [clamp(tip[0], -1.6, 1.6) * 0.8, -0.05, 0.55]; L = Math.max(L, S.reachK); rad = 0.045; }
-      // each one arcs out to its side and whips while it reaches; once the 127 has formed they calm
-      const sway = (1 - 0.7 * form) * 0.4 + 0.2 * S.twitch, side = (base[0] - tip[0]) * 0.9 + (i % 2 ? 0.25 : -0.25) * (1 - form);
-      const mid = [(base[0] + tip[0]) / 2 + side + sway * Math.sin(ck * 2.1 + i * 1.3), (base[1] + tip[1]) / 2 + 0.2, (base[2] + tip[2]) / 2 + 0.3 * (base[2] - tip[2]) + sway * Math.cos(ck * 1.6 + i)];
-      // where a tendril breaks the surface or sinks back, the pond rings
-      if ((L > 0.04) !== (T.L > 0.04)) drop(base[0], base[2], 0.08, 1.6);
-      T.L = L;
-      S.ten.set([base[0], base[1], base[2], L], i * 4); S.ten.set([mid[0], mid[1], mid[2], rad], 32 + i * 4); S.ten.set([tip[0], tip[1], tip[2], 0], 64 + i * 4);
-    });
+    S.lx += (lxT - S.lx) * la; S.ly += (lyT - S.ly) * la; S.lk += ((rv > 3 ? (idle ? 0.5 : 1) : 0) - S.lk) * (1 - Math.exp(-dt * 2));
+    // scrolling on: back into the water
+    const s = S.scroll;
+    if (s > 0.12) {
+      const k = inOut((s - 0.2) / 0.5);
+      form = Math.min(form, 1 - inOut((s - 0.12) / 0.4)); y = Math.min(y, REST - R.deep * 0.9 * k * k);
+      merge = Math.max(merge, 0.42 * inOut((s - 0.12) / 0.3)); key *= 1 - 0.5 * s;
+    }
+    // the pond: it swells first, rings where the mass breaks through, and drops as it pulls free
+    // (driven by the scroll, it swells as fast as the scroll moves it, and only on the way up)
+    if (rv > R.swell[0] && rv < R.swell[1] && S.reveal) drop(0, -0.02, 0.5, 0.06 * Math.sin(Math.PI * (rv - R.swell[0]) / (R.swell[1] - R.swell[0])) * (scrub ? clamp(S.dph * 60, 0, 2) : 1));
+    // before the first scroll, the still pond stirs now and then, as if something were under it
+    if (scrub && rv < 0.05) { if (S.invite === undefined) S.invite = ck + 1.6; if (ck > S.invite) { drop(0, -0.02, 0.4, 1.0); S.invite = ck + 3.4; } }
+    const bottom = y - HALF, wasB = S.wasY === null ? bottom : S.wasY; S.wasY = bottom;
+    if (bottom < 0 && bottom + 2 * HALF > 0 && wasB < bottom && Math.random() < 0.5) {
+      const f = FEET[Math.floor(Math.random() * 3)]; drop(f[0] + Math.random() * (f[1] - f[0]), (Math.random() - 0.5) * 0.3, 0.07, 0.9 * clamp((bottom - wasB) * 60 / 0.8));
+    }
+    if (S.freed && merge > 0.2) S.freed = false;            // sunk back (scrolled up): it can drip free again
+    if (!S.freed && merge < 0.05 && S.reveal && rv < R.end + 1) {
+      S.freed = true; FEET.forEach((f, i) => S.drips.push({ t: ck + 0.05 + 0.13 * i, x: (f[0] + f[1]) / 2 }));
+    }
+    if (S.nextDrip === null) S.nextDrip = ck + 3;
+    if (ck > S.nextDrip && fl > 0.9) { const f = FEET[Math.floor(Math.random() * 3)]; S.drips.push({ t: ck + 0.25, x: f[0] + Math.random() * (f[1] - f[0]) }); S.nextDrip = ck + 2.5 + Math.random() * 4; }
+    S.drips = S.drips.filter((d) => { if (ck < d.t) return true; drop(d.x, 0.0, 0.05, 2.4); return false; });
     if (S.stone) { const h = hitAt(S.stone, y); S.stone = null;
-      if (h && h.f === 'pond') drop(h.x, h.z, 0.12, 5); else if (h) { S.sqV -= 1.2; S.twitch = 1; S.pokes.push({ x: h.x, y: h.y, a: 0.02, age: 0 }); } }
+      if (h && h.f === 'pond') drop(h.x, h.z, 0.12, 5); else if (h) { S.sqV -= 1.2; S.pokes.push({ x: h.x, y: h.y, a: 0.02, age: 0 }); } }
     S.acc = Math.min(S.acc + dt, 4 / 60);
     while (S.acc >= 1 / 60) { S.acc -= 1 / 60; stir(1 / 60, y); step(); }
     S.pokes.forEach((p) => { p.age += dt; }); S.pokes = S.pokes.filter((p) => p.age < 2.2).slice(-4);
@@ -577,26 +531,21 @@ export async function liquid127(stage, opts = {}) {
     const cy = Math.cos(S.yaw), sy = Math.sin(S.yaw), cp = Math.cos(S.pitch), sp_ = Math.sin(S.pitch);
     // scene to mark: undo the yaw (about y), then the pitch (about x); column-major
     gl.uniformMatrix3fv(U.uRot, false, new Float32Array([cy, sy * sp_, sy * cp, 0, cp, -sp_, -sy, cy * sp_, cy * cp]));
-    gl.uniform1f(U.uForm, form); gl.uniform1f(U.uMerge, merge); gl.uniform1f(U.uWobble, wob); gl.uniform1f(U.uGlow, 0);
-    { const lo = [1e3, 1e3, 1e3], hi = [-1e3, -1e3, -1e3];
-      for (let i = 0; i < 8; i++) { if (S.ten[i * 4 + 3] < 0.01) continue; const m = S.ten[32 + i * 4 + 3] * 1.7 + 0.04;
-        [0, 32, 64].forEach((o) => { for (let k = 0; k < 3; k++) { const v = S.ten[o + i * 4 + k]; lo[k] = Math.min(lo[k], v - m); hi[k] = Math.max(hi[k], v + m); } }); }
-      gl.uniform3fv(U.uTLo, lo); gl.uniform3fv(U.uTHi, hi); }
-    gl.uniform4fv(U.uTA, S.ten.subarray(0, 32)); gl.uniform4fv(U.uTB, S.ten.subarray(32, 64)); gl.uniform4fv(U.uTC, S.ten.subarray(64, 96));
+    gl.uniform1f(U.uForm, form); gl.uniform1f(U.uMerge, merge); gl.uniform1f(U.uWobble, wob); gl.uniform1f(U.uGlow, glow);
     gl.uniform1f(U.uKey, key); gl.uniform1f(U.uFade, fade);
     const pk = new Float32Array(16); S.pokes.forEach((p, j) => pk.set([p.x, p.y, p.a, p.age], j * 4)); gl.uniform4fv(U.uPoke, pk);
     gl.uniform3f(U.uPtr, S.lx, S.ly, S.lk);
     S.pop += (S.popT - S.pop) * (1 - Math.exp(-dt * 3)); gl.uniform1f(U.uPop, S.pop);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
-    // the swarm streams in first, then melts into the skin as it forms
-    const sp = clamp(ph / R.swarm[1]), sa = ramp(ph, ...R.absorb, (x) => x);
+    // the drops climb out over the first part of the rise and pour into the glass as it forms
+    const sp = clamp(sw / R.swarm), sa = ramp(rv, 1.6, 3.9, (x) => x);
     if (sp > 0 && sa < 1) {
       const P = swarm.U;
       gl.useProgram(swarm.p); gl.bindVertexArray(swarm.vao);
-      gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
       gl.uniform2f(P.uRes, cv.width, cv.height); gl.uniform1f(P.uDpr, dpr); gl.uniform4fv(P.uFrame, frame);
-      gl.uniform1f(P.uP, sp); gl.uniform1f(P.uAbs, sa); gl.uniform1f(P.uTime, t); gl.uniform1f(P.uSize, opts.small ? 7.5 : 6.5);
-      gl.uniform3f(P.uC, 0, y, 0); gl.uniform1f(P.uPop, S.pop);
+      gl.uniform1f(P.uP, sp); gl.uniform1f(P.uAbs, sa); gl.uniform1f(P.uTime, t); gl.uniform1f(P.uSize, opts.small ? 3.4 : 2.8);
+      gl.uniform3f(P.uC, 0, REST, 0); gl.uniform1f(P.uPop, S.pop);
       gl.uniformMatrix3fv(P.uRot, false, new Float32Array([cy, sy * sp_, sy * cp, 0, cp, -sp_, -sy, cy * sp_, cy * cp]));
       gl.drawArrays(gl.POINTS, 0, swarm.n);
       gl.disable(gl.BLEND); gl.bindVertexArray(null); gl.useProgram(pr);
