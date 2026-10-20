@@ -59,12 +59,12 @@ Anything below the fold when the page opens plays its intro when it scrolls into
 ### intro
 
 - `assemble`: the headline's letters fly in from scattered places and lock together on a spring; the subject lands
-  with a small bounce. For trades and products being put together.
+  with a firm, settled landing. For trades and products being put together.
   `{ intro: 'assemble' }`
 - `develop`: the subject develops like a photograph (blurred, grey and bright to sharp and full color); the words come
   into focus one by one. For people and portraits (coaches, photographers).
   `{ intro: 'develop' }`
-- `pour`: the letters drop in left to right like something poured, landing with a bounce; the subject fills from the
+- `pour`: the letters drop in left to right like something poured, settling as they land; the subject fills from the
   bottom up like a glass. For food and drink.
   `{ intro: 'pour' }`
 - `unfold`: the words unfold up from their baseline like a turned page; the subject opens from its center. For
@@ -85,7 +85,7 @@ and no blur.
   `{ alive: ['drift'] }`
 - `pointer`: leans toward the pointer on a spring (mouse and trackpad only; phones skip it).
   `{ alive: ['pointer'] }`
-- `tap`: a small springy bounce when tapped or clicked.
+- `tap`: a small, firm spring when tapped or clicked.
   `{ alive: ['tap'] }`
 - `scroll`: lags and tilts a little with the scroll speed, then settles.
   `{ alive: ['scroll'] }`
@@ -125,7 +125,7 @@ things:
   one line in that colour draws in under the headline's last word;
 - the roadmap's line draws in that colour with a comet riding its tip (a dot and a short trail that catches up on
   springs), and the current node fills with it;
-- links underline in it on hover; buttons press in and spring back past where they started;
+- links underline in it on hover; buttons press in and spring back, barely past where they started;
 - the `type` caret is that colour.
 
 A headline blended into its own light (lumen) keeps its colour: its light is already the pop. 127's own colours are

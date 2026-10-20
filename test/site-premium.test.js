@@ -146,7 +146,7 @@ test('a brief\'s motion overrides the design field by field, and designs without
   assert.ok(index.includes('"intro":"develop"') && index.includes('"k":1.3') && index.includes('"look":"candlelit"'));
   const still = await build(L, 'beacon', SAMPLES.beacon, { motion: { intro: 'none', alive: ['still'], scroll: 'none' } });
   assert.ok(!/ciSafe|data-alive\]\{will-change/.test(css(still.index)), 'no hidden first frames and no alive rule');
-  for (const id of ['gather', 'market', 'studio']) {
+  for (const id of ['coach', 'restaurant', 'studio']) {
     const { index: other, file } = await build(L, id, SAMPLES.atelier, { motion: { intro: 'pour' } });
     assert.ok(!other.includes('motion.js') && !file('motion.js'), `${id}: no bundle`);
   }
