@@ -1,0 +1,44 @@
+<%# A gallery of cards, for the Store (W7) and Connections (W1) in the HQ workspace (CSS in /css/hq2-ws.css).
+    Locals: items: [{ title, sub, kind, href, img?, mark?, badge?, ok? }], kinds?: [labels in order], label (what the
+    search is over, like "templates"). Search and the kind chips filter in place with a few lines of script; with it
+    off every card shows. %>
+<% var kinds = typeof kinds !== 'undefined' && kinds ? kinds : Array.from(new Set(items.map(function (i) { return i.kind; }).filter(Boolean))); %>
+<div class="gal" data-gal>
+  <div class="gal-tools">
+    <label class="gal-search"><svg class="ws-i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="Search <%= label %>" aria-label="Search <%= label %>" data-gal-q></label>
+    <% if (kinds.length > 1) { %><div class="gal-chips" role="group" aria-label="Kind"><button type="button" class="gal-chip" aria-pressed="true" data-gal-k="">All</button><% kinds.forEach(function (k) { %><button type="button" class="gal-chip" aria-pressed="false" data-gal-k="<%= k %>"><%= k %></button><% }) %></div><% } %>
+  </div>
+  <% if (items.length) { %>
+  <div class="gal-grid">
+    <% items.forEach(function (i) { %>
+    <a class="gal-card" href="<%= i.href %>" data-kind="<%= i.kind || '' %>" data-text="<%= (i.title + ' ' + (i.sub || '') + ' ' + (i.kind || '')).toLowerCase() %>">
+      <% if (i.badge) { %><span class="gal-badge<%= i.ok ? ' ok' : '' %>"><%= i.badge %></span><% } %>
+      <div class="gal-shot"><% if (i.img) { %><img src="<%= i.img %>" alt="" loading="lazy" decoding="async"><% } else { %><div class="gal-logo"><span><%= i.mark || String(i.title).charAt(0) %></span></div><% } %></div>
+      <div class="gal-body"><% if (i.kind) { %><span class="gal-kind"><%= i.kind %></span><% } %><h3 class="gal-title"><%= i.title %></h3><% if (i.sub) { %><p class="gal-sub"><%= i.sub %></p><% } %></div>
+    </a>
+    <% }) %>
+  </div>
+  <p class="gal-empty" data-gal-none hidden>Nothing matches. Try another word.</p>
+  <% } else { %><p class="gal-empty">Nothing here yet.</p><% } %>
+</div>
+<script>
+(function () {
+  var g = document.currentScript.previousElementSibling, q = g.querySelector('[data-gal-q]'), k = '';
+  var run = function () {
+    var w = (q.value || '').toLowerCase().split(/\s+/).filter(Boolean), n = 0;
+    g.querySelectorAll('.gal-card').forEach(function (c) {
+      var ok = (!k || c.getAttribute('data-kind') === k) && w.every(function (x) { return c.getAttribute('data-text').indexOf(x) >= 0; });
+      c.hidden = !ok; if (ok) n++;
+    });
+    var none = g.querySelector('[data-gal-none]'); if (none) none.hidden = n > 0;
+  };
+  q.addEventListener('input', run);
+  g.querySelectorAll('[data-gal-k]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      k = b.getAttribute('data-gal-k');
+      g.querySelectorAll('[data-gal-k]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      run();
+    });
+  });
+})();
+</script>

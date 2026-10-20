@@ -8,10 +8,12 @@
    if (F.HQ_PROMPTS) tabs.splice(tabs.length - 2, 0, ['prompts', '/app/hq/prompts', 'Prompts']);
    if (F.HQ_ACTIVITY) tabs.splice(tabs.length - 1, 0, ['activity', '/app/hq/activity', 'Activity']);
    var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab; %>
+<% if (typeof ws === 'undefined' || !ws) { %>
 <nav class="h2-tabs" aria-label="HQ">
   <% tabs.forEach(function (t) { %><a href="<%= t[1] %>" class="<%= here === t[0] ? 'on' : '' %>"<%- here === t[0] ? ' aria-current="page"' : '' %>><%= t[2] %><% if (t[0] === 'inbox' && inboxCount) { %><span class="n" aria-label="<%= inboxCount %> waiting"><%= inboxCount %></span><% } %></a><% }) %>
   <span class="h2-credits" title="Credits left this month"><%= usage.left.toLocaleString('en-US') %> / <%= usage.allowance.toLocaleString('en-US') %> credits</span>
 </nav>
+<% } %>
 <div class="h2-talk">
   <div>
     <button type="button" class="orb" id="orb" data-state="idle" aria-label="Talk to 127"><span class="dust"></span><span class="ring"></span><span class="core"></span></button>

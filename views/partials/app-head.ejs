@@ -18,11 +18,18 @@
   if (typeof hqLive !== 'undefined' && hqLive) nav.splice(1, 0, ['/app/hq','HQ',I.hq]);
   if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); }
 %>
+<%# HQ as a workspace (HQ_WORKSPACE=on, lib/harness/nav.js): on HQ pages its rail takes the side menu's place. %>
+<% var hasWs = typeof ws !== 'undefined' && ws; %>
+<% if (!hasWs) { %>
 <div class="mobile-top">
   <a href="/app" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
   <button class="btn ghost sm" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
 </div>
-<div class="shell">
+<% } %>
+<div class="shell<%= hasWs ? ' hqws' : '' %>">
+<% if (hasWs) { %>
+  <%- include('hq2-ws') %>
+<% } else { %>
   <aside class="side" id="side">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
@@ -40,6 +47,7 @@
       <form method="post" action="/logout"><button class="link small" style="background:none;border:0;padding:0;cursor:pointer;color:var(--muted)">Sign out</button></form>
     </div>
   </aside>
+<% } %>
   <main class="main">
     <% if (user.tier !== 'free' && (user.paymentIssue || user.subscriptionStatus === 'past_due')) { var retry = user.paymentIssue && fmtDate(user.paymentIssue.retryAt); %>
     <div class="alert error pay-banner">

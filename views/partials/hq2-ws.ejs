@@ -1,0 +1,78 @@
+<%# HQ as a workspace (lib/harness/nav.js, HQ_WORKSPACE=on), in place of the app's side menu on HQ pages: the rail on
+    wide screens, the bar of five on phones with More, and the jump-to box (public/js/hq2-ws.js). Locals: ws, usage, user,
+    userPlan. Everything is a plain link, so it all works with the script off. %>
+<% var G = {
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+  inbox: '<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5 5h14l2 8v6H3v-6z"/>',
+  columns: '<rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"/>',
+  bag: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/>',
+  repeat: '<path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/>',
+  play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
+  brain: '<path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 006 0V7a3 3 0 00-3-3z"/><path d="M15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-6 0"/>',
+  folder: '<path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',
+  plug: '<path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 01-12 0z"/><path d="M12 17v5"/>',
+  link: '<path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  more: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+  card: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>',
+  quote: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+  users: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.6a3.2 3.2 0 010 6.8M18 14.4c1.8.8 3 2.7 3 5.6"/>'
+};
+var ico = function (n) { return '<svg class="ws-i" viewBox="0 0 24 24" aria-hidden="true">' + (G[n] || '') + '</svg>'; };
+var pct = usage.allowance ? Math.max(0, Math.min(100, Math.round(100 * usage.left / usage.allowance))) : 0; %>
+<aside class="ws-rail" aria-label="HQ">
+  <div class="ws-top">
+    <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <button type="button" class="ws-jump" data-ws-jump aria-haspopup="dialog"><%- ico('search') %><span>Jump to</span><kbd>⌘K</kbd></button>
+  </div>
+  <nav class="ws-nav">
+    <% ws.groups.forEach(function (g) { %>
+    <div class="ws-group">
+      <p class="ws-label"><%= g.label %></p>
+      <% g.items.forEach(function (i) { %><a href="<%= i.href %>" class="ws-link<%= i.here ? ' on' : '' %>"<%- i.here ? ' aria-current="page"' : '' %><%- i.id === 'ask' ? ' data-ws-ask' : '' %>><%- ico(i.icon) %><span><%= i.label %></span><% if (i.count) { %><b class="ws-n" aria-label="<%= i.count %> waiting"><%= i.count %></b><% } %></a><% }) %>
+    </div>
+    <% }) %>
+  </nav>
+  <div class="ws-foot">
+    <div class="ws-meter" title="Credits left this month">
+      <div class="ws-meter-row"><span>Credits</span><span><%= usage.left.toLocaleString('en-US') %> / <%= usage.allowance.toLocaleString('en-US') %></span></div>
+      <div class="ws-bar"><i style="width:<%= pct %>%"></i></div>
+    </div>
+    <a href="/app/billing" class="ws-link ws-sm"><%- ico('card') %><span>Membership</span></a>
+    <a href="/app/settings" class="ws-link ws-sm"><%- ico('gear') %><span>Settings</span></a>
+    <div class="ws-who"><span class="ws-av" aria-hidden="true"><%= String(user.name || user.email || '?').trim().charAt(0).toUpperCase() %></span><span><b><%= user.name || user.email %></b><small><%= userPlan.name %></small></span></div>
+  </div>
+</aside>
+
+<header class="ws-phone-top">
+  <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+  <button type="button" class="ws-icon-btn" data-ws-jump aria-label="Jump to"><%- ico('search') %></button>
+</header>
+
+<nav class="ws-bar-phone" aria-label="HQ">
+  <% ws.phone.forEach(function (i) { %><a href="<%= i.href %>" class="<%= i.id === 'ask' ? 'ws-orb' : '' %><%= i.here ? ' on' : '' %>"<%- i.here ? ' aria-current="page"' : '' %><%- i.id === 'ask' ? ' data-ws-ask' : '' %>><% if (i.id === 'ask') { %><span class="ws-orb-core" aria-hidden="true"></span><span class="sr-only"><%= i.label %></span><% } else { %><%- ico(i.icon) %><span><%= i.label %></span><% if (i.count) { %><b class="ws-n"><%= i.count %></b><% } %><% } %></a><% }) %>
+  <details class="ws-more">
+    <summary class="<%= ws.more.some(function (i) { return i.here; }) ? 'on' : '' %>"><%- ico('more') %><span>More</span></summary>
+    <div class="ws-sheet">
+      <% ws.more.forEach(function (i) { %><a href="<%= i.href %>" class="ws-tile<%= i.here ? ' on' : '' %>"><%- ico(i.icon) %><span><%= i.label %></span></a><% }) %>
+      <a href="/app/billing" class="ws-tile"><%- ico('card') %><span>Membership</span></a>
+      <a href="/app/settings" class="ws-tile"><%- ico('gear') %><span>Settings</span></a>
+    </div>
+  </details>
+</nav>
+
+<div class="ws-palette" data-ws-palette hidden>
+  <div class="ws-pal-box" role="dialog" aria-modal="true" aria-label="Jump to">
+    <div class="ws-pal-in"><%- ico('search') %><input type="text" placeholder="Jump to a page or a workflow" aria-label="Jump to a page or a workflow" autocomplete="off" spellcheck="false" data-ws-q><kbd>esc</kbd></div>
+    <ul class="ws-pal-list" role="listbox" data-ws-list></ul>
+    <p class="ws-pal-foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>↵</kbd> to open</span></p>
+  </div>
+</div>
+<script type="application/json" id="ws-items"><%- JSON.stringify(ws.groups.reduce(function (a, g) { return a.concat(g.items.map(function (i) { return { t: i.label, h: i.href, k: g.label }; })); }, [])).replace(/</g, '\\u003c') %></script>
+<script src="/js/hq2-ws.js" defer></script>
