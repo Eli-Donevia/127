@@ -639,7 +639,17 @@ test('Briefs: a guided form becomes one build-ready brief with a Never list and 
   // Blank chip answers use their defaults; the self-check always ends the brief.
   const hero = briefs.compile(briefs.get('hero'), { subject: 'Our logo', where: 'Hero', start: 'water', end: 'glass logo', mood: 'alive' });
   assert.ok(hero.ready);
-  assert.deepEqual(hero.motion.alive, ['drift', 'pointer', 'tap']);
+  assert.equal(hero.motion, null);
+  // A Website brief's motion block uses the site pack's choreo names, and only what the member picked.
+  const { CHOREO_PRESETS, resolveChoreo } = require('../lib/packs/site/lib/motion');
+  for (const [field, group] of [['intro_style', 'intro'], ['scroll_style', 'scroll'], ['alive', 'alive'], ['pace', 'pace']]) {
+    for (const o of briefs.options(briefs.fields(site).find((f) => f.key === field))) assert.ok(o.id in CHOREO_PRESETS[group], `${field}: ${o.id}`);
+  }
+  assert.deepEqual(briefs.compile(site, {}).motion, {});
+  const m = briefs.compile(site, { intro_style: ['pour'], alive: ['tap', 'scroll'], scroll_style: 'roadmap', pace: ['fast'], look: ['editorial'] }).motion;
+  assert.deepEqual(m, { intro: 'pour', alive: ['tap', 'scroll'], scroll: 'roadmap', pace: 'fast', look: 'Editorial' });
+  assert.deepEqual(resolveChoreo({ intro: 'develop' }, m), m);
+  assert.match(briefs.compile(site, {}).text, /Intro style: the design's own \(default\)/);
   assert.match(hero.text, /clear glass|Three\.js/);
   assert.match(hero.text, /No glow, spotlight/);
   assert.match(hero.text, /CHECK YOUR WORK[\s\S]*\[ \] Frame 0s shows: water\. The last intro frame shows: glass logo\./);

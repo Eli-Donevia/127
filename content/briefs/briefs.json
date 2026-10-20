@@ -433,6 +433,65 @@
         "label": "About 8s",
         "says": "The intro takes about 8 seconds."
       }
+    ],
+    "intro_style": [
+      {
+        "id": "develop",
+        "label": "Develops like a photo",
+        "says": "Intro style: the subject develops like a photograph (soft and grey to sharp and full color) while the words come into focus one by one."
+      },
+      {
+        "id": "assemble",
+        "label": "Assembles",
+        "says": "Intro style: the headline letters fly in from scattered places and lock together; the subject lands into place."
+      },
+      {
+        "id": "pour",
+        "label": "Pours in",
+        "says": "Intro style: the letters drop in left to right like something poured; the subject fills from the bottom up."
+      },
+      {
+        "id": "unfold",
+        "label": "Unfolds",
+        "says": "Intro style: the words unfold upward from their baseline like a turned page; the subject opens from its center."
+      },
+      {
+        "id": "type",
+        "label": "Types out",
+        "says": "Intro style: the headline types out letter by letter with a caret; the subject wipes on from the left."
+      },
+      {
+        "id": "none",
+        "label": "No intro",
+        "says": "Intro style: no intro, the first screen is there at once."
+      }
+    ],
+    "scroll_style": [
+      {
+        "id": "scrub",
+        "label": "Moves with the scroll",
+        "says": "Scroll moment style: the section's pieces move with the scroll, in order, and back when scrolling up."
+      },
+      {
+        "id": "pin",
+        "label": "Holds and steps through",
+        "says": "Scroll moment style: the section holds on screen while its pieces step through one by one (on phones it doesn't hold; the pieces light as they pass)."
+      },
+      {
+        "id": "scene",
+        "label": "Changes scene",
+        "says": "Scroll moment style: the section changes scene as it crosses the screen, its pieces moving at their own depth."
+      },
+      {
+        "id": "roadmap",
+        "label": "Draws your steps",
+        "says": "Scroll moment style: your steps or services draw as a line of points that lights up with the scroll and ends at your button."
+      },
+      {
+        "id": "none",
+        "label": "No scroll moment",
+        "says": "Scroll moment style: none."
+      }
     ]
   },
   "kinds": [
@@ -531,13 +590,17 @@
               "lead": "Intro, 1.2 to 2.4s, from this start to this end"
             },
             {
+              "key": "intro_style",
+              "label": "Intro style",
+              "chips": "intro_style",
+              "one": true,
+              "fallback": "the design's own"
+            },
+            {
               "key": "alive",
               "label": "After the intro, it...",
               "chips": "alive",
-              "default": [
-                "drift",
-                "pointer"
-              ]
+              "fallback": "the design's own"
             },
             {
               "key": "scroll",
@@ -547,13 +610,18 @@
               "want": true
             },
             {
+              "key": "scroll_style",
+              "label": "Scroll moment style",
+              "chips": "scroll_style",
+              "one": true,
+              "fallback": "the design's own"
+            },
+            {
               "key": "pace",
               "label": "Pace",
               "chips": "pace",
               "one": true,
-              "default": [
-                "calm"
-              ]
+              "fallback": "the design's own"
             }
           ]
         },
@@ -623,7 +691,8 @@
         "Every word on the page is mine or marked [PLACEHOLDER].",
         "Nothing scrolls sideways at 390px."
       ],
-      "premium": true
+      "premium": true,
+      "motion": true
     },
     {
       "id": "hero",
