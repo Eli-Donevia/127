@@ -1219,7 +1219,8 @@ main .legal-foot { margin-top: 32px; }
 .hx-loop{height:auto;object-fit:cover;opacity:0;transition:opacity 1s ease}
 .hx-mark.is-playing .hx-loop{opacity:1}
 .hx-mark.is-playing picture{opacity:0;transition:opacity 1.2s ease}
-@keyframes flIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:none}}
+/* the posters are the LCP element, so they're at full opacity from the first paint and only their brightness comes up */
+@keyframes flIn{from{filter:brightness(.25)}to{filter:none}}
 @media (max-width:760px){.hx-mark{height:250px;--fl-w:104%;--fl-y:-50%}}
 @media (prefers-reduced-motion:reduce){.hx-poster{animation:none}}
 
@@ -1813,7 +1814,6 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 .fl.is-live.is-reveal .fl-canvas{transition:none}
 .fl.is-live .fl-stage picture{opacity:0;transition:opacity .9s ease .1s}
 .fl.is-live.is-reveal .fl-stage picture{transition:opacity .35s ease}
-@keyframes flIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:none}}
 
 .fl-copy{position:relative;display:grid;justify-items:center;text-align:center;padding-top:calc(var(--floor) + clamp(10px,2vh,22px));padding-bottom:clamp(28px,5vh,52px)}
 .fl-title{font-family:var(--display);font-weight:700;font-size:clamp(42px,min(5.5vw,8.8vh),86px);line-height:.94;letter-spacing:-.052em;margin:0 0 clamp(18px,2.8vh,28px);max-width:1100px}
@@ -1831,7 +1831,7 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 @keyframes flFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* the viewfinder: quiet marks at the top corners, and two at the ends of the floor line */
-.fl-hud{position:absolute;left:clamp(16px,2.6vw,36px);right:clamp(16px,2.6vw,36px);top:clamp(16px,2.4vw,30px);height:calc(var(--floor) - clamp(16px,2.4vw,30px) - 14px);pointer-events:none;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#5d5e68;animation:flFade 1.2s 1.4s both}
+.fl-hud{position:absolute;left:clamp(16px,2.6vw,36px);right:clamp(16px,2.6vw,36px);top:clamp(16px,2.4vw,30px);height:calc(var(--floor) - clamp(16px,2.4vw,30px) - 14px);pointer-events:none;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7a7b86;animation:flFade 1.2s 1.4s both}
 .fl-hud span{position:absolute;display:flex;align-items:center;gap:10px;white-space:nowrap}
 .fl-hud .tl{top:0;left:0}.fl-hud .tr{top:0;right:0}.fl-hud .bl{bottom:0;left:0}.fl-hud .br{bottom:0;right:0}
 .fl-hud .tl::before{content:'';width:6px;height:6px;border-radius:50%;background:#e3e6f1;box-shadow:0 0 12px 2px rgba(227,230,241,.55);animation:flPulse 3s ease-in-out infinite}

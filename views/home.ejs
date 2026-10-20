@@ -132,7 +132,7 @@
         <p class="h5-note">Not sure what to sell? <a href="/first-25">Answer 3 questions and we'll pick.</a><br>Built by Eli Christiansen, 4x founder.</p>
       </form>
     </div>
-    <div class="ticker" aria-label="About Eli">
+    <div class="ticker" role="region" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
@@ -176,7 +176,7 @@
       <p class="h5-note"><% if (S === 'A') { %><%= doorsLine %><br><% } %>Built by Eli Christiansen, 4x founder.</p>
     </div>
   <% } %>
-    <div class="ticker" aria-label="About Eli">
+    <div class="ticker" role="region" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
