@@ -92,7 +92,8 @@
     ['Prairie Boxing', '4★ · 21 reviews', ['No video', '21 reviews'], 82]
   ];
 -%>
-<%- include('partials/head', { hbState: st === 'C' ? null : st, navQuiet: run }) %>
+<%# The hero's poster is the first thing to fetch on the brand hero (before the fonts), so slow 4G spends itself on it first. %>
+<%- include('partials/head', { hbState: st === 'C' ? null : st, navQuiet: run, heroImg: run ? null : heroLive ? [flDir + 'rest-s.jpg', flDir + 'rest.jpg'] : ['/img/first-light-phone.jpg', '/img/first-light.jpg'] }) %>
 <main class="v5" data-state="<%= st %>">
 
   <% if (run) { %>
@@ -269,7 +270,7 @@
       </div>
       <figure class="w5-film" data-reveal>
         <div class="w5-glow" aria-hidden="true"></div>
-        <video class="lazy-loop" muted loop playsinline preload="none" poster="/img/walkthrough-9x16.jpg" data-src="/video/walkthrough-9x16-app.mp4" width="720" height="1280" aria-label="The 127 app on a phone: the assessment, a roadmap, the Idea Test and Eli's Playbook"></video>
+        <video class="lazy-loop" muted loop playsinline preload="none" data-poster="/img/walkthrough-9x16.jpg" data-src="/video/walkthrough-9x16-app.mp4" width="720" height="1280" aria-label="The 127 app on a phone: the assessment, a roadmap, the Idea Test and Eli's Playbook"></video>
         <figcaption>The real app. Demo member.</figcaption>
       </figure>
     </div>
@@ -366,7 +367,7 @@
     <div class="wrap">
       <h2 class="h2" data-reveal><%= video.title %></h2>
       <div class="video-frame" data-reveal>
-        <video src="<%= video.src %>" poster="<%= video.poster %>" playsinline preload="metadata" muted></video>
+        <video src="<%= video.src %>" data-poster="<%= video.poster %>" playsinline preload="none" muted></video>
         <button class="video-play" type="button" aria-label="Play the video"><span></span></button>
       </div>
     </div>
@@ -379,7 +380,7 @@
       <div class="collage" aria-hidden="true">
         <figure class="cc c1" data-tilt><img src="/img/eli-founder.jpg" alt="" loading="lazy"></figure>
         <figure class="cc c2" data-tilt>
-          <video class="lazy-loop" muted loop playsinline preload="none" poster="/img/finovate-stage-loop-16x9-bw.jpg" data-src="/video/finovate-stage-loop-16x9-bw.mp4" width="1920" height="1080"></video>
+          <video class="lazy-loop" muted loop playsinline preload="none" data-poster="/img/finovate-stage-loop-16x9-bw.jpg" data-src="/video/finovate-stage-loop-16x9-bw.mp4" width="1920" height="1080"></video>
           <figcaption>Spoke on stage at Finovate Fall</figcaption>
         </figure>
         <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>Received a "Most Improved" award</figcaption></figure>
@@ -545,9 +546,12 @@ document.readyState === 'complete' ? idle() : addEventListener('load', idle, { o
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var save = navigator.connection && navigator.connection.saveData;
   function startVid(v) { if (still || save) return; if (!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); vids.forEach(startVid); return; }
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('bg-in'); }); document.querySelectorAll('video[data-poster]').forEach(function (v) { v.poster = v.getAttribute('data-poster'); }); vids.forEach(startVid); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('bg-in'); io.unobserve(e.target); } }); }, { rootMargin: '800px 0px' });
   els.forEach(function (e) { io.observe(e); });
+  // video posters below the fold wait the same way, so they don't compete with the hero on a slow connection
+  var po = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.poster = e.target.getAttribute('data-poster'); po.unobserve(e.target); } }); }, { rootMargin: '800px 0px' });
+  document.querySelectorAll('video[data-poster]').forEach(function (v) { po.observe(v); });
   var vo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) startVid(e.target); else if (e.target.src) e.target.pause(); }); }, { rootMargin: '200px 0px' });
   vids.forEach(function (v) { vo.observe(v); });
 

@@ -25,6 +25,9 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/favicon-180.png">
+<% if (typeof heroImg !== 'undefined' && heroImg) { %><link rel="preload" as="image" href="<%= heroImg[0] %>" media="(max-width: 760px)" fetchpriority="high">
+<link rel="preload" as="image" href="<%= heroImg[1] %>" media="(min-width: 761px)" fetchpriority="high">
+<% } %>
 <link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/style.css">
