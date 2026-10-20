@@ -1,0 +1,194 @@
+{% comment %}
+  FAQ accordion
+  Questions that open and close with native details and summary elements, so they work
+  without JavaScript and with the keyboard. The same questions are added to the page as
+  FAQPage structured data (JSON-LD), built from the blocks. You can switch that off.
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+{% endcomment %}
+
+{%- style -%}
+  #sx-faq-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ section.settings.color_text }};
+    --sx-accent: {{ section.settings.color_accent }};
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-faq-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  #sx-faq-{{ section.id }} .sx-faq__inner { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  #sx-faq-{{ section.id }} .sx-faq__head { text-align: center; margin-bottom: 32px; }
+  #sx-faq-{{ section.id }} .sx-faq__heading {
+    margin: 0 0 10px;
+    font-family: var(--font-heading-family, inherit);
+    font-weight: var(--font-heading-weight, 600);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--sx-fg);
+  }
+  #sx-faq-{{ section.id }} .sx-faq__intro { font-size: 16px; line-height: 1.6; opacity: .8; }
+  #sx-faq-{{ section.id }} .sx-faq__intro p { margin: 0; }
+  #sx-faq-{{ section.id }} .sx-faq__item {
+    border-bottom: 1px solid color-mix(in srgb, var(--sx-fg) 14%, transparent);
+  }
+  #sx-faq-{{ section.id }} .sx-faq__item:first-child {
+    border-top: 1px solid color-mix(in srgb, var(--sx-fg) 14%, transparent);
+  }
+  #sx-faq-{{ section.id }} .sx-faq__q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 4px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  #sx-faq-{{ section.id }} .sx-faq__q::-webkit-details-marker { display: none; }
+  #sx-faq-{{ section.id }} .sx-faq__q::marker { content: ""; }
+  #sx-faq-{{ section.id }} .sx-faq__q:focus-visible { outline: 2px solid var(--sx-fg); outline-offset: 2px; border-radius: 6px; }
+  #sx-faq-{{ section.id }} .sx-faq__icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--sx-accent) 12%, transparent);
+    transition: background-color .25s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+  }
+  #sx-faq-{{ section.id }} .sx-faq__icon::before,
+  #sx-faq-{{ section.id }} .sx-faq__icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 2px;
+    margin: -1px 0 0 -6px;
+    border-radius: 2px;
+    background: var(--sx-accent);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+  }
+  #sx-faq-{{ section.id }} .sx-faq__icon::after { transform: rotate(90deg); }
+  #sx-faq-{{ section.id }} details[open] .sx-faq__icon { transform: rotate(180deg); }
+  #sx-faq-{{ section.id }} details[open] .sx-faq__icon::after { transform: rotate(0deg); }
+  #sx-faq-{{ section.id }} .sx-faq__a {
+    padding: 0 52px 22px 4px;
+    font-size: 16px;
+    line-height: 1.65;
+    opacity: .82;
+  }
+  #sx-faq-{{ section.id }} details[open] .sx-faq__a { animation: sx-faq-open-{{ section.id }} .35s ease both; }
+  #sx-faq-{{ section.id }} .sx-faq__a p { margin: 0 0 10px; }
+  #sx-faq-{{ section.id }} .sx-faq__a a { color: inherit; text-underline-offset: 3px; }
+  @keyframes sx-faq-open-{{ section.id }} {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: .82; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #sx-faq-{{ section.id }} details[open] .sx-faq__a { animation: none; }
+    #sx-faq-{{ section.id }} .sx-faq__icon,
+    #sx-faq-{{ section.id }} .sx-faq__icon::before,
+    #sx-faq-{{ section.id }} .sx-faq__icon::after { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="sx-faq-{{ section.id }}" class="sx-faq">
+  <div class="sx-faq__inner">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="sx-faq__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="sx-faq__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <div class="sx-faq__intro">{{ section.settings.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="sx-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="sx-faq__item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary class="sx-faq__q">
+            <span>{{ block.settings.question }}</span>
+            <span class="sx-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="sx-faq__a">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.enable_schema and section.blocks.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in section.blocks -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.question | strip_html | strip | replace: '&amp;', '&' | replace: '&quot;', '"' | replace: '&#x27;', "'" | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.answer | strip_newlines | strip | json }}
+            }
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "tag": "section",
+  "class": "sx-section",
+  "max_blocks": 20,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions, answered" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Can't find what you need? Email us and we will get back to you.</p>" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": true },
+    { "type": "checkbox", "id": "enable_schema", "label": "Add FAQ structured data for search engines", "default": true, "info": "Only use this section once per page when this is on. Answers must match what shoppers see." },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "color_accent", "label": "Brand color (icons)", "default": "#111111" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Add a question shoppers ask" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer it in two or three short sentences.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion",
+      "blocks": [
+        { "type": "question", "settings": { "question": "Where do you ship from?", "answer": "<p>Orders ship from our studio. Add the regions you ship to and typical delivery times here.</p>" } },
+        { "type": "question", "settings": { "question": "What is your return policy?", "answer": "<p>Sum up your return policy in plain words, then link to the full policy page.</p>" } },
+        { "type": "question", "settings": { "question": "How do I care for my order?", "answer": "<p>Add short care steps here so the product lasts.</p>" } },
+        { "type": "question", "settings": { "question": "How do I reach [Your business]?", "answer": "<p>Email us and include your order number if you have one.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

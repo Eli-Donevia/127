@@ -1,7 +1,7 @@
 {
  "name": "127 templates and workflows library",
  "version": 1,
- "generatedAt": "2026-10-19T20:55:09Z",
+ "generatedAt": "2026-10-20T04:13:25Z",
  "count": 37,
  "counts": {
   "sheet": 13,
@@ -215,15 +215,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/idea-scorecard/127-idea-scorecard.xlsx",
-     "bytes": 12117,
-     "sha256": "25b7736092c4bb2ca99dc31f77d4b14556cd6aa447682b79e538394eb1c561a2"
+     "bytes": 12115,
+     "sha256": "10445c21e3a453e11410f680db5bfc5a10d77483e8db7d9c1cccb62175f63a4e"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/idea-scorecard/127-idea-scorecard-example.xlsx",
-     "bytes": 12647,
-     "sha256": "625e74b2600597638de0f9b47c4467b6d80e5d294d68bbe075a48e2bc021dbfe"
+     "bytes": 12648,
+     "sha256": "98c479e98079f1c9d025029c0d9da0bcf44f10b4ce586407e0da53bdeaccfae0"
     },
     {
      "format": "csv",
@@ -341,7 +341,7 @@
     "At 10 interviews, move to the Interview Synthesis sheet to make the call."
    ],
    "minutes": 15,
-   "summary": "Track the 20 people you message to land 10 real customer conversations, with follow-up dates and the facts that matter from each call.",
+   "summary": "Track the 20 people you message and every conversation you have, with follow-up dates and the facts that matter from each call.",
    "output": "Ten finished conversations logged in one place, with what each person pays today and their exact words.",
    "useWhen": "Week 1 of the Start track, the moment you list the 10 people who have the problem.",
    "aiPrompt": "Check that the people listed actually have the problem (not just friends being nice), that each finished interview records how they solve it today and what it costs them, and that the exact quotes are the customer's words rather than the member's summary.",
@@ -368,15 +368,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/conversation-tracker/127-conversation-tracker.xlsx",
-     "bytes": 11802,
-     "sha256": "cbb740ec995e8b7103035cc2a61ed675da1574df4350d4688a4174d8f150fbb9"
+     "bytes": 11795,
+     "sha256": "9ded09d1e9f437f76f671a8dcc70174a5064d1e005d982561c242dde25eeb31e"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/conversation-tracker/127-conversation-tracker-example.xlsx",
-     "bytes": 12483,
-     "sha256": "740a476b2b092099dc0d2721fd4db651a462a2b55fe8e38785fa94a1be0e4558"
+     "bytes": 12477,
+     "sha256": "cf8dd5e3d7dd9711403be3acf871cbd34c32c04fc964583cff2bc6ff4af418b4"
     },
     {
      "format": "csv",
@@ -438,14 +438,14 @@
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/interview-synthesis/127-interview-synthesis.xlsx",
      "bytes": 13534,
-     "sha256": "6abc460baa1ebc004bd432c27ff0f0ddcc4906c5870ac19647d0bed8f4d8866a"
+     "sha256": "fd96887b731d9f7ffd0e99dfae8e0a0faaccd524a622617fbe57f60ad29b8b5d"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/interview-synthesis/127-interview-synthesis-example.xlsx",
      "bytes": 14505,
-     "sha256": "c12198d539dad6b99b574d5b64c873bc9d2da9e2e9c91c441fdf47a1307046a8"
+     "sha256": "cbe2cc332656ee4750cf133ce006931c7b0e2c4fcda67c794b6bf582360a2a83"
     },
     {
      "format": "csv",
@@ -616,11 +616,11 @@
     "Math"
    ],
    "howTo": [
-    "Open the Math tab. Fill the white cells for your test price in column B.",
+    "Open the Math tab. Fill the white cells for your test price in column C.",
     "Add every cost one sale creates: supplies, packaging, shipping, platform and payment fees.",
     "Look up your payment processor's current fees and enter them. Don't guess.",
     "Enter the hours one sale takes you, start to finish, including messages.",
-    "Try a lower and a higher price in columns C and D to compare.",
+    "Try a lower and a higher price in columns B and D to compare.",
     "If one sale loses money, fix that before you spend a dollar on growth."
    ],
    "minutes": 20,
@@ -655,15 +655,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/first-sale-math/127-first-sale-math.xlsx",
-     "bytes": 9624,
-     "sha256": "c09047b02a33f9d83910ff09f0fed571932bfe73508be63cb26ec92a043ef277"
+     "bytes": 9621,
+     "sha256": "0a094f4352699adc42e33db0e5522ee6a3901c099f80960baf3decaf3c58a463"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/first-sale-math/127-first-sale-math-example.xlsx",
      "bytes": 9764,
-     "sha256": "cb3d9a8a560daadd130a413c0d0e9cd15d6136ae46b788e836b3343d161ae886"
+     "sha256": "63e55c5e574390ef50ee19ca6300dd03ad62e216e7a24b4db23490f46ba3b3b9"
     }
    ],
    "preview": "files/first-sale-math/preview.png",
@@ -713,15 +713,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/pricing-lab/127-pricing-lab.xlsx",
-     "bytes": 13714,
-     "sha256": "2133571c471a5e66a8b23ab1b6b73d13dbda01b9054c48de0546bb7a9cd88a5e"
+     "bytes": 13715,
+     "sha256": "aad1b2d3fd64f030763c3fd34a71d48e980cbfb6c04112de32fd9db5b8a494b8"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/pricing-lab/127-pricing-lab-example.xlsx",
-     "bytes": 14450,
-     "sha256": "12be275732d0458f7c99038f5f31376b7d231216481c02e0176816907da48be6"
+     "bytes": 14451,
+     "sha256": "4e89cc81722dc7fbd2dd3c76e09882ec5bd5341da58c0dec157f49dfffb41137"
     },
     {
      "format": "csv",
@@ -931,14 +931,14 @@
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/pipeline-tracker/127-pipeline-tracker.xlsx",
      "bytes": 29004,
-     "sha256": "9c14cf4bf233d377b71cd1a32eafb1c465996a3b5e16627295f9a4e930dea2ad"
+     "sha256": "56a6fc0e463049f531bfb45d2b2188e0b6ec8369e706c8b2f98388577207527e"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/pipeline-tracker/127-pipeline-tracker-example.xlsx",
-     "bytes": 30511,
-     "sha256": "bdc4c21f1e40dc33771a6a6bf324572054f155a27508c595cf78904e9c9ae545"
+     "bytes": 30510,
+     "sha256": "75e32c6c00e8d814ff22868a66e900716865ec36443f4b464fab79b48ab8bb1d"
     },
     {
      "format": "csv",
@@ -1003,14 +1003,14 @@
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/stack-audit/127-stack-audit.xlsx",
      "bytes": 11880,
-     "sha256": "41768833364de2416d2d338e5b17a267e7352ca009cdbf7492f11ba26586e024"
+     "sha256": "4849da1282b65a12eff6dd281a43836b99a8ef518ce2388ba4615aa60a864d9f"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/stack-audit/127-stack-audit-example.xlsx",
      "bytes": 12496,
-     "sha256": "41de41f22856b6292a1718830468e8a395cb6ff16adc7775b924c4f91dd2a3f7"
+     "sha256": "0a145d0339bc8d0d1bc53931f897cd517afec976c5ee1040fa5e09d246ccaf15"
     },
     {
      "format": "csv",
@@ -1322,15 +1322,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/launch-countdown/127-launch-countdown.xlsx",
-     "bytes": 14653,
-     "sha256": "1016189527df81b154e403fa15dcf0dab2a169bb33e4fb41ed4ee904f383003a"
+     "bytes": 14654,
+     "sha256": "305fdcfb1516a7951cf2d256520f5ed2d2f1b4b582c4a939f054cc74f59547f2"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/launch-countdown/127-launch-countdown-example.xlsx",
-     "bytes": 14798,
-     "sha256": "99b68f70ac24aba48e5d645c3068d108752b71cb546223eef0870100edc1fb0e"
+     "bytes": 14799,
+     "sha256": "2109688b3f253e3e1aa5825ca5b04f0e97a5387d8c45b255eb9c70ce6201336c"
     },
     {
      "format": "docx",
@@ -1665,15 +1665,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/objection-log/127-objection-log.xlsx",
-     "bytes": 13136,
-     "sha256": "321b22acb3612d87c2f886cdaa44c6f7a97fde570f88d29431867f0b36d0bd22"
+     "bytes": 13133,
+     "sha256": "5409caf4b6b414d9daa12427f7a635e718cb85874d039e9484e96329969dc39d"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/objection-log/127-objection-log-example.xlsx",
      "bytes": 14098,
-     "sha256": "12e7525556e55fe5e04d90b19d98188e973bda769fa6fd9591da519fb80ba96d"
+     "sha256": "6e2b72aeeeb4af399ababa2f873c5c3f85aafde690dcc9ff5ec2ae41a159cd05"
     },
     {
      "format": "csv",
@@ -1734,14 +1734,14 @@
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/hours-audit/127-hours-audit.xlsx",
      "bytes": 11520,
-     "sha256": "3df365cc341f15f20407468765de3556c5fc3e76d6696cb7336bdcb06c82b23e"
+     "sha256": "1d389c196e6be6260f196089c4d0c0a91308e25a1e05f1f85f39d13db544f83a"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/hours-audit/127-hours-audit-example.xlsx",
      "bytes": 12199,
-     "sha256": "bab041f0d63dab0337f7f8043591754b22d0bf872f844b098fc1545bd27ae3c5"
+     "sha256": "35b727278a7626866386943e745ee6432e3d3041ec14f487d92bbb03bf78cf61"
     },
     {
      "format": "csv",
@@ -1891,14 +1891,14 @@
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/weekly-scorecard/127-weekly-scorecard.xlsx",
      "bytes": 16755,
-     "sha256": "70be4e06fc7144e2f442ea6677b8cbe2fe465413f59c4540e509b3af213d2607"
+     "sha256": "9c05de1614d0eae38a6246f949a231a18933c17f743b1417892fcc65ff00a000"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/weekly-scorecard/127-weekly-scorecard-example.xlsx",
-     "bytes": 17266,
-     "sha256": "653afcb61cd3277370b65f1ec7f2ac24b2887c5e05db8a045f36271d1c756950"
+     "bytes": 17263,
+     "sha256": "5bcd94c5de4fdac44818ff91e0f839f37acf2b0f90d4ee9caa3bbd6d6a483075"
     },
     {
      "format": "csv",
@@ -1965,15 +1965,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/content-planner/127-content-planner.xlsx",
-     "bytes": 13221,
-     "sha256": "51927aaddae3b5898142c93156870f507af634ea2a1d008df2040eed04e9f7a4"
+     "bytes": 13220,
+     "sha256": "2d611c4fa6f5d92c1c045b137114c23dc13e806d2c6fd38342aa39fc308681cf"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/content-planner/127-content-planner-example.xlsx",
-     "bytes": 14118,
-     "sha256": "6c5ee45b4e188ec260ee806b7a340b2750d534c953c5121db779a948af407c30"
+     "bytes": 14117,
+     "sha256": "4d0a840e6403ade1140883ef439cec0d6eeabd012969c228c03e7918a792eff1"
     },
     {
      "format": "csv",
@@ -2032,15 +2032,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/hook-bank/127-hook-bank.xlsx",
-     "bytes": 22262,
-     "sha256": "7332ce01744047e89a138d2ad053afa5870f46dc86a37eb37d721b317473798d"
+     "bytes": 22258,
+     "sha256": "57aad903ea3c20ab70ad68e0964d76f5b561dc310bf0d5da022409aaa26529af"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/hook-bank/127-hook-bank-example.xlsx",
-     "bytes": 22912,
-     "sha256": "1e7160d647345b045411cb9d6c50b9d3a25d9f53dae919d899239b23346d9941"
+     "bytes": 22914,
+     "sha256": "be39265561e91280e44d1da6e7c2503eb08c095eef44885ed655e1e771fcfdaf"
     },
     {
      "format": "csv",
@@ -2572,15 +2572,15 @@
      "format": "xlsx",
      "label": "Spreadsheet (Excel or Google Sheets)",
      "file": "files/ad-test-planner/127-ad-test-planner.xlsx",
-     "bytes": 16149,
-     "sha256": "7a1dd86b2d08e53bef3ec1d7c4cbc390ecec013f930ae237538ce51eeae763b2"
+     "bytes": 16148,
+     "sha256": "9e649070effdc3ebc043a5b9614a0a5c384dfdc5a8c5debd8861bd66124584a1"
     },
     {
      "format": "xlsx-example",
      "label": "Filled example (Excel or Google Sheets)",
      "file": "files/ad-test-planner/127-ad-test-planner-example.xlsx",
-     "bytes": 16663,
-     "sha256": "38e7e6089491ae41133938bb0af7154b859ad6e20a0f195c682e8cc209bd02a2"
+     "bytes": 16662,
+     "sha256": "277e86d9cbd2e9064f7836b16f60ad236d84bf06dbd7823b036151466e97f6b9"
     },
     {
      "format": "csv",

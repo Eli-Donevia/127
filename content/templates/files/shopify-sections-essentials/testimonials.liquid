@@ -1,0 +1,200 @@
+{% comment %}
+  Testimonials
+  Quote cards from customers. Each block starts with: Add a real review you have permission to use.
+  Blocks that still hold that line show only in the theme editor, never on the live store,
+  and the section hides itself until at least one real review is added.
+  Made-up or paid-for reviews that are not labeled can break consumer protection rules.
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+{% endcomment %}
+
+{%- assign sx_placeholder = 'Add a real review you have permission to use' -%}
+{%- assign sx_real = 0 -%}
+{%- for block in section.blocks -%}
+  {%- unless block.settings.quote == blank or block.settings.quote contains sx_placeholder -%}
+    {%- assign sx_real = sx_real | plus: 1 -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- if request.design_mode -%}
+  {%- assign sx_cols = section.blocks.size -%}
+{%- else -%}
+  {%- assign sx_cols = sx_real -%}
+{%- endif -%}
+
+{%- style -%}
+  #sx-quotes-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ section.settings.color_text }};
+    --sx-accent: {{ section.settings.color_accent }};
+    --sx-card: {{ section.settings.color_card }};
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-quotes-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  #sx-quotes-{{ section.id }} .sx-quotes__inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  @media screen and (min-width: 750px) {
+    #sx-quotes-{{ section.id }} .sx-quotes__inner { padding: 0 40px; }
+  }
+  #sx-quotes-{{ section.id }} .sx-quotes__heading {
+    margin: 0 auto 36px;
+    max-width: 640px;
+    text-align: center;
+    font-family: var(--font-heading-family, inherit);
+    font-weight: var(--font-heading-weight, 600);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--sx-fg);
+  }
+  #sx-quotes-{{ section.id }} .sx-quotes__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media screen and (min-width: 750px) {
+    #sx-quotes-{{ section.id }} .sx-quotes__list {
+      grid-template-columns: repeat({{ sx_cols | at_least: 1 | at_most: 3 }}, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+  #sx-quotes-{{ section.id }} .sx-quote {
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 32px 28px 28px;
+    border-radius: {{ section.settings.card_radius }}px;
+    background: var(--sx-card);
+    border: 1px solid color-mix(in srgb, var(--sx-fg) 8%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  #sx-quotes-{{ section.id }} .sx-quote__mark {
+    width: 34px;
+    height: 34px;
+    color: var(--sx-accent);
+  }
+  #sx-quotes-{{ section.id }} .sx-quote__text {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    flex: 1 1 auto;
+  }
+  #sx-quotes-{{ section.id }} .sx-quote__text p { margin: 0 0 10px; }
+  #sx-quotes-{{ section.id }} .sx-quote__by { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  #sx-quotes-{{ section.id }} .sx-quote__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    color: var(--sx-accent);
+    background: color-mix(in srgb, var(--sx-accent) 14%, transparent);
+  }
+  #sx-quotes-{{ section.id }} .sx-quote__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  #sx-quotes-{{ section.id }} .sx-quote__name { display: block; font-weight: 600; font-style: normal; }
+  #sx-quotes-{{ section.id }} .sx-quote__detail { display: block; opacity: .65; }
+{%- endstyle -%}
+
+{%- if sx_real > 0 or request.design_mode -%}
+<div id="sx-quotes-{{ section.id }}" class="sx-quotes">
+  <div class="sx-quotes__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="sx-quotes__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <ul class="sx-quotes__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.quote == blank -%}{%- continue -%}{%- endif -%}
+        {%- if block.settings.quote contains sx_placeholder and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+        <li {{ block.shopify_attributes }}>
+          <figure class="sx-quote">
+            <svg class="sx-quote__mark" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M13 8C7.5 9.6 4 13.9 4 19.5 4 23.4 6.4 26 9.6 26c2.8 0 4.9-2.1 4.9-4.8 0-2.6-1.9-4.5-4.4-4.6.6-2.8 2.7-5 5.5-6L13 8zm14 0c-5.5 1.6-9 5.9-9 11.5 0 3.9 2.4 6.5 5.6 6.5 2.8 0 4.9-2.1 4.9-4.8 0-2.6-1.9-4.5-4.4-4.6.6-2.8 2.7-5 5.5-6L27 8z"/></svg>
+            <blockquote class="sx-quote__text">{{ block.settings.quote }}</blockquote>
+            {%- if block.settings.name != blank -%}
+              <figcaption class="sx-quote__by">
+                <span class="sx-quote__avatar" aria-hidden="true">
+                  {%- if block.settings.photo != blank -%}
+                    {{ block.settings.photo | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}
+                  {%- else -%}
+                    {{ block.settings.name | slice: 0 | upcase | escape }}
+                  {%- endif -%}
+                </span>
+                <span>
+                  <cite class="sx-quote__name">{{ block.settings.name }}</cite>
+                  {%- if block.settings.detail != blank -%}
+                    <span class="sx-quote__detail">{{ block.settings.detail }}</span>
+                  {%- endif -%}
+                </span>
+              </figcaption>
+            {%- endif -%}
+          </figure>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "sx-section",
+  "max_blocks": 9,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Words from [Your business] customers" },
+    { "type": "paragraph", "content": "Add a real review you have permission to use. Copy it exactly, ask permission first, and say so if a review was gifted or paid for. Blocks that still say Add a real review you have permission to use never show on your live store." },
+    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 18 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background", "default": "#F4F3EF" },
+    { "type": "color", "id": "color_card", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "color_accent", "label": "Brand color (quote mark)", "default": "#111111" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Customer's words",
+          "default": "<p>Add a real review you have permission to use.</p>",
+          "info": "Never write a review yourself or edit one to sound better."
+        },
+        { "type": "text", "id": "name", "label": "Name", "info": "First name and last initial is plenty. Ask first." },
+        { "type": "text", "id": "detail", "label": "Detail (optional)", "info": "For example, what they bought." },
+        { "type": "image_picker", "id": "photo", "label": "Photo (optional)", "info": "Only with the customer's permission." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}

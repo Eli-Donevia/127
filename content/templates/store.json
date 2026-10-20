@@ -1,0 +1,5466 @@
+{
+ "name": "127 Store",
+ "version": "2026-10-20.1",
+ "generatedAt": "2026-10-20T04:22:50Z",
+ "flag": "STORE_V2",
+ "count": 98,
+ "ready": 97,
+ "makeItMine": 42,
+ "counts": {
+  "site": {
+   "ready": 12,
+   "coming": 0
+  },
+  "shopify": {
+   "ready": 1,
+   "coming": 0
+  },
+  "notion": {
+   "ready": 5,
+   "coming": 0
+  },
+  "sheet": {
+   "ready": 21,
+   "coming": 0
+  },
+  "doc": {
+   "ready": 13,
+   "coming": 1
+  },
+  "email": {
+   "ready": 6,
+   "coming": 0
+  },
+  "social": {
+   "ready": 4,
+   "coming": 0
+  },
+  "deck": {
+   "ready": 2,
+   "coming": 0
+  },
+  "checklist": {
+   "ready": 4,
+   "coming": 0
+  },
+  "recipe": {
+   "ready": 10,
+   "coming": 0
+  },
+  "video-prompts": {
+   "ready": 9,
+   "coming": 0
+  },
+  "prompts": {
+   "ready": 10,
+   "coming": 0
+  }
+ },
+ "kinds": {
+  "site": "Website template",
+  "shopify": "Shopify sections",
+  "notion": "Notion system",
+  "sheet": "Sheet",
+  "doc": "Doc",
+  "email": "Email template",
+  "social": "Social template",
+  "deck": "Deck",
+  "checklist": "Checklist",
+  "recipe": "Automation recipe",
+  "video-prompts": "Video prompt pack",
+  "prompts": "Prompt pack"
+ },
+ "businessTypes": {
+  "local": "Local service",
+  "ecom": "Online store",
+  "creator": "Creator or UGC",
+  "idea": "Own idea or website",
+  "coach": "Coaching or digital product",
+  "any": "Any business"
+ },
+ "tokens": {
+  "business.name": {
+   "label": "Your business name",
+   "from": "brain.business.name",
+   "fallback": "[Your business]"
+  },
+  "business.what": {
+   "label": "What you do",
+   "from": "brain.business.what",
+   "fallback": "[What you do]"
+  },
+  "business.offer": {
+   "label": "Your offer",
+   "from": "brain.business.offer",
+   "fallback": "[Your offer]"
+  },
+  "business.price": {
+   "label": "Your price",
+   "from": "brain.business.price",
+   "fallback": "[Your price]"
+  },
+  "business.audience": {
+   "label": "Who it's for",
+   "from": "brain.business.audience",
+   "fallback": "[Who it's for]"
+  },
+  "business.city": {
+   "label": "Your city",
+   "from": "brain.business.city",
+   "fallback": "[Your city]"
+  },
+  "business.region": {
+   "label": "Your area",
+   "from": "brain.business.region",
+   "fallback": "[Your area]"
+  },
+  "business.address": {
+   "label": "Mailing address",
+   "from": "brain.business.address",
+   "fallback": "[Your mailing address]"
+  },
+  "owner.first": {
+   "label": "Your first name",
+   "from": "brain.firstName",
+   "fallback": "[Your name]"
+  },
+  "links.website": {
+   "label": "Website",
+   "from": "brain.links.website",
+   "fallback": "[yourwebsite.com]"
+  },
+  "links.booking": {
+   "label": "Booking link",
+   "from": "brain.links.booking",
+   "fallback": "[your booking link]"
+  },
+  "links.instagram": {
+   "label": "Instagram",
+   "from": "brain.links.instagram",
+   "fallback": "[@yourhandle]"
+  },
+  "links.tiktok": {
+   "label": "TikTok",
+   "from": "brain.links.tiktok",
+   "fallback": "[@yourhandle]"
+  },
+  "links.youtube": {
+   "label": "YouTube",
+   "from": "brain.links.youtube",
+   "fallback": "[your channel]"
+  },
+  "brand.color": {
+   "label": "Brand color",
+   "from": "brain.packs brand color",
+   "fallback": "#F5F5F5"
+  },
+  "contact.email": {
+   "label": "Email for customers",
+   "from": "asked",
+   "fallback": "[you@yourbusiness.com]",
+   "asked": true
+  },
+  "contact.phone": {
+   "label": "Phone for customers",
+   "from": "asked",
+   "fallback": "[your phone]",
+   "asked": true
+  },
+  "today": {
+   "label": "Today's date",
+   "from": "clock",
+   "fallback": "[date]"
+  },
+  "year": {
+   "label": "This year",
+   "from": "clock",
+   "fallback": "[year]"
+  }
+ },
+ "sample": {
+  "business.name": "Northside Lawn Care",
+  "owner.first": "Maya",
+  "business.price": "$45",
+  "business.city": "Columbus",
+  "links.booking": "northsidelawn.com/book",
+  "links.website": "northsidelawn.com",
+  "contact.email": "hello@northsidelawn.com",
+  "contact.phone": "(614) 555-0142",
+  "brand.color": "#2F6F4F",
+  "today": "November 2, 2026",
+  "year": "2026"
+ },
+ "items": [
+  {
+   "id": "site-agency",
+   "title": "Agency website",
+   "kind": "site",
+   "businessTypes": [
+    "idea",
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Sharp and editorial, for services sold to businesses: numbered service rows, a process timeline that draws as you scroll, and an inquiry form.",
+   "tags": [
+    "agency",
+    "consulting",
+    "b2b",
+    "services",
+    "inquiry form",
+    "website",
+    "animated",
+    "foundry"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-agency/preview.html",
+     "bytes": 57507,
+     "sha256": "c840f9a0a78a3941552fe37e80111da99d36b396e11292f6b8e5db70a6f03caa"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=foundry",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "foundry",
+   "livePreview": "foundry/preview.html",
+   "phonePreview": "foundry/phone.png"
+  },
+  {
+   "id": "site-coach",
+   "title": "Coach website",
+   "kind": "site",
+   "businessTypes": [
+    "coach"
+   ],
+   "tier": "builder",
+   "summary": "For coaches, tutors and consultants: your portrait, who it is for, a How it works that lights up step by step and a Book a call button.",
+   "tags": [
+    "coach",
+    "tutor",
+    "consultant",
+    "book a call",
+    "website",
+    "animated",
+    "northstar"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-coach/preview.html",
+     "bytes": 47374,
+     "sha256": "827c51d819a2449c73ee6d6344729a1bd257a979423ac97bd7bde5f5a1216bd9"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=northstar",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "northstar",
+   "livePreview": "northstar/preview.html",
+   "phonePreview": "northstar/phone.png"
+  },
+  {
+   "id": "site-creator",
+   "title": "Creator website",
+   "kind": "site",
+   "businessTypes": [
+    "creator"
+   ],
+   "tier": "builder",
+   "summary": "Bold and playful: your name fills the screen and plays with the cursor, then your links, rates and a brand inquiry form.",
+   "tags": [
+    "creator",
+    "ugc",
+    "streamer",
+    "podcast",
+    "rates",
+    "brand deals",
+    "website",
+    "animated",
+    "spotlight"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-creator/preview.html",
+     "bytes": 61971,
+     "sha256": "1abf1c7835f7c44718990239f7314d607dda4d10d3661fec004673323a49386f"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=spotlight",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "spotlight",
+   "livePreview": "spotlight/preview.html",
+   "phonePreview": "spotlight/phone.png"
+  },
+  {
+   "id": "site-event",
+   "title": "Event page",
+   "kind": "site",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Poster style for workshops, pop-ups and classes: the date set huge, the agenda, ticket stubs and a ticket button that stays in reach.",
+   "tags": [
+    "event",
+    "workshop",
+    "pop-up",
+    "class",
+    "tickets",
+    "website",
+    "animated",
+    "gather"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-event/preview.html",
+     "bytes": 56669,
+     "sha256": "4c6ee7713929a3524f1a4d132044e41be6cbe71cc679a3b53e8811414d9f99e7"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=gather",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "gather",
+   "livePreview": "gather/preview.html",
+   "phonePreview": "gather/phone.png"
+  },
+  {
+   "id": "site-link-in-bio",
+   "title": "Link in bio page",
+   "kind": "site",
+   "businessTypes": [
+    "creator"
+   ],
+   "tier": "free",
+   "summary": "One phone-sized page with every link, your socials and a brand inquiry form, over a soft moving gradient.",
+   "tags": [
+    "link in bio",
+    "links",
+    "creator",
+    "instagram",
+    "tiktok",
+    "website",
+    "animated",
+    "linkstack"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-link-in-bio/preview.html",
+     "bytes": 35269,
+     "sha256": "9e3e6e0875bb9a24a5f88fb49d03b1461cee5d9e71de630ac3ce020d6549b1a4"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=linkstack",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "linkstack",
+   "livePreview": "linkstack/preview.html",
+   "phonePreview": "linkstack/phone.png"
+  },
+  {
+   "id": "site-local-service",
+   "title": "Local service website",
+   "kind": "site",
+   "businessTypes": [
+    "local"
+   ],
+   "tier": "free",
+   "summary": "A site for jobs people call or book: your services run across the page, with prices, your area and a quote form up front.",
+   "tags": [
+    "detailing",
+    "cleaning",
+    "lawn",
+    "moving",
+    "quote form",
+    "local",
+    "website",
+    "animated",
+    "beacon"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-local-service/preview.html",
+     "bytes": 53609,
+     "sha256": "f12251e9538f1cfc3e8a9eb8f38f14f8125aa9f46ed38ac57ff40559c0ecb3eb"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=beacon",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "beacon",
+   "livePreview": "beacon/preview.html",
+   "phonePreview": "beacon/phone.png"
+  },
+  {
+   "id": "site-portfolio",
+   "title": "Portfolio website",
+   "kind": "site",
+   "businessTypes": [
+    "creator"
+   ],
+   "tier": "builder",
+   "summary": "The work comes first: your name fills the screen, each piece wipes in on a gallery wall, and a project index previews as you move.",
+   "tags": [
+    "portfolio",
+    "photographer",
+    "video editor",
+    "designer",
+    "ugc",
+    "website",
+    "animated",
+    "frame"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-portfolio/preview.html",
+     "bytes": 70473,
+     "sha256": "f4b16649bf0706fc090636aa9573f118f2ecf1082bfe1a92bcc70d7d9144f0e2"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=frame",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "frame",
+   "livePreview": "frame/preview.html",
+   "phonePreview": "frame/phone.png"
+  },
+  {
+   "id": "site-product-landing",
+   "title": "Product launch page",
+   "kind": "site",
+   "businessTypes": [
+    "ecom",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "Built to sell one product: its name set huge, the product shot growing to fill the screen as you scroll, and one Buy button.",
+   "tags": [
+    "product",
+    "landing page",
+    "shop",
+    "buy button",
+    "website",
+    "animated",
+    "launch"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-product-landing/preview.html",
+     "bytes": 46971,
+     "sha256": "a2505fd3786d9a79e26dac5db54a40d6f1d3517f308d7cf6242f4c8dfcc1d993"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=launch",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "launch",
+   "livePreview": "launch/preview.html",
+   "phonePreview": "launch/phone.png"
+  },
+  {
+   "id": "site-restaurant",
+   "title": "Restaurant website",
+   "kind": "site",
+   "businessTypes": [
+    "local"
+   ],
+   "tier": "builder",
+   "summary": "Warm and dark, for restaurants, cafes, bars and food trucks: your dishes run across the page, with menu, hours and directions a tap away.",
+   "tags": [
+    "restaurant",
+    "cafe",
+    "bar",
+    "bakery",
+    "food truck",
+    "menu",
+    "website",
+    "animated",
+    "supper"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-restaurant/preview.html",
+     "bytes": 78431,
+     "sha256": "42de4542968120f4e74d38e996fe1a28882a6be4efb5ac41a5e1b290637b3cea"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=supper",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "supper",
+   "livePreview": "supper/preview.html",
+   "phonePreview": "supper/phone.png"
+  },
+  {
+   "id": "site-studio",
+   "title": "Salon and studio website",
+   "kind": "site",
+   "businessTypes": [
+    "local"
+   ],
+   "tier": "builder",
+   "summary": "Editorial and calm, for salons, barbers, nails, lashes and tattoo studios: your price menu draws itself beside one Book button.",
+   "tags": [
+    "salon",
+    "barber",
+    "nails",
+    "spa",
+    "tattoo",
+    "booking",
+    "website",
+    "animated",
+    "atelier"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-studio/preview.html",
+     "bytes": 62176,
+     "sha256": "99e9520dd82ed0f5c3e3ca6c7d19ebd01c49386c2f2b0d2ff641a1ce588cd1fb"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=atelier",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "atelier",
+   "livePreview": "atelier/preview.html",
+   "phonePreview": "atelier/phone.png"
+  },
+  {
+   "id": "site-saas",
+   "title": "Software product website",
+   "kind": "site",
+   "businessTypes": [
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "For apps, software and digital products: a glowing hero, a product window that tilts flat as you scroll, features and clear plans.",
+   "tags": [
+    "saas",
+    "app",
+    "software",
+    "digital product",
+    "pricing",
+    "website",
+    "animated",
+    "orbit"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-saas/preview.html",
+     "bytes": 49189,
+     "sha256": "bca70da1f41d412e474e5e08625a32e6b41d5fab6f6d9d900cfa716bcd639936"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=orbit",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "orbit",
+   "livePreview": "orbit/preview.html",
+   "phonePreview": "orbit/phone.png"
+  },
+  {
+   "id": "site-waitlist",
+   "title": "Waitlist page",
+   "kind": "site",
+   "businessTypes": [
+    "idea",
+    "ecom"
+   ],
+   "tier": "free",
+   "summary": "One cinematic screen for something not out yet: your name huge, light drifting behind it, and the email form front and center.",
+   "tags": [
+    "waitlist",
+    "coming soon",
+    "launch",
+    "email list",
+    "website",
+    "animated",
+    "soon"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-waitlist/preview.html",
+     "bytes": 33837,
+     "sha256": "8456faea8aa0ba0dbf810cf41071aea835939d63e92046a45ab61aaff0621c30"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=soon",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "soon",
+   "livePreview": "soon/preview.html",
+   "phonePreview": "soon/phone.png"
+  },
+  {
+   "id": "shopify-sections-essentials",
+   "title": "Shopify Essential Sections",
+   "kind": "shopify",
+   "businessTypes": [
+    "ecom"
+   ],
+   "tier": "builder",
+   "summary": "Eight polished Online Store 2.0 sections in your brand color: hero, trust bar, features, before and after, reviews, FAQ, marquee and email signup.",
+   "tags": [
+    "shopify",
+    "theme",
+    "sections",
+    "dawn",
+    "liquid",
+    "hero",
+    "faq",
+    "testimonials",
+    "newsletter",
+    "marquee",
+    "before and after",
+    "online store"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/shopify-sections-essentials/preview.png",
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Section pack (ZIP, theme folder layout)",
+     "file": "files/shopify-sections-essentials/127-shopify-sections-essentials.zip",
+     "bytes": 25016,
+     "sha256": "86364c39c11ef46581e4f9aa83c823ee73ddb758795027894f05fa868bc073dc",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Hero split section (.liquid)",
+     "file": "files/shopify-sections-essentials/hero-split.liquid",
+     "bytes": 10306,
+     "sha256": "a79c94ddfcf237531d6c7a71a7a48670db1fd4c2ecb5ec8197904a3adbb06a71",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Trust bar section (.liquid)",
+     "file": "files/shopify-sections-essentials/trust-bar.liquid",
+     "bytes": 9436,
+     "sha256": "762aa3fc8740a59dff4a97c5d8bc15b21e14be509463301fe4c24f2e2efe80fd",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Feature grid section (.liquid)",
+     "file": "files/shopify-sections-essentials/feature-grid.liquid",
+     "bytes": 11226,
+     "sha256": "71c3ac0ad6697e313752aa4bb595a600de2c2b9fdfa661c80f332966e28eb359",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Before and after section (.liquid)",
+     "file": "files/shopify-sections-essentials/before-after.liquid",
+     "bytes": 10023,
+     "sha256": "5d56f8a8b742db954757b90665c1f7420bccd645a3f639cc48f00a9497dd4bd8",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Testimonials section (.liquid)",
+     "file": "files/shopify-sections-essentials/testimonials.liquid",
+     "bytes": 8476,
+     "sha256": "d873f0ff1af07e24a5ec8e61956b05dfafb2913d380ed0bee962284773d08dfa",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "FAQ accordion section (.liquid)",
+     "file": "files/shopify-sections-essentials/faq-accordion.liquid",
+     "bytes": 8567,
+     "sha256": "0bf16538cb81c1987dcc98ada47b9a20c1368b5ce89e5d641915216d17490921",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Announcement marquee section (.liquid)",
+     "file": "files/shopify-sections-essentials/announcement-marquee.liquid",
+     "bytes": 8514,
+     "sha256": "c231431c67b8d219dce4d47ef041f7203f8a0189c7bc942010fe2beda948740f",
+     "fillable": true
+    },
+    {
+     "format": "liquid",
+     "label": "Email signup section (.liquid)",
+     "file": "files/shopify-sections-essentials/email-signup.liquid",
+     "bytes": 9022,
+     "sha256": "422bc6f5230db9b5e11eb32babd3396448c0c5316d5d78f2750e966495d90f7e",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "How to install (Markdown)",
+     "file": "files/shopify-sections-essentials/127-shopify-sections-essentials-guide.md",
+     "bytes": 2392,
+     "sha256": "e316f72901c5f94bdf413347041b3f87e2a732a7a97ff62336c1f9f5fd7aea14"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-shopify-sections-essentials.zip",
+     "hero-split.liquid",
+     "trust-bar.liquid",
+     "feature-grid.liquid",
+     "before-after.liquid",
+     "testimonials.liquid",
+     "faq-accordion.liquid",
+     "announcement-marquee.liquid",
+     "email-signup.liquid"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.city",
+     "business.name",
+     "contact.email",
+     "owner.first"
+    ],
+    "asks": [
+     "contact.email"
+    ]
+   },
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "founder-os-notion",
+   "title": "127 Founder OS for Notion",
+   "kind": "notion",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Your roadmap, pipeline, conversations, content calendar, hook bank and weekly scorecard as Notion databases you import in one go.",
+   "tags": [
+    "build",
+    "system"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": null,
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP)",
+     "file": "files/founder-os-notion/127-founder-os-notion.zip",
+     "bytes": 26614,
+     "sha256": "837afc2493a55ba7c33a419ecde19a6c18d6a6e5b256e11233afc7afd30e0842"
+    },
+    {
+     "format": "guide",
+     "label": "How to import (Markdown)",
+     "file": "files/founder-os-notion/127-founder-os-import-guide.md",
+     "bytes": 875,
+     "sha256": "ec4517bea80a35669cde3e1e458f7f46c5ebe8c1c808c7696b065f5ad501b76e"
+    },
+    {
+     "format": "md",
+     "label": "Home page (Markdown)",
+     "file": "files/founder-os-notion/127-founder-os-home.md",
+     "bytes": 2043,
+     "sha256": "56022133e6163ac8dc48036c91ec6beba2598bcda3c9096d174c97c5d6f0ffab"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "founder-os-notion",
+   "flag": null
+  },
+  {
+   "id": "notion-crm",
+   "title": "Notion Client CRM",
+   "kind": "notion",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Contacts, Deals and Activities in Notion, so every lead has a stage, a value and a next step date.",
+   "tags": [
+    "notion",
+    "crm",
+    "contacts",
+    "deals",
+    "pipeline",
+    "leads",
+    "follow up",
+    "sales"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/notion-crm/preview.png",
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP: Markdown + CSV)",
+     "file": "files/notion-crm/127-notion-crm.zip",
+     "bytes": 2585,
+     "sha256": "0ec34531e998bdd60f4c4d3a3f77a5e31f518f2363773929d013424233b9f43c",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "How to import and set up (Markdown)",
+     "file": "files/notion-crm/127-notion-crm-guide.md",
+     "bytes": 2104,
+     "sha256": "9c9f775bb9e70986de5925d2acd865d78056b8423d6ae859e0a67233fb3d6a66"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-notion-crm.zip"
+    ],
+    "tokens": [
+     "business.name",
+     "owner.first",
+     "today"
+    ],
+    "asks": []
+   },
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "notion-client-portal",
+   "title": "Notion Client Portal",
+   "kind": "notion",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "A page you duplicate for each client: welcome, what's included, timeline, files, shared tasks and how to reach you.",
+   "tags": [
+    "notion",
+    "client portal",
+    "onboarding",
+    "clients",
+    "project",
+    "tasks",
+    "coaching",
+    "services"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/notion-client-portal/preview.png",
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP: Markdown + CSV)",
+     "file": "files/notion-client-portal/127-notion-client-portal.zip",
+     "bytes": 1642,
+     "sha256": "b225ab9a765524f181b7a330ceb82a4a2074a4714e66f6960ea16ff950819d3b",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "How to import and set up (Markdown)",
+     "file": "files/notion-client-portal/127-notion-client-portal-guide.md",
+     "bytes": 1974,
+     "sha256": "b77cfb6c71058832ea89dae54b31e4880437ec8ee9dce45dc38ca1d87eb99040"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-notion-client-portal.zip"
+    ],
+    "tokens": [
+     "business.name",
+     "business.offer",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   },
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "notion-content-os",
+   "title": "Notion Content OS",
+   "kind": "notion",
+   "businessTypes": [
+    "creator",
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Ideas, Posts and Hooks in Notion with a repurpose checklist, so one idea becomes a week of posts.",
+   "tags": [
+    "notion",
+    "content",
+    "content calendar",
+    "hooks",
+    "social media",
+    "posts",
+    "repurpose",
+    "creator"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/notion-content-os/preview.png",
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP: Markdown + CSV)",
+     "file": "files/notion-content-os/127-notion-content-os.zip",
+     "bytes": 3496,
+     "sha256": "2563bcf34df8159ae195159d49ffc4c8b9929defd4689508ab471a9cd72816fe",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "How to import and set up (Markdown)",
+     "file": "files/notion-content-os/127-notion-content-os-guide.md",
+     "bytes": 1885,
+     "sha256": "e20bb97b6d9af4d10f9f89610fbb47b2d78e1011d63750b6d8e651bf82fb2205"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-notion-content-os.zip"
+    ],
+    "tokens": [
+     "business.audience",
+     "business.name",
+     "links.instagram",
+     "links.tiktok",
+     "links.youtube"
+    ],
+    "asks": []
+   },
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "notion-sop-wiki",
+   "title": "Notion SOP Wiki",
+   "kind": "notion",
+   "businessTypes": [
+    "local",
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "An SOP template, six starter SOPs for a service business and an owners and review dates table, in Notion.",
+   "tags": [
+    "notion",
+    "sop",
+    "wiki",
+    "processes",
+    "checklists",
+    "operations",
+    "hiring",
+    "service business"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/notion-sop-wiki/preview.png",
+   "formats": [
+    {
+     "format": "zip",
+     "label": "Notion import pack (ZIP: Markdown + CSV)",
+     "file": "files/notion-sop-wiki/127-notion-sop-wiki.zip",
+     "bytes": 6170,
+     "sha256": "ed1077b44af93181155bee34b5cbdbc78e275cdbd6d240973e945fb39702d126",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "How to import and set up (Markdown)",
+     "file": "files/notion-sop-wiki/127-notion-sop-wiki-guide.md",
+     "bytes": 1921,
+     "sha256": "db13edc3a14860b25231b6260f4c12f7397dd14242d25f8a5f7f7ba425a292b5"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-notion-sop-wiki.zip"
+    ],
+    "tokens": [
+     "business.name",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   },
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "cash-flow-13-week",
+   "title": "13-Week Cash Flow",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "See the next 13 weeks of cash, week by week, so you spot the week money runs short before it happens.",
+   "tags": [
+    "finance",
+    "money",
+    "numbers"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/cash-flow-13-week/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/cash-flow-13-week/127-cash-flow-13-week.xlsx",
+     "bytes": 11017,
+     "sha256": "517859610d446683b1609b08f22dba5fb0aea9b7e6bd13e469460117f03aa910"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/cash-flow-13-week/127-cash-flow-13-week-example.xlsx",
+     "bytes": 11239,
+     "sha256": "8b7349acda2649783e5c8a4ff9512968bdc06f69d219d8343f7de19a72bada24"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-cash-flow-13-week.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "13-Week Cash Flow: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "Set up: type the cash in your bank today, the Monday your week 1 starts, and the least cash you want on hand.",
+    "Cash in: for each week, type only money you expect to land that week. Invoices count the week they get paid, not the week you send them.",
+    "Cash out: fill each line you pay. Leave a line blank if it doesn't apply.",
+    "Read Cash position. Any week under your cushion turns red.",
+    "Read What it says. Fix the lowest week first: move a cost, ask for a deposit, or chase a payment.",
+    "Every Monday, type what really happened in last week's column and add a new week at the end."
+   ],
+   "minutes": 40,
+   "output": "Your cash position for each of the next 13 weeks, the lowest week, and how many weeks dip under your cushion."
+  },
+  {
+   "id": "content-planner",
+   "title": "30-Day Content Planner",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Three pillars, one platform and a posting rhythm you can keep, laid out over 30 dated days, with a tracker that tells you which format hits.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/content-planner/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/content-planner/127-content-planner.xlsx",
+     "bytes": 13220,
+     "sha256": "2d611c4fa6f5d92c1c045b137114c23dc13e806d2c6fd38342aa39fc308681cf"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/content-planner/127-content-planner-example.xlsx",
+     "bytes": 14117,
+     "sha256": "4d0a840e6403ade1140883ef439cec0d6eeabd012969c228c03e7918a792eff1"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/content-planner/127-content-planner.csv",
+     "bytes": 1213,
+     "sha256": "fb063eec24153d5de50c2fc8df8f211d47db3572f5181f1e6f4b7e068c6a9c0e"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-content-planner.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "30-Day Content Planner: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "content-planner",
+   "flag": null
+  },
+  {
+   "id": "ad-test-planner",
+   "title": "Ad Test Planner",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Plan a small, capped paid test, write your stop rule before you spend a dollar, then log each day so the sheet tells you when to stop.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/ad-test-planner/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/ad-test-planner/127-ad-test-planner.xlsx",
+     "bytes": 16148,
+     "sha256": "9e649070effdc3ebc043a5b9614a0a5c384dfdc5a8c5debd8861bd66124584a1"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/ad-test-planner/127-ad-test-planner-example.xlsx",
+     "bytes": 16662,
+     "sha256": "277e86d9cbd2e9064f7836b16f60ad236d84bf06dbd7823b036151466e97f6b9"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/ad-test-planner/127-ad-test-planner-log.csv",
+     "bytes": 322,
+     "sha256": "021a3c2363ae44bce566c8fa976b35a7fa4414871e8ad13b9cb3512bbe9a7dac"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-ad-test-planner.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Ad Test Planner: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "ad-test-planner",
+   "flag": null
+  },
+  {
+   "id": "brand-deals",
+   "title": "Brand Deal Tracker",
+   "kind": "sheet",
+   "businessTypes": [
+    "creator"
+   ],
+   "tier": "free",
+   "summary": "Track every brand you pitch, from first message to paid, with follow-up flags, what each deal is worth and what is still owed to you.",
+   "tags": [
+    "ugc",
+    "brands",
+    "sponsorships",
+    "deals"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/brand-deals/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/brand-deals/127-brand-deals.xlsx",
+     "bytes": 12160,
+     "sha256": "33e34b1707b3dc7615f73dbff602abf54227871928bc4ec2615e285d93057879"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/brand-deals/127-brand-deals-example.xlsx",
+     "bytes": 12513,
+     "sha256": "0149410a2d8e8ad4a919edae4a100b35405ebcce97b9292b911ea93c455e1787"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/brand-deals/127-brand-deals.csv",
+     "bytes": 449,
+     "sha256": "941852c0e1e55d464314354ceaa1cf821efb4223e546e5b9b9f5752fb5467127"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-brand-deals.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Brand Deal Tracker: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "One row per brand. Type who you pitched, where and when.",
+    "Update Status as it moves: Pitched, Talking, Agreed, Delivered, Paid, or Passed.",
+    "Agreed: type the deliverables, the rate and the due date.",
+    "Delivered: type the date you sent the invoice. Paid: type the date the money landed.",
+    "Read Follow up?. Pitched with no reply for five days or more: send one short, friendly follow-up.",
+    "Read the Summary tab for what you have earned and what is still owed."
+   ],
+   "minutes": 20,
+   "output": "Every brand pitch in one place with its status, the ones to follow up today, and paid and unpaid totals."
+  },
+  {
+   "id": "break-even",
+   "title": "Break-Even",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "List your monthly costs, set your price, and see exactly how many sales a month cover everything, down to sales per workday.",
+   "tags": [
+    "finance",
+    "money",
+    "numbers"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/break-even/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/break-even/127-break-even.xlsx",
+     "bytes": 8882,
+     "sha256": "4b185bf0fc6f7ee805bd3df6373b0dedc0597ec375a110ba8ba4667b27671bd4"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/break-even/127-break-even-example.xlsx",
+     "bytes": 9142,
+     "sha256": "d4723c655888f611c31d62a99ad885c8379eb455a81633c5081a848d2d16a1f5"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/break-even/127-break-even-costs.csv",
+     "bytes": 208,
+     "sha256": "4530207a400fb93a2daec0841f811e7e0675434794d6e60de450ab1d7eebd4e1"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-break-even.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Break-Even: {{business.name}}"
+     },
+     {
+      "cell": "Break-even!B6",
+      "value": "{{business.price}}",
+      "number": true
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "Monthly costs: list everything you pay every month, whether you sell or not. Include pay to yourself if you need it.",
+    "Break-even: type your price and what one sale costs you to deliver.",
+    "Type how many sales you honestly expect in a month.",
+    "Read the lilac rows: sales a month to break even, per week and per workday.",
+    "Below break-even? Cut a monthly cost, raise the price, or add a higher-priced option. Change one number at a time."
+   ],
+   "minutes": 25,
+   "output": "Your break-even sales per month, week and workday, and how far your expected sales sit above or below it."
+  },
+  {
+   "id": "business-budget",
+   "title": "Business Budget",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Plan what comes in and goes out each month, type the real numbers as the year goes, and see where you are over or under.",
+   "tags": [
+    "finance",
+    "money",
+    "numbers"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/business-budget/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/business-budget/127-business-budget.xlsx",
+     "bytes": 12533,
+     "sha256": "9112e9274b238842fbb01f69b244f98e5b8ec9ef486e21483672f180ede23291"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/business-budget/127-business-budget-example.xlsx",
+     "bytes": 12994,
+     "sha256": "cbed78dfc0ae7590907976a938821e8c1ffe1ad01bd359adeab422dd35daa057"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/business-budget/127-business-budget.csv",
+     "bytes": 568,
+     "sha256": "ed04724e7d2b3ac0dda3c181781ca7bf06dd87b3fcf533ff19dbce264fae24d8"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-business-budget.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Business Budget: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "Budget tab: one line per income or cost. Pick Income or Cost and a category.",
+    "Type the planned amount per month for each line.",
+    "At the end of each month, type the real amount in that month's column.",
+    "Read the grey columns: total so far, plan so far, and the gap. Green is good, red needs a look.",
+    "Summary tab: planned profit per month and real profit so far."
+   ],
+   "minutes": 30,
+   "output": "A monthly plan for income and costs, actuals for each month, and the gap between plan and real for every line."
+  },
+  {
+   "id": "client-sessions",
+   "title": "Client Sessions",
+   "kind": "sheet",
+   "businessTypes": [
+    "coach"
+   ],
+   "tier": "builder",
+   "summary": "Track every client's package, sessions used and left, next session and renewal date, so nobody runs out without a conversation first.",
+   "tags": [
+    "coaching",
+    "clients",
+    "packages",
+    "renewals"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/client-sessions/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/client-sessions/127-client-sessions.xlsx",
+     "bytes": 11451,
+     "sha256": "a2e57f7ddb169000c6b35627c0ba0e87b95efb78d2cc262a267b8077127db38c"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/client-sessions/127-client-sessions-example.xlsx",
+     "bytes": 11710,
+     "sha256": "3cea0c69bd925dcb60522d28d4b979c1dd2c6c9170bf7d21b352a5725588b293"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/client-sessions/127-client-sessions.csv",
+     "bytes": 230,
+     "sha256": "69cbf837952ef31a8f2600b2a3be7686265b6467c453073b97884b9abcdf733e"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-client-sessions.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Client Sessions: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "One row per client package. Type the client, the package, sessions bought and the price paid.",
+    "After every session, add one to Sessions used and type the next session date.",
+    "Read Sessions left and Renew?. One left: have the renewal talk at that session, not after.",
+    "No next session booked? The sheet flags it. Book it before they leave."
+   ],
+   "minutes": 15,
+   "output": "Every client with sessions left, the next session, and a flag for the ones to talk to about renewing."
+  },
+  {
+   "id": "conversation-tracker",
+   "title": "Conversation Tracker",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Track the 20 people you message and every conversation you have, with follow-up dates and the facts that matter from each call.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/conversation-tracker/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/conversation-tracker/127-conversation-tracker.xlsx",
+     "bytes": 11795,
+     "sha256": "9ded09d1e9f437f76f671a8dcc70174a5064d1e005d982561c242dde25eeb31e"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/conversation-tracker/127-conversation-tracker-example.xlsx",
+     "bytes": 12477,
+     "sha256": "cf8dd5e3d7dd9711403be3acf871cbd34c32c04fc964583cff2bc6ff4af418b4"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/conversation-tracker/127-conversation-tracker.csv",
+     "bytes": 1133,
+     "sha256": "7979567998d95885e866c1aaf7216adb8a324fbc9d40bea02237994c9040803a"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-conversation-tracker.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Conversation Tracker: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "conversation-tracker",
+   "flag": null
+  },
+  {
+   "id": "first-sale-math",
+   "title": "First-Sale Math",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Check that one sale makes you money after every cost, what you really earn per hour, and how many sales cover your startup costs.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/first-sale-math/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/first-sale-math/127-first-sale-math.xlsx",
+     "bytes": 9621,
+     "sha256": "0a094f4352699adc42e33db0e5522ee6a3901c099f80960baf3decaf3c58a463"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/first-sale-math/127-first-sale-math-example.xlsx",
+     "bytes": 9764,
+     "sha256": "63e55c5e574390ef50ee19ca6300dd03ad62e216e7a24b4db23490f46ba3b3b9"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-first-sale-math.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "First-Sale Math: {{business.name}}"
+     },
+     {
+      "cell": "Math!C5",
+      "value": "{{business.price}}",
+      "number": true
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "first-sale-math",
+   "flag": null
+  },
+  {
+   "id": "hook-bank",
+   "title": "Hook Bank",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "60 fill-in-the-blank hooks with a filled example each, 10 caption templates and 10 calls to action, plus a log that shows which hook type works for you.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/hook-bank/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/hook-bank/127-hook-bank.xlsx",
+     "bytes": 22258,
+     "sha256": "57aad903ea3c20ab70ad68e0964d76f5b561dc310bf0d5da022409aaa26529af"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/hook-bank/127-hook-bank-example.xlsx",
+     "bytes": 22914,
+     "sha256": "be39265561e91280e44d1da6e7c2503eb08c095eef44885ed655e1e771fcfdaf"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-captions.csv",
+     "bytes": 1187,
+     "sha256": "f2042f7dcc39d7514499bcb237c8aa938558a3fe67afc36c1be8c7d1b8d760e7"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-ctas.csv",
+     "bytes": 800,
+     "sha256": "15f9fdfc4d1e00f3b3b88388e3efb0d8ba8d63b25e96cdee1968bf526a3b95d1"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-my-hooks.csv",
+     "bytes": 663,
+     "sha256": "0ea8ce7414e8db8b356245a8819cdf402893a9600f970413b2faaaab02a7b3ba"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-templates.csv",
+     "bytes": 9163,
+     "sha256": "fa7d4d92ac03b4c328065727834ca1c9d4dc9cdf6263e19785ec066a4482bea9"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hook-bank/127-hook-bank-winners.csv",
+     "bytes": 401,
+     "sha256": "401d981c563f2f98d487de9f37a233d3c1bfd88351288b4aa740fd603af94858"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-hook-bank.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Hook Bank: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "hook-bank",
+   "flag": null
+  },
+  {
+   "id": "hours-audit",
+   "title": "Hours Audit",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "List every task from last week with the time it took, tag it only me, repeat or waste, and let the sheet pick your best first handoff.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/hours-audit/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/hours-audit/127-hours-audit.xlsx",
+     "bytes": 11520,
+     "sha256": "1d389c196e6be6260f196089c4d0c0a91308e25a1e05f1f85f39d13db544f83a"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/hours-audit/127-hours-audit-example.xlsx",
+     "bytes": 12199,
+     "sha256": "35b727278a7626866386943e745ee6432e3d3041ec14f487d92bbb03bf78cf61"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/hours-audit/127-hours-audit.csv",
+     "bytes": 727,
+     "sha256": "b0fe733dd63e5187ca4dc751456d746cf2dbd518a997bf6865da93f5230c2c28"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-hours-audit.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Hours Audit: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "hours-audit",
+   "flag": null
+  },
+  {
+   "id": "idea-scorecard",
+   "title": "Idea Scorecard",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Score up to eight ideas against Eli's Idea Test in one sitting, see the winner, and use the tie breakers when two ideas are close.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/idea-scorecard/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/idea-scorecard/127-idea-scorecard.xlsx",
+     "bytes": 12115,
+     "sha256": "10445c21e3a453e11410f680db5bfc5a10d77483e8db7d9c1cccb62175f63a4e"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/idea-scorecard/127-idea-scorecard-example.xlsx",
+     "bytes": 12648,
+     "sha256": "98c479e98079f1c9d025029c0d9da0bcf44f10b4ce586407e0da53bdeaccfae0"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/idea-scorecard/127-idea-scorecard.csv",
+     "bytes": 774,
+     "sha256": "c9b0e966f2d86de733b0c76bcc26adeb530df94d83bf8564b935756cb8cb10b5"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-idea-scorecard.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Idea Scorecard: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "idea-scorecard",
+   "flag": null
+  },
+  {
+   "id": "interview-synthesis",
+   "title": "Interview Synthesis",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Lay your interviews side by side, count the phrases people repeat, and get a kill, pause or double down call backed by evidence.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/interview-synthesis/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/interview-synthesis/127-interview-synthesis.xlsx",
+     "bytes": 13534,
+     "sha256": "fd96887b731d9f7ffd0e99dfae8e0a0faaccd524a622617fbe57f60ad29b8b5d"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/interview-synthesis/127-interview-synthesis-example.xlsx",
+     "bytes": 14505,
+     "sha256": "cbe2cc332656ee4750cf133ce006931c7b0e2c4fcda67c794b6bf582360a2a83"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/interview-synthesis/127-interview-synthesis-interviews.csv",
+     "bytes": 1231,
+     "sha256": "247ffcdb2aefb5ade6fbe7c87a09ddd49b02da8e10e3ef9e4adaa8fadbc7603b"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/interview-synthesis/127-interview-synthesis-phrases.csv",
+     "bytes": 287,
+     "sha256": "cfccef83a1e5d8017e16ba45499b0b1b296e0ba536dd918d6aeb34703f10e0eb"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-interview-synthesis.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Interview Synthesis: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "interview-synthesis",
+   "flag": null
+  },
+  {
+   "id": "inventory-reorder",
+   "title": "Inventory and Reorder",
+   "kind": "sheet",
+   "businessTypes": [
+    "ecom"
+   ],
+   "tier": "builder",
+   "summary": "Track stock for every product, see weeks of stock left, and get a reorder flag before you sell out, with margin and stock value.",
+   "tags": [
+    "inventory",
+    "stock",
+    "products",
+    "reorder"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/inventory-reorder/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/inventory-reorder/127-inventory-reorder.xlsx",
+     "bytes": 15866,
+     "sha256": "7c69c6c194089f3233f56993fe7ff8496d723cc284aae9e1346b1898227de1d5"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/inventory-reorder/127-inventory-reorder-example.xlsx",
+     "bytes": 16178,
+     "sha256": "ccee7a653c70264390ead7c15775f20dc60b8e66309bb954ee91853af64bf0f8"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/inventory-reorder/127-inventory-reorder.csv",
+     "bytes": 287,
+     "sha256": "5fd5d77b02cb892153fd767e2b5cfe20e6006a32e5270f5dc6cef9bd2c454e59"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-inventory-reorder.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Inventory and Reorder: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "One row per product or variant. Type what you have on hand today.",
+    "Type average units sold per week. Use the last four weeks of orders.",
+    "Type the supplier's lead time in days, door to door, and how many weeks of extra stock you want as a safety net.",
+    "Type your cost and price per unit.",
+    "Read the grey columns. Red means order now. Yellow means order within two weeks.",
+    "Every Monday, update on hand and weekly sales."
+   ],
+   "minutes": 25,
+   "output": "Every product with weeks of stock left, a reorder point, a reorder flag and what your stock is worth."
+  },
+  {
+   "id": "jobs-tracker",
+   "title": "Jobs Tracker",
+   "kind": "sheet",
+   "businessTypes": [
+    "local"
+   ],
+   "tier": "free",
+   "summary": "Every quote and job in one list, from quote to paid, with follow-up flags, your win rate and the money still owed for finished jobs.",
+   "tags": [
+    "quotes",
+    "jobs",
+    "invoices",
+    "follow-up"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/jobs-tracker/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/jobs-tracker/127-jobs-tracker.xlsx",
+     "bytes": 11921,
+     "sha256": "344ad2b8d2f8b4503a0e3da87e052797c8415e8eb9ba69cad634f433c58e77f5"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/jobs-tracker/127-jobs-tracker-example.xlsx",
+     "bytes": 12418,
+     "sha256": "a54d67c6fcb3428acc135b732e323efc554ce87569fa1d26acedd7a44ca78b9f"
+    },
+    {
+     "format": "csv",
+     "label": "CSV (input columns, for Notion or Airtable)",
+     "file": "files/jobs-tracker/127-jobs-tracker.csv",
+     "bytes": 489,
+     "sha256": "d21a3381c25c266c7d1a86e7a3e3b57fc74049474c5b5fad9d5e148ec52af61a"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-jobs-tracker.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Jobs Tracker: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "One row per quote. Type the customer, the job, the price and the date you sent it.",
+    "Update Status as it moves: Quoted, Booked, Done, Paid, or Lost.",
+    "Read Follow up?. A quote with no answer for three days gets one friendly check-in.",
+    "Lost? Write why in one line. After ten, you'll see the pattern.",
+    "Read the Summary tab every Friday."
+   ],
+   "minutes": 15,
+   "output": "Quotes to follow up today, booked work, finished jobs not paid yet, and your quote win rate."
+  },
+  {
+   "id": "objection-log",
+   "title": "Objection Log",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Write down every \"but\" you hear in the words people used, see which objections come up most, and turn the top three into your FAQ.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/objection-log/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/objection-log/127-objection-log.xlsx",
+     "bytes": 13133,
+     "sha256": "5409caf4b6b414d9daa12427f7a635e718cb85874d039e9484e96329969dc39d"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/objection-log/127-objection-log-example.xlsx",
+     "bytes": 14098,
+     "sha256": "6e2b72aeeeb4af399ababa2f873c5c3f85aafde690dcc9ff5ec2ae41a159cd05"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/objection-log/127-objection-log.csv",
+     "bytes": 1042,
+     "sha256": "742575ede2ca4d878a5da298aea15dbbeb8c2c3647f10590263eaf3b12e653a0"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-objection-log.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Objection Log: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "objection-log",
+   "flag": null
+  },
+  {
+   "id": "pipeline-tracker",
+   "title": "Pipeline Tracker",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "One list for every person you could sell to: your warm list, outreach, follow-ups on day 3, 7 and 14, and who's due today.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/pipeline-tracker/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/pipeline-tracker/127-pipeline-tracker.xlsx",
+     "bytes": 29004,
+     "sha256": "56a6fc0e463049f531bfb45d2b2188e0b6ec8369e706c8b2f98388577207527e"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/pipeline-tracker/127-pipeline-tracker-example.xlsx",
+     "bytes": 30510,
+     "sha256": "75e32c6c00e8d814ff22868a66e900716865ec36443f4b464fab79b48ab8bb1d"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pipeline-tracker/127-pipeline-tracker.csv",
+     "bytes": 1849,
+     "sha256": "593a29ba8ce308ff1eeb4d6345b0dbb2e1db05ab3caa906af165b5aff305743c"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-pipeline-tracker.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Pipeline Tracker: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "pipeline-tracker",
+   "flag": null
+  },
+  {
+   "id": "pricing-lab",
+   "title": "Pricing Lab",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Research five competitors in 30 minutes, tie your price to the value you create, frame it small and large, and test it with five real buyers.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/pricing-lab/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/pricing-lab/127-pricing-lab.xlsx",
+     "bytes": 13715,
+     "sha256": "aad1b2d3fd64f030763c3fd34a71d48e980cbfb6c04112de32fd9db5b8a494b8"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/pricing-lab/127-pricing-lab-example.xlsx",
+     "bytes": 14451,
+     "sha256": "4e89cc81722dc7fbd2dd3c76e09882ec5bd5341da58c0dec157f49dfffb41137"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pricing-lab/127-pricing-lab-competitors.csv",
+     "bytes": 614,
+     "sha256": "1f80af91915cf9752c564b98bc0935b46348f9e93c8c656cc84188e9a02e5ac5"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/pricing-lab/127-pricing-lab-test.csv",
+     "bytes": 360,
+     "sha256": "6db0fda2c6f05c110f8dee376a6fe08a635898c42a24900214c0af8cfea93438"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-pricing-lab.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Pricing Lab: {{business.name}}"
+     },
+     {
+      "cell": "Value and price!B19",
+      "value": "{{business.price}}",
+      "number": true
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "pricing-lab",
+   "flag": null
+  },
+  {
+   "id": "stack-audit",
+   "title": "Tool Stack Audit",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "List every tool you pay for or log into, give each one job, and cut what you haven't used in two weeks, aiming for $0 to $50 a month.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/stack-audit/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/stack-audit/127-stack-audit.xlsx",
+     "bytes": 11880,
+     "sha256": "4849da1282b65a12eff6dd281a43836b99a8ef518ce2388ba4615aa60a864d9f"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/stack-audit/127-stack-audit-example.xlsx",
+     "bytes": 12496,
+     "sha256": "0a145d0339bc8d0d1bc53931f897cd517afec976c5ee1040fa5e09d246ccaf15"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/stack-audit/127-stack-audit.csv",
+     "bytes": 912,
+     "sha256": "477bfbfa64ed3d5871ca4f563a6ef593d09d9d56c537975a66b21efd711bfa7b"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-stack-audit.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Tool Stack Audit: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "stack-audit",
+   "flag": null
+  },
+  {
+   "id": "unit-economics",
+   "title": "Unit Economics",
+   "kind": "sheet",
+   "businessTypes": [
+    "ecom",
+    "coach",
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Work out what one customer is worth, your marketing cost per new customer, and how long it takes to earn that back, for now and two plans.",
+   "tags": [
+    "finance",
+    "money",
+    "numbers"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/unit-economics/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/unit-economics/127-unit-economics.xlsx",
+     "bytes": 9611,
+     "sha256": "fa822de1c1b4aecb42dd42470d1dab2faf625728433c38ce01395d769bb9403d"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/unit-economics/127-unit-economics-example.xlsx",
+     "bytes": 9753,
+     "sha256": "9e0e0e81f8055063a27733aaaebd84e58b7662ddc6357a5977efe70d86bffc98"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-unit-economics.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Unit Economics: {{business.name}}"
+     },
+     {
+      "cell": "Unit economics!B5",
+      "value": "{{business.price}}",
+      "number": true
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "howTo": [
+    "Now: type your average order, what one order costs you to deliver, and your payment fees.",
+    "Type how often a customer buys in a year and how many years they stay. New business? Be cautious: one year is fine.",
+    "Type what you spend on marketing each month (ads, flyers, samples) and how many new customers came in that month.",
+    "Read the lilac rows: what one customer is worth, your marketing cost per new customer, and the months to earn it back.",
+    "Plan A and Plan B: change one or two numbers (a higher price, a repeat offer) and compare.",
+    "Pick the plan with the best ratio you can actually deliver."
+   ],
+   "minutes": 30,
+   "output": "Lifetime value, marketing cost per new customer, the ratio between them and the payback time, side by side for three versions of your business."
+  },
+  {
+   "id": "weekly-scorecard",
+   "title": "Weekly Founder Scorecard",
+   "kind": "sheet",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Ten minutes every Monday: your five numbers, the conversion rate between each step, week-over-week change and one decision for next week.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/weekly-scorecard/preview.png",
+   "formats": [
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/weekly-scorecard/127-weekly-scorecard.xlsx",
+     "bytes": 16755,
+     "sha256": "9c05de1614d0eae38a6246f949a231a18933c17f743b1417892fcc65ff00a000"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/weekly-scorecard/127-weekly-scorecard-example.xlsx",
+     "bytes": 17263,
+     "sha256": "5bcd94c5de4fdac44818ff91e0f839f37acf2b0f90d4ee9caa3bbd6d6a483075"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/weekly-scorecard/127-weekly-scorecard.csv",
+     "bytes": 857,
+     "sha256": "251ec49a13aa9a73bb8164cf0d5301e46de89bf6ee9f5e7957d3ad85942a1ab7"
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-weekly-scorecard.xlsx"
+    ],
+    "cells": [
+     {
+      "cell": "Start here!B3",
+      "value": "Weekly Founder Scorecard: {{business.name}}"
+     }
+    ],
+    "tokens": [],
+    "asks": []
+   },
+   "library": "weekly-scorecard",
+   "flag": null
+  },
+  {
+   "id": "thirty-day-retro",
+   "title": "30-Day Retro",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Look back on your 30-day roadmap, see what moved and why, and plan your next 30 days around what actually worked.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/thirty-day-retro/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.pdf",
+     "bytes": 142391,
+     "sha256": "eea6f56109867709aa7905cf5e423dcaf3a9bda783e37b951fa844cbc40792e2"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.docx",
+     "bytes": 76445,
+     "sha256": "2ad35cf66467dda532a4af9e8d1319f3ad50f1a84361f761ebc01933c0db025a"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/thirty-day-retro/127-thirty-day-retro.md",
+     "bytes": 4989,
+     "sha256": "3cadb01b07cdb77cd7ab57d8ab6eb2e0569227b74cc737c5aea5024a5842ed5f"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "thirty-day-retro",
+   "flag": null
+  },
+  {
+   "id": "ninety-day-plan",
+   "title": "90-Day Priorities",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A one-page quarter plan: one measurable outcome, three priorities that get you there and a stop list of everything you're not doing.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/ninety-day-plan/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.pdf",
+     "bytes": 131446,
+     "sha256": "4ff3a85d151c1d2cf0a5bae914c024700c9eeb77f25cd83bf8cb35b583a2df1a"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.docx",
+     "bytes": 76842,
+     "sha256": "8a763a3f96da774eb65753268bb70bfbc8d2330e6e1df36b9bf64b0cc513476c"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/ninety-day-plan/127-ninety-day-plan.md",
+     "bytes": 5563,
+     "sha256": "ae7adc4c0d3ef20e19374f86908c5d5e33843611bf29d9047b30a661364522e3"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "ninety-day-plan",
+   "flag": null
+  },
+  {
+   "id": "brand-sheet",
+   "title": "Brand Sheet",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Set up a name, positioning line, voice, two colors, one font, a wordmark and matching handles in one afternoon, on one page you can send anyone.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/brand-sheet/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/brand-sheet/127-brand-sheet.pdf",
+     "bytes": 167557,
+     "sha256": "4dd930e9098b0dc77ca42eeff899909162629b82aaee72c90975232b7312f17e"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/brand-sheet/127-brand-sheet.docx",
+     "bytes": 77400,
+     "sha256": "42c56ca3885eb17f484d03ba30207e994ef2cba3085b867a6a727d5ec31e4827"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/brand-sheet/127-brand-sheet.md",
+     "bytes": 6494,
+     "sha256": "0a026fa535584a5c9a67c7d9bd6641ed479cc160f2f5c1b2eb8f6c65ab5126ce"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "brand-sheet",
+   "flag": null
+  },
+  {
+   "id": "business-model-canvas",
+   "title": "Business Model One-Pager",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Your whole business on one page, from who pays and how you reach them to what the first sale costs, checked before you spend a dollar.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/business-model-canvas/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/business-model-canvas/127-business-model-canvas.pdf",
+     "bytes": 135859,
+     "sha256": "61733348180b87e45aca163b77a7f45f9e1ad10a8dc7ab6ebe39d3e0c68184ca"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/business-model-canvas/127-business-model-canvas.docx",
+     "bytes": 75977,
+     "sha256": "b19f3eec30aa827a4aaa4419f22371411f8d2268a4bbab01c092a16f441519de"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/business-model-canvas/127-business-model-canvas.md",
+     "bytes": 4848,
+     "sha256": "ea3a160b6f450dbdf7655a69abf4830b4a4aa8b789ff04bdd355a6b939494d17"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "business-model-canvas",
+   "flag": null
+  },
+  {
+   "id": "client-welcome",
+   "title": "Client Welcome",
+   "kind": "doc",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea",
+    "any"
+   ],
+   "tier": "free",
+   "summary": "The welcome page a new client gets the day they pay: what happens next, what you need from them, how to reach you and when you reply.",
+   "tags": [
+    "onboarding",
+    "welcome",
+    "client",
+    "service",
+    "coaching"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/client-welcome/preview.png",
+   "formats": [
+    {
+     "format": "docx",
+     "label": "Word (.docx)",
+     "file": "files/client-welcome/127-client-welcome.docx",
+     "bytes": 38344,
+     "sha256": "1467c2c0f2e46cbd52240d0f192bd4b212de0c859bb9a478495d84ffc9de4564",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web page (.html, print to PDF)",
+     "file": "files/client-welcome/127-client-welcome.html",
+     "bytes": 2771,
+     "sha256": "a73d501af249f9b4ec081508f4d0808f79a97c2bc4842f4a618c20b2979497f1",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "Markdown (.md, Notion and Google Docs)",
+     "file": "files/client-welcome/127-client-welcome.md",
+     "bytes": 1080,
+     "sha256": "15f5419e299faa803c64724b3e82a33afe08748118c823fa1de3f54d71c90d93",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "library": null,
+   "flag": null,
+   "makeItMine": {
+    "files": [
+     "127-client-welcome.docx",
+     "127-client-welcome.html",
+     "127-client-welcome.md"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   }
+  },
+  {
+   "id": "interview-kit",
+   "title": "Customer Interview Kit",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Everything for 10 customer conversations in one doc: your problem sentence, who to ask, outreach messages, a timed script, red flags and a notes form.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/interview-kit/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/interview-kit/127-interview-kit.pdf",
+     "bytes": 192470,
+     "sha256": "a4e4006de2a1b4af8078bdf902e0f907c41e651a6bae3c779df28eb213bbf530"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/interview-kit/127-interview-kit.docx",
+     "bytes": 78698,
+     "sha256": "e49921a6e80637bd167a752210aafb8149b0a10c15463f43101665acf7b8e3fb"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/interview-kit/127-interview-kit.md",
+     "bytes": 8828,
+     "sha256": "d668d90f421bf6961d8329dc5db6847277b7095f441c1430608522840742665d"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "interview-kit",
+   "flag": null
+  },
+  {
+   "id": "landing-page-brief",
+   "title": "Landing Page Brief",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Turn your One-Page Offer into a simple page: seven blocks in order, honest proof, one call to action and a Claude prompt that drafts it.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/landing-page-brief/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/landing-page-brief/127-landing-page-brief.pdf",
+     "bytes": 151223,
+     "sha256": "eed4b8c292edbcf41ab371c3fdec0faa5af207dc5ac24cf603b8afbaadf6f281"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/landing-page-brief/127-landing-page-brief.docx",
+     "bytes": 77074,
+     "sha256": "433b343dc6cbfeb6ef4130e719c491c81adb42e4abf285d8c455351558ad0861"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/landing-page-brief/127-landing-page-brief.md",
+     "bytes": 6681,
+     "sha256": "b05b098f5ab377d3e06f05fe8e540b103464ef8f89abdce86fbde735b8404e4f"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "landing-page-brief",
+   "flag": null
+  },
+  {
+   "id": "one-page-offer",
+   "title": "One-Page Offer",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Build an offer so clear and so good it feels almost too good to refuse, on one page you can paste into a DM, a bio link or a landing page.",
+   "tags": [
+    "start"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/one-page-offer/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/one-page-offer/127-one-page-offer.pdf",
+     "bytes": 170214,
+     "sha256": "08b7ba47f39dc7ef062dfd45c24a719bbb28e2dba5894ced04b2fd62591267c5"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/one-page-offer/127-one-page-offer.docx",
+     "bytes": 77030,
+     "sha256": "f8215e31450bb02b67ed625b48b194d4a4d453d7688ba582d5690f1af36e5936"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/one-page-offer/127-one-page-offer.md",
+     "bytes": 6313,
+     "sha256": "8ea22b09e1fd229d80fbfad6c51a136ea4bc9b2161eaa6678405608d441b62e1"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "one-page-offer",
+   "flag": null
+  },
+  {
+   "id": "sop-template",
+   "title": "One-Page SOP",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A one-page SOP that turns a task you repeat into steps anyone, or any tool, can follow, so it stops living in your head.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/sop-template/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/sop-template/127-sop-template.pdf",
+     "bytes": 157566,
+     "sha256": "d78f53d726aee4c4dc034f6fa0e4768cda768f0c1343cc0e51db125e4bd26fea"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/sop-template/127-sop-template.docx",
+     "bytes": 77532,
+     "sha256": "ddaeb21092e4e0129d7bf8aa5d972d806f92827f75d82a3c6c2397ecb180eb8b"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/sop-template/127-sop-template.md",
+     "bytes": 6632,
+     "sha256": "58a329555817740d298046114f35993ab42743821a2de60a92db7090d1f3f419"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "sop-template",
+   "flag": null
+  },
+  {
+   "id": "proposal",
+   "title": "Proposal",
+   "kind": "doc",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "A clean client proposal: their goal in their words, your plan, what is included, timeline, two or three price options and one clear next step.",
+   "tags": [
+    "proposal",
+    "client",
+    "pitch",
+    "pricing",
+    "service"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/proposal/preview.png",
+   "formats": [
+    {
+     "format": "docx",
+     "label": "Word (.docx)",
+     "file": "files/proposal/127-proposal.docx",
+     "bytes": 38430,
+     "sha256": "9b6550b44a451aa0885cd1ad264345c6d5fb48a2e9238e9b89eaa83d48a04a76",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web page (.html, print to PDF)",
+     "file": "files/proposal/127-proposal.html",
+     "bytes": 3117,
+     "sha256": "038a3447ff03f488985c25d717765bdd19a653249b876a2ecdcfbdb0a26fa569",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "Markdown (.md, Notion and Google Docs)",
+     "file": "files/proposal/127-proposal.md",
+     "bytes": 1273,
+     "sha256": "eb11520927d7d14d7853d1e7f6232955719b01226b35cc66b4e0ca13a0c46a7b",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "library": null,
+   "flag": null,
+   "disclaimer": "Template, not legal advice. Laws differ by state, so have a lawyer check anything you'll sign.",
+   "makeItMine": {
+    "files": [
+     "127-proposal.docx",
+     "127-proposal.html",
+     "127-proposal.md"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "business.price",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "business.price",
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   }
+  },
+  {
+   "id": "quote",
+   "title": "Quote",
+   "kind": "doc",
+   "businessTypes": [
+    "local",
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A simple quote or estimate for a job: line items, totals, what is included, how long it is valid, and one way to say yes.",
+   "tags": [
+    "quote",
+    "estimate",
+    "job",
+    "local",
+    "pricing"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/quote/preview.png",
+   "formats": [
+    {
+     "format": "docx",
+     "label": "Word (.docx)",
+     "file": "files/quote/127-quote.docx",
+     "bytes": 38270,
+     "sha256": "5bf071c0d6a0e2d3040cbd11d4f09c4c3f9bc35da1a05e03fa8a43f0370b3dc9",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web page (.html, print to PDF)",
+     "file": "files/quote/127-quote.html",
+     "bytes": 2770,
+     "sha256": "db63b30623a34c8fa00144cf1a8a6389738234905764984885ba300af92e1d26",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "Markdown (.md, Notion and Google Docs)",
+     "file": "files/quote/127-quote.md",
+     "bytes": 921,
+     "sha256": "4fc4563ec189738b14fcd4fe49493b1f175c2ecccb181df1130587bf011368a6",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "library": null,
+   "flag": null,
+   "disclaimer": "Template, not legal advice. Laws differ by state, so have a lawyer check anything you'll sign.",
+   "makeItMine": {
+    "files": [
+     "127-quote.docx",
+     "127-quote.html",
+     "127-quote.md"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "links.website",
+     "today"
+    ],
+    "asks": [
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   }
+  },
+  {
+   "id": "scope-of-work",
+   "title": "Scope of Work",
+   "kind": "doc",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "A one-page scope of work: deliverables with what done means, what is out of scope, revisions, payment schedule and sign-off, so nobody argues later.",
+   "tags": [
+    "sow",
+    "scope",
+    "client",
+    "project",
+    "agreement"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/scope-of-work/preview.png",
+   "formats": [
+    {
+     "format": "docx",
+     "label": "Word (.docx)",
+     "file": "files/scope-of-work/127-scope-of-work.docx",
+     "bytes": 38410,
+     "sha256": "d95e12d529ec722a04c620fe5e959c1b25279411c8f9014300e522a5d5e6d7e0",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web page (.html, print to PDF)",
+     "file": "files/scope-of-work/127-scope-of-work.html",
+     "bytes": 3178,
+     "sha256": "68e57f450f4c4fb723ba20442529416f9813d24ffe9fdf299fa67aaac2a43f14",
+     "fillable": true
+    },
+    {
+     "format": "md",
+     "label": "Markdown (.md, Notion and Google Docs)",
+     "file": "files/scope-of-work/127-scope-of-work.md",
+     "bytes": 1227,
+     "sha256": "075b8f6af81a3086047ed5a5c83a2f30f698d84333d0435663afbba2713582dc",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "library": null,
+   "flag": null,
+   "disclaimer": "Template, not legal advice. Laws differ by state, so have a lawyer check anything you'll sign.",
+   "makeItMine": {
+    "files": [
+     "127-scope-of-work.docx",
+     "127-scope-of-work.html",
+     "127-scope-of-work.md"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "contact.email",
+     "contact.phone",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "contact.email",
+     "contact.phone"
+    ]
+   }
+  },
+  {
+   "id": "ceo-review",
+   "title": "Weekly CEO Review",
+   "kind": "doc",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A 30-minute weekly review in six time-boxed parts that turns last week's numbers into one cut, one handoff and next week's top three.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/ceo-review/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/ceo-review/127-ceo-review.pdf",
+     "bytes": 183160,
+     "sha256": "a9c5fbe9f0c659271237ac53d81fa97818b41219b15df5c463390f7fd684b18a"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/ceo-review/127-ceo-review.docx",
+     "bytes": 78247,
+     "sha256": "31ed8a36950c517d75d1e6fe872a5c8330f96bccc0335c72246674c13d1d4dea"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/ceo-review/127-ceo-review.md",
+     "bytes": 7899,
+     "sha256": "a38966c48f610c0054aa01dc49fa25606fed3baa2183a444d8d7384f14501cde"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "ceo-review",
+   "flag": null
+  },
+  {
+   "id": "email-launch",
+   "title": "Launch Announcement Email",
+   "kind": "email",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Announce a new offer or product plainly: what it is, who it's for, what's included, the price and where to see it.",
+   "tags": [
+    "email",
+    "launch",
+    "announcement",
+    "new product",
+    "offer"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-launch/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-launch/127-email-launch.html",
+     "bytes": 11177,
+     "sha256": "4f6ba24f2e3dcff56be8f4e14f1d05a30b2a45e91c7a994abd0f394122f8b2e3",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-launch.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.audience",
+     "business.name",
+     "business.offer",
+     "business.price",
+     "links.website",
+     "owner.first"
+    ],
+    "asks": [
+     "business.address",
+     "business.price"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light."
+  },
+  {
+   "id": "email-quote-follow-up",
+   "title": "Quote Follow-Up Email",
+   "kind": "email",
+   "businessTypes": [
+    "local",
+    "coach",
+    "creator",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "Check that your quote arrived, recap it, offer to adjust the scope, and make it easy to book a start date or say no.",
+   "tags": [
+    "email",
+    "quote",
+    "estimate",
+    "follow up",
+    "proposal",
+    "sales"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-quote-follow-up/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-quote-follow-up/127-email-quote-follow-up.html",
+     "bytes": 9733,
+     "sha256": "30f0762323abcdec3f7ace292b3ffcadbe41e3dc9e28dc2ae43243d4f97c8264",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-quote-follow-up.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.name",
+     "contact.phone",
+     "links.booking",
+     "owner.first"
+    ],
+    "asks": [
+     "business.address",
+     "contact.phone",
+     "links.booking"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light."
+  },
+  {
+   "id": "email-review-ask",
+   "title": "Review Request Email",
+   "kind": "email",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Ask a happy customer for an honest review in two minutes, with no incentive, and invite them to reply if anything was off.",
+   "tags": [
+    "email",
+    "review",
+    "feedback",
+    "reputation",
+    "google reviews"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-review-ask/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-review-ask/127-email-review-ask.html",
+     "bytes": 8316,
+     "sha256": "d3f7be1f69b6a36862fc945a10816f1b9aa5750cca64b965df11c6051c4db186",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-review-ask.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.name",
+     "links.website",
+     "owner.first"
+    ],
+    "asks": [
+     "business.address"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light. Point the button at your review page, such as your Google Business Profile; it starts on your website."
+  },
+  {
+   "id": "email-newsletter",
+   "title": "Weekly Newsletter Email",
+   "kind": "email",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A short weekly note with three sections: one useful tip, one story from your week, and one small thing to try.",
+   "tags": [
+    "email",
+    "newsletter",
+    "weekly",
+    "update",
+    "content",
+    "list"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-newsletter/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-newsletter/127-email-newsletter.html",
+     "bytes": 11029,
+     "sha256": "289ee4e1e6d4277122cccc1f797ca543c6f4088f7e1bf0c8a181b44d1a8f1b1e",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-newsletter.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.name",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "business.address"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light."
+  },
+  {
+   "id": "email-welcome",
+   "title": "Welcome Email",
+   "kind": "email",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Greet new subscribers warmly, say what you do and how often you'll write, and point them to one easy first step.",
+   "tags": [
+    "email",
+    "welcome",
+    "subscriber",
+    "onboarding",
+    "newsletter",
+    "list"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-welcome/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-welcome/127-email-welcome.html",
+     "bytes": 10056,
+     "sha256": "03b789cad866445566f14d0dfe693e393605c8bd19844335541802de895f51cd",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-welcome.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.audience",
+     "business.name",
+     "business.what",
+     "links.website",
+     "owner.first"
+    ],
+    "asks": [
+     "business.address"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light."
+  },
+  {
+   "id": "email-win-back",
+   "title": "Win-Back Email",
+   "kind": "email",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A friendly hello to a past customer: thanks, what's new since their last visit, and an easy way back with no pressure.",
+   "tags": [
+    "email",
+    "win back",
+    "past customers",
+    "re-engagement",
+    "repeat business"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/email-win-back/preview.png",
+   "formats": [
+    {
+     "format": "html",
+     "label": "HTML email (.html)",
+     "file": "files/email-win-back/127-email-win-back.html",
+     "bytes": 10109,
+     "sha256": "9dca6b115b918a9e86d374d2bf6e582393f46896e8db1de940eb47595042a057",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-email-win-back.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.address",
+     "business.name",
+     "links.booking",
+     "owner.first"
+    ],
+    "asks": [
+     "business.address",
+     "links.booking"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Leave {{unsubscribe}} as is: it is not a fill token. Swap it for your email tool's unsubscribe merge tag (Mailchimp *|UNSUB|*, Klaviyo {% unsubscribe %}, Kit {{ unsubscribe_url }}) before sending. Replace every [bracket] with your own words. The button uses your brand color with white text, so pick a darker brand color if yours is light."
+  },
+  {
+   "id": "social-quote-card",
+   "title": "Customer Quote Card",
+   "kind": "social",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A 1080 x 1080 card for a real customer review, word for word, that you have permission to use. Never write one yourself.",
+   "tags": [
+    "social",
+    "quote",
+    "review",
+    "testimonial",
+    "instagram",
+    "svg"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/social-quote-card/preview.png",
+   "formats": [
+    {
+     "format": "svg",
+     "label": "SVG for Figma or Canva (.svg)",
+     "file": "files/social-quote-card/127-social-quote-card.svg",
+     "bytes": 9487,
+     "sha256": "5df5a8adfdb0d58b2a80775d575f77f466845f40f0d6fa9c4114999952f692ab",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-social-quote-card.svg"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "links.instagram"
+    ],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Live text in web-safe fonts, no outlined type, so it opens in Figma and Canva and stays editable. SVG text does not wrap: if a filled name or link runs long, shorten it or lower the font size. Replace the line \"Add a real review you have permission to use.\" with a real review, word for word, used with the customer's permission."
+  },
+  {
+   "id": "social-carousel",
+   "title": "Five-Slide Carousel",
+   "kind": "social",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A five-slide 1080 x 1350 carousel: a cover, three points and a call to action, ready for Instagram or LinkedIn.",
+   "tags": [
+    "social",
+    "carousel",
+    "instagram",
+    "linkedin",
+    "svg",
+    "figma",
+    "canva"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/social-carousel/preview.png",
+   "formats": [
+    {
+     "format": "svg",
+     "label": "SVG, slide 1 (.svg)",
+     "file": "files/social-carousel/127-social-carousel-1.svg",
+     "bytes": 10002,
+     "sha256": "4503b26b4fdd36289cad908ae65038fadbcfa16e05413956ee517970c9b2f83e",
+     "fillable": true
+    },
+    {
+     "format": "svg",
+     "label": "SVG, slide 2 (.svg)",
+     "file": "files/social-carousel/127-social-carousel-2.svg",
+     "bytes": 9976,
+     "sha256": "8d107aaa3569f9d98534e93134cb7b479cef32a0e0dafa5be12f37618e621317",
+     "fillable": true
+    },
+    {
+     "format": "svg",
+     "label": "SVG, slide 3 (.svg)",
+     "file": "files/social-carousel/127-social-carousel-3.svg",
+     "bytes": 9976,
+     "sha256": "97d49e3c9e30f0ea721393dc377e1c8cfb91cd0bebe8c1b71cbe504338d6db57",
+     "fillable": true
+    },
+    {
+     "format": "svg",
+     "label": "SVG, slide 4 (.svg)",
+     "file": "files/social-carousel/127-social-carousel-4.svg",
+     "bytes": 9978,
+     "sha256": "13087d0c663e134304dbb96378f1109fd9f63f38df3cccfddb0b623ff6ad8511",
+     "fillable": true
+    },
+    {
+     "format": "svg",
+     "label": "SVG, slide 5 (.svg)",
+     "file": "files/social-carousel/127-social-carousel-5.svg",
+     "bytes": 10093,
+     "sha256": "eec0e4a56f44651373c13773917d124d0b9dc368da6646ad5ab1a6c52382fdc2",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-social-carousel-1.svg",
+     "127-social-carousel-2.svg",
+     "127-social-carousel-3.svg",
+     "127-social-carousel-4.svg",
+     "127-social-carousel-5.svg"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "links.instagram",
+     "links.website"
+    ],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Live text in web-safe fonts, no outlined type, so it opens in Figma and Canva and stays editable. SVG text does not wrap: if a filled name or link runs long, shorten it or lower the font size."
+  },
+  {
+   "id": "social-story",
+   "title": "Offer Story",
+   "kind": "social",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A 1080 x 1920 story for an offer or announcement, with your offer, price and link kept clear of the app's buttons.",
+   "tags": [
+    "social",
+    "story",
+    "instagram",
+    "announcement",
+    "offer",
+    "svg"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/social-story/preview.png",
+   "formats": [
+    {
+     "format": "svg",
+     "label": "SVG for Figma or Canva (.svg)",
+     "file": "files/social-story/127-social-story.svg",
+     "bytes": 10573,
+     "sha256": "8e5bf898d27b49b9003384dbbe334db7d6305d3c4c4319bafc9614822451315c",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-social-story.svg"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "business.offer",
+     "business.price",
+     "links.instagram",
+     "links.website"
+    ],
+    "asks": [
+     "business.price"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Live text in web-safe fonts, no outlined type, so it opens in Figma and Canva and stays editable. SVG text does not wrap: if a filled name or link runs long, shorten it or lower the font size."
+  },
+  {
+   "id": "social-thumbnail",
+   "title": "YouTube Thumbnail",
+   "kind": "social",
+   "businessTypes": [
+    "creator",
+    "coach",
+    "idea",
+    "ecom"
+   ],
+   "tier": "builder",
+   "summary": "A dark 1280 x 720 YouTube thumbnail with a big three-to-five-word title and a marked spot for your photo.",
+   "tags": [
+    "social",
+    "youtube",
+    "thumbnail",
+    "video",
+    "creator",
+    "svg"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/social-thumbnail/preview.png",
+   "formats": [
+    {
+     "format": "svg",
+     "label": "SVG for Figma or Canva (.svg)",
+     "file": "files/social-thumbnail/127-social-thumbnail.svg",
+     "bytes": 9439,
+     "sha256": "aad8e744e4b9fc670cc739266b9724d39aa511a990b2732300d56c5908b879db",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-social-thumbnail.svg"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name"
+    ],
+    "asks": []
+   },
+   "library": null,
+   "flag": null,
+   "notes": "Live text in web-safe fonts, no outlined type, so it opens in Figma and Canva and stays editable. SVG text does not wrap: if a filled name or link runs long, shorten it or lower the font size."
+  },
+  {
+   "id": "deck-pitch",
+   "title": "Pitch Deck",
+   "kind": "deck",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A clean 16:9 pitch deck: problem, customer, solution, how it works, why now, traction, model, competition, ask, contact.",
+   "tags": [
+    "deck",
+    "pitch",
+    "investors",
+    "partners",
+    "presentation",
+    "pptx",
+    "slides"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/deck-pitch/preview.png",
+   "formats": [
+    {
+     "format": "pptx",
+     "label": "PowerPoint (.pptx)",
+     "file": "files/deck-pitch/127-deck-pitch.pptx",
+     "bytes": 46267,
+     "sha256": "cc276697df8cbe3f79adb456683a8466034d7216b093d56639f6aede58d075b5",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web deck (.html)",
+     "file": "files/deck-pitch/127-deck-pitch.html",
+     "bytes": 40442,
+     "sha256": "3bc93c99f9474063ccccd8f75fd1c37aa549820adaad711c5d274b355826e07e",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-deck-pitch.pptx",
+     "127-deck-pitch.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.audience",
+     "business.name",
+     "business.offer",
+     "business.price",
+     "business.what",
+     "contact.email",
+     "contact.phone",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "business.price",
+     "contact.email",
+     "contact.phone"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "A cover slide is added in front of the listed slides. The web deck uses your brand color; in PowerPoint the accent is the theme's Accent 1, so change it once under Design > Variants > Colors. Replace every [bracket] with your own facts. Traction is real numbers only: delete a box rather than guess."
+  },
+  {
+   "id": "deck-sales",
+   "title": "Sales Presentation",
+   "kind": "deck",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "Walk a client through their situation, goals, your plan, what's included, the timeline, the price and the next step.",
+   "tags": [
+    "deck",
+    "sales",
+    "proposal",
+    "client call",
+    "presentation",
+    "pptx",
+    "slides"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/deck-sales/preview.png",
+   "formats": [
+    {
+     "format": "pptx",
+     "label": "PowerPoint (.pptx)",
+     "file": "files/deck-sales/127-deck-sales.pptx",
+     "bytes": 42893,
+     "sha256": "357a97566232f429c842ca00eb369b2a84a397fa7fa024f35e5cc834dd3dde1e",
+     "fillable": true
+    },
+    {
+     "format": "html",
+     "label": "Web deck (.html)",
+     "file": "files/deck-sales/127-deck-sales.html",
+     "bytes": 35563,
+     "sha256": "1f0228c51c8fdd5c8d0f9ffc4a0105edcf22f96ae1a26245ed4004a8a7db61c3",
+     "fillable": true
+    }
+   ],
+   "links": [],
+   "makeItMine": {
+    "files": [
+     "127-deck-sales.pptx",
+     "127-deck-sales.html"
+    ],
+    "tokens": [
+     "brand.color",
+     "business.name",
+     "business.offer",
+     "business.price",
+     "contact.email",
+     "contact.phone",
+     "links.booking",
+     "links.website",
+     "owner.first",
+     "today"
+    ],
+    "asks": [
+     "business.price",
+     "contact.email",
+     "contact.phone",
+     "links.booking"
+    ]
+   },
+   "library": null,
+   "flag": null,
+   "notes": "A cover slide is added in front of the listed slides. The web deck uses your brand color; in PowerPoint the accent is the theme's Accent 1, so change it once under Design > Variants > Colors. Replace every [bracket] with your own facts."
+  },
+  {
+   "id": "batch-day",
+   "title": "Batch Day",
+   "kind": "checklist",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Film a full week of short videos in one two-hour block: plan, film, edit and schedule five posts, with a shot list that keeps you on track.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/batch-day/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/batch-day/127-batch-day.pdf",
+     "bytes": 92908,
+     "sha256": "e7bee6d920ada4882fda259af89243442804088a5108a36830ea10e48c211b1d"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/batch-day/127-batch-day.docx",
+     "bytes": 75106,
+     "sha256": "dbaf9fe6504dfaba9ec66f2e6437a1abd56f620e3ca0ed9fcc2ca3f52a2a3847"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/batch-day/127-batch-day.md",
+     "bytes": 3375,
+     "sha256": "65ed4cf0e99e2ee2ea25aab318b0a9a984ef547495a03f6086453192d2a67fad"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "batch-day",
+   "flag": null
+  },
+  {
+   "id": "money-setup-checklist",
+   "title": "Before You Take Money",
+   "kind": "checklist",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Set up payments, separate business money, keep simple records and write down your promises before your first customer pays you.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/money-setup-checklist/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.pdf",
+     "bytes": 109367,
+     "sha256": "c13efd5a1bc169a0f8c3ec5f6c8a0912736300c3d54f9978c4e04ca66ce615f7"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.docx",
+     "bytes": 75613,
+     "sha256": "829a24f7cc3c7532048d45f01846f2136db60a8884212ea05f748bc29c392d6f"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/money-setup-checklist/127-money-setup-checklist.md",
+     "bytes": 4865,
+     "sha256": "66e00793f1fdd8f8694d5e667a7a1ac567058bc3036af5f5121765df034b6990"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "money-setup-checklist",
+   "flag": null,
+   "disclaimer": "General steps from official sources, not legal advice. What applies to you depends on your state, city and business. Check each linked source."
+  },
+  {
+   "id": "page-leak-audit",
+   "title": "Landing Page Leak Audit",
+   "kind": "checklist",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Run 24 quick checks on a page people visit but don't buy from, find the three biggest leaks and fix them one at a time.",
+   "tags": [
+    "grow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/page-leak-audit/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/page-leak-audit/127-page-leak-audit.pdf",
+     "bytes": 95555,
+     "sha256": "257643bb96e4493337a01dbd185c52f8247a944fbb167da3979c85dda088e350"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/page-leak-audit/127-page-leak-audit.docx",
+     "bytes": 75044,
+     "sha256": "32cc9f07acfd7e417d57e67b9ed6262fa05e334041aea7b8937431cf85188f0a"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/page-leak-audit/127-page-leak-audit.md",
+     "bytes": 3414,
+     "sha256": "9f1f0037c1bef7719e34da5e3adddbd070195269e70ad979ffdb3597b8e29f1d"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "page-leak-audit",
+   "flag": null
+  },
+  {
+   "id": "launch-countdown",
+   "title": "Launch Countdown",
+   "kind": "checklist",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Every step from picking a launch date to the week after launch, with a do-by date for each so nothing important gets missed.",
+   "tags": [
+    "build"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/launch-countdown/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/launch-countdown/127-launch-countdown.pdf",
+     "bytes": 113749,
+     "sha256": "f05d18c9eea327b4554306e51fd1843a9e2f08e398573fc0a417d9cf893d6da9"
+    },
+    {
+     "format": "xlsx",
+     "label": "Spreadsheet (Excel or Google Sheets)",
+     "file": "files/launch-countdown/127-launch-countdown.xlsx",
+     "bytes": 14654,
+     "sha256": "305fdcfb1516a7951cf2d256520f5ed2d2f1b4b582c4a939f054cc74f59547f2"
+    },
+    {
+     "format": "xlsx-example",
+     "label": "Filled example (Excel or Google Sheets)",
+     "file": "files/launch-countdown/127-launch-countdown-example.xlsx",
+     "bytes": 14799,
+     "sha256": "2109688b3f253e3e1aa5825ca5b04f0e97a5387d8c45b255eb9c70ce6201336c"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/launch-countdown/127-launch-countdown.docx",
+     "bytes": 76287,
+     "sha256": "b3245ac4ddafae88eef108acf6f351ed052a7bdb84412fa114c20cd42bb37f0d"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/launch-countdown/127-launch-countdown.md",
+     "bytes": 5706,
+     "sha256": "32518283c57c35c9753d6e3aaab448e874670f4fd2381fce7d66402c8ba8ccd2"
+    },
+    {
+     "format": "csv",
+     "label": "CSV for Notion, Attio or any sheet",
+     "file": "files/launch-countdown/127-launch-countdown.csv",
+     "bytes": 373,
+     "sha256": "206b0d3167006b7458ed2f8b779ac00eb1d254c26f8e72f93d91ca7e8fc0b3ad"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "launch-countdown",
+   "flag": null
+  },
+  {
+   "id": "recipe-booking-link",
+   "title": "Booking Link Setup",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Set up one booking link with 2 or 3 set time blocks a week, two intake questions and ready messages, so people book calls without the back-and-forth.",
+   "tags": [
+    "build",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-booking-link/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.pdf",
+     "bytes": 134952,
+     "sha256": "bf4e98da50c3fecca9998a1d95656714f824effbc46aef14740f8a9bc9cc8700"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.docx",
+     "bytes": 76917,
+     "sha256": "cef3539ded0f6d0b9fd182d27977ff308881e73142bb5bd98e778baac39b0fbc"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-booking-link/127-recipe-booking-link.md",
+     "bytes": 6472,
+     "sha256": "c1f064961338ee112e530207cac2446f994a5e2eca4031aeba6fc90112857a5d"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-booking-link",
+   "flag": null
+  },
+  {
+   "id": "recipe-call-notes",
+   "title": "Call Notes to Notion",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Turn every customer call into a clean Notion note and a dated next step, so you listen during the call instead of typing.",
+   "tags": [
+    "build",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-call-notes/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.pdf",
+     "bytes": 132478,
+     "sha256": "a3157da2687ffbfc734f82c13b7bf5287880ab88591ed259566ec30b1fe5678d"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.docx",
+     "bytes": 77099,
+     "sha256": "453ef0384765c9a6f2ad617e6b6d81e6a795b003b3fa38abc9b0a4a1226225be"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-call-notes/127-recipe-call-notes.md",
+     "bytes": 7063,
+     "sha256": "729b304225da4a800336171e836f05783fa9ba6993b20f4e0088a55a711179bc"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-call-notes",
+   "flag": null
+  },
+  {
+   "id": "recipe-comment-to-dm",
+   "title": "Comment-to-DM",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Set up ManyChat so anyone who comments your keyword gets your link by DM in seconds, while you keep every real conversation personal.",
+   "tags": [
+    "grow",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-comment-to-dm/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.pdf",
+     "bytes": 148621,
+     "sha256": "e797032140c408731897bef8f184aba187a6cc3d89cb0122d0e69ca3769ffc94"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.docx",
+     "bytes": 78274,
+     "sha256": "27da93fa35fe1eb45f7b635996826d77f079c8af5375764b30d4e8f95537a56c"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-comment-to-dm/127-recipe-comment-to-dm.md",
+     "bytes": 8258,
+     "sha256": "6731e1eb58153ff85c70688c6dd45edaf5bc960628c5ec6aeaab3a6bf7d6e13a"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-comment-to-dm",
+   "flag": null
+  },
+  {
+   "id": "recipe-follow-up",
+   "title": "Follow-Up Reminders",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "A short email every morning, read from your Pipeline Tracker, listing who to follow up with today and why, without ever messaging anyone for you.",
+   "tags": [
+    "grow",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-follow-up/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.pdf",
+     "bytes": 140487,
+     "sha256": "7278d29bfd0d539a645f43070d3ee9c1b358cb69e808b5b8ea193ea509edea42"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.docx",
+     "bytes": 79741,
+     "sha256": "ab976ca08f11ca282f0015cca735d81f432a9cf62c47a75eb5c61429f4a63dcf"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-follow-up/127-recipe-follow-up.md",
+     "bytes": 12645,
+     "sha256": "21d6f27733a976db28f0749a65b8504337a23a78e96dc9a05d9ca657c98df089"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-follow-up/127-follow-up-reminders.gs",
+     "bytes": 7040,
+     "sha256": "6a42e8cd9f6d904ef42c1504157558a9145c15b1f0d34b4eb577d84a518cfc3a"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-follow-up",
+   "flag": null
+  },
+  {
+   "id": "recipe-lead-form",
+   "title": "Lead Form Autopilot",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Every Google Form answer lands in your Pipeline Tracker with a next step for today, you get it by email, and they get an honest \"got it\".",
+   "tags": [
+    "build",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-lead-form/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.pdf",
+     "bytes": 152815,
+     "sha256": "4ad545da25cf4c081fde12530a534405c2e22fb8ff4b531959753a8b9168ea35"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.docx",
+     "bytes": 81080,
+     "sha256": "3f161516feb940e77e664f9d3fcf4e75fe78f21e0c9b60a02907990b734050c5"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-lead-form/127-recipe-lead-form.md",
+     "bytes": 14768,
+     "sha256": "4adf48405c36aa1acdc6903e4feb4786173176bc004935a5cc42a80c73da0b71"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-lead-form/127-lead-form.gs",
+     "bytes": 7490,
+     "sha256": "a7d62990a3d7630f682c893f9757182583408d3e507f8b250cef9afa585f4e16"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-lead-form",
+   "flag": null
+  },
+  {
+   "id": "recipe-monday-scorecard",
+   "title": "Monday Scorecard Email",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Every Monday your inbox gets last week's five numbers, what changed, your biggest leak and the test you wrote down, or a nudge to fill them in.",
+   "tags": [
+    "grow",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-monday-scorecard/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.pdf",
+     "bytes": 133253,
+     "sha256": "10f565b1af3a9b34195b4d75058992aecc8d85b8e888f0ce2f63f3067398a2a8"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.docx",
+     "bytes": 80079,
+     "sha256": "1fcb71e1f976a6f5012d5fa5db7e5bebae8e480bcfd4265db36c1243e198eac8"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-monday-scorecard/127-recipe-monday-scorecard.md",
+     "bytes": 14308,
+     "sha256": "17605babef07a6f4465e3f35dc90d924d975d9d9c953037862b110554b74c9e7"
+    },
+    {
+     "format": "gs",
+     "label": "Apps Script code",
+     "file": "files/recipe-monday-scorecard/127-monday-scorecard.gs",
+     "bytes": 9558,
+     "sha256": "a8d37b9b42c39911e77ab44caf9b3b57beea72101331cbda5ad6c4c168d57092"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-monday-scorecard",
+   "flag": null
+  },
+  {
+   "id": "recipe-repurpose-video",
+   "title": "One Video, Five Clips",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Film one 3 to 8 minute video and turn it into 3 to 5 short clips with hooks, on-screen text and captions, edited on your phone.",
+   "tags": [
+    "grow",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-repurpose-video/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.pdf",
+     "bytes": 146172,
+     "sha256": "a3e4b5dfa6a208c004f7fbf257cd6455f6a0d669b0131dbaa3ec95858dd3945b"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.docx",
+     "bytes": 77465,
+     "sha256": "b51c2c3880766d159d91fda5f3f9ade7925374eab99d9828dc6f4f4b57925a2d"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-repurpose-video/127-recipe-repurpose-video.md",
+     "bytes": 7035,
+     "sha256": "7e1f9e3099492bbd6d633a04aa323d736b6ed771297de1864e54317d75114669"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-repurpose-video",
+   "flag": null
+  },
+  {
+   "id": "recipe-paid-to-onboarded",
+   "title": "Paid to Onboarded",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Set up what happens automatically after someone pays, plus the welcome, delivery and check-in messages you send yourself.",
+   "tags": [
+    "build",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-paid-to-onboarded/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.pdf",
+     "bytes": 147676,
+     "sha256": "76dd1af688c82f575f1b8162ce8217afff92609890be5a7aa481833645838fc5"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.docx",
+     "bytes": 77296,
+     "sha256": "aef418d119060c921d8f386a8f951649eaf49fb5170299d0d5f8035af93652ee"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-paid-to-onboarded/127-recipe-paid-to-onboarded.md",
+     "bytes": 7692,
+     "sha256": "1ddeca795ec1116d49862feb343a3e59cc2c1858441c220a533376a4c581a4b2"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-paid-to-onboarded",
+   "flag": null
+  },
+  {
+   "id": "recipe-saved-replies",
+   "title": "Saved Replies",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Answer the 5 questions you get every day in one tap, with saved replies on Instagram, TikTok, WhatsApp Business and Gmail that still sound like you.",
+   "tags": [
+    "build",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-saved-replies/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.pdf",
+     "bytes": 139295,
+     "sha256": "fc66130e5425e52245db0a4eef3ef75064bf26a379d78a3870406ce28ec9f5a3"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.docx",
+     "bytes": 76641,
+     "sha256": "a17a7ef98de98ef59395b2fe532420495544d8212ea95dec18b9e6c679825d08"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-saved-replies/127-recipe-saved-replies.md",
+     "bytes": 6505,
+     "sha256": "1a2a60bb9f63355cbd4fed393f88c32ac22637be9f845ad9c4189b1559d6bcee"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-saved-replies",
+   "flag": null
+  },
+  {
+   "id": "recipe-ai-cofounder",
+   "title": "Your AI Co-Founder",
+   "kind": "recipe",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Give Claude your business context once, in a Project with a Business Brief and Eli-style instructions, so every answer knows your business.",
+   "tags": [
+    "start",
+    "workflow"
+   ],
+   "status": "ready",
+   "owner": "templates",
+   "preview": "files/recipe-ai-cofounder/preview.png",
+   "formats": [
+    {
+     "format": "pdf",
+     "label": "Printable PDF",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.pdf",
+     "bytes": 185522,
+     "sha256": "edeff8387b445eff16864f4ed0c3c1b619a170c3f2818af1c7dcae4274ae4bab"
+    },
+    {
+     "format": "docx",
+     "label": "Word (opens in Google Docs too)",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.docx",
+     "bytes": 78592,
+     "sha256": "37d0410cd142281ae6958a2fdea651fbed1a5857db927e68e9582986c0a97c18"
+    },
+    {
+     "format": "md",
+     "label": "Markdown for Notion or any notes app",
+     "file": "files/recipe-ai-cofounder/127-recipe-ai-cofounder.md",
+     "bytes": 9417,
+     "sha256": "6b02780f36287897377b7fbc8de97e59b76c316b5cc74d7cb4c835f0bb331836"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": "recipe-ai-cofounder",
+   "flag": null
+  },
+  {
+   "id": "video-prompts-camera-moves",
+   "title": "Camera move prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "26 camera moves with plain names, what each is for, and ready prompts for six AI video models.",
+   "tags": [
+    "camera moves",
+    "dolly",
+    "orbit",
+    "fpv",
+    "whip pan",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-camera-moves/camera-moves.md",
+     "bytes": 61255,
+     "sha256": "a1af7123a6bd560d6bc6440007ee4a4e1dc187b06949a90415881c1086a1a9e9"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-cinematic",
+   "title": "Cinematic look prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "22 light, lens and film looks that make a brand film feel shot on a real set, written for six AI video models.",
+   "tags": [
+    "cinematic",
+    "brand film",
+    "lighting",
+    "film look",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-cinematic/cinematic.md",
+     "bytes": 48460,
+     "sha256": "00d46e6ee76f760a10c739e2c522f37f08291057451d50afd735cd55312edfc4"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-faceless",
+   "title": "Faceless video prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "creator",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "22 b-roll, moving backgrounds for text and hands-only shots for videos where you never show your face.",
+   "tags": [
+    "faceless",
+    "b-roll",
+    "background",
+    "hands only",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-faceless/faceless.md",
+     "bytes": 45835,
+     "sha256": "71d7c80594454c97ded3a3ec35b6c1190b7090543cec5a3903fc86dad4e661d7"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-image-ads",
+   "title": "Image ad prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "24 still image prompts for ads and posts with room for your headline, written for FLUX and Imagen.",
+   "tags": [
+    "image ads",
+    "product photo",
+    "flux",
+    "imagen",
+    "image prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-image-ads/image-ads.md",
+     "bytes": 16359,
+     "sha256": "216c67dfcd76ab6e774b8cf7676e7d5d7c7d3e271cd964c04c51d9a24bc1c769"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-local-service",
+   "title": "Local service video prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "local"
+   ],
+   "tier": "builder",
+   "summary": "26 before and after reveals and at-work shots for cleaners, landscapers, detailers, trainers and other local services.",
+   "tags": [
+    "local service",
+    "before and after",
+    "cleaning",
+    "detailing",
+    "lawn care",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-local-service/local-service.md",
+     "bytes": 55868,
+     "sha256": "e105541f1e0ca52cf05c935a40b332d8f9e7c02d40fb3643e1afd63fe7c9ffd1"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-product",
+   "title": "Product video prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "ecom",
+    "creator",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "24 product shots: tabletop, hero spin, unboxing, in use, liquid splash and packshot, written for six AI video models.",
+   "tags": [
+    "product video",
+    "ecommerce",
+    "unboxing",
+    "packshot",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-product/product.md",
+     "bytes": 54422,
+     "sha256": "554f05a5930ddfee9ee7d06e11335211056f351963b84ee3df7878d50fd02744"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-shot-lists",
+   "title": "Shot lists by video type",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Five-shot lists for product ads, UGC-style ads, brand films, faceless shorts, b-roll, talking videos, reveals and unboxings.",
+   "tags": [
+    "shot list",
+    "storyboard",
+    "video plan",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-shot-lists/shot-lists.md",
+     "bytes": 73286,
+     "sha256": "cca61fd8f7511c66430e7af49a98e13b954f5a9d3e17c93d853f6afd7962adc5"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-ugc",
+   "title": "UGC-style video prompts",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "creator",
+    "ecom",
+    "coach"
+   ],
+   "tier": "builder",
+   "summary": "22 phone-camera style shots for your own demos or a creator you hire who discloses, written for six AI video models.",
+   "tags": [
+    "ugc",
+    "creator",
+    "grwm",
+    "unboxing",
+    "demo",
+    "video prompts"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-ugc/ugc.md",
+     "bytes": 50676,
+     "sha256": "b9a11f5c14867ae99ed24ebd35940407843daf8f7b6891c3f5aa73f4ff1204ff"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "video-prompts-by-model",
+   "title": "Video prompts by model",
+   "kind": "video-prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "How Kling, Veo, Runway, Luma, Higgsfield, Sora-style, FLUX and Imagen each read a prompt, with the same shots written for each.",
+   "tags": [
+    "video",
+    "ai video",
+    "prompts",
+    "kling",
+    "veo",
+    "runway",
+    "luma",
+    "higgsfield",
+    "sora",
+    "flux",
+    "imagen",
+    "free"
+   ],
+   "status": "ready",
+   "owner": "media",
+   "preview": null,
+   "formats": [
+    {
+     "format": "md",
+     "label": "Markdown (.md)",
+     "file": "files/video-prompts-by-model/by-model.md",
+     "bytes": 18295,
+     "sha256": "80cf1f58847e5a1ecc390036f9bd38a2483f90f1ffac9deb15d05fc5308b0154"
+    }
+   ],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null
+  },
+  {
+   "id": "prompts-brain",
+   "title": "Business brain prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "The fastest way to skip prompting is to stop re-explaining your business. These prompts build a \"business brain\" (a Notion page, an Obsidian vault, or a project in",
+   "tags": [
+    "prompts",
+    "ai",
+    "brain"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "brain"
+   },
+   "prompts": [
+    {
+     "id": "brain.founder_interview",
+     "title": "Interview me into a business brain",
+     "tier": "free",
+     "when": "Day one with any AI tool. Twenty minutes of answering questions saves you hours of re-explaining later."
+    },
+    {
+     "id": "brain.workspace_instructions",
+     "title": "Write my AI workspace instructions",
+     "tier": "free",
+     "when": "You have a business brain and want your AI to follow your rules automatically in every chat (project instructions, custom instructions or a CLAUDE.md file)."
+    },
+    {
+     "id": "brain.vault_setup",
+     "title": "Set up my second brain (Notion or Obsidian)",
+     "tier": "builder",
+     "when": "You want one place where decisions, files, numbers and lessons live, laid out so an AI can find the right context fast."
+    },
+    {
+     "id": "brain.capture_to_actions",
+     "title": "Turn a call, voice note or meeting into actions",
+     "tier": "free",
+     "when": "Right after a sales call, client meeting, or a voice memo of ideas. Paste the transcript or notes."
+    },
+    {
+     "id": "brain.weekly_learnings",
+     "title": "Weekly lessons and decisions log",
+     "tier": "builder",
+     "when": "Every Friday or Sunday. Ten minutes to record what you learned so you stop relearning it."
+    }
+   ],
+   "groupTitle": "Business brain: give your AI the context once"
+  },
+  {
+   "id": "prompts-content",
+   "title": "Content and hooks prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Find an angle, repeat what works, and turn one idea into a week of posts. These prompts write hooks, scripts, calendars and a voice guide so your content sounds like you.",
+   "tags": [
+    "prompts",
+    "ai",
+    "content"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "content"
+   },
+   "prompts": [
+    {
+     "id": "content.hook_bank",
+     "title": "Hook bank",
+     "tier": "free",
+     "when": "You need scroll-stopping first lines for videos or posts about your business."
+    },
+    {
+     "id": "content.calendar_30",
+     "title": "30-day content calendar",
+     "tier": "free",
+     "when": "You want a month of posts planned in one sitting so you stop staring at a blank screen."
+    },
+    {
+     "id": "content.repurpose",
+     "title": "One idea, ten posts",
+     "tier": "builder",
+     "when": "You made one good piece of content (a video, a call, a blog post) and want to get ten posts out of it."
+    },
+    {
+     "id": "content.voice_guide",
+     "title": "Brand voice and look guide",
+     "tier": "builder",
+     "when": "You want everything you post, write and design to look and sound like one brand."
+    },
+    {
+     "id": "content.performance_read",
+     "title": "What is working in my content?",
+     "tier": "builder",
+     "when": "Once a week or month. Paste your post stats and find out what to double down on."
+    }
+   ],
+   "groupTitle": "Content and hooks: get seen by the right people"
+  },
+  {
+   "id": "prompts-finance",
+   "title": "Finance and forecasting prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Simple numbers beat gut feel. These prompts build a forecast, check your unit economics, read your week, and tell you how long your cash lasts. They plan and explain;",
+   "tags": [
+    "prompts",
+    "ai",
+    "finance"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "finance"
+   },
+   "prompts": [
+    {
+     "id": "finance.forecast",
+     "title": "12-month forecast",
+     "tier": "builder",
+     "when": "You want to see where the business could be in a year under three scenarios, and what has to be true for each."
+    },
+    {
+     "id": "finance.unit_economics",
+     "title": "Unit economics and payback",
+     "tier": "builder",
+     "when": "Before you spend on ads or tools. You want to know what a customer is worth and what you can afford to pay to get one."
+    },
+    {
+     "id": "finance.weekly_numbers",
+     "title": "Read my week",
+     "tier": "free",
+     "when": "Every Monday. Paste your numbers and get the one move for the week."
+    },
+    {
+     "id": "finance.cash_runway",
+     "title": "Cash runway and spending check",
+     "tier": "builder",
+     "when": "You want to know how long your money lasts and which costs to cut first."
+    },
+    {
+     "id": "finance.quote_invoice",
+     "title": "Quote and invoice writer",
+     "tier": "free",
+     "when": "A customer said yes or asked for a price, and you need a clean quote or invoice now."
+    }
+   ],
+   "groupTitle": "Finance and forecasting: know your numbers"
+  },
+  {
+   "id": "prompts-offer",
+   "title": "Offer prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A good offer does the selling for you. These prompts build an offer, a free lead magnet, a price ladder and a sales page that people find hard to say no to, without hype",
+   "tags": [
+    "prompts",
+    "ai",
+    "offer"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "offer"
+   },
+   "prompts": [
+    {
+     "id": "offer.builder",
+     "title": "Offer builder",
+     "tier": "free",
+     "when": "You know what you do and who for, and you want an offer that is easy to say yes to."
+    },
+    {
+     "id": "offer.free_magnet",
+     "title": "A free thing that feels dumb to give away",
+     "tier": "builder",
+     "when": "You need a lead magnet people actually want: so useful they wonder why it is free."
+    },
+    {
+     "id": "offer.price_ladder",
+     "title": "Price ladder and money model",
+     "tier": "builder",
+     "when": "You have one offer and want the full path: a way in, a main offer, an upgrade, a smaller option, and a monthly plan."
+    },
+    {
+     "id": "offer.pricing_floor",
+     "title": "What should I charge?",
+     "tier": "free",
+     "when": "You're about to quote a price and you're guessing."
+    },
+    {
+     "id": "offer.sales_page",
+     "title": "Sales page that converts",
+     "tier": "builder",
+     "when": "You need a landing or sales page for your offer, written so a stranger understands it in five seconds."
+    },
+    {
+     "id": "offer.objection_bank",
+     "title": "Objection bank",
+     "tier": "free",
+     "when": "Before sales calls or DMs, so you never freeze when someone pushes back."
+    }
+   ],
+   "groupTitle": "Offer: make it too good to ignore"
+  },
+  {
+   "id": "prompts-ops",
+   "title": "Ops and SOPs prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A business is only worth what it is when you are not there. These prompts plan your day, write your processes down, find what to automate, and turn repeat work into a",
+   "tags": [
+    "prompts",
+    "ai",
+    "ops"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "ops"
+   },
+   "prompts": [
+    {
+     "id": "ops.do_my_day",
+     "title": "Do my day",
+     "tier": "free",
+     "when": "Every morning. Paste your list, pipeline and calendar and get the exact order to do things in."
+    },
+    {
+     "id": "ops.sop_writer",
+     "title": "Write the SOP",
+     "tier": "free",
+     "when": "You do something more than twice. Write it down once so you, a helper or your AI can do it the same way every time."
+    },
+    {
+     "id": "ops.automation_map",
+     "title": "What should I automate?",
+     "tier": "builder",
+     "when": "You feel busy but not productive. You want to know which jobs to automate, template, delegate or drop."
+    },
+    {
+     "id": "ops.skill_packager",
+     "title": "Turn a repeat job into an AI skill",
+     "tier": "builder",
+     "when": "You keep giving your AI the same instructions. Package them once as a reusable skill, project, or custom GPT."
+    },
+    {
+     "id": "ops.client_onboarding",
+     "title": "Client onboarding kit",
+     "tier": "builder",
+     "when": "You just closed a customer and want them to feel taken care of from minute one."
+    },
+    {
+     "id": "ops.weekly_review",
+     "title": "Weekly CEO review",
+     "tier": "builder",
+     "when": "Once a week, 20 minutes. Step out of the work and steer the business."
+    },
+    {
+     "id": "ops.hire_brief",
+     "title": "First helper brief",
+     "tier": "builder",
+     "when": "You're ready to pay someone for a few hours a week and want the job clear before you post it."
+    }
+   ],
+   "groupTitle": "Ops and SOPs: run it without you in every step"
+  },
+  {
+   "id": "prompts-outreach",
+   "title": "Outreach prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Every business starts with the first 25 people who might buy. These prompts help you build that list, show each one something useful, write the message, follow up, and",
+   "tags": [
+    "prompts",
+    "ai",
+    "outreach"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "outreach"
+   },
+   "prompts": [
+    {
+     "id": "outreach.first_25",
+     "title": "Build your list of 25",
+     "tier": "free",
+     "when": "You know what you sell and need a list of real people or businesses to contact first, with a reason to contact each one."
+    },
+    {
+     "id": "outreach.first_message",
+     "title": "First message with a sample attached",
+     "tier": "free",
+     "when": "You have someone on your list and a gap you noticed. You want a first message that gets read, not ignored."
+    },
+    {
+     "id": "outreach.follow_ups",
+     "title": "Follow-up sequence",
+     "tier": "builder",
+     "when": "Someone didn't reply. Most yeses come after the second or third touch."
+    },
+    {
+     "id": "outreach.reply_copilot",
+     "title": "Reply copilot",
+     "tier": "free",
+     "when": "Someone replied and you want the best next message, fast."
+    },
+    {
+     "id": "outreach.call_prep",
+     "title": "Call prep in 60 seconds",
+     "tier": "builder",
+     "when": "You have a sales call coming up and want a plan for it."
+    },
+    {
+     "id": "outreach.comment_to_dm",
+     "title": "Comment-to-DM automation script",
+     "tier": "builder",
+     "when": "You post content and want people who comment a keyword to get your free thing by DM automatically (ManyChat or similar)."
+    },
+    {
+     "id": "outreach.warm_network",
+     "title": "Warm network and referral asks",
+     "tier": "free",
+     "when": "Before cold outreach. The people who already know you are the fastest first customers and referrals."
+    },
+    {
+     "id": "outreach.brand_pitch",
+     "title": "Brand pitch for creators",
+     "tier": "builder",
+     "when": "You're a UGC creator or influencer and want to pitch brands for paid content."
+    }
+   ],
+   "groupTitle": "Outreach: find buyers and start conversations"
+  },
+  {
+   "id": "prompts-review",
+   "title": "Review prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Most first drafts are fine. Fine loses. Run these on anything before it goes out: an offer, a page, a script, a plan. They find what is generic, unclear or untrue, and",
+   "tags": [
+    "prompts",
+    "ai",
+    "review"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "review"
+   },
+   "prompts": [
+    {
+     "id": "review.ten_x",
+     "title": "The 10x pass",
+     "tier": "free",
+     "when": "You (or your AI) finished something and it is \"good enough\". Run this before you ship it."
+    },
+    {
+     "id": "review.slop_check",
+     "title": "Is this high quality or AI filler?",
+     "tier": "free",
+     "when": "Anything an AI helped make. Catch the generic, robotic or padded parts before a customer does."
+    },
+    {
+     "id": "review.five_second",
+     "title": "Five-second clarity test",
+     "tier": "free",
+     "when": "Before you publish a page, post, ad or pitch. If a stranger can't get it in five seconds, it fails."
+    },
+    {
+     "id": "review.brand_consistency",
+     "title": "Brand consistency sweep",
+     "tier": "builder",
+     "when": "You have made a lot of things fast (posts, pages, emails, decks) and want them to look and sound like one brand."
+    },
+    {
+     "id": "review.claims_check",
+     "title": "Claims and compliance check",
+     "tier": "free",
+     "when": "Before any ad, sales page, email or post goes out. Catch promises that could get you in trouble or lose trust."
+    },
+    {
+     "id": "review.skeptic",
+     "title": "Red-team it as a skeptical buyer",
+     "tier": "builder",
+     "when": "Before a pitch, launch or price change. Hear every reason to say no before a real buyer says it."
+    },
+    {
+     "id": "review.premortem",
+     "title": "Pre-mortem",
+     "tier": "builder",
+     "when": "Before you commit time or money to a launch, hire, tool or big change."
+    }
+   ],
+   "groupTitle": "Review: the 10x pass"
+  },
+  {
+   "id": "prompts-start",
+   "title": "Start prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Use these before you build anything. They test an idea against real demand, find who already sells it, and get you talking to buyers this week.",
+   "tags": [
+    "prompts",
+    "ai",
+    "start"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "start"
+   },
+   "prompts": [
+    {
+     "id": "start.idea_test",
+     "title": "The Idea Test",
+     "tier": "free",
+     "when": "You have one to five business ideas and want a straight answer on which one to start, before you spend a dollar."
+    },
+    {
+     "id": "start.business_match",
+     "title": "Business match",
+     "tier": "free",
+     "when": "You want to start something but don't have an idea yet, and you want three options that fit your skills, time and money."
+    },
+    {
+     "id": "start.competitor_teardown",
+     "title": "Five-player teardown",
+     "tier": "builder",
+     "when": "You picked a business and want to know how the people already winning at it find buyers, price, and deliver."
+    },
+    {
+     "id": "start.customer_interviews",
+     "title": "Customer interview kit",
+     "tier": "free",
+     "when": "Before you build. You want to learn how buyers solve the problem today and whether they would pay you to solve it."
+    },
+    {
+     "id": "start.market_brief",
+     "title": "Market research brief",
+     "tier": "builder",
+     "when": "You need the numbers and trends behind a market fast: size, growth, buyers, prices, and where AI is changing it."
+    },
+    {
+     "id": "start.pmf_check",
+     "title": "Demand check",
+     "tier": "builder",
+     "when": "You've had some sales or conversations and want an honest read on whether people really want this, and what to double down on."
+    }
+   ],
+   "groupTitle": "Start: pick it and prove it"
+  },
+  {
+   "id": "prompts-video",
+   "title": "Video prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "Video sells. These prompts write scripts, plan shoots, write prompts for AI video and voice tools, build an edit plan, and make a spec video to pitch a business before",
+   "tags": [
+    "prompts",
+    "ai",
+    "video"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "video"
+   },
+   "prompts": [
+    {
+     "id": "video.short_script",
+     "title": "Short video script",
+     "tier": "free",
+     "when": "You have a topic and need a 15 to 60 second script that hooks, keeps people watching and ends with one action."
+    },
+    {
+     "id": "video.spec_promo",
+     "title": "Spec promo video for a prospect",
+     "tier": "builder",
+     "when": "You want to pitch a local business by showing them a video made for them before they've paid you."
+    },
+    {
+     "id": "video.ai_shot_prompts",
+     "title": "AI video shot prompts",
+     "tier": "builder",
+     "when": "You want B-roll, product shots or scenes from an AI video tool and need prompts that come out right the first time."
+    },
+    {
+     "id": "video.voiceover",
+     "title": "Voiceover script and voice direction",
+     "tier": "builder",
+     "when": "You want a voiceover for a video, read by you or an AI voice tool."
+    },
+    {
+     "id": "video.edit_plan",
+     "title": "Edit plan from raw footage",
+     "tier": "free",
+     "when": "You have raw clips and need a fast plan to cut them into a short video in CapCut or any editor."
+    },
+    {
+     "id": "video.long_form",
+     "title": "Long video outline",
+     "tier": "builder",
+     "when": "You want to make a 5 to 15 minute YouTube or podcast-style video that builds trust and sends people to your offer."
+    }
+   ],
+   "groupTitle": "Video: script, shoot, generate and edit"
+  },
+  {
+   "id": "prompts-website",
+   "title": "Website and store prompts",
+   "kind": "prompts",
+   "businessTypes": [
+    "any"
+   ],
+   "tier": "free",
+   "summary": "A site that looks cheap costs you buyers. These prompts build animated landing pages, steal good ideas from great sites, fix a weak hero, and launch a store that",
+   "tags": [
+    "prompts",
+    "ai",
+    "website"
+   ],
+   "status": "ready",
+   "owner": "prompts",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null,
+   "flag": null,
+   "source": {
+    "manifest": "product/prompts/manifest.json",
+    "group": "website"
+   },
+   "prompts": [
+    {
+     "id": "website.landing_build",
+     "title": "Build an animated landing page",
+     "tier": "builder",
+     "when": "You want a real, working one-page site with motion that feels premium, built by an AI that writes code (Claude, ChatGPT, Replit, Lovable, v0)."
+    },
+    {
+     "id": "website.hero_10x",
+     "title": "Make the hero 10x better",
+     "tier": "free",
+     "when": "Your homepage top section feels flat, generic or \"AI\". You want it to hook a stranger in five seconds."
+    },
+    {
+     "id": "website.reference_teardown",
+     "title": "Learn from a great site",
+     "tier": "builder",
+     "when": "You found a site, brand or studio you love and want to borrow what makes it great without copying it."
+    },
+    {
+     "id": "website.prospect_mockup",
+     "title": "Homepage mock-up for a prospect",
+     "tier": "builder",
+     "when": "You sell websites and want to show a business what their new homepage could look like before they pay."
+    },
+    {
+     "id": "website.store_launch",
+     "title": "Store launch plan",
+     "tier": "builder",
+     "when": "You are opening a Shopify, Etsy or similar store and want it set up to sell from day one."
+    },
+    {
+     "id": "website.conversion_audit",
+     "title": "Why is my site not converting?",
+     "tier": "free",
+     "when": "People visit but don't buy, book or sign up."
+    }
+   ],
+   "groupTitle": "Website and store: look like the real thing"
+  },
+  {
+   "id": "service-agreement",
+   "title": "Service agreement",
+   "kind": "doc",
+   "businessTypes": [
+    "local",
+    "coach",
+    "idea"
+   ],
+   "tier": "builder",
+   "owner": "templates",
+   "flag": null,
+   "summary": "A plain-English service agreement for client work. Coming after a lawyer reviews it.",
+   "tags": [
+    "contract",
+    "agreement",
+    "client"
+   ],
+   "disclaimer": "Template, not legal advice. Laws differ by state, so have a lawyer check anything you'll sign.",
+   "status": "coming",
+   "preview": null,
+   "formats": [],
+   "links": [],
+   "makeItMine": null,
+   "library": null
+  }
+ ]
+}

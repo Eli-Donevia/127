@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales Presentation &middot; {{business.name}}</title>
+<style>
+:root{--accent:{{brand.color|#111111}};--bg:#E9E8E3}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.stage{position:relative;width:1600px;height:900px;flex:none;transform-origin:center center}
+.slide{position:absolute;inset:0;width:1600px;height:900px;background:#FFFFFF;overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s linear .5s;
+  box-shadow:0 1px 2px rgba(0,0,0,.05),0 20px 60px rgba(0,0,0,.08)}
+.slide.dark{background:#121214}
+.slide.active{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.slide.before{transform:translateY(-14px)}
+.t{position:absolute;margin:0;white-space:pre-line;overflow-wrap:break-word}
+.r{position:absolute}
+.nav{position:fixed;right:18px;bottom:14px;display:flex;gap:6px;align-items:center;font:500 13px/1 Inter,Helvetica,Arial,sans-serif;color:#6E6D67;user-select:none}
+.nav button{all:unset;cursor:pointer;width:34px;height:34px;border-radius:17px;display:grid;place-items:center;background:rgba(255,255,255,.75);color:#2A2A27}
+.nav button:hover{background:#fff}
+.nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nav span{min-width:56px;text-align:center}
+.bar{position:fixed;left:0;top:0;height:3px;background:var(--accent);width:0;transition:width .4s ease}
+@media (prefers-reduced-motion: reduce){
+  .slide,.slide.before{transition:none;transform:none}
+  .bar{transition:none}
+}
+@page{size:1600px 900px;margin:0}
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  .viewport{position:static;display:block}
+  .stage{transform:none !important;width:1600px;height:auto}
+  .slide{position:relative;opacity:1 !important;visibility:visible !important;transform:none !important;
+    transition:none;box-shadow:none;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .nav,.bar{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="viewport"><div class="stage" id="stage">
+<section class="slide" aria-label="Slide 1">
+<div class="r" style="left:1440px;top:0px;width:160px;height:900px;background:var(--accent);"></div>
+<div class="r" style="left:120px;top:196px;width:72px;height:6px;background:var(--accent);"></div>
+<div class="t" style="left:120px;top:236px;width:1200px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.6px;text-transform:uppercase;">Proposal for [Client name]</div>
+<div class="t" style="left:120px;top:282px;width:1240px;font-family:Georgia, 'Times New Roman', serif;font-size:100px;line-height:1.05;font-weight:400;color:#151515;letter-spacing:-2px;">A plan for [Client name]</div>
+<div class="t" style="left:120px;top:500px;width:1100px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:30px;line-height:1.4;font-weight:400;color:#4A4A45;">Prepared by {{owner.first}} at {{business.name}}</div>
+<div class="r" style="left:120px;top:716px;width:1240px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:742px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Contact</div>
+<div class="t" style="left:120px;top:772px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;line-height:1.25;font-weight:400;color:#151515;">{{contact.email}}</div>
+<div class="t" style="left:540px;top:742px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Phone</div>
+<div class="t" style="left:540px;top:772px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;line-height:1.25;font-weight:400;color:#151515;">{{contact.phone}}</div>
+<div class="t" style="left:960px;top:742px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Date</div>
+<div class="t" style="left:960px;top:772px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;line-height:1.25;font-weight:400;color:#151515;">{{today}}</div>
+</section>
+<section class="slide" aria-label="Slide 2">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">01  Where you are now</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">02 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1220px;font-family:Georgia, 'Times New Roman', serif;font-size:62px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">“[Their situation, in the words they used on your first call.]”</div>
+<div class="r" style="left:120px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:120px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[What’s working]</div>
+<div class="t" style="left:120px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[Name what they already do well. It shows you listened.]</div>
+<div class="r" style="left:600px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:600px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[What’s in the way]</div>
+<div class="t" style="left:600px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[The real blocker, as they described it.]</div>
+<div class="r" style="left:1080px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:1080px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[What they’ve tried]</div>
+<div class="t" style="left:1080px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[Past fixes, and why they didn’t stick.]</div>
+</section>
+<section class="slide" aria-label="Slide 3">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">02  What you want</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">03 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1220px;font-family:Georgia, 'Times New Roman', serif;font-size:62px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">What a good result looks like for you.</div>
+<div class="t" style="left:120px;top:400px;width:1100px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:26px;line-height:1.45;font-weight:400;color:#4A4A45;">[Use their goals, not yours. Keep each one specific and in their control.]</div>
+<div class="r" style="left:120px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:120px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Goal one]</div>
+<div class="t" style="left:120px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[How you’ll both know it happened.]</div>
+<div class="r" style="left:600px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:600px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Goal two]</div>
+<div class="t" style="left:600px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[How you’ll both know it happened.]</div>
+<div class="r" style="left:1080px;top:560px;width:56px;height:4px;background:var(--accent);"></div>
+<div class="t" style="left:1080px;top:590px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Goal three]</div>
+<div class="t" style="left:1080px;top:632px;width:400px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:1.5;font-weight:400;color:#4A4A45;">[How you’ll both know it happened.]</div>
+</section>
+<section class="slide" aria-label="Slide 4">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">03  The plan</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">04 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1200px;font-family:Georgia, 'Times New Roman', serif;font-size:52px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">How we’ll get there together.</div>
+<div class="r" style="left:120px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:160px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">01</div>
+<div class="r" style="left:160px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:160px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">[Phase one]</div>
+<div class="t" style="left:160px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What happens, and what they’ll see at the end of it.]</div>
+<div class="r" style="left:600px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:640px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">02</div>
+<div class="r" style="left:640px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:640px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">[Phase two]</div>
+<div class="t" style="left:640px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What happens, and what they’ll see at the end of it.]</div>
+<div class="r" style="left:1080px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:1120px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">03</div>
+<div class="r" style="left:1120px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:1120px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">[Phase three]</div>
+<div class="t" style="left:1120px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What happens, and what they’ll see at the end of it.]</div>
+</section>
+<section class="slide" aria-label="Slide 5">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">04  What’s included</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">05 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1200px;font-family:Georgia, 'Times New Roman', serif;font-size:52px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">Everything in {{business.offer}}.</div>
+<div class="r" style="left:120px;top:360px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:120px;top:394px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:160px;top:384px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Deliverable one]</div>
+<div class="t" style="left:160px;top:422px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[One line on what it is]</div>
+<div class="r" style="left:820px;top:360px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:820px;top:394px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:860px;top:384px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Deliverable two]</div>
+<div class="t" style="left:860px;top:422px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[One line on what it is]</div>
+<div class="r" style="left:120px;top:500px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:120px;top:534px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:160px;top:524px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Deliverable three]</div>
+<div class="t" style="left:160px;top:562px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[One line on what it is]</div>
+<div class="r" style="left:820px;top:500px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:820px;top:534px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:860px;top:524px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Deliverable four]</div>
+<div class="t" style="left:860px;top:562px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[One line on what it is]</div>
+<div class="r" style="left:120px;top:640px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:120px;top:674px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:160px;top:664px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Support]</div>
+<div class="t" style="left:160px;top:702px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[How and when they can reach you]</div>
+<div class="r" style="left:820px;top:640px;width:660px;height:1px;background:#E4E2DC;"></div>
+<div class="r" style="left:820px;top:674px;width:14px;height:14px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:860px;top:664px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#151515;">[Anything else]</div>
+<div class="t" style="left:860px;top:702px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">[Or delete this row]</div>
+</section>
+<section class="slide" aria-label="Slide 6">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">05  Timeline</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">06 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1200px;font-family:Georgia, 'Times New Roman', serif;font-size:52px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">From yes to done.</div>
+<div class="r" style="left:120px;top:529px;width:1360px;height:2px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:470px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">[Week 1]</div>
+<div class="r" style="left:120px;top:520px;width:20px;height:20px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:120px;top:574px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">Kickoff</div>
+<div class="t" style="left:120px;top:618px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What happens first, and what you need from them.]</div>
+<div class="t" style="left:480px;top:470px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">[Week 2]</div>
+<div class="r" style="left:480px;top:520px;width:20px;height:20px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:480px;top:574px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">[Milestone]</div>
+<div class="t" style="left:480px;top:618px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What’s finished by now.]</div>
+<div class="t" style="left:840px;top:470px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">[Week 3]</div>
+<div class="r" style="left:840px;top:520px;width:20px;height:20px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:840px;top:574px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">[Milestone]</div>
+<div class="t" style="left:840px;top:618px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What’s finished by now.]</div>
+<div class="t" style="left:1200px;top:470px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">[Week 4]</div>
+<div class="r" style="left:1200px;top:520px;width:20px;height:20px;background:var(--accent);border-radius:50%;"></div>
+<div class="t" style="left:1200px;top:574px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">Handover</div>
+<div class="t" style="left:1200px;top:618px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What they have at the end.]</div>
+</section>
+<section class="slide" aria-label="Slide 7">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">06  Investment</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">07 / 09</div>
+<div class="t" style="left:120px;top:156px;width:660px;font-family:Georgia, 'Times New Roman', serif;font-size:52px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">{{business.offer}}</div>
+<div class="t" style="left:120px;top:360px;width:700px;font-family:Georgia, 'Times New Roman', serif;font-size:84px;line-height:1.1;font-weight:400;color:var(--accent);letter-spacing:-1px;">{{business.price}}</div>
+<div class="t" style="left:120px;top:476px;width:660px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;line-height:1.4;font-weight:400;color:#8A8983;">[Per project, per month or per visit]</div>
+<div class="r" style="left:880px;top:170px;width:600px;height:1px;background:#151515;"></div>
+<div class="t" style="left:880px;top:196px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Includes</div>
+<div class="t" style="left:880px;top:228px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.4;font-weight:400;color:#151515;">[A short summary of what’s included]</div>
+<div class="r" style="left:880px;top:340px;width:600px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:880px;top:366px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Payment</div>
+<div class="t" style="left:880px;top:398px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.4;font-weight:400;color:#151515;">[Deposit and payment terms]</div>
+<div class="r" style="left:880px;top:510px;width:600px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:880px;top:536px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#8A8983;letter-spacing:2px;text-transform:uppercase;">Not included</div>
+<div class="t" style="left:880px;top:568px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:24px;line-height:1.4;font-weight:400;color:#151515;">[Anything out of scope, so there are no surprises]</div>
+<div class="r" style="left:880px;top:680px;width:600px;height:1px;background:#E4E2DC;"></div>
+</section>
+<section class="slide" aria-label="Slide 8">
+<div class="t" style="left:120px;top:96px;width:900px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;line-height:1.25;font-weight:700;color:var(--accent);letter-spacing:2.4px;text-transform:uppercase;">07  Next step</div>
+<div class="r" style="left:120px;top:818px;width:1360px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#8A8983;">{{business.name}}</div>
+<div class="t" style="left:1180px;top:838px;width:300px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:400;color:#8A8983;letter-spacing:1px;text-align:right;">08 / 09</div>
+<div class="t" style="left:120px;top:156px;width:1200px;font-family:Georgia, 'Times New Roman', serif;font-size:52px;line-height:1.15;font-weight:400;color:#151515;letter-spacing:-1px;">If this looks right, here’s how we start.</div>
+<div class="r" style="left:120px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:160px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">01</div>
+<div class="r" style="left:160px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:160px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">Confirm the plan</div>
+<div class="t" style="left:160px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[Reply with any changes you’d like to the scope.]</div>
+<div class="r" style="left:600px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:640px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">02</div>
+<div class="r" style="left:640px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:640px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">Approve and book</div>
+<div class="t" style="left:640px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[Approve the quote and pick a start date at {{links.booking}}]</div>
+<div class="r" style="left:1080px;top:372px;width:400px;height:350px;background:#F5F4F0;"></div>
+<div class="t" style="left:1120px;top:408px;width:200px;font-family:Georgia, 'Times New Roman', serif;font-size:56px;line-height:1.25;font-weight:400;color:var(--accent);">03</div>
+<div class="r" style="left:1120px;top:520px;width:320px;height:1px;background:#E4E2DC;"></div>
+<div class="t" style="left:1120px;top:548px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:25px;line-height:1.3;font-weight:700;color:#151515;">Kickoff</div>
+<div class="t" style="left:1120px;top:592px;width:320px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:19px;line-height:1.5;font-weight:400;color:#4A4A45;">[What happens on day one, and who’s involved.]</div>
+<div class="t" style="left:120px;top:752px;width:1360px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;line-height:1.25;font-weight:400;color:#8A8983;">No pressure. If the timing isn’t right, just say so and we’ll pick it up when it is.</div>
+</section>
+<section class="slide dark" aria-label="Slide 9">
+<div class="r" style="left:120px;top:196px;width:72px;height:6px;background:#FFFFFF;"></div>
+<div class="t" style="left:120px;top:236px;width:1300px;font-family:Georgia, 'Times New Roman', serif;font-size:108px;line-height:1.05;font-weight:400;color:#FFFFFF;letter-spacing:-2px;">Thank you.</div>
+<div class="t" style="left:120px;top:384px;width:1000px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:26px;line-height:1.45;font-weight:400;color:#B4B3AD;">Questions about anything in this plan? Reach me directly.</div>
+<div class="r" style="left:120px;top:540px;width:600px;height:1px;background:#85847E;"></div>
+<div class="t" style="left:120px;top:564px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#85847E;letter-spacing:2px;text-transform:uppercase;">Name</div>
+<div class="t" style="left:120px;top:594px;width:640px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:28px;line-height:1.25;font-weight:400;color:#FFFFFF;">{{owner.first}}</div>
+<div class="r" style="left:800px;top:540px;width:600px;height:1px;background:#85847E;"></div>
+<div class="t" style="left:800px;top:564px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#85847E;letter-spacing:2px;text-transform:uppercase;">Email</div>
+<div class="t" style="left:800px;top:594px;width:640px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:28px;line-height:1.25;font-weight:400;color:#FFFFFF;">{{contact.email}}</div>
+<div class="r" style="left:120px;top:664px;width:600px;height:1px;background:#85847E;"></div>
+<div class="t" style="left:120px;top:688px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#85847E;letter-spacing:2px;text-transform:uppercase;">Phone</div>
+<div class="t" style="left:120px;top:718px;width:640px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:28px;line-height:1.25;font-weight:400;color:#FFFFFF;">{{contact.phone}}</div>
+<div class="r" style="left:800px;top:664px;width:600px;height:1px;background:#85847E;"></div>
+<div class="t" style="left:800px;top:688px;width:600px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.25;font-weight:700;color:#85847E;letter-spacing:2px;text-transform:uppercase;">Website</div>
+<div class="t" style="left:800px;top:718px;width:640px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:28px;line-height:1.25;font-weight:400;color:#FFFFFF;">{{links.website}}</div>
+<div class="t" style="left:120px;top:838px;width:800px;font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.25;font-weight:600;color:#85847E;">{{business.name}}</div>
+</section>
+</div></div>
+<div class="nav" aria-label="Slide controls">
+<button id="prev" aria-label="Previous slide">&#8592;</button><span id="count">1 / 1</span><button id="next" aria-label="Next slide">&#8594;</button>
+</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var stage=document.getElementById('stage'),count=document.getElementById('count'),bar=document.getElementById('bar');
+  var i=0;
+  function fit(){var s=Math.min(window.innerWidth/1600,window.innerHeight/900);stage.style.transform='scale('+s+')';}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(el,k){el.classList.toggle('active',k===i);el.classList.toggle('before',k<i);el.setAttribute('aria-hidden',k===i?'false':'true');});
+    count.textContent=(i+1)+' / '+slides.length;
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    if(history.replaceState)history.replaceState(null,'','#'+(i+1));
+  }
+  function fromHash(){var n=parseInt((location.hash||'').slice(1),10);return isNaN(n)?0:n-1;}
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();show(i+1);}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();show(i-1);}
+    else if(k==='Home'){show(0);}else if(k==='End'){show(slides.length-1);}
+  });
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){show(dx<0?i+1:i-1);}x0=null;
+  },{passive:true});
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  window.addEventListener('resize',fit);
+  window.addEventListener('hashchange',function(){var n=fromHash();if(n!==i)show(n);});
+  fit();show(fromHash());
+})();
+</script>
+</body>
+</html>

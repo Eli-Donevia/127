@@ -1,0 +1,206 @@
+{% comment %}
+  Announcement marquee
+  Short messages that scroll across the page in a loop. Pure CSS, no script.
+  A visible Pause / Play button (a CSS-only checkbox, reachable with Tab, toggled with Space)
+  stops and restarts the scroll. Scrolling also pauses on hover and when a link has focus.
+  When a shopper's device asks for reduced motion, the messages stop moving and sit centered.
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+{% endcomment %}
+
+{%- if section.settings.auto_text -%}
+  {%- assign sx_bg_brightness = section.settings.color_background | color_brightness -%}
+  {%- if sx_bg_brightness > 160 -%}
+    {%- assign sx_text = '#111111' -%}
+  {%- else -%}
+    {%- assign sx_text = '#ffffff' -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign sx_text = section.settings.color_text -%}
+{%- endif -%}
+
+{%- style -%}
+  #sx-mq-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ sx_text }};
+    --sx-speed: {{ section.settings.speed }}s;
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    overflow: hidden;
+    padding: {{ section.settings.padding }}px 0;
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.3;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__inner { display: flex; align-items: center; }
+  #sx-mq-{{ section.id }} .sx-mq__viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; order: 1; }
+  #sx-mq-{{ section.id }} .sx-mq__toggle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__pause {
+    order: 2;
+    flex: 0 0 auto;
+    margin: 0 12px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--sx-fg) 45%, transparent);
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__pause:hover { border-color: var(--sx-fg); }
+  #sx-mq-{{ section.id }} .sx-mq__toggle:focus-visible ~ .sx-mq__pause { outline: 2px solid var(--sx-fg); outline-offset: 2px; }
+  #sx-mq-{{ section.id }} .sx-mq__pause-play { display: none; }
+  #sx-mq-{{ section.id }} .sx-mq__toggle:checked ~ .sx-mq__pause .sx-mq__pause-play { display: inline; }
+  #sx-mq-{{ section.id }} .sx-mq__toggle:checked ~ .sx-mq__pause .sx-mq__pause-stop { display: none; }
+  #sx-mq-{{ section.id }} .sx-mq__toggle:checked ~ .sx-mq__viewport .sx-mq__track { animation-play-state: paused; }
+  #sx-mq-{{ section.id }} .sx-mq__track {
+    display: flex;
+    width: max-content;
+    animation: sx-mq-scroll-{{ section.id }} var(--sx-speed) linear infinite;
+    {%- if section.settings.direction == 'right' %}
+    animation-direction: reverse;
+    {%- endif %}
+  }
+  #sx-mq-{{ section.id }}:hover .sx-mq__track,
+  #sx-mq-{{ section.id }}:focus-within .sx-mq__track {
+    animation-play-state: paused;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__group {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 500;
+    letter-spacing: {% if section.settings.uppercase %}.12em{% else %}.01em{% endif %};
+    {%- if section.settings.uppercase %}
+    text-transform: uppercase;
+    {%- endif %}
+  }
+  #sx-mq-{{ section.id }} .sx-mq__item::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 {{ section.settings.gap }}px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .55;
+  }
+  #sx-mq-{{ section.id }} .sx-mq__item a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  #sx-mq-{{ section.id }} .sx-mq__item a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 3px; }
+  @keyframes sx-mq-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #sx-mq-{{ section.id }} .sx-mq__track {
+      animation: none;
+      width: auto;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+    #sx-mq-{{ section.id }} .sx-mq__group[aria-hidden="true"] { display: none; }
+    #sx-mq-{{ section.id }} .sx-mq__pause,
+    #sx-mq-{{ section.id }} .sx-mq__toggle { display: none; }
+    #sx-mq-{{ section.id }} .sx-mq__group { flex-wrap: wrap; justify-content: center; row-gap: 6px; }
+  }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+  <div id="sx-mq-{{ section.id }}" class="sx-mq" role="region" aria-label="{{ section.settings.region_label | escape }}">
+   <div class="sx-mq__inner">
+    <input class="sx-mq__toggle" type="checkbox" id="SxMqPause-{{ section.id }}" aria-label="{{ section.settings.pause_label | escape }}">
+    <label class="sx-mq__pause" for="SxMqPause-{{ section.id }}" aria-hidden="true"><span class="sx-mq__pause-stop">{{ section.settings.pause_label }}</span><span class="sx-mq__pause-play">{{ section.settings.play_label }}</span></label>
+    <div class="sx-mq__viewport">
+    <div class="sx-mq__track">
+      {%- for copy in (1..6) -%}
+        <ul class="sx-mq__group" role="list"{% if copy > 1 %} aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            <li class="sx-mq__item"{% if copy == 1 %} {{ block.shopify_attributes }}{% endif %}>
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}"{% if copy > 1 %} tabindex="-1"{% endif %}>{{ block.settings.text }}</a>
+              {%- else -%}
+                {{ block.settings.text }}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+    </div>
+   </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement marquee",
+  "tag": "section",
+  "class": "sx-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "region_label", "label": "Label for screen readers", "default": "Announcements" },
+    { "type": "text", "id": "pause_label", "label": "Pause button text", "default": "Pause", "info": "The button lets shoppers stop the scrolling. It is needed for accessibility, so it always shows while the strip moves." },
+    { "type": "text", "id": "play_label", "label": "Play button text", "default": "Play" },
+    { "type": "range", "id": "speed", "label": "Seconds per loop", "min": 10, "max": 80, "step": 2, "unit": "s", "default": 36, "info": "Higher is slower." },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        { "value": "left", "label": "Right to left" },
+        { "value": "right", "label": "Left to right" }
+      ],
+      "default": "left"
+    },
+    { "type": "range", "id": "text_size", "label": "Text size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 14 },
+    { "type": "checkbox", "id": "uppercase", "label": "Uppercase text", "default": true },
+    { "type": "range", "id": "gap", "label": "Space between messages", "min": 12, "max": 60, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding", "label": "Top and bottom padding", "min": 4, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background (brand color)", "default": "#111111" },
+    { "type": "checkbox", "id": "auto_text", "label": "Pick a readable text color for me", "default": true },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#FFFFFF", "info": "Used when the box above is unchecked." }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Add a short announcement" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement marquee",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Welcome to [Your business]" } },
+        { "type": "message", "settings": { "text": "Ships from our studio" } },
+        { "type": "message", "settings": { "text": "Questions? Email us anytime" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

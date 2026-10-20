@@ -1,0 +1,234 @@
+{% comment %}
+  Before and after
+  Two images on top of each other with a slider between them.
+  The slider is a native range input laid over the images, so it works with a mouse, touch
+  and the keyboard (Tab to it, then use the arrow keys, Home and End).
+  CSS does all of the layout and clipping. One inline attribute passes the slider value
+  to CSS. There is no script file and no outside request.
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+{% endcomment %}
+
+{%- assign sx_accent_brightness = section.settings.color_accent | color_brightness -%}
+{%- if sx_accent_brightness > 160 -%}
+  {%- assign sx_on_accent = '#111111' -%}
+{%- else -%}
+  {%- assign sx_on_accent = '#ffffff' -%}
+{%- endif -%}
+
+{%- style -%}
+  #sx-ba-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ section.settings.color_text }};
+    --sx-accent: {{ section.settings.color_accent }};
+    --sx-on-accent: {{ sx_on_accent }};
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-ba-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  #sx-ba-{{ section.id }} .sx-ba__inner { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+  #sx-ba-{{ section.id }} .sx-ba__head { text-align: center; max-width: 620px; margin: 0 auto 32px; }
+  #sx-ba-{{ section.id }} .sx-ba__heading {
+    margin: 0 0 10px;
+    font-family: var(--font-heading-family, inherit);
+    font-weight: var(--font-heading-weight, 600);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--sx-fg);
+  }
+  #sx-ba-{{ section.id }} .sx-ba__text { font-size: 16px; line-height: 1.6; opacity: .8; }
+  #sx-ba-{{ section.id }} .sx-ba__text p { margin: 0; }
+  #sx-ba-{{ section.id }} .sx-ba__frame {
+    --pos: {{ section.settings.start_position }}%;
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.corner_radius }}px;
+    aspect-ratio: {{ section.settings.ratio }};
+    background: color-mix(in srgb, var(--sx-fg) 8%, var(--sx-bg));
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__layer { position: absolute; inset: 0; }
+  #sx-ba-{{ section.id }} .sx-ba__layer img,
+  #sx-ba-{{ section.id }} .sx-ba__layer svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__layer--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  #sx-ba-{{ section.id }} .sx-ba__divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    transform: translateX(-1px);
+    background: #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
+    pointer-events: none;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--sx-accent);
+    color: var(--sx-on-accent);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, .45), 0 0 0 4px rgba(255, 255, 255, .9);
+    transition: transform .2s ease;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__knob svg { width: 22px; height: 22px; }
+  #sx-ba-{{ section.id }} .sx-ba__tag {
+    position: absolute;
+    top: 16px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, .92);
+    color: #111111;
+    pointer-events: none;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__tag--before { left: 16px; }
+  #sx-ba-{{ section.id }} .sx-ba__tag--after { right: 16px; }
+  #sx-ba-{{ section.id }} .sx-ba__range {
+    position: absolute;
+    top: 0;
+    left: -24px;
+    width: calc(100% + 48px);
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__range::-webkit-slider-thumb { -webkit-appearance: none; width: 48px; height: 100%; }
+  #sx-ba-{{ section.id }} .sx-ba__range::-moz-range-thumb { width: 48px; height: 100%; border: 0; }
+  #sx-ba-{{ section.id }} .sx-ba__frame:hover .sx-ba__knob { transform: translate(-50%, -50%) scale(1.06); }
+  #sx-ba-{{ section.id }} .sx-ba__frame:has(.sx-ba__range:focus-visible) .sx-ba__knob {
+    outline: 3px solid var(--sx-fg);
+    outline-offset: 4px;
+  }
+  #sx-ba-{{ section.id }} .sx-ba__hint { margin: 14px 0 0; text-align: center; font-size: 13px; opacity: .65; }
+  @media (prefers-reduced-motion: reduce) {
+    #sx-ba-{{ section.id }} .sx-ba__knob { transition: none; }
+  }
+{%- endstyle -%}
+
+<div id="sx-ba-{{ section.id }}" class="sx-ba">
+  <div class="sx-ba__inner">
+    {%- if section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="sx-ba__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="sx-ba__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="sx-ba__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="sx-ba__frame">
+      <div class="sx-ba__layer sx-ba__layer--after">
+        {%- if section.settings.image_after != blank -%}
+          {{ section.settings.image_after | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 1000px) 960px, 100vw', alt: section.settings.image_after.alt }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      <div class="sx-ba__layer sx-ba__layer--before">
+        {%- if section.settings.image_before != blank -%}
+          {{ section.settings.image_before | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 1000px) 960px, 100vw', alt: section.settings.image_before.alt }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.label_before != blank -%}
+        <span class="sx-ba__tag sx-ba__tag--before" aria-hidden="true">{{ section.settings.label_before }}</span>
+      {%- endif -%}
+      {%- if section.settings.label_after != blank -%}
+        <span class="sx-ba__tag sx-ba__tag--after" aria-hidden="true">{{ section.settings.label_after }}</span>
+      {%- endif -%}
+      <span class="sx-ba__divider" aria-hidden="true">
+        <span class="sx-ba__knob">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5M15 7l5 5-5 5"/></svg>
+        </span>
+      </span>
+      <input
+        class="sx-ba__range"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="{{ section.settings.start_position }}"
+        aria-label="{{ section.settings.slider_label | escape }}"
+        oninput="this.parentNode.style.setProperty('--pos', this.value + '%')"
+      >
+    </div>
+    {%- if section.settings.hint != blank -%}
+      <p class="sx-ba__hint">{{ section.settings.hint }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Before and after",
+  "tag": "section",
+  "class": "sx-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See the difference" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Drag the slider to compare. Use your own photos, taken in the same light and from the same angle.</p>" },
+    { "type": "image_picker", "id": "image_before", "label": "Before image" },
+    { "type": "image_picker", "id": "image_after", "label": "After image", "info": "Use two images with the same shape so they line up." },
+    { "type": "text", "id": "label_before", "label": "Before label", "default": "Before" },
+    { "type": "text", "id": "label_after", "label": "After label", "default": "After" },
+    { "type": "text", "id": "slider_label", "label": "Slider label for screen readers", "default": "Drag to compare before and after" },
+    { "type": "text", "id": "hint", "label": "Hint under the image", "default": "Drag, or use the arrow keys" },
+    { "type": "range", "id": "start_position", "label": "Starting position", "min": 10, "max": 90, "step": 1, "unit": "%", "default": 50 },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "16 / 9", "label": "Wide" },
+        { "value": "4 / 3", "label": "Landscape" },
+        { "value": "1 / 1", "label": "Square" },
+        { "value": "4 / 5", "label": "Portrait" }
+      ],
+      "default": "16 / 9"
+    },
+    { "type": "range", "id": "corner_radius", "label": "Corner radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 20 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "color_accent", "label": "Brand color (slider handle)", "default": "{{brand.color|#111111}}" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "presets": [
+    { "name": "Before and after" }
+  ]
+}
+{% endschema %}

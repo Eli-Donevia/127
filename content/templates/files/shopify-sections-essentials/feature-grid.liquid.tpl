@@ -1,0 +1,216 @@
+{% comment %}
+  Feature grid
+  A heading with 3 to 6 feature cards. Each card has an icon or image, a title and a line of text.
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+  Icons are inline SVG, so there are no outside requests.
+{% endcomment %}
+
+{%- style -%}
+  #sx-features-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ section.settings.color_text }};
+    --sx-accent: {{ section.settings.color_accent }};
+    --sx-card: {{ section.settings.color_card }};
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-features-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  #sx-features-{{ section.id }} .sx-features__inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  @media screen and (min-width: 750px) {
+    #sx-features-{{ section.id }} .sx-features__inner { padding: 0 40px; }
+  }
+  #sx-features-{{ section.id }} .sx-features__head { max-width: 640px; margin: 0 auto 40px; text-align: center; }
+  #sx-features-{{ section.id }} .sx-features__heading {
+    margin: 0 0 12px;
+    font-family: var(--font-heading-family, inherit);
+    font-weight: var(--font-heading-weight, 600);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--sx-fg);
+  }
+  #sx-features-{{ section.id }} .sx-features__intro { font-size: 16px; line-height: 1.6; opacity: .8; }
+  #sx-features-{{ section.id }} .sx-features__intro p { margin: 0; }
+  #sx-features-{{ section.id }} .sx-features__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media screen and (min-width: 750px) {
+    #sx-features-{{ section.id }} .sx-features__grid {
+      grid-template-columns: repeat({{ section.settings.columns }}, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+  #sx-features-{{ section.id }} .sx-feature {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 28px;
+    border-radius: {{ section.settings.card_radius }}px;
+    background: var(--sx-card);
+    border: 1px solid color-mix(in srgb, var(--sx-fg) 8%, transparent);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease, border-color .35s ease;
+  }
+  #sx-features-{{ section.id }} .sx-feature:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--sx-accent) 40%, transparent);
+    box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--sx-fg) 45%, transparent);
+  }
+  #sx-features-{{ section.id }} .sx-feature__icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    color: var(--sx-accent);
+    background: color-mix(in srgb, var(--sx-accent) 12%, transparent);
+  }
+  #sx-features-{{ section.id }} .sx-feature__icon svg { width: 24px; height: 24px; }
+  #sx-features-{{ section.id }} .sx-feature__image { margin: -28px -28px 20px; overflow: hidden; border-radius: {{ section.settings.card_radius }}px {{ section.settings.card_radius }}px 0 0; aspect-ratio: 4 / 3; }
+  #sx-features-{{ section.id }} .sx-feature__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #sx-features-{{ section.id }} .sx-feature__title { margin: 0 0 8px; font-size: 18px; font-weight: 600; line-height: 1.3; color: var(--sx-fg); }
+  #sx-features-{{ section.id }} .sx-feature__text { margin: 0; font-size: 15px; line-height: 1.6; opacity: .78; }
+  #sx-features-{{ section.id }} .sx-feature__text p { margin: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    #sx-features-{{ section.id }} .sx-feature { transition: none; }
+    #sx-features-{{ section.id }} .sx-feature:hover { transform: none; }
+  }
+{%- endstyle -%}
+
+<div id="sx-features-{{ section.id }}" class="sx-features">
+  <div class="sx-features__inner">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="sx-features__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="sx-features__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <div class="sx-features__intro">{{ section.settings.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <ul class="sx-features__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <div class="sx-feature">
+            {%- if block.settings.image != blank -%}
+              <div class="sx-feature__image">
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 33vw, 100vw' }}
+              </div>
+            {%- elsif block.settings.icon != 'none' -%}
+              <div class="sx-feature__icon" aria-hidden="true">
+                {%- case block.settings.icon -%}
+                  {%- when 'leaf' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19 13 11"/></svg>
+                  {%- when 'hand' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1V4.5a1.5 1.5 0 0 1 3 0V11m0-.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.7 7-6.5 7S5 17.5 4.2 15.2L3 12a1.5 1.5 0 0 1 2.7-1.3L8 14"/></svg>
+                  {%- when 'box' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>
+                  {%- when 'sparkle' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4m0 10v4M3 12h4m10 0h4"/><path d="m12 8 1.4 2.6L16 12l-2.6 1.4L12 16l-1.4-2.6L8 12l2.6-1.4z"/></svg>
+                  {%- when 'chat' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg>
+                  {%- when 'ruler' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3m4-3v4m4-4v3m4-3v4"/></svg>
+                  {%- when 'heart' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+                {%- endcase -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="sx-feature__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="sx-feature__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Feature grid",
+  "tag": "section",
+  "class": "sx-section",
+  "max_blocks": 6,
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why {{business.name}}" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>A few things worth knowing before you order.</p>" },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3",
+      "info": "Add 3 to 6 features. Six features in 3 columns makes two even rows."
+    },
+    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 18 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background", "default": "#FAF9F6" },
+    { "type": "color", "id": "color_card", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "color_accent", "label": "Brand color (icons)", "default": "{{brand.color|#111111}}" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "check", "label": "Check" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "hand", "label": "Hand" },
+            { "value": "box", "label": "Box" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "chat", "label": "Chat bubble" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "none", "label": "No icon" }
+          ],
+          "default": "check"
+        },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)", "info": "Shows instead of the icon." },
+        { "type": "text", "id": "title", "label": "Title", "default": "A clear benefit" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Say what this means for the customer in one or two short lines.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature grid",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "hand", "title": "Made with care", "text": "<p>Tell people how your products are made and who makes them.</p>" } },
+        { "type": "feature", "settings": { "icon": "ruler", "title": "Clear details", "text": "<p>Sizes, materials and care notes, written in plain words.</p>" } },
+        { "type": "feature", "settings": { "icon": "chat", "title": "A real person replies", "text": "<p>Questions go to {{owner.first|our team}} at {{contact.email|our inbox}}.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

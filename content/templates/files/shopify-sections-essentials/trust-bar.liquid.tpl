@@ -1,0 +1,187 @@
+{% comment %}
+  Trust bar
+  A row of small icons, each with a short line (shipping, returns, checkout, support).
+  For Online Store 2.0 themes (Dawn and others). All styles are scoped to this section's id.
+  Icons are inline SVG, so there are no outside requests.
+{% endcomment %}
+
+{%- style -%}
+  #sx-trust-{{ section.id }} {
+    --sx-bg: {{ section.settings.color_background }};
+    --sx-fg: {{ section.settings.color_text }};
+    --sx-accent: {{ section.settings.color_accent }};
+    background: var(--sx-bg);
+    color: var(--sx-fg);
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.show_borders %}
+    border-top: 1px solid color-mix(in srgb, var(--sx-fg) 12%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--sx-fg) 12%, transparent);
+    {%- endif %}
+  }
+  #sx-trust-{{ section.id }} .sx-trust__heading {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .7;
+    font-weight: 600;
+  }
+  #sx-trust-{{ section.id }} .sx-trust__list {
+    list-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 20px;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-trust-{{ section.id }} .sx-trust__list {
+      grid-template-columns: repeat({{ section.blocks.size | at_least: 1 | at_most: 6 }}, minmax(0, 1fr));
+      padding: 0 40px;
+      gap: 24px;
+    }
+  }
+  #sx-trust-{{ section.id }} .sx-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  @media screen and (min-width: 750px) {
+    #sx-trust-{{ section.id }} .sx-trust--center .sx-trust__item { justify-content: center; }
+  }
+  #sx-trust-{{ section.id }} .sx-trust__icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--sx-accent);
+    background: color-mix(in srgb, var(--sx-accent) 12%, transparent);
+  }
+  #sx-trust-{{ section.id }} .sx-trust__icon svg { width: 20px; height: 20px; }
+  #sx-trust-{{ section.id }} .sx-trust__icon img { width: 22px; height: 22px; object-fit: contain; }
+  #sx-trust-{{ section.id }} .sx-trust__text { font-weight: 500; }
+  #sx-trust-{{ section.id }} a.sx-trust__item { color: inherit; text-decoration: none; }
+  #sx-trust-{{ section.id }} a.sx-trust__item:hover .sx-trust__text { text-decoration: underline; text-underline-offset: 3px; }
+  #sx-trust-{{ section.id }} a.sx-trust__item:focus-visible { outline: 2px solid var(--sx-fg); outline-offset: 4px; border-radius: 6px; }
+{%- endstyle -%}
+
+<div id="sx-trust-{{ section.id }}" class="sx-trust{% if section.settings.center %} sx-trust--center{% endif %}">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="sx-trust__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+  <ul class="sx-trust__list" role="list">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}
+          <a class="sx-trust__item" href="{{ block.settings.link }}">
+        {%- else -%}
+          <div class="sx-trust__item">
+        {%- endif -%}
+          <span class="sx-trust__icon" aria-hidden="true">
+            {%- if block.settings.custom_icon != blank -%}
+              {{ block.settings.custom_icon | image_url: width: 88 | image_tag: loading: 'lazy', alt: '' }}
+            {%- else -%}
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3z"/><path d="M14 9h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+                {%- when 'return' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+                {%- when 'lock' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+                {%- when 'chat' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/></svg>
+                {%- when 'leaf' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19 13 11"/></svg>
+                {%- when 'gift' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5v8h14v-8M12 8.5v12"/><path d="M12 8.5S10.5 4 8 4.5 7.5 8.5 12 8.5zm0 0s1.5-4.5 4-4 .5 4-4 4z"/></svg>
+                {%- when 'pin' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+                {%- when 'clock' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+                {%- when 'heart' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6L12 3z"/><path d="m9 12 2 2 4-4"/></svg>
+              {%- endcase -%}
+            {%- endif -%}
+          </span>
+          <span class="sx-trust__text">{{ block.settings.text }}</span>
+        {%- if block.settings.link != blank -%}
+          </a>
+        {%- else -%}
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "tag": "section",
+  "class": "sx-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading (optional)" },
+    { "type": "checkbox", "id": "center", "label": "Center items on desktop", "default": true },
+    { "type": "checkbox", "id": "show_borders", "label": "Show top and bottom lines", "default": true },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_background", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "color_accent", "label": "Brand color (icons)", "default": "{{brand.color|#111111}}" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Delivery truck" },
+            { "value": "return", "label": "Return arrow" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "chat", "label": "Chat bubble" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "pin", "label": "Map pin" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "shield"
+        },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon (optional)", "info": "Replaces the icon above. A small square PNG or SVG works best." },
+        { "type": "text", "id": "text", "label": "Text", "default": "Secure checkout" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "lock", "text": "Secure checkout" } },
+        { "type": "item", "settings": { "icon": "truck", "text": "Ships from {{business.city|our studio}}" } },
+        { "type": "item", "settings": { "icon": "return", "text": "Read our return policy" } },
+        { "type": "item", "settings": { "icon": "chat", "text": "Questions? Email {{contact.email|us anytime}}" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
