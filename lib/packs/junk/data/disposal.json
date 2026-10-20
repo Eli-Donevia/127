@@ -1,0 +1,369 @@
+{
+  "checked": "2026-10-19",
+  "disclaimer": "General information, not legal advice. Disposal rules differ by state, county and city: check your county before you haul.",
+  "paintcare_states": [
+    "CA",
+    "CO",
+    "CT",
+    "DC",
+    "IL",
+    "ME",
+    "MD",
+    "MN",
+    "NY",
+    "OR",
+    "RI",
+    "VT",
+    "WA"
+  ],
+  "mrc_states": [
+    "CA",
+    "CT",
+    "OR",
+    "RI"
+  ],
+  "rules": [
+    {
+      "id": "refrigerant",
+      "label": "Fridges, freezers and AC units (refrigerant)",
+      "member": "These hold refrigerant. Under EPA rules the place that takes the appliance last (a scrap yard or the dump) must recover the refrigerant, or get a signed statement saying who already did and when. Ask your transfer station or scrap yard what they charge and what they need. One example: Kittitas County, Washington, charges $38.00 per refrigerant appliance plus weight, doors removed and empty. Check your county.",
+      "customer": "Fridge or freezer: please empty it and unplug it the day before.",
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Section 608 Appliance Disposal",
+          "url": "https://www.epa.gov/section608/appliance-disposal",
+          "says": "The final disposer of appliances is responsible for recovering any refrigerant contained in appliances. If someone other than the final disposer recovers the refrigerant, EPA requires a signed statement containing the name and address of the person who recovered the refrigerant and the date of recovery.",
+          "page_date": "2026-07-08",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Kittitas County (Washington) Solid Waste",
+          "url": "https://www.co.kittitas.wa.us/solid-waste/transfer-stations.aspx",
+          "says": "Garbage (MSW) $179.00 per ton, $11.00 minimum (effective October 1, 2025). Refrigerant appliances $38.00 per appliance plus weight, doors removed and empty. Passenger tires with garbage $4.00 each; truck tires $15.00 each.",
+          "page_date": "2025-10-01 (effective date)",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "tire",
+      "label": "Tires",
+      "member": "Many states ban whole tires from landfills (EPA). Take them to a tire recycler or a transfer station that takes tires, and check your county. One example: Kittitas County, Washington, charges $4.00 for a passenger tire with garbage and $15.00 for a truck tire.",
+      "states": {
+        "CA": "California: carrying 10 or more used tires at once takes a waste tire hauler registration, renewed each year, and a manifest (CalRecycle)."
+      },
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Automobiles, Tires and Boats",
+          "url": "https://www.epa.gov/large-scale-residential-demolition/automobiles-tires-and-boats",
+          "says": "Many states ban all tires or whole tires from landfills. Check with your local and state waste officials about storage, handling or management requirements for scrap tires.",
+          "page_date": "2026-03-16",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Kittitas County (Washington) Solid Waste",
+          "url": "https://www.co.kittitas.wa.us/solid-waste/transfer-stations.aspx",
+          "says": "Garbage (MSW) $179.00 per ton, $11.00 minimum (effective October 1, 2025). Refrigerant appliances $38.00 per appliance plus weight, doors removed and empty. Passenger tires with garbage $4.00 each; truck tires $15.00 each.",
+          "page_date": "2025-10-01 (effective date)",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "CalRecycle (California)",
+          "url": "https://calrecycle.ca.gov/tires/haulers/",
+          "says": "State law requires every person who transports 10 or more used or waste tires to hold a valid waste tire hauler registration, renewed each year, and to follow the used and waste tire manifest program.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "electronics",
+      "label": "TVs, computers and other electronics",
+      "member": "Take electronics to an electronics recycler or a store take-back program, not the trash where your state bans it (EPA: check for recycling options in your state or community). Check your state and county.",
+      "states": {
+        "NY": "New York: since January 1, 2015, computers, TVs and other covered electronics can no longer go in the trash, a landfill or curbside trash pickup (NY DEC)."
+      },
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Electronics Donation and Recycling",
+          "url": "https://www.epa.gov/recycle/electronics-donation-and-recycling",
+          "says": "Donating or recycling consumer electronics conserves natural resources and avoids air and water pollution. Manufacturers and retailers offer several options to donate or recycle electronics. Check for recycling facilities in your state or community.",
+          "page_date": "2025-12-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "New York State Department of Environmental Conservation",
+          "url": "https://dec.ny.gov/environmental-protection/recycling-composting/electronic-waste-recycling/recycling-consumer-electronic-waste",
+          "says": "As of January 1, 2015, consumers could no longer dispose of certain types of electronic equipment in landfills, waste-to-energy facilities, in the trash, or at curbside for trash pickup. It points to a covered equipment list: computers, computer peripherals, small electronics, small-scale servers, televisions over 4 inches and cathode ray tubes.",
+          "page_date": "2024-12-31 (covered equipment list)",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "mattress",
+      "label": "Mattresses and box springs",
+      "replace": true,
+      "member": "Ask your city or waste hauler the best way to dispose of mattresses, and what your transfer station charges for them. Outside California, Connecticut, Oregon and Rhode Island, the Mattress Recycling Council has no program. Check your county.",
+      "states": {
+        "CA": "California: households can drop off a mattress at no additional cost at participating Bye Bye Mattress locations. For businesses, unit limits may apply and an appointment may be required, so call the site before you haul.",
+        "CT": "Connecticut: the Mattress Recycling Council runs a statewide program (Bye Bye Mattress). Find a drop-off site before you haul.",
+        "OR": "Oregon: the Mattress Recycling Council runs a statewide program (Bye Bye Mattress). Find a drop-off site before you haul.",
+        "RI": "Rhode Island: the Mattress Recycling Council runs a statewide program (Bye Bye Mattress). Find a drop-off site before you haul.",
+        "MA": "Massachusetts: mattresses are banned from the trash since November 1, 2022 (MassDEP). Take them to a mattress recycler."
+      },
+      "sources": [
+        {
+          "publisher": "Mattress Recycling Council",
+          "url": "https://mattressrecyclingcouncil.org/",
+          "says": "Operating statewide in California, Connecticut, Oregon and Rhode Island.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Bye Bye Mattress (Mattress Recycling Council)",
+          "url": "https://byebyemattress.com/",
+          "says": "We currently provide resources, education and support for programs in California, Connecticut, Oregon and Rhode Island. For other states: Our Program is not active in your state; it suggests contacting your city or waste hauler on the best way to dispose of a bulky item.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Bye Bye Mattress (Mattress Recycling Council), California",
+          "url": "https://byebyemattress.com/california/",
+          "says": "Drop off your old mattress at no additional cost at participating locations. For businesses: unit limits may apply and an appointment may be required.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Massachusetts Department of Environmental Protection",
+          "url": "https://www.mass.gov/news/new-waste-disposal-ban-regulations-take-effect-today",
+          "says": "New waste ban regulations take effect November 1, 2022, banning the disposal of mattresses and textiles in the trash (310 CMR 19.000). Textiles include clothing, footwear, bedding, towels and curtains; contaminated items are excluded.",
+          "page_date": "2022-11-01",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "textiles",
+      "label": "Clothes, bedding and other textiles",
+      "member": "",
+      "states": {
+        "MA": "Massachusetts: textiles (clothing, footwear, bedding, towels and curtains) are banned from the trash since November 1, 2022 (MassDEP). Donate or recycle them."
+      },
+      "sources": [
+        {
+          "publisher": "Massachusetts Department of Environmental Protection",
+          "url": "https://www.mass.gov/news/new-waste-disposal-ban-regulations-take-effect-today",
+          "says": "New waste ban regulations take effect November 1, 2022, banning the disposal of mattresses and textiles in the trash (310 CMR 19.000). Textiles include clothing, footwear, bedding, towels and curtains; contaminated items are excluded.",
+          "page_date": "2022-11-01",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "paint",
+      "label": "Paint",
+      "keep_out": true,
+      "member": "Leave paint out of the truck unless you know where it goes. In PaintCare states, leftover paint goes to a PaintCare drop-off site; elsewhere, to your county's household hazardous waste collection. Check your county.",
+      "customer": "Paint stays out of the truck: leftover paint goes to a paint drop-off site or your county's household hazardous waste collection.",
+      "states": {
+        "CA": "California is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "CO": "Colorado is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "CT": "Connecticut is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "DC": "The District of Columbia is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "IL": "Illinois is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "ME": "Maine is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "MD": "Maryland is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "MN": "Minnesota is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "NY": "New York is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "OR": "Oregon is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "RI": "Rhode Island is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "VT": "Vermont is a PaintCare state: leftover paint goes to a PaintCare drop-off site.",
+        "WA": "Washington is a PaintCare state: leftover paint goes to a PaintCare drop-off site."
+      },
+      "sources": [
+        {
+          "publisher": "PaintCare",
+          "url": "https://www.paintcare.org/",
+          "says": "In states with paint stewardship laws, PaintCare operates paint recycling programs: California, Colorado, Connecticut, District of Columbia, Illinois, Maine, Maryland, Minnesota, New York, Oregon, Rhode Island, Vermont and Washington. Find a drop-off site.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "U.S. EPA, Household Hazardous Waste",
+          "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+          "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+          "page_date": "2026-06-01",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "chemicals",
+      "label": "Chemicals, oil and fuel",
+      "keep_out": true,
+      "member": "Cleaners, oils, pesticides and fuel can contain hazardous ingredients (EPA). Many communities have household hazardous waste collection: point the owner there and keep these out of the load. Check your county.",
+      "customer": "Chemicals, oil, fuel and pesticides stay out of the truck: your county's household hazardous waste collection takes them.",
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Household Hazardous Waste",
+          "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+          "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+          "page_date": "2026-06-01",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "propane",
+      "label": "Propane tanks and gas cylinders",
+      "keep_out": true,
+      "member": "Propane tanks and other gas cylinders stay out of the truck. Rules differ by county: King County, Washington, transfer stations take none, while the City of San Diego takes them at its household hazardous waste facility by appointment. Check your county.",
+      "customer": "Propane tanks and gas cylinders stay out of the truck: ask your county's household hazardous waste program where they go.",
+      "sources": [
+        {
+          "publisher": "King County (Washington) Solid Waste",
+          "url": "https://kingcounty.gov/en/dept/dnrp/waste-services/hazardous-waste-program/household/products/compressed-gas-cylinders",
+          "says": "King County Solid Waste transfer stations do not accept propane tanks of any size; containers must be 8 gallons or less at its hazardous waste sites.",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "City of San Diego, Environmental Services",
+          "url": "https://www.sandiego.gov/environmental-services/ep/hazardous/propane",
+          "says": "The City accepts propane gas cylinders at its Household Hazardous Waste Transfer Facility, by appointment only. Disposal of hazardous wastes to the sewer, storm drain, ground, or trash is illegal.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "battery",
+      "label": "Batteries",
+      "keep_out": true,
+      "member": "Car batteries go back to a battery retailer or household hazardous waste collection, never the trash (EPA). Tape the ends of lithium-ion batteries and keep them out of the load: they can start fires. Check your county.",
+      "customer": "Batteries stay out of the truck: car batteries go back to a battery store, others to household hazardous waste collection.",
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Used Household Batteries",
+          "url": "https://www.epa.gov/recycle/used-household-batteries",
+          "says": "Return lead-acid batteries to a battery retailer or local household hazardous waste collection program; do not put lead-acid batteries in the trash or municipal recycling bins. To prevent fires from lithium-ion batteries, tape battery terminals and never put these batteries in household garbage or recycling bins. Check with your local or state solid waste authority.",
+          "page_date": "2026-07-21",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "fuel",
+      "label": "Mowers and engines",
+      "member": "Drain the gas and oil before a mower or small engine goes in the truck: oils can contain hazardous ingredients (EPA), and many communities collect them as household hazardous waste. Check your county.",
+      "customer": "Mower: please run it dry or drain the gas before I come.",
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Household Hazardous Waste",
+          "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+          "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+          "page_date": "2026-06-01",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "grill_tank",
+      "label": "Gas grills",
+      "member": "Take the propane tank off a gas grill before it goes in the truck: the tank follows the propane rule for your county.",
+      "customer": "Gas grill: the propane tank stays with you.",
+      "sources": [
+        {
+          "publisher": "King County (Washington) Solid Waste",
+          "url": "https://kingcounty.gov/en/dept/dnrp/waste-services/hazardous-waste-program/household/products/compressed-gas-cylinders",
+          "says": "King County Solid Waste transfer stations do not accept propane tanks of any size; containers must be 8 gallons or less at its hazardous waste sites.",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "City of San Diego, Environmental Services",
+          "url": "https://www.sandiego.gov/environmental-services/ep/hazardous/propane",
+          "says": "The City accepts propane gas cylinders at its Household Hazardous Waste Transfer Facility, by appointment only. Disposal of hazardous wastes to the sewer, storm drain, ground, or trash is illegal.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "covered_load": {
+    "member": "Cover or tie down every load. Washington law requires a load to be secured so nothing drops or escapes (RCW 46.61.655), and Snohomish County charges $20 or $25 for an unsecured load at its stations. Other states and counties have their own rules: check your state.",
+    "sources": [
+      {
+        "publisher": "Revised Code of Washington 46.61.655",
+        "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=46.61.655",
+        "says": "A vehicle may be driven on a public highway only if it is so constructed or loaded as to prevent any of its load from dropping, sifting, leaking, or otherwise escaping; the load and any covering must be securely fastened.",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "Snohomish County (Washington) Solid Waste",
+        "url": "https://www.snohomishcountywa.gov/6739/Fee-Changes-2026",
+        "says": "2026 self-haul tipping fee at transfer stations $160 a ton (was $105); minimum fee $30 for loads up to 360 lbs (was $20); unsecured load fee $20 or $25 depending on the vehicle. Under Washington law and county code, loads arriving at Solid Waste facilities must be covered or secured.",
+        "page_date": "2026-01-01 (effective date)",
+        "checked": "2026-10-19"
+      }
+    ]
+  },
+  "donation": {
+    "member": "Furniture and working appliances in good shape can go to a Habitat for Humanity ReStore or the Salvation Army instead of the dump: many ReStores offer free pickup of large items, and the Salvation Army takes appliances that still work and are not built in. Call first: each store sets its own rules.",
+    "sources": [
+      {
+        "publisher": "Habitat for Humanity ReStores",
+        "url": "https://www.habitat.org/restores/donate-goods",
+        "says": "ReStores accept small and large donations of new or gently used furniture, appliances, housewares, building materials and more; many Habitat ReStores offer free pickup of large items. Each ReStore is unique.",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "The Salvation Army (satruck.org)",
+        "url": "https://satruck.org/",
+        "says": "Schedule a free furniture and other donation pickup service. Accepted: appliances that still operate and are not built-in; unbroken furniture. Not accepted: appliances with mechanical difficulties, missing power cord or rusty or dirty; any gas appliances; large console televisions and stereos; televisions older than 5 years; built-in appliances such as ovens, stoves and dishwashers; paint or chemicals. Call to confirm what your local store accepts.",
+        "checked": "2026-10-19"
+      }
+    ]
+  },
+  "dump_examples": {
+    "member": "Dump fees vary by county. Two examples: Snohomish County, Washington, $160 a ton with a $30 minimum (2026); Kittitas County, Washington, $179 a ton with an $11 minimum. LawnStarter puts landfill fees at $20 to $90 a ton, and TaskRabbit puts tipping fees at $50 to $100 a ton. Type your own transfer station's rate.",
+    "sources": [
+      {
+        "publisher": "Snohomish County (Washington) Solid Waste",
+        "url": "https://www.snohomishcountywa.gov/6739/Fee-Changes-2026",
+        "says": "2026 self-haul tipping fee at transfer stations $160 a ton (was $105); minimum fee $30 for loads up to 360 lbs (was $20); unsecured load fee $20 or $25 depending on the vehicle. Under Washington law and county code, loads arriving at Solid Waste facilities must be covered or secured.",
+        "page_date": "2026-01-01 (effective date)",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "Kittitas County (Washington) Solid Waste",
+        "url": "https://www.co.kittitas.wa.us/solid-waste/transfer-stations.aspx",
+        "says": "Garbage (MSW) $179.00 per ton, $11.00 minimum (effective October 1, 2025). Refrigerant appliances $38.00 per appliance plus weight, doors removed and empty. Passenger tires with garbage $4.00 each; truck tires $15.00 each.",
+        "page_date": "2025-10-01 (effective date)",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "LawnStarter",
+        "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+        "says": "Landfill fees run between $20 and $90 per ton.",
+        "page_date": "2025-12-27",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "TaskRabbit",
+        "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+        "says": "Disposal or tipping fees $50 to $100 per ton; landfill fees for a do-it-yourself load $50 to $100.",
+        "page_date": "2026-10-01",
+        "checked": "2026-10-19"
+      }
+    ]
+  },
+  "pool_table": {
+    "member": "Pool tables are priced on site: Fixr lists pool table removal at $400 to $600.",
+    "sources": [
+      {
+        "publisher": "Fixr",
+        "url": "https://www.fixr.com/costs/junk-removal-service",
+        "says": "Pool table removal $400 to $600.",
+        "page_date": "2025-01-31",
+        "checked": "2026-10-19"
+      }
+    ]
+  }
+}

@@ -1,0 +1,569 @@
+{
+ "checked": "2026-10-20",
+ "unit": "job",
+ "minimum": 125,
+ "minimum_basis": "Housecall Pro: a minimum service fee of $125 to $200 covers travel, setup, admin and up to an hour of labor; Fixr: the most common minimum is $130; TaskRabbit: a minimum of 1 to 2 hours is common.",
+ "minimum_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+   "says": "Minimum service fee $125 to $200: covers travel, setup, admin, and up to one hour of labor. If a job prices out below your minimum service fee, charge the minimum.",
+   "page_date": "2026-10-19",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "Fixr",
+   "url": "https://www.fixr.com/costs/handyman",
+   "says": "The most common minimum charge is $130, for small projects of 30 minutes or less.",
+   "page_date": "2025-01-30",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "TaskRabbit",
+   "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+   "says": "It is common for handymen to charge a minimum, typically 1 to 2 hours: even if a task takes only 15 minutes, they charge for a full hour.",
+   "page_date": "2026-10-01",
+   "checked": "2026-10-19"
+  }
+ ],
+ "base": "Prices are labor for one job in a home; parts are extra unless a line says so. Small hardware like screws and anchors is included.",
+ "packages": [
+  {
+   "id": "fixit",
+   "label": "Fix-it visit",
+   "unit": "visit",
+   "range": [
+    125,
+    250
+   ],
+   "minutes": 120,
+   "includes": [
+    "Up to 2 hours on your list",
+    "Small hardware like screws and anchors",
+    "A photo of every fix"
+   ],
+   "basis": "Thumbtack: simple tasks under 2 hours $178 to $220; HomeAdvisor: small jobs $60 to $250 for one to two hours; Housecall Pro: a minimum service fee of $125 to $200 with up to an hour of labor.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Simple tasks that take under 2 hours cost $178 to $220.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Small jobs, like replacing a light switch, may cost $60 to $250 for one to two hours of work.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Minimum service fee $125 to $200: covers travel, setup, admin, and up to one hour of labor. If a job prices out below your minimum service fee, charge the minimum.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "half_day",
+   "label": "Half-day visit",
+   "unit": "visit",
+   "range": [
+    316,
+    428
+   ],
+   "minutes": 240,
+   "includes": [
+    "Up to 4 hours on your list",
+    "Jobs done in the order that saves time",
+    "A photo of every fix"
+   ],
+   "basis": "Thumbtack: a few projects in 2 to 5 hours $316 to $428; Fixr: $50 to $100 an hour, so 4 hours is $200 to $400 before trip costs.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "A few projects that take 2 to 5 hours cost $316 to $428.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Handyman services cost $150 to $600, most about $300; hourly rates run $50 to $100, most about $65; a handyman may charge $65 an hour with a $130 minimum.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Punch-list package: a prepaid 4 to 8 hour labor block with materials billed separately, for customers with several small tasks.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "tv_mount",
+   "label": "TV mounting",
+   "unit": "TV",
+   "range": [
+    100,
+    300
+   ],
+   "minutes": 90,
+   "includes": [
+    "Bracket into studs or the right anchors",
+    "TV hung and leveled",
+    "Cords tidied, no new outlets"
+   ],
+   "basis": "Fixr: $100 to $300, average $200; Thumbtack: $121 to $234; TaskRabbit: $150 to $300 for a 35 to 55 inch TV. Moving an outlet or power behind the wall is electrical work.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/tv-mount-installation",
+     "says": "TV mount installation costs $100 to $300, average $200; hiding wires in the wall adds $50 to $175; over a fireplace $225 to $700.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/tv-wall-mount-install-cost",
+     "says": "TV wall mount installation costs $121 to $234 on average, up to $393 at the high end.",
+     "page_date": "2026-10-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/wall-mount-tv",
+     "says": "TV mounting: 30 to 35 inch $120 to $220, 35 to 55 inch $150 to $300, 55 to 65 inch $180 to $350; wire hiding about $125.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "assembly",
+   "label": "Furniture assembly",
+   "unit": "item",
+   "range": [
+    50,
+    80
+   ],
+   "minutes": 60,
+   "includes": [
+    "Unboxed and built to the instructions",
+    "Tall pieces anchored to the wall",
+    "Boxes broken down"
+   ],
+   "basis": "TaskRabbit: 1 item $50 to $80 on average; Fixr: about $50 for a chair and $75 for the first hour. Beds, wardrobes and playsets take longer: price them by the hour.",
+   "sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/assemble-furniture",
+     "says": "1 item $50 to $80 average estimated cost; 2 items $90 to $145; 3 items $130 to $210; small items start around $40, medium around $80.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/furniture-assembly",
+     "says": "A chair costs about $50 and takes about 30 minutes; many assemblers charge $75 for the first hour; a queen bed $150 to $200.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/furniture-assembly-cost",
+     "says": "Furniture assembly costs $102 to $221 on average per project.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "drywall",
+   "label": "Drywall patch",
+   "unit": "hole",
+   "range": [
+    60,
+    200
+   ],
+   "minutes": 60,
+   "includes": [
+    "Hole patched, sanded smooth",
+    "Ready for paint",
+    "Dust cleaned up"
+   ],
+   "basis": "Fixr: holes $60 to $200 with labor and materials; TaskRabbit: small holes $100 to $200; HomeAdvisor: small hole $20 to $120, large hole $50 to $200. A patch needs to dry before paint, so plan a second short visit.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/repair-drywall",
+     "says": "Repairing holes in drywall costs $60 to $200 with labor and materials; anchor holes $75 to $105; many pros charge $70 to $80 an hour with a one hour minimum for small projects.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/drywall-repair",
+     "says": "Nail holes $50 to $75, small holes $100 to $200; small holes take 30 to 60 minutes of active work, and you should plan 24 hours before sanding and painting.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/walls-and-ceilings/repair-drywall/",
+     "says": "Small hole $20 to $120, large hole $50 to $200, drywall anchor repair $75 to $100.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "door",
+   "label": "Door fix",
+   "unit": "door",
+   "range": [
+    96,
+    220
+   ],
+   "minutes": 60,
+   "includes": [
+    "Hinges and strike plate adjusted",
+    "Planed if it sticks",
+    "Latches and closes clean"
+   ],
+   "basis": "Fixr: plane and adjust an interior door $96 to $180, door repair $125 to $200; Housecall Pro: door hardware repair $75 to $220.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/door-repair",
+     "says": "Planing and adjusting an interior door costs $96 to $180, an exterior door $181 to $336.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Door repair costs $125 to $200.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Door hardware repair $75 to $220, flat rate.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "faucet",
+   "label": "Faucet swap",
+   "unit": "faucet",
+   "range": [
+    60,
+    300
+   ],
+   "minutes": 90,
+   "includes": [
+    "Old faucet out, new one in the same spot",
+    "Supply lines connected, no pipe changes",
+    "Checked for drips"
+   ],
+   "basis": "Fixr: bathroom faucet $60 to $150; Housecall Pro: faucet replacement $120 to $300 plus materials; HomeAdvisor: bathroom faucet $90. Some states require a licensed plumber even for a swap.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Bathroom faucet installation costs $60 to $150.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Faucet replacement $120 to $300, flat rate plus materials.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Bathroom faucet: $90.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/plumbing/install-a-faucet/",
+     "says": "A handyperson can handle a faucet swap when the water lines remain untouched; moving supply lines, changing valves or drilling new sink holes calls for a licensed plumber.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "caulk",
+   "label": "Tub or shower recaulk",
+   "unit": "tub",
+   "range": [
+    100,
+    280
+   ],
+   "minutes": 60,
+   "includes": [
+    "Old caulk cut out",
+    "Joint cleaned and dried",
+    "New bead, left to cure"
+   ],
+   "basis": "Fixr: maintenance jobs such as recaulking a shower $100 to $280; TaskRabbit: sealing and caulking about $150 on average.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Maintenance costs $100 to $280, such as cleaning gutters, staining a deck or recaulking a shower.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+     "says": "Sealing and caulking costs about $150 on average.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "hour",
+   "label": "Extra hours",
+   "unit": "hour",
+   "rate": true,
+   "range": [
+    50,
+    100
+   ],
+   "minutes_per_unit": 60,
+   "basis": "Fixr: $50 to $100 an hour, most about $65; Thumbtack: $60 to $75 on average; HomeAdvisor: $60 to $125; Housecall Pro: most self-employed pros $50 to $80.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Handyman services cost $150 to $600, most about $300; hourly rates run $50 to $100, most about $65; a handyman may charge $65 an hour with a $130 minimum.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Handymen charge $60 to $75 an hour on average (low end $45 to $50, high end $100 to $125); simple tasks under 2 hours $178 to $220; a few projects in 2 to 5 hours $316 to $428; a full day $701 to $1,105.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Projects typically fall in the $165 to $615 range; small jobs, like replacing a light switch, may cost $60 to $250 for one to two hours of work; $60 to $125 an hour when quoted hourly.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Handyman hourly rates run $50 to $150, most self-employed pros $50 to $80 and companies $75 to $125; a minimum service fee of $125 to $200 covers travel, setup, admin and up to one hour of labor.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  }
+ ],
+ "factors": [],
+ "addons": [
+  {
+   "id": "pictures",
+   "label": "Hang pictures or mirrors",
+   "range": [
+    60,
+    150
+   ],
+   "minutes": 45,
+   "unit": "job",
+   "basis": "Fixr: art hanging $60 to $125; TaskRabbit: mounting about $150 on average. Thumbtack's per-project average ($175 to $323) runs higher, since it is a whole visit.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Art hanging costs $60 to $125, for heavy artwork.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+     "says": "Mounting costs about $150 on average.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Hanging pictures or mirrors jobs cost $175 to $323 on average.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "blinds",
+   "label": "Hang blinds or a curtain rod",
+   "range": [
+    30,
+    150
+   ],
+   "minutes": 30,
+   "unit": "window",
+   "basis": "Fixr: blinds and curtains $60 to $150 per window; Thumbtack: one pro's example is $125 to start plus $30 per blind up to 48 inches.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Blinds installation costs $60 to $150 per window; curtain installation $60 to $150 per window.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/blind-installation-cost",
+     "says": "Blind installation costs $144 to $434, average $246; one pro charges a $125 base fee plus $30 per blind up to 48 inches wide.",
+     "page_date": "2026-07-08",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "weatherstrip",
+   "label": "Weatherstrip a door",
+   "range": [
+    35,
+    115
+   ],
+   "minutes": 30,
+   "unit": "door",
+   "basis": "Fixr: $35 to $90 per door, replacing door weather stripping $45 to $115; HomeAdvisor: about $95 for an exterior door.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/weatherstripping",
+     "says": "Weatherstripping costs $35 to $90 per door; replacing door weather stripping $45 to $115.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Weather stripping replacement projects cost $265 on average; each window about $100 to reseal, exterior doors $95, interior doors $65.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "haul",
+   "label": "Haul away the old one",
+   "range": [
+    35,
+    75
+   ],
+   "minutes": 20,
+   "unit": "job",
+   "basis": "Fixr: a disposal fee of $35 to $50 for furniture packaging and $50 to $75 to take an old TV for recycling.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/furniture-assembly",
+     "says": "Some assemblers charge a disposal fee of $35 to $50 to take away packaging.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/tv-mount-installation",
+     "says": "Recycling an old TV costs $50 to $75.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "quarterly",
+   "label": "Quarterly plan",
+   "every": "3 months",
+   "discount": 0,
+   "packages": [
+    "fixit"
+   ]
+  },
+  {
+   "id": "monthly",
+   "label": "Monthly plan",
+   "every": "month",
+   "discount": 0,
+   "packages": [
+    "fixit"
+   ]
+  }
+ ],
+ "plans_basis": "Housecall Pro: a quarterly home checkup at a flat visit fee, or a monthly 2-hour visit at your standard rate; don't discount recurring work. So the plans keep the full price per visit.",
+ "plans_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+   "says": "Quarterly home checkup: seasonal inspection plus small repairs, priced as a flat visit fee; monthly maintenance visit for property managers, landlords and busy homeowners: a 2-hour visit at your standard rate or a set flat rate.",
+   "page_date": "2026-10-19",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+   "says": "Don't discount recurring work so heavily that you're doing more visits for less money; a plan bundles seasonal home checks, caulking touch-ups, filter changes, fixture tightening, smoke detector checks, minor drywall repair and small punch-list items.",
+   "page_date": "2026-10-19",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "Fixr",
+   "url": "https://www.fixr.com/costs/weatherstripping",
+   "says": "Inspect your weather stripping and exterior caulking each year, once in the spring and once in the fall.",
+   "page_date": "2025-01-31",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://www.fixr.com/costs/door-repair",
+  "https://www.fixr.com/costs/furniture-assembly",
+  "https://www.fixr.com/costs/handyman",
+  "https://www.fixr.com/costs/repair-drywall",
+  "https://www.fixr.com/costs/tv-mount-installation",
+  "https://www.fixr.com/costs/weatherstripping",
+  "https://www.homeadvisor.com/cost/handyman/",
+  "https://www.homeadvisor.com/cost/plumbing/install-a-faucet/",
+  "https://www.homeadvisor.com/cost/walls-and-ceilings/repair-drywall/",
+  "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+  "https://www.taskrabbit.com/cost-guides/assemble-furniture",
+  "https://www.taskrabbit.com/cost-guides/drywall-repair",
+  "https://www.taskrabbit.com/cost-guides/general-handyman",
+  "https://www.taskrabbit.com/cost-guides/wall-mount-tv",
+  "https://www.thumbtack.com/p/blind-installation-cost",
+  "https://www.thumbtack.com/p/furniture-assembly-cost",
+  "https://www.thumbtack.com/p/handyman-prices",
+  "https://www.thumbtack.com/p/tv-wall-mount-install-cost"
+ ],
+ "minutes_note": "Minutes per visit are the visit's length; minutes per job are judgment calls inside the sourced times in data/punch.json."
+}

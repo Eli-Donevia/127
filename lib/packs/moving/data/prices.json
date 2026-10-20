@@ -1,0 +1,345 @@
+{
+  "checked": "2026-10-19",
+  "unit": "job",
+  "minimum": 160,
+  "minimum_basis": "HireAHelper: labor-only movers often have a two-hour minimum, $160 to $300 for a team of two. U-Haul's Moving Help marketplace: the least a customer can reserve is 2 hours. $160 is the low end of that minimum (judgment call).",
+  "base": "Package prices are for a studio or 1 bedroom with one flight of stairs or less at each end; the home size factor scales the load and unload jobs. The hourly rate is per mover, billed by the actual time with a 2 hour minimum.",
+  "packages": [
+    {
+      "id": "move",
+      "label": "Load and unload job",
+      "range": [300, 640],
+      "minutes": 240,
+      "unit": "move",
+      "includes": [
+        "2 movers at both ends of the move",
+        "Floors, door frames and railings protected",
+        "Furniture padded, wrapped and strapped",
+        "Unloaded and placed room by room"
+      ],
+      "basis": "Studio or 1 bedroom, both ends: HireAHelper $296 to $362 labor only; Bellhop $200 to $500 for a studio; iMoving $300 to $800 for a studio or 1 bedroom. HireAHelper's estimating chart puts it at 2 movers for 4 hours, which at $40 to $80 per mover hour is $320 to $640. The range is a judgment call inside these.",
+      "sources": [
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Labor-only movers cost $40 to $75 per mover per hour. Local labor-only cost by home size: 1BR or studio $296 to $362, 1,500 sq ft $446 to $545, 2,000 sq ft $450 to $550, 3,000 sq ft $540 to $660, 4BR+ $684 to $836.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Bellhop",
+          "url": "https://www.getbellhops.com/blog/how-much-does-labor-only-moving-cost/",
+          "says": "Labor-only moving runs $40 to $80 per mover per hour, with a 2 to 4 hour minimum. Studio: 2 movers for 2 to 3 hours, $200 to $500. 1 to 2 bedrooms: 2 to 3 movers for 3 to 6 hours, $400 to $900. 3 or more bedrooms: 3 to 4 movers for 5 to 8 hours, $800 to $1,500 or more. Labor costs only, no transportation included.",
+          "page_date": "2026-04-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "iMoving",
+          "url": "https://www.imoving.com/blog/moving-tips/moving-labor-cost-and-everything/",
+          "says": "Moving labor costs $60 to $100 per mover per hour with a 2 to 3 hour minimum. Studio or 1 bedroom: 2 movers for 2 to 4 hours, $300 to $800. 2 bedroom $720 to $1,500; 3 bedroom $1,200 to $2,800; 4 or more bedrooms $2,000 and up.",
+          "page_date": "2026-06-04",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper Movers Academy",
+          "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+          "says": "Estimating chart, load and unload: studio or small apartment 2 movers for 4 hours; 2 to 3 bedroom apartment 2 movers for 5 hours; 2 to 3 bedroom house 3 movers for 7 hours; 3 to 4 bedroom house 4 movers for 7 to 8 hours; 4 or more bedroom house 4 movers for 8 to 10 hours.",
+          "page_date": "undated",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "load",
+      "label": "Load or unload job",
+      "range": [160, 480],
+      "minutes": 150,
+      "unit": "job",
+      "includes": [
+        "2 movers at one end: loading or unloading",
+        "Heavy, sturdy pieces first, packed tight in tiers",
+        "Furniture padded and strapped",
+        "A rental truck, a container or a storage unit"
+      ],
+      "basis": "Studio or 1 bedroom, one end: HireAHelper says a 2 person crew loads in 2 to 3 hours and unloads in 1 to 2; with the 2 hour minimum at $40 to $80 per mover hour that is $160 to $480. U-Haul Moving Help lists $208 to $402 for 2 movers for 2 hours. The 150 minutes is a judgment call between loading and unloading times.",
+      "sources": [
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/does-it-take-longer-to-load-or-unload-a-moving-truck/",
+          "says": "With a two-person crew: studio or 1 bedroom loads in 2 to 3 hours and unloads in 1 to 2; 2 bedroom 3 to 4 and 1.5 to 2.5; 3 bedroom 4 to 6 and 2.5 to 4; 4 or more bedrooms 6 to 8 and 3 to 5. Loading takes about 1.5 to 2 times longer than unloading.",
+          "page_date": "2026-07-06",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Labor-only movers have a two-hour minimum, putting the starting cost at $160 to $300 for a team of two; $40 to $75 per mover per hour.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "U-Haul",
+          "url": "https://www.uhaul.com/Tips/Moving-Help/Moving-Company-Prices-Moving-Help-Vs-The-Competition-36882/",
+          "says": "Moving Help prices based on two labor-only movers for two hours: loading and unloading $208 to $402; packing or unpacking $202 to $318; cleaning $193 to $308.",
+          "page_date": "2026-02-20",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "label": "Small job (2 movers, 2 hours)",
+      "range": [160, 400],
+      "minutes": 120,
+      "unit": "job",
+      "includes": [
+        "2 movers for up to 2 hours",
+        "Furniture moved or rearranged in the home",
+        "A container, storage unit or small truck loaded"
+      ],
+      "basis": "The 2 hour minimum for 2 movers: HireAHelper $160 to $300; Bellhop $200 to $400; U-Haul Moving Help $208 to $402.",
+      "sources": [
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Most moving companies have minimums, often two movers for at least two hours; for labor-only movers that is $160 to $300 for a team of two.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Bellhop",
+          "url": "https://www.getbellhops.com/blog/how-much-does-labor-only-moving-cost/",
+          "says": "Two movers for two hours run about $200 to $400; most labor-only movers have a 2 to 4 hour minimum.",
+          "page_date": "2026-04-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "U-Haul",
+          "url": "https://www.uhaul.com/Tips/Moving-Help/Moving-Company-Prices-Moving-Help-Vs-The-Competition-36882/",
+          "says": "Two labor-only movers for two hours: loading and unloading $208 to $402.",
+          "page_date": "2026-02-20",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "packing",
+      "label": "Packing session (2 movers, 2 hours)",
+      "range": [202, 318],
+      "minutes": 120,
+      "unit": "job",
+      "includes": [
+        "2 movers packing or unpacking for up to 2 hours",
+        "Fragile pieces wrapped, boxes labeled by room",
+        "Boxes and tape from the customer"
+      ],
+      "basis": "U-Haul Moving Help: packing or unpacking with 2 movers for 2 hours, $202 to $318. HireAHelper's $40 to $75 per mover hour gives $160 to $300 for the same time; its paid packing for a whole home is $280 to $2,200.",
+      "sources": [
+        {
+          "publisher": "U-Haul",
+          "url": "https://www.uhaul.com/Tips/Moving-Help/Moving-Company-Prices-Moving-Help-Vs-The-Competition-36882/",
+          "says": "Two labor-only movers for two hours: professional packing or unpacking $202 to $318.",
+          "page_date": "2026-02-20",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Labor-only movers cost $40 to $75 per mover per hour; paid packing costs between $280 and $2,200 depending on home size.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "mover_hour",
+      "label": "Hourly rate, each mover",
+      "rate": true,
+      "range": [40, 80],
+      "unit": "mover hour",
+      "minutes_per_unit": 30,
+      "includes": [
+        "Billed by the actual time",
+        "2 hour minimum"
+      ],
+      "basis": "Labor only, per mover per hour: HireAHelper $40 to $75; Bellhop $40 to $80. iMoving ($60 to $100) and Fixr ($50 to $100) run higher: check current rates where you live. 30 minutes per mover hour assumes a crew of 2.",
+      "note": "Bellhop: peak season and weekends can add 10 to 30 percent.",
+      "sources": [
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Labor-only movers cost $40 to $75 per mover per hour.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Bellhop",
+          "url": "https://www.getbellhops.com/blog/how-much-does-labor-only-moving-cost/",
+          "says": "$40 to $80 per mover per hour for labor only; big-city rates and peak season or weekends can add 10 to 30 percent.",
+          "page_date": "2026-04-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "iMoving",
+          "url": "https://www.imoving.com/blog/moving-tips/moving-labor-cost-and-everything/",
+          "says": "Moving labor costs $60 to $100 per mover per hour.",
+          "page_date": "2026-06-04",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/movers",
+          "says": "Loading and unloading help costs $50 to $100 per hour per mover.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "factors": [
+    {
+      "id": "home",
+      "label": "Home size",
+      "default": "h1",
+      "packages": ["move", "load"],
+      "basis": "Judgment call: each size's price is the studio price times the mover hours in HireAHelper's estimating chart (2 movers for 4 hours = 8 for a studio; 10 for a 2 or 3 bedroom apartment; 21 for a 2 or 3 bedroom house; 30 for a 3 or 4 bedroom house; 36 for 4 or more bedrooms). HireAHelper's cost guide runs flatter and iMoving's steeper. Extra minutes are the chart's added hours for both ends.",
+      "sources": [
+        {
+          "publisher": "HireAHelper Movers Academy",
+          "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+          "says": "Load and unload: studio or small apartment 2 movers, 4 hours; 2 to 3 bedroom apartment 2 movers, 5 hours; 2 to 3 bedroom house 3 movers, 7 hours; 3 to 4 bedroom house 4 movers, 7 to 8 hours; 4 or more bedroom house 4 movers, 8 to 10 hours.",
+          "page_date": "undated",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "iMoving",
+          "url": "https://www.imoving.com/blog/moving-tips/moving-labor-cost-and-everything/",
+          "says": "Studio or 1 bedroom $300 to $800; 2 bedroom $720 to $1,500; 3 bedroom $1,200 to $2,800; 4 or more bedrooms $2,000 and up.",
+          "page_date": "2026-06-04",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Local labor-only cost: 1BR or studio $296 to $362; 3,000 sq ft $540 to $660; 4BR+ $684 to $836.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        }
+      ],
+      "options": [
+        { "id": "h1", "label": "Studio or 1 bedroom", "short": "Studio or 1 bed", "mult": 1 },
+        { "id": "h2", "label": "2 or 3 bedroom apartment", "short": "2 to 3 bed apartment", "mult": 1.25, "minutes": 60 },
+        { "id": "h3", "label": "2 or 3 bedroom house", "short": "2 to 3 bed house", "mult": 2.6, "minutes": 180 },
+        { "id": "h4", "label": "3 or 4 bedroom house", "short": "3 to 4 bed house", "mult": 3.75, "minutes": 210 },
+        { "id": "h5", "label": "4 or more bedrooms", "short": "4+ bedrooms", "mult": 4.5, "minutes": 300 }
+      ]
+    }
+  ],
+  "addons": [
+    {
+      "id": "stairs",
+      "label": "Stairs, per flight after the first",
+      "range": [50, 100],
+      "minutes": 45,
+      "unit": "flight",
+      "packages": ["move", "load"],
+      "basis": "Fixr: $50 to $100 per staircase after the first. moveBuddha groups stairs, elevators and long carries as destination fees of $75 to $500 or more. HireAHelper's estimating guide adds 30 to 60 minutes for each set of stairs.",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/movers",
+          "says": "Stairs cost $50 to $100 per staircase after the first.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "moveBuddha",
+          "url": "https://www.movebuddha.com/blog/additional-moving-costs/",
+          "says": "Destination fees for stairs, elevators, long carries or shuttle service at your new home: $75 to $500 or more.",
+          "page_date": "2025-12-17",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper Movers Academy",
+          "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+          "says": "Add 30 to 60 minutes (depending on the overall amount of furniture and boxes) for each set of stairs.",
+          "page_date": "undated",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "long_carry",
+      "label": "Long carry, per extra 75 feet",
+      "range": [75, 125],
+      "minutes": 20,
+      "unit": "extra 75 ft",
+      "packages": ["move", "load"],
+      "basis": "Fixr: $75 to $125 per extra 75 feet when the truck can't park within about 150 feet of the door. moveBuddha: destination fees for long carries and stairs, $75 to $500 or more. The 20 minutes is a judgment call.",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/movers",
+          "says": "A long carry fee of $75 to $125 per 75 extra feet applies when the truck can't park within about 150 feet of the home.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "moveBuddha",
+          "url": "https://www.movebuddha.com/blog/additional-moving-costs/",
+          "says": "If the truck can't park near the home, expect extra charges for long carries, stairs, elevator use or shuttle services: $75 to $500 or more.",
+          "page_date": "2025-12-17",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "heavy",
+      "label": "Heavy item (upright piano, safe or pool table)",
+      "range": [200, 500],
+      "minutes": 30,
+      "unit": "item",
+      "basis": "HireAHelper: heavy or awkward items like safes or pianos can carry a surcharge of $200 to $1,000. Liberty Safe: $175 to $525 to move a safe; U-Haul Moving Help: $363 on average for a gun safe; Thumbtack: piano $300 to $400, pool table $395 to $500. HireAHelper's estimating guide adds 30 minutes for pianos, pool tables and gun safes.",
+      "note": "Grand and baby grand pianos and hot tubs need special equipment: refer them to a specialist or quote them on their own.",
+      "sources": [
+        {
+          "publisher": "HireAHelper",
+          "url": "https://www.hireahelper.com/advice/moving-costs/",
+          "says": "Heavy or awkward items, such as safes or pianos, can carry a surcharge of $200 to $1,000.",
+          "page_date": "2026-07-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Liberty Safe",
+          "url": "https://www.libertysafe.com/blogs/the-vault/how-much-does-it-cost-to-deliver-and-move-a-gun-safe",
+          "says": "The standard pricing for moving a safe ranges from $175 to $525.",
+          "page_date": "2020-05-12",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "U-Haul",
+          "url": "https://www.uhaul.com/Tips/Moving-Help/Gun-Safe-Movers-near-You-42011/",
+          "says": "On average, it costs $363 to move a gun safe with Moving Help, at a flat rate.",
+          "page_date": "2026-08-18",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Thumbtack",
+          "url": "https://www.thumbtack.com/p/moving-companies-prices",
+          "says": "Many moving companies charge an extra fee for heavy items such as pianos, safes or pool tables, especially over 300 pounds. Hot tub $350 to $450; piano $300 to $400; pool table $395 to $500.",
+          "page_date": "2025-01-17",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HireAHelper Movers Academy",
+          "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+          "says": "Add 30 minutes for pianos, pool tables and gun safes; a baby grand piano needs special equipment.",
+          "page_date": "undated",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "plans": [],
+  "plans_basis": "No recurring plan: households move once in a while, so repeat work comes from referrals and partner businesses (judgment call)."
+}

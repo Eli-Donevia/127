@@ -1,0 +1,2152 @@
+{
+ "checked": "2026-10-20",
+ "about": "How Punch list quote reads a pasted list: the jobs it knows with sourced times and prices, the work it sends to a licensed trade, the checks by state, the lead rule and the order to work in. Times without a source are marked as judgment calls.",
+ "steps": [
+  {
+   "id": "patch",
+   "label": "Patch the walls first",
+   "why": "A patch has to dry before it is sanded and painted, so it goes first.",
+   "sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/drywall-repair",
+     "says": "Small holes take 30 to 60 minutes of active work; because the patch needs to dry completely before sanding and painting, plan for a total window of 24 hours.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "fix",
+   "label": "Doors, windows, cabinets and repairs"
+  },
+  {
+   "id": "water",
+   "label": "Plumbing, with the water off once"
+  },
+  {
+   "id": "power",
+   "label": "Lights, fans, outlets and switches, with the breaker off once"
+  },
+  {
+   "id": "mount",
+   "label": "Mount and hang"
+  },
+  {
+   "id": "build",
+   "label": "Assemble"
+  },
+  {
+   "id": "seal",
+   "label": "Caulk and weather stripping"
+  },
+  {
+   "id": "outside",
+   "label": "Outside jobs"
+  },
+  {
+   "id": "paint",
+   "label": "Paint and touch-ups"
+  },
+  {
+   "id": "out",
+   "label": "Haul away and clean up"
+  },
+  {
+   "id": "return",
+   "label": "Next visit: sand and paint the patches",
+   "why": "Medium and large patches take a first coat, a night to dry and a finish coat the next day.",
+   "sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/drywall-repair",
+     "says": "Medium to large holes: a first coat of mud on day one, dry overnight, then a finish coat and sanding on day two; total project time usually two to three days.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "tv_mount",
+   "label": "Mount a TV",
+   "unit": "TV",
+   "step": "mount",
+   "words": [
+    "tvs?",
+    "televisions?",
+    "tv mount(?:ing)?",
+    "mount[^,;.]{0,30}\\btvs?",
+    "wall mount(?:ed|ing)?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/wall-mount-tv",
+     "says": "Most TV mounting is complete within 1 to 2 hours.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/wall-mount-tv",
+     "says": "TV mounting can be done in an hour or less, or take up to a few hours depending on the number of mounts, wall type and mount type.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price": {
+    "from": "tv_mount"
+   },
+   "safety": "anchor"
+  },
+  {
+   "id": "shelves",
+   "label": "Hang shelves",
+   "unit": "shelf",
+   "step": "mount",
+   "words": [
+    "shel(?:f|ves)",
+    "floating shel(?:f|ves)",
+    "shelving",
+    "wall shel(?:f|ves)"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "more": [
+    20,
+    40
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/shelf-mounting",
+     "says": "Most shelf installations take 1 to 2 hours, depending on shelf type and quantity.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "time_note": "Each shelf after the first (20 to 40 minutes) is a judgment call.",
+   "price": {
+    "range": [
+     150,
+     464
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/tv-mount-installation",
+      "says": "A handyman installing a shelf later costs $150 to $300.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Shelving jobs cost $199 to $464.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "safety": "anchor"
+  },
+  {
+   "id": "pictures",
+   "label": "Hang pictures or mirrors",
+   "unit": "piece",
+   "step": "mount",
+   "words": [
+    "pictures?",
+    "mirrors?",
+    "artwork",
+    "wall art",
+    "picture frames?",
+    "gallery wall",
+    "posters?",
+    "hang(?:ing)? photos?"
+   ],
+   "minutes": [
+    20,
+    40
+   ],
+   "more": [
+    10,
+    20
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "from": "pictures",
+    "per": "job"
+   },
+   "weak": [
+    "art",
+    "clocks?"
+   ]
+  },
+  {
+   "id": "blinds",
+   "label": "Hang blinds or curtain rods",
+   "unit": "window",
+   "step": "mount",
+   "words": [
+    "blinds?",
+    "curtains?",
+    "curtain rods?",
+    "drapes",
+    "drapery",
+    "shades",
+    "window treatments?"
+   ],
+   "minutes": [
+    20,
+    45
+   ],
+   "more": [
+    20,
+    40
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "from": "blinds"
+   },
+   "safety": "ladder"
+  },
+  {
+   "id": "childproof",
+   "label": "Baby gates and furniture anchors",
+   "unit": "job",
+   "step": "mount",
+   "words": [
+    "childproof(?:ing)?",
+    "child-proof(?:ing)?",
+    "baby gates?",
+    "cabinet locks?",
+    "anti-?tip",
+    "tip-?over",
+    "anchor[^,;.]{0,30}\\b(?:furniture|dressers?|bookcases?)",
+    "furniture anchors?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   },
+   "safety": "anchor"
+  },
+  {
+   "id": "assembly",
+   "label": "Assemble furniture",
+   "unit": "item",
+   "step": "build",
+   "words": [
+    "assembl(?:e|y|ing)",
+    "put together",
+    "bookcases?",
+    "bookshel(?:f|ves)",
+    "dressers?",
+    "bed ?frames?",
+    "cribs?",
+    "ikea",
+    "flat-? ?pack",
+    "night ?stands?",
+    "tv stands?",
+    "coffee tables?",
+    "dining table",
+    "patio furniture"
+   ],
+   "minutes": [
+    45,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/assemble-furniture",
+     "says": "Standard items take 1 to 3 hours (desks, dressers); complex items take 3 hours or more (wardrobes, sectionals).",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/assemble-furniture",
+     "says": "Small items like chairs or bedside tables can take less than 1 hour; medium items like coffee tables or shelving units 1 to 2 hours; large items like desks 1 to 4 hours; extra-large or specialty items 3 to 6 hours or more.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "time_note": "Each item after the first takes about as long again, a judgment call.",
+   "price": {
+    "from": "assembly"
+   },
+   "weak": [
+    "chairs?",
+    "desks?"
+   ],
+   "safety": "anchor"
+  },
+  {
+   "id": "assembly_large",
+   "label": "Assemble a large piece",
+   "unit": "item",
+   "step": "build",
+   "words": [
+    "wardrobes?",
+    "armoires?",
+    "sectionals?",
+    "entertainment cent(?:er|re)s?",
+    "playsets?",
+    "play ?sets?",
+    "swing ?sets?",
+    "murphy beds?",
+    "bunk beds?",
+    "loft beds?",
+    "modular closets?",
+    "closet systems?",
+    "trampolines?",
+    "shed kits?"
+   ],
+   "minutes": [
+    180,
+    360
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/assemble-furniture",
+     "says": "Standard items take 1 to 3 hours (desks, dressers); complex items take 3 hours or more (wardrobes, sectionals).",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/assemble-furniture",
+     "says": "Small items like chairs or bedside tables can take less than 1 hour; medium items like coffee tables or shelving units 1 to 2 hours; large items like desks 1 to 4 hours; extra-large or specialty items 3 to 6 hours or more.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price": {
+    "note": "No sourced flat price for large pieces: price it by the hour.",
+    "sources": []
+   },
+   "safety": "anchor"
+  },
+  {
+   "id": "door_fix",
+   "label": "Fix a door",
+   "unit": "door",
+   "step": "fix",
+   "words": [
+    "stick(?:s|ing|y)? door",
+    "door[^,;.]{0,30}\\b(?:sticks|sticking|rubs|drags|won'?t (?:close|latch|shut|lock)|doesn'?t (?:close|latch|shut))",
+    "squeak(?:y|s|ing)? (?:door|hinges?)",
+    "hinges?",
+    "door ?knobs?",
+    "door handles?",
+    "latch(?:es)?",
+    "strike plates?",
+    "door stops?",
+    "bifold",
+    "pocket doors?",
+    "sliding (?:door|closet door)s?",
+    "closet doors?",
+    "deadbolts?"
+   ],
+   "minutes": [
+    30,
+    90
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/door-repair",
+     "says": "Simple door fixes, like lubricating a hinge or tightening screws, take under an hour.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "time_note": "Up to 90 minutes when the door has to come down to be planed, a judgment call.",
+   "price": {
+    "from": "door"
+   },
+   "weak": [
+    "doors?",
+    "locks?"
+   ]
+  },
+  {
+   "id": "door_hang",
+   "label": "Replace or hang a door",
+   "unit": "door",
+   "step": "fix",
+   "check": "door_window",
+   "paint": "area",
+   "words": [
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)(?:(?!blind|curtain|shade|screen|lock|knob|handle|hinge|sweep|seal|stop|trim|weather|latch)[^,;.]){0,30}\\bdoors?(?!\\s?(?:knobs?|handles?|locks?|latch(?:es)?|hinges?|stops?|sweeps?|seals?|frames?|trim|bells?|screens?|cranks?|blinds?|shades?|treatments?|tracks?))",
+    "hang(?:(?!blind|curtain|shade|screen|lock|knob|handle|hinge|sweep|seal|stop|trim|weather|latch)[^,;.]){0,30}\\bdoors?(?!\\s?(?:knobs?|handles?|locks?|latch(?:es)?|hinges?|stops?|sweeps?|seals?|frames?|trim|bells?|screens?|cranks?|blinds?|shades?|treatments?|tracks?))",
+    "pre-?hung",
+    "door (?:replacement|installation|install)",
+    "storm doors?",
+    "screen doors?"
+   ],
+   "minutes": [
+    120,
+    240
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     200,
+     487
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Door installation costs $200 to $300.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Door jobs cost $213 to $487.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   }
+  },
+  {
+   "id": "window_fix",
+   "label": "Fix a window",
+   "unit": "window",
+   "step": "fix",
+   "words": [
+    "window[^,;.]{0,30}\\b(?:sticks|stuck|sticking|won'?t (?:open|close|lock|stay up)|doesn'?t (?:open|close|lock))",
+    "window (?:latch|lock|crank|track|repair|balance)s?",
+    "sash cords?",
+    "window screens?"
+   ],
+   "minutes": [
+    30,
+    60
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     125,
+     636
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Window repair costs $125 to $200.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Window jobs cost $234 to $636 on average.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "windows?",
+    "screens?"
+   ]
+  },
+  {
+   "id": "window_replace",
+   "label": "Replace a window",
+   "unit": "window",
+   "step": "fix",
+   "check": "door_window",
+   "paint": "always",
+   "words": [
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)(?:(?!blind|curtain|shade|screen|lock|knob|handle|hinge|sweep|seal|stop|trim|weather|latch)[^,;.]){0,30}\\bwindows?(?!\\s?(?:knobs?|handles?|locks?|latch(?:es)?|hinges?|stops?|sweeps?|seals?|frames?|trim|bells?|screens?|cranks?|blinds?|shades?|treatments?|tracks?))",
+    "window (?:replacement|installation|install)"
+   ],
+   "minutes": [
+    240,
+    240
+   ],
+   "time_sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Replace single window: 4 hours.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "time_note": "One source for the time.",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   }
+  },
+  {
+   "id": "cabinet_fix",
+   "label": "Fix cabinets or drawers",
+   "unit": "job",
+   "step": "fix",
+   "words": [
+    "cabinets?",
+    "cabinet (?:doors?|hinges?|pulls?|handles?|knobs?)",
+    "drawer (?:slides?|fronts?|pulls?)"
+   ],
+   "minutes": [
+    30,
+    60
+   ],
+   "more": [
+    15,
+    30
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     150,
+     500
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Kitchen cabinet repairs cost $150 to $500.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/handyman/",
+      "says": "A handyman may charge $300 on average to repair cabinets: straightening doors, replacing hardware.",
+      "page_date": "2026-06-17",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "knobs?",
+    "pulls?",
+    "drawers?"
+   ]
+  },
+  {
+   "id": "faucet",
+   "label": "Swap a faucet",
+   "unit": "faucet",
+   "step": "water",
+   "check": "plumbing_swap",
+   "words": [
+    "faucets?",
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)[^,;.]{0,30}\\bfaucets?",
+    "faucet (?:replacement|install(?:ation)?|swap)",
+    "(?:kitchen|bathroom|bath|sink) faucets?",
+    "shower ?heads?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/plumbing/install-a-faucet/",
+     "says": "A licensed plumber can finish a straightforward kitchen faucet swap in one to two hours.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+     "says": "Medium jobs take 2 to 4 hours, such as installing a faucet.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price": {
+    "from": "faucet"
+   }
+  },
+  {
+   "id": "faucet_fix",
+   "label": "Fix a leaky faucet",
+   "unit": "faucet",
+   "step": "water",
+   "check": "plumbing_fix",
+   "words": [
+    "(?:leak|leaks|leaky|leaking|drip|drips|dripping|drippy)[^,;.]{0,30}\\bfaucets?",
+    "faucets?[^,;.]{0,30}\\b(?:leaks?|leaking|leaky|drips?|dripping)",
+    "faucet cartridges?"
+   ],
+   "minutes": [
+    30,
+    90
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     100,
+     350
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "TaskRabbit",
+      "url": "https://www.taskrabbit.com/cost-guides/plumbing",
+      "says": "Leaking faucet repair costs $100 to $250.",
+      "page_date": "2026-10-01",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/shower-repair",
+      "says": "Leaky faucets can usually be fixed for $150 to $350.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  },
+  {
+   "id": "toilet_fix",
+   "label": "Fix a toilet",
+   "unit": "toilet",
+   "step": "water",
+   "check": "plumbing_fix",
+   "words": [
+    "toilets?",
+    "running toilets?",
+    "toilet[^,;.]{0,30}\\b(?:runs|running|keeps running|rocks|wobbles|wobbly|clogged|clogs|leaks)",
+    "flappers?",
+    "fill valves?",
+    "flush valves?",
+    "toilet (?:handle|seat|repair|flapper)s?",
+    "(?:unclog|clogged)[^,;.]{0,30}\\btoilets?",
+    "wobbly toilets?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/toilet-repair-cost",
+     "says": "Simple toilet repairs typically only take an hour or two.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Toilet valve replacement: 1 hour.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "price": {
+    "range": [
+     125,
+     355
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "TaskRabbit",
+      "url": "https://www.taskrabbit.com/cost-guides/plumbing",
+      "says": "Toilet repair costs $125 to $250.",
+      "page_date": "2026-10-01",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/toilet-repair-cost",
+      "says": "Toilet repair costs $149 to $355, $230 on average.",
+      "page_date": "2026-04-09",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  },
+  {
+   "id": "toilet_replace",
+   "label": "Replace a toilet",
+   "unit": "toilet",
+   "step": "water",
+   "check": "plumbing_swap",
+   "words": [
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)[^,;.]{0,30}\\btoilets?",
+    "toilet (?:replacement|installation|install)"
+   ],
+   "minutes": [
+    90,
+    180
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     100,
+     200
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Toilet installation costs $100 to $200.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/handyman/",
+      "says": "Toilet: $150.",
+      "page_date": "2026-06-17",
+      "checked": "2026-10-20"
+     }
+    ]
+   }
+  },
+  {
+   "id": "disposal",
+   "label": "Swap a garbage disposal",
+   "unit": "disposal",
+   "step": "water",
+   "check": "plumbing_swap",
+   "words": [
+    "garbage disposals?",
+    "disposals?",
+    "disposers?",
+    "insinkerator"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     150,
+     750
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/handyman/",
+      "says": "Garbage disposal: $150.",
+      "page_date": "2026-06-17",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "TaskRabbit",
+      "url": "https://www.taskrabbit.com/cost-guides/plumbing",
+      "says": "Garbage disposal repair or replacement costs $230 to $750.",
+      "page_date": "2026-10-01",
+      "checked": "2026-10-20"
+     }
+    ]
+   }
+  },
+  {
+   "id": "leak",
+   "label": "Fix a small leak or a slow drain",
+   "unit": "job",
+   "step": "water",
+   "check": "plumbing_fix",
+   "words": [
+    "slow drains?",
+    "clog(?:s|ged)?",
+    "unclog",
+    "drain[^,;.]{0,30}\\b(?:slow|clogged|backs up|backing up)",
+    "p-? ?traps?",
+    "under the sink"
+   ],
+   "minutes": [
+    30,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/plumbing",
+     "says": "Drain snaking takes 30 to 90 minutes.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Leaky pipe: 2 hours.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "price": {
+    "range": [
+     125,
+     450
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "TaskRabbit",
+      "url": "https://www.taskrabbit.com/cost-guides/plumbing",
+      "says": "Unclogging a drain costs $125 to $300; leaking pipe repair $150 to $450.",
+      "page_date": "2026-10-01",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Plumbing jobs cost $198 to $426.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "leaks?",
+    "leaky",
+    "leaking",
+    "drips?",
+    "dripping"
+   ]
+  },
+  {
+   "id": "light_fixture",
+   "label": "Swap a light fixture",
+   "unit": "fixture",
+   "step": "power",
+   "check": "electrical_swap",
+   "words": [
+    "light fixtures?",
+    "chandeliers?",
+    "pendants?",
+    "pendant lights?",
+    "vanity lights?",
+    "porch lights?",
+    "ceiling lights?",
+    "(?:replace|swap|install|change)[^,;.]{0,30}\\blights?(?!\\s?switch)"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/light-installation",
+     "says": "Basic fixture replacements take about an hour, while complex installations may take longer.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/lighting-installation-cost",
+     "says": "Lighting installation only takes an hour or two.",
+     "page_date": "2026-04-09",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price": {
+    "range": [
+     65,
+     175
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+      "says": "Light fixture replacement $65 to $175, flat rate.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Light fixture installation costs $80 to $150.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "fixtures?",
+    "lights?(?!\\s?switch)"
+   ],
+   "safety": "ladder"
+  },
+  {
+   "id": "ceiling_fan",
+   "label": "Swap a ceiling fan",
+   "unit": "fan",
+   "step": "power",
+   "check": "electrical_swap",
+   "words": [
+    "ceiling fans?"
+   ],
+   "minutes": [
+    60,
+    180
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/ceiling-fan-installation",
+     "says": "Most ceiling fan installations take 1 to 3 hours.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price": {
+    "range": [
+     100,
+     400
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Ceiling fan installation costs $100 to $300.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+      "says": "Ceiling fan installation $100 to $400, flat rate.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "fans?"
+   ],
+   "safety": "ladder"
+  },
+  {
+   "id": "bathroom_fan",
+   "label": "Swap a bathroom fan",
+   "unit": "fan",
+   "step": "power",
+   "check": "electrical_swap",
+   "words": [
+    "bath(?:room)? fans?",
+    "exhaust fans?",
+    "vent fans?"
+   ],
+   "minutes": [
+    120,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "A bathroom fan takes about two hours if simply replacing the old fan with a similar unit; for ductwork or new wiring, hire a specialist.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "time_note": "One source for the time.",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   },
+   "safety": "ladder"
+  },
+  {
+   "id": "outlet_switch",
+   "label": "Swap an outlet or switch",
+   "unit": "outlet",
+   "step": "power",
+   "check": "electrical_swap",
+   "words": [
+    "outlets?",
+    "switch(?:es)?",
+    "light switch(?:es)?",
+    "dimmers?",
+    "gfci?s?",
+    "receptacles?",
+    "usb outlets?"
+   ],
+   "minutes": [
+    20,
+    40
+   ],
+   "more": [
+    10,
+    20
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     60,
+     420
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/handyman/",
+      "says": "Small jobs, like replacing a light switch, may cost $60 to $250 for one to two hours of work.",
+      "page_date": "2026-06-17",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+      "says": "Minor electrical repair $140 to $420 or more, hourly or flat rate.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-20"
+     }
+    ]
+   }
+  },
+  {
+   "id": "thermostat",
+   "label": "Swap a thermostat",
+   "unit": "thermostat",
+   "step": "power",
+   "check": "hvac_swap",
+   "words": [
+    "thermostats?",
+    "smart thermostats?",
+    "nest",
+    "ecobee"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Faulty thermostat: 2 hours.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "time_note": "The low end is a judgment call.",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   }
+  },
+  {
+   "id": "smoke_alarm",
+   "label": "Swap smoke or CO alarms",
+   "unit": "alarm",
+   "step": "power",
+   "check_if": {
+    "words": "hard-? ?wired",
+    "check": "electrical_swap"
+   },
+   "words": [
+    "smoke (?:alarm|detector)s?",
+    "carbon monoxide(?: (?:alarm|detector)s?)?",
+    "co (?:alarm|detector)s?"
+   ],
+   "minutes": [
+    10,
+    20
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "No sourced price on its own: it fits inside a fix-it visit.",
+    "sources": []
+   },
+   "safety": "ladder"
+  },
+  {
+   "id": "caulk",
+   "label": "Recaulk a tub or shower",
+   "unit": "tub",
+   "step": "seal",
+   "words": [
+    "caulk(?:ing)?",
+    "re-?caulk(?:ing)?",
+    "sealant"
+   ],
+   "minutes": [
+    45,
+    90
+   ],
+   "more": [
+    30,
+    60
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "from": "caulk"
+   }
+  },
+  {
+   "id": "weatherstrip",
+   "label": "Weatherstrip a door",
+   "unit": "door",
+   "step": "seal",
+   "words": [
+    "weather ?strip(?:ping)?",
+    "weather-strip(?:ping)?",
+    "drafts?",
+    "drafty",
+    "door sweeps?",
+    "door seals?"
+   ],
+   "minutes": [
+    30,
+    60
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "from": "weatherstrip"
+   }
+  },
+  {
+   "id": "drywall_patch",
+   "label": "Patch drywall",
+   "unit": "hole",
+   "step": "patch",
+   "visits": 2,
+   "paint": "area",
+   "words": [
+    "drywall",
+    "sheetrock",
+    "holes? in (?:the |a )?(?:wall|ceiling)",
+    "wall holes?",
+    "nail holes?",
+    "anchor holes?",
+    "screw holes?",
+    "cracks? in (?:the )?(?:wall|ceiling)",
+    "plaster",
+    "nail pops?"
+   ],
+   "minutes": [
+    30,
+    60
+   ],
+   "more": [
+    15,
+    30
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/drywall-repair",
+     "says": "Small holes and dings take 30 to 60 minutes of active work; plan 24 hours before sanding and painting.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ],
+   "time_note": "Each patch after the first (15 to 30 minutes) is a judgment call.",
+   "price": {
+    "from": "drywall"
+   },
+   "weak": [
+    "patch(?:es|ing)?",
+    "dents?",
+    "dings?"
+   ]
+  },
+  {
+   "id": "drywall_large",
+   "label": "Repair a large drywall area",
+   "unit": "job",
+   "step": "patch",
+   "visits": 3,
+   "paint": "area",
+   "words": [
+    "(?:large|big|huge) holes?",
+    "water damage(?:d)?",
+    "water stains?",
+    "ceiling (?:patch|repair|stain)s?",
+    "(?:replace|new)[^,;.]{0,30}\\b(?:sheet|section|piece) of drywall",
+    "drywall (?:sheet|section)s?"
+   ],
+   "minutes": [
+    120,
+    480
+   ],
+   "time_sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/drywall-repair",
+     "says": "The labor usually takes 1 to 4 hours for patching a few smaller holes and up to a full work day to replace an entire sheet.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Water damage: find and fix the leak before the patch, or it comes back.",
+   "price": {
+    "range": [
+     200,
+     920
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/repair-drywall",
+      "says": "Drywall repair costs $200 to $550, average $350, for multiple holes and cracks in a single room.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/drywall-repair-cost",
+      "says": "Drywall repair costs $294 to $920 on average.",
+      "page_date": "2026-04-09",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  },
+  {
+   "id": "paint_touchup",
+   "label": "Paint touch-ups",
+   "unit": "job",
+   "step": "paint",
+   "paint": "area",
+   "words": [
+    "touch-? ?ups?",
+    "paint[^,;.]{0,30}\\bpatch(?:es)?",
+    "paint touch"
+   ],
+   "minutes": [
+    30,
+    90
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "No sourced price on its own: it fits inside a fix-it visit.",
+    "sources": []
+   }
+  },
+  {
+   "id": "paint_room",
+   "label": "Paint a room",
+   "unit": "room",
+   "step": "paint",
+   "paint": "area",
+   "words": [
+    "repaint(?:ing)?",
+    "paint[^,;.]{0,30}\\b(?:rooms?|bedrooms?|bathrooms?|kitchens?|walls?|ceilings?|hallways?|offices?|nursery|closets?|trim|baseboards?)"
+   ],
+   "minutes": [
+    120,
+    240
+   ],
+   "time_sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Each room may take two to four hours to prep and paint, depending on its size and base color.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ],
+   "time_note": "One source for the time.",
+   "price": {
+    "range": [
+     100,
+     925
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/handyman/",
+      "says": "Handyman painting prices are around $100 per room.",
+      "page_date": "2026-06-17",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Painting jobs cost $398 to $925.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "weak": [
+    "paint(?:ing)?"
+   ]
+  },
+  {
+   "id": "gutters",
+   "label": "Gutter work",
+   "unit": "job",
+   "step": "outside",
+   "words": [
+    "gutters?",
+    "downspouts?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     100,
+     799
+    ],
+    "per": "job",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Maintenance costs $100 to $280, such as cleaning gutters.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Gutter jobs cost $280 to $799.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   "safety": "ladder"
+  },
+  {
+   "id": "fence",
+   "label": "Fix a fence or gate",
+   "unit": "job",
+   "step": "outside",
+   "words": [
+    "fences?",
+    "fence (?:boards?|posts?|pickets?)",
+    "gates?",
+    "gate (?:latch|hinge)s?"
+   ],
+   "minutes": [
+    60,
+    180
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   }
+  },
+  {
+   "id": "roof_fix",
+   "label": "Small roof repair",
+   "unit": "job",
+   "step": "outside",
+   "check": "roof",
+   "words": [
+    "roof(?:ing)?",
+    "shingles?",
+    "flashing"
+   ],
+   "minutes": [
+    60,
+    180
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   },
+   "safety": "ladder"
+  },
+  {
+   "id": "stairs",
+   "label": "Fix stairs or a railing",
+   "unit": "job",
+   "step": "fix",
+   "words": [
+    "stairs?",
+    "steps?",
+    "stair treads?",
+    "railings?",
+    "hand ?rails?",
+    "banisters?",
+    "balusters?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "Only one guide we read gives a price for this job alone, so it has no typical range here: it is priced by the time it takes. Check current rates.",
+    "sources": []
+   }
+  },
+  {
+   "id": "appliance",
+   "label": "Install or hook up an appliance",
+   "unit": "appliance",
+   "step": "fix",
+   "check": "appliance",
+   "words": [
+    "dishwashers?",
+    "ice makers?",
+    "washers?",
+    "washing machines?",
+    "dryers?",
+    "microwaves?",
+    "range hoods?",
+    "refrigerators?",
+    "fridges?",
+    "ovens?",
+    "stoves?"
+   ],
+   "minutes": [
+    60,
+    120
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "range": [
+     100,
+     366
+    ],
+    "per": "unit",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/handyman",
+      "says": "Appliance installation costs $100 to $150.",
+      "page_date": "2025-01-30",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Appliance jobs cost $188 to $366 on average.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   }
+  },
+  {
+   "id": "small_fix",
+   "label": "Small fix",
+   "unit": "job",
+   "step": "fix",
+   "words": [
+    "tighten",
+    "loose",
+    "wobbly",
+    "wobbles",
+    "squeak(?:y|s|ing)?",
+    "rattl(?:e|es|ing)",
+    "adjust"
+   ],
+   "minutes": [
+    15,
+    30
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "note": "No sourced price on its own: it fits inside a fix-it visit.",
+    "sources": []
+   },
+   "fallback": true
+  },
+  {
+   "id": "haul",
+   "label": "Haul away the old ones",
+   "unit": "job",
+   "step": "out",
+   "words": [
+    "haul(?:ing)? (?:away|off)",
+    "take (?:away|the old)",
+    "remove the old",
+    "dump run",
+    "disposal of",
+    "get rid of",
+    "junk"
+   ],
+   "minutes": [
+    30,
+    60
+   ],
+   "time_note": "judgment call, not a sourced fact",
+   "price": {
+    "from": "haul",
+    "per": "job"
+   }
+  }
+ ],
+ "refer": [
+  {
+   "id": "panel",
+   "trade": "a licensed electrician",
+   "label": "Electrical panel or service",
+   "words": [
+    "(?:electrical|electric|breaker|fuse|main|service) (?:panel|box)(?:es)?",
+    "panel (?:upgrade|replacement|swap|change)",
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)[^,;.]{0,30}\\bpanel",
+    "sub-? ?panels?",
+    "fuse ?box(?:es)?",
+    "breaker ?box(?:es)?",
+    "main breaker",
+    "service upgrade",
+    "upgrade[^,;.]{0,30}\\b(?:electrical )?service",
+    "\\d{3} ?amps?",
+    "meter (?:base|socket)"
+   ],
+   "why": "Panel and service work needs a permit and a licensed electrician in most places.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for panel replacement or adding a sub-panel, and for electrical service upgrades.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Contractors State License Board (California)",
+     "url": "https://www.cslb.ca.gov/consumers/report_unlicensed_activity/What_Is_Illegal_Contractor_Activity.aspx",
+     "says": "It is illegal for an unlicensed person to work on any project which requires a building permit.",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "wiring",
+   "trade": "a licensed electrician",
+   "label": "New wiring or moved outlets",
+   "words": [
+    "new (?:outlets?|circuits?|wiring|wires?|switch(?:es)?|receptacles?)",
+    "add(?:ing)? (?:an? |another |more |two |2 )?(?:outlets?|circuits?|switch(?:es)?|receptacles?)",
+    "(?:move|moving|relocate|relocating)[^,;.]{0,30}\\b(?:outlets?|switch(?:es)?|receptacles?|wiring|lights?|fixtures?)",
+    "run(?:ning)?[^,;.]{0,30}\\b(?:power|wires?|wiring|circuits?|cables?)",
+    "re-?wir(?:e|ing)",
+    "knob(?:-| and )tube",
+    "aluminum wiring",
+    "(?:ev|car) chargers?",
+    "(?:breakers?|circuits?)[^,;.]{0,30}\\btrip(?:s|ping)?",
+    "keeps tripping",
+    "recessed (?:lights?|lighting|cans?)",
+    "can lights?",
+    "pot lights?",
+    "dedicated circuits?",
+    "(?:240|220) ?v(?:olts?)?",
+    "(?:outlet|power)[^,;.]{0,30}\\b(?:behind|inside|in) (?:the )?(?:wall|tv)",
+    "in-? ?wall power",
+    "hard-? ?wire[^,;.]{0,30}\\b(?:new|charger|heater)"
+   ],
+   "why": "New wiring, new circuits and moved outlets change the electrical system: a permit and a licensed electrician in most places.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for any changes to the electrical, gas, mechanical or plumbing systems, including relocating electrical receptacles.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/services/handyman/light-installation",
+     "says": "Simple fixture replacements can be handled by experienced handypersons, while new wiring requires a licensed electrician.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "gas",
+   "trade": "a licensed plumber or gas fitter",
+   "label": "Gas lines or gas appliances",
+   "words": [
+    "gas[^,;.]{0,30}\\b(?:lines?|pipes?|piping|leaks?|valves?|meters?|stoves?|ranges?|ovens?|dryers?|fireplaces?|logs?|furnaces?|appliances?|water heaters?|hook-? ?ups?)",
+    "propane",
+    "natural gas",
+    "gas"
+   ],
+   "unless": [
+    "gas (?:cans?|grills?|mowers?|stations?|caps?|struts?)",
+    "gas-? ?powered"
+   ],
+   "why": "Gas lines, gas appliances and gas logs need a permit and a licensed pro in most places.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for any changes to the gas system and for fireplace or gas log installation.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Utah Legislature, Utah Code 58-55-305",
+     "url": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+     "says": "Installation, repair or replacement of a residential gas appliance or a combustion system on a small project shall be performed by a person certified under 58-55-308(2).",
+     "page_date": "2025-05-07",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "water_heater",
+   "trade": "a licensed plumber",
+   "label": "Water heater",
+   "words": [
+    "(?:hot )?water heaters?",
+    "tankless",
+    "water tanks?"
+   ],
+   "why": "Water heaters need a permit in most places, and Florida lists replacing one as licensed work.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for water heaters.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Florida DBPR guidance, posted by Columbia County",
+     "url": "https://www.columbiacountyfla.com/Downloads/Building%20&%20Zoning/Contractor%20License%20Registration%20Information/3_DBPR%20License%20Requirements%20and%20Exemptions.pdf",
+     "says": "Replacing a water heater for pay requires a state license.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "plumbing_major",
+   "trade": "a licensed plumber",
+   "label": "Moving or adding pipes, drains or valves",
+   "words": [
+    "re-?pip(?:e|ing)",
+    "(?:move|moving|relocate|relocating)[^,;.]{0,30}\\b(?:sinks?|toilets?|showers?|tubs?|drains?|pipes?|plumbing|washer hook-? ?ups?)",
+    "new (?:drains?|pipes?|supply lines?|water lines?|plumbing|sinks? hole)",
+    "sewer",
+    "main (?:water )?lines?",
+    "shut-? ?off valves?",
+    "(?:replace|replacing|install|installing|swap|swapping|change|changing|put in|new)[^,;.]{0,30}\\bvalves?",
+    "sump pumps?",
+    "well pumps?",
+    "water softeners?",
+    "backflow",
+    "burst pipes?",
+    "frozen pipes?",
+    "slab leaks?",
+    "septic"
+   ],
+   "why": "Moving or adding pipes, drains and valves changes the plumbing system: a permit and a licensed plumber in most places.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for any changes to the plumbing system.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/plumbing/install-a-faucet/",
+     "says": "If the project calls for moving supply lines, changing valves or drilling new sink holes, bring in a licensed plumber.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "City of Cotati Building Division",
+     "url": "https://www.cotaticity.gov/DocumentCenter/View/1509/Work-Exempt-From-Permits",
+     "says": "Permit-free plumbing is limited to faucet or toilet repair or replacement, stopping leaks and clearing stoppages without replacing valves or pipes.",
+     "page_date": "2025-06-18",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "hvac",
+   "trade": "a licensed HVAC contractor",
+   "label": "Heating or cooling system",
+   "words": [
+    "furnaces?",
+    "air condition(?:er|ers|ing)",
+    "a/?c (?:units?|repair|install|isn'?t|not|doesn'?t|system)",
+    "central air",
+    "hvac",
+    "heat pumps?",
+    "ductwork",
+    "ducts?",
+    "mini-? ?splits?",
+    "boilers?",
+    "condensers?",
+    "refrigerant",
+    "freon",
+    "(?:heating|cooling) system"
+   ],
+   "unless": [
+    "window (?:a/?c|units?|air conditioners?)",
+    "portable (?:a/?c|air conditioners?)",
+    "(?:a/?c |air |furnace |hvac )?filters?",
+    "dryer (?:vent|duct)s?",
+    "duct tape"
+   ],
+   "why": "Heating and cooling systems need a licensed HVAC pro in most places: Utah's rule says so even on small jobs, and Florida lists central air as licensed work.",
+   "sources": [
+    {
+     "publisher": "Utah Legislature, Utah Code 58-55-305",
+     "url": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+     "says": "Installation, repair or replacement of a heating, ventilation or air conditioning system on a small project must be performed by an HVAC contractor licensed by the division.",
+     "page_date": "2025-05-07",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Florida DBPR guidance, posted by Columbia County",
+     "url": "https://www.columbiacountyfla.com/Downloads/Building%20&%20Zoning/Contractor%20License%20Registration%20Information/3_DBPR%20License%20Requirements%20and%20Exemptions.pdf",
+     "says": "Installing central air conditioning for pay requires a state license; changing an AC filter or setting up a plug-in window unit does not.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "structural",
+   "trade": "a licensed contractor",
+   "label": "Structural work",
+   "words": [
+    "load-? ?bearing",
+    "bearing walls?",
+    "beams?",
+    "joists?",
+    "rafters?",
+    "truss(?:es)?",
+    "foundations?",
+    "structural",
+    "headers?",
+    "(?:remove|removing|take out|knock down|knock out|tear out|open up)[^,;.]{0,30}\\bwalls?",
+    "(?:sagging|sags|bouncy|soft) (?:floors?|ceilings?|roofs?)",
+    "new (?:openings?|doorways?|window openings?)",
+    "(?:cut|make|widen|enlarge)[^,;.]{0,30}\\b(?:opening|doorway)s?",
+    "build[^,;.]{0,30}\\bdecks?",
+    "deck (?:footings?|ledgers?)",
+    "retaining walls?",
+    "additions?"
+   ],
+   "unless": [
+    "head(?:er)?board"
+   ],
+   "why": "Structural work (load-bearing walls, beams, joists, foundations and new openings) needs a permit and a licensed contractor in most places.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for any repairs involving structural members.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Florida DBPR guidance, posted by Columbia County",
+     "url": "https://www.columbiacountyfla.com/Downloads/Building%20&%20Zoning/Contractor%20License%20Registration%20Information/3_DBPR%20License%20Requirements%20and%20Exemptions.pdf",
+     "says": "Structural alterations to load-bearing walls for pay require a state contractor's license.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "City of Cotati Building Division",
+     "url": "https://www.cotaticity.gov/DocumentCenter/View/1509/Work-Exempt-From-Permits",
+     "says": "Ordinary repairs do not include cutting away a wall, or removing a beam or load-bearing support.",
+     "page_date": "2025-06-18",
+     "checked": "2026-10-20"
+    }
+   ]
+  }
+ ],
+ "checks": {
+  "electrical_swap": {
+   "label": "Light, fan, outlet or switch swap",
+   "say": "Swapping a fixture, fan, outlet or switch in an existing box needs no permit in some cities (Cotati lists them), but some states require a licensed electrician even for a swap.",
+   "trade": "a licensed electrician"
+  },
+  "plumbing_swap": {
+   "label": "Faucet, toilet or disposal swap",
+   "say": "Swapping a faucet or toilet in the same spot needs no permit in some cities (Cotati lists them), but some states require a licensed plumber even for a swap.",
+   "trade": "a licensed plumber"
+  },
+  "plumbing_fix": {
+   "label": "Small plumbing repair",
+   "say": "Repairs that don't replace pipes or valves, like a flapper or a clog, need no permit in some cities (Cotati), but some states still require a licensed plumber.",
+   "trade": "a licensed plumber"
+  },
+  "hvac_swap": {
+   "label": "Thermostat swap",
+   "say": "Some states treat any heating and cooling work as licensed work.",
+   "trade": "a licensed HVAC contractor"
+  },
+  "door_window": {
+   "label": "Door or window replacement",
+   "say": "A same-size door or window swap needs no permit in some cities (Cotati), but some cities require one; a new or bigger opening is structural work.",
+   "trade": "a licensed contractor"
+  },
+  "roof": {
+   "label": "Roof repair",
+   "say": "Roofing is licensed work in some states (Florida lists it), and cities set when a roof repair needs a permit.",
+   "trade": "a licensed roofing contractor"
+  },
+  "appliance": {
+   "label": "Appliance hookup",
+   "say": "Connecting a dishwasher or an ice maker to the water line counts as plumbing in some states (Florida lists a dishwasher connected to drinking water as licensed work).",
+   "trade": "a licensed plumber"
+  }
+ },
+ "check_sources": [
+  {
+   "publisher": "City of Cotati Building Division",
+   "url": "https://www.cotaticity.gov/DocumentCenter/View/1509/Work-Exempt-From-Permits",
+   "says": "Work exempt from a permit includes light fixture or ceiling fan replacement, outlet and switch replacements in existing boxes, faucet or toilet repair or replacement, stopping leaks, clearing stoppages without replacing valves or pipes, and window replacements that don't alter the frame.",
+   "page_date": "2025-06-18",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "Florida DBPR guidance, posted by Columbia County",
+   "url": "https://www.columbiacountyfla.com/Downloads/Building%20&%20Zoning/Contractor%20License%20Registration%20Information/3_DBPR%20License%20Requirements%20and%20Exemptions.pdf",
+   "says": "Licensed work includes connecting a dishwasher to drinking water, replacing a water heater, central air conditioning, plumbing that connects to drinking water, roofing and load-bearing walls; painting, cabinets and drywall without plumbing, electrical or AC work need no state license.",
+   "checked": "2026-10-19"
+  }
+ ],
+ "states": {
+  "CA": {
+   "code": "CA",
+   "name": "California",
+   "rule": "California: without a contractor license you can take a job only if labor and materials together come to less than $1,000, no building permit is needed and you employ no one for it. Ads for this work must say you are not licensed.",
+   "limit": 1000,
+   "at_or_above": true,
+   "href": "https://www.cslb.ca.gov/Resources/IndustryBulletins/2024/AB%202622%20Implementation.FINAL.pdf",
+   "sources": [
+    {
+     "publisher": "Contractors State License Board (California)",
+     "url": "https://www.cslb.ca.gov/Resources/IndustryBulletins/2024/AB%202622%20Implementation.FINAL.pdf",
+     "says": "Starting January 1, 2025, AB 2622 raises the minor work license exemption from $500 to $1,000, but the work cannot require a permit and the unlicensed person cannot employ anyone; unlicensed individuals can advertise for work up to $1,000 if the ad says they are not licensed.",
+     "page_date": "2024-12-31",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Contractors State License Board (California)",
+     "url": "https://www.cslb.ca.gov/consumers/report_unlicensed_activity/What_Is_Illegal_Contractor_Activity.aspx",
+     "says": "A license is needed for work of $1,000 or more in combined labor and material costs, and it is illegal for an unlicensed person to work on any project which requires a building permit.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "check",
+    "plumbing_swap": "check",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "check"
+   },
+   "notes": [
+    "Cities such as Cotati list light fixture, fan, outlet and switch swaps and faucet and toilet repairs or replacements as work that needs no permit. Check your city."
+   ],
+   "banner": "California: an unlicensed handyperson's ads must say they are not licensed (CSLB)."
+  },
+  "AZ": {
+   "code": "AZ",
+   "name": "Arizona",
+   "rule": "Arizona: the handyman exemption covers one job under $1,000 in labor, materials and everything else, of a casual or minor nature, with no local building permit. It doesn't cover work split into smaller contracts or part of a larger job, and ads must say \"not a licensed contractor\".",
+   "limit": 1000,
+   "at_or_above": true,
+   "href": "https://www.azleg.gov/ars/32/01121.htm",
+   "sources": [
+    {
+     "publisher": "Arizona Legislature, A.R.S. 32-1121",
+     "url": "https://www.azleg.gov/ars/32/01121.htm",
+     "says": "Exempt: work on one undertaking or project by one or more contracts with an aggregate contract price, including labor, materials and all other items, of less than $1,000, of a casual or minor nature; not if the work requires a local building permit, is part of a larger operation or split to evade the chapter, or if the person's ads don't include the words \"not a licensed contractor\".",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "check",
+    "plumbing_swap": "check",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "check"
+   },
+   "split": true,
+   "banner": "Arizona: put \"not a licensed contractor\" on your ads, cards and door hangers while you work under the exemption (A.R.S. 32-1121)."
+  },
+  "NV": {
+   "code": "NV",
+   "name": "Nevada",
+   "rule": "Nevada: repair or upkeep under $1,000 in labor and materials is exempt, unless it needs a building permit, is work a plumbing, electrical, refrigeration, heating or air-conditioning contractor does, or is part of a larger project of $500 or more.",
+   "limit": 1000,
+   "at_or_above": true,
+   "href": "https://www.leg.state.nv.us/nrs/nrs-624.html",
+   "sources": [
+    {
+     "publisher": "Nevada Legislature, NRS 624.031",
+     "url": "https://www.leg.state.nv.us/nrs/nrs-624.html",
+     "says": "NRS 624.031(6): any work to repair or maintain property the value of which is less than $1,000, including labor and materials, is exempt unless a building permit is required, the work is of a type performed by a plumbing, electrical, refrigeration, heating or air-conditioning contractor, or it is part of a larger project of $500 or more or split to evade the chapter.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "refer",
+    "plumbing_swap": "refer",
+    "plumbing_fix": "refer",
+    "hvac_swap": "refer",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "refer"
+   },
+   "split": true
+  },
+  "OR": {
+   "code": "OR",
+   "name": "Oregon",
+   "rule": "Oregon: a handyman needs a CCB license for any job of $1,000 or more, and for any job at all once they advertise, even with business cards.",
+   "limit": 1000,
+   "at_or_above": true,
+   "href": "https://www.Oregon.Gov/ccb/Documents/Realtors%20guide%20to%20working%20with%20contractors.pdf",
+   "sources": [
+    {
+     "publisher": "Oregon Construction Contractors Board",
+     "url": "https://www.Oregon.Gov/ccb/Documents/Realtors%20guide%20to%20working%20with%20contractors.pdf",
+     "says": "Any handyman that performs work of $1,000 or more must be licensed by the CCB; handymen must also be licensed if they produce any form of advertisements, including business cards. A lead-based paint license is required to bid and work on pre-1978 homes.",
+     "page_date": "2020-10-15",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "ORS 701.010 (Oregon Revised Statutes, via oregon.public.law)",
+     "url": "https://oregon.public.law/statutes/ors_701.010",
+     "says": "ORS 701.010(4): the exemption for casual, minor or inconsequential work under $1,000 does not apply to a person who advertises or puts out any sign or card or other device that might indicate to the public that the person is a contractor.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "check",
+    "plumbing_swap": "check",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "check"
+   },
+   "banner": "Oregon: handymen who advertise, even with business cards, must be licensed by the CCB. Get your CCB license before you hand out cards or quote this list.",
+   "lead": "Oregon also requires a CCB lead-based paint license to bid and work on homes built before 1978."
+  },
+  "UT": {
+   "code": "UT",
+   "name": "Utah",
+   "rule": "Utah: alteration or repair under $7,000 in labor and materials is exempt, but plumbing and electrical work goes to a licensed contractor, or a licensed journeyman for parts like a faucet, toilet, fixture, outlet or switch; heating and cooling systems to a licensed HVAC contractor; gas appliances to a certified person.",
+   "limit": 7000,
+   "at_or_above": true,
+   "href": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+   "sources": [
+    {
+     "publisher": "Utah Legislature, Utah Code 58-55-305",
+     "url": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+     "says": "58-55-305(1)(h): alteration or repair of a building with a contracted value of less than $7,000, including labor and materials, is exempt; plumbing and electrical work must be done by a licensed electrical or plumbing contractor, or by a licensed journeyman for a component such as a faucet, toilet, fixture, device, outlet or electrical switch; HVAC work by a licensed HVAC contractor; above $3,000 the person files a one-time affirmation of liability insurance. (1)(k): minor plumbing incidental to the repair of a fixture or appliance is exempt if no piping or gas appliance is modified.",
+     "page_date": "2025-05-07",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "refer",
+    "plumbing_swap": "refer",
+    "plumbing_fix": "check",
+    "hvac_swap": "refer",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "refer"
+   },
+   "notes": [
+    "Utah: a small plumbing repair to a fixture, with no change to the pipes or a gas appliance, is exempt (58-55-305(1)(k))."
+   ],
+   "over": "Utah: on a job over $3,000 you file a one-time affirmation with the state that you carry liability insurance (58-55-305(1)(h))."
+  },
+  "FL": {
+   "code": "FL",
+   "name": "Florida",
+   "rule": "Florida: the minor-work exemption covers jobs under $2,500 in labor, materials and everything else, of a casual, minor or inconsequential nature, not part of a larger job or split into smaller contracts, and not for anyone who advertises as a contractor. Electrical work for pay has no such exemption.",
+   "limit": 2500,
+   "at_or_above": true,
+   "href": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.103.html",
+   "sources": [
+    {
+     "publisher": "Florida Legislature, Florida Statutes 489.103",
+     "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.103.html",
+     "says": "489.103(9) (2026): the exemption covers work of a casual, minor or inconsequential nature with an aggregate contract price for labor, materials and all other items under $2,500; not for work that is part of a larger or major operation or divided into smaller contracts, and not for a person who advertises as a contractor.",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Florida Legislature, Florida Statutes 489.503",
+     "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.503.html",
+     "says": "489.503 (2026) has no exemption for unlicensed persons doing minor electrical work for pay.",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Florida DBPR guidance, posted by Columbia County",
+     "url": "https://www.columbiacountyfla.com/Downloads/Building%20&%20Zoning/Contractor%20License%20Registration%20Information/3_DBPR%20License%20Requirements%20and%20Exemptions.pdf",
+     "says": "Licensed work includes connecting a dishwasher to drinking water, replacing a water heater, plumbing that connects to drinking water, central air conditioning, roofing and load-bearing walls; check your county or city for local licensing too.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "status": {
+    "electrical_swap": "refer",
+    "plumbing_swap": "refer",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "refer",
+    "appliance": "refer"
+   },
+   "notes": [
+    "Florida: many counties and cities also have their own license rules. Check yours."
+   ],
+   "split": true
+  },
+  "VA": {
+   "code": "VA",
+   "name": "Virginia",
+   "rule": "Virginia: a Class C contractor license is needed for a single contract or project over $1,000 (up to $30,000), and electrical, plumbing and HVAC contractors need a master tradesman license.",
+   "limit": 1000,
+   "at_or_above": false,
+   "href": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1100/",
+   "sources": [
+    {
+     "publisher": "Code of Virginia 54.1-1100",
+     "url": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1100/",
+     "says": "Class C contractors perform or manage construction, removal, repair or improvements when the total value of a single contract or project is over $1,000 but less than $30,000; the Board requires a master tradesman license for electrical, plumbing and HVAC contractors.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "check",
+    "plumbing_swap": "check",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "check",
+    "appliance": "check"
+   }
+  }
+ },
+ "default_state": {
+  "rule": "This pack doesn't have your state's rule yet. Some states cap the size of a job you can take without a contractor license, and the cap differs by state. Check your state's contractor licensing board and your city's building department before you quote.",
+  "sources": [
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+    "says": "Some states cap the dollar value of jobs you can take without a contractor license ($500 to $10,000 or more, depending on the state); if the job crosses into licensed trade work, refer it out or partner with a licensed pro.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-20"
+   }
+  ]
+ },
+ "lead": {
+  "always": "Window replacement always counts under EPA's lead rule (RRP) in a home built before 1978, whatever the size.",
+  "area": "In a home built before 1978, EPA's lead rule (RRP) covers paid work that disturbs more than 6 square feet of paint in a room, or more than 20 square feet outside: you need an EPA- or state-certified firm and a certified renovator, even as a one-person business.",
+  "ask": "Ask what year the home was built.",
+  "sources": [
+   {
+    "publisher": "U.S. EPA",
+    "url": "https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors",
+    "says": "Jobs that disturb six square feet or less of paint per room inside, or 20 square feet or less on the exterior, are not covered; window replacement and demolition of painted surfaces are always covered; this includes all firms, even sole proprietorships.",
+    "page_date": "2026-03-31",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Legal Information Institute (40 CFR 745.83)",
+    "url": "https://www.law.cornell.edu/cfr/text/40/745.83",
+    "says": "Minor repair and maintenance activities, including minor electrical work and plumbing, disrupt 6 square feet or less of painted surface per room inside or 20 square feet or less outside, and do not involve window replacement or demolition of painted surfaces.",
+    "checked": "2026-10-20"
+   }
+  ]
+ },
+ "materials": {
+  "say": "Small hardware like screws and anchors is in the price. Bigger parts are extra: the customer buys them, or you buy them and bill them with the receipt.",
+  "sources": [
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+    "says": "Build small hardware like screws, anchors and nails into your hourly rate; bill separately for parts that cost real money, like a replacement faucet cartridge or fan motor.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "TaskRabbit",
+    "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+    "says": "Customers can provide materials themselves, or the handyman may supply them with a 10 to 30% markup.",
+    "page_date": "2026-10-01",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "estimate": {
+  "hourly": "Billed by the hour at {rate} an hour, with a trip minimum of {minimum}.",
+  "scope": "If I find hidden damage or the job grows, I explain the options and ask before doing any extra work.",
+  "sources": [
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+    "says": "Suggested estimate language: if we find hidden damage or the scope changes, I'll explain the options before doing extra work. Put change orders in writing before adding scope.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+    "says": "For a full punch list, estimate your total hours, apply your hourly rate, add materials, then quote a flat project price.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/handyman-prices",
+    "says": "Handymen who charge an hourly rate will often have a minimum charge: even if the task takes 20 minutes, you are likely to be charged for a full hour. Group together smaller household jobs.",
+    "page_date": "2026-01-05",
+    "checked": "2026-10-20"
+   }
+  ],
+  "visits_note": "Visits of up to 8 hours each, a judgment call.",
+  "order_note": "The order is a judgment call, except patches first so they can dry (TaskRabbit).",
+  "math": "Each job's time comes from the sources in its line (or a judgment call, marked). The price is the middle of the time range at your hourly rate, the way Housecall Pro prices a full punch list, with the trip minimum. Each job's typical price alone, where two or more guides give one, is shown to you for comparison, never on the estimate."
+ },
+ "safety": {
+  "ladder": {
+   "label": "Ladder work",
+   "say": "Set the foot about a quarter of the ladder's length out from the wall, extend it 3 feet above the landing, never stand on a stepladder's top step, and use a nonconductive ladder near live wires (OSHA 1926.1053).",
+   "sources": [
+    {
+     "publisher": "OSHA, 29 CFR 1926.1053 (ladders)",
+     "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+     "says": "Portable ladders used to reach an upper landing extend at least 3 feet above it; a non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; the top step of a stepladder is not used as a step; ladders near exposed energized electrical equipment have nonconductive side rails.",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  "anchor": {
+   "label": "Tip-overs",
+   "say": "Anchor TVs, dressers and bookcases securely to the wall (CPSC).",
+   "sources": [
+    {
+     "publisher": "U.S. Consumer Product Safety Commission",
+     "url": "https://cpsc.gov/Newsroom/News-Releases/2026/CPSC-Urges-Fans-Anchor-TVs-and-Furniture-Before-Super-Bowl-LX",
+     "says": "Anchor TVs and furniture like bookcases and dressers securely to the wall.",
+     "page_date": "2026-02-05",
+     "checked": "2026-10-20"
+    }
+   ]
+  }
+ }
+}

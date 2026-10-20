@@ -1,0 +1,1753 @@
+{
+  "checked": "2026-10-19",
+  "about": "The volume table for the Load estimate. Cubic feet per item from the Washington UTC sample cube sheet and two movers' household goods survey reports; pounds from the EPA volume-to-weight factors. Where sources differ, the larger volume is used, so an estimate errs toward more of the truck (judgment call). Items marked judgment are our own figures: check them by eye.",
+  "truck": {
+    "cubic_feet": 400,
+    "eighth": 50,
+    "size": "10 ft long, 8 ft wide, 5 ft high",
+    "pounds": 4000,
+    "basis": "1-800-GOT-JUNK? sizes its full truck at 10 ft long, 5 ft high and 8 ft wide (400 cubic feet), charges by eighths of it, and says its trucks hold roughly two tons. Fixr's full load is 350 to 475 cubic feet; HomeAdvisor's 13 to 17 cubic yards.",
+    "src": [
+      "gj",
+      "fx",
+      "ha"
+    ]
+  },
+  "pickup": {
+    "cubic_yards": 3.5,
+    "basis": "LawnStarter: a pickup truck holds about 3.5 cubic yards. A \"pickup load\" or \"truckload\" typed in a list counts this much.",
+    "src": [
+      "ls"
+    ]
+  },
+  "weight": {
+    "per_cubic_foot": 7,
+    "basis": "Items without their own EPA weight count 7 pounds a cubic foot, the movers' constructive weight in Washington's household goods tariff. Junk is often lighter, so the weight and the dump fee err high: weigh a few of your own loads.",
+    "src": [
+      "wa_tariff",
+      "wa"
+    ]
+  },
+  "unknown": {
+    "cubic_feet": 10,
+    "basis": "Anything not in the table counts 10 cubic feet (judgment call) and is listed for you to check by eye."
+  },
+  "material_without_amount": {
+    "cubic_feet": 10,
+    "basis": "A material typed without an amount (\"drywall\") counts 10 cubic feet (judgment call) and is listed: type it like \"1 cubic yard of drywall\" or \"2 pickup loads of brush\"."
+  },
+  "heavy_share": {
+    "share": 0.5,
+    "basis": "When construction debris, dirt, concrete, rock or shingles make up half the volume or more, the load is priced as heavy debris (judgment call)."
+  },
+  "eighths": {
+    "basis": "1/8, 1/4, 1/2, 3/4 and a full truck are priced from your menu; 3/8, 5/8 and 7/8 are halfway between their neighbors, rounded the way the menu rounds (judgment call)."
+  },
+  "items": [
+    {
+      "id": "sofa",
+      "label": "Sofa or couch",
+      "words": [
+        "sofa",
+        "couch",
+        "sleeper sofa",
+        "sofa bed",
+        "sleeper",
+        "futon"
+      ],
+      "cubic_feet": 72,
+      "src": [
+        "s2",
+        "wa",
+        "s1"
+      ],
+      "basis": "Sofa, 4 cushion: 72 (survey 2), 60 (WA UTC); sofa, 2 cushion: 42 (survey 1). The largest is used. A futon or sleeper counts as a sofa (judgment call)."
+    },
+    {
+      "id": "loveseat",
+      "label": "Loveseat",
+      "words": [
+        "loveseat",
+        "love seat"
+      ],
+      "cubic_feet": 25,
+      "src": [
+        "s1"
+      ],
+      "basis": "Love seat: 25 (survey 1)."
+    },
+    {
+      "id": "sectional",
+      "label": "Sectional sofa (3 sections)",
+      "words": [
+        "sectional",
+        "sectional sofa",
+        "sectional couch"
+      ],
+      "cubic_feet": 135,
+      "src": [
+        "s2",
+        "s1"
+      ],
+      "basis": "Sectional, per section: 45 (survey 2), 36 (survey 1); counted as 3 sections at 45 (judgment call). Type \"2 sectional pieces\" for a smaller one.",
+      "judgment": true
+    },
+    {
+      "id": "sectional_piece",
+      "label": "Sectional piece",
+      "words": [
+        "sectional piece",
+        "sectional section",
+        "section of a sectional"
+      ],
+      "cubic_feet": 45,
+      "src": [
+        "s2",
+        "s1"
+      ],
+      "basis": "Sectional, per section: 45 (survey 2), 36 (survey 1). The larger is used."
+    },
+    {
+      "id": "armchair",
+      "label": "Armchair or recliner",
+      "words": [
+        "armchair",
+        "arm chair",
+        "recliner",
+        "easy chair",
+        "club chair",
+        "accent chair",
+        "rocking chair",
+        "rocker",
+        "glider",
+        "lounge chair",
+        "wingback chair"
+      ],
+      "cubic_feet": 21,
+      "src": [
+        "s2"
+      ],
+      "basis": "Chair, arm: 21 (survey 2). A recliner or rocker counts the same (judgment call)."
+    },
+    {
+      "id": "office_chair",
+      "label": "Office chair",
+      "words": [
+        "office chair",
+        "desk chair",
+        "computer chair",
+        "gaming chair"
+      ],
+      "cubic_feet": 15,
+      "src": [
+        "s2"
+      ],
+      "basis": "Office chair: 15 (survey 2)."
+    },
+    {
+      "id": "folding_chair",
+      "label": "Folding chair",
+      "words": [
+        "folding chair"
+      ],
+      "cubic_feet": 8,
+      "src": [
+        "s2"
+      ],
+      "basis": "Folding chair: 8 (survey 2)."
+    },
+    {
+      "id": "chair",
+      "label": "Dining or kitchen chair",
+      "words": [
+        "chair",
+        "dining chair",
+        "kitchen chair",
+        "side chair",
+        "wooden chair"
+      ],
+      "cubic_feet": 6,
+      "src": [
+        "s2"
+      ],
+      "basis": "Chair, dining: 6 (survey 2)."
+    },
+    {
+      "id": "stool",
+      "label": "Stool",
+      "words": [
+        "stool",
+        "bar stool",
+        "barstool",
+        "counter stool",
+        "step stool"
+      ],
+      "cubic_feet": 4,
+      "src": [
+        "s1"
+      ],
+      "basis": "Stool: 4 (survey 1)."
+    },
+    {
+      "id": "ottoman",
+      "label": "Ottoman",
+      "words": [
+        "ottoman",
+        "footstool",
+        "foot stool",
+        "pouf"
+      ],
+      "cubic_feet": 10,
+      "src": [
+        "s1"
+      ],
+      "basis": "Ottoman: 10 (survey 1)."
+    },
+    {
+      "id": "coffee_table",
+      "label": "Coffee table",
+      "words": [
+        "coffee table"
+      ],
+      "cubic_feet": 20,
+      "src": [
+        "s2",
+        "s1"
+      ],
+      "basis": "Coffee table: 20 (survey 2); tables, coffee, end or nest: 9 (survey 1). The larger is used."
+    },
+    {
+      "id": "end_table",
+      "label": "End or side table",
+      "words": [
+        "end table",
+        "side table",
+        "accent table",
+        "nesting tables",
+        "nest of tables",
+        "console table"
+      ],
+      "cubic_feet": 9,
+      "src": [
+        "s1",
+        "s2"
+      ],
+      "basis": "Tables, coffee, end or nest: 9 (survey 1); end table: 8 (survey 2). The larger is used."
+    },
+    {
+      "id": "nightstand",
+      "label": "Nightstand",
+      "words": [
+        "nightstand",
+        "night stand",
+        "night table",
+        "bedside table"
+      ],
+      "cubic_feet": 6,
+      "src": [
+        "s1",
+        "s2",
+        "wa"
+      ],
+      "basis": "Night table: 6 (surveys 1 and 2), 5 (WA UTC). The larger is used."
+    },
+    {
+      "id": "table",
+      "label": "Dining or kitchen table",
+      "words": [
+        "table",
+        "dining table",
+        "kitchen table",
+        "dinner table"
+      ],
+      "cubic_feet": 42,
+      "src": [
+        "s1",
+        "s2"
+      ],
+      "basis": "Table, dining: 42 (survey 1), 35 (survey 2). The larger is used."
+    },
+    {
+      "id": "tv_stand",
+      "label": "TV stand",
+      "words": [
+        "tv stand",
+        "television stand",
+        "tv console",
+        "media console",
+        "media stand",
+        "tv cabinet"
+      ],
+      "cubic_feet": 17,
+      "src": [
+        "s1"
+      ],
+      "basis": "TV stand: 17 (survey 1)."
+    },
+    {
+      "id": "entertainment_center",
+      "label": "Entertainment center",
+      "words": [
+        "entertainment center",
+        "entertainment centre",
+        "wall unit"
+      ],
+      "cubic_feet": 40,
+      "basis": "Not in our sources: 40 is a judgment call. Check it by eye.",
+      "judgment": true
+    },
+    {
+      "id": "desk",
+      "label": "Desk",
+      "words": [
+        "desk",
+        "writing desk",
+        "computer desk",
+        "student desk",
+        "office desk"
+      ],
+      "cubic_feet": 27,
+      "src": [
+        "s1",
+        "wa"
+      ],
+      "basis": "Desk, small or Winthrop: 27 (survey 1), 22 (WA UTC). The larger is used."
+    },
+    {
+      "id": "bookcase",
+      "label": "Bookcase or shelf",
+      "words": [
+        "bookcase",
+        "bookshelf",
+        "bookshelves",
+        "book shelf",
+        "shelving unit",
+        "shelf",
+        "shelves",
+        "shelving",
+        "metal shelving"
+      ],
+      "cubic_feet": 24,
+      "src": [
+        "s2"
+      ],
+      "basis": "Bookcase: 24 each when two were listed, 12 for one listed alone (survey 2). The larger is used."
+    },
+    {
+      "id": "dresser",
+      "label": "Dresser or chest",
+      "words": [
+        "dresser",
+        "chest of drawers",
+        "chest",
+        "bureau",
+        "highboy",
+        "lowboy"
+      ],
+      "cubic_feet": 35,
+      "src": [
+        "s2",
+        "s1"
+      ],
+      "basis": "Chest of drawers: 35 (survey 2); bureau, dresser or chest: 30 (survey 1). The larger is used."
+    },
+    {
+      "id": "armoire",
+      "label": "Armoire or wardrobe",
+      "words": [
+        "armoire",
+        "wardrobe",
+        "wardrobe closet"
+      ],
+      "cubic_feet": 50,
+      "basis": "Not in our sources: 50 is a judgment call. Check it by eye.",
+      "judgment": true
+    },
+    {
+      "id": "cabinet",
+      "label": "Cabinet",
+      "words": [
+        "cabinet",
+        "filing cabinet",
+        "file cabinet",
+        "storage cabinet",
+        "cupboard"
+      ],
+      "cubic_feet": 15,
+      "src": [
+        "s2"
+      ],
+      "basis": "Storage unit (a piece of furniture): 15 (survey 2). A filing or storage cabinet counts the same (judgment call)."
+    },
+    {
+      "id": "bed",
+      "label": "Bed (frame, mattress and box spring)",
+      "words": [
+        "bed",
+        "double bed",
+        "full bed",
+        "queen bed",
+        "king bed",
+        "twin bed",
+        "full size bed",
+        "queen size bed",
+        "king size bed",
+        "bunk bed"
+      ],
+      "cubic_feet": 70,
+      "flags": [
+        "mattress"
+      ],
+      "src": [
+        "s1",
+        "s2",
+        "wa"
+      ],
+      "basis": "Bed, double size: 70 (surveys 1 and 2); bed, king size: 70 (WA UTC)."
+    },
+    {
+      "id": "bed_frame",
+      "label": "Bed frame",
+      "words": [
+        "bed frame",
+        "metal bed frame",
+        "bed rails",
+        "daybed"
+      ],
+      "cubic_feet": 20,
+      "basis": "Not in our sources: 20 is a judgment call. Check it by eye.",
+      "judgment": true
+    },
+    {
+      "id": "headboard",
+      "label": "Headboard",
+      "words": [
+        "headboard",
+        "footboard"
+      ],
+      "cubic_feet": 15,
+      "src": [
+        "s2"
+      ],
+      "basis": "Headboard: 15 (survey 2)."
+    },
+    {
+      "id": "mattress",
+      "label": "Mattress",
+      "words": [
+        "mattress",
+        "twin mattress",
+        "full mattress",
+        "queen mattress",
+        "king mattress",
+        "crib mattress",
+        "foam mattress",
+        "memory foam mattress"
+      ],
+      "cubic_feet": 25,
+      "flags": [
+        "mattress"
+      ],
+      "src": [
+        "s1"
+      ],
+      "basis": "Mattress: 25 (survey 1)."
+    },
+    {
+      "id": "box_spring",
+      "label": "Box spring",
+      "words": [
+        "box spring",
+        "boxspring"
+      ],
+      "cubic_feet": 25,
+      "flags": [
+        "mattress"
+      ],
+      "src": [
+        "s1"
+      ],
+      "basis": "Survey 1 lists a box spring at 3, which looks like an entry error; counted like a mattress, 25 (judgment call).",
+      "judgment": true
+    },
+    {
+      "id": "fridge",
+      "label": "Refrigerator or freezer",
+      "words": [
+        "refrigerator",
+        "fridge",
+        "freezer",
+        "chest freezer",
+        "upright freezer",
+        "deep freezer",
+        "side by side fridge",
+        "french door fridge"
+      ],
+      "cubic_feet": 65,
+      "pounds": 250,
+      "flags": [
+        "refrigerant"
+      ],
+      "addon": "refrigerant",
+      "src": [
+        "s1",
+        "s2",
+        "epa"
+      ],
+      "basis": "Refrigerator: 65 (surveys 1 and 2); 250 pounds (EPA)."
+    },
+    {
+      "id": "mini_fridge",
+      "label": "Mini fridge or wine fridge",
+      "words": [
+        "mini fridge",
+        "minifridge",
+        "mini refrigerator",
+        "wine fridge",
+        "wine cooler",
+        "beverage cooler",
+        "beverage fridge",
+        "dorm fridge",
+        "compact fridge",
+        "kegerator"
+      ],
+      "cubic_feet": 27,
+      "flags": [
+        "refrigerant"
+      ],
+      "addon": "refrigerant",
+      "src": [
+        "s2"
+      ],
+      "basis": "Wine fridge: 27 (survey 2). A mini fridge counts the same (judgment call)."
+    },
+    {
+      "id": "washer",
+      "label": "Washing machine",
+      "words": [
+        "washer",
+        "washing machine",
+        "clothes washer"
+      ],
+      "cubic_feet": 25,
+      "pounds": 150,
+      "src": [
+        "s1",
+        "s2",
+        "epa"
+      ],
+      "basis": "Washing machine: 25 (surveys 1 and 2); clothes washer 150 pounds (EPA)."
+    },
+    {
+      "id": "dryer",
+      "label": "Clothes dryer",
+      "words": [
+        "dryer",
+        "clothes dryer",
+        "gas dryer",
+        "electric dryer"
+      ],
+      "cubic_feet": 35,
+      "pounds": 125,
+      "src": [
+        "s1",
+        "epa"
+      ],
+      "basis": "Dryer: 35 (survey 1); clothes dryer 125 pounds (EPA)."
+    },
+    {
+      "id": "dishwasher",
+      "label": "Dishwasher",
+      "words": [
+        "dishwasher"
+      ],
+      "cubic_feet": 20,
+      "pounds": 125,
+      "src": [
+        "wa",
+        "epa"
+      ],
+      "basis": "Dishwasher: 20 (WA UTC); 125 pounds (EPA)."
+    },
+    {
+      "id": "stove",
+      "label": "Stove, range or oven",
+      "words": [
+        "stove",
+        "range",
+        "oven",
+        "cooktop",
+        "wall oven",
+        "gas stove",
+        "electric stove",
+        "gas range"
+      ],
+      "cubic_feet": 25,
+      "pounds": 150,
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 25 cubic feet is a judgment call; stove 150 pounds (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "microwave",
+      "label": "Microwave",
+      "words": [
+        "microwave",
+        "microwave oven",
+        "over the range microwave"
+      ],
+      "cubic_feet": 5,
+      "src": [
+        "s1"
+      ],
+      "basis": "Microwave: 5 (survey 1)."
+    },
+    {
+      "id": "ac_unit",
+      "label": "Air conditioner",
+      "words": [
+        "air conditioner",
+        "ac unit",
+        "a/c unit",
+        "a/c",
+        "ac",
+        "window ac",
+        "window unit",
+        "window air conditioner",
+        "portable ac",
+        "portable air conditioner"
+      ],
+      "cubic_feet": 8,
+      "flags": [
+        "refrigerant"
+      ],
+      "addon": "refrigerant",
+      "basis": "Not in our sources: 8 is a judgment call for a window or portable unit.",
+      "judgment": true
+    },
+    {
+      "id": "dehumidifier",
+      "label": "Dehumidifier",
+      "words": [
+        "dehumidifier"
+      ],
+      "cubic_feet": 3,
+      "flags": [
+        "refrigerant"
+      ],
+      "addon": "refrigerant",
+      "basis": "Not in our sources: 3 is a judgment call.",
+      "judgment": true
+    },
+    {
+      "id": "water_heater",
+      "label": "Water heater",
+      "words": [
+        "water heater",
+        "hot water heater",
+        "hot water tank"
+      ],
+      "cubic_feet": 20,
+      "basis": "Not in our sources: 20 is a judgment call.",
+      "judgment": true
+    },
+    {
+      "id": "small_appliance",
+      "label": "Fan, lamp or small appliance",
+      "words": [
+        "fan",
+        "box fan",
+        "tower fan",
+        "pedestal fan",
+        "ceiling fan",
+        "space heater",
+        "electric heater",
+        "toaster",
+        "toaster oven",
+        "blender",
+        "coffee maker",
+        "air purifier",
+        "humidifier",
+        "vacuum",
+        "vacuum cleaner",
+        "shop vac",
+        "hair dryer",
+        "lamp",
+        "floor lamp",
+        "table lamp"
+      ],
+      "cubic_feet": 3,
+      "basis": "Not in our sources: 3 is a judgment call.",
+      "judgment": true
+    },
+    {
+      "id": "treadmill",
+      "label": "Treadmill or elliptical",
+      "words": [
+        "treadmill",
+        "elliptical",
+        "elliptical machine",
+        "rowing machine",
+        "rower"
+      ],
+      "cubic_feet": 30,
+      "src": [
+        "s1"
+      ],
+      "basis": "Treadmill: 30 (survey 1). An elliptical or rowing machine counts the same (judgment call)."
+    },
+    {
+      "id": "weight_bench",
+      "label": "Weight bench",
+      "words": [
+        "weight bench",
+        "exercise bench",
+        "workout bench",
+        "bench press"
+      ],
+      "cubic_feet": 8,
+      "src": [
+        "s1"
+      ],
+      "basis": "Exercise bench: 8 (survey 1)."
+    },
+    {
+      "id": "bike",
+      "label": "Bike",
+      "words": [
+        "bike",
+        "bicycle",
+        "exercise bike",
+        "stationary bike",
+        "spin bike",
+        "kids bike",
+        "tricycle"
+      ],
+      "cubic_feet": 10,
+      "src": [
+        "s2"
+      ],
+      "basis": "Bike: 10 (survey 2)."
+    },
+    {
+      "id": "grill",
+      "label": "Grill",
+      "words": [
+        "grill",
+        "bbq",
+        "barbecue",
+        "bbq grill",
+        "barbecue grill",
+        "gas grill",
+        "propane grill",
+        "charcoal grill",
+        "smoker",
+        "pellet grill"
+      ],
+      "cubic_feet": 20,
+      "flags": [
+        "grill_tank"
+      ],
+      "src": [
+        "s1",
+        "s2",
+        "wa"
+      ],
+      "basis": "BBQ grill: 20 (surveys 1 and 2); barbecue or port grill: 10 (WA UTC). The larger is used."
+    },
+    {
+      "id": "patio_set",
+      "label": "Patio set",
+      "words": [
+        "patio set",
+        "patio furniture",
+        "garden furniture",
+        "outdoor furniture",
+        "lawn furniture",
+        "patio dining set"
+      ],
+      "cubic_feet": 35,
+      "src": [
+        "s2"
+      ],
+      "basis": "Garden furniture: 35 (survey 2)."
+    },
+    {
+      "id": "patio_chair",
+      "label": "Patio or lawn chair",
+      "words": [
+        "patio chair",
+        "lawn chair",
+        "porch chair",
+        "outdoor chair",
+        "adirondack chair",
+        "deck chair",
+        "beach chair"
+      ],
+      "cubic_feet": 12,
+      "src": [
+        "s1"
+      ],
+      "basis": "Porch chair: 12 (survey 1)."
+    },
+    {
+      "id": "patio_table",
+      "label": "Patio table",
+      "words": [
+        "patio table",
+        "porch table",
+        "outdoor table",
+        "garden table"
+      ],
+      "cubic_feet": 12,
+      "src": [
+        "s1"
+      ],
+      "basis": "Porch table: 12 (survey 1)."
+    },
+    {
+      "id": "bench",
+      "label": "Bench",
+      "words": [
+        "bench",
+        "picnic bench",
+        "garden bench",
+        "park bench",
+        "storage bench",
+        "entry bench",
+        "piano bench"
+      ],
+      "cubic_feet": 6,
+      "src": [
+        "s1"
+      ],
+      "basis": "Picnic bench: 6 (survey 1)."
+    },
+    {
+      "id": "umbrella",
+      "label": "Patio umbrella",
+      "words": [
+        "umbrella",
+        "patio umbrella",
+        "garden umbrella",
+        "market umbrella"
+      ],
+      "cubic_feet": 30,
+      "src": [
+        "s1"
+      ],
+      "basis": "Garden umbrella: 30 (survey 1)."
+    },
+    {
+      "id": "christmas_tree",
+      "label": "Artificial Christmas tree",
+      "words": [
+        "christmas tree",
+        "artificial tree",
+        "artificial christmas tree",
+        "xmas tree",
+        "fake tree"
+      ],
+      "cubic_feet": 15,
+      "src": [
+        "s1"
+      ],
+      "basis": "Christmas tree: 15 (survey 1)."
+    },
+    {
+      "id": "mower",
+      "label": "Push lawn mower",
+      "words": [
+        "lawn mower",
+        "lawnmower",
+        "push mower",
+        "mower",
+        "reel mower"
+      ],
+      "cubic_feet": 15,
+      "flags": [
+        "fuel"
+      ],
+      "basis": "Not in our sources: 15 is a judgment call.",
+      "judgment": true
+    },
+    {
+      "id": "tv",
+      "label": "TV (flat screen)",
+      "words": [
+        "tv",
+        "television",
+        "flat screen",
+        "flatscreen",
+        "flat screen tv",
+        "flat panel tv",
+        "smart tv",
+        "led tv",
+        "lcd tv",
+        "plasma tv"
+      ],
+      "cubic_feet": 9,
+      "pounds": 29,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "s2",
+        "epa"
+      ],
+      "basis": "TV: 9 (survey 2); flat panel TV 29 pounds (EPA)."
+    },
+    {
+      "id": "tube_tv",
+      "label": "Tube TV",
+      "words": [
+        "tube tv",
+        "crt tv",
+        "crt television",
+        "tube television",
+        "old tv",
+        "crt"
+      ],
+      "cubic_feet": 10,
+      "pounds": 73,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 10 cubic feet is a judgment call; CRT TV over 19 inches 73 pounds (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "computer",
+      "label": "Desktop computer",
+      "words": [
+        "computer",
+        "desktop",
+        "desktop computer",
+        "computer tower",
+        "tower",
+        "cpu"
+      ],
+      "cubic_feet": 7,
+      "pounds": 27,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "s1",
+        "epa"
+      ],
+      "basis": "Computer: 7 (survey 1); desktop 27 pounds (EPA)."
+    },
+    {
+      "id": "monitor",
+      "label": "Computer monitor",
+      "words": [
+        "monitor",
+        "computer monitor"
+      ],
+      "cubic_feet": 3,
+      "pounds": 24,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 3 cubic feet is a judgment call; flat panel monitor 24 pounds (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "laptop",
+      "label": "Laptop or tablet",
+      "words": [
+        "laptop",
+        "notebook computer",
+        "chromebook",
+        "tablet",
+        "ipad"
+      ],
+      "cubic_feet": 1,
+      "pounds": 9.8,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 1 cubic foot is a judgment call; laptop 9.8 pounds (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "printer",
+      "label": "Printer",
+      "words": [
+        "printer",
+        "copier",
+        "scanner",
+        "fax machine"
+      ],
+      "cubic_feet": 3,
+      "pounds": 16.1,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "s2",
+        "epa"
+      ],
+      "basis": "Printer: 3 (survey 2); 16.1 pounds (EPA)."
+    },
+    {
+      "id": "speaker",
+      "label": "Speaker",
+      "words": [
+        "speaker",
+        "subwoofer",
+        "floor speaker"
+      ],
+      "cubic_feet": 9,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "s2"
+      ],
+      "basis": "Speaker: 9 (survey 2)."
+    },
+    {
+      "id": "receiver",
+      "label": "Stereo or small electronics",
+      "words": [
+        "receiver",
+        "stereo",
+        "amplifier",
+        "dvd player",
+        "vcr",
+        "game console",
+        "cable box",
+        "router",
+        "battery charger",
+        "radio"
+      ],
+      "cubic_feet": 3,
+      "flags": [
+        "electronics"
+      ],
+      "src": [
+        "s1"
+      ],
+      "basis": "Receiver: 3 (survey 1). Other small electronics count the same (judgment call)."
+    },
+    {
+      "id": "sewing_machine",
+      "label": "Sewing machine",
+      "words": [
+        "sewing machine"
+      ],
+      "cubic_feet": 5,
+      "src": [
+        "wa"
+      ],
+      "basis": "Sewing machine (portable): 5 (WA UTC)."
+    },
+    {
+      "id": "ladder",
+      "label": "Ladder",
+      "words": [
+        "ladder",
+        "step ladder",
+        "stepladder",
+        "extension ladder"
+      ],
+      "cubic_feet": 6,
+      "src": [
+        "s2"
+      ],
+      "basis": "Step ladder: 6 (survey 2)."
+    },
+    {
+      "id": "bin",
+      "label": "Storage bin or tote",
+      "words": [
+        "bin",
+        "tote",
+        "plastic bin",
+        "storage bin",
+        "storage tote",
+        "tote bin",
+        "tub",
+        "storage tub",
+        "plastic tub"
+      ],
+      "cubic_feet": 4,
+      "src": [
+        "s1"
+      ],
+      "basis": "Plastic bin, 20 gallon: 4 (survey 1)."
+    },
+    {
+      "id": "toys",
+      "label": "Toys",
+      "words": [
+        "toys",
+        "toy",
+        "box of toys",
+        "bin of toys",
+        "bag of toys",
+        "kids toys"
+      ],
+      "cubic_feet": 5,
+      "src": [
+        "s2"
+      ],
+      "basis": "Toys: 5 (survey 2)."
+    },
+    {
+      "id": "box",
+      "label": "Box",
+      "words": [
+        "box",
+        "carton",
+        "moving box",
+        "medium box",
+        "cardboard box",
+        "box of stuff"
+      ],
+      "cubic_feet": 3.5,
+      "src": [
+        "s2"
+      ],
+      "basis": "Carton, medium: 3.5 (survey 2)."
+    },
+    {
+      "id": "small_box",
+      "label": "Small box or box of books",
+      "words": [
+        "small box",
+        "book box",
+        "box of books",
+        "books"
+      ],
+      "cubic_feet": 1.5,
+      "density": 428,
+      "src": [
+        "s1",
+        "epa"
+      ],
+      "basis": "Carton, small (book): 1.5 (survey 1); paperback books 428 pounds a cubic yard (EPA)."
+    },
+    {
+      "id": "large_box",
+      "label": "Large box",
+      "words": [
+        "large box",
+        "big box"
+      ],
+      "cubic_feet": 5,
+      "src": [
+        "s1"
+      ],
+      "basis": "Carton, large: 5 (survey 1)."
+    },
+    {
+      "id": "wardrobe_box",
+      "label": "Wardrobe box",
+      "words": [
+        "wardrobe box",
+        "wardrobe carton"
+      ],
+      "cubic_feet": 16,
+      "src": [
+        "s2"
+      ],
+      "basis": "Wardrobe carton: 16 (survey 2)."
+    },
+    {
+      "id": "bag",
+      "label": "Bag of trash or junk",
+      "words": [
+        "bag",
+        "trash bag",
+        "garbage bag",
+        "bag of trash",
+        "bag of garbage",
+        "bag of junk",
+        "contractor bag",
+        "black bag",
+        "hefty bag"
+      ],
+      "cubic_feet": 4,
+      "density": 300,
+      "src": [
+        "epa"
+      ],
+      "basis": "A 30 to 33 gallon bag is about 4 cubic feet (a gallon is 231 cubic inches): a judgment call. Mixed household waste, uncompacted, 250 to 300 pounds a cubic yard (EPA); the top is used.",
+      "judgment": true
+    },
+    {
+      "id": "clothes_bag",
+      "label": "Bag of clothes or linens",
+      "words": [
+        "bag of clothes",
+        "bag of clothing",
+        "bag of linens",
+        "clothes",
+        "clothing",
+        "linens",
+        "bedding",
+        "curtains",
+        "towels"
+      ],
+      "cubic_feet": 4,
+      "density": 175,
+      "flags": [
+        "textiles"
+      ],
+      "src": [
+        "epa"
+      ],
+      "basis": "A bag counts about 4 cubic feet (judgment call). Mixed textiles, loose, 125 to 175 pounds a cubic yard (EPA); the top is used.",
+      "judgment": true
+    },
+    {
+      "id": "leaf_bag",
+      "label": "Bag of leaves or yard waste",
+      "words": [
+        "bag of leaves",
+        "leaf bag",
+        "yard bag",
+        "yard waste bag",
+        "bag of yard waste",
+        "bag of grass",
+        "bag of weeds"
+      ],
+      "cubic_feet": 4,
+      "density": 250,
+      "src": [
+        "epa"
+      ],
+      "basis": "A bag counts about 4 cubic feet (judgment call). Mixed yard waste, uncompacted, 250 pounds a cubic yard (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "rug",
+      "label": "Rug",
+      "words": [
+        "rug",
+        "area rug",
+        "rolled rug",
+        "runner rug"
+      ],
+      "cubic_feet": 5,
+      "density": 147,
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 5 cubic feet rolled is a judgment call; carpet 147 pounds a cubic yard (EPA).",
+      "judgment": true
+    },
+    {
+      "id": "tire",
+      "label": "Tire",
+      "words": [
+        "tire",
+        "tyre",
+        "car tire",
+        "truck tire",
+        "tire with rim",
+        "tire on rim",
+        "spare tire"
+      ],
+      "cubic_feet": 3,
+      "pounds": 22.5,
+      "flags": [
+        "tire"
+      ],
+      "addon": "tire",
+      "src": [
+        "epa"
+      ],
+      "basis": "Not in the cube sheets: 3 cubic feet is a judgment call; light duty tire 22.5 pounds (EPA; a commercial tire is 120).",
+      "judgment": true
+    },
+    {
+      "id": "piano",
+      "label": "Piano",
+      "words": [
+        "piano",
+        "upright piano",
+        "spinet piano",
+        "spinet",
+        "grand piano",
+        "baby grand",
+        "baby grand piano",
+        "organ"
+      ],
+      "cubic_feet": 0,
+      "package": "piano",
+      "basis": "Priced as its own job from the menu (Piano removal)."
+    },
+    {
+      "id": "hot_tub",
+      "label": "Hot tub",
+      "words": [
+        "hot tub",
+        "spa",
+        "jacuzzi",
+        "whirlpool spa",
+        "swim spa"
+      ],
+      "cubic_feet": 0,
+      "package": "hot_tub",
+      "basis": "Priced as its own job from the menu (Hot tub removal)."
+    },
+    {
+      "id": "pool_table",
+      "label": "Pool table",
+      "words": [
+        "pool table",
+        "billiard table",
+        "billiards table",
+        "snooker table"
+      ],
+      "cubic_feet": 0,
+      "onsite": true,
+      "src": [
+        "fx_items"
+      ],
+      "basis": "Priced on site: Fixr lists pool table removal at $400 to $600."
+    },
+    {
+      "id": "paint",
+      "label": "Paint",
+      "words": [
+        "paint",
+        "paint can",
+        "can of paint",
+        "gallon of paint",
+        "spray paint",
+        "stain",
+        "varnish",
+        "primer"
+      ],
+      "cubic_feet": 0,
+      "keep_out": "paint"
+    },
+    {
+      "id": "chemicals",
+      "label": "Chemicals, oil or fuel",
+      "words": [
+        "chemicals",
+        "chemical",
+        "pesticide",
+        "herbicide",
+        "weed killer",
+        "insecticide",
+        "pool chemicals",
+        "pool chlorine",
+        "solvent",
+        "paint thinner",
+        "mineral spirits",
+        "motor oil",
+        "used oil",
+        "oil can",
+        "antifreeze",
+        "gasoline",
+        "gas can",
+        "fuel can",
+        "fuel",
+        "kerosene",
+        "bleach",
+        "cleaning products",
+        "cleaning chemicals",
+        "drain cleaner",
+        "fertilizer"
+      ],
+      "cubic_feet": 0,
+      "keep_out": "chemicals"
+    },
+    {
+      "id": "propane",
+      "label": "Propane tank or gas cylinder",
+      "words": [
+        "propane",
+        "propane tank",
+        "propane cylinder",
+        "gas cylinder",
+        "helium tank",
+        "oxygen tank",
+        "compressed gas",
+        "butane"
+      ],
+      "cubic_feet": 0,
+      "keep_out": "propane"
+    },
+    {
+      "id": "battery",
+      "label": "Battery",
+      "words": [
+        "battery",
+        "batteries",
+        "car battery",
+        "car batteries",
+        "lithium battery",
+        "lithium batteries",
+        "lead acid battery"
+      ],
+      "cubic_feet": 0,
+      "keep_out": "battery"
+    }
+  ],
+  "not_in_table": [
+    "pressure washer",
+    "power washer",
+    "riding mower",
+    "riding lawn mower",
+    "garden tractor",
+    "tractor",
+    "bathtub",
+    "hot tub cover",
+    "spa cover",
+    "range hood",
+    "picnic table",
+    "china cabinet",
+    "hutch",
+    "console tv",
+    "projection tv",
+    "big screen tv",
+    "above ground pool",
+    "trampoline",
+    "swing set",
+    "playset",
+    "shed",
+    "piano keys"
+  ],
+  "materials": [
+    {
+      "id": "drywall",
+      "label": "Drywall",
+      "words": [
+        "drywall",
+        "sheetrock",
+        "gypsum board",
+        "gypsum",
+        "plasterboard",
+        "wallboard",
+        "plaster"
+      ],
+      "lb_per_cubic_yard": 467,
+      "heavy": true,
+      "basis": "Gypsum board: 467 (EPA)."
+    },
+    {
+      "id": "concrete",
+      "label": "Concrete",
+      "words": [
+        "concrete",
+        "cement",
+        "broken concrete",
+        "concrete chunks",
+        "rubble"
+      ],
+      "lb_per_cubic_yard": 860,
+      "heavy": true,
+      "basis": "Concrete: 860 (EPA)."
+    },
+    {
+      "id": "brick",
+      "label": "Brick, pavers or block",
+      "words": [
+        "brick",
+        "bricks",
+        "pavers",
+        "paver",
+        "cinder block",
+        "cinder blocks",
+        "cinderblock",
+        "stone",
+        "stones",
+        "flagstone",
+        "tile",
+        "tiles",
+        "ceramic tile"
+      ],
+      "lb_per_cubic_yard": 860,
+      "heavy": true,
+      "basis": "Other aggregates: 860 (EPA). Brick, block, stone and tile count here (judgment call)."
+    },
+    {
+      "id": "rock",
+      "label": "Rock or gravel",
+      "words": [
+        "rock",
+        "rocks",
+        "gravel",
+        "river rock",
+        "landscape rock",
+        "pea gravel"
+      ],
+      "lb_per_cubic_yard": 999,
+      "heavy": true,
+      "basis": "Rock and gravel: 999 (EPA)."
+    },
+    {
+      "id": "dirt",
+      "label": "Dirt or sand",
+      "words": [
+        "dirt",
+        "soil",
+        "topsoil",
+        "fill dirt",
+        "sand",
+        "mud",
+        "clay"
+      ],
+      "lb_per_cubic_yard": 929,
+      "heavy": true,
+      "basis": "Dirt and sand: 929 (EPA)."
+    },
+    {
+      "id": "asphalt",
+      "label": "Asphalt",
+      "words": [
+        "asphalt",
+        "blacktop"
+      ],
+      "lb_per_cubic_yard": 773,
+      "heavy": true,
+      "basis": "Asphalt paving: 773 (EPA)."
+    },
+    {
+      "id": "shingles",
+      "label": "Shingles or roofing",
+      "words": [
+        "shingles",
+        "shingle",
+        "roofing",
+        "roof shingles",
+        "asphalt shingles",
+        "roofing shingles",
+        "tar paper"
+      ],
+      "lb_per_cubic_yard": 731,
+      "heavy": true,
+      "basis": "Composition roofing: 731 (EPA)."
+    },
+    {
+      "id": "debris",
+      "label": "Construction debris",
+      "words": [
+        "construction debris",
+        "demo debris",
+        "demolition debris",
+        "renovation debris",
+        "remodel debris",
+        "remodeling debris",
+        "construction waste",
+        "debris",
+        "c&d"
+      ],
+      "lb_per_cubic_yard": 484,
+      "heavy": true,
+      "basis": "Construction and demolition: 417, construction and demolition bulk: 484 (EPA). The larger is used."
+    },
+    {
+      "id": "wood",
+      "label": "Wood or lumber",
+      "words": [
+        "wood",
+        "lumber",
+        "scrap wood",
+        "boards",
+        "plywood",
+        "pallets",
+        "pallet",
+        "fence boards",
+        "fencing",
+        "decking",
+        "deck boards",
+        "old deck",
+        "2x4",
+        "2x6"
+      ],
+      "lb_per_cubic_yard": 169,
+      "basis": "Clean dimensional lumber, pallets and crates: 169 (EPA)."
+    },
+    {
+      "id": "carpet",
+      "label": "Carpet",
+      "words": [
+        "carpet",
+        "carpeting",
+        "carpet and pad",
+        "old carpet"
+      ],
+      "lb_per_cubic_yard": 147,
+      "basis": "Carpet: 147 (EPA)."
+    },
+    {
+      "id": "carpet_pad",
+      "label": "Carpet pad",
+      "words": [
+        "carpet pad",
+        "carpet padding",
+        "padding"
+      ],
+      "lb_per_cubic_yard": 62,
+      "basis": "Carpet padding: 62 (EPA)."
+    },
+    {
+      "id": "branches",
+      "label": "Branches or brush",
+      "words": [
+        "branches",
+        "brush",
+        "tree branches",
+        "limbs",
+        "tree limbs",
+        "prunings",
+        "stumps",
+        "tree trimmings",
+        "hedge trimmings"
+      ],
+      "lb_per_cubic_yard": 127,
+      "basis": "Branches and stumps, prunings and trimmings: 127 (EPA)."
+    },
+    {
+      "id": "yard_waste",
+      "label": "Yard waste or leaves",
+      "words": [
+        "yard waste",
+        "yard debris",
+        "leaves",
+        "grass clippings",
+        "clippings",
+        "weeds"
+      ],
+      "lb_per_cubic_yard": 250,
+      "basis": "Mixed yard waste, uncompacted: 250 (EPA; loose leaves 250 to 500)."
+    },
+    {
+      "id": "cardboard",
+      "label": "Cardboard",
+      "words": [
+        "cardboard",
+        "flattened cardboard",
+        "flattened boxes",
+        "broken down boxes"
+      ],
+      "lb_per_cubic_yard": 106,
+      "basis": "Old corrugated containers, flattened: 106 (EPA)."
+    },
+    {
+      "id": "junk",
+      "label": "Mixed household junk",
+      "words": [
+        "junk",
+        "trash",
+        "garbage",
+        "household junk",
+        "mixed junk",
+        "misc junk",
+        "miscellaneous",
+        "stuff",
+        "odds and ends",
+        "clutter",
+        "household trash"
+      ],
+      "lb_per_cubic_yard": 300,
+      "basis": "Mixed household waste, uncompacted: 250 to 300 (EPA); the top is used."
+    },
+    {
+      "id": "scrap_metal",
+      "label": "Scrap metal",
+      "words": [
+        "scrap metal",
+        "metal",
+        "scrap",
+        "steel",
+        "aluminum",
+        "sheet metal"
+      ],
+      "lb_per_cubic_yard": 225,
+      "basis": "Other ferrous metal: 225 (EPA)."
+    }
+  ],
+  "sources": {
+    "wa": {
+      "publisher": "Washington Utilities and Transportation Commission",
+      "url": "https://www.utc.wa.gov/completed-cube-sheet",
+      "says": "Sample completed cube sheet, cubic feet per piece: desk, small or Winthrop 22; sofa, 4 cushions 60; television combination 25; bed, king size 70; night table 5; dishwasher 20; barbecue or port grill 10; sewing machine (portable) 5. Estimated weight at 7 lbs per cubic foot.",
+      "checked": "2026-10-19"
+    },
+    "wa_tariff": {
+      "publisher": "Washington Utilities and Transportation Commission, Tariff 15-C (household goods)",
+      "url": "https://www.utc.wa.gov/sites/default/files/2026-01/Tariff%2015-C%20TV-250890.pdf",
+      "says": "Constructive weight: a weight based on a formula of seven pounds per cubic foot of properly loaded space.",
+      "page_date": "2026-01-01 (effective date)",
+      "checked": "2026-10-19"
+    },
+    "s1": {
+      "publisher": "A mover's household goods survey report (moverspoe.com)",
+      "url": "https://data.moverspoe.com/HHGSurvey/Reports/57027xxxx.html",
+      "says": "Cubic feet per item: refrigerator 65; washing machine 25; dryer 35; mattress 25; bed, double size 70; bureau, dresser or chest 30; sofa or couch, 2 cushion 42; love seat 25; sofa or couch, sectional, per section 36; table, dining 42; tables, coffee, end or nest 9; night table 6; TV stand 17; desk, small or Winthrop 27; computer 7; microwave 5; treadmill 30; BBQ grill 20; Christmas tree 15; garden umbrella 30; porch chair 12; porch table 12; exercise bench 8; picnic bench 6; ottoman 10; stool 4; plastic bin 20 gal 4; cartons, large 5; cartons, small (book) 1.5.",
+      "page_date": "2023-03-03 (survey date)",
+      "kind": "a mover's survey report, not an agency table",
+      "checked": "2026-10-19"
+    },
+    "s2": {
+      "publisher": "A mover's household goods survey report (moverspoe.com)",
+      "url": "https://data.moverspoe.com/HHGSurvey/Reports/58994xxxx.html",
+      "says": "Cubic feet per item: refrigerator 65; washing machine 25; sofa or couch, 4 cushion 72; sofa or couch, sectional, per section 45; chest of drawers 35; table, dining 35; chair, dining 6; chair, arm 21; coffee table 20; end table 8; night table 6; bookcase 12 (one listed alone) and 24 (two listed at 48); office chair 15; bed, double size 70; headboard 15; TV 9; speaker 9; printer 3; bike 10; BBQ grill 20; garden furniture 35; step ladder 6; folding chair 8; wine fridge 27; toys 5; cartons, medium 3.5.",
+      "page_date": "2023-07-04 (survey date)",
+      "kind": "a mover's survey report, not an agency table",
+      "checked": "2026-10-19"
+    },
+    "epa": {
+      "publisher": "U.S. EPA, Volume-to-Weight Conversion Factors (April 2016)",
+      "url": "https://www.epa.gov/sites/production/files/2016-04/documents/volume_to_weight_conversion_factors_memorandum_04192016_508fnl.pdf",
+      "says": "Pounds per unit: dishwasher 125, clothes dryer 125, stove 150, refrigerator 250, clothes washer 150; light duty tire 22.5, commercial tire 120; auto lead-acid battery 36; desktop computer 27; laptop 9.8; flat panel monitor 24; CRT TV over 19 inch 73; flat panel TV 29; printer 16.1. Pounds per cubic yard: mixed MSW (residential, uncompacted) 250 to 300; carpet 147; carpet padding 62; mixed yard waste, uncompacted 250; branches and stumps 127; concrete 860; asphalt paving 773; composition roofing 731; other aggregates 860; clean dimensional lumber 169; gypsum board 467; rock and gravel 999; dirt and sand 929; construction and demolition 417; construction and demolition bulk 484; mixed textiles, loose 125 to 175; flattened cardboard 106; paperback books, loose 428; other ferrous metal 225.",
+      "page_date": "2016-04",
+      "checked": "2026-10-19"
+    },
+    "gj": {
+      "publisher": "1-800-GOT-JUNK?",
+      "url": "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+      "says": "Full truckload 10 ft long x 5 ft high x 8 ft wide; half truckload 5 x 5 x 8; minimum to 1/4 load 50 to 100 cubic feet, 1/4 to 1/2 load 100 to 200, 1/2 to full load 200 to 400. Charges in 1/8 increments of the truck by how much space the items take up. Trucks hold roughly two tons of junk, the same as eight standard sized refrigerators or six full-sized three-seater sofas. Prices include disposal and environmental fees.",
+      "checked": "2026-10-19"
+    },
+    "fx": {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/junk-removal-service",
+      "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+    },
+    "ha": {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+      "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800.",
+      "page_date": "2026-06-19",
+      "checked": "2026-10-19"
+    },
+    "ls": {
+      "publisher": "LawnStarter",
+      "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+      "says": "Pickup truck: about 3.5 cubic yards; dump truck up to 20 cubic yards; 1 cubic yard is a 3 ft x 3 ft x 3 ft box (27 cubic feet); full truck up to 20 cubic yards, average $675.",
+      "page_date": "2025-12-27",
+      "checked": "2026-10-19"
+    },
+    "fx_items": {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/junk-removal-service",
+      "says": "Item removal: pool table $400 to $600; piano $200 to $400; hot tub $150 to $600; refrigerator $100 to $200; freezer $100 to $200; couch $100 to $200; mattress $75 to $150; tires $60 to $90.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+    }
+  }
+}

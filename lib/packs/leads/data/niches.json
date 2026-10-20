@@ -691,7 +691,6 @@
         "pressure washing",
         "power washing",
         "washing",
-        "window cleaning",
         "soft washing",
         "gutter cleaning"
       ],
@@ -935,6 +934,690 @@
           "Don't buy tools or a course before your first 30 uploads.",
           "Don't use music or clips you don't have the rights to.",
           "Don't count on ad money for months."
+        ]
+      }
+    },
+    "windows": {
+      "label": "Window cleaning",
+      "sells": "window cleaning",
+      "kind": "home",
+      "pack": "Window cleaning",
+      "first": "windows.first_25",
+      "aliases": [
+        "window cleaning",
+        "window washing",
+        "window cleaner",
+        "window washer",
+        "residential window cleaning",
+        "storefront window cleaning",
+        "window cleaning business"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents, property managers and storefront shops who could refer people to you",
+        "categories": [
+          "realtors",
+          "boutiques"
+        ],
+        "tags": [
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homeowners and storefronts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2
+          ],
+          "where": "cold",
+          "play": "Book spring window cleanings now with a deposit, and keep a storefront route every 2 weeks going through winter."
+        },
+        "note": "Spring and fall peaks; slow in winter up north.",
+        "not_yet": [
+          "Don't buy a water-fed pole system before your tenth regular customer. Start with squeegees and ladders.",
+          "Don't take third-story or roof work before you have liability insurance, the right gear and practice on lower floors.",
+          "Don't raise a ladder near power lines, and never use a metal one near them."
+        ]
+      }
+    },
+    "pool": {
+      "label": "Pool cleaning",
+      "sells": "pool cleaning",
+      "kind": "home",
+      "pack": "Pool cleaning",
+      "first": "pool.first_25",
+      "aliases": [
+        "pool cleaning",
+        "pool service",
+        "pool maintenance",
+        "pool care",
+        "pool cleaner",
+        "swimming pool cleaning",
+        "pool opening and closing"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "pool supply stores, real estate agents and HOAs and community managers who could refer people to you",
+        "categories": [
+          "realtors"
+        ],
+        "tags": [
+          "shop=swimming_pool",
+          "office=association"
+        ]
+      },
+      "crowd": {
+        "buyer": "Pool owners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "off_season": {
+          "months": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4
+          ],
+          "where": "cold",
+          "play": "Where pools close for winter, sell closings in October and November, then book spring openings with a deposit from December. Where pools stay open all year, keep the weekly route full."
+        },
+        "note": "Pools in places like Florida, Phoenix and San Diego stay open all year. Up north most pools open in May or June and close in the fall.",
+        "not_yet": [
+          "Don't repair pumps, heaters or pipes before you check your state's contractor license rule.",
+          "Don't take on an apartment, condo or HOA pool before you check whether your state wants a certified operator.",
+          "Don't keep pool chemicals in a hot car or beside fuel. Store them dry, cool and apart, as CDC and EPA say."
+        ]
+      }
+    },
+    "lights": {
+      "label": "Holiday lights",
+      "sells": "holiday light installation",
+      "kind": "home",
+      "pack": "Holiday lights",
+      "first": "lights.first_25",
+      "aliases": [
+        "holiday lights",
+        "holiday light installation",
+        "christmas light installation",
+        "christmas lights",
+        "holiday lighting",
+        "light hanging",
+        "christmas light hanging"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "HOAs and community managers, real estate agents and storefront shops who could refer people to you",
+        "categories": [
+          "realtors",
+          "boutiques"
+        ],
+        "tags": [
+          "office=association",
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          10,
+          11,
+          12,
+          1
+        ],
+        "off_season": {
+          "months": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "where": "all",
+          "play": "Book next season's installs now with a deposit, while installers have open calendars, and offer to hang and take down lights people already own."
+        },
+        "note": "Busy October to January: installs in the fall, takedowns in January. Slow February to August, when you book next season.",
+        "not_yet": [
+          "Don't buy a lift or a truckload of lights before you have booked homes.",
+          "Don't add outlets, open a panel or splice into house wiring. That is an electrician's job.",
+          "Don't climb a second story before you have ladder practice, a helper and insurance."
+        ]
+      }
+    },
+    "music": {
+      "label": "Music lessons",
+      "sells": "private music lessons",
+      "kind": "home",
+      "pack": "Music lessons",
+      "first": "music.first_25",
+      "aliases": [
+        "music lessons",
+        "music teacher",
+        "piano lessons",
+        "piano teacher",
+        "guitar lessons",
+        "guitar teacher",
+        "voice lessons",
+        "singing lessons"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "schools, churches and community and rec centers who could refer people to you",
+        "categories": [
+          "schools",
+          "churches",
+          "community"
+        ]
+      },
+      "crowd": {
+        "buyer": "Parents, and adults who want to learn",
+        "scores": {
+          "pain": 2,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            6,
+            7
+          ],
+          "where": "all",
+          "play": "Offer a summer block of 6 lessons and book fall times before school starts."
+        },
+        "note": "Safety rules with minors come first: parents book, and lessons happen where a parent can see or hear.",
+        "not_yet": [
+          "Don't rent a studio before your weekly schedule is full.",
+          "Don't promise exam results, audition spots or a set pace.",
+          "Don't message students under 18 directly. Talk to parents."
+        ]
+      }
+    },
+    "trainer": {
+      "label": "Personal training",
+      "sells": "personal training",
+      "kind": "home",
+      "pack": "Personal training",
+      "first": "trainer.first_25",
+      "aliases": [
+        "personal training",
+        "personal trainer",
+        "fitness training",
+        "in-home personal training"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "apartment buildings, yoga and pilates studios and physical therapy clinics who could refer people to you",
+        "categories": [
+          "apartments",
+          "yoga",
+          "physio"
+        ]
+      },
+      "crowd": {
+        "buyer": "Adults who want help starting to exercise",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Safety first: your certification, CPR and AED training and insurance come before your first client, and the PAR-Q+ before every first session. Expect evening and weekend sessions.",
+        "not_yet": [
+          "Don't train anyone before they've filled in the PAR-Q+ from the PAR-Q+ Collaboration.",
+          "Don't take a paying client before your liability insurance is active.",
+          "Don't buy equipment before your fifth regular client: bodyweight and a band are enough to start."
+        ]
+      }
+    },
+    "mealprep": {
+      "label": "Meal prep and personal chef",
+      "sells": "personal chef meal prep",
+      "kind": "home",
+      "pack": "Meal prep and personal chef",
+      "first": "mealprep.first_25",
+      "aliases": [
+        "meal prep",
+        "personal chef",
+        "meal prep service",
+        "personal chef service",
+        "weekly meal prep",
+        "private chef",
+        "in-home chef"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "gyms and fitness studios, yoga and pilates studios and churches who could refer people to you",
+        "categories": [
+          "gyms",
+          "yoga",
+          "churches"
+        ]
+      },
+      "crowd": {
+        "buyer": "Busy families and couples who want home-cooked dinners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Trust first: a free kitchen visit before any cook day. Groceries go on the bill at cost.",
+        "not_yet": [
+          "Don't sell meals cooked in your own kitchen until you've checked your state's cottage food and health rules.",
+          "Don't give diet or health advice: cook to what the client tells you.",
+          "Don't rent a commercial kitchen before you have 4 regular clients."
+        ]
+      }
+    },
+    "techhelp": {
+      "label": "Tech help at home",
+      "sells": "tech help at home",
+      "kind": "home",
+      "pack": "Tech help at home",
+      "first": "techhelp.first_25",
+      "aliases": [
+        "tech help",
+        "tech help at home",
+        "computer help",
+        "senior tech help",
+        "tech support at home",
+        "phone help"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "senior and community centers, public libraries and churches who could refer people to you",
+        "categories": [
+          "seniors",
+          "libraries",
+          "churches"
+        ]
+      },
+      "crowd": {
+        "buyer": "Older adults and their families",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null,
+        "note": "Trust comes first: the client types every password, family is welcome at every visit, and every visit ends with a written note.",
+        "not_yet": [
+          "Don't offer remote help with screen sharing apps. Help in person.",
+          "Don't take on office networks or business IT before your tenth home client.",
+          "Don't keep, write down or store anyone's passwords, even when they ask you to."
+        ]
+      }
+    },
+    "events": {
+      "label": "Event planning",
+      "sells": "day-of event coordination",
+      "kind": "home",
+      "pack": "Event planning",
+      "first": "events.first_25",
+      "aliases": [
+        "event planning",
+        "event planner",
+        "event coordination",
+        "day-of coordination",
+        "day-of coordinator",
+        "wedding coordination",
+        "wedding coordinator",
+        "wedding planning"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "wedding and event venues, florists and bakeries who could refer people to you",
+        "categories": [
+          "venues",
+          "florists",
+          "bakeries"
+        ]
+      },
+      "crowd": {
+        "buyer": "Couples and party hosts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          4,
+          5,
+          9,
+          10
+        ],
+        "off_season": null,
+        "note": "Weddings peak in spring and fall. Birthdays, showers and work events run all year.",
+        "not_yet": [
+          "Don't take full planning before you've run 5 day-of events.",
+          "Don't buy decor, linens or rentals to rent out before your tenth event.",
+          "Don't book a date without a signed agreement and a deposit."
+        ]
+      }
+    },
+    "organizing": {
+      "label": "Home organizing",
+      "sells": "home organizing",
+      "kind": "home",
+      "pack": "Home organizing",
+      "first": "organizing.first_25",
+      "aliases": [
+        "home organizing",
+        "professional organizer",
+        "decluttering"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents, movers and senior living and senior centers who could refer people to you",
+        "categories": [
+          "realtors",
+          "seniors"
+        ],
+        "tags": [
+          "office=moving_company"
+        ]
+      },
+      "crowd": {
+        "buyer": "Busy households and people moving or downsizing",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "off_season": null,
+        "note": "Trust first: a free walk-through, the client's yes on every item, and photos only with a written okay.",
+        "not_yet": [
+          "Don't buy bins before the sort and the measuring.",
+          "Don't haul, sell or store a client's things in your first month.",
+          "Don't take a home with blocked exits, pests or mold on your own."
+        ]
+      }
+    },
+    "junk": {
+      "label": "Junk removal",
+      "sells": "junk removal",
+      "kind": "home",
+      "pack": "Junk removal",
+      "first": "junk.first_25",
+      "aliases": [
+        "junk removal",
+        "junk hauling",
+        "hauling",
+        "junk pickup",
+        "trash removal",
+        "cleanouts",
+        "garage cleanouts",
+        "estate cleanouts"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "property managers, real estate agents and estate sale and consignment shops who could refer people to you",
+        "categories": [
+          "realtors"
+        ],
+        "tags": [
+          "office=property_management",
+          "shop=second_hand",
+          "shop=antiques"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2
+          ],
+          "where": "cold",
+          "play": "Work move-outs and estate cleanouts with property managers and estate sale shops, and presell spring garage cleanouts at this year's price."
+        },
+        "note": "Busiest March to October, peaking April to June (LawnStarter).",
+        "not_yet": [
+          "Don't buy a dump truck or a big trailer before your tenth paid load.",
+          "Don't haul paint, chemicals, propane tanks or tires until you know your county's rules.",
+          "Don't take a fridge, freezer or AC unit until you know who recovers the refrigerant."
+        ]
+      }
+    },
+    "moving": {
+      "label": "Moving help",
+      "sells": "moving help",
+      "kind": "home",
+      "pack": "Moving help",
+      "first": "moving.first_25",
+      "aliases": [
+        "moving help",
+        "moving labor",
+        "labor only movers",
+        "labor-only moving",
+        "moving helpers",
+        "loading and unloading help",
+        "help moving",
+        "movers"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents, apartment offices and self storage who could refer people to you",
+        "categories": [
+          "realtors",
+          "apartments"
+        ],
+        "tags": [
+          "shop=storage_rental"
+        ]
+      },
+      "crowd": {
+        "buyer": "People moving locally who rent their own truck or container",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2
+          ],
+          "where": "all",
+          "play": "Lead with move-outs through apartment offices and senior communities, and sell small jobs: furniture moved inside the home, storage units loaded."
+        },
+        "note": "Busiest May to September, and at the start and end of every month.",
+        "not_yet": [
+          "Don't drive a customer's things for pay. Load and unload only, unless you hold the carrier authority and the state license that work needs.",
+          "Don't buy a truck. The customer rents it; you bring pads, dollies and straps.",
+          "Don't take pianos, safes or pool tables before you have a third mover and an appliance dolly."
+        ]
+      }
+    },
+    "handyman": {
+      "label": "Handyman",
+      "sells": "handyman work",
+      "kind": "home",
+      "pack": "Handyman",
+      "first": "handyman.first_25",
+      "aliases": [
+        "handyman",
+        "handyman services",
+        "handyperson",
+        "home repair",
+        "home repairs",
+        "odd jobs",
+        "punch list",
+        "tv mounting"
+      ],
+      "count": {
+        "role": "partners",
+        "what": "real estate agents, property managers and landlords and apartment buildings who could refer people to you",
+        "categories": [
+          "realtors",
+          "apartments"
+        ],
+        "tags": [
+          "office=property_management"
+        ]
+      },
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": null,
+        "note": "Handyman work runs all year; spring and fall bring seasonal checkups (Housecall Pro) and the weatherstripping check (Fixr). The busier months are a judgment call.",
+        "not_yet": [
+          "Don't quote panels, new wiring, gas or moved pipes: send those to a licensed trade.",
+          "Don't take a job over your state's limit for work without a contractor license until you check the rule.",
+          "Don't buy big tools before a job calls for them: rent or borrow the first time."
         ]
       }
     }

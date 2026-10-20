@@ -1,0 +1,1439 @@
+{
+ "id": "moving",
+ "name": "Moving help",
+ "pack_title": "Moving help",
+ "checked": "2026-10-19",
+ "summary": "Start a labor-only moving help business: your first 25 people and partner businesses, a price menu by home size from real ranges, quotes, a crew and hours estimate with a printable move-day plan, and a same-street route.",
+ "niches": [
+  "moving help",
+  "moving labor",
+  "labor only movers",
+  "labor-only moving",
+  "moving helpers",
+  "loading and unloading help",
+  "help moving",
+  "movers",
+  "furniture moving"
+ ],
+ "what": "moving help",
+ "business_word": "Moving Help",
+ "worker": "mover",
+ "job": "move",
+ "icon": "box",
+ "mood": "warm",
+ "local_group": "home",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Hi neighbor!",
+ "door_step3": "We pad, load and strap it, and you drive",
+ "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+ "promises": {
+  "first_25": "15 people you know and 10 agents, apartment offices, storage sites, senior communities and truck rental counters, each with a message and an offer that fits.",
+  "offer": "Your price menu by home size, the first-clients ladder, add-ons for stairs, long carries and heavy items, and job math, on a one-page offer sheet.",
+  "quote": "Home size, stairs, carry and heavy items in; a quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the move: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+  "proof": "One move turned into proof: a result card, a before-and-after collage from your photos, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 agents, apartment offices, storage sites, senior communities and truck rental counters near you that are not in your Pipeline yet, with messages.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "One move's street turned into a route: door hangers with a neighbor price for a small job, a sheet for the 20 nearest homes and an intro ask for your customer.",
+  "crew_estimate": "Home size, stairs, carry and heavy items in: crew size, hours and a price at your hourly rate, a printable move-day plan and the items movers won't carry."
+ },
+ "crowd": {
+  "buyer": "People moving locally who rent their own truck or container",
+  "scores": {
+   "pain": 4,
+   "can_pay": 3,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "off_season": {
+   "months": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "where": "all",
+   "play": "Lead with move-outs through apartment offices and senior communities, and sell small jobs: furniture moved inside the home, storage units loaded."
+  },
+  "note": "Busiest May to September, and at the start and end of every month.",
+  "not_yet": [
+   "Don't drive a customer's things for pay. Load and unload only, unless you hold the carrier authority and the state license that work needs.",
+   "Don't buy a truck. The customer rents it; you bring pads, dollies and straps.",
+   "Don't take pianos, safes or pool tables before you have a third mover and an appliance dolly."
+  ],
+  "basis": "Scores, first $1 and buyer: research/niches/moving.json crowd_scores (our judgment from its sources). Best months and slow season: Thumbtack (peak May to September, per the American Moving & Storage Association), Allied (November and December slowest) and Atlas (fewer moves in winter). The not-yet lines are judgment calls; the first one follows 49 CFR 390 and the state rules in this file."
+ },
+ "buyers": [
+  {
+   "who": "People moving locally who rent a truck, trailer or container and need hands to load and unload",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/k/moving-labor/near-me",
+     "says": "Labor-only movers provide the labor to load (and unload) your items, typically around 2 people, without providing a truck or driving a vehicle you provide. May through September is considered peak moving season, according to the American Moving & Storage Association.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Moving Help (U-Haul)",
+     "url": "https://www.movinghelp.com/move/how-to-hire-u-haul-movers/",
+     "says": "Moving Helpers are independently run businesses offering labor-only services: loading and unloading, packing and unpacking, cleaning, piano moving and gun safe moving.",
+     "page_date": "2025-08-15",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Renters moving out at the end of a lease",
+   "sources": [
+    {
+     "publisher": "Allied Van Lines",
+     "url": "https://www.allied.com/moving-resources/family-guide-to-moving/best-time-to-move",
+     "says": "November and December are when moving companies are the slowest; summer is the most expensive time to move. The beginning and end of the month are typically the busiest times for movers, as many leases are up at the beginnings of months. The best days to move are Monday to Thursday.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Older adults moving into senior living or downsizing, and their families",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Storage unit renters loading or emptying a unit",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Households that need heavy furniture moved inside the home",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Labor-only marketplaces like Moving Help and HireAHelper",
+   "sources": [
+    {
+     "publisher": "Moving Help (U-Haul)",
+     "url": "https://www.movinghelp.com/move/how-to-hire-u-haul-movers/",
+     "says": "Moving Helpers are independently run businesses offering labor-only services: loading and unloading, packing and unpacking, cleaning, piano moving and gun safe moving.",
+     "page_date": "2025-08-15",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/business-basics/starting-running/",
+     "says": "Post your moving service on HireAHelper and you'll immediately start showing up for search results in your area, for free. We don't get paid until you do.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Quote requests on Thumbtack",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/k/moving-labor/near-me",
+     "says": "Labor-only movers provide the labor to load (and unload) your items, typically around 2 people, without providing a truck or driving a vehicle you provide. May through September is considered peak moving season, according to the American Moving & Storage Association.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/pro",
+     "says": "No charge to join, no annual fees and no membership fees. Pros set their pricing and a budget, which decides how many leads they pay for. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Referrals from friends, apartment offices and real estate agents",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Moving blankets (pads)",
+    "unit": "dozen",
+    "range_usd": [
+     107,
+     290
+    ],
+    "note": "U-Haul sells pads one at a time: 12 Furniture Pads at $8.95 come to about $107.",
+    "sources": [
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Packing-Supplies/Quilted-Pads/?id=3053",
+      "says": "Quilted Pads $18.95 each, $16.95 each for 6 or more; Furniture Pad (Moving Blanket) $8.95 each; Plastic Stretch Wrap 20 in. x 1000 ft. $29.25.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "US Cargo Control",
+      "url": "https://www.uscargocontrol.com/collections/moving-blankets-moving-pads",
+      "says": "Moving blankets sold by the dozen, from $134.99 (light duty) to $289.99 (cotton and polyester blend).",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/moving-supplies/",
+      "says": "Get the best hand truck you can afford: $100 might sound like a lot until that $40 dolly breaks down. A reefer (appliance) dolly costs $300 or more. For a 26 foot truck some say you should have 40 to 50 pads; others suggest upwards of 100.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Appliance hand truck (reefer dolly)",
+    "unit": "each",
+    "range_usd": [
+     255,
+     729
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "US Cargo Control",
+      "url": "https://www.uscargocontrol.com/collections/appliance-hand-trucks",
+      "says": "Appliance hand trucks from $254.99 (400 lb capacity) to $729.00 (1,200 lb capacity).",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/moving-supplies/",
+      "says": "Get the best hand truck you can afford: $100 might sound like a lot until that $40 dolly breaks down. A reefer (appliance) dolly costs $300 or more. For a 26 foot truck some say you should have 40 to 50 pads; others suggest upwards of 100.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "4-wheel furniture dolly",
+    "unit": "each",
+    "range_usd": [
+     20,
+     188
+    ],
+    "note": "Bring 2 or 3 (judgment call).",
+    "sources": [
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Moving-Lifting-Tools/",
+      "says": "Furniture Dolly $19.95; Forearm Forklift Moving Straps $24.95; Shoulder Dolly Moving Straps $39.95; 16 Piece Furniture Slider Moving Kit $24.99; work gloves $3.95; 5 x 10 ft Floor Liner $7.95.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "US Cargo Control",
+      "url": "https://www.uscargocontrol.com/collections/moving-dollies",
+      "says": "4-wheel moving dollies from $99.99 to $187.99 (1,000 lb capacity models).",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Moving straps and ratchet straps",
+    "unit": "each",
+    "range_usd": [
+     13.5,
+     55
+    ],
+    "note": null,
+    "sources": [
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Ropes-Tie-Downs/",
+      "says": "Heavy-Duty 16 ft x 2 in. Ratchet Strap with JJ Hooks $13.50.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Moving-Lifting-Tools/",
+      "says": "Furniture Dolly $19.95; Forearm Forklift Moving Straps $24.95; Shoulder Dolly Moving Straps $39.95; 16 Piece Furniture Slider Moving Kit $24.99; work gloves $3.95; 5 x 10 ft Floor Liner $7.95.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "US Cargo Control",
+      "url": "https://www.uscargocontrol.com/collections/moving-straps-mover-bands",
+      "says": "Moving straps and mover bands from $13.99 to $54.97.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Hand truck",
+    "unit": "each",
+    "range_usd": null,
+    "note": "One source with numbers; check current prices.",
+    "sources": [
+     {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/moving-supplies/",
+      "says": "Get the best hand truck you can afford: $100 might sound like a lot until that $40 dolly breaks down. A reefer (appliance) dolly costs $300 or more. For a 26 foot truck some say you should have 40 to 50 pads; others suggest upwards of 100.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Stretch wrap, furniture sliders, gloves and floor liners",
+    "unit": "starter set",
+    "range_usd": null,
+    "note": "One source; check current prices.",
+    "sources": [
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Packing-Supplies/Quilted-Pads/?id=3053",
+      "says": "Quilted Pads $18.95 each, $16.95 each for 6 or more; Furniture Pad (Moving Blanket) $8.95 each; Plastic Stretch Wrap 20 in. x 1000 ft. $29.25.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U-Haul",
+      "url": "https://www.uhaul.com/MovingSupplies/Moving-Lifting-Tools/",
+      "says": "Furniture Dolly $19.95; Forearm Forklift Moving Straps $24.95; Shoulder Dolly Moving Straps $39.95; 16 Piece Furniture Slider Moving Kit $24.99; work gloves $3.95; 5 x 10 ft Floor Liner $7.95.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Business registration and licenses",
+    "unit": "one time",
+    "range_usd": null,
+    "note": "Fees vary by state and city: check your state and city.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "The licenses and permits you need from the state, county or city depend on your business activities and location; research your own state, county and city regulations. Some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "General liability insurance",
+    "unit": "per month",
+    "range_usd": [
+     45,
+     68
+    ],
+    "note": "Small business averages, not quotes for moving work; check current rates with an insurer.",
+    "sources": [
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/small-business-insurance/general-liability/cost",
+      "says": "Small businesses pay an average premium of $45 per month for general liability insurance; annual premiums range from about $265 to $3,030.",
+      "page_date": "2026-03-30",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "The Hartford",
+      "url": "https://www.thehartford.com/business-insurance/moving-company-insurance",
+      "says": "Although The Hartford doesn't offer coverage for moving companies, its small business customers pay on average $810 a year (about $68 a month) for stand-alone general liability insurance and $1,032 a year ($86 a month) for workers' compensation.",
+      "page_date": "2026-01-08",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "The federal government requires every business with employees to have workers' compensation, unemployment and disability insurance; some states require more, and laws requiring insurance vary by state. General liability insurance protects against financial loss from bodily injury, property damage, medical expenses and defending lawsuits.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Workers' compensation (once you have employees)",
+    "unit": "per month",
+    "range_usd": [
+     54,
+     86
+    ],
+    "note": "Small business averages; required for employees in most states, check your state.",
+    "sources": [
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/small-business-insurance/workers-compensation/cost",
+      "says": "Small businesses pay an average of $54 per month, or $643 a year, for workers' compensation insurance; annual premiums range from about $300 to over $5,000.",
+      "page_date": "2026-04-13",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "The Hartford",
+      "url": "https://www.thehartford.com/business-insurance/moving-company-insurance",
+      "says": "Although The Hartford doesn't offer coverage for moving companies, its small business customers pay on average $810 a year (about $68 a month) for stand-alone general liability insurance and $1,032 a year ($86 a month) for workers' compensation.",
+      "page_date": "2026-01-08",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "The federal government requires every business with employees to have workers' compensation, unemployment and disability insurance; some states require more, and laws requiring insurance vary by state. General liability insurance protects against financial loss from bodily injury, property damage, medical expenses and defending lawsuits.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Card processing",
+    "unit": "per payment",
+    "range_usd": null,
+    "note": null,
+    "sources": [
+     {
+      "publisher": "Square Help Center",
+      "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+      "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH bank transfer via invoice 1% with a $1 minimum.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Stripe",
+      "url": "https://stripe.com/pricing",
+      "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your state and city.",
+  "items": [
+   {
+    "item": "General business license or registration",
+    "what_to_check": "City or county license; state registration for an LLC; a DBA if you use a trade name.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "The licenses and permits you need from the state, county or city depend on your business activities and location; research your own state, county and city regulations. Some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Labor only, or a carrier with authority",
+    "what_to_check": "Loading and unloading a truck the customer rents and drives is labor only. Driving a customer's goods for pay makes you a for-hire motor carrier; across state lines that takes a USDOT number and FMCSA operating authority before you start, plus the household goods rules in 49 CFR 375.",
+    "sources": [
+     {
+      "publisher": "eCFR, 49 CFR 390.5 and 390.201",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-390",
+      "says": "For-hire motor carrier means a person engaged in the transportation of goods or passengers for compensation. Motor carriers file Form MCSA-1 to obtain a USDOT number and operating authority under 49 U.S.C. chapter 139, and may not begin operations until the USDOT number has been activated.",
+      "page_date": "current",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "eCFR, 49 CFR 375.101 and 375.103",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-375",
+      "says": "Part 375 applies when you transport household goods for individual shippers by motor vehicle in interstate commerce. A household goods motor carrier is a motor carrier that, in the course of transporting household goods, offers services such as loading and unloading at personal residences.",
+      "page_date": "current",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Moving Help (U-Haul) service provider FAQ",
+      "url": "https://www.movinghelper.com/Support/FAQ",
+      "says": "The MarketPlace Fee is a 15% fee collected from the total amount paid by a customer for a Moving Help service. All rates are based on hourly prices you set per crew size. The minimum a customer can reserve is 2 hours of service.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "State mover licenses",
+    "what_to_check": "Many states license in-state movers. Florida defines a mover as anyone paid to load, carry or unload household goods as part of a household move, so a labor-only crew there may need to register ($300 a year) and keep liability insurance of at least $10,000 per shipment. California licenses movers through its Bureau of Household Goods and Services. Check your state.",
+    "sources": [
+     {
+      "publisher": "Florida Statutes, chapter 507 (Household Moving Services)",
+      "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0507/0507.html",
+      "says": "507.01(9): Mover means a person who, for compensation, contracts for or engages in the loading, transportation or shipment, or unloading of household goods as part of a household move. 507.02(2): the chapter applies to moves that start and end in Florida. 507.03: movers register with the state; registration fees are $300 per year. 507.04: each mover keeps liability insurance of at least $10,000 per shipment (a mover with two or fewer vehicles may instead keep a $50,000 bond or certificate of deposit).",
+      "page_date": "2026",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "California Department of Consumer Affairs, Bureau of Household Goods and Services",
+      "url": "https://www.dca.ca.gov/newsroom/2026/bhgs/20260709_bhgs_targets_unlic_movers.pdf",
+      "says": "In California, movers must be licensed by BHGS if they transport goods within the state or if they handle moves that originate or end in California.",
+      "page_date": "2026-07-09",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "what_to_check": "Dropped furniture, scratched floors and dented door frames. Ask your insurer whether the policy covers customers' goods in your care.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "The federal government requires every business with employees to have workers' compensation, unemployment and disability insurance; some states require more, and laws requiring insurance vary by state. General liability insurance protects against financial loss from bodily injury, property damage, medical expenses and defending lawsuits.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/small-business-insurance/general-liability/cost",
+      "says": "Small businesses pay an average premium of $45 per month for general liability insurance; annual premiums range from about $265 to $3,030.",
+      "page_date": "2026-03-30",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Helpers: employees or contractors",
+    "what_to_check": "If you pay helpers, the IRS control test decides whether they are employees; employees bring workers' compensation, unemployment and disability insurance, and state rules vary.",
+    "sources": [
+     {
+      "publisher": "IRS",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+      "says": "Whether a worker is an employee or an independent contractor depends on the degree of control and independence: behavioral (who controls how the work is done), financial (how the worker is paid, who provides tools and supplies) and the type of relationship.",
+      "page_date": "2026-05-19",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "The federal government requires every business with employees to have workers' compensation, unemployment and disability insurance; some states require more, and laws requiring insurance vary by state. General liability insurance protects against financial loss from bodily injury, property damage, medical expenses and defending lawsuits.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Lifting safety",
+    "what_to_check": "NIOSH puts the most a person should lift with two hands, in ideal conditions, at 51 pounds; team lifts and dollies for anything heavier or bulky.",
+    "sources": [
+     {
+      "publisher": "NIOSH (CDC), Ergonomic Guidelines for Manual Material Handling, publication 2007-131",
+      "url": "https://www.cdc.gov/niosh/docs/2007-131/pdfs/2007-131.pdf",
+      "says": "The maximum weight to be lifted with two hands, under ideal conditions, is 51 pounds. Keep the load as close to the body as possible. Do not twist your body; step to one side or the other to turn. Team lifting: discuss your lifting plan so you don't make surprise movements. Wear appropriate shoes. Take rest breaks.",
+      "page_date": "2007",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA, Materials Handling and Storage, publication 2236",
+      "url": "https://www.osha.gov/sites/default/files/publications/osha2236.pdf",
+      "says": "Workers should seek help when a load is so bulky it can't be properly grasped or lifted, when they can't see around or over it, or when they can't safely handle it. Protective equipment includes gloves, eye protection and steel-toed safety shoes or boots.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Before the day: confirm both addresses, the date and start time, stairs and elevators at each end, where the truck parks, and any piano, safe or pool table.",
+   "On arrival: walk through with the customer, agree what goes and what stays, and photograph floors, door frames and anything already damaged.",
+   "Protect the path: runners on floors, jamb protectors on busy doorways, pads on banisters.",
+   "Pad and wrap furniture, take beds and tables apart, and bag and label the hardware.",
+   "Load in tiers, heaviest and strongest pieces at the base, and strap every 4 feet or so. Light boxes go over the cab.",
+   "Walk every room and closet with the customer before the truck leaves. The customer drives the truck.",
+   "Unload room by room, put beds and tables back together, walk through again with the customer, then send the invoice the same day."
+  ],
+  "sources": [
+   {
+    "publisher": "HireAHelper Movers Academy",
+    "url": "https://www.hireahelper.com/movers-academy/on-the-job/doors-and-floors/",
+    "says": "Protect floors on the heavy foot traffic paths with runners, plastic or cardboard; hook door jamb protectors around busy door frames or pad the furniture tightly; wrap banisters in pads. Old pads on floors bunch up and become a trip hazard.",
+    "page_date": "undated",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "HireAHelper Movers Academy",
+    "url": "https://www.hireahelper.com/movers-academy/on-the-job/loading-basics-pro-tips/",
+    "says": "Load in tiers with the heaviest and strongest items at the base, lighter as you go up; strap large furniture and appliances to the sides and strap off every four feet or so; keep the space over the cab for light items; finish with mattresses or tall pieces as a wall.",
+    "page_date": "undated",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "HireAHelper Movers Academy",
+    "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+    "says": "Estimating chart, load and unload: studio or small apartment 2 movers for 4 hours; 2 to 3 bedroom apartment 2 movers for 5 hours. Add 30 to 60 minutes for each set of stairs, and 30 minutes for pianos, pool tables and gun safes.",
+    "page_date": "undated",
+    "checked": "2026-10-19"
+   }
+  ],
+  "note": "Walk-throughs, photos and room-by-room unloading are common practice, a judgment call."
+ },
+ "objections": [
+  {
+   "objection": "My friends will help for pizza.",
+   "answer": "Pads, dollies and straps, floors and door frames protected, and a written price before the day.",
+   "sources": [
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/on-the-job/doors-and-floors/",
+     "says": "Protect floors on the heavy foot traffic paths with runners, plastic or cardboard; hook door jamb protectors around busy door frames or pad the furniture tightly; wrap banisters in pads. Old pads on floors bunch up and become a trip hazard.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "The answer is a judgment call; protecting floors and door frames is from HireAHelper.",
+   "match": [
+    "friends",
+    "pizza",
+    "buddies",
+    "my brother",
+    "family will help",
+    "cheaper",
+    "too much",
+    "expensive",
+    "lower price",
+    "for less"
+   ],
+   "say": "That makes sense, and friends are a big help. What we bring: moving pads, dollies and straps, floors and door frames protected, and a written price before the day. Your friends can carry the boxes while we take the couch and the dresser. Want a quote so you can compare?"
+  },
+  {
+   "objection": "Are you insured? What if something gets broken?",
+   "answer": "Name the insurer and what the policy covers, pad and wrap before anything moves, and tell them about any damage before you leave.",
+   "sources": [
+    {
+     "publisher": "U.S. Small Business Administration",
+     "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+     "says": "The federal government requires every business with employees to have workers' compensation, unemployment and disability insurance; some states require more, and laws requiring insurance vary by state. General liability insurance protects against financial loss from bodily injury, property damage, medical expenses and defending lawsuits.",
+     "page_date": "2026-08-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/on-the-job/doors-and-floors/",
+     "says": "Protect floors on the heavy foot traffic paths with runners, plastic or cardboard; hook door jamb protectors around busy door frames or pad the furniture tightly; wrap banisters in pads. Old pads on floors bunch up and become a trip hazard.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "insured",
+    "insurance",
+    "liability",
+    "damage",
+    "scratch",
+    "dented",
+    "a dent",
+    "dents",
+    "broken",
+    "break something",
+    "drop it",
+    "dropped"
+   ],
+   "say": "Fair question. We pad and wrap the furniture and protect floors and door frames before anything moves. [Your insurer and what your policy covers.] If anything gets damaged, we tell you before we leave."
+  },
+  {
+   "objection": "Can you bring a truck and drive it?",
+   "answer": "Labor only: they rent and drive the truck or container; the crew loads and unloads.",
+   "sources": [
+    {
+     "publisher": "eCFR, 49 CFR 390.5 and 390.201",
+     "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-390",
+     "says": "For-hire motor carrier means a person engaged in the transportation of goods or passengers for compensation. Motor carriers file Form MCSA-1 to obtain a USDOT number and operating authority under 49 U.S.C. chapter 139, and may not begin operations until the USDOT number has been activated.",
+     "page_date": "current",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Moving Help (U-Haul) service provider FAQ",
+     "url": "https://www.movinghelper.com/Support/FAQ",
+     "says": "The MarketPlace Fee is a 15% fee collected from the total amount paid by a customer for a Moving Help service. All rates are based on hourly prices you set per crew size. The minimum a customer can reserve is 2 hours of service.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "bring a truck",
+    "have a truck",
+    "your own truck",
+    "your truck",
+    "you drive",
+    "drive it",
+    "drive the truck",
+    "driving it",
+    "transport",
+    "haul it",
+    "have a van"
+   ],
+   "say": "We're labor only: we load and unload, and you rent and drive the truck or container. We don't drive customers' things, because that takes a mover's license and carrier authority. Want a quote for the loading and unloading?"
+  },
+  {
+   "objection": "How long will it take?",
+   "answer": "Hours by home size from a sourced chart, plus stairs, carry distance and heavy items.",
+   "sources": [
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+     "says": "Estimating chart, load and unload: studio or small apartment 2 movers for 4 hours; 2 to 3 bedroom apartment 2 movers for 5 hours. Add 30 to 60 minutes for each set of stairs, and 30 minutes for pianos, pool tables and gun safes.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "how long will",
+    "how long would",
+    "how long does",
+    "how long it",
+    "how long to",
+    "how many hours",
+    "how fast",
+    "how quick"
+   ],
+   "say": "Good question. For a studio or 1 bedroom, loading and unloading usually takes 2 movers about 4 hours; stairs, a long walk to the truck and heavy pieces add time. Send me the home size, the stairs at each end and anything heavy, and I'll send you a crew and hours estimate."
+  },
+  {
+   "objection": "Can you move a piano or a gun safe?",
+   "answer": "Upright pianos, safes and pool tables with a third mover and an appliance dolly, priced as a heavy item; grand pianos and hot tubs go to a specialist.",
+   "sources": [
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+     "says": "Estimating chart, load and unload: studio or small apartment 2 movers for 4 hours; 2 to 3 bedroom apartment 2 movers for 5 hours. Add 30 to 60 minutes for each set of stairs, and 30 minutes for pianos, pool tables and gun safes.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "iMoving",
+     "url": "https://www.imoving.com/blog/moving-tips/moving-labor-cost-and-everything/",
+     "says": "Stairs, slow elevators and high-rise moves can add time. Pianos, safes, appliances and gym equipment may need extra movers or fees.",
+     "page_date": "2026-06-04",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "At least 3 movers is a judgment call.",
+   "match": [
+    "piano",
+    "gun safe",
+    "my safe",
+    "our safe",
+    "pool table",
+    "hot tub",
+    "very heavy",
+    "really heavy",
+    "heavy item",
+    "heavy piece"
+   ],
+   "say": "Upright pianos, safes and pool tables, yes: with 3 movers and an appliance dolly, priced as a heavy item. Grand pianos and hot tubs need special equipment, so I'd point you to a specialist for those. What's the piece, and how many steps are on the way out?"
+  },
+  {
+   "objection": "We're on the third floor and there's no elevator.",
+   "answer": "Stairs add 30 to 60 minutes a flight; count the flights at each end in the price before the day.",
+   "sources": [
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+     "says": "Estimating chart, load and unload: studio or small apartment 2 movers for 4 hours; 2 to 3 bedroom apartment 2 movers for 5 hours. Add 30 to 60 minutes for each set of stairs, and 30 minutes for pianos, pool tables and gun safes.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "stairs",
+    "third floor",
+    "3rd floor",
+    "fourth floor",
+    "4th floor",
+    "walk-up",
+    "walkup",
+    "no elevator",
+    "flights"
+   ],
+   "say": "No problem. Stairs add time, about 30 to 60 minutes a flight, so I count the flights at both ends in the price before the day. How many flights at each end, and is there an elevator?"
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "Leasing office move-outs",
+   "steps": [
+    "Visit 3 apartment offices in the last week of the month, when leases turn over.",
+    "Leave cards for residents who are moving, and offer one free hour of help for a resident the office picks.",
+    "Send the office a photo of the work the same day (no faces or unit numbers)."
+   ],
+   "sources": [
+    {
+     "publisher": "Allied Van Lines",
+     "url": "https://www.allied.com/moving-resources/family-guide-to-moving/best-time-to-move",
+     "says": "November and December are when moving companies are the slowest; summer is the most expensive time to move. The beginning and end of the month are typically the busiest times for movers, as many leases are up at the beginnings of months. The best days to move are Monday to Thursday.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Quantities are a judgment call."
+  },
+  {
+   "play": "A labor-only marketplace listing for your first jobs",
+   "steps": [
+    "List on a labor-only marketplace like Moving Help or HireAHelper for your ZIP codes.",
+    "Read the fee and the rules before your first job: Moving Help takes a 15% MarketPlace Fee.",
+    "Take jobs close to home first, and leave a card only where the platform allows it."
+   ],
+   "sources": [
+    {
+     "publisher": "Moving Help (U-Haul) service provider FAQ",
+     "url": "https://www.movinghelper.com/Support/FAQ",
+     "says": "The MarketPlace Fee is a 15% fee collected from the total amount paid by a customer for a Moving Help service. All rates are based on hourly prices you set per crew size. The minimum a customer can reserve is 2 hours of service.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/business-basics/starting-running/",
+     "says": "Post your moving service on HireAHelper and you'll immediately start showing up for search results in your area, for free. We don't get paid until you do.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Read each platform's terms."
+  },
+  {
+   "play": "Cards at truck rental counters",
+   "steps": [
+    "Ask the manager at 2 or 3 local truck rental counters if you can leave cards for renters who need loading help.",
+    "Offer an hour of free loading help for one renter they send your way."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Same street small jobs",
+   "steps": [
+    "On every move, hang door hangers on the 20 nearest homes with a neighbor price for a small job.",
+    "Door hangers go on the door, never in or on a mailbox."
+   ],
+   "sources": [
+    {
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "says": "Knowingly and willfully depositing mailable matter such as circulars, on which no postage has been paid, in any letter box approved by the Postal Service, with intent to avoid payment of postage, is punishable by a fine.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Judgment call. Check your city rules on door to door flyers."
+  },
+  {
+   "play": "Agents in closing week",
+   "steps": [
+    "Introduce yourself to 5 agents with listings that just went under contract.",
+    "Offer to move staging furniture free once, then leave cards for their buyers and sellers."
+   ],
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "platform_fees": [
+  {
+   "platform": "Moving Help (U-Haul)",
+   "fees": "A 15% MarketPlace Fee on what the customer pays. You set hourly rates by crew size; customers reserve at least 2 hours.",
+   "sources": [
+    {
+     "publisher": "Moving Help (U-Haul) service provider FAQ",
+     "url": "https://www.movinghelper.com/Support/FAQ",
+     "says": "The MarketPlace Fee is a 15% fee collected from the total amount paid by a customer for a Moving Help service. All rates are based on hourly prices you set per crew size. The minimum a customer can reserve is 2 hours of service.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "HireAHelper",
+   "fees": "Free to list; it says it doesn't get paid until you do. The fee is not published there.",
+   "sources": [
+    {
+     "publisher": "HireAHelper Movers Academy",
+     "url": "https://www.hireahelper.com/movers-academy/business-basics/starting-running/",
+     "says": "Post your moving service on HireAHelper and you'll immediately start showing up for search results in your area, for free. We don't get paid until you do.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Thumbtack",
+   "fees": "Free to join; you pay per lead within a budget you set. Lead prices are not published.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/pro",
+     "says": "No charge to join, no annual fees and no membership fees. Pros set their pricing and a budget, which decides how many leads they pay for. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Card processing",
+   "fees": "Square 2.6% + 15 cents in person, 3.3% + 30 cents online; Stripe 2.9% + 30 cents.",
+   "sources": [
+    {
+     "publisher": "Square Help Center",
+     "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+     "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents; ACH bank transfer via invoice 1% with a $1 minimum.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Stripe",
+     "url": "https://stripe.com/pricing",
+     "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "May through September is the peak moving season.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/k/moving-labor/near-me",
+     "says": "Labor-only movers provide the labor to load (and unload) your items, typically around 2 people, without providing a truck or driving a vehicle you provide. May through September is considered peak moving season, according to the American Moving & Storage Association.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "November and December are the slowest months, and fewer people move in winter.",
+   "sources": [
+    {
+     "publisher": "Allied Van Lines",
+     "url": "https://www.allied.com/moving-resources/family-guide-to-moving/best-time-to-move",
+     "says": "November and December are when moving companies are the slowest; summer is the most expensive time to move. The beginning and end of the month are typically the busiest times for movers, as many leases are up at the beginnings of months. The best days to move are Monday to Thursday.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Atlas Van Lines",
+     "url": "https://www.atlasvanlines.com/blog/pros-and-cons-of-seasonal-moving",
+     "says": "During winter, fewer people relocate; cold weather means ice and snow and hazardous driving conditions. In summer, many people move, so there is a lot of competition for booking a mover.",
+     "page_date": "2025-12-05",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "The start and end of each month are the busiest days, as many leases end then; Monday to Thursday are quieter than weekends.",
+   "sources": [
+    {
+     "publisher": "Allied Van Lines",
+     "url": "https://www.allied.com/moving-resources/family-guide-to-moving/best-time-to-move",
+     "says": "November and December are when moving companies are the slowest; summer is the most expensive time to move. The beginning and end of the month are typically the busiest times for movers, as many leases are up at the beginnings of months. The best days to move are Monday to Thursday.",
+     "page_date": "undated",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "default_costs": {
+  "perJob": 15,
+  "hourly": 50,
+  "monthlyFixed": 150,
+  "basis": "Defaults when you leave them empty, all judgment calls: about $15 a job for stretch wrap, tape and gas, $50 an hour for the crew (2 movers at $25 each), and $150 a month fixed (insurance, phone, upkeep). Use your own numbers."
+ },
+ "partners": [
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "buyers and sellers",
+   "why": "need hands on moving day, often right around closing",
+   "ask": "leave my cards with buyers and sellers who are moving",
+   "give": "help move staging furniture for one of your listings at my founding price",
+   "weight": 2
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment offices",
+   "one": "apartment community",
+   "search": {
+    "category": "apartments",
+    "words": "apartment complexes"
+   },
+   "their_customers": "residents",
+   "why": "move in and out at the start and end of the month",
+   "ask": "leave my cards at the leasing office for residents who are moving",
+   "give": "give your residents my founding price",
+   "weight": 2
+  },
+  {
+   "id": "self_storage",
+   "label": "Self storage",
+   "one": "self storage site",
+   "search": {
+    "words": "self storage",
+    "osm": [
+     "shop=storage_rental"
+    ]
+   },
+   "their_customers": "renters",
+   "why": "need a hand loading and unloading their units",
+   "ask": "keep a few of my cards at the counter or pin one on your board",
+   "give": "point people who are moving your way for units and boxes",
+   "weight": 2
+  },
+  {
+   "id": "senior_living",
+   "label": "Senior living communities",
+   "one": "senior living community",
+   "search": {
+    "words": "senior living communities",
+    "osm": [
+     "amenity=social_facility][social_facility=assisted_living",
+     "amenity=social_facility][social_facility:for=senior"
+    ]
+   },
+   "their_customers": "new residents",
+   "why": "need careful hands to move in and to downsize",
+   "ask": "leave my cards with your move-in coordinator",
+   "give": "help your residents move furniture between rooms at my founding price",
+   "weight": 1
+  },
+  {
+   "id": "truck_rental",
+   "label": "Truck rental counters",
+   "one": "truck rental counter",
+   "search": {
+    "words": "truck rental",
+    "osm": [
+     "amenity=car_rental"
+    ]
+   },
+   "their_customers": "renters",
+   "why": "load and drive the truck themselves",
+   "ask": "keep my cards at your counter for renters who need loading help",
+   "give": "send renters who still need a truck your way",
+   "weight": 1
+  }
+ ],
+ "lead_offers": [
+  {
+   "id": "winter",
+   "months": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "slow": true,
+   "package": "move",
+   "label": "Winter move, load and unload",
+   "one": "winter move",
+   "many": "winter moves",
+   "partners": [
+    "apartments",
+    "senior_living",
+    "self_storage"
+   ]
+  },
+  {
+   "id": "main",
+   "package": "move",
+   "label": "Load and unload crew",
+   "one": "move",
+   "many": "moves"
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.35,
+   "label": "Founding price",
+   "ask": "Permission to post photos of the padded furniture and the loaded truck (no faces or house numbers) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.15,
+   "label": "Early price",
+   "ask": "Same crew and care, smaller discount, while you fill your weekends."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once your Saturdays book up a few weeks ahead."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post photos of the work. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "help",
+   "label": "Small job (2 movers, 2 hours), founding price",
+   "note": "A first job that fits any budget; ask about the next move while you are there."
+  },
+  "core": {
+   "package": "move",
+   "note": "Priced by home size."
+  },
+  "upsell": {
+   "package": "packing",
+   "note": "Offer it with every quote for a move."
+  },
+  "downsell": {
+   "package": "load",
+   "note": "For people who only need one end: loading or unloading."
+  }
+ },
+ "offer": {
+  "who": "People moving locally who rent their own truck or container and want careful hands for the heavy lifting.",
+  "outcome": "Furniture padded, loaded tight and strapped, then unloaded room by room, with floors and door frames protected.",
+  "promise": "On time, or your first half hour is free. If anything gets damaged, we tell you before we leave.",
+  "names": [
+   "Moving Day Crew",
+   "Load and Unload Crew",
+   "Two Movers, Two Hours",
+   "Careful Hands Moving Help"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}: we load and unload, you drive the truck. My first 3 {lead_many} are {founding} ({ref}) while I build up photos of my work. Moving soon, or know someone who is?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}, loading and unloading trucks and containers. I'm doing 3 {lead_many} at {founding} for a {ref} so I can get photos of the work. Want a spot, or know someone who's moving?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the loaded truck. Moving soon, or know someone who is?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one friend who's moving soon? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If someone who's moving comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. Stairs, a long walk to the truck and heavy pieces add a bit. Want an exact quote? Send me the home size, the stairs at each end and your moving date.",
+   "not_now": "No problem! Can I check back closer to your moving date? And if a friend is moving, I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. We load and unload trucks, containers and storage units, with our own pads, dollies and straps, and you drive. If anything gets damaged, we tell you before we leave.",
+   "covered": "Good to hear you're set! If plans change or you need a hand at the other end, I'm happy to help. Mind if I check back before your move?",
+   "yes": "Great! To get you on the schedule I just need the date, both addresses, the stairs at each end and anything heavy like a piano or safe. I'll confirm the price before the day. What time works to start?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}.{plan} {promise} Reply with your moving date and I'll hold it for you.",
+  "plan_terms": "One job at a time, no contract.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for trusting us with your {job} today! I'll send your photos tonight. If anything isn't right, text me first.",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps others decide.{review_line}",
+   "plan": "Hi {customer}, if you need a hand again, like a piece moved to a new room, {plan_offer} {terms} Just reply and I'll save you a spot.",
+   "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor is moving soon, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. Hope the new place is coming together! If a heavy piece needs a new spot, just text me.",
+   "checkin_days": 30,
+   "card_thanks": "Thank you for having us!",
+   "card_ask": "How did your move go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "studio or 1 bedroom",
+  "size_factor": "home",
+  "fields": {
+   "service": {
+    "type": "string",
+    "title": "What they need",
+    "use": "package",
+    "map": {
+     "Load and unload (both ends)": "move",
+     "Load or unload (one end)": "load",
+     "Small job (2 movers, 2 hours)": "help",
+     "Packing session (2 movers, 2 hours)": "packing"
+    },
+    "default": "Load and unload (both ends)"
+   },
+   "home": {
+    "type": "string",
+    "title": "Home size",
+    "use": "factor:home",
+    "map": {
+     "Studio or 1 bedroom": "h1",
+     "2 or 3 bedroom apartment": "h2",
+     "2 or 3 bedroom house": "h3",
+     "3 or 4 bedroom house": "h4",
+     "4 or more bedrooms": "h5"
+    },
+    "default": "Studio or 1 bedroom"
+   },
+   "stairs": {
+    "type": "string",
+    "title": "Extra flights of stairs (optional)",
+    "maxLength": 2,
+    "use": "qty:stairs",
+    "description": "Flights past the first at each end, both ends added together. An elevator counts as a flight."
+   },
+   "carry": {
+    "type": "string",
+    "title": "Long carry, extra 75 foot stretches (optional)",
+    "maxLength": 2,
+    "use": "qty:long_carry",
+    "description": "Past the first 150 feet from the truck to the door"
+   },
+   "heavy": {
+    "type": "string",
+    "title": "Heavy items (optional)",
+    "maxLength": 2,
+    "use": "qty:heavy",
+    "description": "Upright pianos, safes and pool tables"
+   }
+  },
+  "advice": [
+   {
+    "when": {
+     "home": [
+      "h3",
+      "h4",
+      "h5"
+     ]
+    },
+    "say": "A house this size usually takes 3 or 4 movers. Run \"Crew and hours estimate\" for the crew, the hours and a move-day plan."
+   },
+   {
+    "when": {
+     "service": [
+      "help"
+     ]
+    },
+    "say": "Agree the list of pieces before the day. Past 2 hours, charge your hourly rate for each mover."
+   },
+   {
+    "when": {
+     "service": [
+      "packing"
+     ]
+    },
+    "say": "Say in writing who buys the boxes, tape and paper."
+   },
+   {
+    "when": {
+     "heavy": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+     ]
+    },
+    "say": "Heavy items: ask for the weight and the path out (steps, tight turns) before the day, and bring 3 movers and an appliance dolly. Grand pianos and hot tubs go to a specialist."
+   }
+  ]
+ },
+ "specials": [
+  "same_street"
+ ],
+ "won": {
+  "needs": "the address, the new address, the stairs and elevator at each end, where the truck will park, and anything heavy like a piano or safe",
+  "prep_items": [
+   "set aside anything flammable or under pressure, like gas cans, propane, paint and cleaners: movers can't carry them",
+   "empty and dry out the fridge, doors open 24 hours before",
+   "keep documents, medicine, jewelry and keys with you",
+   "save a parking spot for the truck close to the door, and book the elevator if there is one"
+  ],
+  "bring": [
+   "Moving pads and stretch wrap",
+   "Two 4-wheel dollies and an appliance hand truck",
+   "Ratchet straps",
+   "Floor runners and door jamb protectors",
+   "Tool kit and bags for bed and table hardware",
+   "Tape and a marker",
+   "Gloves, water and work shoes"
+  ],
+  "photos": [
+   "Every room before you start, wide",
+   "Floors and door frames along the path, before and after",
+   "Any scratch or dent already there, close up, before you lift",
+   "The loaded truck before the door closes"
+  ],
+  "done": "we're all done"
+ },
+ "proof": {
+  "what": "2 bedroom apartment, loaded and unloaded",
+  "result": "Padded, loaded and strapped in 3 hours, then unloaded room by room",
+  "thing": "move",
+  "private": "No faces, house numbers or street signs."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "One heavy piece moved free on {street}",
+   "side": [
+    "One piece, inside the home",
+    "About 15 minutes",
+    "First 3 homes"
+   ],
+   "includes": [
+    "A couch, dresser or bookcase moved to a new room",
+    "Floors and door frames protected",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address or scan the code",
+    "We stop by while we're on {street}{day_part}",
+    "Point to the piece and where it goes"
+   ],
+   "line": "We're helping with a move on {street}{day_part}, so the first 3 neighbors who text me get one heavy piece moved inside their home free: about 15 minutes, no cost and no catch.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. We're helping with a move on {street}{day_part}, so the first 3 neighbors who text me get one heavy piece moved inside their home free (about 15 minutes). No cost and no catch. {phone_line}",
+   "minutes": 15,
+   "limit": 3,
+   "package": "help",
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+    "Move the first 3 pieces for neighbors who text, two of you, after the paid job.",
+    "Hand them the card with your price before you leave.",
+    "Text a thank-you the same day, then one follow-up in 3 days."
+   ]
+  },
+  "partners": {
+   "realtors": {
+    "demo": "staging furniture moved at one of your listings, free, up to an hour with 2 movers",
+    "eyebrow": "For {biz} buyers and sellers",
+    "headline": "Careful hands for moving day",
+    "package": "move",
+    "who": "First 3 buyers or sellers",
+    "card_line": "Buying or selling with {biz}? Mention them when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "keller",
+     "coldwell",
+     "remax",
+     "re/max",
+     "century 21",
+     "compass",
+     "exp realty",
+     "properties"
+    ],
+    "steps": [
+     "Send the message and the card today, with two days you can do it.",
+     "Do the sample with a second mover on the day the agent picks. Take photos before and after, with no house numbers.",
+     "Send the photos to the agent the same day.",
+     "Ask once: would they leave your cards with buyers and sellers who are moving?"
+    ]
+   },
+   "apartments": {
+    "demo": "one free hour with 2 movers for a resident your office picks, to load a truck or move furniture",
+    "eyebrow": "For {biz} residents",
+    "headline": "Moving in or out? We do the heavy lifting",
+    "package": "move",
+    "who": "First 3 residents",
+    "card_line": "Live at {biz}? Mention it when you book.",
+    "words": [
+     "apartments",
+     "apartment",
+     "lofts",
+     "flats",
+     "residences",
+     "commons",
+     "leasing",
+     "towers"
+    ],
+    "steps": [
+     "Walk in with the card and ask for the property manager.",
+     "Offer the free hour for one resident they pick, on a day that suits the office.",
+     "Send the office a photo of the work the same day, with no faces or unit numbers.",
+     "Ask once: could they leave your cards at the leasing office for residents who are moving?"
+    ]
+   },
+   "self_storage": {
+    "demo": "one unit loaded or unloaded free for a renter you pick, up to an hour with 2 movers",
+    "eyebrow": "For {biz} renters",
+    "headline": "Your unit loaded tight and stacked safe",
+    "package": "load",
+    "who": "First 3 renters",
+    "card_line": "Renting at {biz}? Mention it when you book.",
+    "words": [
+     "storage",
+     "self storage",
+     "mini storage",
+     "storage units",
+     "cubesmart",
+     "extra space"
+    ],
+    "steps": [
+     "Walk in with the card and ask for the manager.",
+     "Offer to load or unload one unit free for a renter they pick.",
+     "Stack heavy boxes low, leave an aisle, then send the manager a photo.",
+     "Ask once: could they keep your cards at the counter or pin one on their board?"
+    ]
+   },
+   "senior_living": {
+    "demo": "one resident's furniture moved or rearranged free, up to an hour with 2 movers, on a day your staff picks",
+    "eyebrow": "For {biz} residents and families",
+    "headline": "Careful moving help for move-in day",
+    "package": "move",
+    "who": "First 3 residents",
+    "card_line": "Moving into {biz}? Mention it when you book.",
+    "words": [
+     "senior",
+     "assisted living",
+     "retirement",
+     "memory care",
+     "independent living",
+     "living center",
+     "care center",
+     "manor",
+     "village"
+    ],
+    "steps": [
+     "Call or walk in and ask for the move-in coordinator or the director.",
+     "Offer the free hour for one resident they pick, with family there if they want.",
+     "Pad corners and walls, place each piece where the resident wants it, and take nothing away without a yes.",
+     "Ask once: could they share your card with families planning a move-in?"
+    ]
+   },
+   "truck_rental": {
+    "demo": "an hour of free loading help with 2 movers for one of your renters",
+    "eyebrow": "For {biz} renters",
+    "headline": "You drive. We load it tight and strapped.",
+    "package": "load",
+    "who": "First 3 renters",
+    "card_line": "Renting a truck at {biz}? Mention it when you book.",
+    "words": [
+     "truck rental",
+     "u-haul",
+     "uhaul",
+     "penske",
+     "budget truck",
+     "ryder",
+     "rental"
+    ],
+    "steps": [
+     "Walk in on a weekday morning, when the counter is quiet, and ask for the manager.",
+     "Offer an hour of free loading help for one renter they send your way.",
+     "Load heavy pieces first, in tiers, and strap every 4 feet or so. The renter drives.",
+     "Ask once: could they keep your cards at the counter for renters who need loading help?"
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call, not a sourced fact",
+  "package": "help",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "While we're on your street",
+  "includes": [
+   "2 movers for up to 2 hours",
+   "Furniture moved or rearranged in the home",
+   "A storage unit or container loaded"
+  ],
+  "how": [
+   "Text me your address or scan the code",
+   "Tell me what needs moving",
+   "We come while we're on {street}{day_part}, or a day that suits you"
+  ],
+  "customer_ask": "Hi {customer}, thanks again for trusting us with your move! If a neighbor ever needs a hand with heavy furniture or a move, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day of the move or the day before. On the door, never in or on a mailbox.",
+   "Park the truck so it doesn't block a neighbor's driveway, and keep the sidewalk clear.",
+   "If a neighbor is outside, say hi and keep it short. Never say whose move it is: \"We're helping with a move on your street.\"",
+   "Text your customer the intro ask after the job, never before."
+  ],
+  "why": "Neighbors see the crew at work on moving day, and a small job on the same street means no extra drive, so they get a better price."
+ }
+}

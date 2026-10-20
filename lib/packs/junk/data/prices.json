@@ -1,0 +1,532 @@
+{
+  "checked": "2026-10-19",
+  "unit": "load",
+  "minimum": 75,
+  "minimum_basis": "Judgment call: Fixr puts the minimum load (about 60 cubic feet) at $75 to $125 and says single items under it still pay the minimum; HomeAdvisor puts a single item at $60 to $150.",
+  "minimum_sources": [
+    {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/junk-removal-service",
+      "says": "The minimum load is about 60 cubic feet, $75 to $125. Single items under the minimum still incur the minimum truckload fee.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+    },
+    {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+      "says": "Single item pickup $60 to $150.",
+      "page_date": "2026-06-19",
+      "checked": "2026-10-19"
+    }
+  ],
+  "base": "Prices are per load, by how much of a standard junk truck it fills (about 400 cubic feet: 10 ft long, 8 ft wide, 5 ft high), for household junk picked up at the curb, in a garage or on the ground floor, dump and recycling fees included. Stairs, long carries and heavy debris scale them.",
+  "minutes_note": "Minutes per load are judgment calls for the job math, not sourced figures.",
+  "packages": [
+    {
+      "id": "min",
+      "label": "Small load (1/8 truck)",
+      "range": [
+        75,
+        125
+      ],
+      "minutes": 30,
+      "includes": [
+        "About 1/8 of the truck (about 50 cubic feet)",
+        "Loading, hauling and sweep-up",
+        "Dump and recycling fees included"
+      ],
+      "basis": "1/8 truck: HomeAdvisor and This Old House $75 to $125; Fixr $75 to $125; TaskRabbit $60 to $150; LawnStarter average $90.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800. Average job $241, most between $133 and $372.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "This Old House",
+          "url": "https://www.thisoldhouse.com/moving/junk-removal-cost",
+          "says": "Junk removal costs about $250 on average, from $75 to $800. By load: 1/8 truck $75 to $125; 1/4 truck $125 to $200; 1/2 truck $200 to $400; 3/4 truck $400 to $600; full truck $600 to $800 (based on averages from Angi).",
+          "page_date": "2026-03-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Junk removal by truck load: 1/8 truck $60 to $150; 1/4 truck $150 to $250; 1/2 truck $250 to $450; full truck $450 to $750 or more.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Average cost by load: 1/8 truck $90; 1/4 truck $160; 1/2 truck $375; 3/4 truck $520; full truck (up to 20 cubic yards) $675. Most people pay $115 to $450 a load, average $225.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "quarter",
+      "label": "Quarter truck load",
+      "range": [
+        125,
+        200
+      ],
+      "minutes": 45,
+      "includes": [
+        "About 1/4 of the truck (about 100 cubic feet)",
+        "Loading, hauling and sweep-up",
+        "Dump and recycling fees included"
+      ],
+      "basis": "1/4 truck: HomeAdvisor and This Old House $125 to $200; Fixr $125 to $175; TaskRabbit $150 to $250; LawnStarter average $160.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800. Average job $241, most between $133 and $372.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "This Old House",
+          "url": "https://www.thisoldhouse.com/moving/junk-removal-cost",
+          "says": "Junk removal costs about $250 on average, from $75 to $800. By load: 1/8 truck $75 to $125; 1/4 truck $125 to $200; 1/2 truck $200 to $400; 3/4 truck $400 to $600; full truck $600 to $800 (based on averages from Angi).",
+          "page_date": "2026-03-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Junk removal by truck load: 1/8 truck $60 to $150; 1/4 truck $150 to $250; 1/2 truck $250 to $450; full truck $450 to $750 or more.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Average cost by load: 1/8 truck $90; 1/4 truck $160; 1/2 truck $375; 3/4 truck $520; full truck (up to 20 cubic yards) $675. Most people pay $115 to $450 a load, average $225.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "half",
+      "label": "Half truck load",
+      "range": [
+        200,
+        400
+      ],
+      "minutes": 75,
+      "includes": [
+        "About 1/2 of the truck (about 200 cubic feet)",
+        "Loading, hauling and sweep-up",
+        "Dump and recycling fees included"
+      ],
+      "basis": "1/2 truck: HomeAdvisor and This Old House $200 to $400; Fixr $175 to $375; TaskRabbit $250 to $450; LawnStarter average $375; HomeGuide $200 to $300.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800. Average job $241, most between $133 and $372.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "This Old House",
+          "url": "https://www.thisoldhouse.com/moving/junk-removal-cost",
+          "says": "Junk removal costs about $250 on average, from $75 to $800. By load: 1/8 truck $75 to $125; 1/4 truck $125 to $200; 1/2 truck $200 to $400; 3/4 truck $400 to $600; full truck $600 to $800 (based on averages from Angi).",
+          "page_date": "2026-03-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Junk removal by truck load: 1/8 truck $60 to $150; 1/4 truck $150 to $250; 1/2 truck $250 to $450; full truck $450 to $750 or more.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Average cost by load: 1/8 truck $90; 1/4 truck $160; 1/2 truck $375; 3/4 truck $520; full truck (up to 20 cubic yards) $675. Most people pay $115 to $450 a load, average $225.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HomeGuide",
+          "url": "https://homeguide.com/costs/junk-removal-prices",
+          "says": "Junk removal prices are $150 to $350 on average or $1.50 per cubic foot. A half truckload costs $200 to $300, while a full-size truckload costs about $400 to $450.",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "three_quarter",
+      "label": "Three quarter truck load",
+      "range": [
+        375,
+        600
+      ],
+      "minutes": 100,
+      "includes": [
+        "About 3/4 of the truck (about 300 cubic feet)",
+        "Loading, hauling and sweep-up",
+        "Dump and recycling fees included"
+      ],
+      "basis": "3/4 truck: HomeAdvisor and This Old House $400 to $600; Fixr $375 to $450; LawnStarter average $520.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800. Average job $241, most between $133 and $372.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "This Old House",
+          "url": "https://www.thisoldhouse.com/moving/junk-removal-cost",
+          "says": "Junk removal costs about $250 on average, from $75 to $800. By load: 1/8 truck $75 to $125; 1/4 truck $125 to $200; 1/2 truck $200 to $400; 3/4 truck $400 to $600; full truck $600 to $800 (based on averages from Angi).",
+          "page_date": "2026-03-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Average cost by load: 1/8 truck $90; 1/4 truck $160; 1/2 truck $375; 3/4 truck $520; full truck (up to 20 cubic yards) $675. Most people pay $115 to $450 a load, average $225.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "full",
+      "label": "Full truck load",
+      "range": [
+        450,
+        800
+      ],
+      "minutes": 120,
+      "includes": [
+        "The whole truck (about 400 cubic feet)",
+        "Loading, hauling and sweep-up",
+        "Dump and recycling fees included"
+      ],
+      "basis": "Full truck: HomeAdvisor and This Old House $600 to $800; Fixr $450 to $650; TaskRabbit $450 to $750 or more; LawnStarter average $675; HomeGuide about $400 to $450 for a local company.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Truck load, volume, average cost: 1/8 2 to 3 cubic yards $75 to $125; 1/4 3 to 4.5 cubic yards $125 to $200; 1/2 4.5 to 11 cubic yards $200 to $400; 3/4 11 to 13 cubic yards $400 to $600; full 13 to 17 cubic yards $600 to $800. Average job $241, most between $133 and $372.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "This Old House",
+          "url": "https://www.thisoldhouse.com/moving/junk-removal-cost",
+          "says": "Junk removal costs about $250 on average, from $75 to $800. By load: 1/8 truck $75 to $125; 1/4 truck $125 to $200; 1/2 truck $200 to $400; 3/4 truck $400 to $600; full truck $600 to $800 (based on averages from Angi).",
+          "page_date": "2026-03-13",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Junk removal by truck load: 1/8 truck $60 to $150; 1/4 truck $150 to $250; 1/2 truck $250 to $450; full truck $450 to $750 or more.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Average cost by load: 1/8 truck $90; 1/4 truck $160; 1/2 truck $375; 3/4 truck $520; full truck (up to 20 cubic yards) $675. Most people pay $115 to $450 a load, average $225.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HomeGuide",
+          "url": "https://homeguide.com/costs/junk-removal-prices",
+          "says": "Junk removal prices are $150 to $350 on average or $1.50 per cubic foot. A half truckload costs $200 to $300, while a full-size truckload costs about $400 to $450.",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "hot_tub",
+      "label": "Hot tub removal",
+      "range": [
+        200,
+        600
+      ],
+      "minutes": 180,
+      "unit": "job",
+      "includes": [
+        "Cut up or moved out whole",
+        "Loading, hauling and sweep-up",
+        "Dump fees included"
+      ],
+      "basis": "HomeAdvisor: hot tub removal $200 to $600; Fixr: $150 to $600; LawnStarter: average $325, $235 to $415.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Hot tub removal $200 to $600.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Hot tub removal $150 to $600.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Hot tub removal: average $325, typical range $235 to $415.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "piano",
+      "label": "Piano removal",
+      "range": [
+        200,
+        400
+      ],
+      "minutes": 90,
+      "unit": "job",
+      "includes": [
+        "Moved out with a helper and a piano dolly",
+        "Loading and hauling",
+        "Dump fees included"
+      ],
+      "basis": "HomeAdvisor: piano removal $200 to $400 ($250 to $600 to take it for donation); Fixr: $200 to $400; TaskRabbit: $250 to $600.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Piano removal $200 to $400; $250 to $600 to haul it for donation.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Piano removal $200 to $400.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Piano removal $250 to $600.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "factors": [
+    {
+      "id": "access",
+      "label": "Where the items are",
+      "default": "curb",
+      "basis": "Fixr: heavy items that need extra labor cost more, and items may need extra labor when they come from a second floor. LawnStarter: heavy and oversized items cost more.",
+      "note": "Judgment call: the 15 percent for stairs and long carries is ours. The sources say only that these jobs cost more.",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Heavy items that require additional labor to lift and move also have higher costs. Other items may require additional labor, particularly if they are removed from a second floor.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Heavy and oversized items cost more to haul away.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ],
+      "options": [
+        {
+          "id": "curb",
+          "label": "Curbside, garage or ground floor",
+          "short": "Ground floor",
+          "mult": 1
+        },
+        {
+          "id": "stairs",
+          "label": "Upstairs, basement or long carry",
+          "short": "Stairs or long carry",
+          "mult": 1.15,
+          "minutes": 20
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "label": "What it is",
+      "default": "household",
+      "packages": [
+        "min",
+        "quarter",
+        "half",
+        "three_quarter",
+        "full"
+      ],
+      "basis": "Fixr: construction debris $200 to $600, and some transfer stations charge more for construction debris. HomeAdvisor: construction debris, gravel or dirt $100 to $800 a truckload. LawnStarter: construction debris $300 to $800 a truckload.",
+      "note": "Judgment call: the 25 percent for heavy debris is ours. Heavy debris also fills the truck by weight before it fills it by space, so the Load estimate checks the weight too.",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Construction debris removal $200 to $600; some transfer stations charge additional fees for construction debris disposal.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Construction debris, gravel or dirt removal $100 to $800 per truckload.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Construction debris removal $300 to $800 per truckload.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ],
+      "options": [
+        {
+          "id": "household",
+          "label": "Household junk and furniture",
+          "short": "Household junk",
+          "mult": 1
+        },
+        {
+          "id": "heavy",
+          "label": "Construction debris, dirt, concrete or shingles",
+          "short": "Heavy debris",
+          "mult": 1.25,
+          "minutes": 20
+        }
+      ]
+    }
+  ],
+  "addons": [
+    {
+      "id": "refrigerant",
+      "label": "Appliance with refrigerant",
+      "range": [
+        35,
+        150
+      ],
+      "minutes": 10,
+      "unit": "each",
+      "basis": "HomeGuide: refrigerators and freezers carry a disposal surcharge of about $35 to $60 each; HomeAdvisor: refrigerant (freon) removal $50 to $150. The space it takes is priced in the load.",
+      "note": "For a fridge, freezer, dehumidifier or AC unit. The refrigerant has to be recovered before disposal (EPA Section 608): check your county for who does it and what the dump charges.",
+      "sources": [
+        {
+          "publisher": "HomeGuide",
+          "url": "https://homeguide.com/costs/junk-removal-prices",
+          "says": "Freezers and refrigerators: $35 to $60 each. Some landfills also charge a refrigerant or freon removal fee for refrigerators and window air conditioning units.",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Refrigerant or freon removal $50 to $150.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "tire",
+      "label": "Tire disposal",
+      "range": [
+        5,
+        15
+      ],
+      "minutes": 2,
+      "unit": "tire",
+      "basis": "HomeAdvisor: $5 to $15 a tire at a recycler ($10 to $15 with rims); LawnStarter: $5 to $15 a tire on average, up to $25 with rims.",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Tire disposal at a recycler $5 to $15 each: $10 to $15 with rims, $5 to $10 without. State tire disposal fees run $0.25 to $2 a tire.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Tire disposal $5 to $15 per tire on average, up to $25 with rims.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "plans": [],
+  "plans_basis": "No regular plan: junk removal is booked one load at a time. Judgment call, not a sourced fact.",
+  "plans_sources": [],
+  "sources": [
+    "https://homeguide.com/costs/junk-removal-prices",
+    "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+    "https://www.fixr.com/costs/junk-removal-service",
+    "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+    "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+    "https://www.taskrabbit.com/cost-guides/junk-removal",
+    "https://www.thisoldhouse.com/moving/junk-removal-cost"
+  ]
+}

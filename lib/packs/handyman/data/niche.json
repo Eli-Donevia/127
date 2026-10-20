@@ -1,0 +1,1281 @@
+{
+ "id": "handyman",
+ "name": "Handyman",
+ "pack_title": "Handyman",
+ "checked": "2026-10-20",
+ "summary": "Start a handyman business: your first 25 neighbors and partners, a price menu from real ranges, a punch list quote from a pasted list of jobs, and the licensed-trade rules to check in your state.",
+ "niches": [
+  "handyman",
+  "handyman services",
+  "handyperson",
+  "home repair",
+  "home repairs",
+  "odd jobs",
+  "punch list",
+  "tv mounting",
+  "furniture assembly",
+  "drywall repair",
+  "small home repairs",
+  "property maintenance"
+ ],
+ "what": "handyman work",
+ "business_word": "Handyman",
+ "worker": "handyman",
+ "job": "fix",
+ "icon": "wrench",
+ "mood": "warm",
+ "local_group": "home",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Hi neighbor!",
+ "door_step3": "I fix it, clean up and show you each job",
+ "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+ "promises": {
+  "first_25": "15 people you know and 10 local agents, property managers, landlords and hardware stores, each with a message, plus door hangers.",
+  "offer": "Your price menu for visits and common jobs, the first-clients ladder, add-ons and job math, on a one-page offer sheet.",
+  "quote": "Which visit or job, how many and any extra hours in; a quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the job: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+  "proof": "One finished punch list turned into proof: a result card, a before-and-after collage, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 agents, property managers, landlords and hardware stores near you, not yet in your Pipeline, with messages for Do my day.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "One customer's street turned into a route: door hangers with a neighbor price, a sheet for the 20 nearest homes and an intro ask for your customer.",
+  "punch_list": "A pasted list of small jobs in; hours, the order to do them, what goes to a licensed trade with your state's rule, and a printable estimate out."
+ },
+ "crowd": {
+  "buyer": "Homeowners",
+  "scores": {
+   "pain": 4,
+   "can_pay": 4,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   3,
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ],
+  "note": "Handyman work runs all year; spring and fall bring seasonal checkups (Housecall Pro) and the weatherstripping check (Fixr). The busier months are a judgment call.",
+  "not_yet": [
+   "Don't quote panels, new wiring, gas or moved pipes: send those to a licensed trade.",
+   "Don't take a job over your state's limit for work without a contractor license until you check the rule.",
+   "Don't buy big tools before a job calls for them: rent or borrow the first time."
+  ],
+  "basis": "Scores, first $1, buyer and not-yet lines: research/niches/handyman.json crowd_scores (our judgment). Best months: Housecall Pro's quarterly checkups and Fixr's spring and fall weatherstripping check; the months themselves are a judgment call."
+ },
+ "buyers": [
+  {
+   "who": "Homeowners with a list of small fixes they have put off",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Handymen who charge an hourly rate will often have a minimum charge: even if the task takes 20 minutes, you are likely to be charged for a full hour. Group together smaller household jobs.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "who": "Sellers getting a home ready to list, with a punch list from the agent or the inspection",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "who": "Landlords and property managers turning a unit between tenants",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Plans: a monthly maintenance visit for property managers, landlords and busy homeowners (a 2-hour visit at your standard rate or a set flat rate); a quarterly home checkup (seasonal inspection plus small repairs at a flat visit fee); a punch-list package (a prepaid 4 to 8 hour labor block, materials billed separately).",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "who": "People who bought a TV, shelves or furniture and would rather not mount or build it",
+   "sources": [
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/assemble-furniture",
+     "says": "Furniture assembly: 1 item $50 to $80 average estimated cost; 2 items $90 to $145; 3 items $130 to $210.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Busy homeowners who want the same small checks done every season",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Plans: a monthly maintenance visit for property managers, landlords and busy homeowners (a 2-hour visit at your standard rate or a set flat rate); a quarterly home checkup (seasonal inspection plus small repairs at a flat visit fee); a punch-list package (a prepaid 4 to 8 hour labor block, materials billed separately).",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Thumbtack, TaskRabbit and other apps that list handymen by the job",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Handymen charge $60 to $75 an hour on average; simple tasks under 2 hours $178 to $220; a few projects in 2 to 5 hours $316 to $428; a full day $701 to $1,105.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "TaskRabbit",
+     "url": "https://www.taskrabbit.com/cost-guides/general-handyman",
+     "says": "Handymen on TaskRabbit average about $38 an hour, while nationally the cost averages $50 to $125 an hour.",
+     "page_date": "2026-10-01",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Cost guides that price handyman jobs one at a time",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/handyman",
+     "says": "Handyman services cost $150 to $600, average $300; hourly rates $50 to $100, most about $65; door repair $125 to $200, door installation $200 to $300, light fixture installation $80 to $150, ceiling fan installation $100 to $300, toilet installation $100 to $200, kitchen cabinet repair $150 to $500.",
+     "page_date": "2025-01-30",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/handyman/",
+     "says": "Projects typically fall in the $165 to $615 range; $60 to $125 an hour when quoted hourly; small jobs like replacing a light switch $60 to $250 for one to two hours of work.",
+     "page_date": "2026-06-17",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "channel": "Their agent or property manager's list of trusted pros",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "channel": "Neighbors, the hardware store counter and local groups",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Hand tools you already own: drill, level, stud finder, tape measure",
+    "unit": "set",
+    "range_usd": null,
+    "note": "Check current rates. Start with what you have and buy a tool when a paid job calls for it.",
+    "sources": []
+   },
+   {
+    "item": "Ladder rated for the work",
+    "unit": "each",
+    "range_usd": null,
+    "note": "Check current rates. OSHA's ladder rules: 3 feet above the landing, the foot one quarter of the length out, never stand on a stepladder's top step.",
+    "sources": [
+     {
+      "publisher": "OSHA, 29 CFR 1926.1053 (ladders)",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+      "says": "Portable ladders used to reach an upper landing extend at least 3 feet above it; a non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; the top step of a stepladder is not used as a step; ladders near exposed energized electrical equipment have nonconductive side rails.",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "Drop cloths, shop vacuum and patch kit",
+    "unit": "set",
+    "range_usd": null,
+    "note": "Check current rates.",
+    "sources": []
+   },
+   {
+    "item": "Business registration",
+    "unit": "once",
+    "range_usd": null,
+    "note": "Fees vary by state and city: check your state and city.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "The licenses and permits you need from the state, county, or city will depend on your business activities and business location. You will have to research your own state, county, and city regulations.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "EPA lead-safe certification, if you work on homes built before 1978",
+    "unit": "once",
+    "range_usd": null,
+    "note": "Check current rates. Firms paid for work that disturbs paint in pre-1978 homes are certified, even a one-person business (EPA).",
+    "sources": [
+     {
+      "publisher": "U.S. EPA",
+      "url": "https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors",
+      "says": "Jobs that disturb six square feet or less of paint per room inside, or 20 square feet or less on the exterior, are not covered; window replacement and demolition of painted surfaces are always covered; this includes all firms, even sole proprietorships.",
+      "page_date": "2026-03-31",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "General liability insurance",
+    "unit": "per month",
+    "range_usd": null,
+    "note": "Check current rates. Some states also require other insurance: check your state.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Small hardware: screws, anchors, caulk and patch",
+    "unit": "per job",
+    "range_usd": null,
+    "note": "Check current rates. Housecall Pro builds small hardware into the hourly rate and bills real parts separately.",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+      "says": "Build small hardware like screws, anchors and nails into your hourly rate; bill separately for parts that cost real money, like a replacement faucet cartridge or fan motor.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "Gas and parking",
+    "unit": "per job",
+    "range_usd": null,
+    "note": "Check current rates: type your own in the offer workflow.",
+    "sources": []
+   },
+   {
+    "item": "Card processing",
+    "unit": "per payment",
+    "range_usd": null,
+    "note": "Square: 2.6% + 15 cents in person, 3.3% + 30 cents online or by invoice; Stripe: 2.9% + 30 cents online.",
+    "sources": [
+     {
+      "publisher": "Square Help Center",
+      "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+      "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Stripe",
+      "url": "https://stripe.com/pricing",
+      "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup fees, monthly fees, or hidden fees.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your state and city before you quote.",
+  "items": [
+   {
+    "item": "General business license or registration",
+    "what_to_check": "City or county license; state registration for an LLC; a DBA if you use a trade name.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "The licenses and permits you need from the state, county, or city will depend on your business activities and business location. You will have to research your own state, county, and city regulations.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Your state's limit for work without a contractor license",
+    "what_to_check": "Many states let you take small jobs without a contractor license only under a dollar limit and only when no permit is needed: California under $1,000 in labor and materials with no permit and no employees (CSLB), Arizona under $1,000 with \"not a licensed contractor\" on your ads (A.R.S. 32-1121), Florida under $2,500 (F.S. 489.103), Utah under $7,000 (Utah Code 58-55-305). Oregon requires a CCB license once you advertise, even with business cards (ORS 701.010). Check your state.",
+    "sources": [
+     {
+      "publisher": "Contractors State License Board (California)",
+      "url": "https://www.cslb.ca.gov/Resources/IndustryBulletins/2024/AB%202622%20Implementation.FINAL.pdf",
+      "says": "Starting January 1, 2025 the minor work exemption is $1,000 (it was $500), but the work cannot require a permit and the unlicensed person cannot employ anyone; unlicensed individuals can advertise for work up to $1,000 if the ad says they are not licensed.",
+      "page_date": "2024-12-31",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Arizona Legislature, A.R.S. 32-1121",
+      "url": "https://www.azleg.gov/ars/32/01121.htm",
+      "says": "Exempt: one project with an aggregate contract price, including labor, materials and all other items, under $1,000, of a casual or minor nature; not if it needs a local building permit, is split to evade the chapter, or the ads don't say \"not a licensed contractor\".",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Florida Legislature, Florida Statutes 489.103",
+      "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.103.html",
+      "says": "489.103(9) (2026): the exemption covers casual, minor or inconsequential work with an aggregate contract price for labor, materials and all other items under $2,500; not for a person who advertises as a contractor.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Utah Legislature, Utah Code 58-55-305",
+      "url": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+      "says": "58-55-305(1)(h): alteration or repair of a building under $7,000 including labor and materials is exempt, but plumbing, electrical, gas appliance and HVAC work go to licensed or certified people.",
+      "page_date": "2025-05-07",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "ORS 701.010 (Oregon Revised Statutes, via oregon.public.law)",
+      "url": "https://oregon.public.law/statutes/ors_701.010",
+      "says": "ORS 701.010(4): the exemption for casual, minor or inconsequential work under $1,000 does not apply to a person who advertises or puts out any sign or card that might indicate they are a contractor.",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "Electrical, plumbing, gas and HVAC",
+    "what_to_check": "Panels, new circuits, moved outlets, gas lines and appliances, moved pipes and heating and cooling systems go to a licensed trade in most states. Some states require a licensed electrician or plumber even to swap a fixture, faucet or switch (Utah, Nevada). Check your state.",
+    "sources": [
+     {
+      "publisher": "Utah Legislature, Utah Code 58-55-305",
+      "url": "https://le.utah.gov/xcode/Title58/Chapter55/58-55-S305.html",
+      "says": "Plumbing and electrical work on a small project goes to a licensed contractor, or a licensed journeyman for a component such as a faucet, toilet, fixture, outlet or switch; HVAC to a licensed HVAC contractor.",
+      "page_date": "2025-05-07",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Nevada Legislature, NRS 624.031",
+      "url": "https://www.leg.state.nv.us/nrs/nrs-624.html",
+      "says": "NRS 624.031(6): repair or upkeep under $1,000 is exempt unless it needs a permit or is work of a type performed by a plumbing, electrical, refrigeration, heating or air-conditioning contractor.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/handyman-prices",
+      "says": "Your state's law may require a licensed contractor for some work; specific trades that may need one include HVAC, plumbing, roofing, electrical installation and repair, concrete and masonry, and flooring.",
+      "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "Building permits",
+    "what_to_check": "Unlicensed work on any project that needs a building permit is illegal in California (CSLB). Cities list what needs no permit: Cotati lists fixture, fan, outlet and switch swaps and faucet and toilet repairs. Check your city.",
+    "sources": [
+     {
+      "publisher": "Contractors State License Board (California)",
+      "url": "https://www.cslb.ca.gov/consumers/report_unlicensed_activity/What_Is_Illegal_Contractor_Activity.aspx",
+      "says": "It is illegal for an unlicensed person to perform contracting work on any project which requires a building permit, or where labor and materials together come to $1,000 or more.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "City of Cotati Building Division",
+      "url": "https://www.cotaticity.gov/DocumentCenter/View/1509/Work-Exempt-From-Permits",
+      "says": "Work exempt from a building permit includes replacing light fixtures or ceiling fans, outlet replacements, switch replacements in existing boxes, faucet or toilet repair or replacement, and clearing stoppages without replacing valves or pipes. Updated 6/18/2025.",
+      "page_date": "2025-06-18",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "Lead-safe work in homes built before 1978",
+    "what_to_check": "Paid work that disturbs more than 6 square feet of paint in a room, or 20 outside, or any window replacement, in a pre-1978 home needs an EPA- or state-certified firm and renovator. Ask what year the home was built.",
+    "sources": [
+     {
+      "publisher": "U.S. EPA",
+      "url": "https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors",
+      "says": "Jobs that disturb six square feet or less of paint per room inside, or 20 square feet or less on the exterior, are not covered; window replacement and demolition of painted surfaces are always covered; this includes all firms, even sole proprietorships.",
+      "page_date": "2026-03-31",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Legal Information Institute (40 CFR 745.83)",
+      "url": "https://www.law.cornell.edu/cfr/text/40/745.83",
+      "says": "Minor repair and maintenance activities, including minor electrical work and plumbing, disrupt 6 square feet or less of painted surface per room inside or 20 square feet or less outside, and do not involve window replacement or demolition of painted surfaces.",
+      "checked": "2026-10-20"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "what_to_check": "Scratched floors, a dropped TV, a leak after a faucet swap. Some states also require other insurance.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Door hangers",
+    "what_to_check": "On the door, never in or on a mailbox (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+    "sources": [
+     {
+      "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+      "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+      "says": "Whoever knowingly and willfully deposits any mailable matter on which no postage has been paid in any letter box established, approved, or accepted by the Postal Service, with intent to avoid payment of lawful postage, shall for each such offense be fined.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Before the job: the price in writing from the Punch list quote, what's in it and what goes to a licensed trade, the year the home was built, and who buys the parts.",
+   "On arrival: walk the list with the owner, confirm each job and the price before you start, and point out anything that needs a licensed pro.",
+   "Photograph each spot before you touch it.",
+   "Patch the walls first so they can dry; turn the water off once for all the plumbing and the breaker off once for all the fixtures.",
+   "Ladders: 3 feet above the landing, the foot a quarter of the length out, never on a stepladder's top step (OSHA).",
+   "Anchor TVs, bookcases and dressers to the wall (CPSC).",
+   "If you find hidden damage, stop and explain the options before doing extra work. Take the after photos and invoice the same day."
+  ],
+  "sources": [
+   {
+    "publisher": "TaskRabbit",
+    "url": "https://www.taskrabbit.com/cost-guides/drywall-repair",
+    "says": "Small holes take 30 to 60 minutes of active work; plan for a total window of 24 hours before sanding and painting.",
+    "page_date": "2026-10-01",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "OSHA, 29 CFR 1926.1053 (ladders)",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+    "says": "Portable ladders used to reach an upper landing extend at least 3 feet above it; a non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; the top step of a stepladder is not used as a step; ladders near exposed energized electrical equipment have nonconductive side rails.",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "U.S. Consumer Product Safety Commission",
+    "url": "https://cpsc.gov/Newsroom/News-Releases/2026/CPSC-Urges-Fans-Anchor-TVs-and-Furniture-Before-Super-Bowl-LX",
+    "says": "Anchor TVs and furniture like bookcases and dressers securely to the wall.",
+    "page_date": "2026-02-05",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+    "says": "Suggested estimate language: if we find hidden damage or the scope changes, I'll explain the options before doing extra work. Put change orders in writing before adding scope.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-20"
+   }
+  ],
+  "note": "Walking the list, the photos and grouping the water and power jobs are common practice, a judgment call."
+ },
+ "objections": [
+  {
+   "objection": "Can't I just do it myself?",
+   "answer": "Fair, and some people do. Thumbtack's advice is to group small jobs into one visit, since a single 20-minute job is often billed as a full hour. With you, the whole list is done in one visit at a price set before you start.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/handyman-prices",
+     "says": "Handymen who charge an hourly rate will often have a minimum charge: even if the task takes 20 minutes, you are likely to be charged for a full hour. Group together smaller household jobs.",
+     "page_date": "2026-01-05",
+     "checked": "2026-10-20"
+    }
+   ],
+   "match": [
+    "myself",
+    "do it myself",
+    "diy",
+    "youtube",
+    "my husband",
+    "my wife",
+    "cheaper",
+    "too much",
+    "expensive"
+   ],
+   "say": "That's fair, and plenty of it is doable. If the list has been sitting for a while, I can knock it all out in one visit and you get the price before I start. Want to send me the list so you can compare?"
+  },
+  {
+   "objection": "Can you do the electrical panel (or gas line, or move the outlet) too?",
+   "answer": "No: panels, new wiring, moved outlets, gas lines and moved pipes go to a licensed electrician, plumber or gas fitter in most places. Say so plainly and offer to do the rest of the list.",
+   "sources": [
+    {
+     "publisher": "City of Longmont Building Inspection",
+     "url": "https://longmontcolorado.gov/building-inspection/permits-1",
+     "says": "A building permit is required for panel replacement, adding a sub-panel, service upgrades and any changes to the electrical, gas, mechanical or plumbing systems, including relocating receptacles.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Some states cap the dollar value of jobs you can take without a contractor license ($500 to $10,000 or more, depending on the state); if the job crosses into licensed trade work, refer it out or partner with a licensed pro.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ],
+   "match": [
+    "panel",
+    "breaker box",
+    "gas line",
+    "gas",
+    "rewire",
+    "new outlet",
+    "move the outlet",
+    "move an outlet",
+    "electrician",
+    "plumber",
+    "water heater"
+   ],
+   "say": "That part needs a licensed pro where we are, so I don't take it on. I'm happy to do everything else on the list and work around their visit. Want me to price the rest?"
+  },
+  {
+   "objection": "How do you price it?",
+   "answer": "By the time the list takes at your hourly rate, the way Housecall Pro suggests for a full punch list, with a trip minimum, parts extra and the price set before you start.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "For a full punch list, estimate your total hours, apply your hourly rate, add materials, then quote a flat project price.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Handyman hourly rates run $50 to $80 for self-employed pros and $75 to $125 for companies; a minimum service fee of $125 to $200 covers travel, setup, admin and up to one hour of labor.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ],
+   "match": [
+    "how do you price",
+    "how do you charge",
+    "by the hour",
+    "hourly",
+    "flat rate",
+    "ballpark",
+    "estimate",
+    "how much per",
+    "hidden fee"
+   ],
+   "say": "I add up the time your whole list takes and price it as one visit, so small jobs cost less together than one at a time. Parts are extra and you get the price before I start. Send me the list and I'll price it today."
+  },
+  {
+   "objection": "What if you break something?",
+   "answer": "Say what you control: photos before you start, drop cloths, and stopping to ask before any extra work. Mention insurance only if you have it.",
+   "sources": [
+    {
+     "publisher": "U.S. Small Business Administration",
+     "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+     "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Suggested estimate language: if we find hidden damage or the scope changes, I'll explain the options before doing extra work. Put change orders in writing before adding scope.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ],
+   "note": "Judgment call: only say you are insured if you are.",
+   "match": [
+    "insured",
+    "insurance",
+    "damage",
+    "break",
+    "scratch",
+    "liability",
+    "what if"
+   ],
+   "say": "Good question. I take photos before I start, cover the floors and stop to ask before any extra work. [Your insurance, in one line, only if you have it.] Want me to take a look this week?"
+  },
+  {
+   "objection": "My house is old. Is that a problem?",
+   "answer": "Not for most jobs. In a home built before 1978, work that disturbs more than a small patch of paint, or any window replacement, falls under EPA's lead-safe rule: ask the year and say what you can do.",
+   "sources": [
+    {
+     "publisher": "U.S. EPA",
+     "url": "https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors",
+     "says": "Jobs that disturb six square feet or less of paint per room inside, or 20 square feet or less on the exterior, are not covered; window replacement and demolition of painted surfaces are always covered; this includes all firms, even sole proprietorships.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Legal Information Institute (40 CFR 745.83)",
+     "url": "https://www.law.cornell.edu/cfr/text/40/745.83",
+     "says": "Minor repair and maintenance activities, including minor electrical work and plumbing, disrupt 6 square feet or less of painted surface per room inside or 20 square feet or less outside, and do not involve window replacement or demolition of painted surfaces.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "match": [
+    "old house",
+    "older home",
+    "built in",
+    "1950",
+    "1960",
+    "1970",
+    "lead",
+    "old paint",
+    "historic"
+   ],
+   "say": "Not for most of the list. What year was it built? If it's before 1978, I keep paint work small, and the bigger patches and any window replacement go to a lead-safe certified pro."
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "One street, one free small fix",
+   "steps": [
+    "Pick a street near a job you already have.",
+    "Door-hang it the day before: the first 3 neighbors who text get one 15-minute fix free (a sticky door, a loose handle, a picture hung).",
+    "Hand each one your price sheet and price the rest of their list on the spot."
+   ],
+   "sources": [
+    {
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "says": "Whoever knowingly and willfully deposits any mailable matter on which no postage has been paid in any letter box established, approved, or accepted by the Postal Service, with intent to avoid payment of lawful postage, shall for each such offense be fined.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Judgment call. Door hangers go on doors, never in or on mailboxes; check city solicitation rules."
+  },
+  {
+   "play": "Listing punch lists with agents",
+   "steps": [
+    "Message 5 agents near you: you take small pre-listing punch lists and send photos the same day.",
+    "Offer the first one at your founding price.",
+    "Ask once to be on their list of pros."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Turnovers with property managers and landlords",
+   "steps": [
+    "Message property managers and landlords with apartment buildings near you.",
+    "Offer one unit turnover punch list at your founding price, with before and after photos for their file.",
+    "Ask about a regular monthly visit after that."
+   ],
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Plans: a monthly maintenance visit for property managers, landlords and busy homeowners (a 2-hour visit at your standard rate or a set flat rate); a quarterly home checkup (seasonal inspection plus small repairs at a flat visit fee); a punch-list package (a prepaid 4 to 8 hour labor block, materials billed separately).",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ],
+   "note": "The monthly visit for property managers and landlords is from Housecall Pro; the founding price is a judgment call."
+  },
+  {
+   "play": "Price from a pasted list",
+   "steps": [
+    "Ask everyone who asks \"how much\" for their list, one job per line.",
+    "Run the Punch list quote and send the price the same hour.",
+    "Confirm on site before you start."
+   ],
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "For a full punch list, estimate your total hours, apply your hourly rate, add materials, then quote a flat project price.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ],
+   "note": "Answering fast is a judgment call."
+  },
+  {
+   "play": "Hardware store counter",
+   "steps": [
+    "Ask the hardware store manager if you can leave cards for customers who would rather have it done.",
+    "Offer a free how-to demo at the store, like hanging a heavy mirror.",
+    "Never ask for anything in return beyond the cards on the counter."
+   ],
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "platform_fees": [
+  {
+   "platform": "Square",
+   "fees": "Square Free plan: 2.6% + 15 cents in person, 3.3% + 30 cents online or by invoice, 3.5% + 15 cents keyed in.",
+   "sources": [
+    {
+     "publisher": "Square Help Center",
+     "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+     "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Stripe",
+   "fees": "Stripe standard: 2.9% + 30 cents per successful domestic card payment.",
+   "sources": [
+    {
+     "publisher": "Stripe",
+     "url": "https://stripe.com/pricing",
+     "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup fees, monthly fees, or hidden fees.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "Seasonal checkups and small repairs fit a quarterly plan.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-handyman-jobs/",
+     "says": "Plans: a monthly maintenance visit for property managers, landlords and busy homeowners (a 2-hour visit at your standard rate or a set flat rate); a quarterly home checkup (seasonal inspection plus small repairs at a flat visit fee); a punch-list package (a prepaid 4 to 8 hour labor block, materials billed separately).",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "pattern": "Weather stripping and exterior caulking are checked in the spring and the fall.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/weatherstripping",
+     "says": "Inspect your weather stripping and exterior caulking each year, once in the spring and once in the fall.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Moving and listing season brings move-in fixes and pre-listing punch lists.",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "default_costs": {
+  "perJob": 20,
+  "hourly": 25,
+  "monthlyFixed": 200,
+  "basis": "Defaults when you leave them empty, all judgment calls: about $20 of gas and small hardware per job, $25 an hour for your time, $200 a month fixed (phone, insurance, tools). Type your own; parts for a job are billed to the customer."
+ },
+ "partners": [
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "sellers",
+   "why": "get a punch list of small fixes from the buyer's inspection or before the listing photos",
+   "ask": "leave a few of my cards for sellers with a punch list",
+   "give": "do the punch list at your next listing at my founding price, with photos for your file",
+   "weight": 2
+  },
+  {
+   "id": "property_managers",
+   "label": "Property managers",
+   "one": "property management company",
+   "search": {
+    "words": "property management companies",
+    "osm": [
+     "office=property_management"
+    ]
+   },
+   "their_customers": "owners",
+   "why": "turn units between tenants: patched walls, sticky doors, loose handles and new blinds",
+   "ask": "keep me in mind for unit turnovers",
+   "give": "do your next unit turnover punch list at my founding price, with before and after photos",
+   "weight": 2
+  },
+  {
+   "id": "landlords",
+   "label": "Landlords and apartment buildings",
+   "one": "apartment building",
+   "search": {
+    "category": "apartments",
+    "words": "apartment buildings"
+   },
+   "their_customers": "tenants",
+   "why": "get small repair requests all year and could use one person to batch them",
+   "ask": "send me the small repair requests you'd rather not do yourself",
+   "give": "batch your open repair requests into one visit at my founding price",
+   "weight": 1
+  },
+  {
+   "id": "hardware_stores",
+   "label": "Hardware stores",
+   "one": "hardware store",
+   "search": {
+    "words": "hardware stores",
+    "osm": [
+     "shop=hardware",
+     "shop=doityourself"
+    ]
+   },
+   "their_customers": "customers",
+   "why": "buy the parts and sometimes would rather have someone put them in",
+   "ask": "keep a few of my cards at the counter for customers who'd rather have it done",
+   "give": "a free how-to demo at your store, like hanging a heavy mirror or patching drywall",
+   "weight": 1
+  }
+ ],
+ "partners_sources": [
+  {
+   "publisher": "OpenStreetMap Wiki, Tag:office=property_management",
+   "url": "https://wiki.openstreetmap.org/wiki/Tag:office=property_management",
+   "says": "office=property_management: office of a property rental company for residential apartments or commercial office space or any other property.",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "OpenStreetMap Wiki, Tag:shop=hardware",
+   "url": "https://wiki.openstreetmap.org/wiki/Tag:shop=hardware",
+   "says": "shop=hardware: shop selling primarily metal fasteners and tools, sometimes also other workshop and homeware products.",
+   "checked": "2026-10-20"
+  },
+  {
+   "publisher": "OpenStreetMap Wiki, Tag:shop=doityourself",
+   "url": "https://wiki.openstreetmap.org/wiki/Tag:shop=doityourself",
+   "says": "shop=doityourself: a do-it-yourself store, a large hardware and home improvement shop.",
+   "checked": "2026-10-20"
+  }
+ ],
+ "partners_note": "Landlords have no map tag of their own: the list uses apartment buildings (building=apartments). Hardware stores use shop=hardware and shop=doityourself; property managers use office=property_management.",
+ "lead_offers": [
+  {
+   "id": "spring",
+   "months": [
+    3,
+    4,
+    5
+   ],
+   "package": "fixit",
+   "label": "Spring fix-it visit",
+   "one": "fix-it visit",
+   "many": "fix-it visits"
+  },
+  {
+   "id": "summer",
+   "months": [
+    6,
+    7,
+    8
+   ],
+   "package": "fixit",
+   "label": "Move-in fix-it visit",
+   "one": "fix-it visit",
+   "many": "fix-it visits"
+  },
+  {
+   "id": "fall",
+   "months": [
+    9,
+    10,
+    11
+   ],
+   "package": "fixit",
+   "label": "Fall fix-it visit",
+   "one": "fix-it visit",
+   "many": "fix-it visits"
+  },
+  {
+   "id": "winter",
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "package": "fixit",
+   "label": "Winter fix-it visit",
+   "one": "fix-it visit",
+   "many": "fix-it visits"
+  },
+  {
+   "id": "main",
+   "package": "fixit",
+   "label": "Fix-it visit",
+   "one": "fix-it visit",
+   "many": "fix-it visits"
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.25,
+   "label": "Founding price",
+   "ask": "Permission to post before and after photos of the work (no faces, house numbers or license plates) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.1,
+   "label": "Early price",
+   "ask": "Same work, a smaller discount, for customers 4 to 10."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once you are turning jobs away."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "fixit",
+   "label": "Fix-it visit, founding price",
+   "note": "Two hours on their list: small enough to say yes to."
+  },
+  "core": {
+   "package": "half_day",
+   "note": "A longer list in one visit, priced by the time it takes."
+  },
+  "recurring": {
+   "package": "fixit",
+   "plan": "quarterly",
+   "note": "A fix-it visit every 3 months at the full visit price (Housecall Pro: don't discount recurring work too far)."
+  },
+  "upsell": {
+   "package": "hour",
+   "note": "When the list grows on site, price the extra time by the hour before you start it."
+  },
+  "downsell": {
+   "package": "assembly",
+   "note": "One small job, like one piece of furniture."
+  }
+ },
+ "offer": {
+  "who": "Homeowners, landlords and sellers with a list of small fixes, starting on your own street.",
+  "outcome": "The whole list done in one visit, in the order that saves time, with a photo of each fix.",
+  "promise": "You get the price before I start, and if a fix I made doesn't hold, I come back and redo it free.",
+  "names": [
+   "One Visit Fix List",
+   "Honey-Do Done",
+   "Weekend List Fix",
+   "Move-In Fix-It"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Got a list of small fixes, or know someone who does?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}: sticky doors, drywall patches, TVs, shelves and furniture, done in one visit. I'm doing 3 {lead_many} at {founding} so I can get before and after photos. Want a spot, or know someone with a list?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Anything on your list you've been putting off?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one person with a list of small fixes? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If someone comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. Longer lists go by the time they take. Want an exact price? Send me your list, one job per line.",
+   "not_now": "No problem! Can I check back in a month or two? And if a friend has a list of small fixes, I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I take care of small home fixes, the whole list in one visit, and you get the price before I start.",
+   "covered": "Good to hear you're set! If you ever want a second quote, I'm happy to help. Mind if I check back in a few months?",
+   "yes": "Great! To get you on the schedule I just need the address, your list of jobs and a photo of anything tricky. What day works?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}, parts extra.{plan} {promise} Reply with a day that works and I'll put you on my schedule.",
+  "estimate": "Hi {customer}, it's {first} from {business}. For your list: {lines}. About {hours} of work. Total {total}, parts extra, an estimate I confirm when I see each job.{refer}{prep} {promise} What day works for you?",
+  "plan_terms": "Skip or cancel any time before the next visit.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for having me today! I'll send your before and after photos tonight. {promise}",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+   "plan": "Hi {customer}, want me to keep the list short? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+   "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor has a list of small fixes, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. It's been a few months since your {job}. If the list is growing again, want me to save you a spot in the next couple of weeks?",
+   "checkin_days": 90,
+   "card_thanks": "Thank you for having me!",
+   "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "parts extra",
+  "fields": {
+   "job": {
+    "type": "string",
+    "title": "The job",
+    "use": "package",
+    "map": {
+     "Fix-it visit": "fixit",
+     "Half-day visit": "half_day",
+     "TV mounting": "tv_mount",
+     "Furniture assembly": "assembly",
+     "Drywall patch": "drywall",
+     "Door fix": "door",
+     "Faucet swap": "faucet",
+     "Tub or shower recaulk": "caulk"
+    },
+    "default": "Fix-it visit",
+    "description": "A list of several jobs? Run \"Punch list quote\" on it."
+   },
+   "count": {
+    "type": "string",
+    "title": "How many (optional)",
+    "use": "qty",
+    "maxLength": 2,
+    "description": "TVs, items or doors. Leave empty for one."
+   },
+   "hours": {
+    "type": "string",
+    "title": "Extra hours (optional)",
+    "use": "measure:hour",
+    "maxLength": 3,
+    "description": "Time on top of the job, at your hourly rate"
+   },
+   "addons": {
+    "type": "string",
+    "title": "Add-ons (optional)",
+    "use": "addons",
+    "maxLength": 200,
+    "description": "Hang pictures or mirrors, Hang blinds or a curtain rod, Weatherstrip a door, Haul away the old one",
+    "map": {
+     "Hang pictures or mirrors": "pictures",
+     "Hang blinds or a curtain rod": "blinds",
+     "Weatherstrip a door": "weatherstrip",
+     "Haul away the old one": "haul"
+    }
+   },
+   "plan": {
+    "type": "string",
+    "title": "How often",
+    "use": "plan",
+    "map": {
+     "One time": null,
+     "Every 3 months": "quarterly",
+     "Every month": "monthly"
+    },
+    "default": "One time"
+   }
+  },
+  "derive": [],
+  "advice": [
+   {
+    "when": {
+     "job": [
+      "faucet"
+     ]
+    },
+    "say": "Faucet swap: same spot, same supply lines. Moving lines, new valves or new sink holes go to a licensed plumber, and some states require one even for a swap (Utah, Nevada). Check your state."
+   },
+   {
+    "when": {
+     "job": [
+      "tv_mount"
+     ]
+    },
+    "say": "TV mounting: into studs or the right anchors, and no new outlet or power behind the wall: that is electrical work. CPSC: anchor TVs and furniture to the wall."
+   },
+   {
+    "when": {
+     "job": [
+      "assembly"
+     ]
+    },
+    "say": "Anchor dressers, bookcases and tall pieces to the wall with the kit that comes with them (CPSC)."
+   },
+   {
+    "when": {
+     "job": [
+      "drywall"
+     ]
+    },
+    "say": "A patch dries before it is sanded and painted: plan a short second visit. In a home built before 1978, more than 6 square feet of paint in a room falls under EPA's lead-safe rule."
+   },
+   {
+    "when": {
+     "plan": [
+      "quarterly",
+      "monthly"
+     ]
+    },
+    "say": "Housecall Pro: don't discount recurring work so far that you do more visits for less, so the plan keeps your full visit price."
+   }
+  ]
+ },
+ "specials": [
+  "same_street"
+ ],
+ "won": {
+  "needs": "the address, your list of jobs, the year the home was built, and photos of anything tricky",
+  "prep_items": [
+   "send me the list, one job per line, and set out any parts you bought",
+   "clear the area around each job",
+   "show me where the water shut-off and the breaker panel are",
+   "keep pets in another room while I work"
+  ],
+  "bring": [
+   "Drill, level, stud finder and tape measure",
+   "Ladder rated for the work",
+   "Drop cloths, shop vacuum and patch kit",
+   "Screws, anchors and caulk",
+   "Your price sheet and the estimate"
+  ],
+  "photos": [
+   "Each spot before you touch it",
+   "Any damage you find along the way, before you fix it",
+   "Each finished job, from the same spot",
+   "The cleaned-up room"
+  ],
+  "done": "every job on the list is done and cleaned up"
+ },
+ "proof": {
+  "what": "Move-in punch list, 6 jobs",
+  "result": "Two doors that close, a TV and shelves up, three patches ready for paint",
+  "thing": "punch list",
+  "private": "No faces, house numbers or license plates."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "One small fix free on {street}",
+   "side": [
+    "One 15-minute fix",
+    "Sticky door, loose handle or a picture hung",
+    "First 3 homes"
+   ],
+   "includes": [
+    "One small fix, about 15 minutes",
+    "A sticky door, a loose handle or a picture hung",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address and the fix",
+    "I stop by while I'm on {street}{day_part}",
+    "You see what the rest of your list would cost"
+   ],
+   "line": "I'm working on {street}{day_part}, so the first 3 neighbors who text me get one small fix free, about 15 minutes: a sticky door, a loose handle or a picture hung. No cost and no catch. No electrical, plumbing or gas.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm working on {street}{day_part}, so the first 3 neighbors who text me get one small fix free, about 15 minutes. No cost and no catch. {phone_line}",
+   "minutes": 15,
+   "limit": 3,
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+    "Do the first 3 fixes that are texted, with a photo before and after.",
+    "Hand each neighbor your price sheet and offer to price the rest of their list.",
+    "Text a thank-you the same day with the photo, then one follow-up in 3 days."
+   ]
+  },
+  "partners": {
+   "realtors": {
+    "demo": "one small pre-listing fix, about an hour, at a listing you're getting ready",
+    "eyebrow": "For {biz} sellers",
+    "headline": "The punch list done before the listing photos",
+    "package": "fixit",
+    "who": "First 3 sellers",
+    "card_line": "Mention {biz} when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "properties",
+     "home team",
+     "homes",
+     "brokerage"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Ask which listing has a punch list and the photo day.",
+     "Do only the jobs the seller confirms in writing, and photograph before and after from the same spot.",
+     "Send the agent the photos the same day."
+    ]
+   },
+   "property_managers": {
+    "demo": "one small turnover fix, about an hour, in a unit you manage",
+    "eyebrow": "For {biz} owners",
+    "headline": "Turnover punch lists done in one visit",
+    "package": "fixit",
+    "who": "First 3 units",
+    "card_line": "For units {biz} manages: book through your property manager.",
+    "words": [
+     "property management",
+     "management",
+     "leasing",
+     "rentals",
+     "properties",
+     "property group"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Ask which unit turns over next and the day it must be ready.",
+     "Do only the jobs the manager confirms in writing, then photograph each one.",
+     "Send the photos the same day for their file."
+    ]
+   },
+   "landlords": {
+    "demo": "one small repair request, about an hour, in one of your units",
+    "eyebrow": "For {biz} residents",
+    "headline": "Small repair requests, batched into one visit",
+    "package": "fixit",
+    "who": "First 3 units",
+    "card_line": "Ask the office to book a visit.",
+    "words": [
+     "apartments",
+     "apartment",
+     "lofts",
+     "flats",
+     "commons",
+     "residences",
+     "village",
+     "court"
+    ],
+    "steps": [
+     "Send the message and the card today, or stop by the office.",
+     "Ask the owner or manager for the open small repair requests.",
+     "Do only what they confirm in writing, with before and after photos.",
+     "Send the photos the same day."
+    ]
+   },
+   "hardware_stores": {
+    "demo": "a free 30-minute how-to demo at your store, like hanging a heavy mirror",
+    "eyebrow": "For {biz} customers",
+    "headline": "Bought the parts? I can put them in",
+    "package": "fixit",
+    "who": "First 3 customers",
+    "card_line": "Mention {biz} when you book.",
+    "words": [
+     "hardware",
+     "ace",
+     "true value",
+     "do it best",
+     "home center",
+     "lumber",
+     "supply"
+    ],
+    "steps": [
+     "Send the message and the card today, or ask for the manager at the counter.",
+     "Offer the demo on a slow morning they pick.",
+     "Leave cards only where the manager says yes.",
+     "Thank them the same day."
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call, not a sourced fact",
+  "package": "fixit",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "Same day as your neighbor",
+  "includes": [
+   "Two hours on your list",
+   "Small hardware like screws and anchors",
+   "A photo of every fix"
+  ],
+  "how": [
+   "Text me your address and your list",
+   "I'm on {street}{day_part}",
+   "You get the price before I start"
+  ],
+  "customer_ask": "Hi {customer}, thanks again! I'm working on {street}{day_part} and have time for a couple more homes. If a neighbor ever asks who fixed your list, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day before you work there. On the door, never in or on a mailbox.",
+   "While you work, say hi to anyone outside. Keep it short, and never say which neighbor: \"I'm doing some repairs for a home on your street.\"",
+   "Text your customer the intro ask after the job, never before.",
+   "Mark each home on the sheet. A neighbor who books goes on the same day as your customer, while you're on the street."
+  ],
+  "why": "When you are already on the street with your tools, a neighbor's list adds little driving, so you can give neighbors a better price on the same day."
+ }
+}

@@ -1,0 +1,1452 @@
+{
+  "id": "junk",
+  "name": "Junk removal",
+  "pack_title": "Junk removal",
+  "checked": "2026-10-19",
+  "summary": "Start a junk removal business: your first 25 neighbors and partners, a price menu by truck load from real ranges, a load estimate from a list of items, and the dump rules to check where you live.",
+  "niches": [
+    "junk removal",
+    "junk hauling",
+    "hauling",
+    "junk pickup",
+    "trash removal",
+    "cleanouts",
+    "garage cleanouts",
+    "estate cleanouts",
+    "furniture removal",
+    "appliance removal",
+    "debris removal"
+  ],
+  "what": "junk removal",
+  "business_word": "Junk Removal",
+  "worker": "junk hauler",
+  "job": "haul",
+  "icon": "truck",
+  "mood": "warm",
+  "local_group": "home",
+  "card_title": "Offer card and door hangers",
+  "door_hello": "Hi neighbor!",
+  "door_step3": "I load it, haul it and sweep up",
+  "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+  "promises": {
+    "first_25": "15 people you know and 10 local property managers, agents, estate sale shops, storage sites and contractors, each with a message, plus door hangers.",
+    "offer": "Your price menu by truck load, the first-clients ladder, add-ons for appliances and tires, and job math, on a one-page offer sheet.",
+    "quote": "How much of the truck, stairs, debris and appliances in; a quote, a text and an invoice out.",
+    "keep": "A thank-you, an honest review ask, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+    "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+    "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+    "won": "Log the yes, then everything for the job: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+    "proof": "One cleared garage turned into proof: a result card, a before-and-after collage, a caption, an honest review ask and a case study once they say yes.",
+    "next_25": "The next 25 property managers, agents, estate sale shops, storage sites and contractors near you, not yet in your Pipeline, with messages for Do my day.",
+    "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+    "same_street": "One customer's street turned into a route: door hangers with a neighbor price, a sheet for the 20 nearest homes and an intro ask for your customer.",
+    "load_estimate": "A pasted list of items in; the share of the truck, the price, what needs special disposal where you live and the dump fee out, with a quote and invoice."
+  },
+  "crowd": {
+    "buyer": "Homeowners",
+    "scores": {
+      "pain": 4,
+      "can_pay": 4,
+      "findable": 3,
+      "growing": 3
+    },
+    "first_dollar": "Fast",
+    "best_months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "off_season": {
+      "months": [
+        11,
+        12,
+        1,
+        2
+      ],
+      "where": "cold",
+      "play": "Work move-outs and estate cleanouts with property managers and estate sale shops, and presell spring garage cleanouts at this year's price."
+    },
+    "note": "Busiest March to October, peaking April to June (LawnStarter).",
+    "not_yet": [
+      "Don't buy a dump truck or a big trailer before your tenth paid load.",
+      "Don't haul paint, chemicals, propane tanks or tires until you know your county's rules.",
+      "Don't take a fridge, freezer or AC unit until you know who recovers the refrigerant."
+    ],
+    "basis": "Scores, first $1, buyer and not-yet lines: research/niches/junk.json crowd_scores (our judgment). Best months and slow season: LawnStarter says junk removal is busiest March through October, peaking April through June."
+  },
+  "buyers": [
+    {
+      "who": "Homeowners clearing a garage, basement, attic or shed",
+      "note": "judgment call, not a sourced fact"
+    },
+    {
+      "who": "Families clearing a home after a move, a downsizing or a death in the family",
+      "sources": [
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Home or estate cleanouts $625 to $2,000; estate cleanouts up to $4,000.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "who": "Landlords and property managers clearing units between tenants",
+      "note": "judgment call, not a sourced fact"
+    },
+    {
+      "who": "Homeowners finishing a remodel, with debris, old fixtures and appliances",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Construction debris removal $200 to $600.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Construction debris, gravel or dirt removal $100 to $800 per truckload.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "who": "People with one bulky item: a sofa, a mattress, a fridge or a hot tub",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Single item pickup $60 to $150.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "where_buyers_look": [
+    {
+      "channel": "Big junk removal chains that price by the share of the truck",
+      "sources": [
+        {
+          "publisher": "1-800-GOT-JUNK?",
+          "url": "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+          "says": "We charge in 1/8 increments of the truck based on how much space your items take up.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "By company: College Hunks $110 to $590, Bagster $120 to $200, Junk King $125 to $650, 1-800-Got-Junk? $129 to $600.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "TaskRabbit and other apps for small hauling jobs",
+      "sources": [
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Junk removal: starting at $42 an hour on average.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Free donation pickups for furniture in good shape",
+      "sources": [
+        {
+          "publisher": "Habitat for Humanity ReStores",
+          "url": "https://www.habitat.org/restores/donate-goods",
+          "says": "ReStores accept small and large donations of new or gently used furniture, appliances, housewares, building materials and more; many Habitat ReStores offer free pickup of large items. Each ReStore is unique.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "The Salvation Army (satruck.org)",
+          "url": "https://satruck.org/",
+          "says": "Schedule a free furniture and other donation pickup service. Accepted: appliances that still operate and are not built-in; unbroken furniture. Not accepted: appliances with mechanical difficulties, missing power cord or rusty or dirty; any gas appliances; large console televisions and stereos; televisions older than 5 years; built-in appliances such as ovens, stoves and dishwashers; paint or chemicals. Call to confirm what your local store accepts.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "channel": "Dumpster and bag rentals for do-it-yourself cleanouts",
+      "sources": [
+        {
+          "publisher": "HomeAdvisor",
+          "url": "https://www.homeadvisor.com/cost/cleaning-services/remove-waste/",
+          "says": "Dumpster rental about $380 a week.",
+          "page_date": "2026-06-19",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "Dumpster rental $295 to $615 a week.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "starter_kit": {
+    "one_time": [
+      {
+        "item": "Pickup truck or trailer (the one you have to start)",
+        "unit": "each",
+        "range_usd": null,
+        "note": "Check current rates: we could not verify truck or trailer prices. Start with what you have and rent for big jobs.",
+        "sources": []
+      },
+      {
+        "item": "Dolly, hand truck and moving blankets",
+        "unit": "set",
+        "range_usd": null,
+        "note": "Check current rates.",
+        "sources": []
+      },
+      {
+        "item": "Tarp and ratchet straps to cover the load",
+        "unit": "set",
+        "range_usd": null,
+        "note": "Check current rates. Covered loads are the law in Washington (RCW 46.61.655) and many other places: check your state.",
+        "sources": [
+          {
+            "publisher": "Revised Code of Washington 46.61.655",
+            "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=46.61.655",
+            "says": "A vehicle may be driven on a public highway only if it is so constructed or loaded as to prevent any of its load from dropping, sifting, leaking, or otherwise escaping; the load and any covering must be securely fastened.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Gloves, safety glasses, boots, broom, shovel and contractor bags",
+        "unit": "set",
+        "range_usd": null,
+        "note": "Check current rates.",
+        "sources": []
+      },
+      {
+        "item": "Business registration",
+        "unit": "once",
+        "range_usd": null,
+        "note": "Fees vary by state and city: check your state and city.",
+        "sources": [
+          {
+            "publisher": "U.S. Small Business Administration",
+            "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+            "says": "The licenses and permits you need from the state, county, or city will depend on your business activities and business location. You will have to research your own state, county, and city regulations.",
+            "checked": "2026-10-19"
+          }
+        ]
+      }
+    ],
+    "recurring": [
+      {
+        "item": "Dump and transfer station fees",
+        "unit": "per ton",
+        "range_usd": [
+          20,
+          179
+        ],
+        "note": "Fees vary by county: the Load estimate takes your own rate. LawnStarter $20 to $90 a ton (landfills); TaskRabbit $50 to $100; Snohomish County, WA $160; Kittitas County, WA $179.",
+        "sources": [
+          {
+            "publisher": "LawnStarter",
+            "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+            "says": "Landfill fees run between $20 and $90 per ton.",
+            "page_date": "2025-12-27",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "TaskRabbit",
+            "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+            "says": "Disposal or tipping fees $50 to $100 per ton.",
+            "page_date": "2026-10-01",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Snohomish County (Washington) Solid Waste",
+            "url": "https://www.snohomishcountywa.gov/6739/Fee-Changes-2026",
+            "says": "2026 self-haul tipping fee at transfer stations $160 a ton (was $105); minimum fee $30 for loads up to 360 lbs (was $20); unsecured load fee $20 or $25 depending on the vehicle. Under Washington law and county code, loads arriving at Solid Waste facilities must be covered or secured.",
+            "page_date": "2026-01-01 (effective date)",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Kittitas County (Washington) Solid Waste",
+            "url": "https://www.co.kittitas.wa.us/solid-waste/transfer-stations.aspx",
+            "says": "Garbage (MSW) $179.00 per ton, $11.00 minimum (effective October 1, 2025). Refrigerant appliances $38.00 per appliance plus weight, doors removed and empty. Passenger tires with garbage $4.00 each; truck tires $15.00 each.",
+            "page_date": "2025-10-01 (effective date)",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "General liability insurance",
+        "unit": "per month",
+        "range_usd": null,
+        "note": "Check current rates. Some states also require other insurance: check your state.",
+        "sources": [
+          {
+            "publisher": "U.S. Small Business Administration",
+            "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+            "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Gas and truck upkeep",
+        "unit": "per job",
+        "range_usd": null,
+        "note": "Check current rates: type your own in the offer workflow.",
+        "sources": []
+      },
+      {
+        "item": "Card processing",
+        "unit": "per payment",
+        "range_usd": null,
+        "note": "Square: 2.6% + 15 cents in person, 3.3% + 30 cents online or by invoice; Stripe: 2.9% + 30 cents online.",
+        "sources": [
+          {
+            "publisher": "Square Help Center",
+            "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+            "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Stripe",
+            "url": "https://stripe.com/pricing",
+            "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup fees, monthly fees, or hidden fees.",
+            "checked": "2026-10-19"
+          }
+        ]
+      }
+    ]
+  },
+  "licenses": {
+    "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your state and city.",
+    "items": [
+      {
+        "item": "General business license or registration",
+        "what_to_check": "City or county license; state registration for an LLC; a DBA if you use a trade name. Some places license haulers of waste separately: ask your county solid waste office.",
+        "sources": [
+          {
+            "publisher": "U.S. Small Business Administration",
+            "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+            "says": "The licenses and permits you need from the state, county, or city will depend on your business activities and business location. You will have to research your own state, county, and city regulations.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "General liability insurance",
+        "what_to_check": "Scraped door frames, dented floors and dropped loads. Some states also require other insurance.",
+        "sources": [
+          {
+            "publisher": "U.S. Small Business Administration",
+            "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+            "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Truck size and USDOT rules",
+        "what_to_check": "A truck, or a truck and trailer, rated 10,001 pounds or more used across state lines is a commercial motor vehicle under federal rules, and its carrier registers with FMCSA (USDOT number). Some states have similar rules for in-state work: check your state DOT.",
+        "sources": [
+          {
+            "publisher": "49 CFR 390.5 (eCFR)",
+            "url": "https://www.ecfr.gov/current/title-49/section-390.5",
+            "says": "Commercial motor vehicle: a self-propelled or towed motor vehicle used on a highway in interstate commerce to transport passengers or property when it has a gross vehicle weight rating or gross combination weight rating, or gross vehicle weight or gross combination weight, of 10,001 pounds or more.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "49 CFR 390.201 (eCFR)",
+            "url": "https://www.ecfr.gov/current/title-49/section-390.201",
+            "says": "Each motor carrier (including a private motor carrier) subject to these requirements must file Form MCSA-1, the Unified Registration System application, with FMCSA (USDOT registration).",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Covered loads",
+        "what_to_check": "Washington requires a load to be secured so nothing drops or escapes (RCW 46.61.655), and Snohomish County charges an unsecured load fee at its stations. Check your state and county.",
+        "sources": [
+          {
+            "publisher": "Revised Code of Washington 46.61.655",
+            "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=46.61.655",
+            "says": "A vehicle may be driven on a public highway only if it is so constructed or loaded as to prevent any of its load from dropping, sifting, leaking, or otherwise escaping; the load and any covering must be securely fastened.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Snohomish County (Washington) Solid Waste",
+            "url": "https://www.snohomishcountywa.gov/6739/Fee-Changes-2026",
+            "says": "2026 self-haul tipping fee at transfer stations $160 a ton (was $105); minimum fee $30 for loads up to 360 lbs (was $20); unsecured load fee $20 or $25 depending on the vehicle. Under Washington law and county code, loads arriving at Solid Waste facilities must be covered or secured.",
+            "page_date": "2026-01-01 (effective date)",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Refrigerators, freezers and AC units",
+        "what_to_check": "The final disposer recovers the refrigerant, or gets a signed statement saying who did and when (EPA Section 608). Ask your scrap yard or transfer station what they need.",
+        "sources": [
+          {
+            "publisher": "U.S. EPA, Section 608 Appliance Disposal",
+            "url": "https://www.epa.gov/section608/appliance-disposal",
+            "says": "The final disposer of appliances is responsible for recovering any refrigerant contained in appliances. If someone other than the final disposer recovers the refrigerant, EPA requires a signed statement containing the name and address of the person who recovered the refrigerant and the date of recovery.",
+            "page_date": "2026-07-08",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Tires",
+        "what_to_check": "Many states ban whole tires from landfills (EPA). California requires a waste tire hauler registration to carry 10 or more used tires (CalRecycle). Check your state.",
+        "sources": [
+          {
+            "publisher": "U.S. EPA, Automobiles, Tires and Boats",
+            "url": "https://www.epa.gov/large-scale-residential-demolition/automobiles-tires-and-boats",
+            "says": "Many states ban all tires or whole tires from landfills. Check with your local and state waste officials about storage, handling or management requirements for scrap tires.",
+            "page_date": "2026-03-16",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "CalRecycle (California)",
+            "url": "https://calrecycle.ca.gov/tires/haulers/",
+            "says": "State law requires every person who transports 10 or more used or waste tires to hold a valid waste tire hauler registration, renewed each year, and to follow the used and waste tire manifest program.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Paint, chemicals, propane and batteries",
+        "what_to_check": "Household hazardous waste goes to county collection, not the trash; paint goes to PaintCare sites in PaintCare states; propane rules differ by county. Check your county.",
+        "sources": [
+          {
+            "publisher": "U.S. EPA, Household Hazardous Waste",
+            "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+            "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+            "page_date": "2026-06-01",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "U.S. EPA, Used Household Batteries",
+            "url": "https://www.epa.gov/recycle/used-household-batteries",
+            "says": "Return lead-acid batteries to a battery retailer or local household hazardous waste collection program; do not put lead-acid batteries in the trash or municipal recycling bins. To prevent fires from lithium-ion batteries, tape battery terminals and never put these batteries in household garbage or recycling bins. Check with your local or state solid waste authority.",
+            "page_date": "2026-07-21",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "PaintCare",
+            "url": "https://www.paintcare.org/",
+            "says": "In states with paint stewardship laws, PaintCare operates paint recycling programs: California, Colorado, Connecticut, District of Columbia, Illinois, Maine, Maryland, Minnesota, New York, Oregon, Rhode Island, Vermont and Washington. Find a drop-off site.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "King County (Washington) Solid Waste",
+            "url": "https://kingcounty.gov/en/dept/dnrp/waste-services/hazardous-waste-program/household/products/compressed-gas-cylinders",
+            "says": "King County Solid Waste transfer stations do not accept propane tanks of any size; containers must be 8 gallons or less at its hazardous waste sites.",
+            "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "City of San Diego, Environmental Services",
+            "url": "https://www.sandiego.gov/environmental-services/ep/hazardous/propane",
+            "says": "The City accepts propane gas cylinders at its Household Hazardous Waste Transfer Facility, by appointment only. Disposal of hazardous wastes to the sewer, storm drain, ground, or trash is illegal.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Electronics",
+        "what_to_check": "Some states ban TVs and computers from the trash: New York since January 1, 2015. Check your state.",
+        "sources": [
+          {
+            "publisher": "U.S. EPA, Electronics Donation and Recycling",
+            "url": "https://www.epa.gov/recycle/electronics-donation-and-recycling",
+            "says": "Donating or recycling consumer electronics conserves natural resources and avoids air and water pollution. Manufacturers and retailers offer several options to donate or recycle electronics. Check for recycling facilities in your state or community.",
+            "page_date": "2025-12-19",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "New York State Department of Environmental Conservation",
+            "url": "https://dec.ny.gov/environmental-protection/recycling-composting/electronic-waste-recycling/recycling-consumer-electronic-waste",
+            "says": "As of January 1, 2015, consumers could no longer dispose of certain types of electronic equipment in landfills, waste-to-energy facilities, in the trash, or at curbside for trash pickup. It points to a covered equipment list: computers, computer peripherals, small electronics, small-scale servers, televisions over 4 inches and cathode ray tubes.",
+            "page_date": "2024-12-31 (covered equipment list)",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Mattresses",
+        "what_to_check": "Statewide mattress recycling in California, Connecticut, Oregon and Rhode Island (Mattress Recycling Council); Massachusetts bans mattresses and textiles from the trash. Check your state.",
+        "sources": [
+          {
+            "publisher": "Mattress Recycling Council",
+            "url": "https://mattressrecyclingcouncil.org/",
+            "says": "Operating statewide in California, Connecticut, Oregon and Rhode Island.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Bye Bye Mattress (Mattress Recycling Council), California",
+            "url": "https://byebyemattress.com/california/",
+            "says": "Drop off your old mattress at no additional cost at participating locations. For businesses: unit limits may apply and an appointment may be required.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Massachusetts Department of Environmental Protection",
+            "url": "https://www.mass.gov/news/new-waste-disposal-ban-regulations-take-effect-today",
+            "says": "New waste ban regulations take effect November 1, 2022, banning the disposal of mattresses and textiles in the trash (310 CMR 19.000). Textiles include clothing, footwear, bedding, towels and curtains; contaminated items are excluded.",
+            "page_date": "2022-11-01",
+            "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Door hangers",
+        "what_to_check": "On the door, never in or on a mailbox (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+        "sources": [
+          {
+            "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+            "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+            "says": "Whoever knowingly and willfully deposits any mailable matter on which no postage has been paid in any letter box established, approved, or accepted by the Postal Service, with intent to avoid payment of lawful postage, shall for each such offense be fined.",
+            "checked": "2026-10-19"
+          }
+        ]
+      },
+      {
+        "item": "Donation receipts",
+        "what_to_check": "A charity's written acknowledgment describes a non-cash gift but does not value it (IRS). Let the owner ask the charity for the receipt.",
+        "sources": [
+          {
+            "publisher": "IRS",
+            "url": "https://www.irs.gov/charities-non-profits/charitable-organizations/charitable-contributions-written-acknowledgments",
+            "says": "A written acknowledgment for a contribution of $250 or more must contain the name of the organization, a description (but not value) of a non-cash contribution, and a statement about any goods or services provided.",
+            "page_date": "2026-06-28",
+            "checked": "2026-10-19"
+          }
+        ]
+      }
+    ]
+  },
+  "job_checklist": {
+    "steps": [
+      "Before the job: the price in writing from a photo or the Load estimate, what goes and what stays, where to park, and the paint, chemicals and propane that stay out.",
+      "On arrival: walk the pile with the owner, confirm the price before you load anything, and point out anything you cannot take.",
+      "Photograph the pile from two sides and anything already damaged nearby.",
+      "Set aside anything for donation or scrap metal, then load heavy and flat items first.",
+      "Pad door frames and corners, and use a dolly on stairs.",
+      "Cover or tie down the load before you drive.",
+      "Sweep the space, take the after photos from the same spots, and invoice the same day."
+    ],
+    "sources": [
+      {
+        "publisher": "1-800-GOT-JUNK?",
+        "url": "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+        "says": "Prices include all loading and clean-up, and disposal and environmental fees.",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "Revised Code of Washington 46.61.655",
+        "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=46.61.655",
+        "says": "A vehicle may be driven on a public highway only if it is so constructed or loaded as to prevent any of its load from dropping, sifting, leaking, or otherwise escaping; the load and any covering must be securely fastened.",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "U.S. EPA, Household Hazardous Waste",
+        "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+        "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+        "page_date": "2026-06-01",
+        "checked": "2026-10-19"
+      },
+      {
+        "publisher": "U.S. EPA, Section 608 Appliance Disposal",
+        "url": "https://www.epa.gov/section608/appliance-disposal",
+        "says": "The final disposer of appliances is responsible for recovering any refrigerant contained in appliances. If someone other than the final disposer recovers the refrigerant, EPA requires a signed statement containing the name and address of the person who recovered the refrigerant and the date of recovery.",
+        "page_date": "2026-07-08",
+        "checked": "2026-10-19"
+      }
+    ],
+    "note": "Walking the pile, the photos and the order of loading are common practice, a judgment call."
+  },
+  "objections": [
+    {
+      "objection": "I could rent a truck and do it myself.",
+      "answer": "Fair, and some people do. Fixr says hauling it yourself can be difficult, time-consuming and expensive without a proper truck and a place to dump it. With you it is loaded, hauled and swept in one visit, at a price set before you load anything.",
+      "sources": [
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Doing it yourself, hauling can be difficult, time-consuming, and expensive without a proper truck and disposal access; call your local landfill and find out how much it costs to drop off your junk.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "TaskRabbit",
+          "url": "https://www.taskrabbit.com/cost-guides/junk-removal",
+          "says": "Landfill fees for a do-it-yourself load run $50 to $100.",
+          "page_date": "2026-10-01",
+          "checked": "2026-10-19"
+        }
+      ],
+      "match": [
+        "myself",
+        "rent a truck",
+        "do it myself",
+        "cheaper",
+        "for less",
+        "too much",
+        "expensive",
+        "dump it",
+        "borrow a truck",
+        "my own truck"
+      ],
+      "say": "That's fair, and some people do. With me there's no truck to rent, nothing to lift and no dump run: I load it, haul it and sweep up in one visit, and you get the price before I load anything. Want me to price it from a photo so you can compare?"
+    },
+    {
+      "objection": "Will you take everything, even paint and chemicals?",
+      "answer": "Most household junk, yes. Paint, chemicals, propane tanks and batteries stay out of the truck: they go to county household hazardous waste collection, and paint to PaintCare sites where there are some.",
+      "sources": [
+        {
+          "publisher": "U.S. EPA, Household Hazardous Waste",
+          "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw",
+          "says": "Products such as paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients. Many communities have collection programs for HHW; check with your local environmental, health or solid waste agency. Improper disposal includes, in some cases, putting them out with the regular trash.",
+          "page_date": "2026-06-01",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "PaintCare",
+          "url": "https://www.paintcare.org/",
+          "says": "In states with paint stewardship laws, PaintCare operates paint recycling programs: California, Colorado, Connecticut, District of Columbia, Illinois, Maine, Maryland, Minnesota, New York, Oregon, Rhode Island, Vermont and Washington. Find a drop-off site.",
+          "checked": "2026-10-19"
+        }
+      ],
+      "match": [
+        "paint",
+        "chemical",
+        "propane",
+        "batteries",
+        "battery",
+        "take everything",
+        "take anything",
+        "hazardous",
+        "motor oil"
+      ],
+      "say": "Almost everything, yes: furniture, appliances, boxes, yard waste and garage junk. Paint, chemicals, propane tanks and batteries stay out of my truck, but I'll tell you where your county takes them. Want me to price the rest?"
+    },
+    {
+      "objection": "Does it all just go to the landfill?",
+      "answer": "Not what can be used again: furniture and working appliances in good shape go to a ReStore or the Salvation Army when they accept them, metal to a scrap yard and electronics to a recycler.",
+      "sources": [
+        {
+          "publisher": "Habitat for Humanity ReStores",
+          "url": "https://www.habitat.org/restores/donate-goods",
+          "says": "ReStores accept small and large donations of new or gently used furniture, appliances, housewares, building materials and more; many Habitat ReStores offer free pickup of large items. Each ReStore is unique.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "The Salvation Army (satruck.org)",
+          "url": "https://satruck.org/",
+          "says": "Schedule a free furniture and other donation pickup service. Accepted: appliances that still operate and are not built-in; unbroken furniture. Not accepted: appliances with mechanical difficulties, missing power cord or rusty or dirty; any gas appliances; large console televisions and stereos; televisions older than 5 years; built-in appliances such as ovens, stoves and dishwashers; paint or chemicals. Call to confirm what your local store accepts.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Many junk removal services can pick up and properly dispose of recyclable materials.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        }
+      ],
+      "match": [
+        "landfill",
+        "donate",
+        "donation",
+        "recycle",
+        "recycling",
+        "go to the dump",
+        "reuse",
+        "charity"
+      ],
+      "say": "Not if it can be used again. Anything in good shape goes to a donation center that takes it, metal goes to the scrap yard and electronics go to a recycler. Want me to set aside anything you'd like donated?"
+    },
+    {
+      "objection": "How do you figure the price?",
+      "answer": "By how much of the truck it fills, in eighths, the way the big companies price it. Loading, hauling, sweep-up and dump fees are included, and the price is set before loading.",
+      "sources": [
+        {
+          "publisher": "1-800-GOT-JUNK?",
+          "url": "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+          "says": "We charge in 1/8 increments of the truck based on how much space your items take up. Prices include all loading and clean-up, and disposal and environmental fees.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Fixr",
+          "url": "https://www.fixr.com/costs/junk-removal-service",
+          "says": "Price by load (labor included): 1/8 load 60 to 80 cubic feet $75 to $125; 1/4 load 80 to 120 cubic feet $125 to $175; half load 120 to 300 cubic feet $175 to $375; 3/4 load 300 to 350 cubic feet $375 to $450; full load 350 to 475 cubic feet $450 to $650; $1.25 to $2.08 per cubic foot.",
+          "page_date": "2025-01-31",
+          "checked": "2026-10-19"
+        }
+      ],
+      "match": [
+        "how do you price",
+        "how do you charge",
+        "how do you figure",
+        "exact price",
+        "over the phone",
+        "ballpark",
+        "by the hour",
+        "hidden fee",
+        "extra fee",
+        "estimate"
+      ],
+      "say": "By how much of my truck it fills, so a small pile costs less than a full load. Loading, hauling, sweep-up and dump fees are all in it, and you get the price before I load anything. Send me a photo of the pile or a list of what goes and I'll price it."
+    },
+    {
+      "objection": "What if you damage my floors or walls?",
+      "answer": "Say what you control: pads on door frames and corners, a dolly on stairs and a walk-through before and after. Mention insurance only if you have it.",
+      "sources": [
+        {
+          "publisher": "U.S. Small Business Administration",
+          "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+          "says": "General liability insurance protects against financial loss as the result of bodily injury, property damage and more, for any business. Some states also require additional insurance.",
+          "checked": "2026-10-19"
+        }
+      ],
+      "note": "Judgment call: only say you are insured if you are.",
+      "match": [
+        "insured",
+        "insurance",
+        "damage",
+        "scratch",
+        "my floors",
+        "my walls",
+        "door frame",
+        "liability"
+      ],
+      "say": "Good question. I pad door frames and corners, use a dolly on stairs and walk through with you before and after. [Your insurance, in one line, only if you have it.] Want me to take a look this week?"
+    },
+    {
+      "objection": "Do you take mattresses?",
+      "answer": "Yes, where the county accepts them. California, Connecticut, Oregon and Rhode Island have statewide mattress recycling, and Massachusetts bans mattresses from the trash, so some loads go to a recycler.",
+      "sources": [
+        {
+          "publisher": "Mattress Recycling Council",
+          "url": "https://mattressrecyclingcouncil.org/",
+          "says": "Operating statewide in California, Connecticut, Oregon and Rhode Island.",
+          "checked": "2026-10-19"
+        },
+        {
+          "publisher": "Massachusetts Department of Environmental Protection",
+          "url": "https://www.mass.gov/news/new-waste-disposal-ban-regulations-take-effect-today",
+          "says": "New waste ban regulations take effect November 1, 2022, banning the disposal of mattresses and textiles in the trash (310 CMR 19.000). Textiles include clothing, footwear, bedding, towels and curtains; contaminated items are excluded.",
+          "page_date": "2022-11-01",
+          "kind": "search result excerpt (the page refused our fetcher); open it to confirm",
+          "checked": "2026-10-19"
+        }
+      ],
+      "match": [
+        "mattress",
+        "box spring",
+        "boxspring"
+      ],
+      "say": "Yes, mattresses and box springs too. I take them where my county accepts them, and in some states that means a recycler, so I'll confirm the price when you send a photo. Want a spot this week?"
+    }
+  ],
+  "first_customer_plays": [
+    {
+      "play": "One street, one free bulky item",
+      "steps": [
+        "Pick a street near a job you already have.",
+        "Door-hang it the day before: the first 3 neighbors who text get one bulky item hauled free from the curb.",
+        "Hand each one your price sheet, and price anything more on the spot."
+      ],
+      "sources": [
+        {
+          "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+          "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+          "says": "Whoever knowingly and willfully deposits any mailable matter on which no postage has been paid in any letter box established, approved, or accepted by the Postal Service, with intent to avoid payment of lawful postage, shall for each such offense be fined.",
+          "checked": "2026-10-19"
+        }
+      ],
+      "note": "Judgment call. Door hangers go on doors, never in or on mailboxes; check city solicitation rules."
+    },
+    {
+      "play": "Move-out units with property managers",
+      "steps": [
+        "Message 5 property managers near you with the free sample: one small load from a unit they need cleared.",
+        "Send before and after photos the same day.",
+        "Ask once to be on their list for the next move-out."
+      ],
+      "note": "judgment call, not a sourced fact"
+    },
+    {
+      "play": "Estate sale leftovers",
+      "steps": [
+        "Visit estate sale and consignment shops and ask what happens to what does not sell.",
+        "Offer to clear the leftovers after one sale at your founding price, and set aside anything they can still sell.",
+        "Leave cards for the families they work with."
+      ],
+      "note": "judgment call, not a sourced fact"
+    },
+    {
+      "play": "Price from a photo or a list",
+      "steps": [
+        "Ask every person who asks \"how much\" for a photo of the pile or a list of what goes.",
+        "Run the Load estimate and send the price the same hour.",
+        "Confirm on site before you load anything."
+      ],
+      "sources": [
+        {
+          "publisher": "1-800-GOT-JUNK?",
+          "url": "https://www.1800gotjunk.com/us_en/how-our-pricing-works",
+          "says": "We charge in 1/8 increments of the truck based on how much space your items take up.",
+          "checked": "2026-10-19"
+        }
+      ],
+      "note": "Pricing by the share of the truck is how the big companies price; answering fast is a judgment call."
+    },
+    {
+      "play": "Before and after in neighborhood groups",
+      "steps": [
+        "With the owner's written yes, post the before and after of a cleared garage.",
+        "No faces, house numbers or license plates.",
+        "Say what it was: \"Garage cleanout, half a truck\"."
+      ],
+      "note": "judgment call, not a sourced fact"
+    }
+  ],
+  "platform_fees": [
+    {
+      "platform": "Square",
+      "fees": "Square Free plan: 2.6% + 15 cents in person, 3.3% + 30 cents online or by invoice, 3.5% + 15 cents keyed in.",
+      "sources": [
+        {
+          "publisher": "Square Help Center",
+          "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+          "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents; manual entry or card on file 3.5% + 15 cents.",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "platform": "Stripe",
+      "fees": "Stripe standard: 2.9% + 30 cents per successful domestic card payment.",
+      "sources": [
+        {
+          "publisher": "Stripe",
+          "url": "https://stripe.com/pricing",
+          "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup fees, monthly fees, or hidden fees.",
+          "checked": "2026-10-19"
+        }
+      ]
+    }
+  ],
+  "seasonality": [
+    {
+      "pattern": "Junk removal is busiest March through October, peaking April through June.",
+      "sources": [
+        {
+          "publisher": "LawnStarter",
+          "url": "https://www.lawnstarter.com/blog/cost/junk-removal-price/",
+          "says": "The busiest months for junk removal are March through October, peaking in April through June.",
+          "page_date": "2025-12-27",
+          "checked": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "pattern": "Winter work comes from move-outs, estate cleanouts and storage units more than garages.",
+      "note": "judgment call, not a sourced fact"
+    },
+    {
+      "pattern": "Spring cleaning and moving season fill garages and curbs with bulky items.",
+      "note": "judgment call, not a sourced fact"
+    }
+  ],
+  "default_costs": {
+    "perJob": 40,
+    "hourly": 25,
+    "monthlyFixed": 250,
+    "basis": "Defaults when you leave them empty, all judgment calls: about $40 of gas and dump fees per job, $25 an hour for your time, $250 a month fixed (phone, insurance, truck upkeep). Type your own; the Load estimate works out the dump fee from your county's rate."
+  },
+  "partners": [
+    {
+      "id": "property_managers",
+      "label": "Property managers",
+      "one": "property management company",
+      "search": {
+        "words": "property management companies",
+        "osm": [
+          "office=property_management"
+        ]
+      },
+      "their_customers": "owners",
+      "why": "need units cleared of what tenants leave behind before the next move-in",
+      "ask": "leave a few of my cards for tenants who are moving out",
+      "give": "clear your next move-out unit at my founding price, with photos for your file",
+      "weight": 2
+    },
+    {
+      "id": "realtors",
+      "label": "Real estate agents",
+      "one": "real estate office",
+      "search": {
+        "category": "realtors",
+        "words": "real estate agents"
+      },
+      "their_customers": "sellers",
+      "why": "need garages, basements and sheds cleared before the listing photos",
+      "ask": "leave a few of my cards for sellers getting ready to list",
+      "give": "clear the garage at your next listing at my founding price, before the photos",
+      "weight": 2
+    },
+    {
+      "id": "estate_sales",
+      "label": "Estate sale and consignment shops",
+      "one": "estate sale or consignment shop",
+      "search": {
+        "words": "estate sale companies",
+        "osm": [
+          "shop=second_hand",
+          "shop=antiques"
+        ]
+      },
+      "their_customers": "clients",
+      "why": "are left with whatever didn't sell when the sale ends",
+      "ask": "leave a few of my cards for families after the sale",
+      "give": "clear what's left after your next sale at my founding price, with before and after photos",
+      "weight": 2
+    },
+    {
+      "id": "self_storage",
+      "label": "Self storage",
+      "one": "self storage facility",
+      "search": {
+        "words": "self storage",
+        "osm": [
+          "shop=storage_rental"
+        ]
+      },
+      "their_customers": "renters",
+      "why": "have things left over they don't want to move again when they clear out a unit",
+      "ask": "keep a few of my cards at the front desk",
+      "give": "clear any unit left full of junk at my founding price, with a photo of the swept unit for your file",
+      "weight": 1
+    },
+    {
+      "id": "contractors",
+      "label": "Contractors and remodelers",
+      "one": "contractor",
+      "search": {
+        "category": "contractors",
+        "words": "remodeling and roofing contractors"
+      },
+      "their_customers": "clients",
+      "why": "want the old fixtures and debris gone when the job is done",
+      "ask": "leave a few of my cards for homeowners clearing out before a remodel",
+      "give": "haul the debris from your next small job at my founding price",
+      "weight": 1
+    }
+  ],
+  "partners_sources": [
+    {
+      "publisher": "OpenStreetMap Wiki, Tag:shop=storage_rental",
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:shop%3Dstorage_rental",
+      "says": "Paid storage of household goods, i.e. self storage. Status: de facto.",
+      "page_date": "2026-07-08 (last edited)",
+      "checked": "2026-10-19"
+    },
+    {
+      "publisher": "OpenStreetMap Wiki, Tag:shop=second_hand",
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:shop%3Dsecond_hand",
+      "says": "A shop selling second hand goods, also known as a resale shop or thrift shop; a consignment shop is a specific type of second hand shop. Related: shop=antiques. Estate sale businesses are not mentioned.",
+      "page_date": "2026-04-06 (last edited)",
+      "checked": "2026-10-19"
+    }
+  ],
+  "partners_note": "Estate sale companies have no map tag of their own: the list uses shops tagged shop=second_hand (resale, thrift and consignment) and shop=antiques. Self storage uses shop=storage_rental.",
+  "lead_offers": [
+    {
+      "id": "winter",
+      "months": [
+        11,
+        12,
+        1,
+        2
+      ],
+      "slow": true,
+      "package": "quarter",
+      "label": "Winter garage and basement haul",
+      "one": "quarter truck haul",
+      "many": "quarter truck hauls"
+    },
+    {
+      "id": "spring",
+      "months": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "package": "quarter",
+      "label": "Spring cleanout haul",
+      "one": "quarter truck haul",
+      "many": "quarter truck hauls"
+    },
+    {
+      "id": "summer",
+      "months": [
+        7,
+        8
+      ],
+      "package": "quarter",
+      "label": "Moving week haul",
+      "one": "quarter truck haul",
+      "many": "quarter truck hauls"
+    },
+    {
+      "id": "fall",
+      "months": [
+        9,
+        10
+      ],
+      "package": "quarter",
+      "label": "Fall garage cleanout",
+      "one": "quarter truck haul",
+      "many": "quarter truck hauls"
+    },
+    {
+      "id": "main",
+      "package": "quarter",
+      "label": "Junk pickup",
+      "one": "quarter truck haul",
+      "many": "quarter truck hauls"
+    }
+  ],
+  "ladder": [
+    {
+      "count": 3,
+      "off": 0.25,
+      "label": "Founding price",
+      "ask": "Permission to post before and after photos of the pile (no faces, house numbers or license plates) and honest feedback, good or bad, that you may quote as from a founding client."
+    },
+    {
+      "count": 7,
+      "off": 0.1,
+      "label": "Early price",
+      "ask": "Same work, a smaller discount, for customers 4 to 10."
+    },
+    {
+      "label": "Full price",
+      "ask": "Your menu price. Raise it once you are turning jobs away."
+    }
+  ],
+  "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+  "money_model": {
+    "attraction": {
+      "package": "quarter",
+      "label": "Quarter truck haul, founding price",
+      "note": "Small enough to say yes to; price anything more on the spot from the same menu."
+    },
+    "core": {
+      "package": "half",
+      "note": "Priced by how much of the truck it fills."
+    },
+    "upsell": {
+      "package": "full",
+      "note": "When the pile is bigger than they thought, price the rest of the truck before you load it."
+    },
+    "downsell": {
+      "package": "min",
+      "note": "For one or two items at the curb."
+    }
+  },
+  "offer": {
+    "who": "Homeowners, landlords and families clearing a garage, a basement or a whole house, starting on your own street.",
+    "outcome": "The junk gone in one visit, the space swept, and anything usable set aside for donation.",
+    "promise": "You get the price before I load anything, and if I leave behind anything you showed me, I come back for it free.",
+    "names": [
+      "Clear Garage Haul",
+      "One Trip Cleanout",
+      "Curb to Clear",
+      "Move-Out Clear"
+    ]
+  },
+  "texts": {
+    "people": [
+      "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Got a garage or basement that needs clearing, or know someone who does?",
+      "Hi {greet}, hope you're well! I'm starting {what} here in {area}: furniture, appliances and garage junk, hauled away and swept up. I'm doing 3 {lead_many} at {founding} so I can get before and after photos. Want a spot, or know someone who's moving or clearing out?",
+      "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Anything you've been meaning to get rid of?"
+    ],
+    "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one person who's moving or clearing out? It would mean a lot.",
+    "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If someone comes to mind, my number is {phone}. Thanks either way!",
+    "replies": {
+      "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. Bigger loads go by how much of the truck they fill. Want an exact price? Send me a photo of the pile or a list of what goes.",
+      "not_now": "No problem! Can I check back in a month or two? And if a friend is moving or clearing out, I'd love an intro.",
+      "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I haul away furniture, appliances and junk, sweep up after, and you get the price before I load anything.",
+      "covered": "Good to hear you're set! If you ever want a second quote, I'm happy to help. Mind if I check back in a few months?",
+      "yes": "Great! To get you on the schedule I just need the address, where the items are (curb, garage or upstairs), and a photo of the pile. What day works?"
+    },
+    "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}.{plan} {promise} Reply with a day that works and I'll put you on my schedule.",
+    "estimate": "Hi {customer}, it's {first} from {business}. From your list, that's {load}: {lines}. Total {total}, an estimate from your list that I confirm on site.{keep_out}{prep} {promise} What day works for you?",
+    "keep": {
+      "thanks": "Hi {customer}, thanks for having me today! I'll send your before and after photos tonight. {promise}",
+      "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+      "plan": "Hi {customer}, want me to keep it this way? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+      "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor is moving or clearing out, would you pass along my number{phone_part}? It means a lot to a new business.",
+      "checkin": "Hi {customer}, it's {first} from {business}. It's been a few months since your {job}. If the garage is filling up again, want me to save you a spot in the next couple of weeks?",
+      "checkin_days": 90,
+      "card_thanks": "Thank you for having me!",
+      "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+      "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+    }
+  },
+  "quote": {
+    "reference": "curbside or ground floor pickup",
+    "fields": {
+      "load": {
+        "type": "string",
+        "title": "How much of the truck",
+        "use": "package",
+        "map": {
+          "Small load (1/8 truck)": "min",
+          "Quarter truck": "quarter",
+          "Half truck": "half",
+          "Three quarter truck": "three_quarter",
+          "Full truck": "full",
+          "Hot tub": "hot_tub",
+          "Piano": "piano"
+        },
+        "default": "Quarter truck",
+        "description": "Not sure? Run \"Load estimate\" on their list of items."
+      },
+      "access": {
+        "type": "string",
+        "title": "Where the items are",
+        "use": "factor:access",
+        "map": {
+          "Curbside, garage or ground floor": "curb",
+          "Upstairs, basement or long carry": "stairs"
+        },
+        "default": "Curbside, garage or ground floor"
+      },
+      "material": {
+        "type": "string",
+        "title": "What it is",
+        "use": "factor:material",
+        "map": {
+          "Household junk and furniture": "household",
+          "Construction debris, dirt, concrete or shingles": "heavy"
+        },
+        "default": "Household junk and furniture"
+      },
+      "addons": {
+        "type": "string",
+        "title": "Add-ons (optional)",
+        "use": "addons",
+        "maxLength": 200,
+        "description": "Appliance with refrigerant, Tire disposal",
+        "map": {
+          "Appliance with refrigerant": "refrigerant",
+          "Tire disposal": "tire"
+        }
+      },
+      "fridges": {
+        "type": "string",
+        "title": "Fridges, freezers or AC units (optional)",
+        "use": "qty:refrigerant",
+        "maxLength": 2,
+        "description": "How many. Each one adds the refrigerant fee."
+      },
+      "tires": {
+        "type": "string",
+        "title": "Tires (optional)",
+        "use": "qty:tire",
+        "maxLength": 3,
+        "description": "How many"
+      }
+    },
+    "derive": [],
+    "advice": [
+      {
+        "when": {
+          "material": [
+            "heavy"
+          ]
+        },
+        "say": "Heavy debris fills the truck by weight before it fills it by space: check your truck's payload, and ask your transfer station whether it charges more for construction debris."
+      },
+      {
+        "when": {
+          "access": [
+            "stairs"
+          ]
+        },
+        "say": "Stairs or a long carry: bring a helper and a dolly, and walk the path before you price it."
+      },
+      {
+        "when": {
+          "fridges": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        "say": "Appliances with refrigerant: the refrigerant has to be recovered before disposal (EPA Section 608). Ask your scrap yard or transfer station what they charge and what they need."
+      },
+      {
+        "when": {
+          "load": [
+            "hot_tub"
+          ]
+        },
+        "say": "Hot tub: ask the owner to have the power shut off and disconnected before you come, bring a helper and a saw, and price it after you see the path out (judgment call)."
+      },
+      {
+        "when": {
+          "load": [
+            "piano"
+          ]
+        },
+        "say": "Piano: bring a helper, a piano dolly and straps, and check the stairs and doorways before you price it."
+      }
+    ]
+  },
+  "specials": [
+    "same_street"
+  ],
+  "won": {
+    "needs": "the address, where the items are (curb, garage or upstairs), where I can park the truck, and a photo of the pile",
+    "prep_items": [
+      "set aside anything you want to keep, and show me what goes",
+      "clear a path to the pile and a spot to park the truck close by",
+      "keep paint, chemicals, propane tanks and batteries out of the pile",
+      "empty and unplug any fridge or freezer the day before"
+    ],
+    "bring": [
+      "Truck or trailer, with a tarp and straps to cover the load",
+      "Dolly, hand truck and moving blankets",
+      "Work gloves, safety glasses and boots",
+      "Broom, shovel, contractor bags and a tape measure",
+      "Your price sheet and the estimate"
+    ],
+    "photos": [
+      "The pile before you touch it, from two sides",
+      "Walls, floors and door frames near the pile, before you start",
+      "The truck bed loaded, before you cover it",
+      "The swept space, from the same spots"
+    ],
+    "done": "everything's gone and swept up"
+  },
+  "proof": {
+    "what": "Garage cleanout, half a truck",
+    "result": "Garage cleared and swept, two chairs set aside for donation",
+    "thing": "garage",
+    "private": "No faces, house numbers or license plates."
+  },
+  "sample_one": {
+    "street": {
+      "headline": "One item hauled free on {street}",
+      "side": [
+        "One bulky item",
+        "From the curb or garage",
+        "First 3 homes"
+      ],
+      "includes": [
+        "One bulky item: a chair, a mattress or a grill",
+        "Loaded from the curb, driveway or garage",
+        "No cost and no catch"
+      ],
+      "how": [
+        "Text me your address and a photo of the item",
+        "I pick it up while I'm on {street}{day_part}",
+        "You see what it costs to clear the rest"
+      ],
+      "line": "I'm hauling a load on {street}{day_part}, so the first 3 neighbors who text me get one bulky item hauled away free, from the curb or garage: no cost and no catch. No paint, chemicals, tires or appliances with refrigerant.",
+      "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm hauling on {street}{day_part}, so the first 3 neighbors who text me get one bulky item hauled away free from the curb or garage. No cost and no catch. {phone_line}",
+      "minutes": 10,
+      "limit": 3,
+      "steps": [
+        "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+        "Pick up the first 3 items that are texted, and take a photo before and after.",
+        "Hand each neighbor your price sheet before you leave.",
+        "Text a thank-you the same day with the photo, then one follow-up in 3 days."
+      ]
+    },
+    "partners": {
+      "property_managers": {
+        "demo": "one small load, up to 1/8 of my truck, hauled from a unit you manage",
+        "eyebrow": "For {biz} owners",
+        "headline": "Move-out leftovers hauled away and swept up",
+        "package": "quarter",
+        "who": "First 3 units",
+        "card_line": "For units {biz} manages: book through your property manager.",
+        "words": [
+          "property management",
+          "management",
+          "leasing",
+          "rentals",
+          "properties",
+          "property group"
+        ],
+        "steps": [
+          "Send the message and the card today.",
+          "Ask which unit turns over next and the day it must be empty.",
+          "Haul only what the manager confirms in writing can go, then photograph the swept room from the doorway.",
+          "Send the photos the same day for their file."
+        ]
+      },
+      "realtors": {
+        "demo": "one small load, up to 1/8 of my truck, hauled from a listing you're getting ready",
+        "eyebrow": "For {biz} sellers",
+        "headline": "Garage cleared before the listing photos",
+        "package": "quarter",
+        "who": "First 3 sellers",
+        "card_line": "Mention {biz} when you book.",
+        "words": [
+          "realty",
+          "real estate",
+          "realtor",
+          "realtors",
+          "properties",
+          "home team",
+          "homes",
+          "brokerage"
+        ],
+        "steps": [
+          "Send the message and the card today.",
+          "Ask which listing has a garage, basement or shed to clear, and the photo day.",
+          "Haul only what the seller marked to go, and photograph before and after from the same spot.",
+          "Send the agent the photos the same day."
+        ]
+      },
+      "estate_sales": {
+        "demo": "one small load, up to 1/8 of my truck, of what's left after one of your sales",
+        "eyebrow": "For {biz} clients",
+        "headline": "What didn't sell, hauled away",
+        "package": "half",
+        "who": "First 3 families",
+        "card_line": "Mention {biz} when you book.",
+        "words": [
+          "estate",
+          "consign",
+          "consignment",
+          "antique",
+          "antiques",
+          "resale",
+          "second hand",
+          "secondhand",
+          "thrift",
+          "vintage",
+          "liquidat"
+        ],
+        "steps": [
+          "Send the message and the card today.",
+          "Ask for the address, the day after the sale, and what stays.",
+          "Set aside anything they can still sell, haul the rest and sweep up.",
+          "Send the before and after photos the same day."
+        ]
+      },
+      "self_storage": {
+        "demo": "one small load, up to 1/8 of my truck, hauled from a unit you need emptied",
+        "eyebrow": "For {biz} renters",
+        "headline": "Moving out? Leave the junk to me",
+        "package": "quarter",
+        "who": "First 3 renters",
+        "card_line": "Mention {biz} when you book.",
+        "words": [
+          "storage",
+          "self-storage",
+          "self storage",
+          "mini storage",
+          "lock up",
+          "lockup"
+        ],
+        "steps": [
+          "Send the message and the card today.",
+          "Ask the manager for one unit they need emptied and the gate hours.",
+          "Haul only what the manager confirms in writing can go, and photograph the swept unit.",
+          "Leave a few cards at the front desk if they said yes."
+        ]
+      },
+      "contractors": {
+        "demo": "one small load of debris, up to 1/8 of my truck, hauled from one of your job sites",
+        "eyebrow": "For {biz} clients",
+        "headline": "Remodel debris hauled away, no dumpster in the driveway",
+        "package": "quarter",
+        "who": "First 3 homeowners",
+        "card_line": "Mention {biz} when you book.",
+        "words": [
+          "plumbing",
+          "roofing",
+          "heating",
+          "hvac",
+          "electric",
+          "remodel",
+          "remodeling",
+          "construction",
+          "builders",
+          "contractor",
+          "contracting",
+          "restoration",
+          "renovation",
+          "handyman"
+        ],
+        "steps": [
+          "Send the message and the card today.",
+          "Check your transfer station's price for construction debris first: some charge extra for it.",
+          "Haul one small pile, sweep the site and photograph before and after.",
+          "Send the photos the same day."
+        ]
+      }
+    }
+  },
+  "same_street": {
+    "neighbor_off": 0.1,
+    "neighbor_note": "judgment call, not a sourced fact",
+    "package": "quarter",
+    "count": 20,
+    "hello": "Hi {street} neighbors!",
+    "headline": "Your neighbor price on {street}",
+    "side_extra": "Same day as your neighbor",
+    "includes": [
+      "Loaded from the curb, driveway or garage",
+      "Hauled away the same day",
+      "Dump and recycling fees included"
+    ],
+    "how": [
+      "Text me your address and a photo of the pile",
+      "I'm on {street}{day_part}",
+      "You get the price before I load anything"
+    ],
+    "customer_ask": "Hi {customer}, thanks again! I'm hauling on {street}{day_part} and have room for a couple more loads. If a neighbor ever asks who cleared your garage, would you pass on my number{phone_part}? It means a lot to a new business.",
+    "steps": [
+      "Hang a door hanger on every home on this sheet the day before you haul there. On the door, never in or on a mailbox.",
+      "While you load, say hi to anyone outside. Keep it short, and never say which neighbor: \"I'm hauling a load for a home on your street.\"",
+      "Text your customer the intro ask after the job, never before.",
+      "Mark each home on the sheet. A neighbor who books goes on the same day as your customer, while the truck has room."
+    ],
+    "why": "When the truck is already on the street with room to spare, a neighbor's load adds little driving, so you can give neighbors a better price on the same day."
+  }
+}

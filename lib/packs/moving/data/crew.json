@@ -1,0 +1,241 @@
+{
+  "checked": "2026-10-19",
+  "about": "The numbers behind Crew and hours estimate: crew size and hours by home size (HireAHelper's estimating chart and its two-person times), the time stairs and heavy items add, the items movers won't carry, what the customer keeps with them, lifting safety, protecting the home, loading the truck, and the labor-only rule. Every number names its source; judgment calls say so.",
+  "homes": [
+    {
+      "id": "h1",
+      "label": "Studio or 1 bedroom",
+      "chart": "Studio or small apartment",
+      "crew": 2,
+      "est": { "load": 2, "unload": 2, "both": 4 },
+      "range": { "load": [2, 3], "unload": [1, 2], "both": [3, 5] },
+      "range_from": "load_unload"
+    },
+    {
+      "id": "h2",
+      "label": "2 or 3 bedroom apartment",
+      "chart": "2 to 3 bedroom apartment",
+      "crew": 2,
+      "est": { "load": 3, "unload": 2, "both": 5 },
+      "range": { "load": [3, 4], "unload": [1.5, 2.5], "both": [4.5, 6.5] },
+      "range_from": "load_unload"
+    },
+    {
+      "id": "h3",
+      "label": "2 or 3 bedroom house",
+      "chart": "2 to 3 bedroom house",
+      "crew": 3,
+      "est": { "load": 4, "unload": 3, "both": 7 },
+      "range": { "load": [4, 4], "unload": [3, 3], "both": [7, 7] },
+      "range_from": "chart"
+    },
+    {
+      "id": "h4",
+      "label": "3 or 4 bedroom house",
+      "chart": "3 to 4 bedroom house",
+      "crew": 4,
+      "est": { "load": 4, "unload": 3, "both": 7.5 },
+      "range": { "load": [4, 4], "unload": [3, 3], "both": [7, 8] },
+      "range_from": "chart"
+    },
+    {
+      "id": "h5",
+      "label": "4 or more bedrooms",
+      "chart": "4 or more bedroom house",
+      "crew": 4,
+      "est": { "load": 5, "unload": 4, "both": 9 },
+      "range": { "load": [5, 5], "unload": [4, 4], "both": [8, 10] },
+      "range_from": "chart"
+    }
+  ],
+  "homes_basis": "Crew and middle hours: HireAHelper's estimating chart. Ranges: its two-person loading and unloading times where the chart uses 2 movers (studio or 1 bedroom; 2 bedroom for the apartment row), the chart's own range for the bigger homes.",
+  "min_hours": 2,
+  "min_hours_basis": "U-Haul's Moving Help marketplace: the least a customer can reserve is 2 hours. HireAHelper: labor-only movers often have a two-hour minimum.",
+  "round_hours": 0.5,
+  "round_basis": "Hours are rounded to the half hour (judgment call).",
+  "stairs_hours": [0.5, 1],
+  "stairs_basis": "HireAHelper's estimating guide: add 30 to 60 minutes for each set of stairs. Counted for each flight at the end where it is.",
+  "elevator_basis": "Judgment call: count an elevator as one flight. HireAHelper and iMoving both say elevators add time but give no number.",
+  "carry": { "free_feet": 150, "step_feet": 75, "share": 0.1 },
+  "carry_basis": "Fixr charges a long carry when the truck can't park within about 150 feet, per extra 75 feet. Adding 10 percent of that end's hours for each extra 75 feet is a judgment call: HireAHelper says a long walkway adds time but gives no number.",
+  "crew_basis": "A bigger crew keeps the same mover hours, so a third mover cuts the clock time by a third and a fourth by half (judgment call). HireAHelper: a three-person or four-person crew can work 25 to 50 percent faster; adding a third crew member can reduce times by 25 to 35 percent.",
+  "heavy_hours": 0.5,
+  "heavy_min_crew": 3,
+  "heavy_basis": "HireAHelper's estimating guide: add 30 minutes for pianos, pool tables and gun safes. iMoving: pianos, safes, appliances and gym equipment may need extra movers or fees. At least 3 movers for these is a judgment call.",
+  "heavy": [
+    { "id": "piano", "label": "Upright piano", "words": ["upright piano", "piano", "spinet", "console piano"] },
+    { "id": "safe", "label": "Gun safe or large safe", "words": ["gun safe", "safe"] },
+    { "id": "pool_table", "label": "Pool table", "words": ["pool table", "billiard table", "billiards table"] }
+  ],
+  "appliances": [
+    { "id": "fridge", "label": "Refrigerator or freezer", "words": ["refrigerator", "fridge", "freezer"], "say": "Use the appliance dolly. The customer empties it and leaves the doors open 24 hours before (Atlas Van Lines)." },
+    { "id": "laundry", "label": "Washer or dryer", "words": ["washer", "dryer", "washing machine"], "say": "Use the appliance dolly. The customer has them unhooked before you arrive (judgment call)." },
+    { "id": "gym", "label": "Exercise equipment", "words": ["treadmill", "elliptical", "exercise bike", "home gym", "weight machine", "rowing machine"], "say": "May need an extra mover or a fee (iMoving). Ask for the model and the weight before the day." }
+  ],
+  "specialist": [
+    { "id": "grand_piano", "label": "Grand or baby grand piano", "words": ["grand piano", "baby grand"], "say": "Needs special equipment (HireAHelper). Refer it to a piano mover or quote it on its own." },
+    { "id": "hot_tub", "label": "Hot tub", "words": ["hot tub", "spa tub", "jacuzzi"], "say": "Refer it to a specialist or quote it on its own (judgment call; Thumbtack lists hot tub moves at $350 to $450)." }
+  ],
+  "no_carry_basis": "Atlas Van Lines: federal law prohibits professional movers from transporting these dangerous goods. Allied lists gasoline, oxygen bottles, lighter fluid, matches, propane cylinders, nail polish remover, paints and paint thinners and fireworks. Ask the customer to set them aside before you arrive; they move or dispose of them.",
+  "no_carry": [
+    { "group": "Flammable", "items": ["Gasoline", "Kerosene", "Lamp oil", "Paint thinner", "Lighter fluid", "Sterno", "Nail polish and remover", "Paints", "Aerosol cans", "Matches"], "words": ["gasoline", "gas can", "kerosene", "lamp oil", "paint thinner", "thinner", "lighter fluid", "sterno", "nail polish", "paint", "paints", "aerosol", "spray can", "matches"] },
+    { "group": "Corrosive", "items": ["Acids", "Household batteries", "Car batteries", "Liquid bleach", "Cleaning solvents"], "words": ["acid", "battery", "batteries", "car battery", "bleach", "solvent", "solvents", "drain cleaner"] },
+    { "group": "Explosive or pressurized", "items": ["Ammunition", "Loaded guns", "Gun reloading supplies", "Fireworks", "Propane tanks", "Scuba tanks", "Fire extinguishers", "Oxygen bottles"], "words": ["ammunition", "ammo", "loaded gun", "reloading", "fireworks", "propane", "scuba tank", "fire extinguisher", "oxygen"] },
+    { "group": "Poison", "items": ["Pesticides", "Weed killer", "Poisons", "Pool chemicals", "Chemistry sets", "Darkroom chemicals", "Ammonia"], "words": ["pesticide", "pesticides", "weed killer", "poison", "pool chemicals", "chlorine", "chemistry set", "darkroom", "ammonia"] },
+    { "group": "Other", "items": ["Motor oil", "Charcoal"], "words": ["motor oil", "charcoal"] }
+  ],
+  "perishable_basis": "Atlas Van Lines: movers generally can't transport items that may spoil or die in transit; the truck isn't climate-controlled.",
+  "perishable": ["Fresh, refrigerated or frozen food", "Opened food", "Houseplants"],
+  "perishable_words": ["frozen food", "groceries", "fresh food", "houseplant", "houseplants", "plants"],
+  "keep_basis": "Atlas Van Lines' do-not-pack list; Allied: keep valuables with you during the move.",
+  "keep_with_you": ["Documents: passports, birth certificates, titles, deeds, wills, insurance papers", "Cash, checkbooks, credit cards and financial papers", "Jewelry, heirlooms, photo albums and collections", "Laptops, phones, tablets and chargers", "Keys, prescription medicine and tickets"],
+  "fridge_tip": "Empty the fridge and freezer and leave the doors open at least 24 hours before they are loaded, so they dry out (Atlas Van Lines).",
+  "lifting": [
+    { "rule": "The most anyone should lift with two hands, in ideal conditions, is 51 pounds. Real conditions lower it.", "src": "niosh" },
+    { "rule": "Keep the load close to your body and push up with your legs.", "src": "niosh" },
+    { "rule": "Don't twist. Step to one side to turn.", "src": "niosh" },
+    { "rule": "Team lifts: agree the plan first, so nobody makes a surprise move.", "src": "niosh" },
+    { "rule": "Get help when a load is too bulky to grip, you can't see over it, or you can't handle it safely.", "src": "osha" },
+    { "rule": "Gloves and sturdy work shoes. Take rest breaks.", "src": "osha" }
+  ],
+  "doors_floors": [
+    "Runners or cardboard on the floors along the path to the door",
+    "Door jamb protectors on the busiest doorways, or pad the furniture tight",
+    "Banisters wrapped in pads",
+    "Old pads are a trip hazard on floors: use runners"
+  ],
+  "loading": [
+    "Build tiers: heaviest and strongest pieces at the base of each tier, lighter as you go up",
+    "Build each tier as high and tight as you can before starting the next",
+    "Strap big furniture and appliances to the truck wall, and strap off every 4 feet or so",
+    "Light boxes and light chairs in the space over the cab, never heavy pieces",
+    "Finish with mattresses or tall pieces as a wall that holds the last tiers"
+  ],
+  "roles": [
+    "Lead: walk-through, talks with the customer, builds the tiers in the truck",
+    "Second: floors and doors, pads and wrap, carries the big pieces with the lead",
+    "Third: boxes and small pieces, keeps the path clear",
+    "Fourth: takes beds and tables apart and puts them back together"
+  ],
+  "roles_basis": "Judgment call.",
+  "labor_only": [
+    "Labor only: you load and unload. The customer rents, reserves and drives the truck or container.",
+    "Driving a customer's goods for pay makes you a for-hire motor carrier (49 CFR 390.5). Across state lines that means FMCSA registration and operating authority before you start (49 CFR 390.201) and the household goods rules (49 CFR 375).",
+    "Many states license in-state movers too. Florida's law counts loading or unloading for pay as part of a household move (Fla. Stat. 507.01); California licenses movers through BHGS. Check your state.",
+    "Never rent the customer's truck in your own name (U-Haul's Moving Help rules for its helpers)."
+  ],
+  "sources": {
+    "chart": {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/estimating-job-times/",
+      "says": "Estimating chart (loading only / unloading only / load and unload): studio or small apartment 2 movers 2 / 2 / 4 hours; 2 to 3 bedroom apartment 2 movers 3 / 2 / 5; 2 to 3 bedroom house 3 movers 4 / 3 / 7; 3 to 4 bedroom house 4 movers 4 / 3 / 7 to 8; 4 or more bedroom house 4 movers 5 / 4 / 8 to 10. Add 30 to 60 minutes for each set of stairs and 30 minutes for pianos, pool tables and gun safes; a baby grand needs special equipment.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "load_unload": {
+      "publisher": "HireAHelper",
+      "url": "https://www.hireahelper.com/advice/does-it-take-longer-to-load-or-unload-a-moving-truck/",
+      "says": "Two-person crew: studio or 1 bedroom loads in 2 to 3 hours and unloads in 1 to 2; 2 bedroom 3 to 4 and 1.5 to 2.5; 3 bedroom 4 to 6 and 2.5 to 4; 4 or more bedrooms 6 to 8 and 3 to 5. A three-person or four-person crew can work 25 to 50 percent faster; adding a third crew member can reduce times by 25 to 35 percent. Long walkways, stairs and elevators add time.",
+      "page_date": "2026-07-06",
+      "checked": "2026-10-19"
+    },
+    "moving_help": {
+      "publisher": "Moving Help (U-Haul) service provider FAQ",
+      "url": "https://www.movinghelper.com/Support/FAQ",
+      "says": "The minimum a customer can reserve is 2 hours of service. The customer provides all equipment, including trucks. Providers may not supply a truck or trailer. Never pick up the U-Haul truck rental a customer reserves and rent in your own name.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "imoving": {
+      "publisher": "iMoving",
+      "url": "https://www.imoving.com/blog/moving-tips/moving-labor-cost-and-everything/",
+      "says": "Stairs, slow elevators and high-rise moves can add time. Pianos, safes, appliances and gym equipment may need extra movers or fees.",
+      "page_date": "2026-06-04",
+      "checked": "2026-10-19"
+    },
+    "fixr": {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/movers",
+      "says": "A long carry fee of $75 to $125 per 75 extra feet applies when the truck can't park within about 150 feet of the home.",
+      "page_date": "2025-01-31",
+      "checked": "2026-10-19"
+    },
+    "atlas": {
+      "publisher": "Atlas Van Lines",
+      "url": "https://www.atlasvanlines.com/moving-tips/items-movers-wont-move",
+      "says": "Federal law prohibits professional movers from transporting these dangerous goods: flammables (gasoline, kerosene, lamp oil, paint thinner, lighter fluid, Sterno, nail polish and remover, paints, aerosol cans, matches), corrosives (acids, household and car batteries, liquid bleach, cleaning solvents), explosives (ammunition, loaded guns, gun reloading supplies, fireworks, propane tanks, scuba tanks, fire extinguishers), poisons (pesticides, weed killer, poisons, pool chemicals, chemistry sets, darkroom chemicals, ammonia), and motor oil and charcoal. Perishables: fresh, refrigerated or frozen food, opened food, houseplants. Keep documents, financials, valuables, electronics, keys and prescription medicine with you. Leave the fridge and freezer doors open at least 24 hours before loading.",
+      "page_date": "2026-01-14",
+      "checked": "2026-10-19"
+    },
+    "allied": {
+      "publisher": "Allied Van Lines",
+      "url": "https://www.allied.com/moving-resources/moving-preparation/things-your-movers-cannot-pack",
+      "says": "Hazardous items movers cannot move include gasoline, oxygen bottles, lighter fluid, matches, propane cylinders, nail polish remover, paints and paint thinners, and fireworks. Keep family photos, jewelry, heirlooms, collections, cash and important documents with you.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "niosh": {
+      "publisher": "NIOSH (CDC), Ergonomic Guidelines for Manual Material Handling, publication 2007-131",
+      "url": "https://www.cdc.gov/niosh/docs/2007-131/pdfs/2007-131.pdf",
+      "says": "The maximum weight to be lifted with two hands, under ideal conditions, is 51 pounds. Keep the load as close to the body as possible. Do not twist your body; step to one side or the other to turn. Team lifting: discuss your lifting plan so you don't make surprise movements. Wear appropriate shoes. Take rest breaks.",
+      "page_date": "2007",
+      "checked": "2026-10-19"
+    },
+    "osha": {
+      "publisher": "OSHA, Materials Handling and Storage, publication 2236",
+      "url": "https://www.osha.gov/sites/default/files/publications/osha2236.pdf",
+      "says": "Workers should seek help when a load is so bulky it can't be properly grasped or lifted, when they can't see around or over it, or when they can't safely handle it. Protective equipment includes gloves, eye protection and steel-toed safety shoes or boots.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "doors": {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/doors-and-floors/",
+      "says": "Protect floors on the heavy foot traffic paths with runners, plastic or cardboard; hook door jamb protectors around busy door frames or pad the furniture tightly; wrap banisters in pads. Old pads on floors bunch up and become a trip hazard.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "loading": {
+      "publisher": "HireAHelper Movers Academy",
+      "url": "https://www.hireahelper.com/movers-academy/on-the-job/loading-basics-pro-tips/",
+      "says": "Load in tiers with the heaviest and strongest items at the base, lighter as you go up; strap large furniture and appliances to the sides and strap off every four feet or so; keep the space over the cab for light items; finish with mattresses or tall pieces as a wall.",
+      "page_date": "undated",
+      "checked": "2026-10-19"
+    },
+    "cfr_375": {
+      "publisher": "eCFR, 49 CFR 375.101 and 375.103",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-375",
+      "says": "Part 375 applies when you transport household goods for individual shippers by motor vehicle in interstate commerce. A household goods motor carrier is a motor carrier that, in the course of transporting household goods, offers services such as loading and unloading at personal residences.",
+      "page_date": "current",
+      "checked": "2026-10-19"
+    },
+    "cfr_390": {
+      "publisher": "eCFR, 49 CFR 390.5 and 390.201",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-390",
+      "says": "For-hire motor carrier means a person engaged in the transportation of goods or passengers for compensation. Motor carriers file Form MCSA-1 to obtain a USDOT number and operating authority under 49 U.S.C. chapter 139, and may not begin operations until the USDOT number has been activated.",
+      "page_date": "current",
+      "checked": "2026-10-19"
+    },
+    "florida": {
+      "publisher": "Florida Statutes, chapter 507 (Household Moving Services)",
+      "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0507/0507.html",
+      "says": "507.01(9): Mover means a person who, for compensation, contracts for or engages in the loading, transportation or shipment, or unloading of household goods as part of a household move. 507.03: movers register with the Department of Agriculture and Consumer Services, $300 per year. 507.04: liability insurance of at least $10,000 per shipment.",
+      "page_date": "2026",
+      "checked": "2026-10-19"
+    },
+    "california": {
+      "publisher": "California Department of Consumer Affairs, Bureau of Household Goods and Services",
+      "url": "https://www.dca.ca.gov/newsroom/2026/bhgs/20260709_bhgs_targets_unlic_movers.pdf",
+      "says": "In California, movers must be licensed by BHGS if they transport goods within the state or if they handle moves that originate or end in California.",
+      "page_date": "2026-07-09",
+      "checked": "2026-10-19"
+    },
+    "thumbtack": {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/moving-companies-prices",
+      "says": "Hot tub moving $350 to $450; piano $300 to $400; pool table $395 to $500.",
+      "page_date": "2025-01-17",
+      "checked": "2026-10-19"
+    }
+  }
+}
