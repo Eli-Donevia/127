@@ -27,11 +27,15 @@ test('every site gets a privacy notice, linked in the footer and under its forms
 
 test('no email, no going online; a store needs its shipping and returns policies', async () => {
   const noEmail = { business: 'Harbor Lane', what: 'Dog grooming', phone: '813-555-0100' };
-  assert.ok((await build(noEmail)).blockers.some((b) => /email/.test(b)));
+  const r0 = await build(noEmail);
+  assert.ok(r0.blockers.some((b) => /email/.test(b)));
+  assert.match(file(r0, 'README.txt'), /^NOT READY TO GO ONLINE YET\n1\. Add your email/m);
+  assert.match(file(r0, 'privacy.html'), /Email us at \[add your email\]/);
   assert.deepEqual((await build(noEmail, { mode: 'prospect' })).blockers, []);
   const shop = { business: 'Halden Goods', what: 'Insulated water bottles', email: 'hi@halden.example', buy: 'https://halden.myshopify.com/products/one' };
   const r1 = await build(shop);
   assert.equal(r1.blockers.length, 2);
+  assert.match(file(r1, 'policies.html'), /\[add your shipping policy\][\s\S]*\[add your refund and return policy\]/);
   const r2 = await build({ ...shop, shipping: 'Ships in 2 business days.', returns: '30-day returns on unused bottles.' });
   assert.deepEqual(r2.blockers, []);
   assert.match(file(r2, 'policies.html'), /30-day returns on unused bottles/);
