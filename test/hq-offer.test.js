@@ -5,7 +5,7 @@
 const path = require('path');
 const fs = require('fs');
 
-for (const k of Object.keys(process.env)) if (/^(HQ_|HARNESS_|CONNECTOR_|CONNECTORS$|BRAIN_DOCS$|TERMS_LIVE$|PRIVACY_LIVE$|ANTHROPIC_API_KEY$)/.test(k)) delete process.env[k];
+for (const k of Object.keys(process.env)) if (/^(HQ_|HARNESS_|CONNECTOR_|CONNECTORS$|BRAIN_DOCS$|STORE_V2$|SITE_MOTION$|TERMS_LIVE$|PRIVACY_LIVE$|ANTHROPIC_API_KEY$)/.test(k)) delete process.env[k];
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -17,6 +17,7 @@ const skills = require('../lib/harness/skills');
 const prompts = require('../lib/harness/prompts');
 const offer = require('../lib/hq-offer');
 const templates = require('../lib/templates');
+const store = require('../lib/store');
 const { PLANS } = require('../lib/plans');
 const { check } = require('../lib/copy-check');
 
@@ -25,7 +26,7 @@ harness.init();
 const VIEWS = path.join(__dirname, '..', 'views');
 const membersOn = () => Object.assign(process.env, { HQ_OFFER: 'on', HARNESS_V2: 'on', TERMS_LIVE: 'true', PRIVACY_LIVE: 'true', ANTHROPIC_API_KEY: 'sk-test' });
 const reset = () => {
-  for (const k of Object.keys(process.env)) if (/^(HQ_|HARNESS_|CONNECTOR_|CONNECTORS$|BRAIN_DOCS$|TERMS_LIVE$|PRIVACY_LIVE$|ANTHROPIC_API_KEY$)/.test(k)) delete process.env[k];
+  for (const k of Object.keys(process.env)) if (/^(HQ_|HARNESS_|CONNECTOR_|CONNECTORS$|BRAIN_DOCS$|STORE_V2$|SITE_MOTION$|TERMS_LIVE$|PRIVACY_LIVE$|ANTHROPIC_API_KEY$)/.test(k)) delete process.env[k];
   connectors.CLEARED.delete('notion');
 };
 const launch = { prelaunch: false, foundingOpen: false, foundingPrice: null, cap: 100 };
@@ -165,6 +166,34 @@ test('Skills replace repeats once they are on for members, and name only jobs th
   reset();
 });
 
+test('once the Store is on for every member, templates count from its ready items, each only while its own flag is on', () => {
+  reset();
+  membersOn();
+  assert.equal(offer.forPage().n.templates, templates.list.length, 'the v1 Library until the Store is on');
+  process.env.STORE_V2 = 'admins';
+  assert.equal(offer.forPage().n.templates, templates.list.length, 'a Store for admins only sells nothing');
+  process.env.STORE_V2 = 'on';
+  const ready = () => store.list().filter((i) => i.status === 'ready');
+  let p = offer.forPage();
+  assert.ok(ready().length > templates.list.length);
+  assert.equal(p.n.templates, ready().length);
+  assert.ok(!ready().some((i) => i.flag), 'website templates wait for SITE_MOTION');
+  assert.ok(p.count.includes(` ${ready().length.toLocaleString('en-US')} templates.`), p.count);
+  const row = p.stack.find((r) => r.id === 'templates');
+  assert.equal(row.name, 'The Store');
+  assert.match(row.does, new RegExp(`^${ready().length} templates so far, like Notion systems, sheets, docs, email templates and automation recipes\\. Make it mine fills ${ready().filter((i) => i.makeItMine).length} of them in`));
+  assert.equal(row.free, `${ready().filter((i) => i.tier === 'free').length} of them`);
+  assert.deepEqual(p.compare.find((r) => r[0] === 'Templates'), ['Templates', `${ready().filter((i) => i.tier === 'free').length}`, `All ${ready().length}`, `All ${ready().length}`]);
+  assert.ok(p.cards.builder.items.includes(`Every template, ${ready().length} so far`));
+  assert.ok(!ready().some((i) => i.tier !== 'free' && i.tier !== 'builder'), '"every template" on Builder stays true');
+  process.env.SITE_MOTION = 'on';
+  p = offer.forPage();
+  assert.equal(p.n.templates, ready().length);
+  assert.ok(ready().some((i) => i.kind === 'site'));
+  assert.match(p.stack.find((r) => r.id === 'templates').does, /like website templates, Notion systems, sheets, docs and email templates\./);
+  reset();
+});
+
 test('the prompt library shows and counts only while HQ_PROMPTS is on for members', () => {
   reset();
   membersOn();
@@ -209,7 +238,7 @@ test("Legal's keep-it line (L76) shows only with HQ_OFFER_KEEP and Brain docs on
 test('nothing in it blocks or is held by the copy check as paid-plan copy (Legal L62), and it names no price', () => {
   reset();
   membersOn();
-  Object.assign(process.env, { CONNECTORS: 'on', CONNECTOR_NOTION: 'on', HQ_LIVE: 'true', HQ_SECRET: 'x'.repeat(32), HQ_HARNESS: 'true', HQ_AGENT: 'on', BRAIN_DOCS: 'on', HQ_ACTIVITY: 'on', HQ_SKILLS: 'on', HQ_PROMPTS: 'on', HQ_OFFER_KEEP: 'on' });
+  Object.assign(process.env, { CONNECTORS: 'on', CONNECTOR_NOTION: 'on', HQ_LIVE: 'true', HQ_SECRET: 'x'.repeat(32), HQ_HARNESS: 'true', HQ_AGENT: 'on', BRAIN_DOCS: 'on', HQ_ACTIVITY: 'on', HQ_SKILLS: 'on', HQ_PROMPTS: 'on', HQ_OFFER_KEEP: 'on', STORE_V2: 'on', SITE_MOTION: 'on' });
   connectors.CLEARED.add('notion');
   for (const mcp of ['off', 'on']) {
     process.env.HQ_MCP_BRAIN = mcp;
