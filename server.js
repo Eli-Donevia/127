@@ -15,7 +15,6 @@ const bcrypt = require('bcryptjs');
 const db = require('./lib/db');
 const { PLANS, plan, canAccess } = require('./lib/plans');
 const roadmap = require('./lib/roadmap');
-const criticalCss = require('./lib/critical-css');
 const gamify = require('./lib/gamify');
 const ai = require('./lib/ai');
 const billing = require('./lib/billing');
@@ -357,7 +356,7 @@ function homeVideo() {
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
 // doors: "What are you building?" under the hero while the front doors are on (FRONT_DOORS, lib/doors.js).
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), criticalCss: criticalCss.homeCritical() }));
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
   const v = launch.view();
