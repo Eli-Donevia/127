@@ -11,8 +11,15 @@
    var urgent = t.move.kind === 'inbox' || t.move.kind === 'failed';
    var arrow = function (a, b) { return a > b ? 'up' : a < b ? 'down' : 'same'; };
    var lowCredits = userPlan.key === 'free' && t.usage.left < cost.write && typeof builderOffer !== 'undefined'; %>
-<div class="hq h2" data-today data-sig="<%= sig %>">
+<% var P = typeof ws !== 'undefined' && ws && ws.premium; %>
+<div class="hq h2<%= P ? ' hqp-today' : '' %>" data-today data-sig="<%= sig %>">
   <%- include('../../partials/hq2-nav') %>
+  <% if (P) { %>
+  <header class="hqp-head">
+    <span class="eyebrow" data-today-date>Today</span>
+    <h1><span class="d" data-split>Today<%= firstName ? ', ' + firstName : '' %>.</span><br><span class="h2-steel" data-split><%= q.items.length ? (h.done ? 'You did your ' + h.target + '. The rest is extra.' : h.left + ' to send. About ' + Math.max(1, q.minutes) + ' minute' + (q.minutes === 1 ? '' : 's') + '.') : 'Start with one move.' %></span></h1>
+  </header>
+  <% } %>
   <div class="h2-grid">
     <div class="h2-stack">
       <% if (typeof f25 !== 'undefined' && f25) { %>
@@ -89,11 +96,21 @@
 
       <section class="hq-card" id="score" aria-labelledby="score-h">
         <div class="h2-row"><span class="eyebrow" id="score-h">This week</span><span class="tiny" style="color:var(--slate)">Against last week</span></div>
+        <% if (P) { var RG = [['a', 52, 'Sent today', h.today, h.target, 'Your day: ' + h.target], ['b', 38, 'Replies this week', s.this.replies, Math.max(1, s.last.replies), 'Last week ' + s.last.replies], ['s', 24, 'Calls booked this week', s.this.calls, Math.max(1, s.last.calls), 'Last week ' + s.last.calls]]; %>
+        <div class="hqp-rings<%= h.done ? ' closed' : '' %>">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><% RG.forEach(function (r) { var c = 2 * Math.PI * r[1], f = Math.min(1, r[3] / r[4]); %><circle class="tr <%= r[0] %>" cx="60" cy="60" r="<%= r[1] %>" style="--c:<%= c.toFixed(1) %>"/><circle class="v <%= r[0] %>" cx="60" cy="60" r="<%= r[1] %>" style="--c:<%= c.toFixed(1) %>;--o:<%= (c * (1 - f)).toFixed(1) %>"/><% }) %></svg>
+          <div class="hqp-rk">
+            <% RG.forEach(function (r) { %><div class="l"><i class="<%= r[0] %>"></i><span><%= r[2] %></span><b><%= r[3] %></b><small><%= r[5] %></small></div><% }) %>
+            <div class="l"><i></i><span>Yeses this week</span><b><%= s.this.yeses %></b><small>Last week <%= s.last.yeses %></small></div>
+          </div>
+        </div>
+        <% } else { %>
         <div class="h2-score">
           <% [['touches', 'Messages sent'], ['replies', 'Replies'], ['calls', 'Calls booked'], ['yeses', 'Yeses']].forEach(function (k) { var a = s.this[k[0]], b2 = s.last[k[0]]; %>
           <div class="hq-tile"><div class="t-lab"><span><%= k[1] %></span></div><div class="t-v"><%= a %></div><div class="t-sub <%= arrow(a, b2) %>">Last week <%= b2 %></div></div>
           <% }) %>
         </div>
+        <% } %>
         <% if (s.this.answerHours !== null || s.last.answerHours !== null) { var hrs = function (x) { return x === null ? 'none yet' : x < 1 ? 'under an hour' : 'about ' + Math.round(x) + ' hour' + (Math.round(x) === 1 ? '' : 's'); }; %>
         <p class="h2-sub" style="font-size:14px">Your time to answer a reply: <b><%= hrs(s.this.answerHours) %></b> this week, <%= hrs(s.last.answerHours) %> last week.</p>
         <% } %>
@@ -110,8 +127,14 @@
       </section>
 
       <section aria-labelledby="start-h">
+        <% if (P) { var SN = ws.shelf || {}, SH = {}; ws.groups.forEach(function (g) { g.items.forEach(function (i) { SH[i.id] = i; }); }); %>
+        <div class="hqp-shelfhead"><div><span class="eyebrow" id="start-h">Build with · Picked for you</span><h2>Everything 127 can run for you.</h2></div>
+          <nav class="hqp-tabs" aria-label="Shelves"><% [['workflows', 'Workflows'], ['prompts', 'Prompts'], ['store', 'Store'], ['connections', 'Apps']].forEach(function (k) { if (!SH[k[0]]) return; %><a href="<%= SH[k[0]].href %>"><%= k[1] %> <span><%= SN[k[0]] || '' %></span></a><% }) %></nav>
+        </div>
+        <% } else { %>
         <div class="h2-row" style="margin-bottom:10px"><span class="eyebrow" id="start-h">Start one · Picked for you</span><a class="link tiny" href="/app/hq/start">See everything</a></div>
-        <div class="h2-cards"><% t.start.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: t.bottleneck.job }) %><% }) %></div>
+        <% } %>
+        <div class="h2-cards<%= P ? ' hqp-shelf' : '' %>"><% t.start.forEach(function (w) { %><%- include('../../partials/hq2-card', { w: w, fitJob: t.bottleneck.job }) %><% }) %></div>
       </section>
     </div>
 
@@ -136,6 +159,13 @@
         <% } %>
       </section>
 
+      <% var none = P && !t.receipts.lists && !t.receipts.drafts && !t.receipts.samples && !t.receipts.runs && !['found', 'contacted', 'replied', 'call', 'won', 'lost'].some(function (k) { return t.pipeline[k]; }); %>
+      <% if (none) { %>
+      <section class="hq-card hqp-empty" aria-labelledby="rec-h">
+        <span class="eyebrow" id="rec-h">127 did this for you</span>
+        <p class="h2-sub">Nothing yet. Your first list, the messages 127 writes and every finished job show up here, and each business lands in your <a class="link" href="/app/hq/pipeline">Pipeline</a>.</p>
+      </section>
+      <% } else { %>
       <section class="hq-card" aria-labelledby="rec-h">
         <span class="eyebrow" id="rec-h">127 did this for you · <%= new Date(t.receipts.month + '-15').toLocaleDateString('en-US', { month: 'long' }) %></span>
         <div class="h2-receipts">
@@ -152,6 +182,8 @@
           <% [['found', 'Found'], ['contacted', 'Contacted'], ['replied', 'Replied'], ['call', 'Calls'], ['won', 'Won'], ['lost', 'Lost']].forEach(function (st) { %><div><b><%= t.pipeline[st[0]] || 0 %></b><span><a class="link" href="/app/hq/pipeline?stage=<%= st[0] %>"><%= st[1] %></a></span></div><% }) %>
         </div>
       </section>
+
+      <% } %>
 
       <% if (t.files.length) { %>
       <section class="hq-card" aria-labelledby="files-h">

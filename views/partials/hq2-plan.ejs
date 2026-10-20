@@ -1,13 +1,13 @@
 <%# An Ask 127 plan (HQ_PLANNER, lib/harness/planner.js). Locals: a (the plan action), left (credits left, optional). %>
 <% var KIND = { workflow: 'Workflow', prompt: 'Prompt', script: 'AI script', template: 'Template', brief: 'Brief', helper: 'AI helper', skill: 'Skill' }; %>
-<form class="h2-actcard h2-plan" method="post" action="/app/hq/ask/act/<%= a.id %>" style="display:block">
+<form class="h2-actcard h2-plan" method="post" action="/app/hq/ask/act/<%= a.id %>" style="display:block"<%- a.status === 'proposed' ? ' data-fresh' : '' %>>
   <input type="hidden" name="plan" value="1">
   <span class="eyebrow">Plan</span>
   <b style="display:block;margin:4px 0 0"><%= a.title %></b>
   <div class="h2-chips" style="margin-top:8px"><% a.using.forEach(function (u) { %><span class="h2-tag<%= u.kind === 'app' ? ' win' : '' %>"><%= u.label %></span><% }) %></div>
   <ol class="h2-plan-steps" style="margin:10px 0 0;padding-left:20px">
     <% a.steps.forEach(function (s) { %>
-    <li style="margin:6px 0">
+    <li style="margin:6px 0;--i:<%= s.i %>" data-kind="<%= s.kind %>" data-status="<%= s.status || a.status %>">
       <% if (a.status === 'proposed') { %><label class="h2-opt" style="display:inline-flex"><input type="checkbox" name="step" value="<%= s.i %>" checked><span><b><%= s.does %></b> <small><%= KIND[s.kind] %>: <%= s.title %> · <%= s.credits ? 'about ' + s.credits + ' credit' + (s.credits === 1 ? '' : 's') : 'no credits' %> · about <%= s.minutes %> min</small></span></label>
       <% } else { %><b><%= s.does %></b> <span class="hq-small" style="margin:0"><%= KIND[s.kind] %>: <%= s.title %>.</span>
         <% if (s.status === 'done') { %><a class="link" href="<%= s.link %>"><%= s.kind === 'prompt' ? 'Answered below' : 'Started. Open' %></a>

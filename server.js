@@ -835,6 +835,14 @@ app.post('/logout', (req, res) => {
 });
 
 // ---------- member app ----------
+function hqPremiumHome(user) {
+  try {
+    const h2 = require('./lib/harness');
+    return require('./lib/harness/nav').on() && hq.liveFor(user) && h2.enabledFor(user) && h2.flags.on('HQ_PREMIUM', user);
+  } catch (e) {
+    return false;
+  }
+}
 app.get('/app', requireAuth, wrap(async (req, res, next) => {
   if (!req.query.session_id) return next();
   try {
@@ -849,6 +857,8 @@ app.get('/app', requireAuth, (req, res) => {
   // New Circle members land on their seat page (scorecard, profile, first call), not the dashboard.
   if (req.query.upgraded === 'circle' && user.tier === 'circle') return res.redirect(`/app/circle?upgraded=circle${req.query.demo ? '&demo=1' : ''}`);
   if (!user.roadmap) return res.redirect('/start');
+  // The HQ premium pass (HQ_PREMIUM): members land in HQ, where the workspace is; the roadmap stays at /app?roadmap=1.
+  if (!req.query.roadmap && !req.query.upgraded && hqPremiumHome(user)) return res.redirect('/app/hq');
   if (req.query.upgraded && req.query.upgraded === user.tier && !req.query.demo) res.locals.trackEvents.push({ name: 'Upgrade', props: { plan: user.tier, founding: !!user.foundingPrice } });
   // Members who saw the founding bar get one dismissible line for 24 hours after it closes.
   let closedNotice = false;

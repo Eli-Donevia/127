@@ -26,7 +26,7 @@
   <button class="btn ghost sm" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
 </div>
 <% } %>
-<div class="shell<%= hasWs ? ' hqws' : '' %>">
+<div class="shell<%= hasWs ? ' hqws' : '' %><%= hasWs && ws.premium ? ' hqp' : '' %>">
 <% if (hasWs) { %>
   <%- include('hq2-ws') %>
 <% } else { %>

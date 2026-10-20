@@ -1,0 +1,155 @@
+/* The HQ premium pass (HQ_PREMIUM, on top of HQ_WORKSPACE). Loaded after hq2.css and hq2-ws.css and scoped to
+   .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop #7C8CFF is light on
+   the subject only (the horizon, active states, line draw-ins, focus), one per view, never a fill or a glow behind
+   something; green is progress and wins; gold stays the Circle's. Backgrounds stay flat void. Motion lives in
+   public/js/hq-premium.js; everything here reads complete with the script off and with reduced motion. */
+
+.hqp {
+  --pop: #7c8cff;
+  --pop-soft: rgba(124, 140, 255, 0.12);
+  --pop-line: rgba(124, 140, 255, 0.45);
+  --sig: #86d6ad;
+  --out: cubic-bezier(.16, 1, .3, 1);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+.hqp :focus-visible { outline: 2px solid var(--pop); outline-offset: 2px; }
+
+/* the rail: "Build with" carries how much each shelf holds */
+.hqp .ws-rail { background: #08080a; }
+.hqp .ws-link.on::before { background: var(--pop); box-shadow: 0 0 12px var(--pop); }
+.hqp .ws-link.on .ws-i { color: var(--pop); }
+.hqp .ws-n { background: var(--pop); color: #0a0a0c; }
+.hqp .ws-holds { margin-left: auto; font: 11.5px/1 var(--mono); color: var(--slate); font-variant-numeric: tabular-nums; }
+.hqp .ws-link:hover .ws-holds { color: var(--ink-2); }
+.hqp .ws-bar i { background: var(--sig); }
+
+/* the horizon: one line of light that leans toward the pointer on a spring (hq-premium.js sets --hx, --hv) */
+.hqp-hz { position: relative; height: 1px; margin: 0 0 18px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.1) 12%, rgba(255,255,255,.1) 88%, transparent); }
+.hqp-hz i { position: absolute; top: -1px; left: var(--hx, 50%); height: 3px; width: calc(80px + var(--hv, 0) * 900px); max-width: 420px; transform: translateX(-50%); border-radius: 3px; background: radial-gradient(closest-side, var(--pop), transparent); }
+.hqp-hz i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px 2px var(--pop); }
+
+/* Talk to 127: a flat command bar, the orb becomes a small ring that still listens */
+.hqp .h2-talk { background: var(--surface); border-color: var(--line-2); border-radius: 18px; padding: 8px 8px 8px 12px; position: relative; overflow: hidden; }
+.hqp .h2-talk::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--pop), transparent); transform: translateX(-100%); animation: hqpSweep 5s var(--ease) 1.2s 3; }
+.hqp .h2-talk:focus-within { border-color: var(--pop-line); }
+.hqp .h2-talk input { border: 0; background: transparent; height: 52px; font-size: 17px; padding: 0 8px; }
+.hqp .h2-talk input:focus { box-shadow: none; }
+.hqp .orb { width: 40px; height: 40px; }
+.hqp .orb .dust, .hqp .orb .ring { display: none; }
+.hqp .orb .core { inset: 0; background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); animation: none; }
+.hqp .orb .core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--pop); box-shadow: 0 0 10px var(--pop); transition: transform .3s var(--out); }
+.hqp .orb[data-state="listening"] .core::after, .hqp .orb[data-state="speaking"] .core::after { transform: scale(1.8); }
+.hqp .orb[data-state="thinking"] .core::after { animation: hqpBob 1s ease-in-out infinite; }
+.hqp .orb-status { display: none; }
+@keyframes hqpSweep { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+@keyframes hqpBob { 50% { transform: scale(1.5); opacity: .6; } }
+
+.hqp-uses { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: -4px 4px 22px; font-size: 13px; color: var(--slate); }
+.hqp-uses a { color: var(--slate); text-decoration: none; }
+.hqp-uses a b { color: var(--ink-2); font-weight: 500; font-variant-numeric: tabular-nums; }
+.hqp-uses a:hover b, .hqp-uses a:hover { color: var(--ink); }
+
+/* Today: a headline, not a box */
+.hqp .h2-grid > *, .hqp .h2-stack > * { min-width: 0; }
+.hqp-head { margin: 4px 0 26px; }
+.hqp-head h1 { margin: 12px 0 0; font-family: var(--display); font-size: clamp(36px, 5vw, 64px); line-height: .98; letter-spacing: -0.05em; font-weight: 700; }
+.hqp-head .d { color: #6e6f7a; }
+.hqp .h2-move { border: 1px solid var(--line); background: var(--surface); }
+.hqp .h2-move::after { display: none; }
+.hqp .h2-move::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--pop); }
+.hqp .h2-day .h2-ring .fg { stroke: var(--sig); }
+
+/* the rings: today's sends, this week's replies and calls, each against its own mark */
+.hqp-rings { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 22px; align-items: center; margin-top: 14px; }
+.hqp-rings svg { width: 140px; height: 140px; transform: rotate(-90deg); overflow: visible; }
+.hqp-rings circle { fill: none; stroke-width: 11; stroke-linecap: round; stroke-dasharray: var(--c); }
+.hqp-rings .tr { opacity: .15; }
+.hqp-rings .v { stroke-dashoffset: var(--o); }
+.hqp-rings .a { stroke: var(--pop); }
+.hqp-rings .b { stroke: #e3e6f1; }
+.hqp-rings .s { stroke: var(--sig); }
+.hqp-rk { display: grid; gap: 9px; }
+.hqp-rk .l { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; column-gap: 10px; align-items: center; font-size: 14px; color: var(--ink-2); }
+.hqp-rk .l i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); }
+.hqp-rk .l i.a { background: var(--pop); }
+.hqp-rk .l i.b { background: #e3e6f1; }
+.hqp-rk .l i.s { background: var(--sig); }
+.hqp-rk .l b { font: 600 15px/1 var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.hqp-rk .l small { grid-column: 2 / 4; font-size: 12px; color: var(--slate); margin-top: -2px; }
+@media (max-width: 560px) { .hqp-rings { grid-template-columns: minmax(0, 1fr); justify-items: center; } .hqp-rk { width: 100%; } }
+
+/* the shelves: what 127 can run, as the thing it makes */
+.hqp-shelfhead { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin: 18px 0 14px; }
+.hqp-shelfhead h2 { margin: 8px 0 0; font-family: var(--display); font-size: clamp(24px, 2.6vw, 32px); line-height: 1.05; letter-spacing: -0.04em; font-weight: 700; }
+.hqp-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.hqp-tabs a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 999px; color: var(--ink-2); text-decoration: none; font-size: 14px; transition: border-color .2s, color .2s; }
+.hqp-tabs a span { font: 12px var(--mono); color: var(--slate); }
+.hqp-tabs a:hover { color: var(--ink); border-color: var(--pop-line); }
+.hqp .h2-card { transition: transform .35s var(--out), border-color .25s, background .25s; }
+.hqp .h2-card:hover { transform: translateY(-3px); border-color: var(--pop-line); }
+.hqp .h2-card.fit { border-color: var(--pop-line); }
+.hqp .h2-tag.dfy { color: var(--pop); border-color: var(--pop-line); background: var(--pop-soft); }
+.hqp-pv { display: grid; align-content: start; gap: 7px; height: 104px; margin: -2px -2px 12px; padding: 14px; border-radius: 11px; border: 1px solid var(--line); background: #0a0a0d; overflow: hidden; }
+.hqp-pv i { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,.12); transform-origin: left; }
+.hqp-pv i:nth-child(1) { height: 9px; width: 46%; background: rgba(255,255,255,.3); }
+.hqp-pv i:nth-child(2) { width: 88%; } .hqp-pv i:nth-child(3) { width: 72%; } .hqp-pv i:nth-child(4) { width: 80%; background: var(--pop-line); } .hqp-pv i:nth-child(5) { width: 64%; } .hqp-pv i:nth-child(6) { width: 52%; }
+/* lists (leads, sales): rows with a dot */
+.hqp-pv[data-job="leads"] i, .hqp-pv[data-job="sales"] i { margin-left: 15px; position: relative; }
+.hqp-pv[data-job="leads"] i:nth-child(n+2)::before, .hqp-pv[data-job="sales"] i:nth-child(n+2)::before { content: ''; position: absolute; left: -15px; top: -.5px; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); }
+.hqp-pv[data-job="leads"] i:nth-child(2)::before, .hqp-pv[data-job="leads"] i:nth-child(3)::before { background: var(--sig); }
+.hqp-pv[data-job="leads"] i:nth-child(1), .hqp-pv[data-job="sales"] i:nth-child(1) { margin-left: 0; }
+/* numbers (money, ads, plan): bars */
+.hqp-pv[data-job="money"], .hqp-pv[data-job="ads"], .hqp-pv[data-job="plan"] { display: flex; align-items: flex-end; gap: 7px; padding-bottom: 14px; }
+.hqp-pv[data-job="money"] i, .hqp-pv[data-job="ads"] i, .hqp-pv[data-job="plan"] i { flex: 1; width: auto; height: 40%; border-radius: 4px 4px 0 0; transform-origin: bottom; background: rgba(255,255,255,.12); }
+.hqp-pv[data-job="money"] i:nth-child(2), .hqp-pv[data-job="ads"] i:nth-child(2), .hqp-pv[data-job="plan"] i:nth-child(2) { height: 58%; }
+.hqp-pv[data-job="money"] i:nth-child(3), .hqp-pv[data-job="ads"] i:nth-child(3), .hqp-pv[data-job="plan"] i:nth-child(3) { height: 46%; }
+.hqp-pv[data-job="money"] i:nth-child(4), .hqp-pv[data-job="ads"] i:nth-child(4), .hqp-pv[data-job="plan"] i:nth-child(4) { height: 84%; background: linear-gradient(180deg, var(--pop), rgba(124,140,255,.15)); }
+.hqp-pv[data-job="money"] i:nth-child(5), .hqp-pv[data-job="ads"] i:nth-child(5), .hqp-pv[data-job="plan"] i:nth-child(5) { height: 62%; }
+.hqp-pv[data-job="money"] i:nth-child(6), .hqp-pv[data-job="ads"] i:nth-child(6), .hqp-pv[data-job="plan"] i:nth-child(6) { height: 70%; }
+/* a message (content): two bubbles */
+.hqp-pv[data-job="content"] i:nth-child(-n+3) { width: 60%; }
+.hqp-pv[data-job="content"] i:nth-child(n+4) { justify-self: end; width: 70%; background: var(--pop-line); }
+.hqp .h2-card:hover .hqp-pv i { animation: hqpType .8s var(--out) both; }
+.hqp .h2-card:hover .hqp-pv i:nth-child(2) { animation-delay: 60ms; } .hqp .h2-card:hover .hqp-pv i:nth-child(3) { animation-delay: 120ms; } .hqp .h2-card:hover .hqp-pv i:nth-child(4) { animation-delay: 180ms; } .hqp .h2-card:hover .hqp-pv i:nth-child(5) { animation-delay: 240ms; } .hqp .h2-card:hover .hqp-pv i:nth-child(6) { animation-delay: 300ms; }
+.hqp .h2-card:hover .hqp-pv[data-job="money"] i, .hqp .h2-card:hover .hqp-pv[data-job="ads"] i, .hqp .h2-card:hover .hqp-pv[data-job="plan"] i { animation-name: hqpGrow; }
+@keyframes hqpType { from { transform: scaleX(0); } }
+@keyframes hqpGrow { from { transform: scaleY(0); } }
+@media (min-width: 700px) {
+  .hqp .hqp-shelf { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(250px, 1fr); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
+  .hqp .hqp-shelf > * { scroll-snap-align: start; }
+}
+
+/* Ask 127's plan: each step slots in from the shelf it came from */
+.hqp .h2-plan { border-color: var(--line-2); }
+.hqp .h2-plan-steps { counter-reset: hqpStep; list-style: none; padding-left: 0 !important; }
+.hqp .h2-plan .h2-plan-steps li { display: block; position: relative; padding: 10px 0 10px 40px; border-top: 1px solid var(--line); counter-increment: hqpStep; }
+.hqp .h2-plan-steps li::before { content: '0' counter(hqpStep); position: absolute; left: 4px; top: 12px; font: 12.5px var(--mono); color: var(--slate); }
+.hqp .h2-plan-steps li::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--pop); transform: scaleY(1); transform-origin: top; }
+.hqp .h2-plan-steps li[data-status="done"]::before { content: 'done'; color: var(--sig); }
+.hqp .h2-plan-steps li[data-status="done"]::after { background: var(--sig); }
+.hqp .h2-plan-steps li[data-status="skipped"] { opacity: .5; }
+.hqp .h2-plan-steps li[data-status="skipped"]::after { display: none; }
+
+/* phone: the dock's centre button is the one Pop light */
+.hqp .ws-orb .ws-orb-core { background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); }
+.hqp .ws-orb .ws-orb-core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--pop); box-shadow: 0 0 10px var(--pop); }
+
+/* entrances, once per session (hq-premium.js adds .hqp-in to <html> on the first visit) */
+html.hqp-in .hqp .hqp-head h1 [data-w] { display: inline-block; animation: hqpUp .9s var(--out) both; animation-delay: calc(var(--i, 0) * 55ms + 120ms); }
+html.hqp-in .hqp .ws-link { animation: hqpRail .6s var(--out) both; animation-delay: calc(var(--i, 0) * 30ms); }
+html.hqp-in .hqp .hqp-hz { animation: hqpDraw 1.1s var(--out) both; }
+html.hqp-in .hqp .h2-stack > * { animation: hqpRise .8s var(--out) both; animation-delay: calc(var(--i, 0) * 70ms + 250ms); }
+html.hqp-in .hqp .hqp-rings .v { animation: hqpRing 1.6s var(--out) .5s both; }
+.hqp .h2-plan[data-fresh] .h2-plan-steps li { animation: hqpSlot .9s var(--out) both; animation-delay: calc(var(--i, 0) * 220ms + 100ms); }
+.hqp .h2-plan[data-fresh] .h2-plan-steps li::after { animation: hqpEdge .5s var(--out) both; animation-delay: calc(var(--i, 0) * 220ms + 300ms); }
+@keyframes hqpUp { from { opacity: 0; transform: translateY(.5em); } }
+@keyframes hqpRail { from { opacity: 0; transform: translateX(-10px); } }
+@keyframes hqpDraw { from { transform: scaleX(0); opacity: 0; } }
+@keyframes hqpRise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes hqpRing { from { stroke-dashoffset: var(--c); } }
+@keyframes hqpSlot { 0% { opacity: 0; transform: translateX(-24px); filter: blur(6px); } 60% { filter: blur(0); } }
+@keyframes hqpEdge { from { transform: scaleY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hqp *, .hqp *::before, .hqp *::after { animation: none !important; transition: none !important; }
+}

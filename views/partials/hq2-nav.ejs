@@ -18,6 +18,8 @@
   <span class="h2-credits" title="Credits left this month"><%= usage.left.toLocaleString('en-US') %> / <%= usage.allowance.toLocaleString('en-US') %> credits</span>
 </nav>
 <% } %>
+<% var P = typeof ws !== 'undefined' && ws && ws.premium; %>
+<% if (P) { %><div class="hqp-hz" aria-hidden="true" data-hz><i></i></div><% } %>
 <div class="h2-talk">
   <div>
     <button type="button" class="orb" id="orb" data-state="idle" aria-label="Talk to 127"><span class="dust"></span><span class="ring"></span><span class="core"></span></button>
@@ -29,3 +31,6 @@
   </form>
 </div>
 <div class="h2-say" id="say" role="status" aria-live="polite"></div>
+<% if (P && tab === 'today') { var n = ws.shelf || {}, has = {}; ws.groups.forEach(function (g) { g.items.forEach(function (i) { has[i.id] = 1; }); }); %>
+<p class="hqp-uses">127 plans from <% [['workflows', 'workflows', '/app/hq/start'], ['prompts', 'prompts', '/app/hq/prompts'], ['store', 'templates', '/app/hq/store'], ['connections', 'apps', '/app/hq/connect']].forEach(function (k) { if (!n[k[0]] || !has[k[0]]) return; %><a href="<%= k[2] %>"><b data-count="<%= n[k[0]] %>"><%= n[k[0]] %></b> <%= k[1] %></a><% }) %><span>and your Brain</span></p>
+<% } %>
