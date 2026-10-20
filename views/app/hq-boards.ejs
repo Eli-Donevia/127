@@ -1,8 +1,10 @@
 <%- include('../partials/app-head') %>
 <%# Custom dashboards (lib/harness/connectors/dashboards.js): tiles from HQ numbers, the Pipeline and
     connected accounts. Drag a tile to move it (public/js/hq-boards.js), or use its arrows. %>
-<div class="hq">
-  <a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a>
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<div class="hq<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
+  <% if (!inWs) { %><a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a><% } %>
   <div class="hq-head" style="margin-top:4px">
     <div>
       <span class="eyebrow">HQ · Dashboards</span>
@@ -98,4 +100,5 @@
 </div>
 <script src="/js/hq.js" defer></script>
 <script src="/js/hq-boards.js" defer></script>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
 <%- include('../partials/app-foot') %>

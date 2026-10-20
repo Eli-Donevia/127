@@ -2,8 +2,10 @@
 <%# HQ connections (lib/hq.js connections()). Read-only setups: a Shopify webhook to the 127 link, a
     restricted Stripe key, and the 127 link itself. Keys are never shown back. %>
 <% var example = (user.hq && user.hq.custom && user.hq.custom[0]) ? user.hq.custom[0].label : 'Email list'; %>
-<div class="hq">
-  <a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a>
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<div class="hq<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
+  <% if (!inWs) { %><a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a><% } %>
   <div class="hq-head" style="margin-top:4px">
     <div>
       <span class="eyebrow">HQ · Connections</span>
@@ -149,4 +151,5 @@
 </div>
 <script src="/js/hq.js" defer></script>
 <% if (typeof apps !== 'undefined' && apps) { %><script src="/js/hq-apps.js" defer></script><% } %>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
 <%- include('../partials/app-foot') %>

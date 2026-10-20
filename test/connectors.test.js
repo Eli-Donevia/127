@@ -785,3 +785,31 @@ test('Studio clients follow redirects only within the provider\'s hosts, and the
   await assert.rejects(() => gm.request('/v1beta/files/bad:download', { raw: true }), /somewhere it doesn't go/);
   assert.ok(!calls.some((x) => /evil\.test/.test(x.url)));
 });
+
+test('with HQ_WORKSPACE on, Dashboards and Connections sit in the workspace, and Dashboards is in the rail', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.DASHBOARDS = 'admins';
+  process.env.HQ_WORKSPACE = 'on';
+  process.env.HARNESS_V2 = 'on';
+  try {
+    const boss = await member('builder', { email: 'boss@127.test' });
+    await dashboards.create(boss, { template: 'creator' });
+    const boards = await (await s.go('/app/hq/boards', { as: boss })).text();
+    assert.match(boards, /class="ws-rail"/);
+    assert.match(boards, /<a href="\/app\/hq\/boards" class="[^"]*\bon\b/);
+    assert.match(boards, /class="hq h2"/);
+    assert.doesNotMatch(boards, /Back to HQ/);
+    assert.match(boards, /"t":"Dashboards","h":"\/app\/hq\/boards"/, 'in the jump-to box');
+    const connect = await (await s.go('/app/hq/connect', { as: boss })).text();
+    assert.match(connect, /class="ws-rail"/);
+    assert.match(connect, /<a href="\/app\/hq\/connect" class="[^"]*\bon\b/);
+    const app = await (await s.go('/app/hq/apps/notion', { as: boss })).text();
+    assert.match(app, /<a href="\/app\/hq\/connect" class="[^"]*\bon\b/);
+    // Off: the old layout.
+    delete process.env.HQ_WORKSPACE;
+    assert.doesNotMatch(await (await s.go('/app/hq/boards', { as: boss })).text(), /ws-rail/);
+  } finally {
+    delete process.env.HQ_WORKSPACE;
+    delete process.env.HARNESS_V2;
+  }
+});

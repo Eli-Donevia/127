@@ -17,7 +17,7 @@ test('HQ_WORKSPACE is off unless set to on', () => {
 test('only pages on main show; every item sits in one group', () => {
   const ws = nav.workspace(user);
   const ids = ws.groups.flatMap((g) => g.items.map((i) => i.id));
-  for (const off of ['studio', 'store', 'skills', 'activity', 'team', 'prompts', 'connections']) assert.ok(!ids.includes(off), off);
+  for (const off of ['studio', 'store', 'skills', 'activity', 'team', 'prompts', 'connections', 'boards']) assert.ok(!ids.includes(off), off);
   for (const on of ['today', 'ask', 'inbox', 'pipeline', 'workflows', 'runs', 'brain', 'library']) assert.ok(ids.includes(on), on);
   assert.equal(new Set(ids).size, ids.length);
   for (const g of ws.groups) assert.ok(g.items.length > 0);

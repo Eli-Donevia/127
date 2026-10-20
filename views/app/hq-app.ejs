@@ -1,7 +1,9 @@
 <%- include('../partials/app-head') %>
 <%# One connector (lib/harness/connectors detail()): what 127 reads and writes, how to connect, its log.
     Keys are never shown back. %>
-<div class="hq ap-page">
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<div class="hq ap-page<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
   <a class="hq-back" href="/app/hq/connect#apps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>All connections</a>
   <div class="ap-head">
     <span class="ap-mono" aria-hidden="true"><%= d.name.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) %></span>
@@ -59,4 +61,5 @@
   </section>
 </div>
 <script src="/js/hq.js" defer></script>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
 <%- include('../partials/app-foot') %>
