@@ -79,4 +79,4 @@ var pct = usage.allowance ? Math.max(0, Math.min(100, Math.round(100 * usage.lef
 </div>
 <script type="application/json" id="ws-items"><%- JSON.stringify(ws.groups.reduce(function (a, g) { return a.concat(g.items.map(function (i) { return { t: i.label, h: i.href, k: g.label }; })); }, [])).replace(/</g, '\\u003c') %></script>
 <script src="/js/hq2-ws.js" defer></script>
-<% if (ws.premium) { %><script src="/js/hq-premium.js" defer></script><% } %>
+<% if (ws.premium) { %><script src="/js/hq-premium.js" defer></script><script type="module" src="/js/hq-toast.js"></script><% } %>

@@ -1,0 +1,8 @@
+<%# One app in the premium Connections gallery (HQ_PREMIUM). Locals: a (a gallery() app), full (show what it reads). %>
+<% var tag = a.href ? 'a' : 'div'; %>
+<<%= tag %> class="ap-tile" data-status="<%= a.status %>" data-name="<%= a.name.toLowerCase() %>"<% if (a.href) { %> href="<%= a.href %>"<% } %> title="<%= [a.reads ? 'Reads: ' + a.reads : '', a.writes ? 'Writes: ' + a.writes : ''].filter(Boolean).join('. ') %>">
+  <span class="ap-mono<%= a.icon ? ' mark' : '' %>" aria-hidden="true"><% if (a.icon) { %><svg viewBox="0 0 24 24"><path d="<%= a.icon %>"/></svg><% } else { %><%= a.name.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) %><% } %></span>
+  <span class="ap-name"><%= a.name %></span>
+  <% if (a.account) { %><span class="ap-acct"><%= a.account %></span><% } else if (full && a.reads) { %><span class="ap-acct">Reads <%= a.reads.charAt(0).toLowerCase() + a.reads.slice(1) %></span><% } %>
+  <span class="ap-pill <%= a.status %>"><%= a.label %></span>
+</<%= tag %>>

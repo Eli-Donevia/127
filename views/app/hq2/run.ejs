@@ -43,7 +43,7 @@
       <% } %>
 
       <section class="hq-card" aria-labelledby="steps-h">
-        <span class="eyebrow" id="steps-h">Steps</span>
+        <span class="eyebrow" id="steps-h"><%= typeof ws !== 'undefined' && ws && ws.premium && !ended ? 'Watch it work' : 'Steps' %></span>
         <ul class="h2-steps" style="margin-top:6px">
           <% v.steps.forEach(function (s) { var p = s.progress; %>
           <li data-step="<%= s.id %>" data-step-status="<%= s.status %>">

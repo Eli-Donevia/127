@@ -14,7 +14,7 @@
     </div>
   </div>
   <% if (ageReview) { %><p class="hq-foot" style="margin-bottom:16px">Connections are paused while we take a look at your account.</p><% } %>
-  <% if (typeof apps !== 'undefined' && apps) { %><%- include('partials/hq-gallery', { apps: apps, boardsOn: typeof boardsOn !== 'undefined' && boardsOn }) %><div class="eyebrow" style="margin:8px 0 12px">Your HQ numbers</div><% } %>
+  <% if (typeof apps !== 'undefined' && apps) { %><%- include(inWs && ws.premium ? 'partials/hq-gallery-p' : 'partials/hq-gallery', { apps: apps, boardsOn: typeof boardsOn !== 'undefined' && boardsOn }) %><div class="eyebrow" style="margin:8px 0 12px">Your HQ numbers</div><% } %>
 
   <div class="hq-cards">
     <% if (harness) { %>

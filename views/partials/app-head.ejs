@@ -58,4 +58,4 @@
     <% if (ageReview) { %><div class="alert info age-pause" role="status"><%= agePauseMessage %></div><% } %>
     <% if (pauseInfo && pauseInfo.paused && path !== '/app/billing') { %><div class="alert info">Paused until <%= fmtDate(pauseInfo.resumesAt) %>. Your roadmap and price are saved. <a class="link" href="/app/billing#pause">Resume now</a></div><% } %>
     <% if (checkoutCancelled) { %><div class="alert info">No charge was made.<%= builderOffer.founding ? ' Your founding price is here until ' + builderOffer.closesDate + '.' : '' %></div><% } %>
-    <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.text %></div><% } %>
+    <% if (flash) { %><div class="alert <%= flash.type %>" data-flash="<%= flash.type %>"><%= flash.text %></div><% } %>

@@ -9,6 +9,17 @@
       <p class="hq-lede">Each one runs in the background and stops for your OK before anything goes out. <% if (mine) { %>Your business comes first, then your bottleneck right now: <b><%= bottleneck.title.toLowerCase() %></b>.<% } else { %>Your bottleneck right now is <b><%= bottleneck.title.toLowerCase() %></b>, so those come first.<% } %></p>
     </div>
   </div>
+  <% if (ws && ws.premium) { var inRail = ws.groups.reduce(function (a, g) { return a.concat(g.items.map(function (i) { return i.id; })); }, []); var KEYS = [['workflows', 'workflows', '/app/hq/start'], ['prompts', 'prompts', '/app/hq/prompts'], ['store', 'templates', '/app/hq/store'], ['connections', 'apps', '/app/hq/connect#apps']].filter(function (k) { return inRail.indexOf(k[0]) !== -1; }); %>
+  <figure class="hqp-map" data-map>
+    <canvas aria-hidden="true"></canvas>
+    <p class="hqp-map-tip" data-map-tip aria-hidden="true"></p>
+    <figcaption>
+      <span class="hqp-map-k">Map of everything</span>
+      <% KEYS.forEach(function (k) { %><a href="<%= k[2] %>" data-k="<%= k[0] %>"><i></i><b><%= ws.shelf[k[0]] || 0 %></b> <%= k[1] %></a><% }) %>
+      <span class="hqp-map-brain"><i></i>your Brain in the middle</span>
+    </figcaption>
+  </figure>
+  <% } %>
   <input class="h2-search" type="search" id="wf-search" placeholder="Search workflows" aria-label="Search workflows" value="<%= q %>">
   <% if (mine) { %>
   <section class="h2-group" id="mine" aria-labelledby="g-mine">

@@ -23,3 +23,17 @@ test('shelf counts are whole numbers for every shelf (workflows load with the se
   for (const k of ['workflows', 'prompts', 'store', 'connections']) assert.ok(Number.isInteger(n[k]) && n[k] >= 0, k);
   for (const k of ['prompts', 'store', 'connections']) assert.ok(n[k] > 0, k);
 });
+
+test('the Map of everything only holds shelves the rail shows', () => {
+  const only = nav.mapItems({ groups: [{ items: [{ id: 'prompts' }] }] });
+  assert.ok(only.length > 0);
+  assert.ok(only.every((i) => i[0] === 'prompts' && i[1] && i[2].startsWith('/app/hq/prompts/')));
+  assert.deepEqual(nav.mapItems({ groups: [] }), []);
+});
+
+test('the Connections gallery carries a brand mark where Simple Icons has one', () => {
+  const icons = require('../lib/harness/connectors/brand-icons');
+  const catalog = require('../lib/harness/connectors/catalog');
+  for (const id of Object.keys(icons)) assert.ok(catalog.byId[id], id);
+  assert.ok(icons.stripe && /^M/.test(icons.stripe));
+});
