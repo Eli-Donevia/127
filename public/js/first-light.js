@@ -185,7 +185,7 @@ export async function firstLight(stage, opts = {}) {
   // ---- run only while it's on screen ----
   let raf = 0, onScreen = true;
   const tick = (now) => { raf = 0; const r = stage.getBoundingClientRect(); S.scroll = clamp(-r.top / Math.max(1, r.height)); draw(now); go(); };
-  const go = () => { if (!raf && onScreen && !document.hidden) raf = requestAnimationFrame(tick); };
+  const go = () => { if (!raf && onScreen && !document.hidden && !opts.capture) raf = requestAnimationFrame(tick); };
   new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; go(); }).observe(stage);
   document.addEventListener('visibilitychange', go);
   new ResizeObserver(() => { size(); }).observe(stage);
