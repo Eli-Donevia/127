@@ -556,7 +556,7 @@ test('connections page: Stripe through the form, the 127 link, Shopify, and disc
     assert.match(html, /Numbers that/);
     assert.match(html, /Make my 127 link/);
     // Legal L48: the page's promises and the agreement lines.
-    assert.match(html, /127 only reads, and keeps weekly totals\. It never moves money, sends messages or changes anything in your tools\./);
+    assert.match(html, /127 reads only what each connection's card lists\. It changes something in your tools only when you tap OK in HQ, each time\./);
     assert.doesNotMatch(html, /reads totals only/);
     assert.equal(html.split('href="/terms#13a-connected-accounts-and-hq"').length - 1, 3, 'Connect Stripe and both Make my 127 link buttons (Shopify waits for the link)');
     assert.match(html, /never your customers' names, emails or addresses\. [^<]*<a href="\/privacy#7a-hq-and-connected-accounts">How we handle it<\/a>/);

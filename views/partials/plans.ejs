@@ -40,6 +40,9 @@
   // The Store, once it's on for every member (lib/hq-offer.js): Builder comes with all of it (Eli, Oct 20).
   var hqStore = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.store ? hqOffer.store : null;
   if (hqStore && !hqCards) CARDS.builder.items.splice(2, 0, 'Everything in the Store, ' + hqStore.count + ' templates so far');
+  // HQ credits on every card once HQ v2 is on for every member (Terms 4: plans show HQ credits). The workspace offer's cards already say them.
+  var hqCr = typeof hqCredits !== 'undefined' && hqCredits && !hqCards ? hqCredits : null;
+  if (hqCr) ['free', 'builder', 'circle'].forEach(function (k) { CARDS[k].items = CARDS[k].items.concat(Number(hqCr[k] || 0).toLocaleString('en-US') + ' HQ credits a month'); });
   if (circleCapacity !== 4) CARDS.circle.line = circleCapacity + ' founders. A weekly call with Eli. Two in-person gatherings a year.';
 %>
 <div class="plans plans-v5<%= anchor ? ' plans-anchor' : '' %>">

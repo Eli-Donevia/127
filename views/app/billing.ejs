@@ -62,6 +62,7 @@
     <% } %>
   </div></div>
   <div class="card"><div class="stat"><div class="l">Playbook messages</div><div class="v"><%= userPlan.aiRunsPerMonth %></div><div class="small muted">per month</div></div></div>
+  <% if (typeof myHqCredits !== 'undefined' && myHqCredits !== null) { %><div class="card"><div class="stat"><div class="l">HQ credits</div><div class="v"><%= Number(myHqCredits).toLocaleString('en-US') %></div><div class="small muted">per month, back on the 1st</div></div></div><% } %>
   <div class="card">
     <div class="stat"><div class="l">Manage</div></div>
     <% if (userPlan.key !== 'free' || (pauseInfo && pauseInfo.paused)) { %>
