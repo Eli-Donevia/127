@@ -64,4 +64,6 @@ test('the 127 forms on scroll only where the live hero can play it, and the post
   assert.match(css, /\.fl-scrub\.is-scrub>\.fl\{position:sticky;top:68px\}/);
   const src = fs.readFileSync(path.join(ROOT, 'public/js/liquid-127.js'), 'utf8');
   for (const k of ['const scrub = opts.scrub && S.reveal;', 'gl.drawArrays(gl.POINTS, 0, swarm.n);', 'setPop: (on) =>']) assert.ok(src.includes(k), k);
+  // the symbiote: tendrils out of the pond (bounded so the rest of the scene skips them), three stay under the feet
+  for (const k of ['#define NT 8', 'uniform vec3 uTLo, uTHi;', "gl.uniform4fv(U.uTA, S.ten.subarray(0, 32));", 'const anchor = i < 3;']) assert.ok(src.includes(k), k);
 });
