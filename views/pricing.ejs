@@ -8,6 +8,8 @@
   var showCallRow = Date.now() < Date.parse('2026-12-02T05:00:00Z');
   // The workspace offer (lib/hq-offer.js, offer.md section 1A) once HQ is on for members; until then, the roadmap.
   var hqo = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.show ? hqOffer : null;
+  // The Store once it's on for every member: Builder comes with all of it (Eli, Oct 20). hqo has its own row for it.
+  var hqStore = !hqo && typeof hqOffer !== 'undefined' && hqOffer && hqOffer.store ? hqOffer.store : null;
 %>
 <main>
   <section style="padding-bottom:48px">
@@ -49,7 +51,8 @@
           <tbody>
             <% if (hqo) hqo.compare.forEach(function (r) { %><tr><td><%= r[0] %></td><td><%= r[1] %></td><td><%= r[2] %></td><td><%= r[3] %></td></tr><% }) %>
             <tr><td>Founder assessment and 30-day roadmap</td><td>Weeks 1 and 2</td><td>Full</td><td>Full</td></tr>
-            <tr><td>Playbooks, worksheets and calculators</td><td>Starter 3, plus what weeks 1 and 2 use</td><td>All <%= resourceCount %></td><td>All <%= resourceCount %></td></tr>
+            <tr><td>Playbooks, worksheets and calculators</td><td>Starter 3, plus what weeks 1 and 2 use</td><td>All <%= resourceCount %></td><td>All <%= resourceCount %></td></tr><% if (hqStore) { %>
+            <tr><td>Templates in the Store</td><td><%= hqStore.free %></td><td>All <%= hqStore.count %></td><td>All <%= hqStore.count %></td></tr><% } %>
             <tr><td>Eli's Playbook (AI)</td><td>Chat + Idea Validator · <%= PLANS.free.aiRunsPerMonth %> messages/mo</td><td>Every tool · about <%= PLANS.builder.aiRunsPerMonth %>/mo</td><td>Every tool · about <%= PLANS.circle.aiRunsPerMonth %>/mo</td></tr>
             <tr><td>AI feedback on your worksheets</td><td>Within your <%= PLANS.free.aiRunsPerMonth %></td><td>✓</td><td>✓</td></tr>
             <tr><td>Progress, milestones and badges</td><td>✓</td><td>✓</td><td>✓</td></tr>

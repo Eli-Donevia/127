@@ -181,16 +181,53 @@ test('once the Store is on for every member, templates count from its ready item
   assert.ok(p.count.includes(` ${ready().length.toLocaleString('en-US')} templates.`), p.count);
   const row = p.stack.find((r) => r.id === 'templates');
   assert.equal(row.name, 'The Store');
-  assert.match(row.does, new RegExp(`^${ready().length} templates so far, like Notion systems, sheets, docs, email templates and automation recipes\\. Make it mine fills ${ready().filter((i) => i.makeItMine).length} of them in`));
+  assert.match(row.does, new RegExp(`^${ready().length} templates so far, like Notion systems, sheets, docs, email templates and automation recipes\\. Every one comes with Builder, so there's nothing to buy one at a time\\. Make it mine fills ${ready().filter((i) => i.makeItMine).length} of them in`));
   assert.equal(row.free, `${ready().filter((i) => i.tier === 'free').length} of them`);
-  assert.deepEqual(p.compare.find((r) => r[0] === 'Templates'), ['Templates', `${ready().filter((i) => i.tier === 'free').length}`, `All ${ready().length}`, `All ${ready().length}`]);
-  assert.ok(p.cards.builder.items.includes(`Every template, ${ready().length} so far`));
-  assert.ok(!ready().some((i) => i.tier !== 'free' && i.tier !== 'builder'), '"every template" on Builder stays true');
+  assert.deepEqual(p.compare.find((r) => r[0] === 'Templates in the Store'), ['Templates in the Store', `${ready().filter((i) => i.tier === 'free').length}`, `All ${ready().length}`, `All ${ready().length}`]);
+  assert.ok(p.cards.builder.items.includes(`Everything in the Store, ${ready().length} templates so far`));
+  assert.deepEqual(p.store, { count: ready().length, free: ready().filter((i) => i.tier === 'free').length });
+  // Eli's call (Oct 20): Builder comes with every Store item and none is sold on its own, which lib/store.js holds the
+  // items to. If that ever changes (premium packs, January at the earliest), this copy and offer.md 1A change first.
+  assert.ok(store.current().items.every((i) => i.tier === 'free' || i.tier === 'builder'), '"every one comes with Builder" stays true');
   process.env.SITE_MOTION = 'on';
   p = offer.forPage();
   assert.equal(p.n.templates, ready().length);
   assert.ok(ready().some((i) => i.kind === 'site'));
   assert.match(p.stack.find((r) => r.id === 'templates').does, /like website templates, Notion systems, sheets, docs and email templates\./);
+  assert.equal(p.store.count, ready().length);
+  reset();
+});
+
+test('with the offer off, the plan cards, compare table and FAQ say Builder comes with the whole Store, only while it is on for every member', () => {
+  reset();
+  const faq = (hqOffer) => ejs.render(fs.readFileSync(path.join(VIEWS, 'partials', 'faq.ejs'), 'utf8'), { launch, PLANS, circleCapacity: 4, hqOffer });
+  const ready = () => store.list().filter((i) => i.status === 'ready');
+  process.env.STORE_V2 = 'on';
+  assert.deepEqual(offer.forPage(), { show: false, live: false }, 'HQ v2 is off');
+  process.env.HARNESS_V2 = 'on';
+  assert.deepEqual(offer.forPage(), { show: false, live: false }, 'the Terms and Privacy pages are not live, so the Store is admins only');
+  Object.assign(process.env, { TERMS_LIVE: 'true', PRIVACY_LIVE: 'true' });
+  const p = offer.forPage();
+  assert.deepEqual(p, { show: false, live: false, store: { count: ready().length, free: ready().filter((i) => i.tier === 'free').length } });
+  const item = `Everything in the Store, ${ready().length} templates so far`;
+  const cards = renderCards(p);
+  assert.ok(cards.includes(item) && cards.includes('New resources every month'), 'the v1 Builder card, with the Store');
+  assert.ok(!renderCards({ show: false, live: false }).includes('Everything in the Store'));
+  const answer = `No. Builder comes with every template in the Store, ${ready().length} so far, and none of them is sold on its own. The free plan has ${p.store.free} of them.`;
+  assert.ok(faq(p).includes(answer));
+  assert.ok(!faq({ show: false, live: false }).includes('one at a time'));
+  for (const w of [item, answer]) {
+    assert.deepEqual(check(w, { file: 'store.txt', paid: true }), [], w);
+    assert.ok(!/\$\d/.test(w), w);
+  }
+  process.env.STORE_V2 = 'admins';
+  assert.deepEqual(offer.forPage(), { show: false, live: false }, 'a Store for admins only sells nothing');
+  // With the offer on, its own row and card say it, once.
+  Object.assign(process.env, { STORE_V2: 'on', HQ_OFFER: 'on', ANTHROPIC_API_KEY: 'sk-test' });
+  const on = offer.forPage();
+  assert.equal(on.show, true);
+  assert.equal(renderCards(on).split('Everything in the Store').length, 2);
+  assert.ok(faq(on).includes(answer));
   reset();
 });
 
