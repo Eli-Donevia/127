@@ -1,0 +1,31 @@
+{
+  "checked": "2026-10-20",
+  "about": "Our own shot list for small product shops: what each photo is for, how to take it with a phone, and how to name the file. Platform photo counts and sizes change, so the list says to check the counter when you upload.",
+  "base": [
+    { "id": "hero", "shot": "Front view on a plain light background", "why": "Your first photo: it shows in search, collections and shares.", "how": "Window light from the side, white card on the other side to soften shadows, phone at the product's height." },
+    { "id": "angle", "shot": "Three-quarter angle", "why": "Shows depth and shape the front view hides.", "how": "Same setup, turn the product 45 degrees." },
+    { "id": "detail", "shot": "Close-up of texture, finish or stitching", "why": "Answers the quality question a shopper can't ask in person.", "how": "Move the phone closer instead of zooming; tap to focus on the detail." },
+    { "id": "scale", "shot": "Next to a hand or a common object", "why": "Shows the real size, the most common reason for returns.", "how": "A hand, a mug or a phone beside it. Write the size in the description too." },
+    { "id": "use", "shot": "In use, in a real room or on a person", "why": "Helps a shopper picture it in their own life.", "how": "Natural light, a tidy real setting, one prop at most." },
+    { "id": "package", "shot": "What arrives: the packaging and anything inside", "why": "Shows it's ready to give as a gift.", "how": "Open box from above, everything laid out." },
+    { "id": "variants", "shot": "Every color or size side by side", "why": "Lets shoppers compare in one look.", "how": "Same light and distance for each, in one row." }
+  ],
+  "kinds": {
+    "candles": { "label": "Candles and home fragrance", "extra": [{ "id": "lit", "shot": "Lit, in a dim room", "why": "Shows the glow and the jar with light behind it.", "how": "Turn off overhead lights, use a lamp off to the side, hold the phone steady on a surface." }], "watch": "Never leave a lit candle alone during the shoot." },
+    "jewelry": { "label": "Jewelry", "extra": [{ "id": "worn", "shot": "Worn, close crop", "why": "Shows how it sits and its true size.", "how": "Crop at the neck, ear or wrist; soft window light." }], "watch": "Wipe fingerprints before every shot; metal shows everything." },
+    "apparel": { "label": "Clothing", "extra": [{ "id": "flat", "shot": "Flat lay with measurements", "why": "Shoppers check measurements before size labels.", "how": "Shoot straight down; lay a tape measure across the chest and length." }, { "id": "back", "shot": "Back view", "why": "Shoppers want to see the back before they buy.", "how": "Same setup as the front." }], "watch": "Steam out every wrinkle first." },
+    "ceramics": { "label": "Ceramics and home goods", "extra": [{ "id": "base", "shot": "The base or maker's mark", "why": "Shows it's handmade and how it's finished.", "how": "Turn it over on a soft cloth." }], "watch": "Show any glaze variation honestly; handmade pieces differ." },
+    "food": { "label": "Food and drink", "extra": [{ "id": "label", "shot": "The label, readable", "why": "Shoppers check ingredients and allergens.", "how": "Straight on, no glare: tilt the jar slightly away from the window." }], "watch": "Show the real product, not a styled look-alike." },
+    "bath": { "label": "Soap, skincare and bath", "extra": [{ "id": "label", "shot": "The ingredients label, readable", "why": "Shoppers check ingredients before they buy.", "how": "Straight on, no glare." }], "watch": "No before-and-after photos of skin, and no health claims in captions." },
+    "art": { "label": "Art and prints", "extra": [{ "id": "wall", "shot": "On a wall, with furniture for scale", "why": "Shows the size in a room.", "how": "Shoot straight on at the print's center height." }], "watch": "Color check: compare the photo on your phone with the real print before you upload." },
+    "other": { "label": "Something else", "extra": [], "watch": "Shoot every product the same way so your shop looks like one shop." }
+  },
+  "setup": [
+    "A window with daylight, no direct sun. Turn off the room lights so colors stay true.",
+    "A sheet of white poster board bent into a curve for the background.",
+    "A second white card on the side away from the window to fill shadows.",
+    "Clean the phone lens. Lock focus and exposure by holding your finger on the product.",
+    "Shoot at the same time of day for every product, so the whole shop matches."
+  ],
+  "sizes": "Upload large, square or 4:3 photos with the product filling most of the frame. Shopify and Etsy each show their current photo count and size advice when you upload: check the counter there."
+}

@@ -1,0 +1,37 @@
+{
+  "checked": "2026-10-20",
+  "note": "The one next step a report suggests, by number and direction. Plain advice the member acts on; nothing here changes an account. {product}, {post}, {ad}, {value} and {avg} are filled from the member's own numbers.",
+  "down": {
+    "sales": "Send one offer today to people who already bought: an email or a post about {product}, your best seller lately.",
+    "orders": "Post or send one clear offer today: {product}, with the price and one link to buy.",
+    "aov": "Add one small add-on next to {product} at checkout, or a bundle of two, and see if the average order comes back.",
+    "cash_in": "Look at the refunds and fees lines first: they moved more than sales did.",
+    "ad_results": "Open your ads and check {ad} first: it spent the most for the fewest results.",
+    "click_rate": "Test a new first line or first picture on {ad}. That is where most people decide to click.",
+    "ad_return": "Check {ad}: pause it in your ads account if it keeps spending without sales.",
+    "posts": "Post once today. Reuse {post}, your best post lately, with a new first line.",
+    "post_views": "Post a video today in the style of {post}, your best post lately.",
+    "engagement": "End your next post with one question people can answer in a word.",
+    "follows": "Make your next post the kind of thing people save: a how-to like {post}.",
+    "custom": "Look at what you did on your best day for {name} and do it again today."
+  },
+  "up_bad": {
+    "refunds": "Read the reasons on the newest refunds. If they name one product or one promise, fix that listing today.",
+    "refund_rate": "Read the reasons on the newest refunds. If they name one product or one promise, fix that listing today.",
+    "chargebacks": "Answer the chargeback in your payment account with the order details and any delivery proof, before its due date.",
+    "fees": "Check where the fees came from: many small card payments cost more than a few big ones.",
+    "cost_per_result": "Check {ad}: it cost the most per result. If it keeps costing more per result than a sale is worth to you for 3 more days, pause it in your ads account.",
+    "ad_spend": "Check that the extra ad spend brought results: {ad} spent the most.",
+    "custom": "{name} went up. Check it was planned."
+  },
+  "up": {
+    "sales": "Do yesterday again: {why} Post or send the same thing today while it is working.",
+    "orders": "Do yesterday again: {why} Post or send the same thing today while it is working.",
+    "aov": "Keep whatever lifted the average order: {why}",
+    "ad_results": "{ad} is doing best. If it stays under your target cost for 3 more days, raise its budget about 20% in your ads account.",
+    "post_views": "{post} is pulling views. Post a follow-up today that answers the top comment on it.",
+    "follows": "New follows came in. Pin {post} so new people see your best work first.",
+    "default": "Keep going. Nothing on your scorecard needs fixing today."
+  },
+  "dispute_sources": "Stripe: Measuring disputes, https://docs.stripe.com/disputes/measuring (checked 2026-10-20): 'The credit card processing industry standard recognizes dispute activity above 0.75% as excessive' and cardholders can dispute 'up to 120 days after a payment was made'."
+}

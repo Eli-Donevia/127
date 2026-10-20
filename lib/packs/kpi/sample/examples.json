@@ -1,0 +1,15 @@
+{
+  "kpi.daily_report": {},
+  "kpi.set_scorecard": {
+    "type": "Online store or product seller",
+    "targets": "Sales 800 a day\nOrders 90 a week\nRefund rate under 3%\nCost per result 15"
+  },
+  "kpi.weekly_report": {
+    "files": "@sample/shopify-orders.csv,@sample/meta-ads.csv,@sample/instagram-posts.csv,@sample/my-numbers.csv",
+    "targets": "Sales 5000 a week\nEmail signups 40 a week"
+  },
+  "kpi.numbers_skill": { "time": "7am" },
+  "kpi.goal_tracker": {},
+  "kpi.cash_by_week": { "weeks": 8 },
+  "kpi.refund_watch": { "weeks": 8 }
+}

@@ -1,0 +1,16 @@
+{
+  "checked": "2026-10-20",
+  "not_advice": "A starting draft, not legal advice. Check it against your platform's rules and your state's laws before you publish it.",
+  "sources": [
+    { "label": "FTC Mail, Internet or Telephone Order Merchandise Rule", "url": "https://www.ftc.gov/business-guidance/resources/business-guide-ftcs-mail-internet-or-telephone-order-merchandise-rule", "says": "Have a reasonable basis for the ship time you state, or ship within 30 days if you state none. If you can't ship on time, promptly offer the buyer the choice to agree to the delay or cancel for a prompt refund (within 7 working days for most payments), never store credit instead." },
+    { "label": "Shopify: store policies", "url": "https://help.shopify.com/en/manual/checkout-settings/refund-privacy-tos", "says": "Stores can add return and refund, privacy, terms of service, shipping, contact and other policies. Shopify's templates are for information only and aren't legal advice." },
+    { "label": "Etsy: seller policy", "url": "https://www.etsy.com/legal/sellers/", "says": "Etsy sets rules for shop policies, cases and returns; your shop's policies must fit inside them." }
+  ],
+  "checks": [
+    "Your ship time is one you can keep on a busy week, not your best week.",
+    "Shopify: paste it into Settings, Policies, and link it in your footer.",
+    "Etsy: set the same terms in Shop Manager, Settings, Policies; Etsy's own rules win where they differ.",
+    "Your state may have its own rules on returns and refunds. Look them up, or ask a lawyer, before you publish.",
+    "If you can't ship on time, tell the buyer right away and offer the choice to wait or cancel for a full refund."
+  ]
+}

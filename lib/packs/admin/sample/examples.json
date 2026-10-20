@@ -1,0 +1,10 @@
+{
+  "admin.meeting_notes": { "file": "@sample/meeting-notes.txt", "title": "Crew check-in", "people": "Dani, Marco, Priya" },
+  "admin.email_triage": { "file": "@sample/inbox.zip" },
+  "admin.weekly_plan": { "calendar": "@sample/calendar.ics", "tasks": "Send Henderson estimate, 45m, due tomorrow !\nCall nursery about the mulch delivery (15 min) by Wed\nOrder rakes and a backpack blower, 20m, due Fri\nInvoice Greenway for the fall cleanup, 30m, due Thu, client waiting\nWrite the fall newsletter, 2h, low\nClean out the trailer, 1.5h", "dayStart": "8:00", "dayEnd": "17:00", "workDays": "Mon to Fri" },
+  "admin.top_three": { "tasks": "Send Henderson estimate, 45m, due today !\nCall nursery about the mulch delivery (15 min) by Wed\nInvoice Greenway for the fall cleanup, 30m, client waiting\nWrite the fall newsletter, 2h, low\nClean out the trailer, 1.5h\nReply to Sam about spring planting, 15m", "hours": 3 },
+  "admin.invoice_chase": { "file": "@sample/invoices.csv", "payLink": "https://pay.example/rivera" },
+  "admin.sop": { "file": "@sample/voice-note.txt", "who": "helper" },
+  "admin.hiring_kit": { "role": "Crew member", "pay": "$18 to $22 an hour", "hours": "Mon to Fri, 7:30am to 4pm, about 35 hours a week", "duties": "Mowing, edging and blowing\nFall cleanups and bed installs\nLoading and unloading the trailer", "where": "Austin, TX, at customers' homes" },
+  "admin.contract_check": { "file": "@sample/contract.txt", "type": "auto" }
+}

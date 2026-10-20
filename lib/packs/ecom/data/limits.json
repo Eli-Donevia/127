@@ -1,0 +1,23 @@
+{
+  "checked": "2026-10-20",
+  "shopify": {
+    "title": 70,
+    "title_shown": 60,
+    "meta": 160,
+    "sources": [
+      { "url": "https://help.shopify.com/en/manual/promoting-marketing/seo/adding-keywords", "says": "You can enter up to 70 characters in the title. To avoid shortened titles in search engine results, consider keeping your title up to 60 characters. It's recommended that 160 characters is used in the description." }
+    ],
+    "note": "We keep the product title within the 70 characters of Shopify's search title, so one title works in both places."
+  },
+  "etsy": {
+    "title": 140,
+    "tags": 13,
+    "tag_chars": 20,
+    "sources": [
+      { "url": "https://help.etsy.com/hc/en-us/articles/115015628707-How-to-Create-a-Listing", "says": "Titles can be up to 140 characters (checked 2026-10-19 for the library's templates pack; Etsy's help pages refused our reader on 2026-10-20)." },
+      { "url": "https://help.etsy.com/hc/en-us/articles/360000336307-How-to-Use-Tags-to-Get-Found-in-Search", "says": "Up to 13 tags per listing; each tag up to 20 characters." }
+    ]
+  },
+  "alt": { "max": 125, "why": "Our own rule, not a platform limit: short enough to read in one breath with a screen reader. Neither Shopify nor Etsy states an alt text limit we could check." },
+  "bullets": { "count": 5, "max": 110, "why": "Our own rule: five short lines a shopper reads on a phone without scrolling sideways." }
+}

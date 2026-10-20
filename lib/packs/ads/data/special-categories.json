@@ -1,0 +1,71 @@
+{
+  "checked": "2026-10-20",
+  "note": "D2 (Legal, handoffs/turnkey.md row 12): the special category question on every campaign, with no answer picked, and the targeting each network bars for housing, jobs and credit ads in the US and Canada. Read on each network's own pages on the date above. The fair housing, lending and employment laws behind these limits apply to the member on any network.",
+  "question": "Is this ad about housing, jobs, credit or another financial product, or about politics, an election or a social issue?",
+  "answers": ["Housing", "Jobs", "Credit or financial", "Politics or social issue", "None of these"],
+  "politicsLine": "HQ doesn't make political or social issue ads. They need the platform's own checks, so make them there.",
+  "categories": {
+    "Housing": { "key": "housing", "meta": "HOUSING", "label": "housing", "examples": "Homes for sale or rent, home insurance, mortgages, and home repairs and improvements on Meta" },
+    "Jobs": { "key": "jobs", "meta": "EMPLOYMENT", "label": "jobs", "examples": "Job openings, hiring, internships and job fairs" },
+    "Credit or financial": { "key": "credit", "meta": "FINANCIAL_PRODUCTS_SERVICES", "label": "credit or another financial product", "examples": "Credit cards, loans, insurance, investing, banking and other financial products" },
+    "Politics or social issue": { "key": "politics", "meta": "ISSUES_ELECTIONS_POLITICS", "label": "politics, an election or a social issue", "stop": true },
+    "None of these": { "key": "none", "meta": "NONE", "label": "none of these" }
+  },
+  "metaApi": {
+    "field": "special_ad_categories",
+    "values": ["HOUSING", "EMPLOYMENT", "FINANCIAL_PRODUCTS_SERVICES", "ISSUES_ELECTIONS_POLITICS", "NONE"],
+    "countryField": "special_ad_category_country",
+    "countryNote": "Required whenever a category is set; for housing, jobs and financial products it defaults to the ad account's tax country. FINANCIAL_PRODUCTS_SERVICES replaced CREDIT in January 2025.",
+    "source": "https://developers.facebook.com/documentation/ads-commerce/marketing-api/audiences/special-ad-category"
+  },
+  "countries": ["US", "CA"],
+  "houseRadiusMiles": 15,
+  "houseRadiusNote": "Meta's minimum (15 miles or 25 km in the US and Canada) is used on every network as our own floor, since Google and TikTok publish none and Legal's rule removes small radii everywhere.",
+  "networks": {
+    "meta": {
+      "name": "Meta",
+      "ages": { "min": 18, "max": 65, "fixed": true, "why": "Meta fixes the age range at 18 to 65+ for these ads." },
+      "gender": "Meta doesn't allow choosing a gender for these ads: all genders.",
+      "zips": "Meta doesn't allow ZIP or postal code targeting for these ads.",
+      "exclusions": "Meta doesn't allow location exclusions for these ads.",
+      "minRadiusMiles": 15,
+      "radius": "Meta needs a radius of 15 miles (25 km) or more around a city, address or pin in the US and Canada.",
+      "lookalike": "Lookalike audiences aren't available for these ads.",
+      "interests": "Meta bars behavior and demographic targeting and allows interests only from its approved list, so we leave interests out. Pick any from Meta's list in Ads Manager.",
+      "source": "https://developers.facebook.com/documentation/ads-commerce/marketing-api/audiences/special-ad-category",
+      "helpSource": "https://www.facebook.com/business/help/298000447747885"
+    },
+    "google": {
+      "name": "Google",
+      "ages": { "min": 18, "max": 65, "fixed": true, "why": "Google doesn't allow targeting or excluding by age for these ads in the US and Canada." },
+      "gender": "Google doesn't allow targeting or excluding by gender for these ads.",
+      "zips": "Google doesn't allow targeting or excluding by ZIP code for these ads.",
+      "exclusions": "We leave location exclusions out (Legal's rule for these ads on every network).",
+      "minRadiusMiles": 15,
+      "radius": "Google publishes no minimum radius; we keep 15 miles or more on every network.",
+      "lookalike": "Lookalike (similar) audiences are left out.",
+      "interests": "Google also bars parental and marital status targeting for these ads. This campaign uses keywords only.",
+      "source": "https://support.google.com/adspolicy/answer/9997418",
+      "updateSource": "https://support.google.com/adspolicy/answer/9917652"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "ages": { "min": 18, "max": 65, "fixed": true, "why": "TikTok allows 18+ only for these ads, with no narrower range." },
+      "gender": "TikTok doesn't allow gender targeting for these ads.",
+      "zips": "TikTok doesn't allow ZIP code targeting for these ads.",
+      "exclusions": "We leave location exclusions out (Legal's rule for these ads on every network).",
+      "minRadiusMiles": 15,
+      "radius": "TikTok publishes no minimum radius; we keep 15 miles or more on every network.",
+      "lookalike": "TikTok doesn't allow lookalike audiences for these ads.",
+      "interests": "TikTok limits interest targeting and bars interest keywords, hashtag targeting, device price, automatic targeting and targeting expansion for these ads, so we leave interests out.",
+      "source": "https://ads.tiktok.com/help/article/list-of-targeting-restrictions-for-special-ad-categories",
+      "policySource": "https://ads.tiktok.com/help/article/housing-employment-credit-hec-ad-policy"
+    }
+  },
+  "tiktokChecklist": {
+    "special": "Turn on TikTok's Special Ad Category toggle",
+    "ai": "Turn on 'This ad contains AI-generated content'",
+    "aiDuplicate": "Turn it on again on any copy of the ad: TikTok resets it when you duplicate one.",
+    "source": "https://ads.tiktok.com/help/article/choosing-special-ad-category"
+  }
+}

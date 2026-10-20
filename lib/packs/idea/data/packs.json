@@ -1,0 +1,1284 @@
+{
+  "built_from": "packs/*/data/niche.json and idea/data/fit.json by idea/lib/build-packs.js",
+  "count": 30,
+  "packs": [
+    {
+      "id": "cleaning",
+      "title": "House cleaning",
+      "first": "cleaning.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homes and small offices",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          11,
+          12
+        ],
+        "off_season": {
+          "months": [
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "hands",
+          "organizing",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": false,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "coaching",
+      "title": "Coaching and consulting",
+      "first": "coaching.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "People who want one specific result",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "teaching",
+          "people",
+          "writing"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "creator",
+      "title": "Creator business",
+      "first": "creator.first_25",
+      "held": true,
+      "crowd": {
+        "buyer": "Your audience first, then brands and buyers of a small product",
+        "scores": {
+          "pain": 2,
+          "can_pay": 2,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Slow",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "camera",
+          "on_camera",
+          "writing",
+          "teaching"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "detailing",
+      "title": "Mobile car detailing",
+      "first": "detailing.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Car owners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "hands",
+          "outdoors",
+          "driving"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "ecom",
+      "title": "Online store",
+      "first": "ecom.first_25",
+      "held": true,
+      "crowd": {
+        "buyer": "Online shoppers, then local shops that stock makers",
+        "scores": {
+          "pain": 2,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          3,
+          4,
+          5,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": {
+          "months": [
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "making",
+          "design",
+          "camera",
+          "selling"
+        ],
+        "start": "medium",
+        "vehicle": false,
+        "online": true,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "events",
+      "title": "Event planning",
+      "first": "events.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Couples and party hosts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          4,
+          5,
+          9,
+          10
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "organizing",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "faceless",
+      "title": "Faceless channel",
+      "first": "faceless.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Viewers, then advertisers",
+        "scores": {
+          "pain": 1,
+          "can_pay": 2,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Slow",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "writing",
+          "camera",
+          "tech"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "frontdesk",
+      "title": "Front desk for contractors",
+      "first": "frontdesk.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Home service contractors (plumbing, HVAC, roofing, electrical)",
+        "scores": {
+          "pain": 5,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 5
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "people",
+          "tech",
+          "selling"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "handyman",
+      "title": "Handyman",
+      "first": "handyman.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "hands",
+          "driving",
+          "people"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "junk",
+      "title": "Junk removal",
+      "first": "junk.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "hands",
+          "driving",
+          "outdoors"
+        ],
+        "start": "high",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "lawn",
+      "title": "Lawn care and snow removal",
+      "first": "lawn.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "outdoors",
+          "hands",
+          "driving"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "lights",
+      "title": "Holiday lights",
+      "first": "lights.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homeowners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          10,
+          11,
+          12,
+          1
+        ],
+        "off_season": {
+          "months": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "outdoors",
+          "hands",
+          "driving"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "mealprep",
+      "title": "Meal prep and personal chef",
+      "first": "mealprep.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Busy families and couples who want home-cooked dinners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "cooking",
+          "organizing",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": false,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "moving",
+      "title": "Moving help",
+      "first": "moving.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "People moving locally who rent their own truck or container",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "off_season": {
+          "months": [
+            11,
+            12,
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "hands",
+          "driving",
+          "organizing"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "music",
+      "title": "Music lessons",
+      "first": "music.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Parents, and adults who want to learn",
+        "scores": {
+          "pain": 2,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          8,
+          9,
+          10
+        ],
+        "off_season": {
+          "months": [
+            6,
+            7
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "music",
+          "teaching",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": false,
+        "hours": 4
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "organizing",
+      "title": "Home organizing",
+      "first": "organizing.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Busy households and people moving or downsizing",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "organizing",
+          "people",
+          "design"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": false,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "petcare",
+      "title": "Dog walking and pet sitting",
+      "first": "petcare.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Pet owners",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          5,
+          6,
+          7,
+          8,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "animals",
+          "outdoors",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": false,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "photo",
+      "title": "Photography for local businesses",
+      "first": "photo.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Local businesses",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "camera",
+          "design",
+          "selling"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "pool",
+      "title": "Pool cleaning",
+      "first": "pool.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Pool owners",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "off_season": {
+          "months": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "outdoors",
+          "hands",
+          "driving"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "resale",
+      "title": "Resale and flipping",
+      "first": "resale.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Online buyers",
+        "scores": {
+          "pain": 2,
+          "can_pay": 3,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "selling",
+          "camera",
+          "organizing"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": true,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "reviews",
+      "title": "More Google reviews for local shops",
+      "first": "reviews.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Local shops and services",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "selling",
+          "people",
+          "tech"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": false,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "social",
+      "title": "Social media for restaurants and cafes",
+      "first": "social.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Restaurants and cafes",
+        "scores": {
+          "pain": 4,
+          "can_pay": 2,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "camera",
+          "writing",
+          "design",
+          "selling"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": false,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "techhelp",
+      "title": "Tech help at home",
+      "first": "techhelp.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Older adults and their families",
+        "scores": {
+          "pain": 4,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "tech",
+          "teaching",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": true,
+        "online": false,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "templates",
+      "title": "Digital templates",
+      "first": "templates.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Online buyers",
+        "scores": {
+          "pain": 2,
+          "can_pay": 2,
+          "findable": 2,
+          "growing": 3
+        },
+        "first_dollar": "Slow",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "design",
+          "writing",
+          "tech"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "trainer",
+      "title": "Personal training",
+      "first": "trainer.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Adults who want help starting to exercise",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "fitness",
+          "teaching",
+          "people"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": false,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "tutoring",
+      "title": "Tutoring",
+      "first": "tutoring.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Parents",
+        "scores": {
+          "pain": 4,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Fast",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            6,
+            7
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "teaching",
+          "people",
+          "writing"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 4
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "ugc",
+      "title": "UGC creator",
+      "first": "ugc.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Online brands",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 3,
+          "growing": 4
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "camera",
+          "on_camera",
+          "writing"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 5
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "washing",
+      "title": "Pressure washing and window cleaning",
+      "first": "washing.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homes and storefronts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "outdoors",
+          "hands",
+          "driving"
+        ],
+        "start": "high",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "webdesign",
+      "title": "Web design for local businesses",
+      "first": "webdesign.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Local businesses",
+        "scores": {
+          "pain": 3,
+          "can_pay": 3,
+          "findable": 5,
+          "growing": 3
+        },
+        "first_dollar": "Medium",
+        "best_months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "off_season": null
+      },
+      "fit": {
+        "skills": [
+          "design",
+          "tech",
+          "selling"
+        ],
+        "start": "low",
+        "vehicle": false,
+        "online": true,
+        "hours": 6
+      },
+      "fit_from": "fit.json"
+    },
+    {
+      "id": "windows",
+      "title": "Window cleaning",
+      "first": "windows.first_25",
+      "held": false,
+      "crowd": {
+        "buyer": "Homeowners and storefronts",
+        "scores": {
+          "pain": 3,
+          "can_pay": 4,
+          "findable": 4,
+          "growing": 3
+        },
+        "first_dollar": "Fast in season",
+        "best_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "off_season": {
+          "months": [
+            12,
+            1,
+            2
+          ]
+        }
+      },
+      "fit": {
+        "skills": [
+          "outdoors",
+          "hands",
+          "driving"
+        ],
+        "start": "medium",
+        "vehicle": true,
+        "online": false,
+        "hours": 8
+      },
+      "fit_from": "fit.json"
+    }
+  ]
+}

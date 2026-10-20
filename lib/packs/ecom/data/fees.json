@@ -1,0 +1,20 @@
+{
+  "checked": "2026-10-20",
+  "region": "United States, USD. Rates differ in other countries and change: open each source before you set prices.",
+  "channels": {
+    "shopify_basic": { "label": "Shopify Payments, Basic plan", "short": "Shopify Basic", "rate": 0.029, "fixed": 0.3, "on": "the order total", "source": "https://www.shopify.com/pricing", "says": "Basic: 2.9% + 30 cents online, standard US cards (read 2026-10-20)." },
+    "shopify_grow": { "label": "Shopify Payments, Grow plan", "short": "Shopify Grow", "rate": 0.027, "fixed": 0.3, "on": "the order total", "source": "https://www.shopify.com/pricing", "says": "Grow: 2.7% + 30 cents online, standard US cards (read 2026-10-20)." },
+    "shopify_advanced": { "label": "Shopify Payments, Advanced plan", "short": "Shopify Advanced", "rate": 0.025, "fixed": 0.3, "on": "the order total", "source": "https://www.shopify.com/pricing", "says": "Advanced: 2.5% + 30 cents online, standard US cards (read 2026-10-20)." },
+    "etsy": { "label": "Etsy with Etsy Payments", "short": "Etsy", "listing": 0.2, "transaction": 0.065, "rate": 0.03, "fixed": 0.25, "on": "the item price plus shipping", "source": "https://help.etsy.com/hc/en-us/articles/115014483627-What-are-the-Fees-and-Taxes-for-Selling-on-Etsy", "says": "$0.20 a listing (renews after a sale or 4 months), a 6.5% transaction fee on the price you show plus shipping, and US payment processing of 3% + $0.25 an order.", "more": [
+      { "url": "https://help.etsy.com/hc/en-us/articles/115015628847-What-are-Payment-Processing-Fees-for-Selling-on-Etsy", "says": "United States: 3% + 0.25 USD per order." }
+    ], "note": "Offsite Ads: when a sale comes from an Etsy ad shown off Etsy, Etsy also takes 15% (12% for shops over $10,000 in the past 365 days). Not counted here." },
+    "paypal_checkout": { "label": "PayPal Checkout", "short": "PayPal", "rate": 0.0349, "fixed": 0.49, "on": "the order total", "source": "https://www.paypal.com/us/business/paypal-business-fees", "says": "PayPal Checkout 3.49% + fixed fee; fixed fee for USD 0.49 (page updated October 1, 2026)." },
+    "paypal_cards": { "label": "Cards through PayPal", "short": "PayPal cards", "rate": 0.0299, "fixed": 0.49, "on": "the order total", "source": "https://www.paypal.com/us/business/paypal-business-fees", "says": "Standard credit and debit card payments 2.99% + fixed fee; 0.49 USD (page updated October 1, 2026)." }
+  },
+  "order": ["shopify_basic", "shopify_grow", "shopify_advanced", "etsy", "paypal_checkout", "paypal_cards"],
+  "notes": [
+    "Shopify charges more for premium and international cards, and adds its own third-party fee (Basic 2%, Grow 1%, Advanced 0.6%) when you take payments through another provider.",
+    "Sales tax you collect is left out of every fee here; some fees also apply to tax, so your real fee can be a few cents higher.",
+    "Your Shopify or Etsy plan's monthly price is a cost of the shop, not of one sale, so it isn't in the per-sale math."
+  ]
+}

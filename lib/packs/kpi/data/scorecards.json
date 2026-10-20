@@ -1,0 +1,32 @@
+{
+  "checked": "2026-10-20",
+  "note": "Starting picks for a scorecard by kind of business. These are suggestions the member changes, not facts: the member picks the numbers and sets every target. No industry benchmarks are used anywhere in the pack.",
+  "types": [
+    { "id": "store", "label": "Online store or product seller", "words": ["store", "shop", "shopify", "etsy", "product", "products", "ecommerce", "e-commerce", "candle", "candles", "apparel", "jewelry", "print"], "metrics": ["sales", "orders", "aov", "refund_rate", "cost_per_result", "ad_return", "post_views", "follows"] },
+    { "id": "local", "label": "Local service (cleaning, detailing, lawn, repairs)", "words": ["cleaning", "detailing", "lawn", "repair", "handyman", "moving", "junk", "pool", "window", "pressure", "washing", "pet", "local"], "metrics": ["sales", "orders", "aov", "refunds", "cost_per_result", "post_views", "follows"] },
+    { "id": "creator", "label": "Creator or UGC", "words": ["creator", "ugc", "influencer", "youtube", "tiktok", "content", "faceless", "music"], "metrics": ["post_views", "engagement", "follows", "posts", "sales", "orders"] },
+    { "id": "coach", "label": "Coaching, courses or digital products", "words": ["coach", "coaching", "course", "courses", "digital", "template", "templates", "tutoring", "trainer", "consulting", "community"], "metrics": ["sales", "orders", "refund_rate", "cost_per_result", "post_views", "follows"] },
+    { "id": "maker", "label": "Maker, food or market seller", "words": ["bakery", "food", "meal", "market", "maker", "handmade", "craft", "farm", "coffee"], "metrics": ["sales", "orders", "aov", "fees", "posts", "post_views"] },
+    { "id": "other", "label": "Something else", "words": [], "metrics": ["sales", "orders", "aov", "cash_in", "post_views", "follows"] }
+  ],
+  "why": {
+    "sales": "What customers paid. The first number to look at each morning.",
+    "orders": "How many sales. Tells you whether more people bought, or the same people bought more.",
+    "aov": "What one order is worth on average. Bundles and add-ons move it.",
+    "refunds": "Money given back. A jump points at one product or one promise.",
+    "refund_rate": "Refunds as a share of sales, so a busy week and a slow week compare fairly.",
+    "chargebacks": "Payments a customer's bank pulled back. Each one costs a fee and needs an answer fast.",
+    "fees": "What payment companies kept. Worth a look if you take a lot of small payments.",
+    "cash_in": "Sales after fees, refunds and chargebacks: what actually reached your account.",
+    "ad_spend": "What your ads cost. Read it beside what they brought in, never alone.",
+    "ad_results": "Purchases, sign-ups or messages your ads platform counted.",
+    "cost_per_result": "What one result from your ads cost. Compare it with what a customer is worth to you.",
+    "click_rate": "Share of people who saw an ad and clicked. A low one usually means the first line or picture.",
+    "ad_return": "Sales your ad platform counted for each $1 of ad spend. Platforms count generously, so watch the trend.",
+    "posts": "How often you posted. The one marketing number fully in your control.",
+    "post_views": "How many times people saw your posts.",
+    "engagement": "Likes, comments, shares and saves for every 100 views: whether the people who saw it cared.",
+    "follows": "New follows your posts brought in.",
+    "custom": "A number from your own sheet."
+  }
+}

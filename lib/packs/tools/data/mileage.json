@@ -1,0 +1,13 @@
+{
+  "checked": "2026-10-20",
+  "note": "IRS optional standard mileage rate for business driving in 2026. The IRS changed it mid-year: 72.5 cents a mile for driving before July 1, 2026, and 76 cents a mile from July 1, 2026 (Announcement 2026-11, modifying Notice 2026-10). The mileage log app uses the rate for each trip's date and tells the member to check irs.gov before filing. Re-check every December.",
+  "rates": [
+    { "from": "2026-01-01", "rate": 0.725 },
+    { "from": "2026-07-01", "rate": 0.76 }
+  ],
+  "sources": [
+    "https://www.irs.gov/newsroom/irs-sets-2026-business-standard-mileage-rate-at-725-cents-per-mile-up-25-cents",
+    "https://www.irs.gov/irb/2026-29_irb",
+    "https://www.journalofaccountancy.com/news/2026/jul/irs-raises-standard-mileage-rates-for-remainder-of-2026/"
+  ]
+}

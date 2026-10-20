@@ -1,0 +1,56 @@
+{
+  "id": "creator",
+  "name": "Creator business",
+  "what": "posts about my topic",
+  "crowd": {
+    "buyer": "Your audience first, then brands and buyers of a small product",
+    "scores": { "pain": 2, "can_pay": 2, "findable": 3, "growing": 4 },
+    "first_dollar": "Slow",
+    "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "off_season": null,
+    "note": "Months to a first dollar for most creators: sponsors and buyers come after people trust you. So the first job is 25 people who want what you post, and a list you own.",
+    "not_yet": [
+      "Don't buy a camera, lights or a course before your first 30 posts.",
+      "Don't pitch brands before you have numbers you can show them.",
+      "Don't build a paid community before 25 people ask you for more."
+    ]
+  },
+  "partners": [
+    {
+      "id": "libraries",
+      "label": "Public libraries",
+      "kit": "libraries",
+      "their_customers": "visitors",
+      "why": "come to free talks and workshops",
+      "ask": "host a free 30-minute talk on {topic}"
+    },
+    {
+      "id": "community",
+      "label": "Community and rec centers",
+      "kit": "community",
+      "their_customers": "members",
+      "why": "sign up for free classes and meetups",
+      "ask": "run a free 30-minute workshop on {topic}"
+    },
+    {
+      "id": "books",
+      "label": "Independent bookshops",
+      "osm": ["shop=books"],
+      "family": "retail",
+      "sample_noun": "Books",
+      "their_customers": "readers",
+      "why": "come to author talks and small events",
+      "ask": "host a short evening talk on {topic}"
+    },
+    {
+      "id": "coworking",
+      "label": "Coworking spaces",
+      "osm": ["amenity=coworking_space", "office=coworking"],
+      "family": "pro",
+      "sample_noun": "Cowork",
+      "their_customers": "members",
+      "why": "like a lunch-and-learn",
+      "ask": "run a free lunch-and-learn on {topic}"
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0a0a0a">
+<title>Quote calculator | Lopez Home Repair</title>
+<style>:root{--bg:#0a0a0a;--panel:#141414;--panel2:#0f0f0f;--line:#262626;--text:#fafafa;--muted:#a3a3a3;--accent:#fafafa;--on-accent:#0a0a0a;--ok:#4ade80;--warn:#fbbf24;--bad:#f87171}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 "Geist","Geist Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 72px}
+header{padding:8px 0 4px}
+.biz{color:var(--muted);font-size:13px;letter-spacing:.02em;margin:0}
+h1{font-size:28px;line-height:1.15;letter-spacing:-.02em;margin:6px 0 6px;font-weight:600}
+h2{font-size:18px;letter-spacing:-.01em;margin:24px 0 8px;font-weight:600}
+p{margin:6px 0}
+a{color:var(--accent)}
+.lede{color:var(--muted);margin:0 0 8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+label.check{display:flex;gap:10px;align-items:flex-start;color:var(--text);font-size:15px;margin:10px 0;cursor:pointer}
+label.check input{width:22px;height:22px;flex:0 0 22px;margin:1px 0 0;accent-color:var(--accent)}
+input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px;font:inherit;font-size:16px;min-height:44px}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:10px 18px;font:inherit;font-size:15px;font-weight:500;cursor:pointer;min-height:44px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{border-color:#404040}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.small{min-height:36px;padding:6px 14px;font-size:14px}
+.btn.icon{width:44px;padding:0;font-size:20px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr;gap:0 12px}
+@media(min-width:560px){.grid2{grid-template-columns:1fr 1fr}}
+.total{font-size:40px;font-weight:600;letter-spacing:-.03em;line-height:1.1;margin:4px 0}
+.line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.line:last-child{border-bottom:0}
+.line span:first-child{color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--muted)}
+.pill.low{border-color:var(--warn);color:var(--warn)}
+.pill.done{border-color:var(--ok);color:var(--ok)}
+.bar{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--accent);width:0}
+.out{white-space:pre-wrap;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 12px;color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s;font-size:14px}
+.toast.show{opacity:1}
+.js-only{display:none}
+.js .js-only{display:revert}
+.js .no-js{display:none}
+footer{color:var(--muted);font-size:12px;margin-top:36px;border-top:1px solid var(--line);padding-top:12px}
+@media print{body{background:#fff;color:#000}.no-print,.toast{display:none!important}.card{background:#fff;border-color:#ccc}.muted,label,th{color:#444}input,select,textarea{background:#fff;color:#000;border-color:#bbb}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style>
+</head>
+<body>
+<div class="wrap">
+<header><p class="biz">Lopez Home Repair</p><h1>Quote calculator</h1><p class="lede">Build a quote from Lopez Home Repair&#39;s price list.</p></header>
+
+<main id="app">
+<form id="quote" autocomplete="off">
+<div class="card"><div class="grid2"><label>Customer</label><input name="customer" id="f-customer" placeholder="Name"><label>Quote number</label><input name="number" id="f-number" inputmode="numeric"></div></div>
+<div class="card"><div class="qline line" data-name="Service call" data-unit="" data-price="75"><span><b style="color:var(--text)">Service call</b><br><span class="small">$75, first 30 minutes</span></span><span class="row" style="flex-wrap:nowrap"><button class="btn icon no-print" type="button" data-step="-1" aria-label="Less Service call">-</button><input name="q-service-call" type="number" inputmode="decimal" min="0" step="1" value="0" style="width:70px;text-align:center" aria-label="Quantity of Service call"><button class="btn icon no-print" type="button" data-step="1" aria-label="More Service call">+</button></span></div><div class="qline line" data-name="Labor" data-unit="hour" data-price="65"><span><b style="color:var(--text)">Labor</b><br><span class="small">$65 per hour</span></span><span class="row" style="flex-wrap:nowrap"><button class="btn icon no-print" type="button" data-step="-1" aria-label="Less Labor">-</button><input name="q-labor" type="number" inputmode="decimal" min="0" step="1" value="0" style="width:70px;text-align:center" aria-label="Quantity of Labor"><button class="btn icon no-print" type="button" data-step="1" aria-label="More Labor">+</button></span></div><div class="qline line" data-name="TV mount" data-unit="" data-price="120"><span><b style="color:var(--text)">TV mount</b><br><span class="small">$120</span></span><span class="row" style="flex-wrap:nowrap"><button class="btn icon no-print" type="button" data-step="-1" aria-label="Less TV mount">-</button><input name="q-tv-mount" type="number" inputmode="decimal" min="0" step="1" value="0" style="width:70px;text-align:center" aria-label="Quantity of TV mount"><button class="btn icon no-print" type="button" data-step="1" aria-label="More TV mount">+</button></span></div><div class="qline line" data-name="Faucet swap" data-unit="" data-price="140"><span><b style="color:var(--text)">Faucet swap</b><br><span class="small">$140</span></span><span class="row" style="flex-wrap:nowrap"><button class="btn icon no-print" type="button" data-step="-1" aria-label="Less Faucet swap">-</button><input name="q-faucet-swap" type="number" inputmode="decimal" min="0" step="1" value="0" style="width:70px;text-align:center" aria-label="Quantity of Faucet swap"><button class="btn icon no-print" type="button" data-step="1" aria-label="More Faucet swap">+</button></span></div><div class="qline line" data-name="Add-on: haul away" data-unit="" data-price="40"><span><b style="color:var(--text)">Add-on: haul away</b><br><span class="small">$40</span></span><span class="row" style="flex-wrap:nowrap"><button class="btn icon no-print" type="button" data-step="-1" aria-label="Less Add-on: haul away">-</button><input name="q-add-on-haul-away" type="number" inputmode="decimal" min="0" step="1" value="0" style="width:70px;text-align:center" aria-label="Quantity of Add-on: haul away"><button class="btn icon no-print" type="button" data-step="1" aria-label="More Add-on: haul away">+</button></span></div></div>
+<div class="card"><div class="grid2"><label>Discount (%)</label><input name="discount" id="f-discount" type="number" inputmode="decimal" min="0" max="100" step="1" value="0"><label>Sales tax (%)</label><input name="tax" id="f-tax" type="number" inputmode="decimal" min="0" step="0.01" value="8.7"><label>Deposit to book (%)</label><input name="deposit" id="f-deposit" type="number" inputmode="decimal" min="0" max="100" step="1" value="0"></div></div>
+</form>
+<section class="card" aria-live="polite"><div class="muted small">Quote total</div><div class="total" id="total">$0</div><div id="lines"></div>
+<div class="row no-print" style="margin-top:12px"><button class="btn primary" type="button" id="copy">Copy as a message</button><button class="btn" type="button" id="save">Save quote</button><button class="btn" type="button" id="print">Print</button></div><p class="muted small no-js">This is a preview. Open the file in your browser to use it.</p></section>
+<h2 class="no-print">Saved quotes</h2><section class="card no-print" id="saved"><p class="muted small">Quotes you save show here, on this device only.</p></section>
+</main>
+<footer>Works offline. Anything you save stays in this browser on this device only.</footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/json" id="app-config">{"validDays":30,"terms":"","key":"lopez-home-repair-quote","business":"Lopez Home Repair","currency":"USD","starter":"quote","version":1,"source":{"what":"handyman and small home repairs","city":"Tucson, AZ","phone":"(520) 555-0188","email":"hello@lopezhomerepair.example","booking":"","accent":"#fafafa","items":[{"name":"Service call","price":75,"unit":"","detail":"first 30 minutes"},{"name":"Labor","price":65,"unit":"hour","detail":""},{"name":"TV mount","price":120,"unit":"","detail":""},{"name":"Faucet swap","price":140,"unit":"","detail":""},{"name":"Add-on: haul away","price":40,"unit":"","detail":""}],"sampleItems":false,"opts":{"tax":8.7}}}</script>
+<script>
+// Runs inside every app this pack makes (inlined into the HTML, never required by Node).
+// Pure helpers first; anything that touches the page checks for a document, so tests can run this
+// file in a plain vm context. Plain ES5 so the apps work on older phones.
+/* eslint-disable no-var */
+var C = {};
+if (typeof document !== 'undefined') {
+  try {
+    C = JSON.parse(document.getElementById('app-config').textContent);
+  } catch (e) {
+    C = {};
+  }
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function num(v, d) {
+  var n = typeof v === 'number' ? v : parseFloat(String(v == null ? '' : v).replace(/[^0-9.\-]/g, ''));
+  return isFinite(n) ? n : d === undefined ? 0 : d;
+}
+
+function round2(n) {
+  return Math.round((n + Number.EPSILON) * 100) / 100;
+}
+
+function money(n) {
+  var v = round2(num(n));
+  try {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: C.currency || 'USD' }).format(v);
+  } catch (e) {
+    return '$' + v.toFixed(2);
+  }
+}
+
+function csvCell(v) {
+  var s = String(v == null ? '' : v);
+  return /[",\r\n]/.test(s) || /^\s|\s$/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+// rows: array of objects; cols: [{ key, label }]
+function toCsv(rows, cols) {
+  var lines = [cols.map(function (c) { return csvCell(c.label); }).join(',')];
+  rows.forEach(function (r) {
+    lines.push(cols.map(function (c) { return csvCell(r[c.key]); }).join(','));
+  });
+  return lines.join('\r\n') + '\r\n';
+}
+
+// Tab separated, for pasting straight into a spreadsheet.
+function toTsv(rows, cols) {
+  var clean = function (v) { return String(v == null ? '' : v).replace(/[\t\r\n]+/g, ' '); };
+  var lines = [cols.map(function (c) { return clean(c.label); }).join('\t')];
+  rows.forEach(function (r) {
+    lines.push(cols.map(function (c) { return clean(r[c.key]); }).join('\t'));
+  });
+  return lines.join('\n');
+}
+
+function todayStr() {
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+// Saved only in this browser, under this app's own key.
+var store = {
+  get: function (k, d) {
+    try {
+      var v = localStorage.getItem((C.key || 'app') + ':' + k);
+      return v == null ? d : JSON.parse(v);
+    } catch (e) {
+      return d;
+    }
+  },
+  set: function (k, v) {
+    try {
+      localStorage.setItem((C.key || 'app') + ':' + k, JSON.stringify(v));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+};
+
+function $(s, r) {
+  return (r || document).querySelector(s);
+}
+
+function $$(s, r) {
+  return Array.prototype.slice.call((r || document).querySelectorAll(s));
+}
+
+function toast(t) {
+  var el = $('#toast');
+  if (!el) return;
+  el.textContent = t;
+  el.className = 'toast show';
+  clearTimeout(toast.t);
+  toast.t = setTimeout(function () { el.className = 'toast'; }, 1800);
+}
+
+function copyText(t) {
+  function fallback() {
+    var a = document.createElement('textarea');
+    a.value = t;
+    a.setAttribute('readonly', '');
+    a.style.position = 'fixed';
+    a.style.opacity = '0';
+    document.body.appendChild(a);
+    a.select();
+    try {
+      document.execCommand('copy');
+      toast('Copied');
+    } catch (e) {
+      toast('Select the text and copy it');
+    }
+    document.body.removeChild(a);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(t).then(function () { toast('Copied'); }, fallback);
+  } else fallback();
+}
+
+function download(name, body, type) {
+  var b = new Blob(['﻿' + body], { type: type || 'text/csv;charset=utf-8' });
+  var u = URL.createObjectURL(b);
+  var a = document.createElement('a');
+  a.href = u;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () {
+    URL.revokeObjectURL(u);
+    document.body.removeChild(a);
+  }, 500);
+}
+
+if (typeof document !== 'undefined') {
+  document.documentElement.className += ' js';
+}
+
+// Quote builder from a price list: quantities, a discount, tax and a deposit. Quotes are saved in
+// this browser so the member can reopen one. Pure math first (tests run it), then the page.
+/* eslint-disable no-var */
+function quoteTotals(lines, discountPct, taxPct, depositPct) {
+  var rows = (lines || []).filter(function (l) { return num(l.qty) > 0; }).map(function (l) {
+    return { name: l.name, unit: l.unit || '', price: num(l.price), qty: num(l.qty), amount: round2(num(l.price) * num(l.qty)) };
+  });
+  var subtotal = round2(rows.reduce(function (s, r) { return s + r.amount; }, 0));
+  var discount = round2(subtotal * Math.min(100, Math.max(0, num(discountPct))) / 100);
+  var taxable = round2(subtotal - discount);
+  var tax = round2(taxable * num(taxPct) / 100);
+  var total = round2(taxable + tax);
+  var deposit = round2(total * Math.min(100, Math.max(0, num(depositPct))) / 100);
+  return { rows: rows, subtotal: subtotal, discount: discount, taxable: taxable, tax: tax, total: total, deposit: deposit };
+}
+
+function quoteText(t, meta, cfg) {
+  var out = [(cfg.business || 'Quote') + (meta.customer ? ' quote for ' + meta.customer : ' quote') + (meta.number ? ' (#' + meta.number + ')' : '')];
+  t.rows.forEach(function (r) { out.push(r.qty + ' x ' + r.name + (r.unit ? ' (per ' + r.unit + ')' : '') + ': ' + money(r.amount)); });
+  out.push('Subtotal: ' + money(t.subtotal));
+  if (t.discount) out.push('Discount: -' + money(t.discount));
+  if (t.tax) out.push('Tax: ' + money(t.tax));
+  out.push('Total: ' + money(t.total));
+  if (t.deposit) out.push('Deposit to book: ' + money(t.deposit));
+  if (cfg.validDays) out.push('Good for ' + cfg.validDays + ' days.');
+  if (cfg.terms) out.push(cfg.terms);
+  return out.join('\n');
+}
+
+if (typeof document !== 'undefined') {
+  (function () {
+    var f = $('#quote');
+    function lines() {
+      return $$('.qline').map(function (row) {
+        return { name: row.getAttribute('data-name'), unit: row.getAttribute('data-unit'), price: num(row.getAttribute('data-price')), qty: num($('input', row).value) };
+      });
+    }
+    function meta() {
+      return { customer: f.elements.customer.value.trim(), number: f.elements.number.value.trim() };
+    }
+    function render() {
+      var t = quoteTotals(lines(), f.elements.discount.value, f.elements.tax.value, f.elements.deposit.value);
+      $('#total').textContent = money(t.total);
+      var rows = [['Subtotal', t.subtotal], ['Discount', t.discount ? -t.discount : 0], ['Tax', t.tax], ['Deposit to book', t.deposit]];
+      $('#lines').innerHTML = rows.filter(function (x) { return x[1]; }).map(function (x) { return '<div class="line"><span>' + esc(x[0]) + '</span><span>' + money(x[1]) + '</span></div>'; }).join('') || '<p class="muted small">Add a quantity to any line.</p>';
+      return t;
+    }
+    $$('.qline').forEach(function (row) {
+      var input = $('input', row);
+      $$('button', row).forEach(function (b) {
+        b.addEventListener('click', function () {
+          input.value = Math.max(0, num(input.value) + num(b.getAttribute('data-step')));
+          render();
+        });
+      });
+    });
+    f.addEventListener('input', render);
+    f.addEventListener('submit', function (e) { e.preventDefault(); });
+    function savedList() { return store.get('quotes', []); }
+    function drawSaved() {
+      var list = savedList();
+      $('#saved').innerHTML = list.length ? list.map(function (q, i) {
+        return '<div class="line"><span>' + esc((q.number ? '#' + q.number + ' ' : '') + (q.customer || 'No name') + ', ' + q.date) + '</span><span class="row"><b>' + money(q.total) + '</b><button class="btn small" type="button" data-open="' + i + '">Open</button><button class="btn small" type="button" data-del="' + i + '">Delete</button></span></div>';
+      }).join('') : '<p class="muted small">Quotes you save show here, on this device only.</p>';
+    }
+    $('#saved').addEventListener('click', function (e) {
+      var o = e.target.getAttribute('data-open');
+      var d = e.target.getAttribute('data-del');
+      var list = savedList();
+      if (o != null) {
+        var q = list[num(o)];
+        f.elements.customer.value = q.customer || '';
+        f.elements.number.value = q.number || '';
+        f.elements.discount.value = q.discount || 0;
+        f.elements.tax.value = q.tax || 0;
+        f.elements.deposit.value = q.deposit || 0;
+        $$('.qline').forEach(function (row) { $('input', row).value = (q.qty || {})[row.getAttribute('data-name')] || 0; });
+        render();
+        window.scrollTo(0, 0);
+      }
+      if (d != null && window.confirm('Delete this saved quote?')) {
+        list.splice(num(d), 1);
+        store.set('quotes', list);
+        drawSaved();
+      }
+    });
+    $('#save').addEventListener('click', function () {
+      var t = render();
+      if (!t.rows.length) return toast('Add a quantity first');
+      var qty = {};
+      lines().forEach(function (l) { if (l.qty) qty[l.name] = l.qty; });
+      var m = meta();
+      var list = savedList();
+      list.unshift({ customer: m.customer, number: m.number, date: todayStr(), total: t.total, qty: qty, discount: f.elements.discount.value, tax: f.elements.tax.value, deposit: f.elements.deposit.value });
+      store.set('quotes', list.slice(0, 200));
+      drawSaved();
+      toast('Saved on this device');
+    });
+    $('#copy').addEventListener('click', function () { copyText(quoteText(render(), meta(), C)); });
+    $('#print').addEventListener('click', function () { window.print(); });
+    if (!f.elements.number.value) f.elements.number.value = String(savedList().length + 1001);
+    drawSaved();
+    render();
+  })();
+}
+
+</script>
+</body>
+</html>

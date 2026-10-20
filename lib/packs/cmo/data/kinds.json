@@ -1,0 +1,12 @@
+{
+  "checked": "2026-10-20",
+  "note": "Kinds of post, told apart by words in the caption (first match wins). A rough sort to see what mix the member posts and how each kind does for them; never a claim about what works for everyone.",
+  "kinds": [
+    { "id": "proof", "label": "Customer and proof", "words": ["customer", "review", "thank you", "you sent", "tagged", "testimonial", "before and after", "client", "happy"], "idea": "A customer photo or a kind note you got (with their OK), and what they bought." },
+    { "id": "event", "label": "Event and local", "words": ["market", "booth", "pop-up", "popup", "event", "class", "workshop", "this saturday", "this sunday", "come see", "see you"], "idea": "Where people can find you this week, with the day, time and place." },
+    { "id": "teach", "label": "How-to and tips", "words": ["how to", "why ", "mistake", "tip", "guide", "what is", "actually", "in 30 seconds", "did you know", "the fix", "ways to", "before every"], "idea": "One useful thing your customers ask about, shown in under 30 seconds." },
+    { "id": "behind", "label": "Behind the scenes", "words": ["behind the scenes", "how we", "studio", "day in", "process", "making", "pour", "packing", "start to finish", "our team"], "idea": "How you make or do it, start to finish, with no cuts." },
+    { "id": "offer", "label": "Product and offer", "words": ["shop", "new", "is here", "is back", "back in stock", "sale", "% off", "gift", "link in bio", "order", "drop", "launch", "picks", "bundle", "book now", "booking"], "idea": "One product or service, what it is, who it is for, and where to get it." }
+  ],
+  "formats": ["video", "photo", "carousel"]
+}

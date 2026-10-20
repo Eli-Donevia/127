@@ -1,0 +1,345 @@
+{
+ "checked": "2026-10-20",
+ "note": "What to look for in a small business contract, by kind. A plain checklist under Legal row 9 (C3): it names the topics and says where a lawyer should look; it never writes, changes or recommends legal terms. Patterns are case-insensitive regular expressions run on the contract text.",
+ "sources": [
+  "https://www.americanbar.org/groups/lawyer_referral/resources/lawyer-referral-directory/",
+  "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee"
+ ],
+ "common": {
+  "parties": {
+   "label": "Who it is between",
+   "why": "Both legal names: yours (or your LLC's) and theirs, as they appear on official records.",
+   "look": "\\b(between|by and between|parties|party)\\b",
+   "legal": false
+  },
+  "scope": {
+   "label": "What is being done or delivered",
+   "why": "A clear list of the work or what is delivered, so both sides know what is included.",
+   "look": "\\b(scope|services|deliverables?|statement of work|description of (the )?(work|services)|work to be performed)\\b",
+   "legal": false
+  },
+  "price": {
+   "label": "Price",
+   "why": "The amount, or the rate and how it adds up.",
+   "look": "\\$\\s?\\d|\\b(fees?|price|compensation|rate|cost|amount)\\b",
+   "legal": false
+  },
+  "payment": {
+   "label": "When and how payment happens",
+   "why": "When payment is due, any deposit, and how to pay.",
+   "look": "\\b(payment terms|net \\d+|due (upon|on|within)|payable|invoice[sd]?|deposit|installments?)\\b",
+   "legal": false
+  },
+  "dates": {
+   "label": "Start, end and key dates",
+   "why": "When it starts, when it ends, and any deadlines.",
+   "look": "\\b(effective (date|on|as of)|initial term|the term (is|of)|start date|commence\\w*|end date|completion date|expir\\w*|term of|deadline|schedule)\\b",
+   "legal": false
+  },
+  "ending": {
+   "label": "How either side can end it",
+   "why": "How and when either side can end the agreement, and what happens then.",
+   "look": "\\bterminat\\w*|\\bcancel\\w*",
+   "legal": true
+  },
+  "changes": {
+   "label": "How changes are handled",
+   "why": "How changes to the work or the terms get agreed.",
+   "look": "\\b(change orders?|amendments?|modif(y|ied|ication)|in writing|written consent)\\b",
+   "legal": true
+  },
+  "liability": {
+   "label": "Limits on what either side could owe",
+   "why": "Whether there is a limit on what either side could owe if something goes wrong.",
+   "look": "limitation of liability|liabilit(y|ies)\\s+(is|are|shall be|will be)\\s+limited|in no event shall|shall not exceed|will not exceed|maximum liability",
+   "legal": true
+  },
+  "disputes": {
+   "label": "What happens in a disagreement",
+   "why": "Which state's law applies and how disagreements are handled.",
+   "look": "\\b(disputes?|governing law|jurisdiction|venue|mediation|arbitration)\\b",
+   "legal": true
+  },
+  "signatures": {
+   "label": "Signature lines with names, titles and dates",
+   "why": "Signature lines with names, titles and dates for each side.",
+   "look": "\\b(signature|signed|in witness whereof|by:\\s|name:\\s|title:\\s)",
+   "legal": false
+  }
+ },
+ "types": {
+  "service": {
+   "title": "Work you do for a client",
+   "examples": "A client agreement, service contract, statement of work or estimate they sign",
+   "items": [
+    "parties",
+    "scope",
+    "price",
+    "payment",
+    "dates",
+    "changes",
+    "ending",
+    "liability",
+    "disputes",
+    "signatures",
+    {
+     "id": "cancel",
+     "label": "Cancellations and rescheduling",
+     "why": "How cancelling or rescheduling a visit works, and any charge for it.",
+     "look": "\\b(cancel\\w*|reschedul\\w*|no[- ]show|refunds?)\\b",
+     "legal": false
+    },
+    {
+     "id": "workmanship",
+     "label": "What you stand behind after the job",
+     "why": "Whether there is any promise about the work after it is done, and for how long.",
+     "look": "\\b(warrant\\w*|workmanship|guarant\\w*|defects?)\\b",
+     "legal": true
+    },
+    {
+     "id": "insurance",
+     "label": "Insurance",
+     "why": "Whether any insurance is required, of what kind and how much.",
+     "look": "\\binsur\\w*",
+     "legal": false
+    },
+    {
+     "id": "ownership",
+     "label": "Who owns what you make",
+     "why": "Who owns what gets made, or who may use it.",
+     "look": "\\b(intellectual property|ownership|work product|owns?|license|copyright)\\b",
+     "legal": true
+    },
+    {
+     "id": "access",
+     "label": "Access, materials and permits",
+     "why": "Who provides materials, site access and permits, and who pays for them.",
+     "look": "\\b(materials?|access|permits?|supplies|equipment)\\b",
+     "legal": false
+    }
+   ]
+  },
+  "contractor": {
+   "title": "Someone you hire as a contractor (1099)",
+   "examples": "A subcontractor or freelancer agreement",
+   "items": [
+    "parties",
+    "scope",
+    "price",
+    "payment",
+    "dates",
+    "changes",
+    "ending",
+    "liability",
+    "disputes",
+    "signatures",
+    {
+     "id": "independent",
+     "label": "They are an independent contractor",
+     "why": "Whether it calls the worker an independent contractor. The label alone does not decide worker status: ask a pro.",
+     "look": "\\bindependent contractor\\b",
+     "legal": true
+    },
+    {
+     "id": "insurance",
+     "label": "Their insurance",
+     "why": "Whether any insurance is required, of what kind and how much.",
+     "look": "\\binsur\\w*",
+     "legal": false
+    },
+    {
+     "id": "ownership",
+     "label": "You own the work you pay for",
+     "why": "Who owns what gets made, or who may use it.",
+     "look": "\\b(intellectual property|ownership|work product|work made for hire|assign\\w*|owns?)\\b",
+     "legal": true
+    },
+    {
+     "id": "confidential",
+     "label": "Keeping your clients and info private",
+     "why": "Whether either side must keep information private.",
+     "look": "\\bconfidential\\w*",
+     "legal": true
+    }
+   ]
+  },
+  "vendor": {
+   "title": "Something you buy or subscribe to",
+   "examples": "Software, equipment, a supplier, marketing or a service you pay for",
+   "items": [
+    "parties",
+    "scope",
+    "price",
+    "payment",
+    "dates",
+    "ending",
+    "liability",
+    "disputes",
+    {
+     "id": "renewal",
+     "label": "Renewal and price increases",
+     "why": "Whether it renews, how to cancel, and whether the price can change.",
+     "look": "\\b(renew\\w*|price (increase|change)s?|auto-?renew\\w*)\\b",
+     "legal": false
+    },
+    {
+     "id": "data",
+     "label": "Your data",
+     "why": "What happens to your data, and whether you can export it.",
+     "look": "\\b(your data|customer data|export|data (retention|deletion)|privacy)\\b",
+     "legal": false
+    },
+    {
+     "id": "service_level",
+     "label": "What happens if it doesn't work",
+     "why": "What they promise about uptime or delivery, and what happens if they miss it.",
+     "look": "\\b(service level|uptime|sla|refund|credit|warrant\\w*|delivery date)\\b",
+     "legal": true
+    }
+   ]
+  },
+  "nda": {
+   "title": "A confidentiality agreement (NDA)",
+   "examples": "An NDA from a client, partner or contractor",
+   "items": [
+    "parties",
+    "dates",
+    "disputes",
+    "signatures",
+    {
+     "id": "definition",
+     "label": "What counts as confidential",
+     "why": "What counts as confidential information.",
+     "look": "\\bconfidential information\\b|\\bdefinition\\b",
+     "legal": true
+    },
+    {
+     "id": "exclusions",
+     "label": "What does not count",
+     "why": "What is left out of confidential information.",
+     "look": "\\b(public(ly)? (available|known)|already (known|in (your|its) possession)|independently developed|exclusions?)\\b",
+     "legal": true
+    },
+    {
+     "id": "length",
+     "label": "How long it lasts",
+     "why": "How long the duty to keep things private lasts.",
+     "look": "\\b(\\d+|one|two|three|five) \\(?\\d*\\)?\\s*years?\\b|\\bperiod of\\b|\\bsurviv\\w*",
+     "legal": true
+    },
+    {
+     "id": "return",
+     "label": "Returning or deleting info",
+     "why": "What happens to the information at the end.",
+     "look": "\\b(return|destroy|delete)\\w*",
+     "legal": true
+    }
+   ]
+  },
+  "other": {
+   "title": "Something else",
+   "examples": "Any other agreement",
+   "items": [
+    "parties",
+    "scope",
+    "price",
+    "payment",
+    "dates",
+    "changes",
+    "ending",
+    "liability",
+    "disputes",
+    "signatures"
+   ]
+  }
+ },
+ "risks": [
+  {
+   "id": "auto_renew",
+   "label": "Renews on its own",
+   "why": "It renews unless someone cancels in time. Note the cancel-by date.",
+   "look": "automatic(ally)? renew|auto-?renew|renew(s|ed)? automatically|successive (renewal )?terms?"
+  },
+  {
+   "id": "indemnify",
+   "label": "Covering the other side's losses (indemnify)",
+   "why": "One side agrees to cover the other's losses or claims. Ask a lawyer what this means for you.",
+   "look": "\\bindemnif\\w*|hold (them |us |company )?harmless"
+  },
+  {
+   "id": "personal",
+   "label": "Personal responsibility for payment",
+   "why": "You, not just your business, may be responsible for payment. Ask a lawyer before you sign.",
+   "look": "personal(ly)?\\s+guarant\\w*|guarant\\w* personally|jointly and severally"
+  },
+  {
+   "id": "noncompete",
+   "label": "Limits on where or for whom you can work",
+   "why": "It limits where or for whom someone can work, or whom they can hire. Rules differ by state: ask a lawyer.",
+   "look": "non-?compet\\w*|not (to )?compete|non-?solicit\\w*|no[- ]poach"
+  },
+  {
+   "id": "exclusive",
+   "label": "Exclusive",
+   "why": "It may stop one side working with others. Ask a lawyer what it covers.",
+   "look": "\\bexclusiv\\w*"
+  },
+  {
+   "id": "all_ip",
+   "label": "They own everything you make",
+   "why": "It says who owns the work and anything made for the job. Ask a lawyer what it covers.",
+   "look": "work(s)? made for hire|work for hire|all (right,? title and interest|rights|intellectual property|work product)|assigns? (all|any and all)"
+  },
+  {
+   "id": "one_sided_change",
+   "label": "One side can change the terms",
+   "why": "One side can change the terms without the other agreeing. Ask a lawyer what this means for you.",
+   "look": "(reserves? the right|may|can) (to )?(modify|change|amend|update) (this|these|the) (agreement|terms)|at any time (and )?without (prior )?notice|in (its|our) sole discretion"
+  },
+  {
+   "id": "fees",
+   "label": "Fees or interest on late payment",
+   "why": "It sets fees or interest on late payment. Check the amounts and when they start.",
+   "look": "late (fee|charge)s?|interest (at|of) \\d|\\d(\\.\\d+)?% per month|liquidated damages"
+  },
+  {
+   "id": "arbitration",
+   "label": "Arbitration or no jury",
+   "why": "Disagreements go to arbitration, or a jury trial is given up. Ask a lawyer what this means for you.",
+   "look": "arbitrat\\w*|waive\\w*.{0,30}jury|class action waiver"
+  },
+  {
+   "id": "pay_when_paid",
+   "label": "You get paid only when they get paid",
+   "why": "Payment depends on someone else paying first. Note when you would actually be paid.",
+   "look": "pay(ment)?\\s+(if|when)\\s+paid|contingent (up)?on (receipt of )?payment"
+  },
+  {
+   "id": "long_notice",
+   "label": "Long notice to cancel",
+   "why": "Ending it takes 60 days' notice or more. Note the date you would need to give notice by.",
+   "look": "\\(?\\b(6\\d|[7-9]\\d|1[0-8]\\d)\\)?\\s*days'?\\s*(prior )?(written )?notice|\\b(sixty|ninety|one hundred twenty)\\b[^.]{0,12}days'?\\s*(prior )?(written )?notice"
+  },
+  {
+   "id": "slow_pay",
+   "label": "Slow payment terms",
+   "why": "Payment comes 45 days or more after the invoice. Plan for the wait.",
+   "look": "net\\s*(4[5-9]|[5-9]\\d|1[0-2]\\d)\\b|within (4[5-9]|[5-9]\\d) days"
+  },
+  {
+   "id": "judgment",
+   "label": "Confession of judgment",
+   "why": "This kind of clause can have serious effects. Ask a lawyer before you sign.",
+   "look": "confess(ion|es)? (of )?judg(e)?ment"
+  },
+  {
+   "id": "as_is",
+   "label": "As is, no promises",
+   "why": "It says there is no promise about how well it works. Ask what support they offer.",
+   "look": "\\bas[- ]is\\b|disclaims? (all )?warrant\\w*"
+  }
+ ],
+ "disclaimer": "This is a checklist, not legal advice, and it can miss things or flag wording that is fine. It does not say whether anything is legal, enforceable or right for you. Before you sign anything, have a lawyer licensed in your state read it. Many state and local bar associations run lawyer referral services.",
+ "referral": "https://www.americanbar.org/groups/lawyer_referral/resources/lawyer-referral-directory/",
+ "lawyer": "Ask a lawyer about this."
+}

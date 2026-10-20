@@ -1,0 +1,42 @@
+{
+  "checked": "2026-10-20",
+  "note": "The daily ad check: suggestions only (Legal D9). Each one names the change, the rule, the numbers behind it and what it does to spend, measured against the member's own max cost per customer from their price and costs. Nothing is applied, there are no automatic rules and nothing to approve in bulk, and no suggestion ever touches the audience (D2, D7). One member's numbers only, never compared with anyone else's (D10).",
+  "line": "{change} · {campaign} · {effect}. Why: {why}.",
+  "doneLine": "Nothing changes until you make the change yourself in {network}.",
+  "rules": {
+    "early": { "minImpressions": 1000, "why": "Fewer than 1,000 views and less than one max cost per lead spent: too early to judge." },
+    "stopNoResults": { "spendTimesMaxCpl": 2, "why": "Spent twice the max cost per lead with no result." },
+    "stopTooDear": { "spendTimesMaxCpl": 3, "why": "Each customer costs more than the most you can pay and break even, after spending three times the max cost per lead." },
+    "watch": { "why": "Each customer costs more than your target but less than break-even." },
+    "keep": { "why": "Each customer costs your target or less." },
+    "scale": { "underTarget": 0.8, "minResults": 3, "minDays": 3, "maxFrequency": 2.5, "raise": 0.2, "why": "Each customer costs 20% or more under your target, with 3 or more results over 3 or more days." },
+    "shift": { "why": "One ad is stopping and another is under target on the same network: move the stopped ad's daily spend to it." },
+    "fatigue": { "minDays": 4, "window": 3, "freqUp": 1.2, "minFrequency": 2, "ctrDown": 0.8, "why": "People have seen it more often (frequency up 20% or more, to 2 or more) and fewer click (click rate down 20% or more), first 3 days against the last 3." }
+  },
+  "exports": [
+    {
+      "kind": "meta",
+      "network": "Meta",
+      "how": "In Meta Ads Manager: open Ads, set the dates (the last 7 or 14 days), Breakdown, By time, Day, then Reports, Export table data, CSV.",
+      "identify": "Columns Ad name (or Campaign name), Amount spent (USD), Impressions",
+      "uses": "Day (or Reporting starts), Campaign name, Ad set name, Ad name, Amount spent, Impressions, Reach, Frequency, Link clicks, Results, Purchases conversion value",
+      "verified": "memory: Ads Manager export column names; Meta's help center does not list them"
+    },
+    {
+      "kind": "google",
+      "network": "Google",
+      "how": "In Google Ads: Campaigns (or Ads), Segment, Time, Day, then Download, CSV.",
+      "identify": "A title line and a date range, then columns Campaign, Impr., Clicks, Cost",
+      "uses": "Day, Campaign, Ad group, Cost, Impr., Clicks, Conversions, Conv. value. Total rows are skipped.",
+      "verified": "memory: Google Ads report download format, column names as in the Google Ads interface"
+    },
+    {
+      "kind": "tiktok",
+      "network": "TikTok",
+      "how": "In TikTok Ads Manager: Campaign tab, Ads, set the dates, break down by day, then Export.",
+      "identify": "Columns Ad name, Cost, Impressions, and Clicks (destination) or Clicks (all)",
+      "uses": "Date (By Day), Campaign name, Ad group name, Ad name, Cost, Impressions, Reach, Frequency, Clicks (destination), Conversions or Results, Total complete payment value",
+      "verified": "memory: TikTok Ads Manager export; TikTok's help center does not list the columns"
+    }
+  ]
+}

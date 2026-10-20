@@ -1,0 +1,48 @@
+{
+  "checked": "2026-10-20",
+  "note": "The import files the campaign builder makes. Meta: Ads Manager's bulk import sheet. Meta's help says a custom sheet needs the same columns as the template you download in Ads Manager (Import and export, Download template), and its pages don't print the column list, so the column names below come from a third-party guide that matches the template; 'verified' says so. Anything Ads Manager doesn't recognize, it asks you to map. Every campaign, ad set and ad is PAUSED. TikTok: its bulk import template must keep its own headers untouched and TikTok doesn't publish them, so the TikTok file is a worksheet in our own columns to copy into TikTok's template or Ads Manager, plus a checklist.",
+  "meta": {
+    "verified": "Column names from adsuploader.com's guide to Meta's bulk import template (read Oct 20, 2026); Meta's own pages confirm the template, the import steps and the rule that a custom sheet uses the template's columns. 'Special Ad Category Country' follows the Marketing API field special_ad_category_country.",
+    "sources": {
+      "import": "https://www.facebook.com/business/help/122918328469908",
+      "template": "https://www.facebook.com/business/help/837176152970474",
+      "customSheet": "https://www.facebook.com/business/help/695299180520864",
+      "columns": "https://adsuploader.com/blog/facebook-ads-bulk-uploads",
+      "special": "https://developers.facebook.com/documentation/ads-commerce/marketing-api/audiences/special-ad-category"
+    },
+    "columns": ["Campaign Name", "Campaign Status", "Campaign Objective", "Buying Type", "Special Ad Categories", "Special Ad Category Country", "Ad Set Name", "Ad Set Run Status", "Ad Set Daily Budget", "Optimization Goal", "Billing Event", "Countries", "Cities", "Age Min", "Age Max", "Gender", "Ad Name", "Ad Status", "Title", "Body", "Link Description", "Link", "Call to Action", "Image File Name", "URL Tags", "Link Object ID"],
+    "values": { "status": "PAUSED", "objective": "OUTCOME_TRAFFIC", "buyingType": "AUCTION", "optimization": "LINK_CLICKS", "billing": "IMPRESSIONS", "cta": "LEARN_MORE" },
+    "steps": [
+      "In Meta Ads Manager, open the Import and export menu above the campaigns table and pick Import ads in bulk.",
+      "Upload the CSV. If Ads Manager asks about a column, pick the matching one from its list.",
+      "Add your Facebook Page in Link Object ID (or pick it on each ad after import): every ad needs one.",
+      "Upload the images from the ad images ZIP to the ad account's media library first, so Image File Name finds them.",
+      "Check the special ad category and country on the campaign, then the audience on the ad set, before anything else.",
+      "Everything imports paused. Nothing spends until you turn it on yourself."
+    ]
+  },
+  "tiktok": {
+    "verified": "Our own columns. TikTok's bulk import needs its own template (Campaign tab, Bulk Import and Export, download the blank template), with headers you must not change; TikTok's help doesn't list them.",
+    "sources": {
+      "blank": "https://ads.tiktok.com/help/article/how-to-create-ads-with-the-bulk-import-feature-using-a-blank-template",
+      "aigc": "https://ads.tiktok.com/help/article/add-disclaimers-to-ads"
+    },
+    "columns": ["Campaign name", "Objective", "Special ad category", "Ad group name", "Placement", "Location", "Ages", "Gender", "Daily budget", "Ad name", "Ad text", "Call to action", "Destination URL", "Video file", "AI-generated content", "Status"],
+    "steps": [
+      "In TikTok Ads Manager, open the Campaign tab, then Bulk Import and Export, and download the blank template (or build the campaign by hand).",
+      "Copy each row of this worksheet into the template's matching columns. Don't change the template's headers.",
+      "Turn the campaign off (paused) before you submit, so nothing spends until you turn it on yourself."
+    ]
+  },
+  "ai": {
+    "note": "D5 (Legal row 12): a creative made or much changed by AI carries the network's AI label. Ad images and videos this desk renders from your photo and words aren't AI-made; a picture, video, person or voice from Studio or another AI tool is.",
+    "tiktok": "Turn on 'This ad contains AI-generated content'",
+    "tiktokRules": "TikTok asks for it when an image, video or audio is fully made or much changed by AI, on standard ads (not Spark ads). It can't be changed after you submit unless you swap the video or image.",
+    "meta": "Meta labels AI-made images from the file's own tags, so upload the file as Studio saved it, without re-exporting it.",
+    "google": "Google asks advertisers to say when an ad has synthetic content; follow the prompt in Google Ads when it appears.",
+    "person": "AI-generated person",
+    "voice": "AI-generated voice",
+    "studioLine": "AI-made person. Label it \"AI-generated\" where people could take it for real, and turn on the platform's AI label when you post.",
+    "law": "New York (Gen. Bus. Law 396-b, since June 9, 2026) requires a clear label in an ad with an AI-made person, and California adds AI voices from January 1, 2027."
+  }
+}

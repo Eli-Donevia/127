@@ -1,0 +1,30 @@
+{
+  "checked": "2026-10-20",
+  "note": "The fixed rules the ad calls, budget split and offer test use. They are 127's own rules of thumb, shown to the member next to every call, not a platform's rules. Change a number here and the pages say the new number.",
+  "ads": {
+    "window": 14,
+    "recent": 7,
+    "early_results": 3,
+    "early_spend_times": 2,
+    "kill_spend_times": 3,
+    "kill_cpr_times": 1.5,
+    "scale_cpr_times": 0.8,
+    "scale_results": 5,
+    "scale_raise": 0.2,
+    "fix_ctr_times": 0.6,
+    "fix_cvr_times": 0.5,
+    "min_impressions": 1000
+  },
+  "budget": {
+    "window": 28,
+    "test_share": 0.15,
+    "max_change": 0.5,
+    "min_results": 3
+  },
+  "test": {
+    "z_alpha": 1.96,
+    "z_power": 0.8416,
+    "default_lift": 0.2,
+    "max_days": 42
+  }
+}

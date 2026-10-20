@@ -1,0 +1,33 @@
+{
+  "checked": "2026-10-19",
+  "note": "Free hosting facts for putting a one-file app online. The same facts and sources as the site pack's data/hosting.json (checked there on 2026-10-19); keep the two in step when either changes.",
+  "netlify": {
+    "dropUrl": "https://app.netlify.com/drop",
+    "summary": "Drag a folder or a ZIP onto app.netlify.com/drop. You get a link in seconds without an account. Netlify keeps an anonymous drop private (password protected) until you sign up or log in to claim it, and unclaimed drops expire on their own.",
+    "freePlan": "Free plan: 300 credits a month with a hard limit. Each production deploy uses 15 credits, so redeploy when something changed, not for every small edit. When credits run out, every site on the account is paused until the next billing cycle.",
+    "headers": "Netlify reads the _headers file in the ZIP.",
+    "sources": [
+      "https://www.netlify.com/knowledge-base/netlify-drop-vs-vercel-drop/",
+      "https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work/",
+      "https://www.netlify.com/pricing/",
+      "https://docs.netlify.com/manage/routing/headers/"
+    ]
+  },
+  "cloudflarePages": {
+    "steps": "In Cloudflare: Workers and Pages, then Create application, then Get started, then Drag and drop your files. Name the project, drop the ZIP, then Deploy site.",
+    "freePlan": "Static requests are free and unlimited on the free plan. Up to 25 MiB a file.",
+    "headers": "Cloudflare Pages reads the _headers file too.",
+    "sources": [
+      "https://developers.cloudflare.com/pages/get-started/direct-upload/",
+      "https://developers.cloudflare.com/pages/platform/limits/"
+    ]
+  },
+  "githubPages": {
+    "steps": "Create a public repository, upload index.html, then Settings, Pages, and publish from your main branch, root folder.",
+    "caution": "The free plan needs a public repository, so anyone can read the file. GitHub says Pages is not meant for running an online business or handling passwords or card numbers.",
+    "sources": [
+      "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
+      "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site"
+    ]
+  }
+}

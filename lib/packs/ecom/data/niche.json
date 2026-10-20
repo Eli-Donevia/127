@@ -1,0 +1,113 @@
+{
+  "id": "ecom",
+  "name": "Online store",
+  "what": "handmade goods",
+  "crowd": {
+    "buyer": "Online shoppers, then local shops that stock makers",
+    "scores": {
+      "pain": 2,
+      "can_pay": 3,
+      "findable": 3,
+      "growing": 3
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11,
+      12
+    ],
+    "off_season": {
+      "months": [
+        1,
+        2
+      ],
+      "where": "all",
+      "play": "Use the quiet weeks to shoot photos, fix product pages and pitch local shops for spring."
+    },
+    "note": "First orders usually come from people who know you, then from search and shops that carry you. Ads cost money before you know what sells.",
+    "not_yet": [
+      "Don't order 500 units before 25 people have seen the product and its price.",
+      "Don't pay for ads before your product page and price are right.",
+      "Don't pay for apps or a custom theme before your first 10 orders."
+    ]
+  },
+  "partners": [
+    {
+      "id": "gift",
+      "label": "Gift shops and boutiques",
+      "role": "wholesale",
+      "osm": [
+        "shop=gift",
+        "shop=boutique",
+        "shop=interior_decoration"
+      ],
+      "family": "retail",
+      "their_customers": "shoppers",
+      "why": "look for local, handmade things to give",
+      "ask": "look at a few samples and a line sheet, on wholesale or consignment terms that suit you",
+      "give": "point my followers and email list to your shop once my pieces are on your shelf"
+    },
+    {
+      "id": "markets",
+      "label": "Markets and craft fairs",
+      "role": "vendor",
+      "osm": [
+        "amenity=marketplace"
+      ],
+      "family": "retail",
+      "their_customers": "visitors",
+      "why": "come looking for things made nearby",
+      "ask": "tell me how to apply for a vendor table at an upcoming market",
+      "give": "share the market date with my followers and list",
+      "sample_noun": "Farmers Market"
+    },
+    {
+      "id": "makers",
+      "label": "Craft, art and stationery shops",
+      "role": "wholesale",
+      "osm": [
+        "shop=craft",
+        "shop=art",
+        "shop=stationery"
+      ],
+      "family": "retail",
+      "their_customers": "shoppers",
+      "why": "like to see work by local makers",
+      "ask": "look at a few samples for a shelf or a local makers corner",
+      "give": "point my followers and email list to your shop once my pieces are in",
+      "sample_noun": "Art Supply"
+    },
+    {
+      "id": "books",
+      "label": "Independent bookshops",
+      "role": "wholesale",
+      "osm": [
+        "shop=books"
+      ],
+      "family": "retail",
+      "their_customers": "readers",
+      "why": "pick up a small gift at the counter",
+      "ask": "look at a few samples for your gift table, on wholesale or consignment",
+      "give": "point my followers and email list to your shop once my pieces are in",
+      "sample_noun": "Books"
+    },
+    {
+      "id": "cafes",
+      "label": "Independent cafes",
+      "role": "consignment",
+      "kit": "cafes",
+      "osm": [
+        "amenity=cafe"
+      ],
+      "family": "food",
+      "their_customers": "regulars",
+      "why": "notice local things on the counter while they wait",
+      "ask": "keep a few pieces on a small shelf or the counter, on consignment",
+      "give": "send people your way when I post where to find my pieces"
+    }
+  ]
+}

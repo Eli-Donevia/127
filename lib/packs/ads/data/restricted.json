@@ -1,0 +1,156 @@
+{
+  "checked": "2026-10-20",
+  "note": "D8 (Legal, handoffs/turnkey.md row 12): products in a category a network limits. When what the member sells matches one, every campaign draft shows Legal's line for each network. The words are matched on what the member sells and their offer, not on single letters, and each network's rules page is linked.",
+  "line": "{Network} limits ads for {category}. Check its rules before you turn this on.",
+  "networks": {
+    "Meta": "https://transparency.meta.com/policies/ad-standards/",
+    "Google": "https://support.google.com/adspolicy/answer/6008942",
+    "TikTok": "https://ads.tiktok.com/help/article/ad-policy-handbook-north-america"
+  },
+  "categories": [
+    {
+      "key": "alcohol",
+      "name": "alcohol",
+      "words": [
+        "alcohol",
+        "beer",
+        "wine",
+        "winery",
+        "brewery",
+        "liquor",
+        "spirits",
+        "cocktail",
+        "distillery",
+        "bartending",
+        "mobile bar",
+        "hard seltzer"
+      ]
+    },
+    {
+      "key": "weight",
+      "name": "supplements and weight loss",
+      "words": [
+        "supplement",
+        "vitamin",
+        "weight loss",
+        "lose weight",
+        "diet pill",
+        "fat burn",
+        "detox",
+        "keto",
+        "protein powder",
+        "semaglutide",
+        "glp-1"
+      ]
+    },
+    {
+      "key": "cosmetic",
+      "name": "cosmetic procedures",
+      "words": [
+        "botox",
+        "filler",
+        "lip filler",
+        "med spa",
+        "medspa",
+        "laser hair removal",
+        "cosmetic surgery",
+        "liposuction",
+        "tummy tuck",
+        "microneedling",
+        "chemical peel",
+        "body contouring",
+        "coolsculpting"
+      ]
+    },
+    {
+      "key": "financial",
+      "name": "financial services",
+      "words": [
+        "loan",
+        "lending",
+        "credit repair",
+        "mortgage",
+        "insurance",
+        "investing",
+        "investment",
+        "financial advis",
+        "debt relief",
+        "debt consolidation",
+        "tax relief",
+        "payday",
+        "cash advance",
+        "day trading",
+        "forex"
+      ]
+    },
+    {
+      "key": "crypto",
+      "name": "crypto",
+      "words": [
+        "crypto",
+        "bitcoin",
+        "ethereum",
+        "nft",
+        "blockchain",
+        "token sale",
+        "defi"
+      ]
+    },
+    {
+      "key": "gambling",
+      "name": "gambling",
+      "words": [
+        "gambling",
+        "casino",
+        "betting",
+        "sportsbook",
+        "poker",
+        "lottery",
+        "sweepstakes",
+        "bingo",
+        "slot machine"
+      ]
+    },
+    {
+      "key": "dating",
+      "name": "dating",
+      "words": [
+        "dating",
+        "matchmak",
+        "singles event",
+        "speed dating"
+      ]
+    },
+    {
+      "key": "firearms",
+      "name": "firearms",
+      "words": [
+        "firearm",
+        "gun",
+        "guns",
+        "ammo",
+        "ammunition",
+        "rifle",
+        "pistol",
+        "handgun",
+        "shooting range",
+        "concealed carry",
+        "ccw class"
+      ]
+    },
+    {
+      "key": "cbd",
+      "name": "CBD",
+      "words": [
+        "cbd",
+        "hemp",
+        "cannabis",
+        "thc",
+        "delta-8",
+        "delta 8",
+        "marijuana",
+        "dispensary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "note": "Example services for apps built before the member adds a price list. Every app that uses them says the prices are examples to change. Not market rates.",
+  "sets": [
+    { "match": "clean|maid|janitor", "items": [
+      { "name": "Standard clean", "price": 140, "unit": "", "detail": "Up to 2 bedrooms" },
+      { "name": "Deep clean", "price": 240, "unit": "", "detail": "Inside appliances and baseboards" },
+      { "name": "Move-out clean", "price": 320, "unit": "", "detail": "Empty home" },
+      { "name": "Add-on: inside oven", "price": 35, "unit": "", "detail": "" },
+      { "name": "Add-on: inside fridge", "price": 30, "unit": "", "detail": "" }
+    ] },
+    { "match": "detail|car|auto|wash", "items": [
+      { "name": "Interior detail", "price": 120, "unit": "", "detail": "Vacuum, wipe down, glass" },
+      { "name": "Full detail", "price": 180, "unit": "", "detail": "Inside and out" },
+      { "name": "Wash and wax", "price": 90, "unit": "", "detail": "" },
+      { "name": "Add-on: pet hair", "price": 40, "unit": "", "detail": "" },
+      { "name": "Add-on: engine bay", "price": 35, "unit": "", "detail": "" }
+    ] },
+    { "match": "lawn|yard|garden|landscap|mow", "items": [
+      { "name": "Mow and edge", "price": 45, "unit": "", "detail": "Up to a quarter acre" },
+      { "name": "Leaf cleanup", "price": 150, "unit": "", "detail": "" },
+      { "name": "Hedge trimming", "price": 60, "unit": "hour", "detail": "" },
+      { "name": "Add-on: haul away", "price": 40, "unit": "", "detail": "" }
+    ] },
+    { "match": "hair|salon|nail|lash|brow|barber|beauty", "items": [
+      { "name": "Cut and style", "price": 55, "unit": "", "detail": "" },
+      { "name": "Color", "price": 120, "unit": "", "detail": "" },
+      { "name": "Gel manicure", "price": 45, "unit": "", "detail": "" },
+      { "name": "Add-on: deep condition", "price": 20, "unit": "", "detail": "" }
+    ] },
+    { "match": "photo|video|film", "items": [
+      { "name": "Mini session", "price": 150, "unit": "", "detail": "30 minutes, 10 edited photos" },
+      { "name": "Full session", "price": 350, "unit": "", "detail": "90 minutes, 40 edited photos" },
+      { "name": "Event coverage", "price": 125, "unit": "hour", "detail": "" },
+      { "name": "Add-on: rush editing", "price": 75, "unit": "", "detail": "" }
+    ] },
+    { "match": "tutor|lesson|teach|coach|music|train", "items": [
+      { "name": "Single session", "price": 60, "unit": "hour", "detail": "" },
+      { "name": "Pack of 4 sessions", "price": 220, "unit": "", "detail": "" },
+      { "name": "Assessment", "price": 40, "unit": "", "detail": "" }
+    ] },
+    { "match": "dog|pet|cat|walk", "items": [
+      { "name": "30 minute walk", "price": 25, "unit": "", "detail": "" },
+      { "name": "Drop-in visit", "price": 22, "unit": "", "detail": "" },
+      { "name": "Overnight stay", "price": 85, "unit": "night", "detail": "" },
+      { "name": "Add-on: extra pet", "price": 8, "unit": "", "detail": "" }
+    ] },
+    { "match": "handy|repair|plumb|paint|electric|install|fix", "items": [
+      { "name": "Service call", "price": 75, "unit": "", "detail": "First 30 minutes" },
+      { "name": "Labor", "price": 65, "unit": "hour", "detail": "" },
+      { "name": "TV mount", "price": 120, "unit": "", "detail": "" },
+      { "name": "Add-on: haul away", "price": 40, "unit": "", "detail": "" }
+    ] },
+    { "match": "", "items": [
+      { "name": "Standard job", "price": 120, "unit": "", "detail": "" },
+      { "name": "Large job", "price": 220, "unit": "", "detail": "" },
+      { "name": "Extra hour", "price": 45, "unit": "hour", "detail": "" },
+      { "name": "Add-on: rush", "price": 30, "unit": "", "detail": "" }
+    ] }
+  ]
+}

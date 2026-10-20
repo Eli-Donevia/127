@@ -1,0 +1,120 @@
+{
+  "checked": "2026-10-20",
+  "note": "The exports the readers in lib/readers.js tell apart by header row. 'verified' says how the column names were checked: 'docs' = read on the service's public documentation that day; 'community' = only in public community posts, not the service's own docs; 'memory' = from known real exports, not found in public docs; the readers match loosely so close variants still work.",
+  "exports": [
+    {
+      "kind": "stripe_payments",
+      "label": "Stripe payments",
+      "how": "In Stripe: Payments, set the dates, Export, keep the default columns.",
+      "identify": "Columns id, Created date (UTC), Amount, Amount Refunded, Fee, Status",
+      "uses": "Created date (UTC), Amount (or Converted Amount), Amount Refunded, Refunded date (UTC), Fee, Status, Captured, Description, Disputed Amount, Dispute Date (UTC), Dispute Evidence Due (UTC), Dispute Reason, Dispute Status",
+      "verified": "memory",
+      "source": "https://support.stripe.com/questions/exporting-payment-data (says columns are chosen at export; does not list them)"
+    },
+    {
+      "kind": "stripe_balance",
+      "label": "Stripe balance activity",
+      "how": "In Stripe: Reports, Balance summary, Balance change from activity, Export, CSV, Itemized.",
+      "identify": "Columns balance_transaction_id, created, gross, fee, net, reporting_category (or the older Type, Amount, Fee, Net, Available On)",
+      "uses": "created (or created_utc), gross, fee, net, reporting_category (charge, refund, dispute, dispute_reversal, fee, payout), description",
+      "verified": "docs",
+      "source": "https://docs.stripe.com/reports/balance and https://docs.stripe.com/reports/reporting-categories"
+    },
+    {
+      "kind": "shopify_orders",
+      "label": "Shopify orders",
+      "how": "In Shopify admin: Orders, Export, pick the dates, CSV for Excel, Numbers or other spreadsheet programs.",
+      "identify": "Columns Name, Financial Status, Total, Created at, Lineitem name",
+      "uses": "Name, Financial Status, Created at (or Paid at), Total, Refunded Amount, Lineitem quantity, Lineitem name, Lineitem price, Lineitem discount",
+      "verified": "docs",
+      "source": "https://help.shopify.com/en/manual/fulfillment/managing-orders/exporting-orders"
+    },
+    {
+      "kind": "square",
+      "label": "Square transactions",
+      "how": "In Square Dashboard: Transactions, set the dates, Export, Transactions CSV.",
+      "identify": "Columns Date, Time, Gross Sales, Net Sales, Total Collected, Fees, Event Type, Transaction ID",
+      "uses": "Date, Time, Total Collected (or Gross Sales), Partial Refunds, Fees, Event Type (Payment or Refund), Transaction ID, Description",
+      "verified": "community",
+      "source": "Square Seller Community posts listing the Transactions CSV headers (sellercommunity.com, community.squareup.com); Square's help center does not list them"
+    },
+    {
+      "kind": "paypal",
+      "label": "PayPal activity",
+      "how": "In PayPal: Activity, Statements, Activity report (Download), CSV, all transactions.",
+      "identify": "Columns Date, Time, TimeZone, Name, Type, Status, Gross, Fee, Net, Transaction ID",
+      "uses": "Date, Time, Type, Status, Gross (or Amount), Fee, Transaction ID, Item Title",
+      "verified": "community",
+      "source": "https://developer.paypal.com/docs/reports/online-reports/activity-download/ (fields described; exact CSV header names vary by account)"
+    },
+    {
+      "kind": "meta_ads",
+      "label": "Meta ads",
+      "how": "In Meta Ads Manager: pick Campaigns or Ads, set the dates, Breakdown, By time, Day, then Reports, Export table data, CSV.",
+      "identify": "Columns Campaign name (or Ad name), Amount spent (USD), Impressions, Results",
+      "uses": "Day (or Reporting starts and Reporting ends), Campaign name, Ad name, Amount spent, Impressions, Link clicks, Results, Result indicator, Purchases conversion value",
+      "verified": "memory",
+      "source": "Ads Manager export column names; Meta's help center does not list them"
+    },
+    {
+      "kind": "google_ads",
+      "label": "Google Ads",
+      "how": "In Google Ads: Campaigns, Segment, Time, Day, then Download, CSV.",
+      "identify": "A title line and a date range, then columns Campaign, Impr., Clicks, Cost, Conversions",
+      "uses": "Day, Campaign, Ad group, Cost, Impr., Clicks, Conversions, Conv. value. Total rows are skipped.",
+      "verified": "memory",
+      "source": "Google Ads report download format; column names follow the Google Ads interface"
+    },
+    {
+      "kind": "instagram",
+      "label": "Instagram posts",
+      "how": "In Meta Business Suite: Insights, Content, set the dates, Export data, Posts, CSV.",
+      "identify": "Columns Post ID, Account username, Description, Publish time, Permalink, Post type",
+      "uses": "Publish time, Description, Permalink, Post type, Views (or Impressions or Reach), Reach, Likes, Comments, Shares, Saves, Follows",
+      "verified": "memory",
+      "source": "Meta Business Suite content export; Meta renamed Impressions to Views in 2025 and the reader takes either"
+    },
+    {
+      "kind": "tiktok",
+      "label": "TikTok posts",
+      "how": "In TikTok Studio: Analytics, Content, Download data (save it as CSV if it comes as a spreadsheet).",
+      "identify": "Columns Video title, Video link, Post time, Total views",
+      "uses": "Post time, Video title, Video link, Total views, Total likes, Total comments, Total shares",
+      "verified": "memory",
+      "source": "TikTok analytics download; TikTok's help center does not list the columns"
+    },
+    {
+      "kind": "posts_sheet",
+      "label": "Post stats",
+      "how": "Any sheet with one row per post: the date, the caption and the views, likes, comments, shares and saves.",
+      "identify": "A date column, a caption column and views or likes",
+      "uses": "The same as the Instagram export",
+      "verified": "own format",
+      "source": "127"
+    },
+    {
+      "kind": "sheet",
+      "label": "Your numbers sheet",
+      "how": "Three columns: date, metric, value. One row per number per day, like 2026-10-19, Calls booked, 4. Costs (Supplies, Rent, Booth fee) count as cash out; running totals (Followers, Bank balance) take the newest value.",
+      "identify": "Columns date, metric, value",
+      "uses": "All three",
+      "verified": "own format",
+      "source": "127"
+    },
+    {
+      "kind": "daily_sheet",
+      "label": "Your daily sheet",
+      "how": "A date column first, then one column per number: Date, Calls booked, Email signups.",
+      "identify": "First column Date or Day",
+      "uses": "Every column",
+      "verified": "own format",
+      "source": "127"
+    }
+  ],
+  "skill": {
+    "checked": "2026-10-20",
+    "how": "In Claude: Customize, Skills, the plus button, Create skill, Upload a skill, then pick the ZIP. Skills need code execution turned on in Claude's settings.",
+    "rules": "The ZIP holds one folder named like the skill; SKILL.md starts with a name (lowercase letters, numbers and hyphens, at most 64 characters, matching the folder) and a description (at most 200 characters on Claude.ai).",
+    "sources": ["https://support.claude.com/en/articles/12512180-using-skills-in-claude", "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills", "https://claude.com/docs/skills/how-to"]
+  }
+}
