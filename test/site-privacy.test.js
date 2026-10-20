@@ -42,3 +42,21 @@ test('no email, no going online; a store needs its shipping and returns policies
   assert.match(file(r2, 'index.html'), /policies\.html">Shipping and returns/);
   assert.match(file(r2, 'privacy.html'), /When you buy from us[\s\S]*Shopify handles your payment/);
 });
+
+test("127's site chat: its button and its block in privacy.html, only when the member pasted its code", async () => {
+  const key = 'a'.repeat(32);
+  const snippet = `<script src="https://127group.io/js/site-chat-embed.js" data-chat="${key}" async></script>`;
+  const r = await build({ ...ex['site.quick_site'], chat: `${snippet}<script>alert(1)</script>` });
+  const p = file(r, 'privacy.html'), index = file(r, 'index.html');
+  assert.ok(index.includes(snippet));
+  assert.ok(!index.includes('alert(1)'), 'only the snippet itself reaches the page');
+  assert.match(p, /<strong>Our website chat\.<\/strong> The chat on our site is an AI assistant/);
+  assert.match(p, /<a href="https:\/\/127group\.io\/site-chat">How 127 runs this chat<\/a>/);
+  assert.match(p, /<li>127, which runs our website chat, and its AI provider, Anthropic\.<\/li><\/ul>/);
+  assert.ok(p.indexOf('Our website chat') < p.indexOf('When you visit'), "in the starter's order");
+  assert.match(file(r, 'README.txt'), /privacy\.html as your privacy page/);
+  const off = await build({ ...ex['site.quick_site'] });
+  assert.ok(!/site-chat|website chat/.test(file(off, 'privacy.html') + file(off, 'index.html')));
+  const sample = await build({ ...ex['site.quick_site'], chat: key }, { mode: 'prospect' });
+  assert.ok(!file(sample, 'index.html').includes('site-chat-embed'), "never on a sample for someone else");
+});
