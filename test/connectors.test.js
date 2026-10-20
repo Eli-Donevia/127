@@ -774,6 +774,13 @@ test('Studio clients follow redirects only within the provider\'s hosts, and the
   assert.equal(hop.headers['x-goog-api-key'], undefined, 'the key never follows to another host');
   assert.equal(calls.find((x) => /abc:download/.test(x.url)).headers['x-goog-api-key'], GK);
 
+  // Two hops on the storage host: the key still stays on the provider's host.
+  on('GET', /files\/two:download/, { $status: 302, $headers: { location: 'https://storage.googleapis.com/a/two' } });
+  on('GET', /storage\.googleapis\.com\/a\/two/, { $status: 302, $headers: { location: 'https://storage.googleapis.com/b/two' } });
+  on('GET', /storage\.googleapis\.com\/b\/two/, 'VIDEO');
+  await gm.request('/v1beta/files/two:download', { raw: true });
+  for (const c of calls.filter((x) => /storage\.googleapis\.com/.test(x.url))) assert.equal(c.headers['x-goog-api-key'], undefined);
+
   on('GET', /files\/bad:download/, { $status: 302, $headers: { location: 'https://evil.test/x' } });
   await assert.rejects(() => gm.request('/v1beta/files/bad:download', { raw: true }), /somewhere it doesn't go/);
   assert.ok(!calls.some((x) => /evil\.test/.test(x.url)));
