@@ -655,9 +655,10 @@ test('L76: a fresh chat deletes the old one, chats go 180 days after their last 
   await assert.rejects(agent.send(who, 'Hi'), /18 and older/);
 });
 
-test('L76: the AI link never starts a hidden workflow, and skills say whose content they are', async () => {
+test('L76: neither the AI link nor the run route starts a hidden workflow, and skills say whose content they are', async () => {
   process.env.HQ_SKILLS = 'on';
   const u = await member();
+  assert.equal((await s.go('/app/hq/w/hq.daily_numbers/run', { as: u, form: {} })).status, 404);
   const out = await mcp.call(u, 'start_workflow', { workflow: 'hq.daily_numbers', inputs: {} });
   assert.equal(out.isError, true);
   assert.match(out.content[0].text, /isn't one you can start here/);

@@ -160,17 +160,12 @@ test('STORE_V2 on before Terms and Privacy are live: a member sees no Store, an 
     assert.match(await html(await s.go('/app/hq/store', { as: boss })), /<h3>Quote<\/h3>/);
     assert.match(await html(await s.go('/app/hq/store/quote', { as: boss })), /Make it mine/);
   }
-  // HQ's own run route starts any workflow by id, hidden ones too: Make it mine still refuses the member.
+  // HQ's run route refuses hidden workflows: Make it mine starts only from the Store.
   delete process.env.TERMS_LIVE;
   const res = await s.go('/app/hq/w/store.make_it_mine/run', { as: u, form: { in_item: 'quote' } });
-  assert.equal(res.status, 302);
-  assert.match(where(res), /^\/app\/hq\/runs\//);
+  assert.equal(res.status, 404);
   await engine.idle();
-  const run = engine.get(u, where(res).split('/').pop());
-  assert.match(JSON.stringify(run.steps), /isn't open/);
   assert.equal(harness.library.list(u.id).length, 0);
-  assert.equal(run.status, 'failed');
-  assert.equal(run.credits.used, 0);
   // With the HQ workspace on, its rail follows the same flag.
   process.env.HQ_WORKSPACE = 'on';
   assert.doesNotMatch(await html(await s.go('/app/hq/start', { as: u })), /href="\/app\/hq\/store"/);
