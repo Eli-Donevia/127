@@ -46,7 +46,10 @@
     lines.forEach(function (l) {
       var r = l.getBoundingClientRect(), c = r.top + r.height / 2;
       var d = Math.abs(c - vh * 0.5) / (vh * 0.5);
-      l.style.opacity = still ? 1 : Math.max(0.16, 1 - d * 1.1).toFixed(3);
+      // from the dim color (#66666e, 3.5:1 on the page) to full ink (#ededf2); a gradient word only fades a little
+      var k = still ? 1 : Math.max(0, Math.min(1, 1 - d * 1.1));
+      l.style.color = 'rgb(' + [102 + 135 * k, 102 + 135 * k, 110 + 132 * k].map(Math.round).join(',') + ')';
+      [].forEach.call(l.querySelectorAll('span'), function (s) { s.style.opacity = (0.5 + 0.5 * k).toFixed(3); });
     });
     if (steps.length) {
       var idx = 0;
