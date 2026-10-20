@@ -1061,8 +1061,8 @@
    "unit": "alarm",
    "step": "power",
    "check_if": {
-    "words": "hard-? ?wired",
-    "check": "electrical_swap"
+    "words": "(?:hard-? ?wired|inter-? ?connected|120 ?v(?:olts?)?)",
+    "check": "alarm_wired"
    },
    "words": [
     "smoke (?:alarm|detector)s?",
@@ -1799,6 +1799,11 @@
    "say": "Roofing is licensed work in some states (Florida lists it), and cities set when a roof repair needs a permit.",
    "trade": "a licensed roofing contractor"
   },
+  "alarm_wired": {
+   "label": "Hardwired or interconnected smoke alarm",
+   "say": "A hardwired, interconnected or 120V smoke alarm is electrical work that some states keep for a licensed electrician, and Arizona keeps it out of the handyman exemption (A.R.S. 32-1121(D)). A battery alarm is not.",
+   "trade": "a licensed electrician"
+  },
   "appliance": {
    "label": "Appliance hookup",
    "say": "Connecting a dishwasher or an ice maker to the water line counts as plumbing in some states (Florida lists a dishwasher connected to drinking water as licensed work).",
@@ -1824,7 +1829,7 @@
   "CA": {
    "code": "CA",
    "name": "California",
-   "rule": "California: without a contractor license you can take a job only if labor and materials together come to less than $1,000, no building permit is needed and you employ no one for it. Ads for this work must say you are not licensed.",
+   "rule": "California: without a contractor license you can take a job only if labor, materials and everything else come to less than $1,000, no building permit is needed, you employ no one to do or help with it, and it isn't part of a bigger job or split into smaller ones. Ads for this work must say you are not licensed, and nothing you put out can suggest you're a contractor.",
    "limit": 1000,
    "at_or_above": true,
    "href": "https://www.cslb.ca.gov/Resources/IndustryBulletins/2024/AB%202622%20Implementation.FINAL.pdf",
@@ -1841,34 +1846,18 @@
      "url": "https://www.cslb.ca.gov/consumers/report_unlicensed_activity/What_Is_Illegal_Contractor_Activity.aspx",
      "says": "A license is needed for work of $1,000 or more in combined labor and material costs, and it is illegal for an unlicensed person to work on any project which requires a building permit.",
      "checked": "2026-10-20"
-    }
-   ],
-   "status": {
-    "electrical_swap": "check",
-    "plumbing_swap": "check",
-    "plumbing_fix": "check",
-    "hvac_swap": "check",
-    "door_window": "check",
-    "roof": "check",
-    "appliance": "check"
-   },
-   "notes": [
-    "Cities such as Cotati list light fixture, fan, outlet and switch swaps and faucet and toilet repairs or replacements as work that needs no permit. Check your city."
-   ],
-   "banner": "California: an unlicensed handyperson's ads must say they are not licensed (CSLB)."
-  },
-  "AZ": {
-   "code": "AZ",
-   "name": "Arizona",
-   "rule": "Arizona: the handyman exemption covers one job under $1,000 in labor, materials and everything else, of a casual or minor nature, with no local building permit. It doesn't cover work split into smaller contracts or part of a larger job, and ads must say \"not a licensed contractor\".",
-   "limit": 1000,
-   "at_or_above": true,
-   "href": "https://www.azleg.gov/ars/32/01121.htm",
-   "sources": [
+    },
     {
-     "publisher": "Arizona Legislature, A.R.S. 32-1121",
-     "url": "https://www.azleg.gov/ars/32/01121.htm",
-     "says": "Exempt: work on one undertaking or project by one or more contracts with an aggregate contract price, including labor, materials and all other items, of less than $1,000, of a casual or minor nature; not if the work requires a local building permit, is part of a larger operation or split to evade the chapter, or if the person's ads don't include the words \"not a licensed contractor\".",
+     "publisher": "California Business and Professions Code 7048 (via california.public.law)",
+     "url": "https://california.public.law/codes/business_and_professions_code_section_7048",
+     "says": "Exempt: one project with an aggregate contract price for labor, materials and all other items under $1,000, of a casual, minor or inconsequential nature, that does not require a building permit; not if it is part of a larger or major operation or divided into contracts under $1,000, or for a person who advertises or puts out a sign or card that might indicate they are a contractor, or who employs another person to perform or assist in the work.",
+     "page_date": "2026-01-01",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "California Business and Professions Code 7027.2 (via california.public.law)",
+     "url": "https://california.public.law/codes/business_and_professions_code_section_7027.2",
+     "says": "A person exempt under 7048 may advertise work under $1,000 only if the ad states that the person is not licensed under the Contractors State License Law.",
      "checked": "2026-10-20"
     }
    ],
@@ -1879,15 +1868,52 @@
     "hvac_swap": "check",
     "door_window": "check",
     "roof": "check",
+    "alarm_wired": "check",
     "appliance": "check"
    },
+   "notes": [
+    "Cities such as Cotati list light fixture, fan, outlet and switch swaps and faucet and toilet repairs or replacements as work that needs no permit. Check your city."
+   ],
    "split": true,
-   "banner": "Arizona: put \"not a licensed contractor\" on your ads, cards and door hangers while you work under the exemption (A.R.S. 32-1121)."
+   "banner": "California: an unlicensed handyperson's ads must say they are not licensed, and must not suggest they're a contractor (B&P 7027.2 and 7048).",
+   "ad_line": "Not a licensed contractor."
+  },
+  "AZ": {
+   "code": "AZ",
+   "name": "Arizona",
+   "rule": "Arizona: the handyman exemption covers one job under $1,000 in labor, materials and everything else, of a casual or minor nature, with no local building permit. It doesn't cover work split into smaller contracts or part of a larger job, hardwired or interconnected smoke alarms, fire sprinklers, or anything that connects to gas or propane, and ads must say \"not a licensed contractor\".",
+   "limit": 1000,
+   "at_or_above": true,
+   "href": "https://www.azleg.gov/ars/32/01121.htm",
+   "sources": [
+    {
+     "publisher": "Arizona Legislature, A.R.S. 32-1121",
+     "url": "https://www.azleg.gov/ars/32/01121.htm",
+     "says": "Exempt: work on one undertaking or project by one or more contracts with an aggregate contract price, including labor, materials and all other items, of less than $1,000, of a casual or minor nature; not if the work requires a local building permit, is part of a larger operation or split to evade the chapter, or if the person's ads don't include the words \"not a licensed contractor\". Subsection D: never fire safety work (hardwired or interconnected smoke alarms, fire sprinklers) or work that connects to natural gas, propane or other gaseous fuel.",
+     "checked": "2026-10-20"
+    }
+   ],
+   "status": {
+    "electrical_swap": "check",
+    "plumbing_swap": "check",
+    "plumbing_fix": "check",
+    "hvac_swap": "check",
+    "door_window": "check",
+    "roof": "check",
+    "alarm_wired": "refer",
+    "appliance": "check"
+   },
+   "notes": [
+    "Arizona: hardwired or interconnected smoke alarms and fire sprinklers are outside the handyman exemption (A.R.S. 32-1121(D))."
+   ],
+   "split": true,
+   "banner": "Arizona: put \"not a licensed contractor\" on your ads, cards and door hangers while you work under the exemption (A.R.S. 32-1121).",
+   "ad_line": "Not a licensed contractor."
   },
   "NV": {
    "code": "NV",
    "name": "Nevada",
-   "rule": "Nevada: repair or upkeep under $1,000 in labor and materials is exempt, unless it needs a building permit, is work a plumbing, electrical, refrigeration, heating or air-conditioning contractor does, or is part of a larger project of $500 or more.",
+   "rule": "Nevada: repair or upkeep under $1,000 in labor and materials is exempt, unless it needs a building permit, is work a plumbing, electrical, refrigeration, heating or air-conditioning contractor does, is work of another license type the Board says significantly affects public health and safety, or is part of a larger project of $500 or more. Your ads must say you are not licensed, and can't call you a contractor.",
    "limit": 1000,
    "at_or_above": true,
    "href": "https://www.leg.state.nv.us/nrs/nrs-624.html",
@@ -1895,7 +1921,14 @@
     {
      "publisher": "Nevada Legislature, NRS 624.031",
      "url": "https://www.leg.state.nv.us/nrs/nrs-624.html",
-     "says": "NRS 624.031(6): any work to repair or maintain property the value of which is less than $1,000, including labor and materials, is exempt unless a building permit is required, the work is of a type performed by a plumbing, electrical, refrigeration, heating or air-conditioning contractor, or it is part of a larger project of $500 or more or split to evade the chapter.",
+     "says": "NRS 624.031(6): any work to repair or maintain property the value of which is less than $1,000, including labor and materials, is exempt unless a building permit is required, the work is of a type performed by a plumbing, electrical, refrigeration, heating or air-conditioning contractor, or of a type performed by a contractor in a classification the Board prescribes that significantly affects the health, safety and welfare of the public, or it is part of a larger project of $500 or more or split to evade the chapter.",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Nevada State Contractors Board (NRS 624.720)",
+     "url": "https://www.nvcontractorsboard.com/investigations/unlawful-advertising/",
+     "says": "It is unlawful for any person, including a person exempt under NRS 624.031, to advertise as a contractor unless the person has a license in the appropriate classification; any person not licensed who advertises to perform construction work must state in the advertisement that he or she is not licensed.",
+     "page_date": "2026-09-17",
      "checked": "2026-10-20"
     }
    ],
@@ -1906,14 +1939,17 @@
     "hvac_swap": "refer",
     "door_window": "check",
     "roof": "check",
+    "alarm_wired": "refer",
     "appliance": "refer"
    },
-   "split": true
+   "split": true,
+   "banner": "Nevada: ads for your work must say you are not licensed, and can't call you a contractor, even when the job is exempt (NRS 624.720).",
+   "ad_line": "Not a licensed contractor."
   },
   "OR": {
    "code": "OR",
    "name": "Oregon",
-   "rule": "Oregon: a handyman needs a CCB license for any job of $1,000 or more, and for any job at all once they advertise, even with business cards.",
+   "rule": "Oregon: a handyman needs a CCB license for any job of $1,000 or more, and for any job at all once they advertise, even with business cards. Electrical and plumbing work for pay, even swapping a light, outlet, switch, thermostat, faucet or toilet, also needs a state electrical or plumbing license, which a CCB license doesn't replace.",
    "limit": 1000,
    "at_or_above": true,
    "href": "https://www.Oregon.Gov/ccb/Documents/Realtors%20guide%20to%20working%20with%20contractors.pdf",
@@ -1930,19 +1966,36 @@
      "url": "https://oregon.public.law/statutes/ors_701.010",
      "says": "ORS 701.010(4): the exemption for casual, minor or inconsequential work under $1,000 does not apply to a person who advertises or puts out any sign or card or other device that might indicate to the public that the person is a contractor.",
      "checked": "2026-10-20"
+    },
+    {
+     "publisher": "ORS 479.620 and 479.530 (Oregon Revised Statutes, via oregon.public.law)",
+     "url": "https://oregon.public.law/statutes/ors_479.620",
+     "says": "A person may not make any electrical installation without a supervising or journeyman electrician's license (or a limited residential electrician's license for dwellings); an electrical installation includes the maintenance or repair of installed wiring and permanently attached electrical products (ORS 479.530(10)). ORS 479.540 has no exemption for paid work on someone else's home, and OAR 918-282-0110 exempts only bulbs, fuses, plugging in portable equipment and a few low-voltage systems (single smoke detectors, intercoms, antennas, cameras).",
+     "checked": "2026-10-20"
+    },
+    {
+     "publisher": "ORS 447.060 and 447.072 (Oregon Revised Statutes, via oregon.public.law)",
+     "url": "https://oregon.public.law/statutes/ors_447.060",
+     "says": "The plumbing license rules don't apply to a person doing plumbing work when not engaged for hire (447.060(1)(a)); plumbing includes installing, altering or repairing fixtures (447.010(6)); the permit and inspection exemption for ordinary minor repairs is available only to licensed plumbing contractors and persons described in ORS 693.020 (447.072).",
+     "checked": "2026-10-20"
     }
    ],
    "status": {
-    "electrical_swap": "check",
-    "plumbing_swap": "check",
-    "plumbing_fix": "check",
-    "hvac_swap": "check",
+    "electrical_swap": "refer",
+    "plumbing_swap": "refer",
+    "plumbing_fix": "refer",
+    "hvac_swap": "refer",
     "door_window": "check",
     "roof": "check",
-    "appliance": "check"
+    "alarm_wired": "refer",
+    "appliance": "refer"
    },
+   "notes": [
+    "Oregon: the no-permit rule for ordinary minor plumbing repairs is only for licensed plumbing contractors, and owners and their own employees, not a hired handyman (ORS 447.072)."
+   ],
    "banner": "Oregon: handymen who advertise, even with business cards, must be licensed by the CCB. Get your CCB license before you hand out cards or quote this list.",
-   "lead": "Oregon also requires a CCB lead-based paint license to bid and work on homes built before 1978."
+   "lead": "Oregon also requires a CCB lead-based paint license to bid and work on homes built before 1978.",
+   "banner_always": true
   },
   "UT": {
    "code": "UT",
@@ -1967,17 +2020,39 @@
     "hvac_swap": "refer",
     "door_window": "check",
     "roof": "check",
+    "alarm_wired": "refer",
     "appliance": "refer"
    },
    "notes": [
     "Utah: a small plumbing repair to a fixture, with no change to the pipes or a gas appliance, is exempt (58-55-305(1)(k))."
    ],
-   "over": "Utah: on a job over $3,000 you file a one-time affirmation with the state that you carry liability insurance (58-55-305(1)(h))."
+   "over": "Utah: on a job over $3,000 in labor and materials you file a one-time affirmation with the state that you carry liability insurance, and workers' comp if anyone works for you (58-55-305(1)(h)).",
+   "over_at": 3000,
+   "changes": [
+    {
+     "from": "2027-01-01",
+     "rule": "Utah: a project under $7,000 in labor and materials is exempt only if it involves no electrical or plumbing work (not even a faucet, toilet, fixture, outlet or switch), no gas appliance and no heating and cooling system.",
+     "href": "https://le.utah.gov/xcode/Title58/Chapter55/C58-55-S110_2026050620270101.html",
+     "notes": [
+      "Utah: a small plumbing repair to a fixture, with no change to the pipes or gas, is exempt (58-55-110(2)(j))."
+     ],
+     "over": "Utah: on a job over $3,000 in labor and materials you register with the state's Division of Corporations and Commercial Code and send proof of liability insurance, and workers' comp if anyone works for you (58-55-110(3)).",
+     "sources": [
+      {
+       "publisher": "Utah Legislature, Utah Code 58-55-110",
+       "url": "https://le.utah.gov/xcode/Title58/Chapter55/C58-55-S110_2026050620270101.html",
+       "says": "58-55-110(2)(n), effective 2027-01-01 (H.B. 40, 2026): a project with a total cost under $7,000, including labor, material and changes, is exempt only if it does not involve an electrical or plumbing system or a component such as a faucet, toilet, fixture, device, outlet or electrical switch, a gas appliance or combustion system, a water-based fire protection system, an HVAC system or a radon system; (3)(a): above $3,000 the person registers with the Division of Corporations and Commercial Code and submits proof of public liability insurance, and workers' compensation if an employee works on the project; (2)(j): minor plumbing incidental to a repair is exempt if it doesn't alter piping or a gas system.",
+       "page_date": "2027-01-01",
+       "checked": "2026-10-20"
+      }
+     ]
+    }
+   ]
   },
   "FL": {
    "code": "FL",
    "name": "Florida",
-   "rule": "Florida: the minor-work exemption covers jobs under $2,500 in labor, materials and everything else, of a casual, minor or inconsequential nature, not part of a larger job or split into smaller contracts, and not for anyone who advertises as a contractor. Electrical work for pay has no such exemption.",
+   "rule": "Florida: the minor-work exemption covers jobs under $2,500 in labor, materials and everything else, of a casual, minor or inconsequential nature, not part of a larger job or split into smaller contracts, and not for anyone who advertises as a contractor or says they're qualified to do contracting work. Electrical work for pay has no such exemption.",
    "limit": 2500,
    "at_or_above": true,
    "href": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.103.html",
@@ -2008,17 +2083,19 @@
     "hvac_swap": "check",
     "door_window": "check",
     "roof": "refer",
+    "alarm_wired": "refer",
     "appliance": "refer"
    },
    "notes": [
     "Florida: many counties and cities also have their own license rules. Check yours."
    ],
-   "split": true
+   "split": true,
+   "banner": "Florida: don't advertise as a contractor or say you're qualified to do contracting work while you use the minor-work exemption (F.S. 489.103(9)(b))."
   },
   "VA": {
    "code": "VA",
    "name": "Virginia",
-   "rule": "Virginia: a Class C contractor license is needed for a single contract or project over $1,000 (up to $30,000), and electrical, plumbing and HVAC contractors need a master tradesman license.",
+   "rule": "Virginia: a Class C contractor license is needed for a single job over $1,000 (up to $30,000). Electrical, plumbing and heating and cooling work for pay needs a state tradesman license at any job size, even a fixture or faucet swap.",
    "limit": 1000,
    "at_or_above": false,
    "href": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1100/",
@@ -2028,21 +2105,28 @@
      "url": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1100/",
      "says": "Class C contractors perform or manage construction, removal, repair or improvements when the total value of a single contract or project is over $1,000 but less than $30,000; the Board requires a master tradesman license for electrical, plumbing and HVAC contractors.",
      "checked": "2026-10-20"
+    },
+    {
+     "publisher": "Code of Virginia 54.1-1128 and 54.1-1129",
+     "url": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1129/",
+     "says": "A tradesman is any individual who engages in, or offers to engage in, work for the general public for compensation in the electrical, plumbing and HVAC trades (54.1-1128); no individual may work as a tradesman without a license, except under a licensed tradesman's supervision (54.1-1129(A)). Neither section has a dollar threshold.",
+     "checked": "2026-10-20"
     }
    ],
    "status": {
-    "electrical_swap": "check",
-    "plumbing_swap": "check",
-    "plumbing_fix": "check",
-    "hvac_swap": "check",
+    "electrical_swap": "refer",
+    "plumbing_swap": "refer",
+    "plumbing_fix": "refer",
+    "hvac_swap": "refer",
     "door_window": "check",
     "roof": "check",
-    "appliance": "check"
+    "alarm_wired": "refer",
+    "appliance": "refer"
    }
   }
  },
  "default_state": {
-  "rule": "This pack doesn't have your state's rule yet. Some states cap the size of a job you can take without a contractor license, and the cap differs by state. Check your state's contractor licensing board and your city's building department before you quote.",
+  "rule": "This pack doesn't have your state's rule yet. Some states cap the size of a job you can take without a contractor license, and the cap differs by state. Many also license electrical, plumbing and heating and cooling work at any job size, and some require your ads to say you're not licensed. Check your state's contractor licensing board and your city's building department before you quote.",
   "sources": [
    {
     "publisher": "Housecall Pro",
@@ -2055,7 +2139,7 @@
  },
  "lead": {
   "always": "Window replacement always counts under EPA's lead rule (RRP) in a home built before 1978, whatever the size.",
-  "area": "In a home built before 1978, EPA's lead rule (RRP) covers paid work that disturbs more than 6 square feet of paint in a room, or more than 20 square feet outside: you need an EPA- or state-certified firm and a certified renovator, even as a one-person business.",
+  "area": "In a home built before 1978, EPA's lead rule (RRP) covers paid work that disturbs more than 6 square feet of paint in a room, or more than 20 square feet outside: you need an EPA- or state-certified firm and a certified renovator, even as a one-person business. A smaller job is covered too if it uses open-flame burning, power sanding or planing without a HEPA shroud and vacuum, or a heat gun at 1,100°F or more, and demolition of painted surfaces is always covered, like window replacement (40 CFR 745.83, 745.85(a)(3)).",
   "ask": "Ask what year the home was built.",
   "sources": [
    {
@@ -2069,6 +2153,12 @@
     "publisher": "Legal Information Institute (40 CFR 745.83)",
     "url": "https://www.law.cornell.edu/cfr/text/40/745.83",
     "says": "Minor repair and maintenance activities, including minor electrical work and plumbing, disrupt 6 square feet or less of painted surface per room inside or 20 square feet or less outside, and do not involve window replacement or demolition of painted surfaces.",
+    "checked": "2026-10-20"
+   },
+   {
+    "publisher": "Legal Information Institute (40 CFR 745.85)",
+    "url": "https://www.law.cornell.edu/cfr/text/40/745.85",
+    "says": "745.85(a)(3): open-flame burning or torching of painted surfaces is prohibited; machines that remove paint through high speed operation such as sanding, grinding or power planing are prohibited on painted surfaces unless they have shrouds or containment and a HEPA vacuum attachment; a heat gun on painted surfaces is permitted only below 1,100 degrees Fahrenheit. (745.83: minor repair and maintenance is only work where none of these practices are used, with no window replacement or demolition of painted surface areas.)",
     "checked": "2026-10-20"
    }
   ]

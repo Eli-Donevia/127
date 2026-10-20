@@ -307,7 +307,7 @@
    },
    {
     "item": "Your state's limit for work without a contractor license",
-    "what_to_check": "Many states let you take small jobs without a contractor license only under a dollar limit and only when no permit is needed: California under $1,000 in labor and materials with no permit and no employees (CSLB), Arizona under $1,000 with \"not a licensed contractor\" on your ads (A.R.S. 32-1121), Florida under $2,500 (F.S. 489.103), Utah under $7,000 (Utah Code 58-55-305). Oregon requires a CCB license once you advertise, even with business cards (ORS 701.010). Check your state.",
+    "what_to_check": "Many states let you take small jobs without a contractor license only under a dollar limit, and some only when no permit is needed. California is under $1,000 in labor and materials with no permit and no employees (CSLB). Arizona and Nevada are under $1,000 (A.R.S. 32-1121, NRS 624.031). Florida is under $2,500 (F.S. 489.103), Utah under $7,000 (Utah Code 58-55-305), and Virginia up to $1,000 (Code of Virginia 54.1-1100). In California, Arizona and Nevada your ads must say you're not licensed. Oregon requires a CCB license once you advertise, even with business cards (ORS 701.010). Check your state.",
     "sources": [
      {
       "publisher": "Contractors State License Board (California)",
@@ -340,12 +340,37 @@
       "url": "https://oregon.public.law/statutes/ors_701.010",
       "says": "ORS 701.010(4): the exemption for casual, minor or inconsequential work under $1,000 does not apply to a person who advertises or puts out any sign or card that might indicate they are a contractor.",
       "checked": "2026-10-20"
+     },
+     {
+      "publisher": "California Business and Professions Code 7027.2 (via california.public.law)",
+      "url": "https://california.public.law/codes/business_and_professions_code_section_7027.2",
+      "says": "A person exempt under 7048 may advertise work under $1,000 only if the ad states that the person is not licensed under the Contractors State License Law.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Nevada Legislature, NRS 624.031",
+      "url": "https://www.leg.state.nv.us/nrs/nrs-624.html",
+      "says": "NRS 624.031(6): any work to repair or maintain property the value of which is less than $1,000, including labor and materials, is exempt unless a building permit is required, the work is of a type performed by a plumbing, electrical, refrigeration, heating or air-conditioning contractor, or of a type performed by a contractor in a classification the Board prescribes that significantly affects the health, safety and welfare of the public, or it is part of a larger project of $500 or more or split to evade the chapter.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Nevada State Contractors Board (NRS 624.720)",
+      "url": "https://www.nvcontractorsboard.com/investigations/unlawful-advertising/",
+      "says": "It is unlawful for any person, including a person exempt under NRS 624.031, to advertise as a contractor unless the person has a license in the appropriate classification; any person not licensed who advertises to perform construction work must state in the advertisement that he or she is not licensed.",
+      "page_date": "2026-09-17",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Code of Virginia 54.1-1100",
+      "url": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1100/",
+      "says": "Class C contractors perform or manage construction, removal, repair or improvements when the total value of a single contract or project is over $1,000 but less than $30,000; the Board requires a master tradesman license for electrical, plumbing and HVAC contractors.",
+      "checked": "2026-10-20"
      }
     ]
    },
    {
     "item": "Electrical, plumbing, gas and HVAC",
-    "what_to_check": "Panels, new circuits, moved outlets, gas lines and appliances, moved pipes and heating and cooling systems go to a licensed trade in most states. Some states require a licensed electrician or plumber even to swap a fixture, faucet or switch (Utah, Nevada). Check your state.",
+    "what_to_check": "Panels, new circuits, moved outlets, gas lines and appliances, moved pipes and heating and cooling systems go to a licensed trade in most states. Some states require a licensed electrician or plumber even to swap a fixture, faucet or switch (Nevada, Oregon, Utah and Virginia, and Florida for electrical work). Check your state.",
     "sources": [
      {
       "publisher": "Utah Legislature, Utah Code 58-55-305",
@@ -365,6 +390,30 @@
       "url": "https://www.thumbtack.com/p/handyman-prices",
       "says": "Your state's law may require a licensed contractor for some work; specific trades that may need one include HVAC, plumbing, roofing, electrical installation and repair, concrete and masonry, and flooring.",
       "page_date": "2026-01-05",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "ORS 479.620 and 479.530 (Oregon Revised Statutes, via oregon.public.law)",
+      "url": "https://oregon.public.law/statutes/ors_479.620",
+      "says": "A person may not make any electrical installation without a supervising or journeyman electrician's license (or a limited residential electrician's license for dwellings); an electrical installation includes the maintenance or repair of installed wiring and permanently attached electrical products (ORS 479.530(10)). ORS 479.540 has no exemption for paid work on someone else's home, and OAR 918-282-0110 exempts only bulbs, fuses, plugging in portable equipment and a few low-voltage systems (single smoke detectors, intercoms, antennas, cameras).",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "ORS 447.060 and 447.072 (Oregon Revised Statutes, via oregon.public.law)",
+      "url": "https://oregon.public.law/statutes/ors_447.060",
+      "says": "The plumbing license rules don't apply to a person doing plumbing work when not engaged for hire (447.060(1)(a)); plumbing includes installing, altering or repairing fixtures (447.010(6)); the permit and inspection exemption for ordinary minor repairs is available only to licensed plumbing contractors and persons described in ORS 693.020 (447.072).",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Code of Virginia 54.1-1128 and 54.1-1129",
+      "url": "https://law.lis.virginia.gov/vacode/title54.1/chapter11/section54.1-1129/",
+      "says": "A tradesman is any individual who engages in, or offers to engage in, work for the general public for compensation in the electrical, plumbing and HVAC trades (54.1-1128); no individual may work as a tradesman without a license, except under a licensed tradesman's supervision (54.1-1129(A)). Neither section has a dollar threshold.",
+      "checked": "2026-10-20"
+     },
+     {
+      "publisher": "Florida Legislature, Florida Statutes 489.503",
+      "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.503.html",
+      "says": "489.503 (2026) has no exemption for unlicensed persons doing minor electrical work for pay.",
       "checked": "2026-10-20"
      }
     ]
@@ -1057,7 +1106,7 @@
       "faucet"
      ]
     },
-    "say": "Faucet swap: same spot, same supply lines. Moving lines, new valves or new sink holes go to a licensed plumber, and some states require one even for a swap (Utah, Nevada). Check your state."
+    "say": "Faucet swap: same spot, same supply lines. Moving lines, new valves or new sink holes go to a licensed plumber, and some states require one even for a swap (Nevada, Oregon, Utah and Virginia). Check your state."
    },
    {
     "when": {
