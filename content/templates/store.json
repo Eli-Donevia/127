@@ -1,14 +1,14 @@
 {
  "name": "127 Store",
  "version": "2026-10-20.1",
- "generatedAt": "2026-10-20T04:57:44Z",
+ "generatedAt": "2026-10-20T17:12:40Z",
  "flag": "STORE_V2",
- "count": 99,
- "ready": 98,
+ "count": 104,
+ "ready": 103,
  "makeItMine": 42,
  "counts": {
   "site": {
-   "ready": 13,
+   "ready": 18,
    "coming": 0
   },
   "shopify": {
@@ -219,8 +219,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-agency/preview.html",
-     "bytes": 57890,
-     "sha256": "921cfa5207a35cbbfe23008a5f58622641f6be62de46d98e41b9ece73e4d4736"
+     "bytes": 181852,
+     "sha256": "c3161a74b2498db369baec985f1c19f421510d6dab44be1f076de1a2a785d6d0"
     }
    ],
    "links": [
@@ -263,8 +263,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-coach/preview.html",
-     "bytes": 47757,
-     "sha256": "37370c83a4d604d01fb7a6a9f3c5d89ea685ff911a15b713f263c5ca93fdc23e"
+     "bytes": 552324,
+     "sha256": "bfeffb7c3ecad3d167f5679620dd68e59c8e7ac230c8b3bf27cf19a8f7eba17e"
     }
    ],
    "links": [
@@ -309,8 +309,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-creator/preview.html",
-     "bytes": 62354,
-     "sha256": "433c2316875d6a44630789f1b16fcd513a3a451b6a34e407287a02cf502eca47"
+     "bytes": 277008,
+     "sha256": "d7a6acfe3f58b3741bf1fca3643c3cdfb8b6c6a86ea0f2208a60402a8f5af424"
     }
    ],
    "links": [
@@ -326,6 +326,100 @@
    "design": "spotlight",
    "livePreview": "spotlight/preview.html",
    "phonePreview": "spotlight/phone.png"
+  },
+  {
+   "id": "site-gallery",
+   "title": "Curved gallery portfolio",
+   "kind": "site",
+   "businessTypes": [
+    "creator",
+    "any"
+   ],
+   "tier": "builder",
+   "summary": "Your work on a curved wall that turns as you scroll or drag, each piece opening its case study below, with a project form on black.",
+   "tags": [
+    "portfolio",
+    "architecture",
+    "interiors",
+    "illustrator",
+    "gallery",
+    "case studies",
+    "website",
+    "animated",
+    "rotunda"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-gallery/preview.html",
+     "bytes": 326132,
+     "sha256": "fafd4ff934a2c4609153b2f9ceb695c79102036b1f004592d59e9a9c9c658269"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=rotunda",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "rotunda",
+   "livePreview": "rotunda/preview.html",
+   "phonePreview": "rotunda/phone.png"
+  },
+  {
+   "id": "site-editorial",
+   "title": "Editorial studio website",
+   "kind": "site",
+   "businessTypes": [
+    "local",
+    "coach"
+   ],
+   "tier": "builder",
+   "summary": "Bold and editorial on white: your name set giant, photo tiles that collapse into one photo, a line drawing that draws itself. The lightest one.",
+   "tags": [
+    "florist",
+    "studio",
+    "yoga",
+    "design studio",
+    "editorial",
+    "booking",
+    "website",
+    "animated",
+    "bloom"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-editorial/preview.html",
+     "bytes": 362977,
+     "sha256": "c553c232888facaf3d054d628c1336d185a730e2e51fce0aa0a44eb1bd1f1d86"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=bloom",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "bloom",
+   "livePreview": "bloom/preview.html",
+   "phonePreview": "bloom/phone.png"
   },
   {
    "id": "site-event",
@@ -354,8 +448,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-event/preview.html",
-     "bytes": 57008,
-     "sha256": "9db3c03fb665f3b396238ef60a8de03b7d0d7e0337376a60651cd7fd6b52f757"
+     "bytes": 129916,
+     "sha256": "bd2f439193e9c35d169d7915e54aedc4da394787b9ecb5d44ef70939b63ac51a"
     }
    ],
    "links": [
@@ -371,6 +465,98 @@
    "design": "gather",
    "livePreview": "gather/preview.html",
    "phonePreview": "gather/phone.png"
+  },
+  {
+   "id": "site-exploded",
+   "title": "Exploded product page",
+   "kind": "site",
+   "businessTypes": [
+    "ecom"
+   ],
+   "tier": "builder",
+   "summary": "For a physical product: it comes apart into floating layers as you scroll, each labelled from your feature list, then goes back together.",
+   "tags": [
+    "product",
+    "hardware",
+    "gadget",
+    "speaker",
+    "specs",
+    "buy button",
+    "website",
+    "animated",
+    "assembly"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-exploded/preview.html",
+     "bytes": 482262,
+     "sha256": "d67be127dec5620ef5223d94a39dcea9918d30ef67ec9eea2e21f4dd1ba6cc75"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=assembly",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "assembly",
+   "livePreview": "assembly/preview.html",
+   "phonePreview": "assembly/phone.png"
+  },
+  {
+   "id": "site-glow",
+   "title": "Glow launch page",
+   "kind": "site",
+   "businessTypes": [
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "For an app or digital product: a slow glowing field in your colors behind the headline, features lit by a beam, glass cards and one button.",
+   "tags": [
+    "app",
+    "ai",
+    "software",
+    "launch",
+    "digital product",
+    "pricing",
+    "website",
+    "animated",
+    "lumen"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-glow/preview.html",
+     "bytes": 76753,
+     "sha256": "4f9eb925212709fc2121451d6d78f952096076512f04e82f6ba535b06d413749"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=lumen",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "lumen",
+   "livePreview": "lumen/preview.html",
+   "phonePreview": "lumen/phone.png"
   },
   {
    "id": "site-link-in-bio",
@@ -399,8 +585,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-link-in-bio/preview.html",
-     "bytes": 35652,
-     "sha256": "cb061ff0c6a3d1d23528a0390549e8fb2c11ba973be56ad10dc680d6ab89bee4"
+     "bytes": 292476,
+     "sha256": "cd2da939237a8e4a4ac4dbc04395c0bbe96a093a1bf900e9017d0ee06555dcd4"
     }
    ],
    "links": [
@@ -445,8 +631,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-local-service/preview.html",
-     "bytes": 53992,
-     "sha256": "1dbcebd3e68089db8ccafc4129773db3ab314a9f79e8d16ab425d9c783fe40a3"
+     "bytes": 368858,
+     "sha256": "44d27f47008c4f6f46bc6106ff640f3418d867bc0bd7bbcd93e6d76c4ad86105"
     }
    ],
    "links": [
@@ -490,8 +676,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-portfolio/preview.html",
-     "bytes": 70856,
-     "sha256": "19406f0c3d93ae598257587ccc62d3c5464b84b49cc4efead857f1642783695d"
+     "bytes": 267272,
+     "sha256": "c3c1d8eb39b0b9b6ce89c255d31206eb88311e97e7f6101a49dcc98b8ef4db92"
     }
    ],
    "links": [
@@ -535,8 +721,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-product-landing/preview.html",
-     "bytes": 47310,
-     "sha256": "d4d56d29c70cde70757fbd1564b61fe9136c9bd20910118002817e8db43f8c0a"
+     "bytes": 86446,
+     "sha256": "cee5f5e4d13bd88b400406322facd7a5356a4392984fb087876969185e6fe016"
     }
    ],
    "links": [
@@ -581,8 +767,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-restaurant/preview.html",
-     "bytes": 78814,
-     "sha256": "5786608794243ed5d88c94979093388fe1a64aa83fa20271f2baebff82ec1c74"
+     "bytes": 416188,
+     "sha256": "70d98f6a0aa38ee3260313f355e33dbb84128770412709036b4558899e76345b"
     }
    ],
    "links": [
@@ -627,8 +813,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-studio/preview.html",
-     "bytes": 62559,
-     "sha256": "f3ecef75d697cb5767913d81982d0a094ea9fa8e72e4deaa068cd5f790a667c5"
+     "bytes": 303394,
+     "sha256": "8725d36acfb467adf0a87a9526ee0b975ceb8cb2b2289db694ac6e3e04f2e3e9"
     }
    ],
    "links": [
@@ -674,8 +860,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-shop/preview.html",
-     "bytes": 65343,
-     "sha256": "370c49b667e081b9723391f33ff943b02972d597ac3579b64d0ccebdecda05b5"
+     "bytes": 341406,
+     "sha256": "fa20bffb980946aafebe998801337d39a02580085f7a2fb054e0b73ac46bc972"
     }
    ],
    "links": [
@@ -719,8 +905,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-saas/preview.html",
-     "bytes": 49528,
-     "sha256": "9dbc80bf4dce1679ebb4e5a5766b4439097c36db0d02401a8dc4108ec948d41f"
+     "bytes": 379822,
+     "sha256": "b826c5d95761773853d1b267db8eea2541c4326093ff087c5d0284b55ff06d4f"
     }
    ],
    "links": [
@@ -736,6 +922,53 @@
    "design": "orbit",
    "livePreview": "orbit/preview.html",
    "phonePreview": "orbit/phone.png"
+  },
+  {
+   "id": "site-story",
+   "title": "Story website for a maker",
+   "kind": "site",
+   "businessTypes": [
+    "ecom",
+    "idea"
+   ],
+   "tier": "builder",
+   "summary": "A night scroll story for a maker with a story: a camera moves past a gate and lit lanterns, chapter by chapter, to your product and one button.",
+   "tags": [
+    "maker",
+    "knives",
+    "spirits",
+    "craft",
+    "story",
+    "buy button",
+    "website",
+    "animated",
+    "nightfall"
+   ],
+   "status": "ready",
+   "owner": "design",
+   "preview": null,
+   "formats": [
+    {
+     "format": "html",
+     "label": "Sample site (.html)",
+     "file": "files/site-story/preview.html",
+     "bytes": 287736,
+     "sha256": "3e197fef37b44df259051c1223e7d32606d7cfc4ac516eb0d266a98c2bdcba65"
+    }
+   ],
+   "links": [
+    {
+     "label": "Make it mine",
+     "url": "/app/hq/w/site.build_tonight?in_design=nightfall",
+     "type": "open"
+    }
+   ],
+   "makeItMine": null,
+   "library": null,
+   "flag": "SITE_MOTION",
+   "design": "nightfall",
+   "livePreview": "nightfall/preview.html",
+   "phonePreview": "nightfall/phone.png"
   },
   {
    "id": "site-waitlist",
@@ -764,8 +997,8 @@
      "format": "html",
      "label": "Sample site (.html)",
      "file": "files/site-waitlist/preview.html",
-     "bytes": 34211,
-     "sha256": "38d73f26230f1306113c0eb2f9e06cf58839add6bde7d5bfb0e8d1269499a926"
+     "bytes": 317375,
+     "sha256": "e503a8bf619154ba7091f66933f6cdedca0d0c78a50040d54d303fed0e1a314c"
     }
    ],
    "links": [
