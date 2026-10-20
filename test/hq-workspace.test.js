@@ -10,7 +10,7 @@ process.env.DB_FILE = path.join(__dirname, '..', 'data', `test-db-ws-${process.p
 process.env.BLOB_DIR = path.join(os.tmpdir(), `127-blobs-ws-${process.pid}`);
 process.env.BASE_URL = 'https://127.test';
 process.env.HARNESS_STRICT = 'on';
-for (const k of ['ANTHROPIC_API_KEY', 'HARNESS_PAUSE', 'HARNESS_AI', 'HARNESS_FREE_RUN', 'ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_BRIEFS', 'HQ_SITE_AGENT']) delete process.env[k];
+for (const k of ['ANTHROPIC_API_KEY', 'HARNESS_PAUSE', 'HARNESS_AI', 'HARNESS_FREE_RUN', 'ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT']) delete process.env[k];
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -350,7 +350,6 @@ const schedules = require('../lib/harness/schedules');
 const mcp = require('../lib/harness/mcp');
 const agent = require('../lib/harness/agent');
 const prompts = require('../lib/harness/prompts');
-const briefs = require('../lib/harness/briefs');
 const ledger = require('../lib/harness/ledger');
 const tick = () => new Promise((r) => setImmediate(r));
 
@@ -610,57 +609,6 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   assert.equal(r.headers.get('location'), '/app/hq/ask#end');
   assert.equal(agent.messages(u)[0].text, 'Prompt: The Idea Test');
   assert.match(prompts.system('My brain text'), /My brain text/);
-});
-
-// ---------- Briefs ----------
-test('Briefs: a guided form becomes one build-ready brief with a Never list and a self-check, locked by plan', async () => {
-  const u = await member();
-  assert.equal((await s.go('/app/hq/briefs', { as: u })).status, 404);
-  process.env.HQ_BRIEFS = 'on';
-  assert.match(await (await s.go('/app/hq/briefs', { as: u })).text(), /Ask for changes/);
-  const site = briefs.get('site');
-  const page = await (await s.go('/app/hq/briefs/site', { as: u })).text();
-  for (const f of briefs.fields(site)) assert.match(page, new RegExp(`name="v_${f.key}"`));
-  // The lessons are on before anyone ticks anything.
-  assert.match(page, /value="staged_glow" checked/);
-  const html = await (await s.go('/app/hq/briefs/site', { as: u, form: { v_business: 'Northside Detailing', v_what: 'Mobile detailing', v_action: 'Book a detail', v_look: 'first_light', v_avoid: 'floor_line', make: '1' } })).text();
-  assert.match(html, /Your brief/);
-  assert.match(html, /Still needed: Who it&#39;s for, Mood in three words/);
-  const out = html.match(/<pre class="h2-doc"[^>]*>([\s\S]*?)<\/pre>/)[1];
-  assert.match(out, /Who it&#39;s for: \[ASK\]/);
-  assert.match(out, /The one button reads &#34;Book a detail&#34;/);
-  assert.match(out, /Light is the only decoration/);
-  // Only the Never chips sent: the cleared ones stay cleared, unknown ids are dropped.
-  assert.match(out, /No horizon line/);
-  assert.doesNotMatch(out, /No glow, spotlight/);
-  assert.deepEqual(briefs.clean(site, { avoid: ['floor_line', 'nope'] }).avoid, ['floor_line']);
-  assert.match(out, /It arrives, it doesn&#39;t appear/);
-  // Blank chip answers use their defaults; the self-check always ends the brief.
-  const hero = briefs.compile(briefs.get('hero'), { subject: 'Our logo', where: 'Hero', start: 'water', end: 'glass logo', mood: 'alive' });
-  assert.ok(hero.ready);
-  assert.deepEqual(hero.motion.alive, ['drift', 'pointer', 'tap']);
-  assert.match(hero.text, /clear glass|Three\.js/);
-  assert.match(hero.text, /No glow, spotlight/);
-  assert.match(hero.text, /CHECK YOUR WORK[\s\S]*\[ \] Frame 0s shows: water\. The last intro frame shows: glass logo\./);
-  // A round of changes: each line becomes a change and a check; KEEP stays.
-  const ch = briefs.compile(briefs.get('changes'), { thing: 'Hero v3', keep: 'The colors', feel: ['too_static'], changes: 'Hero | it just appears | form it from water\nremove the line' });
-  assert.match(ch.text, /- Hero: it just appears\. Instead: form it from water/);
-  assert.match(ch.text, /- Remove the line/);
-  assert.ok(ch.checks.includes('Hero: form it from water'));
-  assert.match(ch.text, /come alive/);
-  assert.doesNotMatch(ch.text, /\nALWAYS\n/);
-  // Builder briefs are locked for free members.
-  const free = await member('free');
-  assert.match(await (await s.go('/app/hq/briefs/hero', { as: free })).text(), /This brief is part of Builder/);
-  assert.equal((await s.go('/app/hq/briefs/hero', { as: free, form: { make: '1' } })).headers.get('location'), '/app/hq/briefs/hero');
-  assert.equal((await s.go('/app/hq/briefs/nope', { as: u })).status, 404);
-  // Send to Ask 127: one message showing the brief's title.
-  process.env.HQ_AGENT = 'on';
-  const r = await s.go('/app/hq/briefs/changes', { as: u, form: { v_thing: 'Hero', ask: '1' } });
-  assert.equal(r.headers.get('location'), '/app/hq/ask#end');
-  assert.equal(agent.messages(u).find((m) => m.text === 'Brief: Ask for changes').text, 'Brief: Ask for changes');
-  delete process.env.HQ_AGENT;
-  delete process.env.HQ_BRIEFS;
 });
 
 // ---------- Legal L76 ----------
