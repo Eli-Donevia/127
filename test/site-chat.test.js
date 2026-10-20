@@ -147,6 +147,7 @@ test('S10, S7, S11: details and both ticks before it turns on; the page says who
   assert.match(st.key, /^[a-f0-9]{32}$/);
   page = await (await s.go('/app/hq/site-chat', { as: u })).text();
   assert.ok(page.includes(`data-chat=&#34;${st.key}&#34;`), 'the snippet carries the code');
+  assert.match(page, /Built your site with a 127 template\? Paste this code into the site form's "Site chat code" box instead/);
   // A new code: the old one stops working.
   const oldKey = st.key;
   await s.go('/app/hq/site-chat/key', { as: u, form: {} });

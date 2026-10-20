@@ -32,6 +32,7 @@
     <% if (s.on) { %>
     <p class="h2-sub">Paste this just before &lt;/body&gt; on every page where you want the chat. It shows only on <%= d.site %>.</p>
     <pre class="h2-doc" id="sc-code" style="margin-top:10px;white-space:pre-wrap;word-break:break-all"><%= snippet %></pre>
+    <p class="hq-small">Built your site with a 127 template? Paste this code into the site form's "Site chat code" box instead, and your site's privacy page covers the chat too.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
       <form method="post" action="/app/hq/site-chat/off"><button class="hq-pill">Turn it off</button></form>
       <form method="post" action="/app/hq/site-chat/key" data-confirm="Make a new code? The old one stops working until you replace it on your site."><button class="hq-link-btn">Get a new code</button></form>
