@@ -1,0 +1,516 @@
+{
+  "version": 1,
+  "about": "AI scripts: how to run a whole job with an AI in one or two rounds. Source: v2/briefs/scripts/scripts.js (node build.js). Edit the source, never this file.",
+  "method": [
+    "Give context once. Put your business brain in the project or custom instructions so you never paste it again.",
+    "Attach files instead of pasting them, and say what each file is for.",
+    "One complete ask beats five small ones: say what done looks like, what to avoid, and how to check it.",
+    "On big jobs, ask for a short plan first and approve it. A plan costs a few lines; a wrong build costs the whole build.",
+    "Make it check its own work before it shows you (screenshots, a checklist, a reread against your ask).",
+    "Collect every change, then send them in one message. Say what to keep.",
+    "Ask for only what changed, not the whole thing again.",
+    "When a chat gets long or starts repeating mistakes, get a handoff summary and start a fresh chat with it.",
+    "When a prompt works, save it as a skill or a saved prompt so next time is one line."
+  ],
+  "scripts": [
+    {
+      "id": "method",
+      "title": "Any AI job in one round",
+      "tier": "free",
+      "when": "Before any job you would normally go back and forth on. The method under every other script.",
+      "outcome": "A finished piece in one build and at most one round of changes, without re-explaining your business.",
+      "variables": [
+        {
+          "key": "job",
+          "label": "The job",
+          "example": "A one-page welcome guide for new cleaning clients"
+        },
+        {
+          "key": "done",
+          "label": "What done looks like",
+          "example": "One page, friendly, covers what to expect on day one, ready to send as a PDF"
+        },
+        {
+          "key": "avoid",
+          "label": "What to avoid",
+          "example": "No corporate words, no prices, nothing longer than one page",
+          "optional": true
+        }
+      ],
+      "steps": [
+        {
+          "title": "The full ask",
+          "why": "Everything the AI needs, in one message, including how it will be judged.",
+          "say": "Job: {{job}}\nDone looks like: {{done}}\nAvoid: {{avoid}}\n\nBefore you start, tell me in three lines how you'll do it and what you're assuming. If something is truly missing, ask me one question. Otherwise start."
+        },
+        {
+          "title": "Check before showing",
+          "why": "Most second rounds are things the AI could have caught itself.",
+          "say": "Before you show me, check your work against my ask line by line. Mark each point pass or fail, fix every fail, then show me the result and the checklist. No recap of my ask."
+        },
+        {
+          "title": "One round of changes",
+          "why": "Ten small corrections cost ten rounds. One list costs one.",
+          "say": "Here are all my changes in one go. Keep everything else exactly as it is.\nKEEP: [what you like]\nCHANGE:\n1. [where]: [what is wrong] -> [what you want]\n2. ...\nSend back only the parts that changed, one line per change."
+        },
+        {
+          "title": "Save it",
+          "why": "The next time is one line instead of a page.",
+          "uses": "ops.skill_packager"
+        }
+      ],
+      "savers": [
+        "Give context once. Put your business brain in the project or custom instructions so you never paste it again.",
+        "Attach files instead of pasting them, and say what each file is for.",
+        "One complete ask beats five small ones: say what done looks like, what to avoid, and how to check it.",
+        "On big jobs, ask for a short plan first and approve it. A plan costs a few lines; a wrong build costs the whole build.",
+        "Make it check its own work before it shows you (screenshots, a checklist, a reread against your ask).",
+        "Collect every change, then send them in one message. Say what to keep.",
+        "Ask for only what changed, not the whole thing again.",
+        "When a chat gets long or starts repeating mistakes, get a handoff summary and start a fresh chat with it.",
+        "When a prompt works, save it as a skill or a saved prompt so next time is one line."
+      ]
+    },
+    {
+      "id": "website",
+      "title": "A premium website, built right the first time",
+      "tier": "builder",
+      "when": "You want a site or landing page with real motion and a premium feel, built by an AI that writes code (Claude or similar).",
+      "outcome": "A working one-page site that passes its own checklist on phone and desktop, after one build and one round of changes.",
+      "variables": [
+        {
+          "key": "business",
+          "label": "Business",
+          "example": "Northside Detailing, mobile car detailing in Austin"
+        },
+        {
+          "key": "references",
+          "label": "2 or 3 references you love",
+          "example": "apple.com/airpods-pro, aesop.com, the opening of Blade Runner 2049"
+        },
+        {
+          "key": "action",
+          "label": "The one thing a visitor should do",
+          "example": "Book a detail"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Write the brief",
+          "why": "The look, the intro, the scroll moment and the never-list, decided before any code. Most rounds come from these being guessed.",
+          "brief": "site"
+        },
+        {
+          "title": "Learn from your references",
+          "why": "Gives the AI designer words for what you like, so it stops guessing \"modern\".",
+          "uses": "website.reference_teardown"
+        },
+        {
+          "title": "Plan before code",
+          "why": "Fixing a plan takes one line. Fixing a build takes a rebuild.",
+          "say": "Here is my brief (attached) for {{business}}. Before writing any code, give me: the sections in order, the one intro move, the one scroll moment, the fonts and colors, and what phones get instead of the heavy parts. Ten lines at most. Wait for my OK."
+        },
+        {
+          "title": "Build and check yourself",
+          "why": "The AI screenshots its own page and fixes it before you see it.",
+          "say": "Approved. Build it. Before you show me: take screenshots at 390px and 1440px (top, middle, end) and frames at 0s, 0.5s, 1s and 2s of the intro. Check them against the brief's checklist and against my references ({{references}}). Fix every fail, check once more, then send the files, the screenshots and the marked checklist."
+        },
+        {
+          "title": "One round of changes",
+          "why": "Gut-feel words like \"feels cheap\" become exact instructions.",
+          "brief": "changes"
+        },
+        {
+          "title": "Before it goes live",
+          "why": "Catches the things that cost trust: a vague headline, a claim you can't back.",
+          "uses": "review.five_second",
+          "add": "The page must make \"{{action}}\" obvious in the first screen on a phone."
+        }
+      ],
+      "savers": [
+        "Attach your logo, photos and brand colors in the first message, not when it asks.",
+        "Name the stack in the brief (for example HTML + GSAP, or Three.js for real 3D) so it doesn't pick something heavy.",
+        "Ask for changed files only after the first build.",
+        "If you've gone three rounds on one detail, stop and use the change step: say the gut feel and what to keep."
+      ]
+    },
+    {
+      "id": "hero",
+      "title": "A hero that comes alive",
+      "tier": "builder",
+      "when": "One signature moment: a logo that forms, a product reveal, a hero that moves like it's alive instead of sitting still.",
+      "outcome": "A live hero with a real intro, motion at rest, one scroll moment, and a still poster for phones and speed.",
+      "variables": [
+        {
+          "key": "subject",
+          "label": "The star",
+          "example": "Our logo"
+        },
+        {
+          "key": "start",
+          "label": "It starts as",
+          "example": "Loose water under a dark surface"
+        },
+        {
+          "key": "end",
+          "label": "It ends as",
+          "example": "The logo, fully formed in clear glass, floating"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Write the brief",
+          "why": "Start state, end state, how it forms, how it stays alive, and the never-list (no staged glow, no floor line, no fade-in).",
+          "brief": "hero"
+        },
+        {
+          "title": "Storyboard first",
+          "why": "Four frames in words are cheap to fix. Rendered motion is not.",
+          "say": "From my brief (attached), describe the intro as four frames: 0s, 0.5s, 1s and the final frame. Then say what moves after the intro and what happens on scroll. Words only, no code yet. Wait for my OK."
+        },
+        {
+          "title": "Build it live",
+          "why": "Real-time beats a moving picture. This was the round that made the 127 hero feel alive.",
+          "say": "Approved. Build {{subject}} live in the browser (real-time, not a video or a picture being moved). It starts as: {{start}}. It ends as: {{end}}. It must visibly form, not fade or slide in. Paint a still poster of the final frame first, start the live version after the page loads, pause it offscreen, and give phones without a real graphics chip the poster."
+        },
+        {
+          "title": "Prove it's alive",
+          "why": "Static is the most common miss. Frames make it obvious.",
+          "say": "Grab frames at 0s, 0.5s, 1s, 2s, 5s and 10s, and one mid-scroll. Check: the middle frames show it forming; frames after the intro differ (it keeps moving); nothing on my never-list shows; the poster matches the final frame. Fix and send the frames with the checklist."
+        },
+        {
+          "title": "One round of changes",
+          "why": "Send \"too static\" or \"feels staged\" as chips plus what to keep, all at once.",
+          "brief": "changes"
+        }
+      ],
+      "savers": [
+        "Say \"centered, facing forward\" and the material (glass, liquid, metal) up front. Those were three rounds on the 127 hero.",
+        "Ask for frames, not a description. You can judge frames in seconds.",
+        "Keep the poster rule in every ask, or speed scores drop."
+      ]
+    },
+    {
+      "id": "ad",
+      "title": "A short ad or reel",
+      "tier": "builder",
+      "when": "A 15 to 30 second ad or reel that comes out on brand, with words that hold up.",
+      "outcome": "A script, shot prompts for your AI video tool, an edit plan and a claims check, in one sitting.",
+      "variables": [
+        {
+          "key": "topic",
+          "label": "What you're showing",
+          "example": "Our interior detail"
+        },
+        {
+          "key": "audience",
+          "label": "Who it's for",
+          "example": "Parents with a messy SUV"
+        },
+        {
+          "key": "hook",
+          "label": "The first 2 seconds",
+          "example": "A crumb-covered back seat, then one swipe and it's clean"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Write the brief",
+          "why": "Hook, exact words, format, look and the never-list in one place.",
+          "brief": "ad"
+        },
+        {
+          "title": "Script",
+          "why": "Words first. Visuals follow the words.",
+          "uses": "video.short_script",
+          "add": "Open on this: {{hook}}"
+        },
+        {
+          "title": "Shot prompts",
+          "why": "One prompt per shot, written for your video tool, so you aren't rerolling.",
+          "uses": "video.ai_shot_prompts"
+        },
+        {
+          "title": "Edit plan",
+          "why": "Cut order, captions and timing before you open the editor.",
+          "uses": "video.edit_plan"
+        },
+        {
+          "title": "Claims check",
+          "why": "Nothing promised that you can't back.",
+          "uses": "review.claims_check"
+        }
+      ],
+      "savers": [
+        "Generate 2 or 3 versions of the first shot only, pick one, then do the rest. The hook is where rerolls pay off.",
+        "Keep the exact on-screen words in the brief so every tool gets the same words."
+      ]
+    },
+    {
+      "id": "offer_page",
+      "title": "From offer to sales page",
+      "tier": "free",
+      "when": "You know what you sell and need the offer and the page that explains it, without five drafts.",
+      "outcome": "A clear offer, a sales page draft, and a page a stranger gets in five seconds.",
+      "variables": [
+        {
+          "key": "service",
+          "label": "What you do",
+          "example": "Weekly lawn care"
+        },
+        {
+          "key": "buyer",
+          "label": "Who buys it",
+          "example": "Homeowners who travel for work"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Shape the offer",
+          "why": "A page can't fix a fuzzy offer.",
+          "uses": "offer.builder"
+        },
+        {
+          "title": "Answer the no's first",
+          "why": "The page has to answer them, so write them down now.",
+          "uses": "offer.objection_bank"
+        },
+        {
+          "title": "Write the page",
+          "why": "Feed it the offer and the objections from the last two steps.",
+          "uses": "offer.sales_page",
+          "add": "Use the offer and the objections above. Answer each objection somewhere on the page."
+        },
+        {
+          "title": "Five-second test",
+          "why": "If a stranger doesn't get it fast, nothing else matters.",
+          "uses": "review.five_second"
+        },
+        {
+          "title": "Claims check",
+          "why": "Real proof only.",
+          "uses": "review.claims_check"
+        }
+      ],
+      "savers": [
+        "Do all five steps in one chat so each step can use the last one's answer.",
+        "Paste real customer words if you have them. They beat anything the AI writes."
+      ]
+    },
+    {
+      "id": "outreach",
+      "title": "Your first outreach batch",
+      "tier": "free",
+      "when": "You're ready to contact real people and want a list, first messages and follow-ups drafted for you to send.",
+      "outcome": "A list with a reason to contact each person, first messages and follow-ups drafted for you to read and send yourself.",
+      "variables": [
+        {
+          "key": "offer",
+          "label": "What you offer",
+          "example": "Same-week bookkeeping cleanup"
+        },
+        {
+          "key": "buyer",
+          "label": "Who it's for",
+          "example": "Restaurant owners in Phoenix"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Build the list",
+          "why": "A reason per person is what makes a message worth reading.",
+          "uses": "outreach.first_25"
+        },
+        {
+          "title": "First messages",
+          "why": "One message per person, built on the reason you found.",
+          "uses": "outreach.first_message"
+        },
+        {
+          "title": "Follow-ups",
+          "why": "Drafted now so you aren't writing them cold later.",
+          "uses": "outreach.follow_ups"
+        },
+        {
+          "title": "When they reply",
+          "why": "Paste the thread and get the best next message.",
+          "uses": "outreach.reply_copilot"
+        }
+      ],
+      "savers": [
+        "Ask for a table (name, reason, message) so you can scan and edit in one pass.",
+        "You send every message yourself. Emails carry your address and a way to opt out."
+      ]
+    },
+    {
+      "id": "content_week",
+      "title": "A week of content in one sitting",
+      "tier": "free",
+      "when": "You keep staring at a blank screen. Plan, hook and script a week in one chat.",
+      "outcome": "Hooks, a week of posts and scripts for the videos, all in your voice.",
+      "variables": [
+        {
+          "key": "business",
+          "label": "Business",
+          "example": "A home bakery doing custom cakes"
+        },
+        {
+          "key": "audience",
+          "label": "Who you're talking to",
+          "example": "Parents planning kids' birthdays"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Hooks",
+          "why": "The first line decides if anyone watches the rest.",
+          "uses": "content.hook_bank"
+        },
+        {
+          "title": "The week",
+          "why": "Pick from the hooks; plan seven posts.",
+          "uses": "content.calendar_30",
+          "add": "Plan 7 days only, using the best hooks above."
+        },
+        {
+          "title": "Scripts",
+          "why": "Script the video posts in one go.",
+          "uses": "video.short_script",
+          "add": "Write a script for each video post in the plan above."
+        },
+        {
+          "title": "One into ten",
+          "why": "Your best post becomes the next week.",
+          "uses": "content.repurpose"
+        }
+      ],
+      "savers": [
+        "Save your voice guide in your project instructions once, so every post sounds like you without asking.",
+        "Ask for everything in one table you can copy into your scheduler."
+      ]
+    },
+    {
+      "id": "research",
+      "title": "Research a market in one pass",
+      "tier": "builder",
+      "when": "You need to know a market and the people winning in it before you spend time or money.",
+      "outcome": "A short market brief and a teardown of five players, with sources and how sure the AI is.",
+      "variables": [
+        {
+          "key": "market",
+          "label": "Market",
+          "example": "Mobile pet grooming in Denver"
+        },
+        {
+          "key": "question",
+          "label": "The decision this research is for",
+          "example": "Should I charge per visit or monthly?"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Market brief",
+          "why": "Numbers and trends first.",
+          "uses": "start.market_brief"
+        },
+        {
+          "title": "Five-player teardown",
+          "why": "How the winners find buyers, price and deliver.",
+          "uses": "start.competitor_teardown"
+        },
+        {
+          "title": "Decide",
+          "why": "Research only pays off as a decision.",
+          "say": "Using the brief and teardown above, answer one question: {{question}}. Give your answer, the three facts it rests on with sources, how sure you are, and what would change your mind. Under 150 words."
+        }
+      ],
+      "savers": [
+        "Start with the decision you need to make. It stops the AI from writing a report nobody acts on.",
+        "Ask for sources and a confidence level on every number. Treat anything unsourced as a guess."
+      ]
+    },
+    {
+      "id": "numbers",
+      "title": "Read your numbers and pick the move",
+      "tier": "free",
+      "when": "Once a week. Paste the numbers, get the one move, not a lecture.",
+      "outcome": "The one move for the week, and the math behind it.",
+      "variables": [
+        {
+          "key": "goal",
+          "label": "Goal right now",
+          "example": "10 booked jobs a week"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Read the week",
+          "why": "One move, with the math shown.",
+          "uses": "finance.weekly_numbers"
+        },
+        {
+          "title": "Check the money",
+          "why": "When spend is the question, check runway before deciding.",
+          "uses": "finance.cash_runway"
+        }
+      ],
+      "savers": [
+        "Paste the same table every week (same columns, same order) so the AI compares like with like.",
+        "Keep a numbers doc in your Brain and point the AI at it instead of pasting history."
+      ]
+    },
+    {
+      "id": "skill",
+      "title": "Turn repeat work into a one-line ask",
+      "tier": "builder",
+      "when": "You've given your AI the same instructions three times. Do it once properly.",
+      "outcome": "A written SOP and a saved skill or project, so next time you type one line.",
+      "variables": [
+        {
+          "key": "task",
+          "label": "The repeat job",
+          "example": "Writing the Friday project update email"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Write the SOP",
+          "why": "The steps, written once.",
+          "uses": "ops.sop_writer"
+        },
+        {
+          "title": "Package it",
+          "why": "Your best example plus the SOP becomes a reusable skill.",
+          "uses": "ops.skill_packager",
+          "add": "Use the SOP above as the instructions."
+        }
+      ],
+      "savers": [
+        "Include one example you were happy with. One good example beats a page of rules."
+      ]
+    },
+    {
+      "id": "fresh_chat",
+      "title": "Start fresh without losing anything",
+      "tier": "free",
+      "when": "The chat is long, slow, repeating mistakes, or forgetting what you said. Long chats cost more on every message.",
+      "outcome": "A short handoff you paste into a new chat, so it picks up exactly where you were.",
+      "variables": [],
+      "steps": [
+        {
+          "title": "Get the handoff",
+          "why": "Everything that matters, in a page instead of a hundred messages.",
+          "say": "We're moving to a new chat. Write a handoff under 300 words: the goal, decisions made (and why), what's done, what's left in order, files and links in use, and the mistakes not to repeat. Plain list, no recap of our conversation."
+        },
+        {
+          "title": "Start the new chat",
+          "why": "A clean start with the handoff costs less on every message from here.",
+          "say": "Here's the handoff from my last chat. Read it, tell me in two lines what you'll do next, then do it.\n\n[paste the handoff]"
+        }
+      ],
+      "savers": [
+        "If your AI has projects, put the handoff in the project files so every new chat starts with it."
+      ]
+    }
+  ]
+}

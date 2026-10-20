@@ -10,7 +10,7 @@ process.env.DB_FILE = path.join(__dirname, '..', 'data', `test-db-ws-${process.p
 process.env.BLOB_DIR = path.join(os.tmpdir(), `127-blobs-ws-${process.pid}`);
 process.env.BASE_URL = 'https://127.test';
 process.env.HARNESS_STRICT = 'on';
-for (const k of ['ANTHROPIC_API_KEY', 'HARNESS_PAUSE', 'HARNESS_AI', 'HARNESS_FREE_RUN', 'ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT']) delete process.env[k];
+for (const k of ['ANTHROPIC_API_KEY', 'HARNESS_PAUSE', 'HARNESS_AI', 'HARNESS_FREE_RUN', 'ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SCRIPTS', 'HQ_SITE_AGENT']) delete process.env[k];
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -350,6 +350,8 @@ const schedules = require('../lib/harness/schedules');
 const mcp = require('../lib/harness/mcp');
 const agent = require('../lib/harness/agent');
 const prompts = require('../lib/harness/prompts');
+const briefs = require('../lib/harness/briefs');
+const scripts = require('../lib/harness/scripts');
 const ledger = require('../lib/harness/ledger');
 const tick = () => new Promise((r) => setImmediate(r));
 
@@ -609,6 +611,94 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   assert.equal(r.headers.get('location'), '/app/hq/ask#end');
   assert.equal(agent.messages(u)[0].text, 'Prompt: The Idea Test');
   assert.match(prompts.system('My brain text'), /My brain text/);
+});
+
+// ---------- Briefs ----------
+test('Briefs: a guided form becomes one build-ready brief with a Never list and a self-check, locked by plan', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/briefs', { as: u })).status, 404);
+  process.env.HQ_SCRIPTS = 'on';
+  assert.match(await (await s.go('/app/hq/briefs', { as: u })).text(), /Ask for changes/);
+  const site = briefs.get('site');
+  const page = await (await s.go('/app/hq/briefs/site', { as: u })).text();
+  for (const f of briefs.fields(site)) assert.match(page, new RegExp(`name="v_${f.key}"`));
+  // The lessons are on before anyone ticks anything.
+  assert.match(page, /value="staged_glow" checked/);
+  const html = await (await s.go('/app/hq/briefs/site', { as: u, form: { v_business: 'Northside Detailing', v_what: 'Mobile detailing', v_action: 'Book a detail', v_look: 'first_light', v_avoid: 'floor_line', make: '1' } })).text();
+  assert.match(html, /Your brief/);
+  assert.match(html, /Still needed: Who it&#39;s for, Mood in three words/);
+  const out = html.match(/<pre class="h2-doc"[^>]*>([\s\S]*?)<\/pre>/)[1];
+  assert.match(out, /Who it&#39;s for: \[ASK\]/);
+  assert.match(out, /The one button reads &#34;Book a detail&#34;/);
+  assert.match(out, /Light is the only decoration/);
+  // Only the Never chips sent: the cleared ones stay cleared, unknown ids are dropped.
+  assert.match(out, /No horizon line/);
+  assert.doesNotMatch(out, /No glow, spotlight/);
+  assert.deepEqual(briefs.clean(site, { avoid: ['floor_line', 'nope'] }).avoid, ['floor_line']);
+  assert.match(out, /It arrives, it doesn&#39;t appear/);
+  // Blank chip answers use their defaults; the self-check always ends the brief.
+  const hero = briefs.compile(briefs.get('hero'), { subject: 'Our logo', where: 'Hero', start: 'water', end: 'glass logo', mood: 'alive' });
+  assert.ok(hero.ready);
+  assert.deepEqual(hero.motion.alive, ['drift', 'pointer', 'tap']);
+  assert.match(hero.text, /clear glass|Three\.js/);
+  assert.match(hero.text, /No glow, spotlight/);
+  assert.match(hero.text, /CHECK YOUR WORK[\s\S]*\[ \] Frame 0s shows: water\. The last intro frame shows: glass logo\./);
+  // A round of changes: each line becomes a change and a check; KEEP stays.
+  const ch = briefs.compile(briefs.get('changes'), { thing: 'Hero v3', keep: 'The colors', feel: ['too_static'], changes: 'Hero | it just appears | form it from water\nremove the line' });
+  assert.match(ch.text, /- Hero: it just appears\. Instead: form it from water/);
+  assert.match(ch.text, /- Remove the line/);
+  assert.ok(ch.checks.includes('Hero: form it from water'));
+  assert.match(ch.text, /come alive/);
+  assert.doesNotMatch(ch.text, /\nALWAYS\n/);
+  // Builder briefs are locked for free members.
+  const free = await member('free');
+  assert.match(await (await s.go('/app/hq/briefs/hero', { as: free })).text(), /This brief is part of Builder/);
+  assert.equal((await s.go('/app/hq/briefs/hero', { as: free, form: { make: '1' } })).headers.get('location'), '/app/hq/briefs/hero');
+  assert.equal((await s.go('/app/hq/briefs/nope', { as: u })).status, 404);
+  // Send to Ask 127: one message showing the brief's title.
+  process.env.HQ_AGENT = 'on';
+  const r = await s.go('/app/hq/briefs/changes', { as: u, form: { v_thing: 'Hero', ask: '1' } });
+  assert.equal(r.headers.get('location'), '/app/hq/ask#end');
+  assert.equal(agent.messages(u).find((m) => m.text === 'Brief: Ask for changes').text, 'Brief: Ask for changes');
+  delete process.env.HQ_AGENT;
+  delete process.env.HQ_SCRIPTS;
+});
+
+test('AI scripts: each step filled from the blanks once, library prompts and briefs linked, locked by plan', async () => {
+  const u = await member();
+  assert.equal((await s.go('/app/hq/scripts', { as: u })).status, 404);
+  process.env.HQ_SCRIPTS = 'on';
+  const L = scripts.load();
+  assert.ok(L.scripts.length >= 10 && L.method.length >= 5);
+  // Every step points at something real.
+  for (const sc of L.scripts) for (const st of sc.steps) {
+    if (st.uses) assert.ok(prompts.get(st.uses), `${sc.id}: ${st.uses}`);
+    if (st.brief) assert.ok(briefs.get(st.brief), `${sc.id}: ${st.brief}`);
+  }
+  const list = await (await s.go('/app/hq/scripts', { as: u })).text();
+  assert.match(list, /Any AI job in one round/);
+  assert.match(list, /The habits behind every script/);
+  const filled = await (await s.go('/app/hq/scripts/method', { as: u, form: { v_job: 'A welcome guide', v_done: 'One page', fill: '1' } })).text();
+  assert.match(filled, /Job: A welcome guide/);
+  assert.match(filled, /Avoid: \(none\)/);
+  assert.match(filled, /Prompt: Turn a repeat job into an AI skill/);
+  // Shared blanks fill the library prompt too; the brief steps link to the form.
+  const offer = scripts.steps(scripts.get('offer_page'), { service: 'Lawn care', buyer: 'Busy owners' });
+  assert.match(offer[0].text, /Lawn care/);
+  const web = await (await s.go('/app/hq/scripts/website', { as: u })).text();
+  assert.match(web, /href="\/app\/hq\/briefs\/site"/);
+  assert.match(web, /Save rounds and tokens/);
+  const free = await member('free');
+  assert.match(await (await s.go('/app/hq/scripts/website', { as: free })).text(), /This script is part of Builder/);
+  assert.equal((await s.go('/app/hq/scripts/website', { as: free, form: { fill: '1' } })).headers.get('location'), '/app/hq/scripts/website');
+  assert.equal((await s.go('/app/hq/scripts/nope', { as: u })).status, 404);
+  // Send one step to Ask 127.
+  process.env.HQ_AGENT = 'on';
+  const r = await s.go('/app/hq/scripts/fresh_chat', { as: u, form: { ask: '1' } });
+  assert.equal(r.headers.get('location'), '/app/hq/ask#end');
+  assert.ok(agent.messages(u).some((m) => m.text === 'Start fresh without losing anything, step 1: Get the handoff'));
+  delete process.env.HQ_AGENT;
+  delete process.env.HQ_SCRIPTS;
 });
 
 // ---------- Legal L76 ----------

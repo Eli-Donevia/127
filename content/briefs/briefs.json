@@ -1,0 +1,1025 @@
+{
+  "version": 1,
+  "about": "Briefs: one guided form per kind of creative job. Code turns the answers into one build-ready brief (no AI, no credits), with a check-your-work list the AI runs before it shows anything. The lessons come from the 127 hero rounds on Oct 20 and the reel recipes (v2/research/reels-oct20). Each chip's `says` is the designer wording it adds to the brief.",
+  "shared": {
+    "opening": "You are a senior creative developer and motion designer. Build this right the first time from the brief below. Where an answer is missing, use the default written next to it and keep going. Ask me a question only if something is marked [ASK].",
+    "rules": [
+      "Use only the words I give you. Where words are missing, write [PLACEHOLDER]. Never make up numbers, reviews, client logos, awards or results.",
+      "One idea per section. Motion follows the person (load, scroll, pointer); nothing loops forever except slow ambient movement.",
+      "Easing: expo.out for things arriving, power2.inOut for scroll scrubs. Nothing bounces or springs unless the brief asks for it.",
+      "Text contrast at least 4.5:1 for body and 3:1 for big headlines. Dim text uses a muted color, never low opacity.",
+      "Respect prefers-reduced-motion: show each animation's final frame, still.",
+      "Works with JavaScript off and with reduced motion: a complete, still page. A Pause motion button stops every loop.",
+      "Speed: the first screen paints from a still poster at full opacity (no fade on the biggest image). Load 3D and video after the page loads and goes idle. Cap devicePixelRatio at 2. Pause anything offscreen or in a hidden tab. Preload only the font weights the first screen uses. Aim for Lighthouse mobile 90 or above.",
+      "Phones and computers without a real graphics chip get the still poster or a short muted loop, not the live 3D.",
+      "Bundle every library and font with the site. Nothing loads from a CDN or another company's server."
+    ],
+    "review": [
+      "Before you show me anything, check your own work:",
+      "1. Take screenshots at 390px and 1440px wide: top, middle and end of the page.",
+      "2. For anything that moves, grab frames at 0s, 0.5s, 1s and 2s of the intro, and one mid-scroll.",
+      "3. Go down the checklist below. Mark each line pass or fail, in one line each.",
+      "4. Fix every fail, then check again once.",
+      "5. Then send me: the files, the screenshots, the marked checklist and at most one question. No recap of the brief."
+    ],
+    "revisions": "When I ask for changes later, change only what I list, keep everything else exactly as it is, and send back only the files that changed with one line per change.",
+    "premium": [
+      "Nothing staged: no decorative glow, floor line, spotlight, blurred blobs or showcase props. Light and shadow come from the subject.",
+      "It arrives, it doesn't appear: the first 1.2 to 2.4s is one intro where the thing forms, assembles or unfolds, then the page is usable. Never a fade-up of everything at once.",
+      "It's alive at rest: something keeps moving with physics (drifts, breathes, leans toward the pointer, reacts to a tap), small and slow, never competing with reading.",
+      "One scroll moment: one section where scroll drives the story (scrubbed, pinned or a scene change), and scrolling back runs it backwards.",
+      "Real type and hierarchy: one display face big and tight, one quiet body face, generous space, one accent. Buttons, forms and nav as considered as the hero."
+    ]
+  },
+  "chips": {
+    "avoid": [
+      {
+        "id": "staged_glow",
+        "label": "Staged glow or backdrop light",
+        "says": "No glow, spotlight or halo behind the subject. Light comes from the subject itself or the scene, never a backdrop.",
+        "on": true
+      },
+      {
+        "id": "floor_line",
+        "label": "Floor lines or fake reflections",
+        "says": "No horizon line, floor line or mirrored reflection under the subject.",
+        "on": true
+      },
+      {
+        "id": "static",
+        "label": "Feels like a still picture",
+        "says": "It must not feel like a still image being nudged around. It is truly animated: it forms, moves and reacts in real time.",
+        "on": true
+      },
+      {
+        "id": "bounce",
+        "label": "Bouncy or springy motion",
+        "says": "No bounce, overshoot or springy easing.",
+        "on": true
+      },
+      {
+        "id": "faded_text",
+        "label": "Faded, low-contrast text",
+        "says": "No text faded by opacity. Dim text uses a muted color that still passes contrast.",
+        "on": true
+      },
+      {
+        "id": "made_up",
+        "label": "Made-up numbers, reviews or logos",
+        "says": "No invented stats, testimonials, ratings, client logos or results.",
+        "on": true
+      },
+      {
+        "id": "stock_people",
+        "label": "Stock photos of people",
+        "says": "No stock photos of people. Use abstract placeholders in the palette until real photos arrive."
+      },
+      {
+        "id": "gradient_text",
+        "label": "Gradient text everywhere",
+        "says": "Gradient text on one headline at most."
+      },
+      {
+        "id": "busy",
+        "label": "Too many effects at once",
+        "says": "One effect per section. If two things move at once, cut one."
+      },
+      {
+        "id": "sound",
+        "label": "Sound that plays by itself",
+        "says": "No sound until the person turns it on."
+      }
+    ],
+    "feel": [
+      {
+        "id": "too_static",
+        "label": "Too static",
+        "says": "Make it come alive: the intro shows the thing forming (not a fade-in), then slow ambient motion, and it reacts to pointer, tap and scroll in real time."
+      },
+      {
+        "id": "too_staged",
+        "label": "Feels staged",
+        "says": "Remove backdrop glows, floor lines and spotlights. Light comes from the subject. Fewer props, more space."
+      },
+      {
+        "id": "feels_cheap",
+        "label": "Feels cheap",
+        "says": "Cut to one accent color, add more empty space, slow the easing (expo.out, 0.8s to 1.2s), sharpen the type scale (one big size, one small), remove drop shadows and borders."
+      },
+      {
+        "id": "too_busy",
+        "label": "Too busy",
+        "says": "One idea per section. Remove the weakest effect in each section and half the decorative elements."
+      },
+      {
+        "id": "too_plain",
+        "label": "Too plain",
+        "says": "Add one signature moment: a real intro on load and one scroll moment where something transforms. Keep everything else quiet."
+      },
+      {
+        "id": "too_dark",
+        "label": "Too dark",
+        "says": "Lift the darkest areas so shapes read, keep the background near-black, and light the subject from within."
+      },
+      {
+        "id": "too_slow",
+        "label": "Too slow",
+        "says": "Intro under 1.2s on a website (under 2.5s in a video), and the headline readable within 1s."
+      },
+      {
+        "id": "too_fast",
+        "label": "Too fast",
+        "says": "Give each move room: 0.8s to 1.2s, with the next starting as the last settles."
+      },
+      {
+        "id": "wrong_mood",
+        "label": "Wrong mood",
+        "says": "Re-read the mood words and references in the brief. Match their light, pace and type before anything else."
+      }
+    ],
+    "alive": [
+      {
+        "id": "drift",
+        "label": "Drifts slowly",
+        "says": "After the intro it keeps a slow ambient drift (sway, float or light shifting), 6 to 10 seconds per cycle."
+      },
+      {
+        "id": "pointer",
+        "label": "Follows the cursor",
+        "says": "It turns or leans toward the pointer, softly, with lag (lerp about 0.08 per frame)."
+      },
+      {
+        "id": "tap",
+        "label": "Reacts to tap or click",
+        "says": "A tap or click gives a small physical reaction (ripple, wobble or pulse) that settles in under 1s."
+      },
+      {
+        "id": "scroll",
+        "label": "Changes on scroll",
+        "says": "Scroll drives it: it transforms as the page scrolls and reverses when scrolling back up."
+      },
+      {
+        "id": "still",
+        "label": "Settles still",
+        "says": "After the intro it settles and holds still."
+      }
+    ],
+    "pace": [
+      {
+        "id": "calm",
+        "label": "Calm",
+        "says": "Calm pace: moves 0.9s to 1.4s, long holds."
+      },
+      {
+        "id": "medium",
+        "label": "Medium",
+        "says": "Medium pace: moves 0.6s to 1s."
+      },
+      {
+        "id": "fast",
+        "label": "Fast",
+        "says": "Fast pace: moves 0.3s to 0.6s, quick cuts."
+      }
+    ],
+    "look": [
+      {
+        "id": "first_light",
+        "label": "Light and glow",
+        "says": "Light is the only decoration: a slow shader gradient field on near-black that drifts and leans toward the cursor, lighting headlines from behind. Glass pills for cards."
+      },
+      {
+        "id": "editorial",
+        "label": "Editorial",
+        "says": "Editorial motion study: giant kinetic type, photos revealed through shapes and masks, one bold accent on a plain ground. CSS and GSAP only, no WebGL."
+      },
+      {
+        "id": "cinematic",
+        "label": "Cinematic 3D scroll",
+        "says": "Cinematic 3D scroll story: a Three.js scene where scroll moves the camera along a path through named chapters, type pinned over it."
+      },
+      {
+        "id": "gallery",
+        "label": "Curved 3D gallery",
+        "says": "Curved gallery: cards on the inside of a WebGL cylinder that turns with drag and scroll, bending slightly with speed."
+      },
+      {
+        "id": "exploded",
+        "label": "Exploded product",
+        "says": "Exploded product: scroll lifts the product apart into its layers with thin callout lines, then puts it back together."
+      },
+      {
+        "id": "liquid",
+        "label": "Liquid",
+        "says": "Liquid: shapes form out of moving liquid (metaballs or a raymarched surface) and melt back on scroll."
+      },
+      {
+        "id": "quiet",
+        "label": "Clean and quiet",
+        "says": "Clean and quiet: lots of space, one typeface, small precise motion, no 3D."
+      },
+      {
+        "id": "kinetic",
+        "label": "Kinetic type",
+        "says": "Kinetic type: the words are the visual. Letters slide up from masks, track wider on entry and scrub with scroll."
+      },
+      {
+        "id": "particles",
+        "label": "Particle swarm",
+        "says": "Particle swarm: thousands of points that gather into the subject and scatter on scroll."
+      },
+      {
+        "id": "grain",
+        "label": "Film grain and dither",
+        "says": "Dither and film grain: a soft halftone or dithered texture over a restrained palette."
+      }
+    ],
+    "type": [
+      {
+        "id": "grotesk",
+        "label": "Clean grotesk",
+        "says": "Type: a clean grotesk (like Geist or Inter Tight), tight tracking on headlines, 1.5 line height on body."
+      },
+      {
+        "id": "serif",
+        "label": "Editorial serif",
+        "says": "Type: a high-contrast editorial serif for headlines, a quiet sans for body."
+      },
+      {
+        "id": "wide",
+        "label": "Wide display",
+        "says": "Type: a wide display face for headlines at 12vw or more, a compact sans for body."
+      },
+      {
+        "id": "mono",
+        "label": "Mono accents",
+        "says": "Add a mono face for small labels and numbers."
+      },
+      {
+        "id": "pick",
+        "label": "You pick",
+        "says": "Pick the type to match the mood words. Self-host the fonts."
+      }
+    ],
+    "mobile": [
+      {
+        "id": "still",
+        "label": "Phone gets a still",
+        "says": "On phones under 768px, swap the live scene for a pre-rendered still of its best frame."
+      },
+      {
+        "id": "loop",
+        "label": "Phone gets a short loop",
+        "says": "On phones under 768px, swap the live scene for a short muted loop (under 1 MB) with a still poster."
+      },
+      {
+        "id": "same",
+        "label": "Same as desktop",
+        "says": "Phones get the same live scene at reduced resolution (render at half size, upscale)."
+      }
+    ],
+    "stack": [
+      {
+        "id": "static",
+        "label": "Plain HTML and CSS",
+        "says": "Stack: plain HTML and CSS, a few lines of vanilla JS at most. No frameworks."
+      },
+      {
+        "id": "gsap",
+        "label": "HTML + GSAP",
+        "says": "Stack: HTML, CSS and vanilla JS with GSAP + ScrollTrigger for scroll and Lenis for smooth scroll. No UI kits."
+      },
+      {
+        "id": "motion",
+        "label": "HTML + Motion",
+        "says": "Stack: HTML, CSS and vanilla JS with Motion (motion.dev) for the intro, alive and scroll moments. No UI kits."
+      },
+      {
+        "id": "three",
+        "label": "HTML + GSAP + Three.js",
+        "says": "Stack: vanilla JS, Three.js for 3D, GSAP + ScrollTrigger for scroll, Lenis for smooth scroll, GLSL for shaders. No UI kits."
+      },
+      {
+        "id": "react",
+        "label": "React + React Three Fiber",
+        "says": "Stack: React with React Three Fiber and drei for 3D, GSAP + ScrollTrigger, Lenis. No UI kits."
+      },
+      {
+        "id": "pick",
+        "label": "You pick",
+        "says": "Stack: the lightest one that does the job. Prefer HTML, CSS and GSAP; add Three.js only for real 3D."
+      }
+    ],
+    "assets": [
+      {
+        "id": "logo",
+        "label": "My logo",
+        "says": "Use my logo file (I'll attach it). Keep its shape exact."
+      },
+      {
+        "id": "photos",
+        "label": "My photos",
+        "says": "Use my photos (I'll attach them). Crop, never stretch."
+      },
+      {
+        "id": "video",
+        "label": "My video",
+        "says": "Use my video clips (I'll attach them), muted, with a still poster."
+      },
+      {
+        "id": "model",
+        "label": "A 3D model",
+        "says": "Use my 3D model (GLB, I'll attach it)."
+      },
+      {
+        "id": "none",
+        "label": "Nothing yet",
+        "says": "I have no assets yet. Use clean placeholders in the palette, built from simple geometry, and list every file to swap in with its size."
+      }
+    ],
+    "frame": [
+      {
+        "id": "center",
+        "label": "Centered, facing forward",
+        "says": "Framing: the subject is centered and faces straight at the viewer."
+      },
+      {
+        "id": "off",
+        "label": "Off center",
+        "says": "Framing: the subject sits off center (about a third in), with the words in the open side."
+      },
+      {
+        "id": "close",
+        "label": "Close-up",
+        "says": "Framing: a close-up that fills most of the frame."
+      },
+      {
+        "id": "wide",
+        "label": "Wide",
+        "says": "Framing: wide, the subject small in a big space."
+      }
+    ],
+    "material": [
+      {
+        "id": "glass",
+        "label": "Glass",
+        "says": "Material: clear glass that bends what's behind it, lit from within."
+      },
+      {
+        "id": "liquid",
+        "label": "Liquid",
+        "says": "Material: liquid that stays liquid, with surface tension, drips and ripples."
+      },
+      {
+        "id": "metal",
+        "label": "Brushed metal",
+        "says": "Material: brushed metal with soft studio reflections."
+      },
+      {
+        "id": "light",
+        "label": "Light only",
+        "says": "Material: made of light alone, no solid surface."
+      },
+      {
+        "id": "matte",
+        "label": "Matte",
+        "says": "Material: soft matte surface, like clay or paper."
+      }
+    ],
+    "output": [
+      {
+        "id": "web",
+        "label": "Live on a web page",
+        "says": "Output: runs live in the browser in real time (WebGL or canvas), with a still poster that paints first."
+      },
+      {
+        "id": "v9x16",
+        "label": "Video 9x16",
+        "says": "Output: a 9x16 video, 1080x1920."
+      },
+      {
+        "id": "v16x9",
+        "label": "Video 16x9",
+        "says": "Output: a 16x9 video, 1920x1080."
+      },
+      {
+        "id": "v4x5",
+        "label": "Video 4x5",
+        "says": "Output: a 4x5 video, 1080x1350."
+      },
+      {
+        "id": "still",
+        "label": "Still image",
+        "says": "Output: a still image at 2x size, PNG."
+      }
+    ],
+    "length": [
+      {
+        "id": "s1",
+        "label": "About 1s",
+        "says": "The intro takes about 1 second."
+      },
+      {
+        "id": "s2",
+        "label": "About 2s",
+        "says": "The intro takes about 2 seconds."
+      },
+      {
+        "id": "s4",
+        "label": "About 4s",
+        "says": "The intro takes about 4 seconds."
+      },
+      {
+        "id": "s8",
+        "label": "About 8s",
+        "says": "The intro takes about 8 seconds."
+      }
+    ]
+  },
+  "kinds": [
+    {
+      "id": "site",
+      "title": "Website",
+      "when": "A premium one-page site or landing page that looks right on the first try.",
+      "tier": "free",
+      "heading": "WEBSITE BRIEF",
+      "sections": [
+        {
+          "title": "The job",
+          "fields": [
+            {
+              "key": "business",
+              "label": "Business name",
+              "example": "Northside Detailing",
+              "need": true
+            },
+            {
+              "key": "what",
+              "label": "What you do",
+              "example": "Mobile car detailing in Austin",
+              "need": true
+            },
+            {
+              "key": "who",
+              "label": "Who it's for",
+              "example": "Busy parents with SUVs who want the car back to new",
+              "need": true
+            },
+            {
+              "key": "action",
+              "label": "The one thing a visitor should do",
+              "example": "Book a detail",
+              "need": true,
+              "default": "Get in touch"
+            },
+            {
+              "key": "words",
+              "label": "Your words (headline, services, prices, about)",
+              "long": true,
+              "example": "Paste what you have. Gaps become [PLACEHOLDER].",
+              "want": true
+            }
+          ]
+        },
+        {
+          "title": "Look and feel",
+          "fields": [
+            {
+              "key": "mood",
+              "label": "Mood in three words",
+              "example": "quiet, precise, expensive",
+              "need": true
+            },
+            {
+              "key": "refs",
+              "label": "2 or 3 references (sites, brands, films)",
+              "long": true,
+              "example": "apple.com/airpods-pro, Aesop, the opening of Blade Runner 2049",
+              "want": true
+            },
+            {
+              "key": "look",
+              "label": "Pick a look",
+              "chips": "look",
+              "one": true,
+              "want": true
+            },
+            {
+              "key": "palette",
+              "label": "Colors (hex), one accent",
+              "example": "#060607, #E3E6F1, accent #D8B46E",
+              "default": "near-black, off-white and one accent from the mood"
+            },
+            {
+              "key": "type",
+              "label": "Type",
+              "chips": "type",
+              "default": [
+                "pick"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Motion",
+          "fields": [
+            {
+              "key": "intro",
+              "label": "What happens when the page opens",
+              "long": true,
+              "example": "The logo starts as loose water in a dark pond and forms as it rises, then floats",
+              "want": true,
+              "lead": "Intro, 1.2 to 2.4s, from this start to this end"
+            },
+            {
+              "key": "alive",
+              "label": "After the intro, it...",
+              "chips": "alive",
+              "default": [
+                "drift",
+                "pointer"
+              ]
+            },
+            {
+              "key": "scroll",
+              "label": "The scroll moment",
+              "long": true,
+              "example": "As you scroll past the hero, the logo melts back into the pond",
+              "want": true
+            },
+            {
+              "key": "pace",
+              "label": "Pace",
+              "chips": "pace",
+              "one": true,
+              "default": [
+                "calm"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Sections",
+          "fields": [
+            {
+              "key": "sections",
+              "label": "Sections, top to bottom, one per line",
+              "long": true,
+              "example": "Hero\nWhat you get\nHow it works\nPrices\nBook",
+              "default": "Hero, what you get, how it works, proof (only real quotes), call to action"
+            }
+          ]
+        },
+        {
+          "title": "Assets and setup",
+          "fields": [
+            {
+              "key": "assets",
+              "label": "What you have",
+              "chips": "assets",
+              "default": [
+                "none"
+              ]
+            },
+            {
+              "key": "stack",
+              "label": "Built with",
+              "chips": "stack",
+              "one": true,
+              "default": [
+                "pick"
+              ]
+            },
+            {
+              "key": "mobile",
+              "label": "On phones",
+              "chips": "mobile",
+              "one": true,
+              "default": [
+                "still"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Never",
+          "fields": [
+            {
+              "key": "avoid",
+              "label": "Things to avoid",
+              "chips": "avoid"
+            },
+            {
+              "key": "avoid_more",
+              "label": "Anything else to avoid",
+              "long": true,
+              "example": "No purple. No 'Welcome to our website'."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "The first screen says what {business} does and for whom within 3 seconds.",
+        "The one button reads \"{action}\" and is visible on the first screen at 390px.",
+        "Every word on the page is mine or marked [PLACEHOLDER].",
+        "Nothing scrolls sideways at 390px."
+      ],
+      "premium": true
+    },
+    {
+      "id": "hero",
+      "title": "Hero or animation",
+      "when": "One signature moment: a logo that forms, a hero that comes alive, a product reveal.",
+      "tier": "builder",
+      "heading": "HERO / ANIMATION BRIEF",
+      "sections": [
+        {
+          "title": "The subject",
+          "fields": [
+            {
+              "key": "subject",
+              "label": "What's the star",
+              "example": "Our 127 logo",
+              "need": true
+            },
+            {
+              "key": "where",
+              "label": "Where it lives",
+              "example": "Homepage hero, above the headline",
+              "need": true
+            },
+            {
+              "key": "output",
+              "label": "Made as",
+              "chips": "output",
+              "default": [
+                "web"
+              ]
+            },
+            {
+              "key": "frame",
+              "label": "Framing",
+              "chips": "frame",
+              "one": true,
+              "default": [
+                "center"
+              ]
+            },
+            {
+              "key": "background",
+              "label": "Background",
+              "example": "Near-black, a still dark pond",
+              "default": "near-black, nothing behind the subject"
+            }
+          ]
+        },
+        {
+          "title": "The intro",
+          "fields": [
+            {
+              "key": "start",
+              "label": "It starts as",
+              "example": "Loose, unformed water under a dark surface",
+              "need": true
+            },
+            {
+              "key": "end",
+              "label": "It ends as",
+              "example": "The 127, fully formed in clear glass, floating",
+              "need": true
+            },
+            {
+              "key": "forms",
+              "label": "How it gets from start to end",
+              "long": true,
+              "example": "The pond swells, liquid climbs out still joined to the water, pulls itself into the shape and breaks free, dripping",
+              "want": true
+            },
+            {
+              "key": "length",
+              "label": "Intro length",
+              "chips": "length",
+              "one": true,
+              "default": [
+                "s2"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Alive",
+          "fields": [
+            {
+              "key": "alive",
+              "label": "After the intro, it...",
+              "chips": "alive",
+              "default": [
+                "drift",
+                "pointer",
+                "tap"
+              ]
+            },
+            {
+              "key": "exit",
+              "label": "On scroll or exit",
+              "example": "Melts back into the pond as you scroll, re-forms when you scroll back up",
+              "want": true
+            }
+          ]
+        },
+        {
+          "title": "Material and light",
+          "fields": [
+            {
+              "key": "material",
+              "label": "Made of",
+              "chips": "material",
+              "one": true,
+              "want": true
+            },
+            {
+              "key": "light",
+              "label": "Light",
+              "example": "Lit from within; the only light in the scene",
+              "default": "light comes from the subject; no backdrop light"
+            },
+            {
+              "key": "mood",
+              "label": "Mood in three words",
+              "example": "alive, calm, expensive",
+              "need": true
+            },
+            {
+              "key": "refs",
+              "label": "References",
+              "long": true,
+              "example": "Apple Vision Pro reveal, liquid metal in Terminator 2",
+              "want": true
+            }
+          ]
+        },
+        {
+          "title": "Setup",
+          "fields": [
+            {
+              "key": "assets",
+              "label": "What you have",
+              "chips": "assets",
+              "default": [
+                "logo"
+              ]
+            },
+            {
+              "key": "stack",
+              "label": "Built with",
+              "chips": "stack",
+              "one": true,
+              "default": [
+                "three"
+              ]
+            },
+            {
+              "key": "mobile",
+              "label": "On phones",
+              "chips": "mobile",
+              "one": true,
+              "default": [
+                "still"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Never",
+          "fields": [
+            {
+              "key": "avoid",
+              "label": "Things to avoid",
+              "chips": "avoid"
+            },
+            {
+              "key": "avoid_more",
+              "label": "Anything else to avoid",
+              "long": true,
+              "example": "Don't just fade the logo in. Don't rotate it more than 15 degrees."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "Frame 0s shows: {start}. The last intro frame shows: {end}.",
+        "The middle frames show it forming, not fading or sliding in whole.",
+        "{subject} keeps its exact shape once formed.",
+        "The still poster matches the final frame, so there is no jump when the live version takes over."
+      ],
+      "premium": true
+    },
+    {
+      "id": "ad",
+      "title": "Ad, video or image",
+      "when": "A short ad, reel or graphic that comes out on brand the first time (for Studio or your own AI).",
+      "tier": "builder",
+      "heading": "AD / VIDEO BRIEF",
+      "sections": [
+        {
+          "title": "The job",
+          "fields": [
+            {
+              "key": "offer",
+              "label": "What you're showing",
+              "example": "Our $49 interior detail",
+              "need": true
+            },
+            {
+              "key": "who",
+              "label": "Who it's for",
+              "example": "Parents with a messy SUV",
+              "need": true
+            },
+            {
+              "key": "hook",
+              "label": "The first 2 seconds",
+              "long": true,
+              "example": "A crumb-covered back seat, then one swipe and it's clean",
+              "need": true
+            },
+            {
+              "key": "words",
+              "label": "Exact words on screen and in the voice-over",
+              "long": true,
+              "example": "Paste them. Nothing else gets added.",
+              "want": true
+            },
+            {
+              "key": "action",
+              "label": "The ask at the end",
+              "example": "Book on our site",
+              "need": true
+            }
+          ]
+        },
+        {
+          "title": "Look and motion",
+          "fields": [
+            {
+              "key": "output",
+              "label": "Formats",
+              "chips": "output",
+              "default": [
+                "v9x16"
+              ]
+            },
+            {
+              "key": "length_s",
+              "label": "Length in seconds",
+              "example": "15",
+              "default": "15"
+            },
+            {
+              "key": "look",
+              "label": "Pick a look",
+              "chips": "look",
+              "one": true,
+              "want": true
+            },
+            {
+              "key": "mood",
+              "label": "Mood in three words",
+              "example": "clean, satisfying, quick",
+              "need": true
+            },
+            {
+              "key": "pace",
+              "label": "Pace",
+              "chips": "pace",
+              "one": true,
+              "default": [
+                "fast"
+              ]
+            },
+            {
+              "key": "sound",
+              "label": "Music and sound",
+              "example": "No music, just the vacuum and a soft whoosh",
+              "default": "light music bed, words on screen work with sound off"
+            }
+          ]
+        },
+        {
+          "title": "Assets",
+          "fields": [
+            {
+              "key": "assets",
+              "label": "What you have",
+              "chips": "assets",
+              "default": [
+                "none"
+              ]
+            },
+            {
+              "key": "brand",
+              "label": "Brand colors and fonts",
+              "example": "#0B0B0C, #F4F3EF, Geist",
+              "want": true
+            }
+          ]
+        },
+        {
+          "title": "Never",
+          "fields": [
+            {
+              "key": "avoid",
+              "label": "Things to avoid",
+              "chips": "avoid"
+            },
+            {
+              "key": "avoid_more",
+              "label": "Anything else to avoid",
+              "long": true,
+              "example": "No fake countdown. No before-and-after we didn't shoot."
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "The first 2 seconds show: {hook}.",
+        "Every word on screen is from my list, spelled the same.",
+        "The words read with the sound off.",
+        "The last frame shows \"{action}\" for at least 1.5 seconds.",
+        "Nothing promises results, income or a deadline I didn't give.",
+        "Text stays inside the safe area for each format."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "Ask for changes",
+      "when": "One round of changes, all at once, so the next version is the one.",
+      "tier": "free",
+      "heading": "CHANGE LIST",
+      "sections": [
+        {
+          "title": "What we're changing",
+          "fields": [
+            {
+              "key": "thing",
+              "label": "What you're looking at",
+              "example": "The homepage hero, version 3",
+              "need": true
+            },
+            {
+              "key": "keep",
+              "label": "Keep exactly as it is",
+              "long": true,
+              "example": "The colors, the headline, the way it floats",
+              "need": true,
+              "lead": "KEEP"
+            }
+          ]
+        },
+        {
+          "title": "Gut feel",
+          "fields": [
+            {
+              "key": "feel",
+              "label": "It feels...",
+              "chips": "feel",
+              "want": true
+            }
+          ]
+        },
+        {
+          "title": "The changes",
+          "fields": [
+            {
+              "key": "changes",
+              "label": "One per line: where | what's wrong | what you want instead",
+              "long": true,
+              "example": "Hero | the logo just appears | it should start as water and form as it rises\nUnder the logo | there's a line | remove it",
+              "need": true,
+              "rows": true
+            }
+          ]
+        },
+        {
+          "title": "Never",
+          "fields": [
+            {
+              "key": "avoid",
+              "label": "Never do these (still true)",
+              "chips": "avoid"
+            },
+            {
+              "key": "avoid_more",
+              "label": "Anything else to avoid",
+              "long": true
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "Everything under KEEP looks the same as before.",
+        "Each change above is done (one line each)."
+      ],
+      "opening": "You made the thing below. Here is one complete round of changes, all at once. Do every change on the list, keep what's under KEEP exactly as it is, and don't redesign anything I didn't mention."
+    }
+  ]
+}

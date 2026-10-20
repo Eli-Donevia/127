@@ -1,0 +1,33 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 AI scripts (lib/harness/scripts.js, content/briefs/scripts.json). Locals: list, method. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">AI scripts</span>
+      <h1 class="hq-title"><span class="dim">Stop going back and forth.</span><span class="steel">Run the whole job in one or two rounds.</span></h1>
+      <p class="hq-lede">Each script is the order of asks for a job, with the words for every step. Fill in a few blanks once and every step comes back ready to paste into any AI.</p>
+    </div>
+  </div>
+  <div class="h2-stack">
+    <section class="hq-card">
+      <ul class="h2-list">
+        <% list.forEach(function (s, i) { %>
+        <li style="padding:12px 0;<%= i ? 'border-top:1px solid var(--line)' : '' %>">
+          <div class="h2-row"><a class="link" href="/app/hq/scripts/<%= s.id %>"><%= s.title %></a><span style="display:flex;gap:6px"><span class="h2-tag"><%= s.steps %> steps</span><% if (s.locked) { %><span class="h2-tag">Builder</span><% } %></span></div>
+          <div class="hq-small" style="margin:2px 0 0"><%= s.when %></div>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+    <section class="hq-card" aria-labelledby="method-h">
+      <h2 class="h2-h" id="method-h" style="font-size:18px">The habits behind every script</h2>
+      <ol class="br-method">
+        <% method.forEach(function (m) { %><li><%= m %></li><% }) %>
+      </ol>
+    </section>
+    <p class="hq-small">Making something visual? Start with a <a class="link" href="/app/hq/briefs">brief</a>: the look, the motion and what to avoid, in one form.</p>
+  </div>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

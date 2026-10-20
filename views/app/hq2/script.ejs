@@ -1,0 +1,52 @@
+<%- include('../../partials/app-head') %>
+<%# One AI script: its blanks once, then each step's words filled (own text, a library prompt or a brief). Locals: s, locked, values, filled, steps, agentOn. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/scripts">AI scripts</a></p>
+  <section class="hq-card">
+    <h1 class="h2-h"><%= s.title %></h1>
+    <p class="h2-sub"><%= s.when %></p>
+    <p class="hq-small">You end with: <%= s.outcome %></p>
+  </section>
+  <% if (locked) { %>
+  <section class="hq-card" style="margin-top:16px"><p class="h2-sub" style="margin:0">This script is part of Builder.</p><a class="btn" style="margin-top:12px" href="/app/billing">See Builder <span class="arrow"></span></a></section>
+  <% } else { %>
+  <form method="post" action="/app/hq/scripts/<%= s.id %>" class="h2-stack" style="margin-top:16px">
+    <% if ((s.variables || []).length) { %>
+    <div class="hq-card h2-stack">
+      <% s.variables.forEach(function (v) { %>
+      <label class="field">
+        <span><%= v.label %><%= v.optional ? ' (optional)' : '' %></span>
+        <input class="input" name="v_<%= v.key %>" maxlength="4000" placeholder="<%= v.example %>" value="<%= values[v.key] || '' %>">
+      </label>
+      <% }) %>
+      <div><button class="btn" name="fill" value="1">Fill in every step <span class="arrow"></span></button></div>
+    </div>
+    <% } %>
+    <ol class="br-steps">
+      <% steps.forEach(function (st) { %>
+      <li class="hq-card">
+        <div class="h2-row"><h2 class="h2-h" style="font-size:16px"><span class="br-n"><%= st.n %></span><%= st.title %></h2></div>
+        <p class="hq-small" style="margin:4px 0 0"><%= st.why %></p>
+        <% if (st.brief) { %>
+        <a class="hq-pill" style="margin-top:12px" href="/app/hq/briefs/<%= st.brief %>">Open the <%= st.briefTitle %> brief</a>
+        <% } else { %>
+        <div class="blk-copy" style="margin-top:12px">
+          <div class="h2-row"><span class="hq-small" style="margin:0"><%= st.uses ? 'Prompt: ' + st.promptTitle : 'Say this' %></span><span style="display:flex;gap:6px"><button type="button" data-copy>Copy</button><% if (agentOn) { %><button name="ask" value="<%= st.n %>">Send to Ask 127</button><% } %></span></div>
+          <pre><%= st.text %></pre>
+        </div>
+        <% } %>
+      </li>
+      <% }) %>
+    </ol>
+  </form>
+  <% if ((s.savers || []).length) { %>
+  <section class="hq-card" style="margin-top:16px" aria-labelledby="save-h">
+    <h2 class="h2-h" id="save-h" style="font-size:16px">Save rounds and tokens</h2>
+    <ul class="br-method"><% s.savers.forEach(function (x) { %><li><%= x %></li><% }) %></ul>
+  </section>
+  <% } %>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
