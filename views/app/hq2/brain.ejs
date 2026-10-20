@@ -59,6 +59,7 @@
     <% }) %>
     <div><button class="btn">Save <span class="arrow"></span></button></div>
   </form>
+  <% if (typeof bd !== 'undefined' && bd) { %><%- include('../../partials/hq2-brain-docs', { bd: bd, b: b }) %><% } %>
 </div>
 <script src="/js/hq2.js" defer></script>
 <%- include('../../partials/app-foot') %>

@@ -1,0 +1,114 @@
+<%# The Brain beyond the profile (BRAIN_DOCS, lib/harness/docs.js): house rules, docs, search, decisions, numbers, learnings, export. Local: bd, b. %>
+<% var day = function (s) { return String(s || '').slice(0, 10); };
+   var srcLabel = { paste: 'Written here', file: 'From a file', obsidian: 'Obsidian', notion: 'Notion', note: 'Note', agent: 'Ask 127' }; %>
+<section class="hq-card h2-form" id="rules" aria-labelledby="rules-h" style="margin-top:16px">
+  <h2 class="h2-h" id="rules-h" style="font-size:18px">House rules</h2>
+  <p class="h2-sub">How your business works. Every workflow, Ask 127 and your own Claude read these before they write anything for you. Words you ban under Checks are checked on every draft.</p>
+  <form method="post" action="/app/hq/brain/rules" class="h2-stack" style="margin-top:14px">
+    <label class="field"><span>Principles</span><textarea class="input" name="principles" rows="4" maxlength="8000" placeholder="Example: We answer every customer the same day. We never discount on the first call. Simple beats clever."><%= bd.rules.principles %></textarea></label>
+    <label class="field"><span>How we do things</span><textarea class="input" name="sops" rows="5" maxlength="8000" placeholder="Your standard ways of working. Example: New client: send the welcome email, book the kickoff within 3 days, add them to the client sheet."><%= bd.rules.sops %></textarea><span class="hint">Longer SOPs work better as docs below. Keep the short version here.</span></label>
+    <label class="field"><span>Checks every answer must pass</span><textarea class="input" name="checks" rows="4" maxlength="8000" placeholder="One per line. Example:&#10;Never say: cheap, guru, best in town&#10;Always end an email with one question&#10;Prices always include tax"><%= bd.rules.checks %></textarea><span class="hint">Lines that start with "Never say:" are checked word for word. The rest the AI follows.</span></label>
+    <div><button class="btn">Save house rules <span class="arrow"></span></button></div>
+  </form>
+</section>
+
+<section class="hq-card" id="docs" aria-labelledby="docs-h" style="margin-top:16px">
+  <div class="h2-row"><h2 class="h2-h" id="docs-h" style="font-size:18px">Docs</h2><span class="hq-small" style="margin:0"><%= bd.counts.docs %> docs · <%= Math.round(bd.counts.chars / 1000).toLocaleString('en-US') %>K of <%= Math.round(bd.counts.limit / 1000000) %>M characters</span></div>
+  <p class="h2-sub">Your offers, FAQs, SOPs, scripts, notes. 127 searches them when it works for you and says which doc it used.</p>
+  <form method="get" action="/app/hq/brain#docs" class="h2-row" role="search" style="margin-top:12px;flex-wrap:nowrap">
+    <input class="input" name="q" value="<%= bd.q %>" placeholder="Search your Brain" aria-label="Search your Brain" maxlength="200" style="flex:1;min-width:0">
+    <button class="hq-pill">Search</button>
+  </form>
+  <% if (bd.hits) { %>
+  <div class="h2-stack" style="margin-top:12px;gap:10px">
+    <% if (!bd.hits.length) { %><p class="h2-empty">Nothing in your Brain matches that yet.</p><% } %>
+    <% bd.hits.forEach(function (h, i) { %>
+    <a class="h2-hit" href="<%= h.link %>"><span class="hq-small" style="margin:0">[<%= i + 1 %>] <%= h.title %><%= h.heading ? ' · ' + h.heading : '' %></span><span class="h2-hit-t"><%= h.text %></span></a>
+    <% }) %>
+  </div>
+  <% } %>
+  <div class="h2-actions" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+    <span data-upload data-upload-url="/app/hq/brain/docs/upload"><label class="hq-pill">Add files<input type="file" data-upload-input multiple hidden accept=".md,.markdown,.txt,.csv,.tsv,.html,.htm,.docx,.pdf"></label> <span class="hq-small" data-upload-msg aria-live="polite"></span></span>
+    <span data-upload data-upload-url="/app/hq/brain/docs/upload" data-upload-import="obsidian"><label class="hq-pill">Import an Obsidian vault (.zip)<input type="file" data-upload-input hidden accept=".zip"></label> <span class="hq-small" data-upload-msg aria-live="polite"></span></span>
+    <span data-upload data-upload-url="/app/hq/brain/docs/upload" data-upload-import="notion"><label class="hq-pill">Import a Notion export (.zip)<input type="file" data-upload-input hidden accept=".zip"></label> <span class="hq-small" data-upload-msg aria-live="polite"></span></span>
+  </div>
+  <p class="hq-small">Markdown, text, CSV, HTML, Word and PDF. 127 keeps the text, not the file. Obsidian keeps your [[links]], tags and properties; import the same vault again to refresh it. In Notion: Settings, Export, Markdown &amp; CSV.</p>
+  <details style="margin-top:12px">
+    <summary class="hq-pill" style="list-style:none">Write or paste a doc</summary>
+    <form method="post" action="/app/hq/brain/docs" class="h2-stack" style="margin-top:12px">
+      <label class="field"><span>Title</span><input class="input" name="title" maxlength="140" required placeholder="Example: Our refund policy"></label>
+      <label class="field"><span>Text</span><textarea class="input" name="body" rows="8" required placeholder="Paste or write it here. Markdown works: # headings, - lists, [[links]] to other docs, #tags."></textarea></label>
+      <label class="field"><span>Tags</span><input class="input" name="tags" maxlength="200" placeholder="Example: policy, clients"></label>
+      <label class="h2-opt"><input type="checkbox" name="public"> <span>Public: OK to answer customers from this</span></label>
+      <div><button class="btn">Add to my Brain <span class="arrow"></span></button></div>
+    </form>
+  </details>
+  <% if (bd.docs.length) { %>
+  <ul class="h2-list" style="margin-top:14px">
+    <% bd.docs.slice(0, 200).forEach(function (d) { %>
+    <li class="h2-row" style="padding:10px 0;border-top:1px solid var(--line)">
+      <a class="link" href="<%= d.url %>"><%= d.path ? d.path + ' / ' : '' %><%= d.title %></a>
+      <span class="hq-small" style="margin:0"><%= srcLabel[d.source] || d.source %><%= d.public ? ' · Public' : '' %><%= d.tags.length ? ' · #' + d.tags.slice(0, 3).join(' #') : '' %> · <%= day(d.updatedAt) %></span>
+    </li>
+    <% }) %>
+  </ul>
+  <% if (bd.docs.length > 200) { %><p class="hq-small">Showing the newest 200. Search finds them all.</p><% } %>
+  <% } %>
+</section>
+
+<section class="hq-card h2-form" id="decisions" aria-labelledby="dec-h" style="margin-top:16px">
+  <h2 class="h2-h" id="dec-h" style="font-size:18px">Decisions</h2>
+  <p class="h2-sub">What you decided and why, so nobody (you, 127 or your AI team) argues it again next month.</p>
+  <form method="post" action="/app/hq/brain/decisions" class="h2-stack" style="margin-top:12px">
+    <label class="field"><span>The decision</span><input class="input" name="text" maxlength="600" required placeholder="Example: Weekly mowing goes to $50 from November 1"></label>
+    <label class="field"><span>Why</span><input class="input" name="why" maxlength="1200" placeholder="Example: fuel and dump fees went up"></label>
+    <div><button class="hq-pill">Log it</button></div>
+  </form>
+  <% bd.decisions.forEach(function (e) { %>
+  <div class="h2-row" style="padding:10px 0;border-top:1px solid var(--line);align-items:flex-start">
+    <div style="min-width:0;flex:1"><div><%= e.text %></div><% if (e.why) { %><div class="hq-small" style="margin:2px 0 0">Why: <%= e.why %></div><% } %><div class="hq-small" style="margin:2px 0 0"><%= day(e.at) %> · <%= e.by %></div></div>
+    <form method="post" action="/app/hq/brain/log/<%= e.id %>/delete" data-confirm="Delete this decision?"><button class="hq-link-btn">Delete</button></form>
+  </div>
+  <% }) %>
+</section>
+
+<section class="hq-card h2-form" id="numbers" aria-labelledby="num-h" style="margin-top:16px">
+  <h2 class="h2-h" id="num-h" style="font-size:18px">Numbers</h2>
+  <p class="h2-sub">Anything you count. Your daily and weekly reports and Ask 127 read these with your HQ numbers.</p>
+  <form method="post" action="/app/hq/brain/numbers" class="h2-row" style="margin-top:12px;align-items:flex-end">
+    <label class="field" style="flex:2;min-width:140px;margin:0"><span>Number</span><input class="input" name="name" maxlength="80" required placeholder="Example: Calls booked"></label>
+    <label class="field" style="flex:1;min-width:90px;margin:0"><span>Value</span><input class="input" name="value" inputmode="decimal" maxlength="20" required></label>
+    <button class="hq-pill">Log</button>
+  </form>
+  <% if (bd.numbers.length || (b.numbers || []).length) { %>
+  <table class="h2-table" style="margin-top:12px;width:100%">
+    <thead><tr><th scope="col">Number</th><th scope="col">Latest</th><th scope="col">Before</th><th scope="col">When</th></tr></thead>
+    <tbody>
+      <% bd.numbers.forEach(function (n) { %><tr><td><%= n.name %></td><td><%= n.value.toLocaleString('en-US') %></td><td><%= n.before === null ? '' : n.before.toLocaleString('en-US') %></td><td><%= day(n.at) %></td></tr><% }) %>
+      <% (b.numbers || []).slice(-8).forEach(function (n) { %><tr><td><%= n.label %> <span class="hq-small" style="margin:0">(HQ)</span></td><td><%= n.value %></td><td></td><td><%= n.week %></td></tr><% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</section>
+
+<% var packs = Object.keys(b.packs || {}).filter(function (k) { return Object.keys(b.packs[k] || {}).length; }); %>
+<section class="hq-card" id="learnings" aria-labelledby="learn-h" style="margin-top:16px">
+  <h2 class="h2-h" id="learn-h" style="font-size:18px">Learnings</h2>
+  <p class="h2-sub">What 127's tools remembered while working for you.</p>
+  <% if (!packs.length) { %><p class="h2-empty">Nothing yet. This fills in as you run workflows.</p><% } %>
+  <% packs.forEach(function (p) { %>
+  <details style="margin-top:8px"><summary class="link"><%= p %> (<%= Object.keys(b.packs[p]).length %>)</summary>
+    <ul class="h2-list"><% Object.keys(b.packs[p]).slice(0, 50).forEach(function (k) { var v = b.packs[p][k]; %><li class="hq-small"><%= k %>: <%= (typeof v === 'string' ? v : JSON.stringify(v)).slice(0, 200) %></li><% }) %></ul>
+  </details>
+  <% }) %>
+</section>
+
+<section class="hq-card" id="export" aria-labelledby="exp-h" style="margin-top:16px">
+  <h2 class="h2-h" id="exp-h" style="font-size:18px">Take it with you</h2>
+  <p class="h2-sub">Your Brain is yours. Download it any time.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+    <a class="hq-pill" href="/app/hq/brain/export?format=obsidian">Obsidian vault (.zip)</a>
+    <a class="hq-pill" href="/app/hq/brain/export?format=notion">Notion-ready Markdown (.zip)</a>
+  </div>
+  <form method="post" action="/app/hq/brain/forget" data-confirm="Delete every doc, your house rules, decisions and logged numbers? This can't be undone. Your business profile stays." style="margin-top:14px"><button class="hq-link-btn">Delete everything in my Brain</button></form>
+</section>

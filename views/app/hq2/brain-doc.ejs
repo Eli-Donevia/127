@@ -1,0 +1,35 @@
+<%- include('../../partials/app-head') %>
+<%# One Brain doc (lib/harness/docs.js): read, edit, mark public, delete. Locals: d, view, linked, backlinks. %>
+<% var srcLabel = { paste: 'Written here', file: 'From a file', obsidian: 'From Obsidian', notion: 'From Notion', note: 'A note', agent: 'From Ask 127' }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/brain#docs">Your Brain</a><%= view.path ? ' / ' + view.path : '' %></p>
+  <section class="hq-card">
+    <h1 class="h2-h"><%= d.title %></h1>
+    <p class="hq-small"><%= srcLabel[d.source] || d.source %> · <%= view.chars.toLocaleString('en-US') %> characters · updated <%= String(d.updatedAt || '').slice(0, 10) %><%= d.public ? ' · Public: customers can get answers from this' : '' %></p>
+    <% if (view.tags.length) { %><div class="h2-chips" style="margin-top:8px"><% view.tags.forEach(function (t) { %><a class="h2-tag" href="/app/hq/brain?q=<%= encodeURIComponent(t) %>#docs">#<%= t %></a><% }) %></div><% } %>
+    <% var fm = Object.keys(d.frontmatter || {}).filter(function (k) { return k !== 'tags' && k !== 'tag'; }); if (fm.length) { %>
+    <table class="h2-table" style="margin-top:12px"><tbody><% fm.slice(0, 20).forEach(function (k) { var v = d.frontmatter[k]; %><tr><th scope="row"><%= k %></th><td><%= Array.isArray(v) ? v.join(', ') : v %></td></tr><% }) %></tbody></table>
+    <% } %>
+    <pre class="h2-doc" style="margin-top:16px"><%= d.body %></pre>
+    <% if (linked.length || backlinks.length) { %>
+    <div class="h2-why">
+      <% if (linked.length) { %><div>Links to: <% linked.forEach(function (l, i) { %><%= i ? ', ' : '' %><% if (l.id) { %><a class="link" href="/app/hq/brain/docs/<%= l.id %>"><%= l.title %></a><% } else { %><%= l.title %><% } %><% }) %></div><% } %>
+      <% if (backlinks.length) { %><div>Linked from: <% backlinks.forEach(function (l, i) { %><%= i ? ', ' : '' %><a class="link" href="<%= l.url %>"><%= l.title %></a><% }) %></div><% } %>
+    </div>
+    <% } %>
+  </section>
+  <details class="hq-card" style="margin-top:16px">
+    <summary class="link">Edit</summary>
+    <form method="post" action="/app/hq/brain/docs/<%= d.id %>" class="h2-stack" style="margin-top:12px">
+      <label class="field"><span>Title</span><input class="input" name="title" maxlength="140" value="<%= d.title %>" required></label>
+      <label class="field"><span>Text</span><textarea class="input" name="body" rows="14" required><%= d.body %></textarea></label>
+      <label class="field"><span>Tags</span><input class="input" name="tags" maxlength="200" value="<%= view.tags.join(', ') %>"></label>
+      <label class="h2-opt"><input type="checkbox" name="public"<%= d.public ? ' checked' : '' %>> <span>Public: OK to answer customers from this<small>Only public docs are ever used to answer your customers. Leave clients' details out of public docs.</small></span></label>
+      <div><button class="btn">Save <span class="arrow"></span></button></div>
+    </form>
+  </details>
+  <form method="post" action="/app/hq/brain/docs/<%= d.id %>/delete" data-confirm="Delete <%= d.title %>? It's gone from your Brain and from search. This can't be undone." style="margin-top:12px"><button class="hq-link-btn">Delete this doc</button></form>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

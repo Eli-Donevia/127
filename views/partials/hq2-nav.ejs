@@ -1,6 +1,13 @@
 <%# HQ v2 tabs and Talk to 127 (the orb and the ask bar). Locals: tab, inboxCount, usage. %>
 <% var tabs = [['today', '/app/hq', 'Today'], ['start', '/app/hq/start', 'Start'], ['inbox', '/app/hq/inbox', 'Inbox'], ['pipeline', '/app/hq/pipeline', 'Pipeline'], ['runs', '/app/hq/runs', 'Runs'], ['library', '/app/hq/library', 'Library'], ['numbers', '/app/hq?v1=1', 'Numbers'], ['brain', '/app/hq/brain', 'Your business'], ['setup', '/app/hq/setup', 'Set up']];
-   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab; %>
+   var F = typeof flags !== 'undefined' && flags ? flags : {};
+   // The workspace pages, each behind its own flag (lib/harness/flags.js).
+   if (F.HQ_AGENT) tabs.splice(1, 0, ['ask', '/app/hq/ask', 'Ask 127']);
+   if (F.HQ_SKILLS) tabs.splice(tabs.length - 2, 0, ['skills', '/app/hq/skills', 'Skills']);
+   if (F.HQ_TEAM) tabs.splice(tabs.length - 2, 0, ['team', '/app/hq/team', 'AI team']);
+   if (F.HQ_PROMPTS) tabs.splice(tabs.length - 2, 0, ['prompts', '/app/hq/prompts', 'Prompts']);
+   if (F.HQ_ACTIVITY) tabs.splice(tabs.length - 1, 0, ['activity', '/app/hq/activity', 'Activity']);
+   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab; %>
 <nav class="h2-tabs" aria-label="HQ">
   <% tabs.forEach(function (t) { %><a href="<%= t[1] %>" class="<%= here === t[0] ? 'on' : '' %>"<%- here === t[0] ? ' aria-current="page"' : '' %>><%= t[2] %><% if (t[0] === 'inbox' && inboxCount) { %><span class="n" aria-label="<%= inboxCount %> waiting"><%= inboxCount %></span><% } %></a><% }) %>
   <span class="h2-credits" title="Credits left this month"><%= usage.left.toLocaleString('en-US') %> / <%= usage.allowance.toLocaleString('en-US') %> credits</span>

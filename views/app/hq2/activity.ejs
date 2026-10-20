@@ -1,0 +1,32 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 Activity log (lib/harness/activity.js): who did what, when, with which data. Locals: rows, kind, kinds, keepDays. %>
+<% var when = function (s) { var d = new Date(s); return isNaN(d) ? '' : d.toISOString().slice(5, 10).replace('-', '/') + ' ' + d.toISOString().slice(11, 16) + ' UTC'; }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Activity</span>
+      <h1 class="hq-title"><span class="dim">Everything done</span><span class="steel">in your name.</span></h1>
+      <p class="hq-lede">Every run, approval, Brain change and connection, by you, Ask 127, your AI team, your schedules or your own Claude. Kept <%= keepDays %> days.</p>
+    </div>
+  </div>
+  <nav class="h2-filter" aria-label="Filter">
+    <a href="/app/hq/activity" class="<%= !kind ? 'on' : '' %>">All</a>
+    <% Object.keys(kinds).forEach(function (k) { %><a href="/app/hq/activity?kind=<%= k %>" class="<%= kind === k ? 'on' : '' %>"><%= kinds[k] %></a><% }) %>
+  </nav>
+  <section class="hq-card">
+    <div class="h2-row"><span class="hq-small" style="margin:0"><%= rows.length === 300 ? 'The newest 300' : rows.length + (rows.length === 1 ? ' entry' : ' entries') %></span><a class="hq-pill" href="/app/hq/activity.csv">Download CSV</a></div>
+    <% if (!rows.length) { %><p class="h2-empty">Nothing here yet.</p><% } %>
+    <% rows.forEach(function (a) { %>
+    <div class="h2-act">
+      <time datetime="<%= a.at %>"><%= when(a.at) %></time>
+      <div>
+        <div class="who"><%= a.who %> · <%= a.kindLabel %><%= a.connector ? ' · ' + a.connector : '' %><%= a.write ? ' · changed something' : '' %></div>
+        <div class="what"><%= a.action %><%= a.what ? ': ' + a.what : '' %><% if (a.link) { %> <a class="link" href="<%= a.link %>">Open</a><% } %></div>
+      </div>
+    </div>
+    <% }) %>
+  </section>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

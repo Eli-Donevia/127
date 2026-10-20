@@ -402,16 +402,16 @@
 
   // ---------- add your own files to the Library ----------
   // On the Library page, and beside a workflow's file input (which then picks the new file).
-  var upload = function (file) {
-    return fetch('/app/hq/library/upload', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': file.type || 'application/octet-stream', 'X-File-Name': encodeURIComponent(file.name), Accept: 'application/json' },
-      body: file,
-    }).then(function (r) {
+  // A box with data-upload-url sends there instead (the Brain's docs; data-upload-import says which
+  // kind of zip it is) and shows the server's message.
+  var upload = function (file, box) {
+    var url = (box && box.getAttribute('data-upload-url')) || '/app/hq/library/upload';
+    var headers = { 'Content-Type': file.type || 'application/octet-stream', 'X-File-Name': encodeURIComponent(file.name), Accept: 'application/json' };
+    if (box && box.getAttribute('data-upload-import')) headers['X-Import'] = box.getAttribute('data-upload-import');
+    return fetch(url, { method: 'POST', credentials: 'same-origin', headers: headers, body: file }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) {
         if (!r.ok) throw new Error(j.error || "Couldn't add that file. Try again.");
-        return j.file;
+        return j.file || j;
       });
     });
   };
@@ -435,15 +435,17 @@
       var files = Array.prototype.slice.call(input.files || []);
       input.value = '';
       var added = 0;
+      var said = '';
       var next = function () {
         var f = files.shift();
         if (!f) {
-          tell(added === 1 ? 'Added.' : added + ' files added.');
-          if (added && box && box.hasAttribute('data-upload')) location.reload();
+          tell(said || (added === 1 ? 'Added.' : added + ' files added.'));
+          if (added && box && box.hasAttribute('data-upload')) setTimeout(function () { location.reload(); }, said ? 1800 : 0);
           return;
         }
         tell('Adding ' + f.name + '...');
-        upload(f).then(function (card) {
+        upload(f, box).then(function (card) {
+          if (card && card.message) said = card.message;
           added += 1;
           if (box && box.hasAttribute('data-pick')) choose(box, card);
           next();
