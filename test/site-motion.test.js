@@ -32,6 +32,9 @@ test('each animated design builds a standalone page from a few facts', async () 
     const html = r.preview;
     assert.match(html, /prefers-reduced-motion: reduce\)'\)\.matches\|\|document\.documentElement\.classList\.add\('m'\)/, id);
     assert.ok(html.includes('Harbor Lane'), id);
+    assert.ok(html.includes("'Pause motion'"), `${id}: a pause control for looping motion (L76 W5)`);
+    if (/id="f-signup"/.test(html)) assert.ok(html.includes('Unsubscribe anytime.'), `${id}: the signup says what people get (L76 W2)`);
+    assert.ok(!/<input[^>]+type="checkbox"[^>]+checked/.test(html), `${id}: a pre-checked box`);
     assert.ok(!/—/.test(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '')), `${id}: em dash`);
     assert.ok(!/<script[^>]+src=/.test(html), `${id}: outside script`);
     assert.ok(!/\$\d/.test(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '')), `${id}: a price nobody gave`);
