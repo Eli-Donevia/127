@@ -372,10 +372,16 @@ test('a workflow form says "(optional)" once and a 1-credit cost says "1 credit"
   assert.doesNotMatch(await html(await s.go('/app/hq', { as: u })), /First 25 list/);
 });
 
-test('Talk to 127 keeps the voice on the device when the browser can (Legal L78)', () => {
+test("Talk to 127's voice is guarded so /app/hq loads without it, and never asks for on-device recognition (it crashes some Chromium builds)", () => {
   const src = fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'hq2.js'), 'utf8');
-  assert.match(src, /Rec\.available\(\{ langs: \[talkLang\], processLocally: true \}\)\.then\(function \(s\) \{ onDevice = s === 'available'; \}/);
-  assert.match(src, /if \(onDevice\) rec\.processLocally = true;/);
+  assert.doesNotMatch(src, /\.available\(|processLocally\s*=/);
+  assert.match(src, /try \{ Rec = window\.SpeechRecognition \|\| window\.webkitSpeechRecognition \|\| null; \} catch/);
+  assert.match(src, /try \{\n\s+rec = new Rec\(\);/);
+  // The speech calls outside the guarded helpers sit inside try blocks.
+  for (const m of src.matchAll(/window\.speechSynthesis\.(cancel|speak)\(/g)) {
+    const before = src.slice(Math.max(0, m.index - 400), m.index);
+    assert.ok(before.lastIndexOf('try') > before.lastIndexOf('}\n'), `unguarded ${m[0]}`);
+  }
 });
 
 test("Start's Show all button has its own class, so the folds on Today, the queue and a run stay visible", () => {

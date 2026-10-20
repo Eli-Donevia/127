@@ -75,7 +75,7 @@
     if (orbSays) orbSays.textContent = word || 'Talk';
   };
   var speak = function (text) {
-    if (!('speechSynthesis' in window) || !text) return mood('idle');
+    if (!text || !('speechSynthesis' in window) || !window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') return mood('idle');
     try {
       var u = new SpeechSynthesisUtterance(text);
       u.rate = 1.04;
@@ -128,30 +128,38 @@
     input.focus();
   });
 
-  var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  // Voice uses the browser's own speech recognition. Every call is guarded, so the page works without it.
+  // No on-device check (SpeechRecognition.available, processLocally): it crashes some Chromium builds
+  // outright, which no try/catch can stop (H98).
+  var Rec = null;
+  try { Rec = window.SpeechRecognition || window.webkitSpeechRecognition || null; } catch (err) { Rec = null; }
   var rec = null;
   var talkLang = document.documentElement.lang || 'en-US';
-  // When the browser can recognize speech on the device, keep the voice there (Legal L78's suggestion).
-  // Checked once on load, so the tap itself still starts listening straight away.
-  var onDevice = false;
-  if (Rec && typeof Rec.available === 'function') {
-    try {
-      Rec.available({ langs: [talkLang], processLocally: true }).then(function (s) { onDevice = s === 'available'; }, function () {});
-    } catch (err) { onDevice = false; }
-  }
+  var hush = function () {
+    try { if ('speechSynthesis' in window && window.speechSynthesis) window.speechSynthesis.cancel(); } catch (err) { /* no voice */ }
+  };
   if (orb) orb.addEventListener('click', function () {
     if (!Rec) {
       input.focus();
       say('Voice needs Chrome or Safari. Type it here instead.');
       return;
     }
-    if (rec) return rec.stop();
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    rec = new Rec();
-    rec.lang = talkLang;
-    if (onDevice) rec.processLocally = true;
-    rec.interimResults = true;
-    rec.maxAlternatives = 1;
+    if (rec) {
+      try { rec.stop(); } catch (err) { rec = null; mood('idle'); }
+      return;
+    }
+    hush();
+    try {
+      rec = new Rec();
+      rec.lang = talkLang;
+      rec.interimResults = true;
+      rec.maxAlternatives = 1;
+    } catch (err) {
+      rec = null;
+      input.focus();
+      say("Voice isn't working in this browser. Type it here instead.");
+      return;
+    }
     var heard = '';
     rec.onresult = function (ev) {
       heard = Array.prototype.map.call(ev.results, function (r) { return r[0].transcript; }).join(' ');
