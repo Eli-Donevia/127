@@ -1,4 +1,11 @@
 <%# The agree line under each connect button, in Legal's words (legal/handoffs/turnkey.md part 5, K7, O8).
-    The AI sentence is left off a connection whose data goes to no AI. %>
+    The AI sentence is left off a connection whose data goes to no AI. A Studio provider on the member's
+    own account carries Legal's own-account line instead of what HQ reads. %>
 <% var lc = function (x) { return String(x || '').charAt(0).toLowerCase() + String(x || '').slice(1); }; %>
+<% if (d.media) { %>
+<p class="hq-small"><%= d.name %> works for you under your own account and its terms, including whether it trains on what you send and what your plan there lets you do with what it makes.</p>
+<p class="hq-small">By connecting, you confirm it's your account and agree to our <a href="/terms#13a-connected-accounts-and-hq">Terms</a>. Studio uses it only for the jobs you start. <a href="/privacy#7a-hq-and-connected-accounts">Privacy</a></p>
+<% if (d.attribution) { %><p class="hq-small"><a href="<%= d.attribution.href %>" rel="noopener" target="_blank"><%= d.attribution.text %></a></p><% } %>
+<% } else { %>
 <p class="hq-small">By connecting, you confirm it's your account and agree to our <a href="/terms#13a-connected-accounts-and-hq">Terms</a>. HQ reads: <%= lc(d.reads) %>. With your OK it can: <%= d.writes ? lc(d.writes) : 'nothing, it only reads' %>.<% if (d.ai) { %> When a task needs AI, HQ sends Anthropic, our AI provider, only what that task needs, and Anthropic doesn't train on it.<% } %> <a href="/privacy#7a-hq-and-connected-accounts">Privacy</a></p>
+<% } %>
