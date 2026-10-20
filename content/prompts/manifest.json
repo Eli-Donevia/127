@@ -1,7 +1,8 @@
 {
  "name": "127 prompt library",
  "version": 1,
- "generatedAt": "2026-10-20T03:32:55.042Z",
+ "generatedAt": "2026-10-20T04:22:16.912Z",
+ "harness": "harness.md",
  "variableSyntax": "{{key}}",
  "count": 61,
  "counts": {
@@ -2428,7 +2429,7 @@
    "title": "First helper brief",
    "tier": "builder",
    "when": "You're ready to pay someone for a few hours a week and want the job clear before you post it.",
-   "prompt": "Help me hire my first helper.\n\nWhat I want off my plate: {{work}}\nHours a week and budget: {{budget}}\nMust-have skills: {{skills}}\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about past work.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for.\n\nKeep it fair: clear pay, no unpaid trial work, contractor or employee status noted as something to check locally.",
+   "prompt": "Help me hire my first helper.\n\nWhat I want off my plate: {{work}}\nHours a week and budget: {{budget}}\nMust-have skills: {{skills}}\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about the job only: their past work, how they'd handle real tasks from this role, and their availability.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for in their work samples and the test.\n\nKeep it fair: clear pay, no unpaid trial work. Ask only about the job: no questions about salary history, criminal history, age, family, health or anything personal. Whether they should be a contractor (1099) or an employee (W-2) depends on how the work is done: tell me to ask a pro (an accountant or employment lawyer) before I decide, and don't decide it for me.",
    "variables": [
     {
      "key": "work",
@@ -2453,7 +2454,7 @@
      "skills": "CapCut or Premiere, captions, fast turnaround"
     },
     "youGet": "A job post, a paid 90-minute edit test with a scoring sheet, interview questions, a first-week plan and red flags.",
-    "filled": "Help me hire my first helper.\n\nWhat I want off my plate: Editing 12 short videos a week from my raw clips\nHours a week and budget: 10 hours a week, $20 to $25 an hour\nMust-have skills: CapCut or Premiere, captions, fast turnaround\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about past work.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for.\n\nKeep it fair: clear pay, no unpaid trial work, contractor or employee status noted as something to check locally."
+    "filled": "Help me hire my first helper.\n\nWhat I want off my plate: Editing 12 short videos a week from my raw clips\nHours a week and budget: 10 hours a week, $20 to $25 an hour\nMust-have skills: CapCut or Premiere, captions, fast turnaround\n\nWrite:\n1. A job post (under 200 words) that's honest about the work, hours, pay and how to apply.\n2. A paid test task (under 2 hours) that shows if they can do the job.\n3. A scoring sheet for the test.\n4. Five interview questions about the job only: their past work, how they'd handle real tasks from this role, and their availability.\n5. Their first-week plan and the SOPs they'll need.\n6. Red flags to watch for in their work samples and the test.\n\nKeep it fair: clear pay, no unpaid trial work. Ask only about the job: no questions about salary history, criminal history, age, family, health or anything personal. Whether they should be a contractor (1099) or an employee (W-2) depends on how the work is done: tell me to ask a pro (an accountant or employment lawyer) before I decide, and don't decide it for me."
    },
    "tools": [],
    "pairsWith": []
@@ -2694,6 +2695,5 @@
    "tools": [],
    "pairsWith": []
   }
- ],
- "harness": "harness.md"
+ ]
 }
