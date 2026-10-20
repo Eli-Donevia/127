@@ -2279,3 +2279,42 @@ test('Legal L74: members get HQ v2 only while both pages are live; old runs go e
   assert.equal(db.get('runs', run.id), null);
   assert.equal(db.filter('runs', (x) => x.memberId === v.id).length, 0);
 });
+
+test('Delete this lead (Legal L74): the lead, its drafts, notes and history, the queue\'s runs for it, its name on wins and what packs remember about it go; the win stays', async () => {
+  const u = await member('builder', { name: 'Rae Okafor' });
+  const other = await member();
+  const l = await P.upsert(u.id, 'test', { key: 'site:irontemple.test', name: 'Iron Temple', facts: ['They post every day.'], links: { email: 'hi@iron.test' } });
+  const keep = await P.upsert(u.id, 'test', { key: 'site:peak.test', name: 'Peak Fitness' });
+  await P.note(u.id, l.id, 'Owner is Sam.');
+  const j = await json(await s.go(`/app/hq/queue/${l.id}/write`, { as: u, json: {} }));
+  await engine.idle();
+  assert.ok(P.get(u.id, l.id).msg.dm);
+  await s.go('/app/hq/win', { as: u, form: { lead: l.id, kind: 'yes', consent: 'private' } });
+  const win = db.filter('proof', (w) => w.memberId === u.id)[0];
+  assert.equal(win.leadName, 'Iron Temple');
+  // What packs remember: a business pack's client under the lead's key, meal prep's menu under the name.
+  await harness.brain.remember(u.id, 'cleaning', 'clients', { 'site:irontemple.test': { name: 'Iron Temple' }, 'site:peak.test': { name: 'Peak Fitness' } });
+  await harness.brain.remember(u.id, 'mealprep', 'menus', { irontemple: { on: '2026-11-02', ids: ['a'] }, household: { on: '2026-11-02', ids: ['b'] } });
+  await harness.brain.remember(u.id, 'gym', 'pipeline', { v: 1, leads: { 'site:irontemple.test': { stage: 'found' } } });
+
+  const page = await html(await s.go('/app/hq/pipeline', { as: u }));
+  assert.match(page, new RegExp(`action="/app/hq/pipeline/${l.id}/delete" data-confirm="Delete this lead for good\\?`));
+  assert.equal(await (await s.go(`/app/hq/pipeline/${l.id}/delete`, { as: other, form: {} })).text(), 'app 404');
+  assert.ok(P.get(u.id, l.id));
+
+  const r = await s.go(`/app/hq/pipeline/${l.id}/delete`, { as: u, form: {} });
+  assert.equal(where(r), '/app/hq/pipeline');
+  assert.match(flashes.pop().text, /^Deleted\./);
+  assert.equal(db.get('pipeline', l.id), null);
+  assert.equal(db.get('runs', j.run), null, "the queue's run for it goes, with its draft");
+  const w = db.get('proof', win.id);
+  assert.ok(w, 'the win stays');
+  assert.equal(w.leadId, null);
+  assert.equal(w.leadName, '');
+  const packsMem = db.get('brains', u.id).packs;
+  assert.deepEqual(Object.keys(packsMem.cleaning.clients), ['site:peak.test']);
+  assert.deepEqual(Object.keys(packsMem.mealprep.menus), ['household']);
+  assert.deepEqual(packsMem.gym.pipeline.leads, {});
+  assert.ok(P.get(u.id, keep.id), 'other leads stay');
+  assert.doesNotMatch(JSON.stringify(db.get('brains', u.id)), /irontemple/i);
+});

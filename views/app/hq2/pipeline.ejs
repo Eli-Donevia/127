@@ -58,6 +58,7 @@
           <% if (l.stage !== 'lost' && l.stage !== 'won') { %><form method="post" action="/app/hq/pipeline/<%= l.id %>/move"><input type="hidden" name="stage" value="lost"><input type="hidden" name="from" value="<%= stage || '' %>"><button data-move="lost">Lost</button></form><% } %>
           <% if (l.stage === 'lost') { %><form method="post" action="/app/hq/pipeline/<%= l.id %>/move"><input type="hidden" name="stage" value="found"><input type="hidden" name="from" value="<%= stage || '' %>"><button data-move="found">Bring back</button></form><% } %>
         </div>
+        <form method="post" action="/app/hq/pipeline/<%= l.id %>/delete" data-confirm="Delete this lead for good? Its details, drafts, notes and history go now, and its name comes off any win."><button class="hq-link-btn tiny">Delete this lead</button></form>
       </article>
       <% }) %>
       <% if (c.leads.length > 200) { %><p class="h2-empty">And <%= c.leads.length - 200 %> more.</p><% } %>
