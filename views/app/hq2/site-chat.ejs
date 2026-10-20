@@ -1,0 +1,72 @@
+<%- include('../../partials/app-head') %>
+<%# HQ v2 site chat (HQ_SITE_AGENT, lib/harness/site-chat.js): what visitors get answers from, on and off with Legal's two ticks (S10, S7), the code for the member's site, and their chats. Locals: s, d, need, snippet, chats, counts, lines, cost, brainOn. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <div class="hq-head" style="margin-bottom:8px">
+    <div>
+      <span class="eyebrow">Site chat</span>
+      <h1 class="hq-title"><span class="dim">Answer visitors</span><span class="steel">on your own site.</span></h1>
+      <p class="hq-lede">A chat box for your website. It answers only from the details below and the Brain docs you mark public, and it tells every visitor up front that it's an AI working for you. It can't book, sell or promise anything. When it doesn't know, it says so and lets the visitor leave their details for you.</p>
+      <p class="hq-small"><%= lines.responsible %></p>
+    </div>
+  </div>
+
+  <section class="hq-card" id="details" aria-labelledby="sc-d">
+    <h2 class="h2-h" id="sc-d" style="font-size:18px">What it answers from</h2>
+    <p class="h2-sub">Visitors can get answers from everything on this card, so write only what you'd put on your website.</p>
+    <form method="post" action="/app/hq/site-chat/details" class="h2-stack" style="margin-top:12px">
+      <label class="field"><span>Your business's name</span><input class="input" name="name" maxlength="200" required value="<%= d.name || '' %>"></label>
+      <label class="field"><span>Hours (optional)</span><textarea class="input" name="hours" rows="2" maxlength="600" placeholder="Mon to Fri 8am to 6pm, Sat 9am to 1pm"><%= d.hours || '' %></textarea></label>
+      <label class="field"><span>Area you serve (optional)</span><input class="input" name="area" maxlength="300" placeholder="Des Moines and the west suburbs" value="<%= d.area || '' %>"></label>
+      <label class="field"><span>Services (optional)</span><textarea class="input" name="services" rows="3" maxlength="2000"><%= d.services || '' %></textarea></label>
+      <label class="field"><span>Listed prices (optional)</span><textarea class="input" name="prices" rows="3" maxlength="2000" placeholder="Only prices you already list publicly. It quotes them exactly and never makes one up."><%= d.prices || '' %></textarea></label>
+      <label class="field"><span>Your site's address</span><input class="input" name="site" maxlength="200" placeholder="https://yourbusiness.com" value="<%= d.site || '' %>"></label>
+      <label class="field"><span>Your privacy page</span><input class="input" name="privacy" maxlength="200" placeholder="https://yourbusiness.com/privacy" value="<%= d.privacy || '' %>"></label>
+      <div><button class="btn">Save <span class="arrow"></span></button></div>
+    </form>
+    <p class="hq-small"><% if (brainOn) { %><%= counts.publicDocs %> Brain doc<%= counts.publicDocs === 1 ? '' : 's' %> marked public. <a href="/app/hq/brain#docs">Mark docs public in your Brain</a>.<% } else { %>It answers from these details only until your Brain's docs are on.<% } %></p>
+  </section>
+
+  <section class="hq-card" id="on" style="margin-top:16px" aria-labelledby="sc-on">
+    <h2 class="h2-h" id="sc-on" style="font-size:18px"><%= s.on ? 'Site chat is on' : 'Turn it on' %></h2>
+    <% if (s.on) { %>
+    <p class="h2-sub">Paste this just before &lt;/body&gt; on every page where you want the chat. It shows only on <%= d.site %>.</p>
+    <pre class="h2-doc" id="sc-code" style="margin-top:10px;white-space:pre-wrap;word-break:break-all"><%= snippet %></pre>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      <form method="post" action="/app/hq/site-chat/off"><button class="hq-pill">Turn it off</button></form>
+      <form method="post" action="/app/hq/site-chat/key" data-confirm="Make a new code? The old one stops working until you replace it on your site."><button class="hq-link-btn">Get a new code</button></form>
+    </div>
+    <p class="hq-small">Each answer uses <%= cost %> credits. When you're out, it asks visitors to leave their details for you instead.</p>
+    <% } else if (need.length) { %>
+    <p class="h2-sub">Add <%= need.join(', ') %> above first.</p>
+    <% } else { %>
+    <form method="post" action="/app/hq/site-chat/on" class="h2-stack" style="margin-top:10px">
+      <label class="check"><input type="checkbox" name="covered" required> <span><%= lines.covers %></span></label>
+      <p class="hq-small" style="margin:0">127's site templates include a privacy notice that covers it. On any other site, check yours names the chat and that 127 runs it for you.</p>
+      <label class="check"><input type="checkbox" name="kids" required> <span>My site isn't meant for children.</span></label>
+      <p class="hq-small" style="margin:0"><%= lines.responsible %> Each answer uses <%= cost %> credits.</p>
+      <div><button class="btn">Turn on site chat <span class="arrow"></span></button></div>
+    </form>
+    <% } %>
+  </section>
+
+  <section class="hq-card" id="chats" style="margin-top:16px" aria-labelledby="sc-c">
+    <h2 class="h2-h" id="sc-c" style="font-size:18px">Chats</h2>
+    <p class="h2-sub">Only you see these. Each is kept 180 days after its last message. Delete one sooner if a visitor asks you to.</p>
+    <% if (!chats.length) { %>
+    <p class="h2-empty">No chats yet.</p>
+    <% } else { %>
+    <p class="hq-small"><%= counts.chats %> chat<%= counts.chats === 1 ? '' : 's' %>, <%= counts.week %> this week, <%= counts.contacts %> left their details.</p>
+    <ul class="h2-list" style="margin-top:10px">
+      <% chats.forEach(function (c) { %>
+      <li style="padding:10px 0;border-top:1px solid var(--line)">
+        <div class="h2-row"><a class="link" href="/app/hq/site-chat/chats/<%= c.id %>"><%= c.first || 'A visitor' %></a><% if (c.contact) { %><span class="h2-tag">Left details</span><% } %></div>
+        <div class="hq-small" style="margin:2px 0 0"><%= String(c.lastAt).slice(0, 10) %> · <%= c.count %> message<%= c.count === 1 ? '' : 's' %><%= c.page ? ' · ' + c.page : '' %></div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </section>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

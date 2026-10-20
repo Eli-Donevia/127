@@ -40,6 +40,7 @@ const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
 const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
+const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
@@ -85,6 +86,8 @@ app.all('/hq/in/:token', hqRoutes.inbound);
 app.all('/hq/ai/:token', hqRoutes.ai);
 
 app.use(express.urlencoded({ extended: true, limit: '200kb' }));
+// Site chat on members' websites (lib/harness/routes-site-chat.js): ahead of the session, so visitors never get a 127 cookie.
+app.use(harnessSiteChat.publicRouter());
 // Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
 // Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));

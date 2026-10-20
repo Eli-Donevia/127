@@ -1,0 +1,25 @@
+<%- include('../../partials/app-head') %>
+<%# One site chat (lib/harness/site-chat.js). Only the member sees it. Locals: c, keepDays. %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/site-chat#chats">Site chat</a></p>
+  <section class="hq-card">
+    <h1 class="h2-h">Chat from <%= String(c.startedAt).slice(0, 10) %></h1>
+    <p class="h2-sub"><%= c.page ? 'On ' + c.page + '. ' : '' %>Kept until <%= new Date(Date.parse(c.lastAt) + keepDays * 864e5).toISOString().slice(0, 10) %>, <%= keepDays %> days after its last message.</p>
+    <% if (c.contact) { %>
+    <p class="hq-small">Left their details: <%= [c.contact.name, c.contact.email, c.contact.phone].filter(Boolean).join(' · ') %><%= c.contact.note ? '. Note: ' + c.contact.note : '' %>. They're in your <a href="/app/hq/pipeline">Pipeline</a> as a site chat lead. That isn't a yes to marketing: reply to what they asked.</p>
+    <% } %>
+    <% if (c.child) { %><p class="hq-small">The visitor said they're under 13, so the chat gave them the parent line and took no details.</p><% } %>
+  </section>
+  <section class="hq-card h2-chat" style="margin-top:16px" aria-label="Messages">
+    <% (c.messages || []).forEach(function (m) { %>
+    <div class="h2-msg <%= m.role === 'visitor' ? 'me' : 'ai' %>">
+      <div class="h2-msg-t"><%= m.text %></div>
+      <div class="hq-small" style="margin:4px 0 0"><%= m.role === 'visitor' ? 'Visitor' : 'Site chat' %> · <%= String(m.at).slice(0, 16).replace('T', ' ') %> UTC<%= m.passOn ? ' · offered to pass it on' : '' %></div>
+    </div>
+    <% }) %>
+  </section>
+  <form method="post" action="/app/hq/site-chat/chats/<%= c.id %>/delete" data-confirm="Delete this chat for good?" style="margin-top:12px"><button class="hq-link-btn">Delete this chat</button></form>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
