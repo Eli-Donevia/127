@@ -42,7 +42,17 @@
       <p class="hq-lede">The more specific this is, the less every draft sounds like a template. Leave anything blank you don't know yet.</p>
     </div>
   </div>
-  <form method="post" action="/app/hq/brain" class="h2-stack">
+  <% var P = typeof ws !== 'undefined' && ws && ws.premium;
+     if (P) { var filled = function (g) { return g.items.filter(function (f) { return f[0] !== 'daily' && val(g.id, f[0]); }).length; };
+       var total = groups.reduce(function (n, g) { return n + g.items.filter(function (f) { return f[0] !== 'daily'; }).length; }, 0);
+       var have = groups.reduce(function (n, g) { return n + filled(g); }, 0); %>
+  <nav class="hqp-brainbar" aria-label="Your Brain" data-brainbar data-total="<%= total %>">
+    <div class="m"><span class="eyebrow">127 knows</span><b><span data-have><%= have %></span> of <%= total %></b><span class="bar" aria-hidden="true"><i data-bar style="width:<%= Math.round(have / total * 100) %>%"></i></span></div>
+    <% if (ws.shelf && ws.shelf.workflows) { %><p>Read by all <%= ws.shelf.workflows %> workflows, Ask 127 and your AI team.</p><% } %>
+    <div class="jump"><% groups.forEach(function (g) { var n = g.items.filter(function (f) { return f[0] !== 'daily'; }).length; %><a href="#g-<%= g.id %>"><%= g.title %> <small data-g="<%= g.id %>"><%= filled(g) %>/<%= n %></small></a><% }) %></div>
+  </nav>
+  <% } %>
+  <form method="post" action="/app/hq/brain" class="h2-stack<%= P ? ' hqp-brain' : '' %>">
     <% groups.forEach(function (g) { %>
     <section class="hq-card h2-form" aria-labelledby="g-<%= g.id %>">
       <h2 class="h2-h" id="g-<%= g.id %>" style="font-size:18px;margin-bottom:14px"><%= g.title %></h2>
@@ -57,7 +67,7 @@
       <% }) %>
     </section>
     <% }) %>
-    <div><button class="btn">Save <span class="arrow"></span></button></div>
+    <div<%- P ? ' class="hqp-save"' : '' %>><button class="btn">Save <span class="arrow"></span></button></div>
   </form>
   <% if (typeof bd !== 'undefined' && bd) { %><%- include('../../partials/hq2-brain-docs', { bd: bd, b: b }) %><% } %>
 </div>

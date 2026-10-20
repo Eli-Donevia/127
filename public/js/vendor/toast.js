@@ -3,7 +3,7 @@
  *
  * The behaviour and the stacking CSS math follow Sonner by Emil Kowalski:
  *   https://github.com/emilkowalski/sonner  (src/styles.css, src/index.tsx)
- * Copyright (c) 2023 Emil Kowalski. MIT License (see LICENSE in this folder).
+ * Copyright (c) 2023 Emil Kowalski. MIT License (see LICENSE-sonner.txt in this folder).
  *
  * What it does, as in Sonner: new toasts enter from the edge, older ones tuck
  * behind the front toast slightly smaller; hovering (or focusing) the stack

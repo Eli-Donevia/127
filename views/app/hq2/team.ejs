@@ -22,9 +22,10 @@
   </div>
   <% } %>
   <h2 class="h2-h" style="font-size:18px;margin:24px 0 12px">Helpers you can add</h2>
-  <div class="h2-stack">
+  <div class="h2-stack<%= typeof ws !== 'undefined' && ws && ws.premium ? ' hqp-team' : '' %>">
     <% gallery.forEach(function (r) { %>
     <section class="hq-card" aria-labelledby="role-<%= r.id %>">
+      <% if (typeof ws !== 'undefined' && ws && ws.premium) { %><span class="hqp-orbit" aria-hidden="true"><b><%= r.title.charAt(0) %></b><i></i></span><% } %>
       <h3 class="h2-h" id="role-<%= r.id %>" style="font-size:17px"><%= r.title %></h3>
       <p class="h2-sub">AI helper · <%= r.job %> · Uses: <%= r.uses.length ? r.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= r.budget %> credits a month</p>
       <p class="hq-small"><%= r.can %> workflow<%= r.can === 1 ? '' : 's' %><%= r.skills.length ? ' · runs ' + r.skills.join(', ') : '' %> · always asks you before: <%= (r.needsOk || []).join('; ').toLowerCase() %></p>

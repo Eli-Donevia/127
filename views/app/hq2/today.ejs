@@ -19,6 +19,22 @@
     <span class="eyebrow" data-today-date>Today</span>
     <h1><span class="d" data-split>Today<%= firstName ? ', ' + firstName : '' %>.</span><br><span class="h2-steel" data-split><%= q.items.length ? (h.done ? 'You did your ' + h.target + '. The rest is extra.' : h.left + ' to send. About ' + Math.max(1, q.minutes) + ' minute' + (q.minutes === 1 ? '' : 's') + '.') : 'Start with one move.' %></span></h1>
   </header>
+  <% if (typeof tour !== 'undefined' && tour) { %>
+  <section class="hqp-tour" aria-labelledby="tour-h">
+    <div class="hqp-tour-top"><span class="eyebrow" id="tour-h">Day one · <%= tour.steps.filter(function (s) { return s.done; }).length %> of 3</span><form method="post" action="/app/hq/dayone/hide"><button class="hq-link-btn">Hide this</button></form></div>
+    <ol>
+      <% tour.steps.forEach(function (s, i) { %>
+      <li class="<%= s.done ? 'done' : i === tour.next ? 'now' : '' %>" style="--i:<%= i %>">
+        <span class="n" aria-hidden="true"><%= s.done ? '' : '0' + (i + 1) %></span>
+        <b><%= s.title %><% if (s.done) { %><span class="sr-only"> (done)</span><% } %></b>
+        <p><%= s.detail %></p>
+        <% if (s.parts) { %><span class="parts"><% s.parts.forEach(function (p) { %><span class="<%= p.done ? 'on' : '' %>"><%= p.label %><% if (p.done) { %><span class="sr-only"> (on)</span><% } %></span><% }) %></span><% } %>
+        <% if (!s.done) { %><a class="<%= i === tour.next ? 'btn sm' : 'link' %>" href="<%= s.href %>"><%= s.cta %></a><% } %>
+      </li>
+      <% }) %>
+    </ol>
+  </section>
+  <% } %>
   <% } %>
   <div class="h2-grid">
     <div class="h2-stack">
@@ -36,7 +52,8 @@
 
       <% if (typeof ffCard !== 'undefined' && ffCard) { %><%- include('../../partials/founding-five-card', { c: ffCard, hq: true }) %><% } %>
 
-      <% if (urgent || !q.items.length) { %>
+      <%# Day one already shows picking a business and setting up the Brain, so the move card steps aside for those. %>
+      <% if ((urgent || !q.items.length) && !(typeof tour !== 'undefined' && tour && (t.move.kind === 'pick' || t.move.kind === 'none'))) { %>
       <section class="hq-card h2-move" aria-labelledby="move-h">
         <span class="eyebrow">Your move<%= firstName ? ', ' + firstName : '' %></span>
         <h2 id="move-h" class="h2-steel"><%= t.move.title %></h2>

@@ -210,3 +210,22 @@
   track.scrollLeft = m.offsetLeft - (track.clientWidth - m.offsetWidth) / 2;
   bend();
 })();
+
+// Your Brain: the "127 knows" count and bar follow what's typed, before Save.
+(function () {
+  var bar = document.querySelector('.shell.hqp [data-brainbar]'), form = document.querySelector('.hqp-brain');
+  if (!bar || !form) return;
+  var total = +bar.getAttribute('data-total') || 1;
+  var count = function () {
+    var have = 0, by = {};
+    Array.prototype.forEach.call(form.querySelectorAll('input[name], textarea[name]'), function (el) {
+      var g = el.name.split('_')[0];
+      if (el.name === 'goal_daily' || !/^(business|voice|links|goal)_/.test(el.name)) return;
+      if (el.value.trim()) { have += 1; by[g] = (by[g] || 0) + 1; }
+    });
+    bar.querySelector('[data-have]').textContent = have;
+    bar.querySelector('[data-bar]').style.width = Math.round(have / total * 100) + '%';
+    Array.prototype.forEach.call(bar.querySelectorAll('[data-g]'), function (s) { s.textContent = (by[s.getAttribute('data-g')] || 0) + s.textContent.replace(/^\d+/, ''); });
+  };
+  form.addEventListener('input', count);
+})();

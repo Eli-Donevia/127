@@ -1,4 +1,5 @@
 @import url("vendor/toast.css");
+@import url("vendor/sheet.css");
 /* The HQ premium pass (HQ_PREMIUM, on top of HQ_WORKSPACE). Loaded after hq2.css and hq2-ws.css and scoped to
    .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop #7C8CFF is light on
    the subject only (the horizon, active states, line draw-ins, focus), one per view, never a fill or a glow behind
@@ -264,3 +265,69 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp-curve-t b { font-weight: 600; font-size: 15px; }
 .hqp-curve-t small { color: var(--slate); font-size: 12.5px; }
 @media (max-width: 699px) { .hqp-curve-card { flex-basis: 78%; } .hqp-curve-track { padding: 12px 11% 16px; } }
+
+/* Day one (Today, new members): three steps in a row, each ticked off from what's really there. The step to do
+   now carries the pop edge; done steps turn green. */
+.hqp-tour { margin: 0 0 22px; }
+.hqp-tour-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.hqp-tour ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.hqp-tour li { position: relative; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding: 16px 16px 16px 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); overflow: hidden; }
+.hqp-tour li .n { font: 12.5px var(--mono); color: var(--slate); height: 18px; }
+.hqp-tour li b { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+.hqp-tour li p { margin: 0 0 4px; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.hqp-tour li > a { margin-top: auto; }
+.hqp-tour li.now { border-color: var(--line-2); }
+.hqp-tour li.now::before { content: ''; position: absolute; left: 0; top: 16px; bottom: 16px; width: 2px; border-radius: 2px; background: var(--pop); }
+.hqp-tour li.now .n { color: var(--pop); }
+.hqp-tour li.done { background: transparent; }
+.hqp-tour li.done b { color: var(--ink-2); }
+.hqp-tour li.done .n { width: 18px; border-radius: 50%; background: var(--sig); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0a12 12 0 100 24 12 12 0 000-24zm-1.6 17.2L5.6 12.4l1.7-1.7 3.1 3.1 6.3-6.3 1.7 1.7z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0a12 12 0 100 24 12 12 0 000-24zm-1.6 17.2L5.6 12.4l1.7-1.7 3.1 3.1 6.3-6.3 1.7 1.7z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.hqp-tour .parts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.hqp-tour .parts > span { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); }
+.hqp-tour .parts > span.on { color: var(--sig); border-color: rgba(134,214,173,.35); }
+html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-delay: calc(var(--i) * 110ms + 450ms); }
+@media (max-width: 860px) {
+  .hqp-tour ol { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+  .hqp-tour li { scroll-snap-align: start; }
+}
+.hqp-tour ~ .h2-grid .h2-move::before { background: var(--line-2); }
+
+/* More on a phone, as a draggable sheet (hq-premium-ui.js, Vaul port) */
+.sht.hqp-more { height: auto; max-height: 85dvh; background: linear-gradient(180deg, #131317, #0b0b0e); }
+.sht.hqp-more .ws-sheet { position: static; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 4px 0 6px; border: 0; background: none; box-shadow: none; animation: none; }
+.hqp .ws-bar-phone, .hqp .ws-phone-top, .hqp .ws-main { transition: none; }
+
+/* Your Brain as one sheet: how much 127 knows (green fills as you type), a jump to each part, fields two by two on
+   a wide screen, and Save that stays in reach */
+.hqp-brainbar { display: grid; gap: 10px; margin: 4px 0 18px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.hqp-brainbar .m { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hqp-brainbar .m b { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.hqp-brainbar .bar { flex: 1 1 160px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.08); overflow: hidden; }
+.hqp-brainbar .bar i { display: block; height: 100%; background: var(--sig); border-radius: 4px; transition: width .5s var(--out); }
+.hqp-brainbar p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.hqp-brainbar .jump { display: flex; flex-wrap: wrap; gap: 6px; }
+.hqp-brainbar .jump a { font-size: 13px; color: var(--ink-2); text-decoration: none; padding: 5px 11px; border: 1px solid var(--line-2); border-radius: 999px; }
+.hqp-brainbar .jump a:hover { color: var(--ink); border-color: var(--pop-line); }
+.hqp-brainbar .jump small { color: var(--slate); font-variant-numeric: tabular-nums; margin-left: 2px; }
+.hqp-brain .h2-form { scroll-margin-top: 90px; }
+@media (min-width: 900px) {
+  .hqp-brain .h2-form { display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .hqp-brain .h2-form > h2, .hqp-brain .h2-form > .field:has(textarea) { grid-column: 1 / -1; }
+}
+.hqp-brain .field:focus-within > span:first-child { color: var(--ink); }
+.hqp-save { position: sticky; bottom: 12px; z-index: 5; display: flex; justify-content: flex-end; padding: 10px; border: 1px solid var(--line); border-radius: 16px; background: rgba(10,10,12,.88); backdrop-filter: blur(10px); }
+@media (max-width: 860px) { .hqp-save { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+
+/* AI team: helpers as cards two by two, each with its orbit mark (a dot circles it while you point at the card) */
+@media (min-width: 900px) { .hqp-team { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } }
+.hqp-team > .hq-card { position: relative; display: flex; flex-direction: column; transition: border-color .25s, transform .35s var(--out); }
+.hqp-team > .hq-card:hover { border-color: var(--line-2); transform: translateY(-2px); }
+.hqp-team > .hq-card > form { margin-top: auto !important; padding-top: 12px; }
+.hqp-orbit { position: relative; width: 44px; height: 44px; margin-bottom: 12px; border-radius: 50%; border: 1px solid var(--line-2); display: grid; place-items: center; }
+.hqp-orbit b { font-size: 17px; font-weight: 600; color: var(--ink); }
+.hqp-orbit i { position: absolute; inset: -5px; border-radius: 50%; }
+.hqp-orbit i::before { content: ''; position: absolute; top: 0; left: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--slate); }
+.hqp-team > .hq-card:hover .hqp-orbit { border-color: var(--pop-line); }
+.hqp-team > .hq-card:hover .hqp-orbit i { animation: hqpOrbit 2.4s linear infinite; }
+.hqp-team > .hq-card:hover .hqp-orbit i::before { background: var(--pop); }
+@keyframes hqpOrbit { to { transform: rotate(360deg); } }
