@@ -236,63 +236,13 @@ void main() {
   .replace('DEPTHV', DEPTH.toFixed(3)).replace('BEVELV', BEVEL.toFixed(3)).replace('WBV', WB.join(', '))
   .replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
 
-// The drops: water lifts out of the pond in columns under each figure and fills the 127's shape from the bottom up,
-// then pours into the glass as it forms. Each point has a seed on the water (x, z, two randoms) and a place on the mark (in the mark's own space).
-const PV = `#version 300 es
-precision highp float;
-in vec4 aS; in vec3 aT;
-uniform vec2 uRes; uniform float uDpr; uniform vec4 uFrame;
-uniform float uP, uAbs, uTime, uSize, uPop; uniform vec3 uC; uniform mat3 uRot;
-out float vA; out vec3 vC;
-void main() {
-  float r1 = aS.z, r2 = aS.w, hy = clamp((aT.y + 0.62) / 1.24, 0.0, 1.0);
-  vec3 tg = uC + transpose(uRot) * aT;
-  // each drop leaves the water under its place, climbs its column and curls in; the bottom fills first
-  vec3 st = vec3(tg.x + (r2 - 0.5) * 0.35, 0.0, tg.z + 0.15 + (r1 - 0.5) * 0.5), c = vec3(st.x, tg.y * 0.75 + 0.05, st.z);
-  float k = clamp((uP - 0.5 * hy - 0.18 * r1) / 0.3, 0.0, 1.0), e = k * k * (3.0 - 2.0 * k), m = sin(3.14159 * e);
-  vec3 p = mix(mix(st, c, e), mix(c, tg, e), e);
-  p += (m * 0.03 + 0.004) * vec3(sin(uTime * 1.3 + r1 * 40.0), sin(uTime * 1.7 + r2 * 30.0), cos(uTime * 1.1 + r1 * 20.0));
-  vec3 ro = vec3(CAMV), fw = normalize(vec3(AIMV) - ro), rt = normalize(cross(fw, vec3(0, 1, 0))), up = cross(rt, fw);
-  vec3 v = p - ro; float z = dot(v, fw);
-  vec2 u = vec2(0.5 + dot(v, rt) / z / (2.0 * TANV_ * 16.0 / 9.0), 0.5 - dot(v, up) / z / (2.0 * TANV_));
-  vec2 q = (uFrame.xy + u * uFrame.zw) * uDpr;
-  gl_Position = vec4(q.x / uRes.x * 2.0 - 1.0, 1.0 - q.y / uRes.y * 2.0, 0.0, 1.0);
-  gl_PointSize = uSize * uDpr * (uFrame.z / 1280.0) * (0.55 + 0.9 * r2 * r2) * 5.6 / z;
-  vA = smoothstep(0.0, 0.06, k) * (1.0 - uAbs) * (0.7 + 0.6 * r1) * mix(1.0, 0.5, clamp((z - 5.35) / 0.45, 0.0, 1.0));
-  // with the pop most points are the accent, a few stay white-hot
-  vC = mix(vec3(0.86, 0.89, 1.0), r2 > 0.82 ? vec3(0.92, 0.94, 1.0) : vec3(0.22, 0.30, 1.0) * 1.5, uPop);
-}`.replace('CAMV', CAM.join(', ')).replace('AIMV', AIM.join(', ')).replaceAll('TANV_', TANV.toFixed(4));
-const PF = `#version 300 es
-precision highp float;
-in float vA; in vec3 vC; out vec4 o;
-// a drop of water: clear, so mostly its rim and a glint
-void main() {
-  vec2 d = gl_PointCoord * 2.0 - 1.0; float r2 = dot(d, d); if (r2 > 1.0) discard;
-  vec3 n = vec3(d.x, -d.y, sqrt(1.0 - r2));
-  float hl = pow(max(dot(n, normalize(vec3(-0.35, 0.65, 0.7))), 0.0), 34.0), rim = pow(1.0 - n.z, 2.0);
-  o = vec4(vC * (0.08 + rim * 0.6 + hl * 1.6) * vA * smoothstep(1.0, 0.7, r2), 1.0);
-}`;
-// points on the mark from its distance field: most on the outline (anywhere through its depth), the rest on its faces
-function markPoints(img, n) {
-  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
-  const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0);
-  const px = x.getImageData(0, 0, c.width, c.height).data, out = new Float32Array(n * 3);
-  for (let i = 0, tries = 0; i < n && tries < n * 60; tries++) {
-    const u = Math.random(), v = Math.random(), o = (Math.floor(v * c.height) * c.width + Math.floor(u * c.width)) * 4;
-    const d = ((px[o] * 256 + px[o + 1]) / 65535 - 0.5) * 2 * SR;
-    const edge = d < 0.004 && d > -0.03;
-    if (!(edge || (d < 0 && Math.random() < 0.3))) continue;
-    out.set([(u - 0.5) * SW, (0.5 - v) * SH, edge ? (Math.random() * 2 - 1) * DEPTH : (Math.random() < 0.5 ? -DEPTH : DEPTH)], i * 3); i++;
-  }
-  return out;
-}
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const easeOut = (v, p = 3) => 1 - Math.pow(1 - clamp(v), p);
 const inOut = (v) => { v = clamp(v); return v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2; };
 const ramp = (t, a, b, f = easeOut) => f((t - a) / (b - a));
-// The rise, in seconds (after the swarm's R.swarm): the pond swells, the mass climbs out, gathers into the 127, pulls free of the water, settles
-const R = { swarm: 2.2, swell: [0.2, 1.4], up: [0.6, 3.6], form: [1.2, 3.9], free: [2.6, 3.9], glow: [0.0, 1.2], key: [1.0, 3.6], end: 5.0, deep: 1.75 };
+// The rise, in seconds: the pond swells, the mass climbs out, gathers into the 127, pulls free of the water, settles
+const R = { swell: [0.2, 1.4], up: [0.6, 3.6], form: [1.2, 3.9], free: [2.6, 3.9], glow: [0.0, 1.2], key: [1.0, 3.6], end: 5.0, deep: 1.75 };
 
 function load(src) {
   return fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.blob(); })
@@ -380,25 +330,6 @@ export async function liquid127(stage, opts = {}) {
   gl.uniform1i(U.uSdf, 0); gl.uniform1i(U.uW, 1);
   step();
 
-  // ---- the swarm ----
-  const NP = opts.small ? 9000 : 22000, swarm = { n: NP };
-  {
-    const p = gl.createProgram();
-    gl.attachShader(p, sh(gl.VERTEX_SHADER, PV)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, PF));
-    gl.bindAttribLocation(p, 1, 'aS'); gl.bindAttribLocation(p, 2, 'aT'); gl.linkProgram(p);
-    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
-    swarm.p = p; swarm.U = {};
-    ['uRes', 'uDpr', 'uFrame', 'uP', 'uAbs', 'uTime', 'uSize', 'uPop', 'uC', 'uRot'].forEach((k) => { swarm.U[k] = gl.getUniformLocation(p, k); });
-    const seed = new Float32Array(NP * 4);
-    for (let i = 0; i < NP; i++) seed.set([(Math.random() * 2 - 1) * 2.4, -1.6 + Math.random() * 2.4, Math.random(), Math.random()], i * 4);
-    swarm.vao = gl.createVertexArray(); gl.bindVertexArray(swarm.vao);
-    const tgs = markPoints(sdfImg, NP); swarm.feet = Array.from({ length: 64 }, () => { const j = Math.floor(Math.random() * NP); return [tgs[j * 3], tgs[j * 3 + 2]]; });
-    [[1, 4, seed], [2, 3, tgs]].forEach(([loc, k, data]) => {
-      const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-      gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, k, gl.FLOAT, false, 0, 0);
-    });
-    gl.bindVertexArray(null); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  }
 
   // ---- state ----
   const S = { start: null, reveal: opts.reveal !== false, ptr: null, lastMove: -1e9, scroll: 0, prev: 0, acc: 0,
@@ -464,16 +395,11 @@ export async function liquid127(stage, opts = {}) {
     const scrub = opts.scrub && S.reveal;
     if (scrub) {
       // the rise follows the scroll, with a little liquid lag; once it's free it settles in its own time
-      const p = clamp(opts.scrub() / 0.65), was = S.ph, top = R.free[1] + R.swarm;
-      if (p > 0.995 && S.ph >= top - 0.05) S.ph = Math.min(R.end + 1.5 + R.swarm, S.ph + dt);
+      const p = clamp(opts.scrub() / 0.65), was = S.ph, top = R.free[1];
+      if (p > 0.995 && S.ph >= top - 0.05) S.ph = Math.min(R.end + 1.5, S.ph + dt);
       else { S.ph = Math.min(S.ph, top); S.ph += (p * top - S.ph) * (1 - Math.exp(-dt * 5)); }
       S.dph = S.ph - was; rv = S.ph; ck = R.end + t;
     }
-    // first the drops fill the 127's shape (sw), then the liquid climbs up into it (rv, R.swarm later)
-    const sw = S.reveal ? rv : 1e3;
-    if (S.reveal) rv -= R.swarm;
-    // where the drops leave the water, the pond rings
-    if (S.reveal && sw > 0 && sw < R.swarm * 0.9 && Math.random() < 0.5) { const [fx, fz] = swarm.feet[Math.floor(Math.random() * 64)]; drop(fx, fz + 0.1, 0.06, 0.4 + Math.random() * 0.5); }
     // the rise
     const v = clamp((rv - R.up[0]) / (R.up[1] - R.up[0]));
     let y = REST - R.deep * Math.pow(1 - v, 2.4);
@@ -537,19 +463,6 @@ export async function liquid127(stage, opts = {}) {
     gl.uniform3f(U.uPtr, S.lx, S.ly, S.lk);
     S.pop += (S.popT - S.pop) * (1 - Math.exp(-dt * 3)); gl.uniform1f(U.uPop, S.pop);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
-    // the drops climb out over the first part of the rise and pour into the glass as it forms
-    const sp = clamp(sw / R.swarm), sa = ramp(rv, 1.6, 3.9, (x) => x);
-    if (sp > 0 && sa < 1) {
-      const P = swarm.U;
-      gl.useProgram(swarm.p); gl.bindVertexArray(swarm.vao);
-      gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
-      gl.uniform2f(P.uRes, cv.width, cv.height); gl.uniform1f(P.uDpr, dpr); gl.uniform4fv(P.uFrame, frame);
-      gl.uniform1f(P.uP, sp); gl.uniform1f(P.uAbs, sa); gl.uniform1f(P.uTime, t); gl.uniform1f(P.uSize, opts.small ? 3.4 : 2.8);
-      gl.uniform3f(P.uC, 0, REST, 0); gl.uniform1f(P.uPop, S.pop);
-      gl.uniformMatrix3fv(P.uRot, false, new Float32Array([cy, sy * sp_, sy * cp, 0, cp, -sp_, -sy, cy * sp_, cy * cp]));
-      gl.drawArrays(gl.POINTS, 0, swarm.n);
-      gl.disable(gl.BLEND); gl.bindVertexArray(null); gl.useProgram(pr);
-    }
   };
 
   let raf = 0, onScreen = true, last = 0;

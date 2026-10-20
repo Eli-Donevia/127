@@ -63,5 +63,7 @@ test('the 127 forms on scroll only where the live hero can play it, and the post
   assert.match(css, /\.fl-scrub\.is-scrub::after\{content:'';display:block;height:85svh\}/);
   assert.match(css, /\.fl-scrub\.is-scrub>\.fl\{position:sticky;top:68px\}/);
   const src = fs.readFileSync(path.join(ROOT, 'public/js/liquid-127.js'), 'utf8');
-  for (const k of ['const scrub = opts.scrub && S.reveal;', 'gl.drawArrays(gl.POINTS, 0, swarm.n);', 'setPop: (on) =>']) assert.ok(src.includes(k), k);
+  for (const k of ['const scrub = opts.scrub && S.reveal;', 'setPop: (on) =>']) assert.ok(src.includes(k), k);
+  // Eli (Oct 20): just the water forming the glass, no particles on it
+  assert.ok(!src.includes('gl.POINTS'));
 });
