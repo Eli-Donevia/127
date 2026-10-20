@@ -1779,3 +1779,54 @@ label.h5r-step{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spa
 }
 @keyframes bmBreathe{50%{opacity:.72}}
 @keyframes bmPulse{50%{opacity:.3}}
+
+/* First Light hero: the glass 127, lit live, with the promise set on the floor under it.
+   --fw is the picture's width (16:9); --top lifts it so the mark sits high; --floor is where its floor line lands. */
+.fl{--fw:min(88vw,1280px,calc((100svh - 68px - 400px) / .5625 / .7));--top:calc(var(--fw) * -.045);--floor:calc(var(--fw) * .5625 * .738 + var(--top));
+  position:relative;min-height:calc(100vh - 68px);min-height:calc(100svh - 68px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;background:var(--bg);touch-action:pan-y}
+.fl-stage{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.fl-stage picture{position:absolute;display:block;left:50%;top:var(--top);width:var(--fw);aspect-ratio:16/9;transform:translateX(-50%)}
+.fl-stage img{display:block;width:100%;height:auto;animation:flIn 1.8s .1s cubic-bezier(.2,.8,.2,1) both}
+.fl-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease}
+.fl.is-live .fl-canvas{opacity:1}
+.fl.is-live.is-reveal .fl-canvas{transition:none}
+.fl.is-live .fl-stage picture{opacity:0;transition:opacity .9s ease .1s}
+.fl.is-live.is-reveal .fl-stage picture{transition:opacity .35s ease}
+@keyframes flIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:none}}
+
+.fl-copy{position:relative;display:grid;justify-items:center;text-align:center;padding-top:calc(var(--floor) + clamp(10px,2vh,22px));padding-bottom:clamp(28px,5vh,52px)}
+.fl-title{font-family:var(--display);font-weight:700;font-size:clamp(42px,min(5.5vw,8.8vh),86px);line-height:.94;letter-spacing:-.052em;margin:0 0 clamp(18px,2.8vh,28px);max-width:1100px}
+.fl-title > span{display:block;text-wrap:balance}
+.fl-title > span > span{display:inline-block;animation:flUp 1.1s cubic-bezier(.16,1,.3,1) both}
+.fl-title .dim{color:#6f707b}
+.fl-title .st > span{background:linear-gradient(180deg,#fff 20%,#a3a6b3);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
+.fl-title .dim > span:nth-child(1){animation-delay:.25s}.fl-title .dim > span:nth-child(2){animation-delay:.31s}.fl-title .dim > span:nth-child(3){animation-delay:.37s}
+.fl-title .st > span:nth-child(1){animation-delay:.5s}.fl-title .st > span:nth-child(2){animation-delay:.56s}.fl-title .st > span:nth-child(3){animation-delay:.62s}
+.fl-row{display:flex;align-items:center;justify-content:center;gap:20px 30px;flex-wrap:wrap;animation:flFade 1s .85s both}
+.fl-sub{font-size:clamp(16px,1.2vw,18px);line-height:1.45;color:var(--ink-2);max-width:440px;margin:0;text-align:left;text-wrap:pretty}
+.fl-note{margin:16px 0 0;font-size:13px;line-height:1.6;color:var(--muted);animation:flFade 1s 1s both}
+.fl .ticker{margin-top:auto}
+@keyframes flUp{from{opacity:0;transform:translateY(.32em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes flFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* the viewfinder: quiet marks at the top corners, and two at the ends of the floor line */
+.fl-hud{position:absolute;left:clamp(16px,2.6vw,36px);right:clamp(16px,2.6vw,36px);top:clamp(16px,2.4vw,30px);height:calc(var(--floor) - clamp(16px,2.4vw,30px) - 14px);pointer-events:none;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#5d5e68;animation:flFade 1.2s 1.4s both}
+.fl-hud span{position:absolute;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.fl-hud .tl{top:0;left:0}.fl-hud .tr{top:0;right:0}.fl-hud .bl{bottom:0;left:0}.fl-hud .br{bottom:0;right:0}
+.fl-hud .tl::before{content:'';width:6px;height:6px;border-radius:50%;background:#e3e6f1;box-shadow:0 0 12px 2px rgba(227,230,241,.55);animation:flPulse 3s ease-in-out infinite}
+.fl-hud .br::after{content:'';width:34px;height:1px;background:linear-gradient(90deg,#5d5e68,transparent)}
+.fl:not(.is-live) .fl-hud .bl{opacity:0}
+.fl-hud .bl{transition:opacity .8s}
+@keyframes flPulse{50%{opacity:.35}}
+
+@media (max-width:760px){
+  .fl{--fw:126vw;--top:-5vw;min-height:auto}
+  .fl-copy{padding-bottom:40px}
+  .fl-title{font-size:clamp(40px,11.4vw,58px);letter-spacing:-.05em}
+  .fl-title > span{display:inline}
+  .fl-row{flex-direction:column;gap:20px}
+  .fl-sub{text-align:center;font-size:16px}
+  .fl-row .btn{width:100%}
+  .fl-hud{display:none}
+}
+@media (prefers-reduced-motion:reduce){.fl-stage img,.fl-title > span > span,.fl-row,.fl-note,.fl-hud,.fl-hud .tl::before{animation:none !important}}

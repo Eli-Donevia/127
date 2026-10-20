@@ -75,6 +75,7 @@
   var order = ['ask', 'offer-validator', 'interview-synthesizer', 'offer-stack', 'hook-writer', 'content-planner', 'outreach-writer', 'sales-call-prep', 'launch-planner', 'campaign-planner', 'workflow-recommender'];
   var toolList = order.map(function (s) { return tools.filter(function (t) { return t.slug === s; })[0]; }).filter(Boolean);
   var hqOn = process.env.HQ_LIVE === 'true'; // HQ goes on the homepage only when it's live for every member.
+  var heroLive = process.env.HERO_LIVE === 'true'; // the live First Light hero (public/js/first-light.js); off keeps the loop hero
   // Run mode (v2 playbook 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
   // Only on real business data (server.js), with Legal's First 25 wording (05 rule 6a): the list and the words, never clients.
   // The demo rows are First 25's own sample run (gyms, Des Moines): made-up businesses, labeled Sample.
@@ -134,6 +135,27 @@
     </div>
   </section>
   <% } else { %>
+  <% if (heroLive) { %>
+  <!-- HERO: the bio's promise and one button, set on the floor under the glass 127, lit live -->
+  <section class="fl" data-fl>
+    <%# First Light, live (public/js/first-light.js): the poster is the lit mark at rest and shows at once. After load the
+        same picture is drawn live over it, from the light passes in /img/fl: the reveal plays (when the passes arrive
+        fast), then the halo breathes and a soft light follows the pointer. Reduced motion, Save-Data or no WebGL2 keep
+        the poster. %>
+    <div class="fl-stage" aria-hidden="true">
+      <picture><source media="(max-width: 760px)" srcset="/img/fl/rest-s.jpg" width="960" height="540"><img src="/img/fl/rest.jpg" alt="" width="1600" height="900" decoding="async" fetchpriority="high"></picture>
+    </div>
+    <div class="fl-hud" aria-hidden="true"><span class="tl" data-fl-day>Day 001</span><span class="tr">Make today day one</span><span class="bl" data-fl-hint>Move to light it</span><span class="br">Scroll</span></div>
+    <div class="wrap fl-copy">
+      <h1 class="fl-title"><span class="dim"><span>Your</span> <span>business</span> <span>idea,</span></span> <span class="st"><span>launched</span> <span>with</span> <span>AI.</span></span></h1>
+      <div class="fl-row">
+        <%# Before doors open, /start sends people to /founding, so A says what they can do today. %>
+        <p class="fl-sub">Validate it, build it and launch it with AI. <%= S === 'A' ? 'Joining the founding list is free, no card.' : 'Start free in under 5 minutes, no card.' %></p>
+        <a href="<%= cta[0] %>" class="btn light big"<%- tk('home_hero_primary') %>><%= cta[1] %> <span class="arrow"></span></a>
+      </div>
+      <p class="fl-note"><% if (S === 'A') { %><%= doorsLine %> <% } %>Built by Eli Christiansen, 4x founder.</p>
+    </div>
+  <% } else { %>
   <!-- HERO: the bio's promise, one button, the 3D 127 under a halo -->
   <section class="h5">
     <%# First Light (v2/design/motion): the glass 127 under its halo. The poster is the loop's first frame and shows at once; the loop fades in over it after load, except with reduced motion or Save-Data. %>
@@ -148,6 +170,7 @@
       <a href="<%= cta[0] %>" class="btn light big h5-btn"<%- tk('home_hero_primary') %>><%= cta[1] %> <span class="arrow"></span></a>
       <p class="h5-note"><% if (S === 'A') { %><%= doorsLine %><br><% } %>Built by Eli Christiansen, 4x founder.</p>
     </div>
+  <% } %>
     <div class="ticker" aria-label="About Eli">
       <div class="ticker-track"><% proof.concat(proof).forEach(function (p) { %><span><%= p %></span><% }) %></div>
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
@@ -448,12 +471,25 @@
   </section>
 </main>
 <script type="module">
-// Hero mark: the First Light loop fades in over its poster once the page has loaded. Reduced motion and Save-Data keep
-// the poster. Phones get a smaller file.
+// The glass 127. On the brand hero it's First Light, live (public/js/first-light.js); in run mode it's the loop, fading in
+// over its poster in the hook. Reduced motion and Save-Data keep the posters. Phones get smaller files.
 const mm = (q) => matchMedia(q).matches;
 const still = mm('(prefers-reduced-motion: reduce)') || !!(navigator.connection || {}).saveData;
 const phone = mm('(max-width: 760px)');
 const box = document.querySelector('.hx-mark');
+const fl = document.querySelector('[data-fl]');
+if (fl) {
+  const day = fl.querySelector('[data-fl-day]');
+  day.textContent = 'Day 001 · ' + new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).replace(/,/g, '');
+  if (!mm('(hover: hover)')) fl.querySelector('[data-fl-hint]').textContent = 'Drag to light it';
+  if (!still) {
+    // If the passes arrive while the poster is still coming up, the reveal plays live; later, it picks up at rest.
+    import('/js/first-light.js').then(({ firstLight }) =>
+      firstLight(fl.querySelector('.fl-stage'), { small: phone, reveal: performance.now() < 900 }))
+      .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); })
+      .catch(() => {});
+  }
+}
 function loop() {
   const name = phone ? 'first-light-loop-phone' : 'first-light-loop';
   const v = document.createElement('video');
