@@ -91,7 +91,8 @@ test('the six pages: bundle beside the page, runtime inline, member colors, noth
     assert.match(index, /data-ci="head"/, `${id}: an intro`);
     assert.match(index, /data-alive=/, `${id}: something alive at rest`);
     assert.match(index, /data-sc[ >]|data-rm/, `${id}: a scroll moment`);
-    assert.match(index, /data-rm>/, `${id}: a roadmap from the member's facts`);
+    // The roadmap stepper is the scroll moment only where the member's own steps are the story (round 2 of the pass).
+    if (['beacon', 'northstar'].includes(id)) assert.match(index, /data-rm>/, `${id}: a roadmap from the member's facts`);
     assert.deepEqual(r.choreo, L.T.TEMPLATES.find((x) => x.id === id).choreo);
     assert.ok(!/#d8b46e/i.test(r.preview), `${id}: 127's gold`);
     for (const html of [index, r.preview]) {

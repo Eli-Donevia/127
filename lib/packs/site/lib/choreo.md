@@ -80,7 +80,7 @@ Anything below the fold when the page opens plays its intro when it scrolls into
 - `stamp`: each word is pressed onto the page a beat apart, like type in a press; the subject is printed in with a
   flash of ink. For posters, tickets, labels.
   `{ intro: 'stamp' }`
-- `draw`: the words settle from wide tracking while the subject's own line drawing draws itself (its SVG paths with
+- `draw`: the words settle from wide to their own width while the subject's own line drawing draws itself (its SVG paths with
   `pathLength="1"`, or every path in it). For anything the design draws in line.
   `{ intro: 'draw' }`
 - `none`: the hero is there at once.
