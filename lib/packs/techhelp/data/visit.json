@@ -1,0 +1,931 @@
+{
+ "about": "The visit plan, the scam warning card and the after-visit note. Every step names its source by id; a step with no source is our judgment and says so. Sources: research/niches/techhelp.json, checked 2026-10-19. Minutes per issue are our judgment.",
+ "checked": "2026-10-19",
+ "sources": {
+  "ftc_tech": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams", "says": "Legitimate tech companies won't contact you by phone, email or text message. Real security pop-up warnings will never ask you to call a phone number. Scammers ask for remote access.", "page_date": "2025-09"},
+  "ftc_pass": {"publisher": "FTC", "url": "https://consumer.ftc.gov/features/pass-it-on/impersonator-scams/tech-support-scams", "says": "If you get an unexpected call about your computer, hang up. If you need tech help, go to someone you know and trust."},
+  "ftc_sure": {"publisher": "FTC", "url": "https://consumer.ftc.gov/consumer-alerts/2024/03/sure-ways-spot-scammer", "says": "Move your money to protect it, withdraw cash and give it to anyone, go to a Bitcoin ATM, buy gift cards: each is a scam.", "page_date": "2024-03-07"},
+  "ftc_avoid": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/how-avoid-scam", "says": "Scammers want you to act before you have time to think, tell you not to hang up, or threaten to arrest you. Honest businesses will give you time. Stop and talk to someone you trust.", "page_date": "2023-07"},
+  "ftc_imposter": {"publisher": "FTC", "url": "https://consumer.ftc.gov/features/imposter-scams", "says": "Scammers fake the caller ID. Contact the organization using a phone number, website or email address you know is real. Report it at ReportFraud.ftc.gov."},
+  "ftc_2fa": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/use-two-factor-authentication-protect-your-accounts", "says": "Start with your most sensitive accounts, like your bank, credit cards and email. Don't share your verification code with someone if you didn't contact them first.", "page_date": "2022-09"},
+  "ftc_scammed": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/what-do-if-you-were-scammed", "says": "Card: call the issuer using the number on the back and ask for a refund. Gift card: call the issuer using the number on the back. Remote access: update security software, run a scan, change passwords. Password: make a new, strong one and turn on two-factor authentication.", "page_date": "2026-06"},
+  "ftc_gift": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/avoiding-and-reporting-gift-card-scams", "says": "No real business or government agency will ever tell you to buy a gift card to pay them. Keep a copy of the gift card and the store receipt.", "page_date": "2023-07"},
+  "ftc_protect": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/protect-your-personal-information-hackers-and-scammers", "says": "Aim for at least 15 characters. A third-party password manager also can create a strong password. Turn on automatic updates.", "page_date": "2024-11"},
+  "ftc_block": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/how-block-unwanted-calls", "says": "Check your phone's settings and ask your phone company about call blocking; a call-blocking device can help a home phone; the Do Not Call Registry won't stop scammers.", "page_date": "2023-07"},
+  "ftc_phishing": {"publisher": "FTC", "url": "https://consumer.ftc.gov/articles/how-recognize-and-avoid-phishing-scams", "says": "Use multi-factor authentication and automatic updates, back up your data, and contact the company using a number or website you know is real.", "page_date": "2022-09"},
+  "ic3": {"publisher": "FBI IC3", "url": "https://www.ic3.gov/", "says": "The central hub for reporting cyber-enabled crime."},
+  "doj_hotline": {"publisher": "U.S. Department of Justice", "url": "https://ovc.ojp.gov/program/stop-elder-fraud/providing-help-restoring-hope", "says": "National Elder Fraud Hotline: 833-372-8311, Monday to Friday, 10am to 6pm Eastern, a free resource for anyone 60 or older."},
+  "aarp_helpline": {"publisher": "AARP", "url": "https://www.aarp.org/money/scams-fraud/helpline/", "says": "Fraud Watch Network Helpline: 877-908-3360, Monday to Friday, 8am to 8pm Eastern; guidance and support, not investigation."},
+  "ms_scams": {"publisher": "Microsoft", "url": "https://support.microsoft.com/en-us/office/protect-yourself-from-tech-support-scams", "says": "Microsoft error and warning messages never include phone numbers. Scammers ask you to install apps that give them remote access, and can spoof caller ID."},
+  "ms_update": {"publisher": "Microsoft", "url": "https://support.microsoft.com/en-us/windows/deployment/updates-lifecycle/install-windows-updates", "says": "Start, Settings, Windows Update, Check for Windows updates. Windows 10 support ended October 14, 2025."},
+  "ms_printer": {"publisher": "Microsoft", "url": "https://support.microsoft.com/en-us/windows/hardware/printer/fix-printer-connection-and-printing-problems-in-windows", "says": "Run the printer troubleshooter in Get Help; unplug the printer for 30 seconds; check the cable or wireless connection."},
+  "ms_wifi": {"publisher": "Microsoft", "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows", "says": "Run the Network and Internet troubleshooter in Get Help."},
+  "ms_perf": {"publisher": "Microsoft", "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows", "says": "Install updates, run a Quick scan in Windows Security, turn on Storage Sense; an older PC may not get much faster."},
+  "cisa_pw": {"publisher": "CISA", "url": "https://www.cisa.gov/secure-our-world/use-strong-passwords", "says": "A password manager generates, stores and fills in your passwords, so you only remember one strong password. Rather than write them down, use a password manager (archived page)."},
+  "cisa_mfa": {"publisher": "CISA", "url": "https://www.cisa.gov/secure-our-world/turn-mfa", "says": "Turn on multifactor authentication for every account or app that offers it (archived page)."},
+  "apple_pw": {"publisher": "Apple", "url": "https://support.apple.com/en-us/120758", "says": "The Passwords app is on iPhone and iPad with iOS 18 or later; AutoFill is in Settings, General, AutoFill & Passwords.", "page_date": "2026-06-05"},
+  "apple_recovery": {"publisher": "Apple", "url": "https://support.apple.com/en-us/102641", "says": "Add a recovery contact in Settings, your name, Sign-In & Security, Recovery Contacts. A recovery contact can't see your account.", "page_date": "2026-09-14"},
+  "apple_legacy": {"publisher": "Apple", "url": "https://support.apple.com/en-us/102631", "says": "A Legacy Contact can reach the data in your account after your death.", "page_date": "2026-09-14"},
+  "apple_update": {"publisher": "Apple", "url": "https://support.apple.com/en-us/118575", "says": "Settings, General, Software Update; turn on Automatic Updates.", "page_date": "2026-09-15"},
+  "apple_storage": {"publisher": "Apple", "url": "https://support.apple.com/en-us/108429", "says": "Settings, General, iPhone Storage; offloading an app keeps its documents and data.", "page_date": "2026-10-13"},
+  "apple_photos": {"publisher": "Apple", "url": "https://support.apple.com/en-us/108782", "says": "Settings, your name, iCloud, Photos, then Sync this iPhone.", "page_date": "2026-09-14"},
+  "apple_backup": {"publisher": "Apple", "url": "https://support.apple.com/en-us/108366", "says": "Back up iPhone or iPad with iCloud Backup.", "page_date": "2026-09-24"},
+  "apple_quickstart": {"publisher": "Apple", "url": "https://support.apple.com/en-us/102659", "says": "Use Quick Start to set up a new iPhone or iPad from the old one.", "page_date": "2026-09-14"},
+  "apple_text": {"publisher": "Apple", "url": "https://support.apple.com/en-us/111773", "says": "Settings, Accessibility, Display & Text Size, Larger Text.", "page_date": "2026-05-19"},
+  "apple_wifi": {"publisher": "Apple", "url": "https://support.apple.com/en-us/111786", "says": "If iPhone won't connect to Wi-Fi, restart the router and cable modem.", "page_date": "2026-10-05"},
+  "apple_facetime": {"publisher": "Apple", "url": "https://support.apple.com/en-us/105088", "says": "Make and receive FaceTime calls on iPhone.", "page_date": "2026-09-14"},
+  "apple_block": {"publisher": "Apple", "url": "https://support.apple.com/en-us/111104", "says": "In the Phone app, tap Recents, tap the number, tap the Info button, then Block Caller.", "page_date": "2026-05-29"},
+  "apple_forgot": {"publisher": "Apple", "url": "https://support.apple.com/en-us/102656", "says": "Reset a forgotten Apple Account password from a trusted device or with Apple's own recovery steps.", "page_date": "2026-10-05"},
+  "apple_tm": {"publisher": "Apple", "url": "https://support.apple.com/en-us/104984", "says": "Back up a Mac with Time Machine to an external drive with at least twice the Mac's storage.", "page_date": "2026-10-16"},
+  "android_update": {"publisher": "Google", "url": "https://support.google.com/android/answer/7680439", "says": "Settings, System, Software updates; use Wi-Fi and charge the phone first."},
+  "android_storage": {"publisher": "Google", "url": "https://support.google.com/android/answer/7431795", "says": "Settings, Storage, Free up space."},
+  "google_photos": {"publisher": "Google", "url": "https://support.google.com/photos/answer/6193313", "says": "Turn on backup in Google Photos to save photos and videos to the Google Account."},
+  "android_backup": {"publisher": "Google", "url": "https://support.google.com/android/answer/2819582", "says": "Back up an Android phone to the Google Account and restore it on a new phone."},
+  "google_pw": {"publisher": "Google", "url": "https://support.google.com/accounts/answer/6208650", "says": "Google Password Manager saves and fills in passwords on Android and in Chrome."},
+  "google_recovery": {"publisher": "Google", "url": "https://support.google.com/accounts/answer/183723", "says": "Add recovery contacts under Security & sign-in: someone you know well and trust."},
+  "google_2sv": {"publisher": "Google", "url": "https://support.google.com/accounts/answer/185839", "says": "Turn on 2-Step Verification in the Google Account's Security settings."},
+  "google_recover": {"publisher": "Google", "url": "https://support.google.com/accounts/answer/7682439", "says": "Recover a Google Account with Google's own account recovery steps."}
+ },
+ "families": [
+  {
+   "id": "apple",
+   "label": "iPhone or iPad",
+   "match": "\\b(iphone|ipad|ios|apple watch)\\b"
+  },
+  {
+   "id": "android",
+   "label": "Android phone or tablet",
+   "match": "\\b(android|galaxy|pixel|motorola|moto g|oneplus)\\b|\\bsamsung\\b(?!\\s*(smart\\s*)?tv)"
+  },
+  {
+   "id": "windows",
+   "label": "Windows computer",
+   "match": "\\b(windows|dell|lenovo|acer|asus|surface|hp (laptop|computer|desktop|pavilion|envy)|pc)\\b"
+  },
+  {
+   "id": "mac",
+   "label": "Mac",
+   "match": "\\b(mac|macbook|imac|mac mini)\\b"
+  },
+  {
+   "id": "computer",
+   "label": "Computer",
+   "match": "\\b(laptop|desktop|computer|chromebook)\\b"
+  },
+  {
+   "id": "printer",
+   "label": "Printer",
+   "match": "\\b(printers?|scanner)\\b"
+  },
+  {
+   "id": "tv",
+   "label": "TV and streaming",
+   "match": "\\b(tv|television|roku|fire ?tv|fire ?stick|apple tv|chromecast|streaming)\\b"
+  },
+  {
+   "id": "router",
+   "label": "Wi-Fi router",
+   "match": "\\b(router|modem|wi-?fi|mesh)\\b"
+  },
+  {
+   "id": "landline",
+   "label": "Home phone",
+   "match": "\\b(landline|home phone|house phone|cordless phone)\\b"
+  }
+ ],
+ "start": {
+  "label": "Hello and the most important thing",
+  "minutes": 10,
+  "steps": [
+   {
+    "text": "Say hello and meet anyone they asked to be there. Show them the visit plan and ask what matters most today.",
+    "judgment": true
+   },
+   {
+    "text": "Ask before you open email, photos, messages or any money app. Hand the device back whenever a password is needed.",
+    "judgment": true
+   },
+   {
+    "text": "If something already happened (they paid someone, shared a password or let someone into the computer), start with the scam card's last section.",
+    "src": [
+     "ftc_scammed"
+    ]
+   }
+  ]
+ },
+ "end": {
+  "label": "Scam card and the visit note",
+  "minutes": 10,
+  "steps": [
+   {
+    "text": "Go over the scam card one line at a time and put it by the phone.",
+    "src": [
+     "ftc_tech",
+     "ftc_avoid"
+    ]
+   },
+   {
+    "text": "Let them show you what they practiced, on their own device.",
+    "judgment": true
+   },
+   {
+    "text": "Tell them what goes in the visit note, and send it the same day. No passwords in it, ever.",
+    "judgment": true
+   }
+  ]
+ },
+ "first": [
+  "scam",
+  "money"
+ ],
+ "issues": [
+  {
+   "id": "repair",
+   "label": "A repair (screen, battery, water)",
+   "match": "\\b(crack\\w*|broken screen|screen (is )?broken|battery|won'?t (turn on|charge)|water damage|dropped)\\b",
+   "minutes": 10,
+   "steps": [
+    {
+     "text": "Hardware repairs aren't part of a house call. Point them to a phone repair shop or the maker's own support, with the number from the box or the maker's own website.",
+     "judgment": true
+    },
+    {
+     "text": "Back up the device first if it still turns on.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "scam",
+   "label": "Scam calls, pop-ups and texts",
+   "match": "\\b(scam\\w*|pop-?ups?|fraud\\w*|phishing|suspicious|fake (calls?|texts?|emails?|messages?)|virus warnings?|hacked)\\b",
+   "minutes": 15,
+   "steps": [
+    {
+     "text": "Practice the pop-up rule: a real security warning never asks you to call a phone number, so don't call it and don't click anything in it.",
+     "src": [
+      "ftc_tech",
+      "ms_scams"
+     ]
+    },
+    {
+     "text": "Practice the hang-up: an unexpected call about the computer is a scam. To check, call the company at a number you know is real, like the one on a bill.",
+     "src": [
+      "ftc_pass",
+      "ftc_imposter"
+     ]
+    },
+    {
+     "text": "Turn on automatic updates on each device.",
+     "src": [
+      "ftc_protect"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "calls",
+   "label": "Unwanted calls and texts",
+   "match": "\\b(robo-?calls?|spam calls?|unwanted calls?|junk calls?|telemarket\\w*|block (a |the |that )?(number|caller|calls?)|too many calls)\\b",
+   "minutes": 15,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone: in the Phone app, tap Recents, tap the number, tap the Info button, then Block Caller.",
+     "src": [
+      "apple_block"
+     ]
+    },
+    {
+     "text": "On a cell phone, look in the phone's settings for call blocking, and ask the phone company what blocking tools it has.",
+     "src": [
+      "ftc_block"
+     ]
+    },
+    {
+     "family": "landline",
+     "text": "On a home phone, ask the phone company about call blocking, or look at a call-blocking device.",
+     "src": [
+      "ftc_block"
+     ]
+    },
+    {
+     "text": "The Do Not Call Registry won't stop scammers, so blocking and hanging up still matter.",
+     "src": [
+      "ftc_block"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "money",
+   "label": "Banking and payment apps",
+   "match": "\\b(bank(ing)?|venmo|zelle|paypal|cash app|pay(ing)? (bills?|online)|credit card|online shopping|amazon)\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "text": "Don't handle their money: no logging in for them, no payments, no transfers. Show them on their own device while they do it.",
+     "judgment": true
+    },
+    {
+     "text": "Turn on two-step sign-in for the bank first.",
+     "src": [
+      "ftc_2fa"
+     ]
+    },
+    {
+     "text": "Go over the money lines on the scam card: no real business asks to be paid with a gift card, and anyone who says to move money to protect it is a scammer.",
+     "src": [
+      "ftc_gift",
+      "ftc_sure"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mfa",
+   "label": "Two-step sign-in",
+   "match": "\\b(two[- ]?(step|factor)|2fa|mfa|verification codes?|security codes?|authenticator)\\b",
+   "minutes": 15,
+   "steps": [
+    {
+     "text": "Turn on two-step sign-in for email and the bank first, then other accounts that offer it.",
+     "src": [
+      "ftc_2fa",
+      "cisa_mfa"
+     ]
+    },
+    {
+     "text": "Practice the code rule: never share a code with someone who contacted you first.",
+     "src": [
+      "ftc_2fa"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "For a Google Account: turn on 2-Step Verification in the account's Security settings.",
+     "src": [
+      "google_2sv"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "passwords",
+   "label": "Passwords and a password manager",
+   "match": "\\b(passwords?|password manager|keychain|forgot (my |the )?password|log ?in|sign ?in|locked out|apple (id|account)|google account|account recovery)\\b",
+   "minutes": 25,
+   "steps": [
+    {
+     "text": "Set up the password manager together, using the steps in the password section of this plan. The client types every password; you look away.",
+     "src": [
+      "cisa_pw"
+     ]
+    },
+    {
+     "family": "apple",
+     "text": "Locked out of an Apple Account: use Apple's own reset steps on a trusted device, never a number from an email or text.",
+     "src": [
+      "apple_forgot",
+      "ftc_imposter"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Locked out of a Google Account: use Google's own account recovery page, never a number from an email or text.",
+     "src": [
+      "google_recover",
+      "ftc_imposter"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "email",
+   "label": "Email",
+   "match": "\\b(e-?mails?|gmail|outlook|yahoo|aol|inbox|spam folder|junk mail)\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "text": "Turn on two-step sign-in for the email account.",
+     "src": [
+      "ftc_2fa"
+     ]
+    },
+    {
+     "text": "Practice spotting a fake: don't click links or call numbers in unexpected messages; check with the company using a number or website you know is real.",
+     "src": [
+      "ftc_imposter",
+      "ftc_phishing"
+     ]
+    },
+    {
+     "text": "Ask before you open their email, and let them read their own messages.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "photos",
+   "label": "Photos: backup and finding them",
+   "match": "\\b(photos?|pictures?|pics|videos?|albums?|icloud photos|google photos)\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone: Settings, their name, iCloud, Photos, then turn on Sync this iPhone.",
+     "src": [
+      "apple_photos"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Android: open Google Photos and turn on backup.",
+     "src": [
+      "google_photos"
+     ]
+    },
+    {
+     "text": "Ask before you open their photos. Let them scroll and choose.",
+     "judgment": true
+    },
+    {
+     "text": "If the backup needs more storage than the free plan, show the price and let the client decide.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "backup",
+   "label": "Back up the phone or computer",
+   "match": "\\b(back ?ups?|backing up|lose (my|everything)|save (my|everything))\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone or iPad: turn on iCloud Backup.",
+     "src": [
+      "apple_backup"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Android: back up to the Google Account.",
+     "src": [
+      "android_backup"
+     ]
+    },
+    {
+     "family": "mac",
+     "text": "Mac: Time Machine, with an external drive at least twice the Mac's storage.",
+     "src": [
+      "apple_tm"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: use the backup that comes with Windows or an external drive, following Microsoft's current steps.",
+     "judgment": true
+    },
+    {
+     "text": "Before turning on any backup that needs a paid storage plan, show the price and let the client decide.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "storage",
+   "label": "Storage full",
+   "match": "\\b(storage|out of space|no space|not enough space|almost full|(phone|ipad|memory|storage|it)('s| is) full)\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone or iPad: Settings, General, iPhone Storage. Offloading an app keeps its documents and data.",
+     "src": [
+      "apple_storage"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Android: Settings, Storage, Free up space.",
+     "src": [
+      "android_storage"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: turn on Storage Sense.",
+     "src": [
+      "ms_perf"
+     ]
+    },
+    {
+     "text": "Ask before deleting anything, and back up photos first.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "video",
+   "label": "Video calls with family",
+   "match": "\\b(facetime|video ?calls?|zoom (calls?|meetings?)|skype|whatsapp|google meet|see (the )?(grand)?kids)\\b",
+   "minutes": 20,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone or iPad: FaceTime.",
+     "src": [
+      "apple_facetime"
+     ]
+    },
+    {
+     "text": "Practice a real call with someone they know, while you're there.",
+     "judgment": true
+    },
+    {
+     "text": "Put the people they call most on the home screen or in Favorites.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "text_size",
+   "label": "Bigger text and an easier screen",
+   "match": "\\b(text size|bigger (text|font|letters|words)|font|hard to (read|see)|zoom(ing)? in|magnif\\w*|accessibility|louder)\\b",
+   "minutes": 10,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone or iPad: Settings, Accessibility, Display & Text Size, Larger Text.",
+     "src": [
+      "apple_text"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Android: look for the font size and display size settings; menu names differ by phone maker.",
+     "judgment": true
+    },
+    {
+     "text": "Let them pick the size that's comfortable, then check a text message and the phone app together.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "printer",
+   "label": "Printer",
+   "match": "\\b(printers?|printing|print(s|ed)? from|ink|scanner|scanning)\\b",
+   "minutes": 25,
+   "steps": [
+    {
+     "text": "Turn the printer off, unplug it for 30 seconds, then plug it back in.",
+     "src": [
+      "ms_printer"
+     ]
+    },
+    {
+     "text": "Check the cable, or that the printer is on the same Wi-Fi network as the computer.",
+     "src": [
+      "ms_printer"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: run the printer troubleshooter in Get Help.",
+     "src": [
+      "ms_printer"
+     ]
+    },
+    {
+     "text": "Print one test page together, then let them print something of their own.",
+     "judgment": true
+    }
+   ]
+  },
+  {
+   "id": "wifi",
+   "label": "Wi-Fi and internet",
+   "match": "\\b(wi-?fi|internet|router|modem|connection|connecting|offline|no signal)\\b",
+   "minutes": 25,
+   "steps": [
+    {
+     "text": "Restart the router and the modem.",
+     "src": [
+      "apple_wifi"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: run the Network and Internet troubleshooter in Get Help.",
+     "src": [
+      "ms_wifi"
+     ]
+    },
+    {
+     "text": "The Wi-Fi password is theirs: they can save it in their password manager or write it on the router label themselves. You don't keep a copy.",
+     "judgment": true
+    },
+    {
+     "text": "If the internet itself is down, they call the internet company at the number on their bill.",
+     "src": [
+      "ftc_imposter"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tv",
+   "label": "TV and streaming",
+   "match": "\\b(tv|television|roku|fire ?tv|fire ?stick|apple tv|chromecast|streaming|netflix|remote control|cable box|channels?)\\b",
+   "minutes": 25,
+   "steps": [
+    {
+     "text": "Write a short how-to-watch sheet in their words: which remote, which button, which input.",
+     "judgment": true
+    },
+    {
+     "text": "For streaming apps, the client types each password.",
+     "src": [
+      "cisa_pw"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "updates",
+   "label": "Software updates",
+   "match": "\\b(updates?|updating|upgrade|out of date|old version|windows 10)\\b",
+   "minutes": 15,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "iPhone or iPad: Settings, General, Software Update. Turn on Automatic Updates.",
+     "src": [
+      "apple_update"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "Android: Settings, System, Software updates. Use Wi-Fi and charge the phone first. Names can differ a little on some phones.",
+     "src": [
+      "android_update"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: Start, Settings, Windows Update, then Check for Windows updates.",
+     "src": [
+      "ms_update"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Support for Windows 10 ended October 14, 2025. If the computer runs Windows 10, talk about the options before the next visit.",
+     "src": [
+      "ms_update"
+     ]
+    },
+    {
+     "text": "Turn on automatic updates where the device offers them.",
+     "src": [
+      "ftc_protect"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "slow",
+   "label": "Slow computer",
+   "match": "\\b(slow|sluggish|freez\\w*|crash\\w*|takes forever|virus|malware)\\b",
+   "minutes": 25,
+   "steps": [
+    {
+     "family": "windows",
+     "text": "Windows: install updates, then run a Quick scan in Windows Security, Virus & threat protection.",
+     "src": [
+      "ms_perf"
+     ]
+    },
+    {
+     "family": "windows",
+     "text": "Windows: turn on Storage Sense to free up space.",
+     "src": [
+      "ms_perf"
+     ]
+    },
+    {
+     "text": "An older computer may not get much faster. Say so honestly before you start.",
+     "src": [
+      "ms_perf"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "new_device",
+   "label": "Set up a new phone, tablet or computer",
+   "match": "\\b(new (phone|iphone|ipad|tablet|computer|laptop|device)|set ?up|setting up|switch(ing)? (to|from)|move (my )?(stuff|contacts|data) (to|over)|transfer\\w*)\\b",
+   "minutes": 45,
+   "steps": [
+    {
+     "family": "apple",
+     "text": "New iPhone or iPad: use Quick Start with the old one next to it.",
+     "src": [
+      "apple_quickstart"
+     ]
+    },
+    {
+     "family": "android",
+     "text": "New Android phone: back up the old phone to the Google Account, then restore it during setup.",
+     "src": [
+      "android_backup"
+     ]
+    },
+    {
+     "text": "The client types every password during setup. Write nothing down for them.",
+     "src": [
+      "cisa_pw"
+     ]
+    },
+    {
+     "text": "Before you leave, set the text size and ringtone they like, and make one practice call.",
+     "judgment": true
+    }
+   ]
+  }
+ ],
+ "other": {
+  "minutes": 20,
+  "steps": [
+   {
+    "text": "Ask them to show you the problem on their own device first.",
+    "judgment": true
+   },
+   {
+    "text": "If it needs a repair or the maker's support, say so, and use the number from the box or the maker's own website.",
+    "judgment": true
+   }
+  ]
+ },
+ "passwords": {
+  "title": "Password manager setup (they type, you look away)",
+  "rule": "You never see, write down, photograph, save or keep a client's password. Hand the device back for every one.",
+  "steps": [
+   {
+    "text": "Ask first: would they like a password manager? It's their choice.",
+    "judgment": true
+   },
+   {
+    "family": "apple",
+    "text": "iPhone or iPad (iOS 18 or later): the Passwords app is built in. AutoFill is in Settings, General, AutoFill & Passwords.",
+    "src": [
+     "apple_pw"
+    ]
+   },
+   {
+    "family": "android",
+    "text": "Android: Google Password Manager is built in and saves passwords in their Google Account.",
+    "src": [
+     "google_pw"
+    ]
+   },
+   {
+    "text": "A third-party password manager works too, if they prefer one.",
+    "src": [
+     "ftc_protect"
+    ]
+   },
+   {
+    "text": "They choose one main password, long and theirs alone: the FTC says aim for at least 15 characters. They type it; you look away.",
+    "src": [
+     "ftc_protect",
+     "cisa_pw"
+    ]
+   },
+   {
+    "text": "When a site asks for a new password, let the manager create a strong one.",
+    "src": [
+     "ftc_protect"
+    ]
+   },
+   {
+    "text": "Turn on two-step sign-in for email and the bank first.",
+    "src": [
+     "ftc_2fa"
+    ]
+   },
+   {
+    "family": "apple",
+    "text": "Add a recovery contact they trust: Settings, their name, Sign-In & Security, Recovery Contacts. A Legacy Contact is optional.",
+    "src": [
+     "apple_recovery",
+     "apple_legacy"
+    ]
+   },
+   {
+    "family": "android",
+    "text": "Add recovery contacts they trust in the Google Account, under Security & sign-in.",
+    "src": [
+     "google_recovery"
+    ]
+   },
+   {
+    "text": "If they want a paper copy of the main password, they write it themselves, out of your sight, and keep it somewhere safe at home.",
+    "judgment": true
+   }
+  ]
+ },
+ "card": {
+  "title": "Scam warning card",
+  "intro": "Keep this by the phone. When something feels off, stop and read it.",
+  "sections": [
+   {
+    "title": "Real companies don't do this",
+    "lines": [
+     {
+      "text": "Real tech companies won't call, email or text you about a problem with your computer.",
+      "src": [
+       "ftc_tech"
+      ]
+     },
+     {
+      "text": "Real security warnings never ask you to call a phone number.",
+      "src": [
+       "ftc_tech",
+       "ms_scams"
+      ]
+     },
+     {
+      "text": "No real business or government agency will ever tell you to pay with a gift card.",
+      "src": [
+       "ftc_gift"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "It's a scam if someone tells you to",
+    "lines": [
+     {
+      "text": "Buy gift cards.",
+      "src": [
+       "ftc_sure"
+      ]
+     },
+     {
+      "text": "Go to a Bitcoin ATM.",
+      "src": [
+       "ftc_sure"
+      ]
+     },
+     {
+      "text": "Move your money to protect it.",
+      "src": [
+       "ftc_sure",
+       "ftc_imposter"
+      ]
+     },
+     {
+      "text": "Withdraw cash and give it to someone.",
+      "src": [
+       "ftc_sure"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Warning signs",
+    "lines": [
+     {
+      "text": "They push you to act before you have time to think.",
+      "src": [
+       "ftc_avoid"
+      ]
+     },
+     {
+      "text": "They tell you not to hang up, or say you'll be arrested.",
+      "src": [
+       "ftc_avoid"
+      ]
+     },
+     {
+      "text": "They want remote access to your computer.",
+      "src": [
+       "ftc_tech",
+       "ms_scams"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "What to do",
+    "lines": [
+     {
+      "text": "An unexpected call about your computer? Hang up.",
+      "src": [
+       "ftc_pass",
+       "ms_scams"
+      ]
+     },
+     {
+      "text": "Caller ID can be faked. Call back at a number you know is real.",
+      "src": [
+       "ftc_imposter"
+      ]
+     },
+     {
+      "text": "Never share a code sent to you with someone who contacted you first.",
+      "src": [
+       "ftc_2fa"
+      ]
+     },
+     {
+      "text": "Take your time. Honest businesses will give you time to decide.",
+      "src": [
+       "ftc_avoid"
+      ]
+     },
+     {
+      "text": "Stop and talk to someone you trust.",
+      "src": [
+       "ftc_avoid"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "If it already happened",
+    "lines": [
+     {
+      "text": "Paid by card: call your bank or card company at the number on the back of the card, and ask for a refund.",
+      "src": [
+       "ftc_scammed"
+      ]
+     },
+     {
+      "text": "Paid with a gift card: call the gift card company at the number on the back of the card. Keep the card and the receipt.",
+      "src": [
+       "ftc_scammed",
+       "ftc_gift"
+      ]
+     },
+     {
+      "text": "Let someone into your computer: update your security software, run a scan, and change your passwords.",
+      "src": [
+       "ftc_scammed"
+      ]
+     },
+     {
+      "text": "Gave away a password: make a new, strong password and turn on two-step sign-in.",
+      "src": [
+       "ftc_scammed"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Report it and get help",
+    "lines": [
+     {
+      "text": "Report it to the FTC: ReportFraud.ftc.gov",
+      "src": [
+       "ftc_imposter"
+      ]
+     },
+     {
+      "text": "Report online crime to the FBI: ic3.gov",
+      "src": [
+       "ic3"
+      ]
+     },
+     {
+      "text": "National Elder Fraud Hotline, for anyone 60 or older: 833-372-8311, Monday to Friday, 10am to 6pm Eastern.",
+      "src": [
+       "doj_hotline"
+      ]
+     },
+     {
+      "text": "AARP Fraud Watch Network Helpline: 877-908-3360, Monday to Friday, 8am to 8pm Eastern.",
+      "src": [
+       "aarp_helpline"
+      ]
+     }
+    ]
+   }
+  ],
+  "trusted_title": "People I trust",
+  "trusted_blank": 3,
+  "footer": "From the FTC's consumer advice (consumer.ftc.gov), the FBI's IC3, the U.S. Department of Justice, AARP and Microsoft. Checked {checked}."
+ },
+ "note": {
+  "hello": "Hi {greet}, thank you for having me {day}. Here's what we did:",
+  "practice": "To practice before next time:",
+  "left": "Left for next time:",
+  "next": "Next visit: {next}.",
+  "safety": "There are no passwords in this note, and there never will be. If anyone calls about a problem with your computer, hang up and check your scam card.",
+  "family_hello": "Hi {family}, with {greet}'s okay, here's a copy of the note I sent {greet} after today's tech help visit.",
+  "removed": "A line that looked like a password or an account number was left out of the note. Passwords never go in a note."
+ }
+}

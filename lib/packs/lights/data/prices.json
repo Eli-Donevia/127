@@ -1,0 +1,482 @@
+{
+ "checked": "2026-10-19",
+ "unit": "house",
+ "minimum": 150,
+ "minimum_basis": "Judgment call: Thumbtack's low end for a whole install is $133 and Fixr starts a takedown at $125 a project, so a small job (one window, one short run) still covers the ladder, the drive and the takedown visit.",
+ "base": "Flat prices are for a one-story home up to 2,200 sq ft, about 150 to 225 ft of roofline (Fixr); the home size and stories factors scale them. The per-foot rates price what you measured, run by run, in the Roofline plan.",
+ "packages": [
+  {
+   "id": "lease",
+   "label": "Full-service light install",
+   "range": [
+    300,
+    600
+   ],
+   "minutes": 210,
+   "unit": "house",
+   "includes": [
+    "Commercial LED lights supplied for the season",
+    "Measured, clipped and hung straight",
+    "Any bulb that goes out fixed during the season",
+    "Taken down and stored in January"
+   ],
+   "basis": "Light rental packages that include the lights, the install and the takedown: Fixr $200 to $600, HomeAdvisor $250 to $600, Bob Vila $200 to $550. Fixr's average for a 1,500 sq ft home is $450, the middle of this range. Minutes: Bob Vila puts an average home at 1 to 4 hours, plus about an hour for the takedown (judgment call).",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Light rental averages $200 to $600, including installation; LED rental about $550 for 150 linear feet installed. About $450 on average for a 1,500 sq ft home, which needs at least 150 linear feet.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Christmas light rental packages cost $250 to $600, including installation and takedown for a basic setup; the pro supplies the lights, installs them and removes them after the season.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "The total cost for light rental, installation and takedown is typically $200 to $550. It takes 1 to 4 hours to install Christmas lights on an average-size home.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "install_own",
+   "label": "Install and takedown of your lights",
+   "range": [
+    225,
+    450
+   ],
+   "minutes": 210,
+   "unit": "house",
+   "includes": [
+    "Your lights tested before they go up",
+    "Clipped and hung straight, no nails or tape",
+    "Taken down and boxed in January"
+   ],
+   "basis": "About 150 ft of roofline at $1.50 to $3 a foot, where Fixr's labor range ($1.50 to $3.50 a foot) and Thumbtack's range for lights you already own ($1.25 to $3 a foot) overlap. Most companies include the takedown in the install price (Fixr).",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Labor runs $1.50 to $3.50 per linear foot, and the strands add $0.50 to $1.50. Most companies include the cost of removal in the installation packages, and removal costs the same whether the lights are yours or the company's.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "Average installation fees are $1.25 to $3 per linear foot of lights if you already own the lights; removal typically costs about half of the install, and some installers include it.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "takedown",
+   "label": "Light takedown",
+   "range": [
+    125,
+    350
+   ],
+   "minutes": 75,
+   "unit": "house",
+   "includes": [
+    "Lights and clips taken down",
+    "Strands tested, labeled and boxed",
+    "Gutters checked for clips left behind"
+   ],
+   "basis": "Fixr: removal $125 to $350 a project; HomeAdvisor: $100 to $400 when you hung them yourself. The range is where the two overlap.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Christmas light removal costs $125 to $350 per project or $0.50 to $0.65 per linear foot.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "If you put them up and want someone else to take them down, you pay $100 to $400 or roughly $0.50 per linear foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "foot_lease",
+   "label": "By the foot, with my lights",
+   "range": [
+    2.5,
+    5
+   ],
+   "unit": "ft",
+   "rate": true,
+   "minutes_per_unit": 1.4,
+   "includes": [
+    "Lights, install, fixes during the season, takedown and storage"
+   ],
+   "basis": "Where HomeAdvisor's per-foot range ($2.50 to $7, covering the lights, set-up and removal) and Fixr's ($2 to $5 a foot, materials and labor) overlap. Minutes: Bob Vila's 1 to 4 hours for an average home plus the takedown, about 1.4 minutes a foot (judgment call).",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Christmas light pros charge $2.50 to $7 per linear foot; that covers the lights, set-up, removal and sometimes mid-season maintenance.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Installation runs $2 to $5 per foot for materials and labor; about 65% of the cost is labor and 35% materials.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "foot_install",
+   "label": "By the foot, hanging your lights",
+   "range": [
+    1.5,
+    3
+   ],
+   "unit": "ft",
+   "rate": true,
+   "minutes_per_unit": 1,
+   "includes": [
+    "Hanging lights the customer owns"
+   ],
+   "basis": "Where Fixr's labor range ($1.50 to $3.50 a foot) and Thumbtack's range for lights the customer owns ($1.25 to $3 a foot) overlap. Thumbtack: most installers charge twice as much for the second story, so the Roofline plan adds this rate again for upper-story runs.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Labor runs $1.50 to $3.50 per linear foot of the total price.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "$1.25 to $3 per linear foot of lights if you already own the lights; most installers charge twice as much to hang lights on the second story as on the first, and a hard-to-reach roof may cost an additional 20 percent.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "foot_takedown",
+   "label": "By the foot, takedown",
+   "range": [
+    0.5,
+    0.65
+   ],
+   "unit": "ft",
+   "rate": true,
+   "minutes_per_unit": 0.4,
+   "includes": [
+    "Taking down and boxing lights the customer owns"
+   ],
+   "basis": "Fixr: $0.50 to $0.65 a linear foot; HomeAdvisor: roughly $0.50 a linear foot.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Christmas light removal costs $125 to $350 per project or $0.50 to $0.65 per linear foot.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Taking down lights someone else put up costs $100 to $400 or roughly $0.50 per linear foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "foot_lights",
+   "label": "Lights to keep, by the foot",
+   "range": [
+    0.5,
+    2
+   ],
+   "unit": "ft",
+   "rate": true,
+   "minutes_per_unit": 0,
+   "includes": [
+    "The lights, sold to the customer to keep"
+   ],
+   "basis": "Thumbtack, HomeAdvisor and Bob Vila all put lights the installer supplies at about $0.50 to $2 a foot on top of the install (HomeAdvisor from $0.40).",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "If you want the company installing your lights to provide them, expect to pay between 50 cents and $2 per linear foot for the strands of lights alone.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Christmas light prices run $0.40 to $2 per linear foot when purchased as part of the installation; if you don't own lights, add $0.50 to $2 per foot.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "To include the holiday lights themselves in the project, expect to pay an additional $0.50 to $2 per linear foot.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "home",
+   "label": "Home size",
+   "default": "s1",
+   "packages": [
+    "lease",
+    "install_own",
+    "takedown"
+   ],
+   "basis": "Fixr, one story: 1,000 to 2,000 sq ft $225 to $500; 2,400 and 3,200 sq ft $330 to $600 (about 1.2 times the 1,500 sq ft middle); 4,200 sq ft $375 to $625 (about 1.3 times). Bob Vila: 1,000 sq ft $250 to $600, 2,000 sq ft $300 to $750, 4,000 sq ft $500 to $1,800.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "One story by size: 1,000 sq ft $225 to $450; 1,500 sq ft $275 to $475; 2,000 sq ft $315 to $500; 2,400 sq ft $330 to $575; 3,200 sq ft $350 to $600; 4,200 sq ft $375 to $625. Feet of lights: 1,000 sq ft 75 to 125; 1,500 sq ft 125 to 175; 2,000 sq ft 175 to 225; 2,400 sq ft 215 to 265; 3,200 sq ft 295 to 345; 4,200 sq ft 395 to 445.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "By home size: 1,000 sq ft $250 to $600; 2,000 sq ft $300 to $750; two-story 1,500 sq ft $400 to $1,000; two-story 2,500 sq ft $500 to $1,200; 4,000 sq ft $500 to $1,800.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "s1",
+     "label": "Up to 2,200 sq ft",
+     "short": "Up to 2,200 sq ft",
+     "mult": 1,
+     "max": {
+      "sqft": 2200
+     }
+    },
+    {
+     "id": "s2",
+     "label": "2,200 to 3,700 sq ft",
+     "short": "2,200 to 3,700",
+     "mult": 1.2,
+     "minutes": 60,
+     "max": {
+      "sqft": 3700
+     }
+    },
+    {
+     "id": "s3",
+     "label": "Over 3,700 sq ft",
+     "short": "Over 3,700",
+     "mult": 1.3,
+     "minutes": 120
+    }
+   ]
+  },
+  {
+   "id": "stories",
+   "label": "Stories",
+   "default": "one",
+   "packages": [
+    "lease",
+    "install_own",
+    "takedown"
+   ],
+   "basis": "Fixr at 1,500 sq ft: one story $275 to $475, two stories $425 to $630, three stories $525 to $750, about 1.4 and 1.7 times. Thumbtack: most installers charge twice as much for the second story, so these are on the low side. HomeAdvisor: multi-story homes can reach $1,300.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "1,500 sq ft: one story $275 to $475, two stories $425 to $630, three stories $525 to $750. Homes with many levels and hard-to-reach eaves run about 20% to 25% above regular installation costs.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "Most installers charge twice as much to hang lights on the second story of a home as on the first.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Average installation $220 to $684; multi-story homes can reach $1,300. Plan on paying 20% more for hard-to-reach roofs and eaves.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "one",
+     "label": "One story",
+     "short": "One story",
+     "mult": 1
+    },
+    {
+     "id": "two",
+     "label": "Two stories",
+     "short": "Two stories",
+     "mult": 1.4,
+     "minutes": 60
+    },
+    {
+     "id": "three",
+     "label": "Three stories",
+     "short": "Three stories",
+     "mult": 1.7,
+     "minutes": 120
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "tree_small",
+   "label": "Small tree wrap, about 6 ft",
+   "range": [
+    75,
+    125
+   ],
+   "minutes": 30,
+   "unit": "tree",
+   "basis": "Fixr and Bob Vila: $75 to $125 in labor for a small tree about 6 ft high.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Wrapping an outdoor tree costs $75 to $125 in labor for a small tree of about six feet, $125 to $250 for a medium tree 12 to 18 feet tall, and $300 to $1,500 for a 28 ft tree.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "The labor cost to wrap a tree ranges from $75 to $125 for a small tree about 6 feet high up to $300 to $1,500 for a large tree as high as 28 feet; $125 to $250 for a 12 to 18 foot tree.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "tree_medium",
+   "label": "Medium tree wrap, 12 to 18 ft",
+   "range": [
+    125,
+    250
+   ],
+   "minutes": 75,
+   "unit": "tree",
+   "basis": "Fixr and Bob Vila: $125 to $250 for a tree 12 to 18 ft tall. Taller trees may need a lift: price them on site.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "For a medium-sized tree that is 12 to 18 feet tall, the price will be around $125 to $250; for the largest trees a lift may be needed.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "For an average-size tree of 12 to 18 feet, expect to pay $125 to $250.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "timer",
+   "label": "Outdoor light timer",
+   "range": [
+    12,
+    30
+   ],
+   "minutes": 10,
+   "unit": "each",
+   "basis": "Where Fixr ($12 to $50), HomeAdvisor ($10 to $50) and Bob Vila ($10 to $30) overlap.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Timers can be purchased for $12 to $50 each.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Timers run $10 to $50 each.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "A holiday light timer costs about $10 to $30.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "season",
+   "label": "Every season plan",
+   "every": "season",
+   "discount": 0.1,
+   "packages": [
+    "lease",
+    "install_own"
+   ]
+  }
+ ],
+ "plans_basis": "Fixr: most companies offer 10% to 20% off packages installed before the busy season; HomeAdvisor: booking between February and September often gets lower rates. The every season plan takes the low end, 10%, for booking the same house again (judgment call).",
+ "plans_sources": [
+  {
+   "publisher": "Fixr",
+   "url": "https://www.fixr.com/costs/christmas-light-installation",
+   "says": "If you have lights installed before the busy season starts (after Thanksgiving), most companies offer a 10% to 20% discount on their packages; contact installers many months before Christmas.",
+   "page_date": "2025-01-31",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "HomeAdvisor",
+   "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+   "says": "Booking between February and September often scores lower rates because demand is light and pros have open calendars; you might negotiate a package that includes removal or storage.",
+   "page_date": "2026-06-19",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+  "https://www.fixr.com/costs/christmas-light-installation",
+  "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+  "https://www.thumbtack.com/p/christmas-light-installation-prices"
+ ]
+}

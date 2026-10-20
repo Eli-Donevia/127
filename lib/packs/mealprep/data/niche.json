@@ -1,0 +1,699 @@
+{
+ "id": "mealprep",
+ "name": "Meal prep and personal chef",
+ "checked": "2026-10-19",
+ "research": "research/niches/mealprep.json",
+ "what": "personal chef meal prep",
+ "what_example": "weekly meal prep in North Hills",
+ "crowd": {
+  "buyer": "Busy families and couples who want home-cooked dinners",
+  "scores": {
+   "pain": 3,
+   "can_pay": 3,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Medium",
+  "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "off_season": null,
+  "not_yet": [
+   "Don't sell meals cooked in your own kitchen until you've checked your state's cottage food and health rules.",
+   "Don't give diet or health advice: cook to what the client tells you.",
+   "Don't rent a commercial kitchen before you have 4 regular clients."
+  ],
+  "note": "Trust first: a free kitchen visit before any cook day. Groceries go on the bill at cost.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/niches/mealprep.json crowd_scores (our judgment, with the BLS projection for private household cooks behind growing). Best months: all year, our judgment, since dinners are needed every week."
+ },
+ "safety": [
+  "Cook in the client's own kitchen with groceries bought for them. Selling meals cooked in your home kitchen falls under state cottage food and health rules, and Florida's, for one, covers only foods that don't need time or temperature control. Check your city and state.",
+  "Get every food allergy in writing on the paper intake before the first cook day, and keep it there: the week menu needs only the foods to leave out. Read every package label for those foods when you shop.",
+  "Fridge at 40°F or below and freezer at 0°F or below, and everything you cook goes in within 2 hours.",
+  "Cook to the FDA safe temperatures with a food thermometer, and label every container with its eat-by date, reheat steps (to 165°F) and allergens.",
+  "Take a food handler course before your first cook day (ServSafe's online course is $15 and the certificate lasts three years). Rules for personal chefs vary, so check your city and state.",
+  "Get liability insurance before your first paid cook day.",
+  "Never give diet or health advice. Cook to what the client tells you, and if a doctor or dietitian gave them a meal plan, cook from that plan."
+ ],
+ "partners": [
+  {
+   "id": "gyms",
+   "label": "Gyms and fitness studios",
+   "search": {
+    "category": "gyms",
+    "words": "gyms and fitness studios"
+   },
+   "their_customers": "members",
+   "why": "want home-cooked dinners ready on busy weeknights",
+   "ask": "leave a few cards at your front desk, if that's okay with you",
+   "give": "offer your members my founding price and a free kitchen visit"
+  },
+  {
+   "id": "yoga",
+   "label": "Yoga and pilates studios",
+   "search": {
+    "category": "yoga",
+    "words": "yoga studios"
+   },
+   "their_customers": "students",
+   "why": "ask where to find simple home-cooked dinners for the week",
+   "ask": "post my card on your community board, if you have one",
+   "give": "offer your students my founding price and a free kitchen visit"
+  },
+  {
+   "id": "churches",
+   "label": "Churches",
+   "search": {
+    "category": "churches",
+    "words": "churches"
+   },
+   "their_customers": "members",
+   "why": "are busy families, new parents and neighbors who could use a hand with dinners",
+   "ask": "share my card with your welcome or care team, following your rules",
+   "give": "offer my founding price to any family you refer"
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "search": {
+    "category": "apartments",
+    "words": "apartment complexes"
+   },
+   "their_customers": "residents",
+   "why": "work long days and want dinners ready at home",
+   "ask": "share my flyer with residents, following your building's rules",
+   "give": "offer your residents my founding price and a free kitchen visit"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "food safety rules and a kitchen visit script",
+  "safety_title": "Food safety first",
+  "find_tip": "Gyms, yoga studios, churches and apartment buildings come from OpenStreetMap once your city is set and business search is on. Until then, look them up on a map and add the real ones by hand.",
+  "people": [
+   "Hey {greet}! I just started {what} around {area}: I cook a week of dinners in your own kitchen and label every container. It starts with a free kitchen visit, and my first 3 households get {founding}. Want a spot, or know a busy family who might?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. My first 3 households get {founding}, and all I ask is honest feedback after two cook days. Could I tell you more, or is there a busy family you'd pass this to?",
+   "Hey {greet}! I'm launching {what} in {area}: dinners for the week cooked in your kitchen, planned around your allergies and the way you eat. My first 3 households get {founding}, with groceries at cost. Know anyone who might want it?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my meal prep message. If it's not for you, would you mind passing my number to one busy family who might want it? Thank you.",
+  "next_people": [
+   "Hi {greet}! I'm cooking weekly meal prep in people's own kitchens around {area} now, and I have room for a few more households at {rate}. It starts with a free kitchen visit. Know anyone who'd like dinners ready for the week?",
+   "Hey {greet}, hope you're well! I do {what} here in {area}: menus planned around allergies, groceries at cost and labeled containers with reheat steps. Want a spot, or know someone I could cook for?",
+   "Hi {greet}! Quick one: if you or a neighbor ever want a week of dinners cooked in your own kitchen, I'm doing {what} in {area} now. It starts with a free kitchen visit."
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my meal prep message. If it's not for you, would you mind passing my number to one busy family who might want it? Thank you.",
+  "next_subject": "Meal prep in {area}"
+ },
+ "extra": [
+  {
+   "title": "Kitchen visit script (20 minutes, free)",
+   "lines": [
+    "1. Thanks for having me. Could you show me the kitchen: oven, stove, pots and pans, and where things go?",
+    "2. Who eats at home, and does anyone have a food allergy? How serious is it? I write every allergy down and read every label for it when I shop.",
+    "3. How do you like to eat? Anything you avoid, and any favorites? I cook to what you tell me, and I don't give diet advice.",
+    "4. Let me check the fridge and freezer with my thermometer: 40°F or below and 0°F or below.",
+    "5. How many dinners a week, for how many people, and which day works for me to cook here?",
+    "6. Groceries: I shop the morning of and bill them at cost with the receipt, or you shop from my list.",
+    "7. My founding price is {founding}. Want to set the first cook day?"
+   ]
+  }
+ ],
+ "offer": {
+  "name": "Weekly cook day in your kitchen",
+  "unit": "cook day",
+  "length": "4 dinners for up to 4 people",
+  "prices": {
+   "budget": 200,
+   "standard": 275,
+   "premium": 400
+  },
+  "range_text": "$200 to $500 per cook day, groceries extra",
+  "basis": "From research/niches/mealprep.json, checked 2026-10-19: APPCA's personal chefs report $200 to $500 a day, usually one client a day, and Sous puts 4 meals a week for a family of 4 at about $263 plus groceries. Groceries run $60 to $200 a week on top (Care.com). Where you sit in the range is our judgment.",
+  "sources": [
+   {
+    "publisher": "American Personal and Private Chef Association (APPCA)",
+    "url": "https://www.personalchef.com/faqs/",
+    "says": "Its personal chefs report $200 to $500 a day depending on the market. They plan, purchase and prepare meals, usually once a week, in the client's home or a rented professional kitchen, and serve several clients, usually one per day.",
+    "page_date": null,
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Sous",
+    "url": "https://join.sous.so/blog/how-much-is-meal-prep-with-a-personal-chef",
+    "says": "For a family of 4 who wants 4 meals per week, the average cost is $262.79 plus groceries.",
+    "page_date": "2026 (Aug 12, year not shown)",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Care.com",
+    "url": "https://www.care.com/c/how-much-does-a-personal-chef-cost/",
+    "says": "The average posted rate for a personal chef is $24.20 to $31.05 per hour, not including groceries, which typically cost an additional $60 to $200 per week.",
+    "page_date": "2026-08-19",
+    "checked": "2026-10-19"
+   }
+  ],
+  "includes": [
+   "A free kitchen visit before the first cook day",
+   "A menu planned around your household's allergies and the way you eat",
+   "Shopping the morning of, with groceries billed at cost",
+   "4 dinners for up to 4 people, cooked in your kitchen and labeled with eat-by dates, reheat steps and allergens",
+   "Your kitchen cleaned up before I leave"
+  ],
+  "steps": [
+   "Free kitchen visit: I see your kitchen, and we go over allergies, the way you eat and what you love.",
+   "You fill in a short intake form, and I send the week's menu for your okay.",
+   "On cook day I shop, then cook, pack and label in your kitchen, and clean up.",
+   "Dinners go in your fridge and freezer with the eat-by date and reheat steps on every label."
+  ],
+  "promise": "If I miss a cook day or I'm 30 minutes late, the next one is half price. A dish not right? Tell me within a day and it comes off the bill.",
+  "promise_note": "I can't promise how anyone's diet or health will change, and I don't give diet advice. I promise the cooking: every dinner as planned, recipes planned around the allergies you list, a label on every container and a clean kitchen.",
+  "sheet_notes_title": "Food safety first",
+  "sheet_notes": [
+   "Every food allergy goes on the intake form in writing before the first cook day.",
+   "Fridge at 40°F or below, freezer at 0°F or below, and everything cooked goes in within 2 hours.",
+   "Every container is labeled with its eat-by date, reheat steps and allergens."
+  ],
+  "footer": "Groceries billed separately at cost.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "Neighbors and people you know",
+    "note": "For honest feedback after two cook days. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner households",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it when 4 of your 5 weekday cook days are booked."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free kitchen visit",
+    "price": 0,
+    "unit": "visit",
+    "what": "20 minutes in their kitchen: allergies, the way they eat, equipment and storage. Nothing is booked yet."
+   },
+   {
+    "kind": "Core",
+    "name": "Weekly cook day",
+    "price": "core",
+    "what": "4 dinners for up to 4 people, cooked and labeled in their kitchen."
+   },
+   {
+    "kind": "Keep going",
+    "name": "4 cook days booked ahead",
+    "times": 4,
+    "off": 0.05,
+    "unit": "4 cook days",
+    "what": "Paid up front; the same weekday stays held."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Extra dinner on the same cook day",
+    "factor": 0.15,
+    "unit": "dinner",
+    "what": "One more dish for the week."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "Half cook day",
+    "factor": 0.6,
+    "unit": "half cook day",
+    "what": "2 dinners, for a smaller household or a trial week."
+   },
+   {
+    "kind": "Bigger job",
+    "name": "Freezer stock-up day",
+    "factor": 1.6,
+    "unit": "stock-up day",
+    "what": "A longer day of freezer-friendly dishes before a new baby, a busy season or a trip."
+   }
+  ],
+  "ladder_word": "households"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After the first few cook days: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both households, and a referral card.",
+  "client_title": "Client's name",
+  "done_example": "your cook days these last few weeks",
+  "reward_default": "a free extra dinner",
+  "file_word": "referral card",
+  "card_title": "A personal chef {greet} recommends",
+  "card_footer": "Every new client starts with a free kitchen visit.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for having me in your kitchen for {done}. It's been a joy to cook for you.",
+   "review_ask": "Would you leave an honest review about my cooking and how the cook days have gone? It helps other families decide who to let into their kitchen. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If a friend or neighbor would like dinners cooked in their own kitchen, I'd love an introduction. When someone you send my way books, you both get {reward}.",
+   "card_line": "{business}: a week of dinners cooked in your kitchen, planned around your allergies, with eat-by dates and reheat steps on every container."
+  },
+  "business_fallback": "Your personal chef"
+ },
+ "replies": {
+  "who_title": "Which client or place",
+  "ai_rules": [
+   "Every new client starts with a free kitchen visit. That is the next step.",
+   "Never promise health, weight or diet results, and never give diet or medical advice: cook to what the client says, and if a doctor or dietitian gave them a meal plan, cook from that plan.",
+   "Never say a dish is safe for an allergy. Say the recipe leaves it out and every package label gets read.",
+   "Groceries are billed separately at cost. Say any price once, exactly as given."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great! The first step is a free kitchen visit, about 20 minutes, so I can see your kitchen and we can go over allergies and the way you eat. What day works for you?",
+    "next": "Book the kitchen visit within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. A cook day is {rate}, for 4 dinners for up to 4 people, with groceries billed separately at cost. It starts with a free kitchen visit. Want to set one up?",
+    "next": "Say the price once, then offer the kitchen visit."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. If a busy stretch or a new baby comes along, just text me. Happy to do a free kitchen visit whenever suits.",
+    "next": "Set a reminder for a month, or before the holidays."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I do {what} here in {area}: I cook a week of dinners in your own kitchen. Every new client starts with a free kitchen visit. Happy to answer any question.",
+    "next": "Answer plainly, then offer the kitchen visit."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already have a chef or a meal service.",
+    "answer": "Good to hear you're covered! If you ever want a hand before a busy week or a trip, I'm nearby. Thanks for letting me know.",
+    "next": "Leave it there. Offer a freezer stock-up day before the holidays."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The best way to answer it properly is at a free kitchen visit, so I can see your kitchen and hear what you like. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the kitchen visit."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free kitchen visit this week make it easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to meet",
+    "means": "They want to meet or talk first.",
+    "answer": "Happy to! {when_ask} The first step is a free kitchen visit, about 20 minutes, so I can see your kitchen and we can go over allergies and the way you eat.",
+    "next": "Book the kitchen visit within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few cards this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the cards within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what their people would pay.",
+    "answer": "A cook day is {rate}, for 4 dinners cooked in the household's own kitchen, with groceries at cost and a free kitchen visit first. Happy to drop off cards with the details.",
+    "next": "Say the price once, then offer the cards."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back in a couple of months? Thanks for considering it.",
+    "next": "Set a reminder for 2 months out."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, a local personal chef: I cook a week of dinners in each household's own kitchen, and I follow your rules on posting. Happy to stop by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already recommend a chef or a meal service.",
+    "answer": "Good to hear you have someone. If you ever keep a list of local services for members or residents, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my card with your members or residents?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines)",
+    "means": "They have rules about posting or promoting.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share local services, like a newsletter or a resource list, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   },
+   {
+    "id": "permit",
+    "label": "Are you licensed?",
+    "match": "\\b(permit\\w*|licen[cs]\\w*|health (department|code|inspect\\w*)|insur\\w*|liabilit\\w*|certif\\w*)\\b",
+    "means": "They want to know you follow food rules before they share your card.",
+    "answer": "Good question. I cook in each household's own kitchen with groceries bought for them, and I don't sell meals made in my home kitchen. I hold a food handler certificate and liability insurance, and I'm glad to drop off copies with my cards.",
+    "next": "Bring copies when you drop off the cards.",
+    "check": "Check your city and state rules for personal chefs, and only send this once you hold the certificate and the policy.",
+    "sources": [
+     {
+      "publisher": "Florida Statutes, section 500.03",
+      "url": "https://www.flsenate.gov/Laws/Statutes/2025/500.03",
+      "says": "A cottage food product means food that is not time or temperature controlled for safety or a potentially hazardous food.",
+      "checked": "2026-10-19",
+      "page_date": "2025"
+     },
+     {
+      "publisher": "United States Personal Chef Association (USPCA)",
+      "url": "https://www.uspca.com/food-safety-training",
+      "says": "A food manager certification is not required for most personal chef businesses operating at a client's home, but members must have proof of completing a food handler certificate course.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "objections": [
+   {
+    "id": "allergy",
+    "label": "Can you cook around an allergy?",
+    "match": "\\b(allerg\\w*|celiac|coeliac|gluten|epipen|epi-pen|anaphyla\\w*|intoleran\\w*)",
+    "means": "Someone at home has a food allergy, and they want to know you'll take it seriously.",
+    "answer": "Thanks for telling me. Every allergy goes on the intake form in writing, the recipes leave it out, I read every package label for it when I shop, and every container says what the dish contains. If it's severe, tell me at the kitchen visit and we'll plan around it together.",
+    "next": "Book the kitchen visit and get the allergy in writing first.",
+    "check": "Only take on an allergy you can keep out of the recipes, and never promise a dish is free of it.",
+    "sources": [
+     {
+      "publisher": "U.S. Food and Drug Administration",
+      "url": "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies",
+      "says": "The major food allergens are milk, eggs, fish, Crustacean shellfish, tree nuts, peanuts, wheat, soybeans and sesame (the 9th since January 1, 2023). Labels must name the food source of each, and people with food allergies should read labels.",
+      "checked": "2026-10-19",
+      "page_date": "2026-03-11"
+     }
+    ]
+   },
+   {
+    "id": "groceries",
+    "label": "Are groceries included?",
+    "match": "\\b(groceries|grocery|ingredients|food (cost|bill)|cost of (the )?food|who (pays|buys) (for )?(the )?food)\\b",
+    "means": "They want to know what the groceries add.",
+    "answer": "Good question. Groceries are billed separately at cost, with the receipt, so you pay what the food costs and nothing more. I shop the morning of each cook day, or you can shop from my list.",
+    "next": "Say how groceries work, then offer the kitchen visit.",
+    "sources": [
+     {
+      "publisher": "Care.com",
+      "url": "https://www.care.com/c/how-much-does-a-personal-chef-cost/",
+      "says": "Personal chef rates don't include groceries, which typically cost an additional $60 to $200 per week.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-19"
+     },
+     {
+      "publisher": "American Personal and Private Chef Association (APPCA)",
+      "url": "https://www.personalchef.com/faqs/",
+      "says": "Personal chefs plan, purchase and prepare meals, usually once a week, either at the client's home or in a rented professional kitchen.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "kits",
+    "label": "Why not a meal kit or takeout?",
+    "match": "\\b(meal kits?|hello ?fresh|blue apron|door ?dash|uber ?eats|grubhub|takeout|take-out|delivery apps?)\\b",
+    "means": "They're comparing you with meal kits or takeout.",
+    "answer": "Fair question, and those work for lots of people. With me nothing needs cooking on a weeknight: the dinners are made in your kitchen, around your allergies and what you like, and ready to reheat.",
+    "next": "Offer the kitchen visit.",
+    "judgment": true
+   },
+   {
+    "id": "kitchen",
+    "label": "Can you cook at your place and drop off?",
+    "match": "\\b(your (own )?(kitchen|place|house|home)|cook (it )?at home and|drop (it |them )?off|deliver\\w*|bring (the )?(meals|food|dinners))\\b",
+    "means": "They'd like meals made somewhere else and brought over.",
+    "answer": "I cook in your kitchen with groceries bought for you. Selling meals cooked in my own home kitchen falls under state cottage food and health rules, and in states like Florida those cover only foods that don't need the fridge. So I cook at your place, and you can see how everything is made.",
+    "next": "Offer the kitchen visit.",
+    "check": "Check your city and state rules before you ever sell food made in your own kitchen.",
+    "sources": [
+     {
+      "publisher": "Florida Statutes, section 500.03",
+      "url": "https://www.flsenate.gov/Laws/Statutes/2025/500.03",
+      "says": "A cottage food product means food that is not time or temperature controlled for safety or a potentially hazardous food.",
+      "checked": "2026-10-19",
+      "page_date": "2025"
+     },
+     {
+      "publisher": "Florida Department of Agriculture and Consumer Services",
+      "url": "https://www.fdacs.gov/Business-Services/Food/Food-Establishments/Cottage-Foods",
+      "says": "Unlicensed home kitchens may make certain low-risk foods for sale: breads, cakes and cookies, candies, honey, jams, fruit pies, dry herbs, homemade pasta, granola, nuts, vinegars and popcorn.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "diet",
+    "label": "Can you cook for my diet?",
+    "match": "\\b(keto|paleo|whole ?30|low[- ]?carb|low[- ]?sodium|low[- ]?fat|diabet\\w*|macros?|calorie\\w*|weight|meal plan|diet\\w*|nutrition\\w*|healthy|healthier)\\b",
+    "means": "They follow a diet, or want food that fits a health goal.",
+    "answer": "Happy to cook the way you like to eat, from what you tell me. I don't give diet or health advice, so if a doctor or dietitian gave you a meal plan, share it and I'll cook from that plan.",
+    "next": "Ask what they eat and avoid, then offer the kitchen visit.",
+    "judgment": true
+   },
+   {
+    "id": "insured",
+    "label": "Are you certified and insured?",
+    "match": "\\b(insur\\w*|liabilit\\w*|licen[cs]\\w*|certif\\w*|servsafe|food handler|permit\\w*|trained|training)\\b",
+    "means": "They want to know you're trained and covered.",
+    "answer": "Good question to ask. I hold a food handler certificate and carry liability insurance, and I'm glad to send you both before the kitchen visit.",
+    "next": "Send the certificate and the insurance page, then book the kitchen visit.",
+    "check": "Only send this once you have the certificate and your policy is active.",
+    "sources": [
+     {
+      "publisher": "United States Personal Chef Association (USPCA)",
+      "url": "https://www.uspca.com/food-safety-training",
+      "says": "A food manager certification is not required for most personal chef businesses operating at a client's home, but members must have proof of completing a food handler certificate course.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ServSafe",
+      "url": "https://www.servsafe.com/access/SS/Catalog/ProductDetail/SSECT6",
+      "says": "The ServSafe Food Handler online course and assessment costs $15.00, and the certificate is valid for three years.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "storage",
+    "label": "How long does it keep?",
+    "match": "\\b(how long (does|do|will|would|can) (it|they|the food|meals?|dinners?) (keep|last)|leftovers?|freez\\w*|fridge|reheat\\w*|spoil\\w*|goe?s? bad)\\b",
+    "means": "They want to know how long the food keeps.",
+    "answer": "Every container has a label with its eat-by date and reheat steps. Cooked dinners keep 3 to 4 days in the fridge, so the later dinners go in the freezer and move to the fridge the night before.",
+    "next": "Offer the kitchen visit.",
+    "sources": [
+     {
+      "publisher": "U.S. Food and Drug Administration",
+      "url": "https://www.fda.gov/media/74435/download",
+      "says": "Refrigerator at 40°F: soups and stews, cooked meat and poultry dishes and cooked fish keep 3 to 4 days. Food kept frozen at 0°F stays safe; freezer times are for quality.",
+      "checked": "2026-10-19",
+      "page_date": "2018-03"
+     },
+     {
+      "publisher": "Centers for Disease Control and Prevention",
+      "url": "https://www.cdc.gov/restaurant-food-safety/communication-resources/tips-for-dining-out.html",
+      "says": "Refrigerate leftovers promptly, and eat them within 3 to 4 days.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-31"
+     }
+    ]
+   },
+   {
+    "id": "cost",
+    "label": "Too much for us",
+    "match": "\\b(too (expensive|much|pricey)|cheaper|lower (price|rate)|out of (our|my) budget|discount|afford\\w*)\\b",
+    "means": "The price is a stretch for them.",
+    "answer": "That's fair. Two ways to make it work: a half cook day with 2 dinners, or 4 cook days booked ahead for a little less each time. Groceries stay at cost either way.",
+    "next": "Hold your price. Offer the half cook day or 4 booked ahead.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "title": "Personal chef cook days{for}",
+  "pay_when": "When they book",
+  "default": "four",
+  "packages": [
+   {
+    "id": "day1",
+    "label": "Cook day in your kitchen",
+    "detail": "Up to 4 dinners for up to 4 people, labeled, and the kitchen cleaned. Groceries billed at cost",
+    "qty": 1,
+    "pick": "One cook day"
+   },
+   {
+    "id": "four",
+    "label": "Cook days, 4 booked ahead",
+    "short": "4 cook days",
+    "detail": "The same weekday each week. Groceries billed at cost",
+    "qty": 4,
+    "off": 0.05,
+    "pick": "4 cook days booked ahead"
+   },
+   {
+    "id": "half",
+    "label": "Half cook day",
+    "detail": "2 dinners, for a smaller household or a trial week",
+    "qty": 1,
+    "factor": 0.6,
+    "unit": "half cook day",
+    "pick": "One half cook day"
+   },
+   {
+    "id": "stock",
+    "label": "Freezer stock-up day",
+    "detail": "A longer day of freezer-friendly dishes, labeled with thaw and best-by dates",
+    "qty": 1,
+    "factor": 1.6,
+    "unit": "stock-up day",
+    "pick": "One freezer stock-up day"
+   }
+  ],
+  "extra": {
+   "title": "Add a larger household (5 or more people)",
+   "label": "Larger household (5 or more people)",
+   "detail": "More food and more containers on the same cook day",
+   "factor": 0.25,
+   "per_package": true
+  },
+  "notes": [
+   "Groceries are billed separately at cost, with the receipt.",
+   "Every new client starts with a free kitchen visit.",
+   "If I miss a cook day or I'm 30 minutes late, the next one is half price. A dish not right? Tell me within a day and it comes off the bill."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder, and a printable first cook day checklist.",
+  "who_title": "Client's name",
+  "who_word": "client",
+  "when_title": "First cook day and time",
+  "where": null,
+  "booking": "Hi {greet}, you're all set! Your first cook day is {when}. It's {deal}. I'll send the menu for your okay a few days before, and every container gets a label with the eat-by date and reheat steps.{pay}",
+  "prep": "Before the first cook day, could you fill in the kitchen intake form I'm sending (allergies, the way you eat, foods you avoid and your kitchen), and clear a fridge shelf and some freezer space? I'll bring containers and a food thermometer.",
+  "reminder": "Hi {greet}, see you {when} for your cook day. I'll shop that morning. Reply here if anything changes, especially an allergy.",
+  "founding": "Founding client: after two cook days, ask {greet} for honest feedback you may quote as a founding client, and ask before you post any photo of their food or kitchen. Never ask for a review in exchange.",
+  "file_word": "first cook day checklist",
+  "checklist_title": "First cook day checklist for {for_title}",
+  "checklist": {
+   "Kitchen visit": [
+    "Get the intake form filled in: every food allergy and how serious it is, the way they eat, foods they avoid and favorites.",
+    "Check the fridge (40°F or below) and the freezer (0°F or below) with an appliance thermometer.",
+    "Look over the oven, stove, pans, containers and the room in the fridge and freezer.",
+    "Agree on groceries: you shop and bill at cost with the receipt, or they shop from your list.",
+    "Agree on how you get in, and on your cancellation terms."
+   ],
+   "Cook day": [
+    "Wash your hands for at least 20 seconds before you start and after touching raw meat, poultry, seafood or eggs.",
+    "Read every package label for the foods to leave out before it goes in the cart.",
+    "Keep raw meat, poultry and seafood away from ready-to-eat food, with their own cutting board.",
+    "Cook each dish to its safe temperature, checked with a food thermometer.",
+    "Divide into shallow containers and into the fridge or freezer within 2 hours.",
+    "Label every container: dish, eat-by date, reheat steps and allergens.",
+    "Clean up and leave the menu card on the fridge."
+   ],
+   "After": [
+    "Send the menu text with the reheat steps.",
+    "Ask what to change for next week.",
+    "Invoice the cook day and the groceries, with the receipt."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "U.S. Food and Drug Administration",
+    "url": "https://www.fda.gov/food/buy-store-serve-safe-food/safe-food-handling",
+    "says": "Clean, separate, cook and chill: wash hands, keep raw meat away from ready-to-eat food, cook to safe temperatures checked with a food thermometer, and refrigerate within 2 hours.",
+    "checked": "2026-10-19",
+    "page_date": "2024-03-05"
+   },
+   {
+    "publisher": "Centers for Disease Control and Prevention",
+    "url": "https://www.cdc.gov/food-safety/prevention/index.html",
+    "says": "Wash hands for at least 20 seconds, keep the refrigerator at 40°F or below and the freezer at 0°F or below, and refrigerate leftovers within 2 hours.",
+    "checked": "2026-10-19",
+    "page_date": "2025-11-24"
+   },
+   {
+    "publisher": "U.S. Food and Drug Administration",
+    "url": "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies",
+    "says": "Labels must name the food source of each of the 9 major allergens, and people with food allergies should read labels.",
+    "checked": "2026-10-19",
+    "page_date": "2026-03-11"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Client's name",
+  "what_example": "weekly cook days since September",
+  "result_example": "Dinner is ready on weeknights now, and the kids ask for the lemon chicken",
+  "quote_example": "Opening the fridge on Monday night is the best part of my week.",
+  "anon": "A family in {area}",
+  "named": "{greet}, a client in {area}",
+  "photo": true,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our cook days? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer. {photo_line}It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "photo_line": "I'd like to use a photo of the food too, only if you're happy with that. ",
+  "review": "If you have a minute, would you leave an honest review about what my cook days have been like? It helps other families decide. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a client, shared with their permission. {story_line} If your household could use a week of dinners cooked in your own kitchen, {reach}",
+  "disclosure": {
+   "founding": "This client paid a founding price.",
+   "free": "These cook days were free."
+  },
+  "rules": [
+   "Only what the client agreed to in writing, and a photo only with their okay.",
+   "Only words and numbers they gave you, and no health, weight or diet results.",
+   "Nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "Busy households nearby",
+  "group": "food",
+  "format": "flyer",
+  "print": true,
+  "headline": "Dinners cooked in your kitchen in {area}",
+  "sub": "A week of dinners planned around your allergies, cooked in your own kitchen and labeled with reheat steps.",
+  "bullets": [
+   "A free kitchen visit before anything is booked",
+   "Groceries billed at cost",
+   "Every container labeled with eat-by dates and allergens"
+  ],
+  "offer": "Free kitchen visit",
+  "cta": "Book a kitchen visit",
+  "tagline": "Dinners for the week, cooked in your kitchen, starting with a free kitchen visit.",
+  "design": "local-service"
+ }
+}

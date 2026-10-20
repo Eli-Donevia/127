@@ -1,0 +1,1506 @@
+{
+ "id": "music",
+ "name": "Music lessons",
+ "checked": "2026-10-19",
+ "research": "research/niches/music.json",
+ "what": "private music lessons",
+ "what_example": "piano lessons for kids and adults",
+ "crowd": {
+  "buyer": "Parents, and adults who want to learn",
+  "scores": {
+   "pain": 2,
+   "can_pay": 4,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [
+   1,
+   8,
+   9,
+   10
+  ],
+  "off_season": {
+   "months": [
+    6,
+    7
+   ],
+   "where": "all",
+   "play": "Offer a summer block of 6 lessons and book fall times before school starts."
+  },
+  "not_yet": [
+   "Don't rent a studio before your weekly schedule is full.",
+   "Don't promise exam results, audition spots or a set pace.",
+   "Don't message students under 18 directly. Talk to parents."
+  ],
+  "note": "Safety rules with minors come first: parents book, and lessons happen where a parent can see or hear.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/niches/music.json crowd_scores (our judgment). Best months and the summer dip: a judgment call from the school-year terms in that file's studio policy sources."
+ },
+ "safety": [
+  "For students under 18, parents book and pay. You talk with parents, not students.",
+  "Lessons happen where a parent can see or hear: at home with a parent there, in your studio with the door open and parents welcome to sit in, or online with a parent in the house.",
+  "No direct messages, texts or social follows with students under 18. Links, notes and reminders go to the parent.",
+  "Background check rules for private teachers differ by state, and many parents ask for one: get one in your own name and offer to share it. Follow any rule your state, a school or a program has.",
+  "Collect contact details from parents only. The FTC's COPPA rule covers collecting personal information online from children under 13."
+ ],
+ "partners": [
+  {
+   "id": "schools",
+   "label": "Schools",
+   "search": {
+    "category": "schools",
+    "words": "schools"
+   },
+   "their_customers": "families",
+   "why": "look for a private teacher when a child joins band, orchestra or choir",
+   "ask": "be on any list of private lesson teachers you share with families, if your school keeps one and your rules allow it",
+   "give": "help at a concert or a music event as a volunteer, following your rules for volunteers"
+  },
+  {
+   "id": "churches",
+   "label": "Churches",
+   "search": {
+    "category": "churches",
+    "words": "churches"
+   },
+   "their_customers": "families",
+   "why": "have kids in choir, youth groups and music programs",
+   "ask": "share my info in your bulletin or family newsletter, if your rules allow it",
+   "give": "play at a service or an event, or give a free beginner workshop for your families"
+  },
+  {
+   "id": "community",
+   "label": "Community and rec centers",
+   "search": {
+    "category": "community centers",
+    "words": "community and recreation centers"
+   },
+   "their_customers": "families",
+   "why": "look for after-school activities",
+   "ask": "post my flyer if that fits your rules, or be on your list of after-school activities",
+   "give": "run a free try-an-instrument hour for families at a time that works for you"
+  },
+  {
+   "id": "libraries",
+   "label": "Public libraries",
+   "search": {
+    "category": "public libraries",
+    "words": "public libraries"
+   },
+   "their_customers": "families",
+   "why": "come in for programs and activities for kids",
+   "ask": "share my flyer on your community board, if your rules allow it",
+   "give": "play a short free family music time, if you host community programs"
+  },
+  {
+   "id": "music_stores",
+   "label": "Music stores",
+   "search": {
+    "category": "music stores",
+    "words": "music stores"
+   },
+   "their_customers": "customers",
+   "why": "ask where to find a teacher when they buy or rent an instrument",
+   "ask": "keep a few of my cards at the counter, if that fits your rules",
+   "give": "point my students your way for instruments, strings and books"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "the safety rules and a free first call script",
+  "safety_title": "Safety first",
+  "find_tip": "Schools, churches, community centers and libraries come from OpenStreetMap once your city is set and business search is on. Music stores aren't in that search yet: find the ones near you on a map and add them by hand.",
+  "people": [
+   "Hi {greet}! I just started teaching {what} in {area}. I'm taking my first 3 students at {founding} while I get started. Parents book for kids, and lessons happen where a parent can see or hear. Would you or your kids like to learn, or do you know someone who might?",
+   "Hi {greet}, hope you're well! I'm now teaching {what} here in {area}. My first 3 students get {founding}, and all I ask is honest feedback on how it's going. Could I tell you more, or is there someone you'd pass this to?",
+   "Hey {greet}! I'm starting {what} in {area}, with a plan for the first 4 weeks and a practice log for home. My first 3 students get {founding}. Do you know a family, or anyone, who'd like to learn?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my music lessons message. If it's not for you, would you mind passing my number to one family or friend who might want lessons? Thank you.",
+  "next_people": [
+   "Hi {greet}! I teach {what} in {area} now, with a plan, a practice log and a short note after every lesson. I have room for a few more students at {rate}. Would you or your kids like a spot, or do you know someone who might?",
+   "Hi {greet}, hope you're well! I'm teaching {what} here in {area}. Parents book for kids, and lessons happen where a parent can see or hear. Could I tell you more, or is there someone you'd pass my number to?",
+   "Hey {greet}! Quick one: I teach {what} in {area}, {rate}. Do you know anyone who'd like to learn this season?"
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my music lessons message. If it's not for you, would you mind passing my number to one family or friend who might want lessons? Thank you.",
+  "next_subject": "Music lessons in {area}"
+ },
+ "extra": [
+  {
+   "title": "First call script (15 minutes, free)",
+   "lines": [
+    "1. Thanks for making time. Who are the lessons for, and what made you think about lessons now?",
+    "2. Which instrument, and is there one at home yet? Any lessons or school band before?",
+    "3. What would they love to play: a song, a style, music for a school group?",
+    "4. Here's how I work: a first lesson to see where they are, a plan for 4 weeks, a practice log for home and a short note after every lesson.",
+    "5. Safety: for students under 18 you book and pay, lessons happen where you can see or hear, and I only message you.",
+    "6. My founding price is {founding}. Want to pick a first lesson time?"
+   ]
+  }
+ ],
+ "offer": {
+  "name": "Private music lessons",
+  "unit": "lesson",
+  "length": "30 minutes",
+  "prices": {
+   "budget": 30,
+   "standard": 40,
+   "premium": 55
+  },
+  "range_text": "$25 to $70 for a 30-minute private lesson",
+  "basis": "From research/niches/music.json (Ensemble Schools, ArtMaster, Preply, Music to Your Home and Lessons.com pages, checked 2026-10-19). Longer lessons cost more: about $35 to $75 for 45 minutes and $40 to $120 for 60 minutes.",
+  "sources": [
+   "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+   "https://www.artmaster.com/articles/how-much-do-music-lessons-cost",
+   "https://preply.com/en/blog/how-much-do-piano-lessons-cost/",
+   "https://lessons.com/costs/piano-lessons-cost"
+  ],
+  "includes": [
+   "A first lesson that finds where the student is and what they want to play",
+   "A plan for the first 4 weeks and a printable practice log for home",
+   "A short note after every lesson: what we worked on, what to practice, what's next",
+   "A studio policy in writing: missed lessons, payment and recitals"
+  ],
+  "steps": [
+   "A free 15-minute call: the instrument, the student's age and experience, and times that work.",
+   "First lesson: setup and posture, a few things to play, and the plan for the next 4 weeks.",
+   "Every lesson: warm up, check the practice log, learn one new thing, play a piece, set the week's practice.",
+   "After every lesson you get a short note from me."
+  ],
+  "promise": "If I miss a lesson or I'm late, the next one is free. If the first lesson isn't a fit, I refund it.",
+  "promise_note": "I don't promise exam results, audition spots or a set pace. I promise the work: every lesson as booked, a plan, and a note after each one.",
+  "sheet_notes_title": "Safety first",
+  "sheet_notes": [
+   "Parents book and pay for students under 18. I talk with you about scheduling, not your child.",
+   "Lessons happen where you can see or hear: at home with you there, in my studio with the door open and you welcome to sit in, or online with you in the house.",
+   "I never message students under 18 directly. Links and reminders go to you."
+  ],
+  "footer": "Pay per lesson or for a block of 4 weekly lessons.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "Families and people you know",
+    "note": "For honest feedback after 4 lessons. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner families",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it again when your week is 80 percent full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free 15-minute first call",
+    "price": 0,
+    "unit": "call",
+    "what": "The instrument, age, experience and times. No cost, no pressure."
+   },
+   {
+    "kind": "Core",
+    "name": "Weekly 30-minute lesson",
+    "price": "core",
+    "what": "One lesson a week at a set time."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Block of 4 weekly lessons",
+    "times": 4,
+    "off": 0.05,
+    "unit": "block of 4",
+    "what": "Paid up front; the same weekly time stays held."
+   },
+   {
+    "kind": "Add-on",
+    "name": "45-minute lesson",
+    "factor": 1.5,
+    "what": "For older or more experienced students who want more time."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "Every-other-week lesson",
+    "factor": 1,
+    "what": "The same lesson every two weeks when weekly is too much."
+   },
+   {
+    "kind": "Slow season",
+    "name": "Summer block: 6 lessons",
+    "times": 6,
+    "off": 0.1,
+    "unit": "summer block",
+    "what": "June and July, to keep playing over the summer and hold a fall time."
+   }
+  ],
+  "ladder_word": "students"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After a block of lessons: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both families, and a referral card.",
+  "client_title": "Parent's name (or the adult student's)",
+  "done_example": "8 weeks of piano lessons with Maya",
+  "reward_default": "a free lesson",
+  "file_word": "referral card",
+  "card_title": "A music teacher {greet} recommends",
+  "card_footer": "Parents book, and lessons happen where a parent can see or hear.",
+  "rules": [
+   "Ask every family the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only.",
+   "Write to the parent, never to a student under 18."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for trusting me with {done}. It's been a real pleasure teaching in your family.",
+   "review_ask": "Would you leave an honest review about what lessons with me have been like? It helps other families decide. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If you know a family, or anyone, who'd like lessons, I'd be grateful for an introduction. When someone you send my way books, you both get {reward}.",
+   "card_line": "{business}: private music lessons with a 4-week plan, a practice log for home and a short note after every lesson."
+  },
+  "business_fallback": "Your music teacher"
+ },
+ "replies": {
+  "who_title": "Which parent, student or place",
+  "ai_rules": [
+   "Write to the parent or the place, never to a student under 18.",
+   "Never promise an exam result, an audition, a competition place, talent or a pace of progress.",
+   "Say any price once, exactly as given. The next step is the free 15-minute first call."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great to hear! The easiest first step is a free 15-minute call: I'll ask about the instrument, the student's age and experience, a song they'd love to play and what times work. When suits you this week?",
+    "next": "Book the 15-minute call within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. It's {rate}, {length} one to one, with a plan for the first 4 weeks and a short note after every lesson. Want to start with a free 15-minute call to see if it fits?",
+    "next": "Say the price once, then offer the free first call."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Would it help if I checked back before the next school term? Either way, my number's here when you're ready.",
+    "next": "Set a reminder for 4 to 6 weeks, or just before the next term."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I teach {what} here in {area}. Parents book for kids, lessons happen where a parent can see or hear, and you get a short note after every lesson. Happy to answer any question.",
+    "next": "Answer plainly, then offer the free first call."
+   },
+   "covered": {
+    "label": "They have a teacher",
+    "means": "They have lessons already.",
+    "answer": "Good to hear you have a teacher! If you ever want a second option, say for a summer block or a second instrument, I'm around. Thanks for letting me know.",
+    "next": "Leave it there. Ask again before summer if it fits."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The honest answer depends on the student, so the best way to answer it properly is a free 15-minute call. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the free first call."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free 15-minute call this week be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to talk",
+    "means": "They want to talk first.",
+    "answer": "Happy to! {when_ask} It's a free 15-minute call: I'll ask about the instrument, the student's age and experience, and what times work.",
+    "next": "Book the 15-minute call within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few flyers this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the flyers within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what families pay.",
+    "answer": "Families pay {rate}, booked and paid by parents, and the first call is free. Happy to drop off a flyer with the details.",
+    "next": "Say the price once, then offer the flyer."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back next term? Thanks for considering it.",
+    "next": "Set a reminder for next term."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I teach {what} locally. Parents book, lessons happen where a parent can see or hear, and I follow your rules on posting. Happy to come by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already work with teachers or a program.",
+    "answer": "Good to hear your families have options. If you ever keep a list of local music teachers for families, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a teacher list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my info with families?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines|background check\\w*|clearances?)",
+    "means": "They have rules about posting, promoting or who works with their families.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there an approved way in, like a newsletter, a list of local teachers or a background check you need, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   }
+  ],
+  "objections": [
+   {
+    "id": "promise",
+    "label": "Can you promise a result?",
+    "match": "\\b(guarant\\w*|promise|will (he|she|they) (pass|get in|get into|make it|win)|pass (the|her|his|their) (exam|audition|test)|auditions?|all.?state|grade \\d exam)",
+    "means": "They want a result promised.",
+    "answer": "I can't promise an exam result, an audition or a pace, and I'd be careful with anyone who does. What I can promise is the work: a first lesson to see where things are, a plan for the next 4 weeks, a practice log for home and a short note after every lesson, so you can see what we're working on.",
+    "next": "Never promise a result. Offer the first lesson and the plan instead.",
+    "judgment": true
+   },
+   {
+    "id": "background",
+    "label": "Are you background checked?",
+    "match": "\\b(background(-| )check\\w*|clearances?|checked out|vetted|references?|is it safe|safety)\\b",
+    "means": "They want to know how lessons with their child work.",
+    "answer": "Good question, and every parent should ask it. Here's how lessons work: you book and pay, lessons happen where you can see or hear (at home with you there, in my studio with the door open, or online with you in the house), you're welcome to sit in on any lesson, and I only ever message you, never your child. I'll share my background check report before the first lesson.",
+    "next": "Send this once your background check report is in hand.",
+    "check": "Have your background check report ready to share before you send this.",
+    "sources": [
+     {
+      "publisher": "CDC",
+      "url": "https://stacks.cdc.gov/view/cdc/7538/cdc_7538_DS1.pdf",
+      "says": "Background checks are an important tool but have limitations; youth programs add supervision, a no closed door policy and tell caregivers what their children will be doing.",
+      "checked": "2026-10-19",
+      "page_date": "2007"
+     },
+     {
+      "publisher": "Care.com",
+      "url": "https://www.care.com/c/caregiver-background-checks/",
+      "says": "A background check includes national criminal database, county criminal and sex offender registry searches, and needs written permission under the FCRA.",
+      "checked": "2026-10-19",
+      "page_date": "2026-09-02"
+     }
+    ]
+   },
+   {
+    "id": "missed",
+    "label": "What if we miss a lesson?",
+    "match": "\\b(miss(ed|ing)? (a |the |one )?lessons?|cancel\\w*|make-?ups?|reschedul\\w*|sick|vacation|out of town)\\b",
+    "means": "They want to know the missed lesson rule.",
+    "answer": "Good to ask up front. With 24 hours' notice you can book a makeup lesson, up to 2 a term. A no-show or a late cancel isn't made up, and if I ever cancel, you get a makeup or a credit. It's all in my studio policy, which I'll send before the first lesson.",
+    "next": "Answer it, then send your studio policy (Lesson plan and practice log makes it).",
+    "sources": [
+     {
+      "publisher": "The Piano Education Page",
+      "url": "https://pianoeducation.org/pnotmles.html",
+      "says": "Make-up lessons at no extra charge with 24 hours advance notice, limited to two a semester; no refunds for missed lessons.",
+      "checked": "2026-10-19",
+      "page_date": "2024-02-09"
+     },
+     {
+      "publisher": "The Playful Piano",
+      "url": "https://www.theplayfulpiano.com/tag/make-up-lessons/",
+      "says": "Don't offer make-ups for no-shows or late cancellations (less than 24 hours notice).",
+      "checked": "2026-10-19",
+      "page_date": "2010-03-19"
+     },
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/new-world-music/fees-policies/",
+      "says": "If the teacher is absent, a substitute or a rescheduled lesson.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "age",
+    "label": "Is my child old enough?",
+    "match": "\\b(old enough|too young|what age|how old|ages? do you (teach|take)|is (she|he) ready)\\b",
+    "means": "They wonder whether it's the right time to start.",
+    "answer": "Good question. It depends on the child more than the birthday. Young children often do well with a 30-minute lesson, and a first lesson is the easiest way to see if now is the right time. Want to book one?",
+    "next": "Offer a first lesson, 30 minutes for a young child.",
+    "sources": [
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+      "says": "Young children often do well with a 30-minute lesson.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "adult",
+    "label": "Too old to start?",
+    "match": "\\b(too old|as an adult|adult (student|beginner|lessons?)|at my age|teach adults)\\b",
+    "means": "An adult wonders whether lessons are for them.",
+    "answer": "Not at all. I teach adults too, and lessons go at your pace, starting with music you want to play. Older and adult students often like a longer lesson, 45 or 60 minutes. Want to try a first lesson?",
+    "next": "Offer a first lesson and ask what they'd love to play.",
+    "sources": [
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+      "says": "More experienced students, older students and adult students often benefit from longer lessons.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "instrument",
+    "label": "No instrument yet",
+    "match": "\\b((don'?t|do not) (have|own) (a |an )?(piano|keyboard|guitar|violin|drums?|drum kit|ukulele|instrument)|(buy|rent) (a |an )?(piano|keyboard|guitar|violin|drums?|drum kit|ukulele|instrument)|what (size|kind|type) of (piano|keyboard|guitar|violin|drums?|ukulele|instrument))",
+    "means": "They aren't sure what instrument to get.",
+    "answer": "No problem at all. Before you buy or rent anything, let's do a first lesson. I'll tell you what to look for and what size fits.",
+    "next": "Book the first lesson; help them choose after it.",
+    "judgment": true
+   },
+   {
+    "id": "online",
+    "label": "Online or in person?",
+    "match": "\\b(online|zoom|facetime|virtual|in person|in-person|come to (our|the|my) (house|home)|at your (studio|house))\\b",
+    "means": "They're asking where lessons happen.",
+    "answer": "Either works. Online saves the drive; in person can be at your home with you there, or at my studio. Online lessons usually cost about the same as studio lessons, and lessons at your home may have a small travel fee. Which would suit you best?",
+    "next": "Let them pick, then book the free first call.",
+    "sources": [
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/blog/average-cost-piano-lessons/",
+      "says": "Online and in-studio lessons cost about the same; in-home lessons cost 10 to 20 percent more.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+      "says": "Are online lessons cheaper? In most cases, no.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "rate",
+    "label": "More than they expected",
+    "match": "\\b(cheaper|too (expensive|much|high)|lower (price|rate)|can you do (less|better)|out of (our|my) budget|discount)\\b",
+    "means": "The price feels high to them.",
+    "answer": "That's fair to ask. Private lessons usually run about $25 to $70 for 30 minutes, depending on the teacher, the area and whether it's online. For {rate} you get one-to-one lessons, a 4-week plan with a practice log, and a note after each lesson. If weekly is a stretch, every other week works too, or a block of 4 paid up front costs a little less per lesson.",
+    "next": "Hold your price. Offer every other week or the block of 4.",
+    "sources": [
+     {
+      "publisher": "Ensemble Schools",
+      "url": "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+      "says": "30-minute lessons cost $35 to $50.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Preply",
+      "url": "https://preply.com/en/blog/how-much-do-piano-lessons-cost/",
+      "says": "In-person piano lessons $40 to $70 for 30 minutes; online $25 to $55.",
+      "checked": "2026-10-19",
+      "page_date": "2026-09-08"
+     }
+    ]
+   },
+   {
+    "id": "busy",
+    "label": "Too busy this season",
+    "match": "\\b(too busy|busy (this|right)|no time|sports season|practice (every|most)|schedule is full)\\b",
+    "means": "Their week is full.",
+    "answer": "Totally understand. Two options that fit around a busy season: a 30-minute lesson every other week, or a summer block when things calm down. Would either work?",
+    "next": "Offer the smaller step, or a reminder before summer.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which family or student",
+  "pay_when": "Each month, in advance",
+  "for_title": "Student's first name (optional)",
+  "title": "Music lessons{for}",
+  "default": "block4",
+  "packages": [
+   {
+    "id": "single",
+    "label": "Private 30-minute lesson",
+    "detail": "One to one",
+    "qty": 1,
+    "pick": "One 30-minute lesson"
+   },
+   {
+    "id": "block4",
+    "label": "Weekly lessons, block of 4",
+    "short": "Block of 4",
+    "detail": "4 lessons of 30 minutes, one a week at a set time",
+    "qty": 4,
+    "off": 0.05,
+    "pick": "Block of 4 weekly lessons"
+   },
+   {
+    "id": "single45",
+    "label": "Private 45-minute lesson",
+    "detail": "One to one, for older or more experienced students",
+    "qty": 1,
+    "factor": 1.5,
+    "pick": "One 45-minute lesson"
+   },
+   {
+    "id": "single60",
+    "label": "Private 60-minute lesson",
+    "detail": "One to one, for advanced and adult students",
+    "qty": 1,
+    "factor": 1.8,
+    "pick": "One 60-minute lesson"
+   },
+   {
+    "id": "summer6",
+    "label": "Summer lessons, block of 6",
+    "short": "Summer block",
+    "detail": "6 lessons of 30 minutes across June and July",
+    "qty": 6,
+    "off": 0.1,
+    "pick": "Summer block of 6 lessons"
+   }
+  ],
+  "extra": {
+   "title": "Add a travel fee for lessons at their home",
+   "label": "Travel to your home",
+   "detail": "Per lesson, for lessons at your home",
+   "qty": 1,
+   "factor": 0.15,
+   "per_package": true
+  },
+  "notes": [
+   "Parents book and pay for students under 18. Lessons happen where a parent can see or hear.",
+   "If I miss a lesson or I'm late, the next one is free. If the first lesson isn't a fit, I refund it.",
+   "Missed lessons, makeups and payment follow my studio policy."
+  ]
+ },
+ "win": {
+  "tool": "log_student",
+  "title": "Log the new student",
+  "description": "A student said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder (to the parent for students under 18), and a printable first lesson checklist with the safety rules.",
+  "who_title": "Parent's name (or the adult student's)",
+  "who_word": "family",
+  "for_title": "Student's first name",
+  "for_default": "your child",
+  "when_title": "First lesson day and time",
+  "where_title": "Where lessons happen",
+  "where": [
+   "At your home with a parent there",
+   "At my studio, door open, parents welcome",
+   "Online with a parent home"
+  ],
+  "sessions": true,
+  "booking": "Hi {greet}, you're all set! {For_s} first lesson is {when}{where}. It's {deal}. Times, changes and lesson notes come to you, and my studio policy (missed lessons, payment, recitals) comes with the plan for the first 4 weeks.{pay}",
+  "prep": "Before the first lesson, could you tell me which instrument {for} has at home (or if you're still choosing one), any lessons or school music before, and a song or two {for} would love to play? That's all I need to plan.",
+  "reminder": "Hi {greet}, see you {when} for {for_s} lesson. Please have the instrument and any music from before ready. Reply here if anything changes.",
+  "founding": "Founding family: after 4 lessons, ask {greet} for honest feedback you may quote as a founding family. Never ask for a review in exchange, and never use {for_s} name or photo.",
+  "file_word": "first lesson checklist",
+  "checklist_title": "First lesson checklist for {for_title}",
+  "checklist": {
+   "Before": [
+    "Confirm the day, time and place with the parent in writing.",
+    "Agree the price, the package, when it's paid and the missed lesson rule in writing.",
+    "Send the studio policy, the 4-week plan and the practice log (Lesson plan and practice log makes all three).",
+    "Ask what instrument they have at home, what they've played before and a song they'd love to play.",
+    "Have your background check report ready to share."
+   ],
+   "First lesson": [
+    "A parent can see or hear the lesson: in the room, nearby with the door open, or in the house for online.",
+    "Setup and posture: how to sit or stand and how to hold the instrument.",
+    "A few short things to play, to find out what they already know.",
+    "Teach one new thing and a short piece, then set 5 days of practice in the practice log."
+   ],
+   "After": [
+    "Send the parent a short note the same day: what you worked on, what to practice, what's next.",
+    "If the first lesson showed a different level, run Lesson plan and practice log again with the new level.",
+    "Book the next lesson before you leave or log off."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "CDC",
+    "url": "https://stacks.cdc.gov/view/cdc/7538/cdc_7538_DS1.pdf",
+    "says": "Limit one-on-one time or keep extra supervision, use a no closed door policy, and tell caregivers what their children will be doing.",
+    "checked": "2026-10-19",
+    "page_date": "2007"
+   },
+   {
+    "publisher": "The Playful Piano",
+    "url": "https://www.theplayfulpiano.com/tag/make-up-lessons/",
+    "says": "A studio policy covers tuition, the due date, a late fee and any extra charge for recitals.",
+    "checked": "2026-10-19",
+    "page_date": "2010-03-19"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Parent's name (or the adult student's)",
+  "for_title": "Student's first name (kept out of the story)",
+  "what_example": "8 weeks of beginner piano",
+  "result_example": "He plays his new piece for his grandma every Sunday now, his dad says",
+  "quote_example": "She sits down to practice without being asked.",
+  "anon": "A family in {area}",
+  "named": "{greet}, a parent in {area}",
+  "photo": false,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our lessons? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer, and I'd never use your child's name or photo. It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "review": "If you have a minute, would you leave an honest review about what lessons with me have been like? It helps other families decide. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a family I teach, shared with their permission. {story_line} If you'd like {what} too, {reach}",
+  "disclosure": {
+   "founding": "This family paid a founding price.",
+   "free": "This family's lessons were free."
+  },
+  "rules": [
+   "Only what the parent agreed to in writing. Never a student name, photo or school.",
+   "Only what they told you. No promises about exams, auditions or talent.",
+   "Nothing in exchange for a story or a review."
+  ],
+  "for_example": "Maya",
+  "hide_for": "my student"
+ },
+ "ready": {
+  "audience": "Kids, teens and adults",
+  "group": "lessons",
+  "format": "flyer",
+  "print": true,
+  "headline": "Music lessons in {area}",
+  "sub": "30-minute lessons with a 4-week plan, a practice log for home and a note after every lesson.",
+  "bullets": [
+   "Parents book, and lessons happen where you can see or hear",
+   "A 4-week plan and a practice log for home",
+   "A short note after every lesson"
+  ],
+  "offer": "Free 15-minute first call",
+  "cta": "Book a free first call",
+  "tagline": "Private music lessons with a plan, a practice log and a note after every lesson.",
+  "design": "coach",
+  "color": "#7a3e8e",
+  "site_title": "{What} in {area}",
+  "site_sub": "One-to-one lessons with a plan for the first 4 weeks, a practice log for home and a short note after every lesson."
+ },
+ "lesson_plan": {
+  "instruments": [
+   {
+    "id": "piano",
+    "label": "Piano",
+    "word": "piano",
+    "setup": [
+     "A piano or a keyboard with full-size keys",
+     "A bench or chair at a height where the forearms are level with the keys",
+     "The method book or music we pick at the first lesson"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Sitting, hand shape and the groups of 2 and 3 black keys",
+       "lesson": "Finger numbers, finding every C, D and E, and clapping a steady beat",
+       "home": "Find every C on the keyboard, then play C, D, E with each hand, 5 times"
+      },
+      {
+       "focus": "Quarter, half and whole notes, counted out loud",
+       "lesson": "Short pieces on C, D and E, one hand at a time",
+       "home": "Clap and count the new piece, then play it slowly 3 times"
+      },
+      {
+       "focus": "Middle C position with both hands taking turns",
+       "lesson": "A piece where the tune passes between the hands, played loud and soft",
+       "home": "Play the new piece 3 times, once with loud and soft"
+      },
+      {
+       "focus": "Review and a first duet",
+       "lesson": "Play every piece so far, a duet with the teacher, and pick the next music",
+       "home": "Play your favorite piece for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: what they play now, reading and hand position",
+       "lesson": "A piece they know, 4 bars of sight-reading, and C and G five-finger patterns",
+       "home": "Five-finger patterns in C and G, hands separately, then together"
+      },
+      {
+       "focus": "Reading in treble and bass clef, and eighth notes",
+       "lesson": "A new piece with eighth notes and a rhythm game",
+       "home": "Count the new piece out loud before playing; 4 bars of sight-reading a day"
+      },
+      {
+       "focus": "Hands together and the C major scale",
+       "lesson": "The C major scale, one octave, hands separately, and the new piece hands together, slowly",
+       "home": "The scale hands separately, then the piece hands together at half speed"
+      },
+      {
+       "focus": "Dynamics, phrasing and a run-through",
+       "lesson": "Play the piece start to finish without stopping, then choose the next piece",
+       "home": "One run-through a day as if someone is listening"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: pieces, scales, reading and goals",
+       "lesson": "Two pieces, scales in 2 octaves, and a goal for the next 4 weeks",
+       "home": "Scales in two keys, hands together, and slow work on the hardest 4 bars"
+      },
+      {
+       "focus": "Technique: scales, arpeggios and even playing",
+       "lesson": "Arpeggios, a technical study, and practicing with a metronome",
+       "home": "Metronome practice at a slow tempo, a notch faster each day"
+      },
+      {
+       "focus": "Pedaling, phrasing and dynamics",
+       "lesson": "Pedal changes, shaping a phrase, and listening back to a recording",
+       "home": "Record one piece on a phone and listen for one thing to change"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full run of the piece as a mini recital, then plan the next 4 weeks",
+       "home": "Play the full piece once a day without stopping"
+      }
+     ]
+    }
+   },
+   {
+    "id": "guitar",
+    "label": "Guitar",
+    "word": "guitar",
+    "setup": [
+     "A guitar in the right size for the student",
+     "A tuner app or a clip-on tuner",
+     "A few picks"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Holding the guitar, tuning and the names of the strings",
+       "lesson": "Down strums on open strings to a steady beat, and a first chord (E minor)",
+       "home": "Tune up, then strum E minor to a steady beat for 2 minutes"
+      },
+      {
+       "focus": "First chords: E minor and A minor",
+       "lesson": "Changing between E minor and A minor with a simple strum",
+       "home": "Change between the two chords 20 times, slowly"
+      },
+      {
+       "focus": "Two more chords (G and C) and a first song",
+       "lesson": "A simple song with 2 or 3 chords",
+       "home": "Play the song along with a slow recording or a metronome"
+      },
+      {
+       "focus": "Review and a first riff",
+       "lesson": "The song start to finish, and a single-note riff on one string",
+       "home": "Play the song for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: chords, strumming and songs they know",
+       "lesson": "Open chords, down-up strumming, and a song they pick",
+       "home": "Two chord changes for 2 minutes each, then the song"
+      },
+      {
+       "focus": "Reading tab and single notes on the low strings",
+       "lesson": "A riff from tab with alternate picking",
+       "home": "The riff slowly with alternate picking, 5 times"
+      },
+      {
+       "focus": "Power chords and palm muting",
+       "lesson": "Power chords on the low strings in a rock or pop song",
+       "home": "Power chord changes slowly, then the song"
+      },
+      {
+       "focus": "A full song with an intro and an ending",
+       "lesson": "Play the song start to finish, then choose the next song",
+       "home": "Play the full song once a day"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: songs, styles and goals",
+       "lesson": "Two songs, barre chords, and a goal for the next 4 weeks",
+       "home": "Barre chord changes with a metronome"
+      },
+      {
+       "focus": "The minor pentatonic scale in one position",
+       "lesson": "The scale pattern and improvising over a backing track",
+       "home": "The pattern up and down, then 2 minutes of improvising"
+      },
+      {
+       "focus": "Rhythm: strumming patterns in different styles",
+       "lesson": "Two strumming patterns and muting",
+       "home": "Each pattern for 2 minutes with a metronome"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full song as a mini concert, then plan the next 4 weeks",
+       "home": "Record one song and listen for one thing to change"
+      }
+     ]
+    }
+   },
+   {
+    "id": "voice",
+    "label": "Voice",
+    "word": "voice",
+    "setup": [
+     "Water at every lesson",
+     "A folder for song sheets",
+     "A phone to record practice"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Posture, breathing and matching a note",
+       "lesson": "Easy warm-ups like humming and sirens, matching notes with the piano, and a simple song",
+       "home": "Hum for 2 minutes to warm up, then sing the song once"
+      },
+      {
+       "focus": "Singing in tune: steps and small leaps",
+       "lesson": "Five-note scales on ah and oo, then the song with the piano",
+       "home": "Sing the five-note scale 3 times, then the song"
+      },
+      {
+       "focus": "Words and rhythm: clear vowels and consonants",
+       "lesson": "Speaking the words in rhythm, then singing them",
+       "home": "Speak the words in rhythm, then sing the song with a recording"
+      },
+      {
+       "focus": "Review and singing for someone",
+       "lesson": "The song start to finish, then pick the next song",
+       "home": "Sing the song for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: comfortable range, songs they know and goals",
+       "lesson": "Warm-ups, finding a comfortable key, and a song in that key",
+       "home": "Warm-ups for 3 minutes, then the song"
+      },
+      {
+       "focus": "Breathing for longer phrases",
+       "lesson": "Breathing exercises and marking the breaths in the song",
+       "home": "Sing the song with the breaths marked"
+      },
+      {
+       "focus": "Tone: singing softly and loudly",
+       "lesson": "Warm-ups on different vowels and dynamics in the song",
+       "home": "Record the song on a phone and listen once"
+      },
+      {
+       "focus": "Performance practice: starting, ending and standing tall",
+       "lesson": "The song as a mini performance, then choose the next song",
+       "home": "Sing the full song once a day without stopping"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: songs, range and goals",
+       "lesson": "Two songs and a goal for the next 4 weeks",
+       "home": "Warm-ups, then the harder song in short sections"
+      },
+      {
+       "focus": "Agility: scales and arpeggios",
+       "lesson": "Faster scales and arpeggios on vowels",
+       "home": "Scales and arpeggios, slowly first"
+      },
+      {
+       "focus": "Style and phrasing",
+       "lesson": "Phrasing and dynamics, and listening to two singers' versions",
+       "home": "Listen to one recording and mark ideas in the music"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full run as a mini recital, then plan the next 4 weeks",
+       "home": "One run-through a day as if someone is listening"
+      }
+     ]
+    }
+   },
+   {
+    "id": "violin",
+    "label": "Violin",
+    "word": "violin",
+    "setup": [
+     "A violin in the right size for the student (rent or borrow before you buy)",
+     "Rosin and a soft cloth",
+     "A music stand"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Holding the violin and the bow, and the open strings",
+       "lesson": "Bow hold games and plucking the open strings in rhythm",
+       "home": "Practice the bow hold on a pencil, then pluck the open strings to a song"
+      },
+      {
+       "focus": "First bowing on open strings",
+       "lesson": "Straight bows on open strings and rhythms on one string",
+       "home": "4 slow bows on each open string"
+      },
+      {
+       "focus": "First fingers on the A and E strings",
+       "lesson": "A first piece with open strings and fingers 1 to 3",
+       "home": "The new piece slowly, 3 times"
+      },
+      {
+       "focus": "Review and a first duet",
+       "lesson": "Every piece so far and a duet with the teacher",
+       "home": "Play your favorite piece for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: pieces, posture and reading",
+       "lesson": "A piece they know, and the D and A major scales",
+       "home": "The D major scale slowly, then the piece"
+      },
+      {
+       "focus": "Reading and string crossings",
+       "lesson": "A new piece with string crossings",
+       "home": "String crossings slowly, then the piece"
+      },
+      {
+       "focus": "Bow control: loud, soft and smooth changes",
+       "lesson": "Long bows and dynamics in the piece",
+       "home": "Long bows on open strings for 2 minutes"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "The piece start to finish, then choose the next piece",
+       "home": "One run-through a day"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: pieces, shifting and goals",
+       "lesson": "Two pieces, third position, and a goal for the next 4 weeks",
+       "home": "A shifting exercise slowly, then the hardest 4 bars"
+      },
+      {
+       "focus": "Technique: two-octave scales and a first vibrato motion",
+       "lesson": "Two-octave scales and the vibrato motion",
+       "home": "Scales with a metronome, then 2 minutes of vibrato motion"
+      },
+      {
+       "focus": "Phrasing and tone",
+       "lesson": "Shaping phrases with bow speed and weight",
+       "home": "Record one piece and listen for tone"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full run as a mini recital, then plan the next 4 weeks",
+       "home": "Play the full piece once a day"
+      }
+     ]
+    }
+   },
+   {
+    "id": "drums",
+    "label": "Drums",
+    "word": "drum",
+    "setup": [
+     "Sticks and a practice pad (a full kit isn't needed to start)",
+     "Earplugs or earmuffs when playing a full kit",
+     "A metronome app"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Holding the sticks and sitting at the kit or pad",
+       "lesson": "Matched grip, single strokes to a steady beat, and quarter notes",
+       "home": "Single strokes on a pad with a metronome for 3 minutes"
+      },
+      {
+       "focus": "Counting and eighth notes",
+       "lesson": "Eighth notes, rests and a first rock beat",
+       "home": "The rock beat slowly, 10 times"
+      },
+      {
+       "focus": "Bass drum and hi-hat together",
+       "lesson": "The rock beat with the bass drum on 1 and 3, and a simple fill",
+       "home": "The beat with the fill every 4 bars"
+      },
+      {
+       "focus": "Review and playing along to a song",
+       "lesson": "The beat along with a slow song",
+       "home": "Play along to one song for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: beats, fills and reading",
+       "lesson": "Beats they know and the first rudiments: singles, doubles and paradiddles",
+       "home": "Rudiments on a pad with a metronome"
+      },
+      {
+       "focus": "Reading drum notation",
+       "lesson": "Read and play 4-bar grooves",
+       "home": "One new groove a day from the page"
+      },
+      {
+       "focus": "Accents and ghost notes",
+       "lesson": "Loud and quiet notes inside a groove",
+       "home": "Accent patterns slowly"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full song along to a recording",
+       "home": "Play the song once a day"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: styles, reading and goals",
+       "lesson": "Grooves in two styles and a goal for the next 4 weeks",
+       "home": "Grooves with a metronome, a notch faster each day"
+      },
+      {
+       "focus": "Rudiments with control at different tempos",
+       "lesson": "Rudiments slow, medium and fast",
+       "home": "Rudiments slow, then faster"
+      },
+      {
+       "focus": "Fills and transitions",
+       "lesson": "Fills that lead into a chorus, played with a click",
+       "home": "A fill every 4 bars"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full song as a mini concert, then plan the next 4 weeks",
+       "home": "Record one song and listen for timing"
+      }
+     ]
+    }
+   },
+   {
+    "id": "ukulele",
+    "label": "Ukulele",
+    "word": "ukulele",
+    "setup": [
+     "A soprano or concert ukulele",
+     "A tuner app or a clip-on tuner"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Holding the ukulele, tuning and the strings G, C, E, A",
+       "lesson": "Down strums to a steady beat and a first chord (C)",
+       "home": "Tune up, then strum C to a steady beat for 2 minutes"
+      },
+      {
+       "focus": "First chords: C, A minor and F",
+       "lesson": "Changing between C and A minor with a simple strum",
+       "home": "Change between the chords 20 times, slowly"
+      },
+      {
+       "focus": "A first song with 3 or 4 chords",
+       "lesson": "A simple song with down-up strumming",
+       "home": "Play the song along with a slow recording"
+      },
+      {
+       "focus": "Review and singing along",
+       "lesson": "Play and sing the song, then pick the next song",
+       "home": "Play the song for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: chords, strums and songs they know",
+       "lesson": "Chord changes, a new strum pattern and a song they pick",
+       "home": "Two chord changes for 2 minutes each, then the song"
+      },
+      {
+       "focus": "Reading tab and picking a melody",
+       "lesson": "A melody from tab",
+       "home": "The melody slowly, 5 times"
+      },
+      {
+       "focus": "New chords (G7, D) and a swing strum",
+       "lesson": "A song with the new chords",
+       "home": "New chord changes slowly, then the song"
+      },
+      {
+       "focus": "A full song with an intro and an ending",
+       "lesson": "Play the song start to finish, then choose the next song",
+       "home": "Play the full song once a day"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: songs, styles and goals",
+       "lesson": "Two songs, chords up the neck, and a goal for the next 4 weeks",
+       "home": "Chord shapes up the neck with a metronome"
+      },
+      {
+       "focus": "Fingerpicking patterns",
+       "lesson": "Two picking patterns over a chord progression",
+       "home": "Each pattern for 2 minutes"
+      },
+      {
+       "focus": "Chord melody: tune and chords together",
+       "lesson": "A short chord melody arrangement",
+       "home": "The arrangement in short sections"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full song as a mini concert, then plan the next 4 weeks",
+       "home": "Record one song and listen for one thing to change"
+      }
+     ]
+    }
+   },
+   {
+    "id": "other",
+    "label": "Other",
+    "word": "",
+    "setup": [
+     "The {instrument}, in good playing order",
+     "A music stand",
+     "A tuner or metronome app"
+    ],
+    "weeks": {
+     "new": [
+      {
+       "focus": "Setup, posture and the first sounds on the {instrument}",
+       "lesson": "How to hold the {instrument}, first notes and a steady beat",
+       "home": "Play the first notes to a steady beat for 3 minutes"
+      },
+      {
+       "focus": "Reading rhythm: quarter, half and whole notes",
+       "lesson": "Clap, count, then play short rhythms on the first notes",
+       "home": "Clap and count the rhythm before you play it"
+      },
+      {
+       "focus": "A first melody",
+       "lesson": "A short melody with the notes so far",
+       "home": "Play the melody slowly 3 times"
+      },
+      {
+       "focus": "Review and playing for someone",
+       "lesson": "Everything so far, then pick the next piece",
+       "home": "Play your favorite piece for someone at home"
+      }
+     ],
+     "basics": [
+      {
+       "focus": "Check-in: what they play, reading and posture",
+       "lesson": "A piece they know, a scale and 4 bars of sight-reading",
+       "home": "The scale slowly, then the piece"
+      },
+      {
+       "focus": "Reading and rhythm: eighth notes and rests",
+       "lesson": "A new piece with eighth notes",
+       "home": "Count the new piece out loud before playing it"
+      },
+      {
+       "focus": "Tone, loud and soft",
+       "lesson": "Slow notes for tone, then dynamics in the piece",
+       "home": "Two minutes of slow notes, then the piece"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "The piece start to finish, then choose the next piece",
+       "home": "One run-through a day without stopping"
+      }
+     ],
+     "intermediate": [
+      {
+       "focus": "Check-in: pieces, technique and goals",
+       "lesson": "Two pieces, scales, and a goal for the next 4 weeks",
+       "home": "Scales with a metronome, then slow work on the hardest 4 bars"
+      },
+      {
+       "focus": "Technique",
+       "lesson": "A technical study and scales in new keys",
+       "home": "The study slowly, a notch faster each day"
+      },
+      {
+       "focus": "Phrasing and dynamics",
+       "lesson": "Shaping phrases and listening back to a recording",
+       "home": "Record one piece and listen for one thing to change"
+      },
+      {
+       "focus": "Performance practice",
+       "lesson": "A full run as a mini recital, then plan the next 4 weeks",
+       "home": "Play the full piece once a day"
+      }
+     ]
+    }
+   }
+  ],
+  "levels": [
+   {
+    "id": "new",
+    "label": "New to it"
+   },
+   {
+    "id": "basics",
+    "label": "Knows the basics"
+   },
+   {
+    "id": "intermediate",
+    "label": "Intermediate"
+   }
+  ],
+  "parts": {
+   "30": [
+    [
+     "Warm-up",
+     3
+    ],
+    [
+     "Check the practice log and play last week's music",
+     7
+    ],
+    [
+     "One new skill",
+     10
+    ],
+    [
+     "A piece or song",
+     8
+    ],
+    [
+     "Set this week's practice",
+     2
+    ]
+   ],
+   "45": [
+    [
+     "Warm-up",
+     5
+    ],
+    [
+     "Check the practice log and play last week's music",
+     8
+    ],
+    [
+     "One new skill",
+     12
+    ],
+    [
+     "A piece or song",
+     12
+    ],
+    [
+     "Reading or ear training",
+     5
+    ],
+    [
+     "Set this week's practice",
+     3
+    ]
+   ],
+   "60": [
+    [
+     "Warm-up",
+     5
+    ],
+    [
+     "Check the practice log and play last week's music",
+     10
+    ],
+    [
+     "New skills",
+     15
+    ],
+    [
+     "Pieces or songs",
+     18
+    ],
+    [
+     "Reading, theory or ear training",
+     8
+    ],
+    [
+     "Set this week's practice",
+     4
+    ]
+   ]
+  },
+  "ages": [
+   {
+    "id": "young",
+    "below": 8,
+    "label": "Under 8",
+    "practice": 10,
+    "parent": "A parent sits in on lessons and helps with practice at home."
+   },
+   {
+    "id": "kid",
+    "below": 13,
+    "label": "8 to 12",
+    "practice": 15,
+    "parent": "A parent is nearby during lessons and checks the practice log each week."
+   },
+   {
+    "id": "teen",
+    "below": 18,
+    "label": "13 to 17",
+    "practice": 20,
+    "parent": "A parent is home during lessons and initials the practice log each week."
+   },
+   {
+    "id": "adult",
+    "below": 200,
+    "label": "Adult",
+    "practice": 20,
+    "parent": ""
+   }
+  ],
+  "days": 5,
+  "length_note": "Auto length: 30 minutes for anyone new and for students under 13 with the basics; 45 minutes for students 13 and up with the basics and for intermediate students under 13; 60 minutes for intermediate students 13 and up. Young children often do well with a 30-minute lesson; older, more experienced and adult students often benefit from longer ones (Ensemble Schools, ArtMaster).",
+  "judgment_note": "The weekly plans, the lesson parts and the practice minutes are a starting point from teaching judgment, not sourced facts. Change anything that doesn't fit the student.",
+  "adult_line": "Practice when it fits your day: short, regular sessions.",
+  "policy": {
+   "title": "Studio policy",
+   "lessons": "Private lessons, one to one, once a week at a set time. Lessons start and end on time, so please be ready to play.",
+   "pay": {
+    "Monthly, in advance": "Tuition is paid each month in advance, by the 1st: the price per lesson times the lessons on the calendar that month. Paying holds your weekly time.",
+    "Per lesson": "Lessons are paid at or before each lesson.",
+    "By term, in advance": "Tuition is paid by term, in advance, before the first lesson of the term. Paying holds your weekly time."
+   },
+   "late": {
+    "Monthly, in advance": "Tuition paid after the 1st has a late fee of {late_fee}.",
+    "Per lesson": "Payment after the lesson has a late fee of {late_fee}.",
+    "By term, in advance": "Tuition paid after the first lesson of the term has a late fee of {late_fee}."
+   },
+   "notice": "Please cancel at least {notice} ahead.",
+   "makeups": "With that notice you can book a makeup lesson, up to {makeups} a term, used within the same term.",
+   "no_makeups": "Missed lessons aren't made up.",
+   "late_cancel": "A no-show, or a cancel with less notice, isn't made up or refunded.",
+   "sick": "If the student is sick, please cancel as early as you can rather than have the lesson.",
+   "teacher": "If I cancel, you get a makeup lesson or a credit, your choice.",
+   "stop": "To stop lessons, please tell me {stop} ahead.",
+   "recital_next": "Our next recital: {when}.",
+   "recital_usual": "Recitals happen once or twice a year.",
+   "recital_choice": "Taking part is up to each student and family.",
+   "recital_fee": "Recital fee: {fee} per student, to cover the venue, programs and other costs.",
+   "recital_music": "Each performer plays from purchased music, not a photocopy.",
+   "recital_guests": "Families and guests are welcome. Please film only your own child, and never post another child without their parent's yes.",
+   "safety_title": "For students under 18",
+   "safety": [
+    "You book and pay, and I talk with you about times and changes.",
+    "Lessons happen where you can see or hear: at home with you there, in my studio with the door open, or online with you in the house. You're welcome to sit in on any lesson.",
+    "I never message, text or follow students under 18. Notes and links come to you.",
+    "I never share a student's photo, video or name without your written yes."
+   ],
+   "background": "Ask me for my background check report any time.",
+   "sign": "I've read this studio policy.",
+   "photos_adult": [
+    "I never share your photo, video or name without your written yes.",
+    "Lesson notes, reminders and changes come to you by text or email."
+   ]
+  },
+  "notes": {
+   "recital_range": "Recital fees typically run $20 to $60 per student (Preply). One studio policy charges $30, or $70 for pieces that need an accompanist.",
+   "recital_split": "The recital fee is the total cost divided by the students performing, rounded up (teachbassoon.com).",
+   "music_copies": "Music at recitals: the Copyright Office's guidelines for educational uses of music don't allow copying music for a performance, except emergency copies when purchased copies can't arrive in time, replaced with purchased copies later (Circular 21).",
+   "performance": "A recital with no admission charge, no pay to the performers, promoters or organizers and no commercial purpose may fit the live performance exemption in 17 U.S.C. 110(4). One that promotes your studio or charges admission may not: ask the venue about its music performance licenses, and get legal advice when unsure.",
+   "check": "Background checks and home business rules vary: check your city and state."
+  },
+  "sources": [
+   {
+    "publisher": "Ensemble Schools",
+    "url": "https://www.ensembleschools.com/blog/cost-of-private-music-lessons/",
+    "says": "Young children often do well with a 30-minute lesson; older and adult students often benefit from longer lessons.",
+    "checked": "2026-10-19",
+    "for": "length"
+   },
+   {
+    "publisher": "ArtMaster",
+    "url": "https://www.artmaster.com/articles/how-much-do-music-lessons-cost",
+    "says": "30 minutes for young beginners, 45 minutes for intermediate students, 60 minutes for advanced students.",
+    "checked": "2026-10-19",
+    "page_date": "2025-02-21",
+    "for": "length"
+   },
+   {
+    "publisher": "The Piano Education Page",
+    "url": "https://pianoeducation.org/pnotmles.html",
+    "says": "Makeups with 24 hours advance notice, limited to two a semester; no refunds for missed lessons; sick students stay home.",
+    "checked": "2026-10-19",
+    "page_date": "2024-02-09",
+    "for": "policy"
+   },
+   {
+    "publisher": "Ensemble Schools",
+    "url": "https://www.ensembleschools.com/new-world-music/fees-policies/",
+    "says": "Monthly tuition on the 1st; a month's notice to withdraw; a substitute or a rescheduled lesson when the teacher is absent.",
+    "checked": "2026-10-19",
+    "for": "policy"
+   },
+   {
+    "publisher": "CDC",
+    "url": "https://stacks.cdc.gov/view/cdc/7538/cdc_7538_DS1.pdf",
+    "says": "Limit one-on-one time or keep extra supervision, a no closed door policy, and tell caregivers what their children will be doing.",
+    "checked": "2026-10-19",
+    "page_date": "2007",
+    "for": "policy"
+   },
+   {
+    "publisher": "U.S. Copyright Office",
+    "url": "https://www.copyright.gov/circs/circ21.pdf",
+    "says": "Circular 21: copying for the purpose of performance is prohibited under the music guidelines, except emergency copies replaced by purchased copies.",
+    "checked": "2026-10-19",
+    "page_date": "2014-08",
+    "for": "recital"
+   },
+   {
+    "publisher": "17 U.S.C. 110(4)",
+    "url": "https://www.law.cornell.edu/uscode/text/17/110",
+    "says": "Some live performances are exempt: no commercial advantage, no fee to performers, promoters or organizers, and no admission charge.",
+    "checked": "2026-10-19",
+    "for": "recital"
+   },
+   {
+    "publisher": "Preply",
+    "url": "https://preply.com/en/blog/how-much-do-piano-lessons-cost/",
+    "says": "Recital fees typically run $20 to $60.",
+    "checked": "2026-10-19",
+    "page_date": "2026-09-08",
+    "for": "recital"
+   },
+   {
+    "publisher": "teachbassoon.com",
+    "url": "https://www.teachbassoon.com/how-to-plan-a-recital/",
+    "says": "Total the recital costs and divide by the number of students: that is your recital fee.",
+    "checked": "2026-10-19",
+    "for": "recital"
+   }
+  ],
+  "drums_source": {
+   "publisher": "CDC",
+   "url": "https://www.cdc.gov/hearing-loss/prevention/index.html",
+   "says": "When you can't avoid loud noise, use hearing protection such as earplugs or earmuffs.",
+   "checked": "2026-10-19",
+   "page_date": "2026-04-13"
+  }
+ }
+}

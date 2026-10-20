@@ -1,0 +1,1474 @@
+{
+  "id": "events",
+  "name": "Event planning",
+  "checked": "2026-10-19",
+  "research": "research/niches/events.json",
+  "what": "day-of event coordination",
+  "what_example": "day-of coordination for weddings and parties",
+  "crowd": {
+    "buyer": "Couples and party hosts",
+    "scores": {
+      "pain": 3,
+      "can_pay": 4,
+      "findable": 3,
+      "growing": 3
+    },
+    "first_dollar": "Medium",
+    "best_months": [
+      4,
+      5,
+      9,
+      10
+    ],
+    "off_season": null,
+    "not_yet": [
+      "Don't take full planning before you've run 5 day-of events.",
+      "Don't buy decor, linens or rentals to rent out before your tenth event.",
+      "Don't book a date without a signed agreement and a deposit."
+    ],
+    "note": "Weddings peak in spring and fall. Birthdays, showers and work events run all year.",
+    "basis": "Scores, buyer, first $1 and not-yet lines: research/niches/events.json crowd_scores (our judgment from its sources). Best months: EventPlanning.com statistics (spring and fall are the peak wedding seasons; Saturdays in May and October book first)."
+  },
+  "safety": [
+    "Every booking gets a written agreement: scope and hours, the deposit, the balance date, cancellation, and what happens if storms or a government order stop the event. Have a local attorney review it.",
+    "Clients sign and pay each vendor directly. You coordinate the vendors on their behalf.",
+    "If a vendor ever pays you a referral fee, tell the client in writing before they book that vendor, and say so in any post that recommends them.",
+    "Get general liability insurance before your first event. Venues often ask for a certificate that names them.",
+    "Never buy, carry or resell alcohol for a client. The host, a licensed caterer or the venue handles it. The rules differ by state: check your city and state.",
+    "Parks and other public spaces can need a permit (in New York City, for 20 or more people). Ask the venue about tents, open flames and crowd limits, and check your city and state."
+  ],
+  "safety_sources": [
+    {
+      "publisher": "EventPlanning.com",
+      "url": "https://eventplanning.com/event-planning-contract-template/",
+      "says": "A sample contract: a non-refundable retainer, cancellation terms, force majeure with rescheduling first, and vendors contract with the client directly while the planner coordinates. Have a local attorney review before use.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-04"
+    },
+    {
+      "publisher": "16 CFR 255.5 (FTC Endorsement Guides), via Cornell LII",
+      "url": "https://www.law.cornell.edu/cfr/text/16/255.5",
+      "says": "A connection between the endorser and the seller that the audience wouldn't expect must be disclosed clearly and conspicuously.",
+      "checked": "2026-10-19"
+    },
+    {
+      "publisher": "Insurance Canopy",
+      "url": "https://www.insurancecanopy.com/event-insurance/event-planner/cost",
+      "says": "Most event planners pay $21 to $30 per month for liability coverage; certificates of insurance and additional insureds for venues come at no extra cost.",
+      "checked": "2026-10-19",
+      "page_date": "2026-02-04"
+    },
+    {
+      "publisher": "California Department of Alcoholic Beverage Control",
+      "url": "https://www.abc.ca.gov/licensing/frequently-asked-questions/",
+      "says": "The host must buy all the alcohol in advance; a hired bartender may only be paid for bartending, not for alcohol sales.",
+      "checked": "2026-10-19"
+    },
+    {
+      "publisher": "NYC Parks",
+      "url": "https://www.nycgovparks.org/permits",
+      "says": "Special events permits are required for events where twenty or more people will be present, birthday parties included.",
+      "checked": "2026-10-19"
+    }
+  ],
+  "partners": [
+    {
+      "id": "venues",
+      "label": "Wedding and event venues",
+      "search": {
+        "category": "venues",
+        "words": "wedding and event venues"
+      },
+      "their_customers": "couples and hosts",
+      "why": "book their own vendors and need someone to run the day",
+      "ask": "be on the list of day-of coordinators you share with couples and hosts, if you keep one",
+      "give": "send your team my final timeline and vendor contact sheet a week before every event I run at your place"
+    },
+    {
+      "id": "florists",
+      "label": "Florists",
+      "search": {
+        "category": "florists",
+        "words": "florists"
+      },
+      "their_customers": "wedding and party clients",
+      "why": "need someone on site to meet your delivery and check the setup",
+      "ask": "leave a few cards for wedding and party clients who ask about a coordinator",
+      "give": "send you the final timeline a week before, with your delivery time and a contact on site"
+    },
+    {
+      "id": "bakeries",
+      "label": "Bakeries",
+      "search": {
+        "category": "bakeries",
+        "words": "bakeries and cake shops"
+      },
+      "their_customers": "wedding and party customers",
+      "why": "need someone at the venue to receive the cake and set up the cake table",
+      "ask": "leave a few cards by the register",
+      "give": "send you the final timeline a week before, with your delivery time and a contact on site"
+    },
+    {
+      "id": "photographers",
+      "label": "Photographers",
+      "search": {
+        "category": "photographers",
+        "words": "wedding and event photographers"
+      },
+      "their_customers": "couples and families",
+      "why": "need someone to run the day and gather each group for the photo list",
+      "ask": "leave a few cards for couples who don't have a coordinator yet",
+      "give": "build your photo time into my timeline and gather each group on your shot list"
+    },
+    {
+      "id": "restaurants",
+      "label": "Restaurants",
+      "search": {
+        "category": "restaurants",
+        "words": "restaurants with private dining rooms"
+      },
+      "their_customers": "party hosts",
+      "why": "plan rehearsal dinners, showers and birthdays with you",
+      "ask": "leave a few cards with whoever books your parties",
+      "give": "send your manager my timeline a week before any event I run at your place"
+    }
+  ],
+  "texts": {
+    "people_word": "people",
+    "person_label": "Person you know",
+    "extra_label": "ground rules and a free planning call script",
+    "safety_title": "Ground rules",
+    "find_tip": "Venues, florists, bakeries, photographers and restaurants come from OpenStreetMap once your city is set and business search is on. Until then, look them up on a map and add the real ones by hand.",
+    "people": [
+      "Hey {greet}! I just started {what} around {area}: you plan the event, and I run the day, from the first vendor's setup to the last teardown. My first 3 clients get {founding}. Do you have an event coming up, or know someone who does?",
+      "Hi {greet}, hope you're well! I'm starting {what} here in {area} for weddings, showers and birthdays. My first 3 clients get {founding}, and all I ask is honest feedback after the event. Could I tell you more, or is there someone planning an event you'd pass this to?",
+      "Hey {greet}! I'm launching {what} in {area}: the timeline, the vendors and the whole day, with the final timeline sent a week before. My first 3 clients get {founding}. Know anyone with a wedding or a party coming up?"
+    ],
+    "people_follow_up": "Hi {greet}, no pressure on my event message. If it's not for you, would you mind passing my number to one person planning a wedding or a party? Thank you.",
+    "next_people": [
+      "Hi {greet}! I'm running weddings and parties as a day-of coordinator around {area} now, and I have a few dates open at {rate}. Know anyone with an event coming up?",
+      "Hey {greet}, hope you're well! I do {what} here in {area}: you plan it, and I run the day, with the final timeline sent a week before. Have an event coming up, or know someone who does?",
+      "Hi {greet}! Quick one: if you or a friend have a wedding, shower or birthday coming up, I'm doing {what} in {area} now. It starts with a free 30-minute planning call."
+    ],
+    "next_follow_up": "Hi {greet}, no pressure on my event message. If it's not for you, would you mind passing my number to one person planning a wedding or a party? Thank you.",
+    "next_subject": "Event coordination in {area}"
+  },
+  "extra": [
+    {
+      "title": "Free planning call script (30 minutes)",
+      "lines": [
+        "1. Thanks for making time. Tell me about the event: the date, the place and roughly how many guests.",
+        "2. What's booked so far? Venue, caterer, photographer, DJ or band, florist, cake, rentals.",
+        "3. What does the venue require: setup start, end time, an insurance certificate, rules on candles or tents?",
+        "4. Is any of it outside? Then we write a rain plan with the venue.",
+        "5. Here's how I work: I collect every vendor contract and contact, walk the venue with you, send the final timeline a week before, confirm every vendor that week, and I'm on site from the first setup to the last teardown.",
+        "6. My founding price is {founding}. A signed agreement and a deposit hold your date. Want me to send it?"
+      ]
+    }
+  ],
+  "offer": {
+    "name": "Day-of coordination",
+    "unit": "event",
+    "length": "Up to 12 hours on the day, setup to teardown",
+    "prices": {
+      "budget": 800,
+      "standard": 1200,
+      "premium": 1800
+    },
+    "range_text": "$640 to $5,000 for day-of wedding coordination (most sources: $800 to $3,000)",
+    "basis": "From research/niches/events.json (Thumbtack, Zola, EventPlanning.com and GreatEvent pages, checked 2026-10-19). Party coordination runs $500 to $2,067 an event and planning help $25 to $200 an hour. The rehearsal add-on is priced at 2 planning hours as a judgment call: no source gives a price, so check current rates. Work events are quoted at the day-of price.",
+    "sources": [
+      "https://www.thumbtack.com/p/wedding-coordinator-cost",
+      "https://www.zola.com/expert-advice/how-much-do-wedding-coordinators-cost",
+      "https://eventplanning.com/how-to-charge-a-fee-for-your-event-planning-service/",
+      "https://www.greatevent.com/how-much-do-event-planners-charge/"
+    ],
+    "includes": [
+      "A free 30-minute planning call before you book",
+      "Every vendor contract and contact collected, and a venue walk-through",
+      "The final timeline, vendor contact sheet and day-of checklist a week before",
+      "A confirmation call or text to every vendor in the last week",
+      "On site from the first vendor's setup to the last teardown"
+    ],
+    "steps": [
+      "Free 30-minute planning call: tell me about the event and what's booked.",
+      "Sign the agreement and pay the deposit to hold your date.",
+      "Send me every vendor contract and contact, and we walk the venue together.",
+      "You get the draft timeline about three weeks before and the final one a week before.",
+      "On the day I arrive before the first vendor and stay until the last one leaves."
+    ],
+    "promise": "You get the final timeline a week before, and I'm on site from the first vendor's setup to the last teardown. If I miss either one, I refund my fee.",
+    "promise_note": "I can't promise the weather or the vendors' work. I promise my part: the final timeline a week before, a confirmation to every vendor, and me on site from setup to teardown.",
+    "sheet_notes_title": "Good to know",
+    "sheet_notes": [
+      "A signed agreement and a deposit hold your date. The balance is due two weeks before.",
+      "You sign each vendor's contract and pay them directly. I coordinate them on the day.",
+      "If a vendor I recommend ever pays me a fee, I tell you in writing before you book them."
+    ],
+    "footer": "Extra hours on the day are billed at my hourly planning rate.",
+    "ladder": {
+      "founding": {
+        "count": 3,
+        "off": 0.3,
+        "who": "People you know with an event coming up",
+        "note": "For honest feedback after the event. A review is never part of the deal."
+      },
+      "intro": {
+        "count": 7,
+        "off": 0.15,
+        "who": "Referrals and partner introductions",
+        "note": "Your price while you build a track record."
+      },
+      "full": {
+        "who": "Everyone after your first 10",
+        "note": "Raise it once most of your peak-season Saturdays are booked."
+      }
+    },
+    "money_model": [
+      {
+        "kind": "Way in",
+        "name": "Free 30-minute planning call",
+        "price": 0,
+        "unit": "call",
+        "what": "A call about the event and what's booked. Nothing to sign."
+      },
+      {
+        "kind": "Core",
+        "name": "Day-of coordination",
+        "price": "core",
+        "what": "The weeks before and the whole day, setup to teardown."
+      },
+      {
+        "kind": "Keep going",
+        "name": "Planning help by the hour",
+        "factor": 0.0625,
+        "unit": "hour",
+        "what": "Vendor lists, a timeline review or a planning session."
+      },
+      {
+        "kind": "Add-on",
+        "name": "Rehearsal coordination, up to 2 hours",
+        "factor": 0.125,
+        "what": "The day before, so everyone knows their cue."
+      },
+      {
+        "kind": "Smaller step",
+        "name": "Party coordination, up to 6 hours",
+        "factor": 0.5,
+        "what": "Birthdays, showers and engagement parties."
+      },
+      {
+        "kind": "Bigger job",
+        "name": "Partial planning",
+        "factor": 2.5,
+        "what": "Help choosing the vendors still to book, then the day. Only after your first 5 day-of events."
+      }
+    ],
+    "ladder_word": "clients"
+  },
+  "keep": {
+    "title": "Reviews and referrals",
+    "description": "After the event: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both, and a referral card.",
+    "client_title": "Client's name",
+    "done_example": "your engagement party on Saturday",
+    "reward_default": "a free hour of planning help",
+    "file_word": "referral card",
+    "card_title": "An event coordinator {greet} recommends",
+    "card_footer": "Every client starts with a free 30-minute planning call.",
+    "rules": [
+      "Ask every client the same way, not only the happy ones.",
+      "Never offer anything for a review. The referral thank-you is for referrals only."
+    ],
+    "texts": {
+      "thank_you": "Hi {greet}, thank you for trusting me with {done}. It was a joy to be part of it.",
+      "review_ask": "Would you leave an honest review about working with me? It helps other couples and hosts decide who to trust with their day. Here's the link: {review_link}. No pressure either way.",
+      "referral_ask": "If a friend has a wedding, a shower or a party coming up, I'd love an introduction. When someone you send my way books, you both get {reward}.",
+      "card_line": "{business}: day-of coordination for weddings and parties, with the final timeline a week before and me on site from setup to teardown."
+    },
+    "business_fallback": "Your event coordinator"
+  },
+  "replies": {
+    "who_title": "Which client or place",
+    "ai_rules": [
+      "Every new client starts with a free 30-minute planning call. That is the next step.",
+      "Never promise how the day will go or feel, the weather or the vendors' work. Promise only what the coordinator controls: the final timeline a week before, a confirmation to every vendor, and being on site from the first setup to the last teardown.",
+      "Say any price once, exactly as given."
+    ],
+    "stop": {
+      "label": "Asked you to stop",
+      "means": "They asked you to stop.",
+      "next": "Don't send anything else. They're marked lost so they stay off your lists."
+    },
+    "people": {
+      "yes": {
+        "label": "They're interested",
+        "means": "They want to hear more or book.",
+        "answer": "That's great! The first step is a free 30-minute planning call: you tell me about the event, and I walk you through how I run the day. What day works for you?",
+        "next": "Book the planning call within 2 days."
+      },
+      "price": {
+        "label": "They asked the price",
+        "means": "They want the price before anything else.",
+        "answer": "Of course. Day-of coordination is {rate}. That covers the weeks before and the whole day, from the first vendor's setup to the last teardown. Want to start with a free 30-minute planning call?",
+        "next": "Say the price once, then offer the planning call."
+      },
+      "later": {
+        "label": "Not right now",
+        "means": "Not now, maybe later.",
+        "answer": "No problem at all. Whenever you have a date, just text me and we'll set up a free planning call.",
+        "next": "Set a reminder for a month out."
+      },
+      "who": {
+        "label": "Who is this?",
+        "means": "They want to know who you are first.",
+        "answer": "Sorry, I should have said! I'm {me}, and I do {what} here in {area}: you plan the event, and I run the day. Happy to answer any question.",
+        "next": "Answer plainly, then offer the planning call."
+      },
+      "covered": {
+        "label": "They have someone",
+        "means": "They have a coordinator or planner already.",
+        "answer": "Good to hear you have someone! If you ever need a hand with a shower, a birthday or a work event, I'm nearby. Thanks for letting me know.",
+        "next": "Leave it there."
+      },
+      "question": {
+        "label": "They asked a question",
+        "means": "They asked something specific.",
+        "answer": "Good question! The easiest way to answer it properly is a free 30-minute planning call, so I can hear about your event. Would one day this week work?",
+        "next": "Answer it in a line if you can, then offer the planning call."
+      },
+      "other": {
+        "label": "Not sure what they meant",
+        "means": "Not clear yet.",
+        "answer": "Thanks for getting back to me! Happy to help however I can. Would a free 30-minute planning call this week make it easier to talk it through?",
+        "next": "Keep it short and end with one question."
+      },
+      "talk": {
+        "label": "Wants to talk",
+        "means": "They want to talk or meet first.",
+        "answer": "Happy to! {when_ask} The first step is a free 30-minute planning call: you tell me about the event, and I walk you through how I run the day.",
+        "next": "Book the planning call within 2 days."
+      }
+    },
+    "partners": {
+      "yes": {
+        "label": "They said yes",
+        "means": "They're open to it.",
+        "answer": "Thank you, that's great! I'll drop off a few cards this week. Is there a day that works best, or someone I should ask for?",
+        "next": "Drop off the cards within a week and thank them in person."
+      },
+      "price": {
+        "label": "They asked the price",
+        "means": "They want to know what their clients would pay.",
+        "answer": "My day-of coordination is {rate}, and every client starts with a free 30-minute planning call. Happy to drop off cards with the details.",
+        "next": "Say the price once, then offer the cards."
+      },
+      "later": {
+        "label": "Not right now",
+        "means": "Not now, maybe later.",
+        "answer": "No problem at all. Could I check back in a couple of months, before your busy season? Thanks for considering it.",
+        "next": "Set a reminder for 2 months out."
+      },
+      "who": {
+        "label": "Who is this?",
+        "means": "They want to know who you are first.",
+        "answer": "Sorry, I should have said! I'm {me}, a local day-of coordinator: I run the timeline and the vendors on the day, and I send the venue team my final timeline a week before. Happy to stop by and say hello.",
+        "next": "Answer plainly, then offer to stop by."
+      },
+      "covered": {
+        "label": "They have someone",
+        "means": "They already recommend a coordinator.",
+        "answer": "Good to hear your clients have someone. If you ever keep a list of local day-of coordinators, I'd be glad to be on it. Thanks!",
+        "next": "Ask once about a list, then let it go."
+      },
+      "question": {
+        "label": "They asked a question",
+        "means": "They asked something specific.",
+        "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+        "next": "Answer it in a line if you can, then offer to stop by."
+      },
+      "other": {
+        "label": "Not sure what they meant",
+        "means": "Not clear yet.",
+        "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my card with the couples and hosts you work with?",
+        "next": "Keep it short and end with one question."
+      }
+    },
+    "partner_objections": [
+      {
+        "id": "fee",
+        "label": "They asked about fees",
+        "match": "\\b(referral fees?|commissions?|kickbacks?|(vendor|marketing|listing|placement|advertising) fees?|fees? to be (on|in|listed)|charges? (vendors|coordinators|planners)|pay (you|us) (for|a)|pay to be (on|in|listed))\\b",
+        "means": "They want to know if money changes hands for referrals.",
+        "answer": "Thanks for asking. I don't pay or take referral or listing fees, so the couples and hosts I work with know my recommendations are my own. I'm glad to send your team my final timeline a week before every event I run with you.",
+        "next": "Keep it plain. If a fee ever changes hands, the client hears it from you in writing first.",
+        "check": "Only send this if it's true for you. If you do pay or take a fee, say so plainly instead.",
+        "sources": [
+          {
+            "publisher": "16 CFR 255.5 (FTC Endorsement Guides), via Cornell LII",
+            "url": "https://www.law.cornell.edu/cfr/text/16/255.5",
+            "says": "A connection between the endorser and the seller that the audience wouldn't expect must be disclosed clearly and conspicuously.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "EventPlanning.com",
+            "url": "https://eventplanning.com/how-to-charge-a-fee-for-your-event-planning-service/",
+            "says": "A vendor commission is 10 to 15 percent; critics say it can steer planners to the vendor who pays the most rather than the best one.",
+            "checked": "2026-10-19",
+            "page_date": "2026-08-05"
+          }
+        ]
+      },
+      {
+        "id": "rules",
+        "label": "They have rules",
+        "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (solicit\\w*|business cards)|preferred (vendor|vendors|list)|approved (vendor|vendors|list)|vendor list|guidelines)",
+        "means": "They have rules or a preferred list.",
+        "answer": "Thanks for explaining, and of course I'll follow your rules. How does a coordinator get on your preferred or approved list? I'm glad to send my insurance certificate and a sample timeline.",
+        "next": "Follow their rules exactly and ask how to apply.",
+        "check": "Only offer the certificate once your policy is active.",
+        "judgment": true
+      }
+    ],
+    "objections": [
+      {
+        "id": "venue",
+        "label": "The venue has a coordinator",
+        "match": "\\b(venue|venue's|hall|they) (has|have|gives|includes|comes with|provides) (a|an|their own|its own) (coordinator|planner|event manager|day-of)\\b|\\b(venue|venue's) (coordinator|manager|planner|event manager)\\b|\\bcoordinator (at|from|with) the venue\\b",
+        "means": "They think the venue's coordinator covers the day.",
+        "answer": "That's great, and they'll know the venue inside out: the outlets, the seating and the parking. They work for the venue, though. I work for you: I run your timeline and every other vendor you booked, from the first setup to the last teardown, alongside their coordinator.",
+        "next": "Offer the free planning call to walk through who does what.",
+        "sources": [
+          {
+            "publisher": "EventPlanning.com",
+            "url": "https://eventplanning.com/difference-day-of-wedding-coordinator-venue/",
+            "says": "A venue coordinator does not coordinate your wedding: they know venue-specific items like outlets, seating and parking. A day-of coordinator works for you.",
+            "checked": "2026-10-19",
+            "page_date": "2026-08-23"
+          }
+        ]
+      },
+      {
+        "id": "commission",
+        "label": "Do you take commissions?",
+        "match": "\\b(commissions?|kickbacks?|referral fees?|finder'?s fees?|paid by (the )?vendors?|vendors? pay you)\\b",
+        "means": "They want to know whose side you're on.",
+        "answer": "Fair question. I don't take commissions from vendors: I work for you. If that ever changes for a vendor I recommend, I'll tell you in writing before you book them.",
+        "next": "Answer plainly, then offer the planning call.",
+        "check": "Only send this if it's true for you. If a vendor does pay you for referrals, say so plainly instead.",
+        "sources": [
+          {
+            "publisher": "16 CFR 255.5 (FTC Endorsement Guides), via Cornell LII",
+            "url": "https://www.law.cornell.edu/cfr/text/16/255.5",
+            "says": "A connection between the endorser and the seller that the audience wouldn't expect must be disclosed clearly and conspicuously.",
+            "checked": "2026-10-19"
+          },
+          {
+            "publisher": "Thumbtack",
+            "url": "https://www.thumbtack.com/p/party-planners-cost",
+            "says": "Though rare, some planners receive financial rewards from vendors for selecting them; experts generally say a planner shouldn't take both an hourly rate and a commission.",
+            "checked": "2026-10-19",
+            "page_date": "2026-01-05"
+          },
+          {
+            "publisher": "EventPlanning.com",
+            "url": "https://eventplanning.com/how-to-charge-a-fee-for-your-event-planning-service/",
+            "says": "A vendor commission is 10 to 15 percent; critics say it can steer planners to the vendor who pays the most rather than the best one.",
+            "checked": "2026-10-19",
+            "page_date": "2026-08-05"
+          }
+        ]
+      },
+      {
+        "id": "insured",
+        "label": "Are you insured?",
+        "match": "\\b(insur\\w*|liabilit\\w*|coi|certificate of insurance|additional insured)\\b",
+        "means": "They (or their venue) want to know you carry insurance.",
+        "answer": "Good question to ask. I carry general liability insurance, and I'll send a certificate naming your venue if they ask for one.",
+        "next": "Send the certificate, then book the planning call.",
+        "check": "Only send this once your policy is active.",
+        "sources": [
+          {
+            "publisher": "Insurance Canopy",
+            "url": "https://www.insurancecanopy.com/event-insurance/event-planner/cost",
+            "says": "If a venue is waiting on your certificate of insurance (COI), you can get proof of insurance online; additional insureds and certificates don't change the policy cost.",
+            "checked": "2026-10-19",
+            "page_date": "2026-02-04"
+          },
+          {
+            "publisher": "Insureon",
+            "url": "https://www.insureon.com/professional-services-business-insurance/event-planners/cost",
+            "says": "Event planners pay an average of $29 per month for general liability ($1 million per occurrence, $2 million aggregate).",
+            "checked": "2026-10-19",
+            "page_date": "2025-04-18"
+          }
+        ]
+      },
+      {
+        "id": "cost",
+        "label": "Too much for our event",
+        "match": "\\b(too (expensive|much|pricey)|cheaper|lower (price|rate)|(out of|over) (our|my|the) budget|(tight|small|limited) budget|on a budget|(can'?t|cannot|only) afford|discount|small (party|event|wedding))\\b",
+        "means": "The price is more than they planned for.",
+        "answer": "That's fair. Two ways to make it fit: party coordination for a shorter day, up to 6 hours, or planning help by the hour, so you can run the day yourself with a clear timeline.",
+        "next": "Hold your price. Offer the shorter day or the hourly help.",
+        "sources": [
+          {
+            "publisher": "GreatEvent",
+            "url": "https://www.greatevent.com/how-much-do-birthday-party-planners-charge/",
+            "says": "Day-of coordination for a birthday runs $500 to $1,500; partial or consulting planning $25 to $200 an hour, often with 2 to 4 hour minimums.",
+            "checked": "2026-10-19",
+            "page_date": "2026-10-15"
+          }
+        ]
+      },
+      {
+        "id": "just_day",
+        "label": "Why pay for one day?",
+        "match": "\\b(just|only) (one|1|a|the) day\\b|\\bfor (one|a single) day\\b|\\bit'?s (just )?one day\\b",
+        "means": "They think the work is only the day itself.",
+        "answer": "Fair question. The work starts 4 to 6 weeks before: I collect every vendor contract, call each vendor, walk the venue with you and build the timeline. You get the final timeline a week before, and on the day I'm there from the first setup to the last teardown.",
+        "next": "Walk them through the weeks before, then offer the planning call.",
+        "sources": [
+          {
+            "publisher": "Zola",
+            "url": "https://www.zola.com/expert-advice/how-much-do-wedding-coordinators-cost",
+            "says": "Day-of coordinators start working with couples about 4 to 6 weeks before the wedding to meet the vendors and build the timelines.",
+            "checked": "2026-10-19",
+            "page_date": "2026-02-19"
+          },
+          {
+            "publisher": "EventPlanning.com",
+            "url": "https://eventplanning.com/how-to-charge-a-fee-for-your-event-planning-service/",
+            "says": "Assume 8 to 10 hours of work on the day plus 10 to 20 hours of preparation.",
+            "checked": "2026-10-19",
+            "page_date": "2026-08-05"
+          }
+        ]
+      },
+      {
+        "id": "rain",
+        "label": "What if it rains?",
+        "match": "\\b(rain|rains|raining|rainy|weather|storms?|forecast)\\b",
+        "means": "They're worried about the weather.",
+        "answer": "Good question. I can't control the weather, but I can plan for it: we write a rain plan with your venue, I put it in the timeline, and I confirm it with every vendor in the last week.",
+        "next": "Ask what the venue's rain plan is, and write it into the timeline.",
+        "judgment": true
+      }
+    ]
+  },
+  "quote": {
+    "who_title": "Which client",
+    "for_title": null,
+    "title": "Event coordination",
+    "default": "dayof",
+    "packages": [
+      {
+        "id": "dayof",
+        "label": "Day-of coordination, on-site from setup to teardown",
+        "detail": "Up to 12 hours on the day, plus vendor calls, a venue walk-through and the final timeline a week before",
+        "qty": 1,
+        "pick": "Day-of coordination"
+      },
+      {
+        "id": "party",
+        "label": "Party coordination, up to 6 hours",
+        "detail": "Birthdays, showers and engagement parties: setup, the program and teardown",
+        "qty": 1,
+        "factor": 0.5,
+        "pick": "Party coordination"
+      },
+      {
+        "id": "partial",
+        "label": "Partial planning",
+        "detail": "Help choosing the vendors still to book, then day-of coordination",
+        "qty": 1,
+        "factor": 2.5,
+        "pick": "Partial planning"
+      },
+      {
+        "id": "hours",
+        "label": "Planning help, block of 4 hours",
+        "short": "Block of 4 hours",
+        "detail": "Vendor lists, a timeline review or a planning session, by phone or in person",
+        "qty": 4,
+        "factor": 0.0625,
+        "unit": "hour",
+        "pick": "Block of 4 planning hours"
+      }
+    ],
+    "extra": {
+      "title": "Add the rehearsal",
+      "label": "Rehearsal coordination",
+      "detail": "Up to 2 hours the day before, so everyone knows their cue",
+      "factor": 0.125,
+      "qty": 1
+    },
+    "notes": [
+      "A signed agreement and a deposit hold your date. The balance is due two weeks before the event.",
+      "You get the final timeline a week before, and I'm on site from the first vendor's setup to the last teardown. If I miss either one, I refund my fee."
+    ],
+    "pay_when": "When they book"
+  },
+  "win": {
+    "tool": "log_booking",
+    "title": "Log the booking",
+    "description": "A client signed: logs the win in your Pipeline, writes the booking message, what you need from them and the day-before reminder, and a printable planning checklist from signing to event week.",
+    "who_title": "Client's name",
+    "who_word": "client",
+    "for_title": null,
+    "for_default": "",
+    "when_title": "Event date",
+    "where": null,
+    "booking": "Hi {greet}, you're booked! I'll be there {when}, from the first vendor's setup to the last teardown. It's {deal}. You'll get the draft timeline about three weeks before and the final timeline a week before.{pay}",
+    "prep": "To get started, could you send me every vendor's contract and contact (name, phone and arrival time if you have it), your venue's rules on setup, end time and insurance, and the guest count so far? I'll take it from there.",
+    "reminder": "Hi {greet}, see you {when}! I'll arrive before the first vendor, with the final timeline and every vendor's number. Reply here if anything changes.",
+    "founding": "Founding client: after the event, ask {greet} for honest feedback you may quote as a founding client, and ask before you post any photo from the day (and ask the photographer before using theirs). Never ask for a review in exchange.",
+    "file_word": "planning checklist",
+    "checklist_title": "Planning checklist for {for_title}",
+    "checklist": {
+      "At signing": [
+        "Signed agreement and deposit in hand before you hold the date.",
+        "Collect every vendor contract and contact: name, phone, email and what they deliver.",
+        "Ask the venue for its rules: setup start, end time, insurance certificate, candles and tents.",
+        "Get the guest count, the start time and the rain plan, if any part is outside."
+      ],
+      "Four to six weeks out": [
+        "Call or meet each vendor: arrival time, setup needs, power and parking.",
+        "Walk the venue with the client: where each vendor sets up, loads in and parks.",
+        "Send the venue your insurance certificate if they ask for one."
+      ],
+      "Two to four weeks out": [
+        "Build the timeline with Day-of timeline and send the draft to the client for comments.",
+        "Reconfirm every vendor's arrival time, scope and contact.",
+        "Pack the day-of kit: tape, scissors, safety pins, chargers, pens and a first aid kit."
+      ],
+      "Event week": [
+        "Send the final timeline, vendor contact sheet and day-of checklist a week before.",
+        "A confirmation call or text to every vendor.",
+        "Final guest count to the caterer.",
+        "The day before: send the final version to every vendor and helper, and print 3 copies."
+      ]
+    },
+    "sources": [
+      {
+        "publisher": "EventPlanning.com",
+        "url": "https://eventplanning.com/event-planning-checklist/",
+        "says": "2 to 4 weeks out: reconfirm every vendor's arrival time, scope and contact and build the day-of kit. Event week: a confirmation call or text to every vendor, the final guest count to catering, print the run of show and the contact sheet.",
+        "checked": "2026-10-19",
+        "page_date": "2026-08-05"
+      },
+      {
+        "publisher": "Zola",
+        "url": "https://www.zola.com/expert-advice/how-much-do-wedding-coordinators-cost",
+        "says": "Day-of coordinators start about 4 to 6 weeks before the wedding to learn the plans, meet the vendors and create detailed timelines.",
+        "checked": "2026-10-19",
+        "page_date": "2026-02-19"
+      }
+    ]
+  },
+  "story": {
+    "who_title": "Client's name",
+    "for_title": null,
+    "for_example": "",
+    "what_example": "day-of coordination for a backyard 40th birthday for 60 guests",
+    "result_example": "the caterer and the DJ knew their times, and Sam spent the evening with his guests instead of on the phone",
+    "quote_example": "I didn't check my phone once all night.",
+    "anon": "A client in {area}",
+    "named": "{greet}, a client in {area}",
+    "photo": true,
+    "consent": "Hi {greet}! Would you be okay with me sharing a short story about your event? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer. {photo_line}It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+    "photo_line": "I'd like to use a photo from the day too, only if you're happy with that and the photographer okays it. ",
+    "review": "If you have a minute, would you leave an honest review about working with me? It helps other couples and hosts decide. No pressure either way, and nothing changes whether you do or not.",
+    "caption": "A short story from a client, shared with their permission. {story_line} If you have an event coming up, {reach}",
+    "disclosure": {
+      "founding": "{who} paid a founding price.",
+      "free": "{who}'s coordination was free."
+    },
+    "rules": [
+      "Only what the client agreed to in writing, and a photo only with their okay and the photographer's.",
+      "Only numbers they gave you.",
+      "Nothing in exchange for a story or a review."
+    ]
+  },
+  "ready": {
+    "audience": "Couples and party hosts nearby",
+    "group": "general",
+    "format": "flyer",
+    "print": true,
+    "headline": "Day-of event coordination in {area}",
+    "sub": "You plan it. I run the day: the timeline and every vendor, from the first setup to the last teardown.",
+    "bullets": [
+      "A free 30-minute planning call first",
+      "The final timeline a week before",
+      "On site from the first setup to the last teardown"
+    ],
+    "offer": "Free 30-minute planning call",
+    "cta": "Book a free planning call",
+    "tagline": "Day-of coordination for weddings and parties, with the final timeline a week before.",
+    "design": "local-service",
+    "site": {
+      "steps": [
+        {
+          "title": "A free planning call",
+          "body": "Thirty minutes about your event and what's booked so far."
+        },
+        {
+          "title": "Book your date",
+          "body": "A signed agreement and a deposit hold it. Then I collect every vendor contract and contact, and we walk the venue."
+        },
+        {
+          "title": "The final timeline",
+          "body": "You get it a week before, and I confirm every vendor that week."
+        },
+        {
+          "title": "The day",
+          "body": "I arrive before the first vendor and stay until the last one leaves."
+        }
+      ],
+      "faq": [
+        {
+          "q": "When do you start working on my event?",
+          "a": "About 4 to 6 weeks before: I collect every vendor contract and contact, walk the venue with you and build the timeline. You get the final timeline a week before."
+        },
+        {
+          "q": "How long are you there on the day?",
+          "a": "From the first vendor's setup to the last teardown, up to 12 hours. Extra hours are billed at my hourly planning rate."
+        },
+        {
+          "q": "Do you book the vendors?",
+          "a": "You sign each vendor's contract and pay them directly. I coordinate them from the last weeks through the last teardown."
+        },
+        {
+          "q": "How do I book?",
+          "a": "Start with a free 30-minute planning call. A signed agreement and a deposit hold your date."
+        }
+      ],
+      "cta_title": "Have an event coming up?",
+      "cta_sub": "Start with a free 30-minute planning call."
+    }
+  },
+  "timeline": {
+    "about": "What the Day-of timeline tool builds from. Wedding order and lengths: Zola's sample reception timeline; wedding vendor arrivals: Zola's sample weekend timeline (vendors not in it are our judgment); party, shower and work event programs: our judgment on EventPlanning.com's run of show method. Every default arrival is printed with (confirm). Parties and showers get a shorter breakdown (45 minutes) and a 90-minute setup lead when no vendor is listed.",
+    "coordinator_lead": 30,
+    "no_vendor_lead": 120,
+    "latest_arrival": 60,
+    "breakdown": 60,
+    "walkthrough": 15,
+    "kinds": {
+      "Wedding": "wedding",
+      "Birthday or party": "party",
+      "Shower or engagement party": "party",
+      "Work event": "event"
+    },
+    "hours": {
+      "Wedding": 12,
+      "Birthday or party": 6,
+      "Shower or engagement party": 6,
+      "Work event": 12
+    },
+    "wedding": {
+      "ceremony": 30,
+      "guests_before": 30,
+      "before": [
+        {
+          "at": -180,
+          "what": "Wedding party gets dressed",
+          "who": [
+            "Couple and wedding party"
+          ]
+        },
+        {
+          "at": -150,
+          "what": "First look photos",
+          "who": [
+            "photo"
+          ],
+          "if": "first_look"
+        },
+        {
+          "at": -90,
+          "what": "Wedding party and family photos",
+          "who": [
+            "photo"
+          ],
+          "if": "first_look"
+        },
+        {
+          "at": -90,
+          "what": "Wedding party photos, the couple apart with their own side",
+          "who": [
+            "photo"
+          ],
+          "if": "no_first_look"
+        },
+        {
+          "at": -45,
+          "what": "Photos of the setup before guests arrive",
+          "who": [
+            "you",
+            "photo"
+          ]
+        },
+        {
+          "at": -30,
+          "what": "Guests arrive and find their seats",
+          "who": [
+            "Ushers"
+          ],
+          "fixed": true
+        },
+        {
+          "at": -10,
+          "what": "Line up the processional",
+          "who": [
+            "you"
+          ]
+        }
+      ],
+      "ceremony_row": {
+        "what": "Ceremony",
+        "who": [
+          "officiant",
+          "musicians"
+        ]
+      },
+      "reception": [
+        {
+          "what": "Cocktail hour",
+          "minutes": 60,
+          "who": [
+            "caterer",
+            "bar"
+          ],
+          "no_first_look": "Couple and family photos during cocktail hour"
+        },
+        {
+          "what": "Newlyweds' entrance",
+          "minutes": 5,
+          "who": [
+            "dj",
+            "you"
+          ]
+        },
+        {
+          "what": "First dance",
+          "minutes": 5,
+          "who": [
+            "dj"
+          ]
+        },
+        {
+          "what": "Welcome toast",
+          "minutes": 10,
+          "who": [
+            "Host"
+          ]
+        },
+        {
+          "what": "Dinner",
+          "minutes": 40,
+          "who": [
+            "caterer"
+          ],
+          "flex": 2,
+          "min": 30
+        },
+        {
+          "what": "Toasts",
+          "minutes": 30,
+          "who": [
+            "dj",
+            "you"
+          ]
+        },
+        {
+          "what": "Parent dances",
+          "minutes": 15,
+          "who": [
+            "dj"
+          ]
+        },
+        {
+          "what": "Dancing",
+          "minutes": 60,
+          "who": [
+            "dj"
+          ],
+          "flex": 1,
+          "min": 15
+        },
+        {
+          "what": "Cake cutting",
+          "minutes": 15,
+          "who": [
+            "cake",
+            "photo"
+          ]
+        },
+        {
+          "what": "Bouquet and garter toss",
+          "minutes": 15,
+          "who": [
+            "dj",
+            "photo"
+          ]
+        },
+        {
+          "what": "Last song",
+          "minutes": 5,
+          "who": [
+            "dj"
+          ]
+        },
+        {
+          "what": "Private last dance",
+          "minutes": 5,
+          "who": [
+            "photo"
+          ]
+        },
+        {
+          "what": "Send-off",
+          "minutes": 5,
+          "who": [
+            "you"
+          ],
+          "fixed": true
+        }
+      ]
+    },
+    "programs": {
+      "Birthday or party": {
+        "minutes": 180,
+        "lead": 90,
+        "before": [
+          {
+            "at": -20,
+            "what": "Photos of the setup before guests arrive",
+            "who": [
+              "you",
+              "photo"
+            ]
+          },
+          {
+            "at": -10,
+            "what": "Last check: food, music and the entrance ready",
+            "who": [
+              "you"
+            ]
+          }
+        ],
+        "rows": [
+          {
+            "what": "Doors open: guests arrive, drinks and snacks",
+            "minutes": 45,
+            "who": [
+              "bar",
+              "Host"
+            ],
+            "fixed": true
+          },
+          {
+            "what": "Food served",
+            "minutes": 45,
+            "who": [
+              "caterer"
+            ]
+          },
+          {
+            "what": "Toast or a few words",
+            "minutes": 15,
+            "who": [
+              "Host",
+              "dj"
+            ]
+          },
+          {
+            "what": "Cake and candles",
+            "minutes": 15,
+            "who": [
+              "cake",
+              "photo"
+            ]
+          },
+          {
+            "what": "Music, games or dancing",
+            "minutes": 45,
+            "who": [
+              "dj"
+            ],
+            "flex": 1,
+            "min": 15
+          },
+          {
+            "what": "Thank-yous and goodbyes",
+            "minutes": 15,
+            "who": [
+              "Host",
+              "you"
+            ],
+            "fixed": true
+          }
+        ],
+        "after": [
+          {
+            "after": 0,
+            "minutes": 45,
+            "what": "Vendor breakdown and load-out",
+            "who": [
+              "Every vendor",
+              "you"
+            ]
+          },
+          {
+            "after": 45,
+            "minutes": 15,
+            "what": "Final walkthrough with the venue",
+            "who": [
+              "venue",
+              "you"
+            ]
+          },
+          {
+            "after": 60,
+            "what": "Coordinator leaves once the last vendor is out",
+            "who": [
+              "you"
+            ]
+          }
+        ]
+      },
+      "Shower or engagement party": {
+        "minutes": 180,
+        "lead": 90,
+        "before": [
+          {
+            "at": -20,
+            "what": "Photos of the setup before guests arrive",
+            "who": [
+              "you",
+              "photo"
+            ]
+          },
+          {
+            "at": -10,
+            "what": "Last check: food, music and the entrance ready",
+            "who": [
+              "you"
+            ]
+          }
+        ],
+        "rows": [
+          {
+            "what": "Doors open: guests arrive and mingle",
+            "minutes": 30,
+            "who": [
+              "Host"
+            ],
+            "fixed": true
+          },
+          {
+            "what": "Food served",
+            "minutes": 45,
+            "who": [
+              "caterer"
+            ]
+          },
+          {
+            "what": "Toasts, games or gift opening",
+            "minutes": 60,
+            "who": [
+              "Host",
+              "you"
+            ],
+            "flex": 1,
+            "min": 15
+          },
+          {
+            "what": "Cake or dessert",
+            "minutes": 20,
+            "who": [
+              "cake",
+              "photo"
+            ]
+          },
+          {
+            "what": "Thank-yous and favors",
+            "minutes": 25,
+            "who": [
+              "Host",
+              "you"
+            ],
+            "fixed": true
+          }
+        ],
+        "after": [
+          {
+            "after": 0,
+            "minutes": 45,
+            "what": "Vendor breakdown and load-out",
+            "who": [
+              "Every vendor",
+              "you"
+            ]
+          },
+          {
+            "after": 45,
+            "minutes": 15,
+            "what": "Final walkthrough with the venue",
+            "who": [
+              "venue",
+              "you"
+            ]
+          },
+          {
+            "after": 60,
+            "what": "Coordinator leaves once the last vendor is out",
+            "who": [
+              "you"
+            ]
+          }
+        ]
+      },
+      "Work event": {
+        "minutes": 240,
+        "before": [
+          {
+            "at": -20,
+            "what": "Photos of the setup before guests arrive",
+            "who": [
+              "you",
+              "photo"
+            ]
+          },
+          {
+            "at": -10,
+            "what": "Last check: check-in table, mic and slides ready",
+            "who": [
+              "you"
+            ]
+          }
+        ],
+        "rows": [
+          {
+            "what": "Check-in and welcome drinks",
+            "minutes": 30,
+            "who": [
+              "you",
+              "bar"
+            ],
+            "fixed": true
+          },
+          {
+            "what": "Welcome from the host",
+            "minutes": 10,
+            "who": [
+              "Host"
+            ]
+          },
+          {
+            "what": "Program, talks or activity",
+            "minutes": 60,
+            "who": [
+              "Host",
+              "dj"
+            ],
+            "flex": 1,
+            "min": 15
+          },
+          {
+            "what": "Meal",
+            "minutes": 60,
+            "who": [
+              "caterer"
+            ]
+          },
+          {
+            "what": "Awards, toasts or closing remarks",
+            "minutes": 20,
+            "who": [
+              "Host"
+            ]
+          },
+          {
+            "what": "Music and mingling",
+            "minutes": 45,
+            "who": [
+              "dj"
+            ]
+          },
+          {
+            "what": "Last call and goodbyes",
+            "minutes": 15,
+            "who": [
+              "bar",
+              "you"
+            ],
+            "fixed": true
+          }
+        ]
+      }
+    },
+    "after": [
+      {
+        "after": 0,
+        "minutes": 60,
+        "what": "Vendor breakdown and load-out",
+        "who": [
+          "Every vendor",
+          "you"
+        ]
+      },
+      {
+        "after": 60,
+        "minutes": 15,
+        "what": "Final walkthrough with the venue",
+        "who": [
+          "venue",
+          "you"
+        ]
+      },
+      {
+        "after": 75,
+        "what": "Coordinator leaves once the last vendor is out",
+        "who": [
+          "you"
+        ]
+      }
+    ],
+    "roles": [
+      {
+        "id": "booth",
+        "label": "Photo booth",
+        "words": "photo ?booths?|booth",
+        "match": "photo ?booth|\\bbooth",
+        "wedding": -60,
+        "party": -60,
+        "setup": true,
+        "reception": true
+      },
+      {
+        "id": "beauty",
+        "label": "Hair and makeup",
+        "words": "hair|make-?up|hair (and|&) make-?up|beauty|hmu|stylists?|mua",
+        "match": "\\bhair\\b|make-?up|beauty|stylist|\\bmua\\b|\\bhmu\\b",
+        "wedding": -420,
+        "party": -150,
+        "offsite": true
+      },
+      {
+        "id": "photo",
+        "label": "Photographer",
+        "words": "photographers?|photography|photos?",
+        "match": "photo",
+        "wedding": -240,
+        "party": -30
+      },
+      {
+        "id": "video",
+        "label": "Videographer",
+        "words": "videographers?|videography|video|film|filmmaker",
+        "match": "video|\\bfilms?\\b",
+        "wedding": -240,
+        "party": -30
+      },
+      {
+        "id": "cake",
+        "label": "Cake and desserts",
+        "words": "cakes?|bakery|bakers?|desserts?|sweets",
+        "match": "cake|bak(e|er|ery)|dessert|pastr|sweets|cupcake|cookie|donut",
+        "wedding": -180,
+        "party": -60,
+        "setup": true,
+        "reception": true
+      },
+      {
+        "id": "florist",
+        "label": "Florist",
+        "words": "florists?|flowers|floral|florals|floral design",
+        "match": "flor|flower|bloom|bouquet|petal",
+        "wedding": -300,
+        "party": -90,
+        "setup": true
+      },
+      {
+        "id": "caterer",
+        "label": "Caterer",
+        "words": "caterers?|catering|food|food trucks?|chef",
+        "match": "cater|\\bfood\\b|\\bchef\\b|kitchen|\\btruck\\b|\\bbbq\\b|\\bgrill\\b",
+        "wedding": -300,
+        "party": -90,
+        "setup": true
+      },
+      {
+        "id": "rentals",
+        "label": "Rentals",
+        "words": "rentals?|tents?|tables and chairs|chairs|linens",
+        "match": "rental|\\btents?\\b|\\bchairs?\\b|\\btables?\\b|\\blinens?\\b|lounge|dance floor",
+        "wedding": -360,
+        "party": -120,
+        "setup": true
+      },
+      {
+        "id": "bar",
+        "label": "Bar",
+        "words": "bar|bartenders?|bartending|bar service|drinks|beverages",
+        "match": "\\bbar\\b|bartend|beverage|\\bdrinks\\b|mixolog",
+        "wedding": -120,
+        "party": -60,
+        "setup": true,
+        "reception": true
+      },
+      {
+        "id": "officiant",
+        "label": "Officiant",
+        "words": "officiant|minister|pastor|priest|rabbi|imam|celebrant|reverend|judge",
+        "match": "officiant|minister|pastor|priest|rabbi|\\bimam\\b|celebrant|reverend|\\bjudge\\b",
+        "wedding": -60,
+        "party": -30
+      },
+      {
+        "id": "musicians",
+        "label": "Musicians",
+        "words": "musicians?|ceremony music|strings|string quartet|quartet|harpist|violinist|cellist|pianist|singer|soloist|choir",
+        "match": "musician|string|quartet|\\bharp|violin|cello|pianist|singer|choir|ensemble|guitar|soloist",
+        "wedding": -60,
+        "party": -60,
+        "setup": true
+      },
+      {
+        "id": "dj",
+        "label": "DJ or band",
+        "words": "dj|band|dj or band|music|entertainment|emcee|mc",
+        "match": "\\bdj\\b|\\bband\\b|music|entertain|emcee|\\bmc\\b|\\bsound\\b",
+        "wedding": 0,
+        "party": -60,
+        "setup": true,
+        "reception": true
+      },
+      {
+        "id": "decor",
+        "label": "Decor and lighting",
+        "words": "decor|decorator|lighting|lights|draping|balloons|av|audio visual|signage",
+        "match": "decor|lighting|\\blights?\\b|drap|balloon|\\bav\\b|audio.?visual|signage",
+        "wedding": -300,
+        "party": -90,
+        "setup": true
+      },
+      {
+        "id": "transport",
+        "label": "Transportation",
+        "words": "transportation|transport|shuttle|limo|limousine|bus|car service|driver|trolley|valet",
+        "match": "transport|shuttle|limo|\\bbus\\b|car service|driver|trolley|valet",
+        "wedding": -120,
+        "party": -30,
+        "offsite": true
+      },
+      {
+        "id": "venue",
+        "label": "Venue contact",
+        "words": "venue|venue contact|venue manager|location",
+        "match": "venue|\\bhall\\b|\\bbarn\\b|ballroom|estate|manor|winery|vineyard|church|chapel|banquet|event space|\\bloft\\b",
+        "venue": true
+      },
+      {
+        "id": "other",
+        "label": "Other vendor",
+        "words": "",
+        "match": "",
+        "wedding": -120,
+        "party": -60,
+        "setup": true
+      }
+    ],
+    "day_of": {
+      "Before you leave": [
+        "Print 3 copies of the timeline and the vendor contact sheet.",
+        "Charge your phone and a backup battery.",
+        "Pack the day-of kit: tape, scissors, safety pins, chargers, pens and a first aid kit.",
+        "Bring the vendor contracts and the venue's rules."
+      ],
+      "On arrival": [
+        "Walk the space against the timeline before the first vendor arrives.",
+        "Check in every vendor as they arrive: where they set up, load in and park.",
+        "Take photos of the setup before guests arrive."
+      ],
+      "During the event": [
+        "Run the day from the timeline, one owner per cue.",
+        "Give the DJ or band each cue before it happens.",
+        "Watch the flex row: it stretches or shrinks, the fixed times don't."
+      ],
+      "Teardown": [
+        "Watch each vendor load out and check nothing is left behind.",
+        "Gather the client's personal items, cards and gifts in one place.",
+        "Final walkthrough with the venue contact."
+      ],
+      "After the event": [
+        "Thank the client and every vendor.",
+        "Write down what ran early or late, for next time.",
+        "Send the honest review ask from Reviews and referrals."
+      ]
+    },
+    "countdown": [
+      {
+        "days": -21,
+        "title": "Send the draft timeline",
+        "description": "Send {client} the draft timeline for comments, and reconfirm every vendor's arrival time, scope and contact."
+      },
+      {
+        "days": -14,
+        "title": "Check the balance",
+        "description": "If your agreement puts the balance two weeks before, check it's paid."
+      },
+      {
+        "days": -7,
+        "title": "Send the final timeline",
+        "description": "Send {client} the final timeline, the vendor contact sheet and the day-of checklist, and send each vendor their message with the timeline."
+      },
+      {
+        "days": -3,
+        "title": "Confirm every vendor",
+        "description": "A confirmation call or text to every vendor, and the final guest count to the caterer."
+      },
+      {
+        "days": -1,
+        "title": "Day before",
+        "description": "Send the final version to every vendor and helper, print 3 copies, and pack the day-of kit."
+      },
+      {
+        "days": 0,
+        "title": "Event day",
+        "description": "Arrive first, at {arrive}. Walk the space against the timeline and check in every vendor."
+      }
+    ],
+    "sources": [
+      {
+        "publisher": "Zola",
+        "url": "https://www.zola.com/expert-advice/wedding-reception-timeline",
+        "says": "A sample reception in order: drinks and bites, the newlyweds' entrance, first dance, welcome toast, dinner, speeches, parent dances, party time, cake, bouquet and garter toss, last song, private dance and send-off, over about four hours; adjust dancing and dinner to fit.",
+        "checked": "2026-10-19",
+        "page_date": "2024-02-05"
+      },
+      {
+        "publisher": "Zola",
+        "url": "https://www.zola.com/expert-advice/ultimate-wedding-weekend-timeline",
+        "says": "For a 5pm ceremony: beauty team at 9am, vendors at the venue for setup at 10am, photographer at 1pm, first look at 2:30pm, wedding party photos at 3:30pm, ceremony musicians and guests at 4:30pm, DJ or band at 5pm, vendor breakdown complete an hour after the exit.",
+        "checked": "2026-10-19",
+        "page_date": "2024-02-05"
+      },
+      {
+        "publisher": "EventPlanning.com",
+        "url": "https://eventplanning.com/run-of-show-template/",
+        "says": "Work backward from the fixed points, add buffers on purpose, one activity per row with one owner, and every vendor and helper gets a copy the day before.",
+        "checked": "2026-10-19",
+        "page_date": "2026-08-04"
+      },
+      {
+        "publisher": "EventPlanning.com",
+        "url": "https://eventplanning.com/event-planning-checklist/",
+        "says": "Event day: arrive first, check in every vendor, run the day from the run of show, photograph the setup before guests arrive, then teardown, load-out and a venue walkthrough.",
+        "checked": "2026-10-19",
+        "page_date": "2026-08-05"
+      }
+    ]
+  }
+}

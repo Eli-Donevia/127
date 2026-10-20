@@ -1,0 +1,2471 @@
+{
+ "checked": "2026-10-19",
+ "about": "Our own recipe set for the week menu tool: 4 servings each, scaled to the household. Times are our estimates. Tags mark the 9 major allergens (FDA), gluten (wheat, barley, rye) and animal foods for the diets a client names. Optional ingredients are left out when a client avoids them. Brands differ: the member reads every package label.",
+ "servings": 4,
+ "sections": [
+  {
+   "id": "produce",
+   "label": "Produce"
+  },
+  {
+   "id": "meat",
+   "label": "Meat and seafood"
+  },
+  {
+   "id": "dairy",
+   "label": "Dairy, eggs and tofu"
+  },
+  {
+   "id": "bakery",
+   "label": "Bakery and tortillas"
+  },
+  {
+   "id": "pantry",
+   "label": "Pantry"
+  },
+  {
+   "id": "spices",
+   "label": "Spices and seasonings"
+  },
+  {
+   "id": "frozen",
+   "label": "Frozen"
+  }
+ ],
+ "reheat": {
+  "stir": "Stove or microwave, stirring, until steaming and 165°F.",
+  "plate": "Microwave covered, turning halfway, until the middle is 165°F.",
+  "casserole": "Covered, in the oven or microwave, until the center is 165°F.",
+  "cold": "Serve cold from the fridge. No reheating."
+ },
+ "recipes": [
+  {
+   "id": "lemon-chicken",
+   "name": "Lemon herb chicken with roasted potatoes and green beans",
+   "protein": "chicken",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 20,
+   "cook_min": 40,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken thighs",
+     "qty": 2,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Yellow potatoes",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Green beans",
+     "qty": 1,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Lemon",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 4,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 3,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Dried oregano",
+     "qty": 2,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chicken-curry",
+   "name": "Chicken tikka-style curry with rice",
+   "protein": "chicken",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 20,
+   "cook_min": 35,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken thighs",
+     "qty": 2,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Plain whole-milk yogurt",
+     "qty": 1,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Crushed tomatoes",
+     "qty": 1,
+     "unit": "can (28 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 4,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Fresh ginger",
+     "qty": 1,
+     "unit": "piece",
+     "section": "produce"
+    },
+    {
+     "item": "Garam masala",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 2,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Cilantro",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    },
+    {
+     "item": "Vegetable oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "turkey-chili",
+   "name": "Turkey and bean chili",
+   "protein": "turkey",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 45,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Ground turkey",
+     "qty": 1.25,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Canned kidney beans",
+     "qty": 2,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Crushed tomatoes",
+     "qty": 1,
+     "unit": "can (28 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Bell peppers",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Chili powder",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 2,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Low-sodium chicken broth",
+     "qty": 1,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Olive oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chicken-enchiladas",
+   "name": "Chicken enchilada bake with corn tortillas",
+   "protein": "chicken",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 25,
+   "cook_min": 30,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "casserole",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken breasts",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Corn tortillas",
+     "qty": 12,
+     "unit": "each",
+     "section": "bakery"
+    },
+    {
+     "item": "Red enchilada sauce",
+     "qty": 2,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Shredded Monterey Jack",
+     "qty": 2,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Canned black beans",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Cilantro",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    }
+   ]
+  },
+  {
+   "id": "teriyaki-chicken",
+   "name": "Teriyaki chicken with broccoli and rice",
+   "protein": "chicken",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "stovetop",
+   "prep_min": 20,
+   "cook_min": 25,
+   "passive": false,
+   "cook_to": "poultry",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken thighs",
+     "qty": 2,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Soy sauce",
+     "qty": 8,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "soy",
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Honey",
+     "qty": 3,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "honey"
+     ]
+    },
+    {
+     "item": "Rice vinegar",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Fresh ginger",
+     "qty": 1,
+     "unit": "piece",
+     "section": "produce"
+    },
+    {
+     "item": "Cornstarch",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Broccoli",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Sesame seeds",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "spices",
+     "tags": [
+      "sesame"
+     ],
+     "optional": true
+    },
+    {
+     "item": "Vegetable oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "turkey-meatballs",
+   "name": "Turkey meatballs in marinara with roasted zucchini",
+   "protein": "turkey",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 25,
+   "cook_min": 30,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Ground turkey",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Large eggs",
+     "qty": 1,
+     "unit": "each",
+     "section": "dairy",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Plain breadcrumbs",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Grated parmesan",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Marinara sauce",
+     "qty": 1,
+     "unit": "jar (24 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Zucchini",
+     "qty": 3,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 2,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Dried oregano",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chicken-rice-soup",
+   "name": "Chicken and wild rice soup",
+   "protein": "chicken",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 50,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken breasts",
+     "qty": 1.25,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Wild rice blend",
+     "qty": 1,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Carrots",
+     "qty": 3,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Celery",
+     "qty": 3,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Low-sodium chicken broth",
+     "qty": 8,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Dried thyme",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Olive oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chicken-fajitas",
+   "name": "Sheet pan chicken fajitas with flour tortillas",
+   "protein": "chicken",
+   "store": "poultry_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 15,
+   "cook_min": 25,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "plate",
+   "pack": "Pack the tortillas separately.",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken breasts",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Bell peppers",
+     "qty": 3,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Red onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Lime",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Chili powder",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Flour tortillas",
+     "qty": 8,
+     "unit": "each",
+     "section": "bakery",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Salsa",
+     "qty": 1,
+     "unit": "jar (16 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chicken-salad-wraps",
+   "name": "Chicken salad lettuce wraps",
+   "protein": "chicken",
+   "store": "salad",
+   "freezes": false,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 20,
+   "passive": true,
+   "cook_to": "poultry",
+   "reheat": "cold",
+   "pack": "Pack the lettuce separately.",
+   "ingredients": [
+    {
+     "item": "Boneless skinless chicken breasts",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Mayonnaise",
+     "qty": 8,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Celery",
+     "qty": 2,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Red grapes",
+     "qty": 1,
+     "unit": "cup",
+     "section": "produce"
+    },
+    {
+     "item": "Romaine lettuce",
+     "qty": 2,
+     "unit": "head",
+     "section": "produce"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Dijon mustard",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "beef-stew",
+   "name": "Beef and vegetable stew",
+   "protein": "beef",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 25,
+   "cook_min": 120,
+   "passive": true,
+   "cook_to": "whole",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Beef chuck stew meat",
+     "qty": 2,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Carrots",
+     "qty": 4,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow potatoes",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Celery",
+     "qty": 2,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Tomato paste",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Low-sodium beef broth",
+     "qty": 4,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Cornstarch",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Dried thyme",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Bay leaves",
+     "qty": 2,
+     "unit": "each",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "meatloaf",
+   "name": "Meatloaf with mashed potatoes and peas",
+   "protein": "beef",
+   "store": "meat_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 25,
+   "cook_min": 60,
+   "passive": true,
+   "cook_to": "ground",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Ground beef",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Large eggs",
+     "qty": 1,
+     "unit": "each",
+     "section": "dairy",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Plain breadcrumbs",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Ketchup",
+     "qty": 8,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Russet potatoes",
+     "qty": 2,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Butter",
+     "qty": 3,
+     "unit": "tbsp",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Milk",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Frozen peas",
+     "qty": 2,
+     "unit": "cup",
+     "section": "frozen"
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "beef-broccoli",
+   "name": "Beef and broccoli with rice",
+   "protein": "beef",
+   "store": "meat_dish",
+   "freezes": true,
+   "method": "stovetop",
+   "prep_min": 20,
+   "cook_min": 20,
+   "passive": false,
+   "cook_to": "whole",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Flank steak",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Broccoli",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Soy sauce",
+     "qty": 5,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "soy",
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Brown sugar",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Fresh ginger",
+     "qty": 1,
+     "unit": "piece",
+     "section": "produce"
+    },
+    {
+     "item": "Cornstarch",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Toasted sesame oil",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "pantry",
+     "tags": [
+      "sesame"
+     ],
+     "optional": true
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Vegetable oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "pork-carnitas",
+   "name": "Pork carnitas tacos with corn tortillas",
+   "protein": "pork",
+   "store": "meat_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 20,
+   "cook_min": 180,
+   "passive": true,
+   "cook_to": "whole",
+   "reheat": "plate",
+   "pack": "Pack the tortillas and cabbage separately.",
+   "ingredients": [
+    {
+     "item": "Boneless pork shoulder",
+     "qty": 2.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "pork"
+     ]
+    },
+    {
+     "item": "Orange",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Lime",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 4,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 2,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Dried oregano",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Corn tortillas",
+     "qty": 12,
+     "unit": "each",
+     "section": "bakery"
+    },
+    {
+     "item": "Green cabbage",
+     "qty": 0.5,
+     "unit": "head",
+     "section": "produce"
+    },
+    {
+     "item": "Salsa",
+     "qty": 1,
+     "unit": "jar (16 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Cilantro",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "sausage-bean-soup",
+   "name": "Sausage, white bean and kale soup",
+   "protein": "pork",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 35,
+   "passive": true,
+   "cook_to": "ground",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Italian pork sausage",
+     "qty": 1,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "pork"
+     ]
+    },
+    {
+     "item": "Canned cannellini beans",
+     "qty": 2,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Kale",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Carrots",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Diced tomatoes",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Low-sodium chicken broth",
+     "qty": 6,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "poultry"
+     ]
+    },
+    {
+     "item": "Olive oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "shepherds-pie",
+   "name": "Shepherd's pie with beef and vegetables",
+   "protein": "beef",
+   "store": "meat_dish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 30,
+   "cook_min": 35,
+   "passive": true,
+   "cook_to": "ground",
+   "reheat": "casserole",
+   "ingredients": [
+    {
+     "item": "Ground beef",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Russet potatoes",
+     "qty": 2,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Butter",
+     "qty": 3,
+     "unit": "tbsp",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Milk",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Frozen mixed vegetables",
+     "qty": 1,
+     "unit": "lb",
+     "section": "frozen"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Tomato paste",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Low-sodium beef broth",
+     "qty": 1,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Cornstarch",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Dried thyme",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "salmon-rice",
+   "name": "Baked salmon with herb rice and roasted carrots",
+   "protein": "fish",
+   "store": "fish",
+   "freezes": true,
+   "method": "oven",
+   "prep_min": 15,
+   "cook_min": 25,
+   "passive": true,
+   "cook_to": "fish",
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Salmon fillets",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "fish"
+     ]
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Carrots",
+     "qty": 6,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Fresh dill",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    },
+    {
+     "item": "Garlic",
+     "qty": 2,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "cod-stew",
+   "name": "Cod and white bean stew with tomatoes and spinach",
+   "protein": "fish",
+   "store": "fish",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 25,
+   "passive": true,
+   "cook_to": "fish",
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Cod fillets",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "fish"
+     ]
+    },
+    {
+     "item": "Canned cannellini beans",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Crushed tomatoes",
+     "qty": 1,
+     "unit": "can (28 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Smoked paprika",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "tuna-pasta-salad",
+   "name": "Tuna pasta salad with peas and celery",
+   "protein": "fish",
+   "store": "salad",
+   "freezes": false,
+   "method": "stovetop",
+   "prep_min": 15,
+   "cook_min": 15,
+   "passive": false,
+   "cook_to": null,
+   "reheat": "cold",
+   "ingredients": [
+    {
+     "item": "Canned tuna",
+     "qty": 3,
+     "unit": "can (5 oz)",
+     "section": "pantry",
+     "tags": [
+      "fish"
+     ]
+    },
+    {
+     "item": "Short pasta",
+     "qty": 12,
+     "unit": "oz",
+     "section": "pantry",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Mayonnaise",
+     "qty": 8,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Frozen peas",
+     "qty": 1,
+     "unit": "cup",
+     "section": "frozen"
+    },
+    {
+     "item": "Celery",
+     "qty": 2,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Dijon mustard",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "bean-chili",
+   "name": "Black bean and sweet potato chili",
+   "protein": "beans",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 20,
+   "cook_min": 40,
+   "passive": true,
+   "cook_to": null,
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Canned black beans",
+     "qty": 2,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Sweet potatoes",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Crushed tomatoes",
+     "qty": 1,
+     "unit": "can (28 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Bell peppers",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Chili powder",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 2,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Smoked paprika",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Low-sodium vegetable broth",
+     "qty": 2,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Lime",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "lentil-curry",
+   "name": "Red lentil curry with spinach and rice",
+   "protein": "lentils",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 30,
+   "passive": true,
+   "cook_to": null,
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Red lentils",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Diced tomatoes",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 4,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Fresh ginger",
+     "qty": 1,
+     "unit": "piece",
+     "section": "produce"
+    },
+    {
+     "item": "Curry powder",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Low-sodium vegetable broth",
+     "qty": 4,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Vegetable oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "veg-lasagna",
+   "name": "Vegetable lasagna",
+   "protein": "cheese",
+   "store": "leftovers",
+   "freezes": false,
+   "method": "oven",
+   "prep_min": 30,
+   "cook_min": 50,
+   "passive": true,
+   "cook_to": "casserole",
+   "reheat": "casserole",
+   "ingredients": [
+    {
+     "item": "Lasagna noodles",
+     "qty": 12,
+     "unit": "each",
+     "section": "pantry",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Ricotta",
+     "qty": 15,
+     "unit": "oz",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Shredded mozzarella",
+     "qty": 2,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Grated parmesan",
+     "qty": 0.5,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Large eggs",
+     "qty": 1,
+     "unit": "each",
+     "section": "dairy",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Marinara sauce",
+     "qty": 1,
+     "unit": "jar (24 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Zucchini",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 2,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Dried oregano",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "chickpea-stew",
+   "name": "Chickpea, tomato and spinach stew with rice",
+   "protein": "beans",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 30,
+   "passive": true,
+   "cook_to": null,
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Canned chickpeas",
+     "qty": 2,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Crushed tomatoes",
+     "qty": 1,
+     "unit": "can (28 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 4,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Smoked paprika",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Low-sodium vegetable broth",
+     "qty": 2,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Lemon",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "minestrone",
+   "name": "Minestrone soup",
+   "protein": "beans",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 20,
+   "cook_min": 35,
+   "passive": true,
+   "cook_to": null,
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Small pasta",
+     "qty": 1,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Canned kidney beans",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Diced tomatoes",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Carrots",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Celery",
+     "qty": 2,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Zucchini",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Low-sodium vegetable broth",
+     "qty": 6,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Dried oregano",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "peanut-noodles",
+   "name": "Tofu and vegetable peanut noodles",
+   "protein": "tofu",
+   "store": "leftovers",
+   "freezes": false,
+   "method": "stovetop",
+   "prep_min": 25,
+   "cook_min": 20,
+   "passive": false,
+   "cook_to": null,
+   "reheat": "plate",
+   "ingredients": [
+    {
+     "item": "Extra-firm tofu",
+     "qty": 14,
+     "unit": "oz",
+     "section": "dairy",
+     "tags": [
+      "soy"
+     ]
+    },
+    {
+     "item": "Rice noodles",
+     "qty": 8,
+     "unit": "oz",
+     "section": "pantry"
+    },
+    {
+     "item": "Creamy peanut butter",
+     "qty": 5,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "peanuts"
+     ]
+    },
+    {
+     "item": "Soy sauce",
+     "qty": 4,
+     "unit": "tbsp",
+     "section": "pantry",
+     "tags": [
+      "soy",
+      "wheat",
+      "gluten"
+     ]
+    },
+    {
+     "item": "Lime",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Bell peppers",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Carrots",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Green onions",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    },
+    {
+     "item": "Garlic",
+     "qty": 2,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Brown sugar",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Vegetable oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "bean-enchiladas",
+   "name": "Black bean and corn enchiladas",
+   "protein": "beans",
+   "store": "leftovers",
+   "freezes": false,
+   "method": "oven",
+   "prep_min": 25,
+   "cook_min": 25,
+   "passive": true,
+   "cook_to": "casserole",
+   "reheat": "casserole",
+   "ingredients": [
+    {
+     "item": "Corn tortillas",
+     "qty": 12,
+     "unit": "each",
+     "section": "bakery"
+    },
+    {
+     "item": "Canned black beans",
+     "qty": 2,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Frozen corn",
+     "qty": 1,
+     "unit": "cup",
+     "section": "frozen"
+    },
+    {
+     "item": "Red enchilada sauce",
+     "qty": 2,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Shredded Monterey Jack",
+     "qty": 2,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Cilantro",
+     "qty": 1,
+     "unit": "bunch",
+     "section": "produce",
+     "optional": true
+    }
+   ]
+  },
+  {
+   "id": "frittata",
+   "name": "Spinach, potato and cheddar frittata with salad",
+   "protein": "eggs",
+   "store": "leftovers",
+   "freezes": false,
+   "method": "oven",
+   "prep_min": 20,
+   "cook_min": 30,
+   "passive": true,
+   "cook_to": "eggs",
+   "reheat": "plate",
+   "pack": "Pack the salad separately.",
+   "ingredients": [
+    {
+     "item": "Large eggs",
+     "qty": 10,
+     "unit": "each",
+     "section": "dairy",
+     "tags": [
+      "eggs"
+     ]
+    },
+    {
+     "item": "Milk",
+     "qty": 0.25,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Shredded cheddar",
+     "qty": 1,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ]
+    },
+    {
+     "item": "Yellow potatoes",
+     "qty": 1,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Baby spinach",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Mixed salad greens",
+     "qty": 5,
+     "unit": "oz",
+     "section": "produce"
+    },
+    {
+     "item": "Cherry tomatoes",
+     "qty": 1,
+     "unit": "pint",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "mushroom-barley",
+   "name": "Mushroom and barley soup",
+   "protein": "mushrooms",
+   "store": "soup_stew",
+   "freezes": true,
+   "method": "simmer",
+   "prep_min": 15,
+   "cook_min": 50,
+   "passive": true,
+   "cook_to": null,
+   "reheat": "stir",
+   "ingredients": [
+    {
+     "item": "Cremini mushrooms",
+     "qty": 1,
+     "unit": "lb",
+     "section": "produce"
+    },
+    {
+     "item": "Pearl barley",
+     "qty": 1,
+     "unit": "cup",
+     "section": "pantry",
+     "tags": [
+      "gluten"
+     ]
+    },
+    {
+     "item": "Carrots",
+     "qty": 2,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Celery",
+     "qty": 2,
+     "unit": "stalk",
+     "section": "produce"
+    },
+    {
+     "item": "Yellow onion",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Garlic",
+     "qty": 3,
+     "unit": "clove",
+     "section": "produce"
+    },
+    {
+     "item": "Tomato paste",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry"
+    },
+    {
+     "item": "Low-sodium vegetable broth",
+     "qty": 8,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Dried thyme",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices",
+     "staple": true
+    },
+    {
+     "item": "Olive oil",
+     "qty": 2,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  },
+  {
+   "id": "taco-bowls",
+   "name": "Beef taco bowls with rice and black beans",
+   "protein": "beef",
+   "store": "meat_dish",
+   "freezes": true,
+   "method": "stovetop",
+   "prep_min": 15,
+   "cook_min": 25,
+   "passive": false,
+   "cook_to": "ground",
+   "reheat": "plate",
+   "pack": "Add the lettuce and cheese when you serve.",
+   "ingredients": [
+    {
+     "item": "Ground beef",
+     "qty": 1.5,
+     "unit": "lb",
+     "section": "meat",
+     "tags": [
+      "beef"
+     ]
+    },
+    {
+     "item": "Long-grain white rice",
+     "qty": 1.5,
+     "unit": "cup",
+     "section": "pantry"
+    },
+    {
+     "item": "Canned black beans",
+     "qty": 1,
+     "unit": "can (15 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Chili powder",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "spices"
+    },
+    {
+     "item": "Ground cumin",
+     "qty": 1,
+     "unit": "tsp",
+     "section": "spices"
+    },
+    {
+     "item": "Salsa",
+     "qty": 1,
+     "unit": "jar (16 oz)",
+     "section": "pantry"
+    },
+    {
+     "item": "Romaine lettuce",
+     "qty": 1,
+     "unit": "head",
+     "section": "produce"
+    },
+    {
+     "item": "Shredded cheddar",
+     "qty": 1,
+     "unit": "cup",
+     "section": "dairy",
+     "tags": [
+      "milk"
+     ],
+     "optional": true
+    },
+    {
+     "item": "Lime",
+     "qty": 1,
+     "unit": "each",
+     "section": "produce"
+    },
+    {
+     "item": "Olive oil",
+     "qty": 1,
+     "unit": "tbsp",
+     "section": "pantry",
+     "staple": true
+    },
+    {
+     "item": "Salt and black pepper",
+     "qty": null,
+     "unit": "to taste",
+     "section": "spices",
+     "staple": true
+    }
+   ]
+  }
+ ]
+}

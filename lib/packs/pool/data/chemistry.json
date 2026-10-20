@@ -1,0 +1,74 @@
+{
+  "checked": "2026-10-19",
+  "about": "The only ranges the visit log checks readings against, read from CDC's Healthy Swimming page for home pools and hot tubs. The log never works out a dose: it says what CDC says and points to the product label. Total alkalinity, calcium hardness, salt, temperature and bromine have no range on that page, so they are logged without a flag.",
+  "pool": {
+    "free_chlorine_min": 1,
+    "free_chlorine_min_cya": 2
+  },
+  "hot_tub": {
+    "free_chlorine_min": 3,
+    "cyanuric_acid": false
+  },
+  "ph": {
+    "low": 7.0,
+    "high": 7.8,
+    "weak_above": 8.0
+  },
+  "dpd_bleach_above": 10,
+  "tests_per_day": 2,
+  "safety": [
+    "Read and follow the directions on each product's label.",
+    "Never mix pool chemicals with each other, especially chlorine products with acid.",
+    "Add pool chemical to water, never water to pool chemical.",
+    "Wear the safety gear the label calls for, such as goggles and a mask.",
+    "Store chemicals dry, apart from each other, in their original labeled containers, below 95 F, away from heat, flames, fuel and mowers, and out of reach of children and animals."
+  ],
+  "between_visits": "CDC asks home pool and hot tub owners to test chlorine and pH at least twice a day, and more often when a lot of people are in the water.",
+  "sources": [
+    {
+      "id": "ranges",
+      "publisher": "CDC Healthy Swimming",
+      "title": "Home Pool and Hot Tub Water Treatment and Testing",
+      "url": "https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html",
+      "says": "CDC recommends pH 7.0 to 7.8 and a chlorine concentration of at least 1 ppm in pools and at least 3 ppm in hot tubs; at least 2 ppm in pools that use cyanuric acid or chlorine products with cyanuric acid; and not using cyanuric acid or chlorine products with it in hot tubs. As pH goes up, chlorine kills germs less well, especially above 8.0; as pH goes down, especially below 7.0, pool and hot tub pipes are more likely to corrode or break down. Test chlorine and pH at least twice per day, more often when a number of people use it. A DPD test kit is the most accurate; test strips are less accurate. Above 10 ppm a DPD test might bleach out and read falsely low or 0. Always follow the manufacturer's directions.",
+      "page_date": "2024-05-10",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "tips",
+      "publisher": "CDC press release",
+      "title": "Pool chemical injuries (May 15, 2014)",
+      "url": "https://archive.cdc.gov/www_cdc_gov/media/releases/2014/p0515-chemical-injuries.html",
+      "says": "Read and follow directions on product labels. Wear appropriate safety equipment, such as goggles and masks, as directed. Secure pool chemicals to protect people and animals. Keep young children away when handling chemicals. NEVER mix different pool chemicals with each other, especially chlorine products with acid. Pre-dissolve pool chemicals ONLY when directed by product label. Add pool chemical to water, NEVER water to pool chemicals. Nearly 5,000 emergency department visits in 2012.",
+      "page_date": "2014-05-15",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "tips_2019",
+      "publisher": "CDC press release",
+      "title": "Pool chemical injuries (May 16, 2019)",
+      "url": "https://archive.cdc.gov/www_cdc_gov/media/releases/2019/p0515-pool-chemical-injuries.html",
+      "says": "Read and follow directions on pool chemical product labels; wear safety equipment, such as respirators or goggles; keep pool chemicals out of reach of children, teens and animals (including pets); never mix different pool chemicals with each other; if you operate a public pool, complete the operator training that includes pool chemical safety. About 4,535 emergency department visits a year for pool chemical injuries, 2008 to 2017.",
+      "page_date": "2019-05-16",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "storage",
+      "publisher": "CDC Healthy Swimming",
+      "title": "Pool Chemical Safety",
+      "url": "https://www.cdc.gov/healthy-swimming/toolkit/pool-chemical-safety.html",
+      "says": "Store pool chemicals below 95 F (35 C) and in conditions recommended by the manufacturer; store each pool chemical separately and incompatible chemicals away from each other; protect stored chemicals from getting wet; store chemicals in original, manufacturer-labeled containers; protect them from heat sources and flames; keep food and drinks away; ventilate the storage area; secure the storage area to limit access, especially to children and animals.",
+      "page_date": "2025-06-24",
+      "checked": "2026-10-19"
+    },
+    {
+      "id": "epa",
+      "publisher": "US EPA",
+      "title": "Chemical Safety Alert: Safe Storage and Handling of Swimming Pool Chemicals (EPA 550-F-01-003)",
+      "url": "https://www.epa.gov/rmp/chemical-safety-alert-safe-storage-and-handling-swimming-pool-chemicals",
+      "says": "Pool chemicals are incompatible with each other: mixing can generate heat that ignites nearby materials and release toxic chlorine gas. Keep chemicals dry; separate incompatible substances; do not mix old chemicals with fresh ones, even of the same type; handle one chemical at a time with its own tools; keep gasoline, oil, paint solvents and gas-powered equipment such as lawn mowers away from the storage area; no smoking there; check the maker's safety instructions and safety data sheets for protective equipment. Alert dated March 2001; page last updated October 16, 2026.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+    }
+  ]
+}

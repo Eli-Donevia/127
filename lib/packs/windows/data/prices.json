@@ -1,0 +1,883 @@
+{
+ "checked": "2026-10-19",
+ "sources": [
+  "https://startcosts.com/window-cleaning",
+  "https://www.fixr.com/costs/window-cleaning",
+  "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+  "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+  "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+  "https://www.thumbtack.com/p/window-cleaning-prices"
+ ],
+ "unit": "job",
+ "minimum": 100,
+ "minimum_basis": "Judgment call inside the sourced ranges: Housecall Pro puts minimum service charges at $75 to $250 to cover travel, setup and admin on small jobs, StartCosts says to add a $25 to $50 minimum for travel and small jobs, and Fixr says most cleaners charge at least one hour ($40 to $75 an hour). Storefront route stops carry no trip minimum: Jobber puts a small storefront at $25 to $75 a visit.",
+ "minimum_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+   "says": "A minimum service charge of $75 to $250 covers travel, setup and admin time on smaller jobs; even a quick exterior cleaning still includes drive time and scheduling.",
+   "page_date": "2026-10-19",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "StartCosts",
+   "url": "https://startcosts.com/window-cleaning",
+   "says": "Charge more for ladder work (2nd+ story); add a $25 to $50 minimum for travel and small jobs; offer a 10% discount for recurring service.",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Fixr",
+   "url": "https://www.fixr.com/costs/window-cleaning",
+   "says": "Hourly $40 to $75; it typically takes about four hours to clean an average house; most cleaners charge a minimum of one hour, and an average-sized house takes about 3 hours.",
+   "page_date": "2025-08-29",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Jobber",
+   "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+   "says": "Storefront flat rate $25 to $75 per visit for small retail stores and restaurants; a small retail storefront may pay $30 to $50 per weekly visit; small storefront minimum $25 to $75.",
+   "page_date": "2026-05-20",
+   "checked": "2026-10-19"
+  }
+ ],
+ "base": "Prices are for a one-story house with about 20 standard windows, cleaned inside and out. Per-window and per-pane rates are for one floor, inside and out; the floors factor scales the house prices and the rates, and the sides factor prices outside only or inside only.",
+ "minutes_basis": "Judgment call checked against Fixr: an average house takes about 3 to 4 hours. Standard windows are 2 panes at about 4 minutes a pane, inside and out.",
+ "minutes_sources": [
+  {
+   "publisher": "Fixr",
+   "url": "https://www.fixr.com/costs/window-cleaning",
+   "says": "Hourly $40 to $75; it typically takes about four hours to clean an average house; most cleaners charge a minimum of one hour, and an average-sized house takes about 3 hours.",
+   "page_date": "2025-08-29",
+   "checked": "2026-10-19"
+  }
+ ],
+ "packages": [
+  {
+   "id": "whole_house",
+   "label": "Window cleaning, inside and out",
+   "unit": "house",
+   "range": [
+    150,
+    387
+   ],
+   "minutes": 180,
+   "includes": [
+    "Glass inside and out",
+    "Frames and sills wiped dry",
+    "Screens taken down and wiped"
+   ],
+   "basis": "Lowest low and highest high of the national ranges for a whole house cleaned inside and out: HomeAdvisor $150 to $302 (average $221), Housecall Pro most jobs $150 to $302, Thumbtack national average $184 to $387. Fixr and Jobber put a house with 22 double-hung windows and full screens at $190 to $460 (average $310); Housecall Pro's own example is 22 windows at a $280 base.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Professional window cleaning $150 to $302, average $221 or about $10 per window; a single windowpane $4 to $15, average $10 for a standard two-pane window; EPA: the average home has 22 windows.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Window cleaners typically charge $8 to $16 per standard residential window inside and out ($4 to $8 exterior only), or $4 to $8 per pane; most jobs $150 to $302 per visit, national average $221.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "National average $184 to $387, most people pay about $266; low end $106, high end $685; 1 to 5 windows $99 to $194, 6 to 10 $127 to $249, 11 to 15 $168 to $330, 16 to 20 $187 to $368.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Window cleaning $190 to $460, average $310 for a house with 22 standard double-hung windows and full screens; most cleaners charge a flat $8 to $16 per window; tracks and sills are typically included and screens are extra ($0.50 to $5, solar screens up to $10).",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "The average cost for window cleaning on a house with 22 standard double-hung windows is $310, ranging from $190 to $460.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Example: a medium two-story home with 22 windows of mixed pane styles, interior and exterior, base price $280 plus track detailing at 22 windows x $3.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Removing screens and wiping them down is usually standard practice, but confirm it's included; expect to pay $1 or more per window to have the tracks cleaned; hard water stains may cost extra.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "outside_house",
+   "label": "Window cleaning, outside only",
+   "unit": "house",
+   "range": [
+    80,
+    200
+   ],
+   "minutes": 90,
+   "includes": [
+    "Outside glass on every window",
+    "Frames and sills wiped",
+    "Screens wiped and put back"
+   ],
+   "basis": "Jobber: a small home with 10 to 20 windows is $80 to $200 outside only, and inside and out is 1.5x to 2x that. Housecall Pro: outside only costs about half of a full clean, $4 to $8 a window. Thumbtack: one company's promotion was $90 to $100 for the outside of 25 windows.",
+   "sources": [
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Small home, 10 to 20 windows: $80 to $200 exterior only, $160 to $350 interior and exterior; interior and exterior cleaning is 1.5x to 2x the exterior-only price; interior cleaning often increases the total price by 50 to 100%.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Many customers book exterior-only service first, which costs about half as much as a full interior and exterior clean; interior cleaning is most common as a seasonal add-on, spring or pre-holiday.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Window cleaners typically charge $8 to $16 per standard residential window inside and out ($4 to $8 exterior only), or $4 to $8 per pane; most jobs $150 to $302 per visit, national average $221.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "One company's promotion: $90 to $100 to clean the outside of 25 windows at one location in a single visit.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Exterior washing $6.40 to $12.80 and interior $1.60 to $3.20 per window; exterior is usually about 80% of the in-and-out price; it is rare to have interior-only washing.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "storefront",
+   "label": "Storefront glass visit",
+   "unit": "visit",
+   "range": [
+    25,
+    75
+   ],
+   "minutes": 30,
+   "includes": [
+    "Front glass and door inside and out",
+    "Frames and sills wiped",
+    "Same day and time each visit"
+   ],
+   "basis": "Jobber: storefront flat rate $25 to $75 a visit for small retail stores and restaurants, $30 to $50 a weekly visit for a small retail storefront. StartCosts: storefronts $2 to $5 a window on weekly or every-two-weeks contracts. Housecall Pro's example: 12 storefront windows at $10 a window, $120 a visit.",
+   "sources": [
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Storefront flat rate $25 to $75 per visit for small retail stores and restaurants; a small retail storefront may pay $30 to $50 per weekly visit; small storefront minimum $25 to $75.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Residential customers typically need service 2 to 4 times per year; commercial storefronts are $2 to $5 per window on weekly or every-two-weeks contracts.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Commercial per window (storefront or building windows) $6 to $20; storefront example: monthly exterior cleaning of 12 windows at $10 a window, $120 per visit.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Flat-rate packages work well for recurring work like storefronts; a weekly storefront route is quick; many window cleaners offer recurring storefront plans with a set number of visits per week or month.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "window",
+   "label": "Standard windows",
+   "unit": "window",
+   "rate": true,
+   "range": [
+    8,
+    16
+   ],
+   "minutes_per_unit": 8,
+   "factors": [
+    "stories",
+    "sides"
+   ],
+   "basis": "Per standard window (2 panes), inside and out, on one floor: Housecall Pro $8 to $16 ($4 to $8 a pane), Fixr a flat $8 to $16 a window (double-hung $8 to $16), HomeAdvisor about $10 a window, StartCosts standard tier $6 to $10. Thumbtack quotes a company at $8 for a double-hung window.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Window cleaners typically charge $8 to $16 per standard residential window inside and out ($4 to $8 exterior only), or $4 to $8 per pane; most jobs $150 to $302 per visit, national average $221.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Window cleaning $190 to $460, average $310 for a house with 22 standard double-hung windows and full screens; most cleaners charge a flat $8 to $16 per window; tracks and sills are typically included and screens are extra ($0.50 to $5, solar screens up to $10).",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Per unit: sliding $8 to $10, single-hung and double-hung $8 to $16, casement $15 to $30, skylights $25 to $35, storm $30 to $40; per pane $4 to $8, and some cleaners charge per small pane, $1 to $3.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Professional window cleaning $150 to $302, average $221 or about $10 per window; a single windowpane $4 to $15, average $10 for a standard two-pane window; EPA: the average home has 22 windows.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Per window in and out: budget $4 to $6, standard $6 to $10, premium $10 to $15; average home of 20 to 30 windows $120 to $180, $180 to $280, $280 to $400; French panes $1 to $2, $2 to $3, $3 to $4 per pane; storefront $1 to $2, $2 to $4, $4 to $6 per window; screens $2 to $3, $3 to $5, $5 to $8 each.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "A Salt Lake City company charges $4 per window ($1 inside, $3 outside); double-hung (equal to two windows) $8 per window; multi-pane $4 per pane; a Dallas company charges $6 to $7 for regular windows and $9 to $11 for a French window or door.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "small_pane",
+   "label": "French or divided panes",
+   "unit": "pane",
+   "rate": true,
+   "range": [
+    1,
+    4
+   ],
+   "minutes_per_unit": 2,
+   "factors": [
+    "stories",
+    "sides"
+   ],
+   "basis": "Per small pane in French windows and doors or divided-light windows: Fixr $1 to $3 a small pane, StartCosts French panes $1 to $4 a pane across its tiers, Jobber French pane detailing $1 to $3 extra a pane. Housecall Pro: per-pane pricing fits French panes, divided-light windows and older homes.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Per unit: sliding $8 to $10, single-hung and double-hung $8 to $16, casement $15 to $30, skylights $25 to $35, storm $30 to $40; per pane $4 to $8, and some cleaners charge per small pane, $1 to $3.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Per window in and out: budget $4 to $6, standard $6 to $10, premium $10 to $15; average home of 20 to 30 windows $120 to $180, $180 to $280, $280 to $400; French panes $1 to $2, $2 to $3, $3 to $4 per pane; storefront $1 to $2, $2 to $4, $4 to $6 per window; screens $2 to $3, $3 to $5, $5 to $8 each.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Per-pane pricing is more precise for French panes, divided-light windows and older homes; example: 12 windows with 2 panes each (24 panes total) at $6 a pane.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "picture",
+   "label": "Large picture windows",
+   "unit": "window",
+   "rate": true,
+   "range": [
+    10,
+    25
+   ],
+   "minutes_per_unit": 10,
+   "factors": [
+    "stories",
+    "sides"
+   ],
+   "basis": "Housecall Pro: large picture window $10 to $25 a window. HomeAdvisor: large single-pane picture window $12.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Per window, large picture window $10 to $25; bay or bow window $15 to $30.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Casement $7 per pane; large single-pane picture $12 per window; skylight $12 per window; standard picture $5 per pane; storm $7 per pane; tri-fold bay $28 per window.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "stories",
+   "label": "Floors",
+   "default": "s1",
+   "packages": [
+    "whole_house",
+    "outside_house",
+    "window",
+    "small_pane",
+    "picture"
+   ],
+   "basis": "Judgment call. Upper floors take ladder or pole work: Fixr says windows on the third and fourth floors cost $3 to $5 more, Housecall Pro adds a flat fee or a percentage for second-story ladder work, and Jobber says to charge more for every floor past the first. These multipliers spread each floor's extra over the whole house (the window count estimate prices second-floor windows 20% higher and third-floor windows 40% higher) and are ours.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Windows on the third and fourth floors cost $3 to $5 more to clean than ones on lower floors, because cleaners use ladders or lifts.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Second-story access: add a flat fee or percentage increase for ladder-heavy work; second-story work, ladder use, roof access or lifts increase labor time and risk; high-rise or specialty access $15 to $40 per window above three stories.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Charge more for every floor past the first, or if you're spending extra time to set up safely; anything above the second floor is a hazard and a hassle.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Third- or fourth-story windows may cost more than average; pros charge $45 to $75 per hour.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Charge more for ladder work (2nd+ story); add a $25 to $50 minimum for travel and small jobs; offer a 10% discount for recurring service.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "s1",
+     "label": "One story",
+     "short": "One story",
+     "mult": 1
+    },
+    {
+     "id": "s2",
+     "label": "Two stories",
+     "short": "Two stories",
+     "mult": 1.1,
+     "minutes": 20
+    },
+    {
+     "id": "s3",
+     "label": "Three stories",
+     "short": "Three stories",
+     "mult": 1.2,
+     "minutes": 40
+    }
+   ]
+  },
+  {
+   "id": "sides",
+   "label": "Sides",
+   "default": "both",
+   "packages": [
+    "window",
+    "small_pane",
+    "picture"
+   ],
+   "basis": "Judgment call. Fixr: exterior is usually about 80% of the inside-and-out price and inside-only washing is rare. Housecall Pro: outside only costs about half. Jobber: inside and out is 1.5x to 2x the outside-only price. Outside only is 60% here, between those; inside only is the other 40%.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Exterior washing $6.40 to $12.80 and interior $1.60 to $3.20 per window; exterior is usually about 80% of the in-and-out price; it is rare to have interior-only washing.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Many customers book exterior-only service first, which costs about half as much as a full interior and exterior clean; interior cleaning is most common as a seasonal add-on, spring or pre-holiday.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Small home, 10 to 20 windows: $80 to $200 exterior only, $160 to $350 interior and exterior; interior and exterior cleaning is 1.5x to 2x the exterior-only price; interior cleaning often increases the total price by 50 to 100%.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "A Salt Lake City company charges $4 per window ($1 inside, $3 outside); double-hung (equal to two windows) $8 per window; multi-pane $4 per pane; a Dallas company charges $6 to $7 for regular windows and $9 to $11 for a French window or door.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "both",
+     "label": "Inside and out",
+     "mult": 1
+    },
+    {
+     "id": "out",
+     "label": "Outside only",
+     "mult": 0.6
+    },
+    {
+     "id": "in",
+     "label": "Inside only",
+     "mult": 0.4
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "screens",
+   "label": "Screen washing",
+   "range": [
+    2,
+    5
+   ],
+   "minutes": 2,
+   "unit": "screen",
+   "basis": "Housecall Pro: screen cleaning $2 to $5 a screen. StartCosts: $2 to $8 across its tiers. Jobber: 50 cents to $8 by size and dirt. Fixr: $0.50 to $5. Taking screens down and wiping them comes with a whole-house cleaning (Thumbtack: usually standard practice); this is a full wash.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Per window in and out: budget $4 to $6, standard $6 to $10, premium $10 to $15; average home of 20 to 30 windows $120 to $180, $180 to $280, $280 to $400; French panes $1 to $2, $2 to $3, $3 to $4 per pane; storefront $1 to $2, $2 to $4, $4 to $6 per window; screens $2 to $3, $3 to $5, $5 to $8 each.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Window cleaning $190 to $460, average $310 for a house with 22 standard double-hung windows and full screens; most cleaners charge a flat $8 to $16 per window; tracks and sills are typically included and screens are extra ($0.50 to $5, solar screens up to $10).",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Removing screens and wiping them down is usually standard practice, but confirm it's included; expect to pay $1 or more per window to have the tracks cleaned; hard water stains may cost extra.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "tracks",
+   "label": "Track detailing",
+   "range": [
+    2,
+    5
+   ],
+   "minutes": 3,
+   "unit": "window",
+   "basis": "Housecall Pro: track detailing $2 to $5 a window. Jobber: tracks and sills $2 to $4, track detailing $3 to $6. Thumbtack: $1 or more a window. HomeAdvisor: tracks and sills $1 a window.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Removing screens and wiping them down is usually standard practice, but confirm it's included; expect to pay $1 or more per window to have the tracks cleaned; hard water stains may cost extra.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Add-ons: inside and outside $5 per window; tracks and sills $1 per window; screens $5 per screen; solar screens $10; calcium and lime deposit removal $15 per pane.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "hard_water",
+   "label": "Hard water spot removal",
+   "range": [
+    10,
+    30
+   ],
+   "minutes": 5,
+   "unit": "window",
+   "basis": "Housecall Pro and Jobber: hard water stain removal $10 to $30 a window. Fixr: $10 to $30 a unit. HomeAdvisor: calcium and lime deposit removal $15 a pane.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Some cleaners charge $10 to $30 per unit to remove hard water (calcium or lime) stains; residential washing in winter is rare.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Add-ons: inside and outside $5 per window; tracks and sills $1 per window; screens $5 per screen; solar screens $10; calcium and lime deposit removal $15 per pane.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "skylight",
+   "label": "Skylights",
+   "range": [
+    20,
+    35
+   ],
+   "minutes": 20,
+   "unit": "skylight",
+   "basis": "Housecall Pro: skylights $20 to $30 each. Fixr and Jobber: $25 to $35. HomeAdvisor lists $12 a skylight, under the others.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Per unit: sliding $8 to $10, single-hung and double-hung $8 to $16, casement $15 to $30, skylights $25 to $35, storm $30 to $40; per pane $4 to $8, and some cleaners charge per small pane, $1 to $3.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Casement $7 per pane; large single-pane picture $12 per window; skylight $12 per window; standard picture $5 per pane; storm $7 per pane; tri-fold bay $28 per window.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "twice",
+   "label": "Every 6 months plan",
+   "every": "6 months",
+   "discount": 0.1,
+   "packages": [
+    "whole_house",
+    "outside_house",
+    "window",
+    "small_pane",
+    "picture"
+   ]
+  },
+  {
+   "id": "quarterly",
+   "label": "Every 3 months plan",
+   "every": "3 months",
+   "discount": 0.15,
+   "packages": [
+    "whole_house",
+    "outside_house",
+    "window",
+    "small_pane",
+    "picture"
+   ]
+  },
+  {
+   "id": "monthly_store",
+   "label": "Route every month",
+   "every": "month",
+   "discount": 0,
+   "packages": [
+    "storefront"
+   ]
+  },
+  {
+   "id": "biweekly_store",
+   "label": "Route every 2 weeks",
+   "every": "2 weeks",
+   "discount": 0.1,
+   "packages": [
+    "storefront"
+   ]
+  }
+ ],
+ "plans_basis": "Judgment call inside the sourced ranges. Housecall Pro: recurring discounts typically run 10% to 20% off the single-visit rate, monthly, quarterly or semiannual. Jobber: quarterly service 10% to 15% off, monthly storefront or residential service 15% to 25% off. StartCosts: offer a 10% discount for recurring service. HomeAdvisor says windows should be cleaned twice a year; StartCosts says homes need it 2 to 4 times a year.",
+ "plans_sources": [
+  {
+   "publisher": "Housecall Pro",
+   "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+   "says": "Recurring discounts typically range from 10% to 20% off the single-visit rate, whether the plan is monthly, quarterly or semiannual.",
+   "page_date": "2026-10-19",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Jobber",
+   "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+   "says": "Quarterly service 10% to 15% discount; monthly storefront or residential service 15% to 25% discount.",
+   "page_date": "2026-05-20",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "StartCosts",
+   "url": "https://startcosts.com/window-cleaning",
+   "says": "Charge more for ladder work (2nd+ story); add a $25 to $50 minimum for travel and small jobs; offer a 10% discount for recurring service.",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "HomeAdvisor",
+   "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+   "says": "Windows should be cleaned twice per year; avoid sunny days, since sunlight dries the solution too quickly and leaves streaks.",
+   "page_date": "2026-06-19",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "StartCosts",
+   "url": "https://startcosts.com/window-cleaning",
+   "says": "Residential customers typically need service 2 to 4 times per year; commercial storefronts are $2 to $5 per window on weekly or every-two-weeks contracts.",
+   "checked": "2026-10-19"
+  }
+ ],
+ "estimate": {
+  "types": [
+   {
+    "id": "standard",
+    "label": "Standard windows",
+    "rate": "window",
+    "unit": "window",
+    "panes": 2,
+    "pane_minutes": 4,
+    "floors": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "id": "picture",
+    "label": "Large picture windows",
+    "rate": "picture",
+    "unit": "window",
+    "panes": 1,
+    "pane_minutes": 10,
+    "floors": [
+     1,
+     2
+    ]
+   },
+   {
+    "id": "french",
+    "label": "French or divided panes",
+    "rate": "small_pane",
+    "unit": "pane",
+    "panes": 1,
+    "pane_minutes": 2,
+    "floors": [
+     1,
+     2
+    ]
+   },
+   {
+    "id": "skylight",
+    "label": "Skylights",
+    "addon": "skylight",
+    "unit": "skylight",
+    "panes": 1,
+    "pane_minutes": 20
+   }
+  ],
+  "floors": [
+   {
+    "floor": 1,
+    "label": "First floor",
+    "price": 1,
+    "time": 1,
+    "gear": "Squeegee, scrubber, towels and a step ladder for inside"
+   },
+   {
+    "floor": 2,
+    "label": "Second floor",
+    "price": 1.2,
+    "time": 1.5,
+    "gear": "Extension ladder with leg levelers and a stand-off, or an extension pole from the ground"
+   },
+   {
+    "floor": 3,
+    "label": "Third floor",
+    "price": 1.4,
+    "time": 2,
+    "gear": "A water-fed pole from the ground, or clean from inside; leave out what you could only reach from a tall ladder"
+   }
+  ],
+  "floors_basis": "Judgment call. A second-floor window is priced 20% higher and a third-floor window 40% higher (on a $12 window, $2.40 and $4.80 more, inside Fixr's $3 to $5 more for third and fourth floors). Ladder work takes 1.5 times as long on the second floor and twice as long on the third.",
+  "floors_sources": [
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/window-cleaning",
+    "says": "Windows on the third and fourth floors cost $3 to $5 more to clean than ones on lower floors, because cleaners use ladders or lifts.",
+    "page_date": "2025-08-29",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+    "says": "Second-story access: add a flat fee or percentage increase for ladder-heavy work; second-story work, ladder use, roof access or lifts increase labor time and risk; high-rise or specialty access $15 to $40 per window above three stories.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Jobber",
+    "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+    "says": "Charge more for every floor past the first, or if you're spending extra time to set up safely; anything above the second floor is a hazard and a hassle.",
+    "page_date": "2026-05-20",
+    "checked": "2026-10-19"
+   }
+  ],
+  "sides_time": {
+   "both": 1,
+   "out": 0.6,
+   "in": 0.4
+  },
+  "screen_minutes": 2,
+  "track_minutes": 3,
+  "hard_water_minutes": 5,
+  "setup_minutes": 15,
+  "valid_days": 30,
+  "hourly_reference": [
+   40,
+   75
+  ],
+  "hourly_sources": [
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/window-cleaning",
+    "says": "Hourly $40 to $75; it typically takes about four hours to clean an average house; most cleaners charge a minimum of one hour, and an average-sized house takes about 3 hours.",
+    "page_date": "2025-08-29",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Housecall Pro",
+    "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+    "says": "Hourly rates run $45 to $75 per cleaner.",
+    "page_date": "2026-10-19",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "HomeAdvisor",
+    "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+    "says": "Third- or fourth-story windows may cost more than average; pros charge $45 to $75 per hour.",
+    "page_date": "2026-06-19",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+    "says": "Hourly rates: national average $50 an hour, low end $25, high end $100.",
+    "page_date": "2026-03-31",
+    "checked": "2026-10-19"
+   }
+  ],
+  "minutes_note": "Judgment call checked against Fixr's 3 to 4 hours for an average house: 22 standard windows at 2 panes and 4 minutes a pane, plus 22 screens at 2 minutes and 15 minutes to set up, is 235 minutes, about 3.9 hours."
+ }
+}

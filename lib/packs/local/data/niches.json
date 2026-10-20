@@ -1116,7 +1116,7 @@
       ],
       "mobile_line": "At your home, a park or the gym",
       "headlines": [
-        "Get stronger this season.",
+        "A plan for every session.",
         "Training that fits your week.",
         "Your first session starts here.",
         "Show up. We'll handle the plan."
@@ -1142,7 +1142,7 @@
         },
         {
           "q": "How often should I train?",
-          "a": "Two or three sessions a week is a common start. We'll set a rhythm that fits your schedule."
+          "a": "We'll agree on a rhythm that fits your week, and change it as we go."
         },
         {
           "q": "What should I bring?",
@@ -1158,10 +1158,10 @@
         }
       ],
       "tips": [
-        "Consistency beats intensity: three steady sessions a week beat one hard one.",
-        "Sleep is training too: aim for the same bedtime most nights.",
-        "Warm up for five minutes before lifting; your joints will thank you.",
-        "Write down every workout: progress you can see keeps you going."
+        "Book your sessions on the same days each week, so they become part of the routine.",
+        "Bring water and shoes you can move in to every session.",
+        "Tell your trainer before a session if anything about your health has changed.",
+        "Write down every workout, so you and your trainer can see what you did."
       ],
       "partners": [
         {
@@ -1414,9 +1414,9 @@
       "mobile_line": "At your home, the library or online",
       "headlines": [
         "Homework help that clicks.",
-        "Confidence in every class.",
+        "Help that starts where they are.",
         "Learn it, then love it.",
-        "Better grades start with one session."
+        "One to one, at a pace that fits."
       ],
       "photos": [
         "You at a table with books and a laptop (face visible)",
@@ -2046,6 +2046,383 @@
       "drop": "Skip doors for this one: markets, cafes and partner shops work better."
     },
     {
+      "id": "music",
+      "label": "Music lessons",
+      "match": "music|piano|guitar|violin|viola|cello|ukulele|drum|voice lesson|singing|vocal|bass lesson|band lesson",
+      "icon": "music",
+      "mood": "calm",
+      "mobile": false,
+      "categories": [
+        {
+          "match": "piano",
+          "name": "Piano instructor"
+        },
+        {
+          "match": "guitar|ukulele",
+          "name": "Guitar instructor"
+        },
+        {
+          "match": "voice|singing|vocal",
+          "name": "Vocal instructor"
+        },
+        {
+          "match": "drum",
+          "name": "Drum school"
+        },
+        {
+          "name": "Music instructor"
+        }
+      ],
+      "secondary": [
+        "Music instructor",
+        "Music school"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "Private lessons",
+        "Lessons for beginners",
+        "Lessons for adults",
+        "Recital preparation",
+        "Online lessons"
+      ],
+      "bullets": [
+        "One-to-one lessons",
+        "Beginners and returning players",
+        "A practice plan for home"
+      ],
+      "mobile_line": "At your home, my studio or online",
+      "headlines": [
+        "Lessons that fit your week.",
+        "Start where you are.",
+        "Your first lesson starts here.",
+        "Learn the music you love."
+      ],
+      "photos": [
+        "You with your instrument (face visible)",
+        "Your teaching space, tidy and well lit",
+        "Sheet music and a practice log on the stand",
+        "Hands on the instrument, close up",
+        "A student playing (only with a parent's written permission, or from behind)",
+        "Your instruments laid out",
+        "A recital program or the stage before the audience arrives",
+        "Your business card on the music stand"
+      ],
+      "faq": [
+        {
+          "q": "Which instruments and levels do you teach?",
+          "hint": "One line: instruments, ages and levels, specific and honest."
+        },
+        {
+          "q": "Where do lessons happen?",
+          "hint": "One line: their home with a parent there, your studio or online."
+        },
+        {
+          "q": "How long is a lesson?",
+          "hint": "One line: your lesson length and how often students usually come."
+        },
+        {
+          "q": "Do we need an instrument before the first lesson?",
+          "hint": "One line: what they need, and whether to rent or buy first."
+        },
+        {
+          "q": "How much should my child practice?",
+          "a": "We set a short daily goal at the first lesson and write it in the practice log."
+        },
+        {
+          "q": "Do you teach adults?",
+          "hint": "One line: yes or no, and what adult students usually work on."
+        }
+      ],
+      "tips": [
+        "Practice at the same time each day, so it becomes part of the routine.",
+        "Keep the instrument out where it is easy to pick up.",
+        "Write down what you practiced and bring the log to every lesson.",
+        "Bring a song you love to the first lesson."
+      ],
+      "partners": [
+        {
+          "id": "schools",
+          "label": "Schools",
+          "tags": [
+            "amenity=school"
+          ],
+          "phrases": [
+            "schools"
+          ],
+          "their_customers": "families",
+          "why": "ask about music lessons outside school",
+          "ask": "share my card with the music teacher and the parent newsletter",
+          "give": "play a short free demo at a school event"
+        },
+        {
+          "id": "music_stores",
+          "label": "Music stores",
+          "tags": [
+            "shop=musical_instrument"
+          ],
+          "phrases": [
+            "music stores"
+          ],
+          "their_customers": "customers",
+          "why": "buy a first instrument and ask who teaches",
+          "ask": "leave my cards at your counter",
+          "give": "send students who need an instrument, strings or repairs your way"
+        },
+        {
+          "id": "libraries",
+          "label": "Libraries",
+          "tags": [
+            "amenity=library"
+          ],
+          "phrases": [
+            "libraries"
+          ],
+          "their_customers": "families",
+          "why": "look for activities for their kids",
+          "ask": "post my flyer on your community board",
+          "give": "play a free short concert in one of your rooms"
+        }
+      ],
+      "best_months": [
+        1,
+        8,
+        9
+      ],
+      "drop": "Skip doors for this one: school newsletters, music store counters and library boards work better."
+    },
+    {
+      "id": "tech",
+      "label": "Tech help",
+      "match": "tech help|tech support|tech tutor|technology help|computer help|computer repair|computer support|computer setup|phone help|smartphone|iphone help|ipad help|tablet help|wi-?fi setup|printer setup|it support",
+      "icon": "laptop",
+      "mood": "calm",
+      "mobile": true,
+      "categories": [
+        {
+          "match": "repair",
+          "name": "Computer repair service"
+        },
+        {
+          "name": "Computer support and services"
+        }
+      ],
+      "secondary": [
+        "Computer repair service",
+        "Computer consultant"
+      ],
+      "schema": "LocalBusiness",
+      "services": [
+        "Phone and tablet help",
+        "Computer setup and cleanup",
+        "Wi-Fi and printer setup",
+        "Scam safety check",
+        "One-on-one tech lessons"
+      ],
+      "bullets": [
+        "Help at your kitchen table",
+        "Phones, tablets, computers and Wi-Fi",
+        "Patient, plain-English lessons"
+      ],
+      "mobile_line": "At your home, at your pace",
+      "headlines": [
+        "Tech help at your kitchen table.",
+        "Patient help with your phone and computer.",
+        "Your devices, set up the way you like.",
+        "Plain-English tech help."
+      ],
+      "photos": [
+        "You at a kitchen table with a laptop (face visible)",
+        "Hands on a phone screen, close up (nothing personal on screen)",
+        "A tidy desk with a computer and printer",
+        "Your bag of cables and chargers",
+        "A printed checklist on the table",
+        "You pointing to a settings screen (nothing personal on screen)",
+        "Your business card next to a phone",
+        "A Wi-Fi router and printer, set up and labeled"
+      ],
+      "faq": [
+        {
+          "q": "What can you help with?",
+          "hint": "One line: the devices and tasks you help with, specific and honest."
+        },
+        {
+          "q": "Do you come to my home?",
+          "hint": "One line: where you work and the area you cover."
+        },
+        {
+          "q": "Will you see my passwords?",
+          "a": "No. You type your own passwords while I look away, and I never write them down or keep them."
+        },
+        {
+          "q": "Can a family member join?",
+          "a": "Yes. Anyone you like can sit in, in person or on the phone."
+        },
+        {
+          "q": "How long is a visit?",
+          "hint": "One line: your visit length and how you price it."
+        },
+        {
+          "q": "Can you help if I think I was scammed?",
+          "a": "I can help you update your devices, change passwords and report it. If you paid someone, call your bank or card company first."
+        }
+      ],
+      "tips": [
+        "Real tech companies won't call, email or text you about a problem with your computer.",
+        "Never share a code sent to your phone with someone who contacted you first.",
+        "Turn on automatic updates for your phone and computer.",
+        "Keep a list of people you trust to call for help next to the phone."
+      ],
+      "partners": [
+        {
+          "id": "libraries",
+          "label": "Libraries",
+          "tags": [
+            "amenity=library"
+          ],
+          "phrases": [
+            "libraries"
+          ],
+          "their_customers": "patrons",
+          "why": "ask for help with phones and computers",
+          "ask": "post my flyer on your community board",
+          "give": "run a free hour of phone and computer questions in one of your rooms"
+        },
+        {
+          "id": "seniors",
+          "label": "Senior centers",
+          "tags": [
+            "amenity=social_facility"
+          ],
+          "phrases": [
+            "senior centers"
+          ],
+          "their_customers": "members",
+          "why": "ask for help with phones, tablets and scams",
+          "ask": "post my flyer and leave a few cards at the front desk",
+          "give": "run a free scam-safety talk for your members"
+        }
+      ],
+      "best_months": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "drop": "Skip doors for this one: library and senior center boards, churches and word of mouth work better."
+    },
+    {
+      "id": "chef",
+      "label": "Personal chef and meal prep",
+      "match": "personal chef|private chef|meal prep|in-home chef|home chef|chef service|meal planning",
+      "icon": "flame",
+      "mood": "warm",
+      "mobile": true,
+      "categories": [
+        {
+          "name": "Personal chef service"
+        }
+      ],
+      "secondary": [],
+      "schema": "LocalBusiness",
+      "services": [
+        "Weekly meal prep in your kitchen",
+        "A cook day for the week",
+        "Dinner party cooking",
+        "Grocery shopping for your menu",
+        "Menus that leave out foods you avoid"
+      ],
+      "bullets": [
+        "Cooked in your kitchen",
+        "A menu you approve each week",
+        "Groceries shopped for you"
+      ],
+      "mobile_line": "In your own kitchen",
+      "headlines": [
+        "Dinner's handled this week.",
+        "Your week of meals, cooked in your kitchen.",
+        "Home cooking, without the cooking.",
+        "A week of dinners from one cook day."
+      ],
+      "photos": [
+        "You cooking in a client's kitchen, with their permission (face visible)",
+        "Labeled containers stacked in a fridge",
+        "The week's menu on the counter",
+        "Fresh groceries laid out by recipe",
+        "A plated dish, close up",
+        "Your knives and tools, laid out",
+        "A clean kitchen at the end of a cook day",
+        "Your business card next to a menu"
+      ],
+      "faq": [
+        {
+          "q": "Do you cook in my kitchen?",
+          "hint": "One line: where you cook and what you bring."
+        },
+        {
+          "q": "Who buys the groceries?",
+          "hint": "One line: how groceries are bought and paid for."
+        },
+        {
+          "q": "Can you leave out foods we avoid?",
+          "a": "Yes. Tell me every food to leave out before we plan, allergies included. I read every package label when I shop, and each container lists what the dish contains."
+        },
+        {
+          "q": "How long do the meals keep?",
+          "a": "Each container has a label with the date to eat it by and how to reheat it, from the FDA's storage chart."
+        },
+        {
+          "q": "Do you sell meals from your own kitchen?",
+          "a": "No. I cook in your kitchen. Selling food cooked at home falls under state cottage food and health rules."
+        },
+        {
+          "q": "How do you price?",
+          "hint": "One line: your price per cook day or per week, plus groceries."
+        }
+      ],
+      "tips": [
+        "Cool food in shallow containers and get it into the fridge within 2 hours of cooking.",
+        "Reheat leftovers to 165°F, checked with a food thermometer.",
+        "Keep the fridge at 40°F or below.",
+        "Label every container with the dish and the date it was cooked."
+      ],
+      "partners": [
+        {
+          "id": "gyms",
+          "label": "Gyms",
+          "tags": [
+            "leisure=fitness_centre"
+          ],
+          "phrases": [
+            "gyms"
+          ],
+          "their_customers": "members",
+          "why": "ask about home cooking on busy weeks",
+          "ask": "leave a few menus at your front desk",
+          "give": "send my clients who ask about training your way"
+        },
+        {
+          "id": "worship",
+          "label": "Churches",
+          "tags": [
+            "amenity=place_of_worship"
+          ],
+          "phrases": [
+            "churches"
+          ],
+          "their_customers": "families",
+          "why": "look for help with meals in busy or hard weeks",
+          "ask": "post my flyer on your community board",
+          "give": "cook one free meal for a family your team suggests"
+        }
+      ],
+      "best_months": [
+        1,
+        8,
+        9
+      ],
+      "drop": "Skip doors for this one: gyms, community boards and word of mouth work better."
+    },
+    {
       "id": "general",
       "label": "Local business",
       "match": "",
@@ -2089,7 +2466,7 @@
       ],
       "tips": [
         "Save our number so you can text when you need us.",
-        "Ask about our next opening; spots fill up week to week.",
+        "Ask about our next opening, and we'll find a time that works.",
         "Tell a neighbor: local businesses grow by word of mouth."
       ],
       "partners": [

@@ -1,0 +1,338 @@
+{
+ "checked": "2026-10-19",
+ "research": "research/niches/organizing.json",
+ "about": "Zones, keywords, weights, minimum minutes and supply quantities are our judgment. Room times, supply prices and the disposal rules carry their sources (checked 2026-10-19).",
+ "blocks": {
+  "walkthrough": 15,
+  "wrap": 20,
+  "wrap_long": 30,
+  "long_after_hours": 3
+ },
+ "sort": ["Keep", "Donate", "Recycle", "Trash", "Decide later"],
+ "sources": {
+  "everyday": { "publisher": "Everyday Organize", "url": "https://www.everydayorganize.com/blog/professional-organizer-cost-kansas-city", "says": "Room estimates by organizers and hours: playroom 2 for 4 to 6 hours; kitchen or pantry 2 for 5 to 8; kitchen and pantry 3 for 6 to 8; storage room 2 for 7 to 9; garage 3 for 6 to 7; primary closet 2 for 5 to 7; primary suite 3 for 6 to 8. Decluttering takes additional time because those decisions are personal.", "page_date": "2026-09-17", "checked": "2026-10-19" },
+  "fixr": { "publisher": "Fixr", "url": "https://www.fixr.com/costs/professional-organizer", "says": "Closet $150 to $250; room $200 to $300; kitchen $250 to $400 as one 3-hour session including the pantry; home office $250 to $400; garage $1,000 to $2,500. Most projects cannot be completed properly in less than 3 hours, even for a single room or closet space.", "page_date": "2025-01-31", "checked": "2026-10-19" },
+  "costhelper": { "publisher": "CostHelper", "url": "https://home.costhelper.com/professional-organizer.html", "says": "TAOrganizing estimates the average room takes 8 to 12 hours.", "checked": "2026-10-19" },
+  "homeadvisor": { "publisher": "HomeAdvisor", "url": "https://www.homeadvisor.com/cost/storage-and-organization/hire-a-professional-organizer/", "says": "Most projects take between two and ten hours to complete.", "page_date": "2026-06-17", "checked": "2026-10-19" },
+  "airtasker": { "publisher": "Airtasker", "url": "https://www.airtasker.com/us/costs/home-organizing/professional-organizer-cost/", "says": "Typical total task costs: small task of 1 to 2 hours $75 to $180; closet $100 to $275; pantry $120 to $300; garage or storage room $300 to $800.", "page_date": "2026-06-24", "checked": "2026-10-19" },
+  "habitat": { "publisher": "Habitat for Humanity ReStore", "url": "https://www.habitat.org/restores/donate-goods", "says": "ReStores accept new or gently used furniture, appliances, housewares and building materials; many offer free pickup of large items; call your ReStore and confirm donation hours; each ReStore is unique.", "checked": "2026-10-19" },
+  "goodwill_tx": { "publisher": "Goodwill Central Texas", "url": "https://www.goodwillcentraltexas.org/donate/donate-goods/", "says": "Accepts clothing, shoes, accessories and electronics; cannot accept cribs, strollers and car seats, mattresses and box springs, CRT or plasma TVs, damaged furniture, paint, solvents and pesticides.", "checked": "2026-10-19" },
+  "mers": { "publisher": "MERS Goodwill", "url": "https://www.mersgoodwill.org/donate/", "says": "Store managers may decline a donation that is not in clean and sellable condition; no mattresses or box springs, CRT TVs, household chemicals or furniture over 40 inches.", "checked": "2026-10-19" },
+  "goodwill_sc": { "publisher": "Goodwill (South Carolina)", "url": "https://www.goodwillsc.org/donate/goods/", "says": "Accepts clothes, shoes and boots; can't accept cribs, car seats, mattresses, hazardous liquids or CRT TVs; Goodwill can't establish or confirm the value of donated items.", "checked": "2026-10-19" },
+  "epa_hhw": { "publisher": "U.S. EPA", "url": "https://www.epa.gov/hw/household-hazardous-waste-hhw", "says": "Paints, cleaners, oils, batteries and pesticides need special care; keep them in their original containers, never mix them, and check with your local agency for collection days.", "page_date": "2026-06-01", "checked": "2026-10-19" },
+  "epa_batteries": { "publisher": "U.S. EPA", "url": "https://www.epa.gov/recycle/used-household-batteries", "says": "Tape lithium-ion battery terminals or bag each battery, and never put them in household garbage or recycling bins; check with your local or state solid waste authority about alkaline batteries.", "page_date": "2026-07-21", "checked": "2026-10-19" },
+  "epa_electronics": { "publisher": "U.S. EPA", "url": "https://www.epa.gov/recycle/electronics-donation-and-recycling", "says": "Delete all personal information from your electronics, remove batteries, and check for recycling facilities in your state or community.", "page_date": "2025-12-19", "checked": "2026-10-19" },
+  "fda": { "publisher": "U.S. FDA", "url": "https://www.fda.gov/drugs/safe-disposal-medicines/disposal-unused-medicines-what-you-should-know", "says": "Use a drug take-back location or a mail-back envelope first; flush only medicines on the flush list; otherwise mix them with cat litter or used coffee grounds in a sealed bag and scratch out personal information.", "page_date": "2024-10-31", "checked": "2026-10-19" },
+  "irs": { "publisher": "IRS", "url": "https://www.irs.gov/businesses/small-businesses-self-employed/how-long-should-i-keep-records", "says": "Keep records until the period of limitations runs out: generally 3 years, longer in some cases (6 or 7 years).", "page_date": "2026-06-30", "checked": "2026-10-19" },
+  "napo": { "publisher": "NAPO Code of Ethics", "url": "https://point.napo.net/ethics", "says": "Keep confidential all client information, and use proprietary client information only with the client's permission.", "checked": "2026-10-19" }
+ },
+ "general_typical": [
+  { "src": "everyday", "says": "Everyday Organize: decluttering takes extra time, because those decisions are personal." }
+ ],
+ "rooms": [
+  {
+   "id": "kitchen",
+   "label": "Kitchen",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a kitchen or a pantry as 2 organizers for 5 to 8 hours, and a kitchen with its pantry as 3 organizers for 6 to 8 hours." },
+    { "src": "fixr", "says": "Fixr prices a kitchen, pantry included, as one 3-hour session ($250 to $400)." }
+   ],
+   "zones": [
+    { "id": "counters", "name": "Counters and appliances", "words": ["counter", "countertop", "appliance", "toaster", "coffee", "kettle", "blender", "mail", "fruit", "clutter"], "weight": 2, "min": 25, "supplies": [["turntable", 1]] },
+    { "id": "cabinets", "name": "Upper cabinets: dishes, glasses and mugs", "words": ["dish", "plate", "bowl", "glass", "mug", "cup", "cabinet", "tumbler", "water bottle"], "weight": 2, "min": 30, "supplies": [["riser", 2]] },
+    { "id": "containers", "name": "Food storage containers and lids", "words": ["tupperware", "container", "lid", "food storage", "leftover"], "weight": 1, "min": 20, "supplies": [["bin", 1]] },
+    { "id": "drawers", "name": "Drawers and the junk drawer", "words": ["drawer", "junk drawer", "utensil", "silverware", "flatware", "knife", "knives", "spatula", "gadget"], "weight": 1, "min": 20, "supplies": [["drawer", 2]] },
+    { "id": "sink", "name": "Under the sink", "words": ["sink", "cleaner", "cleaning supplies", "sponge", "trash bag", "dish soap"], "weight": 1, "min": 20, "supplies": [["bin", 1], ["turntable", 1]] },
+    { "id": "food", "name": "Food shelves and pantry cabinet", "words": ["food", "snack", "cereal", "canned", "pantry", "spice", "baking", "pasta", "rice", "expired", "jar", "oil"], "weight": 2, "min": 30, "supplies": [["bin", 2], ["turntable", 1], ["riser", 1]] },
+    { "id": "pots", "name": "Pots, pans and bakeware", "words": ["pot", "pan", "skillet", "sheet", "bakeware", "cookware", "cutting board", "tray"], "weight": 1, "min": 25, "supplies": [["riser", 1]] }
+   ]
+  },
+  {
+   "id": "pantry",
+   "label": "Pantry",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a kitchen or a pantry as 2 organizers for 5 to 8 hours." },
+    { "src": "airtasker", "says": "Airtasker lists pantry organizing at $120 to $300 as a total task cost." }
+   ],
+   "zones": [
+    { "id": "shelves", "name": "Food shelves", "words": ["shelf", "shelves", "food", "snack", "cereal", "canned", "pasta", "rice", "expired", "jar", "chip"], "weight": 3, "min": 30, "supplies": [["bin", 3], ["riser", 1]] },
+    { "id": "spices", "name": "Spices, oils and baking", "words": ["spice", "seasoning", "oil", "vinegar", "baking", "flour", "sugar", "sauce"], "weight": 1, "min": 20, "supplies": [["turntable", 1], ["riser", 1]] },
+    { "id": "floor", "name": "Floor and bulk items", "words": ["floor", "bulk", "costco", "water", "drink", "soda", "potato", "onion", "pet food"], "weight": 1, "min": 20, "supplies": [["bin", 2]] },
+    { "id": "door", "name": "Door and walls", "words": ["door", "wall", "hook", "wrap", "foil", "bag"], "weight": 1, "min": 15, "supplies": [["door", 1]] },
+    { "id": "appliances", "name": "Small appliances", "words": ["appliance", "mixer", "blender", "slow cooker", "crock pot", "instant pot", "air fryer", "waffle"], "weight": 1, "min": 20, "supplies": [] }
+   ]
+  },
+  {
+   "id": "reachin",
+   "label": "Reach-in closet",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize: a reach-in closet usually takes less time than a large primary closet, which it books as 2 organizers for 5 to 7 hours." },
+    { "src": "fixr", "says": "Fixr prices closet organizing at $150 to $250, and says most projects can't be done properly in under 3 hours, even a single closet." }
+   ],
+   "zones": [
+    { "id": "hanging", "name": "Hanging clothes", "words": ["hang", "hanging", "hanger", "rod", "shirt", "dress", "pant", "jacket", "coat", "clothes", "clothing"], "weight": 3, "min": 30, "supplies": [["hangers", 2]] },
+    { "id": "shelf", "name": "Top shelf", "words": ["top shelf", "shelf", "shelves", "sweater", "purse", "hat", "box", "high"], "weight": 1, "min": 20, "supplies": [["bin", 2]] },
+    { "id": "floor", "name": "Floor and shoes", "words": ["shoe", "boot", "sneaker", "floor", "pile"], "weight": 1, "min": 20, "supplies": [["riser", 1]] },
+    { "id": "door", "name": "Door and hooks", "words": ["door", "hook", "belt", "scarf", "tie", "accessory", "accessories"], "weight": 1, "min": 15, "supplies": [["door", 1]] }
+   ]
+  },
+  {
+   "id": "walkin",
+   "label": "Walk-in closet",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a primary closet as 2 organizers for 5 to 7 hours." },
+    { "src": "airtasker", "says": "Airtasker lists closet organizing at $100 to $275 as a total task cost." }
+   ],
+   "zones": [
+    { "id": "hanging", "name": "Hanging clothes", "words": ["hang", "hanging", "hanger", "rod", "shirt", "dress", "pant", "suit", "jacket", "coat", "clothes", "clothing"], "weight": 3, "min": 40, "supplies": [["hangers", 3]] },
+    { "id": "folded", "name": "Folded clothes and drawers", "words": ["fold", "folded", "drawer", "sweater", "t-shirt", "tshirt", "jean", "sock", "underwear", "pajama", "workout"], "weight": 2, "min": 30, "supplies": [["drawer", 2]] },
+    { "id": "shoes", "name": "Shoes", "words": ["shoe", "boot", "sneaker", "heel", "sandal"], "weight": 1, "min": 25, "supplies": [["riser", 2]] },
+    { "id": "accessories", "name": "Bags, belts, jewelry and hats", "words": ["bag", "purse", "handbag", "belt", "jewelry", "necklace", "hat", "scarf", "tie", "accessory", "accessories"], "weight": 1, "min": 20, "supplies": [["drawer", 1], ["door", 1]] },
+    { "id": "high", "name": "High shelves and keepsakes", "words": ["high shelf", "top shelf", "keepsake", "memorabilia", "box", "luggage", "suitcase", "seasonal", "out of season"], "weight": 1, "min": 20, "supplies": [["bin", 2]] }
+   ]
+  },
+  {
+   "id": "bedroom",
+   "label": "Bedroom",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a primary suite as 3 organizers for 6 to 8 hours." },
+    { "src": "fixr", "says": "Fixr prices organizing a room at $200 to $300." }
+   ],
+   "zones": [
+    { "id": "surfaces", "name": "Nightstands and surfaces", "words": ["nightstand", "night stand", "bedside", "surface", "dresser top", "charger", "cord"], "weight": 1, "min": 20, "supplies": [["drawer", 1]] },
+    { "id": "dresser", "name": "Dresser drawers", "words": ["dresser", "drawer", "sock", "underwear", "t-shirt", "pajama", "fold"], "weight": 2, "min": 30, "supplies": [["drawer", 2]] },
+    { "id": "floor", "name": "Floor and the chair pile", "words": ["floor", "chair", "pile", "laundry", "clothes", "clothing"], "weight": 2, "min": 25, "supplies": [] },
+    { "id": "underbed", "name": "Under the bed", "words": ["under the bed", "underbed", "under-bed"], "weight": 1, "min": 20, "supplies": [["bin", 2]] },
+    { "id": "books", "name": "Books and papers", "words": ["book", "papers", "magazine", "mail", "bookshelf", "bookcase"], "weight": 1, "min": 20, "supplies": [["bin", 1]] }
+   ]
+  },
+  {
+   "id": "kids",
+   "label": "Kids' room or playroom",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a playroom as 2 organizers for 4 to 6 hours ($800 to $1,200)." },
+    { "src": "costhelper", "says": "CostHelper cites TAOrganizing: the average room takes 8 to 12 hours." }
+   ],
+   "zones": [
+    { "id": "toys", "name": "Toys", "words": ["toy", "lego", "block", "doll", "car", "truck", "game", "puzzle", "stuffed animal", "plush", "figure", "train"], "weight": 3, "min": 30, "supplies": [["bin", 4]] },
+    { "id": "art", "name": "Art and craft supplies", "words": ["art", "craft", "crayon", "marker", "paint", "glue", "sticker", "drawing"], "weight": 1, "min": 20, "supplies": [["bin", 1], ["drawer", 1]] },
+    { "id": "books", "name": "Books", "words": ["book", "bookshelf", "bookcase", "library"], "weight": 1, "min": 15, "supplies": [] },
+    { "id": "outgrown", "name": "Outgrown clothes and gear", "words": ["outgrown", "too small", "clothes", "clothing", "baby", "hand-me-down", "shoe", "gear", "stroller", "car seat", "crib"], "weight": 2, "min": 25, "supplies": [["box", 2]] },
+    { "id": "keepsakes", "name": "Keepsakes and school papers", "words": ["keepsake", "school papers", "artwork", "report card", "memory", "memories", "award", "trophy"], "weight": 1, "min": 15, "supplies": [["bin", 1]] }
+   ]
+  },
+  {
+   "id": "bathroom",
+   "label": "Bathroom",
+   "typical": [
+    { "src": "airtasker", "says": "Airtasker: a small organizing task of 1 to 2 hours runs $75 to $180." },
+    { "src": "homeadvisor", "says": "HomeAdvisor: most organizing projects take 2 to 10 hours." }
+   ],
+   "zones": [
+    { "id": "vanity", "name": "Vanity and under the sink", "words": ["vanity", "counter", "sink", "makeup", "hair", "toothbrush", "drawer", "product", "skincare", "skin care", "dryer", "straightener"], "weight": 2, "min": 25, "supplies": [["drawer", 1], ["turntable", 1]] },
+    { "id": "medicine", "name": "Medicine cabinet", "words": ["medicine", "medication", "meds", "pill", "prescription", "vitamin", "first aid", "bandage"], "weight": 1, "min": 20, "supplies": [] },
+    { "id": "shower", "name": "Shower and tub", "words": ["shower", "tub", "bath", "shampoo", "conditioner", "soap", "razor"], "weight": 1, "min": 15, "supplies": [] },
+    { "id": "linens", "name": "Towels and linens", "words": ["towel", "linen", "washcloth", "sheet", "blanket"], "weight": 1, "min": 20, "supplies": [["bin", 1]] },
+    { "id": "backstock", "name": "Backstock", "words": ["backstock", "extra", "toilet paper", "bulk", "refill", "spare", "stock"], "weight": 1, "min": 20, "supplies": [["bin", 2]] }
+   ]
+  },
+  {
+   "id": "office",
+   "label": "Home office and papers",
+   "typical": [
+    { "src": "fixr", "says": "Fixr prices organizing a home office at $250 to $400." },
+    { "src": "costhelper", "says": "CostHelper cites TAOrganizing: the average room takes 8 to 12 hours." }
+   ],
+   "zones": [
+    { "id": "desk", "name": "Desk surface", "words": ["desk", "surface", "monitor", "keyboard", "sticky note", "workspace"], "weight": 1, "min": 20, "supplies": [["drawer", 1]] },
+    { "id": "papers", "name": "Paper piles and mail", "words": ["papers", "paperwork", "mail", "file", "filing", "bill", "receipt", "statement", "document", "tax", "taxes", "letter", "pile", "shred"], "weight": 3, "min": 40, "supplies": [["bin", 1]], "unpriced": ["File folders"] },
+    { "id": "supplies", "name": "Office supplies", "words": ["supply", "supplies", "pen", "pencil", "stapler", "printer paper", "ink", "notebook", "envelope", "stamp"], "weight": 1, "min": 20, "supplies": [["drawer", 1]] },
+    { "id": "tech", "name": "Old electronics and cords", "words": ["electronic", "electronics", "cord", "cable", "charger", "phone", "laptop", "computer", "tablet", "printer", "battery", "batteries", "router", "adapter"], "weight": 1, "min": 20, "supplies": [["bin", 1]] },
+    { "id": "shelves", "name": "Shelves and books", "words": ["shelf", "shelves", "book", "binder", "bookcase", "bookshelf"], "weight": 1, "min": 20, "supplies": [["bin", 1]] }
+   ]
+  },
+  {
+   "id": "garage",
+   "label": "Garage",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a garage as 3 organizers for 6 to 7 hours." },
+    { "src": "fixr", "says": "Fixr prices garage organizing at $1,000 to $2,500." }
+   ],
+   "zones": [
+    { "id": "tools", "name": "Tools and hardware", "words": ["tool", "drill", "saw", "hammer", "screw", "nail", "hardware", "workbench", "wrench"], "weight": 2, "min": 40, "supplies": [["bin", 2]] },
+    { "id": "sports", "name": "Sports gear and bikes", "words": ["sport", "sports", "ball", "bike", "bicycle", "helmet", "scooter", "skateboard", "golf", "camping", "tent", "fishing", "cooler"], "weight": 2, "min": 30, "supplies": [["bin", 2]] },
+    { "id": "yard", "name": "Yard and garden", "words": ["yard", "garden", "lawn", "mower", "rake", "shovel", "hose", "planter", "soil", "fertilizer", "leaf blower"], "weight": 1, "min": 30, "supplies": [] },
+    { "id": "chemicals", "name": "Paint and chemicals", "words": ["paint", "chemical", "motor oil", "gas", "gasoline", "solvent", "thinner", "pesticide", "weed killer", "antifreeze", "propane", "stain"], "weight": 1, "min": 20, "supplies": [] },
+    { "id": "storage", "name": "Bins, boxes and holiday", "words": ["bin", "box", "holiday", "christmas", "halloween", "decoration", "seasonal", "ornament", "storage"], "weight": 2, "min": 30, "supplies": [["bin", 4]] },
+    { "id": "floor", "name": "Floor and car space", "words": ["floor", "car", "park", "parking", "walkway", "path", "trash", "recycling"], "weight": 1, "min": 20, "supplies": [] }
+   ]
+  },
+  {
+   "id": "basement",
+   "label": "Basement or storage room",
+   "typical": [
+    { "src": "everyday", "says": "Everyday Organize books a storage room as 2 organizers for 7 to 9 hours." },
+    { "src": "airtasker", "says": "Airtasker lists a garage or storage room at $300 to $800 as a total task cost." }
+   ],
+   "zones": [
+    { "id": "holiday", "name": "Holiday and seasonal", "words": ["holiday", "christmas", "halloween", "decoration", "ornament", "seasonal", "wreath", "lights"], "weight": 2, "min": 30, "supplies": [["bin", 4]] },
+    { "id": "keepsakes", "name": "Keepsakes and photos", "words": ["keepsake", "photo", "album", "memorabilia", "letter", "yearbook", "sentimental", "heirloom", "inherited"], "weight": 2, "min": 30, "supplies": [["bin", 2]] },
+    { "id": "backstock", "name": "Household backstock", "words": ["backstock", "bulk", "toilet paper", "paper towel", "extra", "spare", "cleaning supplies", "stock"], "weight": 1, "min": 20, "supplies": [["bin", 2]] },
+    { "id": "boxes", "name": "Unopened moving boxes", "words": ["moving box", "unopened", "unpacked", "box", "carton"], "weight": 2, "min": 30, "supplies": [["box", 2]] },
+    { "id": "big", "name": "Furniture and big items", "words": ["furniture", "chair", "table", "couch", "sofa", "mattress", "crib", "exercise", "treadmill", "lamp"], "weight": 1, "min": 30, "supplies": [] }
+   ]
+  },
+  {
+   "id": "entry",
+   "label": "Entry or mudroom",
+   "typical": [
+    { "src": "airtasker", "says": "Airtasker: a small organizing task of 1 to 2 hours runs $75 to $180." },
+    { "src": "homeadvisor", "says": "HomeAdvisor: most organizing projects take 2 to 10 hours." }
+   ],
+   "zones": [
+    { "id": "shoes", "name": "Shoes", "words": ["shoe", "boot", "sneaker", "cleat", "slipper", "sandal"], "weight": 2, "min": 20, "supplies": [["bin", 1]] },
+    { "id": "coats", "name": "Coats and bags", "words": ["coat", "jacket", "hook", "backpack", "bag", "purse", "umbrella", "hat", "scarf", "glove", "mitten"], "weight": 2, "min": 20, "supplies": [["door", 1]] },
+    { "id": "drop", "name": "Drop zone: keys, mail and the bench", "words": ["key", "mail", "wallet", "bench", "sunglasses", "leash", "console"], "weight": 1, "min": 15, "supplies": [["drawer", 1]] },
+    { "id": "outdoor", "name": "Sports and outdoor gear", "words": ["sport", "sports", "ball", "helmet", "outdoor", "sunscreen", "stroller", "scooter"], "weight": 1, "min": 15, "supplies": [["bin", 2]] }
+   ]
+  },
+  {
+   "id": "laundry",
+   "label": "Laundry room",
+   "typical": [
+    { "src": "airtasker", "says": "Airtasker: a small organizing task of 1 to 2 hours runs $75 to $180." },
+    { "src": "homeadvisor", "says": "HomeAdvisor: most organizing projects take 2 to 10 hours." }
+   ],
+   "zones": [
+    { "id": "supplies", "name": "Detergents and supplies", "words": ["detergent", "soap", "softener", "dryer sheet", "stain", "bleach", "cleaner", "supply", "supplies"], "weight": 1, "min": 20, "supplies": [["bin", 1], ["riser", 1]] },
+    { "id": "shelves", "name": "Shelves and cabinets", "words": ["shelf", "shelves", "cabinet", "overflow", "backstock", "extra"], "weight": 1, "min": 20, "supplies": [["bin", 2]] },
+    { "id": "sorting", "name": "Sorting and folding", "words": ["sort", "sorting", "fold", "folding", "basket", "hamper", "pile", "ironing", "clothes"], "weight": 2, "min": 25, "supplies": [] },
+    { "id": "lost", "name": "Lost and found", "words": ["lost", "sock", "single", "pocket", "stray", "odd"], "weight": 1, "min": 15, "supplies": [["bin", 1]] }
+   ]
+  }
+ ],
+ "donation_boxes": { "short": 2, "long": 4 },
+ "supplies": {
+  "bin": {
+   "label": "Clear bin with lid", "unit": "each", "low": 3.48, "high": 17.99,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/samla-box-with-lid-clear-s69440836/", "says": "SAMLA box with lid, clear, 3 gallon", "price": 4.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/samla-box-with-lid-clear-s69440822/", "says": "SAMLA box with lid, clear, 6 gallon", "price": 6.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/samla-box-with-lid-clear-s69440761/", "says": "SAMLA box with lid, clear, 12 gallon", "price": 9.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/samla-box-with-lid-clear-s99440774/", "says": "SAMLA box with lid, clear, 17 gallon", "price": 17.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/HDX-6-5-Qt-Mini-Storage-Tote-in-Clear-with-Yellow-Lid-999-6QT-C-HDX/332895816", "says": "HDX 6.5 qt mini storage tote, clear with lid", "price": 3.48, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/HDX-9-Gal-Tough-Storage-Tote-in-Clear-with-Yellow-Lid-999-9G-C-HDX/331787184", "says": "HDX 9 gal tough storage tote, clear with lid", "price": 11.98, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/HDX-Clear-12-Gal-Flip-Top-Storage-Tote-211512/202520515", "says": "HDX clear 12 gal flip top storage tote", "price": 14.98, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/IRIS-40-Qt-10-Gal-Plastic-Storage-Box-with-Latching-Lid-Clear-500209/321495937", "says": "IRIS 40 qt (10 gal) storage box with latching lid, clear", "price": 16.19, "checked": "2026-10-19" }
+   ]
+  },
+  "drawer": {
+   "label": "Drawer organizer or divider", "unit": "each", "low": 5.98, "high": 18.09,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/skubb-box-set-of-6-white-20538542/", "says": "SKUBB box, set of 6", "price": 8.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/kuggis-insert-with-5-compartments-white-40603310/", "says": "KUGGIS insert with 5 compartments", "price": 6.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/variera-drawer-divider-10619614/", "says": "VARIERA drawer divider", "price": 9.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/variera-flatware-tray-adjustable-80613816/", "says": "VARIERA flatware tray, adjustable", "price": 5.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/iDesign-Drawer-Organizer-3-in-x-12-in-x-2-in-Clear-80024/330413684", "says": "iDesign drawer organizer 3 x 12 x 2 in., clear", "price": 5.98, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/SIMPLIFY-4-Pack-Multipurpose-Drawer-Organizers-30004/314945898", "says": "SIMPLIFY 4-pack multipurpose drawer organizers", "price": 8.43, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Lavish-Home-White-Durable-Plastic-Drawer-Organizer-with-6-Sections-M050024/302631070", "says": "Lavish Home drawer organizer with 6 sections", "price": 18.09, "checked": "2026-10-19" }
+   ]
+  },
+  "turntable": {
+   "label": "Turntable (lazy Susan)", "unit": "each", "low": 12.9, "high": 34.99,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/klippkaktus-lazy-susan-00569426/", "says": "KLIPPKAKTUS lazy Susan", "price": 12.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/aptitlig-lazy-susan-organizer-bamboo-60562498/", "says": "APTITLIG lazy Susan organizer, bamboo", "price": 19.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/snurrad-lazy-susan-clear-40521526/", "says": "SNURRAD lazy Susan, clear", "price": 34.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Classic-Cuisine-10-in-Bamboo-Lazy-Susan-Turntable-HW0500049/309764576", "says": "Classic Cuisine 10 in. bamboo lazy Susan turntable", "price": 12.9, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Mind-Reader-2-Tier-Plastic-Snack-Carousel-Countertop-Organizer-Lazy-Susan-14-25-in-L-x-14-25-in-W-x-14-in-H-White-SNACKCAR-WHT/302569030", "says": "Mind Reader 2-tier lazy Susan carousel", "price": 20.99, "checked": "2026-10-19" }
+   ]
+  },
+  "riser": {
+   "label": "Shelf riser", "unit": "each", "low": 8.52, "high": 22.99,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/variera-shelf-insert-white-80136622/", "says": "VARIERA shelf insert", "price": 19.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/variera-shelf-insert-white-60136623/", "says": "VARIERA shelf insert, larger size", "price": 22.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Kitchen-Details-Onyx-Large-Kitchen-Shelf-Organizer-24194-ONYX/304139877", "says": "Kitchen Details large kitchen shelf organizer", "price": 8.52, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Classic-Cuisine-Chrome-Expandable-Storage-Shelf-Pantry-Organizer-HW0500003/308945535", "says": "Classic Cuisine expandable storage shelf", "price": 17.34, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Everbilt-Kitchen-Cabinet-Shelf-90244/314184389", "says": "Everbilt kitchen cabinet shelf", "price": 17.47, "checked": "2026-10-19" }
+   ]
+  },
+  "hangers": {
+   "label": "Hangers", "unit": "pack of 5 to 25", "low": 4.99, "high": 12.63,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/trysse-hanger-white-gray-10515070/", "says": "TRYSSE hanger, 5 pack", "price": 4.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/bumerang-hanger-natural-30238543/", "says": "BUMERANG hanger, 8 pack", "price": 7.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Laura-Ashley-25-Pack-Slim-Velvet-Hangers-in-Lavender-LA-93310-LAV/322488134", "says": "Laura Ashley slim velvet hangers, 25 pack", "price": 10.39, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/SIMPLIFY-25-Pack-Slim-Velvet-Gold-Hook-Hangers-in-White-23240-G-WHITE/329616054", "says": "SIMPLIFY slim velvet hangers, 25 pack", "price": 12.63, "checked": "2026-10-19" }
+   ]
+  },
+  "door": {
+   "label": "Over-door rack or hooks", "unit": "each", "low": 9.99, "high": 44.98,
+   "sources": [
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/enudden-hanger-for-door-white-60251665/", "says": "ENUDDEN hanger for door", "price": 9.99, "checked": "2026-10-19" },
+    { "publisher": "IKEA", "url": "https://www.ikea.com/us/en/p/baerfis-hanger-for-door-adjustable-50527127/", "says": "BÄRFIS hanger for door, adjustable", "price": 29.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/HOUSEHOLD-ESSENTIALS-Orange-6-Pocket-Organizer-30-lbs-Capacity-Over-the-Door-Hook-2168-1/314023824", "says": "Household Essentials 6-pocket over-the-door organizer", "price": 25.49, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/Everbilt-8-Tier-Over-the-Door-Adjustable-Pantry-Organizer-90330/314700879", "says": "Everbilt 8-tier over-the-door pantry organizer", "price": 44.98, "checked": "2026-10-19" }
+   ]
+  },
+  "box": {
+   "label": "Box for donations and drop-offs", "unit": "each", "low": 1.98, "high": 3.98,
+   "sources": [
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/The-Home-Depot-Small-Moving-Shipping-Storage-Box-with-Handles-SBX/316235410", "says": "Small moving box with handles", "price": 1.98, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/The-Home-Depot-Medium-Heavy-Duty-Moving-Shipping-Storage-Box-with-Handles-HDMBX/316235446", "says": "Medium heavy duty moving box with handles", "price": 3.98, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/444666/Office-Depot-Brand-Corrugated-Box-9/", "says": "Corrugated box, 9 x 9 x 9 in.", "price": 2.99, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/444997/Office-Depot-Brand-Corrugated-Box-12/", "says": "Corrugated box, 12 x 12 x 12 in.", "price": 3.69, "checked": "2026-10-19" }
+   ]
+  },
+  "label_maker": {
+   "label": "Label maker", "unit": "each", "low": 16.92, "high": 44.99, "kit": true,
+   "sources": [
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/3772791/Brother-P-touch-PT-N20-Personal/", "says": "Brother P-touch PT-N20 personal label maker", "price": 29.99, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/938678/Brother-P-Touch-Label-Maker-PTH110/", "says": "Brother P-touch PTH110 label maker", "price": 34.99, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/7164607/Brother-P-touch-PT-D220-HomeOffice/", "says": "Brother P-touch PT-D220 label maker", "price": 44.99, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/571842/DYMO-LetraTag-LT-100H-Plus-Handheld/", "says": "DYMO LetraTag LT-100H Plus handheld label maker", "price": 42.49, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/C-CORE-INNOVATIONS-Wireless-Mini-Portable-Thermal-Printer-Label-Maker-Paper-Included-for-Android-and-iOS-Phone-Pink-CTP500PN/329777176", "says": "C CORE wireless mini thermal label maker, pink", "price": 16.92, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/C-CORE-INNOVATIONS-Wireless-Mini-Portable-Thermal-Printer-Label-Maker-Paper-Included-for-Android-and-iOS-Phone-Sierra-Blue-CTP500SB/329777170", "says": "C CORE wireless mini thermal label maker, blue", "price": 34.99, "checked": "2026-10-19" }
+   ]
+  },
+  "label_tape": {
+   "label": "Label tape", "unit": "cassette or pack", "low": 7.99, "high": 17.99, "kit": true,
+   "sources": [
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/3161634/Brother-P-touch-Btag-Label-Tape/", "says": "Brother P-touch Btag label tape", "price": 7.99, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/449944/DYMO-LT-91331-Black-On-White/", "says": "DYMO LT 91331 label tape, black on white", "price": 13.49, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/277294/Brother-M-231-Black-On-White/", "says": "Brother M-231 label tape, black on white", "price": 13.49, "checked": "2026-10-19" },
+    { "publisher": "Office Depot", "url": "https://www.officedepot.com/a/products/7327499/Brother-P-touch-TZe231-Laminated-Label/", "says": "Brother P-touch TZe231 laminated label tape", "price": 17.99, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/SKYSHALO-Label-Maker-Tape-for-Brother-Labelers-4-Pack-12-mm-Black-on-White-Waterproof-Compatible-with-M-K231-Tape-2025-Update-BQJSDRMBDHZ4L3T8I001V0-250630/337198438", "says": "SKYSHALO label maker tape for Brother labelers, 4 pack", "price": 8.79, "checked": "2026-10-19" },
+    { "publisher": "The Home Depot", "url": "https://www.homedepot.com/p/SKYSHALO-Label-Maker-Tape-4-Pack-0-47-in-Black-on-White-Compatible-with-Brother-P-Touch-Durable-2025-Update-BQJSDRZYBDHZZRJEN001V0-250702/337228992", "says": "SKYSHALO label maker tape, 4 pack", "price": 10, "checked": "2026-10-19" }
+   ]
+  }
+ },
+ "kit_unpriced": ["Trash bags", "Painter's tape and a marker", "Measuring tape"],
+ "donation": [
+  { "id": "donate", "always": true, "title": "Donations", "line": "Ask the client where donations go, and call the store first: each store sets its own list and may decline items that aren't clean and sellable.", "src": ["habitat", "mers"] },
+  { "id": "recycle", "always": true, "title": "Recycling", "line": "Recycling rules differ by city and hauler: check your city's recycling page before anything goes in the bin.", "src": [], "judgment": true },
+  { "id": "receipt", "always": true, "title": "Donation receipt", "line": "Ask the charity for a donation receipt and pass it to the client. The charity doesn't set a value on the items; the client records what they gave.", "src": ["goodwill_sc"] },
+  { "id": "refused", "words": ["mattress", "box spring", "crib", "car seat", "stroller", "tv", "television", "futon", "sofa bed", "pull-out", "broken", "damaged"], "rooms": ["bedroom", "kids", "basement"], "title": "Items most stores refuse", "line": "Mattresses and box springs, cribs and car seats, old CRT TVs, paint and chemicals, and damaged furniture are on most donation stores' do-not-take lists. Call first, and check your city for bulk pickup.", "src": ["goodwill_tx", "mers", "goodwill_sc"] },
+  { "id": "hhw", "words": ["chemical", "cleaner", "cleaning supplies", "solvent", "thinner", "pesticide", "weed killer", "bug spray", "motor oil", "antifreeze", "bleach", "propane", "aerosol", "gasoline", "old paint", "paint can"], "rooms": ["garage", "basement", "laundry"], "title": "Paint and chemicals", "line": "Paint, cleaners, oils and pesticides are household hazardous waste: keep them in their original containers, never mix them, and check your city or county for a drop-off day.", "src": ["epa_hhw"] },
+  { "id": "batteries", "words": ["battery", "batteries", "charger", "power bank", "vape"], "rooms": ["garage", "office"], "title": "Batteries", "line": "Lithium-ion and button batteries never go in the trash or the recycling bin: tape the ends or bag each one and take them to a battery drop-off. Check your city about alkaline batteries.", "src": ["epa_batteries"] },
+  { "id": "electronics", "words": ["electronic", "electronics", "phone", "laptop", "computer", "tablet", "tv", "television", "printer", "monitor", "camera", "cord", "cable", "router"], "rooms": ["office"], "title": "Electronics", "line": "Old phones and computers: the client deletes their personal data and the batteries come out first. Then check your city or state for a donation or recycling program.", "src": ["epa_electronics"] },
+  { "id": "medicine", "words": ["medicine", "medication", "meds", "pill", "prescription", "vitamin"], "rooms": ["bathroom"], "title": "Medicines", "line": "Old medicines: a drug take-back site or a mail-back envelope first. Flush only what is on the FDA flush list; otherwise mix with coffee grounds or cat litter in a sealed bag. The client handles them, and you never take medicines away.", "src": ["fda"] },
+  { "id": "papers", "words": ["papers", "paperwork", "mail", "file", "filing", "bill", "receipt", "statement", "document", "tax", "taxes", "shred"], "rooms": ["office"], "title": "Papers", "line": "The client decides what to keep. The IRS says to keep tax records until the period of limitations runs out (generally 3 years, longer in some cases), so tax papers wait for the client or their tax preparer. Shred account numbers only with the client's okay.", "src": ["irs"] },
+  { "id": "clothes", "words": ["clothes", "clothing", "shirt", "pant", "jean", "dress", "coat", "jacket", "sweater", "shoe", "boot", "outgrown", "hand-me-down"], "rooms": ["reachin", "walkin", "bedroom", "kids", "entry"], "title": "Clothes and shoes", "line": "Clothes, shoes and accessories in clean condition can go to a donation store that lists them (the Goodwill stores we checked do). Check the store's list first.", "src": ["goodwill_tx", "goodwill_sc"] },
+  { "id": "furniture", "words": ["furniture", "chair", "dresser", "bookcase", "bookshelf", "sofa", "couch", "lamp", "appliance", "lumber", "tile", "building material"], "rooms": ["garage", "basement"], "title": "Furniture and building materials", "line": "Furniture, appliances and leftover building materials in good shape can go to a Habitat ReStore. Call your ReStore to confirm, and ask about pickup for large items.", "src": ["habitat"] },
+  { "id": "food", "words": ["food", "expired", "snack", "cereal", "canned", "jar", "spice", "leftover"], "rooms": ["kitchen", "pantry"], "title": "Food and packaging", "line": "Expired food goes in the trash or compost. Empty jars, cans and boxes go in recycling only if your city takes them: check your city.", "src": [], "judgment": true },
+  { "id": "keepsakes", "words": ["keepsake", "photo", "album", "memorabilia", "sentimental", "heirloom", "inherited", "yearbook"], "rooms": ["basement"], "title": "Keepsakes", "line": "Keepsakes and photos never go in a donate pile without the client's yes. Set them aside in one labeled box to decide later.", "src": [], "judgment": true }
+ ],
+ "photo": {
+  "permission": "Ask first, in writing: before photos, after photos, and whether you may ever share them. Without a written yes, take none.",
+  "steps": [
+   "Before photos at the start: one wide shot from the doorway, then one of each zone in today's plan.",
+   "Mark where you stood (a strip of painter's tape on the floor works) so the after photo matches: same spot, same height, same angle, doors and drawers open the same way.",
+   "Keep anything personal out of frame: faces, family photos, mail and papers, prescription labels, screens and the house number.",
+   "After photos at the wrap-up, from the same marks.",
+   "Store them privately, share only what the client approved in writing, and delete them when the client asks."
+  ],
+  "src": ["napo"]
+ }
+}

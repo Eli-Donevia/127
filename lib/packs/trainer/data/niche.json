@@ -1,0 +1,930 @@
+{
+ "id": "trainer",
+ "name": "Personal training",
+ "checked": "2026-10-19",
+ "research": "research/niches/trainer.json",
+ "what": "personal training",
+ "what_example": "in-home personal training in Northside",
+ "crowd": {
+  "buyer": "Adults who want help starting to exercise",
+  "scores": {
+   "pain": 3,
+   "can_pay": 3,
+   "findable": 3,
+   "growing": 4
+  },
+  "first_dollar": "Medium",
+  "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "off_season": null,
+  "not_yet": [
+   "Don't train anyone before they've filled in the PAR-Q+ from the PAR-Q+ Collaboration.",
+   "Don't take a paying client before your liability insurance is active.",
+   "Don't buy equipment before your fifth regular client: bodyweight and a band are enough to start."
+  ],
+  "note": "Safety first: your certification, CPR and AED training and insurance come before your first client, and the PAR-Q+ before every first session. Expect evening and weekend sessions.",
+  "basis": "Scores, buyer, first $1 and not-yet lines are our judgment; the reasons are in research/niches/trainer.json under crowd_scores. Months stay all year: no source in the research file measures a season."
+ },
+ "safety": [
+  "Every new client fills in the official PAR-Q+ health form (from the PAR-Q+ Collaboration, eparmedx.com) before the first session. If it says to check with a doctor first, wait for their written go-ahead.",
+  "You plan and coach exercise. You don't diagnose, treat pain or injuries, or write meal plans: refer those to a doctor, physical therapist or registered dietitian.",
+  "Stop a session if they feel unusual pain or discomfort, and refer them before the next one.",
+  "Never promise results like weight lost or a new shape. Promise what you control: on time, a written plan for every session, a refund if the first paid session isn't a fit.",
+  "Get your own liability insurance and keep your CPR and AED training current before you train anyone.",
+  "Before you train anyone in a public park, ask your city or county parks department whether paid sessions need a permit. Check your city and state."
+ ],
+ "partners": [
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "search": {
+    "category": "apartments",
+    "words": "apartment complexes"
+   },
+   "their_customers": "residents",
+   "why": "use the fitness room and want someone to show them where to start",
+   "ask": "host a free 30-minute intro class for residents in your fitness room or courtyard, following your building rules",
+   "give": "give your residents my founding price and a free consultation"
+  },
+  {
+   "id": "yoga",
+   "label": "Yoga and pilates studios",
+   "search": {
+    "category": "yoga",
+    "words": "yoga studios"
+   },
+   "their_customers": "members",
+   "why": "ask about strength training to go with their classes",
+   "ask": "leave a few cards at your front desk, if that's okay with your studio",
+   "give": "point my clients to your classes when they want yoga or pilates"
+  },
+  {
+   "id": "physio",
+   "label": "Physical therapy clinics",
+   "search": {
+    "category": "physio",
+    "words": "physical therapy clinics"
+   },
+   "their_customers": "patients",
+   "why": "finish their care and ask how to keep exercising on their own",
+   "ask": "leave a few cards for patients your team has finished treating, if that fits your practice",
+   "give": "refer anyone who mentions pain or an injury to you before we train, with no referral fees either way"
+  },
+  {
+   "id": "running",
+   "label": "Running stores",
+   "search": {
+    "category": "running",
+    "words": "running stores"
+   },
+   "their_customers": "customers",
+   "why": "ask how to add strength training to their running",
+   "ask": "leave a few cards at your counter, if that's okay with the store",
+   "give": "point my clients to your store when they need running shoes or gear"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "a free consultation script, an intro class plan and a running store script",
+  "safety_title": "Safety first",
+  "find_tip": "Apartment buildings, yoga studios, physical therapy clinics and running stores come from OpenStreetMap once your city is set and business search is on. Until then, look them up on a map and add the real ones by hand.",
+  "people": [
+   "Hey {greet}! I just started {what} around {area}: one-to-one sessions at your place or a park nearby, with a written plan for every session. My first 3 clients get {founding}. Want a spot, or know someone who'd like a hand getting started?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. It begins with a free 30-minute consultation and a short health form, then sessions at a pace that suits you. My first 3 clients get {founding} for honest feedback. Interested, or is there someone you'd pass this to?",
+   "Hey {greet}! I'm launching {what} in {area}: one-to-one sessions at home or outdoors, starting with a free consultation. My first 3 clients get {founding}. Know anyone who might want it?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my personal training message. If it's not for you, would you mind passing my number to one person who might want it? Thank you.",
+  "next_people": [
+   "Hi {greet}! I'm training people around {area} now: one-to-one sessions at home or in a park, with a written plan for every session. I have room for a few more at {rate}. Know anyone who'd like a hand getting started?",
+   "Hey {greet}, hope you're well! I do {what} here in {area}, starting with a free 30-minute consultation. Want a spot, or know someone I could help?",
+   "Hi {greet}! Quick one: if you or a friend ever want help starting to exercise, I'm doing {what} in {area} now. It starts with a free consultation."
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my personal training message. If it's not for you, would you mind passing my number to one person who might want it? Thank you.",
+  "next_subject": "Personal training in {area}"
+ },
+ "extra": [
+  {
+   "title": "Free consultation script (30 minutes, no exercise yet)",
+   "lines": [
+    "1. Thanks for meeting me. Today is about you and a plan, not a workout.",
+    "2. What made you want to start now? What would you like to be able to do, in your own words?",
+    "3. What does a normal week look like? Which days and times could you train?",
+    "4. Where would you like to train: at home, in a park nearby or in your building's fitness room?",
+    "5. Before any session, you fill in the PAR-Q+ from the PAR-Q+ Collaboration, a standard health form, and we read it together. If it says to check with your doctor first, we wait for that.",
+    "6. I plan and coach the sessions. I don't diagnose pain or injuries or write meal plans; I'll point you to the right professional for those.",
+    "7. My founding price is {founding}. Want to pick your first two session times?"
+   ]
+  },
+  {
+   "title": "Intro class at an apartment building (30 minutes, free)",
+   "lines": [
+    "1. Ask the manager for their rules, a time and the space, and follow them.",
+    "2. Everyone fills in the PAR-Q+ from the PAR-Q+ Collaboration before the class. Anyone it says should check with a doctor first sits this one out.",
+    "3. Keep it easy: a warm-up, five moves at a pace where everyone can talk, and a cool-down.",
+    "4. Hand out your card with the founding price. No sign-up sheet without the manager's okay."
+   ]
+  },
+  {
+   "title": "Running stores (in person)",
+   "lines": [
+    "Pick 2 running stores from your list and walk in at a quiet time.",
+    "In person: Hi, is the manager around? I'm a personal trainer nearby, and a lot of your customers are training for races and ask about strength work. Could I leave a few cards by the register? I'd be glad to point my clients to you for shoes and gear.",
+    "If they say no, thank them and leave it there."
+   ]
+  }
+ ],
+ "offer": {
+  "name": "Personal training session",
+  "unit": "session",
+  "length": "60 minutes",
+  "prices": {
+   "budget": 45,
+   "standard": 60,
+   "premium": 80
+  },
+  "range_text": "$35 to $100 a session",
+  "basis": "From research/niches/trainer.json (Thumbtack's national guide and in-home city pages, ISSA, NASM and ACE, checked 2026-10-19). Small group seats run about $12 to $40 per person.",
+  "sources": [
+   "https://www.thumbtack.com/p/personal-trainer-cost",
+   "https://www.thumbtack.com/oh/columbus/in-home-personal-trainers",
+   "https://www.issaonline.com/blogs/business/how-much-does-a-personal-trainer-cost-factors-to-consider",
+   "https://www.nasm.org/resource-center/blog/personal-trainer-salary",
+   "https://www.acefitness.org/resources/pros/expert-articles/5114/how-to-determine-what-to-charge-for-your-services/"
+  ],
+  "includes": [
+   "A free 30-minute consultation: your goals, your week and the PAR-Q+ health form from the PAR-Q+ Collaboration",
+   "60-minute sessions at your home, a park nearby or your building's fitness room",
+   "A written plan for every session, from your printed 4-week plan",
+   "A short note after each session: what we did and what's next"
+  ],
+  "steps": [
+   "Free consultation: we talk through your goals and your week, and you fill in the PAR-Q+.",
+   "If the PAR-Q+ says to check with your doctor first, we wait for that.",
+   "You get a printed intake sheet and a 4-week session plan.",
+   "Sessions start slowly and build gradually, at a pace where you can talk."
+  ],
+  "promise": "I show up on time with a written plan for every session. If I'm late or miss a session, the next one is free. If the first paid session isn't a fit, I refund it.",
+  "promise_note": "I don't promise results like weight lost or a new shape. I promise the work: every session planned, on time and at a pace that suits you. I don't diagnose, treat injuries or write meal plans.",
+  "sheet_notes_title": "Safety first",
+  "sheet_notes": [
+   "Everyone fills in the PAR-Q+ health form before the first session.",
+   "If anything hurts in an unusual way, we stop, and I'll ask you to check with a health professional before the next session.",
+   "Move or cancel a session with 24 hours' notice."
+  ],
+  "footer": "Pay per session, per pack of 4 or per 4-week plan of 8 sessions.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "People you know",
+    "note": "For honest feedback after four weeks. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner residents",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it when your best weekly time slots are 80 percent full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free consultation",
+    "price": 0,
+    "unit": "consultation",
+    "what": "30 minutes: goals, their week and the PAR-Q+ from the PAR-Q+ Collaboration. No exercise until the form is done."
+   },
+   {
+    "kind": "Core",
+    "name": "60-minute session",
+    "price": "core",
+    "what": "One to one, at their home, a park or a building fitness room."
+   },
+   {
+    "kind": "Keep going",
+    "name": "4-week plan: 8 sessions",
+    "times": 8,
+    "off": 0.1,
+    "unit": "4-week plan",
+    "what": "Two sessions a week for four weeks, paid up front; their times stay held."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "30-minute session",
+    "factor": 0.6,
+    "what": "A shorter session when an hour won't fit."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Train with a partner",
+    "factor": 0.5,
+    "unit": "extra person per session",
+    "what": "A friend joins the same session, with their own PAR-Q+."
+   },
+   {
+    "kind": "Another way in",
+    "name": "Small group in the park",
+    "factor": 0.35,
+    "unit": "person per session",
+    "what": "3 to 6 people, each with their own PAR-Q+. Ask your city about park permits first."
+   }
+  ],
+  "ladder_word": "clients"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After the first four weeks: a thank-you, an honest review ask with no reward attached, a referral ask and a referral card.",
+  "client_title": "Client's name",
+  "done_example": "our first four weeks of sessions",
+  "reward_default": "a free session",
+  "file_word": "referral card",
+  "card_title": "A trainer {greet} recommends",
+  "card_footer": "Every new client starts with a free consultation and the PAR-Q+ health form from the PAR-Q+ Collaboration.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only.",
+   "No before-and-after photos, weights or measurements in any ask."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for {done}. I've really enjoyed training with you.",
+   "review_ask": "Would you leave an honest review about what training with me has been like? It helps other people decide who to train with. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If a friend or neighbor wants help starting to exercise, I'd love an introduction. When someone you send my way books, you both get {reward}.",
+   "card_line": "{business}: one-to-one personal training at home or outdoors, with a free consultation and a written plan for every session."
+  },
+  "business_fallback": "Your trainer"
+ },
+ "replies": {
+  "who_title": "Which person or place",
+  "ai_rules": [
+   "Never promise results: no weight, size, health or fitness outcomes, and no before-and-after claims.",
+   "Personal trainers don't diagnose, treat pain or injuries, or give meal plans or supplement advice. Refer those to a doctor, physical therapist or registered dietitian.",
+   "Every new client fills in the PAR-Q+ health form before the first session. The next step is the free consultation.",
+   "If you mention the PAR-Q+, call it the PAR-Q+ from the PAR-Q+ Collaboration the first time. Never link to it or give a web address.",
+   "Never ask about or repeat anything about their health or their PAR-Q+ answers in a message: offer to talk it through in person.",
+   "Say any price once, exactly as given."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great! The first step is a free 30-minute consultation: we talk about your goals and your week, and you fill in the PAR-Q+ from the PAR-Q+ Collaboration, a short standard health form. No workout yet. What day works for you?",
+    "next": "Book the consultation within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. My {length_adj} sessions are {rate}. Everyone starts with a free consultation, so you can see how I work before you book. Want to set one up?",
+    "next": "Say the price once, then offer the consultation."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. If the timing changes, just text me. The free consultation stays open whenever it suits you.",
+    "next": "Set a reminder for 6 weeks."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I do {what} here in {area}. Everyone starts with a free consultation and a short health form. Happy to answer any question.",
+    "next": "Answer plainly, then offer the consultation."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They have a trainer, a gym or a plan already.",
+    "answer": "Good to hear you're set! If you ever want a second plan or a session at home, I'm nearby. Thanks for letting me know.",
+    "next": "Leave it there."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The best way to answer it properly is a free 30-minute consultation, so I can hear what you'd like to do. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the consultation."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free 30-minute consultation this week be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to meet",
+    "means": "They want to meet or talk first.",
+    "answer": "Happy to! {when_ask} The first step is a free 30-minute consultation, no workout, so we can talk through your goals and the PAR-Q+ health form from the PAR-Q+ Collaboration.",
+    "next": "Book the consultation within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few cards this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the cards within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what their people would pay.",
+    "answer": "My sessions are {rate}, and everyone starts with a free consultation. Happy to drop off cards with the details.",
+    "next": "Say the price once, then offer the cards."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back in a couple of months? Thanks for considering it.",
+    "next": "Set a reminder for 2 months out."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, a personal trainer here in {area}. I follow your rules on posting, and anything medical goes to the right professional. Happy to stop by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already work with a trainer.",
+    "answer": "Good to hear you already have someone. If you ever keep a list of local trainers, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my card with your residents or members?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines)",
+    "means": "They have rules about posting or promoting.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share local services with residents or members, like a newsletter or a resource list, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   },
+   {
+    "id": "fees",
+    "label": "Referral fees",
+    "match": "\\b(referral fees?|commissions?|kickbacks?|pay (you|us) for|per referral|finder'?s fee)\\b",
+    "means": "They're asking whether money changes hands for referrals.",
+    "answer": "Thanks for asking. I don't pay or take fees for referrals, either way. It's only about sending people to the right place: if someone I train mentions pain or an injury, I'll point them to you.",
+    "next": "Keep referrals free both ways. Never pay a clinic, or take money from one, for sending people.",
+    "check": "Clinics that bill Medicare or Medicaid fall under the federal Anti-Kickback Statute. Check your state's rules too.",
+    "sources": [
+     {
+      "publisher": "HHS Office of Inspector General",
+      "url": "https://oig.hhs.gov/compliance/physician-education/fraud-abuse-laws/",
+      "says": "The Anti-Kickback Statute prohibits paying anything of value to induce or reward patient referrals for services payable by federal health care programs.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "objections": [
+   {
+    "id": "in_person",
+    "label": "Best talked through in person",
+    "match": "\\bpar-?q\\b|\\bparq\\b|\\bhealth (form|questionnaire)\\b|\\beparmed|\\bclearance\\b|\\bcleared (me|us|by|to)\\b|\\bdoctor'?s (note|letter|go-ahead|okay|ok)\\b",
+    "means": "Something to talk through in person, not by message.",
+    "answer": "Thank you for letting me know. Let's go through it together in person rather than by message, and if anything needs a doctor's go-ahead first, we'll wait for that. When could we meet?",
+    "next": "Talk it through in person, and keep the details out of messages and notes.",
+    "judgment": true
+   },
+   {
+    "id": "pain",
+    "label": "Pain or an injury",
+    "match": "\\b(pain|painful|hurts?|hurting|injur\\w*|bad (back|knees?|shoulders?|hips?)|sore (back|knees?|shoulders?|hips?)|surgery|physical therap\\w*|physio\\w*|rehab\\w*|arthritis|my doctor said)\\b",
+    "means": "They mentioned pain, an injury or a health condition.",
+    "answer": "Thanks for telling me. I don't diagnose or treat pain or injuries, so the first step is the PAR-Q+ health form from the PAR-Q+ Collaboration. If it, or your doctor, says to get checked first, we wait for that, and once you're cleared I plan sessions around what they recommend.",
+    "next": "Send the PAR-Q+ and book the consultation. Never plan around an injury on your own.",
+    "sources": [
+     {
+      "publisher": "NASM Candidate Handbook",
+      "url": "https://support.nasm.org/hubfs/NASM%20Website/Web%20Resources/NASM%20Candidate%20Handbook%20.pdf?hsLang=en",
+      "says": "Personal trainers do not diagnose or treat areas of pain or disease, and always refer clients with such needs to health care professionals.",
+      "checked": "2026-10-19",
+      "page_date": "2025-09-29"
+     },
+     {
+      "publisher": "ACE Personal Trainer Manual, chapter 1",
+      "url": "https://www.acefitness.org/academy/AcademyElitePDFs/ACE_PT5th_Manual_Ch1.pdf",
+      "says": "Personal fitness trainers do not diagnose, prescribe, treat injury or disease, or rehabilitate.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "results",
+    "label": "What results will I get?",
+    "match": "\\b(lose|losing|lost) (weight|\\d+|pounds|lbs|inches|fat|belly)\\b|\\bweight ?loss\\b|\\btone up\\b|\\bget (in|into) shape\\b|\\bsix[- ]pack\\b|\\bresults?\\b|\\bhow (fast|soon) (will|can|could|would|do) (i|you)\\b|\\bbefore and after\\b|\\btransform\\w*",
+    "means": "They want to know what results to expect.",
+    "answer": "Honest answer: I can't promise a number or a date, and no one should. What I can promise is the work: every session planned, on time and at a pace that suits you, with a check-in at the start of every session. Want to start with a free consultation?",
+    "next": "Never promise weight, size or fitness results. Offer the consultation.",
+    "judgment": true
+   },
+   {
+    "id": "meals",
+    "label": "Can you give me a meal plan?",
+    "match": "\\b(meal plans?|diet plans?|my diet|macros?|calories|what (should|do) i eat|nutrition|supplements?|protein (powder|shakes?)|keto|fasting)\\b",
+    "means": "They want food or supplement advice.",
+    "answer": "Good question. Meal plans and supplement advice are for a registered dietitian or your doctor, so I'll point you to one. I'm happy to plan the training around your week.",
+    "next": "Refer meal plans and supplements to a registered dietitian. Don't write a diet.",
+    "sources": [
+     {
+      "publisher": "ACE",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/6248/nutrition-scope-of-practice-what-you-can-do-as-a-personal-trainer/",
+      "says": "Fitness professionals should not offer individualized meal plans or recommend nutritional supplements, or present themselves as dietitians or nutritionists unless licensed.",
+      "checked": "2026-10-19",
+      "page_date": "2017-01-18"
+     },
+     {
+      "publisher": "Commission on Dietetic Registration",
+      "url": "https://www.cdrnet.org/vault/2459/web/PDFs%20for%20Website/6%20Practice%20Tips-%20CDR%20Certification%20vs%20State%20Licensure%20What%20is%20the%20Difference.pdf",
+      "says": "Most states require nutrition and dietetics practitioners to hold a state license or certification, and requirements vary from state to state.",
+      "checked": "2026-10-19",
+      "page_date": "2024-09-23"
+     }
+    ]
+   },
+   {
+    "id": "certified",
+    "label": "Are you certified?",
+    "match": "\\b(certif\\w*|credentials?|qualified|qualifications?|licensed|license)\\b",
+    "means": "They want to know your training.",
+    "answer": "Good question, and fair to ask. I'm happy to show you my certification and my CPR and AED cards before we start, and anything medical goes to the right professional.",
+    "next": "Show your certificates at the consultation.",
+    "check": "Only send this if your certification and CPR and AED training are current. If you're still studying, say so plainly.",
+    "sources": [
+     {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/ooh/personal-care-and-service/fitness-trainers-and-instructors.htm",
+      "says": "Personal trainers usually must be certified before they begin working with clients; employers usually prefer certification, and requirements vary by facility.",
+      "checked": "2026-10-19",
+      "page_date": "2026-08-27"
+     },
+     {
+      "publisher": "ACE Personal Trainer Manual, chapter 1",
+      "url": "https://www.acefitness.org/academy/AcademyElitePDFs/ACE_PT5th_Manual_Ch1.pdf",
+      "says": "A fitness certification is not a professional license, so trainers refer to licensed professionals when warranted.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "insured",
+    "label": "Are you insured?",
+    "match": "\\b(insur\\w*|liabilit\\w*)\\b",
+    "means": "They want to know you carry insurance.",
+    "answer": "Good question to ask. I'll send you my insurance certificate before our first session, so you can see what it covers.",
+    "next": "Send the certificate, then book the consultation.",
+    "check": "Only send this once your policy is active.",
+    "sources": [
+     {
+      "publisher": "NASM",
+      "url": "https://www.nasm.org/resource-center/blog/career/nasm-certification-cost",
+      "says": "Independent personal trainers often buy their own professional liability insurance; policies are generally $20 to $50 per month.",
+      "checked": "2026-10-19",
+      "page_date": "2026-07-23"
+     },
+     {
+      "publisher": "ACE Personal Trainer Manual, chapter 1",
+      "url": "https://www.acefitness.org/academy/AcademyElitePDFs/ACE_PT5th_Manual_Ch1.pdf",
+      "says": "Carry professional liability insurance for protection in the event a client is injured.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "cost",
+    "label": "It's too much",
+    "match": "\\b(too (expensive|much|pricey)|cheaper|lower (price|rate)|can'?t afford|cannot afford|out of (our|my) budget|discount)\\b",
+    "means": "The price adds up for them.",
+    "answer": "That's fair. Three ways to make it lighter: a 30-minute session, a session shared with a friend, or a 4-week plan paid ahead for a little less per session.",
+    "next": "Hold your price. Offer the 30-minute session, a partner session or the 4-week plan.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/personal-trainer-cost",
+      "says": "Packages of five, 10 and 20 sessions give room for discounts, and training with a few friends costs less per person.",
+      "checked": "2026-10-19",
+      "page_date": "2025-10-20"
+     },
+     {
+      "publisher": "ISSA",
+      "url": "https://www.issaonline.com/blogs/business/how-much-does-a-personal-trainer-cost-factors-to-consider",
+      "says": "Bundles of 4, 8 or 12 sessions usually lower the per-session rate.",
+      "checked": "2026-10-19",
+      "page_date": "2024-02-05"
+     }
+    ]
+   },
+   {
+    "id": "diy",
+    "label": "I could use an app or my gym",
+    "match": "\\b(gym membership|my gym|planet fitness|an app|apps|youtube|peloton|on my own|by myself)\\b",
+    "means": "They wonder if they need a trainer at all.",
+    "answer": "Fair question, and plenty of people train on their own. What I add is a plan for each session, someone to show you each move, and a set time each week at your place or a park. If you'd like to see the difference, the consultation is free.",
+    "next": "Agree, then offer the free consultation.",
+    "judgment": true
+   },
+   {
+    "id": "time",
+    "label": "I don't have time",
+    "match": "\\b(no time|(don'?t|do not) have (the )?time|too busy|so busy|swamped)\\b",
+    "means": "Time is the worry, not the idea.",
+    "answer": "That's fair, and it's the most common worry. Sessions can be 30 minutes, early or at lunch, at your place so there's no travel. Want to try a free consultation and see what fits your week?",
+    "next": "Offer the 30-minute session once, then let them decide.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "pay_when": "When they book",
+  "for_title": null,
+  "title": "Personal training{for}",
+  "default": "plan8",
+  "packages": [
+   {
+    "id": "single",
+    "label": "Personal training session, 60 minutes",
+    "detail": "One to one, with a written plan",
+    "qty": 1,
+    "pick": "One session"
+   },
+   {
+    "id": "pack4",
+    "label": "Personal training sessions, pack of 4",
+    "short": "Pack of 4",
+    "detail": "60 minutes each, at times that suit you",
+    "qty": 4,
+    "off": 0.05,
+    "pick": "Pack of 4 sessions"
+   },
+   {
+    "id": "plan8",
+    "label": "4-week plan, 8 sessions",
+    "short": "4-week plan",
+    "detail": "Two 60-minute sessions a week for four weeks, with the printed plan",
+    "qty": 8,
+    "off": 0.1,
+    "pick": "4-week plan (8 sessions)"
+   },
+   {
+    "id": "half",
+    "label": "30-minute session",
+    "detail": "A shorter session when an hour won't fit",
+    "qty": 1,
+    "factor": 0.6,
+    "pick": "One 30-minute session"
+   },
+   {
+    "id": "group",
+    "label": "Small group seat in the park",
+    "detail": "3 to 6 people, each with their own health form",
+    "qty": 1,
+    "factor": 0.35,
+    "unit": "person",
+    "pick": "Small group seat"
+   }
+  ],
+  "extra": {
+   "title": "Add a training partner",
+   "label": "Training partner in the same session",
+   "detail": "A second person in the same session, with their own health form",
+   "factor": 0.5,
+   "per_package": true
+  },
+  "notes": [
+   "Every new client fills in the PAR-Q+ health form from the PAR-Q+ Collaboration before the first session.",
+   "If I'm late or miss a session, the next one is free. If the first paid session isn't a fit, I refund it."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message with the PAR-Q+ step and the day-before reminder, and a printable first session checklist.",
+  "who_title": "Client's name",
+  "who_word": "client",
+  "for_title": null,
+  "for_default": "",
+  "when_title": "First session day, time and place",
+  "where": null,
+  "booking": "Hi {greet}, you're all set! Our first session is {when}. It's {deal}.{pay} Before we start, I'll send the PAR-Q+ from the PAR-Q+ Collaboration, a short standard health form, and your intake sheet.",
+  "prep": "Before our first session, please fill in the whole PAR-Q+ from the PAR-Q+ Collaboration, and we'll read it together. If it says to check with your doctor first, we'll wait for that. Wear shoes you can move in and bring water.",
+  "reminder": "Hi {greet}, see you {when} for our session. Bring water, and tell me if anything has changed with your health since you filled in the PAR-Q+ from the PAR-Q+ Collaboration.",
+  "founding": "Founding client: after four weeks, ask {greet} for honest feedback you may quote as a founding client. No before-and-after photos, weights or measurements. Never ask for a review in exchange.",
+  "file_word": "first session checklist",
+  "checklist_title": "First session checklist for {for_title}",
+  "checklist": {
+   "Before session 1": [
+    "They filled in the whole PAR-Q+, and you read it together.",
+    "If it said to check with a doctor first, you have their written go-ahead.",
+    "Intake sheet and 4-week plan printed (run Intake and 4-week plan).",
+    "Emergency contact on file, and you know the address to give 911.",
+    "Your insurance and your CPR and AED training are current."
+   ],
+   "Every session": [
+    "Check in: anything new with their health since last time? If it changed, pause and go back to the PAR-Q+.",
+    "Warm up, then the plan's moves at a pace where they can talk but not sing.",
+    "Stop the session if they feel unusual pain or discomfort, and refer them to a health care professional.",
+    "Write a short note: what you did, how it felt and what's next."
+   ],
+   "After": [
+    "Send the session note.",
+    "Invoice per session, per pack or per 4-week plan.",
+    "Redo the PAR-Q+ within 12 months, or sooner if their health changes."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "NASM Candidate Handbook",
+    "url": "https://support.nasm.org/hubfs/NASM%20Website/Web%20Resources/NASM%20Candidate%20Handbook%20.pdf?hsLang=en",
+    "says": "Don't begin training a client before receiving and reviewing a current health history questionnaire signed by the client, and stop the session for unusual pain or discomfort.",
+    "checked": "2026-10-19",
+    "page_date": "2025-09-29"
+   },
+   {
+    "publisher": "CDC",
+    "url": "https://www.cdc.gov/physical-activity-basics/measuring/index.html",
+    "says": "At moderate intensity a person can talk, but not sing, during the activity.",
+    "checked": "2026-10-19",
+    "page_date": "2025-12-04"
+   }
+  ],
+  "sessions": true
+ },
+ "story": {
+  "who_title": "Client's name",
+  "for_title": null,
+  "what_example": "two sessions a week since October",
+  "result_example": "She says Tuesday mornings are now the part of her week she looks forward to",
+  "quote_example": "I like that every session has a plan, so I never have to think about what to do.",
+  "anon": "A client in {area}",
+  "named": "{greet}, a client in {area}",
+  "photo": false,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our sessions? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer, and I won't share photos, weights or measurements. It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "review": "If you have a minute, would you leave an honest review about what training with me has been like? No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a client, shared with their written permission. {story_line} If you'd like help starting to exercise, {reach}",
+  "disclosure": {
+   "founding": "{who} paid a founding price.",
+   "free": "{who} trained for free."
+  },
+  "rules": [
+   "Only the exact words they approved in writing.",
+   "No weights, measurements, before-and-after photos or health results, even true ones.",
+   "Nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "Adults nearby who want help starting to exercise",
+  "group": "fitness",
+  "format": "flyer",
+  "print": true,
+  "headline": "Personal training in {area}",
+  "sub": "One-to-one sessions at your home or a park nearby, with a written plan for every session.",
+  "bullets": [
+   "A free 30-minute consultation first",
+   "The PAR-Q+ from the PAR-Q+ Collaboration before any session",
+   "A pace that suits you, planned session by session"
+  ],
+  "offer": "Free consultation",
+  "cta": "Book a free consultation",
+  "tagline": "One-to-one personal training at home or outdoors, with a written plan for every session.",
+  "design": "local-service"
+ },
+ "plan": {
+  "parq_note": "The PAR-Q+ is the official health form from the PAR-Q+ Collaboration (eparmedx.com), free for exercise professionals to use for screening. Print the whole form unchanged from their site, have the client fill it in on paper, and read it together. This tool keeps only Go, Hold or Not done yet and two dates, never their answers or why.",
+  "parq_client": "You fill in the official PAR-Q+ health form from the PAR-Q+ Collaboration (eparmedx.com) on its own pages, and we read it together. This sheet notes only the result and its dates.",
+  "results": [
+   {
+    "id": "go",
+    "label": "Go"
+   },
+   {
+    "id": "hold",
+    "label": "Hold"
+   },
+   {
+    "id": "not_done",
+    "label": "Not done yet"
+   }
+  ],
+  "result_help": "Go: the PAR-Q+ says they're ready to become more active, or a doctor cleared them in writing. Hold: it says to wait or to check first. Only this word is kept, never their answers or why.",
+  "redo_help": "When to fill in the PAR-Q+ again: 12 months after the form, or 6 months after a doctor's clearance.",
+  "go_notes": [
+   "Start slowly and build up gradually.",
+   "Keep every session at low to moderate effort, at a pace where talking is easy but singing isn't.",
+   "Follow any precautions from a doctor's clearance, including any supervision it asks for."
+  ],
+  "go_message": "Hi {greet}, thanks for filling in the PAR-Q+ from the PAR-Q+ Collaboration. Here's our plan for the next 4 weeks: {count} sessions, {days}{first}. We'll start slowly: every session begins with a quick check-in and stays at a pace where you can talk. Bring {bring}. If anything changes with your health before then, tell me and we'll look at the PAR-Q+ again.",
+  "states": {
+   "go": {
+    "status": "Plan ready: {count} sessions over 4 weeks",
+    "next": "Print this page and the intake sheet for session 1, and fill in the intake together."
+   },
+   "need_redo": {
+    "status": "Needs the redo-by date",
+    "line": "No plan yet: add the redo-by date.",
+    "next": "Add the redo-by date from the form or the clearance (12 months after the form, or 6 months after a doctor's clearance) and run this again. No plan until then."
+   },
+   "expired": {
+    "status": "Time for a new PAR-Q+",
+    "line": "That date has passed, so no plan until they fill it in again.",
+    "message": "Hi {greet}, before our next session, could you fill in the PAR-Q+ from the PAR-Q+ Collaboration again? The last one was due to be redone by {redo}. I'll bring a printed copy, and we'll read it together.",
+    "next": "Bring a fresh copy of the official PAR-Q+, printed and unchanged. Run this again with the new result.",
+    "intake_line": "Time to fill in the PAR-Q+ again: this one was due to be redone by {redo}."
+   },
+   "hold": {
+    "status": "On hold: pick one message",
+    "line": "No sessions yet.",
+    "next": "Pick the one message that fits and send it. Don't train them yet, not even a light session. When the PAR-Q+, or their doctor in writing, says go, run this again with Go.",
+    "intake_line": "No sessions yet. We start once the PAR-Q+, or your doctor in writing, says go."
+   },
+   "not_done": {
+    "status": "PAR-Q+ first",
+    "message": "Hi {greet}, before our first session, could you fill in the PAR-Q+ from the PAR-Q+ Collaboration? It's a short, standard health form that says whether to check with your doctor before becoming more active. I'll bring a printed copy, and we'll read it together before we start.",
+    "next": "Bring the official PAR-Q+, printed and unchanged, and read it together. Run this again with Go or Hold before session 1.",
+    "intake_line": "Before our first session, you fill in the PAR-Q+ and we read it together."
+   }
+  },
+  "hold_messages": [
+   {
+    "label": "A short illness",
+    "message": "Hi {greet}, sorry you're not feeling well. Let's hold off on our sessions until you feel better: the PAR-Q+ from the PAR-Q+ Collaboration says to wait out a short illness like a cold or fever before becoming more active. Text me when you're ready and we'll pick a time."
+   },
+   {
+    "label": "Check with your doctor",
+    "message": "Hi {greet}, thank you for filling in the PAR-Q+ from the PAR-Q+ Collaboration. Before we start, please check with your doctor or health care practitioner, and send me their go-ahead in writing. Once you have it, we'll plan sessions around what they recommend."
+   },
+   {
+    "label": "The ePARmed-X+ next step",
+    "message": "Hi {greet}, thank you for filling in the PAR-Q+ from the PAR-Q+ Collaboration. Your answers say to get more information before becoming more active, so let's hold our sessions for now. The form's next step is the ePARmed-X+, its online follow-up. If it says to check with your doctor, we'll wait for their go-ahead in writing. Once you're cleared, send it to me and we'll pick a start date."
+   }
+  ],
+  "view_note": "Open Next steps for the result and what to send, and on a Go the plan to print.",
+  "private_note": "What the PAR-Q+ says stays in these two files, private to you in HQ. None of it goes to your Pipeline, your business memory or an AI linked to 127, and this page reads the same whatever the result. Start this one here in HQ, not from a linked AI, which would see what you type.",
+  "print_note": "For you: this box doesn't print. Print the page for the client's 4-week plan.",
+  "screen_note": "For you, private in HQ. There's no plan to print yet.",
+  "trainer_privacy": "Private to you in HQ. None of it goes to your Pipeline, your business memory or an AI linked to 127.",
+  "levels": ["New to exercise", "Active now and then", "Active most weeks"],
+  "places": [
+   {
+    "id": "Home",
+    "where": "their home",
+    "kit": "Bodyweight, a sturdy chair and a resistance band."
+   },
+   {
+    "id": "Park",
+    "where": "a park nearby",
+    "kit": "Bodyweight, a bench and a resistance band. Check your city's park rules first."
+   },
+   {
+    "id": "Building fitness room",
+    "where": "their building's fitness room",
+    "kit": "The room's dumbbells and benches, or a band. Follow the building's rules."
+   },
+   {
+    "id": "Other",
+    "kit": "Bodyweight and a resistance band."
+   }
+  ],
+  "lengths": {
+   "30 minutes": [3, 6, 12, 6, 3],
+   "45 minutes": [5, 8, 18, 9, 5],
+   "60 minutes": [5, 10, 25, 12, 8]
+  },
+  "parts": [
+   {
+    "part": "Check-in",
+    "what": "How are they today? Anything new with their health, sleep or pain since last time? If their health changed, pause and go back to the PAR-Q+."
+   },
+   {
+    "part": "Warm-up",
+    "what": "Easy walking or marching, arm and hip circles, then a few slow practice reps of the first moves."
+   },
+   {
+    "part": "Strength",
+    "what": "The moves below, with the sets for the week: 8 to 12 slow reps of each, at a light to moderate effort with smooth form."
+   },
+   {
+    "part": "Talk-pace cardio",
+    "what": "A brisk walk, marching or easy step-ups at a pace where they can talk but not sing."
+   },
+   {
+    "part": "Cool-down and note",
+    "what": "An easy walk, gentle stretches held without bouncing, then the session note: what you did, how it felt and what's next."
+   }
+  ],
+  "moves": [
+   {
+    "move": "Squat",
+    "easier": "A higher chair, or a hand on the armrests",
+    "versions": ["Sit to stand from a chair", "Squat to a chair without sitting", "Slow squat, 3 seconds down"]
+   },
+   {
+    "move": "Hip hinge",
+    "easier": "A smaller lift off the mat",
+    "versions": ["Glute bridge on a mat", "Hip hinge with a band", "Single-leg glute bridge"]
+   },
+   {
+    "move": "Push",
+    "easier": "Stand closer to the wall",
+    "versions": ["Wall push-up", "Push-up on a counter or bench", "Push-up from the knees on a mat"]
+   },
+   {
+    "move": "Pull",
+    "easier": "A lighter band",
+    "versions": ["Seated band row", "Standing band row", "Band row with a 2-second hold"]
+   },
+   {
+    "move": "Carry",
+    "easier": "Lighter bags or a shorter walk",
+    "versions": ["Walk with a light bag in each hand", "Walk with a heavier bag in one hand", "Longer carry, switching hands each lap"]
+   },
+   {
+    "move": "Core",
+    "easier": "Smaller, slower arm moves",
+    "versions": ["Dead bug, arms only", "Dead bug", "Bird dog with a pause"]
+   },
+   {
+    "move": "Balance",
+    "easier": "Both hands on the wall",
+    "versions": ["Heel-to-toe stand beside a wall", "One-leg stand beside a wall", "Step-up onto a low, steady step"]
+   }
+  ],
+  "easier_than_first": "Fewer reps or a smaller range",
+  "next_after_last": "Slower reps or a longer hold",
+  "weeks": [
+   {
+    "sets": "1 set of each move",
+    "focus": "Learn the moves at an easy pace and find each move's starting version."
+   },
+   {
+    "sets": "2 sets of each move",
+    "focus": "Same moves, steadier form, still at a pace where they can talk."
+   },
+   {
+    "sets": "2 sets of each move",
+    "focus": "Try the next version of one or two moves, only if week 2 felt easy."
+   },
+   {
+    "sets": "2 or 3 sets of each move",
+    "focus": "Keep what felt right, then review the four weeks together and plan the next four."
+   }
+  ],
+  "pace": "Every part stays at a pace where they can talk but not sing (the CDC talk test), starting slowly and building up gradually, as the PAR-Q+ and the HHS guidelines both say.",
+  "stop": "Stop the session if they feel unusual pain or discomfort, and refer them to a health care professional before the next one. In an emergency, call 911.",
+  "stop_client": "If anything hurts in an unusual way, tell me right away: we stop, and I'll ask you to check with a health care professional before the next session.",
+  "scope": "I plan and coach exercise. I don't diagnose, treat pain or injuries, or write meal plans; I'll point you to a doctor, physical therapist or registered dietitian for those.",
+  "no_promise": "I don't promise results like weight lost or a new shape. I promise the work: every session planned, on time and at a pace that suits you.",
+  "bring": "water, shoes you can move in, and a resistance band if you have one",
+  "template_note": "A starting template, not medical advice: adjust it to the person in front of you.",
+  "built_from": "Built from the PAR-Q+ (PAR-Q+ Collaboration, which isn't connected with 127), the CDC talk test, the HHS Physical Activity Guidelines for Americans (muscle-strengthening activity at least 2 days a week; one set of 8 to 12 repetitions, with 2 or 3 sets as they progress) and the ACE and NASM scope rules, checked 2026-10-19.",
+  "one_day": "One session a week is a fine start. The HHS guidelines suggest building up to muscle-strengthening activity on at least 2 days a week, so talk about a second day once week 2 feels easy.",
+  "moves_per_length": {
+   "30 minutes": 4,
+   "45 minutes": 5,
+   "60 minutes": 7
+  },
+  "moves_line": "In a {length} session, do {n} of these moves and rotate the rest from one session to the next.",
+  "goal_note": "Their goals mention weight or size. Keep their words on the sheet, but don't promise a number or a date, and leave weigh-ins and measurements out of the plan.",
+  "privacy": "This sheet stays private between us. Your PAR-Q+ answers stay on the official form with you; only the result and its dates are written here.",
+  "sources": [
+   {
+    "publisher": "CDC",
+    "url": "https://www.cdc.gov/physical-activity-basics/measuring/index.html",
+    "says": "At moderate intensity a person can talk, but not sing, during the activity."
+   },
+   {
+    "publisher": "HHS Physical Activity Guidelines for Americans",
+    "url": "https://odphp.health.gov/sites/default/files/2019-09/Physical_Activity_Guidelines_2nd_edition.pdf",
+    "says": "Muscle-strengthening activity at least 2 days a week; one set of 8 to 12 repetitions is effective, and 2 or 3 sets may be more effective."
+   },
+   {
+    "publisher": "ACE Personal Trainer Manual, chapter 1",
+    "url": "https://www.acefitness.org/academy/AcademyElitePDFs/ACE_PT5th_Manual_Ch1.pdf",
+    "says": "Personal trainers don't diagnose, prescribe, treat injury or disease, or rehabilitate; they refer to the right professional."
+   },
+   {
+    "publisher": "NASM Candidate Handbook",
+    "url": "https://support.nasm.org/hubfs/NASM%20Website/Web%20Resources/NASM%20Candidate%20Handbook%20.pdf?hsLang=en",
+    "says": "Review a current health history questionnaire before training, and stop the session for unusual pain or discomfort."
+   }
+  ]
+ }
+}

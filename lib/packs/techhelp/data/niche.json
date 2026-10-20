@@ -1,0 +1,688 @@
+{
+ "id": "techhelp",
+ "name": "Tech help at home",
+ "checked": "2026-10-19",
+ "research": "research/niches/techhelp.json",
+ "what": "tech help at home",
+ "what_example": "phone and computer help for older adults",
+ "crowd": {
+  "buyer": "Older adults and their families",
+  "scores": {
+   "pain": 4,
+   "can_pay": 3,
+   "findable": 3,
+   "growing": 4
+  },
+  "first_dollar": "Fast",
+  "best_months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "not_yet": [
+   "Don't offer remote help with screen sharing apps. Help in person.",
+   "Don't take on office networks or business IT before your tenth home client.",
+   "Don't keep, write down or store anyone's passwords, even when they ask you to."
+  ],
+  "note": "Trust comes first: the client types every password, family is welcome at every visit, and every visit ends with a written note.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/niches/techhelp.json crowd_scores (our judgment, with Pew, Census and FBI IC3 sources). Best months: all year, a judgment call."
+ },
+ "safety": [
+  "Never ask for, see, write down or keep a client's passwords. They type them while you look away.",
+  "Help in person only, with no remote access apps: the FTC and Microsoft say tech support scammers ask for remote access.",
+  "Never handle their money: no gift cards, no transfers, no payments for them. You're paid by a written invoice. The FTC says no real business asks to be paid with a gift card.",
+  "No rush and no pressure: the price is in writing before the visit. The FTC says honest businesses give you time to decide.",
+  "A family member or trusted friend is always welcome, and gets the visit note with the client's okay.",
+  "Every visit ends with a written note, and the note never has a password in it."
+ ],
+ "partners": [
+  {
+   "id": "senior",
+   "label": "Senior and community centers",
+   "search": {
+    "category": "seniors",
+    "words": "senior and community centers"
+   },
+   "their_customers": "members",
+   "why": "ask for help with phones, tablets and scam calls",
+   "ask": "share my flyer if your board allows it, or add me to your list of local help",
+   "give": "lead a free talk on spotting scam calls and pop-ups, using the FTC's own tips"
+  },
+  {
+   "id": "libraries",
+   "label": "Public libraries",
+   "search": {
+    "category": "libraries",
+    "words": "public libraries"
+   },
+   "their_customers": "patrons",
+   "why": "come in for help with phones, email and e-books",
+   "ask": "share my flyer if your community board allows it, and tell me your rules for volunteer tech help",
+   "give": "help at a free tech help hour, if you host volunteer programs"
+  },
+  {
+   "id": "churches",
+   "label": "Churches",
+   "search": {
+    "category": "churches",
+    "words": "churches"
+   },
+   "their_customers": "members",
+   "why": "ask each other who can help with a new phone or tablet",
+   "ask": "share my info in your bulletin or newsletter, if your rules allow it",
+   "give": "host a free phone and tablet help hour after a service or a weekday event"
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "search": {
+    "category": "apartments",
+    "words": "apartment buildings"
+   },
+   "their_customers": "residents",
+   "why": "ask the office for help with Wi-Fi, TVs and new phones",
+   "ask": "post my flyer in the community room or mail room, if that fits your rules",
+   "give": "run a free tech help hour for residents in your community room"
+  },
+  {
+   "id": "phonerepair",
+   "label": "Phone repair shops",
+   "search": {
+    "category": "phone repair shops",
+    "words": "phone repair shops"
+   },
+   "their_customers": "customers",
+   "why": "need help setting up a phone after a repair, or moving photos and contacts to a new one",
+   "ask": "keep my cards at the counter for people who want setup help at home",
+   "give": "point people to you for screen and battery repairs, which I don't do"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "the visit rules and a phone call script",
+  "safety_title": "Visit rules",
+  "find_tip": "Community centers, libraries, churches and apartment buildings come from OpenStreetMap once your city is set. Senior centers are often listed as community centers. Phone repair shops aren't in that list yet: find a few near you on a map and add them by hand.",
+  "people": [
+   "Hi {greet}! I just started {what} in {area}: phones, computers, Wi-Fi and TVs, at your own pace. My first 3 clients get {founding} while I get started. Would you want a visit, or do you know someone who might?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. I never ask for passwords, and family is always welcome at a visit. My first 3 clients get {founding}, and all I ask is honest feedback. Could I tell you more, or is there someone you'd pass this to?",
+   "Hey {greet}! I'm starting {what} in {area}: new phones, printers, Wi-Fi and spotting scam calls. My first 3 clients get {founding}. Do you know someone who could use a patient hand?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my tech help message. If it's not for you, would you mind passing my number to one person who might want it? Thank you.",
+  "next_people": [
+   "Hi {greet}! I help people in {area} with phones, computers and Wi-Fi at home now, with a written note after every visit, {rate}. Would you want a visit, or do you know someone who might?",
+   "Hi {greet}, hope you're well! I'm doing {what} here in {area}. I never ask for passwords or remote access, and family is always welcome. Could I tell you more, or is there someone you'd pass my number to?",
+   "Hey {greet}! Quick one: I do {what} in {area}, {rate}: new phones, printers, Wi-Fi and spotting scam calls. Do you know someone who could use a patient hand?"
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my tech help message. If it's not for you, would you mind passing my number to one person who might want it? Thank you.",
+  "next_subject": "Tech help at home in {area}"
+ },
+ "extra": [
+  {
+   "title": "Phone call script (15 minutes, free)",
+   "lines": [
+    "1. Thanks for making time. Which devices do you have, and what's giving you the most trouble?",
+    "2. Does anyone in the family help now? They're welcome at the visit.",
+    "3. Here's how I work: you type your own passwords, I never use remote access, and I never ask you to buy anything or move money.",
+    "4. A visit is up to 90 minutes at your home. We start with what matters most to you, and you get a written note after the visit.",
+    "5. You pay by invoice after the visit. My founding price is {founding}.",
+    "6. Would you like to pick a day? There's no rush: take time to think it over or talk to family first."
+   ]
+  }
+ ],
+ "offer": {
+  "name": "Tech help house call",
+  "unit": "visit",
+  "length": "90 minutes",
+  "prices": {
+   "budget": 90,
+   "standard": 120,
+   "premium": 135
+  },
+  "range_text": "$45 to $90 an hour for computer and tech help",
+  "basis": "From research/niches/techhelp.json (HomeAdvisor and Thumbtack, checked 2026-10-19): about $60 an hour on average. Geek Squad lists in-home printer setup at $124.99 and home Wi-Fi setup at $174.99 per job. The 90-minute visit is our judgment.",
+  "sources": [
+   "https://www.homeadvisor.com/cost/home-offices/computer-laptop-repair/",
+   "https://www.thumbtack.com/oh/columbus/computer-repair",
+   "https://www.bestbuy.com/site/services/computer-tablet-services/pcmcat138100050019.c?id=pcmcat138100050019"
+  ],
+  "includes": [
+   "A visit plan built from your devices and what's not working",
+   "Patient help on your own devices, at your pace",
+   "A printed scam warning card from the FTC's advice",
+   "A written note after every visit: what we did, what to practice, what's next"
+  ],
+  "steps": [
+   "A free 15-minute phone call: which devices you have and what's giving you trouble.",
+   "At the visit, you type your own passwords. I never see, write down or keep them.",
+   "We start with what matters most to you, then you practice it on your own device, at your pace.",
+   "You get a written note the same day, and a copy for family if you'd like."
+  ],
+  "promise": "If I'm late or miss a visit, the next one is free. If you're not happy with the first visit, I refund it.",
+  "promise_note": "I don't promise that a device will never break or that scams will stop. I promise the work: on time, at your pace, and a written note after every visit.",
+  "sheet_notes_title": "How I keep it safe",
+  "sheet_notes": [
+   "I never ask for your passwords. You type them yourself, and I look away.",
+   "I don't use remote access apps, and I'll never call you out of the blue about a problem with your computer.",
+   "I never ask you to buy gift cards or move money. You pay by invoice after the visit.",
+   "Anyone you'd like is welcome at every visit."
+  ],
+  "footer": "Pay per visit, by invoice after the visit.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "People you know",
+    "note": "For honest feedback after the first visit. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and people from partner places",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it again when most weeks are full."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free 15-minute phone call",
+    "price": 0,
+    "unit": "call",
+    "what": "Devices, what's not working and a day that suits. No cost, no pressure."
+   },
+   {
+    "kind": "Core",
+    "name": "Tech help house call",
+    "price": "core",
+    "what": "Up to 90 minutes at home, with the visit plan, the scam card and a written note."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Set of 3 house calls",
+    "times": 3,
+    "off": 0.05,
+    "unit": "set of 3",
+    "what": "Weekly or every other week, to practice one new thing at a time."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Extra half hour",
+    "factor": 0.3334,
+    "unit": "half hour",
+    "what": "Added to the same visit when there's more to do."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "Short house call, 45 minutes",
+    "factor": 0.625,
+    "unit": "short visit",
+    "what": "One quick job, like a printer or blocking a number."
+   }
+  ],
+  "ladder_word": "clients"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After a few visits: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both people, and a referral card.",
+  "client_title": "Client's name",
+  "done_example": "setting up the new iPhone and the printer",
+  "reward_default": "a free extra half hour",
+  "file_word": "referral card",
+  "card_title": "Tech help {greet} recommends",
+  "card_footer": "Patient help at home. You type your own passwords, always.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only.",
+   "Never write or post a review for them, even if they ask you to."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for having me over for {done}. It was a real pleasure.",
+   "review_ask": "Would you leave an honest review about what working together has been like? It helps other people decide who to invite into their home. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If you know someone who could use a hand with a phone or computer, I'd be grateful for an introduction. When someone you send my way books a visit, you both get {reward}.",
+   "card_line": "{business}: patient tech help at home, at your pace, with a written note after every visit."
+  },
+  "business_fallback": "Your tech helper"
+ },
+ "replies": {
+  "who_title": "Which person or place",
+  "ai_rules": [
+   "Never ask for a password, a verification code or remote access, and never offer remote help.",
+   "Never mention gift cards, wire transfers, crypto or moving money, except to say you never ask for them.",
+   "No pressure: no deadlines, no limited spots and no hurry words.",
+   "Never promise safety from scams, a fix or a result.",
+   "Say any price once, exactly as given. The next step is the free 15-minute phone call."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great to hear! The easiest first step is a free 15-minute phone call: you tell me which devices you have and what's giving you trouble, and we find a day that suits you. When is good for you?",
+    "next": "Book the 15-minute call. Let them pick the day."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. It's {rate}, for up to {length} at your home, with a printed scam card and a written note after the visit. Would a free 15-minute phone call help first, to see if it fits?",
+    "next": "Say the price once, then offer the free phone call."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. If a new phone or a tricky update comes along, my number's here. Take all the time you need.",
+    "next": "Leave it there. A short check-in in a month or two is fine if it fits."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I help people in {area} with phones, computers, Wi-Fi and TVs at home. I never ask for passwords or remote access, and a family member is always welcome. Happy to answer any question.",
+    "next": "Answer plainly, then offer the free phone call."
+   },
+   "covered": {
+    "label": "They have help already",
+    "means": "Someone already helps them, often family.",
+    "answer": "That's wonderful, family help is the best kind. If they're ever busy or far away, I'm around, and I'm glad to work alongside them. Thanks for letting me know.",
+    "next": "Leave it there."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The honest answer depends on your devices, so the best way to answer it properly is a free 15-minute phone call. Would a day this week or next suit you?",
+    "next": "Answer it in a line if you can, then offer the free phone call."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free 15-minute phone call be an easier way to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to talk",
+    "means": "They want to talk first.",
+    "answer": "Happy to! {when_ask} It's a free 15-minute call: you tell me which devices you have and what's not working, and we take it from there.",
+    "next": "Book the 15-minute call. Let them pick the time."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few flyers. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the flyers within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what people pay.",
+    "answer": "People pay {rate}, by invoice after the visit, and the first 15-minute phone call is free. Happy to drop off a flyer with the details.",
+    "next": "Say the price once, then offer the flyer."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back in a few months? Thanks for considering it.",
+    "next": "Set a reminder for a few months from now."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I help people in {area} with phones, computers and Wi-Fi at home. I never ask for passwords or remote access, and I follow your rules on posting. Happy to come by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already have tech help or a program.",
+    "answer": "Good to hear people here have help already. If you ever keep a list of local tech help, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my info with the people you serve?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines)",
+    "means": "They have rules about posting or promoting.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share resources, like a newsletter or a list of local help, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   }
+  ],
+  "objections": [
+   {
+    "id": "scam_help",
+    "label": "A scam may have happened",
+    "match": "\\b(i think i (was|got|'ve been) scammed|got scammed|was scammed|been scammed|pop-?up (said|told|on my)|called the number|let (him|her|them|someone) (in|into|on)|gave (him|her|them|someone) (access|my)|bought (the )?gift cards?|paid (with|in) gift cards?|was hacked|got hacked|been hacked)",
+    "means": "Something may already have happened: they paid, shared a password or let someone in.",
+    "answer": "I'm sorry that happened, and you're not alone. Here are the FTC's steps. If you paid by card, call your bank or card company using the number on the back of the card and ask for a refund. If you paid with a gift card, call the gift card company using the number on the back of the card. If someone got into your computer, update your security software, run a scan and change your passwords. Then report it at ReportFraud.ftc.gov. If you'd like a hand with any of it, just say so.",
+    "next": "Help with the FTC steps first. Don't quote a price in this reply.",
+    "sources": [
+     {
+      "publisher": "FTC",
+      "url": "https://consumer.ftc.gov/articles/what-do-if-you-were-scammed",
+      "says": "Card: report it using the number on the back of the card and ask for a refund. Gift card: contact the issuer using the number on the back of the card. Remote access: update security software, run a scan, change passwords.",
+      "checked": "2026-10-19",
+      "page_date": "2026-06"
+     },
+     {
+      "publisher": "FTC",
+      "url": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams",
+      "says": "If a tech support scammer contacts you, tell the FTC at ReportFraud.ftc.gov.",
+      "checked": "2026-10-19",
+      "page_date": "2025-09"
+     }
+    ]
+   },
+   {
+    "id": "trust",
+    "label": "How do they know you're safe?",
+    "match": "\\b(how do i know|can i trust|are you (legit|real)|is this (legit|real|a scam)|sounds like a scam|scammers?)\\b",
+    "means": "They want to know you're not a scammer, which is the right question.",
+    "answer": "Good question, and the right one to ask. Here's how I work: I never ask for your passwords, you type them yourself. I never ask for remote access to your computer, and I never ask you to pay with gift cards or move money. You pay by invoice after the visit, and a family member is welcome to be there. The FTC says to get tech help from someone you know and trust, so ask around about me first if you like.",
+    "next": "Answer it fully, then let them take their time.",
+    "sources": [
+     {
+      "publisher": "FTC",
+      "url": "https://consumer.ftc.gov/features/pass-it-on/impersonator-scams/tech-support-scams",
+      "says": "If you need tech help, go to someone you know and trust.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "FTC",
+      "url": "https://consumer.ftc.gov/articles/avoiding-and-reporting-gift-card-scams",
+      "says": "No real business or government agency will ever tell you to buy a gift card to pay them.",
+      "checked": "2026-10-19",
+      "page_date": "2023-07"
+     }
+    ]
+   },
+   {
+    "id": "remote",
+    "label": "Can you help remotely?",
+    "match": "\\b(remote(ly)?|over the phone|log in from|teamviewer|anydesk|screen ?shar\\w*|connect to my (computer|laptop|pc))\\b",
+    "means": "They'd like help without a visit.",
+    "answer": "I only help in person, at your home. I don't use remote access apps, because scammers ask people for remote access, and a stranger asking for it is a warning sign. This way you see everything I do, on your own screen.",
+    "next": "Offer the visit, never a remote session.",
+    "sources": [
+     {
+      "publisher": "FTC",
+      "url": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams",
+      "says": "In tech support scams, the scammers ask for remote access to your computer.",
+      "checked": "2026-10-19",
+      "page_date": "2025-09"
+     },
+     {
+      "publisher": "Microsoft",
+      "url": "https://support.microsoft.com/en-us/office/protect-yourself-from-tech-support-scams",
+      "says": "Scammers will probably ask you to install applications that give them remote access to your device.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "passwords",
+    "label": "Do you need my passwords?",
+    "match": "\\b(passwords?|pass ?codes?|pins?|apple id|google account|forgot (my|the) password|locked out)\\b",
+    "means": "They're asking about passwords, and the answer is no.",
+    "answer": "No, you keep your passwords, always. When one is needed, you type it yourself while I look away, and I never write one down or keep one. If you'd like, I can show you the password manager that's already built into your phone, so it remembers them for you.",
+    "next": "Say it plainly, then offer the free phone call.",
+    "sources": [
+     {
+      "publisher": "CISA (archived page)",
+      "url": "https://www.cisa.gov/secure-our-world/use-strong-passwords",
+      "says": "A password manager stores and fills in your passwords, so you only need to remember one strong password.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Apple",
+      "url": "https://support.apple.com/en-us/120758",
+      "says": "The Passwords app comes with iPhone and iPad on iOS 18 or later.",
+      "checked": "2026-10-19",
+      "page_date": "2026-06-05"
+     },
+     {
+      "publisher": "Google",
+      "url": "https://support.google.com/accounts/answer/6208650",
+      "says": "Google Password Manager saves and fills in passwords on Android and in Chrome.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "repair",
+    "label": "A repair, not tech help",
+    "match": "\\b(crack\\w*|broken screen|screen (is )?broken|new battery|battery (died|dies|is dead)|water damage|dropped (it|my))\\b",
+    "means": "They need a hardware repair.",
+    "answer": "That sounds like a repair, and I don't do repairs myself. A phone repair shop or the maker's own support is the right place for it. Once it's fixed, I'm glad to help move your photos and contacts, or set things up the way you like.",
+    "next": "Point them to a repair shop or the maker. Offer setup after.",
+    "judgment": true
+   },
+   {
+    "id": "rate",
+    "label": "More than they expected",
+    "match": "\\b(cheaper|too (expensive|much|high)|lower (price|rate)|can you do (less|better)|out of (my|our) budget|discount|fixed income)\\b",
+    "means": "The price feels high to them.",
+    "answer": "That's fair to ask. Computer and tech help runs about $45 to $90 an hour, and one in-home setup job at Geek Squad is $124.99 to $174.99. For {rate} you get up to {length} at your pace, a printed scam card and a written note after the visit. A short 45-minute visit costs less, if that suits you better.",
+    "next": "Hold your price. Offer the short visit.",
+    "sources": [
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/home-offices/computer-laptop-repair/",
+      "says": "Computer repair technicians charge between $45 and $90 per hour.",
+      "checked": "2026-10-19",
+      "page_date": "2026-06-17"
+     },
+     {
+      "publisher": "Best Buy (Geek Squad)",
+      "url": "https://www.bestbuy.com/site/services/computer-tablet-services/pcmcat138100050019.c?id=pcmcat138100050019",
+      "says": "In-home Printer Setup $124.99; Home Wi-Fi Setup $174.99.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "family_help",
+    "label": "Family usually helps",
+    "match": "\\b(grandson|granddaughter|grandkids?|grandchildren|my (son|daughter|kids?|nephew|niece)|family) (can|could|usually|will|does|helps?)\\b",
+    "means": "Someone in the family helps now.",
+    "answer": "That's wonderful, family help is the best kind. If they're busy or far away, I'm glad to fill in, and I'm happy to work alongside them or send them the note after each visit, with your okay.",
+    "next": "Offer to work with the family, then leave it there.",
+    "judgment": true
+   },
+   {
+    "id": "family",
+    "label": "Can family be there?",
+    "match": "\\b(be there|sit in|join us|come too|be present|be with me)\\b",
+    "means": "They'd like someone with them at the visit.",
+    "answer": "Of course, and I'd encourage it. Anyone you'd like is welcome at every visit, and with your okay I can send them the same note I send you.",
+    "next": "Say yes, and add them to the visit plan.",
+    "judgment": true
+   },
+   {
+    "id": "free_classes",
+    "label": "Can't I get free help?",
+    "match": "\\b(free (help|class(es)?|lessons?|tech help)|the library (has|does|offers)|senior center (has|does|offers)|my (phone|cable) company (helps|offers))\\b",
+    "means": "They wonder why they'd pay when free help exists.",
+    "answer": "If your library or senior center has a free tech help hour, use it! I'm glad to help you find one. What I add is time at your own home, on your own devices, at your pace, with a written note after the visit.",
+    "next": "Agree, then offer the free phone call.",
+    "judgment": true
+   },
+   {
+    "id": "promise",
+    "label": "Can you promise it's safe?",
+    "match": "\\b(promise|guarant\\w*|never get (a virus|hacked|scammed)|100 ?%|totally safe|completely safe|safe from|make sure (i|we) (never|don't|won't))\\b",
+    "means": "They want safety or a result promised.",
+    "answer": "I can't promise that, and I'd be careful with anyone who does. What I can promise is the work: I show up on time, go at your pace, never ask for your passwords, and leave a written note after every visit. The scam card helps you spot the common tricks.",
+    "next": "Never promise safety or a fix. Offer the visit plan instead.",
+    "judgment": true
+   },
+   {
+    "id": "background",
+    "label": "References or a background check?",
+    "match": "\\b(background(-| )check\\w*|references?|insured|insurance|vetted|checked out)\\b",
+    "means": "They want to know who's coming into their home.",
+    "answer": "Good question, and the right one to ask anyone who comes to your home. Here's how I work: you type your own passwords, I never ask for remote access or money, and a family member is welcome at every visit. I'm glad to share references from people I've helped.",
+    "next": "Send this once you have references to share.",
+    "check": "Have references ready to share before you send this, and only mention a background check or insurance you really have.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "pay_when": "When the work is done",
+  "title": "Home tech help{for}",
+  "default": "single",
+  "packages": [
+   {
+    "id": "single",
+    "label": "Tech help house call",
+    "detail": "Up to 90 minutes at your home",
+    "qty": 1,
+    "pick": "One visit"
+   },
+   {
+    "id": "set3",
+    "label": "Tech help house calls, set of 3",
+    "short": "Set of 3",
+    "detail": "Up to 90 minutes each, weekly or every other week",
+    "qty": 3,
+    "off": 0.05,
+    "pick": "Set of 3 visits"
+   },
+   {
+    "id": "short",
+    "label": "Short house call",
+    "detail": "Up to 45 minutes at your home",
+    "qty": 1,
+    "factor": 0.625,
+    "pick": "Short visit (45 minutes)"
+   }
+  ],
+  "extra": {
+   "title": "Add 30 more minutes",
+   "label": "Extra 30 minutes",
+   "detail": "Added to the same visit",
+   "qty": 1,
+   "factor": 0.3334
+  },
+  "notes": [
+   "Prices per visit, paid by invoice after the visit.",
+   "If I'm late or miss a visit, the next one is free. If you're not happy with the first visit, I refund it."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder, and a printable first visit checklist with the visit rules.",
+  "who_title": "Client's name",
+  "who_word": "client",
+  "when_title": "First visit day and time",
+  "where_title": "Where the visit happens",
+  "where": [
+   "At home",
+   "At a family member's home",
+   "At the library or senior center"
+  ],
+  "booking": "Hi {greet}, you're all set! Your first visit is {when}{where}. It's {deal}. Please have your devices and chargers out, and anyone you'd like is welcome to be there.",
+  "prep": "Before the visit, could you jot down which devices you'd like help with and what's not working? Please don't write down any passwords: you'll type them yourself when we need them.",
+  "reminder": "Hi {greet}, see you {when}. I'll text when I'm on my way. If anything changes, just reply here, and we'll find another day.",
+  "founding": "Founding client: after the first visit, ask {greet} for honest feedback you may quote as a founding client. Never ask for a review in exchange.",
+  "file_word": "first visit checklist",
+  "checklist_title": "First visit checklist for {for_title}",
+  "checklist": {
+   "Before": [
+    "Confirm the day, time and place with the client in writing.",
+    "Agree the price, what it covers and the cancellation rule in writing, before the visit.",
+    "Ask which devices and problems to look at, then run Visit plan and scam card.",
+    "Print the scam card to leave with them."
+   ],
+   "At the visit": [
+    "Meet anyone they asked to be there. Ask before you open email, photos, messages or money apps.",
+    "The client types every password while you look away. Never write one down, photograph it or save it.",
+    "No remote access apps, no gift cards, no money moves and no sign-ups on their behalf.",
+    "Start with what matters most to them, then let them practice it on their own device.",
+    "Go over the scam card together and put it by the phone."
+   ],
+   "After": [
+    "Send the visit note the same day: what you did, what to practice and what's next.",
+    "Send a copy to family only with the client's okay.",
+    "Book the next visit only if they want one. No pressure."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "FTC",
+    "url": "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams",
+    "says": "Tech support scammers ask for remote access and insist on gift cards, wire transfers or payment apps.",
+    "checked": "2026-10-19",
+    "page_date": "2025-09"
+   },
+   {
+    "publisher": "FTC",
+    "url": "https://consumer.ftc.gov/articles/how-avoid-scam",
+    "says": "Honest businesses will give you time to make a decision.",
+    "checked": "2026-10-19",
+    "page_date": "2023-07"
+   },
+   {
+    "publisher": "CISA",
+    "url": "https://www.cisa.gov/secure-our-world/use-strong-passwords",
+    "says": "Rather than write passwords down, use a password manager (archived page).",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Client's name",
+  "what_example": "set up her new iPhone and moved her photos over",
+  "result_example": "She video calls her grandkids on her own now, she says",
+  "quote_example": "I finally know where my photos are.",
+  "anon": "A client in {area}",
+  "named": "{greet}, a client in {area}",
+  "photo": false,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our visits? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer, and I'd never share a photo of your home, your screens or your accounts. It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "review": "If you have a minute, would you leave an honest review about what working together has been like? It helps other people decide. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from someone I help with tech at home, shared with their permission. {story_line} If you or someone in your family could use a patient hand with phones or computers, {reach}",
+  "disclosure": {
+   "founding": "{who} paid a founding price.",
+   "free": "{who}'s visit was free."
+  },
+  "rules": [
+   "Only what the client agreed to in writing.",
+   "No photos of their screens, home or accounts.",
+   "No claims about safety from scams or about savings, and nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "Older adults and their families",
+  "group": "general",
+  "format": "flyer",
+  "print": true,
+  "headline": "Patient tech help at home in {area}",
+  "sub": "Phones, computers, Wi-Fi, printers and TVs, at your pace, with a written note after every visit.",
+  "bullets": [
+   "You always type your own passwords",
+   "A scam warning card from FTC tips",
+   "Family members welcome at every visit"
+  ],
+  "offer": "Free 15-minute phone call",
+  "cta": "Book a free 15-minute call",
+  "tagline": "Patient tech help at home in {area}, with a written note after every visit.",
+  "design": "local-service"
+ }
+}

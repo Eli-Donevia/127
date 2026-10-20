@@ -1,0 +1,146 @@
+{
+  "checked": "2026-10-19",
+  "about": "Food safety facts the week menu tool puts on plans and labels, each read today on the federal page it cites. FoodSafety.gov and USDA FSIS pages refused this session's reader (HTTP 403), so the storage times come from the FDA Refrigerator and Freezer Storage Chart and the CDC pages below. Eat-by dates use the short end of each range.",
+  "fridge_f": 40,
+  "freezer_f": 0,
+  "chill_hours": 2,
+  "chill_hours_hot": 1,
+  "hot_f": 90,
+  "reheat_f": 165,
+  "cook_temps": {
+    "poultry": { "f": 165, "label": "poultry", "source": "fda_handling" },
+    "ground": { "f": 160, "label": "ground meat", "source": "fda_handling" },
+    "whole": { "f": 145, "rest_min": 3, "label": "beef and pork cuts", "source": "fda_handling" },
+    "fish": { "f": 145, "label": "fish", "or": "or until the flesh is opaque and separates easily with a fork", "source": "fda_handling" },
+    "eggs": { "f": 160, "label": "egg dishes", "source": "fda_handling" },
+    "casserole": { "f": 165, "label": "casseroles", "source": "fda_handling" }
+  },
+  "categories": {
+    "poultry_dish": { "label": "Cooked poultry dishes", "fridge_days": [3, 4], "freezer_months": [4, 6], "source": "fda_chart" },
+    "meat_dish": { "label": "Cooked meat and meat dishes", "fridge_days": [3, 4], "freezer_months": [2, 3], "source": "fda_chart" },
+    "soup_stew": { "label": "Soups and stews, vegetable or meat-added", "fridge_days": [3, 4], "freezer_months": [2, 3], "source": "fda_chart" },
+    "fish": { "label": "Cooked fish", "fridge_days": [3, 4], "freezer_months": [4, 6], "source": "fda_chart" },
+    "salad": { "label": "Egg, chicken, tuna, ham and macaroni salads", "fridge_days": [3, 5], "freezer_months": null, "no_freeze": "Don't freeze", "source": "fda_chart" },
+    "leftovers": { "label": "Other cooked leftovers", "fridge_days": [3, 4], "freezer_months": null, "source": "cdc_leftovers" }
+  },
+  "allergens": [
+    { "id": "milk", "label": "milk", "words": "milk|dairy|lactose|cheese|butter|cream|yogurt|whey|casein" },
+    { "id": "eggs", "label": "eggs", "words": "eggs?" },
+    { "id": "fish", "label": "fish", "words": "fish|salmon|tuna|cod|tilapia|anchov\\w*" },
+    { "id": "shellfish", "label": "crustacean shellfish", "words": "shellfish|shrimp|prawns?|crabs?|lobsters?|crawfish|crustaceans?" },
+    { "id": "tree_nuts", "label": "tree nuts", "words": "tree ?nuts?|almonds?|walnuts?|pecans?|cashews?|pistachios?|hazelnuts?|macadamias?|brazil nuts?|pine nuts?" },
+    { "id": "peanuts", "label": "peanuts", "words": "peanuts?" },
+    { "id": "wheat", "label": "wheat", "words": "wheat|gluten|celiac|coeliac" },
+    { "id": "soy", "label": "soybeans", "words": "soy|soya|soybeans?|tofu|edamame" },
+    { "id": "sesame", "label": "sesame", "words": "sesame|tahini" }
+  ],
+  "gluten_words": "gluten|celiac|coeliac",
+  "nut_words": "nuts?",
+  "diets": {
+    "Anything": [],
+    "Vegetarian": ["poultry", "beef", "pork", "fish", "shellfish"],
+    "Vegan": ["poultry", "beef", "pork", "fish", "shellfish", "milk", "eggs", "honey"],
+    "Pescatarian": ["poultry", "beef", "pork"],
+    "No pork": ["pork"],
+    "No red meat": ["beef", "pork"]
+  },
+  "lines": {
+    "fridge": "Fridge at 40°F or below and freezer at 0°F or below: check both with an appliance thermometer.",
+    "chill": "Into the fridge or freezer within 2 hours of cooking, 1 hour when it's above 90°F. Divide big batches into shallow containers so they cool quickly. Hot food can go straight in.",
+    "reheat": "Reheat leftovers to 165°F, checked with a food thermometer.",
+    "thaw": "Thaw in the fridge, in cold water or in the microwave, never on the counter. Food thawed in cold water or the microwave gets cooked right away.",
+    "hands": "Wash hands for at least 20 seconds before you start and after handling raw meat, poultry, seafood or eggs.",
+    "separate": "Keep raw meat, poultry and seafood away from ready-to-eat food, with their own cutting board.",
+    "labels": "Read every package label for the foods to leave out: FDA rules make packaged foods name the 9 major allergens, and recipes differ by brand.",
+    "check_packages": "Before labeling, check each package you used and add any major allergen it lists.",
+    "not_medical": "This menu cooks to the preferences typed here. It isn't a medical diet. If a doctor or dietitian gave anyone a meal plan, cook from that plan.",
+    "freezer_quality": "Freezer times are for best quality: food kept at 0°F stays safe, and quality drops over time."
+  },
+  "cottage": {
+    "line": "This plan is for cooking in the client's kitchen with groceries bought for them. Selling meals you cook in your own home kitchen falls under your state's cottage food and health rules. In Florida, for example, a cottage food product must be food that is not time or temperature controlled for safety, and the state's approved list is foods like breads, cakes, candies and jams, not cooked dinners that need the fridge. Check your city and state before you sell food from any kitchen.",
+    "short": "Selling meals cooked in your own home kitchen falls under state cottage food and health rules. Florida's, for one, covers only foods that don't need time or temperature control, so cooked dinners that need the fridge aren't on its list. Check your city and state.",
+    "sources": ["fl_500_03", "fdacs_cottage"]
+  },
+  "sources": {
+    "fda_chart": {
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Refrigerator and Freezer Storage Chart",
+      "url": "https://www.fda.gov/media/74435/download",
+      "says": "Refrigerator at 40°F: soups and stews, cooked meat and meat dishes, cooked poultry dishes and cooked fish 3 to 4 days; egg, chicken, tuna and macaroni salads 3 to 5 days, don't freeze. Freezer at 0°F keeps food safe indefinitely; times are for quality only: soups, stews and meat dishes 2 to 3 months, cooked poultry dishes and cooked fish 4 to 6 months.",
+      "page_date": "2018-03",
+      "checked": "2026-10-19"
+    },
+    "fda_handling": {
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Safe Food Handling",
+      "url": "https://www.fda.gov/food/buy-store-serve-safe-food/safe-food-handling",
+      "says": "Clean, separate, cook, chill. Cook beef, pork, veal and lamb steaks, chops and roasts to 145°F with a 3 minute rest, ground meat to 160°F, poultry to 165°F, egg dishes to 160°F, fin fish to 145°F or until the flesh is opaque and separates easily with a fork, and leftovers and casseroles to 165°F. Refrigerate perishables within 2 hours, within 1 hour above 90°F. Never thaw food at room temperature; food thawed in cold water or in the microwave should be cooked immediately.",
+      "page_date": "2024-03-05",
+      "checked": "2026-10-19"
+    },
+    "fda_storing": {
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Are You Storing Food Safely?",
+      "url": "https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely",
+      "says": "Keep the refrigerator at or below 40°F and the freezer at 0°F. Food is safe indefinitely at 0°F, though quality decreases. Store leftovers in tight containers and check them daily for spoilage.",
+      "page_date": "2023-01-18",
+      "checked": "2026-10-19"
+    },
+    "fda_chill": {
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Tips to Chill Food",
+      "url": "https://www.fda.gov/food/people-risk-foodborne-illness/tips-chill-food-food-safety-moms-be",
+      "says": "Refrigerate or freeze prepared food and leftovers within two hours. Hot food won't harm your refrigerator; divide large amounts of leftovers into shallow containers for quicker cooling.",
+      "page_date": "2018-09-27",
+      "checked": "2026-10-19"
+    },
+    "cdc_prevention": {
+      "publisher": "Centers for Disease Control and Prevention",
+      "title": "Preventing Food Poisoning",
+      "url": "https://www.cdc.gov/food-safety/prevention/index.html",
+      "says": "Wash hands for at least 20 seconds. Keep your refrigerator at 40°F or below and your freezer at 0°F or below, refrigerate leftovers within 2 hours (1 hour above 90°F), thaw in the refrigerator, cold water or the microwave, and use a food thermometer to make sure microwaved food reaches 165°F.",
+      "page_date": "2025-11-24",
+      "checked": "2026-10-19"
+    },
+    "cdc_leftovers": {
+      "publisher": "Centers for Disease Control and Prevention",
+      "title": "Food Safety Tips for Dining Out",
+      "url": "https://www.cdc.gov/restaurant-food-safety/communication-resources/tips-for-dining-out.html",
+      "says": "Refrigerate leftovers promptly, and eat them within 3 to 4 days. Throw them out after that time.",
+      "page_date": "2026-08-31",
+      "checked": "2026-10-19"
+    },
+    "cdc_reheat": {
+      "publisher": "Centers for Disease Control and Prevention",
+      "title": "Preparing Your Holiday Turkey Safely",
+      "url": "https://www.cdc.gov/food-safety/foods/holiday-turkey.html",
+      "says": "Refrigerate leftovers at 40°F or colder within 2 hours, eat dishes made with cooked turkey within 3 to 4 days, freeze leftovers to keep them longer, and reheat all leftovers to at least 165°F.",
+      "page_date": "2024-04-29",
+      "checked": "2026-10-19"
+    },
+    "fda_allergens": {
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Food Allergies",
+      "url": "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies",
+      "says": "The major food allergens are milk, eggs, fish, Crustacean shellfish, tree nuts, peanuts, wheat, soybeans and sesame; sesame became the 9th on January 1, 2023 under the FASTER Act. Labels must name the food source of each, and people with food allergies should read labels.",
+      "page_date": "2026-03-11",
+      "checked": "2026-10-19"
+    },
+    "fl_500_03": {
+      "publisher": "Florida Statutes, section 500.03",
+      "title": "Definitions (cottage food product)",
+      "url": "https://www.flsenate.gov/Laws/Statutes/2025/500.03",
+      "says": "A cottage food product means food that is not time or temperature controlled for safety or a potentially hazardous food, sold by a cottage food operation under section 500.80.",
+      "page_date": "2025",
+      "checked": "2026-10-19"
+    },
+    "fdacs_cottage": {
+      "publisher": "Florida Department of Agriculture and Consumer Services",
+      "title": "Cottage Foods",
+      "url": "https://www.fdacs.gov/Business-Services/Food/Food-Establishments/Cottage-Foods",
+      "says": "Florida lets unlicensed home kitchens make certain foods with a low risk of foodborne illness for sale: breads, cakes and cookies, candies, honey, jams, fruit pies, dry herbs, homemade pasta, granola, nuts, vinegars and popcorn.",
+      "page_date": null,
+      "checked": "2026-10-19"
+    }
+  }
+}

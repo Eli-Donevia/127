@@ -1,0 +1,463 @@
+{
+ "checked": "2026-10-19",
+ "unit": "visit",
+ "base": "Prices are for a pool up to about 16 x 32 ft with clear water. The size and water factors scale them, and the member's own prices win.",
+ "minutes_basis": "Minutes per visit are a judgment call, except the one-time cleaning: Thumbtack says an average-sized pool takes an hour and a half to two hours. Time your own visits and change them.",
+ "packages": [
+  {
+   "id": "service",
+   "label": "Pool service visit",
+   "range": [
+    20,
+    50
+   ],
+   "minutes": 40,
+   "unit": "visit",
+   "includes": [
+    "Skim the surface and brush walls and steps",
+    "Empty skimmer and pump baskets",
+    "Vacuum when it needs it",
+    "Test the water and add routine chemicals"
+   ],
+   "basis": "Fixr and Home Gnome: weekly maintenance $20 to $50 a visit. Home Gnome: plans of $100 to $320 a month, about $25 to $80 a visit, its own average $38. Routine chemicals in the visit price is a judgment call from the Thumbtack examples, which all include chemicals. If you bill chemicals on their own, check current rates.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/swimming-pool-maintenance",
+     "says": "A pool owner can expect to pay $20 to $50 per week on an annual contract with weekly visits; weekly maintenance typically involves checking pH levels, cleaning the filters, putting in chemicals to avoid stains and algae, and recognizing malfunctioning equipment. Monthly pool service $30 to $90 a month.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+     "says": "Average pool maintenance cost by frequency: weekly $20 to $50, monthly $43 to $190, annual $808 to $2,000.",
+     "page_date": "2026-05-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+     "says": "Pool cleaning plans typically range from about $100 to $320 a month; on a standard four-visit schedule that works out to roughly $25 to $80 a visit. Home Gnome: 413 completed pool care jobs, average $38 a visit. A typical weekly visit: water testing and chemical balancing, skimming, brushing walls and steps, vacuuming the floor, emptying pump and skimmer baskets, equipment inspection.",
+     "page_date": "2026-05-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "A Thumbtack pro in Phoenix charges $60 a month to only check chemicals and $90 a month for weekly full-service visits that include skimming, brushing, emptying all baskets and an equipment check. Treatments like a chlorine shock, phosphate removers, clarifiers, algaecide and backwashing are usually charged extra.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Monthly maintenance examples, all including pool chemicals: $80 (Integrity Pool Care), $85 to $120 (Humble Bee Pool Service and Repair), $90 to $95 by pool size (Radiance Pools, which emails weekly logs and photos of services performed and chemicals added). A chlorine pool uses $300 to $800 in chemicals a year, priced into pool cleaning services.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "chem_only",
+   "label": "Chemical check visit",
+   "range": [
+    14,
+    19
+   ],
+   "minutes": 15,
+   "unit": "visit",
+   "includes": [
+    "Test the water",
+    "Add routine chemicals",
+    "Readings texted after the visit"
+   ],
+   "basis": "Judgment call: Thumbtack's Phoenix pro charges $60 a month to only check chemicals and Humble Bee $65 to $80 a month for chemical-only service, about $14 to $19 a visit at about 4.3 weekly visits a month. The owner skims, brushes and empties the baskets.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "A Thumbtack pro in Phoenix charges $60 a month to only check chemicals and $90 a month for weekly full-service visits.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "For monthly chemical-only pool service, Humble Bee charges $65 to $80, depending on the pool's size; the homeowner skims and brushes the pool and empties the skimmer baskets, and the pros handle all the chemical additions and adjustments.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "one_time",
+   "label": "One-time pool cleaning",
+   "range": [
+    150,
+    300
+   ],
+   "minutes": 105,
+   "unit": "visit",
+   "includes": [
+    "Skim, brush and vacuum the whole pool",
+    "Empty skimmer and pump baskets",
+    "Check the filter and equipment",
+    "Test the water and add routine chemicals"
+   ],
+   "basis": "Thumbtack: one-time cleaning outside a service contract $150 to $300 (average $225) and $148 to $413 nationally (most about $201); HomeAdvisor $116 to $357 a visit; Home Gnome $102 to $175 for a 200 sq ft pool; Fixr one-time visits $90 to $270 by pool size.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "One-time cleaning (outside of a service contract): average $225, range $150 to $300. Cleaning an average-sized pool takes an hour and a half to two hours; a larger pool three to five hours.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "The national average cost to hire a pool cleaner for a one-time cleaning ranges from around $148 to $413, and most people pay around $201; one-time pool cleanings cost $229 to $278 on average.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+     "says": "Professional pool maintenance costs between $116 and $357 per visit, with an average of $236; labor runs $75 to $100 an hour.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+     "says": "The cost to maintain a 200-square-foot pool ranges between $102 and $175 for a one-time maintenance service, including cleaning, balancing chemicals and testing pH.",
+     "page_date": "2026-05-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/swimming-pool-maintenance",
+     "says": "One-time visits that are not included in maintenance plans cost $90 to $270, depending on the size of the pool and the maintenance or cleaning needed; by size, a small 10 x 20 ft pool $60 to $285 and a large 20 x 40 ft pool $120 to $380.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "opening",
+   "label": "Pool opening",
+   "range": [
+    150,
+    350
+   ],
+   "minutes": 150,
+   "unit": "pool",
+   "includes": [
+    "Cover off, cleaned and folded",
+    "Filter system put back together",
+    "Water topped up, cleaned and tested",
+    "Pump and equipment started"
+   ],
+   "basis": "Fixr: $250 to $350, average $300 (above-ground $175 to $225, in-ground $250 to $400); HomeAdvisor and Home Gnome $150 to $300; Thumbtack $85 to $350.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "Pool opening costs range from $250 to $350, with a national average of $300; low cost $175 for a partial opening of an above-ground pool, high cost $500 for a full opening with vacuuming and a hot tub. Above-ground $175 to $225; in-ground $250 to $400.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+     "says": "If you need professional help, opening your pool costs between $150 and $300, and the same goes for closing it for the winter.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+     "says": "Opening a pool $150 to $300: removing the cover, cleaning debris, inspecting equipment and testing water quality.",
+     "page_date": "2026-05-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Opening a pool costs $85 to $350: a pro removes the cover, reassembles the filter system, cleans the water, tests its chemistry, refills it and turns on the pump and other equipment.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "closing",
+   "label": "Pool closing",
+   "range": [
+    150,
+    400
+   ],
+   "minutes": 180,
+   "unit": "pool",
+   "includes": [
+    "Pool cleaned and the water treated for winter",
+    "Water level lowered and lines cleared",
+    "Filter and equipment drained and stored",
+    "Winter cover on"
+   ],
+   "basis": "Fixr: $200 to $300, average $250 (above-ground $150 to $200, in-ground $200 to $400); HomeAdvisor $150 to $300; Home Gnome $250 to $475; Thumbtack $85 to $500. Thumbtack and HomeAdvisor: often two visits.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "Pool closing costs range from $200 to $300, with a national average of $250; low cost $150 to winterize an above-ground pool, high cost $400 for an in-ground pool with an adjacent hot tub. Above-ground $150 to $200; in-ground $200 to $400.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+     "says": "Opening and closing a pool: professionals charge between $150 and $300 for each service. A professional often performs the closing service in two or more visits, as the water must be shocked several days in advance of closing.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+     "says": "Closing a pool $250 to $475: lowering the water level, cleaning, vacuuming, backwashing and adding winterizing chemicals.",
+     "page_date": "2026-05-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Closing (winterizing) a pool costs $85 to $500; because shocking the water takes a couple of days, a pro usually needs two visits to close a pool.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "factors": [
+  {
+   "id": "size",
+   "label": "Pool size",
+   "default": "m",
+   "basis": "HomeAdvisor yearly maintenance by size: 10 x 20 ft $400 to $900 against 16 x 32 ft $700 to $1,200, about 0.7. Above-ground pools are often the small ones (HomeAdvisor), and Fixr prices above-ground openings at $175 to $225 against $250 to $400 in-ground and closings at $150 to $200 against $200 to $400, about 0.6 to 0.7. Thumbtack: a Cumming, GA pro charges $60 for an average pool and $75 for an extra-large one (1.25). The 1.1 step is a judgment call.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+     "says": "Annual maintenance cost by pool size: 10 x 20 ft $400 to $900; 14 x 28 ft $600 to $1,100; 16 x 32 ft $700 to $1,200; 20 x 40 ft $1,000 and up. Above-ground pool costs are slightly lower overall, as they are often smaller.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "A Thumbtack pro and pool cleaner in Cumming, Georgia, charges $60 to clean most average-sized pools and $75 for extra-large ones.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "Opening an above-ground pool ranges from $175 to $225; opening an in-ground pool costs between $250 and $400.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "The cost to winterize an above-ground pool averages $150 to $200; an in-ground pool averages $200 to $400.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "s",
+     "label": "Up to about 10 x 20 ft",
+     "short": "Up to 10 x 20 ft",
+     "mult": 0.7,
+     "max": {
+      "length": 20
+     }
+    },
+    {
+     "id": "m",
+     "label": "Up to about 16 x 32 ft",
+     "short": "Up to 16 x 32 ft",
+     "mult": 1,
+     "max": {
+      "length": 32
+     }
+    },
+    {
+     "id": "l",
+     "label": "Up to about 20 x 40 ft",
+     "short": "Up to 20 x 40 ft",
+     "mult": 1.1,
+     "minutes": 15,
+     "max": {
+      "length": 40
+     }
+    },
+    {
+     "id": "xl",
+     "label": "Bigger than 20 x 40 ft",
+     "short": "Over 20 x 40 ft",
+     "mult": 1.25,
+     "minutes": 30
+    }
+   ]
+  },
+  {
+   "id": "water",
+   "label": "Water",
+   "default": "clear",
+   "packages": [
+    "one_time",
+    "opening"
+   ],
+   "basis": "Judgment call, check current rates: Thumbtack says treatments like a chlorine shock, clarifiers and algaecide are usually charged extra, and a pool that grew algae over the winter also needs a deep cleaning and algaecide; Fixr says opening a pool that has been closed for years costs at least $500. The 1.75 is ours.",
+   "note": "Judgment call. Check current rates where you live.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "You'll usually be charged extra for treatments like a chlorine shock, phosphate removers, clarifiers, algaecide and backwashing the filtration system.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "If your pool grew algae over the winter and got dirty and green, you'll also need to pay for a deep cleaning and algaecide treatment.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "Opening an unmaintained pool: if your pool has been closed for years, expect an opening to cost at least $500, more if repairs are needed.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "options": [
+    {
+     "id": "clear",
+     "label": "Clear or a little cloudy",
+     "mult": 1
+    },
+    {
+     "id": "green",
+     "label": "Green or swampy",
+     "mult": 1.75,
+     "minutes": 90
+    }
+   ]
+  }
+ ],
+ "addons": [
+  {
+   "id": "filter",
+   "label": "Filter cleaning",
+   "range": [
+    60,
+    100
+   ],
+   "minutes": 45,
+   "unit": "filter",
+   "basis": "Fixr: filters $60 to $65; Thumbtack: two Arizona pros charge $80 and $100 a filter cleaning. In Florida, cleaning that needs equipment partly taken apart is licensed work, filter changes excepted (section 489.105): check your state before you open a filter.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/swimming-pool-maintenance",
+     "says": "Pool cleaning cost by type: filters $60 to $65.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "Cartridge filters need to be cleaned out at least once a year: Humble Bee Pool Service and Repair in Mesa, Arizona charges $100 for the service, and Radiance Pools in Tempe charges $80 per filter cleaning and recommends cleaning filters twice a year.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "id": "spa",
+   "label": "Hot tub or spa",
+   "range": [
+    50,
+    100
+   ],
+   "minutes": 45,
+   "unit": "job",
+   "packages": [
+    "opening",
+    "closing"
+   ],
+   "basis": "Fixr: opening a hot tub $50 to $75 and winterizing a hot tub or spa $50 to $100, on top of the pool.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "Additional opening costs: hot tub opening $50 to $75; vacuuming $50 to $75.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "Additional closing costs: winterizing a hot tub or spa $50 to $100; cleaning and lowering the water level $55 to $200.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "plans": [
+  {
+   "id": "weekly",
+   "label": "Weekly plan",
+   "every": "week",
+   "discount": 0,
+   "packages": [
+    "service",
+    "chem_only"
+   ]
+  }
+ ],
+ "plans_basis": "Thumbtack: you pay about the same for monthly service as for weekly or every-other-week service, because a pool cleaned more often takes less time; Home Gnome: weekly service is the standard for most home pools. No weekly discount, a judgment call.",
+ "plans_sources": [
+  {
+   "publisher": "Thumbtack",
+   "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+   "says": "You will pay about the same for monthly service as you will for weekly or bi-weekly service because the pool stays cleaner and takes less time to service with more frequent visits. Most pool service companies give better prices for a year-long contract.",
+   "page_date": "2025-07-07",
+   "checked": "2026-10-19"
+  },
+  {
+   "publisher": "Home Gnome",
+   "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+   "says": "Weekly service is the standard for most residential pools; some homeowners switch to bi-weekly service during cooler months or when the pool is used less often.",
+   "page_date": "2026-05-19",
+   "checked": "2026-10-19"
+  }
+ ],
+ "sources": [
+  "https://homegnome.com/blog/cost/pool-cleaning-price/",
+  "https://homegnome.com/blog/cost/pool-maintenance-price/",
+  "https://www.fixr.com/costs/pool-closing",
+  "https://www.fixr.com/costs/pool-opening",
+  "https://www.fixr.com/costs/swimming-pool-maintenance",
+  "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+  "https://www.thumbtack.com/p/pool-cleaning-prices",
+  "https://www.thumbtack.com/p/pool-maintenance-cost"
+ ]
+}

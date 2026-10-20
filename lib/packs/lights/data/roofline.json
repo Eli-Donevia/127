@@ -1,0 +1,650 @@
+{
+ "checked": "2026-10-19",
+ "spacing": {
+  "default": 12,
+  "options": [
+   12,
+   6
+  ],
+  "spool": 12,
+  "note": "Spool prices are for 12 inch spacing. At 6 inches you need twice the bulbs and clips; check current rates for 6 inch wire.",
+  "sources": [
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-7-Amp-Green-Wire--15085.htm",
+    "says": "1000 ft commercial grade 18-gauge wire with 12-inch spacing between 1000 sockets.",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "bulbs": {
+  "led": {
+   "label": "LED C9",
+   "watts": 0.8,
+   "basis": "0.8 watts a bulb, the higher of the two LED C9 ratings we read (0.8 and 0.58), so circuits are planned on the safe side. Type the watts from your own box to use them instead.",
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/C9--Multicolor-OptiCore-LED-Replacement-Bulbs-13605.htm",
+     "says": "OptiCore C9 LED replacement bulbs, box of 25: only 0.8 watts per bulb.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Creative Displays",
+     "url": "https://www.creativedisplays.com/product/c9-smd-led-pure-white-retrofit-bulb/",
+     "says": "C9 SMD LED retrofit bulb, pack of 25: 0.58 watts per bulb, 120 volt.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/c9-led-replacement-lamp-bulbs--790.htm",
+     "says": "An LED C9 bulb draws under a watt, 90% less than the 7-watt C9 incandescent it replaces.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "incandescent": {
+   "label": "Incandescent C9",
+   "watts": 7,
+   "basis": "7 watts a bulb: Christmas Lights, Etc names the 7-watt C9 incandescent, and Fixr's 175 watts for a string of 25 is 7 watts a bulb. Check the watts on your own box.",
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/c9-led-replacement-lamp-bulbs--790.htm",
+     "says": "An LED C9 bulb draws under a watt, 90% less than the 7-watt C9 incandescent it replaces.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "A string of 25 incandescent C9 bulbs uses approximately 175 watts.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "price_note": "check current rates"
+  }
+ },
+ "circuit": {
+  "volts": 120,
+  "share": 0.8,
+  "breakers": [
+   15,
+   20
+  ],
+  "basis": "Lights left on for 3 hours or more are a continuous load, and the code sizes the breaker at 125% of the continuous load, so a circuit carries lights up to 80% of its breaker: 15 amps x 120 volts x 0.8 = 1,440 watts, and 20 amps gives 1,920 watts. Count everything else on the same circuit too. Check which code edition your city and state use.",
+  "sources": [
+   {
+    "publisher": "NFPA 70, National Electrical Code (2025 edition, first draft working text)",
+    "url": "https://docinfofiles.nfpa.org/files/AboutTheCodes/70/70_A2025_NEC_P02_FD_PrelimFR.pdf",
+    "says": "210.20(A): where a branch circuit supplies continuous loads, the rating of the overcurrent device shall not be less than the noncontinuous load plus 125 percent of the continuous load.",
+    "page_date": "2024-02-05",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "NFPA 70, National Electrical Code (2023 edition, second draft statements)",
+    "url": "https://docinfofiles.nfpa.org/files/AboutTheCodes/70/70_A2022_NEC_P02_SD_PCStatements.pdf",
+    "says": "Continuous load: a load where the maximum current is expected to continue for 3 hours or more.",
+    "page_date": "2021-11-18",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-7-Amp-Green-Wire--15085.htm",
+    "says": "Calculate amp needs: number of bulbs x watts per bulb = total watts; total watts / 120 volts = amps.",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "run": {
+  "amps": 7,
+  "basis": "The most one run of spool wire carries end to end: the wire ratings we read were 7, 8 and 10 amps (one page gives both 7 and 8), so the plan uses 7 amps, 840 watts. Check the rating printed on your own wire or box.",
+  "sources": [
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-7-Amp-Green-Wire--15085.htm",
+    "says": "SPT1 spool spec table: amp capacity 7; product description: 8 amp capacity.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-10-Amp-Green-Wire--15083.htm",
+    "says": "SPT2 spool spec table: amp capacity 10.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/C9-Warm-White-Opticore-Commercial-LED-Christmas-String-Lights-14954.htm",
+    "says": "OptiCore C9 strings: safely connect 960 watts, over 1,000 feet of lights, end to end on one plug; 0.8 watts per bulb.",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "cord": {
+  "amps": 13,
+  "feet": 50,
+  "basis": "A 16-gauge outdoor cord is labeled 13 amps, 1,560 watts at 120 volts. Never put more than the cord's label on one cord.",
+  "sources": [
+   {
+    "publisher": "Christmas Lights, Etc",
+    "url": "https://www.christmaslightsetc.com/p/SJTW-50-Ft-Green-Medium-Duty-Extension-Cord-67061.htm",
+    "says": "50 ft medium duty extension cord, indoor and outdoor use: 13 amp capacity, 16 gauge wire.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Altex",
+    "url": "https://altex.com/products/sr-components-cx1650o-50ft-125v-sjtw-outdoor-extension-cord",
+    "says": "50 ft 125V 16/3 AWG SJTW outdoor extension cord.",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "materials": {
+  "wire": {
+   "label": "C9 socket wire, cut from a 1,000 ft spool",
+   "unit": "ft",
+   "pack": 1000,
+   "pack_label": "spool of 1,000 ft",
+   "range": [
+    395.13,
+    449.99
+   ],
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-7-Amp-Green-Wire--15085.htm",
+     "says": "1000' C9 spool, SPT1 green wire, 12 inch spacing: $409.99.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/C9-Christmas-Lights-Spool-1000-ft-Length-12-inch-Spacing-10-Amp-Green-Wire--15083.htm",
+     "says": "1000' C9 spool, SPT2 green wire, 12 inch spacing: $449.99.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Cheap Sprinklers",
+     "url": "https://cheapsprinklers.com/products/seasonal-source-c9-light-spool-1000-length-12-spacing-white-wire-c9-1000-12-w",
+     "says": "Seasonal Source C9 light spool, 1000 ft, 12 inch spacing: $395.13.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "bulbs": {
+   "label": "LED C9 bulbs",
+   "unit": "bulb",
+   "pack": 25,
+   "pack_label": "box of 25",
+   "range": [
+    32.99,
+    39
+   ],
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/C9--Multicolor-OptiCore-LED-Replacement-Bulbs-13605.htm",
+     "says": "OptiCore C9 LED bulbs, box of 25: $32.99.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Creative Displays",
+     "url": "https://www.creativedisplays.com/product/c9-smd-led-pure-white-retrofit-bulb/",
+     "says": "C9 SMD LED retrofit bulbs, pack of 25: $39.00.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "clips": {
+   "label": "All-in-one light clips",
+   "unit": "clip",
+   "pack": 100,
+   "pack_label": "pack of 100",
+   "range": [
+    10.99,
+    13.99
+   ],
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/Wintergreen-Lighting-All-In-One-Christmas-Light-Clip-100-Pack-65767.htm",
+     "says": "All-in-One light clip, 100 pack: $13.99; slide a C7 or C9 light base into the ring on the clip; hangs on gutters and secures under shingles.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Hemlock Hardware",
+     "url": "https://hemlockhardware.com/products/902195-adams-white-gutter-shingle-all-purpose-light-clips-100-pack",
+     "says": "Adams gutter and shingle light clips, 100 pack: $10.99.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "stakes": {
+   "label": "Light stakes",
+   "unit": "stake",
+   "pack": 25,
+   "pack_label": "pack of 25",
+   "range": [
+    7.31,
+    8
+   ],
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/7-inch-All-In-One-Light-Stake-25-Pack-13483.htm",
+     "says": "7.5 inch All-In-One light stake, 25 pack: $8.00; holds C7, C9 and mini lights along pathways and driveways.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "1000Bulbs",
+     "url": "https://www.1000bulbs.com/product/223227/STAKE-10001.html",
+     "says": "Christmas lawn stakes, pack of 25: $7.31; hold C7 and C9 string lights for sidewalks and driveways.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "cords": {
+   "label": "Outdoor extension cords, 50 ft, 16 gauge",
+   "unit": "cord",
+   "pack": 1,
+   "pack_label": "each",
+   "range": [
+    17.95,
+    17.99
+   ],
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/SJTW-50-Ft-Green-Medium-Duty-Extension-Cord-67061.htm",
+     "says": "50 ft medium duty extension cord: $17.99.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Altex",
+     "url": "https://altex.com/products/sr-components-cx1650o-50ft-125v-sjtw-outdoor-extension-cord",
+     "says": "50 ft 16/3 SJTW outdoor extension cord: $17.95.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "timers": {
+   "label": "Outdoor light timers",
+   "unit": "timer",
+   "pack": 1,
+   "pack_label": "each",
+   "range": [
+    12,
+    30
+   ],
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Timers can be purchased for $12 to $50 each.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Timers run $10 to $50 each.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "A holiday light timer costs about $10 to $30.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "plugs": {
+   "label": "Male zip plugs",
+   "unit": "plug",
+   "pack": 1,
+   "pack_label": "each",
+   "range": null,
+   "note": "check current rates",
+   "sources": []
+  }
+ },
+ "rules": {
+  "clip_per_socket": {
+   "say": "One clip per bulb on gutters, shingles, trim and railings: each clip holds one C9 light base.",
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/Wintergreen-Lighting-All-In-One-Christmas-Light-Clip-100-Pack-65767.htm",
+     "says": "Easily slide a C7/C9 light base into the circular ring on the clip.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "stake_per_socket": {
+   "say": "One stake per bulb along walkways and drives: each stake holds one light base.",
+   "sources": [
+    {
+     "publisher": "Christmas Lights, Etc",
+     "url": "https://www.christmaslightsetc.com/p/7-inch-All-In-One-Light-Stake-25-Pack-13483.htm",
+     "says": "Holds C7, C9 and mini lights; create displays along pathways and driveways.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "1000Bulbs",
+     "url": "https://www.1000bulbs.com/product/223227/STAKE-10001.html",
+     "says": "Each stake holds C7 and C9 string lights for sidewalks and driveways.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "spares": {
+   "share": 0.05,
+   "say": "5% spare bulbs for the ones that go out during the season.",
+   "note": "judgment call, not a sourced fact"
+  },
+  "lead": {
+   "feet": 2,
+   "say": "2 extra feet of wire for each run's lead to its plug.",
+   "note": "judgment call, not a sourced fact"
+  },
+  "plugs": {
+   "per_run": 2,
+   "say": "2 zip plugs for each run you cut from the spool: one to power it and one spare.",
+   "note": "judgment call, not a sourced fact"
+  },
+  "cords": {
+   "say": "One 50 ft outdoor cord for each run you plug in. Runs that start near the same outlet can share a cord through a timer with several outlets, as long as the cord stays under its label.",
+   "note": "judgment call, not a sourced fact"
+  },
+  "timers": {
+   "say": "One outdoor timer for each circuit you use, set for the evening hours.",
+   "note": "judgment call; Bob Vila advises 4 to 6 hours in the evening",
+   "sources": [
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "Leave Christmas lights plugged in for no more than 4 to 6 hours in the evening; a time block of 4 to 6 hours in the evening works best.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "steep": {
+   "mult": 1.2,
+   "say": "Hard-to-reach runs (steep roofs, high eaves) are priced 20% higher.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Plan on paying 20% more for hard-to-reach roofs and eaves.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "If your roof is hard to reach, that may cost an additional 20 percent because of the special equipment needed.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "Difficult-to-reach areas cost about 20 percent more.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Homes with many levels and eaves that are difficult to reach run about 20% to 25% above regular installation costs.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "upper": {
+   "say": "Upper-story runs are hung at twice the labor: the hanging rate is added again for every foot above the first story.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/christmas-light-installation-prices",
+     "says": "Most installers charge twice as much to hang lights on the second story of a home as they do on the first.",
+     "page_date": "2026-04-13",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "lift": {
+   "say": "A third story, or a tree taller than a ladder reaches, may need a lift or scaffolding: price it on site.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "For the largest trees, a lift may be needed for safe work; extended ladders, lifts and extra safety measures may be needed on homes with more than one story or an abnormally high roof.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Once a tree tops 30 feet, the reach of a standard ladder, costs can climb to $1,500 or beyond.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "trees": {
+   "say": "Trees are priced per tree from your tree wrap prices (small up to about 6 ft, medium 12 to 18 ft), plus the lights by the foot when they are yours.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Wrapping an outdoor tree costs $75 to $125 in labor for a small tree of about six feet, $125 to $250 for a medium tree 12 to 18 feet tall, and $300 to $1,500 for a 28 ft tree.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "Tree wrap labor: $75 to $125 for a small tree about 6 feet high, $125 to $250 for 12 to 18 feet, $300 to $1,500 for a large tree as high as 28 feet.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  "minutes": {
+   "say": "Minutes come from your menu's minutes per foot (Bob Vila: 1 to 4 hours for an average home). Time your own jobs and change them.",
+   "note": "judgment call",
+   "sources": [
+    {
+     "publisher": "Bob Vila",
+     "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+     "says": "It will take anywhere from 1 to 4 hours to install Christmas lights on an average-size home.",
+     "page_date": "2022-10-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ },
+ "dates": {
+  "install_from": "10-01",
+  "takedown_from": "01-02",
+  "takedown_to": "01-31",
+  "rebook": "09-01",
+  "check_days": 21,
+  "basis": "Install window from October 1 (our pick: Brite Nites says some installs start as early as September or October, Jobber that the busiest weeks are around Thanksgiving). Takedown from January 2 through January (Jobber; Fixr says most people take lights down after New Year's Day). Rebook last season's customers from September 1 (Jobber: late August or early September). The mid-season check 21 days after the install is a judgment call.",
+  "sources": [
+   {
+    "publisher": "Jobber Academy",
+    "url": "https://getjobber.com/academy/holiday-lighting/christmas-light-installation-business-tips/",
+    "says": "The holiday lights season typically runs from November 1st to the end of January; the busiest period is the two weeks before and after Thanksgiving; tearing down normally starts as early as January 2nd and runs the remainder of the month; reach out to return customers as early as late August or early September.",
+    "page_date": "2024-11-13",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Brite Nites",
+    "url": "https://britenites.com/when-to-install-holiday-lights-your-guide-to-holiday-lighting-timelines",
+    "says": "Some installs take place as early as September or October.",
+    "page_date": "2024-09-20",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/christmas-light-installation",
+    "says": "Most homeowners start to remove them after New Year's Day.",
+    "page_date": "2025-01-31",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "storage": {
+  "lease": "Your lights come back to your storage at the takedown, tested, labeled and boxed by run, until the next install.",
+  "own": "Their lights are tested, labeled and boxed by run at the takedown, for them to store.",
+  "price_note": "Storing a customer's own lights is a fee you set: check current rates.",
+  "sources": [
+   {
+    "publisher": "Jobber Academy",
+    "url": "https://getjobber.com/academy/holiday-lighting/christmas-light-installation-business-tips/",
+    "says": "In the leasing model the installer is responsible for installation, maintenance, dismantling and storage.",
+    "page_date": "2024-11-13",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "HomeAdvisor",
+    "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+    "says": "You might negotiate a package that includes removal or storage.",
+    "page_date": "2026-06-19",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "measure": {
+  "tips": [
+   "Measure exactly along the roofline, from a ladder at the roofline or walking it at ground level.",
+   "For eaves, measure from the outside edge of the fascia to the outer end of the wall.",
+   "Type one run per line: where it goes, then its feet. Add 2nd story, steep or both sides when they apply.",
+   "For a tree, type the feet of lights you will wrap, and small or tall when it is not a medium tree."
+  ],
+  "sources": [
+   {
+    "publisher": "Bob Vila",
+    "url": "https://www.bobvila.com/articles/christmas-light-installation-cost/",
+    "says": "To measure a roof for Christmas lights, measure exactly along the roofline, standing on a ladder at the roofline or walking at ground level.",
+    "page_date": "2022-10-28",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/christmas-light-installation",
+    "says": "When measuring eaves, measure from the outside edge of the fascia to the outer end of the wall; a 1,500 sq ft home needs at least 150 linear feet.",
+    "page_date": "2025-01-31",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "safety": [
+  {
+   "say": "Plug only into a GFCI-protected outdoor outlet or a portable GFCI, with lights and cords rated for outdoor use.",
+   "sources": [
+    {
+     "publisher": "NFPA 70, National Electrical Code (2025 edition, first draft working text)",
+     "url": "https://docinfofiles.nfpa.org/files/AboutTheCodes/70/70_A2025_NEC_P02_FD_PrelimFR.pdf",
+     "says": "210.8(A): dwelling unit receptacles of 125 to 250 volts installed outdoors shall have ground-fault circuit-interrupter protection for personnel.",
+     "page_date": "2024-02-05",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "U.S. Consumer Product Safety Commission",
+     "url": "https://www.cpsc.gov/Newsroom/News-Releases/2018/Put-Safety-at-the-Top-of-Your-List-When-Decorating-this-Holiday-Season",
+     "says": "Only plug outdoor lights into a GFCI-protected receptacle or a portable GFCI; check labels showing the lights are certified for outdoor use.",
+     "page_date": "2017-12-06",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Check every set for cracked sockets, frayed or bare wire and loose connections before it goes up. Throw out damaged sets.",
+   "sources": [
+    {
+     "publisher": "U.S. Consumer Product Safety Commission",
+     "url": "https://www.cpsc.gov/Newsroom/News-Releases/2018/Put-Safety-at-the-Top-of-Your-List-When-Decorating-this-Holiday-Season",
+     "says": "Check each set of lights, new or old, for broken or cracked sockets, frayed or bare wires, or loose connections; throw out damaged sets.",
+     "page_date": "2017-12-06",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Keep yourself, the ladder and the lights at least 10 feet from overhead power lines.",
+   "sources": [
+    {
+     "publisher": "OSHA, 29 CFR 1910.333",
+     "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.333",
+     "says": "1910.333(c)(3)(i)(A)(1): unqualified persons in an elevated position, and the longest conductive object they may contact, stay at least 10 feet from energized overhead lines of 50 kV or less to ground.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Ladder on stable, level ground, the base out about a quarter of its working length (1 foot for every 4 feet of ladder), rails 3 feet above the roof edge if you step off, nonconductive rails near power. Face it, keep one hand on it, never stand on a stepladder's top step.",
+   "sources": [
+    {
+     "publisher": "OSHA, 29 CFR 1910.23",
+     "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.23",
+     "says": "(c)(11) rails at least 3 feet above the upper landing; (c)(4) stable and level surfaces; (c)(8) no standing on the top step or cap; (b)(11) face the ladder; (b)(12) at least one hand on it; (b)(13) no load that could cause a loss of balance.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "OSHA, 29 CFR 1926.1053",
+     "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+     "says": "(b)(5)(i) the base about one-quarter of the working length out; (b)(12) nonconductive siderails where the ladder could contact exposed energized equipment.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Never work alone: a helper steadies the ladder. Edges 4 feet or more above the ground need fall protection once you have workers.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Never work alone: having a helper steady the ladder is non-negotiable.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "OSHA, 29 CFR 1910.28",
+     "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.28",
+     "says": "1910.28(b)(1)(i): employees on a surface with an unprotected side or edge 4 feet or more above a lower level are protected by guardrails, safety nets or personal fall protection.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Clips only, no nails or staples. Never tape: when lights get hot, the tape can catch fire.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/christmas-light-installation",
+     "says": "Refrain from using tape to hang Christmas lights: if they get hot, there is the potential of starting a fire by igniting the tape.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "say": "Plug into existing outlets only. A new outlet or circuit is a job for a licensed electrician.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/seasonal/install-holiday-lighting/",
+     "says": "Need new outdoor wiring? Budget for a licensed electrician; most light installers aren't certified for electrical work.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ]
+}

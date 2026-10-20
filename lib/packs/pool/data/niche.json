@@ -1,0 +1,1429 @@
+{
+ "id": "pool",
+ "name": "Pool cleaning",
+ "pack_title": "Pool cleaning",
+ "checked": "2026-10-19",
+ "niches": [
+  "pool cleaning",
+  "pool service",
+  "pool maintenance",
+  "pool care",
+  "pool cleaner",
+  "swimming pool cleaning",
+  "pool opening and closing"
+ ],
+ "summary": "Start a pool cleaning business: your first 25 people and partners, a price menu by pool size from real ranges, openings and closings where pools close for winter, and a visit log that checks each reading against CDC's ranges.",
+ "what": "pool cleaning",
+ "business_word": "Pool Care",
+ "worker": "pool tech",
+ "job": "pool cleaning",
+ "icon": "wave",
+ "mood": "calm",
+ "local_group": "general",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Hi neighbor!",
+ "door_step3": "I clean the pool and text you the readings",
+ "door_rule": "Door hangers go on the door, never in or on a mailbox: putting unstamped flyers in a mailbox is a federal offense (18 U.S. Code 1725). Check your city rules on door to door flyers.",
+ "promises": {
+  "first_25": "15 people you know and 10 local pool supply stores, agents, HOAs, rental hosts and apartments, each with a message, plus door hangers with this month's offer.",
+  "offer": "Your price menu by pool size, the first-clients ladder, a weekly plan, openings and closings and job math, on a one-page offer sheet.",
+  "quote": "Pool size, service and how often in; a quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, your regular plan, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "A free demo for one street or one partner business: door hangers or a sample letter, a card to send and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the job: the booking text, a prep text, a printable job sheet, the after-job text and the invoice.",
+  "proof": "One pool turned into proof: a result card, a before-and-after collage from your photos, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 pool supply stores, agents, HOAs, rental hosts and apartments near you that are not in your Pipeline yet, with messages, saved for Do my day.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "One customer's street turned into a route: door hangers with a neighbor price, a sheet for the 20 nearest homes and an intro ask for your customer.",
+  "season_plan": "Twelve months of offers for where you live: closings and spring openings where pools close, the weekly route where they don't, with a calendar file.",
+  "visit_log": "Readings typed after a visit: a printable log, the text to the owner with what you did, and a flag on any reading outside CDC's ranges."
+ },
+ "crowd": {
+  "buyer": "Pool owners",
+  "scores": {
+   "pain": 4,
+   "can_pay": 4,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Fast in season",
+  "best_months": [
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "off_season": {
+   "months": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3,
+    4
+   ],
+   "where": "cold",
+   "play": "Where pools close for winter, sell closings in October and November, then book spring openings with a deposit from December. Where pools stay open all year, keep the weekly route full."
+  },
+  "note": "Pools in places like Florida, Phoenix and San Diego stay open all year. Up north most pools open in May or June and close in the fall.",
+  "not_yet": [
+   "Don't repair pumps, heaters or pipes before you check your state's contractor license rule.",
+   "Don't take on an apartment, condo or HOA pool before you check whether your state wants a certified operator.",
+   "Don't keep pool chemicals in a hot car or beside fuel. Store them dry, cool and apart, as CDC and EPA say."
+  ],
+  "basis": "Scores, first $1, buyer and not-yet lines: research/niches/pool.json crowd_scores (our judgment from its sources). Best months and slow season: Fixr (most pools open in May or June) and Thumbtack (pools in Phoenix, Miami and San Diego stay open all year)."
+ },
+ "buyers": [
+  {
+   "who": "Pool owners who want weekly service with the routine chemicals included",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "All of the monthly maintenance examples include the cost of pool chemicals; a chlorine pool uses $300 to $800 in chemicals a year, and that cost is priced into pool cleaning services.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+     "says": "Weekly service is the standard for most residential pools; some homeowners switch to bi-weekly service during cooler months. In warm climates pool cleaning is a year-round expense; in cooler parts of the country many homeowners close their pools for part of the year.",
+     "page_date": "2026-05-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Owners where pools stay open all year, such as Florida, where about 27.7% of Tampa homes have a pool against 8% nationally",
+   "sources": [
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price-tampa-fl/",
+     "says": "According to Pool Guard, about 27.7% of Tampa homes have a swimming pool, more than three times the national average of 8%. In Tampa, pool maintenance is year-round; pool care firms charge $24.75 to $51.25 a visit.",
+     "page_date": "2026-05-21",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price-fl/",
+     "says": "According to Pool Guard, Florida has more residential pools than any other state, over 1.5 million. In Florida there is no real off-season for pools. Pool cleaning in Florida runs $24.75 to $62.50 a visit.",
+     "page_date": "2026-05-12",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "If you live in Phoenix, Miami, San Diego or any place where your swimming pool is open for business year-round, you won't have to pay to close and open the pool.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Owners who need a closing in the fall and an opening in spring where winters are cold",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "This depends largely on where you live, but most people can open their pool in May or June. If your pool has been closed for years, expect an opening to cost at least $500.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "Winterize when temperatures are regularly below 65 F but before they dip to freezing; you can reopen once temperatures are consistently above 65 F. Never drain a pool completely over the winter: optimum water levels are 3 to 6 inches below the skimmer.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Owners who skim and brush themselves and want only the chemicals done",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "For chemical-only service the homeowner skims and brushes the pool and empties the skimmer baskets, and the pros handle all the chemical additions and adjustments (Humble Bee: $65 to $80 a month by the pool's size).",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Sellers getting a home with a pool ready to list",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Reasons to hire a pool company include planning to sell your home and wanting the pool to look its best, and not having the time for weekly, every-other-week or monthly cleanings.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Vacation rental hosts who need the pool ready between guests",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Pool supply store counters",
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "channel": "Booking sites (Home Gnome, Thumbtack)",
+   "sources": [
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+     "says": "Home Gnome connects homeowners with background-checked, local pool care pros, without a contract, and sends an after-visit photo report.",
+     "page_date": "2026-05-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "Read reviews and find a pool cleaning specialist near you on Thumbtack. Get free estimates from multiple pool companies.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Neighbors on Nextdoor",
+   "note": "judgment call, not a sourced fact"
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Tools and materials to maintain a pool (net, brush, pole, vacuum head and hose, test kit)",
+    "unit": "set",
+    "range_usd": [
+     550,
+     550
+    ],
+    "note": "One source; check current retail prices.",
+    "sources": [
+     {
+      "publisher": "Home Gnome",
+      "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+      "says": "Buying all the tools and materials to maintain your own pool costs about $550; with the tools already on hand, chemicals run about $115. Water pumps, heaters and salt chlorine generators are complex electrical components that should be inspected by experts.",
+      "page_date": "2026-05-13",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "DPD test kit",
+    "unit": "each",
+    "range_usd": null,
+    "note": "CDC calls a DPD kit the most accurate test; strips are less accurate. Check current retail prices.",
+    "sources": [
+     {
+      "publisher": "CDC Healthy Swimming",
+      "url": "https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html",
+      "says": "CDC recommends pH 7.0 to 7.8 and at least 1 ppm chlorine in pools and 3 ppm in hot tubs, 2 ppm in pools that use cyanuric acid. Test chlorine and pH at least twice per day. A DPD test kit is the most accurate; test strips are less accurate. Always follow the manufacturer's directions.",
+      "page_date": "2024-05-10",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Business registration and licensing",
+    "unit": "one time",
+    "range_usd": null,
+    "note": "Check your city and state.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "Licenses and permits depend on business activity and location; local governments set registration, licensing and permitting rules; research your own state, county and city; some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "IRS",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+      "says": "Get an EIN directly from the IRS online in minutes for free.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "Chemicals for one chlorine pool",
+    "unit": "per year",
+    "range_usd": [
+     300,
+     800
+    ],
+    "note": "One source; check current prices. Priced into your visit price.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+      "says": "All of the monthly maintenance examples include the cost of pool chemicals; a chlorine pool uses $300 to $800 in chemicals a year, and that cost is priced into pool cleaning services.",
+      "page_date": "2025-07-07",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "First chemical supply, with the tools on hand",
+    "unit": "one time",
+    "range_usd": [
+     115,
+     115
+    ],
+    "note": "One source; check current retail prices.",
+    "sources": [
+     {
+      "publisher": "Home Gnome",
+      "url": "https://homegnome.com/blog/cost/pool-maintenance-price/",
+      "says": "Buying all the tools and materials to maintain your own pool costs about $550; with the tools already on hand, chemicals run about $115. Water pumps, heaters and salt chlorine generators are complex electrical components that should be inspected by experts.",
+      "page_date": "2026-05-13",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "unit": "per month",
+    "range_usd": null,
+    "note": "Check current rates with an insurer. Owners ask whether you are insured.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+      "says": "When searching for a pool maintenance company near you, always ensure they're qualified and experienced, hold any relevant certifications and are properly insured.",
+      "page_date": "2025-07-07",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your city and state.",
+  "items": [
+   {
+    "item": "General business license or registration",
+    "what_to_check": "City or county license; state registration for an LLC; DBA if you use a trade name.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "Licenses and permits depend on business activity and location; local governments set registration, licensing and permitting rules; research your own state, county and city; some licenses expire and must be renewed.",
+      "page_date": "2026-08-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "IRS",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+      "says": "Get an EIN directly from the IRS online in minutes for free.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Pool and spa contractor license (repairs and equipment)",
+    "what_to_check": "Florida, as an example: repairing or replacing pool equipment, and any cleaning or equipment sanitizing that needs equipment partly taken apart (filter changes excepted), is licensed pool contractor work. Cleaning that doesn't affect the pool's structure or equipment, and water treatment that needs no such equipment, need no license there. Other states differ: check your state's contractor board before you repair or open up equipment.",
+    "sources": [
+     {
+      "publisher": "Florida Statutes 489.105 (2026), Online Sunshine",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.105.html",
+      "says": "Commercial, residential and servicing pool/spa contractors: the scope includes the repair or replacement of existing equipment and any cleaning or equipment sanitizing that requires at least a partial disassembling, excluding filter changes. Water treatment that does not require such equipment does not require a license. In addition, a license is not required for the cleaning of the pool or spa in a way that does not affect the structural integrity of the pool or spa or its associated equipment.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Pools at apartments, condos, HOAs and hotels",
+    "what_to_check": "In Florida a pool serving 5 or more living units (apartments, townhouses, subdivisions) or a hotel is a public pool. It needs an operating permit, and the state may require a certified pool service technician: a nationally recognized course or a pool contractor license counts. Condo and HOA pools of 32 units or fewer that aren't public lodging are exempt except for water quality. Check your state and county health department before you take one on.",
+    "sources": [
+     {
+      "publisher": "Florida Statutes 514.011 (2026), Online Sunshine",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0514/Sections/0514.011.html",
+      "says": "A public pool includes pools serving camps, churches, schools, subdivisions and cooperative living projects of five or more living units, such as apartments, hotels, motels and townhouses. A private pool is used only by an individual, family or living unit members and their guests and does not serve cooperative housing or joint tenancy of five or more living units.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Florida Statutes 514.0115 (2026), Online Sunshine",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0514/Sections/0514.0115.html",
+      "says": "Pools serving no more than 32 condominium or cooperative units, and pools serving homeowners associations with no more than 32 units or parcels, that are not operated as public lodging establishments are exempt from supervision under the chapter, except for water quality.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Florida Statutes 514.031 (2026), Online Sunshine",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0514/Sections/0514.031.html",
+      "says": "It is unlawful for any person or public body to operate or continue to operate any public swimming pool without a valid permit from the Department of Health.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Florida Statutes 514.075 (2026), Online Sunshine",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0514/Sections/0514.075.html",
+      "says": "The department may require that a public pool be serviced by a person certified as a pool service technician; anyone certified by a course of national recognition, or licensed under s. 489.105(3)(j), (k) or (l), is deemed certified. This does not apply to a person, or the direct employee of a person, permitted as a public pool operator.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Carrying pool chemicals in your vehicle",
+    "what_to_check": "Chlorine products are oxidizers (EPA). The federal materials of trade rule (49 CFR 173.6) caps each package of a Class 8 or Division 5.1 material at 66 lb or 8 gallons (Packing Group II or III; 1 lb or 1 pint for Packing Group I) and 440 lb on one vehicle, in the maker's or an equally strong package, closed tight, secured against shifting and marked with a common name, and the driver must be told. Check each product's safety data sheet and your state's rules.",
+    "sources": [
+     {
+      "publisher": "49 CFR 173.6 via eCFR",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-A/section-173.6",
+      "says": "Materials of trade: a Class 3, 8, 9, Division 4.1, 5.1, 5.2 or 6.1 material in a packaging of not over 30 kg (66 pounds) or 30 L (8 gallons) for Packing Group II or III, or 0.5 kg (1 pound) or 0.5 L (1 pint) for Packing Group I; packagings leak tight or sift proof, securely closed, secured against shifting, in the original or equally strong packaging and marked with a common name; the driver must be informed; no more than 200 kg (440 pounds) of materials of trade on one vehicle.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "US EPA",
+      "url": "https://www.epa.gov/rmp/chemical-safety-alert-safe-storage-and-handling-swimming-pool-chemicals",
+      "says": "Chemicals that release chlorine, such as calcium hypochlorite, sodium hypochlorite and chlorinated isocyanurates, are classified as oxidizers. Keep chemicals dry, separate incompatible ones, handle one chemical at a time, and keep gasoline, oil and gas-powered equipment such as lawn mowers away from where they are stored.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Storing and handling chemicals",
+    "what_to_check": "Store them dry, apart from each other, in their original labeled containers, below 95 F, away from heat, flames, fuel and mowers, and out of reach of children and animals. Never mix chemicals; add chemical to water, never water to chemical; wear what the label calls for.",
+    "sources": [
+     {
+      "publisher": "CDC Healthy Swimming",
+      "url": "https://www.cdc.gov/healthy-swimming/toolkit/pool-chemical-safety.html",
+      "says": "Store pool chemicals below 95 F (35 C), each separately and incompatible chemicals away from each other, dry, in original manufacturer-labeled containers, away from heat sources and flames, and secured from children and animals.",
+      "page_date": "2025-06-24",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "CDC press release",
+      "url": "https://archive.cdc.gov/www_cdc_gov/media/releases/2014/p0515-chemical-injuries.html",
+      "says": "Read and follow directions on product labels. Wear safety equipment, such as goggles and masks, as directed. Never mix different pool chemicals with each other, especially chlorine products with acid. Add pool chemical to water, never water to pool chemicals.",
+      "page_date": "2014-05-15",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "US EPA",
+      "url": "https://www.epa.gov/rmp/chemical-safety-alert-safe-storage-and-handling-swimming-pool-chemicals",
+      "says": "Chemicals that release chlorine, such as calcium hypochlorite, sodium hypochlorite and chlorinated isocyanurates, are classified as oxidizers. Keep chemicals dry, separate incompatible ones, handle one chemical at a time, and keep gasoline, oil and gas-powered equipment such as lawn mowers away from where they are stored.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "General liability insurance",
+    "what_to_check": "Owners ask whether you are insured, and certified techs stand out. Check current rates with an insurer.",
+    "sources": [
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+      "says": "When searching for a pool maintenance company near you, always ensure they're qualified and experienced, hold any relevant certifications and are properly insured.",
+      "page_date": "2025-07-07",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+      "says": "Hire qualified technicians: pool techs who are Certified Maintenance Specialists (CMS). Ask what the estimate includes: the cost of pool chemicals and replacement filters, and how extras like chlorine shocks, filter backwashes or algaecide are charged.",
+      "page_date": "2026-03-31",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Before the first visit: written scope (skim, brush, vacuum, baskets, water test), how often, price per visit, which chemicals are included, the gate code, pets and who to call about equipment trouble.",
+   "On arrival: look over the pool, deck and equipment, and photograph anything broken or leaking before you start.",
+   "Skim the surface, brush walls and steps, then vacuum if it needs it.",
+   "Empty the skimmer and pump baskets, and note anything off at the filter or pump for the owner.",
+   "Test free chlorine and pH, a DPD kit is the most accurate, and log them in the Visit log card. Anything you add follows the product's label, one chemical at a time, never mixed.",
+   "Close gates and lids, take an after photo, and text the owner the readings and what you did.",
+   "Invoice or charge the card on file the same day; ask happy owners for an honest review."
+  ],
+  "sources": [
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+    "says": "Pool service often includes skimming the pool, brushing the tile and steps, emptying skimmer and pump baskets, testing pool water and adjusting and adding chemicals as needed, vacuuming as needed, and backwashing a sand filter when the pressure is high. Radiance Pools: weekly logs and photos showing services performed or chemicals added to the pool during maintenance are emailed to the client.",
+    "page_date": "2025-07-07",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Home Gnome",
+    "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+    "says": "Most professional pool cleaning services perform water testing and chemical balancing, skimming and surface cleaning, brushing walls and steps, vacuuming the pool floor, emptying pump and skimmer baskets, and an equipment inspection during their weekly routine.",
+    "page_date": "2026-05-19",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "CDC Healthy Swimming",
+    "url": "https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html",
+    "says": "CDC recommends pH 7.0 to 7.8 and at least 1 ppm chlorine in pools and 3 ppm in hot tubs, 2 ppm in pools that use cyanuric acid. Test chlorine and pH at least twice per day. A DPD test kit is the most accurate; test strips are less accurate. Always follow the manufacturer's directions.",
+    "page_date": "2024-05-10",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "US EPA",
+    "url": "https://www.epa.gov/rmp/chemical-safety-alert-safe-storage-and-handling-swimming-pool-chemicals",
+    "says": "Chemicals that release chlorine, such as calcium hypochlorite, sodium hypochlorite and chlorinated isocyanurates, are classified as oxidizers. Keep chemicals dry, separate incompatible ones, handle one chemical at a time, and keep gasoline, oil and gas-powered equipment such as lawn mowers away from where they are stored.",
+    "page_date": "2026-10-16",
+    "checked": "2026-10-19"
+   }
+  ],
+  "note": "The order, the photos and the written scope are common practice, a judgment call."
+ },
+ "objections": [
+  {
+   "objection": "I just do it myself with test strips.",
+   "answer": "A DPD test, readings in writing after every visit, and the brushing, vacuuming and baskets done.",
+   "sources": [
+    {
+     "publisher": "CDC Healthy Swimming",
+     "url": "https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html",
+     "says": "CDC recommends pH 7.0 to 7.8 and at least 1 ppm chlorine in pools and 3 ppm in hot tubs, 2 ppm in pools that use cyanuric acid. Test chlorine and pH at least twice per day. A DPD test kit is the most accurate; test strips are less accurate. Always follow the manufacturer's directions.",
+     "page_date": "2024-05-10",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Swimming pool maintenance is more than just buying a few test kits and hoping for the best; it includes keeping the chemicals balanced and basic care on an ongoing basis.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "myself",
+    "test strip",
+    "diy",
+    "my own",
+    "worth paying",
+    "worth it",
+    "do it ourselves"
+   ],
+   "say": "That makes sense, and lots of owners do. What I add: a DPD test kit, which CDC calls more accurate than strips, the readings texted to you after every visit, and the brushing, vacuuming and baskets done. Want me to test your water once, free, so you can compare?"
+  },
+  {
+   "objection": "Are chemicals included in the price?",
+   "answer": "Routine chemicals included; extras like shock or algaecide quoted first.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "You'll usually be charged extra for treatments like a chlorine shock, phosphate removers, clarifiers, algaecide and backwashing the filtration system. Ask whether the quote includes pool chemicals and replacement filters.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "All of the monthly maintenance examples include the cost of pool chemicals; a chlorine pool uses $300 to $800 in chemicals a year, and that cost is priced into pool cleaning services.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "chemicals included",
+    "include chemicals",
+    "includes chemicals",
+    "cost of chemicals",
+    "chemical cost",
+    "extra for chemicals",
+    "included",
+    "include"
+   ],
+   "say": "Routine chemicals are in the visit price. Extras like a shock or algaecide I quote before I add them, so nothing on the bill is a surprise."
+  },
+  {
+   "objection": "My pool is green. Can you fix that?",
+   "answer": "A green pool is quoted on its own: a cleanup first, then the weekly price.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "If your pool grew algae over the winter and got dirty and green, you'll also need to pay for a deep cleaning and algaecide treatment.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "This depends largely on where you live, but most people can open their pool in May or June. If your pool has been closed for years, expect an opening to cost at least $500.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "green",
+    "algae",
+    "swamp",
+    "cloudy",
+    "murky"
+   ],
+   "say": "Yes. A green pool is its own job: it takes more time and chemicals, often more than one visit, so I quote that cleanup once I've seen it. When the water is clear again, it goes on the weekly price. Can you send me a photo of the pool?"
+  },
+  {
+   "objection": "Are you licensed and insured?",
+   "answer": "Insurance named plainly; repairs to equipment go to a licensed pool contractor where the state asks for one.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "When searching for a pool maintenance company near you, always ensure they're qualified and experienced, hold any relevant certifications and are properly insured.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Florida Statutes 489.105 (2026), Online Sunshine",
+     "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.105.html",
+     "says": "Commercial, residential and servicing pool/spa contractors: the scope includes the repair or replacement of existing equipment and any cleaning or equipment sanitizing that requires at least a partial disassembling, excluding filter changes. Water treatment that does not require such equipment does not require a license. In addition, a license is not required for the cleaning of the pool or spa in a way that does not affect the structural integrity of the pool or spa or its associated equipment.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "licensed",
+    "insured",
+    "insurance",
+    "certified",
+    "license",
+    "bonded"
+   ],
+   "say": "Good question. I'm insured with [your insurer], and I'm happy to show you the policy. I clean the pool and test the water; repairs to pumps, heaters or pipes go to a licensed pool contractor, the way state rules ask."
+  },
+  {
+   "objection": "Will you actually show up every week?",
+   "answer": "A set day, the readings texted after every visit, weather delays texted ahead.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Radiance Pools: weekly logs and photos showing services performed or chemicals added to the pool during maintenance are emailed to the client.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "show up",
+    "reliable",
+    "no show",
+    "flake",
+    "consistent",
+    "on time",
+    "every week?"
+   ],
+   "say": "Fair question. You get a set day, I text you the readings and what I did after every visit, and if the weather pushes me back I text you the new day before it happens."
+  },
+  {
+   "objection": "I don't want a long contract.",
+   "answer": "Week to week, skip a week with a day of notice.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "contract",
+    "locked in",
+    "commit",
+    "cancel",
+    "long term",
+    "sign up",
+    "signing"
+   ],
+   "say": "No long contract. It's week to week, and you can skip a week with a day of notice."
+  },
+  {
+   "objection": "Can you fix my pump or heater?",
+   "answer": "Spot it and say so; repairs go to a licensed pool contractor where the state asks for one.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "A pool cleaning company can help you spot potential repairs as they are cleaning and maintaining your swimming pool. Pool repairs cost $150 to $1,200.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Florida Statutes 489.105 (2026), Online Sunshine",
+     "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0489/Sections/0489.105.html",
+     "says": "Commercial, residential and servicing pool/spa contractors: the scope includes the repair or replacement of existing equipment and any cleaning or equipment sanitizing that requires at least a partial disassembling, excluding filter changes. Water treatment that does not require such equipment does not require a license. In addition, a license is not required for the cleaning of the pool or spa in a way that does not affect the structural integrity of the pool or spa or its associated equipment.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "pump",
+    "heater",
+    "leak",
+    "repair",
+    "fix the",
+    "broken",
+    "motor"
+   ],
+   "say": "I'll take a look and tell you what I see, but repairs to pumps, heaters and pipes go to a licensed pool contractor in many states, so I'll point you to one rather than guess. Keeping the water and the baskets right each week is my part."
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "Free water test on one street",
+   "steps": [
+    "Start with one pool you clean (family, friend or neighbor) on a fixed weekday.",
+    "That day, hang door hangers on the 10 houses on each side offering a free water test: on the door, never in or on a mailbox.",
+    "Test the first 3 who text, log the readings in the Visit log card, and text them the result with your weekly price."
+   ],
+   "sources": [
+    {
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "says": "Knowingly depositing circulars or similar unstamped matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Leave door hangers on the door, never in or on the mailbox.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Judgment call. Door hangers go on doors, never in or on mailboxes; check city solicitation rules."
+  },
+  {
+   "play": "Closings in fall, openings booked in winter (where pools close)",
+   "steps": [
+    "In September, text everyone you know with a pool and offer a closing date before it freezes.",
+    "From December, book spring openings with a small deposit, earliest dates first.",
+    "Sell the weekly plan at the opening, while you are standing at the pool."
+   ],
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "Winterize when temperatures are regularly below 65 F but before they dip to freezing; you can reopen once temperatures are consistently above 65 F. Never drain a pool completely over the winter: optimum water levels are 3 to 6 inches below the skimmer.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "This depends largely on where you live, but most people can open their pool in May or June. If your pool has been closed for years, expect an opening to cost at least $500.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Timing is a judgment call from Fixr: close when it is regularly below 65 F but before it freezes; most pools open in May or June."
+  },
+  {
+   "play": "Counter cards at independent pool supply stores",
+   "steps": [
+    "Walk into 3 independent pool supply stores near you with your card.",
+    "Ask the manager if you can leave cards at the counter for owners who ask who cleans pools.",
+    "Point the pool owners you work for to the store for parts and supplies, and tell the manager you did."
+   ],
+   "note": "judgment call, not a sourced fact"
+  },
+  {
+   "play": "Listing pools for real estate agents",
+   "steps": [
+    "Look for homes with a pool on the market in your area.",
+    "Offer the listing agent a one-time cleaning before the photos at your founding price.",
+    "Send the before and after photos to the agent the same day."
+   ],
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "Reasons to hire a pool company include planning to sell your home and wanting the pool to look its best, and not having the time for weekly, every-other-week or monthly cleanings.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Steps are a judgment call."
+  },
+  {
+   "play": "Booking sites while you build a route",
+   "steps": [
+    "List your service on a booking site that covers pool cleaning in your ZIP codes.",
+    "Take only jobs within 10 minutes of the pools you already clean.",
+    "Leave a card with every owner for direct rebooking where the site's terms allow it."
+   ],
+   "sources": [
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+     "says": "Home Gnome connects homeowners with background-checked, local pool care pros, without a contract, and sends an after-visit photo report.",
+     "page_date": "2026-05-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-cleaning-prices",
+     "says": "Read reviews and find a pool cleaning specialist near you on Thumbtack. Get free estimates from multiple pool companies.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Read each site's terms and fees before you join; they are not checked here."
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "Where winters are cold, most pools open in May or June and close when it is regularly below 65 F, before it freezes.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-opening",
+     "says": "This depends largely on where you live, but most people can open their pool in May or June. If your pool has been closed for years, expect an opening to cost at least $500.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/pool-closing",
+     "says": "Winterize when temperatures are regularly below 65 F but before they dip to freezing; you can reopen once temperatures are consistently above 65 F. Never drain a pool completely over the winter: optimum water levels are 3 to 6 inches below the skimmer.",
+     "page_date": "2025-01-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Pools in places like Phoenix, Miami, San Diego and Tampa stay open all year: no openings or closings, weekly service all year.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "If you live in Phoenix, Miami, San Diego or any place where your swimming pool is open for business year-round, you won't have to pay to close and open the pool.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price-fl/",
+     "says": "According to Pool Guard, Florida has more residential pools than any other state, over 1.5 million. In Florida there is no real off-season for pools. Pool cleaning in Florida runs $24.75 to $62.50 a visit.",
+     "page_date": "2026-05-12",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price-tampa-fl/",
+     "says": "According to Pool Guard, about 27.7% of Tampa homes have a swimming pool, more than three times the national average of 8%. In Tampa, pool maintenance is year-round; pool care firms charge $24.75 to $51.25 a visit.",
+     "page_date": "2026-05-21",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Weekly service is the standard; some owners switch to every other week in cooler months.",
+   "sources": [
+    {
+     "publisher": "Home Gnome",
+     "url": "https://homegnome.com/blog/cost/pool-cleaning-price/",
+     "says": "Weekly service is the standard for most residential pools; some homeowners switch to bi-weekly service during cooler months. In warm climates pool cleaning is a year-round expense; in cooler parts of the country many homeowners close their pools for part of the year.",
+     "page_date": "2026-05-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Closings usually take two visits, because the water is shocked a few days ahead.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/pool-maintenance-cost",
+     "says": "To close a pool, a technician will shock the water, lower the water level, clean the sides and bottom, backwash the filter, store filter elements, clear water lines and put the cover on. Because shocking the water takes a couple of days, a pro usually needs two visits.",
+     "page_date": "2025-07-07",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/swimming-pools-hot-tubs-and-saunas/maintain-a-swimming-pool/",
+     "says": "A professional often performs the closing service in two or more visits, as the water must be shocked several days in advance of closing.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "default_costs": {
+  "perJob": 10,
+  "hourly": 25,
+  "monthlyFixed": 150,
+  "basis": "Defaults when you leave them empty, all judgment calls: about $10 of chemicals and gas per visit (Thumbtack: a chlorine pool uses $300 to $800 of chemicals a year, about $6 to $15 a week), $25 an hour for your time, $150 a month fixed (insurance, phone, upkeep). Use your own numbers."
+ },
+ "partners": [
+  {
+   "id": "pool_supply",
+   "label": "Pool supply stores",
+   "one": "pool supply store",
+   "search": {
+    "words": "pool supply stores",
+    "osm": [
+     "shop=swimming_pool"
+    ]
+   },
+   "their_customers": "customers",
+   "why": "ask who can clean their pool for them",
+   "ask": "leave my cards at your counter",
+   "give": "point the pool owners I work for to your store for supplies and parts",
+   "weight": 2
+  },
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "sellers",
+   "why": "want the pool clear and clean before listing photos and showings",
+   "ask": "leave my cards with sellers who have a pool",
+   "give": "clean your next listing's pool at my founding price",
+   "weight": 2
+  },
+  {
+   "id": "hoas",
+   "label": "HOAs and community managers",
+   "one": "HOA management company",
+   "search": {
+    "words": "HOA management company",
+    "osm": [
+     "office=association"
+    ]
+   },
+   "their_customers": "homeowners",
+   "why": "with backyard pools ask who to call",
+   "ask": "share my card with homeowners who have a pool",
+   "give": "give your homeowners my founding price",
+   "weight": 2
+  },
+  {
+   "id": "vacation_rentals",
+   "label": "Vacation rental hosts and managers",
+   "one": "vacation rental company",
+   "search": {
+    "words": "vacation rental management",
+    "osm": [
+     "office=property_management",
+     "tourism=apartment",
+     "tourism=chalet"
+    ]
+   },
+   "their_customers": "owners",
+   "why": "need the pool clear and clean before every guest arrives",
+   "ask": "pass my card to owners whose rentals have a pool",
+   "give": "send you the readings and a photo after every visit",
+   "weight": 1
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "one": "apartment community",
+   "search": {
+    "category": "apartments",
+    "words": "apartment communities with a pool"
+   },
+   "their_customers": "residents",
+   "why": "swim in the community pool all season",
+   "ask": "pass my card to whoever decides on pool service",
+   "give": "send you the readings in writing after every visit",
+   "weight": 1
+  }
+ ],
+ "lead_offers": [
+  {
+   "id": "closing",
+   "months": [
+    10,
+    11
+   ],
+   "slow": true,
+   "package": "closing",
+   "label": "Pool closing",
+   "one": "pool closing",
+   "many": "pool closings",
+   "follow_on": {
+    "package": "opening",
+    "say": "your spring opening"
+   }
+  },
+  {
+   "id": "opening_book",
+   "months": [
+    12,
+    1,
+    2,
+    3,
+    4
+   ],
+   "slow": true,
+   "package": "opening",
+   "label": "Spring pool opening, booked now",
+   "one": "spring opening",
+   "many": "spring openings",
+   "follow_on": {
+    "package": "service",
+    "plan": "weekly",
+    "say": "weekly pool service with routine chemicals"
+   }
+  },
+  {
+   "id": "main",
+   "package": "one_time",
+   "label": "First pool cleaning",
+   "one": "pool cleaning",
+   "many": "pool cleanings",
+   "follow_on": {
+    "package": "service",
+    "plan": "weekly",
+    "say": "weekly pool service with routine chemicals"
+   }
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.35,
+   "label": "Founding price",
+   "ask": "Permission to post before and after photos of the pool (no faces or house numbers) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.15,
+   "label": "Early price",
+   "ask": "Same work, smaller discount, while you fill one street at a time."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once your weekly route is full."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "one_time",
+   "label": "First pool cleaning, founding price",
+   "note": "Gets you to the pool; offer the weekly plan while you are there."
+  },
+  "core": {
+   "package": "service",
+   "note": "Priced by pool size, routine chemicals included."
+  },
+  "recurring": {
+   "package": "service",
+   "plan": "weekly",
+   "note": "Same day every week. Skip a week with a day of notice."
+  },
+  "upsell": {
+   "addon": "filter",
+   "note": "Offer it when the filter needs it, and quote it before you start."
+  },
+  "downsell": {
+   "package": "chem_only",
+   "plan": "weekly",
+   "note": "For owners who skim and brush themselves: you test and add the routine chemicals."
+  }
+ },
+ "offer": {
+  "who": "Pool owners who want a clean pool without spending their weekends on it, starting on your own street.",
+  "outcome": "A pool skimmed, brushed and vacuumed on the same day every week, with the readings texted after each visit.",
+  "promise": "Miss a spot? Tell me and I come back within 2 days to fix it, free.",
+  "names": [
+   "Same Day Every Week Pool Care",
+   "Clear Water Plan",
+   "Readings by Text Pool Service",
+   "Open and Close Plan"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Want one, or know someone with a pool who would?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. I'm doing 3 {lead_many} at {founding} for a {ref} so I can get before and after photos. Want a spot, or know someone with a pool?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Interested, or know someone with a pool?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the {what} text. If it's not for you, would you pass my number to one friend with a pool? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If someone with a pool comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. {plan} Bigger pools are a bit more. Want an exact quote? Send me the address and about how big the pool is, and I'll take a look.",
+   "not_now": "No problem! Can I check back before the season changes? And if a friend with a pool needs help, I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I skim, brush and vacuum, empty the baskets, test the water and text you the readings after every visit. If I miss a spot I come back within 2 days and fix it free.",
+   "covered": "Good to hear you're set! If they ever miss a week or you want a second quote, I'm happy to help. Mind if I check back next season?",
+   "yes": "Great! To get you on the schedule I just need the address, the gate code or how to get in, and any pets I should know about. What day works for the first visit?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for the {title}: {lines}. Total {total}.{plan} {promise} Reply with a day that works and I'll put you on my route.",
+  "plan_terms": "Extras like shock or algaecide are quoted before I add them. Need to move a visit? A day of notice is fine.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for having me today! I'll send your readings and the before and after photos tonight. {promise}",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+   "plan": "Hi {customer}, want me back? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+   "referral": "Hi {customer}, thanks again for trusting me with your pool. If a friend or neighbor with a pool could use the same, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. It's been a while since your {job}. Want me to save you a spot in the next couple of weeks?",
+   "checkin_days": 30,
+   "card_thanks": "Thank you for having me!",
+   "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "pool up to about 16 x 32 ft",
+  "size_factor": "size",
+  "fields": {
+   "service": {
+    "type": "string",
+    "title": "What they want",
+    "use": "package",
+    "map": {
+     "Pool service visit": "service",
+     "Chemical check visit": "chem_only",
+     "One-time pool cleaning": "one_time",
+     "Pool opening": "opening",
+     "Pool closing": "closing"
+    },
+    "default": "Pool service visit"
+   },
+   "size": {
+    "type": "string",
+    "title": "Pool size",
+    "description": "Above-ground pools are often the small size",
+    "use": "factor:size",
+    "map": {
+     "Up to about 10 x 20 ft": "s",
+     "Up to about 16 x 32 ft": "m",
+     "Up to about 20 x 40 ft": "l",
+     "Bigger than 20 x 40 ft": "xl"
+    }
+   },
+   "length": {
+    "type": "string",
+    "title": "Pool length in feet (optional)",
+    "maxLength": 4,
+    "description": "The long side. Used when no size is picked."
+   },
+   "water": {
+    "type": "string",
+    "title": "Water right now (cleanings and openings)",
+    "use": "factor:water",
+    "map": {
+     "Clear or a little cloudy": "clear",
+     "Green or swampy": "green"
+    },
+    "default": "Clear or a little cloudy"
+   },
+   "frequency": {
+    "type": "string",
+    "title": "How often",
+    "use": "plan",
+    "map": {
+     "One time": null,
+     "Every week": "weekly"
+    },
+    "default": "One time"
+   },
+   "addons": {
+    "type": "string",
+    "title": "Add-ons (optional)",
+    "use": "addons",
+    "maxLength": 200,
+    "description": "Filter cleaning, Hot tub or spa (with an opening or closing)",
+    "map": {
+     "Filter cleaning": "filter",
+     "Hot tub or spa": "spa"
+    }
+   }
+  },
+  "derive": [
+   {
+    "factor": "size",
+    "from": [
+     "length"
+    ]
+   }
+  ],
+  "advice": [
+   {
+    "when": {
+     "water": [
+      "green"
+     ]
+    },
+    "say": "A green pool takes more time and chemicals, often more than one visit. Quote the cleanup on its own, then the weekly price once the water is clear. The green price is a judgment call: check current rates where you live."
+   },
+   {
+    "when": {
+     "service": [
+      "opening"
+     ]
+    },
+    "say": "Openings: ask when the pool was closed and whether the cover stayed on. A pool that grew algae over the winter needs a cleanup on top (Thumbtack), and one closed for years can cost $500 or more to open (Fixr)."
+   },
+   {
+    "when": {
+     "service": [
+      "closing"
+     ]
+    },
+    "say": "Closings usually take two visits, because the water is shocked a few days ahead (Thumbtack, HomeAdvisor). Fixr: never drain a pool completely for winter; the water usually sits 3 to 6 inches below the skimmer."
+   },
+   {
+    "when": {
+     "frequency": [
+      "weekly"
+     ]
+    },
+    "say": "Put them on the same day as the other pools on their street. Same street first keeps drive time down."
+   },
+   {
+    "when": {
+     "service": [
+      "chem_only"
+     ]
+    },
+    "say": "A chemical check visit is for owners who skim, brush and empty the baskets themselves. Write down who does what."
+   },
+   {
+    "when": {
+     "addons": [
+      "filter"
+     ]
+    },
+    "say": "Filter cleaning: in Florida, cleaning that needs equipment partly taken apart is licensed contractor work, filter changes excepted (section 489.105). Check your state's rule before you open a filter housing."
+   }
+  ]
+ },
+ "specials": [
+  "same_street",
+  "season_plan"
+ ],
+ "won": {
+  "needs": "the address, the gate code or how to get in, and any pets I should know about",
+  "prep_items": [
+   "unlock the gate or send me the code",
+   "keep pets inside while I am there",
+   "tell me about anything new: a leak, a noisy pump, or a chemical you added",
+   "leave the path to the pool equipment clear"
+  ],
+  "bring": [
+   "Skimmer net, brush and telescoping pole",
+   "Vacuum head and hose",
+   "DPD test kit, and your phone for the Visit log card",
+   "Chemicals in their original labeled containers, closed tight and secured",
+   "Gloves and safety glasses, or what each label calls for",
+   "Water"
+  ],
+  "photos": [
+   "The pool from the deck, before you start",
+   "The skimmer and pump baskets",
+   "The equipment pad",
+   "Anything broken or leaking"
+  ],
+  "done": "your pool is all done"
+ },
+ "proof": {
+  "what": "Green pool, first cleanup",
+  "result": "Green pool brushed, vacuumed and clear again in 3 visits",
+  "thing": "pool",
+  "private": "No faces or house numbers."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "Free water test on {street}",
+   "side": [
+    "Chlorine and pH tested",
+    "About 10 minutes",
+    "First 3 homes"
+   ],
+   "includes": [
+    "Free chlorine and pH tested with a DPD kit",
+    "Readings checked against CDC's ranges",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address or scan the code",
+    "I test while I'm on {street}{day_part}",
+    "You get the readings by text"
+   ],
+   "line": "I'm cleaning a pool on {street}{day_part}, so the first 3 neighbors who text me get a free pool water test: chlorine and pH, about 10 minutes, readings by text. No cost and no catch.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm cleaning a pool on {street}{day_part}, so the first 3 neighbors who text me get a free water test (chlorine and pH, about 10 minutes, readings by text). No cost and no catch. {phone_line}",
+   "minutes": 10,
+   "limit": 3,
+   "package": "service",
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the door, never in or on a mailbox.",
+    "Test only with the owner home or their yes in writing, and never open a locked gate.",
+    "Log each test in the Visit log card and text the owner the readings. It never says how much of anything to add: that comes from the product's label.",
+    "Hand them the card with your weekly price before you leave, then one follow-up in 3 days."
+   ]
+  },
+  "partners": {
+   "pool_supply": {
+    "demo": "a free first cleaning for one pool owner you pick, with the readings in writing",
+    "eyebrow": "For pool owners who shop at {biz}",
+    "headline": "Weekly pool care, readings by text",
+    "package": "service",
+    "who": "First 3 pool owners",
+    "card_line": "Shop at {biz}? Mention them when you book.",
+    "words": [
+     "pool supply",
+     "pool and spa",
+     "pools",
+     "pool",
+     "spa",
+     "swim",
+     "hot tub"
+    ],
+    "steps": [
+     "Walk in with the card and ask for the manager.",
+     "Offer the free first cleaning for one pool owner they pick, and log it in the Visit log card.",
+     "Ask to leave your cards at the counter.",
+     "Point the pool owners you work for to them for supplies and parts, and tell the manager you did."
+    ]
+   },
+   "realtors": {
+    "demo": "your next listing's pool cleaned free before the photos",
+    "eyebrow": "For {biz} sellers",
+    "headline": "A clean pool before the listing photos",
+    "package": "one_time",
+    "who": "First 3 sellers",
+    "card_line": "Listing with {biz}? Mention them when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "properties",
+     "homes"
+    ],
+    "steps": [
+     "Send the message and the card today, with two days you can do it.",
+     "Clean the pool before their listing photos, and take a photo from the deck before and after.",
+     "Send the photos to the agent the same day.",
+     "Ask once: would they leave your cards with sellers who have a pool?"
+    ]
+   },
+   "hoas": {
+    "demo": "a free water test for 3 homeowners with backyard pools, on a day your manager picks",
+    "eyebrow": "For {biz} homeowners",
+    "headline": "Backyard pools kept clean, readings by text",
+    "package": "service",
+    "who": "First 3 homeowners",
+    "card_line": "Live in a community {biz} manages? Mention them when you book.",
+    "words": [
+     "hoa",
+     "association",
+     "community",
+     "homeowners",
+     "owners association"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Do the water tests only with the manager's yes and on the day they pick.",
+     "Text each owner their readings the same day, from the Visit log card.",
+     "This is for backyard pools. A community pool can fall under state health rules: check whether your state wants a certified operator before you quote one."
+    ]
+   },
+   "vacation_rentals": {
+    "demo": "one rental's pool cleaned free between guests, with the readings and a photo for your file",
+    "eyebrow": "For {biz} owners",
+    "headline": "The pool ready before every check-in",
+    "package": "service",
+    "who": "First 3 rental owners",
+    "card_line": "Rent through {biz}? Mention them when you book.",
+    "words": [
+     "vacation",
+     "rental",
+     "rentals",
+     "stays",
+     "getaway",
+     "cottage",
+     "villa",
+     "property management"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Clean the sample pool between guests, on the day the manager picks, and log it in the Visit log card.",
+     "Send the readings and an after photo the same day.",
+     "A pool at a hotel or other lodging can count as a public pool: check your state and county health rules before you take on a route of rentals."
+    ]
+   },
+   "apartments": {
+    "demo": "a free water test at your community pool, with the readings written up for your file",
+    "eyebrow": "For {biz}",
+    "headline": "Your pool readings in writing, every visit",
+    "package": "service",
+    "who": "First 3 properties",
+    "card_line": "For the pool at {biz}: ask the manager.",
+    "words": [
+     "apartments",
+     "apartment",
+     "residences",
+     "lofts",
+     "flats",
+     "commons"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Test the water only with the manager there or their yes in writing, and log it in the Visit log card.",
+     "Send the readings the same day.",
+     "Before you quote any service, ask who holds the pool's operating permit, and check whether your state or county wants a certified pool operator or technician (Florida: sections 514.031 and 514.075)."
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call, not a sourced fact",
+  "package": "service",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "Same day as your neighbor",
+  "includes": [
+   "Skimmed, brushed and vacuumed",
+   "Skimmer and pump baskets emptied",
+   "Water tested, readings by text"
+  ],
+  "how": [
+   "Text me your address or scan the code",
+   "I'm on {street}{day_part}",
+   "Same day every week"
+  ],
+  "customer_ask": "Hi {customer}, thanks again! I'm adding a couple more pools on {street}{day_part}. If a neighbor ever asks who does your pool, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day before you are there. On the door, never in or on a mailbox.",
+   "While you work, say hi to anyone outside. Keep it short, and never say which neighbor: \"I clean a pool here on your street.\"",
+   "Text your customer the intro ask after the visit, never before.",
+   "Mark each home on the sheet. A neighbor who books goes on the same day as your customer."
+  ],
+  "why": "Pools on one street mean less driving between stops, so you can give neighbors a better price on the same day.",
+  "plan": "weekly"
+ },
+ "season_plan": {
+  "who": {
+   "closing": "Every pool you clean, then friends with pools",
+   "opening_book": "This fall's closings first, then pool supply stores and agents",
+   "main": "People you know with pools, neighbors of each customer, pool supply stores"
+  },
+  "do": {
+   "closing": "Text every pool on your route a closing date: Fixr says close when it is regularly below 65 F, before it freezes. Book their spring opening at the same visit.",
+   "opening_book": "Book spring openings now with a small deposit, earliest dates first.",
+   "main": "Fill each day of the week on one or two streets before you add a new area."
+  },
+  "plans": [
+   "Weekly pool service with routine chemicals included: the steady part of the year.",
+   "Closings in the fall and openings in spring where pools close for winter, booked a season ahead.",
+   "A first cleaning at the founding price: the offer that gets you to a new pool."
+  ]
+ }
+}

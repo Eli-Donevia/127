@@ -1,0 +1,1990 @@
+{
+ "id": "windows",
+ "name": "Window cleaning",
+ "pack_title": "Window cleaning",
+ "checked": "2026-10-19",
+ "summary": "Start a window cleaning business: your first 25 people and partners, prices per window and per pane from real ranges, a window count estimate sheet, a same-street route and a storefront route.",
+ "niches": [
+  "window cleaning",
+  "window washing",
+  "window cleaner",
+  "window washer",
+  "residential window cleaning",
+  "storefront window cleaning",
+  "window cleaning business"
+ ],
+ "what": "window cleaning",
+ "business_word": "Window Cleaning",
+ "worker": "window cleaner",
+ "job": "window cleaning",
+ "icon": "grid",
+ "mood": "clean",
+ "local_group": "washing",
+ "card_title": "Offer card and door hangers",
+ "door_hello": "Your windows, clear inside and out, no ladder work for you",
+ "door_step3": "I clean every pane and send before and after photos",
+ "door_rule": "Hand these out in person, hang them on doorknobs or pin them on community boards. Never put flyers in or on a mailbox (18 U.S. Code 1725).",
+ "promises": {
+  "first_25": "15 people you know and 10 local agents, managers, shops and apartment buildings, each with a message, plus door hangers with the offer that fits the season.",
+  "offer": "Your prices per window, per pane and per house from real ranges, the first-clients ladder, a storefront route price and job math, on a one-page offer sheet.",
+  "quote": "Window counts by type, floors, inside or out, screens and tracks in; a per-window quote, a text and an invoice out.",
+  "keep": "A thank-you, an honest review ask, your spring and fall plan, a referral ask and a later check-in, each dated, plus review cards with your QR code.",
+  "sample_one": "One front window cleaned free for one street or one partner: a card to send, door hangers or a sample letter, and every message, saved to your Pipeline.",
+  "reply": "Paste what someone wrote back: what they meant, a short answer with one next step, and your Pipeline updated. A draft you send yourself.",
+  "won": "Log the yes, then everything for the job: the booking text, a prep text, a printable job sheet with ladder checks, the after-job text and the invoice.",
+  "proof": "One job turned into proof: a result card, a before-and-after collage from your photos, a caption, an honest review ask and a case study once they say yes.",
+  "next_25": "The next 25 agents, property managers, shops and apartment buildings near you that are not in your Pipeline yet, each with its messages, saved for Do my day.",
+  "ready": "Look ready before you reach out: a one-page website, a Google profile kit and a flyer, all from your real prices.",
+  "same_street": "Turn one customer's street into a route: neighbor door hangers with a lower price, a route sheet to tick off and the intro ask for your customer.",
+  "storefronts": "Shops and cafes near you in walking order, with a free demo window, a counter script, a rate sheet and directions for each leg.",
+  "estimate": "Count windows by type and floor: minutes per pane, a price from your per-window and per-pane rates, the gear each floor needs and a printable estimate sheet."
+ },
+ "crowd": {
+  "buyer": "Homeowners and storefronts",
+  "scores": {
+   "pain": 3,
+   "can_pay": 4,
+   "findable": 4,
+   "growing": 3
+  },
+  "first_dollar": "Fast in season",
+  "best_months": [
+   3,
+   4,
+   5,
+   6,
+   9,
+   10,
+   11
+  ],
+  "off_season": {
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "where": "cold",
+   "play": "Book spring window cleanings now with a deposit, and keep a storefront route every 2 weeks going through winter."
+  },
+  "note": "Spring and fall peaks; slow in winter up north.",
+  "not_yet": [
+   "Don't buy a water-fed pole system before your tenth regular customer. Start with squeegees and ladders.",
+   "Don't take third-story or roof work before you have liability insurance, the right gear and practice on lower floors.",
+   "Don't raise a ladder near power lines, and never use a metal one near them."
+  ],
+  "basis": "Scores, first $1, buyer and not-yet lines: our judgment, with reasons and sources in research/niches/windows.json crowd_scores (the library thread merges them into research/crowd.json). Best months and slow season: research/niches/windows.json crowd hint, from its sources."
+ },
+ "buyers": [
+  {
+   "who": "Homeowners getting a house ready to list or show",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Most real estate agents will say that clean windows make a house look cleaner and brighter; if you're selling your home, clean windows are a must.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Homeowners who want windows cleaned in spring and fall",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Windows should be cleaned twice per year; avoid sunny days, since sunlight dries the solution too quickly and leaves streaks.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Many people have their windows professionally cleaned once or twice a year.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Residential customers typically need service 2 to 4 times per year; commercial storefronts are $2 to $5 per window on weekly or every-two-weeks contracts.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Shops, cafes and offices with front glass, on a weekly or every-two-weeks route",
+   "sources": [
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Storefronts are ideal for beginners: quick jobs, frequent service, easy to acquire; start with storefronts: walk in, introduce yourself, offer to clean one window free, and build a route of 20 to 50 weekly stops.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Storefront flat rate $25 to $75 per visit for small retail stores and restaurants; a small retail storefront may pay $30 to $50 per weekly visit; small storefront minimum $25 to $75.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Flat-rate packages work well for recurring work like storefronts; a weekly storefront route is quick; many window cleaners offer recurring storefront plans with a set number of visits per week or month.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "Property managers and apartment buildings with rentals and lobby glass",
+   "sources": [
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Route density means multiple clients serviced in the same neighborhood on the same day; property managers can be a target for recurring commercial work; operators in colder climates often plan for less winter work or pivot to holiday light installation.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Proof of coverage may be required for commercial or property management contracts; some property managers and government contracts require janitorial or service bonds.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "who": "People who would rather not climb a ladder for the upper floors",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "While DIY is possible, buying the right supplies alone, $400 on average, can cost as much as hiring a pro; climbing a ladder while juggling tools can be risky.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "where_buyers_look": [
+  {
+   "channel": "Google Business Profile and reviews",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Start with a storefront route and offer a free demo window; Google Business Profile for residential; door hangers in upscale neighborhoods; property managers for commercial buildings.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Door hangers and community boards",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Start with a storefront route and offer a free demo window; Google Business Profile for residential; door hangers in upscale neighborhoods; property managers for commercial buildings.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "says": "Knowingly depositing unstamped mailable matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Door hangers go on the door, never in or on the mailbox.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Real estate agents and property managers",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Route density means multiple clients serviced in the same neighborhood on the same day; property managers can be a target for recurring commercial work; operators in colder climates often plan for less winter work or pivot to holiday light installation.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "channel": "Thumbtack quote requests",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/pro",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "starter_kit": {
+  "one_time": [
+   {
+    "item": "Squeegees, scrubbers, scrapers, a bucket on a belt and towels",
+    "unit": "set",
+    "range_usd": [
+     160,
+     390
+    ],
+    "note": "StartCosts' traditional tool lines added up (squeegees $50 to $150, scrubbers $30 to $80, bucket-on-belt $30 to $60, towels, scrapers and tools $50 to $100). ZenBusiness puts basic traditional equipment at $200 to $400; Fixr says kits start at $75.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "Traditional setup $410 to $1,040: squeegees $50 to $150, scrubbers $30 to $80, bucket-on-belt $30 to $60, extension ladder $200 to $500, step ladder $50 to $150, towels, scrapers and tools $50 to $100.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "General liability insurance $400 to $800 a year; basic traditional equipment $200 to $400; extension ladders and safety gear $300 to $600; water-fed pole system $1,500 to $3,000.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/window-cleaning",
+      "says": "To start you need at minimum a brush, squeegee, towels, a scraper and a ladder; kits start at $75 and extension ladders start around $110.",
+      "page_date": "2025-08-29",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Extension ladder and step ladder",
+    "unit": "set",
+    "range_usd": [
+     250,
+     650
+    ],
+    "note": "StartCosts: extension ladder $200 to $500 plus step ladder $50 to $150. ZenBusiness: ladders and safety gear $300 to $600; Housecall Pro: ladder and safety gear $200 to $500; Fixr: extension ladders from about $110.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "Traditional setup $410 to $1,040: squeegees $50 to $150, scrubbers $30 to $80, bucket-on-belt $30 to $60, extension ladder $200 to $500, step ladder $50 to $150, towels, scrapers and tools $50 to $100.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "General liability insurance $400 to $800 a year; basic traditional equipment $200 to $400; extension ladders and safety gear $300 to $600; water-fed pole system $1,500 to $3,000.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+      "says": "Basic equipment and supplies run $500 to $1,000; a ladder plus safety gear adds $200 to $500; low-rise residential startup equipment $700 to $1,500; a water-fed pole system, useful for exterior work above the first floor, $1,500 to $3,000.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/window-cleaning",
+      "says": "To start you need at minimum a brush, squeegee, towels, a scraper and a ladder; kits start at $75 and extension ladders start around $110.",
+      "page_date": "2025-08-29",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Ladder stand-off and leg levelers",
+    "unit": "set",
+    "range_usd": null,
+    "note": "check current rates. ZenBusiness names them for uneven residential landscaping; OSHA says to use levelers only for their designed purpose.",
+    "sources": [
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "The water-fed pole system costs more upfront, but operators clean faster and stay on the ground; ladder stand-offs and leg levelers keep the operator stable on uneven residential landscaping.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA Portable Ladder Safety QuickCard (OSHA 3246-10N-05)",
+      "url": "https://www.osha.gov/sites/default/files/publications/portable_ladder_qc.pdf",
+      "says": "Look for overhead power lines before handling a ladder and avoid a metal ladder near power lines; inspect the ladder before use; keep 3-point contact and face the ladder; use a ladder only on a stable and level surface unless it is secured; ladder levelers only for their designed purpose; don't stand on the three top rungs of a straight or extension ladder; set the base a quarter of the working length from the wall; extend 3 feet above the support; the load rating includes the weight of tools.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Water-fed pole system (pole and water purification)",
+    "unit": "set",
+    "range_usd": [
+     1500,
+     5290
+    ],
+    "note": "Not yet: start with ladders and add a pole later (StartCosts). Housecall Pro and ZenBusiness: $1,500 to $3,000; StartCosts: full setup $1,960 to $5,290.",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+      "says": "Basic equipment and supplies run $500 to $1,000; a ladder plus safety gear adds $200 to $500; low-rise residential startup equipment $700 to $1,500; a water-fed pole system, useful for exterior work above the first floor, $1,500 to $3,000.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "General liability insurance $400 to $800 a year; basic traditional equipment $200 to $400; extension ladders and safety gear $300 to $600; water-fed pole system $1,500 to $3,000.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "Water fed pole setup $1,960 to $5,290 (carbon fiber pole of 30 to 60 ft that reaches 3 to 5 stories $800 to $2,000; DI or RO water purification $500 to $1,500); start traditional and add the pole later; water fed poles clean windows from the ground, are faster for high work and mean less ladder use.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "recurring": [
+   {
+    "item": "General liability insurance",
+    "unit": "per year",
+    "range_usd": [
+     400,
+     2000
+    ],
+    "note": "Insureon's median for window cleaners is $931 a year; Housecall Pro cites about $900; ZenBusiness $400 to $800; StartCosts $500 to $2,000.",
+    "sources": [
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/cleaning-business-insurance/window-cleaners/cost",
+      "says": "Window cleaning companies pay an average of $78 per month, or $931 a year, for general liability (Insureon's median for cleaning businesses that applied through it), with limits of $1 million per occurrence and $2 million aggregate; workers comp $114 per month; janitorial bonds $9 per month; commercial auto $250 per month.",
+      "page_date": "2026-09-08",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+      "says": "General liability insurance for a window cleaning business has a median cost of about $900 per year (Coverdash data).",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+      "says": "Startup table: business insurance and permits $50 to $500 (costs vary by state); insurance $500 to $1,000 per year for liability coverage, exact cost depends on provider and limits.",
+      "page_date": "2026-08-18",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "General liability insurance ($500 to $2,000 a year) is essential; many commercial clients require $1M to $2M coverage; add workers comp when hiring.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "General liability insurance $400 to $800 a year; basic traditional equipment $200 to $400; extension ladders and safety gear $300 to $600; water-fed pole system $1,500 to $3,000.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "The Hartford",
+      "url": "https://www.thehartford.com/business-insurance/window-cleaning-insurance",
+      "says": "The Hartford doesn't offer window cleaning insurance; its small business customers pay on average $810 a year for general liability, $1,687 for a business owner's policy and $1,032 for workers comp.",
+      "page_date": "2026-05-27",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Workers' comp, once you hire",
+    "unit": "per year",
+    "range_usd": null,
+    "note": "check current rates. StartCosts: add workers comp when hiring.",
+    "sources": [
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "General liability insurance ($500 to $2,000 a year) is essential; many commercial clients require $1M to $2M coverage; add workers comp when hiring.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/cleaning-business-insurance/window-cleaners/cost",
+      "says": "Window cleaning companies pay an average of $78 per month, or $931 a year, for general liability (Insureon's median for cleaning businesses that applied through it), with limits of $1 million per occurrence and $2 million aggregate; workers comp $114 per month; janitorial bonds $9 per month; commercial auto $250 per month.",
+      "page_date": "2026-09-08",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Janitorial or service bond, if a property manager asks",
+    "unit": "per year",
+    "range_usd": null,
+    "note": "check current rates. Housecall Pro: some property managers and government contracts require one.",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+      "says": "Proof of coverage may be required for commercial or property management contracts; some property managers and government contracts require janitorial or service bonds.",
+      "page_date": "2026-08-18",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/cleaning-business-insurance/window-cleaners/cost",
+      "says": "Window cleaning companies pay an average of $78 per month, or $931 a year, for general liability (Insureon's median for cleaning businesses that applied through it), with limits of $1 million per occurrence and $2 million aggregate; workers comp $114 per month; janitorial bonds $9 per month; commercial auto $250 per month.",
+      "page_date": "2026-09-08",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "licenses": {
+  "disclaimer": "General information, not legal advice. Rules differ by state, county and city: check your city and state.",
+  "items": [
+   {
+    "item": "General business license",
+    "what_to_check": "Most cities ask for a general business license; a few add rules for commercial or multi-story buildings. Check your city and state: start at your city clerk's office or county clerk.",
+    "sources": [
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits",
+      "says": "The licenses and permits you need from the state, county or city depend on your business activities and location, and fees vary; you may also need licenses from your county or city; research your own state, county and city regulations; some licenses and permits expire after a set period of time.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+      "says": "Many window cleaners simply need a general business license and insurance to get started; a few cities have additional safety or permit requirements for commercial or multi-story buildings (fall protection, rope descent systems or OSHA training), so check with your city clerk's office or state contractor board.",
+      "page_date": "2026-08-18",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "Most cities require a general business license; local permits may also apply to soliciting door-to-door in residential neighborhoods; commercial clients often request proof of general liability insurance and a business license; check with the county clerk's office.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "Form an LLC ($50 to $500), get your EIN from the IRS (free); most areas don't require special window cleaning licenses, but check local requirements.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Door-to-door permits and door hangers",
+    "what_to_check": "Some towns want a permit to solicit door to door, so check your city before you knock or hang. Door hangers go on the door, never in or on a mailbox.",
+    "sources": [
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "Most cities require a general business license; local permits may also apply to soliciting door-to-door in residential neighborhoods; commercial clients often request proof of general liability insurance and a business license; check with the county clerk's office.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+      "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+      "says": "Knowingly depositing unstamped mailable matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Door hangers go on the door, never in or on the mailbox.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Commercial and multi-story buildings",
+    "what_to_check": "A few cities add safety or permit rules for commercial or multi-story buildings (fall protection, rope descent systems, OSHA training). This pack stays on houses of one to three floors and street-level storefronts.",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+      "says": "Many window cleaners simply need a general business license and insurance to get started; a few cities have additional safety or permit requirements for commercial or multi-story buildings (fall protection, rope descent systems or OSHA training), so check with your city clerk's office or state contractor board.",
+      "page_date": "2026-08-18",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA",
+      "url": "https://www.osha.gov/fall-protection",
+      "says": "OSHA requires fall protection at elevations of four feet in general industry workplaces and six feet in the construction industry; employers must set up the workplace to prevent falls.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Liability insurance, bonds and proof of coverage",
+    "what_to_check": "Commercial clients and property managers often ask for proof of general liability insurance and a business license, and some ask for a janitorial or service bond. Check which insurance your state requires by law.",
+    "sources": [
+     {
+      "publisher": "Insureon",
+      "url": "https://www.insureon.com/cleaning-business-insurance/window-cleaners/cost",
+      "says": "Window cleaning companies pay an average of $78 per month, or $931 a year, for general liability (Insureon's median for cleaning businesses that applied through it), with limits of $1 million per occurrence and $2 million aggregate; workers comp $114 per month; janitorial bonds $9 per month; commercial auto $250 per month.",
+      "page_date": "2026-09-08",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+      "says": "Proof of coverage may be required for commercial or property management contracts; some property managers and government contracts require janitorial or service bonds.",
+      "page_date": "2026-08-18",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "ZenBusiness",
+      "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+      "says": "Most cities require a general business license; local permits may also apply to soliciting door-to-door in residential neighborhoods; commercial clients often request proof of general liability insurance and a business license; check with the county clerk's office.",
+      "page_date": "2026-09-28",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "U.S. Small Business Administration",
+      "url": "https://www.sba.gov/business-guide/launch-your-business/get-business-insurance",
+      "says": "Laws requiring insurance vary by state; visit your state's website to find out the requirements for your business; after you buy the insurance required by law, you can insure other business risks.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "General liability insurance ($500 to $2,000 a year) is essential; many commercial clients require $1M to $2M coverage; add workers comp when hiring.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Ladders and working at height",
+    "what_to_check": "OSHA's ladder rules bind employers and their workers, and the OSH Act does not cover the self-employed. Follow the ladder rules yourself from day one; all of them apply to anyone you hire. UK guidance says to avoid work at height where you can, with water-fed poles or by cleaning from inside.",
+    "sources": [
+     {
+      "publisher": "OSHA (29 CFR 1910.23, ladders)",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.23",
+      "says": "The employer must ensure ladders are inspected before initial use in each work shift; each employee faces the ladder and uses at least one hand to grasp it when climbing, and carries no object or load that could cause a fall; portable ladders are used only on stable and level surfaces unless secured or stabilized; no ladder is moved while an employee is on it; ladders in passageways, doorways or driveways are secured or barricaded; the cap and top step of a stepladder are not used as steps; ladders are not placed on boxes or barrels for more height.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA Portable Ladder Safety QuickCard (OSHA 3246-10N-05)",
+      "url": "https://www.osha.gov/sites/default/files/publications/portable_ladder_qc.pdf",
+      "says": "Look for overhead power lines before handling a ladder and avoid a metal ladder near power lines; inspect the ladder before use; keep 3-point contact and face the ladder; use a ladder only on a stable and level surface unless it is secured; ladder levelers only for their designed purpose; don't stand on the three top rungs of a straight or extension ladder; set the base a quarter of the working length from the wall; extend 3 feet above the support; the load rating includes the weight of tools.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA (29 CFR 1926.1053, ladders in construction)",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+      "says": "A non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; ladders need nonconductive side rails where they could contact energized electrical equipment; the top step of a stepladder is not a step.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA",
+      "url": "https://www.osha.gov/fall-protection",
+      "says": "OSHA requires fall protection at elevations of four feet in general industry workplaces and six feet in the construction industry; employers must set up the workplace to prevent falls.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA, All About OSHA (OSHA 3302-12R 2024)",
+      "url": "https://www.osha.gov/sites/default/files/publications/all_about_OSHA.pdf",
+      "says": "Not covered under the OSH Act: the self-employed.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "UK Health and Safety Executive",
+      "url": "https://www.hse.gov.uk/cleaning/topics/window-cleaning.htm",
+      "says": "When planning window cleaning you must avoid work at height where it is reasonably practicable, for example by using telescopic water fed poles or cleaning windows from the inside; health and safety law also applies to self-employed window cleaners (UK law and guidance).",
+      "page_date": "2026-06-11",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "EIN and an LLC",
+    "what_to_check": "An EIN is free from the IRS. An LLC is optional and the filing fee depends on your state.",
+    "sources": [
+     {
+      "publisher": "IRS",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number",
+      "says": "Use the IRS tool to get an EIN directly from the IRS for free; you never have to pay a fee for an EIN.",
+      "page_date": "2026-10-16",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "StartCosts",
+      "url": "https://startcosts.com/window-cleaning",
+      "says": "Form an LLC ($50 to $500), get your EIN from the IRS (free); most areas don't require special window cleaning licenses, but check local requirements.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "item": "Reviews",
+    "what_to_check": "Never offer anything for a review: Google's policy forbids incentives, and the FTC rule bans paying for positive ones.",
+    "sources": [
+     {
+      "publisher": "Google Maps contribution policy",
+      "url": "https://support.google.com/contributionpolicy/answer/7400114",
+      "says": "Merchants may not offer incentives, such as payment, discounts, free goods or services, in exchange for posting any review.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Legal Information Institute (16 CFR 465.4)",
+      "url": "https://www.law.cornell.edu/cfr/text/16/465.4",
+      "says": "Businesses may not offer incentives for consumer reviews that express a particular sentiment, positive or negative.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ]
+ },
+ "job_checklist": {
+  "steps": [
+   "Quote by count: standard windows, picture windows, French or divided panes and skylights on each floor, inside and out or outside only, plus screens, tracks and hard water spots.",
+   "Confirm what is included, the trip minimum and the date in writing.",
+   "On arrival, walk the house with the customer and photograph cracked panes, broken seals, torn screens and any other damage before you start.",
+   "Ladder check before every climb: look up for power lines (never a metal ladder near them), inspect the ladder, set it on firm level ground with levelers, and put the foot out a quarter of the working length.",
+   "Climb facing the ladder with 3 points of contact and your tools on your belt; never stand on the top three rungs of an extension ladder or the top step of a stepladder.",
+   "Upper floors: work from the ground with a pole, or from inside on tilt-in windows, before you reach for a taller ladder.",
+   "Work in shade or on a cloudy day when you can (direct sun streaks the glass), and wipe every sill dry.",
+   "Final walk-through, after photos from the same spots, payment, an honest review ask and the next visit on the calendar."
+  ],
+  "sources": [
+   {
+    "publisher": "OSHA Portable Ladder Safety QuickCard (OSHA 3246-10N-05)",
+    "url": "https://www.osha.gov/sites/default/files/publications/portable_ladder_qc.pdf",
+    "says": "Look for overhead power lines before handling a ladder and avoid a metal ladder near power lines; inspect the ladder before use; keep 3-point contact and face the ladder; use a ladder only on a stable and level surface unless it is secured; ladder levelers only for their designed purpose; don't stand on the three top rungs of a straight or extension ladder; set the base a quarter of the working length from the wall; extend 3 feet above the support; the load rating includes the weight of tools.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "OSHA (29 CFR 1910.23, ladders)",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.23",
+    "says": "The employer must ensure ladders are inspected before initial use in each work shift; each employee faces the ladder and uses at least one hand to grasp it when climbing, and carries no object or load that could cause a fall; portable ladders are used only on stable and level surfaces unless secured or stabilized; no ladder is moved while an employee is on it; ladders in passageways, doorways or driveways are secured or barricaded; the cap and top step of a stepladder are not used as steps; ladders are not placed on boxes or barrels for more height.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "OSHA (29 CFR 1926.1053, ladders in construction)",
+    "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+    "says": "A non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; ladders need nonconductive side rails where they could contact energized electrical equipment; the top step of a stepladder is not a step.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "UK Health and Safety Executive",
+    "url": "https://www.hse.gov.uk/cleaning/topics/window-cleaning.htm",
+    "says": "When planning window cleaning you must avoid work at height where it is reasonably practicable, for example by using telescopic water fed poles or cleaning windows from the inside; health and safety law also applies to self-employed window cleaners (UK law and guidance).",
+    "page_date": "2026-06-11",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "HomeAdvisor",
+    "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+    "says": "Windows should be cleaned twice per year; avoid sunny days, since sunlight dries the solution too quickly and leaves streaks.",
+    "page_date": "2026-06-19",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+    "says": "Removing screens and wiping them down is usually standard practice, but confirm it's included; expect to pay $1 or more per window to have the tracks cleaned; hard water stains may cost extra.",
+    "page_date": "2026-03-31",
+    "checked": "2026-10-19"
+   }
+  ],
+  "note": "Step order is a judgment call. OSHA's ladder rules bind employers and their workers; follow them yourself from day one"
+ },
+ "objections": [
+  {
+   "objection": "We can clean the windows ourselves.",
+   "answer": "Supplies alone can cost as much as a pro, and upper floors mean ladder work; you bring the gear and redo anything streaked.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "While DIY is possible, buying the right supplies alone, $400 on average, can cost as much as hiring a pro; climbing a ladder while juggling tools can be risky.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "myself",
+    "ourselves",
+    "my own windows",
+    "diy",
+    "squeegee"
+   ],
+   "say": "You can! Good supplies can cost as much as a cleaning, and upper floors mean ladder work. I bring everything, and if anything is streaked I come back within 48 hours and redo it free."
+  },
+  {
+   "objection": "Will your ladder damage my gutters, siding or flower beds?",
+   "answer": "A ladder stand-off and levelers, before photos, and liability insurance.",
+   "sources": [
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "The water-fed pole system costs more upfront, but operators clean faster and stay on the ground; ladder stand-offs and leg levelers keep the operator stable on uneven residential landscaping.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Insurance protects the business when something goes wrong, like a customer slipping on a wet floor, a ladder damaging siding or an employee getting hurt; liability coverage runs $500 to $1,000 per year.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Confirm the pro has liability insurance and coverage in case of accidents during the job.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "ladder",
+    "gutter",
+    "siding",
+    "scratch",
+    "damage",
+    "flower bed",
+    "landscaping",
+    "bushes"
+   ],
+   "say": "Fair worry. I set my ladder with a stand-off so it stays off your gutters, keep it out of your flower beds, take photos before I start, and carry liability insurance through [your insurer]."
+  },
+  {
+   "objection": "Someone else quoted less.",
+   "answer": "Ask what each price includes (inside glass, screens, tracks, upper floors); change what's in yours instead of cutting corners.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "If a customer mentions a lower quote, don't match it; explain what's different and ask what's included: screens, tracks and interior glass, or just exterior panes.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "cheaper",
+    "another quote",
+    "lower price",
+    "someone else",
+    "another company",
+    "less than"
+   ],
+   "say": "Could be a good deal! Before you decide, check what each price includes: the inside glass, screens, tracks and upper floors. I'm happy to change what's in mine instead of cutting corners."
+  },
+  {
+   "objection": "Why is there a minimum for a few windows?",
+   "answer": "Travel and setup take the same time either way; add screens or tracks to the same visit.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "A minimum service charge of $75 to $250 covers travel, setup and admin time on smaller jobs; even a quick exterior cleaning still includes drive time and scheduling.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Charge more for ladder work (2nd+ story); add a $25 to $50 minimum for travel and small jobs; offer a 10% discount for recurring service.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "minimum",
+    "just a few",
+    "only a few",
+    "just the front",
+    "only the front"
+   ],
+   "say": "Travel and setup take the same time for a few windows as for a whole house, so I have a trip minimum. We can add the screens or tracks so you get more for the same visit."
+  },
+  {
+   "objection": "Why do you charge by the pane?",
+   "answer": "Small divided panes take longer; standard windows by the window, small panes by the pane.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Per-pane pricing is more precise for French panes, divided-light windows and older homes; example: 12 windows with 2 panes each (24 panes total) at $6 a pane.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Per unit: sliding $8 to $10, single-hung and double-hung $8 to $16, casement $15 to $30, skylights $25 to $35, storm $30 to $40; per pane $4 to $8, and some cleaners charge per small pane, $1 to $3.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "per pane",
+    "panes",
+    "per window",
+    "by the window",
+    "french"
+   ],
+   "say": "Small divided panes take longer than one big pane, so I price those by the pane and standard windows by the window. That way you only pay for the glass you have. Want me to count them with you?"
+  },
+  {
+   "objection": "Are you insured?",
+   "answer": "Yes: name the insurer and send the certificate before the job.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Confirm the pro has liability insurance and coverage in case of accidents during the job.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Insureon",
+     "url": "https://www.insureon.com/cleaning-business-insurance/window-cleaners/cost",
+     "says": "Window cleaning companies pay an average of $78 per month, or $931 a year, for general liability (Insureon's median for cleaning businesses that applied through it), with limits of $1 million per occurrence and $2 million aggregate; workers comp $114 per month; janitorial bonds $9 per month; commercial auto $250 per month.",
+     "page_date": "2026-09-08",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Most cities require a general business license; local permits may also apply to soliciting door-to-door in residential neighborhoods; commercial clients often request proof of general liability insurance and a business license; check with the county clerk's office.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "insured",
+    "insurance",
+    "liability",
+    "something breaks",
+    "break something"
+   ],
+   "say": "Yes. I carry liability insurance through [your insurer], and I'll send you the certificate before the job."
+  },
+  {
+   "objection": "Do I need to be home?",
+   "answer": "Only for the inside; outside-only visits need no one home, with before and after photos by text.",
+   "sources": [],
+   "note": "judgment call, not a sourced fact",
+   "match": [
+    "be home",
+    "be there",
+    "at work",
+    "while we're out",
+    "not home"
+   ],
+   "say": "Only for the inside. For outside only, you don't need to be home: I'll text you before and after photos when I'm done."
+  },
+  {
+   "objection": "Can you get the spots off?",
+   "answer": "Hard water spots take an extra treatment priced per window; test one window first.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Some cleaners charge $10 to $30 per unit to remove hard water (calcium or lime) stains; residential washing in winter is rare.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Track detailing $3 to $6 per window; tracks and sills can run $2 to $4 per window; you can charge anywhere from 50 cents to $8 per screen, depending on size and how dirty it is; hard water stain removal $10 to $30 per window; skylight cleaning $25 to $35 each; French pane detailing $1 to $3 extra per pane.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": null,
+   "match": [
+    "hard water",
+    "water spots",
+    "spots",
+    "calcium",
+    "mineral",
+    "sprinkler"
+   ],
+   "say": "Hard water spots take an extra treatment, priced per window. I'll test one window first and show you before I do the rest."
+  }
+ ],
+ "first_customer_plays": [
+  {
+   "play": "Storefront route with a free demo window",
+   "steps": [
+    "List 30 storefronts on one main street.",
+    "Walk in, ask for the owner or manager, and clean the front door glass free while you talk.",
+    "Offer a flat price every 2 weeks, same day and time, and keep the stops close together."
+   ],
+   "sources": [
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Storefronts are ideal for beginners: quick jobs, frequent service, easy to acquire; start with storefronts: walk in, introduce yourself, offer to clean one window free, and build a route of 20 to 50 weekly stops.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Start with a storefront route and offer a free demo window; Google Business Profile for residential; door hangers in upscale neighborhoods; property managers for commercial buildings.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Jobber",
+     "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+     "says": "Storefront flat rate $25 to $75 per visit for small retail stores and restaurants; a small retail storefront may pay $30 to $50 per weekly visit; small storefront minimum $25 to $75.",
+     "page_date": "2026-05-20",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "play": "Same street, neighbor price",
+   "steps": [
+    "Clean one house on a street.",
+    "That afternoon, hang door hangers on the homes around it with a neighbor price for the same day.",
+    "Repeat on each new street you work so the route gets denser."
+   ],
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Neighbor buy-in: some companies charge reduced rates for houses in the same neighborhood, a 10% to 20% rate reduction.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Route density means multiple clients serviced in the same neighborhood on the same day; property managers can be a target for recurring commercial work; operators in colder climates often plan for less winter work or pivot to holiday light installation.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Legal Information Institute (18 U.S. Code 1725)",
+     "url": "https://www.law.cornell.edu/uscode/text/18/1725",
+     "says": "Knowingly depositing unstamped mailable matter in a mailbox approved by the Postal Service, to avoid postage, is a federal offense punishable by a fine. Door hangers go on the door, never in or on the mailbox.",
+     "checked": "2026-10-19"
+    }
+   ],
+   "note": "Door hangers go on the door, never in or on a mailbox; check your city's rules on door-to-door."
+  },
+  {
+   "play": "Listing-ready windows for agents",
+   "steps": [
+    "Pick 5 agents with listings coming up.",
+    "Offer to clean the front windows of one listing free before its photos.",
+    "Leave your cards for their sellers with your founding price."
+   ],
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Most real estate agents will say that clean windows make a house look cleaner and brighter; if you're selling your home, clean windows are a must.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "play": "Property managers and apartment buildings",
+   "steps": [
+    "Call 5 property managers and ask who handles vacant units.",
+    "Offer to clean the windows of one vacant unit free, with before and after photos for their file.",
+    "Send your certificate of insurance before they ask."
+   ],
+   "sources": [
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Route density means multiple clients serviced in the same neighborhood on the same day; property managers can be a target for recurring commercial work; operators in colder climates often plan for less winter work or pivot to holiday light installation.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Proof of coverage may be required for commercial or property management contracts; some property managers and government contracts require janitorial or service bonds.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "play": "Google profile with before and after photos",
+   "steps": [
+    "Claim your Google Business Profile.",
+    "Post a before and after from every job the customer said yes to sharing.",
+    "Ask every customer for an honest review, with nothing offered for it."
+   ],
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-start-window-cleaning-business/",
+     "says": "Create or claim your Google Business Profile so you show up when people search window cleaning near me; flyers, postcards and community bulletin boards; build relationships with real estate agents, property managers and small business owners.",
+     "page_date": "2026-08-18",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Google Maps contribution policy",
+     "url": "https://support.google.com/contributionpolicy/answer/7400114",
+     "says": "Merchants may not offer incentives, such as payment, discounts, free goods or services, in exchange for posting any review.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "platform_fees": [
+  {
+   "platform": "Thumbtack",
+   "fees": "Free to join; you pay per lead within a budget you set; lead prices are not published.",
+   "sources": [
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/pro",
+     "says": "No charge to join, no annual fees and no membership fees; pros control their pricing and budget for leads. Lead prices are not published.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "platform": "Card processing",
+   "fees": "Square 2.6% + 15 cents in person, 3.3% + 30 cents online; Stripe 2.9% + 30 cents.",
+   "sources": [
+    {
+     "publisher": "Square Help Center",
+     "url": "https://squareup.com/help/us/en/article/5068-what-are-square-s-fees",
+     "says": "Square Free plan, US: tap, dip or swipe 2.6% + 15 cents; online or invoices 3.3% + 30 cents.",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Stripe",
+     "url": "https://stripe.com/pricing",
+     "says": "Standard pricing: 2.9% + 30 cents per successful transaction for domestic cards; no setup fees, monthly fees or hidden fees.",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "seasonality": [
+  {
+   "pattern": "Homeowners usually book window cleaning once or twice a year, often spring and fall; 2 to 4 visits a year is common.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Windows should be cleaned twice per year; avoid sunny days, since sunlight dries the solution too quickly and leaves streaks.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "Thumbtack",
+     "url": "https://www.thumbtack.com/p/window-cleaning-prices",
+     "says": "Many people have their windows professionally cleaned once or twice a year.",
+     "page_date": "2026-03-31",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Residential customers typically need service 2 to 4 times per year; commercial storefronts are $2 to $5 per window on weekly or every-two-weeks contracts.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Inside cleaning is most often booked as a spring or pre-holiday add-on.",
+   "sources": [
+    {
+     "publisher": "Housecall Pro",
+     "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+     "says": "Many customers book exterior-only service first, which costs about half as much as a full interior and exterior clean; interior cleaning is most common as a seasonal add-on, spring or pre-holiday.",
+     "page_date": "2026-10-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "House work is rare in winter where it is cold: keep a storefront route going and book spring work ahead.",
+   "sources": [
+    {
+     "publisher": "Fixr",
+     "url": "https://www.fixr.com/costs/window-cleaning",
+     "says": "Some cleaners charge $10 to $30 per unit to remove hard water (calcium or lime) stains; residential washing in winter is rare.",
+     "page_date": "2025-08-29",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "ZenBusiness",
+     "url": "https://www.zenbusiness.com/start-a-business/home-services/window-washing-service/",
+     "says": "Route density means multiple clients serviced in the same neighborhood on the same day; property managers can be a target for recurring commercial work; operators in colder climates often plan for less winter work or pivot to holiday light installation.",
+     "page_date": "2026-09-28",
+     "checked": "2026-10-19"
+    },
+    {
+     "publisher": "StartCosts",
+     "url": "https://startcosts.com/window-cleaning",
+     "says": "Storefronts are ideal for beginners: quick jobs, frequent service, easy to acquire; start with storefronts: walk in, introduce yourself, offer to clean one window free, and build a route of 20 to 50 weekly stops.",
+     "checked": "2026-10-19"
+    }
+   ]
+  },
+  {
+   "pattern": "Clean on cloudy days or in the shade when you can: sun dries the solution too fast and leaves streaks.",
+   "sources": [
+    {
+     "publisher": "HomeAdvisor",
+     "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+     "says": "Windows should be cleaned twice per year; avoid sunny days, since sunlight dries the solution too quickly and leaves streaks.",
+     "page_date": "2026-06-19",
+     "checked": "2026-10-19"
+    }
+   ]
+  }
+ ],
+ "default_costs": {
+  "perJob": 15,
+  "hourly": 25,
+  "monthlyFixed": 150,
+  "basis": "Defaults when you leave them empty, all judgment calls: about $15 of solution, towels and blades per job (Fixr puts materials at about $1 to $2 a window), $25 an hour for your time, $150 a month fixed (StartCosts: insurance $80 to $150 and phone and software $30 to $80 a month for a solo operator). Use your own numbers.",
+  "sources": [
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/window-cleaning",
+    "says": "Of a flat $8 to $16 per window, around 90% is labor ($7 to $14) and about $1 to $2 is materials.",
+    "page_date": "2025-08-29",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "StartCosts",
+    "url": "https://startcosts.com/window-cleaning",
+    "says": "Monthly operating costs for a solo operator: supplies $50 to $100, insurance $80 to $150, phone and software $30 to $80.",
+    "checked": "2026-10-19"
+   }
+  ]
+ },
+ "partners": [
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "one": "real estate office",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents",
+    "osm": [
+     "office=estate_agent"
+    ]
+   },
+   "their_customers": "sellers",
+   "why": "want clean, bright windows before listing photos and showings",
+   "ask": "clean the front windows of one listing free before its photos",
+   "give": "give your sellers my founding price",
+   "weight": 2
+  },
+  {
+   "id": "property_managers",
+   "label": "Property managers",
+   "one": "property management company",
+   "search": {
+    "words": "property management companies",
+    "osm": [
+     "office=property_management"
+    ]
+   },
+   "their_customers": "owners",
+   "why": "want rentals and lobbies to look cared for between tenants",
+   "ask": "clean the windows of one vacant unit free",
+   "give": "send before and after photos for your files",
+   "weight": 2
+  },
+  {
+   "id": "storefronts",
+   "label": "Storefront shops",
+   "one": "shop",
+   "search": {
+    "category": "boutiques",
+    "words": "shops and boutiques",
+    "osm": [
+     "shop=clothes",
+     "shop=gift",
+     "shop=florist",
+     "shop=books",
+     "shop=shoes"
+    ]
+   },
+   "their_customers": "shoppers",
+   "why": "see the front glass before they see what you sell",
+   "ask": "clean your front windows every 2 weeks",
+   "give": "do the first visit free",
+   "weight": 2
+  },
+  {
+   "id": "apartments",
+   "label": "Apartment buildings",
+   "one": "apartment building",
+   "search": {
+    "category": "apartments",
+    "words": "apartment buildings"
+   },
+   "their_customers": "residents",
+   "why": "notice the lobby and entry glass every day",
+   "ask": "clean the lobby and entry glass on a regular route",
+   "give": "clean the front entry glass once free",
+   "weight": 1
+  }
+ ],
+ "lead_offers": [
+  {
+   "id": "winter",
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "slow": true,
+   "package": "whole_house",
+   "label": "Spring window cleaning, booked now",
+   "one": "spring window cleaning",
+   "many": "spring window cleanings",
+   "follow_on": {
+    "package": "whole_house",
+    "plan": "twice",
+    "say": "windows every spring and fall"
+   },
+   "partners": [
+    "storefronts",
+    "property_managers",
+    "realtors"
+   ]
+  },
+  {
+   "id": "holiday",
+   "months": [
+    10,
+    11
+   ],
+   "package": "whole_house",
+   "label": "Clean windows for the holidays",
+   "one": "holiday window cleaning",
+   "many": "holiday window cleanings",
+   "follow_on": {
+    "package": "whole_house",
+    "plan": "twice",
+    "say": "windows every spring and fall"
+   }
+  },
+  {
+   "id": "spring",
+   "months": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "package": "whole_house",
+   "label": "Spring window cleaning",
+   "one": "spring window cleaning",
+   "many": "spring window cleanings",
+   "follow_on": {
+    "package": "whole_house",
+    "plan": "twice",
+    "say": "windows every spring and fall"
+   }
+  },
+  {
+   "id": "main",
+   "package": "whole_house",
+   "label": "Clear windows, inside and out",
+   "one": "window cleaning",
+   "many": "window cleanings",
+   "follow_on": {
+    "package": "whole_house",
+    "plan": "twice",
+    "say": "windows every spring and fall"
+   }
+  }
+ ],
+ "ladder": [
+  {
+   "count": 3,
+   "off": 0.35,
+   "label": "Founding price",
+   "ask": "Permission to post before and after photos of the windows (no house numbers or faces) and honest feedback, good or bad, that you may quote as from a founding client."
+  },
+  {
+   "count": 7,
+   "off": 0.15,
+   "label": "Early price",
+   "ask": "Same work, smaller discount, while you build photos and routines."
+  },
+  {
+   "label": "Full price",
+   "ask": "Your menu price. Raise it once your weeks are booked two weeks out."
+  }
+ ],
+ "ladder_note": "Judgment call. The founding price is for being among your first 3 clients. In return you ask for honest feedback you may quote as from a founding client and permission to post before and after photos. Reviews are asked for after every job with nothing attached (Google bans any incentive; the FTC rule at 16 CFR 465 bans paying for positive ones).",
+ "money_model": {
+  "attraction": {
+   "package": "whole_house",
+   "label": "First window cleaning, founding price",
+   "note": "Clean one front window free while you quote so they see the difference; book the spring and fall plan before you leave."
+  },
+  "core": {
+   "package": "whole_house",
+   "note": "Priced per house by floors, or per window and per pane from your counts."
+  },
+  "recurring": {
+   "package": "storefront",
+   "plan": "biweekly_store",
+   "note": "Storefront glass every 2 weeks on one street: visits that keep going through the slow months."
+  },
+  "upsell": {
+   "addon": "tracks",
+   "note": "Offer it when you see dirty tracks; show them one clean track next to a dirty one."
+  },
+  "downsell": {
+   "package": "outside_house",
+   "note": "For people who only want the outside done this time."
+  }
+ },
+ "offer": {
+  "who": "Homeowners about to list, show or host, plus shops and offices that want clean front glass.",
+  "outcome": "Clear windows inside and out, frames and sills wiped, and no ladder work for you.",
+  "promise": "Streaks or a missed pane? Tell me within 48 hours and I come back and redo it free.",
+  "names": [
+   "Spring and Fall Window Plan",
+   "Every Pane Counted",
+   "Main Street Glass Route",
+   "Holiday Ready Windows"
+  ]
+ },
+ "texts": {
+  "people": [
+   "Hey {greet}! I just started {what} around {area}. My first 3 {lead_many} are {founding} ({ref}) while I build up before and after photos. Want one, or know someone who would?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. I'm doing 3 {lead_many} at {founding} for a {ref} so I can get before and after photos, and I'll clean one front window first so you see the difference. Want a spot, or know someone who might?",
+   "Hey {greet}! Quick one: I'm launching {what} in {area}. The first 3 people get a {lead_one} for {founding} ({ref}) if I can photograph the before and after. Interested, or know someone?"
+  ],
+  "people_follow_up": "Hey {greet}, no pressure on the windows text. If it's not for you, would you pass my number to one person whose windows could use it? It would mean a lot.",
+  "people_follow_up_2": "Last note on this, {greet}: the founding price is only for my first 3 clients. If a friend comes to mind, my number is {phone}. Thanks either way!",
+  "replies": {
+   "how_much": "For a {ref}, a {lead_one} is {price}, and my first 3 clients get it for {founding_price}. {plan} I can also price it per window and per pane. Want an exact quote? Text me how many windows are on each floor.",
+   "not_now": "No problem! Can I check back in the spring? And if a friend is selling their house, clean windows help a lot in the listing photos. I'd love an intro.",
+   "who_are_you": "I'm {first}, I live in {area} and I just started {business}. I clean windows inside and out, I send before and after photos, and if a pane is streaked or missed I come back within 48 hours and redo it free.",
+   "covered": "Good to hear you're set! If they're ever booked up when you need them, I'm happy to help. Mind if I check back in the spring?",
+   "yes": "Great! To book you in, I just need the address, how many windows are on each floor, and whether you want inside and out or outside only. What day works for you?"
+  },
+  "quote": "Hi {customer}, it's {first} from {business}. Here's your quote for {title}: {lines}. Total {total}.{plan} {promise} Reply with a day that works and I'll put you on the schedule.",
+  "estimate": "Hi {customer}, it's {first} from {business}. Here's your window estimate for {title}: {total} in all, about {hours} hours on site.{plan} {promise} Every line is on the estimate sheet, and the price holds for {days} days. Reply with a day that works and I'll put you on the schedule.",
+  "plan_terms": "Skip or cancel any time before the next visit.",
+  "keep": {
+   "thanks": "Hi {customer}, thanks for having me today! I'll send your before and after photos tonight. {promise}",
+   "review": "Hi {customer}, it's {first} from {business}. If you have a minute, would you leave an honest review of how the {job} went? Good or bad, it helps me get better and helps neighbors decide.{review_line}",
+   "plan": "Hi {customer}, want me to keep them this clear? {plan_offer} {terms} Just reply yes and I'll put you on the schedule.",
+   "referral": "Hi {customer}, thanks again for trusting me with your {job}. If a friend or neighbor could use the same, would you pass along my number{phone_part}? It means a lot to a new business.",
+   "checkin": "Hi {customer}, it's {first} from {business}. It's been a while since your {job}. Want me to save you a spot in the next couple of weeks?",
+   "checkin_days": 180,
+   "card_thanks": "Thank you for having me!",
+   "card_ask": "How did it go? Scan to leave an honest review. Good or bad, it helps.",
+   "rules": "Ask every customer for a review, happy or not, and never offer a discount, gift or anything else for one; Google's rules forbid it. Only share photos the customer said yes to."
+  }
+ },
+ "quote": {
+  "reference": "one-story house with about 20 windows",
+  "size_factor": "stories",
+  "fields": {
+   "service": {
+    "type": "string",
+    "title": "How to price it",
+    "use": "package",
+    "map": {
+     "Per window, from my counts below": null,
+     "Whole house, inside and out (flat)": "whole_house",
+     "Whole house, outside only (flat)": "outside_house",
+     "Storefront glass visit (flat)": "storefront"
+    },
+    "default": "Per window, from my counts below"
+   },
+   "windows": {
+    "type": "string",
+    "title": "How many standard windows",
+    "use": "measure:window",
+    "maxLength": 4,
+    "description": "Count each window once; the two panes of a double-hung window are one window"
+   },
+   "picture": {
+    "type": "string",
+    "title": "How many large picture windows (optional)",
+    "use": "measure:picture",
+    "maxLength": 4
+   },
+   "small_panes": {
+    "type": "string",
+    "title": "How many small French or divided panes (optional)",
+    "use": "measure:small_pane",
+    "maxLength": 4,
+    "description": "Count each small pane in French windows, French doors and divided-light windows"
+   },
+   "stories": {
+    "type": "string",
+    "title": "Floors",
+    "use": "factor:stories",
+    "map": {
+     "One story": "s1",
+     "Two stories": "s2",
+     "Three stories": "s3"
+    },
+    "default": "One story"
+   },
+   "sides": {
+    "type": "string",
+    "title": "Sides",
+    "use": "factor:sides",
+    "map": {
+     "Inside and out": "both",
+     "Outside only": "out",
+     "Inside only": "in"
+    },
+    "default": "Inside and out"
+   },
+   "screens": {
+    "type": "string",
+    "title": "Screens to wash (optional)",
+    "use": "qty:screens",
+    "maxLength": 4
+   },
+   "tracks": {
+    "type": "string",
+    "title": "Windows with track detailing (optional)",
+    "use": "qty:tracks",
+    "maxLength": 4
+   },
+   "hard_water": {
+    "type": "string",
+    "title": "Windows with hard water spots (optional)",
+    "use": "qty:hard_water",
+    "maxLength": 4
+   },
+   "skylights": {
+    "type": "string",
+    "title": "Skylights (optional)",
+    "use": "qty:skylight",
+    "maxLength": 3
+   },
+   "frequency": {
+    "type": "string",
+    "title": "How often",
+    "use": "plan",
+    "map": {
+     "One time": null,
+     "Every 6 months": "twice",
+     "Every 3 months": "quarterly",
+     "Every month (storefront)": "monthly_store",
+     "Every 2 weeks (storefront)": "biweekly_store"
+    },
+    "default": "One time"
+   }
+  },
+  "derive": [],
+  "advice": [
+   {
+    "when": {
+     "stories": [
+      "s2",
+      "s3"
+     ]
+    },
+    "say": "Upper floors: work from the ground with a pole, or from inside on tilt-in windows. On a ladder, look for power lines first, use levelers on uneven ground and set the foot out a quarter of the working length (OSHA)."
+   },
+   {
+    "when": {
+     "stories": [
+      "s3"
+     ]
+    },
+    "say": "Three stories: leave out any window you can't reach from the ground or from inside until you have the gear, the insurance and the practice."
+   },
+   {
+    "when": {
+     "service": [
+      "storefront"
+     ]
+    },
+    "say": "Storefronts: agree the day and time with the manager and put the route stop in writing."
+   },
+   {
+    "when": {
+     "sides": [
+      "in"
+     ]
+    },
+    "say": "Inside only is rare: check that the trip minimum covers your drive."
+   }
+  ]
+ },
+ "specials": [
+  "same_street",
+  "storefronts"
+ ],
+ "estimate": {
+  "includes": {
+   "both": [
+    "Glass inside and out on every window counted",
+    "Frames and sills wiped dry",
+    "Screens taken down and wiped"
+   ],
+   "out": [
+    "Outside glass on every window counted",
+    "Frames and sills wiped",
+    "Screens wiped and put back"
+   ],
+   "in": [
+    "Inside glass on every window counted",
+    "Sills wiped dry",
+    "Drop cloths under every window"
+   ]
+  },
+  "flags": {
+   "floor2": {
+    "say": "Second floor: look for power lines before you raise a ladder and never use a metal ladder near them; set it on firm, level ground with levelers and put the foot out a quarter of the working length.",
+    "sources": [
+     {
+      "publisher": "OSHA Portable Ladder Safety QuickCard (OSHA 3246-10N-05)",
+      "url": "https://www.osha.gov/sites/default/files/publications/portable_ladder_qc.pdf",
+      "says": "Look for overhead power lines before handling a ladder and avoid a metal ladder near power lines; inspect the ladder before use; keep 3-point contact and face the ladder; use a ladder only on a stable and level surface unless it is secured; ladder levelers only for their designed purpose; don't stand on the three top rungs of a straight or extension ladder; set the base a quarter of the working length from the wall; extend 3 feet above the support; the load rating includes the weight of tools.",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "OSHA (29 CFR 1926.1053, ladders in construction)",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053",
+      "says": "A non-self-supporting ladder is set so the foot is about one-quarter of the working length out from the top support; ladders need nonconductive side rails where they could contact energized electrical equipment; the top step of a stepladder is not a step.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   "floor3": {
+    "say": "Third floor: clean from the ground with a water-fed pole or from inside, and leave out any window you can't reach that way until you have the gear, the insurance and the practice.",
+    "sources": [
+     {
+      "publisher": "UK Health and Safety Executive",
+      "url": "https://www.hse.gov.uk/cleaning/topics/window-cleaning.htm",
+      "says": "When planning window cleaning you must avoid work at height where it is reasonably practicable, for example by using telescopic water fed poles or cleaning windows from the inside; health and safety law also applies to self-employed window cleaners (UK law and guidance).",
+      "page_date": "2026-06-11",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "UK Health and Safety Executive, water-fed pole guide",
+      "url": "https://www.hse.gov.uk/cleaning/assets/docs/window-cleaners-best-practice-guide.pdf",
+      "says": "Water-fed pole systems clean windows up to 80 ft (24 m) high from ground level and remove the need to work at height; don't use a water-fed pole near overhead power lines, and treat the pole as potentially conductive.",
+      "page_date": "2026-06-10",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Jobber",
+      "url": "https://www.getjobber.com/academy/window-cleaning/how-to-price-window-cleaning/",
+      "says": "Charge more for every floor past the first, or if you're spending extra time to set up safely; anything above the second floor is a hazard and a hassle.",
+      "page_date": "2026-05-20",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   "skylight": {
+    "say": "Skylights: clean them from inside, and the roof side only from the ground with a pole. Stay off the roof.",
+    "sources": [
+     {
+      "publisher": "UK Health and Safety Executive",
+      "url": "https://www.hse.gov.uk/cleaning/topics/window-cleaning.htm",
+      "says": "When planning window cleaning you must avoid work at height where it is reasonably practicable, for example by using telescopic water fed poles or cleaning windows from the inside; health and safety law also applies to self-employed window cleaners (UK law and guidance).",
+      "page_date": "2026-06-11",
+      "checked": "2026-10-19"
+     }
+    ],
+    "note": "judgment call"
+   },
+   "hard_water": {
+    "say": "Hard water spots: test one window first and show the customer before you do the rest.",
+    "sources": [
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+      "says": "Screen cleaning $2 to $5 per screen; track detailing $2 to $5 per window; hard-water stain removal $10 to $30 per window; skylights $20 to $30 each.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-19"
+     }
+    ],
+    "note": "judgment call"
+   },
+   "inside_only": {
+    "say": "Inside only is rare: check that the trip minimum covers your drive.",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/window-cleaning",
+      "says": "Exterior washing $6.40 to $12.80 and interior $1.60 to $3.20 per window; exterior is usually about 80% of the in-and-out price; it is rare to have interior-only washing.",
+      "page_date": "2025-08-29",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   "per_hour": {
+    "say": "This works out to {per_hour} an hour on site, under the {low} to {high} an hour window cleaners charge. Check the counts, or raise your rates in Your offer.",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/window-cleaning",
+      "says": "Hourly $40 to $75; it typically takes about four hours to clean an average house; most cleaners charge a minimum of one hour, and an average-sized house takes about 3 hours.",
+      "page_date": "2025-08-29",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "Housecall Pro",
+      "url": "https://www.housecallpro.com/resources/how-to-price-window-cleaning-guide/",
+      "says": "Hourly rates run $45 to $75 per cleaner.",
+      "page_date": "2026-10-19",
+      "checked": "2026-10-19"
+     },
+     {
+      "publisher": "HomeAdvisor",
+      "url": "https://www.homeadvisor.com/cost/cleaning-services/clean-windows/",
+      "says": "Third- or fourth-story windows may cost more than average; pros charge $45 to $75 per hour.",
+      "page_date": "2026-06-19",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  },
+  "sheet_note": "Per-window and per-pane prices from my price menu. Upper floors cost more because they take ladder or pole work."
+ },
+ "won": {
+  "needs": "the address, how many windows are on each floor, whether you want inside and out or outside only, and any pets I should know about",
+  "prep_items": [
+   "clear the sills and the space in front of the windows inside",
+   "move anything fragile off the sills",
+   "keep pets inside or away from the ladder",
+   "unlock any gates to the back of the house"
+  ],
+  "bring": [
+   "Squeegees, scrubbers, scrapers and a bucket on your belt",
+   "Microfiber towels and drop cloths for the sills and floors",
+   "Extension ladder with leg levelers and a stand-off",
+   "Step ladder for inside and the first floor",
+   "Track brush and a small vacuum",
+   "Shoe covers for inside work"
+  ],
+  "photos": [
+   "Each side of the house from the same spot",
+   "Close-ups of any cracked panes, broken seals or torn screens before you start",
+   "Hard water spots, close up",
+   "The same windows after"
+  ],
+  "done": "your windows are all done"
+ },
+ "proof": {
+  "what": "Front windows on a two-story house",
+  "result": "18 windows cleaned inside and out, screens wiped, sills dried",
+  "thing": "home",
+  "private": "No faces or house numbers."
+ },
+ "sample_one": {
+  "street": {
+   "headline": "A free front window on {street}",
+   "side": [
+    "One front window, inside and out",
+    "About 10 minutes",
+    "First 3 homes"
+   ],
+   "includes": [
+    "One front window cleaned inside and out",
+    "You see clear next to cloudy",
+    "No cost and no catch"
+   ],
+   "how": [
+    "Text me your address or scan the code",
+    "I clean one window while I'm on {street}{day_part}",
+    "You decide if you want the rest"
+   ],
+   "line": "I'm cleaning windows on {street}{day_part}, so the first 3 neighbors who text me get one front window cleaned free: about 10 minutes, clear next to cloudy. No cost and no catch.",
+   "post": "Hi neighbors! I'm {first}, I run {business} here in {area}. I'm cleaning windows on {street}{day_part}, so the first 3 neighbors who text me get one front window cleaned free (about 10 minutes). No cost and no catch. {phone_line}",
+   "minutes": 10,
+   "limit": 3,
+   "steps": [
+    "Hang the door hangers on {street} the day before, on the doorknob, never in or on a mailbox.",
+    "Clean one front window for each of the first 3 who text, and photograph it from the walk.",
+    "Hand them the card with your whole-house price before you leave.",
+    "Text a thank-you the same day with the photo, then one follow-up in 3 days."
+   ],
+   "package": "whole_house"
+  },
+  "partners": {
+   "realtors": {
+    "demo": "the front windows of your next listing cleaned free, before the photos",
+    "eyebrow": "For {biz} sellers",
+    "headline": "Listing-ready windows",
+    "package": "whole_house",
+    "who": "First 3 sellers",
+    "card_line": "Listing with {biz}? Mention them when you book.",
+    "words": [
+     "realty",
+     "real estate",
+     "realtor",
+     "realtors",
+     "keller",
+     "coldwell",
+     "remax",
+     "re/max",
+     "century 21",
+     "compass",
+     "exp realty",
+     "homes"
+    ],
+    "steps": [
+     "Send the message and the card today, with two days you can do it.",
+     "Clean the front windows before their listing photos and photograph them from the street.",
+     "Send the photo to the agent the same day.",
+     "Ask once: would they leave your cards with sellers before listing photos?"
+    ]
+   },
+   "property_managers": {
+    "demo": "the windows of one vacant unit cleaned free, with before and after photos for your file",
+    "eyebrow": "For {biz} owners",
+    "headline": "Rentals with clear windows",
+    "package": "whole_house",
+    "who": "First 3 rentals",
+    "card_line": "For rentals {biz} manages: book through your property manager.",
+    "words": [
+     "property management",
+     "management",
+     "leasing",
+     "rentals",
+     "properties",
+     "residential"
+    ],
+    "steps": [
+     "Send the message and the card today.",
+     "Clean the unit's windows within the week and photograph them before and after.",
+     "Send the photos the same day for their file.",
+     "Ask once: could you clean their next unit between tenants?"
+    ]
+   },
+   "storefronts": {
+    "demo": "your front door glass cleaned free, inside and out",
+    "eyebrow": "For {biz}",
+    "headline": "Clear front glass every 2 weeks",
+    "package": "storefront",
+    "who": "First 3 shops on the route",
+    "card_line": "Same day and time every visit, before you open.",
+    "words": [
+     "shop",
+     "boutique",
+     "store",
+     "gifts",
+     "books",
+     "florist",
+     "cafe",
+     "bakery",
+     "salon",
+     "outfitters",
+     "goods",
+     "mercantile"
+    ],
+    "steps": [
+     "Walk in at a quiet hour and ask for the owner or manager.",
+     "Clean the front door glass right then, or the front windows on a day they pick.",
+     "Leave the rate sheet with your every-2-weeks price.",
+     "Ask once: could you put them on your route, same day and time every visit?"
+    ]
+   },
+   "apartments": {
+    "demo": "the lobby and front entry glass cleaned free, inside and out",
+    "eyebrow": "For {biz}",
+    "headline": "Clear entry glass every 2 weeks",
+    "package": "storefront",
+    "who": "First 3 buildings",
+    "card_line": "Same day and time every visit.",
+    "words": [
+     "apartments",
+     "apartment",
+     "lofts",
+     "flats",
+     "residences",
+     "tower",
+     "commons"
+    ],
+    "steps": [
+     "Send the message and the card to the building manager today.",
+     "Clean the lobby and entry glass on the day they pick, and photograph it before and after.",
+     "Send the photos the same day.",
+     "Ask once: could you put the building on your route, same day and time every visit?"
+    ]
+   }
+  }
+ },
+ "same_street": {
+  "neighbor_off": 0.1,
+  "neighbor_note": "judgment call at the low end of Fixr's neighbor buy-in range (10% to 20% off), not a sourced fact",
+  "neighbor_sources": [
+   {
+    "publisher": "Fixr",
+    "url": "https://www.fixr.com/costs/window-cleaning",
+    "says": "Neighbor buy-in: some companies charge reduced rates for houses in the same neighborhood, a 10% to 20% rate reduction.",
+    "page_date": "2025-08-29",
+    "checked": "2026-10-19"
+   }
+  ],
+  "package": "whole_house",
+  "plan": "twice",
+  "count": 20,
+  "hello": "Hi {street} neighbors!",
+  "headline": "Your neighbor price on {street}",
+  "side_extra": "Same day as your neighbor",
+  "includes": [
+   "Glass inside and out",
+   "Frames and sills wiped dry",
+   "Screens taken down and wiped"
+  ],
+  "how": [
+   "Text me your address or scan the code",
+   "I'm on {street}{day_part}",
+   "Every spring and fall, the same week as your neighbor"
+  ],
+  "customer_ask": "Hi {customer}, thanks again! I'm adding a couple more homes on {street}{day_part}. If a neighbor ever asks who cleans your windows, would you pass on my number{phone_part}? It means a lot to a new business.",
+  "steps": [
+   "Hang a door hanger on every home on this sheet the day before you clean there. On the door, never in or on a mailbox.",
+   "While you work, say hi to anyone outside. Keep it short, and never say which neighbor: \"I'm cleaning windows for a home on your street.\"",
+   "Text your customer the intro ask after the visit, never before.",
+   "Mark each home on the sheet. A neighbor who books goes on the same day as your customer."
+  ],
+  "why": "Homes on one street mean less driving and setup between jobs, so you can give neighbors a better price on the same day."
+ },
+ "storefronts": {
+  "types": [
+   {
+    "id": "food",
+    "label": "Restaurants and cafes",
+    "one": "restaurant",
+    "search": {
+     "words": "restaurants and cafes",
+     "osm": [
+      "amenity=restaurant",
+      "amenity=cafe"
+     ],
+     "category": "restaurants"
+    },
+    "weight": 2
+   },
+   {
+    "id": "shops",
+    "label": "Shops and boutiques",
+    "one": "shop",
+    "search": {
+     "words": "shops and boutiques",
+     "osm": [
+      "shop=clothes",
+      "shop=gift",
+      "shop=florist",
+      "shop=bakery",
+      "shop=books",
+      "shop=shoes"
+     ],
+     "category": "boutiques"
+    },
+    "weight": 2
+   },
+   {
+    "id": "salons",
+    "label": "Salons and barbers",
+    "one": "salon",
+    "search": {
+     "words": "salons and barbers",
+     "osm": [
+      "shop=hairdresser",
+      "shop=beauty"
+     ],
+     "category": "salons"
+    },
+    "weight": 1
+   },
+   {
+    "id": "offices",
+    "label": "Offices with front glass",
+    "one": "office",
+    "search": {
+     "words": "insurance and real estate offices",
+     "osm": [
+      "office=insurance",
+      "office=estate_agent"
+     ],
+     "category": "insurance"
+    },
+    "weight": 1
+   }
+  ],
+  "package": "storefront",
+  "plan": "biweekly_store",
+  "demo": "Your front door glass cleaned free, right now, so you can see the work.",
+  "say": "Hi, is the owner or manager around? I'm {first}, I clean storefront windows around {area}. Could I clean your front door glass free right now, so you can see the work? If you like it, I come every 2 weeks, same day and time, before you open.",
+  "need": [
+   "A day and time before you open, or a quiet hour",
+   "A contact who can tell me if anything changes",
+   "Access to the inside glass, if you want both sides"
+  ],
+  "terms": "Every 2 weeks or every month, same day and time. Skip or cancel any time before the next visit. Invoice monthly.",
+  "stops": 20,
+  "leg": 5
+ }
+}

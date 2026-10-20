@@ -1,0 +1,700 @@
+{
+ "id": "organizing",
+ "name": "Home organizing",
+ "checked": "2026-10-19",
+ "research": "research/niches/organizing.json",
+ "what": "home organizing",
+ "what_example": "home organizing in Northside",
+ "crowd": {
+  "buyer": "Busy households and people moving or downsizing",
+  "scores": {
+   "pain": 3,
+   "can_pay": 3,
+   "findable": 3,
+   "growing": 3
+  },
+  "first_dollar": "Fast",
+  "best_months": [1, 3, 4, 5, 8, 9],
+  "off_season": null,
+  "not_yet": [
+   "Don't buy bins before the sort and the measuring.",
+   "Don't haul, sell or store a client's things in your first month.",
+   "Don't take a home with blocked exits, pests or mold on your own."
+  ],
+  "note": "Trust first: a free walk-through, the client's yes on every item, and photos only with a written okay.",
+  "basis": "Scores, buyer, first $1 and not-yet lines: research/niches/organizing.json crowd_scores (our judgment). Best months: research/niches/organizing.json crowd (January is NAPO's GO Month, from a search result excerpt; spring and back to school are judgment)."
+ },
+ "safety": [
+  "The client decides what stays and what goes, at their pace. Nothing leaves without their yes.",
+  "Price, minimum, supplies and any drop-off runs are agreed in writing before the work starts.",
+  "Never keep, buy or sell a client's things. Donations go where the client chooses, and the receipt goes to them.",
+  "Photos only with written permission, with nothing personal in frame, kept private and deleted on request.",
+  "Papers with account numbers are shredded only with the client's okay, and tax papers only after they check with their tax preparer.",
+  "Pests, mold, blocked exits or heavy furniture: don't take it on alone. Refer out, and leave heavy lifting to an insured moving company."
+ ],
+ "partners": [
+  {
+   "id": "realtors",
+   "label": "Real estate agents",
+   "search": {
+    "category": "realtors",
+    "words": "real estate agents"
+   },
+   "their_customers": "sellers and buyers",
+   "why": "need closets and garages sorted before listing photos, or a hand unpacking after the move",
+   "ask": "leave a few cards for sellers who ask about getting a home ready to list",
+   "give": "give your sellers a free walk-through and my founding price"
+  },
+  {
+   "id": "movers",
+   "label": "Movers",
+   "search": {
+    "category": "moving companies",
+    "words": "moving companies"
+   },
+   "their_customers": "customers",
+   "why": "have rooms to sort before the truck comes and boxes to unpack after",
+   "ask": "leave a few cards at your office or with your crews",
+   "give": "point the people I help with a move to you for the truck and the heavy lifting"
+  },
+  {
+   "id": "senior",
+   "label": "Senior living and senior centers",
+   "search": {
+    "category": "seniors",
+    "words": "senior living and assisted living residences"
+   },
+   "their_customers": "residents and their families",
+   "why": "have a lifetime of things to sort before a move to a smaller home",
+   "ask": "leave a few cards at the front desk, following your rules for outside services",
+   "give": "share a one-page downsizing checklist your staff can hand to families"
+  },
+  {
+   "id": "storage",
+   "label": "Self storage centers",
+   "search": {
+    "category": "self storage centers",
+    "words": "self storage facilities"
+   },
+   "their_customers": "renters",
+   "why": "want a unit sorted, with shelves and labels, so they can find what they stored",
+   "ask": "leave cards at your counter for renters who ask about sorting a unit",
+   "give": "point the people I help during a move to you when they need a unit"
+  },
+  {
+   "id": "designers",
+   "label": "Interior designers",
+   "search": {
+    "category": "interior designers",
+    "words": "interior designers"
+   },
+   "their_customers": "clients",
+   "why": "need closets and cabinets cleared and sorted before a new design goes in",
+   "ask": "pass my card to clients who need a room cleared before you start",
+   "give": "clear and sort a room before your install, on your schedule"
+  }
+ ],
+ "texts": {
+  "people_word": "people",
+  "person_label": "Person you know",
+  "extra_label": "the house rules and a walk-through script",
+  "safety_title": "Client first",
+  "find_tip": "Real estate offices, senior living and senior centers come from OpenStreetMap once your city is set and business search is on. Movers, self storage centers and interior designers aren't in the map search yet: look them up on a map and add the real ones by hand.",
+  "people": [
+   "Hey {greet}! I just started {what} around {area}: closets, kitchens, garages and moves. It starts with a free 20-minute walk-through, and nothing leaves your home without your yes. My first 3 clients get {founding}. Want a spot, or know someone who might?",
+   "Hi {greet}, hope you're well! I'm starting {what} here in {area}. My first 3 clients get {founding}, and all I ask is honest feedback after the first visit. Could I tell you more, or is there someone you'd pass this to?",
+   "Hey {greet}! I'm launching {what} in {area}, starting with a free walk-through of the room that bugs you most. My first 3 clients get {founding}. Know anyone with a closet, a garage or a move to sort?"
+  ],
+  "people_follow_up": "Hi {greet}, no pressure on my organizing message. If it's not for you, would you mind passing my number to one person with a room to sort? Thank you.",
+  "next_people": [
+   "Hi {greet}! I'm doing {what} around {area} now. Every new client starts with a free 20-minute walk-through, and I have room for a few more at {rate}. Know anyone with a room to sort or a move coming up?",
+   "Hey {greet}, hope you're well! I do {what} here in {area}: a written plan, sorting at your pace, and supplies bought only after we measure. Want a spot, or know someone I could help?",
+   "Hi {greet}! Quick one: if you or a friend ever need a hand with a closet, a garage or a move, I'm doing {what} in {area} now. It starts with a free walk-through."
+  ],
+  "next_follow_up": "Hi {greet}, no pressure on my organizing message. If it's not for you, would you mind passing my number to one person with a room to sort? Thank you.",
+  "next_subject": "Home organizing in {area}"
+ },
+ "extra": [
+  {
+   "title": "Walk-through script (20 minutes, free)",
+   "lines": [
+    "1. Thanks for having me. Show me the space, and tell me what bothers you most.",
+    "2. What has to stay, and what are you happy to let go of? Nothing leaves without your yes.",
+    "3. Who uses this space, and what do you reach for most often?",
+    "4. May I measure the shelves, drawers and closet rods? Please don't buy bins yet.",
+    "5. Any papers, medicines or keepsakes I should know about? They stay where you can see them.",
+    "6. Is it okay to take before and after photos for your records? Nothing personal in frame, and nothing shared without your written okay.",
+    "7. For a first visit I'd plan 3 hours on the zones that bother you most. My founding price is {founding}. Want to set a day?"
+   ]
+  }
+ ],
+ "offer": {
+  "name": "Home organizing session",
+  "unit": "hour",
+  "length": "3-hour minimum",
+  "prices": {
+   "budget": 45,
+   "standard": 60,
+   "premium": 85
+  },
+  "range_text": "$35 to $150 per hour",
+  "basis": "From research/niches/organizing.json: HomeAdvisor (most organizers charge $55 to $100 an hour), Thumbtack (average $65 an hour, most pay $60 to $75) and Fixr ($50 to $150 an hour, many with a 3-hour minimum), checked 2026-10-19. Supplies are extra, at cost.",
+  "sources": [
+   "https://www.homeadvisor.com/cost/storage-and-organization/hire-a-professional-organizer/",
+   "https://www.thumbtack.com/p/personal-organizer-cost",
+   "https://www.fixr.com/costs/professional-organizer"
+  ],
+  "includes": [
+   "A free 20-minute walk-through before anything is booked",
+   "A written plan: zones, hours and what each zone needs",
+   "Sorting with you: keep, donate, recycle, trash or decide later",
+   "Setup and labels in your words, with supplies priced before anything is bought"
+  ],
+  "steps": [
+   "Free walk-through: you show me the space and what bothers you most.",
+   "You get a written plan with zones, hours and a supply list, and the price in writing.",
+   "We sort together, one zone at a time. Nothing leaves without your yes.",
+   "Supplies are bought after the sort and the measuring, at cost with receipts, then set up and labeled."
+  ],
+  "promise": "If I'm late, that hour is free. If you're not happy with how a zone is set up, tell me within a week and I'll come back and redo it at no charge.",
+  "promise_note": "I can't promise how a room will stay. I promise the work: the plan we agree on, your decisions followed, and every zone set up and labeled before I leave.",
+  "sheet_notes_title": "Your things, your call",
+  "sheet_notes": [
+   "Nothing is thrown out, donated or bought without your yes.",
+   "Photos only with your written okay, with nothing personal in frame.",
+   "What I see in your home stays private."
+  ],
+  "footer": "Billed per hour with a 3-hour minimum, or as a 6-hour room package.",
+  "ladder": {
+   "founding": {
+    "count": 3,
+    "off": 0.3,
+    "who": "People you know",
+    "note": "For honest feedback after the first visit. A review is never part of the deal."
+   },
+   "intro": {
+    "count": 7,
+    "off": 0.15,
+    "who": "Referrals and partner clients",
+    "note": "Your price while you build a track record."
+   },
+   "full": {
+    "who": "Everyone after your first 10",
+    "note": "Raise it when your weekday visits are booked two weeks out."
+   }
+  },
+  "money_model": [
+   {
+    "kind": "Way in",
+    "name": "Free 20-minute walk-through",
+    "price": 0,
+    "unit": "visit",
+    "what": "At their home. We look at the space and agree on what to do first."
+   },
+   {
+    "kind": "Core",
+    "name": "Organizing session",
+    "price": "core",
+    "what": "Per hour, with a 3-hour minimum."
+   },
+   {
+    "kind": "Keep going",
+    "name": "Room package (6 hours)",
+    "times": 6,
+    "off": 0.05,
+    "unit": "package",
+    "what": "One room from start to finish, booked as a block."
+   },
+   {
+    "kind": "Add-on",
+    "name": "Supply shopping and setup",
+    "factor": 1,
+    "unit": "hour",
+    "what": "After we measure. The supplies are billed at cost, with receipts."
+   },
+   {
+    "kind": "Smaller step",
+    "name": "1-hour video check-in",
+    "factor": 1,
+    "unit": "session",
+    "what": "A plan and a supply list for a space they set up themselves."
+   },
+   {
+    "kind": "Bigger job",
+    "name": "Move or downsizing package (12 hours)",
+    "times": 12,
+    "off": 0.1,
+    "unit": "package",
+    "what": "Sorting before a move, or unpacking after one, over several visits."
+   }
+  ],
+  "ladder_word": "clients"
+ },
+ "keep": {
+  "title": "Reviews and referrals",
+  "description": "After a finished room: a thank-you, an honest review ask with no reward attached, a referral ask with a thank-you for both people, and a referral card.",
+  "client_title": "Client's name",
+  "done_example": "the kitchen and pantry last Saturday",
+  "reward_default": "a free hour",
+  "file_word": "referral card",
+  "card_title": "An organizer {greet} recommends",
+  "card_footer": "Every new client starts with a free 20-minute walk-through.",
+  "rules": [
+   "Ask every client the same way, not only the happy ones.",
+   "Never offer anything for a review. The referral thank-you is for referrals only."
+  ],
+  "texts": {
+   "thank_you": "Hi {greet}, thank you for trusting me with {done}. It was a pleasure working with you.",
+   "review_ask": "Would you leave an honest review about working with me? It helps other people decide who to let into their home. Here's the link: {review_link}. No pressure either way.",
+   "referral_ask": "If a friend or neighbor has a room to sort or a move coming up, I'd love an introduction. When someone you send my way books, you both get {reward}.",
+   "card_line": "{business}: closets, kitchens, garages and moves, sorted at your pace, starting with a free 20-minute walk-through."
+  },
+  "business_fallback": "Your home organizer"
+ },
+ "replies": {
+  "who_title": "Which client or place",
+  "ai_rules": [
+   "Every new client starts with a free 20-minute walk-through at their home. That is the next step.",
+   "Never promise how a home will look or stay, and never claim organizing reduces stress, saves money or improves health. Promise the work: the plan, their decisions followed, every zone set up.",
+   "Say any price once, exactly as given."
+  ],
+  "stop": {
+   "label": "Asked you to stop",
+   "means": "They asked you to stop.",
+   "next": "Don't send anything else. They're marked lost so they stay off your lists."
+  },
+  "people": {
+   "yes": {
+    "label": "They're interested",
+    "means": "They want to hear more or book.",
+    "answer": "That's great! The first step is a free 20-minute walk-through at your place, so I can see the space and hear what bothers you most before anything is booked. What day works for you?",
+    "next": "Book the walk-through within 2 days."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want the price before anything else.",
+    "answer": "Of course. I charge {rate}, with a {length}. The first step is a free 20-minute walk-through, so you know the plan and the hours before you book. Want to set one up?",
+    "next": "Say the price once, then offer the walk-through."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. If a move or a busy season comes up, just text me. Happy to do a free walk-through whenever suits.",
+    "next": "Set a reminder for a month, or before the new year."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, and I do {what} here in {area}. It starts with a free 20-minute walk-through, and nothing leaves your home without your yes. Happy to answer any question.",
+    "next": "Answer plainly, then offer the walk-through."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They have an organizer or help already.",
+    "answer": "Good to hear you have help! If you ever need an extra pair of hands before a move or a big project, I'm nearby. Thanks for letting me know.",
+    "next": "Leave it there. Offer to help before a move or the new year."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! The best way to answer it properly is a free 20-minute walk-through, so I can see the space. Would one day this week work?",
+    "next": "Answer it in a line if you can, then offer the walk-through."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to help however I can. Would a free walk-through this week be easier to talk it through?",
+    "next": "Keep it short and end with one question."
+   },
+   "talk": {
+    "label": "Wants to meet",
+    "means": "They want to meet or talk first.",
+    "answer": "Happy to! {when_ask} The first step is a free 20-minute walk-through at your place, so I can see the space before anything is booked.",
+    "next": "Book the walk-through within 2 days."
+   }
+  },
+  "partners": {
+   "yes": {
+    "label": "They said yes",
+    "means": "They're open to it.",
+    "answer": "Thank you, that's great! I'll drop off a few cards this week. Is there a day that works best, or someone I should ask for?",
+    "next": "Drop off the cards within a week and thank them in person."
+   },
+   "price": {
+    "label": "They asked the price",
+    "means": "They want to know what the people they serve would pay.",
+    "answer": "I charge {rate}, with a {length}, and every new client starts with a free walk-through. Happy to drop off cards with the details.",
+    "next": "Say the price once, then offer the cards."
+   },
+   "later": {
+    "label": "Not right now",
+    "means": "Not now, maybe later.",
+    "answer": "No problem at all. Could I check back in a couple of months? Thanks for considering it.",
+    "next": "Set a reminder for 2 months out."
+   },
+   "who": {
+    "label": "Who is this?",
+    "means": "They want to know who you are first.",
+    "answer": "Sorry, I should have said! I'm {me}, a local home organizer. Every client starts with a free walk-through, and I follow your rules on sharing. Happy to stop by and say hello.",
+    "next": "Answer plainly, then offer to stop by."
+   },
+   "covered": {
+    "label": "They have someone",
+    "means": "They already recommend an organizer.",
+    "answer": "Good to hear the people you serve have someone. If you ever keep a list of local organizers, I'd be glad to be on it. Thanks!",
+    "next": "Ask once about a resource list, then let it go."
+   },
+   "question": {
+    "label": "They asked a question",
+    "means": "They asked something specific.",
+    "answer": "Good question! Happy to answer it properly: could I stop by for five minutes, or would a quick call be easier?",
+    "next": "Answer it in a line if you can, then offer to stop by."
+   },
+   "other": {
+    "label": "Not sure what they meant",
+    "means": "Not clear yet.",
+    "answer": "Thanks for getting back to me! Happy to work around your rules. What's the best way to share my card with the people you serve?",
+    "next": "Keep it short and end with one question."
+   }
+  },
+  "partner_objections": [
+   {
+    "id": "rules",
+    "label": "They have rules",
+    "match": "\\b(polic(y|ies)|not allowed|aren't allowed|can't post|cannot post|no (business|commercial|solicit\\w*)|approv\\w*|bulletin|board rules|guidelines|outside (services|vendors))",
+    "means": "They have rules about posting or outside services.",
+    "answer": "Thanks for explaining, and of course I'll follow your rules. Is there another way you share local services with residents or customers, like a newsletter or a resource list, that I could apply for?",
+    "next": "Follow their rules exactly and ask about the approved way in.",
+    "judgment": true
+   },
+   {
+    "id": "referral_fee",
+    "label": "They asked for a referral fee",
+    "match": "\\b(referral fee|kickback|commission|finder'?s fee|a cut\\b|percentage|pay (you|us) for)",
+    "means": "They want to be paid for sending people your way.",
+    "answer": "Thanks for asking straight out. I don't pay for referrals, so what I recommend to the people I help stays about them. I'm glad to point the people I help your way when it fits, with nothing owed either way.",
+    "next": "Keep the partnership to cards and honest recommendations, both ways.",
+    "sources": [
+     {
+      "publisher": "ICD Code of Ethics",
+      "url": "https://www.challengingdisorganization.org/about-us/code-of-ethics/",
+      "says": "I will not allow compensation from third parties to dictate my recommendations.",
+      "checked": "2026-10-19",
+      "page_date": "2025-12-14"
+     },
+     {
+      "publisher": "NAPO Code of Ethics",
+      "url": "https://point.napo.net/ethics",
+      "says": "Make recommendations for products and services with my client's best interests in mind.",
+      "checked": "2026-10-19"
+     }
+    ]
+   }
+  ],
+  "objections": [
+   {
+    "id": "beyond",
+    "label": "It's more than clutter",
+    "match": "\\b(hoard\\w*|pests?|mice|rats?|roach\\w*|mold|mould|unsafe|can'?t (get in|open the door|walk through)|blocked (exits?|doorways?|hallways?|stairs))\\b",
+    "means": "The home may have safety or sanitation problems beyond organizing.",
+    "answer": "Thank you for trusting me with that. When there are pests, mold or blocked doorways, the first step is the right help for safety, and I can share who to call. Once the space is safe, I'd be glad to help you set it up.",
+    "next": "Don't take it on alone. Refer out first. ICD's Clutter-Hoarding Scale is a guide for organizers, not a diagnosis.",
+    "check": "Know who you'd refer to (pest control, a mold specialist, a cleaning company) before you send this.",
+    "sources": [
+     {
+      "publisher": "ICD Clutter-Hoarding Scale",
+      "url": "https://www.challengingdisorganization.org/clutter-hoarding-scale",
+      "says": "An observational guideline for assessing safety, sanitation and usability in a home; not meant for clinical diagnosis.",
+      "checked": "2026-10-19",
+      "page_date": "2026-10-07"
+     },
+     {
+      "publisher": "ICD Code of Ethics",
+      "url": "https://www.challengingdisorganization.org/about-us/code-of-ethics/",
+      "says": "Encourage my clients to seek the services of other professionals.",
+      "checked": "2026-10-19",
+      "page_date": "2025-12-14"
+     }
+    ]
+   },
+   {
+    "id": "downsizing",
+    "label": "Helping a parent downsize",
+    "match": "\\b(downsiz\\w*|assisted living|senior living|retirement (home|community)|nursing home|(my|our) (mom|mother|dad|father|parents?|grandma|grandpa|grandmother|grandfather)('s)? (house|home|place|stuff|things))\\b",
+    "means": "They're helping an older parent move to a smaller home.",
+    "answer": "That's a big move, and it goes at your parent's pace. I start with a free walk-through with them there, put the price in writing before any work, and nothing leaves without their yes. For the move itself, I work alongside a moving company you choose rather than hauling anything myself.",
+    "next": "Book the walk-through with the parent there, and give them the written estimate.",
+    "sources": [
+     {
+      "publisher": "NASMM",
+      "url": "https://www.nasmm.org/faqs/",
+      "says": "Move managers help older adults and families downsize and relocate, outline the cost in a written estimate before payment, and work closely with a reputable local moving company.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "privacy",
+    "label": "Will you post photos of my home?",
+    "match": "\\b(privacy|private|confidential\\w*|social media|instagram|post (it|them|online)|(take|taking|share|sharing|post|posting) (any )?(photos?|pictures?)|(photos?|pictures?) of (my|our))\\b",
+    "means": "They want to know their home and things stay private.",
+    "answer": "Only with your written okay, and never with anything personal in frame. What I see in your home stays private: your papers, your things and your story.",
+    "next": "Put the photo and privacy terms in writing before the first visit.",
+    "sources": [
+     {
+      "publisher": "NAPO Code of Ethics",
+      "url": "https://point.napo.net/ethics",
+      "says": "I will keep confidential all client information, and use proprietary client information only with the client's permission.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "bins",
+    "label": "Do I need to buy bins first?",
+    "match": "\\b(bins?|containers?|baskets?|buy (bins|organizers|supplies|stuff)|already bought)\\b",
+    "means": "They're asking about supplies before the work.",
+    "answer": "Please don't buy anything yet. We sort first and measure, then buy only what fits, at cost with receipts, and we use what you already have first.",
+    "next": "Hold off on supplies until after the sort.",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/professional-organizer",
+      "says": "The organizer's hourly rate does not usually include file cabinets, shelving or storage tools.",
+      "checked": "2026-10-19",
+      "page_date": "2025-01-31"
+     },
+     {
+      "publisher": "NAPO Code of Ethics",
+      "url": "https://point.napo.net/ethics",
+      "says": "Make recommendations for products and services with my client's best interests in mind.",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "insured",
+    "label": "Are you insured?",
+    "match": "\\b(insur\\w*|bonded|bond|liabilit\\w*)\\b",
+    "means": "They want to know you carry insurance.",
+    "answer": "Good question to ask. I'll send you my insurance certificate before the walk-through, so you can see exactly what it covers.",
+    "next": "Send the certificate, then book the walk-through.",
+    "check": "Only send this once your policy is active.",
+    "sources": [
+     {
+      "publisher": "NASMM",
+      "url": "https://www.nasmm.org/faqs/",
+      "says": "A question to ask before hiring: are you fully insured for liability and workers' compensation?",
+      "checked": "2026-10-19"
+     }
+    ]
+   },
+   {
+    "id": "cost",
+    "label": "It costs too much",
+    "match": "\\b(too (expensive|much|pricey)|cheaper|lower (price|rate)|afford\\w*|out of (our|my) budget|discount|that'?s a lot)\\b",
+    "means": "The price is more than they expected.",
+    "answer": "That's fair. Two ways to make it work: start with the one zone that bothers you most in a single 3-hour visit, or book a 1-hour video check-in for a plan and a supply list you can follow yourself. A room package also costs a little less per hour.",
+    "next": "Hold your price. Offer the smaller start or the video check-in.",
+    "sources": [
+     {
+      "publisher": "Fixr",
+      "url": "https://www.fixr.com/costs/professional-organizer",
+      "says": "Many organizers have an hourly minimum of 3 hours.",
+      "checked": "2026-10-19",
+      "page_date": "2025-01-31"
+     },
+     {
+      "publisher": "Thumbtack",
+      "url": "https://www.thumbtack.com/p/personal-organizer-cost",
+      "says": "Buying home organization services in bulk typically decreases the overall cost per hour.",
+      "checked": "2026-10-19",
+      "page_date": "2026-03-31"
+     }
+    ]
+   },
+   {
+    "id": "diy",
+    "label": "I could do it myself",
+    "match": "\\b(do it (myself|ourselves)|diy|on my own|by myself|just need (tips|advice|a plan))\\b",
+    "means": "They'd rather do the work themselves.",
+    "answer": "You can, and lots of people do. If it helps, a 1-hour video check-in gives you a zone-by-zone plan and a supply list to work from, and I'm a text away if you get stuck.",
+    "next": "Offer the video check-in, then leave it with them.",
+    "judgment": true
+   },
+   {
+    "id": "toss",
+    "label": "Will you make me throw things away?",
+    "match": "\\b(throw (it|everything|my stuff|things|stuff) (out|away)|make me (get rid|throw|toss)|get rid of (my|our) (stuff|things)|toss (it|everything))\\b",
+    "means": "They're worried about losing control of their things.",
+    "answer": "Never. You decide what stays, and nothing leaves your home without your yes. My job is to help you sort and find a home for what you keep.",
+    "next": "Say it plainly, then offer the walk-through.",
+    "judgment": true
+   },
+   {
+    "id": "embarrassed",
+    "label": "I'm embarrassed by the mess",
+    "match": "\\b(embarrass\\w*|ashamed|so messy|it'?s bad|judge|judging|disaster)\\b",
+    "means": "They feel embarrassed to let someone see the space.",
+    "answer": "Thank you for telling me. There's no judging here, ever. We go at your pace, start wherever you like, and what I see stays private.",
+    "next": "Be warm and plain, then offer the walk-through.",
+    "judgment": true
+   }
+  ]
+ },
+ "quote": {
+  "who_title": "Which client",
+  "for_title": null,
+  "title": "Home organizing{for}",
+  "default": "room6",
+  "pay_when": "When the work is done",
+  "packages": [
+   {
+    "id": "visit3",
+    "label": "Organizing visit, 3 hours",
+    "short": "Visit",
+    "detail": "One room or a few zones, sorted and set up",
+    "qty": 3,
+    "pick": "One 3-hour visit"
+   },
+   {
+    "id": "room6",
+    "label": "Room package, 6 hours",
+    "short": "Room package",
+    "detail": "One room from start to finish, in one long visit or two shorter ones",
+    "qty": 6,
+    "off": 0.05,
+    "pick": "Room package (6 hours)"
+   },
+   {
+    "id": "move12",
+    "label": "Move or downsizing package, 12 hours",
+    "short": "Move package",
+    "detail": "Sorting before a move or a downsizing, or unpacking after one, over several visits",
+    "qty": 12,
+    "off": 0.1,
+    "pick": "Move or downsizing package (12 hours)"
+   },
+   {
+    "id": "video1",
+    "label": "Video check-in, 1 hour",
+    "detail": "A plan and a supply list by video, for a space you set up yourself",
+    "qty": 1,
+    "unit": "session",
+    "pick": "One video check-in"
+   }
+  ],
+  "extra": {
+   "title": "Add supply shopping and setup (1 hour)",
+   "label": "Supply shopping and setup",
+   "detail": "Buying the bins and organizers after we measure. The supplies themselves are billed at cost with receipts",
+   "factor": 1,
+   "qty": 1
+  },
+  "notes": [
+   "Supplies are extra, at cost, with receipts. Nothing is bought before the sort and the measuring.",
+   "If I'm late, that hour is free. If you're not happy with how a zone is set up, tell me within a week and I'll come back and redo it at no charge."
+  ]
+ },
+ "win": {
+  "tool": "log_client",
+  "title": "Log the new client",
+  "description": "A client said yes: logs the win in your Pipeline, writes the booking message, the prep message and the day-before reminder, and a printable first visit checklist.",
+  "who_title": "Client's name",
+  "who_word": "client",
+  "for_title": null,
+  "for_default": "",
+  "when_title": "First visit day and time",
+  "where_title": "How we meet",
+  "where": ["In person", "By video"],
+  "booking": "Hi {greet}, you're all set! Your first visit is {when}{where}. It's {deal}. We'll start with a quick walk through the space together, and nothing leaves your home without your yes.{pay}",
+  "prep": "Before the visit: please hold off on buying bins or organizers. We'll measure first and pick supplies together, at cost with receipts. If you can, clear a spot to sort (a table or a bit of floor) and keep a few bags or boxes handy for donations.",
+  "reminder": "Hi {greet}, see you {when}. Reply here if anything changes.",
+  "founding": "Founding client: after the first visit, ask {greet} for honest feedback you may quote as a founding client, and ask in writing before you take or share any photo. Never ask for a review in exchange.",
+  "file_word": "first visit checklist",
+  "checklist_title": "First visit checklist for {greet}",
+  "checklist": {
+   "Walk-through": [
+    "Walk the space together. Ask what bothers them most and what must stay.",
+    "Agree on the zones, the order and the hours for this visit.",
+    "Measure shelves, drawers and closet rods before anyone buys a bin.",
+    "Ask, in writing, about before and after photos. No yes, no photos.",
+    "Confirm the price, the minimum and how supplies are paid for, in writing."
+   ],
+   "Every visit": [
+    "Sort into keep, donate, recycle, trash and decide later. The client makes every call.",
+    "Work one zone at a time, and finish it before starting the next.",
+    "Keep papers and mail where the client can see them. Shred only with their okay.",
+    "Label containers in the client's own words."
+   ],
+   "After": [
+    "Walk the finished zones together and show where everything lives.",
+    "Drop donations only where the client chose, and pass on the receipt.",
+    "Send the invoice with the supply receipts attached.",
+    "Book the next zone or the next room."
+   ]
+  },
+  "sources": [
+   {
+    "publisher": "Thumbtack",
+    "url": "https://www.thumbtack.com/p/personal-organizer-cost",
+    "says": "Many pros offer a free consultation to determine the number of hours.",
+    "checked": "2026-10-19",
+    "page_date": "2026-03-31"
+   },
+   {
+    "publisher": "NAPO Code of Ethics",
+    "url": "https://point.napo.net/ethics",
+    "says": "Communicate to my client in advance my fees and expenses, and keep confidential all client information.",
+    "checked": "2026-10-19"
+   },
+   {
+    "publisher": "ICD Code of Ethics",
+    "url": "https://www.challengingdisorganization.org/about-us/code-of-ethics/",
+    "says": "Communicate my fee and expense structure prior to starting work.",
+    "checked": "2026-10-19",
+    "page_date": "2025-12-14"
+   }
+  ]
+ },
+ "story": {
+  "who_title": "Client's name",
+  "for_title": null,
+  "what_example": "a 6-hour kitchen and pantry reset",
+  "result_example": "she can find every spice now, and each thing has a home she chose",
+  "quote_example": "I open the pantry just to look at it.",
+  "anon": "A home organizing client in {area}",
+  "named": "{greet}, a client in {area}",
+  "photo": true,
+  "consent": "Hi {greet}! Would you be okay with me sharing a short story about our work together? Here are the exact words I'd use:\n\n{story}\n\nI can sign it with your first name or leave names off, whichever you prefer. {photo_line}It's completely up to you, and nothing changes either way. If it's okay, just reply yes, or tell me what to change.",
+  "photo_line": "I'd like to use the after photo of the space too, with nothing personal in frame, only if you're happy with that. ",
+  "review": "If you have a minute, would you leave an honest review about what working with me was like? It helps other people decide who to let into their home. No pressure either way, and nothing changes whether you do or not.",
+  "caption": "A short story from a client, shared with their permission. {story_line} If you have a room to sort, {reach}",
+  "disclosure": {
+   "founding": "{who} paid a founding price.",
+   "free": "{who} received a free organizing session."
+  },
+  "rules": [
+   "Only what the client agreed to in writing, and a photo only with their okay and nothing personal in frame.",
+   "Only words and numbers they gave you. No claims about stress, money or health, even true ones.",
+   "Nothing in exchange for a story or a review."
+  ]
+ },
+ "ready": {
+  "audience": "Busy households nearby",
+  "group": "general",
+  "format": "flyer",
+  "print": true,
+  "headline": "Home organizing in {area}",
+  "sub": "Closets, kitchens, garages and moves, sorted at your pace, with a written plan for every room.",
+  "bullets": [
+   "A free 20-minute walk-through first",
+   "You decide what stays and what goes",
+   "Supplies bought after we measure, at cost"
+  ],
+  "offer": "Free 20-minute walk-through",
+  "cta": "Book a walk-through",
+  "tagline": "Home organizing at your pace, starting with a free walk-through.",
+  "design": "local-service"
+ }
+}
