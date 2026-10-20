@@ -142,8 +142,8 @@
   <!-- HERO: the bio's promise and one button, set on the floor under the glass 127, lit live -->
   <section class="fl" data-fl<% if (heroWater) { %> data-fl-water<% } %>>
     <%# First Light, live (public/js/first-light.js): the poster is the lit mark at rest and shows at once. After load the
-        same picture is drawn live over it, from the light passes in /img/fl: the reveal plays (when the passes arrive
-        fast), then the halo breathes and a soft light follows the pointer. With HERO_WATER the mark floats over water
+        same picture is drawn live over it, from the light passes in /img/fl, once the page is loaded and idle: the halo
+        breathes and a soft light follows the pointer. Software WebGL (no GPU) keeps the poster. With HERO_WATER the mark floats over water
         (passes in /img/flw) and the pointer ripples both. Reduced motion, Save-Data or no WebGL2 keep the poster. %>
     <div class="fl-stage" aria-hidden="true">
       <picture><source media="(max-width: 760px)" srcset="<%= flDir %>rest-s.jpg" width="960" height="540"><img src="<%= flDir %>rest.jpg" alt="" width="1600" height="900" decoding="async" fetchpriority="high"></picture>
@@ -494,11 +494,15 @@ if (fl) {
   const water = fl.hasAttribute('data-fl-water'), hover = mm('(hover: hover)');
   if (water || !hover) fl.querySelector('[data-fl-hint]').textContent = water ? (hover ? 'Move through the water' : 'Drag through the water') : 'Drag to light it';
   if (!still) {
-    // If the passes arrive while the poster is still coming up, the reveal plays live; later, it picks up at rest.
-    import('/js/first-light.js').then(({ firstLight }) =>
-      firstLight(fl.querySelector('.fl-stage'), { small: phone, reveal: performance.now() < 900, water, base: water ? '/img/flw/' : '/img/fl/' }))
-      .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); })
+    // The poster is the first paint. The live hero starts only once the page has loaded and the browser is idle, so
+    // its passes and shader never compete with the poster, the copy or a first tap; it then picks up at rest. A slow
+    // device that can't keep it smooth hands back to the poster.
+    const live = () => import('/js/first-light.js').then(({ firstLight }) =>
+      firstLight(fl.querySelector('.fl-stage'), { small: phone, reveal: false, water, base: water ? '/img/flw/' : '/img/fl/', onSlow: () => fl.classList.remove('is-live') }))
+      .then(() => fl.classList.add('is-live'))
       .catch(() => {});
+    const later = () => ('requestIdleCallback' in window ? requestIdleCallback(live, { timeout: 2500 }) : setTimeout(live, 300));
+    document.readyState === 'complete' ? later() : addEventListener('load', later, { once: true });
   }
 }
 function loop() {

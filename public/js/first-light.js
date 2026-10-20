@@ -220,16 +220,27 @@ function toPasses(p) {
   return [0.5 + d[0] / zc / (2 * TH), 0.5 - yc / zc / (2 * TV)];
 }
 
+// Passes decode off the main thread where the browser can (createImageBitmap), so they don't hold up the page.
 function load(src) {
+  if (window.createImageBitmap && window.fetch) {
+    return fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.blob(); }).then((b) => createImageBitmap(b));
+  }
   return new Promise((res, rej) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = rej; i.src = src; });
 }
+// A software renderer (no GPU, or one the browser won't use) would draw every frame on the CPU, so the poster stays.
+const SOFT = /swiftshader|llvmpipe|softpipe|software|basic render|mesa offscreen/i;
 
 export async function firstLight(stage, opts = {}) {
   const poster = stage.querySelector('img');
   const cv = document.createElement('canvas');
   cv.className = 'fl-canvas'; cv.setAttribute('aria-hidden', 'true');
-  const gl = cv.getContext('webgl2', { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'high-performance', preserveDrawingBuffer: !!opts.capture });
+  const gl = cv.getContext('webgl2', { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'high-performance',
+    preserveDrawingBuffer: !!opts.capture, failIfMajorPerformanceCaveat: !opts.capture });
   if (!gl) throw new Error('no webgl2');
+  if (!opts.capture) {
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    if (dbg && SOFT.test(String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)))) throw new Error('software webgl');
+  }
   const base = opts.base || '/img/fl/', suf = opts.small ? '-s' : '';
   const imgs = await Promise.all(PASSES.map((n) => load((opts.files || {})[n + suf] || base + n + suf + '.jpg')));
 
@@ -313,7 +324,8 @@ export async function firstLight(stage, opts = {}) {
   // ---- state ----
   const S = { start: null, reveal: opts.reveal !== false, ptr: null, lastMove: -1e9, p: 3, pk: 0, cx: 0.5, sweep: -1, scroll: 0, mx: 0, my: 0,
     zoom: OS, drift: [0, 0], bob: 0, wet: null, acc: 0, drip: null, nextDrip: null, stone: null };
-  let dpr = 1, W = 0, H = 0, frame = [0, 0, 1, 1], cap = opts.small ? 2 : 1.5, slow = 0;
+  let dpr = 1, W = 0, H = 0, frame = [0, 0, 1, 1], cap = opts.small ? 2 : 1.5, slow = 0, stopped = false;
+  const fps = opts.fps || (opts.small ? 30 : 60);
   const size = () => {
     const r = stage.getBoundingClientRect(), f = poster.getBoundingClientRect();
     dpr = Math.min(window.devicePixelRatio || 1, cap);
@@ -381,9 +393,13 @@ export async function firstLight(stage, opts = {}) {
   const draw = (now) => {
     if (S.start === null) S.start = now;
     const t = (now - S.start) / 1000, dt = Math.min(0.05, (now - (S.prev || now)) / 1000); S.prev = now;
-    // a slow GPU (under about 40 frames a second for two seconds running) gets fewer pixels, down to 0.75 per point
-    slow = dt > 0.025 ? slow + 1 : Math.max(0, slow - 2);
-    if (slow > 80 && cap > 0.75 && !opts.capture) { cap = Math.max(0.75, Math.min(cap, dpr) - 0.25); slow = 0; size(); }
+    // a slow GPU (under two thirds of its frame rate for a few seconds running) gets fewer pixels, down to 0.75 per point
+    slow = dt > 1.5 / fps ? slow + 1 : Math.max(0, slow - 2);
+    // and if it still can't, it stops and hands back to the poster
+    if (slow > 80 && !opts.capture) {
+      slow = 0;
+      if (cap > 0.75) { cap = Math.max(0.75, Math.min(cap, dpr) - 0.25); size(); } else { stopped = true; if (opts.onSlow) opts.onSlow(); }
+    }
     const rv = S.reveal ? t : B.end + t;            // seconds into the reveal (past B.end = at rest)
     let halo = 1, up = 1.15, rig = 1, line = 0.35, reach = 1, zoom = OS, dx = 0, dy = 0;
     if (rv < B.end) {
@@ -445,10 +461,15 @@ export async function firstLight(stage, opts = {}) {
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 
-  // ---- run only while it's on screen ----
-  let raf = 0, onScreen = true;
-  const tick = (now) => { raf = 0; const r = stage.getBoundingClientRect(); S.scroll = clamp(-r.top / Math.max(1, r.height)); draw(now); go(); };
-  const go = () => { if (!raf && onScreen && !document.hidden && !opts.capture) raf = requestAnimationFrame(tick); };
+  // ---- run only while it's on screen, at most 60 frames a second (30 on phones) ----
+  let raf = 0, onScreen = true, last = 0;
+  const gap = 1000 / fps - 2;
+  const tick = (now) => {
+    raf = 0;
+    if (now - last >= gap) { last = now; const r = stage.getBoundingClientRect(); S.scroll = clamp(-r.top / Math.max(1, r.height)); draw(now); }
+    go();
+  };
+  const go = () => { if (!raf && !stopped && onScreen && !document.hidden && !opts.capture) raf = requestAnimationFrame(tick); };
   new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; go(); }).observe(stage);
   // back from a hidden tab, the ripples pick up where they were instead of catching up
   document.addEventListener('visibilitychange', () => { S.prev = 0; go(); });
