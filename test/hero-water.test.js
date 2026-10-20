@@ -66,4 +66,7 @@ test('the 127 forms on scroll only where the live hero can play it, and the post
   for (const k of ['const scrub = opts.scrub && S.reveal;', 'gl.drawArrays(gl.POINTS, 0, swarm.n);', 'setPop: (on) =>']) assert.ok(src.includes(k), k);
   // the symbiote: tendrils out of the pond (bounded so the rest of the scene skips them), three stay under the feet
   for (const k of ['#define NT 8', 'uniform vec3 uTLo, uTHi;', "gl.uniform4fv(U.uTA, S.ten.subarray(0, 32));", 'const anchor = i < 3;']) assert.ok(src.includes(k), k);
+  // the skin's math is ported from shaders (MIT): keep its credit and its license
+  assert.ok(src.includes('ported from shaders (MIT, Shader Effects Inc.)'));
+  assert.match(fs.readFileSync(path.join(ROOT, 'public/js/LICENSE-shaders.txt'), 'utf8'), /Copyright \(c\) 2026 Shader Effects Inc\./);
 });

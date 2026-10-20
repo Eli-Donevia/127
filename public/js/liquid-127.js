@@ -1,18 +1,18 @@
-// Liquid 127: the homepage's water hero, drawn as a real 3D scene every frame. The glass 127 is a signed distance
-// field (its outline baked into /img/liquid/mark-sdf.png by v2/design/motion/src/liquid-sdf.py, extruded and
-// bevelled here) and the pond is a height field run as a wave equation on the GPU. Each pixel marches a ray through
-// both: the glass refracts and reflects a studio of soft lights (one of them follows the pointer), the pond mirrors
-// the glass and the lights, and you can see the glass's glow through the water while it's under.
+// Liquid 127: the homepage's water hero, drawn as a real 3D scene every frame. The 127 is a signed distance field
+// (its outline baked into /img/liquid/mark-sdf.png by v2/design/motion/src/liquid-sdf.py, extruded and rounded here)
+// and the pond is a height field run as a wave equation on the GPU. Each pixel marches a ray through both.
 //   liquid127(stage, { small, reveal, scrub, capture, onSlow }) -> Promise (resolves once it's drawing)
-//   scrub: () => 0..1, how far the page has scrolled through the hero's pin; the rise follows the first 65% of it
+//   scrub: () => 0..1, how far the page has scrolled through the hero's pin; the birth follows the first 65% of it
 //   pop: true lights it with the accent (#7C8CFF) as well as white; setPop(bool) changes it live
 //
-// It's alive: the 127 floats and sways, turns toward the pointer on a spring, its surface moves like liquid, a hover
-// sends a ripple through the glass, the pointer drags a wake through the pond, and a click drops a stone and makes the
-// glass wobble. It forms out of the water: the pond swells, a mound of liquid climbs out of it still joined to the
-// surface, gathers into the 127 and pulls free, dripping. With scrub the page opens on the still pond and the first
-// bit of scroll plays that rise (scrolling back sinks it again); without, it plays on opening. Scrolling past the hero
-// runs it back into the water.
+// It's a living thing, a black symbiote born out of the pond: a swarm of wet black beads lifts off the water into the
+// 127's shape while tendrils whip up toward it, the 127 knits itself from them, and most tendrils sink back, leaving
+// three under its feet. Alive at rest: it sways, turns toward the pointer on a spring, its skin crawls, a tendril now
+// and then reaches up to feel for it, one reaches for the pointer, the pointer drags a wake through the pond and a
+// click makes it twitch. Scrolling past the hero runs the birth backwards, into the pond.
+//
+// The skin's wet highlights and its iridescent walls are ported from shaders (MIT, Shader Effects Inc.): the Goo and
+// Obsidian materials, https://github.com/shader-effects-inc/shaders (license in /js/LICENSE-shaders.txt)
 
 const K = 2.4 / 290.8;                         // scene units per unit of the mark's path (the 127 is 2.4 wide)
 const SW = 350.5778 * K, SH = 197.2 * K, SR = 60 * K;   // the distance field's extent and range, in scene units
@@ -191,11 +191,20 @@ vec3 env(vec3 d) { return d.y >= 0.0 ? sky(d, 1.0) : sky(vec3(d.x, -d.y, d.z), 0
 // the organism's skin: black and wet. Only what it reflects shows: long highlights from the lights, and at grazing
 // angles an oily sheen (neutral, or the accent with the pop)
 vec3 shadeGoo(vec3 p, vec3 rd, vec3 n) {
-  float c = clamp(-dot(rd, n), 0.0, 1.0), F = 0.045 + 0.955 * pow(1.0 - c, 5.0);
+  float c = clamp(-dot(rd, n), 0.0, 1.0), gz = 1.0 - c, F = 0.04 + 0.96 * pow(gz, 4.0);
   vec3 refl = env(reflect(rd, n));
-  vec3 film = 0.5 + 0.5 * cos(6.2832 * (vec3(0.0, 0.33, 0.67) + 1.6 * c + 0.5 * noise(p * 4.0)));
-  vec3 sheen = mix(vec3(0.30, 0.31, 0.34) + 0.08 * film, POP * (0.7 + 0.5 * film.b), uPop);
-  return refl * F * 1.3 + sheen * pow(1.0 - c, 3.0) * 0.07 + vec3(0.0022, 0.0022, 0.0028);
+  // Obsidian: faces looking at you stay black; walls turning away light up with a flowing gradient (steel, or the
+  // accent with the pop)
+  float rim = smoothstep(0.3, 0.75, gz), ph = dot(p, vec3(0.8, 0.5, 0.3)) * 1.6 + gz * 0.9 + uTime * 0.2;
+  float f = abs(fract(ph) * 2.0 - 1.0);
+  vec3 iri = mix(mix(vec3(0.10, 0.11, 0.13), HALO * 0.55, smoothstep(0.2, 0.8, f)),
+                 mix(POP * 0.35, mix(POP * 1.3, HALO, 0.35), smoothstep(0.2, 0.8, f)), uPop);
+  // Goo: a wet key light, a tight core with a halo and a glint
+  vec3 L = normalize(vec3(-0.35, 0.8, 0.55)), H = normalize(L - rd);
+  float ndh = clamp(dot(n, H), 0.0, 1.0);
+  float wet = pow(ndh, 232.0) * 1.7 + pow(ndh, 32.0) * 0.25 + smoothstep(0.992, 0.999, ndh) * 1.9;
+  vec3 col = vec3(0.0022, 0.0022, 0.0028) + iri * rim * mix(0.22, 0.55, uPop);
+  return col + refl * F * 1.3 + mix(iri, vec3(1.0), 0.6) * wet * 0.35 * uKey;
 }
 // the pond: a dark mirror of the organism and the lights
 vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
