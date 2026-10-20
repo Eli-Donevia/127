@@ -1,0 +1,101 @@
+<%- include('../partials/app-head') %>
+<%# Custom dashboards (lib/harness/connectors/dashboards.js): tiles from HQ numbers, the Pipeline and
+    connected accounts. Drag a tile to move it (public/js/hq-boards.js), or use its arrows. %>
+<div class="hq">
+  <a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a>
+  <div class="hq-head" style="margin-top:4px">
+    <div>
+      <span class="eyebrow">HQ · Dashboards</span>
+      <h1 class="hq-title"><span class="dim">Your numbers,</span><span class="steel">your way.</span></h1>
+    </div>
+  </div>
+
+  <% if (boards.length) { %>
+  <nav class="db-bar" aria-label="Your dashboards">
+    <% boards.forEach(function (x) { %><a class="db-tab" href="/app/hq/boards/<%= x.id %>"<%= board && board.id === x.id ? ' aria-current="page"' : '' %>><%= x.name %></a><% }) %>
+  </nav>
+  <% } %>
+
+  <% if (!board) { %>
+    <section class="hq-card">
+      <span class="eyebrow">Start a dashboard</span>
+      <p class="hq-small">Pick the one closest to your business. You can add, remove and drag tiles after.</p>
+      <form method="post" action="/app/hq/boards" class="db-form">
+        <label>Start from<select name="template"><% templates.forEach(function (t) { %><option value="<%= t.id %>"><%= t.name %></option><% }) %></select></label>
+        <label>Name it<input name="name" maxlength="60" placeholder="My dashboard"></label>
+        <button class="hq-btn halo">Make it</button>
+      </form>
+    </section>
+  <% } else { %>
+    <div class="db-grid" data-board="<%= board.id %>" aria-label="<%= board.name %>">
+      <% board.tiles.forEach(function (t, i) { %>
+      <article class="db-tile<%= t.size === 2 ? ' w2' : t.size === 4 ? ' w4' : '' %>" draggable="true" data-tile="<%= t.id %>" aria-label="<%= t.label %>">
+        <div class="db-lab"><span><%= t.label %></span>
+          <span class="db-ctl">
+            <button type="button" class="db-x" data-move="-1" aria-label="Move <%= t.label %> earlier">‹</button>
+            <button type="button" class="db-x" data-move="1" aria-label="Move <%= t.label %> later">›</button>
+            <button type="button" class="db-x" data-size aria-label="Make <%= t.label %> wider or narrower">⤢</button>
+            <form method="post" action="/app/hq/boards/<%= board.id %>/tiles/<%= t.id %>/delete" style="display:inline"><button class="db-x" aria-label="Remove <%= t.label %>">×</button></form>
+          </span>
+        </div>
+        <% if (t.empty) { %>
+          <p class="db-empty"><%= t.empty %><% if (t.connect) { %> <a href="<%= t.connect %>">Connect</a><% } %></p>
+        <% } else if (t.view === 'table') { %>
+          <% if (!t.rows || !t.rows.length) { %><p class="db-empty">Nothing here yet.</p><% } else { %>
+          <table class="db-table"><thead><tr><% t.columns.forEach(function (c) { %><th scope="col"><%= c %></th><% }) %></tr></thead>
+            <tbody><% t.rows.forEach(function (r) { %><tr><% r.forEach(function (c, j) { %><td><%= j > 0 && typeof c === 'number' && t.money && t.columns[j] !== 'Left' && t.columns[j] !== 'CTR %' ? '$' + c.toLocaleString('en-US') : (typeof c === 'number' ? c.toLocaleString('en-US') : c) %></td><% }) %></tr><% }) %></tbody></table>
+          <% } %>
+        <% } else { %>
+          <div class="db-val"><%= t.display %></div>
+          <div class="db-sub<%= t.change ? (t.change.up ? ' up' : ' down') : '' %>"><%= t.when %><%= t.change && t.change.pct != null ? ' · ' + (t.change.up ? '+' : '') + t.change.pct + '% vs the week before' : '' %> · <%= t.source %></div>
+          <% if (t.alert) { %><div class="db-alert" role="status"><%= t.alert %></div><% } %>
+          <% if (t.goal) { %><div class="db-goal" role="img" aria-label="<%= t.goal.pct %>% of the <%= t.goal.display %> goal"><i style="width:<%= t.goal.pct %>%"></i></div><div class="db-sub"><%= t.goal.pct %>% of <%= t.goal.display %></div><% } %>
+          <% if (t.series && t.series.length > 1 && t.view === 'line') {
+               var vals = t.series.map(function (p) { return p.v == null ? 0 : p.v; });
+               var mx = Math.max.apply(null, vals.concat([1])), w = 300, h = 48, step = w / (vals.length - 1);
+               var pts = vals.map(function (v, k) { return (k * step).toFixed(1) + ',' + (h - 2 - (v / mx) * (h - 6)).toFixed(1); }); %>
+            <svg class="db-spark" viewBox="0 0 <%= w %> <%= h %>" preserveAspectRatio="none" role="img" aria-label="<%= t.label %> over time"><path class="area" d="M0,<%= h %> L<%= pts.join(' L') %> L<%= w %>,<%= h %> Z"/><path d="M<%= pts.join(' L') %>"/></svg>
+          <% } else if (t.series && t.view === 'bars') { var mx2 = Math.max.apply(null, t.series.map(function (p) { return p.v || 0; }).concat([1])); %>
+            <div class="db-bars" role="img" aria-label="<%= t.label %> by <%= t.weekly ? 'week' : 'day' %>"><% t.series.forEach(function (p) { %><i style="height:<%= Math.round(((p.v || 0) / mx2) * 100) %>%" title="<%= p.label %>: <%= p.v == null ? '–' : p.v %>"></i><% }) %></div>
+          <% } %>
+        <% } %>
+      </article>
+      <% }) %>
+    </div>
+    <p class="db-saved" aria-live="polite" data-saved></p>
+    <% if (!board.tiles.length) { %><p class="hq-small">This dashboard is empty. Add a tile below.</p><% } %>
+
+    <details class="hq-card db-add" open>
+      <summary><span class="eyebrow">Add a tile</span></summary>
+      <form method="post" action="/app/hq/boards/<%= board.id %>/tiles" class="db-form">
+        <label>Number<select name="metric" required>
+          <% var groups = {}; choices.forEach(function (c) { (groups[c.source] = groups[c.source] || []).push(c); }); Object.keys(groups).forEach(function (g) { %>
+            <optgroup label="<%= g %>"><% groups[g].forEach(function (c) { %><option value="<%= c.id %>"><%= c.label %><%= c.ready ? '' : ' (connect first)' %></option><% }) %></optgroup>
+          <% }) %>
+        </select></label>
+        <label>Show as<select name="view"><option value="number">Number</option><option value="line">Line</option><option value="bars">Bars</option><option value="table">Table</option></select></label>
+        <label>Over<select name="days"><% RANGES.forEach(function (d) { %><option value="<%= d %>"<%= d === 30 ? ' selected' : '' %>>Last <%= d %> days</option><% }) %></select></label>
+        <label>Goal (optional)<input name="goal" inputmode="decimal"></label>
+        <label>Alert below (optional)<input name="below" inputmode="decimal"></label>
+        <label>Alert above (optional)<input name="above" inputmode="decimal"></label>
+        <button class="hq-btn halo">Add tile</button>
+      </form>
+      <p class="hq-small">HQ numbers are by week. Numbers from connected accounts refresh every 10 minutes.</p>
+    </details>
+
+    <details class="hq-card" style="margin-top:14px">
+      <summary><span class="eyebrow">This dashboard</span></summary>
+      <form method="post" action="/app/hq/boards/<%= board.id %>/rename" class="db-form"><label>Name<input name="name" maxlength="60" value="<%= board.name %>"></label><button class="hq-btn">Rename</button></form>
+      <% if (boards.length < max) { %>
+      <form method="post" action="/app/hq/boards" class="db-form" style="margin-top:12px">
+        <label>New dashboard from<select name="template"><% templates.forEach(function (t) { %><option value="<%= t.id %>"><%= t.name %></option><% }) %></select></label>
+        <button class="hq-btn">Make another</button>
+      </form>
+      <% } %>
+      <form method="post" action="/app/hq/boards/<%= board.id %>/delete" data-confirm="Delete <%= board.name %>? Your numbers stay; only this layout goes." style="margin-top:12px"><button class="hq-link-btn ember">Delete this dashboard</button></form>
+    </details>
+  <% } %>
+</div>
+<script src="/js/hq.js" defer></script>
+<script src="/js/hq-boards.js" defer></script>
+<%- include('../partials/app-foot') %>

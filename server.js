@@ -40,6 +40,7 @@ const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
 const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
+const connectorRoutes = require('./lib/harness/connectors/routes');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
 const onboarding = require('./content/onboarding.json');
@@ -2019,6 +2020,8 @@ harness.hooks({
   },
 });
 app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
+// Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
+app.use(connectorRoutes({ requireAuth, flash }));
 
 // 127 HQ (lib/hq-routes.js): /app/hq, its connections and Read my week. Falls through to the 404 while HQ_LIVE is off.
 app.use(hqRoutes({ requireAuth, flash, track, reserveAi, refundAi, ageFromAi, aiRunsLeft }));
@@ -2096,6 +2099,7 @@ db.init().then(async () => {
     // 127 HQ: each connected Stripe account's last 12 weeks, refreshed once a day.
     hq.tick().catch((err) => console.error('[hq] tick', err.message));
     hqHarness.tick().catch((err) => console.error('[hq] check-in', err.message));
+    require('./lib/harness/connectors').log.purge().catch((err) => console.error('[connectors] purge', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.

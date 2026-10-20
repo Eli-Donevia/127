@@ -1,0 +1,33 @@
+<%# The Connections gallery (lib/harness/connectors gallery()): every app, one honest status each. %>
+<section class="ap-gallery" id="apps" aria-labelledby="ap-h">
+  <div class="ap-top">
+    <div>
+      <span class="eyebrow">Every app</span>
+      <h2 id="ap-h" class="h2" style="margin:6px 0 4px">Your accounts, in one place</h2>
+      <p class="ap-count"><b><%= apps.counts.connected %></b> connected · <b><%= apps.counts.ready %></b> ready to connect · <%= apps.counts.total %> in all</p>
+    </div>
+    <% if (typeof boardsOn !== 'undefined' && boardsOn) { %><a class="hq-btn" href="/app/hq/boards">Build a dashboard</a><% } %>
+    <input class="ap-search" type="search" placeholder="Find an app" aria-label="Find an app" data-ap-search>
+  </div>
+  <div class="ap-filters" role="group" aria-label="Show">
+    <button type="button" class="ap-filter" aria-pressed="true" data-ap-filter="all">All</button>
+    <button type="button" class="ap-filter" aria-pressed="false" data-ap-filter="connected">Connected</button>
+    <button type="button" class="ap-filter" aria-pressed="false" data-ap-filter="connect">Ready now</button>
+  </div>
+  <% apps.categories.forEach(function (cat) { %>
+  <div class="ap-cat" data-ap-cat>
+    <h3><%= cat.name %></h3>
+    <div class="ap-grid">
+      <% cat.apps.forEach(function (a) { var tag = a.href ? 'a' : 'div'; %>
+      <<%= tag %> class="ap-tile" data-status="<%= a.status %>" data-name="<%= a.name.toLowerCase() %>"<% if (a.href) { %> href="<%= a.href %>"<% } %> title="<%= [a.reads ? 'Reads: ' + a.reads : '', a.writes ? 'Writes: ' + a.writes : ''].filter(Boolean).join('. ') %>">
+        <span class="ap-mono" aria-hidden="true"><%= a.name.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) %></span>
+        <span class="ap-name"><%= a.name %></span>
+        <% if (a.account) { %><span class="ap-acct"><%= a.account %></span><% } %>
+        <span class="ap-pill <%= a.status %>"><%= a.label %></span>
+      </<%= tag %>>
+      <% }) %>
+    </div>
+  </div>
+  <% }) %>
+  <p class="ap-note">Coming means 127 is finishing its app with that company. Waiting on Legal means our lawyer is adding it to the Privacy Policy first. Anything that changes or sends in your accounts waits for your OK and shows in your activity.</p>
+</section>

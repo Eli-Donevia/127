@@ -1,0 +1,60 @@
+<%- include('../partials/app-head') %>
+<%# One connector (lib/harness/connectors detail()): what 127 reads and writes, how to connect, its log.
+    Keys are never shown back. %>
+<div class="hq ap-page">
+  <a class="hq-back" href="/app/hq/connect#apps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>All connections</a>
+  <div class="ap-head">
+    <span class="ap-mono" aria-hidden="true"><%= d.name.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) %></span>
+    <div><span class="eyebrow">Connections</span><h1><%= d.name %></h1></div>
+    <span class="ap-pill <%= d.status %>" style="margin:0 0 0 auto"><%= d.label %></span>
+  </div>
+
+  <section class="hq-card">
+    <div class="ap-kv">
+      <div><span>127 reads</span><span><%= d.reads || 'Nothing' %></span></div>
+      <div><span>127 writes</span><span><%= d.writes ? d.writes + ', after your OK' : 'Nothing' %></span></div>
+      <% if (d.conn) { %>
+        <div><span>Account</span><span><%= d.conn.label || 'Connected' %></span></div>
+        <div><span>Since</span><span><%= d.conn.since %></span></div>
+        <div><span>Last used</span><span><%= d.conn.used || 'Not yet' %></span></div>
+      <% } %>
+    </div>
+    <% if (d.conn && d.conn.error) { %><p class="hq-small" style="color:var(--danger)"><%= d.conn.error %></p><% } %>
+
+    <% if (d.status === 'legal') { %>
+      <p class="hq-small">Waiting on Legal. Our lawyer is adding <%= d.name %> to the Privacy Policy, then you can connect it here.</p>
+    <% } else if (d.status === 'coming') { %>
+      <p class="hq-small">Coming soon. <%= d.auth === 'oauth' ? '127 is finishing its app with ' + (d.provider || d.name) + ', so you can sign in with one tap.' : 'This one switches on shortly.' %></p>
+    <% } else if (d.auth === 'oauth' && (d.status === 'connect' || d.status === 'broken')) { %>
+      <form method="post" action="/app/hq/apps/<%= d.id %>/start" style="margin-top:14px">
+        <button class="hq-btn halo"<%= ageReview ? ' disabled' : '' %>>Sign in with <%= d.provider || d.name %></button>
+        <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's data with 127. You can disconnect any time.</p>
+      </form>
+    <% } else if (d.auth === 'key' && (d.status === 'connect' || d.status === 'broken' || (d.v1 && !d.conn))) { %>
+      <% if (d.v1 && !d.conn) { %><p class="hq-small"><%= d.id === 'stripe' ? 'Your HQ numbers already use the key on the Stripe card. For invoices, payment links and money reports, add a workflows key here.' : 'Your HQ numbers already come from the Shopify webhook. For product and order reports and product drafts, add an Admin API token here.' %></p><% } %>
+      <ol class="hq-steps">
+        <% d.steps.forEach(function (s) { %><li><span><%- s %></span></li><% }) %>
+      </ol>
+      <form method="post" action="/app/hq/apps/<%= d.id %>/connect" style="margin-top:14px">
+        <% d.fields.forEach(function (f) { %>
+        <div class="hq-f" style="margin-top:10px"><label for="f-<%= f.name %>"><%= f.label %><%= f.optional ? ' (optional)' : '' %></label><input class="hq-in" id="f-<%= f.name %>" name="<%= f.name %>"<% if (f.placeholder) { %> placeholder="<%= f.placeholder %>"<% } %> autocomplete="off" spellcheck="false"<%= f.optional ? '' : ' required' %><%= ageReview ? ' disabled' : '' %>></div>
+        <% }) %>
+        <p class="hq-small">127 checks it with <%= d.name %>, encrypts it and never shows it again.</p>
+        <button class="hq-btn halo" style="margin-top:14px" data-busy="Checking with <%= d.name %>…"<%= ageReview ? ' disabled' : '' %>>Connect <%= d.name %></button>
+        <p class="hq-small">By connecting, you agree to the <a href="/terms#13a-connected-accounts-and-hq">connected accounts terms</a> and confirm you're allowed to share this account's data with 127.</p>
+      </form>
+    <% } %>
+    <% if (d.conn) { %>
+      <form method="post" action="/app/hq/apps/<%= d.id %>/disconnect" data-confirm="Disconnect <%= d.name %>? 127 deletes its copy of the key. Delete it in <%= d.name %> too."><button class="hq-link-btn ember">Disconnect <%= d.name %></button></form>
+    <% } %>
+  </section>
+
+  <section class="hq-card" style="margin-top:14px">
+    <span class="eyebrow">Activity</span>
+    <% if (!d.activity.length) { %><p class="hq-small">Nothing yet. Every time 127 reads or changes something here, it shows up in this list.</p><% } else { %>
+    <ul class="ap-log"><% d.activity.forEach(function (a) { %><li><time datetime="<%= a.at %>"><%= a.at.slice(0, 16).replace('T', ' ') %></time><%= a.what %></li><% }) %></ul>
+    <% } %>
+  </section>
+</div>
+<script src="/js/hq.js" defer></script>
+<%- include('../partials/app-foot') %>
