@@ -2,7 +2,7 @@
 // items, their own tax rate, a valid-until date and their own terms (empty to start). Total = items + the member's
 // tax rate; 127 doesn't work out sales tax. A quote's private link is made on the server (POST .../quote/share), a
 // random token that stops at valid-until or after 90 days and can be turned off; 127 never sends it. The total is
-// the one thing lit in Pop. No example prices anywhere (L82 T2). Saves { from, quotes } as the member types.
+// the one thing lit in Tide. No example prices anywhere (L82 T2). Saves { from, quotes } as the member types.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

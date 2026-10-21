@@ -1,5 +1,5 @@
 // Idea scorecard (lib/tools 'ideas'): up to eight ideas scored 0 to 10 on the Idea Test's five questions
-// (lib/idea-test.js), ranked as the member scores. The leader is the one thing lit in Pop. Verdict bands match the
+// (lib/idea-test.js), ranked as the member scores. The leader is the one thing lit in Tide. Verdict bands match the
 // Idea Test's 75 and 50 lines, worded as what the answers say, not what will happen (Legal L92 HT3).
 (function () {
   'use strict';

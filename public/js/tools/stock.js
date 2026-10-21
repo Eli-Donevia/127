@@ -1,6 +1,6 @@
 // Stock and reorder (lib/tools 'stock'): each product's stock, weekly sales and reorder lead time. Weeks left =
 // on hand / sold a week; reorder by = today + weeks left - lead time. The product to reorder soonest is the one thing
-// lit in Pop. Saves { items } as the member types.
+// lit in Tide. Saves { items } as the member types.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

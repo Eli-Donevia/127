@@ -1,5 +1,5 @@
 // Cash runway (lib/tools 'cash'): cash today, money that repeats in and out, and one-offs on a given week; drawn as
-// thirteen weeks of balance with the tightest week lit in Pop (the one thing on the page). Monthly lines land in the
+// thirteen weeks of balance with the tightest week lit in Tide (the one thing on the page). Monthly lines land in the
 // week that holds the 1st of the month. Saves { start, cash, ins, outs, once } as the member types.
 (function () {
   'use strict';

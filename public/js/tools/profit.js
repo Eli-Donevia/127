@@ -1,6 +1,6 @@
 // Profit and break-even (lib/tools 'profit'): one offer's price and costs in; what a sale leaves, the sales that
 // cover the month, the real hourly rate and what a customer is worth out. The break-even point on the chart is the
-// one thing lit in Pop. "Try a price" moves every number without saving until the member keeps it.
+// one thing lit in Tide. "Try a price" moves every number without saving until the member keeps it.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el, svg = T.svg;

@@ -1,6 +1,6 @@
 // Conversion tracker (lib/tools 'conversion'): the member's funnel steps and one row of counts a week. Draws the
 // funnel with the rate between each step, the step that fell furthest below the member's own usual (the leak, the
-// one thing lit in Pop on the page), the week strip and the end-to-end trend. Saves { steps, weeks } as they type.
+// one thing lit in Tide on the page), the week strip and the end-to-end trend. Saves { steps, weeks } as they type.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el, svg = T.svg;

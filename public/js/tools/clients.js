@@ -1,6 +1,6 @@
 // Clients and sessions (lib/tools 'clients', Legal L92): each client's first name, one optional way to reach them,
 // the package and sessions bought, a short note and every session. Left = bought - done (a no-show isn't counted as
-// used). The active client with the fewest left is the one thing lit in Pop. The way to reach them is only ever a
+// used). The active client with the fewest left is the one thing lit in Tide. The way to reach them is only ever a
 // mailto: or tel: link here; nothing sends to it. Saves { clients } as the member types.
 (function () {
   'use strict';

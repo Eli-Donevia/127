@@ -1,6 +1,6 @@
 // Hours and tools audit (lib/tools 'hours'): last week's tasks tagged only me, repeat (hand it to an SOP, a helper
 // or an automation) or waste, and every tool paid for with its one job and whether it was used in 30 days. The
-// biggest repeat task is the one thing lit in Pop: that's the first to hand off.
+// biggest repeat task is the one thing lit in Tide: that's the first to hand off.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

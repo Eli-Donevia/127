@@ -1,7 +1,7 @@
 // Week builder (lib/tools 'week'): the member's three goals, the days and hours they work, and how many hours a week
 // each kind of block gets; "Build my week" lays the blocks out (deep work first thing, admin last, faith before the
 // day and health after it), then every block can be dragged, or moved and resized from its panel. The block on now or
-// next is the one thing lit in Pop. The week downloads as a calendar file that repeats weekly. No AI: the layout is
+// next is the one thing lit in Tide. The week downloads as a calendar file that repeats weekly. No AI: the layout is
 // the rules below. Device only (Legal L92 HT8): { goals, days, start, end, want, blocks } (times in minutes from
 // midnight) is kept in this browser under the member's id, and the calendar file and CSV are made here too.
 (function () {

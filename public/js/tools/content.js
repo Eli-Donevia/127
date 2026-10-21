@@ -1,6 +1,6 @@
 // Content calendar (lib/tools 'content'): three pillars, the weekdays the member posts, and four weeks of dated days
 // from a Monday. Each post day holds a pillar, a hook and where it stands (idea, ready, posted, then its views).
-// The next post not yet out is the one thing lit in Pop. Saves { pillars, platform, days, start, posts }.
+// The next post not yet out is the one thing lit in Tide. Saves { pillars, platform, days, start, posts }.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

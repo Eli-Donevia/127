@@ -1,6 +1,6 @@
 // Hook bank (lib/tools 'hooks'): 127's sixty hooks, captions and calls to action (state.content), and the member's
 // stars, their own written version of a hook and the views a used hook got. The hook with the most views is the one
-// thing lit in Pop. Copy works on the member's version when there is one, else on the template.
+// thing lit in Tide. Copy works on the member's version when there is one, else on the template.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

@@ -1,6 +1,6 @@
 // Checklists (lib/tools 'checklists'): the Store's four checklists (state.content, ids stable from the templates
 // manifest) as tap-to-check lists with progress. The launch countdown dates each group from the member's launch
-// day; the next group due is the one thing lit in Pop. Saves { done: { itemId: day }, launch }.
+// day; the next group due is the one thing lit in Tide. Saves { done: { itemId: day }, launch }.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;

@@ -1,7 +1,7 @@
 // Ad test planner (lib/tools 'adtest'): a capped test, the line (the most to pay for one result, by default what a
 // customer is worth in the member's Profit tool), and a row a day. The verdict follows the stop rule written before
 // the first dollar: stop at twice the line with nothing back, or once three lines are spent above the line; keep
-// going while under it. The point where the rule fires (or today's point) is the one thing lit in Pop.
+// going while under it. The point where the rule fires (or today's point) is the one thing lit in Tide.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el, svg = T.svg;

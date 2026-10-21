@@ -3,8 +3,8 @@
 // No outside scripts load on this page (L92 MO3).
 // Out: revenue, costs, profit and cash with the change on the month before, cash across twelve months, where the
 // money went, and what's due. Only the totals and the category rules are saved; a bank file's rows never leave the
-// page. Fields start empty and there are no example numbers (Legal L82). Accent: the cash line is the one neon (Ion,
-// Pop at its head); the biggest cost is lit in Pop.
+// page. Fields start empty and there are no example numbers (Legal L82). Accent: the cash line is the one neon (Tide,
+// Orchid at its head); the biggest cost is lit in Tide.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el, svg = T.svg;
@@ -116,8 +116,8 @@
     var gid = 'mo-g-' + uid(), fid = 'mo-f-' + uid();
     var defs = svg('defs');
     var g = svg('linearGradient', { id: gid, x1: 0, y1: 0, x2: 0, y2: 1 });
-    g.appendChild(svg('stop', { offset: '0', 'stop-color': '#5be4ff', 'stop-opacity': '.2' }));
-    g.appendChild(svg('stop', { offset: '1', 'stop-color': '#5be4ff', 'stop-opacity': '0' }));
+    g.appendChild(svg('stop', { offset: '0', 'stop-color': '#7cebf6', 'stop-opacity': '.2' }));
+    g.appendChild(svg('stop', { offset: '1', 'stop-color': '#7cebf6', 'stop-opacity': '0' }));
     var f = svg('filter', { id: fid, x: '-10%', y: '-40%', width: '120%', height: '180%' });
     f.appendChild(svg('feGaussianBlur', { stdDeviation: 2.5 }));
     defs.appendChild(g); defs.appendChild(f); s.appendChild(defs);
