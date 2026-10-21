@@ -1840,6 +1840,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await harness.forget(user.id, { email: user.email, keepAgreements: retainBilling });
   // The Founding Five: the application, its videos and the five's weeks.
   await foundingFive.forget(user.id);
+  // Perks and grants: the member's application drafts (lib/perks/draft.js).
+  await require('./lib/perks/draft').removeAll(user);
   await db.remove('users', user.id);
 }
 
