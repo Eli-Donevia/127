@@ -137,6 +137,10 @@ test.beforeEach(() => {
   process.env.CONNECTOR_FACEBOOK = 'on';
   process.env.OAUTH_META_ID = 'm-id';
   process.env.OAUTH_META_SECRET = 'm-secret';
+  process.env.CONNECTOR_X = 'on';
+  process.env.OAUTH_X_ID = 'x-id';
+  process.env.OAUTH_X_SECRET = 'x-secret';
+  delete process.env.X_DAILY_USD;
   process.env.HQ_POSTS = 'admins';
 });
 
@@ -171,7 +175,7 @@ test('photos: JPEG only, sized, and Instagram only between 4:5 and 1.91:1', asyn
   await assert.rejects(posts.setPhoto(b, p, 'instagram', Buffer.from('not a photo')), /JPEG/);
   await assert.rejects(posts.setPhoto(b, p, 'instagram', jpeg(1080, 1920)), /4:5 to 1.91:1/);
   await assert.rejects(posts.setPhoto(b, p, 'instagram', jpeg(200, 250)), /320/);
-  await assert.rejects(posts.setPhoto(b, p, 'tiktok', jpeg(1080, 1350)), /Instagram or Facebook/);
+  await assert.rejects(posts.setPhoto(b, p, 'tiktok', jpeg(1080, 1350)), /Pick where it goes/);
   assert.deepEqual(await posts.setPhoto(b, p, 'facebook', jpeg(1080, 1920)), { w: 1080, h: 1920, bytes: jpeg(1080, 1920).length }, 'Facebook takes a tall one');
 });
 
@@ -335,6 +339,69 @@ test('pages: the week, a draft, a photo upload, the OK, and the public photo lin
   assert.equal((await s.go(`/p/m/${id}/instagram/nope`)).status, 404);
   // Someone else's post is a 404.
   assert.equal((await s.go(at, { as: await member() })).status, 404);
+});
+
+test('X: the photo goes up as bytes, then the post; each one counts against a daily cap under $100', async () => {
+  const b = await boss();
+  const go = connectors.startOauth(b, 'x', 'https://127.test');
+  const u = new URL(go.url);
+  assert.equal(u.origin + u.pathname, 'https://x.com/i/oauth2/authorize');
+  assert.equal(u.searchParams.get('code_challenge_method'), 'S256');
+  assert.match(u.searchParams.get('scope'), /tweet\.write/);
+  on('POST', /api\.x\.com\/2\/oauth2\/token/, { access_token: 'X-TOKEN', refresh_token: 'X-R', expires_in: 7200 });
+  assert.equal((await connectors.finishOauth(b, go.pending, 'x', { code: 'c', state: go.pending.state }, 'https://127.test')).ok, true);
+  on('GET', /api\.x\.com\/2\/users\/me/, { data: { id: '42', username: 'northloop' } });
+  on('POST', /api\.x\.com\/2\/media\/upload/, { data: { id: '7777' } });
+  on('POST', /api\.x\.com\/2\/tweets/, { data: { id: '9001' } });
+  const xp = (await posts.places(b)).x;
+  assert.deepEqual(xp.accounts, [{ id: '42', name: '@northloop' }], JSON.stringify(xp));
+
+  assert.equal(posts.xCap(), 20);
+  process.env.X_DAILY_USD = '5000';
+  assert.equal(posts.xCap(), 100, 'never above $100 a day');
+  process.env.X_DAILY_USD = '0.3';
+  assert.equal(posts.xCost('Open 7 to 2.'), 0.015);
+  assert.equal(posts.xCost('Menu at northloop.coffee/menu or https://x.co'), 0.2);
+
+  const p = await posts.save(b, null, { text: 'Back on bar.', places: { x: { on: true, target: { id: '42', name: '@northloop' } } } });
+  await posts.setPhoto(b, p, 'x', jpeg(1600, 900));
+  await posts.approve(b, p);
+  later(60 * 1000);
+  calls = [];
+  await posts.tick();
+  const done = posts.get(b, p.id);
+  assert.equal(done.status, 'done', JSON.stringify(done.results));
+  assert.equal(done.results.x.url, 'https://x.com/i/web/status/9001');
+  const up = calls.find((c) => /media\/upload/.test(c.url));
+  assert.ok(up.body instanceof FormData, 'the bytes, not a link');
+  assert.equal(up.headers.authorization, 'Bearer X-TOKEN');
+  const tw = calls.find((c) => /2\/tweets/.test(c.url));
+  assert.deepEqual(JSON.parse(tw.body), { text: 'Back on bar.', media: { media_ids: ['7777'] } });
+  assert.equal(posts.xSpent(now), 0.015);
+
+  // A link post would pass the $0.30 cap: it can't be OK'd for today, and one already OK'd doesn't go.
+  const q = await posts.save(b, null, { text: 'See https://northloop.coffee', places: { x: { on: true, target: { id: '42', name: '@northloop' } } } });
+  assert.deepEqual(posts.problems(b, q), []);
+  await posts.approve(b, q);
+  process.env.X_DAILY_USD = '0.2';
+  later(60 * 1000);
+  calls = [];
+  await posts.tick();
+  assert.equal(posts.get(b, q.id).status, 'failed');
+  assert.match(posts.get(b, q.id).results.x.error, /today's limit/);
+  assert.equal(calls.filter((c) => /2\/tweets/.test(c.url)).length, 0, 'nothing spent');
+  assert.match(posts.problems(b, posts.get(b, q.id)).join(' '), /today's limit/);
+
+  // A post X refuses is given back to the day's total.
+  process.env.X_DAILY_USD = '20';
+  on('POST', /api\.x\.com\/2\/tweets/, { $status: 403 });
+  const r2 = await posts.save(b, null, { text: 'Nope', places: { x: { on: true, target: { id: '42', name: '@northloop' } } } });
+  await posts.approve(b, r2);
+  const before = posts.xSpent(now);
+  later(60 * 1000);
+  await posts.tick();
+  assert.equal(posts.get(b, r2.id).status, 'failed');
+  assert.equal(posts.xSpent(now), before);
 });
 
 test('account deletion takes posts and photos', async () => {

@@ -35,7 +35,7 @@
             <select name="<%= k %>_target" aria-label="Which <%= P.name %> account">
               <% P.accounts.forEach(function (a) { var v = a.id + '|' + a.name; %><option value="<%= v %>"<%= pl.target && pl.target.id === a.id ? ' selected' : '' %>><%= a.name %></option><% }) %>
             </select>
-          <% } else { %><span class="pc-mute"><%= P.error || (k === 'instagram' ? 'No business or creator account is linked to your Pages.' : 'No Pages on this account.') %></span><% } %>
+          <% } else { %><span class="pc-mute"><%= P.error || (k === 'instagram' ? 'No business or creator account is linked to your Pages.' : k === 'facebook' ? 'No Pages on this account.' : 'No account found. Reconnect it.') %></span><% } %>
         </div>
         <% if (P.connected && !P.held) { %>
         <div class="pc-photo">

@@ -45,7 +45,7 @@
     if (n) ta.addEventListener('input', function () { n.textContent = ta.value.length; });
   });
 
-  var MAXW = { instagram: 1440, facebook: 2048 };
+  var MAXW = { instagram: 1440, facebook: 2048, x: 2048 };
   var save = function () {
     var b = form.querySelector('button[name="next"][value="save"]');
     if (form.requestSubmit && b) form.requestSubmit(b);
