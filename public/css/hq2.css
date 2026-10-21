@@ -466,3 +466,35 @@
   .hq-draft-row { flex-direction: column; }
   .hq-draft-save .btn { flex: 1; justify-content: center; }
 }
+
+/* The first run (views/app/hq2/welcome.ejs): a short chat with an AI employee, phone first. */
+.fr { max-width: 640px; }
+.fr-head { display: flex; align-items: center; gap: 12px; margin: 4px 0 20px; }
+.fr-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; color: var(--ink, #f2f3f7); background: linear-gradient(160deg, #2a2d36, #15161b); border: 1px solid var(--line); flex: none; }
+.fr-head b { display: block; font-size: 15px; }
+.fr-head span { font-size: 13px; color: var(--slate); }
+.fr-chat { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fr-chat > li { max-width: 88%; }
+.fr-chat p { margin: 0; line-height: 1.5; font-size: 15px; }
+.fr-ai { align-self: flex-start; }
+.fr-ai p { padding: 12px 14px; border-radius: 4px 18px 18px 18px; background: var(--surface); border: 1px solid var(--line); }
+.fr-me { align-self: flex-end; }
+.fr-me p { padding: 10px 14px; border-radius: 18px 4px 18px 18px; background: rgba(124, 140, 255, .14); color: var(--ink, #f2f3f7); }
+.fr-act { align-self: stretch; max-width: 100% !important; margin: 4px 0 8px; }
+.fr-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.fr-plain summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; color: var(--slate); }
+.fr-plain[open] summary { margin-bottom: 8px; }
+.fr-act .hq-draft { margin-bottom: 10px; }
+.fr-pop { box-shadow: 0 0 0 1px rgba(124, 140, 255, .55); }
+.fr-skip { margin: 28px 0 0; text-align: center; }
+@media (max-width: 480px) {
+  .fr-chat > li { max-width: 94%; }
+  .fr-row .btn { flex: 1 1 100%; justify-content: center; }
+  .fr-act > .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fr-chat > li { animation: fr-in .32s ease both; }
+  .fr-chat > li:nth-child(2) { animation-delay: .08s; }
+  .fr-chat > li:nth-child(3) { animation-delay: .16s; }
+  @keyframes fr-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}

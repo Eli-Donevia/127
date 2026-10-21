@@ -39,6 +39,14 @@
   <% if (typeof nd !== 'undefined' && nd) { %><%- include('../../partials/hq-nudge', { nd: nd }) %><% } %>
   <div class="h2-grid">
     <div class="h2-stack">
+      <% if (typeof firstRun !== 'undefined' && firstRun) { var frDone = firstRun.steps.filter(function (x) { return x.done; }).length; %>
+      <section class="hq-card h2-move" aria-labelledby="fr-h">
+        <span class="eyebrow">Your first win · <%= frDone %> of 3</span>
+        <h2 id="fr-h" class="h2-steel"><%= firstRun.site ? 'Your website, then your first 25' : 'Your first 25, with every message written' %></h2>
+        <p><%= firstRun.host.first %>, your AI sales lead, picks up where you left off.</p>
+        <div class="h2-actions"><a class="btn" href="/app/hq/welcome">Keep going <span class="arrow"></span></a></div>
+      </section>
+      <% } %>
       <% if (typeof f25 !== 'undefined' && f25) { %>
       <section class="hq-card h2-move" aria-labelledby="f25-h">
         <span class="eyebrow">Your First 25</span>

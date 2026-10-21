@@ -128,7 +128,7 @@ test.beforeEach(() => {
   process.env.HARNESS_V2 = 'on';
   process.env.TERMS_LIVE = 'true';
   process.env.PRIVACY_LIVE = 'true';
-  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS', 'BRAIN_AUTOFILL']) delete process.env[k];
+  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS', 'BRAIN_AUTOFILL', 'HQ_FIRST_RUN', 'HQ_PREMIUM']) delete process.env[k];
 });
 process.on('exit', () => {
   try {
@@ -287,6 +287,59 @@ test('Brain auto-fill: robots.txt, no social profiles, one read, visible text on
   } finally {
     anthropic._setClient(null);
     autofill._setDeps({ fetch: (memberId) => require('../lib/harness/ctx').makeFetch({ memberId }) });
+  }
+});
+
+// ---------- The first run (HQ_FIRST_RUN) ----------
+test('first run: payoff first, Ava says she is AI, steps tick from what is there, site builders get their site first', async () => {
+  const u = await member('free');
+  let r = await s.go('/app/hq', { as: u });
+  assert.notEqual(r.headers.get('location'), '/app/hq/welcome', 'off by default');
+  process.env.HQ_FIRST_RUN = 'on';
+  process.env.HQ_PREMIUM = 'on';
+  const ws = process.env.HQ_WORKSPACE;
+  process.env.HQ_WORKSPACE = 'on';
+  try {
+    r = await s.go('/app/hq', { as: u });
+    assert.equal(r.headers.get('location'), '/app/hq/welcome', 'a new member starts here, once');
+    let page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /I'm Ava, an AI employee in your HQ\. I'm AI, not a person\./);
+    assert.match(page, /AI sales lead · AI employee/);
+    assert.match(page, /25 real businesses near you/);
+    assert.match(page, /action="\/app\/hq\/welcome\/business"/);
+    assert.doesNotMatch(page, /Set up my first 25/, 'the win waits for the business');
+    assert.doesNotMatch(page.slice(page.indexOf("fr-chat")), /teammate|replace your|autopilot|while you sleep/i);
+    // Today now shows the first win card, and Day one waits until it's done.
+    const today = await (await s.go('/app/hq', { as: u })).text();
+    assert.match(today, /Your first win · 0 of 3/);
+    assert.doesNotMatch(today, /Day one ·/);
+    await s.go('/app/hq/welcome/business', { as: u, form: { what: 'Websites for gyms', audience: 'Gym owners', city: 'Des Moines, IA' } });
+    assert.equal(harness.brain.snapshot(u).business.what, 'Websites for gyms');
+    page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /Make my 127 link/);
+    await s.go('/app/hq/welcome/later', { as: u, form: { what: 'tools' } });
+    page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /href="\/app\/hq\/w\/leads\.first_25\?in_service=Websites\+for\+gyms&amp;in_city=Des\+Moines%2C\+IA"/);
+    assert.match(page, /you send each one yourself/);
+    // Came in through the site builder: the site first.
+    const v = await member('free', { leadSource: 'site-tonight' });
+    await harness.brain.update(v, { business: { what: 'Pottery classes' } });
+    await harness.wins.markOffer(v.id, 'firstrun-tools-later');
+    page = await (await s.go('/app/hq/welcome', { as: v })).text();
+    assert.match(page, /your website first, then 25 real businesses/);
+    assert.match(page, /href="\/site-tonight">Build my site/);
+    await harness.wins.markOffer(v.id, 'source-site');
+    page = await (await s.go('/app/hq/welcome', { as: v })).text();
+    assert.match(page, /That's your first win\./);
+    assert.ok(harness.wins.offerSeen(v.id, 'firstrun-done'));
+    assert.match(await (await s.go('/app/hq', { as: v })).text(), /Day one ·/, 'setup shows after the payoff');
+    // Skip it all.
+    const w = await member('free');
+    await s.go('/app/hq/welcome/later', { as: w, form: { what: 'all' } });
+    assert.notEqual((await s.go('/app/hq', { as: w })).headers.get('location'), '/app/hq/welcome');
+  } finally {
+    if (ws === undefined) delete process.env.HQ_WORKSPACE;
+    else process.env.HQ_WORKSPACE = ws;
   }
 });
 
