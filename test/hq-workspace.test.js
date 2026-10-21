@@ -394,20 +394,22 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   assert.equal((await s.go('/app/hq/team', { as: u })).status, 404);
   process.env.HQ_TEAM = 'on';
   const gallery = await (await s.go('/app/hq/team', { as: u })).text();
-  assert.match(gallery, /Sales helper/);
-  assert.match(gallery, /AI helper · Finds people to talk to[^<]* · Uses: Gmail, Calendly \(reads only\) · Budget: 400 credits a month/);
-  assert.doesNotMatch(gallery, /\bHire\b/);
+  assert.match(gallery, /Ava, AI sales lead/);
+  assert.match(gallery, /AI employee · In Builder<\/p>\s*<p class="h2-sub">Finds people to talk to[^<]*<\/p>\s*<p class="hq-small">Uses: Gmail, Calendly \(reads only\) · Budget: 400 credits a month/);
+  assert.match(gallery, /Hire your first<\/span><span class="steel">AI employee\./);
+  assert.doesNotMatch(gallery, /AI helper|replace|autopilot/i);
+  assert.match(gallery, /Hire Ava/); // L83 R4: "hire" is fine next to AI employees
   const r = await s.go('/app/hq/team/hire/sales_rep', { as: u, form: { budget: '50' } });
   const t = team.list(u)[0];
   assert.equal(r.headers.get('location'), `/app/hq/team/${t.id}`);
   assert.equal(t.budget, 50);
   const sch = skills.scheduleOf(u.id, 'daily_numbers');
   assert.equal(sch.team, t.id);
-  await assert.rejects(team.hire(u, 'sales_rep'), /already have a Sales helper/);
+  await assert.rejects(team.hire(u, 'sales_rep'), /Ava, AI sales lead is already on your team/);
   assert.equal(team.allows(t.id, 'gmail'), true);
   assert.equal(team.allows(t.id, 'gmail', true), false);
   assert.equal(team.allows(t.id, 'stripe'), false);
-  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Sales helper/);
+  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Ava, AI sales lead/);
 
   // Paused: the sweep skips its skill and says why.
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: {} });
@@ -423,14 +425,14 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   };
   let out = await due();
   assert.deepEqual(out.ids, []);
-  assert.match(out.after.lastError, /Sales helper is paused/);
+  assert.match(out.after.lastError, /Ava, AI sales lead is paused/);
   // Back to work: the run is the role's, and the Activity log says so.
   process.env.HQ_ACTIVITY = 'on';
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: { resume: '1' } });
   out = await due();
   assert.equal(out.ids.length, 1);
   assert.equal(db.get('runs', out.ids[0]).source, `team:${t.id}`);
-  assert.ok(activity.list(u.id, { who: 'Sales helper' }).some((a) => a.action === 'started'));
+  assert.ok(activity.list(u.id, { who: 'Ava, AI sales lead' }).some((a) => a.action === 'started'));
   assert.equal(team.report(u, t).done, 1);
   // Off for the member: its turns skip too.
   delete process.env.HQ_TEAM;
