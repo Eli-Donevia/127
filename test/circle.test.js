@@ -388,7 +388,12 @@ test('circleProfile: Klaviyo properties for members and approved applicants only
     circle_discord_url: 'https://discord.gg/test',
     circle_profile_url: 'https://127.test/app/circle#profile',
     circle_handbook_url: 'https://127.test/app/circle/handbook',
+    // Not joined yet (billing moved them, the tick hasn't run): the seat they are taking.
+    circle_seat: '01',
+    circle_founding_seat: true,
   });
+  const fifth = await addUser(w, 'Fifth', { tier: 'circle', circle: { order: 5, seat: 3, joinedAt: '2026-11-20T12:00:00Z' } });
+  assert.deepStrictEqual([circle.circleProfile(fifth, { store: w.store, now: T0, env: ENV })].map((p) => [p.circle_seat, p.circle_founding_seat]), [['03', false]]);
   assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call_text, 'Thursday, December 3 at 8pm ET');
   assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call, '2026-12-04T01:00:00.000Z');
 });
