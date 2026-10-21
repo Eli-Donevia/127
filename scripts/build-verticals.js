@@ -110,8 +110,10 @@ async function shots(list) {
   for (const v of list) {
     await page.goto(`file://${path.join(V.SAMPLES_DIR, `${v.slug}.html`)}`, { waitUntil: 'load' });
     await page.waitForTimeout(400);
-    // A full-page shot pins fixed bars (the phone call-to-action bar, a sticky nav) mid-page: take them out.
+    // A full-page shot pins fixed bars (the phone call-to-action bar, a sticky nav) mid-page: take them out. The
+    // made-up-business note goes too: the phone's corners clip it, and the caption under the phone says it instead.
     await page.evaluate(() => {
+      for (const el of document.querySelectorAll('.sample-bar')) el.style.setProperty('display', 'none', 'important');
       for (const el of document.querySelectorAll('body *')) {
         const pos = getComputedStyle(el).position;
         if (pos === 'fixed' || (pos === 'sticky' && el.getBoundingClientRect().top > 200)) el.style.setProperty('display', 'none', 'important');
