@@ -35,6 +35,12 @@ What the app does: new members pay through Stripe Checkout (subscription mode, n
 
 Until Stripe is connected, upgrade buttons say payments aren't on yet. For testing, set `DEMO_BILLING=true` to simulate upgrades with no payment (always ignored when `NODE_ENV=production`).
 
+## Packs (one-time purchases)
+
+`SHOP_PACKS=on` turns on /packs, a landing page per pack, and the Packs row with one-tap Buy buttons on the homepage (`admins` shows them to ADMIN_EMAILS only; off or unset hides all of it). The lineup and prices live in `content/shop/packs.json`; each pack lists Store items by id plus its own files in `content/shop/files/<kit>/`. Builder and Circle members own every pack (`builderGets: "all"`). Buyers need no account: Checkout runs in payment mode, the success page and the webhook record the purchase once, and the buyer gets a private link (on the page, in their browser session and by email). A full refund in Stripe ends that purchase.
+
+`npm run stripe:setup` creates one product and one-time price per pack (lookup key `pack_<slug>`). Apple Pay and Google Pay show in Checkout on their own once they're on in Dashboard → Settings → Payment methods. After changing the motion runtime or the prompt library, rebuild the pack files with `node scripts/build-motion-pack.js` and `node scripts/build-ai-pack.js` (the tests fail if they're stale).
+
 ## Other integrations
 
 | What | Secrets | Notes |

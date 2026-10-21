@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+<main class="pk pk-lib">
+  <section class="pk-hero pk-hero-index">
+    <div class="wrap">
+      <p class="pk-lbl"><a href="/packs">Packs</a> <span aria-hidden="true">/</span> Your files</p>
+      <h1 class="pk-h1"><%= bought ? 'It’s yours.' : pack.name %></h1>
+      <p class="pk-line"><%= bought ? 'Your ' + pack.name + ' is ready below.' : 'Everything in your pack, ready to download.' %></p>
+      <% if (link) { %>
+      <div class="pk-keep">
+        <p><b>Keep this link.</b> It's private and it's how you get back to these files from any device.<% if (emailed) { %> We emailed it to you too.<% } else { %> Bookmark it or copy it now.<% } %></p>
+        <div class="pk-keep-row"><input class="pk-keep-in" type="text" readonly value="<%= link %>" aria-label="Your private link" onclick="this.select()"><button class="btn ghost sm" type="button" data-copy="<%= link %>">Copy</button></div>
+      </div>
+      <% } %>
+    </div>
+  </section>
+  <section class="pk-inside">
+    <div class="wrap">
+      <% sections.forEach(function (s) { %>
+      <div class="pk-group">
+        <% if (sections.length > 1) { %><h2 class="pk-h3"><%= s.name %></h2><% } %>
+        <ul class="pk-dl">
+          <% s.rows.forEach(function (r) { %>
+          <li>
+            <div><span class="pk-t"><%= r.title %></span><% if (r.summary) { %><span class="pk-s"><%= r.summary %></span><% } %></div>
+            <div class="pk-dl-files">
+              <% r.files.forEach(function (f) { %><a class="btn ghost sm" href="<%= f.href %>"><%= f.label %></a><% }) %>
+              <% r.links.forEach(function (l) { %><a class="btn ghost sm" href="<%= l.href %>" target="_blank" rel="noopener"><%= l.label %></a><% }) %>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <% }) %>
+    </div>
+  </section>
+  <% if (!user || user.tier === 'free') { %><%- include('builder-band') %><% } %>
+</main>
+<script src="/js/packs.js" defer></script>
+<%- include('../partials/foot') %>

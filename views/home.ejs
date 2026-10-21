@@ -320,6 +320,8 @@
     </div>
   </section>
 
+  <% if (typeof packs !== 'undefined' && packs) { %><%- include('partials/home-packs', { packs: packs }) %><% } %>
+
   <!-- WHAT $0 GETS YOU: the free plan, itemized like a receipt. Real items only, no made-up "values". -->
   <section class="r5">
     <div class="wrap r5-grid">
