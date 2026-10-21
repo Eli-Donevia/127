@@ -249,3 +249,9 @@ html.hq-light .hqp-rail-hl { background: rgba(18, 18, 30, 0.05); }
 html.hq-light .hqp-map [data-k="workflows"] i { background: var(--pop); }
 html.hq-light .hqp-map [data-k="prompts"] i { background: var(--ion); }
 html.hq-light .hqp-map [data-k="connections"] i { background: rgba(18, 18, 30, 0.55); }
+
+/* the ask bar in light: a white capsule in a bright steel rim, a pale lens, and an ink go button */
+html.hq-light .hqp .hqp-ask { background: linear-gradient(180deg, #ffffff 0%, #f1f1f5 100%) padding-box, conic-gradient(from 200deg, #c9cad3, #ffffff 10%, #a3a4b1 22%, #e3e6f1 40%, #8d8f9c 55%, #ffffff 72%, #b9bbc6 86%, #c9cad3) border-box; box-shadow: inset 0 1px 0 #fff, inset 0 -8px 14px -10px rgba(18, 18, 30, .12), 0 20px 30px -22px rgba(18, 18, 30, .4); }
+html.hq-light .hqp .hqp-ask .orb .core { background: radial-gradient(circle at 50% 30%, #ffffff, #dcdde4 75%); box-shadow: inset 0 3px 6px rgba(18, 18, 30, .25), 0 0 0 2px #d4d5dc, 0 0 0 3px #fff; }
+html.hq-light .hqp .hqp-ask:focus-within .orb .core, html.hq-light .hqp .hqp-ask .orb[data-state="thinking"] .core { box-shadow: inset 0 3px 6px rgba(18, 18, 30, .25), 0 0 0 2px rgba(74, 87, 217, .45), 0 0 0 3px #fff; }
+html.hq-light .hqp .hqp-ask button.go { background: linear-gradient(180deg, #2c2d35 0%, #0b0b0e 100%); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 6px 14px -6px rgba(18, 18, 30, .6); }

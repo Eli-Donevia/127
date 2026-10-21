@@ -1643,6 +1643,14 @@ test("HQ_PREMIUM: HQ's look follows the device by default, Light and Dark stick,
     assert.match(page, /prefers-color-scheme: light/);
     assert.match(page, /\/css\/hq-light\.css/);
     assert.match(page, /data-ws-look/);
+    // the premium ask bar opens on the member's own question and carries jobs from their Brain, never the old line
+    assert.match(page, /class="h2-talk hqp-ask"/);
+    assert.match(page, /aria-label="What&#39;s next(, [^"?]+)?\?"/);
+    assert.match(page, /data-ask-ex="\[/);
+    assert.doesNotMatch(page, /Tell 127 what you want done/);
+    const ex = require('../lib/harness/ask-bar').forUser({ ...u, name: 'Ana Ruiz' });
+    assert.equal(ex.prompt, "What's next, Ana?");
+    assert.ok(ex.examples.length >= 3 && ex.examples.every((x) => !/\$|income|earn|guarantee/i.test(x)));
 
     u.hqTheme = 'light';
     await db.save('users', u);

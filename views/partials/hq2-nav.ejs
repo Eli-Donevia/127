@@ -26,6 +26,21 @@
 <% } %>
 <% var P = typeof ws !== 'undefined' && ws && ws.premium; %>
 <% if (P) { %><div class="hqp-hz" aria-hidden="true" data-hz><i></i></div><% } %>
+<% if (P && ws.ask) { var A = ws.ask; %>
+<%# The premium ask bar: a capsule in a steel rim, its lens live liquid chrome (hq-premium-ui.js), opening on the
+    member's own question and turning through jobs from their Brain (lib/harness/ask-bar.js). %>
+<div class="h2-talk hqp-ask" data-ask-ex="<%= JSON.stringify(A.examples) %>">
+  <div>
+    <button type="button" class="orb" id="orb" data-state="idle" aria-label="Talk to 127"><span class="dust"></span><span class="ring"></span><span class="core"><canvas data-chrome aria-hidden="true"></canvas></span></button>
+    <div class="orb-status" id="orb-status" aria-hidden="true">Talk</div>
+  </div>
+  <form id="talk" method="post" action="/app/hq/talk" autocomplete="off">
+    <span class="hqp-ex" aria-hidden="true"><span data-ask-line><%= A.prompt %></span></span>
+    <input name="text" id="talk-in" aria-label="<%= A.prompt %>" maxlength="500" enterkeyhint="go">
+    <button class="go" aria-label="Start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+  </form>
+</div>
+<% } else { %>
 <div class="h2-talk">
   <div>
     <button type="button" class="orb" id="orb" data-state="idle" aria-label="Talk to 127"><span class="dust"></span><span class="ring"></span><span class="core"></span></button>
@@ -36,6 +51,7 @@
     <button class="go">Go</button>
   </form>
 </div>
+<% } %>
 <div class="h2-say" id="say" role="status" aria-live="polite"></div>
 <% if (P && tab === 'today') { var n = ws.shelf || {}, has = {}; ws.groups.forEach(function (g) { g.items.forEach(function (i) { has[i.id] = 1; }); }); %>
 <p class="hqp-uses">127 plans from <% [['workflows', 'workflows', '/app/hq/start'], ['prompts', 'prompts', '/app/hq/prompts'], ['store', 'templates', '/app/hq/store'], ['connections', 'apps', '/app/hq/connect']].forEach(function (k) { if (!n[k[0]] || !has[k[0]]) return; %><a href="<%= k[2] %>"><b data-count="<%= n[k[0]] %>"><%= n[k[0]] %></b> <%= k[1] %></a><% }) %><span>and your Brain</span></p>

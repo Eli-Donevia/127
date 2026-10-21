@@ -416,3 +416,30 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
   .hqp-rail-hl { transition: none; }
   .hqp .ws-link .ws-i { transition: none; }
 }
+
+/* ---- The ask bar (Eli, Oct 21 04:23Z: "100x more premium"). A dark glass capsule in a brushed-steel rim; the lens on
+   the left is live liquid chrome with Pop in its highlights (public/js/vendor/liquid-chrome.js, MIT), which stirs as
+   the member types and runs fast while 127 works. The grey line opens on the member's own question and turns through
+   jobs from their Brain three times, then rests (lib/harness/ask-bar.js). */
+.hqp .hqp-ask { padding: 9px; gap: 12px; border-radius: 24px; border: 1px solid transparent;
+  background: linear-gradient(180deg, #16161b 0%, #0b0b0e 100%) padding-box, conic-gradient(from 200deg, #2b2c33, #b9bbc6 10%, #34353d 22%, #6e707b 40%, #1c1d22 55%, #c9cbd6 72%, #2b2c33 86%, #2b2c33) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), inset 0 -10px 18px -10px rgba(0, 0, 0, .8), 0 26px 34px -26px rgba(0, 0, 0, .95); }
+.hqp .hqp-ask:focus-within { border-color: transparent; }
+.hqp .hqp-ask::after { display: none; }
+.hqp .hqp-ask .orb { width: 46px; height: 46px; }
+.hqp .hqp-ask .orb .core { overflow: hidden; background: radial-gradient(circle at 50% 30%, #23242b, #050506 72%); box-shadow: inset 0 3px 7px rgba(0, 0, 0, .95), 0 0 0 2px #26272d, 0 0 0 3px rgba(255, 255, 255, .1); transition: box-shadow .4s var(--out); }
+.hqp .hqp-ask .orb .core canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; display: block; }
+.hqp .hqp-ask .orb .core.live::after { display: none; }
+.hqp .hqp-ask .orb .ring { display: block; inset: 0; z-index: 1; border-radius: 50%; background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, .32), transparent 42%); -webkit-mask: none; mask: none; animation: none; pointer-events: none; }
+.hqp .hqp-ask:focus-within .orb .core, .hqp .hqp-ask .orb[data-state="thinking"] .core { box-shadow: inset 0 3px 7px rgba(0, 0, 0, .6), 0 0 0 2px #26272d, 0 0 12px rgba(124, 140, 255, .45); }
+.hqp .hqp-ask form { position: relative; align-items: center; }
+.hqp .hqp-ask input { position: relative; z-index: 1; }
+.hqp-ex { position: absolute; left: 8px; right: 58px; top: 50%; height: 24px; margin-top: -12px; overflow: hidden; pointer-events: none; color: var(--muted); font-size: 17px; line-height: 24px; letter-spacing: -.01em; white-space: nowrap; transition: opacity .2s; }
+.hqp-ex span { display: block; overflow: hidden; text-overflow: ellipsis; transition: transform .5s var(--out), opacity .4s; }
+.hqp-ex span.out { transform: translateY(-100%); opacity: 0; }
+.hqp-ex span.in { transform: translateY(100%); opacity: 0; transition: none; }
+.hqp-ask.has-text .hqp-ex { opacity: 0; }
+.hqp .hqp-ask button.go { flex: none; display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 0; background: linear-gradient(180deg, #f6f7fb 0%, #c3c6d2 100%); color: #0a0a0c; box-shadow: inset 0 1px 0 #fff, inset 0 -2px 3px rgba(0, 0, 0, .18), 0 6px 14px -6px rgba(0, 0, 0, .8); transition: transform .18s var(--out), box-shadow .18s; }
+.hqp .hqp-ask button.go:active { transform: translateY(1px) scale(.96); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .3), 0 2px 6px -4px rgba(0, 0, 0, .8); }
+.hqp .hqp-ask button.go svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-reduced-motion: reduce) { .hqp-ex span { transition: none; } }
