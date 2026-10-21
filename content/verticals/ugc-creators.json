@@ -10,44 +10,133 @@
   "mark": "two seconds.",
   "lede": "127 gives a UGC creator a portfolio site, a rate card with usage rights priced in, pitch emails that name the product, and a brief for every shoot.",
   "week": [
-    { "when": "Mon", "job": "Pick five brands to pitch", "hand": "A brand list from public stores that fit what you film" },
-    { "when": "Tue", "job": "Pitch them", "hand": "Pitch emails that name the product and the clip you'd make" },
-    { "when": "Wed", "job": "Shoot a spec clip", "hand": "A 15-second brief: the hook, the shots, the line you say" },
-    { "when": "Fri", "job": "Price a deal", "hand": "A rate card with usage rights, whitelisting and raw footage" }
+    {
+      "when": "Mon",
+      "job": "Pick five brands to pitch",
+      "hand": "A brand list from public stores that fit what you film"
+    },
+    {
+      "when": "Tue",
+      "job": "Pitch them",
+      "hand": "Pitch emails that name the product and the clip you'd make"
+    },
+    {
+      "when": "Wed",
+      "job": "Shoot a spec clip",
+      "hand": "A 15-second brief: the hook, the shots, the line you say"
+    },
+    {
+      "when": "Fri",
+      "job": "Price a deal",
+      "hand": "A rate card with usage rights, whitelisting and raw footage"
+    }
   ],
   "site": {
     "design": "spotlight",
-    "sample": { "business": "Maya Films", "what": "UGC creator for skincare and home brands", "services": "One 15-second video, $150\nThree videos, $400\nUsage rights, 90 days, add $100", "city": "" },
-    "caption": "Maya Films is made up. Built by the free site builder."
+    "sample": {
+      "business": "Juniper Hart Films",
+      "what": "UGC creator for skincare and home brands",
+      "services": "One 15-second video\nThree videos\nUsage rights, 90 days\nRates on request",
+      "city": ""
+    },
+    "caption": "Juniper Hart Films is made up. Built by the free site builder."
   },
-  "entry": { "door": "creator", "label": "Get my brand list free", "fine": "Pick what you film. Free, no card." },
+  "entry": {
+    "door": "creator",
+    "label": "Get my brand list free",
+    "fine": "Pick what you film. Free, no card."
+  },
   "pack": {
     "name": "UGC Pack",
     "price": 39,
     "line": "A portfolio site, rate card, pitch emails, briefs and a usage rights checklist.",
-    "items": ["site-creator", "site-link-in-bio", "brand-deals", "hook-bank", "content-planner", "batch-day", "video-prompts-ugc", "deck-sales", "email-quote-follow-up"],
-    "kitFrom": { "kit": "creator", "files": ["01-rate-card", "02-brand-pitch-emails", "03-content-brief", "04-usage-rights-checklist"] },
+    "items": [
+      "site-creator",
+      "site-link-in-bio",
+      "brand-deals",
+      "hook-bank",
+      "content-planner",
+      "batch-day",
+      "video-prompts-ugc",
+      "deck-sales",
+      "email-quote-follow-up"
+    ],
+    "kitFrom": {
+      "kit": "creator",
+      "files": [
+        "01-rate-card",
+        "02-brand-pitch-emails",
+        "03-content-brief",
+        "04-usage-rights-checklist"
+      ]
+    },
     "prompts": [
-      { "id": "01-spec-clip", "title": "Spec clip plan", "summary": "Plans a spec clip for a brand you want to work with, from their product page.", "prompt": "I want to pitch [brand]. Here's their product page: [paste the text]. Plan a 15-second spec clip: three hook options for the first two seconds, five shots, the line I say on camera, and the on-screen words. No claims the product page doesn't make.", "use": "Shoot it before you pitch, and send it with the email." },
-      { "id": "02-hook-test", "title": "Hook test", "summary": "Ten first-two-second hooks for one product, sorted by type.", "prompt": "Write ten hooks for the first two seconds of a UGC video for [product]. Two each: a problem, a surprising use, a reaction, a comparison, a question. Each under ten words, and say what's on screen during it.", "use": "Film three, post the one that holds." },
-      { "id": "03-deal-recap", "title": "Deal recap email", "summary": "Recaps a brand deal in one email so nothing is left to memory.", "prompt": "Write a recap email to [brand contact] after we agreed: [deliverables], [deadline], [price], [usage rights and how long], [whitelisting yes/no], [raw footage yes/no], [payment terms]. Ask them to reply \"confirmed\". Friendly and short.", "use": "Send it the same day you agree, before you film." }
+      {
+        "id": "01-spec-clip",
+        "title": "Spec clip plan",
+        "summary": "Plans a spec clip for a brand you want to work with, from their product page.",
+        "prompt": "I want to pitch [brand]. Here's their product page: [paste the text]. Plan a 15-second spec clip: three hook options for the first two seconds, five shots, the line I say on camera, and the on-screen words. No claims the product page doesn't make, and no before-and-after.",
+        "use": "Shoot it before you pitch, and send it with the email."
+      },
+      {
+        "id": "02-hook-test",
+        "title": "Hook test",
+        "summary": "Ten first-two-second hooks for one product, sorted by type.",
+        "prompt": "Write ten hooks for the first two seconds of a UGC video for [product]. Two each: a problem, a surprising use, a reaction, a comparison, a question. Each under ten words, and say what's on screen during it.",
+        "use": "Film three, post the one that holds."
+      },
+      {
+        "id": "03-deal-recap",
+        "title": "Deal recap email",
+        "summary": "Recaps a brand deal in one email so nothing is left to memory.",
+        "prompt": "Write a recap email to [brand contact] after we agreed: [deliverables], [deadline], [price], [usage rights and how long], [whitelisting yes/no], [raw footage yes/no], [payment terms]. Ask them to reply \"confirmed\". Friendly and short.",
+        "use": "Send it the same day you agree, before you film."
+      }
+    ],
+    "notes": [
+      "Pitch emails end with your name, business, mailing address and \"Reply 'no thanks' and I won't follow up.\" Say \"I've been using [product]\" only when it's true. No before-and-after."
     ]
   },
-  "hq": ["ugc", "content", "video", "sales"],
+  "hq": [
+    "ugc",
+    "content",
+    "video",
+    "sales"
+  ],
   "hooks": [
     "Brands buy the first two seconds. Here are ten.",
-    "How I price usage rights.",
+    "How to price usage rights.",
     "The pitch email that names the product.",
     "Shoot the spec clip before you pitch.",
     "A UGC portfolio needs three clips, not thirty.",
-    "The recap email I send after every deal."
+    "The recap email to send after every deal."
   ],
   "ads": [
-    { "angle": "Brand list", "hook": "New to UGC? Get 25 brands that fit what you film.", "body": "127's free Brand list picks brands from public stores and writes the first message for each.", "headline": "Get your brand list free" },
-    { "angle": "The pack", "hook": "Rate card, pitch emails, briefs, usage rights.", "body": "The UGC Pack, $39 once, or with Builder.", "headline": "The UGC Pack, $39" },
-    { "angle": "Portfolio", "hook": "Your UGC portfolio, tonight.", "body": "Type your name and what you film. 127 builds the site free.", "headline": "Build your UGC site free" }
+    {
+      "angle": "Brand list",
+      "hook": "New to UGC? Get 25 brands that fit what you film.",
+      "body": "127's free Brand list picks brands from public stores and writes the first message for each.",
+      "headline": "Get your brand list free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Rate card, pitch emails, briefs, usage rights.",
+      "body": "The UGC Pack, $39 once, or with Builder.",
+      "headline": "The UGC Pack, $39"
+    },
+    {
+      "angle": "Portfolio",
+      "hook": "Your UGC portfolio, tonight.",
+      "body": "Type your name and what you film. 127 builds the site free.",
+      "headline": "Build your UGC site free"
+    }
   ],
   "keyword": "UGC",
-  "next": ["Product photographers", "TikTok Shop affiliates", "Voiceover artists"],
-  "legal": "Brand list rules (G4) apply: sources shown, and the #ad line for paid or gifted posts."
+  "next": [
+    "Product photographers",
+    "TikTok Shop affiliates",
+    "Voiceover artists"
+  ],
+  "legal": "Brand list rules (G4) apply: sources shown, and the #ad line for paid or gifted posts.",
+  "legalRead": "L102"
 }

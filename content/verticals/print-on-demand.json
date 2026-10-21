@@ -34,12 +34,12 @@
   "site": {
     "design": "market",
     "sample": {
-      "business": "Trailhead Type",
+      "business": "Dawnpack Apparel",
       "what": "Apparel brand for people who hike before work",
       "services": "Dawn patrol tee, $28\nSummit mug, $18\nTrail map poster, $24",
       "city": ""
     },
-    "caption": "Trailhead Type is made up. Built by the free site builder."
+    "caption": "Dawnpack Apparel is made up. Built by the free site builder."
   },
   "entry": {
     "door": "site",
@@ -68,7 +68,7 @@
         "id": "01-niche-test",
         "title": "Niche test",
         "summary": "Checks a niche before you design for it: who buys, what they already wear and the inside jokes.",
-        "prompt": "I'm thinking of a print-on-demand line for [niche]. Tell me: who buys for this group (themselves or gifts), what they already wear or use, five phrases or inside jokes they'd recognize that aren't trademarked, what they'd find cringe, and three places they gather online. End with a yes, maybe or no and why.",
+        "prompt": "I'm thinking of a print-on-demand line for [niche]. Tell me: who buys for this group (themselves or gifts), what they already wear or use, five phrases or inside jokes they'd recognize (I'll check each one for trademarks before I use it), what they'd find cringe, and three places they gather online. End with a yes, maybe or no and why.",
         "use": "Run it before you design anything. Check every phrase for trademarks yourself before you print it."
       },
       {
@@ -85,6 +85,10 @@
         "prompt": "My printer charges [$] base for a [product], shipping is [$], my store fee is [%], payment fee is [%]. I sell it for [$]. Show what one sale leaves, then what's left if I spend [$] on ads per sale. Table, then one sentence.",
         "use": "Run it per product before you run any ad."
       }
+    ],
+    "notes": [
+      "No celebrities' names or faces; no team, college, brand or character names; no song lyrics or movie lines. Check USPTO's trademark search and your platform's rules before you print.",
+      "AI-made people are never shown as real customers. Label any AI image as a mockup."
     ]
   },
   "hq": [
@@ -116,7 +120,7 @@
     },
     {
       "angle": "Margin",
-      "hook": "Does your shirt still make money after ads?",
+      "hook": "What's left of each sale after the printer's cut?",
       "body": "The pack's margin check shows it in one table.",
       "headline": "Check your margin"
     }
@@ -127,5 +131,6 @@
     "Sticker shops",
     "Poster shops"
   ],
-  "legal": "Phrases and designs must be checked for trademarks and copyright before printing; the pack says so."
+  "legal": "Phrases and designs must be checked for trademarks and copyright before printing; the pack says so.",
+  "legalRead": "L102"
 }

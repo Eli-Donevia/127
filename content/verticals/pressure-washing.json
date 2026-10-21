@@ -10,29 +10,97 @@
   "mark": "whole ad.",
   "lede": "127 gives a pressure washing business a photo-first site, quotes by square foot, the half-clean reel every washer posts, and a flyer for the neighbors on the street you're already on.",
   "week": [
-    { "when": "Mon", "job": "Quote from photos", "hand": "A price sheet by square foot, surface and soft wash" },
-    { "when": "Tue", "job": "Film the half-clean", "hand": "A 15-second reel brief: the line, the sound, the reveal" },
-    { "when": "Thu", "job": "Flyer the street", "hand": "A neighbor flyer that names the house you just washed (with the owner's OK)" },
-    { "when": "Fri", "job": "Ask for reviews", "hand": "A review ask that follows Google's rules" }
+    {
+      "when": "Mon",
+      "job": "Quote from photos",
+      "hand": "A price sheet by square foot, surface and soft wash"
+    },
+    {
+      "when": "Tue",
+      "job": "Film the half-clean",
+      "hand": "A 15-second reel brief: the line, the sound, the reveal"
+    },
+    {
+      "when": "Thu",
+      "job": "Flyer the street",
+      "hand": "A neighbor flyer that names the house you just washed (with the owner's OK)"
+    },
+    {
+      "when": "Fri",
+      "job": "Ask for reviews",
+      "hand": "A review ask that follows Google's rules"
+    }
   ],
   "site": {
     "design": "beacon",
-    "sample": { "business": "Brightline Exterior Wash", "what": "Pressure washing and soft washing for homes", "services": "Driveway, up to 600 sq ft, $150\nHouse soft wash, from $299\nDeck or patio, from $120", "city": "Johnston" },
-    "caption": "Brightline is made up. Built by the free site builder."
+    "sample": {
+      "business": "Glasswater Exterior Wash",
+      "what": "Pressure washing and soft washing for homes",
+      "services": "Driveway, up to 600 sq ft, $150\nHouse soft wash, from $299\nDeck or patio, from $120",
+      "city": "Johnston"
+    },
+    "caption": "Glasswater is made up. Built by the free site builder."
   },
-  "entry": { "door": "site", "label": "Build my washing site free", "fine": "Type your business and your services. Free, no card.", "query": { "what": "Pressure washing" } },
+  "entry": {
+    "door": "site",
+    "label": "Build my washing site free",
+    "fine": "Type your business and your services. Free, no card.",
+    "query": {
+      "what": "Pressure washing"
+    }
+  },
   "pack": {
     "name": "Pressure Washing Pack",
     "price": 29,
     "line": "A photo-first site, square-foot quotes, reel briefs, flyers and review asks.",
-    "items": ["site-local-service", "quote", "pricing-lab", "jobs-tracker", "email-quote-follow-up", "recipe-saved-replies", "email-review-ask", "video-prompts-local-service", "social-story"],
+    "items": [
+      "site-local-service",
+      "quote",
+      "pricing-lab",
+      "jobs-tracker",
+      "email-quote-follow-up",
+      "recipe-saved-replies",
+      "email-review-ask",
+      "video-prompts-local-service",
+      "social-story"
+    ],
     "prompts": [
-      { "id": "01-sqft-quote", "title": "Quote by square foot", "summary": "Prices by surface and square foot, with a minimum and a soft wash line.", "prompt": "Build a pressure washing price sheet for [business]. Target per hour [$]. Rates by surface: concrete [$/sq ft], wood deck [ ], house soft wash by stories [ ], roof [ ], gutters [ ]. Minimum job [$]. Give a menu and a text I send with a quote from a customer's photos.", "use": "Ask for photos and rough size before you drive out." },
-      { "id": "02-half-clean-reel", "title": "Half-clean reel", "summary": "The 15-second reel with the clean line through the dirt.", "prompt": "Write a 15-second reel brief for a [surface] at [business]: the first second (the clean line), the sound, three shots, the reveal, on-screen words (six at most) and a caption with the town and price range.", "use": "Film every job. Post the best one each week." },
-      { "id": "03-neighbor-flyer", "title": "Neighbor flyer", "summary": "A short flyer for the street you're working on.", "prompt": "Write a flyer for [business] to leave on the street where we just washed [house, only with the owner's OK]. 50 words at most: what we did, a price for the same job, how to book, and our name, phone and address. No discount pressure.", "use": "Leave them the same day. Ask the owner first." }
+      {
+        "id": "01-sqft-quote",
+        "title": "Quote by square foot",
+        "summary": "Prices by surface and square foot, with a minimum and a soft wash line.",
+        "prompt": "Build a pressure washing price sheet for [business]. Target per hour [$]. Rates by surface: concrete [$/sq ft], wood deck [ ], house soft wash by stories [ ], roof [ ], gutters [ ]. Minimum job [$]. Give a menu and a text I send with a quote from a customer's photos.",
+        "use": "Ask for photos and rough size before you drive out.",
+        "rules": [
+          "texts"
+        ]
+      },
+      {
+        "id": "02-half-clean-reel",
+        "title": "Half-clean reel",
+        "summary": "The 15-second reel with the clean line through the dirt.",
+        "prompt": "Write a 15-second reel brief for a [surface] at [business]: the first second (the clean line), the sound, three shots, the reveal, on-screen words (six at most) and a caption with the town and price range.",
+        "use": "Film every job. Post the best one each week."
+      },
+      {
+        "id": "03-neighbor-flyer",
+        "title": "Neighbor flyer",
+        "summary": "A short flyer for the street you're working on.",
+        "prompt": "Write a flyer for [business] to leave on the street where we just washed [house, only with the owner's OK]. 50 words at most: what we did, a price for the same job, how to book, and our name, phone and address. No discount pressure.",
+        "use": "Leave them the same day. Ask the owner first."
+      }
+    ],
+    "notes": [
+      "Flyers go on doors or into hands, never in mailboxes (18 U.S.C. 1725).",
+      "Many cities don't allow wash water or cleaners into storm drains. Check yours."
     ]
   },
-  "hq": ["washing", "reviews", "local", "content"],
+  "hq": [
+    "washing",
+    "reviews",
+    "local",
+    "content"
+  ],
   "hooks": [
     "Half the driveway clean is the whole ad.",
     "Quote from a photo before you drive out.",
@@ -42,11 +110,31 @@
     "Your minimum job price, and why you need one."
   ],
   "ads": [
-    { "angle": "Free site", "hook": "Washer with great before-and-afters and no site?", "body": "Type your business and services. 127 builds a photo-first site free.", "headline": "Build your washing site free" },
-    { "angle": "The pack", "hook": "Square-foot quotes, reel briefs, flyers.", "body": "The Pressure Washing Pack, $29 once.", "headline": "The Pressure Washing Pack, $29" },
-    { "angle": "Pricing", "hook": "What should a driveway cost?", "body": "The pack's price sheet does it by square foot.", "headline": "Price by square foot" }
+    {
+      "angle": "Free site",
+      "hook": "Washer with great before-and-afters and no site?",
+      "body": "Type your business and services. 127 builds a photo-first site free.",
+      "headline": "Build your washing site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Square-foot quotes, reel briefs, flyers.",
+      "body": "The Pressure Washing Pack, $29 once.",
+      "headline": "The Pressure Washing Pack, $29"
+    },
+    {
+      "angle": "Pricing",
+      "hook": "What should a driveway cost?",
+      "body": "The pack's price sheet does it by square foot.",
+      "headline": "Price by square foot"
+    }
   ],
   "keyword": "WASH",
-  "next": ["Window cleaners", "Gutter cleaners", "Holiday light installers"],
-  "legal": null
+  "next": [
+    "Window cleaners",
+    "Gutter cleaners",
+    "Holiday light installers"
+  ],
+  "legal": "Flyers go on doors or into hands, never in mailboxes (18 U.S.C. 1725). Many cities don't allow wash water or cleaners into storm drains.",
+  "legalRead": "L102"
 }

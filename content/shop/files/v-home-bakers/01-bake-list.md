@@ -7,7 +7,7 @@ The bake list post, the story frames and the cutoff, from what you plan to bake.
 Copy everything in the box into Claude, ChatGPT or Gemini. Fill in the [brackets] first.
 
 ```
-This week [bakery] is baking: [items with prices]. Orders close [day/time], pickup is [day, time, place]. Write the bake list post (short, items and prices in a list), three story frames (the list, a close-up, last call), and a pinned comment with how to order: [link].
+This week [bakery] is baking: [items with prices]. Orders close [day/time], pickup is [day, time, place]. Write the bake list post (short, items and prices in a list), three story frames (the list, a close-up, last call), and a pinned comment with how to order: [link]. Add my cottage food notice at the end of the post exactly as written: [the home-kitchen notice your state requires].
 ```
 
 ## How to use it

@@ -1,6 +1,6 @@
 # Brand pitch emails
 
-Five short emails for reaching brands and following up. Short wins: a brand manager reads these on a phone between meetings. Swap every bracket, and send each one from your own email, one at a time.
+Five short emails for reaching brands and following up. Short wins: a brand manager reads these on a phone between meetings. Swap every bracket, and send each one from your own email, one at a time. Every pitch carries your business name, a mailing address and an easy way to say no.
 
 ## 1. The first pitch
 
@@ -8,19 +8,27 @@ Subject: Video idea for [product]
 
 Hi [first name],
 
-I make short videos for [type of brand]. I've been using [product] for [time] and I have an idea for an ad: [one sentence on the hook, for example "a 15-second before and after of my morning routine with the serum as the last step"].
+I make short videos for [type of brand]. [Only if it's true: I've been using [product] for [time].] I have an idea for an ad: [one sentence on the hook, for example "a 15-second morning routine with the serum as the last step"].
 
 Here are three videos I've made for brands like yours: [link].
 
 If you're making new ads this month, I'd love to film this one. My rates are here: [link to rate card].
 
 [Your name]
+[Your business name], [mailing address]
+Reply "no thanks" and I won't follow up.
 
 ## 2. The follow-up (4 to 5 days later)
 
+Send it as a reply in the same thread as the first pitch, so the "Re:" is true. If they said no, don't send it.
+
 Subject: Re: Video idea for [product]
 
-Hi [first name], one more idea in case the first didn't fit: [second hook in one sentence]. Happy to film a short test so you can see the angle before committing. [Your name]
+Hi [first name], one more idea in case the first didn't fit: [second hook in one sentence]. Happy to film a short test so you can see the angle before committing.
+
+[Your name]
+[Your business name], [mailing address]
+Reply "no thanks" and I won't follow up.
 
 ## 3. After a yes
 

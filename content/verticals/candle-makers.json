@@ -70,15 +70,18 @@
         "id": "01-scent-page",
         "title": "Scent page",
         "summary": "Describes one scent so a shopper can almost smell it: a place, a moment and the notes.",
-        "prompt": "Write the product page for [scent name] from [shop], a hand-poured [wax] candle.\n\nNotes: top [ ], middle [ ], base [ ]. Size and burn time: [ ]. Price: [ ].\n\nGive: a name line, two sentences that put the scent in a real place and moment (a kitchen in October, a cabin after rain), the notes in plain words, how it burns, and care in one line. No health or aromatherapy claims.",
+        "prompt": "Write the product page for [scent name] from [shop], a hand-poured [wax] candle.\n\nNotes: top [ ], middle [ ], base [ ]. Size and burn time: [ ]. Price: [ ].\n\nGive: a name line, two sentences that put the scent in a real place and moment (a kitchen in October, a cabin after rain), the notes in plain words, how it burns (the burn time from my own burn test), and care in one line that points to the fire-safety label on the candle. No health or aromatherapy claims, and no \"non-toxic\", \"clean-burning\" or \"all-natural\" unless I write \"I can show this\".",
         "use": "One per scent. Read it out loud; if it sounds like a perfume ad, cut a line."
       },
       {
         "id": "02-wholesale-pitch",
         "title": "Wholesale pitch to a local shop",
         "summary": "A short, honest note to a gift shop or boutique asking if they'd carry your candles.",
-        "prompt": "Write a short email to [shop name], a [kind of shop] in [town], asking if they'd carry candles from [my shop]. What I know about them: [something true you noticed]. My wholesale terms: [price per candle, minimum order]. Keep it under 120 words, one question at the end, no pressure. Add my name, business and mailing address at the bottom and a line that says if it's a no, I won't write again.",
-        "use": "Send one at a time, to shops you'd actually want to be in."
+        "prompt": "Write a short email to [shop name], a [kind of shop] in [town], asking if they'd carry candles from [my shop]. What I know about them: [something true you noticed]. My wholesale terms: [price per candle, minimum order]. Keep it under 120 words, one question at the end, no pressure.",
+        "use": "Send one at a time, to shops you'd actually want to be in.",
+        "rules": [
+          "pitch"
+        ]
       },
       {
         "id": "03-batch-cost",
@@ -87,6 +90,9 @@
         "prompt": "Help me price my candles. One batch makes [n] candles. Costs per batch: wax [$], fragrance oil [$], wicks [$], vessels [$], labels [$], packaging [$]. Pouring and curing take me [hours]. Show the cost per candle, what's left at [retail price] and at [wholesale price], and the price where my time is paid at [$ per hour]. Show the math in a table.",
         "use": "Run it every time a supplier price changes."
       }
+    ],
+    "notes": [
+      "No \"non-toxic\", \"clean-burning\" or \"all-natural\" unless you can show it. Burn time comes from your own burn tests. The care line points to the fire-safety label on each candle."
     ]
   },
   "hq": [
@@ -118,8 +124,8 @@
     },
     {
       "angle": "Pricing",
-      "hook": "Is your candle price paying for your time?",
-      "body": "The Candle Pack's batch cost sheet shows what one candle costs and what's left.",
+      "hook": "Does your candle price count your pouring time?",
+      "body": "The Candle Pack's batch cost sheet works it out from your own costs.",
       "headline": "Price your candles right"
     }
   ],
@@ -129,5 +135,6 @@
     "Home goods makers",
     "Ceramics studios"
   ],
-  "legal": "No aromatherapy or health claims about scents."
+  "legal": "No aromatherapy or health claims about scents.",
+  "legalRead": "L102"
 }

@@ -55,6 +55,31 @@ test('every built vertical has its kit, its sample site and its poster, and they
   }
 });
 
+test('Legal L102: texts, pitches and plans carry their lines, notes lead the README, noted verticals wait for a read', () => {
+  const a = V.all();
+  let tagged = 0;
+  for (const v of a.list) {
+    for (const p of v.pack.prompts) {
+      const file = V.promptFile(v, p);
+      if ((p.rules || []).includes('texts')) assert.match(file, /Reply STOP to opt out/, `${v.slug}/${p.id}`);
+      if ((p.rules || []).includes('pitch')) assert.match(file, /mailing address[^\n]*no thanks/, `${v.slug}/${p.id}`);
+      if ((p.rules || []).includes('recurring')) assert.match(file, /how to cancel/, `${v.slug}/${p.id}`);
+      if ((p.rules || []).length) tagged += 1;
+    }
+    // Ads name the pack's price and no other money (VT3).
+    for (const ad of v.ads) for (const m of [ad.hook, ad.body, ad.headline].join(' ').match(/\$\d+/g) || []) assert.equal(Number(m.slice(1)), v.pack.price, `${v.slug} ad "${ad.angle}"`);
+    if (v.pack.notes) {
+      const readme = fs.readFileSync(path.join(V.KITS_DIR, v.kit, 'README.md'), 'utf8');
+      for (const n of v.pack.notes) assert.ok(readme.includes(n), `${v.slug} README has its notes`);
+    }
+    if (v.legal) assert.ok(v.legalRead, `${v.slug} has a legal note that Legal has read`);
+  }
+  assert.ok(tagged >= 15, 'the texts, pitch and plan prompts are tagged');
+  const breeders = V.get('dog-breeders');
+  assert.equal(V.isPublic(breeders), true);
+  assert.equal(V.isPublic({ ...breeders, legalRead: null }), false, 'a note Legal has not read keeps it at admins');
+});
+
 test('vertical packs join the shop unlisted: sold on their page, not on /packs or the bundle page', () => {
   const c = shop.catalog();
   assert.deepEqual(c.problems, []);

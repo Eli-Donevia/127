@@ -34,12 +34,12 @@
   "site": {
     "design": "northstar",
     "sample": {
-      "business": "Ironside Athletic",
+      "business": "Tamarack Strength House",
       "what": "Strength and conditioning gym with group classes",
       "services": "Drop-in class, $20\nUnlimited classes, monthly, $139\nIntro week, 3 classes, $29",
       "city": "Des Moines"
     },
-    "caption": "Ironside Athletic is made up. Built by the free site builder."
+    "caption": "Tamarack Strength House is made up. Built by the free site builder."
   },
   "entry": {
     "door": "site",
@@ -71,22 +71,33 @@
         "title": "New member welcome series",
         "summary": "Five short emails for a new member's first two weeks.",
         "prompt": "Write a five-email welcome series for new members at [gym]. Day 0: welcome and what to bring. Day 2: how the first class goes. Day 5: meet the coaches [names, one line each]. Day 9: the schedule and how to book. Day 14: check in, ask how it's going. Each under 120 words, signed by [owner]. No promises about weight loss or results.",
-        "use": "Set it up once in your email tool and let it run."
+        "use": "Set it up once in your email tool and let it run.",
+        "rules": [
+          "recurring"
+        ]
       },
       {
         "id": "02-quiet-members",
         "title": "Quiet member check-in",
         "summary": "A personal text for a member who hasn't been in for two weeks.",
-        "prompt": "Write three versions of a short text from [coach] at [gym] to a member who hasn't checked in for two weeks. Warm, no guilt, one question, offer a class time [ ]. Under 30 words each, with a way to opt out.",
-        "use": "Send them from your phone, one by one, every Thursday."
+        "prompt": "Write three versions of a short text from [coach] at [gym] to a member who hasn't checked in for two weeks. Warm, no guilt, one question, offer a class time [ ]. Under 30 words each. Nothing in them makes cancelling harder.",
+        "use": "Send them from your phone, one by one, every Thursday.",
+        "rules": [
+          "texts"
+        ]
       },
       {
         "id": "03-challenge-plan",
         "title": "Six-week challenge plan",
         "summary": "Plans an in-gym challenge: the rules, the weekly posts, the check-ins and the finale.",
-        "prompt": "Plan a six-week in-gym challenge at [gym] for [members or newcomers]. Price [ ]. Include: rules and what counts (attendance, not body weight), the weekly post, a weekly check-in message, the finale day, and how we'll celebrate. No before-and-after body photos, no weight-loss claims.",
+        "prompt": "Plan a six-week in-gym challenge at [gym] for [members or newcomers]. Price [ ]. Include: rules and what counts (attendance, not body weight), the weekly post, a weekly check-in message, the finale day, and how we'll celebrate. Everyone who meets the attendance bar gets the same reward: no drawing, ranking or winner's prize. No before-and-after body photos, no weight-loss claims, and kids on camera only with a parent's OK.",
         "use": "Run it twice a year. Count attendance, not pounds."
       }
+    ],
+    "notes": [
+      "Kids on camera only with a parent's OK. Members on camera only with their OK.",
+      "The challenge rewards everyone who meets the attendance bar the same way: no drawing, ranking or winner's prize on a paid entry.",
+      "Monthly memberships say the price, how often it charges and how to cancel, and follow your state's health club law. Quiet-member and win-back messages never stand in the way of a cancel."
     ]
   },
   "hq": [
@@ -120,7 +131,7 @@
       "angle": "Retention",
       "hook": "Know who's gone quiet before they cancel.",
       "body": "The pack's retention sheet lists them every Thursday.",
-      "headline": "Keep members coming"
+      "headline": "See who's gone quiet"
     }
   ],
   "keyword": "CLASS",
@@ -129,5 +140,6 @@
     "Pilates studios",
     "Martial arts schools"
   ],
-  "legal": "No weight-loss or health result claims; members on camera only with their OK."
+  "legal": "No weight-loss or health result claims; members on camera only with their OK.",
+  "legalRead": "L102"
 }

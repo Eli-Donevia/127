@@ -8,45 +8,133 @@
   "description": "A quote-first site, a pricing sheet by home size, recurring schedule texts, checklists and review asks for house cleaning businesses.",
   "h1": "Quote it in a text. Book it the same day.",
   "mark": "same day.",
-  "lede": "127 gives a cleaning business a site that quotes by home size, a price sheet that counts drive time, the checklists your team cleans by and the texts that keep homes on a schedule.",
+  "lede": "127 gives a cleaning business a site that quotes by home size, a price sheet that counts drive time, the checklists your team cleans by and the schedule texts for recurring homes.",
   "week": [
-    { "when": "Mon", "job": "Quote three homes", "hand": "A pricing sheet by bedrooms, bathrooms, extras and drive time" },
-    { "when": "Tue", "job": "Clean by the checklist", "hand": "Room-by-room checklists for standard, deep and move-out cleans" },
-    { "when": "Thu", "job": "Confirm next week", "hand": "Reminder and reschedule texts for recurring homes" },
-    { "when": "Fri", "job": "Ask for reviews", "hand": "A review ask that follows Google's rules" }
+    {
+      "when": "Mon",
+      "job": "Quote three homes",
+      "hand": "A pricing sheet by bedrooms, bathrooms, extras and drive time"
+    },
+    {
+      "when": "Tue",
+      "job": "Clean by the checklist",
+      "hand": "Room-by-room checklists for standard, deep and move-out cleans"
+    },
+    {
+      "when": "Thu",
+      "job": "Confirm next week",
+      "hand": "Reminder and reschedule texts for recurring homes"
+    },
+    {
+      "when": "Fri",
+      "job": "Ask for reviews",
+      "hand": "A review ask that follows Google's rules"
+    }
   ],
   "site": {
     "design": "beacon",
-    "sample": { "business": "Clearbrook Cleaning", "what": "House cleaning, standard, deep and move-out cleans", "services": "Standard clean, 2 bed 1 bath, from $140\nDeep clean, from $260\nMove-out clean, from $300", "city": "Urbandale" },
+    "sample": {
+      "business": "Clearbrook Cleaning",
+      "what": "House cleaning, standard, deep and move-out cleans",
+      "services": "Standard clean, 2 bed 1 bath, from $140\nDeep clean, from $260\nMove-out clean, from $300",
+      "city": "Urbandale"
+    },
     "caption": "Clearbrook Cleaning is made up. Built by the free site builder."
   },
-  "entry": { "door": "site", "label": "Build my cleaning site free", "fine": "Type your business and your cleans. Free, no card.", "query": { "what": "House cleaning" } },
+  "entry": {
+    "door": "site",
+    "label": "Build my cleaning site free",
+    "fine": "Type your business and your cleans. Free, no card.",
+    "query": {
+      "what": "House cleaning"
+    }
+  },
   "pack": {
     "name": "Cleaning Pack",
     "price": 29,
     "line": "A quote-first site, price sheet, checklists, schedule texts and review asks.",
-    "items": ["site-local-service", "quote", "email-quote-follow-up", "jobs-tracker", "pricing-lab", "sop-template", "recipe-booking-link", "recipe-saved-replies", "email-review-ask", "video-prompts-local-service"],
+    "items": [
+      "site-local-service",
+      "quote",
+      "email-quote-follow-up",
+      "jobs-tracker",
+      "pricing-lab",
+      "sop-template",
+      "recipe-booking-link",
+      "recipe-saved-replies",
+      "email-review-ask",
+      "video-prompts-local-service"
+    ],
     "prompts": [
-      { "id": "01-quote", "title": "Quote by home size", "summary": "A price list by bedrooms, bathrooms and extras, from your time per room and target hourly rate.", "prompt": "Build a house cleaning price list. My target per hour [$] per cleaner. Time: per bedroom [min], per bathroom [min], kitchen [min], extras (fridge, oven, windows, baseboards) [min each], drive time average [min]. Give standard, deep and move-out prices for 1 to 4 bedrooms, the extras list, and a text I send with a quote.", "use": "Quote in the first reply. People book the first clear price." },
-      { "id": "02-checklists", "title": "Room-by-room checklists", "summary": "Checklists for standard, deep and move-out cleans your team can follow.", "prompt": "Write room-by-room checklists for [business]: kitchen, bathrooms, bedrooms, living areas, entry. Three levels: standard, deep, move-out (what's added at each). Short lines a cleaner can check off on a phone.", "use": "Print one per job, or keep them in your jobs app." },
-      { "id": "03-schedule-texts", "title": "Recurring schedule texts", "summary": "Reminder, running late, reschedule and after-clean texts for recurring homes.", "prompt": "Write short texts for [business]: the day-before reminder, running late, need to reschedule, after the clean (with a photo note), and the one-month check-in for a recurring home. Under 30 words each, with STOP to opt out.", "use": "Save them as text shortcuts." }
+      {
+        "id": "01-quote",
+        "title": "Quote by home size",
+        "summary": "A price list by bedrooms, bathrooms and extras, from your time per room and target hourly rate.",
+        "prompt": "Build a house cleaning price list. My target per hour [$] per cleaner. Time: per bedroom [min], per bathroom [min], kitchen [min], extras (fridge, oven, windows, baseboards) [min each], drive time average [min]. Give standard, deep and move-out prices for 1 to 4 bedrooms, the extras list, and a text I send with a quote.",
+        "use": "Quote in the first reply. People book the first clear price.",
+        "rules": [
+          "texts"
+        ]
+      },
+      {
+        "id": "02-checklists",
+        "title": "Room-by-room checklists",
+        "summary": "Checklists for standard, deep and move-out cleans your team can follow.",
+        "prompt": "Write room-by-room checklists for [business]: kitchen, bathrooms, bedrooms, living areas, entry. Three levels: standard, deep, move-out (what's added at each). Short lines a cleaner can check off on a phone.",
+        "use": "Print one per job, or keep them in your jobs app."
+      },
+      {
+        "id": "03-schedule-texts",
+        "title": "Recurring schedule texts",
+        "summary": "Reminder, running late, reschedule and after-clean texts for recurring homes.",
+        "prompt": "Write short texts for [business]: the day-before reminder, running late, need to reschedule, after the clean (with a photo note), and the one-month check-in for a recurring home. Under 30 words each.",
+        "use": "Save them as text shortcuts.",
+        "rules": [
+          "texts",
+          "recurring"
+        ]
+      }
     ]
   },
-  "hq": ["cleaning", "reviews", "local", "frontdesk"],
+  "hq": [
+    "cleaning",
+    "reviews",
+    "local",
+    "frontdesk"
+  ],
   "hooks": [
     "Quote in the first text. People book the first clear price.",
     "How I'd price a 3-bed, 2-bath clean.",
     "Room-by-room checklists for a deep clean.",
-    "The day-before text that stops no-shows.",
+    "The day-before text for every booking.",
     "Asking for Google reviews without breaking the rules.",
     "Drive time is a cost. Put it in the price."
   ],
   "ads": [
-    { "angle": "Free site", "hook": "Cleaning business without a website?", "body": "Type your business and your cleans. 127 builds a quote-first site free.", "headline": "Build your cleaning site free" },
-    { "angle": "The pack", "hook": "Price sheet, checklists, schedule texts.", "body": "The Cleaning Pack, $29 once.", "headline": "The Cleaning Pack, $29" },
-    { "angle": "Pricing", "hook": "How much should a deep clean cost?", "body": "The pack's price sheet works it out from your time per room.", "headline": "Price your cleans" }
+    {
+      "angle": "Free site",
+      "hook": "Cleaning business without a website?",
+      "body": "Type your business and your cleans. 127 builds a quote-first site free.",
+      "headline": "Build your cleaning site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Price sheet, checklists, schedule texts.",
+      "body": "The Cleaning Pack, $29 once.",
+      "headline": "The Cleaning Pack, $29"
+    },
+    {
+      "angle": "Pricing",
+      "hook": "How much should a deep clean cost?",
+      "body": "The pack's price sheet works it out from your time per room.",
+      "headline": "Price your cleans"
+    }
   ],
   "keyword": "CLEAN",
-  "next": ["Airbnb turnover cleaners", "Office cleaners", "Carpet cleaners"],
+  "next": [
+    "Airbnb turnover cleaners",
+    "Office cleaners",
+    "Carpet cleaners"
+  ],
   "legal": null
 }

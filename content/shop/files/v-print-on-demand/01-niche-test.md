@@ -7,7 +7,7 @@ Checks a niche before you design for it: who buys, what they already wear and th
 Copy everything in the box into Claude, ChatGPT or Gemini. Fill in the [brackets] first.
 
 ```
-I'm thinking of a print-on-demand line for [niche]. Tell me: who buys for this group (themselves or gifts), what they already wear or use, five phrases or inside jokes they'd recognize that aren't trademarked, what they'd find cringe, and three places they gather online. End with a yes, maybe or no and why.
+I'm thinking of a print-on-demand line for [niche]. Tell me: who buys for this group (themselves or gifts), what they already wear or use, five phrases or inside jokes they'd recognize (I'll check each one for trademarks before I use it), what they'd find cringe, and three places they gather online. End with a yes, maybe or no and why.
 ```
 
 ## How to use it

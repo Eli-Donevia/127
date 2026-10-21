@@ -8,7 +8,7 @@
   "description": "A booking site with your set menu, design close-up reels, deposit and late policies, rebook texts and pricing for independent nail techs.",
   "h1": "Your sets, your prices, your deposit policy. Up front.",
   "mark": "Up front.",
-  "lede": "127 gives a nail tech a booking site with your set menu and deposit policy, the close-up reel brief for every design, and the fill reminders that keep your books full.",
+  "lede": "127 gives a nail tech a booking site with your set menu and deposit policy, the close-up reel brief for every design, and the fill reminders at two and three weeks.",
   "week": [
     {
       "when": "Mon",
@@ -34,12 +34,12 @@
   "site": {
     "design": "bloom",
     "sample": {
-      "business": "Petal and Polish",
+      "business": "Quill and Lacquer",
       "what": "Nail studio, gel-x and nail art",
       "services": "Gel-x full set, from $65\nBuilder gel fill, $50\nNail art, from $10",
       "city": "Council Bluffs"
     },
-    "caption": "Petal and Polish is made up. Built by the free site builder."
+    "caption": "Quill and Lacquer is made up. Built by the free site builder."
   },
   "entry": {
     "door": "site",
@@ -70,7 +70,10 @@
         "title": "Deposit and late policy",
         "summary": "A clear deposit, late and no-show policy, and the text you send after a no-show.",
         "prompt": "Write a booking policy for [business]: deposit [$, refundable or not, when], late arrival (grace period [min], what happens after), no-shows, cancellations ([hours] notice), and fills older than [weeks]. Friendly and firm. Then the text I send after a no-show.",
-        "use": "Put it on your booking page and in the confirmation."
+        "use": "Put it on your booking page and in the confirmation.",
+        "rules": [
+          "texts"
+        ]
       },
       {
         "id": "02-set-pricing",
@@ -96,7 +99,7 @@
   ],
   "hooks": [
     "Put your deposit policy on the first page.",
-    "How I price nail art by level.",
+    "How to price nail art by level.",
     "The text after a no-show.",
     "Film the hand turning in window light.",
     "Fill reminders at two and three weeks.",

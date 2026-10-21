@@ -34,12 +34,12 @@
   "site": {
     "design": "orbit",
     "sample": {
-      "business": "Halden Optical",
+      "business": "Osric Optical",
       "what": "Eyewear brand making acetate frames by hand",
-      "services": "The Marlow frame, tortoise, $148\nThe Ives frame, crystal, $148\nBlue light lenses, add $40",
+      "services": "The Marlow frame, tortoise, $148\nThe Ives frame, crystal, $148\nCase and cloth, included",
       "city": ""
     },
-    "caption": "Halden Optical is made up. The words came from four lines typed into the free builder."
+    "caption": "Osric Optical is made up. The words came from four lines typed into the free builder."
   },
   "entry": {
     "door": "store",
@@ -67,7 +67,7 @@
         "id": "01-frame-page",
         "title": "Frame product page",
         "summary": "Writes one frame's product page from its measurements, material and the face shapes it suits.",
-        "prompt": "You write product pages for [brand], a small eyewear brand. Our voice: [three words]. Write the page for the [frame name] frame.\n\nFacts (use only these):\n- Material: [acetate, titanium...]\n- Colors: [list]\n- Lens width / bridge / temple: [mm]\n- Face shapes it suits: [list]\n- Price: [$]\n\nGive me: a two-line opener that says who the frame is for, a fit section in plain words (\"sits a little wide, good for a broad face\"), one paragraph on how it is made, and three short answers to the questions people ask before buying frames online. No claims about vision, prescriptions or eye health.",
+        "prompt": "You write product pages for [brand], a small eyewear brand. Our voice: [three words]. Write the page for the [frame name] frame.\n\nFacts (use only these):\n- Material: [acetate, titanium...]\n- Colors: [list]\n- Lens width / bridge / temple: [mm]\n- Face shapes it suits: [list]\n- Price: [$]\n\nGive me: a two-line opener that says who the frame is for, a fit section in plain words (\"sits a little wide, good for a broad face\"), one paragraph on how it is made, and three short answers to the questions people ask before buying frames online. No claims about vision, prescriptions or eye health. Nothing about blue light protecting eyes, easing strain or helping sleep, and no UV claim unless I paste the supplier's test report.",
         "use": "Paste into Claude or ChatGPT once per frame. Keep the fit section; it answers the question that stops most online frame orders."
       },
       {
@@ -84,6 +84,10 @@
         "prompt": "Write a 15-second try-on video brief for the [frame name] frame from [brand]. We film on a phone.\n\nInclude: who wears it on camera (face shape, style), where (window light, time of day), the first second (the frame going on, no logo card), five shots in order with what each one shows, the on-screen words (six words at most), and one line of caption. No music cues that need a license. No claims about vision.",
         "use": "Film three of these per new colorway: one for the product page, two for Reels and TikTok."
       }
+    ],
+    "notes": [
+      "If you sell lenses, check with your lens supplier: the FDA requires impact-tested lenses (21 CFR 801.410), and states set who may sell prescription lenses.",
+      "No claims that blue light lenses protect eyes, ease strain or help sleep. UV claims (\"UV400\") only with your supplier's test report."
     ]
   },
   "hq": [
@@ -96,7 +100,7 @@
   "hooks": [
     "Your frames look better on a face than on a white background. Your store should know that.",
     "Three numbers inside every pair of glasses decide whether an online order gets returned.",
-    "I rebuilt a frame brand's product page from four lines of notes. Here's what changed.",
+    "I rebuilt a made-up frame brand's product page from four lines of notes. Here's what changed.",
     "Stop posting flat lays of glasses. Film this instead.",
     "The fit guide is the page most frame brands skip.",
     "One frame, three faces, fifteen seconds. That's the whole content plan."
@@ -127,5 +131,6 @@
     "Jewelry brands",
     "Watch brands"
   ],
-  "legal": "Eyeglasses with prescription lenses are regulated (FTC Eyeglass Rule, state optometry laws). Copy stays on frames, fit and style; never vision, prescriptions or eye health."
+  "legal": "Eyeglasses with prescription lenses are regulated (FTC Eyeglass Rule, state optometry laws). Copy stays on frames, fit and style; never vision, prescriptions or eye health.",
+  "legalRead": "L102"
 }

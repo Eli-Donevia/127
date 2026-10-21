@@ -9,7 +9,7 @@ Copy everything in the box into Claude, ChatGPT or Gemini. Fill in the [brackets
 ```
 Write the product page for [product] from [brand]. Facts: texture [ ], scent [ ], key ingredients [ ], size [ ], how to use it [ ], price [ ].
 
-Rules: describe how it feels, smells and is used. Never say it treats, cures, heals, prevents or repairs anything, and never name a skin condition. After the page, list any sentence you're unsure about and why.
+Rules: describe how it feels, smells and is used. Never say it treats, cures, heals, prevents or repairs anything, and never name a skin condition (like acne, eczema or rosacea). Never say SPF or sun protection, antibacterial, anti-inflammatory, collagen-boosting or detox. Don't use clinically proven, dermatologist tested or recommended, hypoallergenic, non-comedogenic, non-toxic, clean, natural or organic unless I write "proof on file" next to it. Never "chemical-free". After the page, list any sentence you're unsure about and why.
 ```
 
 ## How to use it

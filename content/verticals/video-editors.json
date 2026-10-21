@@ -34,12 +34,12 @@
   "site": {
     "design": "frame",
     "sample": {
-      "business": "Cut Line Studio",
+      "business": "Quietcut Studio",
       "what": "Video editing studio",
       "services": "Short-form edit, per clip, $60\nYouTube edit, up to 15 minutes, $350\nMonthly retainer, 12 shorts, $600",
       "city": "Minneapolis"
     },
-    "caption": "Cut Line Studio is made up. Built by the free site builder."
+    "caption": "Quietcut Studio is made up. Built by the free site builder."
   },
   "entry": {
     "door": "site",
@@ -71,7 +71,10 @@
         "title": "Rate card",
         "summary": "Builds your rate card from your hours per deliverable and the hourly rate you want.",
         "prompt": "Help me build a rate card. I edit [types]. Time per deliverable: [e.g. short clip 45 min, 10-min YouTube 5 hours]. Target per hour: [$]. Rounds of revisions included: [ ]. Build three packages and per-piece prices, with a rush fee and what's not included. Then one paragraph I can paste into an email.",
-        "use": "Send it as a PDF or put it on your site's services section."
+        "use": "Send it as a PDF or put it on your site's services section.",
+        "rules": [
+          "recurring"
+        ]
       },
       {
         "id": "02-revision-policy",
@@ -97,8 +100,8 @@
   ],
   "hooks": [
     "Editors: open your site on the reel. Nothing else.",
-    "My revision policy, and what I say on round four.",
-    "How I price a 10-minute YouTube edit.",
+    "A revision policy, and what to say on round four.",
+    "How to price a 10-minute YouTube edit.",
     "Turn a client's voice memo into an edit brief.",
     "Stop sending files over text. Here's the portal.",
     "Before and after: the same footage, two edits."
