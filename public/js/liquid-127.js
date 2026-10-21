@@ -62,9 +62,11 @@ uniform mat3 uRot;           // scene to mark
 uniform float uForm, uMerge, uWobble, uGlow, uKey, uFade;
 uniform vec4 uPoke[4];       // ripples through the glass: where on its face (x, y), strength, age
 uniform vec3 uPtr;
+uniform float uNeon;          // the water glows neon where it's disturbed (the hero without the 127)
 uniform float uPop;           // how much of the light is the accent colour           // the pointer's light: where it points (x, y) and how strong
 out vec4 o;
-const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.30, 0.36, 1.0);   // #7C8CFF, in linear light, a touch hotter
+const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.20, 0.83, 0.92);   // Tide #7CEBF6, in linear light, a touch hotter
+const vec3 TIDE = vec3(0.20, 0.83, 0.92), ORCHID = vec3(0.40, 0.26, 1.0), FLARE = vec3(0.89, 0.20, 1.0);   // D57, linear
 const vec3 BG = vec3(BGC);
 const float SW_ = SWV, SH_ = SHV, SR_ = SRV, DEPTH_ = DEPTHV, BEVEL_ = BEVELV;
 const vec4 WB_ = vec4(WBV);
@@ -177,8 +179,18 @@ vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
   float c = clamp(-dot(rd, n), 0.0, 1.0), F = 0.02 + 0.98 * pow(1.0 - c, 5.0);
   vec3 rr = reflect(rd, n), q = p + rr * 0.01, refl = skyW(rr);
   float t = 0.0;
-  for (int i = 0; i < REFL; i++) { float d = glass(q); if (d < 0.002) { refl = shadeGlass(q, rr, gnorm(q), false); break; } q += rr * d; t += d; if (t > 9.0) break; }
+  if (uNeon < 0.5) for (int i = 0; i < REFL; i++) { float d = glass(q); if (d < 0.002) { refl = shadeGlass(q, rr, gnorm(q), false); break; } q += rr * d; t += d; if (t > 9.0) break; }
   vec3 col = refl * (F * 1.1 + 0.03);
+  // where the pointer or a drop stirs it, the water lights up from within along its ripples: teal through orchid to
+  // flare, drifting slowly across the pond (D57). Only moving water glows; the still pond stays a dark mirror.
+  if (uNeon > 0.0) {
+    vec2 uv = (p.xz - WB_.xy) / WB_.zw, e2 = vec2(1.0 / 256.0, 0.0);
+    float h0 = texture(uW, uv).r, gx = texture(uW, uv + e2).r - texture(uW, uv - e2).r, gz = texture(uW, uv + e2.yx).r - texture(uW, uv - e2.yx).r;
+    float g = smoothstep(0.05, 0.22, length(vec2(gx, gz))) * (0.55 + 0.45 * smoothstep(0.0, 0.4, h0));
+    float a = abs(fract(dot(p.xz, vec2(0.19, 0.11)) + uTime * 0.035) * 2.0 - 1.0);
+    vec3 neon = mix(mix(TIDE, ORCHID, smoothstep(0.15, 0.6, a)), FLARE, smoothstep(0.65, 1.0, a));
+    col += neon * g * g * 1.15 * uNeon * (0.35 + 0.65 * (1.0 - c));
+  }
   if (uGlow > 0.0) {
     vec3 rt = refract(rd, n, 1.0 / 1.33); q = p; t = 0.0;
     for (int i = 0; i < 24; i++) { float d = glass(q); if (d < 0.004) { col += mix(HALO, POP * 1.3, uPop) * 0.5 * uGlow * exp(-t * 1.8) * (0.5 + 0.5 * dot(gnorm(q), -rt)); break; } q += rt * max(d, 0.01); t += max(d, 0.01); if (t > 2.0) break; }
@@ -325,7 +337,7 @@ export async function liquid127(stage, opts = {}) {
   gl.useProgram(pr);
   gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
   tex(0); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB8, gl.RGB, gl.UNSIGNED_BYTE, sdfImg);
-  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr', 'uPop']
+  const U = {}; ['uSdf', 'uW', 'uRes', 'uDpr', 'uFrame', 'uTime', 'uGrain', 'uMark', 'uRot', 'uForm', 'uMerge', 'uWobble', 'uGlow', 'uKey', 'uFade', 'uPoke', 'uPtr', 'uPop', 'uNeon']
     .forEach((n) => { U[n] = gl.getUniformLocation(pr, n === 'uPoke' ? 'uPoke[0]' : n); });
   gl.uniform1i(U.uSdf, 0); gl.uniform1i(U.uW, 1);
   step();
@@ -358,11 +370,13 @@ export async function liquid127(stage, opts = {}) {
   stage.parentElement.addEventListener('click', onClick);
 
   // where a point of the frame lands: the mark's face (in the mark's own plane) or the pond
+  // just the body of water (opts.mark false): the first drop lands soon after it starts, then now and then another
+  const noMark = opts.mark === false;
   const hitAt = (fr, my) => {
     const d = rayAt(fr[0], fr[1]);
     const s = (DEPTH - CAM[2]) / d[2];                          // the front face, near enough
     const x = CAM[0] + d[0] * s, y = CAM[1] + d[1] * s;
-    if (Math.abs(x) < 1.25 && Math.abs(y - my) < HALF + 0.05) return { f: 'glass', x, y: (y - my) };
+    if (!noMark && Math.abs(x) < 1.25 && Math.abs(y - my) < HALF + 0.05) return { f: 'glass', x, y: (y - my) };
     if (d[1] >= -1e-4) return null;
     const k = -CAM[1] / d[1];
     return { f: 'pond', x: CAM[0] + d[0] * k, z: CAM[2] + d[2] * k };
@@ -404,6 +418,8 @@ export async function liquid127(stage, opts = {}) {
     const v = clamp((rv - R.up[0]) / (R.up[1] - R.up[0]));
     let y = REST - R.deep * Math.pow(1 - v, 2.4);
     let form = ramp(rv, ...R.form, inOut), merge = 0.42 * (1 - ramp(rv, ...R.free, inOut)), glow = (1 - ramp(rv, R.up[1] - 0.8, R.up[1] + 0.4)) * ramp(rv, 0.2, 0.9);
+    // without the 127 (mark: false) it's just the pond: the mark stays far under, out of sight
+    if (noMark) { y = -4; form = 0; merge = 0; glow = 0; }
     let key = 0.35 + 0.65 * ramp(rv, ...R.key), fade = 0.25 + 0.75 * ramp(scrub ? t : rv, 0, 1.2);
     const wob = 0.0035 + 0.02 * (1 - ramp(rv, R.free[1] - 0.5, R.end + 1.5, (x) => x));
     // alive: it floats and sways on its own, and turns to the pointer on a spring
@@ -441,7 +457,14 @@ export async function liquid127(stage, opts = {}) {
       S.freed = true; FEET.forEach((f, i) => S.drips.push({ t: ck + 0.05 + 0.13 * i, x: (f[0] + f[1]) / 2 }));
     }
     if (S.nextDrip === null) S.nextDrip = ck + 3;
-    if (ck > S.nextDrip && fl > 0.9) { const f = FEET[Math.floor(Math.random() * 3)]; S.drips.push({ t: ck + 0.25, x: f[0] + Math.random() * (f[1] - f[0]) }); S.nextDrip = ck + 2.5 + Math.random() * 4; }
+    if (!noMark && ck > S.nextDrip && fl > 0.9) { const f = FEET[Math.floor(Math.random() * 3)]; S.drips.push({ t: ck + 0.25, x: f[0] + Math.random() * (f[1] - f[0]) }); S.nextDrip = ck + 2.5 + Math.random() * 4; }
+    if (noMark) {
+      if (S.nextDrop === undefined) S.nextDrop = t + 0.8;
+      if (t > S.nextDrop) {
+        const first = !S.dropped; S.dropped = true; S.nextDrop = t + 5 + Math.random() * 4;
+        drop(first ? 0 : (Math.random() - 0.5) * 2.6, first ? -0.3 : -0.7 + Math.random() * 0.9, first ? 0.14 : 0.08, first ? 5 : 2.6);
+      }
+    }
     S.drips = S.drips.filter((d) => { if (ck < d.t) return true; drop(d.x, 0.0, 0.05, 2.4); return false; });
     if (S.stone) { const h = hitAt(S.stone, y); S.stone = null;
       if (h && h.f === 'pond') drop(h.x, h.z, 0.12, 5); else if (h) { S.sqV -= 1.2; S.pokes.push({ x: h.x, y: h.y, a: 0.02, age: 0 }); } }
@@ -461,7 +484,7 @@ export async function liquid127(stage, opts = {}) {
     gl.uniform1f(U.uKey, key); gl.uniform1f(U.uFade, fade);
     const pk = new Float32Array(16); S.pokes.forEach((p, j) => pk.set([p.x, p.y, p.a, p.age], j * 4)); gl.uniform4fv(U.uPoke, pk);
     gl.uniform3f(U.uPtr, S.lx, S.ly, S.lk);
-    S.pop += (S.popT - S.pop) * (1 - Math.exp(-dt * 3)); gl.uniform1f(U.uPop, S.pop);
+    S.pop += (S.popT - S.pop) * (1 - Math.exp(-dt * 3)); gl.uniform1f(U.uPop, S.pop); gl.uniform1f(U.uNeon, noMark ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 

@@ -1,16 +1,16 @@
 @import url("vendor/toast.css");
 @import url("vendor/sheet.css");
 /* The HQ premium pass (HQ_PREMIUM, on top of HQ_WORKSPACE). Loaded after hq2.css and hq2-ws.css and scoped to
-   .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop #7C8CFF is light on
+   .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop #7cebf6 is light on
    the subject only (the horizon, active states, line draw-ins, focus), one per view, never a fill or a glow behind
    something; green is progress and wins; gold stays the Circle's. Backgrounds stay flat void. Motion lives in
    public/js/hq-premium.js; everything here reads complete with the script off and with reduced motion. */
 
 .hqp {
-  --pop: #7c8cff;
-  --pop-soft: rgba(124, 140, 255, 0.12);
-  --pop-line: rgba(124, 140, 255, 0.45);
-  --sig: #86d6ad;
+  --pop: #7cebf6;
+  --pop-soft: rgba(124, 235, 246, 0.12);
+  --pop-line: rgba(124, 235, 246, 0.45);
+  --sig: #7cebf6;
   --out: cubic-bezier(.16, 1, .3, 1);
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
@@ -105,7 +105,7 @@
 .hqp-pv[data-job="money"] i, .hqp-pv[data-job="ads"] i, .hqp-pv[data-job="plan"] i { flex: 1; width: auto; height: 40%; border-radius: 4px 4px 0 0; transform-origin: bottom; background: rgba(255,255,255,.12); }
 .hqp-pv[data-job="money"] i:nth-child(2), .hqp-pv[data-job="ads"] i:nth-child(2), .hqp-pv[data-job="plan"] i:nth-child(2) { height: 58%; }
 .hqp-pv[data-job="money"] i:nth-child(3), .hqp-pv[data-job="ads"] i:nth-child(3), .hqp-pv[data-job="plan"] i:nth-child(3) { height: 46%; }
-.hqp-pv[data-job="money"] i:nth-child(4), .hqp-pv[data-job="ads"] i:nth-child(4), .hqp-pv[data-job="plan"] i:nth-child(4) { height: 84%; background: linear-gradient(180deg, var(--pop), rgba(124,140,255,.15)); }
+.hqp-pv[data-job="money"] i:nth-child(4), .hqp-pv[data-job="ads"] i:nth-child(4), .hqp-pv[data-job="plan"] i:nth-child(4) { height: 84%; background: linear-gradient(180deg, var(--pop), rgba(124, 235, 246,.15)); }
 .hqp-pv[data-job="money"] i:nth-child(5), .hqp-pv[data-job="ads"] i:nth-child(5), .hqp-pv[data-job="plan"] i:nth-child(5) { height: 62%; }
 .hqp-pv[data-job="money"] i:nth-child(6), .hqp-pv[data-job="ads"] i:nth-child(6), .hqp-pv[data-job="plan"] i:nth-child(6) { height: 70%; }
 /* a message (content): two bubbles */
@@ -166,7 +166,7 @@ html.hqp-in .hqp .hqp-rings .v { animation: hqpRing 1.6s var(--out) .5s both; }
 .hqp-board figcaption { text-align: center; font: 12px var(--mono); letter-spacing: .06em; color: var(--slate); margin-top: 2px; }
 .hqp-board .w, .hqp-board .w-run { fill: none; stroke-width: 1.5; }
 .hqp-board .w { stroke: rgba(255,255,255,.14); stroke-dasharray: 2 3; }
-.hqp-board .is-connected .w { stroke: rgba(134,214,173,.55); stroke-dasharray: none; }
+.hqp-board .is-connected .w { stroke: rgba(124, 235, 246,.55); stroke-dasharray: none; }
 .hqp-board .is-broken .w { stroke: rgba(240,155,138,.5); }
 .hqp-board .w-run { stroke: var(--sig); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 5 105; stroke-dashoffset: 110; opacity: 0; }
 .hqp-board .is-connected .w-run { opacity: 1; animation: hqpRun 1.8s var(--ease) 3 both; animation-delay: calc(var(--i) * 160ms + 400ms); }
@@ -216,7 +216,7 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp [data-run] .h2-steps li { position: relative; border-bottom: 0; padding: 12px 0; }
 .hqp [data-run] .h2-steps li::before { content: ''; position: absolute; left: 10px; top: 30px; bottom: -8px; width: 1.5px; background: var(--line-2); }
 .hqp [data-run] .h2-steps li:last-child::before { display: none; }
-.hqp [data-run] .h2-steps li[data-step-status="done"]::before { background: rgba(134,214,173,.6); }
+.hqp [data-run] .h2-steps li[data-step-status="done"]::before { background: rgba(124, 235, 246,.6); }
 .hqp [data-run] .h2-steps li[data-step-status="done"] .h2-dot { background: var(--sig); border-color: var(--sig); }
 .hqp [data-run] .h2-steps li[data-step-status="running"], .hqp [data-run] .h2-steps li[data-step-status="waiting"] { background: linear-gradient(90deg, var(--pop-soft), transparent 60%); border-radius: 12px; margin: 2px -10px; padding: 12px 10px; box-shadow: inset 2px 0 0 var(--pop); }
 .hqp [data-run] .h2-steps li[data-step-status="running"]::before, .hqp [data-run] .h2-steps li[data-step-status="waiting"]::before { left: 20px; }
@@ -245,7 +245,7 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp-map [data-k="workflows"] i { background: rgba(236,238,245,.78); }
 .hqp-map [data-k="prompts"] i { background: rgba(236,238,245,.46); }
 .hqp-map [data-k="store"] i { background: rgba(160,166,184,.42); }
-.hqp-map [data-k="connections"] i { background: rgba(134,214,173,.55); }
+.hqp-map [data-k="connections"] i { background: rgba(124, 235, 246,.55); }
 .hqp-map-brain i { border: 1px solid rgba(255,255,255,.3); }
 .hqp-map-tip { position: absolute; z-index: 2; margin: 0; padding: 6px 10px; transform: translate(-50%, calc(-100% - 2px)); border: 1px solid var(--pop-line); border-radius: 10px; background: #0e0e12; color: var(--ink); font-size: 13px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .15s; margin-top: 12px; }
 .hqp-map-tip.on { opacity: 1; }
@@ -284,7 +284,7 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp-tour li.done .n { width: 18px; border-radius: 50%; background: var(--sig); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0a12 12 0 100 24 12 12 0 000-24zm-1.6 17.2L5.6 12.4l1.7-1.7 3.1 3.1 6.3-6.3 1.7 1.7z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0a12 12 0 100 24 12 12 0 000-24zm-1.6 17.2L5.6 12.4l1.7-1.7 3.1 3.1 6.3-6.3 1.7 1.7z'/%3E%3C/svg%3E") center / contain no-repeat; }
 .hqp-tour .parts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
 .hqp-tour .parts > span { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); }
-.hqp-tour .parts > span.on { color: var(--sig); border-color: rgba(134,214,173,.35); }
+.hqp-tour .parts > span.on { color: var(--sig); border-color: rgba(124, 235, 246,.35); }
 html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-delay: calc(var(--i) * 110ms + 450ms); }
 @media (max-width: 860px) {
   .hqp-tour ol { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }

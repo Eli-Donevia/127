@@ -500,8 +500,8 @@
     g.fillStyle = bg;
     g.fillRect(0, 0, 1080, 1350);
     var glow = g.createRadialGradient(900, 180, 0, 900, 180, 620);
-    glow.addColorStop(0, 'rgba(184,191,255,0.22)');
-    glow.addColorStop(1, 'rgba(184,191,255,0)');
+    glow.addColorStop(0, 'rgba(124, 235, 246,0.22)');
+    glow.addColorStop(1, 'rgba(124, 235, 246,0)');
     g.fillStyle = glow;
     g.fillRect(0, 0, 1080, 1350);
     g.strokeStyle = 'rgba(255,255,255,0.12)';
@@ -536,7 +536,7 @@
       wrap('"' + note + '"', 96, y + 20, 880, 54);
     }
     var who = wc.getAttribute('data-name');
-    g.fillStyle = '#86d6ad';
+    g.fillStyle = '#7cebf6';
     g.font = '600 36px ' + sans;
     g.fillText((who ? who + ' · ' : '') + 'built with 127', 96, 1180);
     g.fillStyle = 'rgba(227,230,241,0.5)';

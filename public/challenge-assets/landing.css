@@ -35,7 +35,7 @@
 .chl[data-phase="live"] .chl-hero-when { order: 2; }
 .chl[data-phase="live"] .chl-hero-join { order: 3; }
 /* soft halo behind the form so it reads as the brightest thing on screen */
-.chl .chl-hero-join::before { content: ''; position: absolute; inset: -12% -8% -10%; z-index: -1; background: radial-gradient(closest-side, rgba(184, 191, 255, .16), rgba(184, 191, 255, .05) 55%, transparent); pointer-events: none; }
+.chl .chl-hero-join::before { content: ''; position: absolute; inset: -12% -8% -10%; z-index: -1; background: radial-gradient(closest-side, rgba(124, 235, 246, .16), rgba(124, 235, 246, .05) 55%, transparent); pointer-events: none; }
 
 .chl .chl-me { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; margin: 0 0 14px; padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 14px; background: rgba(14, 14, 17, .78); font-size: 14px; line-height: 1.4; color: var(--ink); animation: fadeUp .6s both; }
 .chl .chl-me a { color: var(--ink); font-weight: 500; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .4); text-underline-offset: 3px; }
@@ -115,7 +115,7 @@ html.js .chl .chl-day:not(.in)::before { transform: scaleY(0); }
 /* live week: days before today are unlocked, today is live, later days wait */
 .chl .chl-day.is-unlocked .chl-node { border-color: var(--ink); background: var(--ink); }
 .chl .chl-day.is-unlocked::before { background: rgba(237, 237, 242, .75); }
-.chl .chl-day.is-live .chl-node { border-color: var(--win); background: var(--win); box-shadow: 0 0 0 4px rgba(134, 214, 173, .16), 0 0 14px rgba(134, 214, 173, .7); }
+.chl .chl-day.is-live .chl-node { border-color: var(--win); background: var(--win); box-shadow: 0 0 0 4px rgba(124, 235, 246, .16), 0 0 14px rgba(124, 235, 246, .7); }
 .chl .chl-day.is-live::before { background: linear-gradient(180deg, rgba(237, 237, 242, .6), rgba(255, 255, 255, .12)); }
 .chl .chl-day.is-live .chl-day-card { border-color: rgba(255, 255, 255, .3); background: linear-gradient(180deg, #19191f, var(--surface)); box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .95); }
 .chl .chl-day.is-upcoming .chl-node { border-color: rgba(255, 255, 255, .18); }
@@ -132,7 +132,7 @@ html.js .chl .chl-day:not(.in)::before { transform: scaleY(0); }
 .chl .chl-checks { list-style: none; margin: 28px 0 0; padding: 0; }
 .chl .chl-checks li { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 17px; line-height: 1.35; letter-spacing: -.01em; color: var(--ink); }
 .chl .chl-checks li:last-child { border-bottom: 1px solid var(--line); }
-.chl .chl-tick { position: relative; flex: none; width: 26px; height: 26px; border: 1px solid rgba(134, 214, 173, .4); border-radius: 50%; background: var(--win-soft); transition: transform .5s var(--chl-ease), opacity .5s; }
+.chl .chl-tick { position: relative; flex: none; width: 26px; height: 26px; border: 1px solid rgba(124, 235, 246, .4); border-radius: 50%; background: var(--win-soft); transition: transform .5s var(--chl-ease), opacity .5s; }
 .chl .chl-tick::after { content: ''; position: absolute; left: 7.5px; top: 7.5px; width: 9px; height: 5px; border-left: 2px solid var(--win); border-bottom: 2px solid var(--win); transform: rotate(-45deg); }
 html.js .chl .chl-checks:not(.in) .chl-tick { transform: scale(.2); opacity: 0; }
 .chl .chl-checks li:nth-child(1) .chl-tick { transition-delay: .3s; }
@@ -161,7 +161,7 @@ html.js .chl .chl-checks:not(.in) .chl-tick { transform: scale(.2); opacity: 0; 
 .chl .chl-fin-grid { display: grid; gap: 36px; align-items: center; }
 .chl .chl-badge-wrap { display: grid; place-items: center; padding: 28px 0 8px; }
 .chl .chl-badge { position: relative; width: min(250px, 64vw); aspect-ratio: 1; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease; }
-.chl .chl-badge::before { content: ''; position: absolute; inset: -32%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 230, 241, .14), rgba(184, 191, 255, .05) 55%, transparent); pointer-events: none; }
+.chl .chl-badge::before { content: ''; position: absolute; inset: -32%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 230, 241, .14), rgba(124, 235, 246, .05) 55%, transparent); pointer-events: none; }
 .chl .chl-badge img { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .85)); }
 .chl .chl-badge-ring { position: absolute; inset: -9%; border: 1px solid var(--line); border-radius: 50%; }
 .chl .chl-badge-ring::before { content: ''; position: absolute; inset: -1px; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0 60%, rgba(255, 255, 255, .8) 80%, transparent 81%); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); }

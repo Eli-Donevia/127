@@ -1,9 +1,9 @@
 /* The member marketplace and the Invite page (lib/market.js, lib/referrals.js).
    A catalog, not a card wall: numbered rows with hairlines, the cover doing the selling, prices set in mono.
-   One pop (#7C8CFF) per view, on the subject only: the active shelf on /market, the price on a listing, the link on
+   One pop (#7cebf6) per view, on the subject only: the active shelf on /market, the price on a listing, the link on
    Invite. Signal green only for money that has landed and checks that passed. Phone first; motion stops under
    reduced motion. */
-:root { --pop: #7c8cff; --pop-soft: rgba(124, 140, 255, .12); --sig: #86d6ad; }
+:root { --pop: #7cebf6; --pop-soft: rgba(124, 235, 246, .12); --sig: #7cebf6; }
 
 .mk { overflow-x: clip; }
 .mk-lbl { margin: 0 0 18px; font: 500 11.5px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }

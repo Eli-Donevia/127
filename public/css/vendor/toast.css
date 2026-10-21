@@ -36,12 +36,12 @@
 .tst[data-swipe-out="left"] { transform: translateX(-110%); }
 .tst[data-swipe-out="down"] { transform: translateY(120%); }
 .tst[data-swiping="true"] { transition: none; }
-.tst:focus-visible { box-shadow: 0 0 0 2px var(--pop, #7C8CFF); }
+.tst:focus-visible { box-shadow: 0 0 0 2px var(--pop, #7cebf6); }
 
 .tst-icon { flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; background: var(--muted, #8A8F9C); }
-.tst[data-type="success"] .tst-icon { background: var(--signal, #86D6AD); }
+.tst[data-type="success"] .tst-icon { background: var(--signal, #7cebf6); }
 .tst[data-type="error"] .tst-icon { background: #F07178; }
-.tst[data-type="info"] .tst-icon { background: var(--pop, #7C8CFF); }
+.tst[data-type="info"] .tst-icon { background: var(--pop, #7cebf6); }
 .tst[data-type="loading"] .tst-icon { background: none; border: 2px solid var(--line-strong, rgba(255,255,255,.2)); border-top-color: var(--fg, #F4F5F8); animation: tst-spin .8s linear infinite; }
 @keyframes tst-spin { to { transform: rotate(360deg); } }
 .tst-body { flex: 1; min-width: 0; }
