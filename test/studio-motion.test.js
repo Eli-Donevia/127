@@ -20,7 +20,10 @@ test('motion: off without STUDIO_MOTION=on or a Chrome; on gives the CLI, browse
     process.env.HYPERFRAMES_BROWSER_PATH = process.execPath; // any file that exists stands in for Chrome here
     needs._resetMotion();
     const m = needs.read('motion');
-    if (Number(process.versions.node.split('.')[0]) < 22 || !needs.ffmpeg()) return assert.strictEqual(m, null);
+    // hyperframes is an optional dependency: a checkout that skipped it (or Node < 22, or no ffmpeg) stays off.
+    let installed = true;
+    try { require.resolve('hyperframes/package.json'); } catch (e) { installed = false; }
+    if (Number(process.versions.node.split('.')[0]) < 22 || !needs.ffmpeg() || !installed) return assert.strictEqual(m, null);
     assert.ok(m && fs.existsSync(m.cli) && m.cli.endsWith('hyperframes.mjs'));
     assert.strictEqual(m.browser, process.execPath);
   } finally {
