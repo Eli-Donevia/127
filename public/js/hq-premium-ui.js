@@ -44,8 +44,8 @@ if (ask) {
   const orb = ask.querySelector('#orb');
   const line = ask.querySelector('[data-ask-line]');
   const TONES = {
-    dark: { base: [0.03, 0.03, 0.05], mid: [0.72, 0.73, 0.82], spec: [0.49, 0.55, 1] },
-    light: { base: [0.55, 0.56, 0.62], mid: [0.93, 0.93, 0.96], spec: [0.29, 0.34, 0.85] },
+    dark: { base: [0.03, 0.03, 0.05], mid: [0.72, 0.73, 0.82], spec: [0.49, 0.92, 0.96] },
+    light: { base: [0.55, 0.56, 0.62], mid: [0.93, 0.93, 0.96], spec: [0.04, 0.47, 0.51] },
   };
   const look = () => (document.documentElement.classList.contains('hq-light') ? TONES.light : TONES.dark);
   const REST = { amplitude: 0.6, speed: 0.6 };

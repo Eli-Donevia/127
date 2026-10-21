@@ -1,9 +1,9 @@
 @import url("vendor/toast.css");
 @import url("vendor/sheet.css");
 /* The HQ premium pass (HQ_PREMIUM, on top of HQ_WORKSPACE). Loaded after hq2.css and hq2-ws.css and scoped to
-   .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop #7cebf6 is light on
+   .shell.hqp, so with the flag off nothing here applies. Design's accent system (Oct 20): Pop (Tide #7cebf6 under D57) is light on
    the subject only (the horizon, active states, line draw-ins, focus), one per view, never a fill or a glow behind
-   something; green is progress and wins; gold stays the Circle's. Backgrounds stay flat void. Motion lives in
+   something; wins are Tide too; Emerald stays the Circle's. Backgrounds stay flat void. Motion lives in
    public/js/hq-premium.js; everything here reads complete with the script off and with reduced motion. */
 
 .hqp {
@@ -363,18 +363,19 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 
 /* ---- Color and motion, one level up (D56, v2/design/accent-motion-v2.md; Eli, Oct 21 04:13Z). HQ dashboards are M2
    "lively". Glow only comes from a light source (the ask bar's dot and edge, the rail's current page, the ring arcs, a lit
-   map dot, a live wire), at 0.5 or less and no wider than twice the stroke; never behind a card or a section. Ion is
-   Pop's neon partner for edges and data; at most Pop and Ion per view, plus Signal for progress. */
+   map dot, a live wire), at 0.5 or less and no wider than twice the stroke; never behind a card or a section. Under D57,
+   --pop is Tide, --ion is Orchid (its neon partner for edges and data) and --sig is Tide too, since a win is Tide.
+   At most those two hues per view. */
 @property --hqp-ang { syntax: '<angle>'; inherits: false; initial-value: -90deg; }
 .hqp {
-  --ion: #5be4ff;
-  --glow-pop: 0 0 10px rgba(124, 140, 255, .5);
-  --glow-ion: 0 0 10px rgba(91, 228, 255, .45);
-  --glow-sig: 0 0 10px rgba(134, 214, 173, .45);
+  --ion: #a98bff;
+  --glow-pop: 0 0 10px rgba(124, 235, 246, .5);
+  --glow-ion: 0 0 10px rgba(169, 139, 255, .45);
+  --glow-sig: 0 0 10px rgba(124, 235, 246, .45);
 }
 
-/* the ask bar: its dot is a small neon light; typing charges a Pop-to-Ion edge once around, then it rests lit */
-.hqp .orb .core::after { box-shadow: 0 0 8px rgba(124, 140, 255, .5); }
+/* the ask bar: its dot is a small neon light; typing charges a Tide-to-Orchid edge once around, then it rests lit */
+.hqp .orb .core::after { box-shadow: 0 0 8px rgba(124, 235, 246, .5); }
 .hqp .h2-talk { isolation: isolate; transition: border-color .3s; }
 .hqp .h2-talk::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1px; pointer-events: none; background: conic-gradient(from var(--hqp-ang), var(--pop), var(--ion) 30%, transparent 55%, transparent 80%, var(--pop)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .35s; }
 .hqp .h2-talk:focus-within { border-color: transparent; }
@@ -392,14 +393,13 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp .ws-link .ws-i { transition: transform .35s var(--out), color .2s; }
 .hqp .ws-link:hover .ws-i { transform: translateX(2px); color: var(--ink); }
 
-/* the rings: each arc is its own light; replies go Ion */
+/* the rings: each arc is its own light; sent is Tide, replies Orchid, calls the steel halo (two hues per view) */
 .hqp-rings .b, .hqp-rk .l i.b { stroke: var(--ion); background: var(--ion); }
-.hqp-rings .v.a { filter: drop-shadow(0 0 4px rgba(124, 140, 255, .5)); }
-.hqp-rings .v.b { filter: drop-shadow(0 0 4px rgba(91, 228, 255, .45)); }
-.hqp-rings .v.s { filter: drop-shadow(0 0 4px rgba(134, 214, 173, .45)); }
+.hqp-rings .v.a { filter: drop-shadow(0 0 4px rgba(124, 235, 246, .5)); }
+.hqp-rings .v.b { filter: drop-shadow(0 0 4px rgba(169, 139, 255, .45)); }
+.hqp-rings .s, .hqp-rk .l i.s { stroke: #e3e6f1; background: #e3e6f1; }
 .hqp-rk .l i.a { box-shadow: var(--glow-pop); }
 .hqp-rk .l i.b { box-shadow: var(--glow-ion); }
-.hqp-rk .l i.s { box-shadow: var(--glow-sig); }
 
 /* the Map of everything: workflows Pop, prompts Ion, the rest steel (hq-premium.js draws the dots the same way) */
 .hqp-map [data-k="workflows"] i { background: var(--pop); }
@@ -407,9 +407,9 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp-map [data-k="connections"] i { background: rgba(236, 238, 245, .62); }
 
 /* Connections: live wires give off a little light, and the pulse that runs toward 127 has an Ion head */
-.hqp-board .is-connected .w { filter: drop-shadow(0 0 3px rgba(134, 214, 173, .45)); }
-.hqp-board .is-connected .w-run { stroke: var(--ion); filter: drop-shadow(0 0 3px rgba(91, 228, 255, .5)); }
-.hqp-board .hqp-node:hover .w-run { stroke: var(--pop); filter: drop-shadow(0 0 3px rgba(124, 140, 255, .5)); }
+.hqp-board .is-connected .w { filter: drop-shadow(0 0 3px rgba(124, 235, 246, .45)); }
+.hqp-board .is-connected .w-run { stroke: var(--ion); filter: drop-shadow(0 0 3px rgba(169, 139, 255, .5)); }
+.hqp-board .hqp-node:hover .w-run { stroke: var(--pop); filter: drop-shadow(0 0 3px rgba(124, 235, 246, .5)); }
 
 @media (prefers-reduced-motion: reduce) {
   .hqp .h2-talk::before, .hqp .h2-talk:focus-within::before, .hqp .h2-talk:has(.orb[data-state="thinking"])::before { animation: none; --hqp-ang: 270deg; }
@@ -431,7 +431,7 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp .hqp-ask .orb .core canvas { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; display: block; }
 .hqp .hqp-ask .orb .core.live::after { display: none; }
 .hqp .hqp-ask .orb .ring { display: block; inset: 0; z-index: 1; border-radius: 50%; background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, .32), transparent 42%); -webkit-mask: none; mask: none; animation: none; pointer-events: none; }
-.hqp .hqp-ask:focus-within .orb .core, .hqp .hqp-ask .orb[data-state="thinking"] .core { box-shadow: inset 0 3px 7px rgba(0, 0, 0, .6), 0 0 0 2px #26272d, 0 0 12px rgba(124, 140, 255, .45); }
+.hqp .hqp-ask:focus-within .orb .core, .hqp .hqp-ask .orb[data-state="thinking"] .core { box-shadow: inset 0 3px 7px rgba(0, 0, 0, .6), 0 0 0 2px #26272d, 0 0 12px rgba(124, 235, 246, .45); }
 .hqp .hqp-ask form { position: relative; align-items: center; }
 .hqp .hqp-ask input { position: relative; z-index: 1; }
 .hqp-ex { position: absolute; left: 8px; right: 58px; top: 50%; height: 24px; margin-top: -12px; overflow: hidden; pointer-events: none; color: var(--muted); font-size: 17px; line-height: 24px; letter-spacing: -.01em; white-space: nowrap; transition: opacity .2s; }

@@ -111,8 +111,8 @@
   // Each look has its own inks (hq-light.css); the map repaints when the look flips.
   var LOOKS = {
     // D56: workflows Pop, prompts Ion, the rest steel; a lit dot is the one that glows (dark only, no bloom on paper)
-    dark: { workflows: 'rgba(124,140,255,.85)', prompts: 'rgba(91,228,255,.7)', store: 'rgba(160,166,184,.42)', connections: 'rgba(236,238,245,.62)', pop: '#ffffff', glow: 'rgba(124,140,255,.5)', brain: '#060607', rim: 'rgba(124,140,255,.5)', label: 'rgba(236,238,245,.9)' },
-    light: { workflows: 'rgba(74,87,217,.85)', prompts: 'rgba(10,122,153,.75)', store: 'rgba(95,96,107,.4)', connections: 'rgba(18,18,30,.55)', pop: '#121216', glow: '', brain: '#ffffff', rim: 'rgba(74,87,217,.45)', label: '#121216' }
+    dark: { workflows: 'rgba(124, 235, 246,.85)', prompts: 'rgba(169, 139, 255,.7)', store: 'rgba(160,166,184,.42)', connections: 'rgba(236,238,245,.62)', pop: '#ffffff', glow: 'rgba(124, 235, 246,.5)', brain: '#060607', rim: 'rgba(124, 235, 246,.5)', label: 'rgba(236,238,245,.9)' },
+    light: { workflows: 'rgba(11, 119, 130,.85)', prompts: 'rgba(106, 63, 217,.75)', store: 'rgba(95,96,107,.4)', connections: 'rgba(18,18,30,.55)', pop: '#121216', glow: '', brain: '#ffffff', rim: 'rgba(11, 119, 130,.45)', label: '#121216' }
   };
   var TONE = LOOKS.dark, GOLD = 2.39996323;
   var tone = function () { TONE = document.documentElement.classList.contains('hq-light') ? LOOKS.light : LOOKS.dark; };
