@@ -1,0 +1,21 @@
+<%# Brain auto-fill, step one (lib/harness/autofill.js, Legal L84 B8 lines). Locals: back. Posts to /app/hq/brain/draft. %>
+<section class="hq-card h2-form hq-draft" id="draft" aria-labelledby="draft-h">
+  <h2 class="h2-h" id="draft-h" style="font-size:18px">Start from your website</h2>
+  <p class="h2-sub">HQ reads your site and fills in the lines below. You check each one before anything is saved.</p>
+  <form method="post" action="/app/hq/brain/draft" class="hq-draft-row">
+    <input type="hidden" name="from" value="website"><input type="hidden" name="back" value="<%= back %>">
+    <label class="field" for="draft-url" style="margin:0;flex:1;min-width:0"><span class="sr-only">Your website</span>
+      <input class="input" id="draft-url" name="url" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="yourbusiness.com" maxlength="300" required></label>
+    <button class="btn">Read my site <span class="arrow"></span></button>
+  </form>
+  <p class="hq-small" style="margin:8px 0 0">We read this page once to draft your profile. You approve every line before it's saved. <a class="link" href="<%= '/privacy#7c-your-brain-ask-127-ai-team-site-chat-and-studio' %>">How we handle it</a></p>
+  <details class="hq-draft-alt">
+    <summary>No website? Use your Instagram bio</summary>
+    <form method="post" action="/app/hq/brain/draft">
+      <input type="hidden" name="from" value="instagram"><input type="hidden" name="back" value="<%= back %>">
+      <label class="field" for="draft-bio"><span>Paste your bio here. HQ drafts from what you paste.</span>
+        <textarea class="input" id="draft-bio" name="text" rows="4" maxlength="8000" required placeholder="Your bio, and a few captions if you like"></textarea></label>
+      <button class="btn">Draft from my bio <span class="arrow"></span></button>
+    </form>
+  </details>
+</section>

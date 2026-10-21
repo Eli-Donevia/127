@@ -128,7 +128,7 @@ test.beforeEach(() => {
   process.env.HARNESS_V2 = 'on';
   process.env.TERMS_LIVE = 'true';
   process.env.PRIVACY_LIVE = 'true';
-  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS']) delete process.env[k];
+  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS', 'BRAIN_AUTOFILL']) delete process.env[k];
 });
 process.on('exit', () => {
   try {
@@ -199,6 +199,95 @@ test('zip files round-trip, and Word and PDF give their text', () => {
   assert.equal(extract.extract('policy.pdf', pdf).text, 'Refunds within 30 days of purchase.\nCall us any time.');
   assert.throws(() => extract.extract('scan.pdf', Buffer.from('%PDF-1.4\n%%EOF')), /Couldn't read the text/);
   assert.throws(() => extract.extract('photo.png', Buffer.from('x')), /Markdown, text, CSV/);
+});
+
+// ---------- Brain auto-fill (Legal L84) ----------
+test('Brain auto-fill: robots.txt, no social profiles, one read, visible text only, and nothing saved until ticked', async () => {
+  const autofill = require('../lib/harness/autofill');
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /private', '/'), true);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /', '/'), false);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /\n\nUser-agent: 127-hq\nAllow: /', '/'), true);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /\nAllow: /$', '/'), true);
+  assert.equal(autofill.robotsAllow('', '/about'), true);
+  for (const bad of ['instagram.com/sam', 'https://www.tiktok.com/@sam', 'ftp://x.com', 'https://me:pw@x.com']) assert.throws(() => autofill.addressOf(bad), autofill.AutofillError, bad);
+  assert.equal(autofill.addressOf('samslawns.com/about#top').toString(), 'https://samslawns.com/about');
+
+  const asked = [];
+  let robots = 'User-agent: *\nDisallow: /admin';
+  const html = `<html><head><meta name="theme-color" content="#1F3A5F"><style>body{color:red}</style><script>var secret = 'SCRIPT-ONLY';</script></head>
+    <body><nav>Home About NAV-ONLY</nav><h1>Sam's Lawns</h1><p>Weekly mowing in Des Moines for busy families. $45 a visit.</p>
+    <blockquote>"Best lawn ever" - Jane Doe, 515-555-0100</blockquote><footer>FOOTER-ONLY</footer></body></html>`;
+  autofill._setDeps({
+    fetch: () => async (url, opts) => {
+      asked.push({ url, ua: opts.headers['user-agent'] });
+      if (url.endsWith('/robots.txt')) return new Response(robots, { status: 200, headers: { 'content-type': 'text/plain' } });
+      return new Response(html, { status: 200, headers: { 'content-type': 'text/html' } });
+    },
+  });
+  const seen = [];
+  const fake = async (p) => {
+    seen.push(p);
+    return { content: [{ type: 'text', text: JSON.stringify({ name: "Sam's Lawns", what: 'Weekly mowing for busy families.', offer: '', price: '$45 a visit', audience: 'Busy families', niche: 'Lawn care', city: 'Des Moines', region: '', tone: 'friendly, plain', avoid: '', typeMood: 'grotesk', theme: 'light', mood: 'fresh, calm' }) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+  };
+  anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
+  try {
+    process.env.HQ_ACTIVITY = 'on';
+    const u = await member();
+    assert.equal((await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).status, 404, 'off by default');
+    process.env.BRAIN_AUTOFILL = 'on';
+    const start = await (await s.go('/app/hq/brain', { as: u })).text();
+    assert.match(start, /We read this page once to draft your profile\. You approve every line before it's saved\./);
+    assert.match(start, /Paste your bio here\. HQ drafts from what you paste\./);
+    assert.match(start, /href="\/privacy#7c-your-brain/);
+    const page = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).text();
+    assert.deepEqual(asked.map((a) => a.url), ['https://samslawns.com/robots.txt', 'https://samslawns.com/'], 'robots.txt, then that one page');
+    assert.ok(asked.every((a) => /^127-HQ/.test(a.ua)));
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].model, 'claude-haiku-5-5');
+    const sent = seen[0].messages[0].content.at(-1).text;
+    assert.match(sent, /Weekly mowing in Des Moines/);
+    for (const hidden of ['SCRIPT-ONLY', 'NAV-ONLY', 'FOOTER-ONLY', 'color:red', 'Jane Doe']) assert.ok(!sent.includes(hidden), hidden);
+    assert.match(seen[0].system.map((b) => b.text).join('\n'), /Never include anyone else's name, photo, email, phone number/);
+    assert.match(page, /Here's what HQ found\./);
+    assert.match(page, /name="val_business_name" value="Sam&#39;s Lawns"/);
+    assert.match(page, /name="val_brand_color" value="#1f3a5f"/);
+    assert.match(page, /name="val_links_website" value="samslawns.com"/);
+    assert.doesNotMatch(page, /type="checkbox" name="keep_[^"]+" value="1" checked/, 'nothing pre-ticked');
+    // Nothing saved yet, and the page text kept nowhere.
+    assert.equal(harness.brain.snapshot(u).business.name, undefined);
+    assert.ok(!JSON.stringify(db.all('brains')).includes('Weekly mowing in Des Moines'));
+    assert.ok(!JSON.stringify(db.all('activity')).includes('Weekly mowing in Des Moines'));
+    // Keep three lines, one edited.
+    let r = await s.go('/app/hq/brain/draft/save', { as: u, form: { back: '/app/hq', keep_business_name: '1', val_business_name: "Sam's Lawns LLC", val_business_city: 'Des Moines', keep_brand_color: '1', val_brand_color: '#1f3a5f', keep_brand_typeMood: '1', val_brand_typeMood: 'grotesk' } });
+    assert.equal(r.headers.get('location'), '/app/hq');
+    const b = harness.brain.snapshot(u);
+    assert.equal(b.business.name, "Sam's Lawns LLC");
+    assert.equal(b.business.city, undefined, 'an unticked line is not saved');
+    assert.deepEqual(b.brand, { color: '#1f3a5f', typeMood: 'grotesk' });
+    r = await s.go('/app/hq/brain/draft/save', { as: u, form: { back: 'https://evil.example', keep_brand_theme: '1', val_brand_theme: 'neon' } });
+    assert.equal(r.headers.get('location'), '/app/hq/brain', 'only HQ paths');
+    assert.equal(harness.brain.snapshot(u).brand.theme, undefined, 'brand values are checked');
+    // Blocked by robots.txt: paste instead, and the page itself is never fetched.
+    robots = 'User-agent: *\nDisallow: /';
+    asked.length = 0;
+    const blocked = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).text();
+    assert.deepEqual(asked.map((a) => a.url), ['https://samslawns.com/robots.txt']);
+    assert.match(blocked, /Paste it in/);
+    assert.equal(seen.length, 1);
+    // Instagram: what they paste, and no fetch at all.
+    asked.length = 0;
+    const ig = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'instagram', text: 'Lawn care in Des Moines. Weekly mowing from $45. DM to book.' } })).text();
+    assert.equal(asked.length, 0);
+    assert.match(seen.at(-1).messages[0].content.at(-1).text, /Their Instagram bio, as they pasted it/);
+    assert.match(ig, /From your bio/);
+    assert.doesNotMatch(ig, /val_brand_color/, 'no color without a page');
+    r = await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'https://instagram.com/samslawns' } });
+    assert.equal(r.status, 302);
+    assert.ok(flashes.some((f) => /paste your bio instead/.test(f.text || f[1] || JSON.stringify(f))));
+  } finally {
+    anthropic._setClient(null);
+    autofill._setDeps({ fetch: (memberId) => require('../lib/harness/ctx').makeFetch({ memberId }) });
+  }
 });
 
 // ---------- Brain docs ----------

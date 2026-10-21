@@ -1,0 +1,53 @@
+<%- include('../../partials/app-head') %>
+<%# Brain auto-fill, step two: each drafted line, editable, kept only when the member ticks it (Legal L84 B6).
+    Locals: d (autofill.draft) or paste ({ url, message }), now (brain.snapshot), back, line, privacy. %>
+<% var cur = function (g, k) { return (now && now[g] && now[g][k]) || ''; };
+   var long = { what: 1, offer: 1, audience: 1, avoid: 1 }; %>
+<div class="hq h2">
+  <%- include('../../partials/hq2-nav') %>
+  <p class="hq-small" style="margin:0 0 8px"><a href="<%= back %>">Back</a></p>
+  <% if (!d) { %>
+  <div class="hq-head" style="margin-bottom:8px"><div>
+    <span class="eyebrow">Your business</span>
+    <h1 class="hq-title"><span class="dim">Paste it in</span><span class="steel">instead.</span></h1>
+    <p class="hq-lede"><%= paste.message %></p>
+  </div></div>
+  <form method="post" action="/app/hq/brain/draft" class="hq-card h2-form">
+    <input type="hidden" name="from" value="paste"><input type="hidden" name="back" value="<%= back %>">
+    <label class="field" for="paste-text"><span>The text from your site's home or about page</span>
+      <textarea class="input" id="paste-text" name="text" rows="8" maxlength="8000" required></textarea></label>
+    <button class="btn">Draft from this <span class="arrow"></span></button>
+  </form>
+  <% } else { %>
+  <div class="hq-head" style="margin-bottom:8px"><div>
+    <span class="eyebrow"><%= d.from === 'website' ? d.host : d.from === 'instagram' ? 'From your bio' : 'From your text' %></span>
+    <h1 class="hq-title"><span class="dim">Here's what HQ found.</span><span class="steel">Keep what's right.</span></h1>
+    <p class="hq-lede">Edit anything that's off. Only the lines you tick are saved. Nothing else from <%= d.from === 'website' ? 'the page' : 'what you pasted' %> is kept.</p>
+  </div></div>
+  <% if (d.sample) { %><p class="h2-empty">Sample lines: the AI isn't set up on this server, so these are stand-ins.</p><% } %>
+  <% if (!d.lines.length) { %>
+  <section class="hq-card"><p class="h2-sub">HQ couldn't find anything about your business in that. Fill in your Brain by hand, or try your about page.</p><a class="btn" href="<%= back %>">Back</a></section>
+  <% } else { %>
+  <form method="post" action="/app/hq/brain/draft/save" class="h2-stack hq-draft-list" data-draft>
+    <input type="hidden" name="back" value="<%= back %>">
+    <% d.lines.forEach(function (l) { var id = l.group + '_' + l.key; var was = cur(l.group, l.key); %>
+    <section class="hq-card hq-draft-line">
+      <label class="hq-draft-keep"><input type="checkbox" name="keep_<%= id %>" value="1" aria-describedby="h-<%= id %>"><span>Keep</span></label>
+      <label class="field" for="v-<%= id %>" style="margin:0">
+        <span id="h-<%= id %>"><%= l.label %><% if (l.key === 'color') { %> <i class="hq-swatch" style="background:<%= l.value %>" aria-hidden="true"></i><% } %></span>
+        <% if (long[l.key]) { %><textarea class="input" id="v-<%= id %>" name="val_<%= id %>" rows="2" maxlength="400"><%= l.value %></textarea>
+        <% } else { %><input class="input" id="v-<%= id %>" name="val_<%= id %>" value="<%= l.value %>" maxlength="120"><% } %>
+        <% if (was && was !== l.value) { %><span class="hint">Now: <%= was %></span><% } %>
+      </label>
+    </section>
+    <% }) %>
+    <div class="hq-draft-save">
+      <button type="button" class="btn ghost" data-draft-all>Tick all</button>
+      <button class="btn">Save what I ticked <span class="arrow"></span></button>
+    </div>
+  </form>
+  <% } %>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
