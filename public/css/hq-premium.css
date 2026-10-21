@@ -129,15 +129,15 @@
 .hqp .h2-plan-steps { counter-reset: hqpStep; list-style: none; padding-left: 0 !important; }
 .hqp .h2-plan .h2-plan-steps li { display: block; position: relative; padding: 10px 0 10px 40px; border-top: 1px solid var(--line); counter-increment: hqpStep; }
 .hqp .h2-plan-steps li::before { content: '0' counter(hqpStep); position: absolute; left: 4px; top: 12px; font: 12.5px var(--mono); color: var(--slate); }
-.hqp .h2-plan-steps li::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--pop); transform: scaleY(1); transform-origin: top; }
+.hqp .h2-plan-steps li::after { content: ''; position: absolute; left: 4px; top: -1px; width: 22px; height: 2px; background: var(--pop); transform-origin: left; } /* a short notch on the step's top rule, not a side stripe */
 .hqp .h2-plan-steps li[data-status="done"]::before { content: 'done'; color: var(--sig); }
 .hqp .h2-plan-steps li[data-status="done"]::after { background: var(--sig); }
 .hqp .h2-plan-steps li[data-status="skipped"] { opacity: .5; }
 .hqp .h2-plan-steps li[data-status="skipped"]::after { display: none; }
 
 /* phone: the dock's centre button is the one Pop light */
-.hqp .ws-orb .ws-orb-core { background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); }
-.hqp .ws-orb .ws-orb-core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--pop); }
+.hqp .ws-orb .ws-orb-core { background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); animation: none; } /* no breathing halo behind the button; the dot is the light */
+.hqp .ws-orb .ws-orb-core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--pop); box-shadow: var(--glow-pop); }
 
 /* entrances, once per session (hq-premium.js adds .hqp-in to <html> on the first visit) */
 html.hqp-in .hqp .hqp-head h1 [data-w] { display: inline-block; animation: hqpUp .9s var(--out) both; animation-delay: calc(var(--i, 0) * 55ms + 120ms); }
@@ -153,7 +153,7 @@ html.hqp-in .hqp .hqp-rings .v { animation: hqpRing 1.6s var(--out) .5s both; }
 @keyframes hqpRise { from { opacity: 0; transform: translateY(14px); } }
 @keyframes hqpRing { from { stroke-dashoffset: var(--c); } }
 @keyframes hqpSlot { 0% { opacity: 0; transform: translateX(-24px); filter: blur(6px); } 60% { filter: blur(0); } }
-@keyframes hqpEdge { from { transform: scaleY(0); } }
+@keyframes hqpEdge { from { transform: scaleX(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   .hqp *, .hqp *::before, .hqp *::after { animation: none !important; transition: none !important; }
