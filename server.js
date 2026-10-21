@@ -45,6 +45,7 @@ const storeRoutes = require('./lib/store-routes');
 const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
 const lifeRoutes = require('./lib/life-routes');
+const tapeRoutes = require('./lib/tape-routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
@@ -2072,6 +2073,8 @@ app.use(storeRoutes({ requireAuth, flash, track }));
 app.use(shopRoutes({ track }));
 // Life in HQ (lib/life): budget, workouts, food, check-in, kept in the member's own browser. Behind HQ_LIFE (default off).
 app.use(lifeRoutes({ requireAuth }));
+// Tape (lib/tape): a watchlist for traders on the member's own market data key, facts only (Legal L88). Behind HQ_TAPE (default off).
+app.use(tapeRoutes({ requireAuth }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 
