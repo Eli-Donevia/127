@@ -7,15 +7,10 @@
   var root = T.root;
   var WEEKS = 13;
 
-  var EXAMPLE = {
-    start: T.monday(), cash: 4200,
-    ins: [{ name: 'Client retainers', amount: 1800, every: 'month' }, { name: 'Weekly sessions', amount: 600, every: 'week' }],
-    outs: [{ name: 'Rent and utilities', amount: 1350, every: 'month' }, { name: 'Software', amount: 180, every: 'month' }, { name: 'Ads', amount: 120, every: 'week' }, { name: 'Pay yourself', amount: 900, every: 'two' }],
-    once: [{ name: 'Quarterly tax', amount: -1600, week: 9 }, { name: 'New laptop', amount: -1100, week: 4 }, { name: 'Workshop tickets', amount: 900, week: 6 }],
-  };
+  // No example numbers (Legal L82): the runway only ever draws from what the member types.
   var blank = function () { return { start: T.monday(), cash: 0, ins: [], outs: [], once: [] }; };
   var data = T.state.data, demo = false;
-  if (!T.state.canSave) { data = JSON.parse(JSON.stringify(EXAMPLE)); demo = true; }
+  if (!T.state.canSave) { data = blank(); demo = true; }
 
   // Does a repeating line land in week i (0-based) of a run starting on Monday `start`?
   function lands(l, i, start) {
@@ -48,10 +43,8 @@
       el('p', { class: 'tl-start-s', text: 'Then add what comes in and goes out. Thirteen weeks draw as you type.' }),
       el('div', { class: 'tl-start-b' }, [
         el('button', { type: 'button', class: 'btn', text: 'Start with my numbers', onclick: function () { data = blank(); draw(); var f = root.querySelector('input'); if (f) f.focus(); } }),
-        el('button', { type: 'button', class: 'tl-act', text: 'See it with example numbers first', onclick: function () { data = JSON.parse(JSON.stringify(EXAMPLE)); demo = true; draw(); } }),
       ]),
     ]));
-    if (demo && T.state.canSave) root.appendChild(el('div', { class: 'tl-demo' }, [el('span', { text: 'Example numbers. Nothing is saved.' }), el('button', { class: 'tl-act', type: 'button', text: 'Start mine', onclick: function () { data = blank(); demo = false; draw(); } })]));
     var thisWeek = T.monday();
     if (data.start && data.start < T.addDays(thisWeek, -6) && !demo) {
       root.appendChild(el('div', { class: 'tl-demo' }, [el('span', { text: 'These 13 weeks started ' + T.day(data.start) + '.' }), el('button', { class: 'tl-act', type: 'button', text: 'Start from this week', onclick: function () { data.start = thisWeek; changed(true); draw(); } })]));
@@ -69,8 +62,9 @@
         lines('Money out that repeats', 'outs', 'Rent'),
         onceList(),
       ]),
-      el('section', { class: 'tl-panel' }, [el('h2', { class: 'tl-h', text: 'Week by week' }), nodes.table]),
+      nodes.tablePanel = el('section', { class: 'tl-panel' }, [el('h2', { class: 'tl-h', text: 'Week by week' }), nodes.table]),
     ]));
+    root.appendChild(T.estimate());
     update();
   }
 
@@ -109,6 +103,15 @@
 
   function update() {
     var r = run(data);
+    // Nothing typed yet: no chart or table of zeros, just what to type first.
+    var empty = !data.cash && !data.ins.length && !data.outs.length && !data.once.length;
+    nodes.chart.hidden = empty;
+    nodes.tablePanel.hidden = empty;
+    if (empty) {
+      nodes.sum.innerHTML = '';
+      nodes.sum.appendChild(el('div', { class: 'tl-hero' }, [el('span', { class: 'tl-k', text: 'Tightest week' }), el('b', { class: 'tl-hero-v', text: '–' }), el('span', { class: 'tl-d', text: 'Type your bank balance today, then one thing that comes in and one that goes out. The thirteen weeks draw as you type.' })]));
+      return;
+    }
     // Summary: the tightest week, where it ends, the average weekly change.
     nodes.sum.innerHTML = '';
     var big = el('b', { class: 'tl-hero-v' });
@@ -140,7 +143,7 @@
     var box = nodes.chart;
     box.innerHTML = '';
     box.appendChild(el('h2', { class: 'tl-h', text: 'The next 13 weeks' }));
-    var W = 760, H = 260, L = 56, R = 16, Tp = 22, B = 30;
+    var W = Math.max(300, Math.min(1000, (box.clientWidth || 800) - 40)), H = W < 480 ? 230 : 260, L = 56, R = 16, Tp = 22, B = 30, every = W < 480 ? 3 : 2;
     var vals = r.rows.map(function (x) { return x.bal; }).concat([data.cash, 0]);
     var flows = r.rows.map(function (x) { return Math.max(x.inn, x.out); });
     var hi = Math.max.apply(null, vals), lo = Math.min.apply(null, vals);
@@ -156,7 +159,7 @@
     r.rows.forEach(function (x, i) {
       if (x.inn) s.appendChild(svg('rect', { x: X(i) - 5, y: base - (x.inn / fmax) * band, width: 4, height: (x.inn / fmax) * band, rx: 1, class: 'in' }));
       if (x.out) s.appendChild(svg('rect', { x: X(i) + 1, y: base - (x.out / fmax) * band, width: 4, height: (x.out / fmax) * band, rx: 1, class: 'out' }));
-      if (i % 2 === 0) { var t = svg('text', { x: X(i), y: H - 8, class: 'lab', 'text-anchor': 'middle' }); t.textContent = T.day(x.start); s.appendChild(t); }
+      if (i % every === 0) { var t = svg('text', { x: X(i), y: H - 8, class: 'lab', 'text-anchor': 'middle' }); t.textContent = T.day(x.start); s.appendChild(t); }
     });
     var d = 'M' + L + ' ' + Y(data.cash) + ' ' + r.rows.map(function (x, i) { return 'L' + X(i).toFixed(1) + ' ' + Y(x.bal).toFixed(1); }).join(' ');
     s.appendChild(svg('path', { d: d, class: 'bal', pathLength: 1 }));
@@ -175,5 +178,7 @@
     if (!quiet) update();
   }
 
+  var rz;
+  window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { if (nodes.chart && data) update(); }, 150); });
   draw();
 })();

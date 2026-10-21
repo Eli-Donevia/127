@@ -148,3 +148,91 @@ test('the largest cash plan fits, and account deletion removes every tool docume
   await harness.forget(m.id);
   assert.equal(db.filter('tools', (d) => d.memberId === m.id).length, 0);
 });
+
+test('the newer tools clean to their own fields too', () => {
+  const c = tools._clean;
+  const a = c.cleanAdtest({ platform: 'myspace', goal: 'x', days: 0, log: [{ day: '2026-10-20', spend: 12 }, { day: '2026-10-19', spend: 9 }, { day: '2026-10-20', spend: 99 }, { day: 'no' }] });
+  assert.equal(a.platform, 'meta');
+  assert.equal(a.goal, 'sales');
+  assert.equal(a.days, 1);
+  assert.deepEqual(a.log.map((r) => [r.day, r.spend]), [['2026-10-19', 9], ['2026-10-20', 12]]);
+  const hk = c.cleanHooks({ stars: ['1', '1', 'nope'], mine: { 1: 'My take', nope: 'x' }, wins: { 1: '300' } });
+  assert.deepEqual(hk, { stars: ['1'], mine: { 1: 'My take' }, wins: { 1: 300 } });
+  const id = c.cleanIdeas({ ideas: [{ id: 'a', name: 'Tutoring', scores: { pain: 14, edge: -3 } }, { id: 'b' }, ...Array.from({ length: 12 }, (_, i) => ({ id: `x${i}`, name: 'x' }))] });
+  assert.equal(id.ideas.length, 7); // eight kept, the empty one dropped
+  assert.deepEqual(id.ideas[0].scores, { pain: 10, economics: 0, edge: 0, future: 0, inside: 0 });
+  const ck = c.cleanChecklists({ done: { 'not-an-item': '2026-10-20' }, launch: '2026-11-17' });
+  assert.deepEqual(ck.done, {});
+  assert.equal(ck.launch, '2026-11-17');
+  const sk = c.cleanStock({ items: [{ id: 'a', name: 'Candle', onHand: -4, leadWeeks: 99, extra: 1 }, { id: 'b' }] });
+  assert.deepEqual(sk.items, [{ id: 'a', name: 'Candle', onHand: 0, perWeek: 0, leadWeeks: 52, order: 0, cost: 0 }]);
+  const hr = c.cleanHours({ tasks: [{ id: 'a', name: 'Invoices', hours: 400, tag: 'boss' }], tools: [{ id: 't', name: 'Canva', cost: 15, used: 1 }] });
+  assert.deepEqual(hr.tasks, [{ id: 'a', name: 'Invoices', hours: 168, tag: 'me' }]);
+  assert.equal(hr.tools[0].used, true);
+  const ct = c.cleanContent({ pillars: ['Tips'], days: [9, 2, 2, 0], start: '2026-10-19', posts: { '2026-10-19': { pillar: 7, state: 'viral', hook: 'Hi' }, nope: {} } });
+  assert.deepEqual(ct.pillars, ['Tips', '', '']);
+  assert.deepEqual(ct.days, [0, 2, 6]);
+  assert.deepEqual(Object.keys(ct.posts), ['2026-10-19']);
+  assert.equal(ct.posts['2026-10-19'].pillar, 2);
+  assert.equal(ct.posts['2026-10-19'].state, 'idea');
+});
+
+test('tools Legal has not cleared show to admins only', async () => {
+  const m = await member();
+  const shelf = await (await s.go('/app/hq/tools', { as: m })).text();
+  for (const t of tools.list({ all: true })) assert.equal(shelf.includes(`/app/hq/tools/${t.id}"`), !t.held, t.id);
+  assert.deepEqual(tools.list().map((t) => t.id), ['conversion', 'profit', 'cash']);
+  assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 404);
+  assert.equal((await s.go('/app/hq/tools/stock/data', { as: m, json: { items: [] } })).status, 404);
+  process.env.ADMIN_EMAILS = m.email;
+  assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 200);
+  assert.ok((await (await s.go('/app/hq/tools', { as: m })).text()).includes('Admins only until Legal clears it'));
+  delete process.env.ADMIN_EMAILS;
+});
+
+test('every newer tool saves, opens and exports; free plans keep ideas and content', async () => {
+  const m = await member();
+  const lists = require('../content/tools/checklists.json').lists;
+  const item = lists[0].groups[0].items[0];
+  const docs = {
+    adtest: [{ name: 'Reels test', line: 20, log: [{ day: '2026-10-20', spend: 15, clicks: 40, results: 1 }] }, '2026-10-20,15,40,1'],
+    hooks: [{ stars: ['1'], mine: { 1: '+my version' } }, "'+my version"],
+    ideas: [{ ideas: [{ id: 'a', name: 'Tutoring', scores: { pain: 8, economics: 7, edge: 6, future: 6, inside: 8 } }] }, 'Tutoring,8,7,6,6,8,35'],
+    checklists: [{ done: { [item.id]: '2026-10-20' } }, '2026-10-20'],
+    stock: [{ items: [{ id: 'a', name: 'Candle', onHand: 46, perWeek: 9, leadWeeks: 2, order: 60, cost: 4.2 }] }, 'Candle,46,9,2,60,4.2'],
+    hours: [{ tasks: [{ id: 'a', name: 'Invoices', hours: 2, tag: 'repeat' }], tools: [{ id: 't', name: 'Canva', cost: 15, job: 'Posts', used: true }] }, 'tool,Canva,15,Posts,yes'],
+    content: [{ pillars: ['Tips', 'Story', 'Proof'], days: [0], start: '2026-10-19', posts: { '2026-10-19': { pillar: 1, hook: 'Day one', state: 'posted', views: 620 } } }, '2026-10-19,Story,Day one,posted,620'],
+  };
+  process.env.ADMIN_EMAILS = m.email;
+  for (const [id, [doc, line]] of Object.entries(docs)) {
+    assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: m, json: doc })).status, 200, id);
+    const page = await (await s.go(`/app/hq/tools/${id}`, { as: m })).text();
+    assert.ok(page.includes(`/js/tools/${id}.js`), id);
+    const csv = await (await s.go(`/app/hq/tools/${id}/export.csv`, { as: m })).text();
+    assert.ok(csv.includes(line), `${id}: ${csv}`);
+  }
+  // The ad test reads Profit's numbers for its default line.
+  await tools.save(m.id, 'profit', { price: 80, unitCost: 20 });
+  assert.ok((await (await s.go('/app/hq/tools/adtest', { as: m })).text()).includes('"price":80'));
+  const f = await member('free');
+  process.env.ADMIN_EMAILS = f.email;
+  for (const id of ['ideas', 'content']) assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: f, json: docs[id][0] })).status, 200, id);
+  for (const id of ['adtest', 'hooks', 'checklists', 'stock', 'hours']) assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: f, json: docs[id][0] })).status, 403, id);
+  delete process.env.ADMIN_EMAILS;
+});
+
+test('the fullest content, stock, hours and hooks documents fit', async () => {
+  const m = await member();
+  process.env.ADMIN_EMAILS = m.email;
+  const posts = {};
+  for (let i = 0; i < 120; i += 1) posts[new Date(Date.UTC(2026, 9, 1 + i)).toISOString().slice(0, 10)] = { pillar: 1, hook: 'h'.repeat(200), state: 'posted', views: 123456789 };
+  const hookIds = require('../content/tools/hooks.json').hooks.map((h) => String(h.id));
+  const full = {
+    content: { pillars: ['p'.repeat(40), 'p'.repeat(40), 'p'.repeat(40)], platform: 'x'.repeat(30), days: [0, 1, 2, 3, 4, 5, 6], start: '2026-10-19', posts },
+    stock: { items: Array.from({ length: 80 }, (_, i) => ({ id: `i${i}`, name: 'n'.repeat(60), onHand: 1e7, perWeek: 1e6, leadWeeks: 52, order: 1e7, cost: 999999.99 })) },
+    hours: { tasks: Array.from({ length: 60 }, (_, i) => ({ id: `t${i}`, name: 'n'.repeat(60), hours: 168, tag: 'repeat' })), tools: Array.from({ length: 40 }, (_, i) => ({ id: `u${i}`, name: 'n'.repeat(50), cost: 99999, job: 'j'.repeat(60), used: true })) },
+    hooks: { stars: hookIds, mine: Object.fromEntries(hookIds.map((k) => [k, 'm'.repeat(300)])), wins: Object.fromEntries(hookIds.map((k) => [k, 999999999])) },
+  };
+  for (const [id, doc] of Object.entries(full)) assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: m, json: doc })).status, 200, id);
+  delete process.env.ADMIN_EMAILS;
+});

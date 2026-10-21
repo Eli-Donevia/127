@@ -144,5 +144,8 @@
     io.observe(node);
   }
 
-  window.Tool = { state: state, root: root, el: el, svg: svg, field: field, text: text, tween: tween, save: save, reveal: reveal, money: money, count: count, pct: pct, num: num, day: day, iso: iso, monday: monday, addDays: addDays, reduce: reduce };
+  // Under every money result (Legal L82 T3), word for word.
+  function estimate() { return el('p', { class: 'tl-est', text: "Worked out from the numbers you enter. It's an estimate, not financial advice." }); }
+
+  window.Tool = { estimate: estimate, state: state, root: root, el: el, svg: svg, field: field, text: text, tween: tween, save: save, reveal: reveal, money: money, count: count, pct: pct, num: num, day: day, iso: iso, monday: monday, addDays: addDays, reduce: reduce };
 })();

@@ -584,7 +584,7 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   assert.equal((await s.go('/app/hq/prompts', { as: u })).status, 404);
   process.env.HQ_PROMPTS = 'on';
   const L = prompts.load();
-  assert.equal(L.prompts.length, 61);
+  assert.equal(L.prompts.length, 70);
   assert.ok(L.prompts.every((p) => !('origin' in p)));
   assert.ok(!/"origin"/.test(fs.readFileSync(path.join(__dirname, '..', 'content', 'prompts', 'manifest.json'), 'utf8')));
   const list = await (await s.go('/app/hq/prompts', { as: u })).text();

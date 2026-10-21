@@ -23,12 +23,13 @@
   function fresh(f) {
     return { steps: f.steps.map(function (n) { return { id: uid(), name: n }; }), weeks: [{ start: T.monday(), counts: {}, revenue: 0 }] };
   }
+  // The example has counts only, never revenue (Legal L82: no example money).
   function example() {
     var d = fresh(FUNNELS[0]), ids = d.steps.map(function (s) { return s.id; });
     var rows = [[120, 18, 6, 1, 600], [140, 22, 7, 2, 1200], [150, 24, 8, 2, 1200], [160, 27, 9, 3, 1800], [155, 25, 8, 2, 1200], [170, 29, 5, 2, 1200]];
     d.weeks = rows.map(function (r, i) {
       var c = {}; ids.forEach(function (id, j) { c[id] = r[j]; });
-      return { start: T.addDays(T.monday(), -7 * (rows.length - 1 - i)), counts: c, revenue: r[4] };
+      return { start: T.addDays(T.monday(), -7 * (rows.length - 1 - i)), counts: c, revenue: 0 };
     }).reverse();
     return d;
   }

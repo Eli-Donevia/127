@@ -4,14 +4,13 @@
 <div class="hq h2 tl">
   <%- include('../../partials/hq2-nav') %>
   <header class="tl-head">
-    <span class="eyebrow">Tools</span>
-    <h1 class="hq-title"><span class="dim">Your numbers,</span><span class="steel">worked out live.</span></h1>
+    <h1 class="hq-title"><span class="steel">Tools</span></h1>
     <p class="hq-lede">Type what you know. Each tool does the math as you go, saves to HQ and shows you the one thing to look at.</p>
   </header>
   <div class="tl-shelf">
     <% shelf.forEach(function (t, i) { %>
     <a class="tl-card" href="/app/hq/tools/<%= t.id %>" data-tool="<%= t.id %>">
-      <span class="tl-card-n"><%= String(i + 1).padStart(2, '0') %></span>
+      <span class="tl-card-n"><%= String(i + 1).padStart(2, '0') %><% if (t.held) { %> · Admins only until Legal clears it<% } %></span>
       <span class="tl-card-art" aria-hidden="true" data-art="<%= t.id %>"></span>
       <span class="tl-card-t"><%= t.title %></span>
       <span class="tl-card-l"><%= t.line %></span>

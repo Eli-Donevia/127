@@ -6,10 +6,10 @@
   var T = window.Tool, el = T.el, svg = T.svg;
   var root = T.root;
 
-  var EXAMPLE = { name: 'Tutoring package', price: 300, unitCost: 20, feePct: 2.9, feeFlat: 0.3, hours: 4, fixed: 900, cac: 60, repeats: 3, salesNow: 6 };
-  var BLANK = { name: '', price: 0, unitCost: 0, feePct: 2.9, feeFlat: 0.3, hours: 0, fixed: 0, cac: 0, repeats: 1, salesNow: 0 };
+  // Every field starts empty and there are no example numbers (Legal L82): results only ever come from what the member types.
+  var BLANK = { name: '', price: 0, unitCost: 0, feePct: 0, feeFlat: 0, hours: 0, fixed: 0, cac: 0, repeats: 1, salesNow: 0 };
   var data = T.state.data, demo = false, tryPrice = null;
-  if (!T.state.canSave) { data = Object.assign({}, EXAMPLE); demo = true; }
+  if (!T.state.canSave) { data = Object.assign({}, BLANK); demo = true; }
 
   function calc(d, price) {
     var p = price != null ? price : d.price;
@@ -30,8 +30,7 @@
     root.innerHTML = '';
     nodes = {};
     if (!data) return root.appendChild(start());
-    if (demo && T.state.canSave) root.appendChild(el('div', { class: 'tl-demo' }, [el('span', { text: 'Example numbers. Nothing is saved.' }), el('button', { class: 'tl-act', type: 'button', text: 'Start mine', onclick: function () { data = Object.assign({}, BLANK); demo = false; draw(); } })]));
-    root.appendChild(el('div', { class: 'pf-grid' }, [inputs(), el('div', { class: 'pf-out' }, [hero(), tiles(), chart(), tryIt()])]));
+    root.appendChild(el('div', { class: 'pf-grid' }, [inputs(), el('div', { class: 'pf-out' }, [hero(), tiles(), chart(), tryIt(), T.estimate()])]));
     update();
   }
 
@@ -41,7 +40,6 @@
       el('p', { class: 'tl-start-s', text: 'Use one offer. Make another copy of the numbers later by exporting.' }),
       el('div', { class: 'tl-start-b' }, [
         el('button', { type: 'button', class: 'btn', text: 'Start with my numbers', onclick: function () { data = Object.assign({}, BLANK); draw(); var f = root.querySelector('input'); if (f) f.focus(); } }),
-        el('button', { type: 'button', class: 'tl-act', text: 'See it with example numbers first', onclick: function () { data = Object.assign({}, EXAMPLE); demo = true; draw(); } }),
       ]),
     ]);
   }
@@ -55,8 +53,8 @@
         T.field({ label: 'Price', pre: '$', value: data.price || '', big: true, onInput: set('price') }),
         T.field({ label: 'Cost to deliver one', pre: '$', value: data.unitCost || '', hint: 'Materials, shipping, software per sale', onInput: set('unitCost') }),
         el('div', { class: 'pf-two' }, [
-          T.field({ label: 'Payment fee', post: '%', value: data.feePct, onInput: set('feePct') }),
-          T.field({ label: 'Plus per sale', pre: '$', value: data.feeFlat, onInput: set('feeFlat') }),
+          T.field({ label: 'Payment fee', post: '%', value: data.feePct || '', onInput: set('feePct') }),
+          T.field({ label: 'Plus per sale', pre: '$', value: data.feeFlat || '', onInput: set('feeFlat') }),
         ]),
         T.field({ label: 'Your hours for one sale', post: 'hrs', value: data.hours || '', hint: 'Delivery, calls, travel, admin', onInput: set('hours') }),
       ]),
@@ -107,13 +105,14 @@
       update();
     });
     keep.addEventListener('click', function () { data.price = tryPrice; tryPrice = null; changed(); draw(); });
-    return el('section', { class: 'tl-panel pf-try' }, [el('h2', { class: 'tl-h', text: 'Try a price' }), r, el('div', { class: 'pf-try-o' }, [nodes.tryV, nodes.tryS]), keep]);
+    return nodes.tryBox = el('section', { class: 'tl-panel pf-try' }, [el('h2', { class: 'tl-h', text: 'Try a price' }), r, el('div', { class: 'pf-try-o' }, [nodes.tryV, nodes.tryS]), keep]);
   }
 
   function update() {
     var now = calc(data), r = calc(data, tryPrice), p = r.price;
-    nodes.of.textContent = (data.name ? data.name + ': ' : '') + 'what you keep from a ' + T.money(p) + ' sale';
-    T.tween(nodes.keep, r.keep, function (v) { return T.money(v, Math.abs(v) < 100 ? 2 : 0); });
+    nodes.of.textContent = p > 0 ? (data.name ? data.name + ': w' : 'W') + 'hat you keep from a ' + T.money(p) + ' sale' : 'What one sale leaves you';
+    if (p > 0) T.tween(nodes.keep, r.keep, function (v) { return T.money(v, Math.abs(v) < 100 ? 2 : 0); }); else nodes.keep.textContent = '–';
+    nodes.tryBox.hidden = !(data.price > 0);
     // The split bar: cost, fees, and what's left.
     nodes.split.innerHTML = '';
     var parts = p > 0 ? [['cost', data.unitCost], ['fees', r.fees], ['keep', Math.max(0, r.keep)]] : [];
@@ -130,7 +129,7 @@
     nodes.beS.textContent = r.be == null ? (r.keep > 0 ? 'Add your monthly costs' : 'Needs a profit per sale') : data.salesNow ? 'You make about ' + T.count(data.salesNow) + ' now' : 'a month, to pay ' + T.money(data.fixed);
     nodes.hr.textContent = r.hourly == null ? '–' : T.money(r.hourly, 2);
     nodes.hrS.textContent = r.hourly == null ? 'Add your hours for one sale' : 'per hour, before your monthly costs';
-    nodes.worth.textContent = T.money(r.worth);
+    nodes.worth.textContent = r.worth > 0 ? T.money(r.worth) : '–';
     nodes.worthS.textContent = data.repeats > 1 ? 'kept over ' + data.repeats + ' purchases' : 'from one purchase';
     nodes.max.textContent = r.worth > 0 ? T.money(r.worth) : '–';
     nodes.maxS.textContent = data.cac > 0 ? (data.cac <= r.worth ? 'You pay ' + T.money(data.cac) + ', earned back in ' + (r.payback <= 1 ? 'the first sale' : Math.ceil(r.payback) + ' sales') : 'You pay ' + T.money(data.cac) + ': each new customer loses money') : 'Pay more than this and a new customer loses money';
@@ -139,8 +138,8 @@
       nodes.tryV.textContent = 'At ' + T.money(tryPrice);
       nodes.tryS.textContent = 'you keep ' + T.money(r.keep, 2) + ' a sale' + (r.be != null ? ', break even at ' + r.be + ' a month' : '') + (now.be != null && r.be != null && r.be !== now.be ? ' (' + (r.be < now.be ? now.be - r.be + ' fewer' : r.be - now.be + ' more') + ')' : '');
     } else {
-      nodes.tryV.textContent = 'Drag to try a price';
-      nodes.tryS.textContent = 'Every number above moves. Nothing changes until you keep it.';
+      nodes.tryV.textContent = 'At ' + T.money(data.price);
+      nodes.tryS.textContent = 'Drag to try another price. Every number above moves, and nothing changes until you keep it.';
     }
     drawChart(r);
   }
@@ -151,7 +150,7 @@
     if (!(r.price > 0)) { box.appendChild(el('p', { class: 'tl-note', text: 'Add a price to draw it.' })); return; }
     var unit = data.unitCost + r.fees;
     var xMax = Math.max(10, Math.ceil(Math.max(r.be ? r.be * 2 : 0, data.salesNow * 1.4)));
-    var W = 560, H = 240, L = 48, R = 12, Tp = 16, B = 28;
+    var W = Math.max(300, Math.min(760, box.clientWidth || 560)), H = W < 480 ? 220 : 240, L = 48, R = 12, Tp = 16, B = 28;
     var yMax = Math.max(r.price * xMax, data.fixed + unit * xMax) * 1.05 || 1;
     var X = function (s) { return L + (s / xMax) * (W - L - R); }, Y = function (v) { return Tp + (1 - v / yMax) * (H - Tp - B); };
     var s = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'pf-svg', role: 'img', 'aria-label': r.be ? 'Revenue passes your costs at ' + r.be + ' sales a month' : 'Revenue never passes your costs at this price' });
@@ -183,5 +182,7 @@
     if (!quiet) update();
   }
 
+  var rz;
+  window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { if (nodes.chart) update(); }, 150); });
   draw();
 })();
