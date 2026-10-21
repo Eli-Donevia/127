@@ -135,6 +135,36 @@
         result: { heading: 'Your page is built.', design: 'Design: {design}, picked for {business}.', preview: 'Your page', photos: 'Photos to swap in', photosLine: 'Your page ships with placeholder art. Swap in your own photos at these sizes, with the same file names.', share: 'Share it', deploy: 'Put it online free tonight', deploySteps: ['Download the ZIP.', 'Open Netlify Drop and drag the ZIP onto it.', 'Sign up free to claim the site, then rename it so the address matches your business.'], yours: 'The site is yours to keep, change and host anywhere.', almost: 'Almost ready to put online', almostAgain: 'Build it again with these filled in before you put it online.', almostEmail: 'Your result page has a box to add it and build it again.', then: 'Then put it online free:', fix: { label: 'Email for your page', placeholder: 'hello@yourbusiness.com', button: 'Build it again', error: 'That email looks off. Check it and try again.' } },
         email: { subject: 'Your site for {business} is built', open: 'Open your site and download the ZIP' },
         files: { zip: 'Your website folder (ZIP) for free hosting', preview: 'Preview your page in a browser', share: 'Your share image' },
+        // The free website builder (FREE_SITE_BUILDER=on, lib/doors.js doorCopy): page replaces the words above, an
+        // example site plays beside the form, the visitor's own site plays its motion, they try it in other designs on
+        // the same words and keep it in a free 127 HQ. The example is a made-up business, and its caption says so.
+        freeBuilder: {
+          page: {
+            title: 'Free website builder · 127',
+            description: 'Type your business. Get a website built from your words, in a design that moves. Try it in other designs and keep the one you like. Free.',
+            h1: 'Your website, built free.',
+            lede: 'Type your business. 127 builds the website from your words, in a design that moves. Keep the one you like.',
+            button: 'Build my website',
+            note: 'Free, no card. Only your words go on it, and nothing goes online until you put it there.',
+            free: ['Your website, built from your words', 'All {n} designs to try it in, each with its own motion', 'The whole site as a ZIP that is yours to keep', 'Search tags, a privacy page and the free steps to put it online'],
+            scan: 'Building the website for {business}',
+            progress: ['Picking the designs that fit', 'Writing it from your words', 'Building the files', 'Packing the ZIP'],
+            heading: 'Your website is built.',
+            design: '{business}, in the {design} design.',
+            preview: 'Your website',
+          },
+          more: 'Add prices, city and email (optional)',
+          example: {
+            heading: 'An example',
+            values: { business: 'Maya Lens', what: 'Wedding and portrait photography', city: 'Denver' },
+            labels: { business: 'Name', what: 'What it does', city: 'City' },
+            caption: '{business} is made up. These three lines built it:',
+            try: 'Build it with these words',
+            open: 'Open it full screen',
+          },
+          designs: { label: 'Try it in another design', more: 'More designs', less: 'Fewer designs', building: 'Building it in {design}', loading: 'Loading {design}', failed: "That design didn't build. Try another one." },
+          keep: { start: 'Keep it free in 127 HQ', in: 'Bring it into 127 HQ', line: 'A free account. Your site, its files and the steps to put it online stay in one place.', or: 'Or get the ZIP by email', bar: 'Keep this website free in 127 HQ.', barIn: 'Bring this website into 127 HQ.', barButton: 'Keep it' },
+        },
       },
       offer: {
         path: '/offer-score',

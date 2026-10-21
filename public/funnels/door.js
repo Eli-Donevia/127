@@ -16,6 +16,12 @@
   }
   var M = C.id, LAST = '127-door-' + M;
   var st = { run: null, unlocked: false, sticky: null };
+  // The free website builder (FREE_SITE_BUILDER, lib/doors.js doorCopy) is a page of its own: door.css .fb, a made-up
+  // business's site beside the form, the name forming from light while the site builds, the designs as a row of names.
+  var FB = C.freeBuilder || null;
+  var calm = !window.matchMedia || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The page's head marked it .fb before the first paint; .fb-up shows it now that it's drawn (this runs before any paint).
+  if (FB) document.documentElement.classList.add('fb', 'fb-up');
   // The email gate's copy for this door (results-kit.js reads it by magnet).
   RD.gate[M] = C.gate;
 
@@ -32,13 +38,14 @@
 
   // ---------- the form ----------
   $('chip').textContent = C.chip;
+  if (FB) $('chip').parentNode.hidden = true;
   $('h1').textContent = C.h1;
   $('lede').textContent = C.lede;
   $('note').textContent = C.note || '';
   var button = function () { go.innerHTML = esc(C.button) + ' <span class="arrow"></span>'; };
   button();
   $('stack').innerHTML = C.free.map(function (t) { return '<li><span class="ck" aria-hidden="true"></span><span>' + esc(t) + '</span></li>'; }).join('');
-  $('fields').innerHTML = C.fields.map(field).join('');
+  $('fields').innerHTML = FB ? fbFields() : C.fields.map(field).join('');
 
   function field(f) {
     var id = 'd-' + f.name;
@@ -51,6 +58,11 @@
     else if (f.type === 'number') box = '<input class="input" type="number" inputmode="decimal" step="any" min="' + (f.min || 0) + '" max="' + (f.max || 100000) + '"' + attrs + '>';
     else box = '<input class="input" type="' + (f.auto === 'email' ? 'email' : 'text') + '" maxlength="' + (f.max || 200) + '"' + (f.auto === 'url' ? ' inputmode="url" autocapitalize="off" spellcheck="false"' : '') + attrs + '>';
     return '<label class="field" for="' + id + '"><span>' + esc(f.label) + '</span>' + box + '</label>';
+  }
+  // The free website builder asks for the two things it needs; the rest folds away.
+  function fbFields() {
+    var need = C.fields.filter(function (f) { return f.required; }), rest = C.fields.filter(function (f) { return !f.required; });
+    return need.map(field).join('') + (rest.length ? '<details class="fb-more" id="fbMore"><summary>' + esc(FB.more) + '</summary><div class="stack-m">' + rest.map(field).join('') + '</div></details>' : '');
   }
   function values() {
     var v = {};
@@ -76,6 +88,10 @@
     C.fields.forEach(function (f) { if (p.get(f.name)) q[f.name] = p.get(f.name); });
     setValues(last);
     setValues(q);
+    if (FB && $('fbMore')) {
+      var had = values();
+      if (C.fields.some(function (f) { return !f.required && had[f.name]; })) $('fbMore').open = true;
+    }
     if (p.get('go') !== '1' || window.DOOR_RUN) return;
     if (ready()) return setTimeout(submit, 60);
     // Something only the visitor can give (like the owner box): take them to it.
@@ -96,6 +112,14 @@
     };
   }
 
+  if (FB) {
+    // The example's own button runs the sample, and what you get moves under the example.
+    $('sample').hidden = true;
+    var stack = document.querySelector('#formWrap .f25-stack'), sec = document.createElement('section');
+    if (stack) { sec.className = 'narrow'; sec.id = 'fbStack'; sec.appendChild(stack); $('example').parentNode.insertBefore(sec, $('example').nextSibling); }
+    if (!window.DOOR_RUN) { exampleView(); intro(); }
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (go.disabled || form.website.value) return;
@@ -112,6 +136,13 @@
     runIt(input);
   }
   function fail(msg) { err.textContent = msg; err.hidden = false; }
+  // The form and what's around it (the run and the result take their place).
+  function landing(on) {
+    ['intro', 'formWrap', 'example', 'fbStack'].forEach(function (id) {
+      var el = $(id);
+      if (el && (id !== 'example' || el.firstChild)) el.hidden = !on;
+    });
+  }
 
   // ---------- the run ----------
   function runIt(input) {
@@ -120,9 +151,10 @@
     serverRun(input).then(function (got) {
       finishScan();
       K.track('Door Result', { door: M, ok: got.run ? 'yes' : 'no', sample: got.run && got.run.sample ? 'yes' : 'no' });
-      setTimeout(function () { if (got.run) show(got.run); else showFailed(got.failed); }, 500);
+      var land = function () { if (got.run) show(got.run); else showFailed(got.failed); };
+      setTimeout(function () { if (FB && got.run) release(land); else land(); }, FB ? formed() : 500);
     }, function (ex) {
-      $('scan').hidden = true; $('intro').hidden = false; $('formWrap').hidden = false; $('whoWrap').hidden = false;
+      $('scan').hidden = true; landing(true); $('whoWrap').hidden = false;
       fail(ex.message || C.copy.failed);
     }).then(function () { go.disabled = false; button(); });
   }
@@ -166,12 +198,13 @@
   }
 
   function startScan(input) {
-    $('intro').hidden = true; $('formWrap').hidden = true; $('result').hidden = true; $('whoWrap').hidden = true;
+    landing(false); $('result').hidden = true; $('whoWrap').hidden = true;
     $('scan').hidden = false;
     $('scanLabel').textContent = C.copy.running;
     $('scanTitle').textContent = fill(C.scan, input);
     $('log').innerHTML = C.progress.map(function (t, i) { return '<li data-s="' + i + '"><span class="ic"></span><span class="tx">' + esc(t) + '</span><span class="val"></span></li>'; }).join('');
     $('meter').style.width = '6%';
+    if (FB) building(input);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     step(0);
   }
@@ -182,10 +215,12 @@
       if (j === i) li.classList.add('on');
     });
     $('meter').style.width = [12, 40, 68, 90][i] + '%';
+    if (FB && $('fbStep')) { $('fbStep').textContent = C.progress[i]; $('fbBar').style.transform = 'scaleX(' + [0.12, 0.4, 0.68, 0.9][i] + ')'; }
   }
   function finishScan() {
     Array.prototype.forEach.call($('log').children, function (li) { li.classList.add('on', 'done'); });
     $('meter').style.width = '100%';
+    if (FB && $('fbBar')) { $('fbBar').style.transform = 'none'; $('fbBar').parentNode.classList.add('done'); }
   }
 
   // ---------- the result ----------
@@ -194,12 +229,14 @@
   var cp = function (text, kind) { T.push(String(text || '')); return '<button type="button" class="dr-copy" data-copy="' + (T.length - 1) + '" data-kind="' + esc(kind || '') + '">Copy</button>'; };
   var msg = function (title, text, kind) { return '<div class="dr-msg-head"><span>' + esc(title) + '</span>' + cp(text, kind) + '</div><div class="dr-msg">' + esc(text) + '</div>'; };
   var fileOf = function (run, key) { return (run.files || []).filter(function (f) { return f.key === key; })[0] || null; };
-  // A page we built, shown in a frame with scripts, forms and outside requests off (and the same on the server).
-  var frame = function (src, title) { return '<div class="dr-frame"><iframe src="' + esc(src) + '" sandbox="" loading="lazy" referrerpolicy="no-referrer" title="' + esc(title) + '"></iframe></div>'; };
+  // A page we built, shown in a frame with scripts, forms and outside requests off (and the same on the server). The free
+  // website builder's site plays its motion: its own scripts run, still without same-origin, so they can't reach this page.
+  var frame = function (src, title, moving) { return '<div class="dr-frame"><iframe src="' + esc(src) + '" sandbox="' + (moving ? 'allow-scripts' : '') + '" loading="lazy" referrerpolicy="no-referrer" title="' + esc(title) + '"></iframe></div>'; };
 
   function show(run) {
     st.run = run;
-    $('scan').hidden = true; $('intro').hidden = true; $('formWrap').hidden = true; $('whoWrap').hidden = false;
+    if (swarm) { swarm.destroy(); swarm = null; }
+    $('scan').hidden = true; landing(false); $('whoWrap').hidden = false;
     var el = $('result');
     el.hidden = false;
     el.innerHTML = '<div class="dr-head">' + head(run) + '</div><div id="free"></div><div id="gateWrap" style="margin-top:14px"></div><div id="full"></div><div id="after"></div>';
@@ -210,7 +247,8 @@
         magnet: M,
         copy: DRAW[M].gate ? DRAW[M].gate(run) : null,
         before: DRAW[M].tease(run),
-        data: function () { return { run_id: run.id, k: run.k, door: M }; },
+        // st.run: the free website builder swaps in a new result when the visitor tries another design.
+        data: function () { return { run_id: st.run.id, k: st.run.k, door: M }; },
         onDone: function () {
           st.unlocked = true;
           if (st.sticky) st.sticky.remove();
@@ -225,7 +263,7 @@
       });
       var f = gate.querySelector('form');
       if (f && f.name && run.input && run.input.name && !f.name.value) f.name.value = run.input.name;
-      st.sticky = R.sticky(gate, M);
+      st.sticky = FB && C.hq ? keepBar() : R.sticky(gate, M);
     } else drawAfter();
     window.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' });
   }
@@ -236,6 +274,7 @@
     $('full').innerHTML = st.unlocked ? DRAW[M].full(st.run) + files(st.run) : '';
     var fix = $('result').querySelector('form.dr-fix');
     if (fix) fix.onsubmit = rebuild;
+    if (DRAW[M].bind) DRAW[M].bind(st.run);
   }
 
   function head(run) {
@@ -249,13 +288,13 @@
       sub = fill(C.result.read, { date: dayOf(x.checked) }) + ' ' + C.result.sources;
     } else if (M === 'site') {
       h = C.result.heading;
-      sub = fill(C.result.design, { design: x.designName, business: x.business }) + (x.why ? ' ' + x.why : '');
+      sub = fill(C.result.design, { design: x.designName, business: x.business }) + (x.why && !FB ? ' ' + x.why : '');
     } else {
       h = fill(C.result.heading, { score: x.score });
       // Legal part 5: the score isn't a prediction.
       sub = C.result.reads + (x.after != null ? ' ' + fill(C.result.after, { after: x.after }) : '');
     }
-    return '<div class="label lilac">' + esc(C.title.replace(/ · 127$/, '')) + '</div>' +
+    return (FB ? '' : '<div class="label lilac">' + esc(C.title.replace(/ · 127$/, '')) + '</div>') +
       '<h2 class="h1 steel">' + esc(h) + '</h2>' +
       (sub ? '<p class="dr-sub">' + esc(sub) + '</p>' : '') +
       (run.sample || run.capped ? '<div class="f25-banner">' + esc(run.capped ? C.copy.capped : C.copy.sample) + '</div>' : '');
@@ -268,6 +307,288 @@
         (f.open ? '<a class="btn ghost" href="' + esc(f.open) + '" target="_blank" rel="noopener" data-file="' + esc(f.key) + '">' + esc(C.copy.fileOpen) + '</a>' : '') +
         '<a class="btn" href="' + esc(f.url) + '" download="' + esc(f.name) + '" data-file="' + esc(f.key) + '">' + esc(C.copy.fileGet) + '</a></span></div>';
     }).join('') + '</div></div>';
+  }
+
+  // ---------- the free website builder (FREE_SITE_BUILDER, lib/doors.js) ----------
+  // The designs as a row of names, the one showing lit (door.css .fb-tab).
+  function tabs(list, cur, more) {
+    return '<div class="fb-tabs" role="group" aria-label="' + esc(FB.designs.label) + '">' + list.map(function (d) {
+      return '<button type="button" class="fb-tab" data-design="' + esc(d.id) + '" aria-pressed="' + (d.id === cur) + '">' + esc(d.name) + '</button>';
+    }).join('') + (more || '') + '</div>';
+  }
+  // Three designs picked for the business to try on the same words, the rest a tap away. Each try is a new result.
+  function designs(run) {
+    var x = run.result, cur = x.design, top = x.designs.map(function (d) { return d.id; });
+    var rest = FB.all.filter(function (d) { return top.indexOf(d.id) < 0; });
+    var open = st.more || rest.some(function (d) { return d.id === cur; });
+    return '<div class="dr-designs"><h3 class="fb-h">' + esc(FB.designs.label) + '</h3>' +
+      tabs(x.designs.concat(open ? rest : []), cur, rest.length ? '<button type="button" class="fb-tab fb-tog" data-more aria-expanded="' + open + '">' + esc(open ? FB.designs.less : FB.designs.more) + '</button>' : '') +
+      '<p class="form-err" id="designErr" hidden></p></div>';
+  }
+  var keepUrl = function (run) { return '/start/door/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k); };
+  // Keep it: a free account with the site in 127 HQ (the result's own signup), or the ZIP by email below.
+  function keep(run) {
+    if (!C.hq) return '';
+    var me = R.me();
+    return '<div class="dr-sec dr-keep"><a class="btn" href="' + esc(keepUrl(run)) + '" data-keep>' + esc(me ? FB.keep.in : FB.keep.start) + ' <span class="arrow"></span></a>' +
+      (me ? '' : '<p class="dr-sub">' + esc(FB.keep.line) + '</p>') +
+      (st.unlocked ? '' : '<p class="center" style="margin:10px 0 0"><button type="button" class="dr-sample" data-zip>' + esc(FB.keep.or) + '</button></p>') + '</div>';
+  }
+  // The bar along the bottom keeps the site in 127 HQ once the button has scrolled away; the email for the ZIP stays on
+  // the page.
+  function keepBar() {
+    var bar = document.createElement('div');
+    bar.className = 'sticky-ask';
+    bar.innerHTML = '<span>' + esc(R.me() ? FB.keep.barIn : FB.keep.bar) + '</span><a class="btn" href="' + esc(keepUrl(st.run)) + '">' + esc(FB.keep.barButton) + '</a>';
+    document.body.appendChild(bar);
+    var a = bar.querySelector('a');
+    a.onclick = function () { a.href = keepUrl(st.run); K.track('Door Keep', { door: M, design: st.run.result.design, via: 'bar' }); };
+    var away = false, typing = false, set = function () { bar.classList.toggle('on', away && !typing); };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { away = !es[0].isIntersecting; set(); }).observe($('free'));
+    // A phone's keyboard pushes a bottom bar up over the form, so it steps aside while a field is in use.
+    var typed = function () { var a = document.activeElement; typing = !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName); set(); };
+    var left = function () { setTimeout(typed, 0); };
+    document.addEventListener('focusin', typed);
+    document.addEventListener('focusout', left);
+    return { remove: function () { bar.remove(); document.removeEventListener('focusin', typed); document.removeEventListener('focusout', left); } };
+  }
+  function redesign(id, name) {
+    if (st.busy || !st.run || id === st.run.result.design) return;
+    st.busy = true;
+    var fr = $('free').querySelector('.dr-frame'), errEl = $('designErr');
+    if (fr) { fr.classList.add('busy'); fr.setAttribute('data-busy', fill(FB.designs.building, { design: name })); light(fr, 'busy'); }
+    Array.prototype.forEach.call($('free').querySelectorAll('[data-design]'), function (b) { b.disabled = true; b.setAttribute('aria-pressed', String(b.getAttribute('data-design') === id)); });
+    fetch('/api/door/site/redesign', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id: st.run.id, k: st.run.k, design: id }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.run) throw new Error(j.error || FB.designs.failed); return j.run; }); })
+      .then(function (run) {
+        K.track('Door Design', { door: M, design: id });
+        st.run = run;
+        $('result').querySelector('.dr-head').innerHTML = head(run);
+        draw();
+        if (st.unlocked) try { history.replaceState(null, '', '/door/r/' + encodeURIComponent(run.id) + '?k=' + encodeURIComponent(run.k)); } catch (x) {}
+      }, function (e) {
+        if (fr) { fr.classList.remove('busy'); light(fr, 'rest'); }
+        Array.prototype.forEach.call($('free').querySelectorAll('[data-design]'), function (b) { b.disabled = false; b.setAttribute('aria-pressed', String(b.getAttribute('data-design') === st.run.result.design)); });
+        if (errEl) { errEl.textContent = e.message || FB.designs.failed; errEl.hidden = false; }
+      })
+      .then(function () { st.busy = false; });
+  }
+
+  // The example beside the form: a made-up business's site playing in the designs that fit it, so the builder shows
+  // what it makes before anyone types. Built once on the server (GET /door/site/example/:design).
+  function exampleView() {
+    var X = FB.example, el = $('example');
+    if (!X || !X.designs || !X.designs.length) return;
+    var cur = X.designs[0], wide = !!window.matchMedia && matchMedia('(min-width: 1024px)').matches;
+    var rows = Object.keys(X.labels).filter(function (k) { return X.values[k]; }).map(function (k) { return '<div><dt>' + esc(X.labels[k]) + '</dt><dd>' + esc(X.values[k]) + '</dd></div>'; }).join('');
+    var titled = function (d) { return X.heading + ': ' + X.values.business + ', ' + d.name; };
+    el.innerHTML = '<h2 class="fb-h">' + esc(X.heading) + '</h2>' +
+      '<div class="dr-frame fb-phone" id="exFrame"><iframe src="' + esc(X.src + cur.id) + '" sandbox="allow-scripts" loading="lazy" referrerpolicy="no-referrer" title="' + esc(titled(cur)) + '"></iframe></div>' +
+      tabs(X.designs, cur.id) +
+      '<p class="fb-cap">' + esc(fill(X.caption, X.values)) + '</p><dl class="fb-said">' + rows + '</dl>' +
+      '<p class="fb-acts"><button type="button" class="fb-link" data-try>' + esc(X.try) + '</button><a class="fb-link" id="exOpen" href="' + esc(X.src + cur.id) + '" target="_blank" rel="noopener">' + esc(X.open) + '</a></p>';
+    el.hidden = false;
+    var fr = $('exFrame');
+    landed(fr);
+    if (wide) { light(fr, 'draw'); lean(fr); } else scrub(fr);
+    Array.prototype.forEach.call(el.querySelectorAll('[data-design]'), function (b) {
+      b.onclick = function () {
+        var id = b.getAttribute('data-design'), d = X.designs.filter(function (x) { return x.id === id; })[0], ifr = fr.querySelector('iframe');
+        if (!d || b.getAttribute('aria-pressed') === 'true') return;
+        Array.prototype.forEach.call(el.querySelectorAll('[data-design]'), function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+        fr.classList.add('busy');
+        fr.setAttribute('data-busy', fill(FB.designs.loading, { design: d.name }));
+        light(fr, 'busy');
+        ifr.onload = function () { fr.classList.remove('busy'); light(fr, 'rest'); };
+        ifr.src = X.src + id;
+        ifr.title = titled(d);
+        $('exOpen').href = X.src + id;
+        K.track('Door Example', { door: M, design: id });
+      };
+    });
+    // On a phone the frame is a picture of the site (scrolling stays with the page); a tap sends the light round it.
+    fr.onclick = function () { if (!wide && !fr.classList.contains('busy')) light(fr, 'travel'); };
+    el.querySelector('[data-try]').onclick = function () { $('sample').onclick(); };
+  }
+
+  // The headline sets word by word and the lede and form follow it in (door.css .fb-go, .fb-in): one move, about 1.2 s.
+  function intro() {
+    if (calm) return;
+    $('h1').innerHTML = String(C.h1).split(' ').map(function (w, i) { return '<span class="w"><span style="--i:' + i + '">' + esc(w) + '</span></span>'; }).join(' ');
+    var root = document.documentElement;
+    root.classList.add('fb-go');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add('fb-in'); }); });
+    setTimeout(function () { swarmLib().catch(function () {}); }, 2500);
+  }
+
+  // ---------- the light ----------
+  // A frame's edge is a line of Tide running into Orchid (Design's accent and motion rules v2, D57: light from the
+  // subject, a bloom no wider than twice the stroke). It draws in, a bright head runs round it when a site lands or while
+  // one loads, and with reduced motion it simply rests, lit. The bloom shows only while the light moves, so a still
+  // frame never glows, and no loop runs at rest. The hues are in door.css.
+  var gid = 0;
+  function edge(fr) {
+    var svg = fr.querySelector('.fb-edge');
+    if (svg) return svg;
+    var id = 'fbg' + (++gid);
+    fr.insertAdjacentHTML('beforeend', '<svg class="fb-edge" aria-hidden="true" focusable="false"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0"/><stop offset="1"/></linearGradient></defs><rect class="bs"/><rect class="ln" stroke="url(#' + id + ')"/><rect class="hd"/></svg>');
+    svg = fr.querySelector('.fb-edge');
+    var fit = function () {
+      var w = fr.clientWidth, h = fr.clientHeight, iw = Math.max(0, w - 1.5), ih = Math.max(0, h - 1.5);
+      var r = Math.max(0, Math.min((parseFloat(getComputedStyle(fr).borderTopLeftRadius) || 0) - 0.75, iw / 2, ih / 2));
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.len = Math.max(1, 2 * (iw + ih) - 8 * r + 2 * Math.PI * r);
+      Array.prototype.forEach.call(svg.querySelectorAll('rect'), function (rc) {
+        rc.setAttribute('x', 0.75); rc.setAttribute('y', 0.75); rc.setAttribute('width', iw); rc.setAttribute('height', ih); rc.setAttribute('rx', r);
+      });
+      svg.querySelector('.ln').style.strokeDasharray = svg.len + 'px ' + svg.len + 'px';
+      svg.hl = Math.max(28, Math.min(72, svg.len * 0.05));
+      svg.querySelector('.hd').style.strokeDasharray = svg.hl + 'px ' + (svg.len - svg.hl) + 'px';
+    };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(fr);
+    return svg;
+  }
+  // The site fades up in its frame once it has loaded (an iframe fires load even for an error page), so a white page
+  // never flashes in the dark frame.
+  function landed(fr) {
+    var ifr = fr.querySelector('iframe'), on = function () { fr.classList.add('in'); };
+    if (ifr) ifr.addEventListener('load', on); else on();
+  }
+  // mode: draw (the edge draws in behind a bright head), travel (the head runs one lap), busy (laps until the site is
+  // in), rest (stops the head).
+  function light(fr, mode) {
+    var svg = edge(fr), ln = svg.querySelector('.ln'), hd = svg.querySelector('.hd'), L = svg.len, h = svg.hl;
+    if (fr.fbRun) { fr.fbRun.cancel(); fr.fbRun = null; }
+    if (calm || !hd.animate) { ln.style.strokeDashoffset = '0px'; return; }
+    svg.classList.toggle('go', mode !== 'rest');
+    if (mode === 'rest') return;
+    if (mode === 'draw') {
+      var o = { duration: 1500, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' };
+      ln.animate([{ strokeDashoffset: L + 'px' }, { strokeDashoffset: '0px' }], o);
+      fr.fbRun = hd.animate([{ strokeDashoffset: h + 'px' }, { strokeDashoffset: (h - L) + 'px' }], o);
+      hd.animate([{ opacity: 1 }, { opacity: 1, offset: 0.8 }, { opacity: 0 }], { duration: 1500 });
+    } else {
+      fr.fbRun = hd.animate([{ strokeDashoffset: '0px', opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 1, offset: 0.8 }, { strokeDashoffset: -L + 'px', opacity: 0 }], { duration: mode === 'busy' ? 1200 : 1400, easing: 'cubic-bezier(.4,0,.2,1)', iterations: mode === 'busy' ? Infinity : 1 });
+    }
+    fr.fbRun.onfinish = function () { svg.classList.remove('go'); };
+  }
+  // On a phone the example sits under the form: its edge draws as it scrolls into view, and undraws on the way back up.
+  function scrub(fr) {
+    var svg = edge(fr), ln = svg.querySelector('.ln'), hd = svg.querySelector('.hd'), pend = 0;
+    if (calm) { ln.style.strokeDashoffset = '0px'; return; }
+    var upd = function () {
+      pend = 0;
+      var r = fr.getBoundingClientRect(), vh = window.innerHeight || 1, p = Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.7)));
+      var L = svg.len, d = L * (1 - p);
+      ln.style.strokeDashoffset = d + 'px';
+      hd.style.strokeDashoffset = (svg.hl - L + d) + 'px';
+      hd.style.opacity = p > 0.02 && p < 0.98 ? 1 : 0;
+      svg.classList.toggle('go', p > 0.02 && p < 0.98);
+    };
+    var ask = function () { if (!pend) pend = requestAnimationFrame(upd); };
+    addEventListener('scroll', ask, { passive: true });
+    addEventListener('resize', ask, { passive: true });
+    upd();
+  }
+  // On a desktop the example leans toward the pointer on a spring, and settles.
+  function lean(el) {
+    if (calm || !matchMedia('(pointer: fine)').matches) return;
+    var rx = 0, ry = 0, vx = 0, vy = 0, tx = 0, ty = 0, raf = 0;
+    var tick = function () {
+      vx = (vx + (tx - rx) * 0.06) * 0.82; vy = (vy + (ty - ry) * 0.06) * 0.82;
+      rx += vx; ry += vy;
+      el.style.transform = 'perspective(1400px) rotateX(' + rx.toFixed(3) + 'deg) rotateY(' + ry.toFixed(3) + 'deg)';
+      raf = Math.abs(tx - rx) + Math.abs(ty - ry) + Math.abs(vx) + Math.abs(vy) > 0.004 ? requestAnimationFrame(tick) : 0;
+    };
+    addEventListener('pointermove', function (e) {
+      if ($('example').hidden) return;
+      var r = el.getBoundingClientRect(), dx = (e.clientX - (r.left + r.width / 2)) / (window.innerWidth || 1), dy = (e.clientY - (r.top + r.height / 2)) / (window.innerHeight || 1);
+      ty = -Math.max(-1, Math.min(1, dx * 2)) * 4;
+      tx = Math.max(-1, Math.min(1, dy * 2)) * 3;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+
+  // ---------- while it builds, the name forms from light ----------
+  // The vendored particle swarm (public/js/vendor/particle-swarm.js, MIT, Componentry) forms the business name inside
+  // the frame while the server builds, and the result waits until it has formed. With reduced motion, or until the
+  // swarm has loaded, the name is simply set in the frame.
+  var swarm = null, swarmEnd = 0, swarmP = null;
+  function swarmLib() {
+    if (!swarmP) swarmP = new Promise(function (ok, no) {
+      if (K.swarm) return ok(K.swarm);
+      addEventListener('k127-swarm', function () { ok(K.swarm); }, { once: true });
+      var s = document.createElement('script');
+      s.type = 'module';
+      s.src = '/funnels/door-swarm.js';
+      s.onerror = no;
+      document.head.appendChild(s);
+    });
+    return swarmP;
+  }
+  // The name in Geist Bold, set as big as the frame allows: the shape the swarm forms. Each way of breaking it into one to
+  // four lines is tried and the one that sets it biggest wins, so a long name on a phone and a short one on a wide
+  // frame both read.
+  function nameArt(name, w, h) {
+    var c = document.createElement('canvas'), x = c.getContext('2d');
+    c.width = w; c.height = h;
+    var words = String(name).trim().split(/\s+/).slice(0, 6), font = function (px) { return '700 ' + px + 'px Geist, "Helvetica Neue", Arial, sans-serif'; };
+    x.font = font(100);
+    var best = null;
+    for (var n = 1; n <= Math.min(4, words.length); n++) {
+      var per = Math.ceil(words.length / n), lines = [];
+      for (var i = 0; i < words.length; i += per) lines.push(words.slice(i, i + per).join(' '));
+      var widest = Math.max.apply(null, lines.map(function (t) { return x.measureText(t).width; })) || 1;
+      var px = Math.min((100 * w * 0.84) / widest, (h * 0.72) / (lines.length * 0.92), 220);
+      if (!best || px > best.px) best = { px: px, lines: lines };
+    }
+    var lh = best.px * 0.92;
+    x.font = font(best.px);
+    x.fillStyle = '#fff';
+    // On a phone the name sits where a site's headline would; on a wide frame the block is centred.
+    var left = w > h * 1.2 ? (w - Math.max.apply(null, best.lines.map(function (t) { return x.measureText(t).width; }))) / 2 : w * 0.08;
+    best.lines.forEach(function (t, i) { x.fillText(t, left, (h - lh * best.lines.length) / 2 + best.px * 0.74 + i * lh); });
+    return c;
+  }
+  // The swarm runs Tide into Orchid across the name, the same two hues as the frame's edge (door.css).
+  function hues(el) {
+    var cs = getComputedStyle(el), hex = function (n, d) { var v = cs.getPropertyValue(n).trim(); return /^#[0-9a-f]{6}$/i.test(v) ? v : d; };
+    return [hex('--fb-tide', '#7cebf6'), hex('--fb-orchid', '#a98bff')];
+  }
+  function building(input) {
+    var box = $('fbBuild');
+    if (!box) { box = document.createElement('div'); box.id = 'fbBuild'; $('scan').appendChild(box); }
+    box.classList.remove('fb-out');
+    if (swarm) { swarm.destroy(); swarm = null; }
+    box.innerHTML = '<div class="dr-frame fb-phone fb-forming"><canvas aria-hidden="true"></canvas><p class="fb-name" aria-hidden="true">' + esc(input.business) + '</p></div>' +
+      '<div class="fb-prog"><span id="fbBar"></span></div><p class="fb-step" id="fbStep"></p>';
+    var fr = box.querySelector('.dr-frame');
+    light(fr, 'draw');
+    swarmEnd = 0;
+    if (calm) return;
+    swarmLib().then(function (make) {
+      var cv = fr.querySelector('canvas');
+      if ($('scan').hidden || !box.contains(cv)) return;
+      return make(cv, { source: { canvas: nameArt(input.business, Math.round(cv.clientWidth), Math.round(cv.clientHeight)) }, colors: hues(cv), fit: 1, density: 3, jitter: 0.5, size: 1.1, scatter: 1.3, progress: 0 }).then(function (s) {
+        if ($('scan').hidden || !box.contains(cv)) { s.destroy(); return; }
+        swarm = s;
+        fr.classList.add('fb-swarm');
+        s.formIn(1700);
+        swarmEnd = Date.now() + 1700;
+      });
+    }).catch(function () {});
+  }
+  // How long the result waits: until the name has formed and held long enough to read, and never less than the half
+  // second it always had.
+  function formed() { return Math.min(3200, Math.max(500, swarmEnd + 900 - Date.now())); }
+  // Then the name lets go into light (the swarm runs back out to its scatter) and the site lands in its place.
+  function release(go) {
+    var box = $('fbBuild');
+    if (!swarm || calm || !box) return go();
+    swarm.formIn(520, 0);
+    box.classList.add('fb-out');
+    setTimeout(go, 380);
   }
 
   // Each door: free (before the email), tease (above the gate), full (after it).
@@ -315,10 +636,23 @@
 
     site: {
       free: function (run) {
-        var p = fileOf(run, 'preview');
-        return (p && p.open ? '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>' : '') +
+        var p = fileOf(run, 'preview'), moving = !!(FB && run.result.designs);
+        return (p && p.open ? (moving ? '<div class="dr-sec fb-show">' + frame(p.open, C.result.preview, moving) + '</div>' + designs(run) : '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>') : '') +
+          (moving ? keep(run) : '') +
           // What the site still needs sits under the page until the email gate, then heads the steps.
           (!st.unlocked && run.result.ready === false ? '<div class="dr-sec">' + almost(run) + '</div>' : '');
+      },
+      bind: function () {
+        if (!FB) return;
+        var el = $('free'), fr = el.querySelector('.dr-frame');
+        if (fr) { landed(fr); light(fr, 'draw'); }
+        Array.prototype.forEach.call(el.querySelectorAll('[data-design]'), function (b) { b.onclick = function () { redesign(b.getAttribute('data-design'), b.textContent); }; });
+        var more = el.querySelector('[data-more]');
+        if (more) more.onclick = function () { st.more = !st.more; draw(); };
+        var k = el.querySelector('[data-keep]');
+        if (k) k.onclick = function () { K.track('Door Keep', { door: M, design: st.run.result.design }); };
+        var z = el.querySelector('[data-zip]');
+        if (z) z.onclick = function () { var g = $('gateWrap'); if (g) g.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
       },
       tease: function () { return ''; },
       // Legal D49: while the build lists what's missing, the gate doesn't call the site ready.
@@ -457,7 +791,8 @@
 
   // A store the audit can't read: what happened, and the way back to the form.
   function showFailed(x) {
-    $('scan').hidden = true; $('intro').hidden = true; $('formWrap').hidden = true; $('whoWrap').hidden = false;
+    if (swarm) { swarm.destroy(); swarm = null; }
+    $('scan').hidden = true; landing(false); $('whoWrap').hidden = false;
     var F = C.fail || {}, el = $('result');
     el.hidden = false;
     el.innerHTML = '<div class="card dr-fail"><div class="label lilac">' + esc(C.title.replace(/ · 127$/, '')) + '</div>' +
@@ -468,13 +803,13 @@
       (C.sample ? '<p class="center" style="margin:12px 0 0"><button type="button" class="dr-sample" data-sample>' + esc(C.sample.label) + '</button></p>' : '') +
     '</div>';
     el.querySelector('[data-again]').onclick = function () {
-      el.hidden = true; $('intro').hidden = false; $('formWrap').hidden = false;
+      el.hidden = true; landing(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       var first = form.querySelector('.input');
       if (first) first.focus();
     };
     var s = el.querySelector('[data-sample]');
-    if (s) s.onclick = function () { el.hidden = true; $('intro').hidden = false; $('formWrap').hidden = false; $('sample').click(); };
+    if (s) s.onclick = function () { el.hidden = true; landing(true); $('sample').click(); };
   }
 
   $('result').addEventListener('click', function (e) {
