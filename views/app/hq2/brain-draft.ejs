@@ -30,16 +30,22 @@
   <% } else { %>
   <form method="post" action="/app/hq/brain/draft/save" class="h2-stack hq-draft-list" data-draft>
     <input type="hidden" name="back" value="<%= back %>">
-    <% d.lines.forEach(function (l) { var id = l.group + '_' + l.key; var was = cur(l.group, l.key); %>
-    <section class="hq-card hq-draft-line">
-      <label class="hq-draft-keep"><input type="checkbox" name="keep_<%= id %>" value="1" aria-describedby="h-<%= id %>"><span>Keep</span></label>
-      <label class="field" for="v-<%= id %>" style="margin:0">
-        <span id="h-<%= id %>"><%= l.label %><% if (l.key === 'color') { %> <i class="hq-swatch" style="background:<%= l.value %>" aria-hidden="true"></i><% } %></span>
+    <% var GROUPS = [['business', 'Your business'], ['voice', 'How you sound'], ['brand', 'Your site\'s look'], ['links', 'Links']];
+       GROUPS.forEach(function (g) { var ls = d.lines.filter(function (l) { return l.group === g[0]; }); if (!ls.length) return; %>
+    <fieldset class="hq-card hq-draft-group">
+      <legend class="hq-draft-legend"><%= g[1] %></legend>
+      <% ls.forEach(function (l) { var id = l.group + '_' + l.key; var was = cur(l.group, l.key); %>
+      <div class="hq-draft-line">
+        <div class="hq-draft-top">
+          <label for="v-<%= id %>" id="h-<%= id %>"><%= l.label %><% if (l.key === 'color') { %> <i class="hq-swatch" style="background:<%= l.value %>" aria-hidden="true"></i><% } %></label>
+          <label class="hq-draft-keep"><input type="checkbox" name="keep_<%= id %>" value="1" aria-describedby="h-<%= id %>"><span>Keep</span></label>
+        </div>
         <% if (long[l.key]) { %><textarea class="input" id="v-<%= id %>" name="val_<%= id %>" rows="2" maxlength="400"><%= l.value %></textarea>
         <% } else { %><input class="input" id="v-<%= id %>" name="val_<%= id %>" value="<%= l.value %>" maxlength="120"><% } %>
         <% if (was && was !== l.value) { %><span class="hint">Now: <%= was %></span><% } %>
-      </label>
-    </section>
+      </div>
+      <% }) %>
+    </fieldset>
     <% }) %>
     <div class="hq-draft-save">
       <button type="button" class="btn ghost" data-draft-all>Tick all</button>

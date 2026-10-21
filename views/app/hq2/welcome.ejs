@@ -6,8 +6,10 @@
 <div class="hq h2 fr" data-first-run>
   <%- include('../../partials/hq2-nav') %>
   <header class="fr-head">
-    <span class="fr-av" aria-hidden="true"><%= H.first.charAt(0) %></span>
     <div><b><%= H.first %></b><span><%= H.title %> · AI employee</span></div>
+    <ol class="fr-steps" aria-label="Your first win, <%= s.steps.filter(function (x) { return x.done; }).length %> of 3 done">
+      <% s.steps.forEach(function (x) { %><li class="<%= x.done ? 'done' : x.id === step ? 'now' : '' %>"></li><% }) %>
+    </ol>
   </header>
 
   <ol class="fr-chat" aria-live="polite">
@@ -15,7 +17,7 @@
     <li class="fr-ai"><p>Let's get you a first win today: <%= win %>. Nothing goes out unless you send it.</p></li>
 
     <%# 1. The business %>
-    <li class="fr-ai" id="business"><p><%= at('business').done ? 'I asked where to learn about your business.' : 'First, where can I learn about your business?' %></p></li>
+    <li class="fr-ai<%= step === 'business' ? ' fr-now' : '' %>" id="business"><p>First, where can I learn about your business?</p></li>
     <% if (at('business').done) { %>
     <li class="fr-me"><p><%= s.business.what || s.business.offer %></p></li>
     <% } else { %>
@@ -35,7 +37,7 @@
 
     <%# 2. The first two connections %>
     <% if (at('business').done) { %>
-    <li class="fr-ai" id="tools"><p>Got it. Two connections make the rest automatic: your 127 link, so your numbers fill themselves<%= s.ai ? ', and 127 in your own Claude' : '' %>. About a minute each, and you can do them later.</p></li>
+    <li class="fr-ai<%= step === 'tools' ? ' fr-now' : '' %>" id="tools"><p>Got it. Two connections make the rest automatic: your 127 link, so your numbers fill themselves<%= s.ai ? ', and 127 in your own Claude' : '' %>. You can do them later.</p></li>
     <% if (at('tools').done) { %>
     <li class="fr-me"><p><%= s.link || s.claude ? 'Connected.' : 'Later.' %></p></li>
     <% } else { %>
@@ -52,15 +54,15 @@
     <%# 3. The first win %>
     <% if (at('business').done && at('tools').done) { %>
     <% if (step === 'finished') { %>
-    <li class="fr-ai"><p>That's your first win. Today has what's next: your messages to send, and the rest of your setup.</p></li>
+    <li class="fr-ai fr-now"><p>That's your first win. Today has what's next: your messages to send, and the rest of your setup.</p></li>
     <li class="fr-act"><a class="btn" href="/app/hq">Go to Today <span class="arrow"></span></a></li>
     <% } else if (s.site) { %>
-    <li class="fr-ai" id="win"><p>Now your website. Build it in a few minutes from what you told me, and it comes back into your HQ when it's done.</p></li>
-    <li class="fr-act"><a class="btn fr-pop" href="/site-tonight">Build my site <span class="arrow"></span></a></li>
+    <li class="fr-ai fr-now" id="win"><p>Now your website. Build it from what you told me, and it comes back into your HQ when it's done.</p></li>
+    <li class="fr-act"><a class="btn" href="/site-tonight">Build my site <span class="arrow"></span></a></li>
     <% } else { %>
-    <li class="fr-ai" id="win"><p>Here's your first win: 25 real businesses near you that could use what you sell, what each one is missing, and the message for each. I filled the form from what you told me. Check it, then run it.</p></li>
+    <li class="fr-ai fr-now" id="win"><p>Here's your first win: 25 real businesses near you that could use what you sell, what each one is missing, and the message for each. I filled the form from what you told me. Check it, then run it.</p></li>
     <li class="fr-act">
-      <a class="btn fr-pop" href="<%= s.first25 %>">Set up my first 25 <span class="arrow"></span></a>
+      <a class="btn" href="<%= s.first25 %>">Set up my first 25 <span class="arrow"></span></a>
       <p class="hq-small" style="margin:10px 0 0">You read the first 5 messages before anything is saved, and you send each one yourself.</p>
     </li>
     <% } %>
