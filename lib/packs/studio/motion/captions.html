@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Studio's kinetic captions for HyperFrames (lib/motion.js fills __W__, __H__, __SECONDS__ and the data). -->
+<!-- The member's video plays full frame with its own sound; each word rises in as it's said and the spoken one lights up. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=__W__, height=__H__" />
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('Inter-Bold.otf'); }
+  @font-face { font-family: 'Inter'; font-weight: 900; src: url('Inter-Black.otf'); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: __W__px; height: __H__px; overflow: hidden; background: #000; }
+  #root { position: relative; width: __W__px; height: __H__px; overflow: hidden; font-family: 'Inter', sans-serif; }
+  #v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #cap { position: absolute; left: 7%; right: 7%; top: var(--capTop); text-align: center; font-weight: 900; font-size: var(--capSize); line-height: 1.1; color: #fff; text-transform: uppercase; -webkit-text-stroke: calc(var(--u) * 11px) #0b0b10; paint-order: stroke fill; }
+  #cap .w { display: inline-block; margin: 0 .12em; transform-origin: 50% 75%; }
+  #cap .w.on { color: var(--pop); }
+  #labels { position: absolute; left: 6%; top: var(--lblTop); display: flex; flex-direction: column; gap: calc(var(--u) * 8px); align-items: flex-start; }
+  #labels span { font: 700 max(34px, calc(var(--u) * 36px)) 'Inter'; color: #fff; background: rgba(0,0,0,.6); padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: calc(var(--u) * 10px); }
+  #tag { position: absolute; right: calc(var(--u) * 36px); top: calc(var(--u) * 36px); font: 700 calc(var(--u) * 26px) 'Inter'; padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: 99px; background: rgba(0,0,0,.6); color: #fff; letter-spacing: .08em; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div id="root" data-no-timeline data-composition-id="main" data-start="0" data-duration="__SECONDS__" data-width="__W__" data-height="__H__">
+  <video id="v" src="in.mp4" data-start="0" data-has-audio="true"></video>
+  <div id="cap"></div>
+  <div id="labels"></div>
+  <div id="tag" hidden>SAMPLE</div>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const root = document.documentElement;
+  const W = __W__, H = __H__;
+  const u = Math.min(W, H) / 1080;
+  root.style.setProperty('--u', u);
+  root.style.setProperty('--pop', (D.look && D.look.pop) || '#ffd23f');
+  root.style.setProperty('--capSize', Math.round(u * (H / W > 1.6 ? 92 : 78)) + 'px');
+  // Clear of the app buttons: about 62% down on tall video, 70% on square and wide.
+  root.style.setProperty('--capTop', Math.round(H * (H / W > 1.6 ? 0.6 : 0.68)) + 'px');
+  root.style.setProperty('--lblTop', Math.round(H / W > 1.6 ? H * 0.14 + 10 * u : H * 0.05) + 'px');
+  const lbl = document.getElementById('labels');
+  for (const l of D.labels || []) { const s = document.createElement('span'); s.textContent = l; lbl.appendChild(s); }
+  if (D.sample) document.getElementById('tag').hidden = false;
+
+  // pages: [{ s, e, w: [[word, start, end], ...] }]. Drawn from the time alone, so any frame renders on its own.
+  const cap = document.getElementById('cap');
+  let shown = -2, spans = [];
+  const out3 = (x) => { x = Math.min(1, Math.max(0, x)); return 1 - Math.pow(1 - x, 3); };
+  function renderAt(t) {
+    const i = D.pages.findIndex((p) => t >= p.s && t < p.e);
+    if (i !== shown) {
+      cap.textContent = '';
+      spans = [];
+      if (i >= 0) for (const w of D.pages[i].w) { const s = document.createElement('span'); s.className = 'w'; s.textContent = w[0]; cap.appendChild(s); cap.appendChild(document.createTextNode(' ')); spans.push(s); }
+      shown = i;
+    }
+    if (i < 0) return;
+    D.pages[i].w.forEach((w, k) => {
+      const s = spans[k];
+      const a = out3((t - w[1]) / 0.16);
+      const on = t >= w[1] && t < w[2];
+      const hit = on ? 1 + 0.12 * Math.sin(Math.min(1, (t - w[1]) / 0.12) * Math.PI / 2) : 1;
+      s.style.opacity = t >= w[1] - 0.02 ? 1 : 0.0;
+      s.style.transform = `translateY(${((1 - a) * 0.4).toFixed(3)}em) scale(${((0.82 + 0.18 * a) * hit).toFixed(3)})`;
+      s.classList.toggle('on', on);
+    });
+  }
+  window.addEventListener('hf-seek', (e) => renderAt(e.detail.time));
+  renderAt(0);
+</script>
+</body>
+</html>

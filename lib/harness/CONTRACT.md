@@ -281,6 +281,7 @@ JSON Schema subset: `type` (or a list of types), `properties`, `required`, `item
 | `gemini` | Google AI images, music and short video | `GEMINI_API_KEY` |
 | `luma_ai` | Luma video and images (127's account; the member's own Luma is the `luma` connector) | `LUMAAI_API_KEY` |
 | `render` | `ffmpeg` on the server | `FFMPEG_PATH` or `ffmpeg` on the path |
+| `motion` | HyperFrames: HTML pages rendered to video in headless Chrome, on the server (Studio's animated cards and captions) | on while `STUDIO_MOTION=on`, Node 22+, the `hyperframes` package and a Chrome (`HYPERFRAMES_BROWSER_PATH`, `CHROME_PATH` or `/usr/bin/chromium`); read as `{ cli, browser, ffmpeg }` |
 | `stripe`, `meta_ads`, `notion` and the rest of `connectors.PACKABLE` | the member's own HQ connections (Hub, `v2/turnkey/hub/README.md`) | the member connects it in HQ; `ctx.secret` gives a client, never the key. Sample until they connect |
 
 **Held for Legal:** `youtube`, `pexels`, `voice`, `transcribe`, `gemini`, `hunter` and `luma_ai` aren't in 127's Privacy Policy, so Legal clears each one before its key goes into production (Oct 19). Until then the harness ignores the key even when it's set: a tool that needs one runs as a sample, and one that wants one gets `null`. Known problems: Gemini's free tier trains on what it's sent, and Hunter finds addresses beyond a business's own site, which First 25's "only published addresses" rule doesn't allow. Build so the tool is worth running without them.
