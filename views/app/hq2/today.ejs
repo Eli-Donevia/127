@@ -36,6 +36,7 @@
   </section>
   <% } %>
   <% } %>
+  <% if (typeof nd !== 'undefined' && nd) { %><%- include('../../partials/hq-nudge', { nd: nd }) %><% } %>
   <div class="h2-grid">
     <div class="h2-stack">
       <% if (typeof f25 !== 'undefined' && f25) { %>
@@ -84,7 +85,7 @@
           <div>
             <span class="eyebrow">Do my day<%= firstName ? ', ' + firstName : '' %></span>
             <h2 id="day-h" class="h2-h"><%= h.done ? 'You did your ' + h.target + ' today.' : 'Your ' + h.target + ' for today' %></h2>
-            <p class="h2-sub" data-day-line><% if (h.done) { %>Everything past here is extra.<% } else { %><span data-left><%= h.left %></span> to go<%= sends ? ', about ' + q.minutes + ' minute' + (q.minutes === 1 ? '' : 's') : '' %>.<% } %><% if (h.streak > 1) { %> <b class="h2-win"><%= h.streak %> days in a row.</b><% } %><% if (q.written) { %> <%= q.written %> already written.<% } %></p>
+            <p class="h2-sub" data-day-line><% if (h.done) { %>Everything past here is extra.<% } else { %><span data-left><%= h.left %></span> to go<%= sends ? ', about ' + q.minutes + ' minute' + (q.minutes === 1 ? '' : 's') : '' %>.<% } %><% var STK = typeof nd !== 'undefined' && nd ? nd.run.days : h.streak; if (STK > 1) { %> <b class="h2-win"><%= STK %> days <%= typeof nd !== 'undefined' && nd ? 'running' : 'in a row' %>.</b><% } %><% if (q.written) { %> <%= q.written %> already written.<% } %></p>
           </div>
         </div>
         <div class="h2-q-list">

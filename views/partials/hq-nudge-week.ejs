@@ -1,0 +1,41 @@
+<%# Last week's read (lib/harness/nudges.js weekly): on Today on Mondays (closable) and on Read my week. Locals: w,
+    back (where the forms come back to), closable. The member's own numbers, and counts they typed for accounts they
+    picked; nothing here is a forecast. %>
+<% var pl = function (n, one, many) { return n + ' ' + (n === 1 ? one : many); };
+   var NOUN = { sends: ['sent', 'sent'], replies: ['reply', 'replies'], calls: ['call booked', 'calls booked'], posts: ['post', 'posts'] }; %>
+<section class="hqn-week<%= closable ? '' : ' boxed' %>" aria-labelledby="hqn-wk-<%= closable ? 't' : 'w' %>">
+  <div class="hqn-week-top">
+    <h2 id="hqn-wk-<%= closable ? 't' : 'w' %>">Your week, <%= w.from %> to <%= w.to %></h2>
+    <% if (closable) { %><form method="post" action="/app/hq/you/monday/close"><button class="hq-link-btn">Close</button></form><% } %>
+  </div>
+  <p class="hqn-week-head"><%= w.head %></p>
+  <p class="hqn-tally"><% w.stats.forEach(function (x, i) { var d = x.v - x.before; %><span><b><%= x.v %></b> <%= x.f === 'sends' ? 'sent' : (x.v === 1 ? NOUN[x.f][0] : NOUN[x.f][1]) %><% if (x.best) { %> <small class="best">best yet</small><% } else if (d) { %> <small><%= d > 0 ? '+' + d : '\u2212' + Math.abs(d) %></small><% } %></span><%= i < w.stats.length - 1 ? ' ' : '' %><% }) %></p>
+  <% if (w.leak) { %><p class="hqn-leak"><%= w.leak.say %> <a class="link" href="/app/hq/pipeline">See who</a></p><% } %>
+
+  <% var c = w.challenge; %>
+  <div class="hqn-ch<%= c.taken ? ' taken' : '' %><%= c.done ? ' done' : '' %>">
+    <div class="hqn-ch-t">
+      <p><span class="hqn-dim">This week's challenge.</span> <b><%= c.title %></b></p>
+      <p class="hqn-sub"><%= c.why %></p>
+    </div>
+    <% if (c.taken) { %>
+    <div class="hqn-meter" role="img" aria-label="<%= c.progress %> of <%= c.target %>"><i style="--w:<%= c.pct %>%"></i></div>
+    <div class="hqn-sub hqn-row"><span><%= c.done ? 'Done. ' + c.progress + ' of ' + c.target + '.' : c.progress + ' of ' + c.target + ' so far.' %></span><form method="post" action="/app/hq/you/challenge"><input type="hidden" name="take" value="0"><input type="hidden" name="back" value="<%= back %>"><button class="hq-link-btn">Drop it</button></form></div>
+    <% } else { %>
+    <form method="post" action="/app/hq/you/challenge"><input type="hidden" name="take" value="1"><input type="hidden" name="back" value="<%= back %>"><button class="btn sm">Take it</button></form>
+    <% } %>
+  </div>
+
+  <% w.pace.forEach(function (r) { %>
+  <p class="hqn-sub">@<%= r.handle %> posted <%= pl(r.them, 'time', 'times') %>. You posted <%= pl(r.you, 'time', 'times') %>.</p>
+  <% }) %>
+  <% w.ask.forEach(function (r, i) { %>
+  <form class="hqn-ask" method="post" action="/app/hq/you/rivals/count">
+    <input type="hidden" name="id" value="<%= r.id %>"><input type="hidden" name="week" value="<%= w.week %>"><input type="hidden" name="back" value="<%= back %>">
+    <fieldset>
+      <legend>How many times did @<%= r.handle %> post on <%= r.platform %> last week?</legend>
+      <div class="hqn-chips"><% w.choices.forEach(function (n) { %><button name="n" value="<%= n %>"><%= n === w.choices[w.choices.length - 1] ? n + '+' : n %></button><% }) %></div>
+    </fieldset>
+  </form>
+  <% }) %>
+</section>

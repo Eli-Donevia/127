@@ -1,0 +1,162 @@
+<%- include('../../partials/app-head') %>
+<%# Progress (HQ_NUDGES, lib/harness/nudges.js progress): the month as a calendar of days at the member's number, their
+    run and rest days, the level ladder, marks, the ship log, the accounts they keep pace with and how HQ talks to them.
+    Their own numbers only, nothing compared with other members, nothing about money. Every control is a plain form. %>
+<% var M = pr.month, R = pr.run, LV = pr.level;
+   var pl = function (n, one, many) { return n + ' ' + (n === 1 ? one : many); };
+   var DAYW = { hit: 'at your number', rest: 'covered by a rest day', miss: 'missed', now: 'today, still open', later: 'still to come', before: 'before you started' };
+   var hours = Array.from({ length: 24 }, function (_, h) { return { h: h, label: (h % 12 || 12) + (h < 12 ? ' am' : ' pm') }; });
+   var mute = pr.prefs.mute || {}; %>
+<div class="hq h2 hqn-you">
+  <%- include('../../partials/hq2-nav') %>
+
+  <header class="hqn-head">
+    <h1><%= M.current ? M.short + ' so far.' : M.name + '.' %></h1>
+    <p class="hqn-lede">
+      <% if (!M.sends && !M.replies && !M.posts && !M.jobs) { %>Nothing logged <%= M.current ? 'yet this month' : 'that month' %>. What you send from Do my day, the replies in your Pipeline and the jobs 127 finishes all land here.
+      <% } else { %>You hit your number on <b><%= pl(M.days, 'day', 'days') %></b>, sent <b><%= M.sends %></b>, posted <b><%= pl(M.posts, 'time', 'times') %></b> and got <b><%= pl(M.replies, 'reply', 'replies') %></b><%= M.calls ? ', ' + pl(M.calls, 'call', 'calls') + ' booked' : '' %><%= M.yeses ? ' and ' + pl(M.yeses, 'yes', 'yeses') : '' %>. 127 finished <b><%= pl(M.jobs, 'job', 'jobs') %></b> for you.<% } %>
+    </p>
+    <nav class="hqn-months" aria-label="Pick a month"><% M.months.forEach(function (m) { %><a href="/app/hq/you<%= m.key === M.months[0].key ? '' : '?m=' + m.key %>"<%- m.key === M.key ? ' aria-current="page"' : '' %>><%= m.name.split(' ')[0].slice(0, 3) %></a><% }) %></nav>
+  </header>
+
+  <div class="hqn-you-grid">
+    <section class="hqn-cal-wrap" aria-labelledby="run-h">
+      <h2 id="run-h" class="hqn-h">Your run</h2>
+      <div class="hqn-cal" role="list" aria-label="<%= M.name %>, day by day">
+        <% ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(function (d) { %><span class="wd" aria-hidden="true"><%= d %></span><% }) %>
+        <% M.cal.forEach(function (c) { if (!c) { %><span class="pad" aria-hidden="true"></span><% } else { %><span role="listitem" class="<%= c.status %>" aria-label="<%= c.d %>, <%= DAYW[c.status] %>"><%= c.d %></span><% } }) %>
+      </div>
+      <dl class="hqn-facts">
+        <div><dt>Running now</dt><dd><%= pl(R.days, 'day', 'days') %><%= !R.todayHit && R.days ? ', today still open' : '' %></dd></div>
+        <div><dt>Longest</dt><dd><%= pl(R.longest, 'day', 'days') %></dd></div>
+        <div><dt>Rest days held</dt><dd><%= R.rest %> of <%= R.maxRest %></dd></div>
+      </dl>
+      <p class="hqn-note">A rest day covers a missed day on its own, so one off day doesn't end your run. You earn one for every <%= R.every %> days at your number.</p>
+    </section>
+
+    <section aria-labelledby="lv-h">
+      <h2 id="lv-h" class="hqn-h">Level <%= LV.n %> of <%= LV.of %></h2>
+      <ol class="hqn-ladder">
+        <% pr.levels.forEach(function (l) { var st = l.n <= LV.n ? 'done' : LV.next && l.n === LV.next.n ? 'next' : ''; %>
+        <li class="<%= st %>">
+          <span class="n"><%= l.n %></span>
+          <div><b><%= l.name %></b><% if (st === 'next') { %><p><%= LV.next.hint %></p><a class="link" href="<%= LV.next.href %>">Go</a><% } %><% if (st === 'done') { %><span class="sr-only"> (reached)</span><% } %></div>
+        </li>
+        <% }) %>
+      </ol>
+    </section>
+  </div>
+
+  <section id="marks" aria-labelledby="mk-h">
+    <div class="hqn-row"><h2 id="mk-h" class="hqn-h">Marks</h2><span class="hqn-dim"><%= pr.marks.filter(function (m) { return m.earned; }).length %> of <%= pr.marks.length %></span></div>
+    <ul class="hqn-marks">
+      <% pr.marks.forEach(function (m) { %>
+      <li class="<%= m.earned ? 'on' : 'off' %><%= m.fresh ? ' fresh' : '' %>">
+        <%- include('../../partials/hq-nudge-icon', { name: m.icon }) %>
+        <b><%= m.name %></b>
+        <span><%= m.says %></span>
+        <% if (m.earned && !m.early) { %><time datetime="<%= m.earned %>"><%= new Date(m.earned).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></time><% } else if (m.earned) { %><time>Earned</time><% } %>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <section aria-labelledby="log-h">
+    <h2 id="log-h" class="hqn-h">Ship log</h2>
+    <% if (pr.log.length) { %>
+    <ol class="hqn-log">
+      <% pr.log.forEach(function (x) { %><li class="<%= x.win ? 'win' : '' %>"><time><%= x.day %></time><span><%= x.what %></span></li><% }) %>
+    </ol>
+    <% } else { %><p class="hqn-note">Every first, every mark and every job 127 finishes for you shows up here, newest on top.</p><% } %>
+  </section>
+
+  <section id="pace" aria-labelledby="pace-h">
+    <h2 id="pace-h" class="hqn-h">Keep pace</h2>
+    <p class="hqn-note">Name up to <%= pr.maxRivals %> accounts in your space. Each Monday HQ asks how often they posted and puts it next to your own posts. Only you see them, and removing one deletes every count you gave.</p>
+    <% if (pr.rivals.length) { %>
+    <ul class="hqn-rivals">
+      <% pr.rivals.forEach(function (r) { %>
+      <li>
+        <span class="who"><span class="h">@<%= r.handle %></span><span class="hqn-dim"><%= r.platformName %> · <%= r.last === null ? 'no count for last week yet' : pl(r.last, 'post', 'posts') + ' last week' %></span></span>
+        <form method="post" action="/app/hq/you/rivals/remove"><input type="hidden" name="id" value="<%= r.id %>"><button class="hq-link-btn" aria-label="Remove @<%= r.handle %>">Remove</button></form>
+        <% if (r.last === null) { %>
+        <form class="hqn-ask" method="post" action="/app/hq/you/rivals/count">
+          <input type="hidden" name="id" value="<%= r.id %>"><input type="hidden" name="week" value="<%= pr.lastWeek %>"><input type="hidden" name="back" value="/app/hq/you#pace">
+          <fieldset><legend class="sr-only">How many times did @<%= r.handle %> post last week?</legend><div class="hqn-chips"><% pr.choices.forEach(function (n, i) { %><button name="n" value="<%= n %>"><%= i === pr.choices.length - 1 ? n + '+' : n %></button><% }) %></div></fieldset>
+        </form>
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+    <% if (pr.rivals.length < pr.maxRivals) { %>
+    <form class="hqn-add" method="post" action="/app/hq/you/rivals">
+      <label for="rv-handle">Handle</label><input id="rv-handle" name="handle" placeholder="@northside.fit" maxlength="60" autocomplete="off" required>
+      <label for="rv-platform">Where</label><select id="rv-platform" name="platform"><% Object.keys(pr.platforms).forEach(function (k) { %><option value="<%= k %>"><%= pr.platforms[k] %></option><% }) %></select>
+      <button class="btn sm">Add</button>
+    </form>
+    <% } %>
+  </section>
+
+  <% if (typeof wallMine !== 'undefined' && wallMine) { %>
+  <section id="wall" aria-labelledby="wall-h">
+    <h2 id="wall-h" class="hqn-h">On 127's wall</h2>
+    <p class="hqn-note">Put a site you shipped or a win on 127's public wall. 127 checks each one before it shows, and Remove takes it down at once. No amounts. The wall says: "<%= wallMine.typicality %>"</p>
+    <% if (wallMine.entries.length) { %>
+    <ul class="hqn-rivals">
+      <% wallMine.entries.forEach(function (e) { %>
+      <li><span class="who"><span class="h" style="font-family:var(--sans)"><%= e.title %></span><span class="hqn-dim"><%= e.status === 'shown' ? 'On the wall' : e.status === 'hidden' ? 'Not shown' : 'Waiting for 127' %><%= e.url ? ' · ' + e.url.replace(/^https?:\/\//, '') : '' %></span></span>
+        <form method="post" action="/app/hq/you/wall/remove"><input type="hidden" name="id" value="<%= e.id %>"><button class="hq-link-btn">Remove</button></form></li>
+      <% }) %>
+    </ul>
+    <% } %>
+    <form class="hqn-prefs" method="post" action="/app/hq/you/wall">
+      <fieldset class="hqn-tone">
+        <legend>What it is</legend>
+        <% Object.keys(wallMine.kinds).forEach(function (k, i) { %><label><input type="radio" name="kind" value="<%= k %>"<%- i === 0 ? ' checked' : '' %>> <b><%= wallMine.kinds[k] %></b></label><% }) %>
+      </fieldset>
+      <fieldset>
+        <legend class="sr-only">About it</legend>
+        <label for="w-title" class="hqn-check" style="min-height:0">Name it</label><input id="w-title" name="title" maxlength="80" required placeholder="Maya Tutoring" class="hqn-in">
+        <label for="w-url" class="hqn-check" style="min-height:0">Live address (for a site)</label><input id="w-url" name="url" maxlength="300" inputmode="url" placeholder="maya-tutoring.com" class="hqn-in">
+        <label for="w-note" class="hqn-check" style="min-height:0">One line about it (optional)</label><input id="w-note" name="note" maxlength="200" class="hqn-in">
+      </fieldset>
+      <fieldset class="hqn-tone">
+        <legend>How your name shows</legend>
+        <% Object.keys(wallMine.consent).forEach(function (k, i) { %><label><input type="radio" name="consent" value="<%= k %>" required> <span style="grid-column:2;color:var(--ink)"><%= wallMine.consent[k] %></span></label><% }) %>
+      </fieldset>
+      <button class="btn">Send it to 127</button>
+    </form>
+  </section>
+  <% } %>
+
+  <section id="talk" aria-labelledby="talk-h">
+    <h2 id="talk-h" class="hqn-h">How HQ talks to you</h2>
+    <form class="hqn-prefs" method="post" action="/app/hq/you/prefs">
+      <fieldset class="hqn-tone">
+        <legend>Voice</legend>
+        <label><input type="radio" name="tone" value="straight"<%- pr.prefs.tone === 'straight' ? ' checked' : '' %>> <b>Straight</b><span>"Your 6-day run ends at midnight. 14 sends to go."</span></label>
+        <label><input type="radio" name="tone" value="easy"<%- pr.prefs.tone === 'easy' ? ' checked' : '' %>> <b>Easy</b><span>"You're 6 days in. 14 sends keeps it going tonight."</span></label>
+      </fieldset>
+      <fieldset>
+        <legend>What HQ points out</legend>
+        <% Object.keys(pr.kinds).forEach(function (k) { %><label class="hqn-check"><input type="checkbox" name="show_<%= k %>" value="1"<%- mute[k] ? '' : ' checked' %>> <%= pr.kinds[k] %></label><% }) %>
+      </fieldset>
+      <fieldset class="hqn-quiet">
+        <legend>Quiet hours</legend>
+        <p class="hqn-note">No pushing lines in these hours. Replies waiting still show.</p>
+        <label for="q-from">From</label><select id="q-from" name="quietFrom"><% hours.forEach(function (o) { %><option value="<%= o.h %>"<%- pr.prefs.quiet.from === o.h ? ' selected' : '' %>><%= o.label %></option><% }) %></select>
+        <label for="q-to">to</label><select id="q-to" name="quietTo"><% hours.forEach(function (o) { %><option value="<%= o.h %>"<%- pr.prefs.quiet.to === o.h ? ' selected' : '' %>><%= o.label %></option><% }) %></select>
+      </fieldset>
+      <fieldset>
+        <legend>Posting goal</legend>
+        <label for="p-goal">Posts a week</label><input id="p-goal" name="postGoal" type="number" min="0" max="21" inputmode="numeric" value="<%= Number.isInteger(pr.prefs.postGoal) ? pr.prefs.postGoal : '' %>" placeholder="<%= pr.postGoal %>">
+      </fieldset>
+      <button class="btn">Save</button>
+    </form>
+  </section>
+
+  <p class="hq-foot">These are your own numbers from HQ, counted in Eastern time like Today. They aren't a forecast.</p>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

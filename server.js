@@ -46,6 +46,7 @@ const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
 const lifeRoutes = require('./lib/life-routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
+const postRoutes = require('./lib/harness/posts-routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
@@ -2074,6 +2075,8 @@ app.use(shopRoutes({ track }));
 app.use(lifeRoutes({ requireAuth }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
+// HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).
+app.use(postRoutes({ requireAuth, flash }));
 
 // 127 HQ (lib/hq-routes.js): /app/hq, its connections and Read my week. Falls through to the 404 while HQ_LIVE is off.
 app.use(hqRoutes({ requireAuth, flash, track, reserveAi, refundAi, ageFromAi, aiRunsLeft }));
@@ -2155,12 +2158,16 @@ db.init().then(async () => {
     require('./lib/harness/connectors').sweep().catch((err) => console.error('[connectors] sweep', err.message));
     // 30 days after a paid plan ends, saved keys, sign-ins and Studio likenesses go (lib/lapse.js, Legal K5).
     require('./lib/lapse').sweep().catch((err) => console.error('[lapse] sweep', err.message));
+    // HQ Post: photos of finished posts go after 7 days.
+    require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.
   harness.init();
   setInterval(() => {
     harness.tick().catch((err) => console.error('[harness] tick', err.message));
+    // HQ Post: OK'd posts whose time has come.
+    require('./lib/harness/posts').tick().catch((err) => console.error('[posts] tick', err.message));
     harness.daily().catch((err) => console.error('[harness] daily', err.message));
   }, 60 * 1000).unref();
   // The Founding Five: hello videos and applications go when Legal and Offer promised, and 127's copies of

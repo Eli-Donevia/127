@@ -1,0 +1,28 @@
+<%# HQ that notices (HQ_NUDGES, lib/harness/nudges.js) at the top of Today: the one line for today, the run as this
+    week's seven days, and on Mondays the read of last week. Locals: nd (nudges.forToday). Plain links and forms. %>
+<% var NL = nd.line, RN = nd.run;
+   var lit = function (say, hl) { var i = hl ? say.indexOf(hl) : -1; return i < 0 ? [say, '', ''] : [say.slice(0, i), hl, say.slice(i + hl.length)]; };
+   var DAYW = { hit: 'at your number', rest: 'covered by a rest day', miss: 'missed', now: 'today, still open', later: 'still to come' }; %>
+<section class="hqn" aria-label="What 127 noticed">
+  <% if (NL) { var P3 = lit(NL.say, NL.hl); %>
+  <div class="hqn-line<%= NL.win ? ' win' : '' %>" data-nudge="<%= NL.id %>">
+    <p class="hqn-say"><%= P3[0] %><% if (P3[1]) { %><em><%= P3[1] %></em><% } %><%= P3[2] %></p>
+    <% if (NL.sub) { %><p class="hqn-sub"><%= NL.sub %></p><% } %>
+    <% if (NL.pace) { var top = Math.max(NL.pace.them, NL.pace.you, 1); %>
+    <dl class="hqn-pace">
+      <div><dt>@<%= NL.pace.handle %></dt><dd><span style="--w:<%= Math.round(NL.pace.them / top * 100) %>%"></span><b><%= NL.pace.them %></b></dd></div>
+      <div class="you"><dt>You</dt><dd><span style="--w:<%= Math.round(NL.pace.you / top * 100) %>%"></span><b><%= NL.pace.you %></b></dd></div>
+    </dl>
+    <% } %>
+    <a class="btn sm" href="<%= NL.href %>"><%= NL.cta %> <span class="arrow"></span></a>
+  </div>
+  <% } %>
+  <a class="hqn-run" href="/app/hq/you">
+    <span class="hqn-ticks" aria-hidden="true"><% RN.week.forEach(function (d) { %><i class="<%= d.status %>"><%= d.day %></i><% }) %></span>
+    <span class="hqn-run-t"><b><%= RN.days %></b> <%= RN.days === 1 ? 'day' : 'days' %> running<% if (RN.rest) { %><span class="hqn-dim"> · <%= RN.rest %> rest <%= RN.rest === 1 ? 'day' : 'days' %> held</span><% } %></span>
+    <span class="hqn-lv">Level <%= nd.level.n %><span class="hqn-dim"> of <%= nd.level.of %></span></span>
+    <span class="sr-only">This week: <%= RN.week.map(function (d) { return d.day + ' ' + DAYW[d.status]; }).join(', ') %>. Open Progress.</span>
+  </a>
+  <% if (nd.drop) { %><%- include('hq-drop', { drop: nd.drop, compact: true }) %><% } %>
+  <% if (nd.monday) { %><%- include('hq-nudge-week', { w: nd.monday, back: '/app/hq', closable: true }) %><% } %>
+</section>
