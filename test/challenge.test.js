@@ -349,3 +349,90 @@ test('content: five days, each with a check-in, matching the five moves', () => 
     assert.ok(d.checkin && d.checkin.fields.length);
   });
 });
+
+// ---------- v2: "Five days. Five things live." (CHALLENGE_DAYS=v2, content/challenge-v2.json) ----------
+async function withV2(fn) {
+  process.env.CHALLENGE_DAYS = 'v2';
+  try { return await fn(); } finally { delete process.env.CHALLENGE_DAYS; }
+}
+const V2_ANSWERS = {
+  1: { business: 'Northside Detail', site_url: 'northside-detail.127group.io', show_idea: 'on' },
+  2: { offer: 'Your car, cleaned in your driveway while you work, $89', grade: '72', show_offer: 'on' },
+  3: { list_count: '25', list_where: 'know' },
+  4: { posted: 'story', post_url: '' },
+  5: { asks: '5', replies: '2', lesson: 'People answer faster than I thought', feature_ok: 'on', feature_idea: 'on' },
+};
+
+test('v2 content: five days, moves match, slots and summary point at real check-in fields, no clients or leads', () => withV2(() => {
+  const C = ch.content();
+  assert.ok(ch.contentFile().endsWith('challenge-v2.json'));
+  assert.strictEqual(C.days.length, 5);
+  C.days.forEach((d, i) => {
+    assert.strictEqual(d.n, i + 1);
+    assert.strictEqual(d.move, ch.moves()[i]);
+    assert.ok(d.checkin.fields.length && d.tool && d.example && d.stuck && d.after && d.card && d.card.label);
+  });
+  const has = (n, f) => ch.day(n).checkin.fields.some((x) => x.id === f);
+  for (const s of ['idea', 'offer']) assert.ok(has(ch.slot(s).day, ch.slot(s).field), s);
+  for (const [k, [n, f]] of Object.entries(C.summary)) assert.ok(has(n, f), k);
+  assert.ok(has(1, 'show_idea') && has(2, 'show_offer'));
+  const text = JSON.stringify(C);
+  assert.ok(!/\bclients?\b|\bleads?\b/i.test(text), 'L62: nothing says the challenge or a plan gets people clients or leads');
+  assert.ok(text.includes("Don't use tools that mass-text or auto-DM people") && text.includes('Mail Order Rule'), 'Legal 3.7 lines stay');
+  assert.ok(!text.includes('—'), 'no em dashes in site copy');
+  // v1 is untouched without the switch.
+  delete process.env.CHALLENGE_DAYS;
+  assert.strictEqual(ch.moves()[0], 'Pick one');
+  assert.strictEqual(ch.slot('offer').day, 4);
+  process.env.CHALLENGE_DAYS = 'v2';
+}));
+
+test('v2 join: the path is kept when it is one of the four, ignored otherwise, and filled in on a later join', () => withV2(async () => {
+  at('2026-11-08T12:00:00Z');
+  const a = await ch.join({ email: email(), firstName: 'Jo', path: 'service' });
+  assert.strictEqual(a.entry.path, 'service');
+  assert.strictEqual(ch.profile(a.entry).challenge_path, 'service');
+  const e = email();
+  const b = await ch.join({ email: e, firstName: 'Bo', path: 'astronaut' });
+  assert.strictEqual(b.entry.path, null);
+  const again = await ch.join({ email: e, path: 'creator' });
+  assert.strictEqual(again.entry.path, 'creator');
+}));
+
+test('v2 check-ins: card toggles, summary, finisher, hot seats show the site only when ticked, CSV columns', () => withV2(async () => {
+  at('2026-11-08T12:00:00Z');
+  const { entry } = await ch.join({ email: email(), firstName: 'Jordan', path: 'service' });
+  at('2026-11-13T14:00:00Z');
+  for (let d = 1; d <= 5; d++) {
+    const r = await ch.checkIn(entry, d, V2_ANSWERS[d]);
+    assert.ok(!r.errors, `day ${d}: ${JSON.stringify(r.errors)}`);
+  }
+  assert.strictEqual(entry.showIdea, true);
+  assert.strictEqual(entry.showOffer, true);
+  assert.ok(entry.finishedAt);
+  const s = ch.summary(entry);
+  assert.strictEqual(s.site, 'northside-detail.127group.io');
+  assert.strictEqual(s.offer_grade, 72);
+  assert.strictEqual(s.list_count, 25);
+  assert.strictEqual(s.post_url, null);
+  assert.strictEqual(s.path, 'service');
+  const c = ch.hotSeatCandidates().find((x) => x.id === entry.id);
+  assert.strictEqual(c.idea, 'northside-detail.127group.io');
+  assert.strictEqual(c.offer, null, 'offer stays private without "show my offer"');
+  const prompt = ch.hotSeatPrompt([c]);
+  assert.ok(prompt.includes('Site (may be shown)') && prompt.includes('Day 5: sent 5 asks, 2 replies') && prompt.includes('site live'));
+  assert.ok(!prompt.includes(entry.email));
+  const head = ch.csv().split('\n')[0];
+  assert.ok(head.includes('"path"') && head.includes('"site"') && head.includes('"feature_site"') && !head.includes('"yeses"'));
+  // A required field is still required.
+  const bad = await ch.checkIn(entry, 3, { list_count: '' });
+  assert.ok(bad.errors && bad.errors.list_count);
+}));
+
+test('v2 public counts stay hidden below 50, so a small number is never shown as proof', () => withV2(() => {
+  const n = db.all('challenge').length;
+  const c = ch.publicCounts();
+  if (n < 50) assert.strictEqual(c.joined, null);
+  else assert.strictEqual(c.joined, n);
+  assert.ok(c.sitesLive === null || c.sitesLive >= 50);
+}));

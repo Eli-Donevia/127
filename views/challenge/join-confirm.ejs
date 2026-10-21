@@ -1,5 +1,5 @@
 <%- include('../partials/head') %>
-<main class="chp">
+<main class="chp<%= typeof chx !== 'undefined' && chx.v2 ? ' chp-v2' : '' %>">
   <section class="ch-confirm">
     <div class="wrap">
       <div class="lbl">Free 5-day challenge · Nov 9 to 13</div>

@@ -40,6 +40,14 @@
     ['How old do I need to be?', '18 or older, the same as any 127 account.'],
     ['Is this a contest?', "No. There's no drawing, judging or prize. Everyone who checks in all five days by Sunday, November 15 at 11:59pm ET gets the finisher perks, and the founding price is the same for everyone."]
   ];
+  // v2 ("Five days. Five things live."): the copy comes from content/challenge-v2.json; v1 keeps the lines above.
+  var V2 = C.copy || null;
+  if (V2) {
+    days = days.map(function (d, i) { var x = V2.days[i] || {}; return { iso: d.iso, date: d.date, move: x.move || d.move, what: x.what || d.what, have: x.have || d.have }; });
+    var keep = { 'Is it really free?': 1, 'What do finishers get?': 1, 'Is this financial advice?': 1, 'Is this a contest?': 1 };
+    faqs = V2.faq.concat(faqs.filter(function (q) { return keep[q[0]]; }));
+  }
+  var counts = C.counts || {};
   var wall = [
     ['eli-stage-full', 'morning-coffee', 'eli-popup-02', 'still-timer', 'eli-headphones', 'desk-overhead'],
     // O23: no still-watch (reads as luxury) or eli-plane (travel next to money messaging).
@@ -59,6 +67,11 @@ function joinForm(id, withError) { %>
   <input type="hidden" name="ref" value="<%= C.ref || '' %>">
   <input type="hidden" name="from" value="<%= C.from || '' %>">
   <div class="chl-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+  <% if (C.paths) { %>
+  <fieldset class="chl-paths"><legend class="chl-small">What are you starting?</legend>
+    <% C.paths.forEach(function (p) { %><label class="chl-path"><input type="radio" name="path" value="<%= p.id %>"<%= C.path === p.id ? ' checked' : '' %>><span><b><%= p.label %></b><small><%= p.hint %></small></span></label><% }) %>
+  </fieldset>
+  <% } %>
   <div class="chl-fields">
     <label class="chl-field"><span class="chl-sr">First name</span><input class="input" type="text" name="first_name" placeholder="First name" autocomplete="given-name" required maxlength="60" value="<%= F.first_name || '' %>"></label>
     <label class="chl-field"><span class="chl-sr">Email</span><input class="input" type="email" name="email" placeholder="Email" autocomplete="email" required maxlength="200" value="<%= F.email || '' %>"></label>
@@ -71,7 +84,7 @@ function joinForm(id, withError) { %>
 </form>
 <% } %>
 <%- include('../partials/head') %>
-<main class="v4 chl" data-phase="<%= live ? 'live' : 'open' %>">
+<main class="v4 chl<%= V2 ? ' chl-v2' : '' %>" data-phase="<%= live ? 'live' : 'open' %>">
 
   <!-- HERO: drifting wall of Eli's photos under a heavy scrim; the form is the brightest thing on screen -->
   <section class="hx chl-hero" aria-labelledby="chl-h1">
@@ -85,9 +98,14 @@ function joinForm(id, withError) { %>
     <div class="wrap chl-hero-grid">
       <div class="chl-hero-copy">
         <% if (me) { %><p class="chl-me">You're in, <%= me.firstName %>. <a href="/challenge/me">Open your challenge page</a></p><% } %>
-        <p class="chl-label">Free 5-day challenge · Nov 9 to 13</p>
+        <% if (!V2) { %><p class="chl-label">Free 5-day challenge · Nov 9 to 13</p><% } %>
+        <% if (V2) { %>
+        <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words(V2.h1[0], 0) %></span><br><span><%- words(V2.h1[1], V2.h1[0].split(' ').length) %></span></h1>
+        <p class="hx-value"><%= V2.value %></p>
+        <% } else { %>
         <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words('Make this week', 0) %></span><br><span><%- words('day one.', 3) %></span></h1>
         <p class="hx-value">Five days. One move a day, about 20 minutes. By Friday you'll have an idea picked on purpose, real conversations with people who have the problem, and an offer you've put in front of someone.</p>
+        <% } %>
       </div>
 
       <div class="chl-hero-join">
@@ -108,12 +126,13 @@ function joinForm(id, withError) { %>
       </div>
       <% } %>
 
-      <p class="chl-meta"><span>Free</span><span>No card</span><span>Live with Eli on Instagram, Mon Nov 9 and Mon Nov 16 at 8pm ET</span></p>
+      <p class="chl-meta"><% if (V2) { %><span>Nov 9 to 13</span><% } %><span>Free</span><span>No card</span><span>Live with Eli on Instagram, Mon Nov 9 and Mon Nov 16 at 8pm ET</span></p>
+      <% if (counts.joined || counts.sitesLive) { %><p class="chl-meta chl-counts"><% if (counts.joined) { %><span><b><%= counts.joined.toLocaleString('en-US') %></b> joined</span><% } %><% if (counts.sitesLive) { %><span><b><%= counts.sitesLive.toLocaleString('en-US') %></b> sites live</span><% } %><% if (counts.withFriend) { %><span><b><%= counts.withFriend.toLocaleString('en-US') %></b> doing it with a friend</span><% } %></p><% } %>
     </div>
 
-    <div class="ticker chl-ticker" aria-hidden="true">
+    <% if (!V2) { %><div class="ticker chl-ticker" aria-hidden="true">
       <div class="ticker-track"><% days.concat(days).forEach(function (d, i) { %><span><b>Day 0<%= (i % 5) + 1 %></b><%= d.move %></span><% }) %></div>
-    </div>
+    </div><% } %>
   </section>
 
   <!-- THE HOOK: lines light up as they pass the middle of the screen -->
@@ -122,8 +141,10 @@ function joinForm(id, withError) { %>
       <p class="lit">You've had the idea for months.</p>
       <p class="lit">You've told three friends about it.</p>
       <p class="lit">You've watched someone else launch it.</p>
-      <p class="lit">You haven't asked one customer.</p>
-      <p class="lit punch">Five days fixes that.<br><span>Not a course. Five moves, done for real.</span></p>
+      <% if (V2) { %><p class="lit">It's still in your notes app.</p>
+      <p class="lit punch">Five days puts it on the internet.<br><span>Your site, your offer and your first post, by Friday.</span></p>
+      <% } else { %><p class="lit">You haven't asked one customer.</p>
+      <p class="lit punch">Five days fixes that.<br><span>Not a course. Five moves, done for real.</span></p><% } %>
     </div>
   </section>
 
@@ -132,7 +153,7 @@ function joinForm(id, withError) { %>
     <div class="wrap">
       <div class="chl-head" data-reveal>
         <p class="eyebrow">The week</p>
-        <h2 class="chl-h2" id="chl-week-h"><span class="chl-dim">One move a day.</span><br><span class="chl-steel">Each one ends with proof.</span></h2>
+        <h2 class="chl-h2" id="chl-week-h"><span class="chl-dim"><%= V2 ? V2.week_h2[0] : 'One move a day.' %></span><br><span class="chl-steel"><%= V2 ? V2.week_h2[1] : 'Each one ends with proof.' %></span></h2>
       </div>
       <ol class="chl-days">
         <% days.forEach(function (d, i) {
@@ -163,7 +184,11 @@ function joinForm(id, withError) { %>
         <img src="/img/wall/eli-popup-02.jpg" alt="Eli talking with a customer at his apparel pop-up" width="480" height="600" loading="lazy">
       </figure>
       <div class="chl-fri-body">
-        <h2 class="chl-h2 chl-xl" id="chl-fri-h" data-reveal>Friday night, you'll have proof. <span class="chl-dim">Not a plan.</span></h2>
+        <h2 class="chl-h2 chl-xl" id="chl-fri-h" data-reveal><%= V2 ? V2.fri_h2[0] : "Friday night, you'll have proof." %> <span class="chl-dim"><%= V2 ? V2.fri_h2[1] : 'Not a plan.' %></span></h2>
+        <% if (V2) { %>
+        <ul class="chl-checks" data-reveal><% V2.fri.forEach(function (l) { %><li><span class="chl-tick" aria-hidden="true"></span><%= l %></li><% }) %></ul>
+        <p class="chl-fri-note" data-reveal>Or you'll know it's time to switch ideas. That counts as a win too. It's a week instead of a year.</p>
+        <% } else { %>
         <ul class="chl-checks" data-reveal>
           <li><span class="chl-tick" aria-hidden="true"></span>One idea, picked on purpose</li>
           <li><span class="chl-tick" aria-hidden="true"></span>10 real people who have the problem</li>
@@ -172,6 +197,7 @@ function joinForm(id, withError) { %>
           <li><span class="chl-tick" aria-hidden="true"></span>Real answers: yes, no, or "what would make it a yes"</li>
         </ul>
         <p class="chl-fri-note" data-reveal>Or you'll know it's time to switch ideas. That counts as a win too. It's a week instead of a year.</p>
+        <% } %>
       </div>
     </div>
   </section>
@@ -183,11 +209,11 @@ function joinForm(id, withError) { %>
       <div class="chl-how-grid">
         <article class="chl-how-card" data-reveal>
           <figure><img src="/img/wall/morning-coffee.jpg" alt="" width="480" height="600" loading="lazy"></figure>
-          <div class="chl-how-body"><h3>Every morning, 8am ET.</h3><p>One email and your own day page: the move, the template and a short video from Eli. About 20 minutes.</p></div>
+          <div class="chl-how-body"><% if (V2) { %><h3><%= V2.how[1].h %></h3><p><%= V2.how[1].p %></p><% } else { %><h3>Every morning, 8am ET.</h3><p>One email and your own day page: the move, the template and a short video from Eli. About 20 minutes.</p><% } %></div>
         </article>
         <article class="chl-how-card" data-reveal>
           <figure><img src="/img/wall/desk-overhead.jpg" alt="" width="480" height="600" loading="lazy"></figure>
-          <div class="chl-how-body"><h3>Check in when you're done.</h3><p>One or two lines. Miss a day? Catch up anytime until Sunday night.</p></div>
+          <div class="chl-how-body"><% if (V2) { %><h3><%= V2.how[2].h %></h3><p><%= V2.how[2].p %></p><% } else { %><h3>Check in when you're done.</h3><p>One or two lines. Miss a day? Catch up anytime until Sunday night.</p><% } %></div>
         </article>
         <article class="chl-how-card" data-reveal>
           <figure><img src="/img/wall/eli-stage-full.jpg" alt="" width="480" height="600" loading="lazy"></figure>
@@ -214,7 +240,7 @@ function joinForm(id, withError) { %>
         <dl class="chl-perks" data-reveal>
           <div><dt>Doors open for you an hour early.</dt><dd>127 opens Tuesday, November 17 at 10am ET. Finishers get in at 9am.</dd></div>
           <div><dt>The Day One badge.</dt><dd>It's waiting in your account, and it's only for people who finished.</dd></div>
-          <div><dt>Your week carries over.</dt><dd>Everything you wrote stays on your page, and on the Start track, Week 1 of your roadmap starts ticked off.</dd></div>
+          <div><dt><%= V2 ? 'Everything you made comes with you.' : 'Your week carries over.' %></dt><dd><%= V2 ? 'Your site, your offer and your list stay in your free 127 account. Anything you make is yours to keep, even if you cancel.' : 'Everything you wrote stays on your page, and on the Start track, Week 1 of your roadmap starts ticked off.' %></dd></div>
         </dl>
         <p class="chl-nocatch" data-reveal><b>No catch, no contest.</b> <%= finisherTerms %></p>
       </div>
@@ -268,18 +294,20 @@ function joinForm(id, withError) { %>
     <div class="wrap chl-fit-grid">
       <div class="chl-fit-col is-yes" data-reveal>
         <h2 class="chl-fit-h">This is for you if</h2>
+        <% if (V2) { %><ul><% V2.fit_yes.forEach(function (l) { %><li><%= l %>.</li><% }) %></ul><% } else { %>
         <ul>
           <li>You have an idea (or ten) and haven't talked to one customer.</li>
           <li>You've launched something and nobody's buying yet.</li>
           <li>You want a push and a plan, not another video to save.</li>
-        </ul>
+        </ul><% } %>
       </div>
       <div class="chl-fit-col is-no" data-reveal>
         <h2 class="chl-fit-h">This isn't for you if</h2>
+        <% if (V2) { %><ul><% V2.fit_no.forEach(function (l) { %><li><%= l %>.</li><% }) %></ul><% } else { %>
         <ul>
           <li>You want a shortcut to money. There isn't one here.</li>
           <li>You won't give it 20 minutes a day for five days.</li>
-        </ul>
+        </ul><% } %>
       </div>
     </div>
   </section>

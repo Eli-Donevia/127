@@ -1,6 +1,6 @@
 <%- include('../partials/head') %>
 <% var fn = me ? me.firstName : ''; var live = chx.phase === 'live'; %>
-<main class="chp">
+<main class="chp<%= typeof chx !== 'undefined' && chx.v2 ? ' chp-v2' : '' %>">
   <% if (kind !== 'sent') { %><%- include('partials/top', { n: null, preview: false }) %><% } %>
   <section class="ch-hero">
     <div class="wrap">
@@ -33,7 +33,10 @@
     <div class="wrap">
       <span class="lbl"><%= live ? 'Before your next move' : 'Three things before Monday' %></span>
       <ol class="ch-prep">
-        <% if (!live) { %>
+        <% if (!live && prepV2) { %>
+        <li><b><%= prepV2.headline %></b><% prepV2.body.forEach(function (l) { %><p><%- md(l) %></p><% }) %>
+          <% if (starters) { %><p>No idea yet? Starter ideas:</p><ul><% Object.keys(starters).forEach(function (k) { var p = (paths || []).filter(function (x) { return x.id === k; })[0]; (starters[k] || []).forEach(function (idea) { %><li><%= idea %><% if (p && Object.keys(starters).length > 1) { %> <span class="tiny">(<%= p.label.toLowerCase() %>)</span><% } %></li><% }) }) %></ul><% } %></li>
+        <% } else if (!live) { %>
         <li><b>Do the 1-minute prep.</b><p>Write down 3 problems you've noticed this week. Things people complain about, pay someone to fix, or do badly themselves.</p></li>
         <% } %>
         <li><b>Save the lives.</b><p>Kickoff and debrief, live with Eli on Instagram. Replays if you can't make it.</p>

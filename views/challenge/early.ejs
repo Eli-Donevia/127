@@ -1,5 +1,5 @@
 <%- include('../partials/head') %>
-<main class="chp">
+<main class="chp<%= typeof chx !== 'undefined' && chx.v2 ? ' chp-v2' : '' %>">
   <section class="ch-hero">
     <div class="wrap">
       <div class="lbl">127 opens <%= chx.etLong(chx.launchAt) %></div>

@@ -4,11 +4,11 @@
   var hl = split(d.headline);
   var fields = d.checkin.fields.filter(function (f) { return f.id !== 'show_idea' && f.id !== 'show_offer'; });
   // The card's line toggle follows content: Day 1 shows the idea, Day 4 and the finisher card the offer.
-  var cardToggle = d.card && d.card.show ? { label: d.card.show === 'show_idea' ? 'Add my idea to my card' : 'Add my offer to my card' } : null;
+  var cardToggle = d.card && d.card.show ? { label: toggles[d.card.show] } : null;
   var finisher = me && me.finished;
   var unfinished = me ? me.days.filter(function (r) { return !r.done && r.unlocked; }) : [];
 %>
-<main class="chp">
+<main class="chp<%= typeof chx !== 'undefined' && chx.v2 ? ' chp-v2' : '' %>">
   <%- include('partials/top') %>
 
   <% if (preview) { %><div class="wrap"><div class="alert info">Preview for admins: this is Day <%= n %> as it looks once it unlocks. Check-ins are off in preview.</div></div><% } %>
@@ -53,7 +53,7 @@
   <% if (card && me.days[n - 1].done) { %>
   <section class="ch-block">
     <div class="wrap">
-      <div class="ch-share" data-card data-day="<%= card.day %>" data-first-name="<%= card.firstName %>" data-line="" data-line-option="<%= card.lineOption %>" data-done="<%= card.done %>" data-today="<%= card.today %>">
+      <div class="ch-share" data-card data-day="<%= card.day %>" data-first-name="<%= card.firstName %>" data-line="" data-line-option="<%= card.lineOption %>" data-done="<%= card.done %>" data-today="<%= card.today %>" data-friend="<%= card.friend || '' %>"<% if (shareText) { %> data-share-text="<%= shareText %>"<% } %>>
         <div data-card-preview aria-label="Your share card"></div>
         <div>
           <span class="lbl">Your card</span>
@@ -127,7 +127,7 @@
 
   <section class="ch-block">
     <div class="wrap">
-      <div class="ch-tool ch-prose">
+      <div class="ch-tool ch-prose" data-tool>
         <span class="lbl">The tool</span>
         <h3 style="margin-top:8px"><%= d.tool.title %></h3>
         <%- include('partials/blocks', { blocks: d.tool.blocks }) %>
@@ -190,7 +190,7 @@
   </section>
   <% } %>
 </main>
-<script>window.C127CardLabels = <%- JSON.stringify(cardLabels).replace(/</g, '\\u003c') %>;</script>
+<script>window.C127CardLabels = <%- JSON.stringify(cardLabels).replace(/</g, '\\u003c') %>;<% if (shareText) { %> window.C127CardMoves = <%- JSON.stringify(cardMoves).replace(/</g, '\\u003c') %>;<% } %></script>
 <script src="/challenge-assets/card.js" defer></script>
 <%- include('partials/page-script') %>
 <%- include('../partials/foot') %>

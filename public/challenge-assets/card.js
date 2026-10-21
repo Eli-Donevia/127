@@ -101,8 +101,13 @@
   }
 
   // Near-black, faint 90px grid fading out from the upper middle, lavender glow from the top edge.
+  // v2 (the page sets C127CardMoves): plain void, solid type. No backdrop glow, faint grid or gradient text
+  // (the premium pass and the Oct 20 accent system retire all three); the chrome 127 stays, it's a real material.
+  function v2() { return !!window.C127CardMoves; }
+  function ink(x, top, bottom, stops) { return v2() ? INK : grad(x, top, bottom, stops); }
   function background(x) {
     x.fillStyle = BG; x.fillRect(0, 0, W, H);
+    if (v2()) return;
     x.save(); x.translate(CX, 0); x.scale(1, 575 / 450);
     var g = x.createRadialGradient(0, 0, 0, 0, 0, 450);
     for (var i = 0; i <= 10; i++) g.addColorStop(i / 10, 'rgba(184,191,255,' + (0.24 * Math.pow(1 - i / 10, 1.25)).toFixed(4) + ')');
@@ -138,7 +143,7 @@
   function stripLayout(x) {
     var w = (W - PAD * 2 - STRIP.gap * 4) / 5;
     x.font = STRIP.font;
-    var lines = MOVES.map(function (m) { return wrap(x, m, w - 2 - STRIP.padX * 2 + 1, STRIP.ls, 3); });
+    var lines = (window.C127CardMoves || MOVES).map(function (m) { return wrap(x, m, w - 2 - STRIP.padX * 2 + 1, STRIP.ls, 3); });
     var n = Math.max.apply(null, lines.map(function (l) { return l.length; }));
     return { w: w, lines: lines, h: 2 + STRIP.padY * 2 + STRIP.row + 11.2 + n * STRIP.lh };
   }
@@ -193,7 +198,9 @@
       x.font = '700 100px ' + SANS;
       var head = name ? [[fit(x, name, max, -5), DIM], ['made today', STEEL], ['day one.', STEEL]] : [['Made today', DIM], ['day one.', STEEL]];
       x.font = '400 44px ' + SANS;
-      var quote = line ? balanced(x, '\u201C' + line + '\u201D', max - 40, 3) : [];
+      // A site address (v2 Day 1) is shown as it is; any other line is a quote.
+      var isLink = /^\S+\.[a-z]{2,}(\/\S*)?$/i.test(line);
+      var quote = line ? balanced(x, isLink ? line : '\u201C' + line + '\u201D', max - 40, 3) : [];
       var strip = stripLayout(x);
       var block = 28.8 + 30 + head.length * 93 + 30 + 42, quoteH = quote.length ? 34 + quote.length * 57.2 : 0;
       var total = heroH + 52 + block + quoteH + 52 + strip.h;
@@ -208,13 +215,14 @@
       var img3d = r[2];
       if (fin && img3d) {
         var iw = heroH * img3d.naturalWidth / img3d.naturalHeight;
-        x.globalCompositeOperation = 'screen';
+        // v2's plain void would show the photo's own near-black box under 'screen'; 'lighten' keeps the void.
+        x.globalCompositeOperation = v2() ? 'lighten' : 'screen';
         x.drawImage(img3d, CX - iw / 2, top, iw, heroH);
         x.globalCompositeOperation = 'source-over';
       } else {
         var big = fin ? '127' : '0' + day;
         x.font = fin ? '700 ' + Math.round(heroH * 0.76) + 'px ' + SANS : '600 260px ' + MONO;
-        x.fillStyle = grad(x, top, top + heroH, STEEL);
+        x.fillStyle = ink(x, top, top + heroH, STEEL);
         center(x, big, top + (fin ? heroH * 0.73 : 194), fin ? -heroH * 0.045 : -15.6);
       }
 
@@ -229,13 +237,16 @@
       x.font = '700 100px ' + SANS;
       head.forEach(function (h, i) {
         var base = y + i * 93 + 81;
-        x.fillStyle = grad(x, base - 100.5, base + 29.5, h[1]);
+        x.fillStyle = ink(x, base - 100.5, base + 29.5, h[1]);
         center(x, h[0], base, -5);
       });
       y += head.length * 93 + 30;
 
       x.font = '400 30px ' + SANS; x.fillStyle = FOG;
-      center(x, fin ? 'The Day One Challenge \u00b7 5 days, 5 moves' : 'The Day One Challenge \u00b7 Day ' + day + ' of 5', y + 31.65, -0.15);
+      var friend = String(opts.friend || '').replace(/\s+/g, ' ').trim().slice(0, 24);
+      var sub = fin ? 'The Day One Challenge \u00b7 ' + (window.C127CardMoves ? '5 days, 5 things live' : '5 days, 5 moves') : 'The Day One Challenge \u00b7 Day ' + day + ' of 5';
+      if (friend) sub += ' \u00b7 with ' + friend;
+      center(x, fit(x, sub, max, -0.15), y + 31.65, -0.15);
       y += 42;
 
       if (quote.length) {
@@ -274,7 +285,7 @@
     var d = root.dataset, key = dayKey(d.day);
     var preview = root.querySelector('[data-card-preview]'), toggle = root.querySelector('[data-card-line-toggle]');
     var opts = {
-      day: key, firstName: d.firstName || '', line: d.line || '', url: d.url || undefined,
+      day: key, firstName: d.firstName || '', line: d.line || '', url: d.url || undefined, friend: d.friend || '',
       done: (d.done || '').split(',').map(function (n) { return parseInt(n, 10); }).filter(Boolean),
       today: parseInt(d.today, 10) || (key === 'finisher' ? 0 : key)
     };
