@@ -255,3 +255,15 @@ html.hq-light .hqp .hqp-ask { background: linear-gradient(180deg, #ffffff 0%, #f
 html.hq-light .hqp .hqp-ask .orb .core { background: radial-gradient(circle at 50% 30%, #ffffff, #dcdde4 75%); box-shadow: inset 0 3px 6px rgba(18, 18, 30, .25), 0 0 0 2px #d4d5dc, 0 0 0 3px #fff; }
 html.hq-light .hqp .hqp-ask:focus-within .orb .core, html.hq-light .hqp .hqp-ask .orb[data-state="thinking"] .core { box-shadow: inset 0 3px 6px rgba(18, 18, 30, .25), 0 0 0 2px rgba(74, 87, 217, .45), 0 0 0 3px #fff; }
 html.hq-light .hqp .hqp-ask button.go { background: linear-gradient(180deg, #2c2d35 0%, #0b0b0e 100%); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 6px 14px -6px rgba(18, 18, 30, .6); }
+
+/* HQ that notices (hq-nudges.css, HQ_NUDGES) in light */
+html.hq-light .hqn, html.hq-light .hqn-you { --pop: #4a57d9; --pop-line: rgba(74, 87, 217, .45); --sig: #1e7f55; --sig-line: rgba(30, 127, 85, .4); --sig-soft: rgba(30, 127, 85, .09); }
+html.hq-light .hqn-pace dd span,
+html.hq-light .hqn-meter { background: rgba(18, 18, 30, .07); }
+html.hq-light .hqn-pace dd span::after { background: #8a8b96; }
+html.hq-light .hqn-ticks i.hit,
+html.hq-light .hqn-cal span.hit { color: #fff; }
+html.hq-light .hqn-cal span.later,
+html.hq-light .hqn-cal span.before { color: #8a8b96; }
+html.hq-light .hqn-marks .off .hqn-ico { color: #c9cad3; }
+html.hq-light .hqn-log li::after { background: #b9bbc6; }
