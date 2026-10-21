@@ -233,6 +233,8 @@ app.use((req, res, next) => {
   // The Invite page (lib/referrals.js, REFERRALS) and the member marketplace (lib/market.js, MARKETPLACE) in the menu.
   res.locals.referralsOn = referrals.visibleTo(user);
   res.locals.marketOn = market.visibleTo(user);
+  // Legal L101 RF3: a friend who came through a member's link sees whose link it was on the sign-up forms.
+  res.locals.invitedBy = user ? null : referrals.invitedBy(cookie(req, 'ref'), user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);

@@ -5,7 +5,7 @@
 <main class="mk mk-listing">
   <section class="mk-item">
     <div class="wrap mk-item-in">
-      <figure class="mk-item-art"><% if (c.cover) { %><img src="<%= c.cover %>" alt="<%= l.title %>, the cover" width="800" height="1000"><% } else { %><span class="mk-blank"><%= l.title %></span><% } %></figure>
+      <figure class="mk-item-art"><% if (c.cover) { %><img src="<%= c.cover %>" alt="<%= l.title %>, the cover" width="800" height="1000"><% } else { %><span class="mk-blank"><%= l.title %></span><% } %><% if (c.aiPerson) { %><figcaption class="mk-ai">AI-generated person</figcaption><% } %></figure>
       <div>
         <% if (preview) { %><p class="mk-preview-note">Only you can see this page until 127 approves it. Status: <%= STATUS[l.status] %>.</p><% } %>
         <p class="mk-lbl"><a href="/market">Marketplace</a> <span aria-hidden="true">/</span> <a href="/market?kind=<%= l.kind %>"><%= KINDS[l.kind] %></a> <span aria-hidden="true">/</span> <%= nFiles %> file<%= nFiles === 1 ? '' : 's' %></p>
@@ -42,7 +42,7 @@
           <span><%= seller.line || 'Builds on 127.' %></span>
         </a>
         <% } %>
-        <p class="mk-fine">Made by <%= seller ? seller.name : 'a member' %>, a 127 member, and checked by 127 before it went up. Use the files in your own business and for your clients; please don't resell or share them. Questions about an order: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p>
+        <p class="mk-fine">Made by <%= seller ? seller.name : 'a member' %>, a 127 member, and checked by 127 against its rules before it went up. You can use the files in your business and your clients' work, and change them. Please don't resell or share them. <a href="<%= TERMS.buyer %>">Full license</a>. Questions about an order: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p>
         <% if (!preview) { %><a class="mk-report" href="/market/<%= l.slug %>/report">Report this listing</a><% } %>
       </div>
     </div>

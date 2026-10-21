@@ -1,6 +1,6 @@
 <%- include('../partials/app-head') %>
 <%# The Sell page (GET /app/sell): three steps to a first listing, then the seller's numbers and listings.
-    Free members see what selling is and the Builder upgrade. %>
+    With MARKET_SELLERS=paid, free members see a plain note (Legal L101 MK2: never sell a plan as a way to earn). %>
 <div class="mk">
 <div class="sl-head">
   <div><div class="eyebrow">Marketplace</div><h1>Sell</h1></div>
@@ -8,16 +8,10 @@
 </div>
 
 <% if (!canSell) { %>
-  <p class="mk-line" style="margin-top:0">Sell the templates, prompts and site designs you made for your own business to other people building theirs. 127 checks each listing, takes the payment and pays you through Stripe.</p>
-  <ol class="mk-how" style="margin-top:28px;max-width:640px">
-    <li><span class="mk-n">01</span><span><b>Selling comes with Builder.</b> You keep <%= 100 - fee %>% of each sale<%= fee > 10 ? ' (90% on the Circle)' : '' %>.</span></li>
-    <li><span class="mk-n">02</span><span><b>Text files a person can read.</b> Markdown, HTML, CSV or JSON, plus a cover picture.</span></li>
-    <li><span class="mk-n">03</span><span><b>Paid out by Stripe</b> about <%= delay %> days after each sale.</span></li>
-  </ol>
-  <form method="post" action="/app/billing/checkout/builder" style="margin-top:28px" data-upgrade="sell" data-price="<%= builderOffer.price %>">
-    <button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Become a Builder' %></button>
-    <%- include('../partials/renewal-line', { rlClass: 'small' }) %>
-  </form>
+  <p class="mk-line" style="margin-top:0">Selling on the Market is open to paid plans for now. Everything on it is open to buy.</p>
+  <a class="btn ghost sm" style="margin-top:20px" href="/market">Browse the Market</a>
+<% } else if (seller && seller.status === 'ended') { %>
+  <p class="mk-line" style="margin-top:0">Selling on the Market has ended for this account (<a class="link" href="<%= TERMS.seller %>">Terms 13E</a>). Buyers keep the files they bought. Questions: <a class="link" href="mailto:hello@127group.io">hello@127group.io</a>.</p>
 <% } else if (!seller) { %>
   <p class="mk-line" style="margin-top:0">Three steps to your first listing. Your page first: it's what buyers see next to everything you sell.</p>
   <div class="sl-step" style="margin-top:28px">
@@ -31,15 +25,18 @@
         </div>
         <label class="field"><span>One line about what you build</span><input class="input" name="line" maxlength="120" placeholder="I run a mobile detailing business in Tulsa."></label>
         <label class="field"><span>A little more (optional)</span><textarea class="input" name="bio" rows="3" maxlength="600"></textarea></label>
-        <p class="small muted" style="margin:0 0 6px">The short version of the seller terms:</p>
+        <p class="sl-hint" style="margin:-4px 0 14px">Your maker page is public.</p>
+        <p class="small muted" style="margin:0 0 6px">The short version of the <a class="link" href="<%= TERMS.seller %>" target="_blank" rel="noopener">seller terms</a>:</p>
         <ul class="sl-terms">
           <li>You sell only what you made or have the right to sell.</li>
-          <li>127 keeps <%= fee %>% of each sale<%= fee > 10 ? ' (10% if you are on the Circle)' : '' %> and covers the card fees. Stripe pays you the rest about <%= delay %> days after the sale.</li>
+          <li>127 keeps <%= fee %>% of each sale<%= fee !== circleFee ? ' (' + circleFee + '% if you are on the Circle)' : '' %> and covers the card fees. Stripe pays you the rest about <%= delay %> days after the sale, once the buyer's 14 days to ask for a refund are over.</li>
           <li>127 checks every listing before it goes up, and can pause or remove one that breaks the rules.</li>
           <li>A refund comes back out of your share. Buyers keep files they already bought if you remove a listing.</li>
-          <li>Listings come off the shelf if your Builder plan ends.</li>
+          <li>Stripe's own terms cover your payout account.</li>
+          <li>Your maker page is public.</li>
+          <% if (paidOnly) { %><li>Listings come off the shelf if your paid plan ends.</li><% } %>
         </ul>
-        <label class="sl-check"><input type="checkbox" name="agree" required><span>I agree to the seller terms.</span></label>
+        <label class="sl-check"><input type="checkbox" name="agree" required><span>I agree to the <a class="link" href="<%= TERMS.seller %>" target="_blank" rel="noopener">seller terms</a>.</span></label>
         <button class="btn light">Save my page</button>
       </form>
     </div>
@@ -87,9 +84,20 @@
   </div>
 
   <% if (seller.payoutsReady) { %>
+  <% if (earn.recent.length) { %>
+  <div class="sl-section">
+    <h2>Recent sales</h2>
+    <ul class="sl-sales">
+      <% earn.recent.forEach(function (o) { var l = listings.find(function (x) { return x.id === o.listingId; }); %>
+      <li><span><%= o.buyerFirst || 'A buyer' %><% if (o.country) { %> <span class="muted">· <%= o.country %></span><% } %></span><span class="muted"><%= l ? l.title : '' %></span><span class="mk-mono"><%= money(o.net) %> · <%= fmtDate(o.paidAt) %></span></li>
+      <% }) %>
+    </ul>
+    <p class="sl-hint" style="margin-top:10px">You see a buyer's first name and country, never their email.</p>
+  </div>
+  <% } %>
   <div class="sl-section">
     <h2>Payouts</h2>
-    <p class="muted" style="margin:0 0 14px">Stripe pays you about <%= delay %> days after each sale. Your payout history and tax forms live in your Stripe dashboard.</p>
+    <p class="muted" style="margin:0 0 14px">Stripe pays you about <%= delay %> days after each sale, once the buyer's 14 days to ask for a refund are over. Your payout history and tax forms live in your Stripe dashboard.</p>
     <a class="btn ghost sm" href="/app/sell/payouts/dashboard">Open Stripe</a>
   </div>
   <div class="sl-section">
@@ -101,6 +109,7 @@
       </div>
       <label class="field"><span>One line</span><input class="input" name="line" maxlength="120" value="<%= seller.line %>"></label>
       <label class="field"><span>A little more</span><textarea class="input" name="bio" rows="3" maxlength="600"><%= seller.bio %></textarea></label>
+      <p class="sl-hint" style="margin:-4px 0 14px">Your maker page is public.</p>
       <button class="btn ghost sm">Save</button>
     </form>
   </div>

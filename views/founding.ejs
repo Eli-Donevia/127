@@ -40,6 +40,7 @@
       <form method="post" action="/founding" class="wl-form" id="join">
         <% if (error) { %><div class="alert error"><%= error %></div><% } %>
         <% var cc = consentCopy('founding'); %>
+        <%- include('partials/invited-line') %>
         <div class="wl-row two">
           <input class="input" name="first_name" placeholder="First name" autocomplete="given-name" value="<%= form.first_name || '' %>" aria-label="First name">
           <input class="input" type="email" name="email" placeholder="Email" autocomplete="email" required value="<%= form.email || '' %>" aria-label="Email">

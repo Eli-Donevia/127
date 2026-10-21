@@ -74,7 +74,7 @@
   <p class="sl-hint" style="margin-top:10px">The words in your files are checked when you send it.</p>
   <% if (['draft', 'changes'].includes(l.status)) { %>
   <form method="post" action="/app/sell/<%= l.id %>/submit" style="margin-top:22px">
-    <label class="sl-check"><input type="checkbox" name="rights" required><span>I made this or have the right to sell it, and it doesn't copy anyone else's work.</span></label>
+    <label class="sl-check"><input type="checkbox" name="rights" required><span><%= RIGHTS_TEXT %></span></label>
     <button class="btn light">Send to 127 for a look</button>
   </form>
   <% } %>
