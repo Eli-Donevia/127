@@ -7,6 +7,8 @@ A few rules keep a challenge trusted, and keep you out of trouble. This is a pla
 - [ ] Joining the challenge is consent to the challenge emails. Anything after the challenge (newsletters, future launches) gets its own unticked box.
 - [ ] Every marketing email has your postal address and a working unsubscribe link.
 - [ ] Unsubscribes are honored right away.
+- [ ] Texts need their own unticked box, worded the way the law asks, and go only to people who ticked it.
+- [ ] Don't let anyone under 13 sign up.
 
 ## Claims
 

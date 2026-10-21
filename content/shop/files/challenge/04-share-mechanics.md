@@ -14,7 +14,7 @@ One tap saves it. Copy the caption at the same time so they don't have to write 
 
 ## 2. Do it with a friend
 
-On the joined page: "Doing this with someone? Send them your link." People finish more often with a partner, and every partner is a new join. If you can, show the friend's progress on each other's day pages ("Sam finished Day 2").
+On the joined page: "Doing this with someone? Send them your link." People finish more often with a partner, and every partner is a new join. If you can, and only when both of them said yes, show each friend's progress on the other's day pages ("Sam finished Day 2").
 
 ## 3. A real counter
 
@@ -26,7 +26,7 @@ A page of finished work (first name, their thing, one line) is the best proof yo
 
 ## 5. One hashtag, one handle
 
-Put both in every caption template. Reshare the cards of people who said yes to being featured.
+Put both in every caption template. If you reward sharing (a bonus, an entry, a free month), the caption says so, like "I get a bonus for sharing this." Reshare the cards of people who said yes to being featured.
 
 ## 6. Lives that make clips
 
@@ -41,6 +41,8 @@ Write, for each of the five days:
 1. The card label (four words or fewer, capitals, starting "DAY [n] ·")
 2. A one-line caption the participant posts with the card, in first person, that mentions the challenge and the hashtag naturally
 3. One line for my own story when I reshare someone's card
+
+If I reward sharing with [reward, or "nothing"], end each caption with a plain disclosure like "I get a bonus for sharing this."
 
 Then write the friend invite line for the joined page, and the opt-in wording for a public wall of finished work.
 ```

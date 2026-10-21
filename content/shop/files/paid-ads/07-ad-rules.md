@@ -10,6 +10,12 @@ Ad platforms reject ads and close accounts for a short list of reasons. Most are
 - [ ] Every claim in an ad is one you can back up with evidence you already have.
 - [ ] Testimonials and reviews are real, and reflect what a typical customer can expect, or say clearly that they don't.
 
+## AI-made people and voices
+
+- [ ] If an ad shows an AI-made person or voice, say so in the ad ("AI-generated person") and turn on the platform's AI label.
+- [ ] Never present it as a real customer's review.
+- [ ] New York requires this disclosure in ads.
+
 ## Special and restricted categories
 
 - [ ] If your ad is about credit or loans, jobs, housing, social issues, or elections and politics, Meta makes you declare a special ad category, which limits targeting. Declare it. Getting caught without it can close the account.

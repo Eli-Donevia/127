@@ -17,7 +17,7 @@ The most a sale can cost you in ads before you lose money on it:
 
 **Break-even cost per sale = price − cost to deliver − payment fees**
 
-| | Example |
+| | Example (made-up numbers) |
 |---|---|
 | Price | $60 |
 | Cost to deliver (product, shipping, your time if it's a service) | $22 |

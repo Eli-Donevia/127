@@ -89,7 +89,7 @@
         </ul>
       </div>
       <% }) %>
-      <p class="pk-terms"><% if (course) { %>Read each lesson on the page or download it. Access for as long as we offer the course. <% } %>Files open in a browser, Excel, Google Sheets, Word, Google Docs or Notion. Use them in your own business and for your clients. Please don't resell or share the files themselves. <a href="/terms#section-11">License</a>. <% if (!pack.free) { %>14 days to change your mind: email <a href="mailto:hello@127group.io">hello@127group.io</a> for a full refund.<% } else { %>Questions: <a href="mailto:hello@127group.io">hello@127group.io</a>.<% } %></p>
+      <p class="pk-terms"><% if (course) { %>Read each lesson on the page or download it. We keep your link working for at least 12 months after you buy, and for as long as we offer the course, so download the files you want to keep. <% } %>Files open in a browser, Excel, Google Sheets, Word, Google Docs or Notion. Use them in your own business and for your clients. Please don't resell or share the files themselves. <a href="/terms#section-11">License</a>. <% if (!pack.free) { %>14 days to change your mind: email <a href="mailto:hello@127group.io">hello@127group.io</a> for a full refund.<% } else { %>Questions: <a href="mailto:hello@127group.io">hello@127group.io</a>.<% } %></p>
       <% if (!pack.free && !owned) { %><div class="pk-again"><%- include('buy', { p: pack, ownedList: [], buyFrom: '/packs/' + pack.slug, buyLabel: 'Buy the ' + pack.name }) %></div><% } %>
     </div>
   </section>
