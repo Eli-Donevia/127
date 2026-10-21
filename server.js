@@ -42,6 +42,7 @@ const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
+const toolsRoutes = require('./lib/tools-routes');
 const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
 const lifeRoutes = require('./lib/life-routes');
@@ -2099,6 +2100,8 @@ app.use(perksRoutes({ requireAuth }));
 app.use(tapeRoutes({ requireAuth }));
 // Verticals (lib/verticals.js): /for/<slug> pages behind VERTICALS, and the board at /admin/verticals.
 app.use(require('./lib/verticals-routes')({ requireAuth, requireAdmin, doorsLive: (user) => doors.liveFor(user), builderPrice: () => PLANS.builder.price, track }));
+// Native HQ tools (lib/tools): the Store's spreadsheets as live pages, and a quote's private link. Behind HQ_TOOLS.
+app.use(toolsRoutes({ requireAuth, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 // HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).

@@ -1,0 +1,46 @@
+/* A shared quote (views/quote-share.ejs): a clean paper page the member's client reads on a phone or prints. One
+   ink, one hairline, numbers in Geist Mono with tabular figures. Nothing loads from outside. */
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+:root { --paper: #fbfaf8; --ink: #121214; --ink-2: #55565c; --line: #e4e2dd; --mono: 'Geist Mono', ui-monospace, monospace; color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.5 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.qs { max-width: 760px; margin: 0 auto; padding: clamp(28px, 7vw, 72px) 16px 32px; }
+.qs-head { display: grid; gap: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.qs-from { margin: 0; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.qs-title { margin: 10px 0 0; font-weight: 600; font-size: clamp(28px, 6vw, 40px); line-height: 1.08; letter-spacing: -0.035em; max-width: 18ch; }
+.qs-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px 24px; margin: 0; }
+.qs-meta dt, .qs-tot dt { color: var(--ink-2); font-size: 13px; }
+.qs-meta dd { margin: 4px 0 0; font-weight: 500; }
+.qs-items { width: 100%; border-collapse: collapse; margin: 8px 0 0; }
+.qs-items th { padding: 18px 0 10px; color: var(--ink-2); font-weight: 400; font-size: 13px; text-align: left; border-bottom: 1px solid var(--line); }
+.qs-items td { padding: 16px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.qs-items .n { text-align: right; padding-left: 18px; font-family: var(--mono); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.qs-tot { margin: 18px 0 0 auto; max-width: 320px; }
+.qs-tot div { display: flex; justify-content: space-between; gap: 18px; padding: 6px 0; }
+.qs-tot dd { margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.qs-tot .all { margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--ink); }
+.qs-tot .all dt { color: var(--ink); font-weight: 600; font-size: 15px; }
+.qs-tot .all dd { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+.qs-terms { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); }
+.qs-terms h2 { margin: 0 0 8px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.qs-terms p { margin: 0; white-space: pre-line; max-width: 64ch; color: var(--ink); }
+.qs-gone h1 { margin: 0 0 10px; font-weight: 600; font-size: 28px; letter-spacing: -0.03em; }
+.qs-gone p { margin: 0; color: var(--ink-2); }
+.qs-foot { max-width: 760px; margin: 0 auto; padding: 24px 16px 40px; }
+.qs-foot a { color: var(--ink-2); font-size: 12px; text-decoration: none; }
+.qs-foot a:hover { color: var(--ink); }
+@media (max-width: 560px) {
+  .qs-items thead { display: none; }
+  .qs-items tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .qs-items td { padding: 0; border: 0; }
+  .qs-items td:first-child { grid-column: 1 / -1; font-weight: 500; margin-bottom: 6px; }
+  .qs-items .n { text-align: left; padding: 0; font-size: 13px; }
+  .qs-items .n::before { content: attr(data-l); display: block; font-family: 'Geist', sans-serif; color: var(--ink-2); font-size: 12px; }
+  .qs-tot { max-width: none; }
+}
+@media print { body { background: #fff; } .qs { padding-top: 0; } .qs-foot a { color: var(--ink-2); } }
