@@ -130,3 +130,17 @@ test('a free 30-day roadmap says weeks 1 and 2 are the free part, in the same li
   assert.equal(rules("I'll send you a 30-day plan. The first two weeks are free."), 0);
   assert.equal(rules('Start free. Your 30-day roadmap is built for you.'), 0);
 });
+
+test('a line a reader must see, set in faint gray fine print, is held (Legal L103)', () => {
+  const { finePrint, faintClasses } = require('../lib/fine-print');
+  const faint = faintClasses(['.note{font-size:12px;color:var(--muted)}', '.v5 .ticker-note{font-size:12px;color:#7a7c89}', '.lede{font-size:17px;color:var(--ink-2)}']);
+  const held = (html) => finePrint(html, { file: 'x.ejs', faint }).map((f) => f.rule);
+  assert.deepStrictEqual(held('<p class="note">Eli\'s results aren\'t typical or a promise of what you\'ll earn.</p>'), ['fine-print']);
+  assert.deepStrictEqual(held('<p class="ticker-note <%= x %>">Renews monthly until you cancel.</p>'), ['fine-print']);
+  assert.deepStrictEqual(held('<small style="font-size:11px;color:#8b8b96">Not financial advice.</small>'), ['fine-print']);
+  assert.deepStrictEqual(held('<p class="tiny muted">By continuing you agree to the Terms.</p>'), ['fine-print']);
+  // readable copy beside the claim passes, and so does faint text that qualifies nothing
+  assert.deepStrictEqual(held('<p class="lede">Eli\'s results aren\'t typical or a promise of what you\'ll earn.</p>'), []);
+  assert.deepStrictEqual(held('<p class="note">Updated Oct 21.</p>'), []);
+  assert.ok(run(siteFiles()).filter((f) => f.rule === 'fine-print').every((f) => f.severity === 'hold'));
+});
