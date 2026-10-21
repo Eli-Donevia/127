@@ -70,7 +70,7 @@ start from your business instead of from zero.
 
 ${list.map((f) => `- ${f.file}: ${f.title}`).join('\n')}
 
-These prompts are yours to use in your own business and for your clients. Please don't resell or share the pack itself.
+Use them in your own business and for your clients. Please don't resell or share the files themselves.
 `;
 }
 

@@ -36,3 +36,18 @@
     navigator.clipboard.writeText(b.getAttribute('data-copy')).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 2000); });
   });
 })();
+
+// Reading a lesson: a Copy button on every prompt block, so a prompt goes from the phone to an AI app in one tap.
+(function () {
+  if (!navigator.clipboard) return;
+  document.querySelectorAll('.pk-read pre').forEach(function (pre) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pk-cp';
+    b.textContent = 'Copy';
+    b.addEventListener('click', function () {
+      navigator.clipboard.writeText(pre.querySelector('code').textContent).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 2000); });
+    });
+    pre.appendChild(b);
+  });
+})();

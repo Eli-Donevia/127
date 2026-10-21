@@ -26,5 +26,5 @@ Every move respects reduced motion (the page shows complete and still), works wi
 motion button wherever something loops.
 
 Licenses: the motion runtime uses Motion (motion.dev, MIT). The five effects (fx-*) are ports of MIT components; each
-file carries its license at the bottom. 127's own code here is yours to use on any site you make, for you or for
-clients. Please don't resell or share the pack itself.
+file carries its license at the bottom, and CREDITS.md lists each one with its author and source. Use them in your own
+business and for your clients. Please don't resell or share the files themselves.

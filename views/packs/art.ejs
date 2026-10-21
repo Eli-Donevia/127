@@ -6,13 +6,13 @@
     <p class="am-word am-1"><span>A</span><span>s</span><span>s</span><span>e</span><span>m</span><span>b</span><span>l</span><span>e</span></p>
     <p class="am-word am-2"><span>Pour</span></p>
     <p class="am-word am-3"><span>Stamp.</span></p>
-    <svg class="am-draw" viewBox="0 0 200 120" fill="none"><path pathLength="1" d="M10 100 C 60 100, 60 20, 100 20 S 140 100, 190 100"/></svg>
+    <svg class="am-draw" viewBox="0 0 200 120" fill="none"><defs><linearGradient id="amGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7c8cff"/><stop offset="1" stop-color="#5be4ff"/></linearGradient></defs><path pathLength="1" d="M10 100 C 60 100, 60 20, 100 20 S 140 100, 190 100"/></svg>
     <div class="am-ring"></div>
   </div>
 <% } else if (a === 'sites') { %>
   <div class="as-fan">
     <% ['site-editorial','site-agency','site-restaurant'].forEach(function (id, i) { %>
-    <figure class="as-frame as-f<%= i %>"><div class="as-chrome"><i></i><i></i><i></i></div><div class="as-scroll"><img src="/img/packs/sites/<%= id %>.jpg" alt="" loading="<%= i ? 'lazy' : 'eager' %>" width="640" height="1200"></div></figure>
+    <figure class="as-frame as-f<%= i %>"><div class="as-scroll"><img src="/img/packs/sites/<%= id %>.jpg" alt="" loading="<%= i ? 'lazy' : 'eager' %>" width="640" height="1200"></div></figure>
     <% }) %>
   </div>
 <% } else if (a === 'numbers') { %>
@@ -21,7 +21,7 @@
     <div class="an-row"><label for="an-cost">Cost per sale</label><input id="an-cost" type="number" inputmode="decimal" value="35" min="0"></div>
     <div class="an-row"><label for="an-fixed">Monthly costs</label><input id="an-fixed" type="number" inputmode="decimal" value="900" min="0"></div>
     <div class="an-out"><span>Sales to break even</span><b data-out>11</b></div>
-    <p class="an-note">The Break-Even sheet, live. Change a number.</p>
+    <p class="an-note">The Break-Even sheet, live. Change a number. Example: made-up numbers.</p>
   </div>
 <% } else if (a === 'sales') { %>
   <div class="aa-doc">
@@ -31,6 +31,7 @@
     <div class="aa-table"><span>Scope</span><span>3 pages, 2 rounds</span><span>Start</span><span>Mar 3</span><span>Total</span><span>$2,400</span></div>
     <svg class="aa-sign" viewBox="0 0 220 60" fill="none"><path pathLength="1" d="M6 44 C 26 6, 40 58, 58 30 S 84 10, 96 38 S 128 52, 140 24 S 170 30, 214 34"/></svg>
     <p class="aa-stamp">Signed</p>
+    <p class="art-ex">Example: made-up numbers</p>
   </div>
 <% } else if (a === 'content') { %>
   <div class="ac-reel">
@@ -56,9 +57,62 @@
     <p class="ai-l ai-2"><b>You</b> Price the spring package for {{audience}}.</p>
     <p class="ai-l ai-3"><b>AI</b> Three tiers, the math for each, and the one I'd lead with<span class="ai-caret"></span></p>
   </div>
+<% } else if (a === 'challenge') { %>
+  <div class="ach">
+    <ol class="ach-week">
+      <% [['Mon','Live'],['Tue','Offer'],['Wed','Ready'],['Thu','Public'],['Fri','Asks']].forEach(function (d, i) { %><li class="ach-d ach-d<%= i %>"><b><%= d[0] %></b><span><%= d[1] %></span></li><% }) %>
+    </ol>
+    <div class="ach-card">
+      <p class="ach-k">Day 1 &middot; I'm live</p>
+      <p class="ach-t">Jordan's<br>Detailing</p>
+      <p class="ach-u">Five days. Your page live.</p>
+      <p class="ach-tag">#FiveDaysLive</p>
+    </div>
+  </div>
+<% } else if (a === 'digital') { %>
+  <div class="adp">
+    <div class="adp-phone">
+      <div class="adp-cover"><span>Client portal</span><span>for wedding photographers</span></div>
+      <p class="adp-t">12 Notion templates, a welcome email and a timeline.</p>
+      <ul class="adp-inside"><li>Booking form</li><li>Shot list</li><li>Delivery page</li></ul>
+      <p class="adp-buy">Get it <span>$29</span></p>
+    </div>
+    <div class="adp-mail"><b>Your files are ready</b><span>Open "Start here" first.</span></div>
+  </div>
+<% } else if (a === 'ads') { %>
+  <div class="aad">
+    <p class="aad-k">Daily check &middot; day 6</p>
+    <div class="aad-be"><span>Break-even per sale</span><b>$36</b></div>
+    <ul class="aad-rows">
+      <% [['hook-result','$28','Keep','keep'],['proof-ugc','$41','New hook','fix'],['offer-price','$52','Pause','stop'],['problem-said','$34','Keep','keep']].forEach(function (r, i) { %>
+      <li class="aad-r aad-<%= r[3] %>" style="--i:<%= i %>"><span><%= r[0] %></span><span><%= r[1] %></span><em><%= r[2] %></em></li>
+      <% }) %>
+    </ul>
+    <p class="art-ex">Example: made-up numbers</p>
+  </div>
+<% } else if (a === 'build') { %>
+  <div class="abd">
+    <div class="abd-spec">
+      <p class="abd-h"># Packs</p>
+      <p>One line: sell each pack once, on its own page.</p>
+      <p class="abd-l">Done when</p>
+      <p>A guest buys on a phone and opens the files.</p>
+    </div>
+    <ul class="abd-threads">
+      <li><span>Checkout</span><i class="abd-ok"></i></li>
+      <li><span>Pack pages</span><i class="abd-ok"></i></li>
+      <li><span>Tests</span><i class="abd-ok"></i></li>
+    </ul>
+    <div class="abd-switch"><span>SHOP_PACKS</span><div class="abd-track"><b>off</b><b>admins</b><b>on</b><i class="abd-knob"></i></div></div>
+  </div>
 <% } else if (a === 'all') { %>
-  <div class="aw-stack">
-    <% (contents || []).forEach(function (p, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= p.name %></span></div><% }) %>
+  <% var cs = contents || []; %>
+  <div class="aw-toc">
+    <p class="aw-k">Contents</p>
+    <ol class="aw-rows">
+      <% cs.forEach(function (p, i) { %><li style="--i:<%= i %>"><span><%= p.name %></span><i></i><span><%= p.kind === 'course' ? p.moves.length + ' lessons' : p.count + ' files' %></span></li><% }) %>
+    </ol>
+    <p class="aw-sum"><span>Everything</span><b><%= files %> files</b></p>
   </div>
 <% } else { %>
   <div class="aw-stack aw-starter">

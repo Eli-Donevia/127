@@ -8,7 +8,7 @@
     "name": "Every pack",
     "price": 149,
     "lookupKey": "pack_all",
-    "line": "Every paid pack, one checkout. Yours to keep."
+    "line": "Every paid pack and course, one checkout."
   },
   "packs": [
     {
@@ -248,7 +248,7 @@
       "price": 39,
       "lookupKey": "pack_creator",
       "art": "creator",
-      "line": "A portfolio site, a rate card and the emails that land brand deals.",
+      "line": "A portfolio site, a rate card and the emails to pitch brands.",
       "pitch": "The Creator website design with a prompt that turns it into your portfolio, a rate card brands expect, five pitch and follow-up emails, a content brief, and a usage rights checklist so a one-time fee doesn't become a year of ads. Plus UGC video prompts, a hook bank, a brand deal tracker and thumbnail and story templates.",
       "uses": [
         "Put a portfolio up that brands can judge in one scroll",
@@ -280,7 +280,7 @@
       "price": 29,
       "lookupKey": "pack_ai",
       "art": "ai",
-      "line": "53 prompts and the operator setup that make any AI work from your business.",
+      "line": "61 prompts and the operator setup that make any AI work from your business.",
       "pitch": "Operator instructions you paste once into a Claude Project, a custom GPT or a Gemini Gem, then nine files of prompts by job: picking and proving an idea, your business brain, the offer, content, video, the website, money, operations and the weekly review. Each prompt says when to use it, what to fill in and what comes back.",
       "uses": [
         "Stop re-explaining your business every time you open a chat",
@@ -301,28 +301,173 @@
         "prompts-ops",
         "prompts-review"
       ]
-    }
-  ],
-  "coming": [
-    {
-      "slug": "build-with-ai",
-      "name": "Build it with AI",
-      "note": "How 127 itself was built with Claude. Needs Eli's build videos (filming Oct 25 to Nov 8) and a Legal read (new paid course)."
     },
     {
       "slug": "challenge",
       "name": "Run your own challenge",
-      "note": "Built from the Day One Challenge (Nov 9 to 13): the five days, emails, landing page, daily prompts. Content after the challenge runs."
+      "price": 49,
+      "lookupKey": "pack_challenge",
+      "art": "challenge",
+      "kind": "course",
+      "line": "The five-day challenge engine 127 runs, with your days in it.",
+      "pitch": "Seven lessons on running a free five-day challenge where people build one real thing with you: the promise, the five days, the landing page and nine emails, the share cards that spread it, the honest offer at the end, a run sheet from three weeks out, and the rules that keep it clean. Every lesson ends with a prompt, and the launch countdown, email and hook templates come with it.",
+      "uses": [
+        "Turn your expertise into a free week people finish",
+        "Write every page and email from templates, not a blank page",
+        "Make the offer once, at the end, without pressure"
+      ],
+      "items": [
+        "launch-countdown",
+        "email-launch",
+        "hook-bank",
+        "social-story",
+        "site-waitlist",
+        "content-planner"
+      ],
+      "kit": "challenge",
+      "kitFiles": [
+        "01-pick-the-one-thing",
+        "02-design-the-five-days",
+        "03-pages-and-emails",
+        "04-share-mechanics",
+        "05-the-offer-at-the-end",
+        "06-run-sheet",
+        "07-keep-it-clean"
+      ],
+      "hq": [
+        "playbooks.launch_planner",
+        "email.launch_week",
+        "email.welcome",
+        "content.hooks",
+        "content.plan_week",
+        "dm.waitlist",
+        "offer.value_score"
+      ]
     },
     {
       "slug": "digital-products",
       "name": "Sell digital products",
-      "note": "Make, price and sell a template or pack: the Store, Stripe one-time checkout, delivery. Needs a writer thread."
+      "price": 39,
+      "lookupKey": "pack_digitalproducts",
+      "art": "digital",
+      "kind": "course",
+      "line": "Make, price, list and deliver a template, guide or prompt pack.",
+      "pitch": "Six lessons from picking what to make to the week you launch it: find the product in work you already repeat, build version one in a weekend, price it against the alternative, write a product page for phones, set up checkout, delivery and refunds, and run a seven-day launch. It is how 127 makes and sells its own packs, with the page, pricing and launch templates included.",
+      "uses": [
+        "Turn a file you already reuse into something people buy",
+        "Price it without guessing",
+        "Launch it in one week, then make the next one"
+      ],
+      "items": [
+        "site-product-landing",
+        "landing-page-brief",
+        "pricing-lab",
+        "first-sale-math",
+        "email-launch",
+        "launch-countdown"
+      ],
+      "kit": "digital-products",
+      "kitFiles": [
+        "01-pick-what-to-make",
+        "02-make-it-in-a-weekend",
+        "03-price-it",
+        "04-the-product-page",
+        "05-checkout-and-delivery",
+        "06-launch-week"
+      ],
+      "hq": [
+        "templates.make",
+        "templates.launch",
+        "templates.bundle",
+        "templates.next_product",
+        "offer.price_it",
+        "offer.lead_magnet",
+        "dm.product_link",
+        "email.launch_week"
+      ]
     },
     {
       "slug": "paid-ads",
       "name": "Run paid ads",
-      "note": "Guide around the ads workflows in HQ (ready check, launch kit, daily check). Needs a writer thread and a Legal read."
+      "price": 49,
+      "lookupKey": "pack_paidads",
+      "art": "ads",
+      "kind": "course",
+      "line": "A small first test, creative that stops the scroll, and a daily call you can make in five minutes.",
+      "pitch": "Seven lessons on Meta and Google ads for a small business: check you are ready and find your break-even number, set up a small first test, make three ads on three angles, check the page the ad sends people to, read five numbers and make the keep, fix or pause call, try search, and stay inside the platform rules. Comes with the ad test planner, image ad and UGC video prompts, and the break-even sheets.",
+      "uses": [
+        "Know your break-even number before you spend",
+        "Run a seven-day test that tells you something",
+        "Decide each day in five minutes what to keep or cut"
+      ],
+      "items": [
+        "ad-test-planner",
+        "video-prompts-image-ads",
+        "video-prompts-ugc",
+        "hook-bank",
+        "page-leak-audit",
+        "unit-economics",
+        "break-even"
+      ],
+      "kit": "paid-ads",
+      "kitFiles": [
+        "01-are-you-ready",
+        "02-your-first-test",
+        "03-creative",
+        "04-landing-page",
+        "05-read-the-numbers",
+        "06-google-search",
+        "07-ad-rules"
+      ],
+      "hq": [
+        "ads.ready_check",
+        "ads.launch_kit",
+        "ads.ad_images",
+        "ads.creator_brief",
+        "ads.landing_check",
+        "ads.read_results",
+        "ads.optimize",
+        "ads.google_search"
+      ]
+    },
+    {
+      "slug": "build-with-ai",
+      "name": "Build it with AI",
+      "price": 59,
+      "lookupKey": "pack_buildwithai",
+      "art": "build",
+      "kind": "course",
+      "line": "How 127 is built by one founder and a team of AI agents, and the prompts to build yours.",
+      "pitch": "Seven lessons on the method behind 127: the five tools, a spec before any code, one thread per job with one place that ships, everything behind a switch with tests, your standards written as rules the AI checks, and payments and legal basics without guessing. The last lesson is every prompt in one place. You need to know what you want, not how to code.",
+      "uses": [
+        "Write a spec an AI can build from",
+        "Run several AI agents without them breaking each other",
+        "Ship behind a switch and test before anyone sees it"
+      ],
+      "items": [
+        "recipe-ai-cofounder",
+        "landing-page-brief",
+        "sop-template",
+        "ninety-day-plan"
+      ],
+      "kit": "build-with-ai",
+      "kitFiles": [
+        "01-the-setup",
+        "02-spec-first",
+        "03-one-thread-per-job",
+        "04-ship-behind-a-switch",
+        "05-rules-the-ai-checks",
+        "06-payments-and-legal",
+        "07-prompts"
+      ],
+      "hq": [
+        "site.quick_site",
+        "site.build_tonight",
+        "offer.grand_slam",
+        "playbooks.launch_planner",
+        "playbooks.workflow_recommender"
+      ]
     }
-  ]
+  ],
+  "coming": []
 }

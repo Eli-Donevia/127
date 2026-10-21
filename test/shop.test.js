@@ -72,12 +72,21 @@ test('catalog: every pack resolves, paid packs have a lookup key and a one-time 
     assert.ok(p.price >= 19 && p.price <= 199, `${p.slug} price`);
   }
   assert.equal(shop.list().filter((p) => p.free).length, 1, 'one free pack: the Starter');
-  assert.equal(shop.get('build-with-ai'), null, 'planned packs are not for sale');
+  assert.equal(shop.get('nope'), null);
+  for (const p of paid.filter((x) => x.kind === 'course')) {
+    assert.ok(p.moves.length >= 5, `${p.slug} has its lessons`);
+    assert.ok(p.hq.length >= 3, `${p.slug} names the HQ workflows it runs`);
+  }
+  assert.equal(paid.filter((x) => x.kind === 'course').length, 4, 'four courses');
 });
 
 test('the built kits are current', () => {
   assert.deepEqual(require('../scripts/build-motion-pack').build({ check: true }).stale, []);
   assert.deepEqual(require('../scripts/build-ai-pack').build({ check: true }).stale, []);
+  // The AI Pack's line names its prompt count; it follows the library.
+  const n = (fs.readFileSync(path.join(__dirname, '..', 'content', 'shop', 'files', 'ai', 'README.md'), 'utf8').match(/^(\d+) prompts/m) || [])[1];
+  assert.match(shop.get('ai').line, new RegExp(`^${n} prompts`));
+  assert.ok(shop.resolveFile('motion', 'kit-motion', 'CREDITS.md'), 'the Motion Pack credits its MIT parts (Legal P5)');
 });
 
 test('pack copy passes the copy check as paid-plan copy', () => {
@@ -120,6 +129,8 @@ test('checkout: one-time payment, guest allowed, tagged as a pack, never a subsc
   assert.equal(a.metadata.kind, 'pack');
   assert.equal(a.metadata.pack, 'motion');
   assert.equal(a.allow_promotion_codes, false);
+  assert.match(a.custom_text.submit.message, /14 days to change your mind\.$/);
+  assert.equal(a.metadata.terms_version, billing.TERMS_VERSION);
   assert.equal(a.subscription_data, undefined);
   assert.match(a.success_url, /^https:\/\/127\.test\/packs\/motion\/thanks\?session_id=\{CHECKOUT_SESSION_ID\}$/);
   assert.equal(a.cancel_url, 'https://127.test/#packs?checkout=cancelled'.replace('/#packs?', '/#packs?'));
@@ -188,4 +199,18 @@ test('files: only the pack\'s own files, never a template source or another pack
   assert.ok(shop.resolveFile('all', 'kit-ai', '01-start.md'));
   assert.equal(shop.resolveFile('numbers', 'pricing-lab', `${f}.tpl`), null);
   assert.equal(shop.resolveFile('starter', 'kit-motion', 'fx-liquid-chrome.html'), null, 'the Starter only reaches its three moves');
+});
+
+test('courses: four of them, each lesson a kit file the buyer can read, and the reader renders prompts as code', () => {
+  const md = require('../lib/markdown');
+  for (const slug of ['challenge', 'digital-products', 'paid-ads', 'build-with-ai']) {
+    const p = shop.get(slug);
+    assert.equal(p.kind, 'course');
+    for (const m of p.moves) assert.ok(shop.resolveFile(slug, `kit-${slug}`, m.file), `${slug}/${m.file}`);
+    assert.equal(shop.resolveFile('motion', `kit-${slug}`, p.moves[0].file), null, 'another pack never reaches a course');
+    assert.ok(shop.resolveFile('all', `kit-${slug}`, p.moves[0].file), 'the bundle does');
+  }
+  const html = md.render('Before\n\n```text\nWrite <b>this</b>\n```\n\n> Subject: Hi\n>\n> Body');
+  assert.match(html, /<pre data-lang="text"><code>Write &lt;b&gt;this&lt;\/b&gt;<\/code><\/pre>/);
+  assert.match(html, /<blockquote><p>Subject: Hi<\/p>\n<p>Body<\/p><\/blockquote>/);
 });

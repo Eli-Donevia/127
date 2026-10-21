@@ -352,8 +352,29 @@ Every move respects reduced motion (the page shows complete and still), works wi
 motion button wherever something loops.
 
 Licenses: the motion runtime uses Motion (motion.dev, MIT). The five effects (fx-*) are ports of MIT components; each
-file carries its license at the bottom. 127's own code here is yours to use on any site you make, for you or for
-clients. Please don't resell or share the pack itself.
+file carries its license at the bottom, and CREDITS.md lists each one with its author and source. Use them in your own
+business and for your clients. Please don't resell or share the files themselves.
+`;
+}
+
+// Legal P5: every MIT part, its author, license and source. The projects are credited here, never named as endorsing 127.
+const CREDITS = [
+  ['Motion runtime (every move)', 'Motion B.V.', 'https://github.com/motiondivision/motion'],
+  ['fx-liquid-chrome', 'Harsh Jadhav (Componentry, LiquidChrome)', 'https://github.com/harshjdhv/componentry'],
+  ['fx-particle-swarm', 'Harsh Jadhav (Componentry)', 'https://github.com/harshjdhv/componentry'],
+  ['fx-activity-rings', 'kokonutUI (free components)', 'https://github.com/kokonut-labs/kokonutui'],
+  ['fx-sheet', 'Emil Kowalski (Vaul)', 'https://github.com/emilkowalski/vaul'],
+  ['fx-toast', 'Emil Kowalski (Sonner)', 'https://github.com/emilkowalski/sonner'],
+];
+function credits() {
+  return `# Credits and licenses
+
+Parts of this pack are ports of open-source code under the MIT License. Each part stays under MIT, and each file
+carries its full license text at the bottom. Credit goes to the original authors; none of them is connected to 127.
+
+${CREDITS.map(([part, who, src]) => `- ${part}: ${who}, MIT License, ${src}`).join('\n')}
+
+Everything else in this pack is 127's own work.
 `;
 }
 
@@ -361,6 +382,7 @@ function build({ check = false } = {}) {
   const list = files();
   const want = new Map(list.map((f) => [`${f.id}.html`, f.html]));
   want.set('README.md', readme(list));
+  want.set('CREDITS.md', credits());
   if (check) {
     const stale = [...want].filter(([name, data]) => !fs.existsSync(path.join(OUT, name)) || fs.readFileSync(path.join(OUT, name), 'utf8') !== data).map(([n]) => n);
     return { stale, list };
