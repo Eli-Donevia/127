@@ -1629,6 +1629,52 @@ test('HQ_PREMIUM: a finished run offers "Save this as a skill"; Not now hides it
   }
 });
 
+test("HQ_PREMIUM: HQ's look follows the device by default, Light and Dark stick, and pages outside the workspace never change", async () => {
+  const theme = require('../lib/harness/theme');
+  const env = { HQ_PREMIUM: 'on', HQ_WORKSPACE: 'on' };
+  const was = Object.fromEntries(Object.keys(env).map((k) => [k, process.env[k]]));
+  Object.assign(process.env, env);
+  const u = await member();
+  try {
+    assert.equal(theme.of(u), 'system');
+    assert.equal(theme.offered(u), true);
+    let page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /<html lang="en">/);
+    assert.match(page, /prefers-color-scheme: light/);
+    assert.match(page, /\/css\/hq-light\.css/);
+    assert.match(page, /data-ws-look/);
+
+    u.hqTheme = 'light';
+    await db.save('users', u);
+    page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /<html lang="en" class="hq-light">/);
+    assert.match(page, /<meta name="theme-color" content="#f5f5f7">/);
+    assert.doesNotMatch(page, /prefers-color-scheme: light/);
+    assert.match(page, /name="look" value="dark"/);
+
+    u.hqTheme = 'dark';
+    await db.save('users', u);
+    page = await html(await s.go('/app/hq', { as: u }));
+    assert.match(page, /<html lang="en">/);
+    assert.doesNotMatch(page, /prefers-color-scheme: light/);
+    assert.match(page, /name="look" value="light"/);
+
+    // anything stored that isn't a look reads as System; with the premium pass off, nothing changes at all
+    assert.equal(theme.of({ hqTheme: 'neon' }), 'system');
+    u.hqTheme = 'light';
+    await db.save('users', u);
+    process.env.HQ_PREMIUM = 'off';
+    assert.equal(theme.offered(u), false);
+    page = await html(await s.go('/app/hq', { as: u }));
+    assert.doesNotMatch(page, /hq-light|data-ws-look|prefers-color-scheme/);
+  } finally {
+    for (const [k, val] of Object.entries(was)) {
+      if (val === undefined) delete process.env[k];
+      else process.env[k] = val;
+    }
+  }
+});
+
 test('a member types their city once: the first run that asks saves it to Your business, and never overwrites it', async () => {
   packs.registerAll([{ pack: REP, source: 'test' }]);
   try {

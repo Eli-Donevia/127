@@ -18,17 +18,19 @@
 
 /* the rail: "Build with" carries how much each shelf holds */
 .hqp .ws-rail { background: #08080a; }
-.hqp .ws-link.on::before { background: var(--pop); box-shadow: 0 0 12px var(--pop); }
+.hqp .ws-link.on::before { background: var(--pop); box-shadow: none; }
 .hqp .ws-link.on .ws-i { color: var(--pop); }
 .hqp .ws-n { background: var(--pop); color: #0a0a0c; }
 .hqp .ws-holds { margin-left: auto; font: 11.5px/1 var(--mono); color: var(--slate); font-variant-numeric: tabular-nums; }
 .hqp .ws-link:hover .ws-holds { color: var(--ink-2); }
 .hqp .ws-bar i { background: var(--sig); }
+/* rail group labels: 11px at 5.6:1 (they were 10.5px at 3.1:1) */
+.hqp .ws-label { font-size: 11px; color: var(--muted); }
 
 /* the horizon: one line of light that leans toward the pointer on a spring (hq-premium.js sets --hx, --hv) */
 .hqp-hz { position: relative; height: 1px; margin: 0 0 18px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.1) 12%, rgba(255,255,255,.1) 88%, transparent); }
-.hqp-hz i { position: absolute; top: -1px; left: var(--hx, 50%); height: 3px; width: calc(80px + var(--hv, 0) * 900px); max-width: 420px; transform: translateX(-50%); border-radius: 3px; background: radial-gradient(closest-side, var(--pop), transparent); }
-.hqp-hz i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px 2px var(--pop); }
+.hqp-hz i { position: absolute; top: 0; left: var(--hx, 50%); height: 1px; width: calc(80px + var(--hv, 0) * 900px); max-width: 420px; transform: translateX(-50%); border-radius: 1px; background: linear-gradient(90deg, transparent, var(--pop) 30%, var(--pop) 70%, transparent); }
+.hqp-hz i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: var(--pop); }
 
 /* Talk to 127: a flat command bar, the orb becomes a small ring that still listens */
 .hqp .h2-talk { background: var(--surface); border-color: var(--line-2); border-radius: 18px; padding: 8px 8px 8px 12px; position: relative; overflow: hidden; }
@@ -39,7 +41,7 @@
 .hqp .orb { width: 40px; height: 40px; }
 .hqp .orb .dust, .hqp .orb .ring { display: none; }
 .hqp .orb .core { inset: 0; background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); animation: none; }
-.hqp .orb .core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--pop); box-shadow: 0 0 10px var(--pop); transition: transform .3s var(--out); }
+.hqp .orb .core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--pop); transition: transform .3s var(--out); }
 .hqp .orb[data-state="listening"] .core::after, .hqp .orb[data-state="speaking"] .core::after { transform: scale(1.8); }
 .hqp .orb[data-state="thinking"] .core::after { animation: hqpBob 1s ease-in-out infinite; }
 .hqp .orb-status { display: none; }
@@ -58,7 +60,8 @@
 .hqp-head .d { color: #6e6f7a; }
 .hqp .h2-move { border: 1px solid var(--line); background: var(--surface); }
 .hqp .h2-move::after { display: none; }
-.hqp .h2-move::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--pop); }
+/* the subject's light: a short notch on the top edge (not a full-height side bar, which reads as generated UI) */
+.hqp .h2-move::before { content: ''; position: absolute; left: 20px; top: 0; width: 28px; height: 2px; border-radius: 0 0 2px 2px; background: var(--pop); }
 .hqp .h2-day .h2-ring .fg { stroke: var(--sig); }
 
 /* the rings: today's sends, this week's replies and calls, each against its own mark */
@@ -134,7 +137,7 @@
 
 /* phone: the dock's centre button is the one Pop light */
 .hqp .ws-orb .ws-orb-core { background: #101016; box-shadow: inset 0 0 0 1px var(--pop-line); }
-.hqp .ws-orb .ws-orb-core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--pop); box-shadow: 0 0 10px var(--pop); }
+.hqp .ws-orb .ws-orb-core::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: var(--pop); }
 
 /* entrances, once per session (hq-premium.js adds .hqp-in to <html> on the first visit) */
 html.hqp-in .hqp .hqp-head h1 [data-w] { display: inline-block; animation: hqpUp .9s var(--out) both; animation-delay: calc(var(--i, 0) * 55ms + 120ms); }
@@ -218,7 +221,7 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp [data-run] .h2-steps li:last-child::before { display: none; }
 .hqp [data-run] .h2-steps li[data-step-status="done"]::before { background: rgba(124, 235, 246,.6); }
 .hqp [data-run] .h2-steps li[data-step-status="done"] .h2-dot { background: var(--sig); border-color: var(--sig); }
-.hqp [data-run] .h2-steps li[data-step-status="running"], .hqp [data-run] .h2-steps li[data-step-status="waiting"] { background: linear-gradient(90deg, var(--pop-soft), transparent 60%); border-radius: 12px; margin: 2px -10px; padding: 12px 10px; box-shadow: inset 2px 0 0 var(--pop); }
+.hqp [data-run] .h2-steps li[data-step-status="running"], .hqp [data-run] .h2-steps li[data-step-status="waiting"] { background: var(--surface-2); border-radius: 12px; margin: 2px -10px; padding: 12px 10px; }
 .hqp [data-run] .h2-steps li[data-step-status="running"]::before, .hqp [data-run] .h2-steps li[data-step-status="waiting"]::before { left: 20px; }
 .hqp [data-run] .h2-dot.running, .hqp [data-run] .h2-dot.queued, .hqp [data-run] .h2-dot.waiting { border-color: var(--pop); box-shadow: 0 0 0 4px var(--pop-soft); }
 .hqp [data-run] .h2-dot.waiting { background: var(--pop); }
@@ -277,7 +280,7 @@ html.hqp-in .hqp-board .hqp-node { animation: hqpRise .7s var(--out) both; anima
 .hqp-tour li p { margin: 0 0 4px; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
 .hqp-tour li > a { margin-top: auto; }
 .hqp-tour li.now { border-color: var(--line-2); }
-.hqp-tour li.now::before { content: ''; position: absolute; left: 0; top: 16px; bottom: 16px; width: 2px; border-radius: 2px; background: var(--pop); }
+.hqp-tour li.now::before { content: ''; position: absolute; left: 18px; top: 0; width: 28px; height: 2px; border-radius: 0 0 2px 2px; background: var(--pop); }
 .hqp-tour li.now .n { color: var(--pop); }
 .hqp-tour li.done { background: transparent; }
 .hqp-tour li.done b { color: var(--ink-2); }

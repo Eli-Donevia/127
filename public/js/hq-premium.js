@@ -108,8 +108,14 @@
   if (!fig || !window.fetch) return;
   var canvas = fig.querySelector('canvas'), tip = fig.querySelector('[data-map-tip]'), ctx = canvas.getContext('2d');
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var TONE = { workflows: 'rgba(236,238,245,.78)', prompts: 'rgba(236,238,245,.46)', store: 'rgba(160,166,184,.42)', connections: 'rgba(124, 235, 246,.55)' };
-  var POP = '#7cebf6', GOLD = 2.39996323;
+  // Each look has its own inks (hq-light.css); the map repaints when the look flips.
+  var LOOKS = {
+    dark: { workflows: 'rgba(236,238,245,.78)', prompts: 'rgba(236,238,245,.46)', store: 'rgba(160,166,184,.42)', connections: 'rgba(134,214,173,.55)', pop: '#7c8cff', brain: '#060607', rim: 'rgba(255,255,255,.22)', label: 'rgba(236,238,245,.9)' },
+    light: { workflows: 'rgba(18,18,30,.82)', prompts: 'rgba(18,18,30,.48)', store: 'rgba(95,96,107,.4)', connections: 'rgba(29,143,92,.7)', pop: '#4f5fe8', brain: '#ffffff', rim: 'rgba(18,18,30,.3)', label: '#121216' }
+  };
+  var TONE = LOOKS.dark, GOLD = 2.39996323;
+  var tone = function () { TONE = document.documentElement.classList.contains('hq-light') ? LOOKS.light : LOOKS.dark; };
+  tone();
   var items = [], dots = [], hover = -1, lit = null, grow = still ? 1 : 0, W = 0, H = 0, dpr = 1;
 
   var layout = function () {
@@ -133,14 +139,14 @@
       if (!t) return;
       var on = i === hover || (lit && lit[i]);
       ctx.beginPath();
-      ctx.fillStyle = on ? POP : TONE[p.it[0]];
+      ctx.fillStyle = on ? TONE.pop : TONE[p.it[0]];
       ctx.arc(W / 2 + (p.x - W / 2) * t, H / 2 + (p.y - H / 2) * t, on ? 3.2 : 1.9, 0, 6.2832);
       ctx.fill();
     });
     // the Brain
-    ctx.beginPath(); ctx.fillStyle = '#060607'; ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.fillStyle = TONE.brain; ctx.strokeStyle = TONE.rim; ctx.lineWidth = 1;
     ctx.arc(W / 2, H / 2, 17, 0, 6.2832); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = 'rgba(236,238,245,.9)'; ctx.font = '600 11px Geist, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = TONE.label; ctx.font = '600 11px Geist, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('127', W / 2, H / 2 + 0.5);
   };
   var nearest = function (e) {
@@ -166,6 +172,7 @@
     draw();
   };
   if (search) search.addEventListener('input', light);
+  if (window.MutationObserver) new MutationObserver(function () { tone(); if (dots.length) draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
   fetch('/app/hq/map.json', { credentials: 'same-origin', headers: { Accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     if (!d || !d.items || !d.items.length) { fig.hidden = true; return; }
@@ -240,4 +247,23 @@
     card.querySelector('[data-week-text]').textContent = d.line;
     card.hidden = false;
   }).catch(function () {});
+})();
+
+// The look flip (rail and the phone's More sheet, lib/harness/theme.js): switches HQ between light and dark at once,
+// then saves it. On System, the button switches to whichever look isn't showing. Without scripts the form posts.
+(function () {
+  var d = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f.matches || !f.matches('[data-ws-look]') || !window.fetch) return;
+    e.preventDefault();
+    var next = d.classList.contains('hq-light') ? 'dark' : 'light';
+    d.setAttribute('data-look', next);
+    d.classList.toggle('hq-light', next === 'light');
+    if (meta) meta.setAttribute('content', next === 'light' ? '#f5f5f7' : '#060607');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ws-look] button'), function (b) { b.value = next === 'light' ? 'dark' : 'light'; });
+    var body = new URLSearchParams();
+    body.set('look', next);
+    fetch(f.action, { method: 'POST', credentials: 'same-origin', headers: { 'x-hq-look': '1' }, body: body }).catch(function () {});
+  });
 })();

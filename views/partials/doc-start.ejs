@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en">
+<%# HQ's light look (HQ_PREMIUM, lib/harness/theme.js): only on HQ workspace pages. Light is set here; System is set by
+    the script below before paint and follows the device when it changes. Without scripts, System stays dark. %>
+<% var hqLook = typeof ws !== 'undefined' && ws && ws.premium ? ((typeof user !== 'undefined' && user && (user.hqTheme === 'light' || user.hqTheme === 'dark')) ? user.hqTheme : 'system') : null; %>
+<html lang="en"<%- hqLook === 'light' ? ' class="hq-light"' : '' %>>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +24,8 @@
 <meta name="twitter:description" content="<%= desc %>">
 <meta name="twitter:image" content="<%= baseUrl %><%= og %>">
 <% if (typeof noindex !== 'undefined' && noindex) { %><meta name="robots" content="noindex"><% } %>
-<meta name="theme-color" content="#060607">
+<meta name="theme-color" content="<%= hqLook === 'light' ? '#f5f5f7' : '#060607' %>">
+<% if (hqLook === 'system') { %><script>(function(){var m=window.matchMedia&&matchMedia('(prefers-color-scheme: light)');if(!m)return;var d=document.documentElement,t=document.querySelector('meta[name="theme-color"]');function set(){if(d.hasAttribute('data-look'))return;d.classList.toggle('hq-light',m.matches);if(t)t.setAttribute('content',m.matches?'#f5f5f7':'#060607');}set();if(m.addEventListener)m.addEventListener('change',set);else if(m.addListener)m.addListener(set);})();</script><% } %>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/favicon-180.png">

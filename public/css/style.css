@@ -282,6 +282,25 @@ textarea.input { height: auto; min-height: 120px; padding: 14px 16px; resize: ve
 .input:disabled { opacity: .6; }
 .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); }
 .check input { margin-top: 4px; accent-color: var(--accent); }
+/* Settings, HQ look (lib/harness/theme.js): three choices, each with a tiny swatch of HQ in that look */
+.look-opts { display: grid; gap: 8px; margin: 16px 0 20px; padding: 0; border: 0; }
+.look-opt { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; }
+.look-opt:hover { border-color: var(--line-2); }
+.look-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.look-opt b { display: block; font-size: 14.5px; font-weight: 600; }
+.look-opt small { display: block; font-size: 13px; color: var(--muted); line-height: 1.4; }
+.look-opt:has(input:checked) { border-color: var(--ink-2); background: var(--surface-2); }
+.look-opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.look-sw { flex: none; position: relative; display: grid; align-content: start; gap: 4px; width: 52px; height: 38px; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--line-2); background: #0e0e11; overflow: hidden; }
+.look-sw i { display: block; height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); }
+.look-sw i:first-child { width: 60%; background: #7c8cff; }
+.look-sw i:last-child { width: 80%; }
+.look-sw.look-light { background: #fff; }
+.look-sw.look-light i { background: rgba(18,18,30,.16); }
+.look-sw.look-light i:first-child { background: #4f5fe8; }
+.look-sw.look-system { background: linear-gradient(90deg, #fff 50%, #0e0e11 50%); }
+.look-sw.look-system i { background: rgba(120,120,135,.35); }
+.look-sw.look-system i:first-child { background: #6574f2; }
 .alert { padding: 14px 16px; border-radius: var(--radius-sm); font-size: 14px; margin-bottom: 18px; border: 1px solid var(--line); background: var(--surface); }
 .alert.error { border-color: rgba(240,155,138,.3); background: rgba(240,155,138,.08); color: var(--danger); }
 .alert.win { border-color: rgba(124, 235, 246,.25); background: var(--win-soft); color: var(--win); }

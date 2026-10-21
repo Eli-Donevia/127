@@ -9,6 +9,19 @@
     <label class="check" style="margin-bottom:20px"><input type="checkbox" name="optin" <%= user.marketingOptIn ? 'checked' : '' %>> Founder emails and the weekly digest</label>
     <button class="btn">Save</button>
   </form>
+  <% if (typeof hqLook !== 'undefined' && hqLook) { var LOOK = [['system', 'Match my device', 'Light by day or dark by night, the way your phone or computer is set.'], ['light', 'Light', 'Bright paper, dark ink. Easy to read outside.'], ['dark', 'Dark', 'The original 127 look.']]; %>
+  <form method="post" action="/app/settings/look" class="card pad-lg look-card" id="look">
+    <h3>HQ look</h3>
+    <p class="small muted">How HQ shows on this account. The rest of the app stays dark.</p>
+    <fieldset class="look-opts">
+      <legend class="sr-only">HQ look</legend>
+      <% LOOK.forEach(function (o) { %>
+      <label class="look-opt"><input type="radio" name="look" value="<%= o[0] %>"<%= hqLook === o[0] ? ' checked' : '' %>><span class="look-sw look-<%= o[0] %>" aria-hidden="true"><i></i><i></i><i></i></span><span><b><%= o[1] %></b><small><%= o[2] %></small></span></label>
+      <% }) %>
+    </fieldset>
+    <button class="btn">Save look</button>
+  </form>
+  <% } %>
   <div class="card pad-lg">
     <h3>Help</h3>
     <p class="small muted">A question about your account, billing, a refund or anything else? A person answers within one business day.</p>

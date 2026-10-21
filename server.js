@@ -40,6 +40,7 @@ const hqRoutes = require('./lib/hq-routes');
 const hqHarness = require('./lib/hq-harness');
 const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
+const hqTheme = require('./lib/harness/theme');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
 const shopRoutes = require('./lib/shop-routes');
@@ -1778,7 +1779,17 @@ app.get('/app/settings', requireAuth, wrap(async (req, res) => {
       console.warn('[billing] refresh for settings', err.message);
     }
   }
-  res.render('app/settings', { title: 'Settings', saved: req.query.saved });
+  res.render('app/settings', { title: 'Settings', saved: req.query.saved, hqLook: hqTheme.offered(req.user) ? hqTheme.of(req.user) : null });
+}));
+// HQ's look (lib/harness/theme.js): System, Light or Dark, from Settings or the flip in HQ's rail and More sheet.
+app.post('/app/settings/look', requireAuth, wrap(async (req, res) => {
+  const look = String(req.body.look || '');
+  if (!hqTheme.offered(req.user) || !hqTheme.LOOKS.includes(look)) return res.redirect('/app/settings');
+  req.user.hqTheme = look;
+  await db.save('users', req.user);
+  if (req.get('x-hq-look')) return res.status(204).end();
+  const back = String(req.body.back || '');
+  res.redirect(/^\/app\/(hq|store)(\/[\w\-\/]*)?$/.test(back) ? back : '/app/settings?saved=1#look');
 }));
 app.post('/app/settings', requireAuth, wrap(async (req, res) => {
   const user = req.user;
