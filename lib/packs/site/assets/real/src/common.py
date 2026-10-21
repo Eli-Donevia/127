@@ -511,7 +511,7 @@ def smooth(o):
         p.use_smooth = True
 
 
-def render(sc, design, slot, quality=86, max_kb=None):
+def render(sc, design, slot, quality=80, max_kb=None):
     """Renders to PNG under OUT, then writes the progressive JPG into the repo (skipped for --preview)."""
     os.makedirs(OUT, exist_ok=True)
     tag = f'{design}-{slot}' + ('-preview' if PREVIEW else '')
@@ -528,9 +528,16 @@ def render(sc, design, slot, quality=86, max_kb=None):
     return finish(png, design, slot, quality, max_kb)
 
 
-def finish(png, design, slot, quality=86, max_kb=None):
-    w = bpy.context.scene.render.resolution_x if bpy.context else None
-    max_kb = max_kb or 150
+# Per-slot JPG budgets (KB). The site preview inlines every photo of a design, so a design's photos together stay
+# around 160-190 KB to keep Lighthouse mobile performance at 90+; q80 is the starting quality.
+BUDGET = {('optic', 'hero'): 72, ('optic', 'heroPhone'): 50, ('optic', 'tray'): 45,
+          ('freight', 'hero'): 54, ('freight', 'heroPhone'): 40, ('freight', 'yard'): 58,
+          ('roastery', 'bag'): 74, ('roastery', 'roaster'): 110,
+          ('beacon', 'hero'): 56, ('beacon', 'about'): 78}
+
+
+def finish(png, design, slot, quality=80, max_kb=None):
+    max_kb = max_kb or BUDGET.get((design, slot), 150)
     d = os.path.join(REPO_REAL, design)
     os.makedirs(d, exist_ok=True)
     jpg = os.path.join(d, f'{slot}.jpg')
@@ -541,6 +548,6 @@ def finish(png, design, slot, quality=86, max_kb=None):
         kb = os.path.getsize(jpg) / 1024
         if kb <= max_kb or q <= 55:
             break
-        q -= 4
+        q -= 2
     print(f'JPG {jpg} q{q} {kb:.0f}KB')
     return jpg

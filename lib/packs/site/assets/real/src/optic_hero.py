@@ -154,9 +154,9 @@ C.bokeh_field((-0.12, -0.74, 0.13), n=int(os.environ.get('NB', '34')), el=(-5.5,
 C.bokeh_field((-0.12, -0.74, 0.13), n=40, el=(-6, 1.0), dist=(6, 40), strength=(0.1, 0.8), seed=11, rad=0.004)
 if SLOT == 'hero':
     cam = C.camera(sc, (-0.12, -0.74, 0.13), (-0.035, 0.06, 0.055), lens=85, fstop=2.8)
-else:  # portrait: the frames low in the picture, the city's lights above
+else:  # portrait: the frames in the upper middle (the phone headline covers the lower half), the city's lights above
     cam = C.camera(sc, (-0.2, -0.6, 0.12), (0.01, 0.05, 0.085), lens=85, fstop=2.8)
 cam.data.dof.focus_distance = (mathutils.Vector((0, 0.0, 0.03)) - cam.location).length
-cam.data.shift_y = 0.0
+cam.data.shift_y = 0.0 if SLOT == 'hero' else float(os.environ.get('SHY', '-0.34'))   # same lens, frame slid down
 
 C.render(sc, 'optic', SLOT)
