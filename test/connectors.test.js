@@ -928,3 +928,30 @@ test('recipes: HighLevel uses the location from sign-in; Twenty only reaches a p
   assert.deepEqual(await connectors.clientFor(boss, 'twenty').people(), [{ id: 'p1', name: { firstName: 'Pat' } }]);
   recipes._setDeps({ lookup: (h) => require('dns').promises.lookup(h, { all: true }) });
 });
+
+test('Legal L93: CRMs cleared with CR1 to CR5; Attio never passes on enrichment; Keap reads only contacts; CRM OKs warn about automations', async () => {
+  for (const id of ['hubspot', 'close', 'folk', 'keap', 'attio', 'twenty']) assert.equal(connectors.held(id), false, id);
+  for (const id of ['pipedrive', 'gohighlevel']) assert.equal(connectors.held(id), true, `${id} waits for its platform`);
+  for (const r of require('../lib/harness/connectors/recipes').RECIPES) assert.match(r.card.reads, /without email addresses|phone numbers/i, r.id);
+
+  const recipes = require('../lib/harness/connectors/recipes');
+  const { signin } = recipes.make(apps.AppError);
+  const attio = signin.attio.client({ token: 't' }, async () => ({ data: [{ id: { record_id: 'r1' }, values: { name: [{ value: 'Acme' }], estimated_arr_usd: [{ value: 9 }], linkedin: [{ value: 'x' }], email_addresses: [{ email_address: 'a@b.c' }] } }] }));
+  const rows = await attio.records({ object: 'companies' });
+  assert.deepEqual(Object.keys(rows[0].values), ['name']);
+
+  assert.deepEqual(Object.keys(recipes.byId.keap.reads), ['contacts']);
+  assert.deepEqual(Object.keys(recipes.byId.keap.writes), ['addNote']);
+
+  const engine = require('../lib/harness/engine');
+  const packs = require('../lib/harness/packs');
+  const was = packs.tool;
+  packs.tool = (name) => ({ 'crm.note': { risk: 'act', needs: ['hubspot'] }, 'ads.draft': { risk: 'act', needs: ['meta_ads'] } })[name] || null;
+  try {
+    assert.equal(engine.crmWrite({ steps: [{ id: 'ok' }, { id: 'n', tool: 'crm.note', approvedBy: 'ok' }] }, 'ok'), true);
+    assert.equal(engine.crmWrite({ steps: [{ id: 'ok' }, { id: 'd', tool: 'ads.draft', approvedBy: 'ok' }] }, 'ok'), false);
+  } finally {
+    packs.tool = was;
+  }
+  assert.equal(engine.CRM_NOTE, 'Your CRM may run its own automations when this changes, like sending an email or text. Check them before you OK.');
+});

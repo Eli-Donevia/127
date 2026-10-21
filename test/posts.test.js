@@ -195,7 +195,7 @@ test('the OK: problems first, any change takes it back, it goes at its time to b
   assert.deepEqual(posts.problems(b, p), ['Instagram needs a photo.']);
   await posts.setPhoto(b, p, 'instagram', jpeg(1080, 1350));
   await posts.save(b, p, { ai: true });
-  assert.match(posts.problems(b, p).join(' '), /from the Instagram app/);
+  assert.match(posts.problems(b, p).join(' '), /Post this one from the app/);
   await posts.save(b, p, { ai: false });
   assert.deepEqual(posts.problems(b, p), []);
 
@@ -211,9 +211,16 @@ test('the OK: problems first, any change takes it back, it goes at its time to b
   // Not yet.
   assert.equal(await posts.tick(), 0);
   // The photo link works with the token only.
-  assert.ok(await posts.media(p.id, 'instagram', p.token));
-  assert.equal(await posts.media(p.id, 'instagram', 'x'.repeat(p.token.length)), null);
-  assert.equal(await posts.media(p.id, 'facebook', p.token), null, 'no Facebook photo');
+  // The photo link is dead while the post waits; it opens only while it's going out (Legal L93 c).
+  assert.equal(await posts.media(p.id, 'instagram', p.token), null);
+  assert.ok(Buffer.from(p.token, 'base64url').length * 8 >= 128, 'a token of 128 bits or more');
+  let seen = null;
+  on('POST', /\/222\/media$/, (url, o) => {
+    const link = new URL(new URLSearchParams(o.body).get('image_url'));
+    const [, , , id, place, token] = link.pathname.split('/');
+    seen = Promise.all([posts.media(id, place, token), posts.media(id, place, 'x'.repeat(token.length)), posts.media(id, 'facebook', token)]);
+    return { id: '333' };
+  });
 
   later(2 * 36e5 + 1000);
   calls = [];
@@ -236,10 +243,11 @@ test('the OK: problems first, any change takes it back, it goes at its time to b
 
   assert.deepEqual(posts.counts(b, { since: now - 864e5 }), { out: 2, waiting: 0 });
   assert.deepEqual(posts.counts(b, { since: now - 864e5, until: now - 1000 }), { out: 0, waiting: 0 }, 'until bounds what went out');
-  // The link keeps working an hour, for Meta's late fetches, then stops.
-  assert.ok(await posts.media(p.id, 'instagram', p.token));
-  later(61 * 60 * 1000);
-  assert.equal(await posts.media(p.id, 'instagram', p.token), null);
+  const [ok, wrong, fbPhoto] = await seen;
+  assert.ok(ok, 'Meta can fetch it while it goes out');
+  assert.equal(wrong, null, 'only with the token');
+  assert.equal(fbPhoto, null, 'no Facebook photo');
+  assert.equal(await posts.media(p.id, 'instagram', p.token), null, 'dead once it is out');
   await assert.rejects(posts.save(b, p, { text: 'changed' }), /already went out/);
 
   // Seven days on, the photo goes.
@@ -333,9 +341,14 @@ test('pages: the week, a draft, a photo upload, the OK, and the public photo lin
   assert.equal(r.headers.get('location'), '/app/hq/post');
   const p = db.get('hqPosts', id);
   assert.equal(p.status, 'ok');
+  assert.equal((await s.go(`/p/m/${id}/instagram/${p.token}`)).status, 404, 'not while it waits');
+  p.status = 'posting';
   r = await s.go(`/p/m/${id}/instagram/${p.token}`);
   assert.equal(r.status, 200);
   assert.equal(r.headers.get('content-type'), 'image/jpeg');
+  p.status = 'ok';
+  await posts.cancel(b, p);
+  assert.equal((await s.go(`/p/m/${id}/instagram/${p.token}`)).status, 404, 'dead once cancelled');
   assert.equal((await s.go(`/p/m/${id}/instagram/nope`)).status, 404);
   // Someone else's post is a 404.
   assert.equal((await s.go(at, { as: await member() })).status, 404);
@@ -402,6 +415,21 @@ test('X: the photo goes up as bytes, then the post; each one counts against a da
   await posts.tick();
   assert.equal(posts.get(b, r2.id).status, 'failed');
   assert.equal(posts.xSpent(now), before);
+});
+
+test('Legal L93: AI-made people, brand deals, X card text', async () => {
+  const b = await boss();
+  const p = await posts.save(b, null, { text: 'Meet Ava', ai: true, places: { instagram: { on: true, target: { id: '222', name: '@x' } }, facebook: { on: true, target: { id: '111', name: 'P' } }, x: { on: true, target: { id: '42', name: '@x' } } } });
+  const bad = posts.problems(b, p);
+  assert.equal(bad.filter((x) => /Meta's AI label/.test(x)).length, 1, 'said once for both Meta places');
+  assert.ok(bad.some((x) => /On X, start the caption with "AI-generated person"/.test(x)));
+  await posts.save(b, p, { places: { x: { on: true, caption: 'AI-generated person: meet Ava' } } });
+  assert.ok(!posts.problems(b, p).some((x) => /On X/.test(x)));
+  await posts.save(b, p, { ai: false, paid: true });
+  assert.ok(posts.problems(b, p).some((x) => /Start the Instagram caption with #ad, and use the platform's paid partnership label/.test(x)));
+  await posts.save(b, p, { places: { instagram: { on: true, caption: '#ad Our new mug' } } });
+  assert.ok(!posts.problems(b, p).some((x) => /Instagram caption with #ad/.test(x)));
+  assert.equal(connectors.catalog.byId.x.writes, "Posts only what you OK in HQ's composer, at the time you pick");
 });
 
 test('account deletion takes posts and photos', async () => {
