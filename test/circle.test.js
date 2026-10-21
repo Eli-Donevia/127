@@ -92,6 +92,21 @@ test('approve with a seat open: 72-hour offer, email 2, seat held', async () => 
   assert.strictEqual(circle.seatsLeft(w.c, u.id), 4);
 });
 
+test('an admin on the Circle plan holds no seat; an unconfirmed admin email does', async () => {
+  const w = world();
+  const old = process.env.ADMIN_EMAILS;
+  process.env.ADMIN_EMAILS = 'eli@x.test';
+  try {
+    await addUser(w, 'Eli', { tier: 'circle', emailVerified: true });
+    assert.strictEqual(circle.seatsLeft(w.c), 4);
+    assert.deepStrictEqual(circle.members(w.c), [], 'and is not in the roster');
+    w.store.all('users')[0].emailVerified = false;
+    assert.strictEqual(circle.seatsLeft(w.c), 3);
+  } finally {
+    if (old === undefined) delete process.env.ADMIN_EMAILS; else process.env.ADMIN_EMAILS = old;
+  }
+});
+
 test('approve when the table is full: approved and waiting, in approval order (email 5)', async () => {
   const w = world();
   await fillTable(w, 4);
