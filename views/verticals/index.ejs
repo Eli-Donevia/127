@@ -1,0 +1,21 @@
+<%- include('../partials/head') %>
+<%# /for: every live vertical (lib/verticals.js), by group. %>
+<main class="vt">
+  <section class="vf-hero">
+    <div class="wrap">
+      <h1 class="vf-h1">Who 127 is for.</h1>
+      <p class="vf-lede">One workspace, set up for <%= count %> kinds of business so far. Find yours, start free, and take the pack made for it.</p>
+    </div>
+  </section>
+  <div class="wrap">
+    <% groups.forEach(function (g) { %>
+    <section class="vf-group" aria-labelledby="vf-<%= g.list[0].slug %>">
+      <h2 class="vf-g" id="vf-<%= g.list[0].slug %>"><%= g.name %></h2>
+      <ul class="vf-list">
+        <% g.list.forEach(function (v) { %><li><a href="/for/<%= v.slug %>"><span class="vf-n"><%= v.name %></span><span class="vf-l"><%= v.h1 %></span></a></li><% }) %>
+      </ul>
+    </section>
+    <% }) %>
+  </div>
+</main>
+<%- include('../partials/foot') %>

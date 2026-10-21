@@ -1,0 +1,60 @@
+<%- include('../partials/head') %>
+<%# One vertical's launch kit (admin): status, spend, its numbers, tagged links, hooks, ad angles and the pack. Hooks and
+    ads are drafts for Growth and Hooks; posting, ManyChat and any spend are Eli's call. %>
+<main class="vt vb">
+  <div class="wrap">
+    <p class="vt-crumb"><a href="/admin/verticals">Verticals</a> <span aria-hidden="true">/</span> <%= v.slug %></p>
+    <h1 class="vb-h1"><%= v.name %></h1>
+    <p class="vb-sub"><%= v.group %> · status <b><%= status %></b> · keyword <b><%= v.keyword %></b> · <a href="/for/<%= v.slug %>">Open the page</a><% if (row) { %> · <%= row.visits %> visits, <%= row.signups %> signups, <%= row.paid %> paid, verdict <b><%= row.verdict %></b><% } %></p>
+    <% if (saved) { %><p class="vb-saved" role="status"><%= saved === 'spend-error' ? 'That spend line didn\'t save: the week is a Monday date and the amount a number.' : 'Saved.' %></p><% } %>
+    <% if (v.problems.length) { %><div class="vb-problems"><%= v.problems.join(' · ') %></div><% } %>
+    <% if (v.legal) { %><div class="vb-problems" style="border-color: var(--vt-pop)"><b>Legal note:</b> <%= v.legal %></div><% } %>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2">Status</h2>
+      <form class="vb-form" method="post" action="/admin/verticals/<%= v.slug %>/status">
+        <label>Set to<select name="status"><% statuses.forEach(function (s) { %><option<% if (s === status) { %> selected<% } %>><%= s %></option><% }) %></select></label>
+        <button class="vt-btn" type="submit">Save</button>
+      </form>
+      <p class="vb-sub">test and double show the page to everyone while VERTICALS=on. ready is built and waiting. paused and killed hide it.</p>
+    </section>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2">Ad spend</h2>
+      <form class="vb-form" method="post" action="/admin/verticals/<%= v.slug %>/spend">
+        <label>Week of (Monday)<input name="week" type="date" value="<%= monday %>" required></label>
+        <label>Spent ($)<input name="usd" type="number" min="0" step="0.01" inputmode="decimal" required></label>
+        <label>Note<input name="note" maxlength="120" placeholder="Meta, angle 2"></label>
+        <button class="vt-btn" type="submit">Add</button>
+      </form>
+    </section>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2">Tagged links</h2>
+      <ul class="vb-rows">
+        <% links.forEach(function (l) { %><li class="vb-link"><span><%= l.label %></span><input readonly value="<%= l.url %>" aria-label="<%= l.label %> link" onfocus="this.select()"></li><% }) %>
+        <li class="vb-link"><span>Free start, straight to the door</span><input readonly value="<%= baseUrl %><%= entry %>" aria-label="Free start link" onfocus="this.select()"></li>
+      </ul>
+    </section>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2">Hooks</h2>
+      <ul class="vb-rows"><% v.hooks.forEach(function (h) { %><li><%= h %></li><% }) %></ul>
+    </section>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2">Ad angles</h2>
+      <ul class="vb-rows"><% v.ads.forEach(function (a) { %><li><b><%= a.angle %></b>: <%= a.hook %><small><%= a.body %> Headline: <%= a.headline %></small></li><% }) %></ul>
+    </section>
+
+    <section class="vb-sec">
+      <h2 class="vb-h2"><%= v.pack.name %>, $<%= v.pack.price %></h2>
+      <ul class="vb-rows">
+        <% v.pack.prompts.forEach(function (p) { %><li><b><%= p.title %></b><small><%= p.summary %></small></li><% }) %>
+        <li><small>Store items: <%= v.pack.items.join(', ') %></small></li>
+      </ul>
+      <p class="vb-sub">Pack slug <b><%= v.packSlug %></b>, Stripe lookup key pack_<%= v.packSlug %> (npm run stripe:setup). Next to try if it wins: <%= (v.next || []).join(', ') || 'not set' %>.</p>
+    </section>
+  </div>
+</main>
+<%- include('../partials/foot') %>

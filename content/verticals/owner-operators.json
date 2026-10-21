@@ -1,0 +1,132 @@
+{
+  "slug": "owner-operators",
+  "status": "test",
+  "wave": 1,
+  "group": "Trucking and freight",
+  "name": "Owner-operators",
+  "one": "trucking company",
+  "description": "Cost per mile math, a carrier site brokers can check, invoice and rate con templates and the weekly numbers for owner-operator truckers.",
+  "h1": "Know your cost per mile before you take the load.",
+  "mark": "cost per mile",
+  "lede": "127 gives an owner-operator a carrier website a broker can check in ten seconds, the sheet that works out your real cost per mile, and the paperwork you redo every week.",
+  "week": [
+    {
+      "when": "Sun",
+      "job": "Plan the week's lanes",
+      "hand": "A cost per mile sheet: fuel, insurance, truck note, maintenance and your pay"
+    },
+    {
+      "when": "Mon",
+      "job": "Answer a broker",
+      "hand": "A carrier one-pager with your MC, equipment, lanes and contact"
+    },
+    {
+      "when": "Wed",
+      "job": "Invoice the delivered load",
+      "hand": "An invoice and a follow-up email for slow payers"
+    },
+    {
+      "when": "Fri",
+      "job": "Count the week",
+      "hand": "A weekly scorecard: miles, revenue per mile, deadhead and fuel"
+    }
+  ],
+  "site": {
+    "design": "beacon",
+    "sample": {
+      "business": "North Line Freight",
+      "what": "Owner-operator trucking company, dry van, Midwest lanes",
+      "services": "Dry van, regional, per mile quote\nTeam runs, on request",
+      "city": "Omaha"
+    },
+    "caption": "North Line Freight is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my carrier site free",
+    "fine": "Type your company, equipment and lanes. Free, no card.",
+    "query": {
+      "what": "Owner-operator trucking, dry van"
+    }
+  },
+  "pack": {
+    "name": "Owner-Operator Pack",
+    "price": 39,
+    "line": "Cost per mile math, a carrier one-pager, invoices and the weekly numbers.",
+    "items": [
+      "site-local-service",
+      "unit-economics",
+      "break-even",
+      "cash-flow-13-week",
+      "business-budget",
+      "weekly-scorecard",
+      "quote",
+      "email-quote-follow-up",
+      "money-setup-checklist",
+      "recipe-follow-up"
+    ],
+    "prompts": [
+      {
+        "id": "01-cost-per-mile",
+        "title": "Cost per mile",
+        "summary": "Works out your real cost per mile from your monthly costs and miles, and the lowest rate worth taking.",
+        "prompt": "Help me find my cost per mile. Monthly: truck payment [$], insurance [$], permits and plates [$], phone and ELD [$], parking [$]. Per mile: fuel [$ per gallon] at [mpg], maintenance set-aside [$], tires [$]. I run about [miles] a month and want to pay myself [$] a month. Show fixed cost per mile, variable cost per mile, total, and the lowest rate per loaded mile I should take with [%] deadhead. Table, then two sentences.",
+        "use": "Run it monthly and whenever fuel moves. Keep the number on your phone's lock screen."
+      },
+      {
+        "id": "02-carrier-packet",
+        "title": "Carrier one-pager",
+        "summary": "A one-page carrier profile a broker can read fast: authority, equipment, lanes, insurance, contact.",
+        "prompt": "Write a one-page carrier profile for [company]. MC [ ], DOT [ ], equipment [ ], lanes [ ], insurance [carrier and limits], years running [ ], how to reach dispatch [ ]. Plain layout, headings, no claims about on-time rates unless I give you the number.",
+        "use": "Send it as a PDF with your W-9 and insurance certificate."
+      },
+      {
+        "id": "03-slow-payer",
+        "title": "Slow payer follow-up",
+        "summary": "A polite, firm series of emails for an invoice past its terms.",
+        "prompt": "Write three short emails to [broker] about invoice [number] for load [number], delivered [date], terms [days]. Email 1 on the due date (friendly check), email 2 at 7 days late (firm, ask for a pay date), email 3 at 15 days late (final, mention next steps I name: [ ]). No threats, no legal language.",
+        "use": "Send from the email on your invoice. Keep the thread together."
+      }
+    ]
+  },
+  "hq": [
+    "finance",
+    "email",
+    "ops"
+  ],
+  "hooks": [
+    "If you don't know your cost per mile, the broker does.",
+    "The lowest rate I'd take this week, and the math behind it.",
+    "Brokers check you out in ten seconds. What do they find?",
+    "Three emails for a broker who hasn't paid.",
+    "Deadhead is a cost. Put it in the number.",
+    "My Sunday night trucking spreadsheet, in two minutes."
+  ],
+  "ads": [
+    {
+      "angle": "Cost per mile",
+      "hook": "What's your real cost per mile?",
+      "body": "The Owner-Operator Pack works it out from your truck note, insurance, fuel and the pay you want. $39 once.",
+      "headline": "Know your cost per mile"
+    },
+    {
+      "angle": "Free site",
+      "hook": "Brokers look you up. Give them something to find.",
+      "body": "Type your company, equipment and lanes. 127 builds a carrier site free.",
+      "headline": "Build your carrier site free"
+    },
+    {
+      "angle": "Paperwork",
+      "hook": "Invoices, rate math and slow payer emails.",
+      "body": "The Owner-Operator Pack, ready to fill in.",
+      "headline": "The Owner-Operator Pack"
+    }
+  ],
+  "keyword": "MILE",
+  "next": [
+    "Hotshot drivers",
+    "Box truck owners",
+    "Car haulers"
+  ],
+  "legal": "No claims about earnings per load or week. Rates and costs in examples are the trucker's own numbers."
+}

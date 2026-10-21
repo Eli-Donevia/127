@@ -1,0 +1,131 @@
+{
+  "slug": "skincare-brands",
+  "status": "ready",
+  "wave": 2,
+  "group": "Online stores",
+  "name": "Skincare brands",
+  "one": "skincare brand",
+  "description": "Product pages, routine guides, UGC briefs and launch emails for small skincare and body care brands, with claims kept on the right side of the line.",
+  "h1": "Sell the routine, not a miracle.",
+  "mark": "routine,",
+  "lede": "127 writes a small skincare brand's product pages, routine guides and creator briefs in words that describe what's in the jar, never what it cures.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Write the product page",
+      "hand": "A product page prompt that sticks to texture, scent, ingredients and how to use it"
+    },
+    {
+      "when": "Tue",
+      "job": "Brief a creator",
+      "hand": "A UGC brief with the words a creator may say and the ones they may not"
+    },
+    {
+      "when": "Thu",
+      "job": "Send the routine email",
+      "hand": "A morning and night routine email built from your own products"
+    },
+    {
+      "when": "Fri",
+      "job": "Reorder before you run out",
+      "hand": "An inventory sheet with batch dates and reorder points"
+    }
+  ],
+  "site": {
+    "design": "assembly",
+    "sample": {
+      "business": "Saltmarsh Botanics",
+      "what": "Body care brand making oils and balms by hand",
+      "services": "Body oil, 100 ml, $34\nHand balm, $18\nThe evening set, $48",
+      "city": ""
+    },
+    "caption": "Saltmarsh Botanics is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "store",
+    "label": "Audit my store free",
+    "fine": "Paste your store address. Free, no card."
+  },
+  "pack": {
+    "name": "Skincare Pack",
+    "price": 39,
+    "line": "Product pages, routine guides, creator briefs and launch emails, with a claims check.",
+    "items": [
+      "site-product-landing",
+      "site-exploded",
+      "shopify-sections-essentials",
+      "inventory-reorder",
+      "unit-economics",
+      "email-launch",
+      "email-welcome",
+      "video-prompts-ugc",
+      "video-prompts-product",
+      "brand-sheet"
+    ],
+    "prompts": [
+      {
+        "id": "01-product-page",
+        "title": "Product page with a claims check",
+        "summary": "Writes a product page from texture, scent and ingredients, then flags any line that sounds like a medical claim.",
+        "prompt": "Write the product page for [product] from [brand]. Facts: texture [ ], scent [ ], key ingredients [ ], size [ ], how to use it [ ], price [ ].\n\nRules: describe how it feels, smells and is used. Never say it treats, cures, heals, prevents or repairs anything, and never name a skin condition. After the page, list any sentence you're unsure about and why.",
+        "use": "Run it on every new product, and on old pages once. Ask a lawyer about anything the check flags."
+      },
+      {
+        "id": "02-routine-guide",
+        "title": "Routine guide",
+        "summary": "Builds a morning and night routine from the products you sell, in the order to use them.",
+        "prompt": "Here are the products [brand] sells: [list with what each is]. Build a simple morning routine and a night routine from them, in order, with one line on how much to use and how. Add a short version for someone who owns one product. No promises about results.",
+        "use": "Use it as a page, a carousel and the second welcome email."
+      },
+      {
+        "id": "03-creator-brief",
+        "title": "Creator brief",
+        "summary": "A UGC brief for one product: the shots, what to say and the words to stay away from.",
+        "prompt": "Write a UGC brief for [product] from [brand]. Include: who the creator is talking to, the first two seconds, five shots, three things they can say in their own words (texture, scent, how they use it), the words they must not use (cures, fixes, treats, any skin condition), the #ad line, and the usage rights we're asking for: [where and how long].",
+        "use": "Send it with the product. Keep the do-not-say list in every brief."
+      }
+    ]
+  },
+  "hq": [
+    "shop",
+    "content",
+    "ugc",
+    "email",
+    "ads"
+  ],
+  "hooks": [
+    "The one word that gets a skincare brand in trouble.",
+    "Describe how it feels, not what it fixes.",
+    "A routine sells three products. A miracle sells none twice.",
+    "The brief I send creators, with the do-not-say list.",
+    "Your product page should read like you're handing it to someone.",
+    "Batch dates belong in your inventory sheet. Here's why."
+  ],
+  "ads": [
+    {
+      "angle": "Store audit",
+      "hook": "What's your skincare store missing?",
+      "body": "127's free audit reads your product pages and lists what a shopper can't find.",
+      "headline": "Audit your store free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Product pages and creator briefs with a claims check built in.",
+      "body": "The Skincare Pack, $39 once, or with Builder.",
+      "headline": "The Skincare Pack, $39"
+    },
+    {
+      "angle": "Routine",
+      "hook": "Turn three products into one routine.",
+      "body": "The pack's routine guide prompt builds the morning and night order from what you sell.",
+      "headline": "Sell the routine"
+    }
+  ],
+  "keyword": "ROUTINE",
+  "next": [
+    "Haircare brands",
+    "Bath and body makers",
+    "Men's grooming brands"
+  ],
+  "legal": "Cosmetics vs drug claims (FDA): copy never says a product treats, cures, prevents or heals anything or names a skin condition. Legal should read this vertical before it goes live."
+}

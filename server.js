@@ -44,6 +44,7 @@ const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
 const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
+const verticals = require('./lib/verticals');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
@@ -231,6 +232,8 @@ app.use((req, res, next) => {
   // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
   const utm = utmLib.present(req.query);
   if (Object.keys(utm).length && !req.session.utm) req.session.utm = utm;
+  // The vertical a visitor came in on, first touch (lib/verticals.js): an ad link tagged utm_campaign=v-<slug>.
+  verticals.middleware(req, res, () => {});
   if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
 });
@@ -506,6 +509,7 @@ async function createMember(req, { email, name, password, optIn, source, fallbac
     signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
     leadSource: lead ? lead.source : null,
     utm: Object.keys(utm).length ? utm : null,
+    vertical: verticals.current(req),
     passwordHash: await bcrypt.hash(password, 10),
     tier: 'free',
     xp: 0,
@@ -598,6 +602,7 @@ async function joinFromRequest(req, body, source) {
     source,
     ref: body.ref || cookie(req, 'ref'),
     utm: utmFrom(req, body),
+    vertical: verticals.current(req),
     ip: security.ip(req),
   });
 }
@@ -2069,6 +2074,8 @@ app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
 app.use(storeRoutes({ requireAuth, flash, track }));
 // Packs (lib/shop.js): one-time purchases, behind SHOP_PACKS.
 app.use(shopRoutes({ track }));
+// Verticals (lib/verticals.js): /for/<slug> pages behind VERTICALS, and the board at /admin/verticals.
+app.use(require('./lib/verticals-routes')({ requireAuth, requireAdmin, doorsLive: (user) => doors.liveFor(user), builderPrice: () => PLANS.builder.price, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 

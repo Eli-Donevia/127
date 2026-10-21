@@ -60,6 +60,11 @@
   <div class="aw-stack">
     <% (contents || []).forEach(function (p, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= p.name %></span></div><% }) %>
   </div>
+<% } else if (a === 'vertical') { %>
+  <%# A vertical's niche pack (lib/verticals.js): its own prompts and Store items as the sheets. %>
+  <div class="aw-stack">
+    <% pack.moves.concat(pack.items).slice(0, 6).forEach(function (m, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= m.title %></span></div><% }) %>
+  </div>
 <% } else { %>
   <div class="aw-stack aw-starter">
     <% ['Waitlist page','Idea Scorecard','Break-Even','Quote','Pitch Deck','Welcome Email'].forEach(function (n, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= n %></span></div><% }) %>

@@ -1,0 +1,52 @@
+{
+  "slug": "coffee-shops",
+  "status": "test",
+  "wave": 1,
+  "group": "Food and drink",
+  "name": "Coffee shops",
+  "one": "coffee shop",
+  "description": "A menu site, weekly posts, review asks and a seasonal drink launch for independent coffee shops.",
+  "h1": "The menu, the hours and this week's drink. That's the site.",
+  "mark": "drink.",
+  "lede": "127 gives an independent coffee shop a phone-first menu site, a week of posts from one photo session, and the emails and cards that bring regulars back for the seasonal drink.",
+  "week": [
+    { "when": "Mon", "job": "Shoot the drinks", "hand": "A 20-minute shot list for the counter, the bar and the window seat" },
+    { "when": "Tue", "job": "Post the week", "hand": "Seven captions from one shoot, in your voice" },
+    { "when": "Thu", "job": "Launch the seasonal drink", "hand": "A launch post, a story and a sign for the counter" },
+    { "when": "Sun", "job": "Ask for reviews", "hand": "A review ask card and email that stays inside Google's rules" }
+  ],
+  "site": {
+    "design": "supper",
+    "sample": { "business": "Corner Pour", "what": "Neighborhood coffee shop with a small pastry case", "services": "Drip, $3\nOat cortado, $5\nCardamom bun, $4.50", "city": "Cedar Rapids" },
+    "caption": "Corner Pour is made up. Built by the free site builder from its menu."
+  },
+  "entry": { "door": "site", "label": "Build my cafe's site free", "fine": "Type your shop and three menu items. Free, no card.", "query": { "what": "Neighborhood coffee shop" } },
+  "pack": {
+    "name": "Coffee Shop Pack",
+    "price": 39,
+    "line": "A menu site, a week of posts from one shoot, review asks and a seasonal launch.",
+    "items": ["site-restaurant", "site-link-in-bio", "content-planner", "social-story", "social-quote-card", "email-review-ask", "email-newsletter", "video-prompts-local-service", "batch-day", "recipe-saved-replies"],
+    "prompts": [
+      { "id": "01-week-of-posts", "title": "A week of posts from one shoot", "summary": "Seven captions and a posting order from the photos you took in one 20-minute session.", "prompt": "I shot these at [coffee shop] today: [list the photos or clips]. Write seven captions for this week, one a day, in this voice: [paste a caption you like]. Mix: one drink, one person behind the bar, one regular moment, one pastry, one hours or location post, one seasonal tease, one thank-you. Keep each under 40 words, no hashtag walls.", "use": "Shoot Monday morning before the rush. Schedule all seven at once." },
+      { "id": "02-seasonal-launch", "title": "Seasonal drink launch", "summary": "The post, the story frames and the counter sign for a new seasonal drink.", "prompt": "We're launching [drink] on [date] at [coffee shop]. What's in it: [ ]. Price: [ ]. Write: the launch post caption, three story frames (tease, first pour, last call), and the counter sign (eight words at most plus the price).", "use": "Post the tease three days before. Print the sign." },
+      { "id": "03-review-ask", "title": "Review ask that follows the rules", "summary": "A card and a short message asking regulars for a Google review, with no reward offered.", "prompt": "Write a small card for the counter and a two-line text for regulars asking for a Google review of [coffee shop]. Rules: no discount, freebie or reward for a review, ask everyone (not only happy customers), and include the link [link]. Warm and short.", "use": "Put the card by the register. Never trade a drink for a review." }
+    ]
+  },
+  "hq": ["social", "reviews", "local", "content", "email"],
+  "hooks": [
+    "Your coffee shop's website needs three things. Most have none of them on a phone.",
+    "One 20-minute shoot, seven days of posts.",
+    "The seasonal drink launch, start to finish.",
+    "How to ask for Google reviews without breaking the rules.",
+    "Your menu is the homepage.",
+    "I rebuilt a cafe's site from its chalkboard menu."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Is your menu on your website? On a phone?", "body": "Type your shop and your menu. 127 builds a phone-first site free.", "headline": "Build your cafe's site free" },
+    { "angle": "The pack", "hook": "A week of posts from one shoot.", "body": "The Coffee Shop Pack: posts, a seasonal launch, review asks and a menu site. $39 once.", "headline": "The Coffee Shop Pack, $39" },
+    { "angle": "Seasonal", "hook": "Launching a fall drink?", "body": "The pack has the post, the stories and the counter sign.", "headline": "Launch the seasonal drink" }
+  ],
+  "keyword": "MENU",
+  "next": ["Bakeries", "Juice bars", "Ice cream shops"],
+  "legal": null
+}

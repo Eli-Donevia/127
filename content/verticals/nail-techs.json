@@ -1,0 +1,132 @@
+{
+  "slug": "nail-techs",
+  "status": "ready",
+  "wave": 2,
+  "group": "Local service",
+  "name": "Nail techs",
+  "one": "nail business",
+  "description": "A booking site with your set menu, design close-up reels, deposit and late policies, rebook texts and pricing for independent nail techs.",
+  "h1": "Your sets, your prices, your deposit policy. Up front.",
+  "mark": "Up front.",
+  "lede": "127 gives a nail tech a booking site with your set menu and deposit policy, the close-up reel brief for every design, and the fill reminders that keep your books full.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Post this week's sets",
+      "hand": "Close-up reel briefs and captions"
+    },
+    {
+      "when": "Tue",
+      "job": "Price a custom set",
+      "hand": "A pricing sheet by length, shape, art and time"
+    },
+    {
+      "when": "Thu",
+      "job": "Send fill reminders",
+      "hand": "Fill texts at two and three weeks"
+    },
+    {
+      "when": "Sat",
+      "job": "Handle a no-show",
+      "hand": "A deposit and late policy, and the text you send after"
+    }
+  ],
+  "site": {
+    "design": "bloom",
+    "sample": {
+      "business": "Petal and Polish",
+      "what": "Nail studio, gel-x and nail art",
+      "services": "Gel-x full set, from $65\nBuilder gel fill, $50\nNail art, from $10",
+      "city": "Council Bluffs"
+    },
+    "caption": "Petal and Polish is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my nail site free",
+    "fine": "Type your business and your sets. Free, no card.",
+    "query": {
+      "what": "Nail tech, by appointment"
+    }
+  },
+  "pack": {
+    "name": "Nail Tech Pack",
+    "price": 29,
+    "line": "A booking site, reel briefs, pricing, policies and fill reminders.",
+    "items": [
+      "site-studio",
+      "pricing-lab",
+      "client-sessions",
+      "recipe-booking-link",
+      "recipe-follow-up",
+      "recipe-saved-replies",
+      "email-review-ask",
+      "social-story",
+      "social-carousel"
+    ],
+    "prompts": [
+      {
+        "id": "01-policy",
+        "title": "Deposit and late policy",
+        "summary": "A clear deposit, late and no-show policy, and the text you send after a no-show.",
+        "prompt": "Write a booking policy for [business]: deposit [$, refundable or not, when], late arrival (grace period [min], what happens after), no-shows, cancellations ([hours] notice), and fills older than [weeks]. Friendly and firm. Then the text I send after a no-show.",
+        "use": "Put it on your booking page and in the confirmation."
+      },
+      {
+        "id": "02-set-pricing",
+        "title": "Set pricing",
+        "summary": "Prices sets by length, shape and art from your time and target hourly rate.",
+        "prompt": "Price nail sets for [business]. Target per hour [$]. Time: short set [min], medium [ ], long [ ], extra for shapes [ ], art per nail by level [ ]. Product cost per set [$]. Give a menu and an art price guide with three levels.",
+        "use": "Show the art guide when they send an inspo photo."
+      },
+      {
+        "id": "03-close-up-reel",
+        "title": "Close-up reel",
+        "summary": "A 10-second close-up reel brief for one set.",
+        "prompt": "Write a 10-second reel brief for a [set] at [business]: the first second (the hand turning in light), three close-ups, on-screen words (five at most), and a caption with the set name, price and how to book.",
+        "use": "Film by the window after every set you love."
+      }
+    ]
+  },
+  "hq": [
+    "reviews",
+    "local",
+    "content",
+    "email"
+  ],
+  "hooks": [
+    "Put your deposit policy on the first page.",
+    "How I price nail art by level.",
+    "The text after a no-show.",
+    "Film the hand turning in window light.",
+    "Fill reminders at two and three weeks.",
+    "Your set menu, on one page."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Nail tech booking out of DMs?",
+      "body": "Type your business and sets. 127 builds a booking site free.",
+      "headline": "Build your nail site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Policies, pricing, reel briefs.",
+      "body": "The Nail Tech Pack, $29 once.",
+      "headline": "The Nail Tech Pack, $29"
+    },
+    {
+      "angle": "Policy",
+      "hook": "Tired of no-shows?",
+      "body": "The pack has the deposit policy and the text to send.",
+      "headline": "Write your deposit policy"
+    }
+  ],
+  "keyword": "NAILS",
+  "next": [
+    "Lash artists",
+    "Brow artists",
+    "Estheticians"
+  ],
+  "legal": null
+}

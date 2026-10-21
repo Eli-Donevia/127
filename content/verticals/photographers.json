@@ -1,0 +1,52 @@
+{
+  "slug": "photographers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Creators and editors",
+  "name": "Photographers",
+  "one": "photography business",
+  "description": "A gallery site, session guides, a booking flow, contracts outlines and pricing for portrait, family and small business photographers.",
+  "h1": "Your best twelve photos, and a way to book.",
+  "mark": "book.",
+  "lede": "127 gives a photographer a gallery site that loads fast on a phone, a session guide clients read before they show up, and pricing that counts editing time.",
+  "week": [
+    { "when": "Mon", "job": "Send the session guide", "hand": "A what-to-wear and where-we'll-shoot guide for each session type" },
+    { "when": "Wed", "job": "Price a session", "hand": "A pricing sheet with shoot, travel, culling and editing hours" },
+    { "when": "Thu", "job": "Deliver the gallery", "hand": "A delivery email and a review ask" },
+    { "when": "Sat", "job": "Post from the shoot", "hand": "Captions for three photos with the client's OK" }
+  ],
+  "site": {
+    "design": "rotunda",
+    "sample": { "business": "Harbor and Pine Photo", "what": "Family and portrait photographer, outdoor sessions", "services": "Mini session, 20 minutes, $175\nFamily session, 1 hour, $395\nBranding session, 2 hours, $650", "city": "Grand Rapids" },
+    "caption": "Harbor and Pine is made up. Built by the free site builder."
+  },
+  "entry": { "door": "site", "label": "Build my gallery site free", "fine": "Type your name and the sessions you offer. Free, no card.", "query": { "what": "Portrait and family photographer" } },
+  "pack": {
+    "name": "Photographer Pack",
+    "price": 39,
+    "line": "A gallery site, session guides, pricing, delivery emails and booking.",
+    "items": ["site-gallery", "site-portfolio", "pricing-lab", "client-welcome", "proposal", "recipe-booking-link", "email-review-ask", "client-sessions", "social-quote-card"],
+    "prompts": [
+      { "id": "01-session-guide", "title": "Session guide", "summary": "A guide clients read before the shoot: what to wear, where, when and what to expect.", "prompt": "Write a session guide for a [session type] with [my business] at [location] around [time]. Cover: what to wear (colors, textures, what to skip), what to bring, how kids or pets usually go, the weather plan, how long it takes, and when photos arrive. Warm and short.", "use": "Send it when they book and again two days before." },
+      { "id": "02-pricing", "title": "Session pricing", "summary": "Prices a session from shoot, travel, culling and editing hours.", "prompt": "Price a [session type]. Shoot [hours], travel [hours], culling [hours], editing [hours], gallery and delivery [hours]. Costs per session: [ ]. Target per hour: [$]. Show the price, then three packages, and the line I use when someone asks why.", "use": "Re-run when your editing time changes." },
+      { "id": "03-gallery-delivery", "title": "Gallery delivery email", "summary": "Delivers the gallery with how to download, print and share, and asks for a review.", "prompt": "Write the gallery delivery email for [client] from [my business]. Gallery link [ ], available until [date], how to download, where I recommend printing, how to credit me if they post, and one line asking for a Google review [link], no reward offered.", "use": "Send within your promised delivery time." }
+    ]
+  },
+  "hq": ["photo", "content", "reviews", "sales"],
+  "hooks": [
+    "Your site needs twelve photos, not two hundred.",
+    "The session guide that makes clients show up ready.",
+    "How I price a one-hour family session.",
+    "What to wear for photos, in one screenshot.",
+    "The gallery delivery email.",
+    "Count your editing hours before you set a price."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Photographer with a slow gallery site?", "body": "Type your name and your sessions. 127 builds a fast one free.", "headline": "Build your gallery site free" },
+    { "angle": "The pack", "hook": "Session guides, pricing, delivery emails.", "body": "The Photographer Pack, $39 once.", "headline": "The Photographer Pack, $39" },
+    { "angle": "Pricing", "hook": "Is your session price counting editing time?", "body": "The pack's pricing prompt does.", "headline": "Price your sessions" }
+  ],
+  "keyword": "SESSION",
+  "next": ["Wedding photographers", "Real estate photographers", "Product photographers"],
+  "legal": null
+}
