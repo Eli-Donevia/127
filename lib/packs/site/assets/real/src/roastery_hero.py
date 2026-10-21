@@ -34,18 +34,18 @@ def kraft():
     tc = N.new('ShaderNodeTexCoord')
     mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1, 1, 7)  # fibres run vertically
     L.new(tc.outputs['Object'], mp.inputs['Vector'])
-    fib = N.new('ShaderNodeTexNoise'); fib.inputs['Scale'].default_value = 900; fib.inputs['Detail'].default_value = 6
+    fib = N.new('ShaderNodeTexNoise'); fib.inputs['Scale'].default_value = 320; fib.inputs['Detail'].default_value = 6
     L.new(mp.outputs['Vector'], fib.inputs['Vector'])
-    mot = N.new('ShaderNodeTexNoise'); mot.inputs['Scale'].default_value = 22; mot.inputs['Detail'].default_value = 5
+    mot = N.new('ShaderNodeTexNoise'); mot.inputs['Scale'].default_value = 14; mot.inputs['Detail'].default_value = 5
     L.new(tc.outputs['Object'], mot.inputs['Vector'])
-    fl = N.new('ShaderNodeTexVoronoi'); fl.inputs['Scale'].default_value = 650; L.new(mp.outputs['Vector'], fl.inputs['Vector'])
-    flm = N.new('ShaderNodeMapRange'); flm.inputs['From Min'].default_value = 0.0; flm.inputs['From Max'].default_value = 0.09
+    fl = N.new('ShaderNodeTexVoronoi'); fl.inputs['Scale'].default_value = 260; L.new(mp.outputs['Vector'], fl.inputs['Vector'])
+    flm = N.new('ShaderNodeMapRange'); flm.inputs['From Min'].default_value = 0.0; flm.inputs['From Max'].default_value = 0.12
     flm.inputs['To Min'].default_value = 1.0; flm.inputs['To Max'].default_value = 0.0; L.new(fl.outputs['Distance'], flm.inputs['Value'])
-    mix = N.new('ShaderNodeMath'); mix.operation = 'MULTIPLY_ADD'; mix.inputs[1].default_value = 0.35
+    mix = N.new('ShaderNodeMath'); mix.operation = 'MULTIPLY_ADD'; mix.inputs[1].default_value = 0.6
     L.new(fib.outputs['Fac'], mix.inputs[0]); L.new(mot.outputs['Fac'], mix.inputs[2])
     ramp = N.new('ShaderNodeValToRGB'); e = ramp.color_ramp.elements
-    e[0].position = 0.45; e[0].color = (0.2, 0.135, 0.075, 1)
-    e[1].position = 0.85; e[1].color = (0.33, 0.235, 0.14, 1)
+    e[0].position = 0.66; e[0].color = (0.15, 0.1, 0.055, 1)
+    e[1].position = 0.94; e[1].color = (0.36, 0.26, 0.16, 1)
     L.new(mix.outputs[0], ramp.inputs['Fac'])
     dk = N.new('ShaderNodeMix'); dk.data_type = 'RGBA'
     a_, b_ = [x for x in dk.inputs if x.type == 'RGBA'][:2]
@@ -55,7 +55,7 @@ def kraft():
     L.new([x for x in dk.outputs if x.type == 'RGBA'][0], b.inputs['Base Color'])
     b.inputs['Roughness'].default_value = 0.92
     b.inputs['Specular IOR Level'].default_value = 0.3
-    bump = N.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.35; bump.inputs['Distance'].default_value = 0.0003
+    bump = N.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.6; bump.inputs['Distance'].default_value = 0.0005
     L.new(fib.outputs['Fac'], bump.inputs['Height']); L.new(bump.outputs['Normal'], b.inputs['Normal'])
     return m
 
@@ -115,7 +115,7 @@ for k, (z, th) in enumerate(((BH - 0.004, 0.012), (BH - 0.016, 0.011))):
     f = bpy.context.object; f.scale = (0.136 + 0.002 * k, th, 0.022); bpy.ops.object.transform_apply(scale=True)
     bv = f.modifiers.new('bev', 'BEVEL'); bv.width = 0.0012; bv.segments = 2   # a folded paper edge is crisp
     f.parent = bag; f.data.materials.append(kr)
-tin = C.principled('tin', color=(0.42, 0.41, 0.4), rough=0.45, metal=1.0)
+tin = C.principled('tin', color=(0.3, 0.3, 0.3), rough=0.38, metal=1.0)
 bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -0.0135, BH - 0.01))
 t = bpy.context.object; t.scale = (0.15, 0.0015, 0.008); bpy.ops.object.transform_apply(scale=True)
 bv = t.modifiers.new('bev', 'BEVEL'); bv.width = 0.0006; bv.segments = 2
