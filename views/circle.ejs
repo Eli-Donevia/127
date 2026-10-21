@@ -1,11 +1,11 @@
 <%- include('partials/head') %>
 <main>
   <section class="band circle-hero" style="padding:110px 0 96px">
-    <%# D57 (Eli Oct 21: "nah no gold. emerald diamond"): the 127 as a cut emerald (Blender Cycles, Circle pieces only).
+    <%# D59 (Eli Oct 21: chrome, emerald, diamond tiers; the Circle is Diamond): the 127 as clear diamond (Blender Cycles).
         Poster first; the turning loop starts after load, phones get the 4:5 cut, reduced motion and data saver keep
         the poster. %>
     <div class="ch-mark" aria-hidden="true">
-      <picture><source media="(max-width: 760px)" srcset="/img/emerald-mobile.jpg" width="1080" height="1350"><img class="ch-poster" src="/img/emerald-16x9.jpg" alt="" width="1920" height="1080" decoding="async"></picture>
+      <picture><source media="(max-width: 760px)" srcset="/img/diamond-loop-mobile-poster.jpg" width="864" height="1080"><img class="ch-poster" src="/img/diamond-loop-16x9-poster.jpg" alt="" width="1280" height="720" decoding="async"></picture>
     </div>
     <div class="wrap founder" style="align-items:end">
       <div>
@@ -63,7 +63,7 @@
   var mm = function (q) { return window.matchMedia && matchMedia(q).matches; };
   if (!box || mm('(prefers-reduced-motion: reduce)') || (navigator.connection && navigator.connection.saveData)) return;
   function go() {
-    var name = mm('(max-width: 760px)') ? 'emerald-loop-mobile' : 'emerald-loop-16x9';
+    var name = mm('(max-width: 760px)') ? 'diamond-loop-mobile' : 'diamond-loop-16x9';
     var v = document.createElement('video');
     v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.className = 'ch-loop';
     v.setAttribute('muted', ''); v.setAttribute('playsinline', '');

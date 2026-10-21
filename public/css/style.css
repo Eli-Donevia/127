@@ -1320,7 +1320,7 @@ main .legal-foot { margin-top: 32px; }
    ========================================================================== */
 .circle-marks { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .seat-badge { display: inline-flex; align-items: baseline; gap: 8px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
-.seat-badge b { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -0.05em; line-height: 1; color: var(--gold); background: linear-gradient(180deg, var(--diamond) 0%, var(--emerald) 55%, var(--emerald-deep) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.seat-badge b { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -0.05em; line-height: 1; color: var(--diamond); }   /* D59: the Circle's seat numbers are Diamond, solid (no gradient text) */
 .seat-badge.sm b { font-size: 20px; }
 .founding-mark { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: #04140d; background: linear-gradient(180deg, #9af5cf, var(--emerald)); border-radius: 999px; padding: 5px 11px; white-space: nowrap; }
 .founding-mark::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #04140d; }
@@ -1332,7 +1332,7 @@ main .legal-foot { margin-top: 32px; }
   background: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 36px 36px, linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 36px 36px, #060607;
   border: 1px solid rgba(234, 244, 255,.28); box-shadow: inset 0 1px 0 rgba(234, 244, 255, .22); }
 .seat-card .eyebrow { color: var(--ink-2); letter-spacing: .3em; }
-.seat-card .seat-num { font-family: var(--display); font-weight: 800; font-size: clamp(96px, 12vw, 150px); line-height: .9; letter-spacing: -0.06em; margin: 14px 0 12px; background: linear-gradient(180deg, var(--diamond) 0%, var(--emerald) 52%, var(--emerald-deep) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--gold); }
+.seat-card .seat-num { font-family: var(--display); font-weight: 800; font-size: clamp(96px, 12vw, 150px); line-height: .9; letter-spacing: -0.06em; margin: 14px 0 12px; color: var(--diamond); }
 .seat-card .seat-title { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -0.05em; line-height: 1; color: #e3e3ea; }
 .seat-card .seat-title span { color: #7b7b86; }
 .seat-card p { margin: 14px 0 0; color: var(--ink-2); font-size: 16px; }
