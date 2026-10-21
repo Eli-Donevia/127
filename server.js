@@ -93,6 +93,8 @@ app.get('/healthz', (req, res) => res.json({ ok: true }));
 app.post('/billing/webhook', express.raw({ type: 'application/json' }), billing.webhook);
 // HQ in Slack (lib/harness/slack.js, HQ_SLACK): Slack signs the raw body, so these come before the parsers.
 app.use(require('./lib/harness/slack-routes').hooks());
+// HQ in Teams (lib/harness/teams.js, HQ_TEAMS): Bot Framework activities, token checked before anything else.
+app.use(require('./lib/harness/teams-routes').hooks());
 // 127 HQ inbound (lib/hq-routes.js): a member's 127 link and their Shopify order webhooks. Raw body for
 // Shopify's signature, and ahead of the session so it never reads or sets a cookie. 404 while HQ_LIVE is off.
 app.all('/hq/in/:token', hqRoutes.inbound);
@@ -2120,6 +2122,7 @@ app.use(toolsRoutes({ requireAuth, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 app.use(require('./lib/harness/slack-routes').pages({ requireAuth, flash }));
+app.use(require('./lib/harness/teams-routes').pages({ requireAuth, flash }));
 // HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).
 app.use(postRoutes({ requireAuth, flash }));
 
@@ -2225,6 +2228,8 @@ db.init().then(async () => {
     harness.tick().catch((err) => console.error('[harness] tick', err.message));
     // HQ in Slack: new OK cards, and the morning pulse for members who turned it on.
     require('./lib/harness/slack').tick().catch((err) => console.error('[slack] tick', err.message));
+    // HQ in Teams: the same, in the member's personal chat with HQ.
+    require('./lib/harness/teams').tick().catch((err) => console.error('[teams] tick', err.message));
     // HQ Post: OK'd posts whose time has come.
     require('./lib/harness/posts').tick().catch((err) => console.error('[posts] tick', err.message));
     harness.daily().catch((err) => console.error('[harness] daily', err.message));
