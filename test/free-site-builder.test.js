@@ -27,6 +27,7 @@ const { buildSite } = require('../lib/packs/site/lib/site');
 const { factsFrom } = require('../lib/packs/site/lib/facts');
 const { draftCopy } = require('../lib/packs/site/lib/copy');
 const { TEMPLATES } = require('../lib/packs/site/lib/templates');
+const { unzip } = require('../lib/packs/_kit/files');
 
 const SITE = D.doors.site.sample.values;
 const MOVING = TEMPLATES.filter((t) => t.animated).map((t) => t.id);
@@ -107,6 +108,9 @@ test("switched on, the page is the free website builder, with every design that 
     assert.deepEqual(c.freeBuilder.all.map((d) => d.id), MOVING);
     assert.equal(MOVING.length, 18);
     assert.deepEqual(c.freeBuilder.keep, F.keep);
+    assert.equal(c.freeBuilder.lasts, F.lasts);
+    assert.match(F.lasts, /lasts \{days\} days from when you made it\.$/);
+    assert.match(c.result.netlify, /^This is your own Netlify account, not 127's\. Netlify is a separate company\./);
     // "Build it with these words" runs the made-up example's own words, and the example plays in three designs.
     assert.deepEqual(c.sample, { label: F.example.try, values: F.example.values });
     assert.equal(c.freeBuilder.example.src, '/door/site/example/');
@@ -130,7 +134,7 @@ test('the example is the made-up business in its three designs, playing under th
     assert.match(r.headers.get('content-type'), /^text\/html/);
     const csp = r.headers.get('content-security-policy');
     assert.match(csp, /script-src 'unsafe-inline'/);
-    assert.match(csp, /sandbox allow-scripts$/);
+    assert.match(csp, /sandbox allow-scripts allow-top-navigation-to-custom-protocols$/);
     assert.doesNotMatch(csp, /allow-same-origin|connect-src|https:/);
     assert.equal(r.headers.get('x-frame-options'), 'SAMEORIGIN');
     assert.equal(r.headers.get('x-robots-tag'), 'noindex');
@@ -159,18 +163,32 @@ test('a run builds the best fit with the "Made with 127" link, offers three desi
     const csp = r.headers.get('content-security-policy');
     // Its own inline scripts run, in an opaque origin: no same-origin, nothing fetched, posted or loaded from outside.
     assert.match(csp, /script-src 'unsafe-inline'/);
-    assert.match(csp, /sandbox allow-scripts$/);
+    assert.match(csp, /sandbox allow-scripts allow-top-navigation-to-custom-protocols$/);
     assert.doesNotMatch(csp, /allow-same-origin|connect-src|https:/);
     assert.match(csp, /default-src 'none'.*form-action 'none'.*frame-ancestors 'self'/);
     assert.equal(r.headers.get('x-frame-options'), 'SAMEORIGIN');
     const page = await r.text();
-    assert.match(page, /<p class="legal-links"><a href="privacy\.html">Privacy<\/a> · <a href="https:\/\/127\.test\/site-tonight\?utm_source=made-with-127">Made with 127<\/a><\/p>/);
+    // Legal L97 CH17: on 127's preview the mark has a Report link to 127's email (the sandbox lets it open the email app).
+    const made = '<p class="legal-links"><a href="privacy\\.html">Privacy<\\/a> · <a href="https:\\/\\/127\\.test\\/site-tonight\\?utm_source=made-with-127">Made with 127<\\/a>';
+    assert.match(page, new RegExp(`${made} · <a href="mailto:hello@127group\\.io\\?subject=Report%20a%20site">Report<\\/a><\\/p>`));
     // The ZIP and the share image download as before, and the site itself has no outside requests to allow.
     const zip = v.files.find((f) => f.key === 'zip');
     const z = await fetch(base + zip.url);
     assert.match(z.headers.get('content-disposition'), /^attachment/);
     assert.doesNotMatch(z.headers.get('content-security-policy'), /allow-scripts/);
     assert.doesNotMatch(page, /<script[^>]+src=|<link[^>]+href="https?:/);
+    // The member's own files have the mark and no Report link: the ZIP's page, and the preview file downloaded.
+    const inZip = Object.fromEntries(unzip(Buffer.from(await z.arrayBuffer())).map((e) => [e.name, e.data.toString('utf8')]));
+    assert.match(inZip['index.html'], new RegExp(`${made}<\\/p>`));
+    assert.doesNotMatch(inZip['index.html'], /Report/);
+    assert.doesNotMatch(await (await fetch(base + p.url)).text(), /Report a site|Report%20a%20site/);
+    // Legal L97 CH12 to CH15: README.txt names Netlify in Legal's words, says the privacy page names it, and leaves the
+    // credit to them.
+    const readme = inZip['README.txt'];
+    assert.ok(readme.includes(D.doors.site.result.netlify), 'the same words as the result page');
+    assert.match(readme, /It names Netlify as your website host, the one the steps below use\. If you put the site somewhere else, open privacy\.html in a plain text editor and change Netlify to that host's name\./);
+    assert.match(readme, /The "Made with 127" link at the bottom of the page is yours to keep or remove\./);
+    assert.doesNotMatch(readme, /keep (the|this|that) (link|credit)|leave (the|this) (link|credit)|must keep/i);
   });
 });
 
@@ -254,4 +272,25 @@ test('the link takes other words and a page on 127\'s own site only, and never g
   for (const path of ['//evil.example', 'https://evil.example', '/\\evil.example', '/x"><script>', 'challenge']) assert.equal(at({ path }), null, path);
   assert.equal(at(false), null);
   assert.equal(at({ text: 'x'.repeat(90), path: '/' }).text.length, 60);
+});
+
+test("README.txt's privacy step matches what privacy.html says about the host, with Netlify's form or an email form", async () => {
+  // Legal L97 CH15: the notice names the host, and the README says how to name Netlify there.
+  const ctx = { log() {}, member: {}, today: '2026-10-21' };
+  const files = async (input) => {
+    const f = factsFrom(ctx, input);
+    const r = await buildSite(ctx, { facts: f, template: 'gather', copy: draftCopy(f, 'gather'), madeWith: { href: 'https://127.test/site-tonight?utm_source=made-with-127', text: 'Made with 127' } });
+    return Object.fromEntries(r.files.map((x) => [x.name, String(x.data)]));
+  };
+  const net = await files({ ...SITE, email: 'hello@fernhill.example' });
+  assert.match(net['privacy.html'], /a hosting service, Netlify,[\s\S]*our website host, Netlify;/);
+  assert.match(net['README.txt'], /It names Netlify as your website host/);
+  const mail = await files({ ...SITE, email: 'hello@fernhill.example', form: 'email' });
+  const readme = mail['README.txt'];
+  assert.match(readme, /It says "our website host" where your host's name goes\./);
+  // Each phrase the README says to find is in privacy.html as written.
+  const swaps = [...readme.matchAll(/"([^"]+)" to "[^"]+"/g)].map((m) => m[1]);
+  assert.deepEqual(swaps, ['a hosting service, our website host,', 'our website host, our website host']);
+  for (const s of swaps) assert.ok(mail['privacy.html'].includes(s), s);
+  assert.ok(readme.includes(D.doors.site.result.netlify));
 });

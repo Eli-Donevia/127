@@ -230,8 +230,9 @@
   var msg = function (title, text, kind) { return '<div class="dr-msg-head"><span>' + esc(title) + '</span>' + cp(text, kind) + '</div><div class="dr-msg">' + esc(text) + '</div>'; };
   var fileOf = function (run, key) { return (run.files || []).filter(function (f) { return f.key === key; })[0] || null; };
   // A page we built, shown in a frame with scripts, forms and outside requests off (and the same on the server). The free
-  // website builder's site plays its motion: its own scripts run, still without same-origin, so they can't reach this page.
-  var frame = function (src, title, moving) { return '<div class="dr-frame"><iframe src="' + esc(src) + '" sandbox="' + (moving ? 'allow-scripts' : '') + '" loading="lazy" referrerpolicy="no-referrer" title="' + esc(title) + '"></iframe></div>'; };
+  // website builder's site plays its motion: its own scripts run, still without same-origin, so they can't reach this page,
+  // and its email links (the Report link, lib/doors.js) open the visitor's email app.
+  var frame = function (src, title, moving) { return '<div class="dr-frame"><iframe src="' + esc(src) + '" sandbox="' + (moving ? 'allow-scripts allow-top-navigation-to-custom-protocols' : '') + '" loading="lazy" referrerpolicy="no-referrer" title="' + esc(title) + '"></iframe></div>'; };
 
   function show(run) {
     st.run = run;
@@ -637,7 +638,8 @@
     site: {
       free: function (run) {
         var p = fileOf(run, 'preview'), moving = !!(FB && run.result.designs);
-        return (p && p.open ? (moving ? '<div class="dr-sec fb-show">' + frame(p.open, C.result.preview, moving) + '</div>' + designs(run) : '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>') : '') +
+        // Once the page is at the result's link, how long that link lasts (Legal L97 CH16).
+        return (p && p.open ? (moving ? '<div class="dr-sec fb-show">' + frame(p.open, C.result.preview, moving) + (st.unlocked ? '<p class="fb-cap">' + esc(fill(FB.lasts, { days: C.keepDays })) + '</p>' : '') + '</div>' + designs(run) : '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>') : '') +
           (moving ? keep(run) : '') +
           // What the site still needs sits under the page until the email gate, then heads the steps.
           (!st.unlocked && run.result.ready === false ? '<div class="dr-sec">' + almost(run) + '</div>' : '');
@@ -659,7 +661,7 @@
       gate: function (run) { return run.result.ready === false ? C.gateAlmost : null; },
       full: function (run) {
         var x = run.result;
-        return '<div class="dr-sec">' + (x.ready === false ? almost(run) + '<p class="dr-sub">' + esc(C.result.then) + '</p>' : label(C.result.deploy)) + '<ol class="dr-steps">' + C.result.deploySteps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="dr-sub">' + esc(C.result.yours) + '</p></div>' +
+        return '<div class="dr-sec">' + (x.ready === false ? almost(run) + '<p class="dr-sub">' + esc(C.result.then) + '</p>' : label(C.result.deploy)) + '<ol class="dr-steps">' + C.result.deploySteps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="dr-sub">' + esc(C.result.yours) + '</p><p class="dr-sub">' + esc(C.result.netlify) + '</p></div>' +
           (x.share.length ? '<div class="dr-sec">' + label(C.result.share) + x.share.map(function (s) { return msg(s.label, s.text, 'share'); }).join('') + '</div>' : '') +
           (x.photos.length ? '<div class="dr-sec">' + label(C.result.photos) + '<p class="dr-sub">' + esc(C.result.photosLine) + '</p><table class="dr-rows">' + x.photos.map(function (p) {
             return '<tr><td>' + esc(p.file) + '</td><td>' + esc(p.alt || '') + '</td><td class="num">' + esc(p.size || '') + '</td></tr>';

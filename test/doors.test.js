@@ -441,6 +441,8 @@ test('a site without its email says "Almost ready to put online" and what to add
     assert.equal(v.input.email, 'hello@fernhill.example', 'the page has it, so it asks for nothing');
     const ready = email(v);
     assert.match(ready, /Put it online free tonight:\n1\. Download the ZIP\./);
+    // Legal L97 CH12: Netlify's line follows the steps, as on the result page and in README.txt.
+    assert.match(ready, /\n3\. Sign up free .+\nThis is your own Netlify account, not 127's\. Netlify is a separate company\. Its terms and privacy policy cover your account and your site there, and it can change or end its free plan, so keep your ZIP\.\n/);
     assert.doesNotMatch(ready, /Almost ready/);
   });
 });
