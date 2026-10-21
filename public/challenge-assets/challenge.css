@@ -31,6 +31,9 @@
 .ch-dots .now { border: 1.5px solid var(--primary); color: var(--ink); box-shadow: 0 0 0 4px rgba(227,230,241,.08); }
 .ch-dots .locked { opacity: .45; }
 .ch-top .me-link { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+/* v2's 14 days: two rows of 7, one per week */
+.ch-dots.is-weeks { display: grid; grid-template-columns: repeat(7, 32px); gap: 5px; }
+.ch-dots.is-weeks a, .ch-dots.is-weeks span { width: 32px; height: 32px; font-size: 11px; }
 
 /* hero */
 .ch-hero { padding: 64px 0 36px; }
@@ -208,3 +211,5 @@
 .chp.chp-v2 .tpl .tpl-label { font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
 .chp.chp-v2 { --muted: #8b8b95; }
 .chp.chp-v2 .input::placeholder { color: #85858f; }
+.chp.chp-v2 .answers dt { font-size: 13px; letter-spacing: 0; text-transform: none; }
+.ch-dots.is-weeks { margin-bottom: 14px; }

@@ -1,22 +1,31 @@
 {
-  "version": "2026-10-21-v2",
+  "version": "2026-10-21-v2-14",
   "source": "challenge-v2/SPEC.md (Day One Challenge revamp thread) + legal/handoffs/launch-email-consent-and-challenge.md §3.3, §3.7",
   "moves": [
-    "Site live",
-    "Offer on it",
+    "Pick it",
+    "Your site",
+    "Your offer",
+    "Your proof",
+    "Show week 1",
+    "Plan week 2",
+    "Your price",
     "Your list of 25",
     "Go public",
-    "5 asks"
+    "First 5 asks",
+    "Follow up",
+    "Three posts",
+    "Your walkthrough",
+    "Demo night"
   ],
-  "share_text": "Five days, five things live. The Day One Challenge with Eli Christiansen: 127group.io/challenge #DayOne127",
+  "share_text": "Two weeks, built in public. The Day One Challenge with Eli Christiansen: 127group.io/challenge #DayOne127",
   "slots": {
     "idea": {
-      "day": 1,
+      "day": 2,
       "field": "site_url",
       "toggle": "Add my site to my card"
     },
     "offer": {
-      "day": 2,
+      "day": 3,
       "field": "offer",
       "toggle": "Add my offer to my card"
     }
@@ -26,50 +35,94 @@
       1,
       "business"
     ],
-    "site": [
+    "line": [
       1,
+      "line"
+    ],
+    "site": [
+      2,
       "site_url"
     ],
     "offer": [
-      2,
+      3,
       "offer"
     ],
     "offer_grade": [
-      2,
+      3,
       "grade"
     ],
+    "proof": [
+      4,
+      "proof"
+    ],
+    "site_public": [
+      5,
+      "site_public"
+    ],
+    "public_url": [
+      5,
+      "public_url"
+    ],
+    "package": [
+      7,
+      "package"
+    ],
     "list_count": [
-      3,
+      8,
       "list_count"
     ],
     "list_where": [
-      3,
+      8,
       "list_where"
     ],
     "posted": [
-      4,
+      9,
       "posted"
     ],
     "post_url": [
-      4,
+      9,
       "post_url"
     ],
     "asks": [
-      5,
+      10,
       "asks"
     ],
     "replies": [
-      5,
+      10,
       "replies"
     ],
+    "asks_more": [
+      11,
+      "asks_more"
+    ],
+    "replies_week": [
+      11,
+      "replies_total"
+    ],
+    "posts": [
+      12,
+      "posts"
+    ],
+    "walkthrough": [
+      13,
+      "walkthrough"
+    ],
     "lesson": [
-      5,
+      14,
       "lesson"
+    ],
+    "asks_total": [
+      14,
+      "asks_total"
+    ],
+    "replies_total": [
+      14,
+      "replies_all"
     ]
   },
   "start_ticks": [
     {
-      "day": 2,
+      "day": 3,
       "tasks": [],
       "milestones": [
         "offer"
@@ -116,74 +169,118 @@
     ]
   },
   "prep": {
-    "headline": "Before Monday, two minutes.",
+    "headline": "Before Tuesday, one minute.",
     "body": [
-      "**Name it.** Your business name, or your first name and what you do, like \"Jordan's Detailing\".",
-      "**Say it in one line.** What you do and who it's for. That's what Monday's site is built from."
+      "**Block 15 minutes a day** on your calendar, Tuesday, November 3 to Monday, November 16.",
+      "**No idea yet?** Look at the starter ideas below. Day 1 is picking one."
     ]
   },
   "email": {
     "move_time": "About 15 minutes, and the tool does the heavy lifting.",
     "each": "about 15 minutes each",
-    "prep": "**Before Monday, two minutes:** name your business and say what you do in one line. Monday's site is built from it. No idea yet? Your challenge page has 3 starter ideas for each path.",
-    "welcome_preview": "Confirm your spot, then name your business."
+    "prep": "**Before Tuesday:** block 15 minutes a day on your calendar, November 3 to 16. No idea yet? Your challenge page has 3 starter ideas for each path.",
+    "welcome_preview": "Confirm your spot, then block 15 minutes a day."
   },
   "feature": {
-    "feature_ok": "**Eli can feature my check-in.** He may read my first name and the answers I tick below on the public Instagram Live debrief (Mon, Nov 16), in its saved replay, and in 127's Instagram stories and short clips about the challenge. No email or last name. Don't include anything confidential.",
+    "feature_ok": "**Eli can feature my check-in.** He may read my first name and the answers I tick below on the public Instagram Live demo night (Mon, Nov 16), in its saved replay, and in 127's Instagram stories and short clips about the challenge. No email or last name. Don't include anything confidential.",
     "feature_idea": "Show my site",
     "feature_offer": "Show my offer",
     "guest_ok": "**I'd be up for joining the live as a guest on camera.** Eli's team will DM me first, and I can still say no.",
     "small": "Featuring is free and unpaid. You can change your mind anytime before the live by emailing hello@127group.io. After it airs, we'll stop using it in new posts, but we can't recall what was already streamed or shared."
   },
   "landing": {
-    "label": "Free 5-day challenge",
+    "label": "Free 14-day challenge",
+    "dates": "Nov 3 to 16",
     "h1": [
-      "Five days.",
-      "Five things live."
+      "Two weeks.",
+      "Built in public."
     ],
-    "value": "A free challenge with Eli. One tap a day builds the real thing, in about 15 minutes. By Friday your site, your offer and your first post are out in the world, and you've sent your first 5 asks.",
+    "value": "A free challenge with Eli. One tap a day, about 15 minutes. Week 1 you build it: a name, a site, an offer with proof and a price. Week 2 you put it in front of people. It ends at demo night, the night before doors open.",
+    "lives_meta": "Live with Eli on Instagram, Tue Nov 3 and Mon Nov 16 at 8pm ET",
+    "live_note": "Join now and catch up. Every day stays open until Monday, November 16 at 11:59pm ET.",
+    "hook_last": "It's still in your notes app.",
+    "hook_punch": [
+      "Two weeks puts it out in the world.",
+      "Built in week 1. In front of people in week 2."
+    ],
     "week_h2": [
       "One tap a day.",
       "Each day ends with something you can show people."
     ],
+    "weeks": [
+      "Week 1: build it",
+      "Week 2: put it in front of people"
+    ],
     "days": [
       {
-        "move": "Your site is live.",
-        "what": "Pick a design, answer 4 questions, publish.",
-        "have": "A real site with your own link"
+        "move": "Pick it.",
+        "what": "Your path, a name and one line."
       },
       {
-        "move": "Your offer, on it.",
-        "what": "One line: who, result, how, price. Graded, fixed, on your site.",
-        "have": "An offer people can say yes to"
+        "move": "Your site.",
+        "what": "Pick a design, answer 4 questions, get your preview link."
+      },
+      {
+        "move": "Your offer.",
+        "what": "One line, graded and fixed, on your site."
+      },
+      {
+        "move": "Your proof.",
+        "what": "A before and after, photos, a sample or a mockup."
+      },
+      {
+        "move": "Show week 1.",
+        "what": "Light day. Post your card. Optional public address."
+      },
+      {
+        "move": "Plan week 2.",
+        "what": "Five minutes. Catch up if you need to."
+      },
+      {
+        "move": "Your price.",
+        "what": "One package, one price, on your site."
       },
       {
         "move": "Your list of 25.",
-        "what": "People who could use what you do, each with a message ready.",
-        "have": "25 names and 25 messages, ready for Friday"
+        "what": "People who could use it, each with a message ready."
       },
       {
         "move": "Go public.",
-        "what": "Post that you're starting. Hooks and caption already written.",
-        "have": "Your first post, with your link"
+        "what": "Post that you're starting. The words are written."
       },
       {
-        "move": "Your first 5 asks.",
-        "what": "Copy, send from your own account, tap sent.",
-        "have": "5 asks out. A no counts."
+        "move": "First 5 asks.",
+        "what": "Copy, send from your own account, tap sent."
+      },
+      {
+        "move": "Follow up.",
+        "what": "One nudge, and 5 more asks."
+      },
+      {
+        "move": "Three posts.",
+        "what": "Already written. Fill in the brackets."
+      },
+      {
+        "move": "Your walkthrough.",
+        "what": "Sixty seconds of your site, for demo night."
+      },
+      {
+        "move": "Demo night.",
+        "what": "Live with Eli at 8pm ET, the night before doors open."
       }
     ],
     "fri_h2": [
-      "Friday night, it's real.",
-      "Five things, out in the world."
+      "Two weeks from now,",
+      "it's out in the world."
     ],
     "fri": [
-      "A site with your own link",
-      "An offer on it, graded and fixed",
+      "A name and a site with your link",
+      "An offer with proof, and one package with a price",
       "A list of 25 people who could use it",
-      "Your first post, out in public",
-      "5 asks sent"
+      "Your first posts, out in public",
+      "Asks sent and followed up"
     ],
+    "fri_note": "Or you'll know it's time to switch ideas. That counts too. Two weeks instead of a year.",
     "how": [
       {
         "h": "Pick your path.",
@@ -191,17 +288,32 @@
       },
       {
         "h": "Every morning, 8am ET.",
-        "p": "One email, one button. The tool does the heavy lifting, then you share your card."
+        "p": "One email, one button, about 15 minutes. Weekends are light, and any 12 of the 14 days count as finishing."
       },
       {
         "h": "Bring a friend.",
         "p": "Send your link. You'll see each other's days, and your names go on each other's cards."
       }
     ],
+    "lives_how": "Kickoff on Tuesday, November 3, and demo night on Monday, November 16, the night before doors open. Both at 8pm ET on Instagram",
+    "fin_h2": [
+      "Finish 12 of 14.",
+      "Get in first."
+    ],
+    "finisher_terms": "Everyone who checks in on at least 12 of the 14 days by Monday, November 16 at 11:59pm ET gets the finisher perks: doors open for you at 9am ET on Tuesday, November 17, an hour before everyone else; a Day One badge in your account; and everything you made saved there. There's no drawing, judging or prize, and nothing is awarded by chance. The founding price is the same for everyone, and early access doesn't hold one of the 100 founding spots for you.",
+    "deal_live": "I'll walk through it in my last challenge email and once at demo night, Monday, November 16.",
+    "deal_free": "You don't need to buy anything to do the challenge. You'll get just as much out of the two weeks either way.",
+    "final_h": "Tuesday is",
+    "final_meta": [
+      "Free",
+      "14 days",
+      "Nov 3 to 16"
+    ],
+    "sticky": "Free · Nov 3 to 16",
     "fit_yes": [
       "You've been saying \"one day\" about a business",
-      "You'd rather have something live than a perfect plan",
-      "You can give it about 15 minutes a day for five days"
+      "You'd rather have something real than a perfect plan",
+      "You can give it about 15 minutes a day for two weeks"
     ],
     "fit_no": [
       "You want someone to promise you customers or money",
@@ -210,15 +322,19 @@
     "faq": [
       [
         "Do I need an idea?",
-        "No. Pick \"No idea yet\" and you'll get 3 starter ideas for each path before Monday. Pick one on Sunday."
+        "No. Pick \"No idea yet\" and you'll get 3 starter ideas for each path. Day 1 is picking one."
       ],
       [
         "How much time does it take?",
-        "About 15 minutes a day. Each day's tool is already filled in from what you told it."
+        "About 15 minutes a day, less on weekends. Each day's tool is already filled in from what you told it."
       ],
       [
         "Do I need to know how to build a website?",
-        "No. You pick a design and answer 4 questions. You can change it any day this week."
+        "No. You pick a design and answer 4 questions. You can change it any day."
+      ],
+      [
+        "Will my site be on the internet?",
+        "You get a preview link you can share from Day 2. If you want a public address, Day 5 shows you how to put it on your own free Netlify account. That part is optional."
       ],
       [
         "What does it cost?",
@@ -226,33 +342,182 @@
       ],
       [
         "What if I miss a day?",
-        "Every day stays open until Sunday, November 15 at 11:59pm ET. Catch up anytime."
+        "Every day stays open until Monday, November 16 at 11:59pm ET, and any 12 of the 14 count as finishing."
       ],
       [
         "Who's it for?",
-        "Anyone 18 or older who wants to start something real this week."
+        "Anyone 18 or older who wants to start something real."
       ]
     ]
   },
   "days": [
     {
       "n": 1,
-      "date": "Monday 9 November",
-      "move": "Site live",
-      "label": "DAY 1 OF 5 · YOUR SITE IS LIVE",
-      "headline": "By tonight. Your business has a website.",
+      "date": "Tuesday 3 November",
+      "move": "Pick it",
+      "label": "DAY 1 OF 14 · PICK IT",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Today you decide. Tomorrow it gets built.",
       "line": "No idea is perfect. Don't ideate too long.",
       "intro": [
         "For way too long I thought founders had something I didn't. A degree, money, connections, permission.",
-        "They didn't. They put something out there and fixed it as they went.",
-        "Today you put your business on the internet. It doesn't need to be perfect. You can change everything tomorrow."
+        "They didn't. They picked something and started.",
+        "Today you pick yours: a path, a name and one line about what you do. Tomorrow your site gets built from it."
       ],
+      "move_time": "about 10 minutes",
+      "steps": [
+        {
+          "title": "Pick your path.",
+          "body": "A service, products, or a creator or skill. No idea yet? Take one of the starter ideas below.",
+          "sub": []
+        },
+        {
+          "title": "Name it.",
+          "body": "Your business name, or your first name and what you do, like \"Jordan's Detailing\".",
+          "sub": []
+        },
+        {
+          "title": "Say it in one line.",
+          "body": "What you do and who it's for, the way you'd text it to a friend.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Need an idea? Start with one of these",
+        "blocks": [
+          {
+            "type": "h",
+            "path": "service",
+            "text": "For a service:"
+          },
+          {
+            "type": "ul",
+            "path": "service",
+            "items": [
+              "Mobile car detailing",
+              "Closet and garage clean-outs",
+              "Short-form video editing for local shops"
+            ]
+          },
+          {
+            "type": "h",
+            "path": "products",
+            "text": "For products:"
+          },
+          {
+            "type": "ul",
+            "path": "products",
+            "items": [
+              "Custom pet portraits",
+              "Small-batch candles for local gift shops",
+              "Printable planners for one niche"
+            ]
+          },
+          {
+            "type": "h",
+            "path": "creator",
+            "text": "For a creator or skill:"
+          },
+          {
+            "type": "ul",
+            "path": "creator",
+            "items": [
+              "Honest reviews of one kind of product",
+              "UGC videos for small brands",
+              "Teaching one skill you already have, in 60 seconds"
+            ]
+          },
+          {
+            "type": "template",
+            "label": "Your one line",
+            "text": "I [what you do] for [who it is for]."
+          },
+          {
+            "type": "note",
+            "text": "You're not marrying it. You're testing it for two weeks."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan picked a service. Name: Northside Detail. One line: \"I clean cars inside and out in your driveway, for busy parents on the north side.\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I can't pick between two ideas.",
+          "a": "Pick the one you could start this week with what you already have. Keep the other one in your notes."
+        },
+        {
+          "q": "I don't have a name yet.",
+          "a": "Use your first name and what you do. You can rename it any day."
+        },
+        {
+          "q": "My idea feels too small.",
+          "a": "Small is good. Small is something you can actually start this week."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 1 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "business",
+            "label": "Your business name",
+            "type": "text",
+            "required": true,
+            "placeholder": "Northside Detail"
+          },
+          {
+            "id": "line",
+            "label": "What you do, in one line",
+            "type": "text",
+            "required": true,
+            "placeholder": "I clean cars inside and out in your driveway, for busy parents."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 1: it has a name.",
+        "lines": [
+          "Most people never get past \"one day\". You just did.",
+          "Tonight at 8pm ET I'm live on Instagram for the kickoff. @elichristiansen_",
+          "Tomorrow at 8am: your site gets built from what you wrote."
+        ]
+      },
+      "next": "your site gets built",
+      "card": {
+        "label": "DAY 1 · I'M STARTING",
+        "line": [
+          1,
+          "business"
+        ],
+        "toggle": "Add my business name to my card"
+      }
+    },
+    {
+      "n": 2,
+      "date": "Wednesday 4 November",
+      "move": "Your site",
+      "label": "DAY 2 OF 14 · YOUR SITE",
       "intro_small": null,
+      "after_steps": [],
+      "headline": "By tonight. Your business has a website.",
+      "line": "Done is better than perfect.",
+      "intro": [
+        "Yesterday you named it. Today it gets a website.",
+        "Pick a design, answer 4 questions, and you get a preview link you can send to anyone. It doesn't need to be perfect. You can change everything this week."
+      ],
       "move_time": "about 15 minutes",
       "steps": [
         {
           "title": "Pick a design.",
-          "body": "18 to choose from. Pick the closest one, you can switch any day this week.",
+          "body": "18 to choose from. Pick the closest one, you can switch any day.",
           "sub": []
         },
         {
@@ -261,19 +526,22 @@
           "sub": []
         },
         {
-          "title": "Publish.",
-          "body": "Copy your link and check it on your phone.",
+          "title": "Copy your preview link.",
+          "body": "Open it on your phone. That's the link for your card.",
           "sub": []
         }
       ],
-      "after_steps": [],
       "tool": {
         "title": "Your site, built from 4 answers",
         "blocks": [
           {
             "type": "button",
             "text": "Build my site",
-            "href": "/site-tonight?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day1"
+            "href": "/site-tonight?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day2"
+          },
+          {
+            "type": "note",
+            "text": "Want it on a public address too? Saturday's light day shows you how to put it on your own free Netlify account. It's optional."
           },
           {
             "type": "note",
@@ -286,47 +554,38 @@
         "blocks": [
           {
             "type": "quote",
-            "text": "Jordan details cars in people's driveways. Name: Northside Detail. What: full interior and exterior, at your house. Who: busy parents on the north side. Reach: text or Instagram."
+            "text": "Jordan's answers. Name: Northside Detail. What: full interior and exterior, at your house. Offer: full detail, $89. Email: his own."
           },
           {
             "type": "quote",
-            "text": "Twelve minutes later the site was live. Jordan changed the photo twice and left the rest."
+            "text": "Twelve minutes later Jordan had a preview link. He changed the photo twice and left the rest."
           }
         ]
       },
       "stuck": [
         {
-          "q": "I don't have a name yet.",
-          "a": "Use your first name and what you do, like \"Jordan's Detailing\". You can rename it Friday."
-        },
-        {
           "q": "I don't like any of the designs.",
-          "a": "Pick the closest one. You can switch it in one tap any day this week, and nothing you typed is lost."
+          "a": "Pick the closest one. You can switch it in one tap any day, and nothing you typed is lost."
         },
         {
           "q": "It says my site is almost ready.",
-          "a": "Add an email for the page. Until it has one, the site can't go online."
+          "a": "Add an email for the page. The site needs one before it's finished."
         },
         {
-          "q": "I still don't have an idea.",
-          "a": "Pick one of the starter ideas from Sunday's email. You're not marrying it. You're testing it this week."
+          "q": "Who can see my preview link?",
+          "a": "Whoever you send it to. It's the link for your card. A public address on your own free Netlify account is Saturday's optional step."
         }
       ],
       "checkin": {
+        "button": "Mark Day 2 done",
+        "feature": false,
         "fields": [
           {
-            "id": "business",
-            "label": "Your business name",
-            "type": "text",
-            "required": true,
-            "placeholder": "Northside Detail"
-          },
-          {
             "id": "site_url",
-            "label": "Your site's link",
+            "label": "Your site's preview link",
             "type": "text",
             "required": true,
-            "placeholder": "northside-detail.127group.io"
+            "placeholder": "Paste your preview link"
           },
           {
             "id": "show_idea",
@@ -335,36 +594,31 @@
             "required": false,
             "placeholder": null
           }
-        ],
-        "button": "Mark Day 1 done",
-        "feature": false
+        ]
       },
       "after": {
-        "title": "Day 1: you're live.",
+        "title": "Day 2: your site exists.",
         "lines": [
-          "Your business is on the internet. Most people never get this far.",
-          "Tonight at 8pm ET I'm live on Instagram, building a site from a comment. @elichristiansen_",
+          "Your business has a website. Most people never get this far.",
+          "Post your card with the link and ask one person what they'd change.",
           "Tomorrow at 8am: your offer goes on it."
         ]
       },
       "next": "your offer goes on your site",
       "card": {
-        "label": "DAY 1 · I'M LIVE",
+        "label": "DAY 2 · MY SITE",
         "show": "show_idea"
       }
     },
     {
-      "n": 2,
-      "date": "Tuesday 10 November",
-      "move": "Offer on it",
-      "label": "DAY 2 OF 5 · YOUR OFFER, ON THE SITE",
+      "n": 3,
+      "date": "Thursday 5 November",
+      "move": "Your offer",
+      "label": "DAY 3 OF 14 · YOUR OFFER",
+      "intro_small": null,
+      "after_steps": [],
       "headline": "One line. Who, result, how, price.",
       "line": "Make the offer so good it feels almost too good to be true.",
-      "intro": [
-        "Your site is up. Right now it says what you do. Today it says why someone should say yes.",
-        "One line. Get it graded, fix the weakest part, and put it on your site."
-      ],
-      "intro_small": null,
       "move_time": "about 15 minutes",
       "steps": [
         {
@@ -388,7 +642,23 @@
           "sub": []
         }
       ],
-      "after_steps": [],
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Before: \"Car detailing services.\" After: \"Your car, cleaned inside and out in your driveway while you work, $89.\""
+          },
+          {
+            "type": "quote",
+            "text": "Jordan posted both lines and asked which one people would buy. Seven comments, all for the second one."
+          }
+        ]
+      },
+      "intro": [
+        "Your site is up. Right now it says what you do. Today it says why someone should say yes.",
+        "One line. Get it graded, fix the weakest part, and put it on your site."
+      ],
       "tool": {
         "title": "The offer line, graded",
         "blocks": [
@@ -400,7 +670,7 @@
           {
             "type": "button",
             "text": "Grade my offer",
-            "href": "/offer-score?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day2"
+            "href": "/offer-score?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day3"
           },
           {
             "type": "h",
@@ -416,23 +686,10 @@
           }
         ]
       },
-      "example": {
-        "title": "For example",
-        "blocks": [
-          {
-            "type": "quote",
-            "text": "Before: \"Car detailing services.\" After: \"Your car, cleaned inside and out in your driveway while you work, $89.\""
-          },
-          {
-            "type": "quote",
-            "text": "Jordan posted both lines and asked which one people would buy. Seven comments, all for the second one."
-          }
-        ]
-      },
       "stuck": [
         {
           "q": "I don't know what to charge.",
-          "a": "Pick a price a friend would pay without thinking, then add 20%. You can change it on Friday."
+          "a": "Pick a price a friend would pay without thinking, then add 20%. Monday is price day, so you can change it then."
         },
         {
           "q": "My grade is low.",
@@ -444,6 +701,8 @@
         }
       ],
       "checkin": {
+        "button": "Mark Day 3 done",
+        "feature": false,
         "fields": [
           {
             "id": "offer",
@@ -468,35 +727,524 @@
             "required": false,
             "placeholder": null
           }
-        ],
-        "button": "Mark Day 2 done",
-        "feature": false
-      },
-      "after": {
-        "title": "Day 2: your offer is on it.",
-        "lines": [
-          "Post your line and ask: would you buy this? Honest answers beat polite ones.",
-          "Tomorrow at 8am: your list of 25."
         ]
       },
-      "next": "your list of 25",
+      "after": {
+        "title": "Day 3: your offer is on it.",
+        "lines": [
+          "Post your line and ask: would you buy this? Honest answers beat polite ones.",
+          "Tomorrow at 8am: proof that it's real."
+        ]
+      },
+      "next": "proof that it's real",
       "card": {
-        "label": "DAY 2 · RATE MY OFFER",
+        "label": "DAY 3 · RATE MY OFFER",
         "show": "show_offer"
       }
     },
     {
-      "n": 3,
-      "date": "Wednesday 11 November",
+      "n": 4,
+      "date": "Friday 6 November",
+      "move": "Your proof",
+      "label": "DAY 4 OF 14 · YOUR PROOF",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Show it's real.",
+      "line": "People believe what they can see.",
+      "intro": [
+        "An offer on its own is a promise. Proof makes it real.",
+        "Today you add one piece of proof to your site: a before and after, photos of your work, a sample or a mockup. Nothing yet? Make it on yourself, a friend or your own stuff."
+      ],
+      "move_time": "about 15 minutes",
+      "steps": [
+        {
+          "title": "Pick one kind of proof.",
+          "body": "Whatever you can make today:",
+          "sub": [
+            "A before and after",
+            "Photos of your work, or of you doing it",
+            "A sample: a free first one for a friend",
+            "A mockup, if it isn't made yet"
+          ]
+        },
+        {
+          "title": "Make it.",
+          "body": "Your phone is enough. Daylight and a plain background.",
+          "sub": []
+        },
+        {
+          "title": "Add it to your site.",
+          "body": "Right under your offer.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Proof, by path",
+        "blocks": [
+          {
+            "type": "h",
+            "path": "service",
+            "text": "For a service:"
+          },
+          {
+            "type": "ul",
+            "path": "service",
+            "items": [
+              "A before and after on your own car, room or yard",
+              "A short video of you doing the work",
+              "A friend's honest line about the result, with their OK"
+            ]
+          },
+          {
+            "type": "h",
+            "path": "products",
+            "text": "For products:"
+          },
+          {
+            "type": "ul",
+            "path": "products",
+            "items": [
+              "The product on a plain background, in daylight",
+              "It in use, in someone's hands",
+              "A mockup if it isn't made yet, labeled as a mockup"
+            ]
+          },
+          {
+            "type": "h",
+            "path": "creator",
+            "text": "For a creator or skill:"
+          },
+          {
+            "type": "ul",
+            "path": "creator",
+            "items": [
+              "A 30-second sample of what you'd make",
+              "A before and after of something you edited or taught",
+              "Your best post so far"
+            ]
+          },
+          {
+            "type": "note",
+            "text": "Only use someone's words or photo with their OK. Never make up a review."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan detailed his own car Thursday night and shot it from the same spot before and after. Two photos, side by side, right under his offer."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I don't have anything to show yet.",
+          "a": "Make it on yourself. Your own car, your own room, your own first product. It still counts."
+        },
+        {
+          "q": "My photos look bad.",
+          "a": "Shoot by a window in daylight, against a plain wall. A phone is fine."
+        },
+        {
+          "q": "Can I use a photo from the internet?",
+          "a": "No. Use your own, or a mockup you made and call it a mockup."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 4 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "proof",
+            "label": "What did you add?",
+            "type": "choice",
+            "required": true,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "before_after",
+                "label": "A before and after"
+              },
+              {
+                "value": "photos",
+                "label": "Photos of my work"
+              },
+              {
+                "value": "sample",
+                "label": "A sample"
+              },
+              {
+                "value": "mockup",
+                "label": "A mockup"
+              },
+              {
+                "value": "words",
+                "label": "Someone's words, with their OK"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 4: it's real.",
+        "lines": [
+          "Your site now shows what you do, not just says it.",
+          "Tomorrow's a light day: your week 1 card, and an optional public address."
+        ]
+      },
+      "next": "a light day and your week 1 card",
+      "card": {
+        "label": "DAY 4 · MY PROOF"
+      }
+    },
+    {
+      "n": 5,
+      "date": "Saturday 7 November",
+      "move": "Show week 1",
+      "label": "DAY 5 OF 14 · LIGHT DAY",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Light day. Show your week.",
+      "line": "Progress you can see beats progress you can explain.",
+      "intro": [
+        "Four days ago you didn't have a business name. Now you've got a site, an offer and proof on it.",
+        "Today is light: post your week 1 card. If you want your site on a public address, the optional steps are below."
+      ],
+      "move_time": "about 5 minutes",
+      "steps": [
+        {
+          "title": "Post your week 1 card.",
+          "body": "It shows up after you check in. Story, feed or Close Friends.",
+          "sub": []
+        },
+        {
+          "title": "Optional: a public address.",
+          "body": "Download your site and put it on your own free Netlify account. You get your own netlify.app address.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Optional: your own public address",
+        "blocks": [
+          {
+            "type": "ol",
+            "items": [
+              "Open your site and download it. You get a ZIP file.",
+              "Unzip it.",
+              "Go to app.netlify.com/drop and sign up free with your email.",
+              "Drag the unzipped folder onto the page.",
+              "Copy your new address and paste it below."
+            ]
+          },
+          {
+            "type": "note",
+            "text": "This is your own Netlify account, not 127's. Skip it if you like: your preview link works for the whole challenge."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan posted his week 1 card to Close Friends and skipped the Netlify step. He'll do it when he's ready."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I'm behind.",
+          "a": "Use today and tomorrow to catch up. Every day stays open until Monday, November 16 at 11:59pm ET."
+        },
+        {
+          "q": "Do I have to do the Netlify step?",
+          "a": "No. It's optional. Your preview link works for the whole challenge."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 5 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "site_public",
+            "label": "Where is your site now?",
+            "type": "choice",
+            "required": true,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "preview",
+                "label": "On my preview link"
+              },
+              {
+                "value": "netlify",
+                "label": "On my own Netlify address"
+              }
+            ]
+          },
+          {
+            "id": "public_url",
+            "label": "Your public address, if you made one",
+            "type": "text",
+            "required": false,
+            "placeholder": "northside-detail.netlify.app"
+          }
+        ]
+      },
+      "after": {
+        "title": "Week 1: built.",
+        "lines": [
+          "A name, a site, an offer and proof. That's week 1.",
+          "Tomorrow is lighter still: 5 minutes to plan week 2."
+        ]
+      },
+      "next": "plan week 2",
+      "card": {
+        "label": "WEEK 1 · BUILT",
+        "line": [
+          2,
+          "site_url"
+        ],
+        "toggle": "Add my site to my card"
+      }
+    },
+    {
+      "n": 6,
+      "date": "Sunday 8 November",
+      "move": "Plan week 2",
+      "label": "DAY 6 OF 14 · PLAN WEEK 2",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Five minutes. Then rest.",
+      "line": "If it's not on the calendar, it's not real.",
+      "intro": [
+        "Week 2 is where you put it in front of people. That goes better with 15 minutes blocked every day.",
+        "Pick your time, put it on your calendar, and take the rest of the day off. Behind? Today's your catch-up day."
+      ],
+      "move_time": "about 5 minutes",
+      "steps": [
+        {
+          "title": "Pick your 15 minutes.",
+          "body": "Same time every day, Monday to Monday.",
+          "sub": []
+        },
+        {
+          "title": "Put it on your calendar.",
+          "body": "Name it \"Day One\" and turn on the reminder.",
+          "sub": []
+        },
+        {
+          "title": "Catch up if you need to.",
+          "body": "Any day you missed is still open.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "The next 8 days",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "**Mon:** your price and first package",
+              "**Tue:** your list of 25",
+              "**Wed:** go public",
+              "**Thu:** your first 5 asks",
+              "**Fri:** follow up, and 5 more",
+              "**Sat:** three posts, already written",
+              "**Sun:** a 60-second walkthrough",
+              "**Mon:** demo night live, 8pm ET"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan blocked 7:30 to 7:45am, before work, every day through Monday the 16th."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I can't do the same time every day.",
+          "a": "Pick a time for each day instead. Any 15 minutes counts."
+        },
+        {
+          "q": "I missed days.",
+          "a": "Open them from your page. Two missed days still count as finishing."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 6 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "time_block",
+            "label": "When are your 15 minutes?",
+            "type": "choice",
+            "required": true,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "morning",
+                "label": "Morning"
+              },
+              {
+                "value": "lunch",
+                "label": "Lunch"
+              },
+              {
+                "value": "evening",
+                "label": "Evening"
+              },
+              {
+                "value": "varies",
+                "label": "It changes day to day"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 6: week 2 is planned.",
+        "lines": [
+          "Rest up. Tomorrow at 8am: your price and first package."
+        ]
+      },
+      "next": "your price and first package",
+      "card": {
+        "label": "DAY 6 · PLANNED"
+      }
+    },
+    {
+      "n": 7,
+      "date": "Monday 9 November",
+      "move": "Your price",
+      "label": "DAY 7 OF 14 · YOUR PRICE",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "One package. One price.",
+      "line": "Confused people don't buy.",
+      "intro": [
+        "Your offer says what you do. Today you turn it into one thing someone can buy: what's included, how long it takes, and the price.",
+        "One package. You can add more later."
+      ],
+      "move_time": "about 15 minutes",
+      "steps": [
+        {
+          "title": "Name the package.",
+          "body": "Plain words: \"Full detail\", \"Starter portrait\", \"3-video pack\".",
+          "sub": []
+        },
+        {
+          "title": "List what's in it.",
+          "body": "3 to 5 things. What they get, and when.",
+          "sub": []
+        },
+        {
+          "title": "Set the price.",
+          "body": "A number you'd say out loud without flinching. You can change it later.",
+          "sub": []
+        },
+        {
+          "title": "Put it on your site.",
+          "body": "Under your offer, with how to book or order.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Your package, filled in",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "The package",
+            "text": "[Name]: [what's included]. Ready in [time]. [Price]."
+          },
+          {
+            "type": "h",
+            "text": "Three examples:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "Service: \"Full detail: inside and out, at your house, about 2 hours. $89.\"",
+              "Products: \"Starter portrait: one pet, 8x10, framed, shipped in 10 days. $65.\"",
+              "Creator or skill: \"3-video pack: 3 short videos of your product in use, delivered in 7 days. $150.\""
+            ]
+          },
+          {
+            "type": "button",
+            "text": "Grade my offer again",
+            "href": "/offer-score?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day7"
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan's package: \"Full detail: vacuum, wipe-down, wash and wax, in your driveway, about 2 hours. $89. Text to book.\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I don't know what to charge.",
+          "a": "Look up 3 people who do something similar near you and pick a price in the middle. You can change it anytime."
+        },
+        {
+          "q": "I want to offer three options.",
+          "a": "Start with one. More choices make it harder to say yes."
+        },
+        {
+          "q": "It feels expensive.",
+          "a": "Then it's probably close. Keep it this week and see what people say."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 7 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "package",
+            "label": "Your package, in one line",
+            "type": "text",
+            "required": true,
+            "placeholder": "Full detail: inside and out, at your house, about 2 hours. $89."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 7: something to buy.",
+        "lines": [
+          "Someone can look at your site now and know exactly what they get and what it costs.",
+          "Tomorrow at 8am: week 2 starts with your list of 25."
+        ]
+      },
+      "next": "your list of 25",
+      "card": {
+        "label": "DAY 7 · MY FIRST PACKAGE",
+        "line": [
+          7,
+          "package"
+        ],
+        "toggle": "Add my package to my card"
+      }
+    },
+    {
+      "n": 8,
+      "date": "Tuesday 10 November",
       "move": "Your list of 25",
-      "label": "DAY 3 OF 5 · YOUR LIST OF 25",
+      "label": "DAY 8 OF 14 · YOUR LIST OF 25",
+      "intro_small": null,
+      "after_steps": [],
       "headline": "You don't need followers. You need 25 names.",
       "line": "Your network is your net worth.",
-      "intro": [
-        "You don't need a big following to start. You need a short list of people who could use what you do.",
-        "Today you build it. Each name gets a message, already written. Don't send yet. That's Friday."
-      ],
-      "intro_small": null,
       "move_time": "about 15 minutes",
       "steps": [
         {
@@ -520,52 +1268,6 @@
           "sub": []
         }
       ],
-      "after_steps": [],
-      "tool": {
-        "title": "Your list, by path",
-        "blocks": [
-          {
-            "type": "button",
-            "path": "service",
-            "text": "Find local businesses",
-            "href": "/first-25?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day3"
-          },
-          {
-            "type": "note",
-            "path": "service",
-            "text": "Selling to people, not businesses? Use the templates below and start with people you know."
-          },
-          {
-            "type": "button",
-            "path": "creator",
-            "text": "Open the brand list",
-            "href": "/brand-list?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day3"
-          },
-          {
-            "type": "h",
-            "text": "Three messages to copy:"
-          },
-          {
-            "type": "template",
-            "label": "Someone you know",
-            "text": "Hey [name], I just started [business]: [offer line]. You came to mind. Would you or someone you know want it? Here's the site: [link]"
-          },
-          {
-            "type": "template",
-            "label": "Ask for an intro",
-            "text": "Hey [name], quick favor. I just started [business]. Do you know anyone who [problem]? Even one name helps a lot."
-          },
-          {
-            "type": "template",
-            "label": "Someone who posted about it",
-            "text": "Hey [name], saw your post about [problem]. I just started [business], which [result]. Want me to send you the details? Totally fine if not."
-          },
-          {
-            "type": "note",
-            "text": "Send these one at a time from your own account. Don't use tools that mass-text or auto-DM people."
-          }
-        ]
-      },
       "example": {
         "title": "For example",
         "blocks": [
@@ -590,6 +1292,8 @@
         }
       ],
       "checkin": {
+        "button": "Mark Day 8 done",
+        "feature": false,
         "fields": [
           {
             "id": "list_count",
@@ -634,12 +1338,59 @@
               }
             ]
           }
-        ],
-        "button": "Mark Day 3 done",
-        "feature": false
+        ]
+      },
+      "intro": [
+        "You don't need a big following to start. You need a short list of people who could use what you do.",
+        "Today you build it. Each name gets a message, already written. Don't send yet. That's Thursday."
+      ],
+      "tool": {
+        "title": "Your list, by path",
+        "blocks": [
+          {
+            "type": "button",
+            "path": "service",
+            "text": "Find local businesses",
+            "href": "/first-25?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day8"
+          },
+          {
+            "type": "note",
+            "path": "service",
+            "text": "Selling to people, not businesses? Use the templates below and start with people you know."
+          },
+          {
+            "type": "button",
+            "path": "creator",
+            "text": "Open the brand list",
+            "href": "/brand-list?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day8"
+          },
+          {
+            "type": "h",
+            "text": "Three messages to copy:"
+          },
+          {
+            "type": "template",
+            "label": "Someone you know",
+            "text": "Hey [name], I just started [business]: [offer line]. You came to mind. Would you or someone you know want it? Here's the site: [link]"
+          },
+          {
+            "type": "template",
+            "label": "Ask for an intro",
+            "text": "Hey [name], quick favor. I just started [business]. Do you know anyone who [problem]? Even one name helps a lot."
+          },
+          {
+            "type": "template",
+            "label": "Someone who posted about it",
+            "text": "Hey [name], saw your post about [problem]. I just started [business], which [result]. Want me to send you the details? Totally fine if not."
+          },
+          {
+            "type": "note",
+            "text": "Send these one at a time from your own account. Don't use tools that mass-text or auto-DM people."
+          }
+        ]
       },
       "after": {
-        "title": "Day 3: your list is ready.",
+        "title": "Day 8: your list is ready.",
         "lines": [
           "That's the hardest part of selling, done before you've sent anything.",
           "Tomorrow at 8am: you go public."
@@ -647,21 +1398,22 @@
       },
       "next": "you go public",
       "card": {
-        "label": "DAY 3 · MY LIST OF 25"
+        "label": "DAY 8 · MY LIST OF 25"
       }
     },
     {
-      "n": 4,
-      "date": "Thursday 12 November",
+      "n": 9,
+      "date": "Wednesday 11 November",
       "move": "Go public",
-      "label": "DAY 4 OF 5 · GO PUBLIC",
+      "label": "DAY 9 OF 14 · GO PUBLIC",
+      "intro_small": null,
+      "after_steps": [],
       "headline": "Today's the scary one. Post it.",
       "line": "The faster you fail, the faster you learn.",
       "intro": [
         "People can't buy from you if they don't know you exist.",
         "Post that you're starting. Your link, one hook, done. The words are already written."
       ],
-      "intro_small": null,
       "move_time": "about 10 minutes",
       "steps": [
         {
@@ -680,32 +1432,6 @@
           "sub": []
         }
       ],
-      "after_steps": [],
-      "tool": {
-        "title": "Hooks and a caption, ready to fill",
-        "blocks": [
-          {
-            "type": "template",
-            "label": "Hook A",
-            "text": "Today I'm starting [business]. Day 4 of building it in public."
-          },
-          {
-            "type": "template",
-            "label": "Hook B",
-            "text": "If you're in [city or community] and you [problem], I built this for you."
-          },
-          {
-            "type": "template",
-            "label": "Hook C",
-            "text": "I gave myself 5 days to start a business. Here's day 4."
-          },
-          {
-            "type": "template",
-            "label": "Caption",
-            "text": "I'm starting [business]: [offer line]. It's live at [link]. Doing the free #DayOne127 challenge with @buildwith127 this week. If you know someone who [problem], send them this."
-          }
-        ]
-      },
       "example": {
         "title": "For example",
         "blocks": [
@@ -730,6 +1456,8 @@
         }
       ],
       "checkin": {
+        "button": "Mark Day 9 done",
+        "feature": false,
         "fields": [
           {
             "id": "posted",
@@ -763,12 +1491,35 @@
             "required": false,
             "placeholder": "https://instagram.com/p/..."
           }
-        ],
-        "button": "Mark Day 4 done",
-        "feature": false
+        ]
+      },
+      "tool": {
+        "title": "Hooks and a caption, ready to fill",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "Hook A",
+            "text": "Today I'm telling everyone: I started [business]. Day 9 of building it in public."
+          },
+          {
+            "type": "template",
+            "label": "Hook B",
+            "text": "If you're in [city or community] and you [problem], I built this for you."
+          },
+          {
+            "type": "template",
+            "label": "Hook C",
+            "text": "I gave myself 14 days to start a business. Here's day 9."
+          },
+          {
+            "type": "template",
+            "label": "Caption",
+            "text": "I'm starting [business]: [offer line]. See it at [link]. Doing the free #DayOne127 challenge with @buildwith127. If you know someone who [problem], send them this."
+          }
+        ]
       },
       "after": {
-        "title": "Day 4: you're public.",
+        "title": "Day 9: you're public.",
         "lines": [
           "You told people. That's what makes it real.",
           "Tomorrow at 8am: your first 5 asks."
@@ -776,21 +1527,22 @@
       },
       "next": "your first 5 asks",
       "card": {
-        "label": "DAY 4 · I WENT PUBLIC"
+        "label": "DAY 9 · I WENT PUBLIC"
       }
     },
     {
-      "n": 5,
-      "date": "Friday 13 November",
-      "move": "5 asks",
-      "label": "DAY 5 OF 5 · YOUR FIRST 5 ASKS",
+      "n": 10,
+      "date": "Thursday 12 November",
+      "move": "First 5 asks",
+      "label": "DAY 10 OF 14 · FIRST 5 ASKS",
+      "intro_small": null,
+      "after_steps": [],
       "headline": "Five messages. That's the whole job today.",
       "line": "Solve problems. Don't sell products.",
       "intro": [
         "Your list is ready and each name has a message. Today you send 5.",
         "A no counts. No reply counts. You asked, and most people never get to this step."
       ],
-      "intro_small": null,
       "move_time": "about 15 minutes",
       "steps": [
         {
@@ -814,7 +1566,6 @@
           "sub": []
         }
       ],
-      "after_steps": [],
       "tool": {
         "title": "The ask, ready to send",
         "blocks": [
@@ -859,7 +1610,7 @@
         },
         {
           "q": "Nobody replied.",
-          "a": "Replies take a day or two. Follow up once on Monday. Zero replies still counts as done."
+          "a": "Replies take a day or two. Tomorrow you follow up once. Zero replies still counts as done."
         },
         {
           "q": "Someone said yes. Now what?",
@@ -867,6 +1618,8 @@
         }
       ],
       "checkin": {
+        "button": "Mark Day 10 done",
+        "feature": false,
         "fields": [
           {
             "id": "asks",
@@ -886,37 +1639,486 @@
             "min": 0,
             "max": 1000,
             "help": "0 is a real answer."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 10: you asked.",
+        "lines": [
+          "Five asks out. A no counts. No reply counts.",
+          "Tomorrow at 8am: follow up, and 5 more."
+        ]
+      },
+      "next": "follow up, and 5 more",
+      "card": {
+        "label": "DAY 10 · 5 ASKS SENT"
+      }
+    },
+    {
+      "n": 11,
+      "date": "Friday 13 November",
+      "move": "Follow up",
+      "label": "DAY 11 OF 14 · FOLLOW UP",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Most yeses come on the second message.",
+      "line": "The fortune is in the follow-up.",
+      "intro": [
+        "Yesterday you sent 5. Some said no, some said nothing.",
+        "Today: one short follow-up to anyone who didn't answer, and 5 new asks from your list."
+      ],
+      "move_time": "about 15 minutes",
+      "steps": [
+        {
+          "title": "Follow up once.",
+          "body": "Short and friendly, to anyone who didn't answer. Once only.",
+          "sub": []
+        },
+        {
+          "title": "Send 5 more.",
+          "body": "The next 5 from your list, with the same messages as yesterday.",
+          "sub": []
+        },
+        {
+          "title": "Tap sent as you go.",
+          "body": "A no counts. No reply counts.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "The follow-up, ready to send",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "Follow-up",
+            "text": "Hey [name], just bumping this in case it got buried. No worries if it's not for you."
           },
+          {
+            "type": "template",
+            "label": "After a no",
+            "text": "Thanks for telling me. Do you know anyone who might want it?"
+          },
+          {
+            "type": "note",
+            "text": "Send these one at a time from your own account. Don't use tools that mass-text or auto-DM people."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan followed up with the two who hadn't answered. One wrote back: \"Oh yes, is Saturday open?\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "Following up feels pushy.",
+          "a": "Once is polite. People are busy, not saying no."
+        },
+        {
+          "q": "I ran out of names.",
+          "a": "Ask the people on your list for one intro each. That's the second message."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 11 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "followups",
+            "label": "Follow-ups sent",
+            "type": "number",
+            "required": false,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000
+          },
+          {
+            "id": "asks_more",
+            "label": "New asks sent today",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000
+          },
+          {
+            "id": "replies_total",
+            "label": "Replies so far, all week",
+            "type": "number",
+            "required": false,
+            "placeholder": null,
+            "min": 0,
+            "max": 1000,
+            "help": "0 is a real answer."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 11: you followed up.",
+        "lines": [
+          "That's the step most people skip.",
+          "Tomorrow's light: three posts, already written."
+        ]
+      },
+      "next": "three posts, already written",
+      "card": {
+        "label": "DAY 11 · STILL ASKING"
+      }
+    },
+    {
+      "n": 12,
+      "date": "Saturday 14 November",
+      "move": "Three posts",
+      "label": "DAY 12 OF 14 · THREE POSTS",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Three posts. The words are written.",
+      "line": "Consistency beats intensity.",
+      "intro": [
+        "One post tells people you started. Three tells them you're serious.",
+        "Pick three below, fill in the brackets and post them. Schedule two for later if you like."
+      ],
+      "move_time": "about 15 minutes",
+      "steps": [
+        {
+          "title": "Pick three.",
+          "body": "Any three from below.",
+          "sub": []
+        },
+        {
+          "title": "Fill in the brackets.",
+          "body": "Change one line so it sounds like you.",
+          "sub": []
+        },
+        {
+          "title": "Post one now.",
+          "body": "Schedule the other two for tomorrow and Monday.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Posts, ready to fill",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "Behind the scenes",
+            "text": "What [the work] actually looks like. Day 12 of starting [business]."
+          },
+          {
+            "type": "template",
+            "label": "Before and after",
+            "text": "Before and after. [One line about it.] See more at [link]."
+          },
+          {
+            "type": "template",
+            "label": "The question",
+            "text": "If you could fix one thing about [problem], what would it be? I'm building [business] and I want to know."
+          },
+          {
+            "type": "template",
+            "label": "The lesson",
+            "text": "12 days ago I didn't have a business. One thing I learned: [lesson]. #DayOne127"
+          },
+          {
+            "type": "template",
+            "label": "The ask",
+            "text": "I have room for [number] more [package] next week. Message me or see [link]."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan posted the before and after, then scheduled the question for Sunday and the lesson for Monday."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I don't know what to post.",
+          "a": "Use your proof from Day 4. That's one done."
+        },
+        {
+          "q": "My last post got no likes.",
+          "a": "Likes aren't the goal. One person who sends it to a friend is."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 12 done",
+        "feature": false,
+        "fields": [
+          {
+            "id": "posts",
+            "label": "Posts out or scheduled",
+            "type": "number",
+            "required": true,
+            "placeholder": null,
+            "min": 0,
+            "max": 50
+          },
+          {
+            "id": "post_url_2",
+            "label": "Link to one of them",
+            "type": "text",
+            "required": false,
+            "placeholder": "https://instagram.com/p/..."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 12: three out.",
+        "lines": [
+          "Tomorrow: a 60-second walkthrough of your site, and your entry for demo night."
+        ]
+      },
+      "next": "your walkthrough for demo night",
+      "card": {
+        "label": "DAY 12 · 3 POSTS OUT"
+      }
+    },
+    {
+      "n": 13,
+      "date": "Sunday 15 November",
+      "move": "Your walkthrough",
+      "label": "DAY 13 OF 14 · YOUR WALKTHROUGH",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Sixty seconds. Show us what you built.",
+      "line": "Show, don't tell.",
+      "intro": [
+        "Tomorrow night is demo night. I'll go through real sites live on Instagram.",
+        "Today you record a 60-second walkthrough: your site on screen, who it's for, what they get and one thing you learned. Post it, and tick the box below if you want to be considered for demo night."
+      ],
+      "move_time": "about 15 minutes",
+      "steps": [
+        {
+          "title": "Screen-record your site.",
+          "body": "Scroll slowly from top to bottom.",
+          "sub": []
+        },
+        {
+          "title": "Talk over it.",
+          "body": "Who it's for, what they get, the price, and one thing you learned.",
+          "sub": []
+        },
+        {
+          "title": "Post it.",
+          "body": "Story, feed or Close Friends. Tag @buildwith127 and #DayOne127.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "A 60-second script",
+        "blocks": [
+          {
+            "type": "template",
+            "label": "Walkthrough",
+            "text": "This is [business]. I help [who] get [result]. You get [package] for [price]. Two weeks ago it didn't exist. One thing I learned: [lesson]."
+          },
+          {
+            "type": "note",
+            "text": "Your face is optional. A voice over the screen, or just captions, is fine."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan recorded his walkthrough on the couch in one take, 52 seconds, and posted it to his story."
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I hate my voice.",
+          "a": "Everyone does. Use captions with no voice instead."
+        },
+        {
+          "q": "It's longer than 60 seconds.",
+          "a": "Cut the intro. Start with the name of your business."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 13 done",
+        "feature": true,
+        "fields": [
+          {
+            "id": "walkthrough",
+            "label": "Your walkthrough",
+            "type": "choice",
+            "required": true,
+            "placeholder": null,
+            "options": [
+              {
+                "value": "posted",
+                "label": "Posted it"
+              },
+              {
+                "value": "recorded",
+                "label": "Recorded, not posted"
+              },
+              {
+                "value": "skipped",
+                "label": "Skipped the video"
+              }
+            ]
+          },
+          {
+            "id": "walkthrough_url",
+            "label": "Link to it, if you posted",
+            "type": "text",
+            "required": false,
+            "placeholder": "https://instagram.com/..."
+          }
+        ]
+      },
+      "after": {
+        "title": "Day 13: entered.",
+        "lines": [
+          "Tomorrow at 8pm ET: demo night, live on Instagram. @elichristiansen_",
+          "Tomorrow at 8am: your last check-in."
+        ]
+      },
+      "next": "demo night and your last check-in",
+      "card": {
+        "label": "DAY 13 · WATCH THIS",
+        "line": [
+          3,
+          "offer"
+        ],
+        "toggle": "Add my offer to my card"
+      }
+    },
+    {
+      "n": 14,
+      "date": "Monday 16 November",
+      "move": "Demo night",
+      "label": "DAY 14 OF 14 · DEMO NIGHT",
+      "intro_small": null,
+      "after_steps": [],
+      "headline": "Two weeks ago it didn't exist.",
+      "line": "Make today day one.",
+      "intro": [
+        "Look at what you made: a name, a site, an offer with proof, a package, a list, a public post, asks sent and followed up.",
+        "Today: write down what you learned, and come to demo night at 8pm ET. I'll go through real sites live and show you what opens tomorrow."
+      ],
+      "move_time": "about 5 minutes",
+      "steps": [
+        {
+          "title": "Write your one line.",
+          "body": "What you learned in two weeks.",
+          "sub": []
+        },
+        {
+          "title": "Count it up.",
+          "body": "Asks and replies across the challenge. Real numbers. Zero counts.",
+          "sub": []
+        },
+        {
+          "title": "Come to demo night.",
+          "body": "8pm ET on Instagram, @elichristiansen_.",
+          "sub": []
+        }
+      ],
+      "tool": {
+        "title": "Tonight",
+        "blocks": [
+          {
+            "type": "button",
+            "text": "Add demo night to my calendar",
+            "href": "/challenge/cal/debrief.ics"
+          },
+          {
+            "type": "note",
+            "text": "If anyone pays you, be ready to deliver what you promised by the date you gave, or refund them right away. If you pre-sell physical products, the FTC's Mail Order Rule requires shipping within the time you state (or 30 days) or offering a refund."
+          }
+        ]
+      },
+      "example": {
+        "title": "For example",
+        "blocks": [
+          {
+            "type": "quote",
+            "text": "Jordan's line: \"I waited a year for the perfect idea. Two weeks of doing beat it.\""
+          }
+        ]
+      },
+      "stuck": [
+        {
+          "q": "I didn't do every day.",
+          "a": "Any 12 of the 14 count as finishing. Check in on the days you did by 11:59pm ET tonight."
+        },
+        {
+          "q": "I can't make the live.",
+          "a": "The replay goes up on your challenge page after it airs."
+        }
+      ],
+      "checkin": {
+        "button": "Mark Day 14 done",
+        "feature": true,
+        "fields": [
           {
             "id": "lesson",
             "label": "What you learned, in one line",
             "type": "text",
-            "required": false,
+            "required": true,
             "placeholder": null
+          },
+          {
+            "id": "asks_total",
+            "label": "Asks sent, whole challenge",
+            "type": "number",
+            "required": false,
+            "placeholder": null,
+            "min": 0,
+            "max": 5000
+          },
+          {
+            "id": "replies_all",
+            "label": "Replies, whole challenge",
+            "type": "number",
+            "required": false,
+            "placeholder": null,
+            "min": 0,
+            "max": 5000,
+            "help": "0 is a real answer."
           }
-        ],
-        "button": "Mark Day 5 done",
-        "feature": true
+        ]
       },
       "after": {
-        "title": "You shipped five things.",
+        "title": "You built it in public.",
         "lines": [
-          "A site, an offer on it, a list of 25, your first post and 5 asks. That's further than most people get in a year of thinking about it.",
-          "**Monday, 8pm ET:** the debrief live on Instagram, the night before doors open. I'll review a few real sites and offers and show you what opens Tuesday. Missed a day? Check-ins stay open until Sunday at 11:59pm ET.",
+          "A name, a site, an offer with proof, a package, a list of 25, posts, asks and follow-ups. In two weeks.",
+          "**Tonight, 8pm ET:** demo night, live on Instagram. I'll go through real sites and show you what opens tomorrow.",
           "**Tuesday 17 November, 9am ET:** doors open for Day One finishers, an hour before everyone else. Everything you made comes with you."
         ]
       },
       "after_partial": {
-        "title": "Day 5: done.",
+        "title": "Day 14: done.",
         "lines": [
-          "You've got {{days_done}} of 5. Finish the rest by Sunday 11:59pm ET to count as a Day One finisher and get in an hour early on Tuesday."
+          "You've got {{days_done}} of 14. Any 12 count as finishing. Catch up by tonight at 11:59pm ET to get in an hour early tomorrow."
         ]
       },
       "next": null,
       "card": {
-        "label": "DAY ONE FINISHER · 5 OF 5",
+        "label": "DAY ONE FINISHER · 14 DAYS",
         "show": "show_offer"
       }
     }
-  ]
+  ],
+  "length": 14,
+  "finish_min": 12,
+  "card_finisher_sub": "14 days, built in public",
+  "lives": {
+    "kickoff": "Kickoff",
+    "debrief": "Demo night"
+  }
 }

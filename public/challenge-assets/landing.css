@@ -369,3 +369,15 @@ body:has(> main.chl) .nav .nav-cta .btn:not(.ghost) { border-color: var(--line-2
 .chl.chl-v2 .chl-dot { box-shadow: none; animation: none; }
 .chl.chl-v2 .reel-track, .chl.chl-v2 .hx-track { animation: none; }
 .chl.chl-v2 .chl-dot::after { display: none; }
+/* The 14-day version: two weeks of 7, smaller cards (a row of 7 on desktop, a timeline on phones). */
+.chl.chl-v2 .chl-wk { margin: 48px 0 0; font-family: var(--display); font-size: 19px; font-weight: 600; line-height: 1.2; letter-spacing: -.02em; color: var(--ink); }
+.chl.chl-v2 .chl-days.is-two-weeks { margin-top: 18px; gap: 12px; }
+.chl.chl-v2 .is-two-weeks .chl-day-card { margin-top: 8px; padding: 14px 16px; }
+.chl.chl-v2 .is-two-weeks .chl-day-k { margin-bottom: 6px; }
+.chl.chl-v2 .is-two-weeks .chl-day-k b { font-size: 26px; }
+.chl.chl-v2 .is-two-weeks h3 { margin-bottom: 4px; font-size: 18px; }
+.chl.chl-v2 .is-two-weeks .chl-day-what { margin: 0; font-size: 14px; }
+@media (min-width: 900px) {
+  .chl.chl-v2 .chl-days.is-two-weeks { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+  .chl.chl-v2 .is-two-weeks .chl-day { padding-top: 26px; }
+}

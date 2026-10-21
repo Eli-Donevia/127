@@ -14,7 +14,7 @@
   var dayLive = null;
   if (live) {
     dayLive = parseInt(C.dayLive, 10);
-    if (!(dayLive >= 1 && dayLive <= 5)) dayLive = C.startAt ? Math.min(5, Math.max(1, Math.floor(((C.now || Date.now()) - C.startAt) / 864e5) + 1)) : null;
+    if (!(dayLive >= 1 && dayLive <= (C.total || 5))) dayLive = C.startAt ? Math.min(C.total || 5, Math.max(1, Math.floor(((C.now || Date.now()) - C.startAt) / 864e5) + 1)) : null;
   }
   var btnLabel = live ? 'Join and catch up' : 'Join the free challenge';
   var showCd = !live && !!C.startAt && C.startAt > Date.now();
@@ -43,10 +43,21 @@
   // v2 ("Five days. Five things live."): the copy comes from content/challenge-v2.json; v1 keeps the lines above.
   var V2 = C.copy || null;
   if (V2) {
-    days = days.map(function (d, i) { var x = V2.days[i] || {}; return { iso: d.iso, date: d.date, move: x.move || d.move, what: x.what || d.what, have: x.have || d.have }; });
+    // One entry per content day, dated from the start (14 in the two-week version).
+    days = V2.days.map(function (x, i) {
+      var t = (C.startAt || 0) + i * 864e5;
+      var old = days[i] || {};
+      return { iso: C.startAt ? new Date(t).toISOString().slice(0, 10) : old.iso, date: C.startAt ? new Date(t).toLocaleString('en-GB', { timeZone: 'America/New_York', weekday: 'short', day: 'numeric', month: 'short' }).replace(',', '') : old.date, move: x.move || old.move, what: x.what || old.what, have: x.have || null };
+    });
+    if (V2.finisher_terms) finisherTerms = V2.finisher_terms;
     var keep = { 'Is it really free?': 1, 'What do finishers get?': 1, 'Is this financial advice?': 1, 'Is this a contest?': 1 };
-    faqs = V2.faq.concat(faqs.filter(function (q) { return keep[q[0]]; }));
+    faqs = V2.faq.concat(faqs.filter(function (q) { return keep[q[0]]; }).map(function (q) {
+      if (q[0] === 'What do finishers get?') return [q[0], finisherTerms];
+      if (q[0] === 'Is this a contest?' && V2.finisher_terms) return [q[0], "No. There's no drawing, judging or prize. Everyone who finishes gets the finisher perks, and the founding price is the same for everyone."];
+      return q;
+    }));
   }
+  var weeks = V2 && V2.weeks && days.length > 7 ? [days.slice(0, 7), days.slice(7)] : [days];
   var counts = C.counts || {};
   var wall = [
     ['eli-stage-full', 'morning-coffee', 'eli-popup-02', 'still-timer', 'eli-headphones', 'desk-overhead'],
@@ -117,7 +128,7 @@ function joinForm(id, withError) { %>
         <% if (live) { %>
         <div class="chl-now">
           <p class="chl-now-k"><span class="chl-dot" aria-hidden="true"></span><span><%= dayLive ? 'Day ' + dayLive + ' is live' : 'Live now' %></span></p>
-          <p class="chl-now-t">Join now and catch up. Every day stays open until Sunday night.</p>
+          <p class="chl-now-t"><%= V2 && V2.live_note ? V2.live_note : 'Join now and catch up. Every day stays open until Sunday night.' %></p>
         </div>
         <% } else if (showCd) { %>
         <p class="chl-cd-k" id="chl-cd-k">Starts in</p>
@@ -126,7 +137,7 @@ function joinForm(id, withError) { %>
       </div>
       <% } %>
 
-      <p class="chl-meta"><% if (V2) { %><span>Nov 9 to 13</span><% } %><span>Free</span><span>No card</span><span>Live with Eli on Instagram, Mon Nov 9 and Mon Nov 16 at 8pm ET</span></p>
+      <p class="chl-meta"><% if (V2) { %><span><%= V2.dates || 'Nov 9 to 13' %></span><% } %><span>Free</span><span>No card</span><span><%= V2 && V2.lives_meta ? V2.lives_meta : 'Live with Eli on Instagram, Mon Nov 9 and Mon Nov 16 at 8pm ET' %></span></p>
       <% if (counts.joined || counts.sitesLive) { %><p class="chl-meta chl-counts"><% if (counts.joined) { %><span><b><%= counts.joined.toLocaleString('en-US') %></b> joined</span><% } %><% if (counts.sitesLive) { %><span><b><%= counts.sitesLive.toLocaleString('en-US') %></b> sites live</span><% } %><% if (counts.withFriend) { %><span><b><%= counts.withFriend.toLocaleString('en-US') %></b> doing it with a friend</span><% } %></p><% } %>
     </div>
 
@@ -141,8 +152,8 @@ function joinForm(id, withError) { %>
       <p class="lit">You've had the idea for months.</p>
       <p class="lit">You've told three friends about it.</p>
       <p class="lit">You've watched someone else launch it.</p>
-      <% if (V2) { %><p class="lit">It's still in your notes app.</p>
-      <p class="lit punch">Five days puts it on the internet.<br><span>Your site, your offer and your first post, by Friday.</span></p>
+      <% if (V2) { %><p class="lit"><%= V2.hook_last || "It's still in your notes app." %></p>
+      <p class="lit punch"><%= V2.hook_punch ? V2.hook_punch[0] : 'Five days puts it on the internet.' %><br><span><%= V2.hook_punch ? V2.hook_punch[1] : 'Your site, your offer and your first post, by Friday.' %></span></p>
       <% } else { %><p class="lit">You haven't asked one customer.</p>
       <p class="lit punch">Five days fixes that.<br><span>Not a course. Five moves, done for real.</span></p><% } %>
     </div>
@@ -152,12 +163,14 @@ function joinForm(id, withError) { %>
   <section class="chl-week" aria-labelledby="chl-week-h">
     <div class="wrap">
       <div class="chl-head" data-reveal>
-        <p class="eyebrow">The week</p>
+        <p class="eyebrow"><%= V2 && V2.weeks ? "The two weeks" : "The week" %></p>
         <h2 class="chl-h2" id="chl-week-h"><span class="chl-dim"><%= V2 ? V2.week_h2[0] : 'One move a day.' %></span><br><span class="chl-steel"><%= V2 ? V2.week_h2[1] : 'Each one ends with proof.' %></span></h2>
       </div>
-      <ol class="chl-days">
-        <% days.forEach(function (d, i) {
-             var n = i + 1;
+      <% weeks.forEach(function (wk, w) { %>
+      <% if (weeks.length > 1) { %><h3 class="chl-wk"><%= V2.weeks[w] %></h3><% } %>
+      <ol class="chl-days<%= weeks.length > 1 ? ' is-two-weeks' : '' %>">
+        <% wk.forEach(function (d, i) {
+             var n = w * 7 + i + 1;
              var st = !live || !dayLive ? '' : n < dayLive ? 'unlocked' : n === dayLive ? 'live' : 'upcoming'; %>
         <li class="chl-day<%= st ? ' is-' + st : '' %>" data-reveal>
           <span class="chl-node" aria-hidden="true"></span>
@@ -166,14 +179,15 @@ function joinForm(id, withError) { %>
             <% if (st === 'live') { %><span class="chl-state is-live"><span class="chl-dot" aria-hidden="true"></span>Live now</span><% } else if (st === 'unlocked') { %><span class="chl-state">Unlocked</span><% } else if (st === 'upcoming') { %><span class="chl-state">Upcoming</span><% } %>
           </div>
           <div class="chl-day-card">
-            <p class="chl-day-k"><span>Day</span> <b>0<%= n %></b></p>
+            <p class="chl-day-k"><span>Day</span> <b><%= n < 10 ? '0' + n : n %></b></p>
             <h3><%= d.move %></h3>
             <p class="chl-day-what"><%= d.what %></p>
-            <div class="chl-day-have"><span>By tonight you'll have</span><p><%= d.have %></p></div>
+            <% if (d.have) { %><div class="chl-day-have"><span>By tonight you'll have</span><p><%= d.have %></p></div><% } %>
           </div>
         </li>
         <% }) %>
       </ol>
+      <% }) %>
     </div>
   </section>
 
@@ -187,7 +201,7 @@ function joinForm(id, withError) { %>
         <h2 class="chl-h2 chl-xl" id="chl-fri-h" data-reveal><%= V2 ? V2.fri_h2[0] : "Friday night, you'll have proof." %> <span class="chl-dim"><%= V2 ? V2.fri_h2[1] : 'Not a plan.' %></span></h2>
         <% if (V2) { %>
         <ul class="chl-checks" data-reveal><% V2.fri.forEach(function (l) { %><li><span class="chl-tick" aria-hidden="true"></span><%= l %></li><% }) %></ul>
-        <p class="chl-fri-note" data-reveal>Or you'll know it's time to switch ideas. That counts as a win too. It's a week instead of a year.</p>
+        <p class="chl-fri-note" data-reveal><%= V2.fri_note || "Or you'll know it's time to switch ideas. That counts as a win too. It's a week instead of a year." %></p>
         <% } else { %>
         <ul class="chl-checks" data-reveal>
           <li><span class="chl-tick" aria-hidden="true"></span>One idea, picked on purpose</li>
@@ -217,7 +231,7 @@ function joinForm(id, withError) { %>
         </article>
         <article class="chl-how-card" data-reveal>
           <figure><img src="/img/wall/eli-stage-full.jpg" alt="" width="480" height="600" loading="lazy"></figure>
-          <div class="chl-how-body"><h3>Two lives with Eli.</h3><p>Kickoff on Monday, November 9, and the debrief on Monday, November 16, the night before doors open. Both at 8pm ET on Instagram <span class="mono">@elichristiansen_</span>. Replays if you can't make it.</p></div>
+          <div class="chl-how-body"><h3>Two lives with Eli.</h3><p><%= V2 && V2.lives_how ? V2.lives_how : 'Kickoff on Monday, November 9, and the debrief on Monday, November 16, the night before doors open. Both at 8pm ET on Instagram' %> <span class="mono">@elichristiansen_</span>. Replays if you can't make it.</p></div>
         </article>
       </div>
     </div>
@@ -235,7 +249,7 @@ function joinForm(id, withError) { %>
       <div class="chl-fin-body">
         <div class="chl-head" data-reveal>
           <p class="eyebrow">Finishers</p>
-          <h2 class="chl-h2" id="chl-fin-h"><span class="chl-dim">Finish all five.</span> <span class="chl-steel">Get in first.</span></h2>
+          <h2 class="chl-h2" id="chl-fin-h"><span class="chl-dim"><%= V2 && V2.fin_h2 ? V2.fin_h2[0] : 'Finish all five.' %></span> <span class="chl-steel"><%= V2 && V2.fin_h2 ? V2.fin_h2[1] : 'Get in first.' %></span></h2>
         </div>
         <dl class="chl-perks" data-reveal>
           <div><dt>Doors open for you an hour early.</dt><dd>127 opens Tuesday, November 17 at 10am ET. Finishers get in at 9am.</dd></div>
@@ -257,8 +271,8 @@ function joinForm(id, withError) { %>
       <figure class="chl-mark" aria-hidden="true" data-reveal><img src="/challenge-assets/img/mark-chrome-3d.jpg" alt="" width="1330" height="880" loading="lazy"></figure>
       <div class="chl-letter" data-reveal>
         <p class="chl-letter-lead">The challenge is free, and everything you make is yours.</p>
-        <p>On Tuesday, November 17, I'm opening 127: a free roadmap and a membership called Builder with the rest of the playbooks and tools. I'll walk through it in my last challenge email and once on the debrief live, Monday, November 16. <%= price !== null ? 'Founding members get Builder for $' + price + ' a month, locked for as long as they stay.' : 'Founding members get Builder at a lower price, locked for as long as they stay.' %> It's $29 after November 24.</p>
-        <p>You don't need to buy anything to do the challenge. You'll get just as much out of the five days either way.</p>
+        <p>On Tuesday, November 17, I'm opening 127: a free roadmap and a membership called Builder with the rest of the playbooks and tools. <%= V2 && V2.deal_live ? V2.deal_live : "I'll walk through it in my last challenge email and once on the debrief live, Monday, November 16." %> <%= price !== null ? 'Founding members get Builder for $' + price + ' a month, locked for as long as they stay.' : 'Founding members get Builder at a lower price, locked for as long as they stay.' %> It's $29 after November 24.</p>
+        <p><%= V2 && V2.deal_free ? V2.deal_free : "You don't need to buy anything to do the challenge. You'll get just as much out of the five days either way." %></p>
         <p class="signature">Eli</p>
       </div>
     </div>
@@ -333,10 +347,10 @@ function joinForm(id, withError) { %>
       <% if (live) { %>
       <h2 class="kin chl-stagger chl-final-h" id="chl-final-h" data-reveal><span class="dim"><%- words('Make today', 0) %></span> <span><%- words('day one.', 2) %></span></h2>
       <% } else { %>
-      <h2 class="kin chl-stagger chl-final-h" id="chl-final-h" data-reveal><span class="dim"><%- words('Monday is', 0) %></span> <span><%- words('day one.', 2) %></span></h2>
+      <h2 class="kin chl-stagger chl-final-h" id="chl-final-h" data-reveal><span class="dim"><%- words(V2 && V2.final_h ? V2.final_h : 'Monday is', 0) %></span> <span><%- words('day one.', 2) %></span></h2>
       <% } %>
       <div class="chl-card chl-final-card"><% joinForm('join-final', false) %></div>
-      <p class="chl-final-meta"><span>Free</span><span>5 days</span><span>Nov 9 to 13</span></p>
+      <p class="chl-final-meta"><% (V2 && V2.final_meta ? V2.final_meta : ['Free', '5 days', 'Nov 9 to 13']).forEach(function (m) { %><span><%= m %></span><% }) %></p>
       <p class="chl-verse">Build with purpose. · Psalm 127:1</p>
     </div>
   </section>
@@ -346,7 +360,7 @@ function joinForm(id, withError) { %>
     <% if (live && dayLive) { %>
     <span class="chl-sticky-k"><span class="chl-dot" aria-hidden="true"></span>Day <%= dayLive %> is live</span>
     <% } else { %>
-    <span class="chl-sticky-k">Free · Nov 9 to 13</span>
+    <span class="chl-sticky-k"><%= V2 && V2.sticky ? V2.sticky : 'Free · Nov 9 to 13' %></span>
     <% } %>
     <a href="#join" class="btn light" data-ch-jump tabindex="-1">Join the challenge</a>
   </div>

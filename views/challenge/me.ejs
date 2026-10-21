@@ -25,14 +25,14 @@
       <div class="lbl">The Day One Challenge</div>
       <h1><% if (me.firstName) { %><span class="dim"><%= me.firstName %>'s</span> <span class="grad">Day One.</span><% } else { %><span class="dim">Your</span> <span class="grad">Day One.</span><% } %></h1>
       <div class="ch-status">
-        <div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="<%= me.finished ? '#86d6ad' : '#e3e6f1' %>" stroke-width="8" stroke-linecap="round" stroke-dasharray="<%= c %>" stroke-dashoffset="<%= c * (1 - me.daysDone / 5) %>"/></svg><b><%= me.daysDone %>/5</b></div>
+        <div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="<%= me.finished ? '#86d6ad' : '#e3e6f1' %>" stroke-width="8" stroke-linecap="round" stroke-dasharray="<%= c %>" stroke-dashoffset="<%= c * (1 - Math.min(1, me.daysDone / chx.finishMin)) %>"/></svg><b><%= me.daysDone %>/<%= chx.total %></b></div>
         <div>
           <% if (me.finished) { %>
             <p class="lede" style="margin:0"><b>You're a Day One finisher.</b> Doors open for you <%= chx.etWeekday(chx.launchAt) %> at <%= chx.etClock(chx.earlyAt) %> ET. We'll email your link.</p>
           <% } else if (chx.now > chx.closesAt) { %>
-            <p class="lede" style="margin:0">Check-ins are closed. You finished <b><%= me.daysDone %> of 5</b>. Doors open <%= chx.etLong(chx.launchAt) %> at <%= chx.etClock(chx.launchAt) %> ET. Your week carries over.</p>
+            <p class="lede" style="margin:0">Check-ins are closed. You finished <b><%= me.daysDone %> of <%= chx.total %></b>. Doors open <%= chx.etLong(chx.launchAt) %> at <%= chx.etClock(chx.launchAt) %> ET. Your week carries over.</p>
           <% } else { %>
-            <p class="lede" style="margin:0"><b><%= me.daysDone %> of 5</b> · Finish by Sunday 11:59pm ET for early access.</p>
+            <p class="lede" style="margin:0"><b><%= me.daysDone %> of <%= chx.total %></b> · <%= chx.finishMin < chx.total ? 'Any ' + chx.finishMin + ' count. ' : '' %>Finish by <%= chx.etWeekday(chx.closesAt) %> 11:59pm ET for early access.</p>
           <% } %>
         </div>
       </div>
@@ -41,9 +41,9 @@
 
   <section class="ch-block">
     <div class="wrap">
-      <span class="lbl">Your five days</span>
+      <span class="lbl">Your <%= chx.total === 5 ? 'five' : chx.total %> days</span>
       <ul class="ch-rows">
-        <% me.days.forEach(function (d) { var inner = '<span class="n">DAY 0' + d.n + '</span><span class="m">' + d.move + '<span class="d">' + d.date + '</span></span>'; %>
+        <% me.days.forEach(function (d) { var inner = '<span class="n">DAY ' + (d.n < 10 ? '0' : '') + d.n + '</span><span class="m">' + d.move + '<span class="d">' + d.date + '</span></span>'; %>
         <li><% if (d.unlocked || d.done) { %><a href="/challenge/day/<%= d.n %>"><%- inner %><span class="st <%= d.done ? 'ok' : 'go' %>"><%= d.done ? '✓ Done' : chx.now > chx.closesAt ? 'Closed' : 'Open' %> <span class="arrow"></span></span></a>
         <% } else { %><div class="row"><%- inner %><span class="st wait">Unlocks <%= chx.etDay(d.unlockAt) %>, <%= chx.etClock(d.unlockAt) %></span></div><% } %></li>
         <% }) %>

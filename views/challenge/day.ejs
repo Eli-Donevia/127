@@ -4,7 +4,7 @@
   var hl = split(d.headline);
   var fields = d.checkin.fields.filter(function (f) { return f.id !== 'show_idea' && f.id !== 'show_offer'; });
   // The card's line toggle follows content: Day 1 shows the idea, Day 4 and the finisher card the offer.
-  var cardToggle = d.card && d.card.show ? { label: toggles[d.card.show] } : null;
+  var cardToggle = finisherCard ? { label: toggles.show_offer } : d.card && d.card.toggle ? { label: d.card.toggle } : d.card && d.card.show ? { label: toggles[d.card.show] } : null;
   var finisher = me && me.finished;
   var unfinished = me ? me.days.filter(function (r) { return !r.done && r.unlocked; }) : [];
 %>
@@ -16,7 +16,7 @@
   <% if (state === 'locked') { %>
   <section class="ch-hero">
     <div class="wrap">
-      <div class="lbl">Day <%= n %> of 5</div>
+      <div class="lbl">Day <%= n %> of <%= chx.total %></div>
       <h1><span class="dim">Unlocks</span> <span class="grad"><%= chx.etWeekday(chx.startAt + (n - 1) * 864e5) %> at <%= chx.etClock(chx.startAt + (n - 1) * 864e5) %> ET.</span></h1>
       <p class="lede"><b><%= d.move %>.</b> <%= d.date %>.</p>
       <%- include('../partials/countdown', { cdTarget: chx.startAt + (n - 1) * 864e5 }) %>
@@ -30,14 +30,14 @@
   <section class="ch-done-hero" id="done">
     <div class="wrap">
       <% if (state === 'closed') { %>
-        <div class="lbl">Day <%= n %> of 5 · <%= d.move %></div>
+        <div class="lbl">Day <%= n %> of <%= chx.total %> · <%= d.move %></div>
         <h1><span class="dim">Check-ins are</span> <span class="grad">closed.</span></h1>
-        <p class="lede">You finished <b><%= me.daysDone %> of 5</b>. Doors open <%= chx.etLong(chx.launchAt) %> at <%= chx.etClock(chx.launchAt) %> ET<%= finisher ? ', and at ' + chx.etClock(chx.earlyAt) + ' for you' : '' %>. Your week carries over.</p>
-      <% } else if (n === 5 && finisher) { %>
+        <p class="lede">You finished <b><%= me.daysDone %> of <%= chx.total %></b>. Doors open <%= chx.etLong(chx.launchAt) %> at <%= chx.etClock(chx.launchAt) %> ET<%= finisher ? ', and at ' + chx.etClock(chx.earlyAt) + ' for you' : '' %>. Your week carries over.</p>
+      <% } else if (finisherCard) { var lastDay = n === chx.total; %>
         <img class="badge" src="/challenge-assets/img/day-one-badge.svg" alt="Day One badge" width="120" height="120" style="width:120px;height:120px;margin-bottom:6px">
-        <h1><span class="grad"><%= d.after.title %></span></h1>
-        <div class="ch-intro"><% d.after.lines.forEach(function (l) { %><p><%- md(l) %></p><% }) %></div>
-      <% } else if (n === 5 && d.after_partial) { %>
+        <h1><span class="grad"><%= lastDay ? d.after.title : "You're a Day One finisher." %></span></h1>
+        <div class="ch-intro"><% (lastDay ? d.after.lines : ["That's " + me.daysDone + ' days done, and any ' + chx.finishMin + ' count. Doors open for you at ' + chx.etClock(chx.earlyAt) + ' ET on ' + chx.etLong(chx.launchAt) + ', an hour before everyone else. Keep going: the rest of the days are still yours.'].concat(d.after.lines)).forEach(function (l) { %><p><%- md(l) %></p><% }) %></div>
+      <% } else if (n === chx.total && d.after_partial) { %>
         <div class="ch-tick" aria-hidden="true">✓</div>
         <h1><span class="grad"><%= d.after_partial.title %></span></h1>
         <div class="ch-intro"><% d.after_partial.lines.forEach(function (l) { %><p><%- md(l.replace('{{days_done}}', me.daysDone)) %></p><% }) %></div>
@@ -153,7 +153,7 @@
     <form class="ch-checkin" id="checkin" method="post" action="/challenge/day/<%= n %>" data-checkin novalidate>
       <span class="lbl">Check in</span>
       <h2><span class="dim">Done?</span> <span class="grad">Check in.</span></h2>
-      <p style="margin:0 0 22px">One or two lines. You can edit them until Sunday, November 15 at 11:59pm ET.</p>
+      <p style="margin:0 0 22px">One or two lines. You can edit them until <%= chx.etLong(chx.closesAt) %> at 11:59pm ET.</p>
       <% if (Object.keys(errors).length) { %><div class="alert error" role="alert">A couple of answers need a look.</div><% } %>
       <% fields.forEach(function (f) { var v = values[f.id]; var err = errors[f.id]; var opt = !f.required && !f.required_if; var id = 'f_' + f.id; %>
         <div class="ch-field" <% if (f.required_if) { %>data-required-if="<%= f.required_if.field %>=<%= f.required_if.equals %>"<% } %>>
@@ -190,7 +190,7 @@
   </section>
   <% } %>
 </main>
-<script>window.C127CardLabels = <%- JSON.stringify(cardLabels).replace(/</g, '\\u003c') %>;<% if (shareText) { %> window.C127CardMoves = <%- JSON.stringify(cardMoves).replace(/</g, '\\u003c') %>;<% } %></script>
+<script>window.C127CardLabels = <%- JSON.stringify(cardLabels).replace(/</g, '\\u003c') %>;<% if (shareText) { %> window.C127CardMoves = <%- JSON.stringify(cardMoves).replace(/</g, '\\u003c') %>;<% } %><% if (cardFinSub) { %> window.C127CardFinSub = <%- JSON.stringify(cardFinSub).replace(/</g, '\\u003c') %>;<% } %></script>
 <script src="/challenge-assets/card.js" defer></script>
 <%- include('partials/page-script') %>
 <%- include('../partials/foot') %>

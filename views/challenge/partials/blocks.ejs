@@ -1,6 +1,6 @@
 <%# Renders content blocks from content/challenge.json. Locals: blocks, md. A block with a "path" shows only
     to people on that path (v2), or to everyone who hasn't picked one. %>
-<% var myPath = (typeof me !== 'undefined' && me && me.entry && me.entry.path) || null; %>
+<% var myPath = (typeof me !== 'undefined' && me && me.entry && me.entry.path) || null; if (myPath === 'none') myPath = null; %>
 <% (blocks || []).forEach(function (b) { if (b.path && myPath && b.path !== myPath) return; %>
   <% if (b.type === 'p') { %><p><%- md(b.text) %></p>
   <% } else if (b.type === 'h') { %><h4><%- md(b.text) %></h4>

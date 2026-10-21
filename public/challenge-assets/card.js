@@ -139,15 +139,42 @@
     }
   }
 
+  function moveList() { return window.C127CardMoves || MOVES; }
+  function dayTotal() { return moveList().length; }
+
   var STRIP = { gap: 13.44, padX: 17.92, padY: 20.16, row: 24.75, lh: 24.47, r: 22.4, font: '600 21.28px ' + SANS, ls: -0.4256 };
+  // More than 5 days (the 14-day version): a streak grid of 7 a row, one row a week, no move names.
+  var GRID = { cols: 7, gap: 12, h: 76, r: 18 };
+  function gridLayout() {
+    var rows = Math.ceil(dayTotal() / GRID.cols);
+    return { grid: true, rows: rows, w: (W - PAD * 2 - GRID.gap * (GRID.cols - 1)) / GRID.cols, h: rows * GRID.h + (rows - 1) * GRID.gap };
+  }
+  function drawGrid(x, s, top, today, done) {
+    top = Math.round(top);
+    for (var i = 0; i < dayTotal(); i++) {
+      var day = i + 1, row = Math.floor(i / GRID.cols), col = i % GRID.cols;
+      var l = Math.round(PAD + col * (s.w + GRID.gap)), w = Math.round(PAD + col * (s.w + GRID.gap) + s.w) - l, t = top + row * (GRID.h + GRID.gap);
+      var on = day === today, isDone = done.indexOf(day) >= 0;
+      rrect(x, l + 0.5, t + 0.5, w - 1, GRID.h - 1, GRID.r);
+      x.fillStyle = isDone ? 'rgba(134,214,173,.14)' : on ? '#1c1c22' : '#101013';
+      x.fill();
+      x.lineWidth = 1;
+      x.strokeStyle = isDone ? 'rgba(134,214,173,.55)' : on ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.14)';
+      x.stroke();
+      x.font = (isDone ? '600 30px ' : '500 24px ') + MONO; x.fillStyle = isDone ? SIGNAL : on ? INK : SLATE;
+      center(x, isDone ? '\u2713' : (day < 10 ? '0' : '') + day, t + GRID.h / 2 + 8.5, 0, l + w / 2);
+    }
+  }
   function stripLayout(x) {
+    if (dayTotal() > 5) return gridLayout();
     var w = (W - PAD * 2 - STRIP.gap * 4) / 5;
     x.font = STRIP.font;
-    var lines = (window.C127CardMoves || MOVES).map(function (m) { return wrap(x, m, w - 2 - STRIP.padX * 2 + 1, STRIP.ls, 3); });
+    var lines = moveList().map(function (m) { return wrap(x, m, w - 2 - STRIP.padX * 2 + 1, STRIP.ls, 3); });
     var n = Math.max.apply(null, lines.map(function (l) { return l.length; }));
     return { w: w, lines: lines, h: 2 + STRIP.padY * 2 + STRIP.row + 11.2 + n * STRIP.lh };
   }
   function drawStrip(x, s, top, today, done) {
+    if (s.grid) return drawGrid(x, s, top, today, done);
     top = Math.round(top);
     for (var i = 0; i < 5; i++) {
       // Snap each card to whole pixels so its 1px border stays crisp.
@@ -172,15 +199,15 @@
 
   function labelFor(day) {
     var L = window.C127CardLabels, v;
-    if (L) v = Array.isArray(L) ? L[day === 'finisher' ? 5 : day - 1] : L[day];
+    if (L) v = Array.isArray(L) ? L[day === 'finisher' ? dayTotal() : day - 1] : L[day];
     return String(v || LABELS[day]).toUpperCase();
   }
-  function dayKey(v) { return String(v) === 'finisher' ? 'finisher' : Math.min(5, Math.max(1, parseInt(v, 10) || 1)); }
+  function dayKey(v) { return String(v) === 'finisher' ? 'finisher' : Math.min(dayTotal(), Math.max(1, parseInt(v, 10) || 1)); }
 
   function draw(opts) {
     opts = opts || {};
     var day = dayKey(opts.day), fin = day === 'finisher';
-    var done = fin ? [1, 2, 3, 4, 5] : (Array.isArray(opts.done) ? opts.done : String(opts.done || '').split(',')).map(Number);
+    var done = fin && !String(opts.done || '').length ? moveList().map(function (m, i) { return i + 1; }) : (Array.isArray(opts.done) ? opts.done : String(opts.done || '').split(',')).map(Number);
     var today = fin ? 0 : parseInt(opts.today, 10) || day;
     var name = String(opts.firstName || '').replace(/\s+/g, ' ').trim();
     var line = String(opts.line || '').replace(/\s+/g, ' ').trim();
@@ -220,7 +247,7 @@
         x.drawImage(img3d, CX - iw / 2, top, iw, heroH);
         x.globalCompositeOperation = 'source-over';
       } else {
-        var big = fin ? '127' : '0' + day;
+        var big = fin ? '127' : (day < 10 ? '0' : '') + day;
         x.font = fin ? '700 ' + Math.round(heroH * 0.76) + 'px ' + SANS : '600 260px ' + MONO;
         x.fillStyle = ink(x, top, top + heroH, STEEL);
         center(x, big, top + (fin ? heroH * 0.73 : 194), fin ? -heroH * 0.045 : -15.6);
@@ -244,7 +271,7 @@
 
       x.font = '400 30px ' + SANS; x.fillStyle = FOG;
       var friend = String(opts.friend || '').replace(/\s+/g, ' ').trim().slice(0, 24);
-      var sub = fin ? 'The Day One Challenge \u00b7 ' + (window.C127CardMoves ? '5 days, 5 things live' : '5 days, 5 moves') : 'The Day One Challenge \u00b7 Day ' + day + ' of 5';
+      var sub = fin ? 'The Day One Challenge \u00b7 ' + (window.C127CardFinSub || (window.C127CardMoves ? '5 days, 5 things live' : '5 days, 5 moves')) : 'The Day One Challenge \u00b7 Day ' + day + ' of ' + dayTotal();
       if (friend) sub += ' \u00b7 with ' + friend;
       center(x, fit(x, sub, max, -0.15), y + 31.65, -0.15);
       y += 42;
