@@ -1,13 +1,43 @@
 <%- include('../partials/head') %>
-<%# The marketplace's front (lib/market-routes.js GET /market). Shelves by kind, then niches, then the rows. %>
-<% var q = function (k, n) { var p = []; if (k) p.push('kind=' + k); if (n) p.push('niche=' + encodeURIComponent(n)); return '/market' + (p.length ? '?' + p.join('&') : ''); }; %>
+<%# The AI marketplace (lib/market-routes.js GET /market): 127's own packs and courses (SHOP_PACKS), then the members'
+    market (MARKETPLACE) with its shelves by kind and niche. Either half shows only while its switch is on for the
+    visitor. Legal L101 MK2: the page sells files, never selling as a way to earn. %>
+<% var q = function (k, n) { var p = []; if (k) p.push('kind=' + k); if (n) p.push('niche=' + encodeURIComponent(n)); return '/market' + (p.length ? '?' + p.join('&') : '') + '#members'; }; %>
 <main class="mk mk-index">
   <section class="mk-hero">
     <div class="wrap">
-      <h1 class="mk-h1">Made by people building on 127.</h1>
-      <p class="mk-line">Site designs, templates, prompt packs and workflows from members running their own businesses. A person at 127 checks every one before it goes up.</p>
+      <h1 class="mk-h1">The AI marketplace.</h1>
+      <p class="mk-line"><%= house && membersOn ? "Packs and courses from 127, and site designs, templates, prompts and workflows from people running their own businesses. Pay once, download straight away." : house ? 'Packs and courses from 127. Pay once, download straight away.' : 'Site designs, templates, prompt packs and workflows from members running their own businesses. A person at 127 checks every one before it goes up.' %></p>
+      <% if (house && membersOn) { %><p class="mk-jump"><a href="#house">From 127</a><a href="#members">From members</a></p><% } %>
     </div>
   </section>
+
+  <% if (house && !filtered) { %>
+  <section class="mk-part" id="house">
+    <div class="wrap">
+      <h2 class="mk-part-h">From 127 <span><%= house.count %></span></h2>
+      <div class="mk-plists">
+        <% house.groups.forEach(function (g) { %>
+        <div>
+          <h3 class="mk-plist-h"><%= g[0] %></h3>
+          <ul class="mk-plist">
+            <% g[1].forEach(function (p) { %><li><a href="/packs/<%= p.slug %>"><span class="t"><%= p.name %></span><span class="lead" aria-hidden="true"></span><span class="p">$<%= p.price %></span><span class="s"><%= p.line %></span></a></li><% }) %>
+          </ul>
+        </div>
+        <% }) %>
+      </div>
+      <p class="mk-plist-foot">
+        <% if (house.bundle) { %><a href="/packs/<%= house.bundle.slug %>"><%= house.bundle.name %> · $<%= house.bundle.price %></a><% } %>
+        <% if (house.starter) { %><a href="/packs/<%= house.starter.slug %>">The <%= house.starter.name %> is free with an account</a><% } %>
+        <span>Every pack also comes with Builder.</span>
+      </p>
+    </div>
+  </section>
+  <% } %>
+
+  <% if (membersOn) { %>
+  <section class="mk-part" id="members">
+  <% if (house) { %><div class="wrap"><h2 class="mk-part-h">From members <span><%= total %></span></h2></div><% } %>
   <nav class="mk-shelves" aria-label="Shelves">
     <div class="mk-shelves-in">
       <a href="<%= q(null, niche) %>"<% if (!kind) { %> aria-current="page"<% } %>>Everything <span><%= total %></span></a>
@@ -39,5 +69,7 @@
     </section>
     <% } %>
   </div>
+  </section>
+  <% } %>
 </main>
 <%- include('../partials/foot') %>
