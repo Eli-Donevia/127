@@ -67,8 +67,8 @@ uniform vec3 uPtr;
 uniform float uNeon;          // the water glows neon where it's disturbed (the hero without the 127)
 uniform float uPop;           // how much of the light is the accent colour           // the pointer's light: where it points (x, y) and how strong
 out vec4 o;
-const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.20, 0.83, 0.92);   // Tide #7CEBF6, in linear light, a touch hotter
-const vec3 TIDE = vec3(0.20, 0.83, 0.92), ORCHID = vec3(0.40, 0.26, 1.0), FLARE = vec3(0.89, 0.20, 1.0);   // D57, linear
+const vec3 HALO = vec3(0.89, 0.90, 0.95), POP = vec3(0.20, 0.83, 0.92);   // Tide #3ee6a0, in linear light, a touch hotter
+const vec3 EMERALD = vec3(0.048, 0.79, 0.35), EMERALD_DEEP = vec3(0.004, 0.19, 0.09);   // D59 Emerald #3EE6A0 / deep #0E7A55, linear
 const vec3 BG = vec3(BGC);
 const float SW_ = SWV, SH_ = SHV, SR_ = SRV, DEPTH_ = DEPTHV, BEVEL_ = BEVELV;
 const vec4 WB_ = vec4(WBV);
@@ -183,17 +183,23 @@ vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
   float t = 0.0;
   if (uNeon < 0.5) for (int i = 0; i < REFL; i++) { float d = glass(q); if (d < 0.002) { refl = shadeGlass(q, rr, gnorm(q), false); break; } q += rr * d; t += d; if (t > 9.0) break; }
   vec3 col = refl * (F * 1.1 + 0.03);
-  // where the pointer or a drop stirs it, the water lights up from within along its ripples: teal through orchid to
-  // flare, drifting slowly across the pond (D57). Only moving water glows; the still pond stays a dark mirror.
+  // where the pointer or a drop stirs it, light comes up through the water from below (D59: emerald, the signature).
+  // It's seen through the surface, so it bends with the refraction, dims where the water reflects (Fresnel), and
+  // gathers where the moving surface focuses it, catching hardest on the crests. Still water lets no light through.
   if (uNeon > 0.0) {
-    vec2 uv = (p.xz - WB_.xy) / WB_.zw, e2 = vec2(1.0 / 256.0, 0.0);
-    float h0 = texture(uW, uv).r, hx1 = texture(uW, uv + e2).r, hx0 = texture(uW, uv - e2).r, hz1 = texture(uW, uv + e2.yx).r, hz0 = texture(uW, uv - e2.yx).r;
-    // light only on the crest lines of moving rings (where the surface curves over), never filled discs or still water
-    float crest = smoothstep(NEON_LO, NEON_HI, 4.0 * h0 - hx1 - hx0 - hz1 - hz0);
-    float g = crest * smoothstep(0.03, 0.12, length(vec2(hx1 - hx0, hz1 - hz0)));
-    float a = abs(fract(dot(p.xz, vec2(0.19, 0.11)) + uTime * 0.035) * 2.0 - 1.0);
-    vec3 neon = mix(mix(TIDE, ORCHID, smoothstep(0.15, 0.6, a)), FLARE, smoothstep(0.65, 1.0, a));
-    col += neon * g * 1.1 * uNeon * (0.35 + 0.65 * (1.0 - c));
+    vec2 uv = (p.xz - WB_.xy) / WB_.zw;
+    vec3 rt = refract(rd, n, 1.0 / 1.33);
+    vec2 uv2 = uv + rt.xz * (0.22 / max(-rt.y, 0.25)) / WB_.zw;     // where the ray meets the light under the surface
+    vec2 e1 = vec2(1.0 / 256.0, 0.0);
+    float en = 0.0;                                                  // how hard the water is moving there, spread wide like light in water
+    for (int i = 0; i < 8; i++) { float k = float(i) * 0.785398; en += abs(texture(uW, uv2 + vec2(cos(k), sin(k)) * (i % 2 == 0 ? 5.0 : 10.0) / 256.0).r); }
+    en = smoothstep(0.1, 0.9, en * 0.125);
+    float h0 = texture(uW, uv).r;
+    float lap = 4.0 * h0 - texture(uW, uv + e1).r - texture(uW, uv - e1).r - texture(uW, uv + e1.yx).r - texture(uW, uv - e1.yx).r;
+    float focus = 0.12 + 1.5 * smoothstep(NEON_LO * 0.5, NEON_HI * 1.5, lap);   // crests act as lenses and gather the light
+    float depth = 1.0 - en;                                          // thin, bright light where it's strong; deep where it fades
+    vec3 light = mix(EMERALD, EMERALD_DEEP, depth * 0.8) * en;
+    col += light * focus * (1.0 - F) * 0.8 * uNeon;
   }
   if (uGlow > 0.0) {
     vec3 rt = refract(rd, n, 1.0 / 1.33); q = p; t = 0.0;

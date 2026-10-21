@@ -14,7 +14,7 @@
 .ff-boxes .check b { color: var(--ink); font-weight: 600; }
 .ff-boxes .ff-err { margin: -6px 0 14px 32px; }
 .ff-note { margin: 6px 0 22px; line-height: 1.55; }
-.ff-side { border-color: rgba(124, 235, 246,.22); }
+.ff-side { border-color: rgba(62, 230, 160,.22); }
 .ff-answers { margin: 0; }
 .ff-answers dt { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-top: 16px; }
 .ff-answers dt:first-child { margin-top: 0; }
@@ -30,7 +30,7 @@
 .ff-row form { margin: 0; }
 .ff-pick { position: relative; cursor: pointer; }
 .ff-pick input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-.ff-pick:focus-within { box-shadow: 0 0 0 3px rgba(124, 235, 246,.35); }
+.ff-pick:focus-within { box-shadow: 0 0 0 3px rgba(62, 230, 160,.35); }
 .ff-linkbtn { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); text-decoration: underline; font: inherit; }
 .ff-bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin-top: 12px; max-width: 360px; }
 .ff-bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
@@ -52,8 +52,8 @@
 /* Eli's pick sheet */
 .ffa-sum { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
 .ffa-app { margin-bottom: 14px; }
-.ffa-app.is-picked { border-color: rgba(124, 235, 246,.4); }
-.ffa-app.is-alt { border-color: rgba(124, 235, 246,.4); }
+.ffa-app.is-picked { border-color: rgba(62, 230, 160,.4); }
+.ffa-app.is-alt { border-color: rgba(62, 230, 160,.4); }
 .ffa-app.is-test { border-style: dashed; }
 .ffa-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .ffa-head h3 { margin: 0; font-size: 18px; }

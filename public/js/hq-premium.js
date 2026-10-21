@@ -108,8 +108,8 @@
   if (!fig || !window.fetch) return;
   var canvas = fig.querySelector('canvas'), tip = fig.querySelector('[data-map-tip]'), ctx = canvas.getContext('2d');
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var TONE = { workflows: 'rgba(236,238,245,.78)', prompts: 'rgba(236,238,245,.46)', store: 'rgba(160,166,184,.42)', connections: 'rgba(124, 235, 246,.55)' };
-  var POP = '#7cebf6', GOLD = 2.39996323;
+  var TONE = { workflows: 'rgba(236,238,245,.78)', prompts: 'rgba(236,238,245,.46)', store: 'rgba(160,166,184,.42)', connections: 'rgba(62, 230, 160,.55)' };
+  var POP = '#3ee6a0', GOLD = 2.39996323;
   var items = [], dots = [], hover = -1, lit = null, grow = still ? 1 : 0, W = 0, H = 0, dpr = 1;
 
   var layout = function () {

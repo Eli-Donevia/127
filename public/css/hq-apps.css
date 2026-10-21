@@ -15,13 +15,13 @@
 .ap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; }
 .ap-tile { position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 112px; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--ink); text-decoration: none; transition: border-color .2s, transform .2s, background .2s; }
 a.ap-tile:hover { border-color: var(--line-2); background: var(--surface-2); transform: translateY(-2px); }
-.ap-tile[data-status="connected"] { border-color: rgba(124, 235, 246, .28); }
+.ap-tile[data-status="connected"] { border-color: rgba(62, 230, 160, .28); }
 .ap-mono { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; font-weight: 600; font-size: 14px; background: var(--surface-3); color: var(--ink); letter-spacing: -.02em; }
 .ap-name { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
 .ap-acct { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ap-pill { align-self: flex-start; margin-top: auto; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 3px 9px; border: 1px solid var(--line-2); color: var(--muted); }
-.ap-pill.connected { color: var(--win); border-color: rgba(124, 235, 246, .35); background: var(--win-soft); }
-.ap-pill.connect { color: var(--accent-ink); border-color: rgba(124, 235, 246, .35); background: var(--accent-soft); }
+.ap-pill.connected { color: var(--win); border-color: rgba(62, 230, 160, .35); background: var(--win-soft); }
+.ap-pill.connect { color: var(--accent-ink); border-color: rgba(62, 230, 160, .35); background: var(--accent-soft); }
 .ap-pill.broken { color: var(--danger); border-color: rgba(240, 155, 138, .35); }
 .ap-pill.legal, .ap-pill.coming { color: var(--muted); }
 .ap-tile[hidden], .ap-cat[hidden] { display: none; }

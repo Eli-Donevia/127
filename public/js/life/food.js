@@ -110,7 +110,7 @@
     ]));
 
     var rd = [];
-    if (d.target) rd.push({ label: 'Calories', current: Math.round(t.kcal), target: d.target, unit: '', color: '#7cebf6', colorEnd: '#a98bff' });
+    if (d.target) rd.push({ label: 'Calories', current: Math.round(t.kcal), target: d.target, unit: '', color: '#3ee6a0', colorEnd: '#a98bff' });
     if (d.protein) rd.push({ label: 'Protein', current: Math.round(t.protein), target: d.protein, unit: 'g', color: '#a98bff', colorEnd: '#a6f0ff' });
     if (rd.length && L.rings) {
       var rk = rd.map(function (r) { return r.label + r.target; }).join('|') + day;

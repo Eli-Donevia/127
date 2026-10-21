@@ -1,7 +1,7 @@
 /* Packs (lib/shop.js): /packs, each pack's own page, the files page and the homepage row.
-   One pop (#7cebf6) per view, on the subject only; Signal green only for "signed" and done. Motion stops under
+   One pop (#3ee6a0) per view, on the subject only; Signal green only for "signed" and done. Motion stops under
    reduced motion. Each pack's hero art is its own small piece, drawn from what is in the pack. */
-:root { --pop: #7cebf6; --pop-soft: rgba(124, 235, 246, .14); --ion: #a98bff; --sig: #7cebf6; --steel: linear-gradient(180deg, #fff 30%, #a3a7b4); }
+:root { --pop: #3ee6a0; --pop-soft: rgba(62, 230, 160, .14); --ion: #a98bff; --sig: #3ee6a0; --steel: linear-gradient(180deg, #fff 30%, #a3a7b4); }
 
 .pk { overflow-x: clip; }
 .pk p { text-wrap: pretty; }

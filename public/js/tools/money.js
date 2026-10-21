@@ -116,8 +116,8 @@
     var gid = 'mo-g-' + uid(), fid = 'mo-f-' + uid();
     var defs = svg('defs');
     var g = svg('linearGradient', { id: gid, x1: 0, y1: 0, x2: 0, y2: 1 });
-    g.appendChild(svg('stop', { offset: '0', 'stop-color': '#7cebf6', 'stop-opacity': '.2' }));
-    g.appendChild(svg('stop', { offset: '1', 'stop-color': '#7cebf6', 'stop-opacity': '0' }));
+    g.appendChild(svg('stop', { offset: '0', 'stop-color': '#3ee6a0', 'stop-opacity': '.2' }));
+    g.appendChild(svg('stop', { offset: '1', 'stop-color': '#3ee6a0', 'stop-opacity': '0' }));
     var f = svg('filter', { id: fid, x: '-10%', y: '-40%', width: '120%', height: '180%' });
     f.appendChild(svg('feGaussianBlur', { stdDeviation: 2.5 }));
     defs.appendChild(g); defs.appendChild(f); s.appendChild(defs);
