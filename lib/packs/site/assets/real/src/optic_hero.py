@@ -5,7 +5,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
 import bpy, mathutils
 
-W, H = 1600, 1000
+SLOT = os.environ.get('SLOT', 'hero')
+W, H = {'hero': (1800, 1200), 'heroPhone': (1080, 1600)}[SLOT]
 sc = C.reset()
 C.setup(sc, W, H, samples=int(os.environ.get('SAMPLES', '96')), exposure=0.0)
 
@@ -105,9 +106,9 @@ bpy.ops.mesh.primitive_cube_add(size=1, location=(-3.2, 0, 1.2)); o = bpy.contex
 bpy.ops.mesh.primitive_cube_add(size=1, location=(3.2, 0, 1.2)); o = bpy.context.object; o.scale = (0.1, 8, 3); o.data.materials.append(room)
 
 # --- cool cyan neon tube on the left wall, far back, out of focus (accent only)
-bpy.ops.mesh.primitive_cylinder_add(radius=0.01, depth=1.2, location=(0.62, 1.7, 0.6), rotation=(0, 0, 0))
+bpy.ops.mesh.primitive_cylinder_add(radius=0.01, depth=1.2, location=(0.8, 1.7, 0.6), rotation=(0, 0, 0))
 neon = bpy.context.object
-neon.data.materials.append(C.emission('neon_cyan', (0.25, 0.85, 1.0), float(os.environ.get('NEON', '2.5'))))
+neon.data.materials.append(C.emission('neon_cyan', (0.25, 0.85, 1.0), float(os.environ.get('NEON', '1.6' if SLOT == 'hero' else '0.3'))))
 
 # --- dinner table behind, out of focus: a wine glass and a candle
 def lathe(name, prof, mat, loc, thick=0.0012):
@@ -141,6 +142,7 @@ C.light(sc, 'AREA', (-0.55, -0.15, 0.42), target=(0.0, 0.05, 0.0), energy=22, co
 # soft cool rim from the window side, very low
 rim = C.light(sc, 'AREA', (0.35, 0.9, 0.3), target=(0, 0, 0.02), energy=2.5, color=(0.75, 0.85, 1.0), size=0.3, name='rim')
 rim.visible_glossy = False
+rim.visible_transmission = False
 # a strip reflection to draw the frame's shape on the stone
 strip = C.light(sc, 'AREA', (0.05, -0.2, 0.5), target=(0, 0, 0), energy=5, color=C.kelvin(3400), size=0.7, size_y=0.06,
         shape='RECTANGLE', name='strip')
@@ -148,10 +150,13 @@ strip.visible_transmission = False
 
 
 
-C.bokeh_field((-0.12, -0.74, 0.13), n=int(os.environ.get('NB', '34')), el=(-5.5, 3.5), strength=(3, 40), seed=7)
-C.bokeh_field((-0.12, -0.74, 0.13), n=40, el=(-6, 1.0), dist=(6, 40), strength=(1, 8), seed=11, rad=0.0012)
-cam = C.camera(sc, (-0.12, -0.74, 0.13), (-0.035, 0.06, 0.055), lens=85, fstop=2.8)
+C.bokeh_field((-0.12, -0.74, 0.13), n=int(os.environ.get('NB', '34')), el=(-5.5, 3.5), strength=(0.3, 4), seed=7, rad=0.008)
+C.bokeh_field((-0.12, -0.74, 0.13), n=40, el=(-6, 1.0), dist=(6, 40), strength=(0.1, 0.8), seed=11, rad=0.004)
+if SLOT == 'hero':
+    cam = C.camera(sc, (-0.12, -0.74, 0.13), (-0.035, 0.06, 0.055), lens=85, fstop=2.8)
+else:  # portrait: the frames low in the picture, the city's lights above
+    cam = C.camera(sc, (-0.2, -0.6, 0.12), (0.01, 0.05, 0.085), lens=85, fstop=2.8)
 cam.data.dof.focus_distance = (mathutils.Vector((0, 0.0, 0.03)) - cam.location).length
 cam.data.shift_y = 0.0
 
-C.render(sc, 'optic', 'hero')
+C.render(sc, 'optic', SLOT)

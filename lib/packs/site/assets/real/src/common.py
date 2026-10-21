@@ -249,7 +249,7 @@ def bokeh_field(cam_loc, n=160, az=(-16, 16), el=(-4.5, 1.5), dist=(25, 250), st
         a = math.radians(rng.uniform(*az)); e = math.radians(rng.uniform(*el)); d = rng.uniform(*dist)
         x = cam_loc[0] + d * math.sin(a); y = cam_loc[1] + d * math.cos(a); z = cam_loc[2] + d * math.tan(e)
         k = round(rng.uniform(*temps), -2) if rng.random() > cool else 7000
-        s = round(rng.uniform(*strength), -1)
+        s = round(rng.uniform(*strength), 2)
         key = (k, s)
         if key not in mats:
             mats[key] = emission(f'bokeh_{k}_{s}', kelvin(k), s)
@@ -509,7 +509,7 @@ def smooth(o):
         p.use_smooth = True
 
 
-def render(sc, design, slot, quality=78, max_kb=None):
+def render(sc, design, slot, quality=86, max_kb=None):
     """Renders to PNG under OUT, then writes the progressive JPG into the repo (skipped for --preview)."""
     os.makedirs(OUT, exist_ok=True)
     tag = f'{design}-{slot}' + ('-preview' if PREVIEW else '')
@@ -526,9 +526,9 @@ def render(sc, design, slot, quality=78, max_kb=None):
     return finish(png, design, slot, quality, max_kb)
 
 
-def finish(png, design, slot, quality=78, max_kb=None):
+def finish(png, design, slot, quality=86, max_kb=None):
     w = bpy.context.scene.render.resolution_x if bpy.context else None
-    max_kb = max_kb or (180 if (w or 1600) >= 1600 else 120)
+    max_kb = max_kb or 150
     d = os.path.join(REPO_REAL, design)
     os.makedirs(d, exist_ok=True)
     jpg = os.path.join(d, f'{slot}.jpg')
