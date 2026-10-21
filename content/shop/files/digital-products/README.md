@@ -13,4 +13,4 @@ Each lesson ends with a prompt you can paste into any AI with your details fille
 
 Nothing in this course promises income, sales or results. What you get out of it depends on your business and the work you put in.
 
-Use it in your own business and for your clients. Please don't resell or share the files themselves. Access for as long as we offer the course.
+Use it in your own business and for your clients. Please don't resell or share the files themselves. We keep your link working for at least 12 months after you buy, and for as long as we offer the course, so download the files you want to keep.

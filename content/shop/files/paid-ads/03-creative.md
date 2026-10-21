@@ -16,7 +16,7 @@ People decide in about a second whether to keep watching. Open with one of these
 Make each ad a different reason to buy, not a different colour:
 
 1. **The problem**: what's annoying, slow or costly without you.
-2. **The proof**: the thing working, a customer's words (with permission), a before and after.
+2. **The proof**: the thing working, a customer's words (with permission), a before and after (never for weight loss, skin or health products, and only if it's typical or says it isn't).
 3. **The offer**: what they get, the price, why now (only if "now" is real).
 
 ## Formats

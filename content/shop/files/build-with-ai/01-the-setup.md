@@ -8,7 +8,7 @@ Five tools. Most have free tiers to start.
 | A code home | Keeps every version of your code, so nothing is ever lost | GitHub |
 | A host | Runs your site on the internet | Replit |
 | Payments | Takes cards, Apple Pay and Google Pay, handles subscriptions and refunds | Stripe |
-| Email | Sends receipts, sign-in links and updates | Resend |
+| Email | Sends receipts, sign-in links and updates | Not yet. 127 adds an email service before it sends email; ask your AI agent which one fits |
 
 A database comes with most hosts (127 uses Postgres). You don't need to choose one on day one; ask your AI agent to set it up when you have something to store.
 
