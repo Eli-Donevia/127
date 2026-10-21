@@ -146,18 +146,22 @@
 .vb-v.early, .vb-v.off { color: var(--muted); }
 .vb-why { display: block; margin-top: 4px; color: var(--muted); font-size: 12.5px; white-space: normal; max-width: 26ch; margin-left: auto; text-align: right; }
 .vb-dim { color: var(--muted); }
+/* Phone: each vertical is a name, its verdict, then two rows of four numbers; verticals not testing yet are one line. */
 @media (max-width: 900px) {
   .vb-table thead { display: none; }
-  .vb-table, .vb-table tbody, .vb-table tr, .vb-table td { display: block; width: 100%; }
-  .vb-table tr { padding: 14px 0; border-bottom: 1px solid var(--vt-line); }
-  .vb-table td { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; border: 0; text-align: left; white-space: normal; }
-  .vb-table td::before { content: attr(data-l); font: 500 11.5px/1.6 var(--mono); color: var(--muted); }
-  .vb-table td:first-child { display: block; margin-bottom: 6px; }
-  .vb-table td:first-child::before { content: none; }
-  .vb-why { margin: 0; text-align: right; }
+  .vb-table, .vb-table tbody { display: block; width: 100%; }
+  .vb-table tr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 12px; padding: 16px 0; border-bottom: 1px solid var(--vt-line); }
+  .vb-table td { display: block; padding: 0; border: 0; text-align: left; white-space: normal; font-size: 15px; }
+  .vb-table td::before { content: attr(data-l); display: block; margin-bottom: 2px; font: 500 10.5px/1.4 var(--mono); letter-spacing: .02em; color: var(--muted); }
+  .vb-table td:first-child, .vb-table td[data-l="Verdict"] { grid-column: 1 / -1; }
+  .vb-table td:first-child::before, .vb-table td[data-l="Verdict"]::before { content: none; }
+  .vb-table td[data-l="Verdict"] { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: -4px; }
+  .vb-why { display: inline; margin: 0; max-width: none; text-align: left; }
+  .vb-table .vb-dim { display: block; font-size: 12.5px; }
+  .vb-table tr.is-off td:nth-child(n + 3) { display: none; }
 }
 .vb-problems { margin: 24px 0 0; padding: 14px 16px; border-left: 2px solid #f08a7e; color: var(--ink-2); font-size: 13.5px; }
-.vb-sec { margin-top: 48px; }
+.vb .vb-sec { margin-top: 48px; padding: 0; }
 .vb-h2 { margin: 0 0 14px; font-size: 22px; letter-spacing: -.02em; }
 .vb-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--vt-line); }
 .vb-rows li { padding: 12px 0; border-bottom: 1px solid var(--vt-line); font-size: 15px; line-height: 1.5; }

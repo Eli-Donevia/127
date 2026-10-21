@@ -19,7 +19,7 @@
       <thead><tr><th>Vertical</th><th>Verdict</th><th>Visits</th><th>Free starts</th><th>Signups</th><th>Packs</th><th>Builder</th><th>Paid / 100 visits</th><th>Spend</th><th>$ / paid</th></tr></thead>
       <tbody>
         <% rows.forEach(function (r) { %>
-        <tr>
+        <tr<% if (r.verdict === 'off') { %> class="is-off"<% } %>>
           <td><a href="/admin/verticals/<%= r.slug %>"><%= r.name %></a><small><%= r.group %> · <%= r.status %><% if (r.wave) { %> · wave <%= r.wave %><% } %></small></td>
           <td data-l="Verdict"><span class="vb-v <%= r.verdict %>"><%= { double: 'Double down', kill: 'Kill', keep: 'Keep testing', early: 'Too early', off: 'Off' }[r.verdict] %></span><span class="vb-why"><%= r.why %></span></td>
           <td data-l="Visits"><%= r.visits %></td>
@@ -27,7 +27,7 @@
           <td data-l="Signups"><%= r.signups %> <span class="vb-dim"><%= pct(r.signupRate) %></span></td>
           <td data-l="Packs"><%= r.packs %><% if (r.packRevenue) { %> <span class="vb-dim">$<%= Math.round(r.packRevenue) %></span><% } %></td>
           <td data-l="Builder"><%= r.builders %></td>
-          <td data-l="Paid / 100 visits"><%= r.paidPer100.toFixed(1) %></td>
+          <td data-l="Paid/100"><%= r.paidPer100.toFixed(1) %></td>
           <td data-l="Spend"><%= r.spend ? usd(r.spend) : '·' %></td>
           <td data-l="$ / paid"><%= usd(r.costPerPaid) %></td>
         </tr>
