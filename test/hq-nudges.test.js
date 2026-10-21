@@ -206,6 +206,11 @@ test('the morning pulse: yesterday in lines, money only from the caller, plus th
   // A connection that throws leaves its lines out; nothing at all yesterday and no move gives null.
   const q = await nudges.pulse(user, { money: async () => { throw new Error('down'); } });
   assert.ok(!q.lines.some((l) => l.id === 'sales'));
+  // The composer's count wins over the logged one and adds what's waiting; a composer that throws keeps the logged count.
+  const c = await nudges.pulse(user, { posted: async () => ({ out: 3, waiting: 2 }) });
+  assert.equal(c.lines.find((l) => l.id === 'posts').text, '3 posts out, 2 waiting to go.');
+  const k = await nudges.pulse(user, { posted: async () => { throw new Error('down'); } });
+  assert.equal(k.lines.find((l) => l.id === 'posts').value, p.lines.find((l) => l.id === 'posts').value);
   clear();
   db.save('brains', { id: user.id, business: {}, act: { a1: 'x', a3: 'x', a4: 'x' } });
   assert.equal(await nudges.pulse(user), null);
