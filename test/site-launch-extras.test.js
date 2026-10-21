@@ -124,7 +124,14 @@ test('the consent config never loads a pixel itself and the footer carries the e
     assert.match(adConsent.configScript({ user: null }), /"metaPixelId":""/);
     assert.strictEqual(adConsent.metaPixelId(), '');
   });
-  withEnv({ META_PIXEL_ID: '1234567890', TIKTOK_PIXEL_ID: undefined, KLAVIYO_PUBLIC_KEY: undefined, COOKIE_DOMAIN: '.127group.io', PRIVACY_LIVE: 'true', COOKIE_NOTICE_LIVE: 'true' }, () => {
+  // Legal L87 LV3: no ad pixels anywhere on the site while Life in HQ is on, even for admins only.
+  for (const life of ['on', 'admins']) {
+    withEnv({ META_PIXEL_ID: '1234567890', TIKTOK_PIXEL_ID: '987', KLAVIYO_PUBLIC_KEY: 'pk', PRIVACY_LIVE: 'true', COOKIE_NOTICE_LIVE: 'true', HQ_LIFE: life }, () => {
+      assert.deepStrictEqual(adConsent.tools(), { metaPixelId: '', tiktokPixelId: '', klaviyoPublicKey: '' }, life);
+      assert.strictEqual(adConsent.metaPixelId(), '');
+    });
+  }
+  withEnv({ META_PIXEL_ID: '1234567890', TIKTOK_PIXEL_ID: undefined, KLAVIYO_PUBLIC_KEY: undefined, COOKIE_DOMAIN: '.127group.io', PRIVACY_LIVE: 'true', COOKIE_NOTICE_LIVE: 'true', HQ_LIFE: 'off' }, () => {
     const s = adConsent.configScript({ user: null });
     assert.match(s, /window\.C127_CONSENT=\{"metaPixelId":"1234567890"/);
     assert.match(s, /"noticeUrl":"\/cookies"/);
