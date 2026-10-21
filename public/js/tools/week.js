@@ -2,7 +2,8 @@
 // each kind of block gets; "Build my week" lays the blocks out (deep work first thing, admin last, faith before the
 // day and health after it), then every block can be dragged, or moved and resized from its panel. The block on now or
 // next is the one thing lit in Pop. The week downloads as a calendar file that repeats weekly. No AI: the layout is
-// the rules below. Saves { goals, days, start, end, want, blocks } with times in minutes from midnight.
+// the rules below, and the calendar file is made in the browser. Saves { goals, days, start, end, want, blocks } with
+// times in minutes from midnight.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;
@@ -309,12 +310,36 @@
     if (nodes.cal) {
       nodes.cal.innerHTML = '';
       nodes.cal.appendChild(el('h2', { class: 'tl-h', text: 'Put it in your calendar' }));
-      var can = T.state.canSave && !demo && data.blocks.length;
+      var can = !demo && data.blocks.length;
       nodes.cal.appendChild(el('p', { class: 'tl-note', text: 'Downloads your week as a calendar file. Open it with Google Calendar, Apple Calendar or Outlook and every block repeats each week from next Monday. Rebuild later and download again.' }));
-      nodes.cal.appendChild(can ? el('a', { class: 'btn', href: '/app/hq/tools/week/export.ics', text: 'Download my week' }) : el('span', { class: 'tl-note', text: demo ? 'Start your own week to download it.' : 'Build your week first.' }));
+      nodes.cal.appendChild(can ? el('button', { type: 'button', class: 'btn', text: 'Download my week', onclick: download }) : el('span', { class: 'tl-note', text: demo ? 'Start your own week to download it.' : 'Build your week first.' }));
     }
     if (nodes.board) lit();
   }
+
+  // The calendar file is made here in the browser and saved straight to the member's device (Legal L87): each block
+  // repeats weekly from the Monday on or after today, in floating local time so it lands at the same clock time in
+  // whatever time zone their calendar uses.
+  function ics() {
+    var esc = function (v) { return String(v).replace(/\\/g, '\\\\').replace(/[,;]/g, function (c) { return '\\' + c; }).replace(/\r?\n/g, '\\n'); };
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    var d0 = new Date(); d0.setHours(12, 0, 0, 0); d0.setDate(d0.getDate() + ((8 - d0.getDay()) % 7));
+    var at = function (dayIdx, m) { var x = new Date(d0); x.setDate(x.getDate() + dayIdx); return x.getFullYear() + pad(x.getMonth() + 1) + pad(x.getDate()) + 'T' + pad(Math.floor(m / 60)) + pad(m % 60) + '00'; };
+    var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+    var out = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//127//Week builder//EN', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:My week'];
+    data.blocks.forEach(function (b) {
+      out.push('BEGIN:VEVENT', 'UID:' + b.id + '-' + b.day + '-' + b.from + '@127group.io', 'DTSTAMP:' + stamp, 'DTSTART:' + at(b.day, b.from), 'DTEND:' + at(b.day, Math.min(b.from + b.len, 1439)), 'RRULE:FREQ=WEEKLY', 'SUMMARY:' + esc(b.label || NAME[b.kind]), 'END:VEVENT');
+    });
+    out.push('END:VCALENDAR');
+    return out.join('\r\n') + '\r\n';
+  }
+  function download() {
+    var url = URL.createObjectURL(new Blob([ics()], { type: 'text/calendar' }));
+    var a = el('a', { href: url, download: 'my-week.ics' });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  T.weekIcs = ics;
 
   function changed() { if (!demo) T.save(data); update(); }
   var w = window.innerWidth;

@@ -237,7 +237,7 @@ test('the fullest content, stock, hours and hooks documents fit', async () => {
   delete process.env.ADMIN_EMAILS;
 });
 
-test('Week builder: blocks clean to the quarter hour and download as a weekly calendar file', async () => {
+test('Week builder: blocks clean to the quarter hour; the calendar file is made in the browser, never on the server', async () => {
   const c = tools._clean.cleanWeek({ start: '25:00', days: [4, 0, 0], want: { deep: 200, nope: 3 }, blocks: [{ id: 'a', kind: 'deep', day: 0, from: 547, len: 1000, label: 'Write; part, one' }, { id: 'b', kind: 'boss', day: 9, from: -5, len: 2 }, { kind: 'deep' }] });
   assert.equal(c.start, '09:00');
   assert.deepEqual(c.days, [0, 4]);
@@ -246,14 +246,9 @@ test('Week builder: blocks clean to the quarter hour and download as a weekly ca
   assert.deepEqual(c.blocks, [{ id: 'a', kind: 'deep', day: 0, from: 540, len: 480, label: 'Write; part, one' }, { id: 'b', kind: 'other', day: 6, from: 0, len: 15, label: '' }]);
   const m = await member();
   process.env.ADMIN_EMAILS = m.email;
-  assert.equal((await s.go('/app/hq/tools/week/export.ics', { as: m })).status, 404); // nothing built yet
   assert.equal((await s.go('/app/hq/tools/week/data', { as: m, json: { blocks: c.blocks } })).status, 200);
-  const r = await s.go('/app/hq/tools/week/export.ics', { as: m });
-  assert.match(r.headers.get('content-type'), /text\/calendar/);
-  const ics = await r.text();
-  assert.match(ics, /^BEGIN:VCALENDAR\r\n/);
-  assert.ok(/DTSTART:\d{8}T090000\r\nDTEND:\d{8}T170000\r\nRRULE:FREQ=WEEKLY\r\n/.test(ics) && ics.includes('SUMMARY:Write\\; part\\, one'), ics);
-  assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 2);
+  assert.equal((await s.go('/app/hq/tools/week/export.ics', { as: m })).status, 404); // Legal L87: built client-side
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'week.js'), 'utf8'), /new Blob\(\[ics\(\)\], \{ type: 'text\/calendar' \}\)/);
   const csv = await (await s.go('/app/hq/tools/week/export.csv', { as: m })).text();
   assert.ok(csv.includes('Monday,09:00,17:00,deep,"Write; part, one"'), csv);
   delete process.env.ADMIN_EMAILS;
