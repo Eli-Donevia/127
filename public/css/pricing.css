@@ -1,0 +1,139 @@
+/* Membership (/pricing). Its own design: the plan on the table. A rendered still life of the real roadmap opens the
+   page, then the plans as one ledger rather than three boxed cards. Phones see one plan at a time with tabs under the
+   thumb that also choose the compare column. Tide is the accent (D57); the Circle column is Emerald and Diamond only.
+   Motion: one intro (the room's lights come up, the type rises), a slow parallax on the room, tabs that slide. */
+.prc { --pr-ink: #ededf2; --pr-dim: rgba(237,237,242,.56); --pr-hair: rgba(237,237,242,.12); --pr-ease: cubic-bezier(.16,1,.3,1); overflow-x: clip; }
+
+/* hero: the still life */
+.prc-hero { position: relative; min-height: clamp(600px, 88svh, 900px); display: flex; align-items: flex-end; padding: 0 0 clamp(48px, 6vw, 80px); overflow: hidden; isolation: isolate; }
+.prc-scene { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: #050506; }
+.prc-frame { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.prc-frame picture, .prc-room { display: block; width: 100%; height: 100%; }
+.prc-room { object-fit: cover; object-position: 50% 60%; }
+html.js .prc-scene.fit .prc-room { object-fit: fill; }
+.prc-frame::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(6,6,7,.82) 0%, rgba(6,6,7,.42) 32%, rgba(6,6,7,0) 55%), linear-gradient(0deg, #060607 0%, rgba(6,6,7,.5) 18%, rgba(6,6,7,0) 40%); }
+.prc-cap { position: absolute; right: clamp(16px, 4vw, 56px); bottom: calc(clamp(48px, 6vw, 80px) + 4px); z-index: 2; margin: 0; max-width: 34ch; font: 400 11px/1.45 var(--mono); color: rgba(237,237,242,.5); text-align: right; text-shadow: 0 1px 8px #060607; }
+.prc-hero-copy { position: relative; width: 100%; }
+.prc-h1 { font-family: var(--display); font-weight: 600; font-size: clamp(50px, 7vw, 108px); line-height: .92; letter-spacing: -.05em; margin: 0; max-width: 8.5ch; color: var(--pr-ink); text-wrap: balance; }
+.prc-lede { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.5; max-width: 38ch; margin: 24px 0 28px; color: var(--ink-2); }
+.prc-jump { display: inline-flex; align-items: center; gap: 10px; font: 500 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--pr-ink); text-decoration: none; }
+.prc-jump::after { content: ''; width: 1px; height: 18px; background: linear-gradient(var(--tide), rgba(124,235,246,0)); transition: height .5s var(--pr-ease); }
+.prc-jump:hover::after { height: 28px; }
+
+/* page callouts: a hairline from the page up to a plain mono label (no boxes, no pills) */
+.prc-pins { position: absolute; inset: 0; display: none; z-index: 1; }
+html.js .prc-scene.fit .prc-pins { display: block; }
+.prc-pin { position: absolute; left: var(--xw); top: var(--yw); width: 0; height: 0; }
+.prc-pin::before { content: ''; position: absolute; left: 0; bottom: 0; width: 1px; height: 64px; background: linear-gradient(to top, rgba(124,235,246,.8), rgba(124,235,246,0)); transform-origin: bottom; }
+.prc-pin::after { content: ''; position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%; background: var(--tide); }
+.prc-pin b { position: absolute; bottom: 70px; left: 0; transform: translateX(-50%); font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--pr-ink); white-space: nowrap; text-shadow: 0 1px 12px #060607, 0 0 2px #060607; }
+.prc-pin + .prc-pin b { color: var(--accent-ink); }
+
+/* intro: the reading light comes up on the page, then the callouts draw, then the type */
+@keyframes prc-lights { from { filter: brightness(.15); transform: scale(1.06); } to { filter: none; transform: none; } }
+@keyframes prc-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes prc-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes prc-stem { from { transform: scaleY(0); } to { transform: none; } }
+html.js .prc-intro .prc-room { animation: prc-lights 2.2s cubic-bezier(.3,.6,.2,1) both; }
+html.js .prc-intro .prc-pin b, html.js .prc-intro .prc-pin::after { animation: prc-in .5s ease both; animation-delay: calc(1.5s + var(--n) * 160ms); }
+html.js .prc-intro .prc-pin::before { animation: prc-stem .8s var(--pr-ease) both; animation-delay: calc(1.3s + var(--n) * 160ms); }
+html.js .prc-intro .prc-h1 { animation: prc-rise 1s var(--pr-ease) .5s both; }
+html.js .prc-intro .prc-lede { animation: prc-rise 1s var(--pr-ease) .7s both; }
+html.js .prc-intro .prc-jump, html.js .prc-intro .prc-cap { animation: prc-in .8s ease 1.1s both; }
+
+/* the plans as one ledger: hairline columns, no boxes, no glow */
+.prc-plans { padding: clamp(56px, 8vw, 104px) 0 clamp(48px, 6vw, 80px); border-top: 1px solid var(--pr-hair); }
+.prc .plans-ledger { gap: 0; border-top: 1px solid var(--pr-hair); border-bottom: 1px solid var(--pr-hair); align-items: stretch; }
+.prc .plans-ledger .plan { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 40px clamp(20px, 2.6vw, 40px) 36px; transform: none; }
+.prc .plans-ledger .plan + .plan { border-left: 1px solid var(--pr-hair); }
+.prc .plans-ledger .plan::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: transparent; }
+.prc .plans-ledger .plan.featured::before { background: linear-gradient(90deg, rgba(124,235,246,0), var(--tide) 30%, var(--tide) 70%, rgba(124,235,246,0)); }
+.prc .plans-ledger .plan.dark::before { background: var(--emerald); }
+.prc .plans-ledger .plan-flag { font: 500 11px var(--mono); letter-spacing: .14em; color: var(--muted); margin-bottom: 18px; }
+.prc .plans-ledger .plan.featured .plan-flag { color: var(--tide); }
+.prc .plans-ledger .plan.dark .plan-flag { color: var(--emerald); }
+.prc .plans-ledger .plan h3 { font-size: 22px; font-weight: 600; letter-spacing: -.03em; }
+.prc .plans-ledger .price { margin: 14px 0 12px; display: flex; align-items: baseline; gap: 10px; }
+.prc .plans-ledger .price .amt { font-family: var(--display); font-weight: 600; font-size: clamp(52px, 5vw, 72px); letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.prc .plans-ledger .price .per { font: 400 13px var(--mono); color: var(--muted); }
+.prc .plans-ledger .plan .tag { font-size: 15px; color: var(--ink-2); margin: 6px 0 22px; max-width: 34ch; }
+.prc .plans-ledger .plan li { font-size: 14.5px; padding: 11px 0 11px 26px; border-top-color: var(--pr-hair); }
+.prc .plans-ledger .plan li::before { border-color: var(--tide); }
+.prc .plans-ledger .plan.dark li::before { border-color: var(--emerald); }
+.prc .plans-ledger .plan.dark .btn.light { background: var(--emerald); border-color: var(--emerald); color: #04140d; box-shadow: inset 0 0 0 1px rgba(234,244,255,.5); }
+/* the Circle column carries the table it's named for */
+.prc .plan-pic { display: block; margin: -40px calc(-1 * clamp(20px, 2.6vw, 40px)) 28px; aspect-ratio: 16 / 7; overflow: hidden; position: relative; }
+.prc .plan-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; display: block; transition: transform 1.2s var(--pr-ease); }
+.prc .plan-pic::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #060607, rgba(6,6,7,0) 60%); }
+.prc .plan.dark:hover .plan-pic img { transform: scale(1.04); }
+
+/* plan tabs (phones): hidden until the script shows them; float under the thumb while the plans and compare are on screen */
+.prc-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border: 1px solid var(--pr-hair); border-radius: 999px; background: rgba(14,14,17,.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); margin: 0 0 20px; position: relative; z-index: 20; }
+.prc-tabs[hidden] { display: none; }
+.prc-tabs button { appearance: none; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2); padding: 9px 6px; display: flex; flex-direction: column; align-items: center; gap: 1px; font: 600 13.5px var(--sans); cursor: pointer; transition: background .25s, color .25s; min-height: 48px; }
+.prc-tabs button b { font: 400 11.5px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.prc-tabs button[aria-selected="true"] { background: var(--primary); color: #0a0a0c; }
+.prc-tabs button[aria-selected="true"] b { color: #3a3a44; }
+.prc-tabs button.is-circle[aria-selected="true"] { background: var(--emerald); color: #04140d; box-shadow: inset 0 0 0 1px rgba(234,244,255,.5); }
+.prc-tabs button.is-circle[aria-selected="true"] b { color: #0b3b28; }
+.prc-tabs button:focus-visible { outline: 2px solid var(--tide); outline-offset: 2px; }
+.prc-tabs.float { position: fixed; left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); margin: 0; box-shadow: 0 12px 40px rgba(0,0,0,.6); animation: prc-dock .35s var(--pr-ease); }
+@keyframes prc-dock { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* the founding countdown: a ruled line, not a pill */
+.prc .pr-bar { border-radius: 0; border: 0; border-top: 1px solid rgba(124,235,246,.28); border-bottom: 1px solid var(--pr-hair); background: none; padding: 14px 0; justify-content: flex-start; text-align: left; }
+
+/* compare */
+.prc-compare-head { margin: clamp(64px, 8vw, 104px) 0 22px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+.prc-compare-head h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -.035em; }
+.prc-compare-note { display: none; margin: 0; font-size: 13.5px; color: var(--muted); }
+.prc .prc-compare { background: none; border: 0; border-top: 1px solid var(--pr-hair); border-radius: 0; padding: 0; }
+.prc .prc-compare td:first-child { color: var(--pr-ink); }
+.prc .prc-compare th:last-child, .prc .prc-compare td:last-child { color: var(--emerald); }
+.prc .prc-compare th:last-child { color: var(--emerald); }
+
+/* straight answers and questions */
+.prc-trust { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prc .trust-block { background: none; border: 0; border-top: 1px solid var(--pr-hair); border-radius: 0; padding: 28px 0 0; }
+.prc-faq { padding: clamp(56px, 8vw, 104px) 0 clamp(64px, 8vw, 112px); }
+.prc-faq h2 { font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -.035em; margin: 0 0 24px; max-width: 860px; margin-inline: auto; }
+
+@media (min-width: 1001px) {
+  /* desktop: the type sits up in the dark corner of the room, the open roadmap keeps the lower right */
+  .prc-hero { min-height: clamp(640px, 92svh, 940px); align-items: flex-start; padding: clamp(96px, 13svh, 150px) 0 0; }
+  .prc-cap { right: auto; left: max(28px, calc((100vw - var(--max)) / 2 + 28px)); text-align: left; bottom: 28px; }
+}
+@media (max-width: 1000px) {
+  .prc .plans-ledger .plan + .plan { border-left: 0; border-top: 1px solid var(--pr-hair); }
+  .prc .plan-pic { margin-top: -40px; }
+}
+@media (max-width: 760px) {
+  .prc-hero { display: block; min-height: 0; padding: 0 0 40px; }
+  .prc-scene { position: relative; inset: auto; aspect-ratio: 4 / 5; z-index: 0; }
+  .prc-frame::after { background: linear-gradient(0deg, #060607 0%, rgba(6,6,7,.75) 18%, rgba(6,6,7,0) 42%); }
+  .prc-pin { left: var(--xt); top: var(--yt); }
+  .prc-pin::before { height: 44px; }
+  .prc-pin b { bottom: 50px; font-size: 10px; }
+  .prc-pin b span { display: none; }
+  .prc-cap { top: 12px; bottom: auto; left: 16px; right: 16px; max-width: none; font-size: 10px; text-align: left; }
+  .prc-hero-copy { margin-top: -64px; z-index: 1; }
+  .prc-lede { margin: 18px 0 22px; }
+  .prc-plans { padding-top: 40px; padding-bottom: 96px; }
+  .prc .plans-ledger .plan { padding: 30px 0 28px; }
+  .prc .plan-pic { margin: -30px 0 24px; }
+  /* one plan at a time once the tabs are live */
+  .prc .plans-ledger.tabbed .plan { display: none; }
+  .prc .plans-ledger.tabbed .plan.on { display: flex; animation: prc-in .35s ease; }
+  .prc .plans-ledger.tabbed { border-bottom: 0; }
+  .prc-compare-note { display: block; }
+  /* the compare table shows the chosen plan's column only: two columns, no sideways scroll */
+  .prc .prc-compare.picked .t { min-width: 0; }
+  .prc .prc-compare.picked[data-show="free"] :is(th, td):is(:nth-child(3), :nth-child(4)),
+  .prc .prc-compare.picked[data-show="builder"] :is(th, td):is(:nth-child(2), :nth-child(4)),
+  .prc .prc-compare.picked[data-show="circle"] :is(th, td):is(:nth-child(2), :nth-child(3)) { display: none; }
+  .prc .prc-compare.picked td:first-child { width: 52%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prc *, .prc *::before, .prc *::after { animation: none !important; transition: none !important; }
+}

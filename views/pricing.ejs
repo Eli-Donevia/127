@@ -10,21 +10,47 @@
   var hqo = typeof hqOffer !== 'undefined' && hqOffer && hqOffer.show ? hqOffer : null;
   // The Store once it's on for every member: Builder comes with all of it (Eli, Oct 20). hqo has its own row for it.
   var hqStore = !hqo && typeof hqOffer !== 'undefined' && hqOffer && hqOffer.store ? hqOffer.store : null;
+  // The page's own design: the plan on the table. The hero is the real Start roadmap, printed and open on the Circle's
+  // marble (an illustration, rendered: page-redesign/render/table.py --cam note); weeks 1 and 2 are the free page, 3 and 4
+  // Builder's. Then the plans as one ledger (phones show one plan at a time, with tabs under the thumb that also pick the
+  // compare column), the founding close, straight answers and questions. Copy and launch states are unchanged.
+  // where each page lands on the render, in % of the wide (w) and phone (t) frames, from the render's camera
+  var PPINS = {"free":{"w":[53.4,59.53],"t":[36.65,58.25]},"builder":{"w":[72.36,67.71],"t":[60.64,61.02]}};
+  var tabName = { free: 'Free', builder: 'Builder', circle: 'Circle' };
+  var tabPrice = { free: '$0', builder: '$' + (ps !== 'C' && fp ? fp : PLANS.builder.price), circle: '$' + PLANS.circle.price };
 %>
-<main>
-  <section style="padding-bottom:48px">
-    <div class="wrap">
-      <div class="section-head">
-        <% if (hqo && hqo.preview) { %><p class="hqs-preview mono">Admin preview. Members see this page once HQ is on for everyone and HQ_OFFER=on.</p><% } %>
-        <div class="eyebrow">Membership</div>
-        <% if (hqo) { %>
-        <h1 style="font-size:clamp(44px,6vw,72px)">Run your business from one screen.</h1>
-        <p><%= hqo.line %> Start free, no card. Upgrade when it's earned it. Cancel anytime.</p>
-        <% } else { %>
-        <h1 style="font-size:clamp(44px,6vw,72px)">Start free. Grow into it.</h1>
-        <p>Every plan starts with the free assessment and a 30-day roadmap built for you, with weeks 1 and 2 free. Upgrade when it's earned it. Cancel anytime.</p>
-        <% } %>
+<main class="prc">
+  <script>(function(){document.documentElement.classList.add('js');var m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection&&navigator.connection.saveData;if(!m&&!c)document.currentScript.parentNode.classList.add('prc-intro');})();</script>
+  <section class="prc-hero">
+    <div class="prc-scene" data-scene data-iw="1920" data-ih="1080" data-tw="1080" data-th="1350">
+      <div class="prc-frame" data-frame>
+        <picture>
+          <source media="(max-width: 760px)" type="image/webp" srcset="/img/pricing/note-tall-720.webp 720w, /img/pricing/note-tall-1080.webp 1080w" sizes="100vw">
+          <source media="(max-width: 760px)" srcset="/img/pricing/note-tall-1080.jpg">
+          <source type="image/webp" srcset="/img/pricing/note-wide-1280.webp 1280w, /img/pricing/note-wide-1920.webp 1920w" sizes="100vw">
+          <img class="prc-room" src="/img/pricing/note-wide-1920.jpg" alt="Illustration of the 30-day roadmap, printed out on a dark marble table, week 1 ticked off, candles behind" width="1920" height="1080" fetchpriority="high" decoding="async">
+        </picture>
+        <div class="prc-pins" aria-hidden="true">
+          <span class="prc-pin" style="--xw:<%= PPINS.free.w[0] %>%;--yw:<%= PPINS.free.w[1] %>%;--xt:<%= PPINS.free.t[0] %>%;--yt:<%= PPINS.free.t[1] %>%;--n:0"><b><span>Weeks 1 and 2 · </span>free</b></span>
+          <span class="prc-pin" style="--xw:<%= PPINS.builder.w[0] %>%;--yw:<%= PPINS.builder.w[1] %>%;--xt:<%= PPINS.builder.t[0] %>%;--yt:<%= PPINS.builder.t[1] %>%;--n:1"><b><span>Weeks 3 and 4 · </span>Builder</b></span>
+        </div>
       </div>
+      <p class="prc-cap">Illustration. Your roadmap lives in your account; nothing is printed or shipped.</p>
+    </div>
+    <div class="wrap prc-hero-copy">
+      <% if (hqo && hqo.preview) { %><p class="hqs-preview mono">Admin preview. Members see this page once HQ is on for everyone and HQ_OFFER=on.</p><% } %>
+      <% if (hqo) { %>
+      <h1 class="prc-h1">Run your business from one screen.</h1>
+      <p class="prc-lede"><%= hqo.line %> Start free, no card. Upgrade when it's earned it. Cancel anytime.</p>
+      <% } else { %>
+      <h1 class="prc-h1">Start free. Grow into it.</h1>
+      <p class="prc-lede">Every plan starts with the free assessment and a 30-day roadmap built for you, with weeks 1 and 2 free. Upgrade when it's earned it. Cancel anytime.</p>
+      <% } %>
+      <a class="prc-jump" href="#plans">See the plans</a>
+    </div>
+  </section>
+  <section class="prc-plans" id="plans" data-plans-wrap>
+    <div class="wrap">
       <% if (ps === 'A' && fp) { %>
       <div class="pr-offer"><%- include('partials/founding-offer') %>
         <p class="consent-line honor-line">If checkout breaks on our side before the close, email <a href="mailto:hello@127group.io">hello@127group.io</a> within 48 hours and we'll honor the founding price.</p>
@@ -37,15 +63,12 @@
         <span class="pr-bar-copy">Builder is <%= fp ? '$' + fp + ' a month' : 'at the founding price' %>, locked for as long as you stay. No Black Friday sale.</span>
       </div>
       <% } %>
-      <%- include('partials/plans', { plansAnchor: true }) %>
-    </div>
-  </section>
-  <% if (hqo) { %><%- include('partials/hq-stack') %><% } %>
-  <%- include('partials/builder-map', hqo ? { bmTitle: 'Your roadmap and playbooks, on one map.' } : {}) %>
-  <section style="padding-top:24px">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">Compare</div><h2>What each plan includes.</h2></div>
-      <div class="card scroll-x pr-compare" style="padding:8px 8px">
+      <div class="prc-tabs" role="tablist" aria-label="Plans" data-tabs hidden>
+        <% ['free', 'builder', 'circle'].forEach(function (k) { %><button type="button" role="tab" id="tab-<%= k %>" aria-controls="plan-<%= k %>" aria-selected="<%= k === 'builder' ? 'true' : 'false' %>" data-tab="<%= k %>" class="<%= k === 'circle' ? 'is-circle' : '' %>"><span><%= tabName[k] %></span><b><%= tabPrice[k] %></b></button><% }) %>
+      </div>
+      <%- include('partials/plans', { plansAnchor: true, plansLedger: true }) %>
+      <div class="prc-compare-head"><h2>What each plan includes.</h2><p class="prc-compare-note">Showing <b data-compare-name>Builder</b> next to every feature. Switch plans with the tabs.</p></div>
+      <div class="card scroll-x pr-compare prc-compare" data-compare data-show="builder">
         <table class="t">
           <thead><tr><th></th><th>Free</th><th>Builder</th><th>Founder's Circle</th></tr></thead>
           <tbody>
@@ -67,6 +90,7 @@
       </div>
     </div>
   </section>
+  <% if (hqo) { %><%- include('partials/hq-stack') %><% } %>
   <% if (ps === 'B') { %>
   <section class="pr-close">
     <div class="wrap narrow center">
@@ -81,7 +105,8 @@
     </div>
   </section>
   <% } %>
-  <section class="pr-trust"><div class="wrap narrow"><%- include('partials/trust-block') %></div></section>
-  <section style="padding-top:24px"><div class="wrap"><div class="section-head"><div class="eyebrow">Questions</div><h2>Good to know.</h2></div><%- include('partials/faq') %></div></section>
+  <section class="pr-trust prc-trust"><div class="wrap narrow"><%- include('partials/trust-block') %></div></section>
+  <section class="prc-faq"><div class="wrap"><h2>Good to know.</h2><%- include('partials/faq') %></div></section>
+  <script src="/js/pricing.js" defer></script>
 </main>
 <%- include('partials/foot') %>

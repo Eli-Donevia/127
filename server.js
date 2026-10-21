@@ -414,7 +414,7 @@ function pricingDescription(offer = {}) {
 // The workspace offer shows once it's on for members; an admin can look first at /pricing?preview=hq (lib/hq-offer.js).
 app.get('/pricing', (req, res) => {
   const offer = hqOffer.forPage({ preview: isAdmin(req.user) && req.query.preview === 'hq' });
-  res.render('pricing', { title: 'Membership', description: pricingDescription(offer), resourceCount: resources.length, builderMap: builderMap.forPage(), hqOffer: offer });
+  res.render('pricing', { title: 'Membership', css: '/css/pricing.css', description: pricingDescription(offer), resourceCount: resources.length, builderMap: builderMap.forPage(), hqOffer: offer });
 });
 app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 100K+ followers built, audience snapshot, past brand partnerships and ways to work together.' }));

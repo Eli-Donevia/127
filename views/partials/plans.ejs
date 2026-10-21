@@ -9,6 +9,8 @@
   var rcP = typeof resourceCount !== 'undefined' ? resourceCount : (typeof resources !== 'undefined' ? resources.length : 18);
   var cap = launch.cap;
   var anchor = typeof plansAnchor !== 'undefined' && plansAnchor;
+  // plansLedger (the pricing page): one ledger instead of three boxed cards, each plan tagged so the phone tabs can show one at a time.
+  var ledger = typeof plansLedger !== 'undefined' && plansLedger;
   var CARDS = {
     free: {
       flag: 'Start here',
@@ -45,9 +47,10 @@
   if (hqCr) ['free', 'builder', 'circle'].forEach(function (k) { CARDS[k].items = CARDS[k].items.concat(Number(hqCr[k] || 0).toLocaleString('en-US') + ' HQ credits a month'); });
   if (circleCapacity !== 4) CARDS.circle.line = circleCapacity + ' founders. A weekly call with Eli. Two in-person gatherings a year.';
 %>
-<div class="plans plans-v5<%= anchor ? ' plans-anchor' : '' %>">
+<div class="plans plans-v5<%= anchor ? ' plans-anchor' : '' %><%= ledger ? ' plans-ledger' : '' %>"<%- ledger ? ' data-plans' : '' %>>
   <% ['free','builder','circle'].forEach(function(k){ var p = PLANS[k]; var c = CARDS[k]; %>
-  <div class="plan plan-<%= k %> <%= k==='builder' ? 'featured' : '' %> <%= k==='circle' ? 'dark' : '' %>">
+  <div class="plan plan-<%= k %> <%= k==='builder' ? 'featured' : '' %> <%= k==='circle' ? 'dark' : '' %>"<%- ledger ? ' data-plan="' + k + '" id="plan-' + k + '"' : '' %>>
+    <% if (ledger && k === 'circle') { %><a class="plan-pic" href="/circle" tabindex="-1" aria-hidden="true"><img src="/img/circle/table-wide-1280.webp" alt="" width="1280" height="720" loading="lazy" decoding="async"></a><% } %>
     <div class="plan-flag"><%= c.flag %></div>
     <h3><%= p.name %></h3>
     <% if (k === 'builder' && fp) { %>
