@@ -1,7 +1,7 @@
 /* Day One Challenge: personal pages (thank-you, day pages, progress, early access).
    Everything is scoped under .chp so it can't leak into the rest of the site. */
 .chp { position: relative; padding: 0 0 120px; overflow-x: clip; }
-.chp::before { content: ''; position: absolute; left: 50%; top: -280px; width: 1100px; height: 700px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(184, 191, 255, 0.13), transparent); pointer-events: none; }
+.chp::before { content: ''; position: absolute; left: 50%; top: -280px; width: 1100px; height: 700px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(124, 235, 246, 0.13), transparent); pointer-events: none; }
 .chp::after { content: ''; position: absolute; inset: 0 0 auto; height: 720px; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 10%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 10%, transparent 70%); opacity: .35; pointer-events: none; }
 .chp > * { position: relative; z-index: 1; }
 .chp .wrap { max-width: 860px; }
@@ -27,7 +27,7 @@
 .ch-dots { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .ch-dots a, .ch-dots span { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-2); font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; transition: border-color .15s, background .15s; }
 .ch-dots a:hover { border-color: rgba(255,255,255,.35); color: var(--ink); }
-.ch-dots .done { background: var(--win-soft); border-color: rgba(134,214,173,.45); color: var(--win); }
+.ch-dots .done { background: var(--win-soft); border-color: rgba(124, 235, 246,.45); color: var(--win); }
 .ch-dots .now { border: 1.5px solid var(--primary); color: var(--ink); box-shadow: 0 0 0 4px rgba(227,230,241,.08); }
 .ch-dots .locked { opacity: .45; }
 .ch-top .me-link { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
@@ -38,8 +38,8 @@
 .ch-line::before { content: '“'; color: var(--muted); }
 .ch-line::after { content: '”'; color: var(--muted); }
 .ch-line-by { margin-top: 10px; font-size: 13px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--win); box-shadow: 0 0 0 0 rgba(134,214,173,.6); animation: chpulse 2s infinite; margin-right: 8px; vertical-align: 1px; }
-@keyframes chpulse { 0% { box-shadow: 0 0 0 0 rgba(134,214,173,.55); } 70% { box-shadow: 0 0 0 10px rgba(134,214,173,0); } 100% { box-shadow: 0 0 0 0 rgba(134,214,173,0); } }
+.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--win); box-shadow: 0 0 0 0 rgba(124, 235, 246,.6); animation: chpulse 2s infinite; margin-right: 8px; vertical-align: 1px; }
+@keyframes chpulse { 0% { box-shadow: 0 0 0 0 rgba(124, 235, 246,.55); } 70% { box-shadow: 0 0 0 10px rgba(124, 235, 246,0); } 100% { box-shadow: 0 0 0 0 rgba(124, 235, 246,0); } }
 
 /* blocks */
 .ch-block { margin-top: 56px; }
@@ -92,7 +92,7 @@
 .score-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -8px; padding: 0 8px; }
 
 /* check-in */
-.ch-checkin { margin-top: 64px; border: 1px solid rgba(227,230,241,.28); border-radius: 22px; padding: 30px; background: linear-gradient(180deg, rgba(24,24,30,.95), rgba(12,12,15,.95)); box-shadow: 0 40px 100px -40px rgba(184,191,255,.25); }
+.ch-checkin { margin-top: 64px; border: 1px solid rgba(227,230,241,.28); border-radius: 22px; padding: 30px; background: linear-gradient(180deg, rgba(24,24,30,.95), rgba(12,12,15,.95)); box-shadow: 0 40px 100px -40px rgba(124, 235, 246,.25); }
 .ch-checkin h2 { font-size: clamp(28px, 4vw, 40px); }
 .ch-field { margin: 0 0 18px; }
 .ch-field > label, .ch-field > .flabel { display: block; font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
@@ -118,7 +118,7 @@
 /* done */
 .ch-done-hero { padding: 56px 0 8px; scroll-margin-top: 84px; }
 .ch-done-hero h1 { font-size: clamp(44px, 8vw, 92px); }
-.ch-tick { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--win-soft); border: 1px solid rgba(134,214,173,.45); color: var(--win); font-size: 26px; margin-bottom: 6px; }
+.ch-tick { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--win-soft); border: 1px solid rgba(124, 235, 246,.45); color: var(--win); font-size: 26px; margin-bottom: 6px; }
 .answers { display: grid; gap: 14px; margin: 0; }
 .answers div { border-top: 1px solid var(--line); padding-top: 12px; }
 .answers dt { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
@@ -135,7 +135,7 @@
 .ch-next .countdown { margin: 0; }
 .ch-next .countdown div { padding: 10px 8px; }
 .ch-next .countdown b { font-size: 22px; }
-.ch-finisher { border: 1px solid rgba(227,230,241,.3); border-radius: 22px; padding: 30px; background: radial-gradient(ellipse at top, rgba(184,191,255,.14), transparent 60%), var(--surface); }
+.ch-finisher { border: 1px solid rgba(227,230,241,.3); border-radius: 22px; padding: 30px; background: radial-gradient(ellipse at top, rgba(124, 235, 246,.14), transparent 60%), var(--surface); }
 .ch-finisher img.badge { width: 120px; height: 120px; margin-bottom: 8px; }
 .ch-catchup { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 

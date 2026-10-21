@@ -25,7 +25,7 @@
       <div class="lbl">The Day One Challenge</div>
       <h1><% if (me.firstName) { %><span class="dim"><%= me.firstName %>'s</span> <span class="grad">Day One.</span><% } else { %><span class="dim">Your</span> <span class="grad">Day One.</span><% } %></h1>
       <div class="ch-status">
-        <div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="<%= me.finished ? '#86d6ad' : '#e3e6f1' %>" stroke-width="8" stroke-linecap="round" stroke-dasharray="<%= c %>" stroke-dashoffset="<%= c * (1 - me.daysDone / 5) %>"/></svg><b><%= me.daysDone %>/5</b></div>
+        <div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/><circle cx="60" cy="60" r="<%= r %>" fill="none" stroke="<%= me.finished ? '#7cebf6' : '#e3e6f1' %>" stroke-width="8" stroke-linecap="round" stroke-dasharray="<%= c %>" stroke-dashoffset="<%= c * (1 - me.daysDone / 5) %>"/></svg><b><%= me.daysDone %>/5</b></div>
         <div>
           <% if (me.finished) { %>
             <p class="lede" style="margin:0"><b>You're a Day One finisher.</b> Doors open for you <%= chx.etWeekday(chx.launchAt) %> at <%= chx.etClock(chx.earlyAt) %> ET. We'll email your link.</p>

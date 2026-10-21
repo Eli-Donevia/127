@@ -110,8 +110,8 @@
     ]));
 
     var rd = [];
-    if (d.target) rd.push({ label: 'Calories', current: Math.round(t.kcal), target: d.target, unit: '', color: '#7c8cff', colorEnd: '#5be4ff' });
-    if (d.protein) rd.push({ label: 'Protein', current: Math.round(t.protein), target: d.protein, unit: 'g', color: '#5be4ff', colorEnd: '#a6f0ff' });
+    if (d.target) rd.push({ label: 'Calories', current: Math.round(t.kcal), target: d.target, unit: '', color: '#7cebf6', colorEnd: '#a98bff' });
+    if (d.protein) rd.push({ label: 'Protein', current: Math.round(t.protein), target: d.protein, unit: 'g', color: '#a98bff', colorEnd: '#a6f0ff' });
     if (rd.length && L.rings) {
       var rk = rd.map(function (r) { return r.label + r.target; }).join('|') + day;
       if (!ringHost || rk !== ringKey) { ringHost = el('div', { class: 'bd-rings' }); ringApi = L.rings(ringHost, rd, { size: 120, stroke: 11, gap: 4 }); ringKey = rk; } else ringApi.update(rd);
