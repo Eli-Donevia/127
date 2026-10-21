@@ -55,6 +55,11 @@
       s.appendChild(svg('path', { d: 'M40 4 L40 60', class: 'ln dim' }));
       return s;
     },
+    week: function () {
+      var s = svg('svg', { viewBox: '0 0 120 64' });
+      [[10, 6, 22], [10, 32, 14], [32, 10, 18], [32, 32, 20], [54, 6, 14], [54, 24, 26], [76, 12, 22], [76, 38, 14], [98, 6, 18]].forEach(function (b, i) { s.appendChild(svg('rect', { x: b[0], y: b[1], width: 16, height: b[2], rx: 3, class: i === 5 ? 'is-lit' : '' })); });
+      return s;
+    },
     hours: function () {
       var s = svg('svg', { viewBox: '0 0 120 64' });
       s.appendChild(svg('rect', { x: 10, y: 28, width: 46, height: 10, rx: 5 }));
@@ -79,6 +84,7 @@
     if (id === 'content' && d.posts) { var n = Object.keys(d.posts).filter(function (k) { return d.posts[k].state === 'posted'; }).length; return n + ' posted this month'; }
     if (id === 'stock' && d.items && d.items.length) return d.items.length + ' products tracked';
     if (id === 'hours' && d.tasks && d.tasks.length) { var back = d.tasks.reduce(function (n, t) { return n + (t.tag !== 'me' ? +t.hours || 0 : 0); }, 0); return back + ' hrs a week to get back'; }
+    if (id === 'week' && d.blocks && d.blocks.length) { var deep = d.blocks.reduce(function (n, b) { return n + (b.kind === 'deep' ? b.len : 0); }, 0) / 60; return deep ? deep + ' hrs of deep work a week' : d.blocks.length + ' blocks a week'; }
     if (id === 'checklists') return Object.keys(d.done || {}).length + ' steps done';
     return null;
   }
