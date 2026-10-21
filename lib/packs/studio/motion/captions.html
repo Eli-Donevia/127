@@ -6,18 +6,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=__W__, height=__H__" />
 <style>
-  @font-face { font-family: 'Inter'; font-weight: 700; src: url('Inter-Bold.otf'); }
-  @font-face { font-family: 'Inter'; font-weight: 900; src: url('Inter-Black.otf'); }
+  @font-face { font-family: 'Geist'; font-weight: 600; src: url('Geist-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Geist'; font-weight: 700; src: url('Geist-Bold.woff2') format('woff2'); }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: __W__px; height: __H__px; overflow: hidden; background: #000; }
-  #root { position: relative; width: __W__px; height: __H__px; overflow: hidden; font-family: 'Inter', sans-serif; }
+  #root { position: relative; width: __W__px; height: __H__px; overflow: hidden; font-family: 'Geist', sans-serif; }
   #v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  #cap { position: absolute; left: 7%; right: 7%; top: var(--capTop); text-align: center; font-weight: 900; font-size: var(--capSize); line-height: 1.1; color: #fff; text-transform: uppercase; -webkit-text-stroke: calc(var(--u) * 11px) #0b0b10; paint-order: stroke fill; }
+  #cap { position: absolute; left: 7%; right: 7%; top: var(--capTop); text-align: center; font-weight: 700; font-size: var(--capSize); line-height: 1.1; color: #fff; text-transform: uppercase; -webkit-text-stroke: calc(var(--u) * 11px) #0b0b10; paint-order: stroke fill; }
   #cap .w { display: inline-block; margin: 0 .12em; transform-origin: 50% 75%; }
   #cap .w.on { color: var(--pop); }
   #labels { position: absolute; left: 6%; top: var(--lblTop); display: flex; flex-direction: column; gap: calc(var(--u) * 8px); align-items: flex-start; }
-  #labels span { font: 700 max(34px, calc(var(--u) * 36px)) 'Inter'; color: #fff; background: rgba(0,0,0,.6); padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: calc(var(--u) * 10px); }
-  #tag { position: absolute; right: calc(var(--u) * 36px); top: calc(var(--u) * 36px); font: 700 calc(var(--u) * 26px) 'Inter'; padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: 99px; background: rgba(0,0,0,.6); color: #fff; letter-spacing: .08em; }
+  #labels span { font: 600 max(34px, calc(var(--u) * 36px)) 'Geist'; color: #fff; background: rgba(0,0,0,.6); padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: calc(var(--u) * 10px); }
+  #tag { position: absolute; right: calc(var(--u) * 36px); top: calc(var(--u) * 36px); font: 600 calc(var(--u) * 26px) 'Geist'; padding: calc(var(--u) * 8px) calc(var(--u) * 18px); border-radius: 99px; background: rgba(0,0,0,.6); color: #fff; letter-spacing: .08em; }
   [hidden] { display: none !important; }
 </style>
 </head>
