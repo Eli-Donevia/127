@@ -231,6 +231,7 @@ test('the OK: problems first, any change takes it back, it goes at its time to b
   assert.ok(logged.every((e) => /approved by you/.test(e.what)));
 
   assert.deepEqual(posts.counts(b, { since: now - 864e5 }), { out: 2, waiting: 0 });
+  assert.deepEqual(posts.counts(b, { since: now - 864e5, until: now - 1000 }), { out: 0, waiting: 0 }, 'until bounds what went out');
   // The link keeps working an hour, for Meta's late fetches, then stops.
   assert.ok(await posts.media(p.id, 'instagram', p.token));
   later(61 * 60 * 1000);
