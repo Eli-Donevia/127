@@ -66,6 +66,23 @@
       [[10, 6, 22], [10, 32, 14], [32, 10, 18], [32, 32, 20], [54, 6, 14], [54, 24, 26], [76, 12, 22], [76, 38, 14], [98, 6, 18]].forEach(function (b, i) { s.appendChild(svg('rect', { x: b[0], y: b[1], width: 16, height: b[2], rx: 3, class: i === 5 ? 'is-lit' : '' })); });
       return s;
     },
+    clients: function () {
+      var s = svg('svg', { viewBox: '0 0 120 64' });
+      [[12, 92], [30, 58], [48, 24]].forEach(function (b, i) { s.appendChild(svg('rect', { x: 10, y: b[0], width: 100, height: 6, rx: 3, class: 'dim' })); s.appendChild(svg('rect', { x: 10, y: b[0], width: b[1], height: 6, rx: 3, class: i === 0 ? 'is-lit' : '' })); });
+      return s;
+    },
+    interviews: function () {
+      var s = svg('svg', { viewBox: '0 0 120 64' });
+      [[10, 3], [38, 2], [66, 1], [94, 1]].forEach(function (c, i) { for (var k = 0; k < c[1]; k++) s.appendChild(svg('rect', { x: c[0], y: 8 + k * 17, width: 18, height: 13, rx: 3, class: i === 0 ? 'is-lit' : '' })); });
+      return s;
+    },
+    quote: function () {
+      var s = svg('svg', { viewBox: '0 0 120 64' });
+      [8, 18, 28].forEach(function (y, i) { s.appendChild(svg('rect', { x: 10, y: y, width: [64, 52, 58][i], height: 5, rx: 2.5 })); s.appendChild(svg('rect', { x: 86, y: y, width: 24, height: 5, rx: 2.5, class: 'dim' })); });
+      s.appendChild(svg('path', { d: 'M60 42 L110 42', class: 'ln dim' }));
+      s.appendChild(svg('rect', { x: 78, y: 50, width: 32, height: 7, rx: 3.5, class: 'is-lit' }));
+      return s;
+    },
     hours: function () {
       var s = svg('svg', { viewBox: '0 0 120 64' });
       s.appendChild(svg('rect', { x: 10, y: 28, width: 46, height: 10, rx: 5 }));
@@ -92,6 +109,9 @@
     if (id === 'stock' && d.items && d.items.length) return d.items.length + ' products tracked';
     if (id === 'hours' && d.tasks && d.tasks.length) { var back = d.tasks.reduce(function (n, t) { return n + (t.tag !== 'me' ? +t.hours || 0 : 0); }, 0); return back + ' hrs on repeat tasks and waste'; }
     if (id === 'week' && d.blocks && d.blocks.length) { var deep = d.blocks.reduce(function (n, b) { return n + (b.kind === 'deep' ? b.len : 0); }, 0) / 60; return deep ? deep + ' hrs of deep work a week' : d.blocks.length + ' blocks a week'; }
+    if (id === 'clients' && d.clients && d.clients.length) { var low = d.clients.filter(function (c) { var done = c.sessions.filter(function (x) { return x.state === 'done'; }).length; return c.status === 'active' && c.bought && c.bought - done <= 1; }).length; return low ? low + ' running low' : d.clients.length + ' clients'; }
+    if (id === 'interviews' && d.people && d.people.length) return d.people.filter(function (p) { return p.done; }).length + ' conversations';
+    if (id === 'quote' && d.quotes && d.quotes.length) return d.quotes.length + (d.quotes.length > 1 ? ' quotes' : ' quote');
     if (id === 'checklists') return Object.keys(d.done || {}).length + ' steps done';
     return null;
   }

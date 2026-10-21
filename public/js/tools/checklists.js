@@ -42,7 +42,7 @@
     }
     root.appendChild(el('section', { class: 'tl-sum ck-sum' + (side.length ? '' : ' one') }, [el('div', { class: 'tl-hero' }, head)].concat(side)));
     // Legal L92 HT7, word for word, on the list about taking money.
-    if (l.id === 'money-setup-checklist') root.appendChild(el('p', { class: 'tl-est ck-legal', text: 'General steps, not legal or tax advice. Rules differ by state.' }));
+    if (l.id === 'money-setup-checklist') root.appendChild(el('p', { class: 'tl-est ck-legal', text: 'General steps from official sources, not legal advice. What applies to you depends on your state, city and business.' }));
     l.groups.forEach(function (g) {
       var due = dueOf(g), gc = g.items.filter(function (i) { return data.done[i.id]; }).length, isNext = next === g;
       var box = el('section', { class: 'ck-g' + (isNext ? ' next' : '') }, [el('div', { class: 'ck-gh' }, [

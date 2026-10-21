@@ -304,3 +304,100 @@ test('Money overview keeps month totals only: category rules stay on the device,
   // No example money in the page script (Legal L82 T2).
   assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'money.js'), 'utf8'), /function example|EXAMPLE/);
 });
+
+test('Clients, Interview board and Quote builder clean, save, export and fit at their fullest (Legal L92)', async () => {
+  const m = await member();
+  const docs = {
+    clients: [{ clients: [{ id: 'c1', name: 'Maya', reach: 'maya@example.com', pkg: 'Ten sessions', bought: 10, status: 'active', note: 'Goals', sessions: [{ id: 's1', day: '2026-10-20', len: 60, state: 'done' }], extra: 'x' }] }, 'Maya,maya@example.com,Ten sessions,10,active,Goals,2026-10-20,60,done'],
+    interviews: [{ idea: 'Meal plans', people: [{ id: 'p1', who: 'Night nurse', day: '2026-10-20', done: true, pain: 3, last: 'Vending machine', tried: 'Kits', stop: 'Another subscription', pay: 'maybe 20 a month' }] }, 'Night nurse,2026-10-20,yes,3,Vending machine,Kits,Another subscription,maybe 20 a month'],
+    quote: [{ from: 'Lane Studio', quotes: [{ id: 'q1', number: 'Q-0001', client: 'Dana', title: 'Refresh', items: [{ name: 'Pages', qty: 4, price: 350 }], tax: 8.25, made: '2026-10-21', until: '2026-11-20', terms: 'Half up front.\nRest on delivery.', state: 'sent' }] }, 'Q-0001,Dana,Refresh,sent,2026-10-21,2026-11-20,Pages,4,350,1400,8.25'],
+  };
+  for (const [id, [doc, line]] of Object.entries(docs)) {
+    assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: m, json: doc })).status, 200, id);
+    assert.ok((await (await s.go(`/app/hq/tools/${id}`, { as: m })).text()).includes(`/js/tools/${id}.js`), id);
+    const csv = await (await s.go(`/app/hq/tools/${id}/export.csv`, { as: m })).text();
+    assert.ok(csv.includes(line), `${id}: ${csv}`);
+  }
+  assert.equal(tools.load(m.id, 'clients').clients[0].extra, undefined);
+  assert.equal(tools.load(m.id, 'quote').quotes[0].terms, 'Half up front.\nRest on delivery.');
+  const c = tools._clean;
+  assert.equal(c.cleanClients({ clients: [{ id: 'a', name: 'A', bought: 9999, status: 'vip', sessions: [{ id: 's', day: 'nope' }] }] }).clients[0].bought, 500);
+  assert.equal(c.cleanClients({ clients: [{ id: 'a', name: 'A', status: 'vip' }] }).clients[0].status, 'active');
+  assert.equal(c.cleanInterviews({ people: [{ id: 'a', who: 'A', pain: 9 }] }).people[0].pain, 3);
+  assert.equal(c.cleanQuote({ quotes: [{ id: 'a', tax: 99, items: [{ name: 'x', qty: 1, price: 1 }] }] }).quotes[0].tax, 30);
+
+  const sessions = (n) => Array.from({ length: n }, (_, i) => ({ id: `s${i}`, day: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10), len: 480, state: 'noshow' }));
+  const full = {
+    clients: { clients: Array.from({ length: 40 }, (_, i) => ({ id: `c${i}`, name: 'n'.repeat(40), reach: 'r'.repeat(80), pkg: 'p'.repeat(40), bought: 500, status: 'paused', note: 'o'.repeat(280), sessions: sessions(i < 10 ? 25 : 0) })) },
+    interviews: { idea: 'i'.repeat(80), people: Array.from({ length: 40 }, (_, i) => ({ id: `p${i}`, who: 'w'.repeat(40), day: '2026-10-20', done: true, pain: 3, last: 'l'.repeat(240), tried: 't'.repeat(240), stop: 's'.repeat(240), pay: 'p'.repeat(40) })) },
+    quote: { from: 'f'.repeat(60), quotes: Array.from({ length: 10 }, (_, i) => ({ id: `q${i}`, number: 'n'.repeat(20), client: 'c'.repeat(60), title: 't'.repeat(80), items: Array.from({ length: 20 }, () => ({ name: 'i'.repeat(80), qty: 99999, price: 9999999 })), tax: 30, made: '2026-10-21', until: '2026-11-20', terms: 't'.repeat(600), state: 'declined' })) },
+  };
+  for (const [id, doc] of Object.entries(full)) assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: m, json: doc })).status, 200, id);
+  assert.equal(tools.load(m.id, 'clients').clients.reduce((n, x) => n + x.sessions.length, 0), 250);
+  assert.equal(c.cleanClients({ clients: [{ id: 'a', name: 'A', sessions: sessions(120) }, { id: 'b', name: 'B', sessions: sessions(120) }, { id: 'c', name: 'C', sessions: sessions(120) }] }).clients[2].sessions.length, 10);
+  // Free plans keep the Interview board; Clients and Quote come with Builder.
+  const f = await member('free');
+  assert.equal((await s.go('/app/hq/tools/interviews/data', { as: f, json: docs.interviews[0] })).status, 200);
+  for (const id of ['clients', 'quote']) assert.equal((await s.go(`/app/hq/tools/${id}/data`, { as: f, json: docs[id][0] })).status, 403, id);
+  assert.equal((await s.go('/app/hq/tools/quote/share', { as: f, json: { id: 'q1', on: true } })).status, 403);
+
+  // The pages: nothing sends, looks up or adds up (L92); the wording Legal set.
+  const js = (id) => fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', `${id}.js`), 'utf8');
+  assert.doesNotMatch(js('clients'), /fetch\(|XMLHttpRequest|sendBeacon|pipeline/i);
+  assert.match(js('clients'), /How you reach them, optional/);
+  assert.doesNotMatch(js('interviews'), /fetch\(|XMLHttpRequest|sendBeacon|T\.num\(p\.pay|parseFloat/);
+  assert.match(js('interviews'), /From your notes, not a prediction\./);
+  assert.match(js('interviews'), /Their words, not a promise to buy/);
+  assert.match(js('quote'), /Your rate\. 127 doesn’t work out sales tax for you\./);
+  assert.match(js('quote'), /Template, not legal advice\. Laws differ by state, so have a lawyer check anything you’ll sign\./);
+  assert.doesNotMatch(js('quote'), /mailto:|\/send|EXAMPLE/);
+});
+
+test('a quote\'s private link: random, server-made, turns off, expires, and the page is quiet (Legal L92 QL1-QL4)', async () => {
+  const m = await member();
+  const doc = { from: 'Lane Studio', quotes: [{ id: 'q1', number: 'Q-0007', client: 'Dana', title: 'Refresh', items: [{ name: 'Pages', qty: 2, price: 100 }], tax: 10, made: '2026-10-21', until: '2099-01-01', terms: '', state: 'sent' }] };
+  // The page can't set its own token.
+  await s.go('/app/hq/tools/quote/data', { as: m, json: { ...doc, quotes: [{ ...doc.quotes[0], share: { token: 'A'.repeat(24), at: new Date().toISOString() } }] } });
+  assert.equal(tools.load(m.id, 'quote').quotes[0].share, undefined);
+  assert.equal((await s.go(`/q/${'A'.repeat(24)}`)).status, 404);
+  assert.equal((await s.go('/app/hq/tools/quote/share', { as: m, json: { id: 'nope', on: true } })).status, 409);
+
+  const on = await (await s.go('/app/hq/tools/quote/share', { as: m, json: { id: 'q1', on: true } })).json();
+  assert.match(on.token, /^[A-Za-z0-9_-]{24}$/);
+  assert.ok(!on.token.includes(m.id) && !on.token.includes('q1'));
+  // Saving again keeps the link.
+  await s.go('/app/hq/tools/quote/data', { as: m, json: doc });
+  assert.equal(tools.load(m.id, 'quote').quotes[0].share.token, on.token);
+
+  const res = await s.go(`/q/${on.token}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get('x-robots-tag'), /noindex/);
+  const html = await res.text();
+  assert.match(html, /<meta name="robots" content="noindex/);
+  assert.match(html, /Made with 127/);
+  assert.match(html, /Q-0007/);
+  assert.match(html, /\$220\.00/);
+  assert.doesNotMatch(html, /<script|plausible|ads\.example|@127\.test/);
+
+  // Expires 90 days after it was made, or at the end of its valid-until day.
+  const was = tools._deps.now;
+  tools._deps.now = () => Date.now() + 91 * 864e5;
+  assert.equal((await s.go(`/q/${on.token}`)).status, 410);
+  tools._deps.now = was;
+  await s.go('/app/hq/tools/quote/data', { as: m, json: { ...doc, quotes: [{ ...doc.quotes[0], until: '2026-01-01' }] } });
+  assert.equal((await s.go(`/q/${on.token}`)).status, 410);
+
+  // Off kills the link for good; on again makes a new one.
+  await s.go('/app/hq/tools/quote/share', { as: m, json: { id: 'q1', on: false } });
+  assert.equal((await s.go(`/q/${on.token}`)).status, 404);
+  await s.go('/app/hq/tools/quote/data', { as: m, json: doc });
+  const again = await (await s.go('/app/hq/tools/quote/share', { as: m, json: { id: 'q1', on: true } })).json();
+  assert.notEqual(again.token, on.token);
+  assert.equal((await s.go(`/q/${again.token}`)).status, 200);
+  // Tools off: the link is off too. Deleting the quote kills it.
+  process.env.HQ_TOOLS = 'off';
+  assert.equal((await s.go(`/q/${again.token}`)).status, 404);
+  process.env.HQ_TOOLS = 'on';
+  await s.go('/app/hq/tools/quote/data', { as: m, json: { from: 'Lane Studio', quotes: [] } });
+  assert.equal((await s.go(`/q/${again.token}`)).status, 404);
+});

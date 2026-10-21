@@ -1,0 +1,60 @@
+<!doctype html>
+<%# A member's quote, shared with their client by a private link (lib/tools share, Legal L92 QL1-QL4). It stands on its
+    own: no app layout, no scripts, nothing loaded from outside, no client email, not indexed. %>
+<%
+  const q = found.quote;
+  const money = (n) => '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const qty = (n) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+  const M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const day = (d) => { const p = String(d).split('-'); return M[+p[1] - 1] + ' ' + (+p[2]) + ', ' + p[0]; };
+%>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title><%= q ? (found.from ? 'Quote from ' + found.from : 'Quote') : 'Quote' %></title>
+<link rel="stylesheet" href="/css/quote-share.css">
+</head>
+<body>
+<% if (!q) { %>
+<main class="qs qs-gone">
+  <h1><%= found.expired ? 'This quote has expired.' : 'This link doesn’t open a quote.' %></h1>
+  <p><%= found.expired ? 'Ask whoever sent it for a new one.' : 'It may have been turned off. Ask whoever sent it for a new link.' %></p>
+</main>
+<% } else { %>
+<main class="qs">
+  <header class="qs-head">
+    <div>
+      <p class="qs-from"><%= found.from || 'Quote' %></p>
+      <% if (q.title) { %><h1 class="qs-title"><%= q.title %></h1><% } %>
+    </div>
+    <dl class="qs-meta">
+      <% if (q.number) { %><div><dt>Quote</dt><dd><%= q.number %></dd></div><% } %>
+      <% if (q.client) { %><div><dt>For</dt><dd><%= q.client %></dd></div><% } %>
+      <% if (q.made) { %><div><dt>Date</dt><dd><%= day(q.made) %></dd></div><% } %>
+      <% if (q.until) { %><div><dt>Valid until</dt><dd><%= day(q.until) %></dd></div><% } %>
+    </dl>
+  </header>
+  <table class="qs-items">
+    <thead><tr><th scope="col">Item</th><th scope="col" class="n">Qty</th><th scope="col" class="n">Price</th><th scope="col" class="n">Amount</th></tr></thead>
+    <tbody>
+      <% q.items.forEach(function (i) { %>
+      <tr><td><%= i.name %></td><td class="n" data-l="Qty"><%= qty(i.qty) %></td><td class="n" data-l="Price"><%= money(i.price) %></td><td class="n" data-l="Amount"><%= money(i.qty * i.price) %></td></tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <dl class="qs-tot">
+    <div><dt>Subtotal</dt><dd><%= money(totals.sub) %></dd></div>
+    <% if (q.tax) { %><div><dt>Tax (<%= qty(q.tax) %>%)</dt><dd><%= money(totals.tax) %></dd></div><% } %>
+    <div class="all"><dt>Total</dt><dd><%= money(totals.total) %></dd></div>
+  </dl>
+  <% if (q.terms) { %>
+  <section class="qs-terms"><h2>Terms</h2><p><%= q.terms %></p></section>
+  <% } %>
+</main>
+<% } %>
+<footer class="qs-foot"><a href="https://127group.io" rel="noopener">Made with 127</a></footer>
+</body>
+</html>
