@@ -11,7 +11,9 @@
    if (F.HQ_ACTIVITY) tabs.splice(tabs.length - 1, 0, ['activity', '/app/hq/activity', 'Activity']);
    // The Store (lib/store.js): just before Library, as W9 orders the tabs.
    if (F.STORE_V2) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['store', '/app/hq/store', 'Store']);
-   var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab === 'brief' || tab === 'briefs' || tab === 'script' ? 'scripts' : tab; %>
+   // Native tools (lib/tools, HQ_TOOLS): before the Store.
+   if (F.HQ_TOOLS) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['tools', '/app/hq/tools', 'Tools']);
+   var here = tab === 'tool' ? 'tools' : tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab === 'brief' || tab === 'briefs' || tab === 'script' ? 'scripts' : tab; %>
 <% if (typeof ws === 'undefined' || !ws) { %>
 <nav class="h2-tabs" aria-label="HQ">
   <% tabs.forEach(function (t) { %><a href="<%= t[1] %>" class="<%= here === t[0] ? 'on' : '' %>"<%- here === t[0] ? ' aria-current="page"' : '' %>><%= t[2] %><% if (t[0] === 'inbox' && inboxCount) { %><span class="n" aria-label="<%= inboxCount %> waiting"><%= inboxCount %></span><% } %></a><% }) %>

@@ -42,6 +42,7 @@ const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
+const toolsRoutes = require('./lib/tools-routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
@@ -2060,6 +2061,7 @@ app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
 // The HQ Store (lib/store.js, W7): every template kind, Make it mine. Behind STORE_V2 (default off):
 // off, its pages 404 and the HQ tabs show no Store.
 app.use(storeRoutes({ requireAuth, flash, track }));
+app.use(toolsRoutes({ requireAuth, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 

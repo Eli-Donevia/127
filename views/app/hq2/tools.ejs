@@ -1,0 +1,30 @@
+<%- include('../../partials/app-head') %>
+<%# Native tools (lib/tools, HQ_TOOLS): the shelf. Each card shows what the tool answers and, once the member has
+    used it, their own headline number from it (computed in public/js/tools/shelf.js from the saved document). %>
+<div class="hq h2 tl">
+  <%- include('../../partials/hq2-nav') %>
+  <header class="tl-head">
+    <span class="eyebrow">Tools</span>
+    <h1 class="hq-title"><span class="dim">Your numbers,</span><span class="steel">worked out live.</span></h1>
+    <p class="hq-lede">Type what you know. Each tool does the math as you go, saves to HQ and shows you the one thing to look at.</p>
+  </header>
+  <div class="tl-shelf">
+    <% shelf.forEach(function (t, i) { %>
+    <a class="tl-card" href="/app/hq/tools/<%= t.id %>" data-tool="<%= t.id %>">
+      <span class="tl-card-n"><%= String(i + 1).padStart(2, '0') %></span>
+      <span class="tl-card-art" aria-hidden="true" data-art="<%= t.id %>"></span>
+      <span class="tl-card-t"><%= t.title %></span>
+      <span class="tl-card-l"><%= t.line %></span>
+      <span class="tl-card-f">
+        <% if (!t.open) { %><span>Comes with Builder</span><% } else if (t.used) { %><span data-headline>Open</span><% } else { %><span>Start</span><% } %>
+        <span class="arrow"></span>
+      </span>
+      <% if (t.used && t.open) { %><script type="application/json" data-doc><%- JSON.stringify(t.data).replace(/</g, '\\u003c') %></script><% } %>
+    </a>
+    <% }) %>
+  </div>
+  <p class="tl-foot">Nothing in Tools is sent to AI. Your numbers stay in your HQ, you can export them as CSV, and Start over deletes them.</p>
+</div>
+<script src="/js/tools/kit.js" defer></script>
+<script src="/js/tools/shelf.js" defer></script>
+<%- include('../../partials/app-foot') %>
