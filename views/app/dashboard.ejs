@@ -30,8 +30,8 @@
     <% if (q.welcome && (user.challengeFinisher || (user.challenge && user.challenge.finished_at))) { %>
     <div class="card finisher-card">
       <div class="eyebrow">Day One · done</div>
-      <% if (user.challenge && user.challenge.carried > 0) { %><p>Your week is in. Week 1 of your roadmap is ticked off, and everything you wrote in the five days is saved.</p>
-      <% } else { %><p>Your week is in. You earned the Day One badge, and everything you wrote in the five days is saved.</p><% } %>
+      <% if (user.challenge && user.challenge.carried > 0) { %><p>Your week is in. Week 1 of your roadmap is ticked off, and everything you wrote in the challenge is saved.</p>
+      <% } else { %><p>Your week is in. You earned the Day One badge, and everything you wrote in the challenge is saved.</p><% } %>
       <a class="btn ghost sm" href="/challenge/me">See what you wrote <span class="arrow"></span></a>
     </div>
     <% } %>

@@ -382,13 +382,12 @@ function checkLink(kind, q) {
 
 // ---------- public site ----------
 // Intro video on the homepage: HOME_VIDEO_URL, or drop a file at public/video/intro.mp4 (poster: intro.jpg).
-// intro.mp4 is Video's Finovate Fall highlight until Eli films "Why I built 127"; then set HOME_VIDEO_TITLE="Why I built 127."
+// Set HOME_VIDEO_URL (and HOME_VIDEO_TITLE="Why I built 127.") once Eli films it.
 function homeVideo() {
-  const title = process.env.HOME_VIDEO_TITLE || 'On stage at Finovate Fall.';
+  const title = process.env.HOME_VIDEO_TITLE || 'Why I built 127.';
+  // public/video/intro.mp4 (the Finovate cut) is off the homepage (Eli Oct 21: not relevant to 127, and its lower third says "2X FOUNDER").
   if (process.env.HOME_VIDEO_URL) return { title, src: process.env.HOME_VIDEO_URL, poster: process.env.HOME_VIDEO_POSTER || '/img/eli-founder.jpg' };
-  const f = path.join(__dirname, 'public', 'video', 'intro.mp4');
-  if (!fs.existsSync(f)) return null;
-  return { title, src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
+  return null;
 }
 // hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form.
 // The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html) and searches real
@@ -627,7 +626,7 @@ function foundingPage() {
   const base = { fState: state, resourceCount: resources.length };
   if (state === 'A' && v.upcoming) return { ...base, title: 'Founding members', description: `The 127 founding price opens${v.launchDate ? ` ${v.launchDate}` : ' soon'}: Builder for ${pm}, locked while you stay. The free plan is open now.` };
   if (state === 'A') {
-    const ch = v.challenge.open ? ` Free 5-day challenge with Eli, ${v.challenge.dates}.` : '';
+    const ch = v.challenge.open ? ` Free ${v.challenge.days}-day challenge with Eli, ${v.challenge.dates}.` : '';
     return { ...base, title: 'Founding members', description: `Join the 127 founding list. Builder for ${pm}, locked while you stay, when doors open${v.launchDate ? ` ${v.launchDate}` : ''}.${ch}` };
   }
   if (state === 'B') return { ...base, title: 'Founding price', description: `Builder for ${pm}, locked while you stay. Until ${v.closesDate || 'the founding close'} or the first ${v.cap} founding members.` };

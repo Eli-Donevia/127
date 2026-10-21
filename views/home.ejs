@@ -384,7 +384,7 @@
   </section>
 
   <% if (video) { %>
-  <!-- INTRO VIDEO: Video's Finovate highlight (public/video/intro.mp4) until Eli's "Why I built 127" clip -->
+  <!-- INTRO VIDEO: only when HOME_VIDEO_URL is set (Eli's "Why I built 127" clip) -->
   <section class="video-sec">
     <div class="wrap">
       <h2 class="h2" data-reveal><%= video.title %></h2>
@@ -401,10 +401,7 @@
     <div class="wrap fx-grid">
       <div class="collage" aria-hidden="true">
         <figure class="cc c1" data-tilt><img src="/img/eli-founder.jpg" alt="" loading="lazy"></figure>
-        <figure class="cc c2" data-tilt>
-          <video class="lazy-loop" muted loop playsinline preload="none" data-poster="/img/finovate-stage-loop-16x9-bw.jpg" data-src="/video/finovate-stage-loop-16x9-bw.mp4" width="1920" height="1080"></video>
-          <figcaption>Spoke on stage at Finovate Fall</figcaption>
-        </figure>
+        <figure class="cc c2" data-tilt><img src="/img/wall/eli-stockroom-square.jpg" alt="" loading="lazy"><figcaption>In the apparel stockroom</figcaption></figure>
         <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>Received a "Most Improved" award</figcaption></figure>
         <figure class="cc c4" data-tilt><img src="/img/wall/eli-popup-01.jpg" alt="" loading="lazy"><figcaption>Apparel pop-up</figcaption></figure>
       </div>

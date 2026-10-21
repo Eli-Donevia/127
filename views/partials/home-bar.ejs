@@ -3,7 +3,7 @@
    var hbTrack = " data-track=\"home_bar_click\" data-props='" + JSON.stringify({ state: hb }) + "'"; %>
 <% if (hb === 'A1' && launch.challenge.on) { %>
 <div class="hbar-top" role="region" aria-label="Announcement"><div class="wrap">
-  <p>Free 5-day Day One Challenge with Eli, <%= launch.challenge.startAbbr %> to <%= launch.challenge.endAbbr %>.<% if (launch.challenge.regClosesLabel) { %> Sign up by <%= launch.challenge.regClosesLabel %>.<% } %></p>
+  <p>Free <%= launch.challenge.days %>-day Day One Challenge with Eli, <%= launch.challenge.startAbbr %> to <%= launch.challenge.endAbbr %>.<% if (launch.challenge.regClosesLabel) { %> Sign up by <%= launch.challenge.regClosesLabel %>.<% } %></p>
   <a href="/challenge?ref=home"<%- hbTrack %>>Join the challenge <span class="arrow"></span></a>
 </div></div>
 <% } else if (hb === 'A1' || hb === 'A2') { %>
