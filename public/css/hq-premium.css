@@ -360,3 +360,59 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp-ask-f b { font-size: 12px; line-height: 1.3; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hqp-ask-f u { display: block; height: 20px; border-radius: 6px; border: 1px solid var(--line-2); background: rgba(255, 255, 255, .02); }
 .hqp-ask-none { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+
+/* ---- Color and motion, one level up (D56, v2/design/accent-motion-v2.md; Eli, Oct 21 04:13Z). HQ dashboards are M2
+   "lively". Glow only comes from a light source (the ask bar's dot and edge, the rail's current page, the ring arcs, a lit
+   map dot, a live wire), at 0.5 or less and no wider than twice the stroke; never behind a card or a section. Ion is
+   Pop's neon partner for edges and data; at most Pop and Ion per view, plus Signal for progress. */
+@property --hqp-ang { syntax: '<angle>'; inherits: false; initial-value: -90deg; }
+.hqp {
+  --ion: #5be4ff;
+  --glow-pop: 0 0 10px rgba(124, 140, 255, .5);
+  --glow-ion: 0 0 10px rgba(91, 228, 255, .45);
+  --glow-sig: 0 0 10px rgba(134, 214, 173, .45);
+}
+
+/* the ask bar: its dot is a small neon light; typing charges a Pop-to-Ion edge once around, then it rests lit */
+.hqp .orb .core::after { box-shadow: 0 0 8px rgba(124, 140, 255, .5); }
+.hqp .h2-talk { isolation: isolate; transition: border-color .3s; }
+.hqp .h2-talk::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1px; pointer-events: none; background: conic-gradient(from var(--hqp-ang), var(--pop), var(--ion) 30%, transparent 55%, transparent 80%, var(--pop)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .35s; }
+.hqp .h2-talk:focus-within { border-color: transparent; }
+.hqp .h2-talk input:focus-visible { outline: none; } /* the bar's charged edge is the focus mark */
+.hqp .h2-talk:focus-within::before { opacity: 1; animation: hqpCharge 1.6s var(--out) both; }
+.hqp .h2-talk:has(.orb[data-state="thinking"])::before { opacity: 1; animation: hqpCharge 1.4s linear infinite; }
+@keyframes hqpCharge { from { --hqp-ang: -90deg; } to { --hqp-ang: 270deg; } }
+
+/* the rail: the current page's mark glows, and one highlight glides on a spring to whatever the pointer is over */
+.hqp .ws-link.on::before { box-shadow: var(--glow-pop); }
+.hqp .ws-nav { position: relative; }
+.hqp-rail-hl { position: absolute; left: 0; right: 0; top: 0; height: 36px; border-radius: 9px; background: rgba(255, 255, 255, .045); opacity: 0; pointer-events: none; transform: translateY(var(--y, 0)); transition: transform .38s var(--out), height .38s var(--out), opacity .2s; }
+.hqp-rail-hl.on { opacity: 1; }
+.hqp .ws-nav:has(.hqp-rail-hl) .ws-link:hover { background: transparent; }
+.hqp .ws-link .ws-i { transition: transform .35s var(--out), color .2s; }
+.hqp .ws-link:hover .ws-i { transform: translateX(2px); color: var(--ink); }
+
+/* the rings: each arc is its own light; replies go Ion */
+.hqp-rings .b, .hqp-rk .l i.b { stroke: var(--ion); background: var(--ion); }
+.hqp-rings .v.a { filter: drop-shadow(0 0 4px rgba(124, 140, 255, .5)); }
+.hqp-rings .v.b { filter: drop-shadow(0 0 4px rgba(91, 228, 255, .45)); }
+.hqp-rings .v.s { filter: drop-shadow(0 0 4px rgba(134, 214, 173, .45)); }
+.hqp-rk .l i.a { box-shadow: var(--glow-pop); }
+.hqp-rk .l i.b { box-shadow: var(--glow-ion); }
+.hqp-rk .l i.s { box-shadow: var(--glow-sig); }
+
+/* the Map of everything: workflows Pop, prompts Ion, the rest steel (hq-premium.js draws the dots the same way) */
+.hqp-map [data-k="workflows"] i { background: var(--pop); }
+.hqp-map [data-k="prompts"] i { background: var(--ion); }
+.hqp-map [data-k="connections"] i { background: rgba(236, 238, 245, .62); }
+
+/* Connections: live wires give off a little light, and the pulse that runs toward 127 has an Ion head */
+.hqp-board .is-connected .w { filter: drop-shadow(0 0 3px rgba(134, 214, 173, .45)); }
+.hqp-board .is-connected .w-run { stroke: var(--ion); filter: drop-shadow(0 0 3px rgba(91, 228, 255, .5)); }
+.hqp-board .hqp-node:hover .w-run { stroke: var(--pop); filter: drop-shadow(0 0 3px rgba(124, 140, 255, .5)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hqp .h2-talk::before, .hqp .h2-talk:focus-within::before, .hqp .h2-talk:has(.orb[data-state="thinking"])::before { animation: none; --hqp-ang: 270deg; }
+  .hqp-rail-hl { transition: none; }
+  .hqp .ws-link .ws-i { transition: none; }
+}

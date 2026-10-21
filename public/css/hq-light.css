@@ -1,15 +1,15 @@
 /* HQ's light look (HQ_PREMIUM, lib/harness/theme.js). Loaded with hq-premium.css; nothing here applies until
    html.hq-light is set (the member picked Light, or System on a device set to light).
 
-   Designed for daylight, not inverted: paper (#f5f5f7) with white sheets that sit on a hairline and a soft long
-   shadow instead of a glow, graphite ink, and the same accent rules tuned to hold contrast on white. Pop (#4f5fe8,
-   5.1:1 on white) is still light on the subject only, one per view; Signal (#1d8f5c graphics, #167a4d text) is
+   Designed for daylight, not inverted: paper (#f6f6f8) with white sheets that sit on a hairline and a soft long
+   shadow instead of a glow, graphite ink, and the same accent rules tuned to hold contrast on white. Pop (#4a57d9,
+   5.3:1) is still light on the subject only, one per view; Signal (#1e7f55) is
    still wins and progress only; Gold (#8a651c) is still the Circle only. Glows become nothing: on paper, light
    reads as ink and lift, so every halo here is dropped rather than recoloured. */
 
 html.hq-light {
   color-scheme: light;
-  --bg: #f5f5f7;
+  --bg: #f6f6f8;
   --bg-2: #efeff2;
   --surface: #ffffff;
   --surface-2: #f3f3f6;
@@ -21,13 +21,13 @@ html.hq-light {
   --line-2: rgba(18, 18, 30, 0.16);
   --primary: #121216;
   --primary-ink: #ffffff;
-  --accent: #4352d6;
-  --accent-ink: #4352d6;
-  --accent-soft: rgba(79, 95, 232, 0.08);
+  --accent: #4a57d9;
+  --accent-ink: #4a57d9;
+  --accent-soft: rgba(74, 87, 217, 0.08);
   --gold: #8a651c;
   --gold-soft: rgba(138, 101, 28, 0.08);
-  --win: #167a4d;
-  --win-soft: rgba(29, 143, 92, 0.09);
+  --win: #1e7f55;
+  --win-soft: rgba(30, 127, 85, 0.09);
   --danger: #b8402c;
   --dark: #ffffff;
   --dark-2: #f3f3f6;
@@ -38,21 +38,25 @@ html.hq-light {
   --glow: 0 0 0 1px var(--line), var(--lift);
   /* the names the vendored toast and sheet styles read */
   --fg: #121216;
-  --signal: #1d8f5c;
+  --signal: #1e7f55;
   --line-strong: rgba(18, 18, 30, 0.22);
   --surface-1: #ffffff;
 }
 html.hq-light body { background: var(--bg); }
-html.hq-light ::selection { background: rgba(79, 95, 232, 0.18); }
+html.hq-light ::selection { background: rgba(74, 87, 217, 0.18); }
 html.hq-light .hq {
   --slate: #6b6c77;
   --steel: linear-gradient(180deg, #121216 0%, #2c2d35 60%, #4a4b55 100%);
 }
 html.hq-light .hqp {
-  --pop: #4f5fe8;
-  --pop-soft: rgba(79, 95, 232, 0.09);
-  --pop-line: rgba(79, 95, 232, 0.42);
-  --sig: #1d8f5c;
+  --ion: #0a7a99;
+  --glow-pop: none;
+  --glow-ion: none;
+  --glow-sig: none;
+  --pop: #4a57d9;
+  --pop-soft: rgba(74, 87, 217, 0.09);
+  --pop-line: rgba(74, 87, 217, 0.42);
+  --sig: #1e7f55;
 }
 
 /* the sheets: white on paper, lifted by a hairline and a long soft shadow */
@@ -75,14 +79,13 @@ html.hq-light .input::placeholder,
 html.hq-light .hq-in::placeholder,
 html.hq-light input::placeholder { color: #8a8b96; }
 html.hq-light .input:focus,
-html.hq-light .hq-in:focus,
-html.hq-light .h2-talk input:focus { border-color: rgba(79, 95, 232, 0.6); box-shadow: 0 0 0 4px rgba(79, 95, 232, 0.1); }
+html.hq-light .hq-in:focus { border-color: rgba(74, 87, 217, 0.6); box-shadow: 0 0 0 4px rgba(74, 87, 217, 0.1); }
 html.hq-light .alert.error { border-color: rgba(184, 64, 44, 0.3); background: rgba(184, 64, 44, 0.06); }
-html.hq-light .alert.win { border-color: rgba(29, 143, 92, 0.28); }
+html.hq-light .alert.win { border-color: rgba(30, 127, 85, 0.28); }
 html.hq-light .alert.info,
-html.hq-light .banner { border-color: rgba(79, 95, 232, 0.22); }
-html.hq-light .chip { border-color: rgba(79, 95, 232, 0.2); }
-html.hq-light .chip.win { border-color: rgba(29, 143, 92, 0.25); }
+html.hq-light .banner { border-color: rgba(74, 87, 217, 0.22); }
+html.hq-light .chip { border-color: rgba(74, 87, 217, 0.2); }
+html.hq-light .chip.win { border-color: rgba(30, 127, 85, 0.25); }
 html.hq-light .chip.gold { border-color: rgba(138, 101, 28, 0.25); }
 
 /* the rail, the phone bar and the jump-to box */
@@ -128,20 +131,20 @@ html.hq-light .ws-look .to-light { display: none; }
 /* Today and the run pages */
 html.hq-light .h2-tabs .n { color: #fff; }
 html.hq-light .h2-talk { background: var(--surface); box-shadow: var(--lift); }
-html.hq-light .h2-say { border-color: rgba(79, 95, 232, 0.22); }
-html.hq-light .orb .core { background: radial-gradient(circle at 35% 30%, #7d86e6 0%, #4f5fe8 40%, #2a2f7a 78%, #15172e 100%); box-shadow: 0 10px 24px -10px rgba(42, 47, 122, 0.6); }
+html.hq-light .h2-say { border-color: rgba(74, 87, 217, 0.22); }
+html.hq-light .orb .core { background: radial-gradient(circle at 35% 30%, #7d86e6 0%, #4a57d9 40%, #2a2f7a 78%, #15172e 100%); box-shadow: 0 10px 24px -10px rgba(42, 47, 122, 0.6); }
 html.hq-light .orb .ring,
 html.hq-light .orb .dust { display: none; }
 html.hq-light .hqp .orb .core { background: #fff; box-shadow: inset 0 0 0 1px var(--pop-line), 0 10px 24px -14px rgba(18, 18, 30, 0.45); }
-html.hq-light .h2-move { background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, rgba(79, 95, 232, 0.55), rgba(18, 18, 30, 0.1) 45%, rgba(18, 18, 30, 0.06)) border-box; box-shadow: var(--lift); }
+html.hq-light .h2-move { background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, rgba(74, 87, 217, 0.55), rgba(18, 18, 30, 0.1) 45%, rgba(18, 18, 30, 0.06)) border-box; box-shadow: var(--lift); }
 html.hq-light .h2-move::after { display: none; }
 html.hq-light .h2-four .hq-tile.hot,
 html.hq-light .h2-card.fit,
 html.hq-light .h2-step.next,
 html.hq-light .h2-offer,
 html.hq-light .h2-ask,
-html.hq-light .h2-q.k-reply { border-color: rgba(79, 95, 232, 0.4); }
-html.hq-light .h2-tag.dfy { border-color: rgba(79, 95, 232, 0.3); }
+html.hq-light .h2-q.k-reply { border-color: rgba(74, 87, 217, 0.4); }
+html.hq-light .h2-tag.dfy { border-color: rgba(74, 87, 217, 0.3); }
 html.hq-light .h2-tag.lock { border-color: rgba(184, 64, 44, 0.28); }
 html.hq-light .h2-tag.gold,
 html.hq-light .h2-sample { border-color: rgba(138, 101, 28, 0.35); }
@@ -149,27 +152,27 @@ html.hq-light .h2-tag.win,
 html.hq-light .h2-day,
 html.hq-light .h2-q.k-call,
 html.hq-light .h2-lead .moves button.fwd,
-html.hq-light .hq-pill.win { border-color: rgba(29, 143, 92, 0.35); }
-html.hq-light .h2-q.sent { border-color: rgba(29, 143, 92, 0.5); }
-html.hq-light .h2-plan li.you .n { border-color: rgba(79, 95, 232, 0.5); }
+html.hq-light .hq-pill.win { border-color: rgba(30, 127, 85, 0.35); }
+html.hq-light .h2-q.sent { border-color: rgba(30, 127, 85, 0.5); }
+html.hq-light .h2-plan li.you .n { border-color: rgba(74, 87, 217, 0.5); }
 html.hq-light .h2-circle { border-color: rgba(138, 101, 28, 0.35); background: var(--surface); }
 html.hq-light .br-chips input:checked + span { border-color: rgba(18, 18, 30, 0.55); background: rgba(18, 18, 30, 0.04); }
 html.hq-light .pl-peek { background: linear-gradient(180deg, #f6f6f8 0%, #eeeef2 100%); }
 html.hq-light .pl-field i,
 html.hq-light .hqp-ask-f u { background: #fff; }
-html.hq-light .hq-chip.lilac { border-color: rgba(79, 95, 232, 0.3); }
+html.hq-light .hq-chip.lilac { border-color: rgba(74, 87, 217, 0.3); }
 html.hq-light .hq-down { background: rgba(184, 64, 44, 0.08); }
 html.hq-light .hq-chart .grid { stroke: rgba(18, 18, 30, 0.07); }
 html.hq-light .hq-chart .area { fill: rgba(18, 18, 30, 0.04); }
 html.hq-light .hq-leak { background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(180deg, rgba(18, 18, 30, 0.22) 0%, rgba(18, 18, 30, 0.08) 40%) border-box; }
-html.hq-light .hq-upcard { background: var(--surface); border-color: rgba(79, 95, 232, 0.3); }
-html.hq-light .hq-fill { background: var(--surface); border-color: rgba(79, 95, 232, 0.25); }
-html.hq-light .hq-drop { border-color: rgba(79, 95, 232, 0.45); background: var(--surface-2); }
-html.hq-light .hq-snapped { border-color: rgba(29, 143, 92, 0.3); }
-html.hq-light .hq-f.snapped .hq-in { border-color: rgba(29, 143, 92, 0.5); }
-html.hq-light .ap-tile[data-status="connected"] { border-color: rgba(29, 143, 92, 0.3); }
-html.hq-light .ap-pill.connected { border-color: rgba(29, 143, 92, 0.35); }
-html.hq-light .ap-pill.connect { border-color: rgba(79, 95, 232, 0.35); }
+html.hq-light .hq-upcard { background: var(--surface); border-color: rgba(74, 87, 217, 0.3); }
+html.hq-light .hq-fill { background: var(--surface); border-color: rgba(74, 87, 217, 0.25); }
+html.hq-light .hq-drop { border-color: rgba(74, 87, 217, 0.45); background: var(--surface-2); }
+html.hq-light .hq-snapped { border-color: rgba(30, 127, 85, 0.3); }
+html.hq-light .hq-f.snapped .hq-in { border-color: rgba(30, 127, 85, 0.5); }
+html.hq-light .ap-tile[data-status="connected"] { border-color: rgba(30, 127, 85, 0.3); }
+html.hq-light .ap-pill.connected { border-color: rgba(30, 127, 85, 0.35); }
+html.hq-light .ap-pill.connect { border-color: rgba(74, 87, 217, 0.35); }
 html.hq-light .ap-pill.broken { border-color: rgba(184, 64, 44, 0.35); }
 
 /* chosen options read as ink on paper; Pop stays for the one subject on the page */
@@ -194,7 +197,7 @@ html.hq-light .hqp-rk .l i { background: rgba(18, 18, 30, 0.16); }
 html.hq-light .hqp-rk .l i.a { background: var(--pop); }
 html.hq-light .hqp-rk .l i.s { background: var(--sig); }
 html.hq-light .hqp-rings .b,
-html.hq-light .hqp-rk .l i.b { stroke: #121216; background: #121216; }
+html.hq-light .hqp-rk .l i.b { stroke: var(--ion); background: var(--ion); }
 html.hq-light .hqp-pv { background: var(--surface-2); }
 html.hq-light .hqp-pv i,
 html.hq-light .hqp-pv[data-job="money"] i,
@@ -205,26 +208,23 @@ html.hq-light .hqp-pv[data-job="leads"] i:nth-child(n+2)::before,
 html.hq-light .hqp-pv[data-job="sales"] i:nth-child(n+2)::before { background: rgba(18, 18, 30, 0.18); }
 html.hq-light .hqp-pv[data-job="money"] i:nth-child(4),
 html.hq-light .hqp-pv[data-job="ads"] i:nth-child(4),
-html.hq-light .hqp-pv[data-job="plan"] i:nth-child(4) { background: linear-gradient(180deg, var(--pop), rgba(79, 95, 232, 0.14)); }
+html.hq-light .hqp-pv[data-job="plan"] i:nth-child(4) { background: linear-gradient(180deg, var(--pop), rgba(74, 87, 217, 0.14)); }
 html.hq-light .hqp-board,
 html.hq-light .hqp-map { background: #fff; box-shadow: var(--lift); }
 html.hq-light .hqp-board .w { stroke: rgba(18, 18, 30, 0.18); }
-html.hq-light .hqp-board .is-connected .w { stroke: rgba(29, 143, 92, 0.6); }
+html.hq-light .hqp-board .is-connected .w { stroke: rgba(30, 127, 85, 0.6); }
 html.hq-light .hqp-board .is-broken .w { stroke: rgba(184, 64, 44, 0.5); }
 html.hq-light .hqp-board .is-broken .st { fill: #b8402c; }
 html.hq-light .hqp-board .hqp-node rect,
 html.hq-light .hqp-hub circle { fill: #fff; }
 html.hq-light .hqp-board .hqp-node:hover rect { fill: #f6f6fe; }
 html.hq-light .hqp-held .ico i { background: #fff; }
-html.hq-light .hqp [data-run] .h2-steps li[data-step-status="done"]::before { background: rgba(29, 143, 92, 0.65); }
-html.hq-light .hqp-map [data-k="workflows"] i { background: rgba(18, 18, 30, 0.82); }
-html.hq-light .hqp-map [data-k="prompts"] i { background: rgba(18, 18, 30, 0.48); }
+html.hq-light .hqp [data-run] .h2-steps li[data-step-status="done"]::before { background: rgba(30, 127, 85, 0.65); }
 html.hq-light .hqp-map [data-k="store"] i { background: rgba(95, 96, 107, 0.4); }
-html.hq-light .hqp-map [data-k="connections"] i { background: rgba(29, 143, 92, 0.7); }
 html.hq-light .hqp-map-brain i { border-color: rgba(18, 18, 30, 0.35); }
 html.hq-light .hqp-map-tip { background: #fff; box-shadow: 0 10px 24px -14px rgba(18, 18, 30, 0.45); }
 html.hq-light .hqp-curve-img { background: var(--surface-2); }
-html.hq-light .hqp-tour .parts > span.on { border-color: rgba(29, 143, 92, 0.4); }
+html.hq-light .hqp-tour .parts > span.on { border-color: rgba(30, 127, 85, 0.4); }
 html.hq-light .hqp-brainbar .bar,
 html.hq-light .hqp-week-t .bar { background: rgba(18, 18, 30, 0.08); }
 html.hq-light .hqp-week-t .bar.last i { background: rgba(18, 18, 30, 0.3); }
@@ -239,3 +239,13 @@ html.hq-light, html.hq-light body { transition: none; }
 html.hq-light .sht::backdrop { background: rgba(28, 28, 36, calc(.32 * var(--sht-shown, 0))); }
 html.hq-light .input,
 html.hq-light .hq-in { background: #fff; }
+
+/* D56 in light: no additive bloom; light sources keep their colour and lose the glow */
+html.hq-light .hqp .orb .core::after { box-shadow: none; }
+html.hq-light .hqp-rings .v { filter: none; }
+html.hq-light .hqp-board .is-connected .w,
+html.hq-light .hqp-board .w-run { filter: none; }
+html.hq-light .hqp-rail-hl { background: rgba(18, 18, 30, 0.05); }
+html.hq-light .hqp-map [data-k="workflows"] i { background: var(--pop); }
+html.hq-light .hqp-map [data-k="prompts"] i { background: var(--ion); }
+html.hq-light .hqp-map [data-k="connections"] i { background: rgba(18, 18, 30, 0.55); }

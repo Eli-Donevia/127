@@ -110,8 +110,9 @@
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Each look has its own inks (hq-light.css); the map repaints when the look flips.
   var LOOKS = {
-    dark: { workflows: 'rgba(236,238,245,.78)', prompts: 'rgba(236,238,245,.46)', store: 'rgba(160,166,184,.42)', connections: 'rgba(134,214,173,.55)', pop: '#7c8cff', brain: '#060607', rim: 'rgba(255,255,255,.22)', label: 'rgba(236,238,245,.9)' },
-    light: { workflows: 'rgba(18,18,30,.82)', prompts: 'rgba(18,18,30,.48)', store: 'rgba(95,96,107,.4)', connections: 'rgba(29,143,92,.7)', pop: '#4f5fe8', brain: '#ffffff', rim: 'rgba(18,18,30,.3)', label: '#121216' }
+    // D56: workflows Pop, prompts Ion, the rest steel; a lit dot is the one that glows (dark only, no bloom on paper)
+    dark: { workflows: 'rgba(124,140,255,.85)', prompts: 'rgba(91,228,255,.7)', store: 'rgba(160,166,184,.42)', connections: 'rgba(236,238,245,.62)', pop: '#ffffff', glow: 'rgba(124,140,255,.5)', brain: '#060607', rim: 'rgba(124,140,255,.5)', label: 'rgba(236,238,245,.9)' },
+    light: { workflows: 'rgba(74,87,217,.85)', prompts: 'rgba(10,122,153,.75)', store: 'rgba(95,96,107,.4)', connections: 'rgba(18,18,30,.55)', pop: '#121216', glow: '', brain: '#ffffff', rim: 'rgba(74,87,217,.45)', label: '#121216' }
   };
   var TONE = LOOKS.dark, GOLD = 2.39996323;
   var tone = function () { TONE = document.documentElement.classList.contains('hq-light') ? LOOKS.light : LOOKS.dark; };
@@ -140,11 +141,12 @@
       var on = i === hover || (lit && lit[i]);
       ctx.beginPath();
       ctx.fillStyle = on ? TONE.pop : TONE[p.it[0]];
+      ctx.shadowBlur = on && TONE.glow ? 8 : 0; ctx.shadowColor = TONE.glow || 'transparent';
       ctx.arc(W / 2 + (p.x - W / 2) * t, H / 2 + (p.y - H / 2) * t, on ? 3.2 : 1.9, 0, 6.2832);
       ctx.fill();
     });
     // the Brain
-    ctx.beginPath(); ctx.fillStyle = TONE.brain; ctx.strokeStyle = TONE.rim; ctx.lineWidth = 1;
+    ctx.shadowBlur = 0; ctx.beginPath(); ctx.fillStyle = TONE.brain; ctx.strokeStyle = TONE.rim; ctx.lineWidth = 1;
     ctx.arc(W / 2, H / 2, 17, 0, 6.2832); ctx.fill(); ctx.stroke();
     ctx.fillStyle = TONE.label; ctx.font = '600 11px Geist, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('127', W / 2, H / 2 + 0.5);
@@ -260,10 +262,29 @@
     var next = d.classList.contains('hq-light') ? 'dark' : 'light';
     d.setAttribute('data-look', next);
     d.classList.toggle('hq-light', next === 'light');
-    if (meta) meta.setAttribute('content', next === 'light' ? '#f5f5f7' : '#060607');
+    if (meta) meta.setAttribute('content', next === 'light' ? '#f6f6f8' : '#060607');
     Array.prototype.forEach.call(document.querySelectorAll('[data-ws-look] button'), function (b) { b.value = next === 'light' ? 'dark' : 'light'; });
     var body = new URLSearchParams();
     body.set('look', next);
     fetch(f.action, { method: 'POST', credentials: 'same-origin', headers: { 'x-hq-look': '1' }, body: body }).catch(function () {});
   });
+})();
+
+// The rail (D56 M2): one soft highlight glides on a spring to the link under the pointer, instead of each link
+// lighting up on its own. Reduced motion keeps the plain hover.
+(function () {
+  var nav = document.querySelector('.shell.hqp .ws-rail .ws-nav');
+  if (!nav || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var hl = document.createElement('span');
+  hl.className = 'hqp-rail-hl';
+  hl.setAttribute('aria-hidden', 'true');
+  nav.prepend(hl);
+  nav.addEventListener('pointerover', function (e) {
+    var a = e.target.closest && e.target.closest('.ws-link');
+    if (!a || !nav.contains(a)) return;
+    hl.style.setProperty('--y', a.offsetTop + 'px');
+    hl.style.height = a.offsetHeight + 'px';
+    hl.classList.add('on');
+  });
+  nav.addEventListener('pointerleave', function () { hl.classList.remove('on'); });
 })();

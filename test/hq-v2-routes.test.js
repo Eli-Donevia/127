@@ -1648,7 +1648,7 @@ test("HQ_PREMIUM: HQ's look follows the device by default, Light and Dark stick,
     await db.save('users', u);
     page = await html(await s.go('/app/hq', { as: u }));
     assert.match(page, /<html lang="en" class="hq-light">/);
-    assert.match(page, /<meta name="theme-color" content="#f5f5f7">/);
+    assert.match(page, /<meta name="theme-color" content="#f6f6f8">/);
     assert.doesNotMatch(page, /prefers-color-scheme: light/);
     assert.match(page, /name="look" value="dark"/);
 
