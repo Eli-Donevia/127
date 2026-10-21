@@ -4,7 +4,7 @@
     <div class="wrap">
       <div class="lbl">Free <%= chx.total %>-day challenge · <%= chx.dates %></div>
       <h1><span class="dim">Join the Day One Challenge<%= firstName ? ',' : '?' %></span><% if (firstName) { %> <span class="grad"><%= firstName %>?</span><% } %></h1>
-      <p class="lede"><%= chx.v2 ? 'Two weeks. One tap a day, about 15 minutes. Week 1 you build it: a name, a site, an offer with proof and a price. Week 2 you put it in front of people.' : "Five days. One move a day, about 20 minutes. By Friday you'll have an idea picked on purpose, real conversations with people who have the problem, and an offer you've put in front of someone." %></p>
+      <p class="lede"><%= chx.v2 ? 'Two weeks. One move a day, about 15 minutes. Week 1 you build it: a name, a site, an offer with proof and a price. Week 2 you put it in front of people.' : "Five days. One move a day, about 20 minutes. By Friday you'll have an idea picked on purpose, real conversations with people who have the problem, and an offer you've put in front of someone." %></p>
       <form method="post" action="/challenge/join" style="margin-top:28px;max-width:520px">
         <p class="small-print" style="margin:0 0 6px">Joining as <b><%= email %></b>. You'll get one email a day, <%= chx.dates %>.</p>
         <p class="small-print" style="margin:0 0 16px">By joining, you confirm you're 18 or older and agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>

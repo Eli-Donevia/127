@@ -58,7 +58,7 @@
 .steps li b { color: var(--ink); font-weight: 600; font-size: 17px; letter-spacing: -0.015em; }
 .steps li p { margin: 0; }
 .steps li ul { margin: 10px 0 0; padding-left: 18px; color: var(--ink-2); }
-.steps li ul li { display: list-item; padding: 0; border: 0; background: none; grid-template-columns: none; margin-bottom: 6px; }
+.steps li ul li { display: list-item; padding: 0; border: 0; background: none; grid-template-columns: none; margin-bottom: 6px; counter-increment: none; }
 .steps li ul li::before { content: none; }
 .ch-prose p { margin: 0 0 14px; }
 .ch-prose ul, .ch-prose ol { margin: 0 0 16px; padding-left: 20px; color: var(--ink-2); }
@@ -113,6 +113,11 @@
 .ch-check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); margin: 0 0 12px; cursor: pointer; }
 .ch-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
 .ch-check b { color: var(--ink); font-weight: 600; }
+.ch-friend-name { margin: 18px 0 4px; padding-top: 16px; border-top: 1px solid var(--line); }
+.ch-friend-name .ch-check { margin-bottom: 4px; }
+.ch-friend-name .help { font-size: 13px; color: var(--ink-2); margin: 0 0 12px 30px; }
+.ch-friend-name .btn { margin-left: 30px; }
+.share-card .invite-note { font-size: 13px; color: var(--ink-2); margin: 12px 0 0; }
 .ch-feature { margin: 26px 0 22px; padding: 20px; border: 1px dashed var(--line-2); border-radius: 16px; }
 .ch-feature .sub { display: flex; gap: 18px; flex-wrap: wrap; margin: 2px 0 14px 30px; }
 .ch-feature .sub .ch-check { margin: 0; }

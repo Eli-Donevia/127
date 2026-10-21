@@ -182,11 +182,12 @@
     "welcome_preview": "Confirm your spot, then block 15 minutes a day."
   },
   "feature": {
-    "feature_ok": "**Eli can feature my check-in.** He may read my first name and the answers I tick below on the public Instagram Live demo night (Mon, Nov 16), in its saved replay, and in 127's Instagram stories and short clips about the challenge. No email or last name. Don't include anything confidential.",
+    "feature_ok": "**Eli can feature my check-in.** He may show or read my first name and what I tick below at demo night, the public Instagram Live on Mon, Nov 16, in its saved replay, and in 127's Instagram stories and short clips about the challenge. If I tick \"Show my site\", he shows it as it is at my link, with any names, photos and contact details on it. Otherwise no email or last name. Don't include anything confidential.",
     "feature_idea": "Show my site",
     "feature_offer": "Show my offer",
     "guest_ok": "**I'd be up for joining the live as a guest on camera.** Eli's team will DM me first, and I can still say no.",
-    "small": "Featuring is free and unpaid. You can change your mind anytime before the live by emailing hello@127group.io. After it airs, we'll stop using it in new posts, but we can't recall what was already streamed or shared."
+    "small": "Featuring is free and unpaid. Eli picks a few to show. It isn't a contest: there's no prize, and being picked or not doesn't change your finisher perks. You can change your mind anytime before the live by emailing hello@127group.io. After it airs, we'll stop using it in new posts, but we can't recall what was already streamed or shared.",
+    "feature_walk": "Show my walkthrough video"
   },
   "landing": {
     "label": "Free 14-day challenge",
@@ -195,7 +196,7 @@
       "Two weeks.",
       "Built in public."
     ],
-    "value": "A free challenge with Eli. One tap a day, about 15 minutes. Week 1 you build it: a name, a site, an offer with proof and a price. Week 2 you put it in front of people. It ends at demo night, the night before doors open.",
+    "value": "A free challenge with Eli. One move a day, about 15 minutes. Week 1 you build it: a name, a site, an offer with proof and a price. Week 2 you put it in front of people. It ends at demo night, the night before doors open.",
     "lives_meta": "Live with Eli on Instagram, Tue Nov 3 and Mon Nov 16 at 8pm ET",
     "live_note": "Join now and catch up. Every day stays open until Monday, November 16 at 11:59pm ET.",
     "hook_last": "It's still in your notes app.",
@@ -204,7 +205,7 @@
       "Built in week 1. In front of people in week 2."
     ],
     "week_h2": [
-      "One tap a day.",
+      "One move a day.",
       "Each day ends with something you can show people."
     ],
     "weeks": [
@@ -292,7 +293,7 @@
       },
       {
         "h": "Bring a friend.",
-        "p": "Send your link. You'll see each other's days, and your names go on each other's cards."
+        "p": "Send your link and do the days side by side. If they say yes to it, their first name goes on your card. Friends who join with your link count toward a free month of Builder for you."
       }
     ],
     "lives_how": "Kickoff on Tuesday, November 3, and demo night on Monday, November 16, the night before doors open. Both at 8pm ET on Instagram",
@@ -300,7 +301,7 @@
       "Finish 12 of 14.",
       "Get in first."
     ],
-    "finisher_terms": "Everyone who checks in on at least 12 of the 14 days by Monday, November 16 at 11:59pm ET gets the finisher perks: doors open for you at 9am ET on Tuesday, November 17, an hour before everyone else; a Day One badge in your account; and everything you made saved there. There's no drawing, judging or prize, and nothing is awarded by chance. The founding price is the same for everyone, and early access doesn't hold one of the 100 founding spots for you.",
+    "finisher_terms": "Everyone who checks in for at least 12 of the 14 days by Monday, November 16 at 11:59pm ET gets the finisher perks: doors open for you at 9am ET on Tuesday, November 17, an hour before everyone else; a Day One badge in your account; and everything you made saved there. There's no drawing, judging or prize, and nothing is awarded by chance. The founding price is the same for everyone, and early access doesn't hold one of the 100 founding spots for you.",
     "deal_live": "I'll walk through it in my last challenge email and once at demo night, Monday, November 16.",
     "deal_free": "You don't need to buy anything to do the challenge. You'll get just as much out of the two weeks either way.",
     "final_h": "Tuesday is",
@@ -334,7 +335,7 @@
       ],
       [
         "Will my site be on the internet?",
-        "You get a preview link you can share from Day 2. If you want a public address, Day 5 shows you how to put it on your own free Netlify account. That part is optional."
+        "You get a preview link you can share from Day 2, for 30 days. If you want a public address, Day 5 shows you how to put it on your own free Netlify account. That part is optional."
       ],
       [
         "What does it cost?",
@@ -348,7 +349,9 @@
         "Who's it for?",
         "Anyone 18 or older who wants to start something real."
       ]
-    ]
+    ],
+    "contest_a": "No. There's no drawing, prize or ranking. Everyone who finishes gets the finisher perks, and the founding price is the same for everyone.",
+    "count_sites": "sites built"
   },
   "days": [
     {
@@ -558,7 +561,7 @@
           },
           {
             "type": "quote",
-            "text": "Twelve minutes later Jordan had a preview link. He changed the photo twice and left the rest."
+            "text": "Jordan got a preview link. He changed the photo twice and left the rest."
           }
         ]
       },
@@ -573,7 +576,7 @@
         },
         {
           "q": "Who can see my preview link?",
-          "a": "Whoever you send it to. It's the link for your card. A public address on your own free Netlify account is Saturday's optional step."
+          "a": "Whoever you send it to. It's the link for your card. It lasts 30 days from when you made it. A public address on your own free Netlify account is Saturday's optional step."
         }
       ],
       "checkin": {
@@ -668,6 +671,10 @@
             "text": "I help [who] get [result] by [how], for [price]."
           },
           {
+            "type": "note",
+            "text": "Only promise a result you can deliver every time."
+          },
+          {
             "type": "button",
             "text": "Grade my offer",
             "href": "/offer-score?utm_source=challenge&utm_medium=day&utm_campaign=dayone&utm_content=day3"
@@ -755,7 +762,7 @@
         "An offer on its own is a promise. Proof makes it real.",
         "Today you add one piece of proof to your site: a before and after, photos of your work, a sample or a mockup. Nothing yet? Make it on yourself, a friend or your own stuff."
       ],
-      "move_time": "about 15 minutes",
+      "move_time": "about 15 minutes, plus the time to do the job if you're making your proof today",
       "steps": [
         {
           "title": "Pick one kind of proof.",
@@ -826,6 +833,14 @@
           {
             "type": "note",
             "text": "Only use someone's words or photo with their OK. Never make up a review."
+          },
+          {
+            "type": "note",
+            "text": "If they're a friend or got it free, say so next to their words, like \"Free first detail for a friend.\""
+          },
+          {
+            "type": "note",
+            "text": "Coaching on health, weight or skin? Skip the before and after."
           }
         ]
       },
@@ -940,7 +955,7 @@
           },
           {
             "type": "note",
-            "text": "This is your own Netlify account, not 127's. Skip it if you like: your preview link works for the whole challenge."
+            "text": "This is your own Netlify account, not 127's. Netlify is a separate company. Its terms and privacy policy cover your account and your site there, and it can change or end its free plan, so keep your ZIP. Skip it if you like: your preview link works for the whole challenge."
           }
         ]
       },
@@ -1280,7 +1295,7 @@
       "stuck": [
         {
           "q": "I can't think of 25 people.",
-          "a": "10 counts as done. Write the ones you can, then post one short ask in a group they're in."
+          "a": "10 counts as done. Write the ones you can, then post one short ask in a group they're in. Follow each group's rules. Many don't allow selling in posts or DMs."
         },
         {
           "q": "My customers are businesses.",
@@ -1382,6 +1397,10 @@
             "type": "template",
             "label": "Someone who posted about it",
             "text": "Hey [name], saw your post about [problem]. I just started [business], which [result]. Want me to send you the details? Totally fine if not."
+          },
+          {
+            "type": "note",
+            "text": "Posting in a group? Follow each group's rules. Many don't allow selling in posts or DMs."
           },
           {
             "type": "note",
@@ -1575,6 +1594,10 @@
             "text": "Hey [name], I just opened [business]. I've got 3 spots this week for [offer line]. Want one? Here's the site: [link]"
           },
           {
+            "type": "note",
+            "text": "Only say how many spots you have if it's true."
+          },
+          {
             "type": "template",
             "label": "Free first one",
             "text": "Hey [name], I'm starting [business] and I'm doing the first few free in exchange for honest feedback. Want one?"
@@ -1661,7 +1684,7 @@
       "label": "DAY 11 OF 14 · FOLLOW UP",
       "intro_small": null,
       "after_steps": [],
-      "headline": "Most yeses come on the second message.",
+      "headline": "Plenty of yeses come on the second message.",
       "line": "The fortune is in the follow-up.",
       "intro": [
         "Yesterday you sent 5. Some said no, some said nothing.",
@@ -1827,6 +1850,10 @@
             "type": "template",
             "label": "The ask",
             "text": "I have room for [number] more [package] next week. Message me or see [link]."
+          },
+          {
+            "type": "note",
+            "text": "Only say how many spots you have if it's true."
           }
         ]
       },
@@ -1874,7 +1901,7 @@
       "after": {
         "title": "Day 12: three out.",
         "lines": [
-          "Tomorrow: a 60-second walkthrough of your site, and your entry for demo night."
+          "Tomorrow: a 60-second walkthrough of your site, and considered for demo night."
         ]
       },
       "next": "your walkthrough for demo night",
@@ -1909,7 +1936,7 @@
         },
         {
           "title": "Post it.",
-          "body": "Story, feed or Close Friends. Tag @buildwith127 and #DayOne127.",
+          "body": "Story, feed or Close Friends. Tag @buildwith127 and #DayOne127 if you like. You don't need to, to be considered for demo night.",
           "sub": []
         }
       ],
@@ -1981,7 +2008,7 @@
         ]
       },
       "after": {
-        "title": "Day 13: entered.",
+        "title": "Day 13: done.",
         "lines": [
           "Tomorrow at 8pm ET: demo night, live on Instagram. @elichristiansen_",
           "Tomorrow at 8am: your last check-in."
@@ -2120,5 +2147,13 @@
   "lives": {
     "kickoff": "Kickoff",
     "debrief": "Demo night"
+  },
+  "friend_name": {
+    "label": "Show my first name on my friend's card",
+    "help": "Off unless you tick it. Your friend's card shows \"with [your first name]\"."
+  },
+  "invite": {
+    "share": "I'm doing the Day One Challenge with Eli Christiansen, Nov 3 to 16. Two weeks to start a business, in public. It's free, do it with me. I get a free month of 127 if friends join with my link: ",
+    "note": "Share it in your own words, and say you get a free month if they join."
   }
 }

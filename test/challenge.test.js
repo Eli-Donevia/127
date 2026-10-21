@@ -493,3 +493,47 @@ test('v2 public counts stay hidden below 50, so a small number is never shown as
   else assert.strictEqual(c.joined, n);
   assert.ok(c.sitesLive === null || c.sitesLive >= 50);
 }));
+
+test('v2 Legal L97: three feature ticks logged with the content version, walkthrough only when ticked, friend names opt-in, copy fixes', () => withV2(async () => {
+  at('2026-11-02T12:00:00Z');
+  const { entry } = await ch.join({ email: email(), firstName: 'Maya', path: 'service' });
+  assert.strictEqual(entry.friendNameOk, false, 'CH21: off until ticked');
+  at('2026-11-15T14:00:00Z');
+  await ch.checkIn(entry, 13, { walkthrough: 'posted', walkthrough_url: 'https://instagram.com/p/abc', feature_ok: 'on', feature_idea: 'on' });
+  assert.strictEqual(entry.featureWalk, false);
+  let c = ch.hotSeatCandidates().find((x) => x.id === entry.id);
+  assert.strictEqual(c.walkthrough, null, 'CH1: no walkthrough without its box');
+  assert.ok(ch.hotSeatPrompt([c]).includes('Walkthrough: not cleared to play'));
+  assert.strictEqual(entry.featureLog.length, 1);
+  assert.strictEqual(entry.featureLog[0].version, ch.content().version, 'CH5: the words each tick saw');
+  // Same ticks again: no new row. A new tick: one more row.
+  await ch.checkIn(entry, 13, { walkthrough: 'posted', walkthrough_url: 'https://instagram.com/p/abc', feature_ok: 'on', feature_idea: 'on' });
+  assert.strictEqual(entry.featureLog.length, 1);
+  await ch.checkIn(entry, 13, { walkthrough: 'posted', walkthrough_url: 'https://instagram.com/p/abc', feature_ok: 'on', feature_idea: 'on', feature_walk: 'on' });
+  assert.strictEqual(entry.featureLog.length, 2);
+  assert.deepStrictEqual(entry.featureLog[1].ticks, { featureOk: true, featureIdea: true, featureOffer: false, featureWalk: true, guestOk: false });
+  c = ch.hotSeatCandidates().find((x) => x.id === entry.id);
+  assert.strictEqual(c.walkthrough, 'https://instagram.com/p/abc');
+  // The walkthrough box needs the main box.
+  await ch.checkIn(entry, 13, { walkthrough: 'posted', feature_walk: 'on' });
+  assert.strictEqual(entry.featureWalk, false);
+  await ch.unfeature(entry.id);
+  assert.strictEqual(entry.featureLog[entry.featureLog.length - 1].version, 'withdrawn');
+  await ch.setFriendName(entry, true);
+  assert.strictEqual(entry.friendNameOk, true);
+  assert.strictEqual(entry.friendNameLog[0].label, "Show my first name on my friend's card");
+  const head = ch.csv().split('\n')[0];
+  assert.ok(head.includes('"feature_walk"') && head.includes('"feature_version"') && head.includes('"friend_name_ok"'));
+  // Copy (CH1, CH2, CH3, CH6, CH10, CH11, CH16, CH21, CH22, CH27).
+  const C = ch.content();
+  const text = JSON.stringify(C);
+  assert.ok(C.feature.feature_walk && C.feature.feature_ok.includes('If I tick "Show my site"') && C.feature.small.includes("It isn't a contest"));
+  assert.ok(C.landing.finisher_terms.includes('checks in for at least 12 of the 14 days'));
+  assert.ok(C.invite.share.includes('I get a free month of 127 if friends join with my link'));
+  for (const gone of ['One tap a day', 'Twelve minutes later', 'Most yeses', 'entered', "You'll see each other's days", 'entry for demo night']) assert.ok(!text.includes(gone), gone);
+  assert.ok(text.includes('It lasts 30 days from when you made it.') && text.includes('Netlify is a separate company.'));
+  // CH23: "sites built" counts Day 2 check-ins with a site link, and there's no "sites live" in v2.
+  const counts = ch.publicCounts();
+  assert.strictEqual(counts.sitesLive, null);
+  assert.ok(counts.sitesBuilt === null || counts.sitesBuilt >= 50);
+}));
