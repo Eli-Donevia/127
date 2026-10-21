@@ -611,6 +611,42 @@ test('write calls get the house rules first (cached) and the member business aft
   assert.equal(sys[1].cache_control, undefined);
 });
 
+test('the job picker asks Haiku, keeps Fable for the Circle, and falls back to keywords', async () => {
+  const picker = require('../lib/harness/job-picker');
+  anthropic._setClient(null);
+  assert.deepEqual(await picker.pick('Help me price my offer'), { task: 'plan', by: 'keywords', why: '' });
+  let job = 'deep';
+  const fake = fakeClient((p) => reply(p, JSON.stringify({ job, why: 'many parts' })));
+  anthropic._setClient(fake);
+  try {
+    const costs = [];
+    const r = await picker.pick('Rework my whole model, the numbers make no sense', { tier: 'circle', onCost: async (m) => costs.push(m) });
+    assert.deepEqual(r, { task: 'deep', by: 'ai', why: 'many parts' });
+    assert.equal(fake.calls[0].model, 'claude-haiku-5-5');
+    assert.equal(fake.calls[0].max_tokens, 300);
+    assert.ok(costs[0].usd > 0 && costs[0].usd < 0.001);
+    assert.equal((await picker.pick('Same again', { tier: 'builder' })).task, 'plan', 'Fable is the Circle\'s');
+    job = 'write';
+    assert.equal((await picker.pick('Write a DM to a gym owner')).task, 'write');
+    process.env.HARNESS_JOB_PICKER = 'off';
+    const n = fake.calls.length;
+    assert.equal((await picker.pick('What should my budget be?')).by, 'keywords');
+    assert.equal(fake.calls.length, n);
+    delete process.env.HARNESS_JOB_PICKER;
+    anthropic._setClient(
+      fakeClient(() => {
+        const e = new Error('overloaded');
+        e.status = 529;
+        throw e;
+      })
+    );
+    assert.deepEqual(await picker.pick('Break-even on a $40 class?'), { task: 'plan', by: 'keywords', why: '' });
+  } finally {
+    delete process.env.HARNESS_JOB_PICKER;
+    anthropic._setClient(null);
+  }
+});
+
 test('a refusal and an API error read as plain messages', async () => {
   anthropic._setClient(fakeClient((p) => reply(p, '', { stop_reason: 'refusal' })));
   await assert.rejects(llm.call({ task: 'write', prompt: 'x' }), /wouldn't do this one/);

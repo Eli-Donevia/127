@@ -545,7 +545,16 @@ test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, c
     ],
   };
   const seen = [];
-  const fake = async (p) => { seen.push(p); return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model }; };
+  const picks = [];
+  const fake = async (p) => {
+    // The job picker's call (Haiku) comes first; the answer follows on the model it picked.
+    if (p.output_config && p.output_config.format && p.output_config.format.schema.properties.job && !p.output_config.format.schema.properties.answer) {
+      picks.push(p);
+      return { content: [{ type: 'text', text: JSON.stringify({ job: 'plan', why: 'pricing' }) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+    }
+    seen.push(p);
+    return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+  };
   anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
   const left = ledger.left(u);
   try {
@@ -553,6 +562,13 @@ test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, c
   } finally {
     anthropic._setClient(null);
   }
+  assert.equal(picks.length, 1);
+  assert.equal(picks[0].model, 'claude-haiku-5-5');
+  assert.match(picks[0].messages[0].content.at(-1).text, /How much is a full groom/);
+  assert.equal(seen.length, 1);
+  assert.equal(seen[0].model, 'claude-opus-5-5');
+  assert.equal(seen[0].output_config.effort, 'medium'); // a `plan` job thinks more
+  assert.equal(seen[0].max_tokens, 8000);
   const sys = seen[0].system.map((b) => b.text).join('\n');
   assert.match(sys, /Mobile dog grooming in Austin/);
   assert.doesNotMatch(sys, /Paste the founder's business brain here/);
