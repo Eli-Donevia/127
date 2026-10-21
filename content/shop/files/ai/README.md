@@ -1,6 +1,6 @@
 # 127 AI Pack
 
-53 prompts for running a small business with AI, grouped by job, plus the operator instructions that make any AI
+61 prompts for running a small business with AI, grouped by job, plus the operator instructions that make any AI
 start from your business instead of from zero.
 
 1. Open 00-operator-instructions.md and paste it into a Claude Project (or ChatGPT custom GPT, or Gemini Gem) once.

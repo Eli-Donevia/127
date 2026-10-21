@@ -164,3 +164,45 @@ Use my numbers. If the sample is too small to trust, say so.
 **What you get back:** Winners and losers by DMs, the shared pattern, comment-driven post ideas, three remakes, a stop list and one experiment.
 
 **Works in:** Instagram Insights, TikTok Analytics, Google Sheets
+
+## Email writer
+
+**Use it when:** You need one of the emails every business sends: a launch, a quote follow-up, a review ask, a weekly newsletter, a welcome or a win-back.
+
+**Fill in first:**
+
+- `{{email_type}}`: Which email: launch, quote follow-up, review ask, newsletter, welcome or win-back (for example: Win-back)
+- `{{business}}`: Your business and voice (for example: Sol Nail Studio, a two-chair salon in Tucson. Warm, short, a bit playful.)
+- `{{audience}}`: Who gets it (for example: Clients who haven't booked in 4 months or more)
+- `{{details}}`: What it needs to say (for example: New since then: gel-x extensions, Sunday hours 10 to 3, online booking at solnails.com/book)
+- `{{footer}}`: Business name and mailing address (for example: Sol Nail Studio, 214 Example Ave, Tucson, AZ)
+
+```text
+Write a {{email_type}} email for my business.
+
+My business and voice: {{business}}
+Who gets it: {{audience}}
+What it needs to say (details, offer, links, dates): {{details}}
+My business name and mailing address, for the footer: {{footer}}
+
+Follow the pattern for the type:
+- Launch: what it is, who it's for, what's included, the price and where to see it. Plain, no hype.
+- Quote follow-up: check the quote arrived, recap it in two lines, offer to adjust the scope, and make it easy to book a start date or to say no.
+- Review ask: thank them for something specific, ask for an honest review with the direct link, and invite them to reply if anything was off. No discount or gift for the review, and send it to every recent customer, not only the happy ones.
+- Newsletter: one useful tip, one short story from my week, one small thing to try. Under 250 words.
+- Welcome: hello, what I do, how often I'll write and about what, and one easy first step.
+- Win-back: thanks, what's new since their last visit, and an easy way back with no pressure.
+
+Give me:
+1. Three subject lines, each with a preview line.
+2. The email, under 200 words unless it's a newsletter, written like a person, with one clear call to action.
+3. A footer with my business name, mailing address and an unsubscribe line for anything sent to a list.
+4. A plain-text version.
+5. When to send it, and one follow-up if the type needs one.
+
+Use only facts I gave you. No fake deadlines or scarcity, and no results I didn't give you.
+```
+
+**What you get back:** Three subject lines (for example "Your chair missed you, and we open Sundays now"), a warm 120-word note naming gel-x and Sunday hours, one "Book online" link, a footer with the address and unsubscribe line, a plain-text copy and a nudge for 5 days later.
+
+**Works in:** Gmail, Klaviyo, Mailchimp, Kit, Flodesk

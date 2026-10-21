@@ -209,3 +209,52 @@ No pressure tactics, fake urgency, or discounts as the default answer.
 ```
 
 **What you get back:** Twelve grouped objections with what they mean, 40-word answers, question-backs and when to walk away.
+
+## Proposal and scope of work
+
+**Use it when:** A buyer asked "what would it cost?" after a call, or said yes and you need the scope in writing before work starts.
+
+**Fill in first:**
+
+- `{{business}}`: Your business (for example: Bright Path Bookkeeping, Kemi Adeyemi, monthly books for small trades businesses)
+- `{{client}}`: The client and what they told you, in their words (for example: Marco runs a 4-person landscaping crew. "My books are 8 months behind and my accountant needs them by March." He wants it caught up, then kept current.)
+- `{{plan}}`: What you will do (for example: Catch up 8 months of books, set up bank feeds and receipt capture, then close each month by the 10th)
+- `{{prices}}`: Your prices or range (for example: Catch-up $1,200 one time; monthly $350; payroll add-on $100 a month)
+- `{{terms}}`: Timeline and terms (for example: 50% deposit on the catch-up, 2 rounds of questions a month, he sends bank logins and receipts by Nov 1)
+- `{{proof}}`: Real proof you can use (for example: Caught up 3 trades businesses this year; one owner quote with permission: "First tax season I didn't panic.")
+
+```text
+Write a client proposal and a matching scope of work for this job, ready to paste into a doc.
+
+My business: {{business}}
+The client and what they told me, in their words: {{client}}
+What I'll do: {{plan}}
+My prices or price range: {{prices}}
+Timeline and terms (deposit, revisions, what they provide): {{terms}}
+Real proof I can use (results, quotes with permission): {{proof}}
+
+PROPOSAL (one to two pages):
+1. What you told us: their situation and goal in their own words, two or three sentences.
+2. What we will do: three to five steps, each with what they get from it.
+3. Included and not included, as a two-column table.
+4. Timeline: kickoff, milestones and handover, with dates.
+5. Three options (essential, recommended, complete) with what's in each and the price. Make the recommended one the clear choice by what it includes, not by pressure. Say how long the prices are valid.
+6. Why us: only the real proof I gave you. If I gave none, leave this section out.
+7. Next step: one clear action (reply with the option, or book a time).
+
+SCOPE OF WORK (one page, for after they pick an option):
+1. The goal in one sentence.
+2. Deliverables, each with what "done" means so both sides can tell it's finished.
+3. Not in this project: the things people often assume are included.
+4. What the client provides, and by when.
+5. Milestones with dates.
+6. Revisions included, and how changes get priced in writing before work on them starts.
+7. Payment schedule tied to the milestones.
+8. A sign-off block with names and dates.
+
+Rules: plain words, nothing I can't deliver, no invented results. Mark any blank I need to fill as [brackets]. This is a business document, not legal advice: if the job is big or risky, tell me to have a lawyer turn the scope into a contract.
+```
+
+**What you get back:** A proposal that opens on Marco's March deadline in his words, three options from the $1,200 catch-up to catch-up plus monthly with payroll, and a scope that defines "done" for each month-end close, the Nov 1 logins and the deposit schedule.
+
+**Works in:** Google Docs, Word, Notion

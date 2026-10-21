@@ -223,3 +223,131 @@ Keep it fair: clear pay, no unpaid trial work. Ask only about the job: no questi
 ```
 
 **What you get back:** A job post, a paid 90-minute edit test with a scoring sheet, interview questions, a first-week plan and red flags.
+
+## 90-day plan
+
+**Use it when:** At the start of a quarter, or when you are busy every day but not sure the business is moving.
+
+**Fill in first:**
+
+- `{{today}}`: Where the business is today (for example: Mobile dog grooming van, about 30 regular clients, booked 4 days a week)
+- `{{outcome}}`: What you want true in 90 days (for example: Booked 5 days a week with a waitlist)
+- `{{capacity}}`: Weekly hours and budget (for example: 45 hours a week, $1,500 for the quarter)
+- `{{list}}`: Everything on your plate or idea list (for example: Second van, Instagram reels, a dog treat line, referral program, new website, hire a bather, apartment complex partnerships)
+
+```text
+Help me build a one-page plan for the next 90 days. If anything below is unclear, ask me up to three questions first, then write it.
+
+Where the business is today (numbers if I have them): {{today}}
+What I want to be true in 90 days: {{outcome}}
+Hours a week I can put in, and budget: {{capacity}}
+Everything on my plate or my idea list right now: {{list}}
+
+Give me:
+1. One outcome for the quarter, rewritten so it's specific and I can check it on day 90. If it depends on things I don't control, add the actions I do control that drive it.
+2. Three priorities that get me there, no more. For each: why it matters, the first step this week, and how I'll know it's working by day 30.
+3. The stop list: everything from my list that isn't one of the three, with a one-line reason. These wait until next quarter.
+4. What each priority looks like by week 4, week 8 and week 13.
+5. The one number to check every Monday, and the level that tells me to change course.
+6. The biggest risk to the plan and what I'll do if it shows up.
+
+Fit it to my hours. If the plan needs more time than I have, cut, don't cram.
+```
+
+**What you get back:** A day-90 outcome tied to booked days and waitlist names, three priorities (referrals, apartment partnerships, a bather to free your hands), a stop list with the second van and treat line on it, week 4, 8 and 13 checkpoints and the Monday number.
+
+**Works in:** Google Docs, Notion
+
+## Monthly retro
+
+**Use it when:** At the end of a month, or 30 days into a new plan. See what moved, why, and plan the next 30 days around what worked.
+
+**Fill in first:**
+
+- `{{plan}}`: What you planned this month (for example: Post 3 reels a week, send 20 DMs a week to local cafes, launch a $15 latte art workshop)
+- `{{happened}}`: What actually happened, with numbers (for example: Posted 5 reels total, sent 60 DMs, 4 replies, 1 cafe booked a staff training for $200. Workshop not launched. Followers 410 to 455.)
+- `{{felt}}`: What drained you, what you enjoyed, where time went (for example: DMs felt awkward but worked. Editing each reel took 3 hours.)
+
+```text
+Run a 30-day retro with me. Be honest, not a cheerleader.
+
+What I planned to do this month: {{plan}}
+What actually happened (what I did, and my numbers at the start and end): {{happened}}
+How it felt (what drained me, what I enjoyed, where my time went): {{felt}}
+
+1. Scorecard: each thing I planned, marked done, partly done or not done, in a table.
+2. What moved my numbers and what didn't, based only on what I told you. Keep what I can show apart from what's a guess.
+3. Why: for each thing that didn't happen, the likely real reason (time, skill, fear, wrong priority, outside events). Ask me one question if the reason isn't clear.
+4. Keep, stop, start: three short lists.
+5. The next 30 days: one focus, at most three actions with dates, and the one number to watch.
+6. One sentence for me to read on day 1 of next month.
+
+Keep it under 400 words.
+```
+
+**What you get back:** A scorecard, cafe DMs flagged as what moved (one $200 booking from 60 messages), reels flagged as slow for the time they take, the workshop gap traced to time, keep, stop and start lists and a next-30 plan built on DMs.
+
+## Saved replies for the questions you get every day
+
+**Use it when:** You have typed the same answer to a DM or email three times. Write it once, save it where you reply.
+
+**Fill in first:**
+
+- `{{business}}`: Your business and how you talk (for example: Rivera Sneaker Care, sneaker cleaning and restoration, ships nationwide, friendly and casual)
+- `{{questions}}`: Questions you get, in their words (for example: "How much for a deep clean?" "How long does it take?" "Can you fix yellow soles?" "Do you ship?" "Can you do suede?")
+- `{{facts}}`: Prices, hours, turnaround, how to book or pay, links (for example: Deep clean $35 a pair, sole unyellowing $25, suede $45, back in 5 days plus shipping, prepaid label at riverasneaker.co/ship)
+- `{{apps}}`: Where you reply (for example: Instagram DMs, TikTok, Gmail)
+
+```text
+Help me write saved replies for the questions customers ask me over and over.
+
+My business and how I talk: {{business}}
+Questions I get, in their words (paste real messages if you can): {{questions}}
+My facts (prices, hours, turnaround, how to book or pay, links): {{facts}}
+Where I reply: {{apps}}
+
+1. Group the questions and pick the five that come up most. If I gave fewer, suggest the likely missing ones and mark them as guesses.
+2. For each, write a saved reply under 60 words: the answer in the first two lines, then one question or next step. Start each with a [personal line] slot so it reads as written for that person.
+3. Give each reply a short shortcut name (like /price) to type in the app.
+4. For anything custom (a quote, a special request), write a reply that asks one or two questions before giving a price.
+5. Write one reply for when I can't help, pointing them somewhere useful.
+6. Tell me where to save these in each app I listed, step by step, and note anything that needs a business or professional account. Tell me to check the app's help page if a menu has moved.
+
+Rules: sound like me, not a bot. I read and personalize each reply before sending. If I ever set replies to send automatically, they must say they're automated.
+```
+
+**What you get back:** Five replies under 60 words with shortcuts like /price and /ship, a two-question reply for custom restorations, a polite "can't help" reply and save steps for Instagram, TikTok and Gmail.
+
+**Works in:** Instagram, TikTok, WhatsApp Business, Gmail, Facebook Messenger
+
+## Booking link setup
+
+**Use it when:** A short call or appointment is the next step with buyers, and agreeing on a time takes too many messages.
+
+**Fill in first:**
+
+- `{{booking}}`: What people book (for example: A free 15-minute fit call by video for my online Spanish tutoring)
+- `{{availability}}`: When you want to be bookable (for example: Tuesday and Thursday 4 to 6pm, Saturday 9 to 11am, Central time)
+- `{{tool}}`: Booking tool (for example: Calendly free plan)
+- `{{need_to_know}}`: What you need to know before you meet (for example: Their level, their goal (travel, work, family) and when they could take lessons)
+
+```text
+Help me set up one booking link so people can book with me without the back-and-forth.
+
+What people book (call or appointment, length, in person or online): {{booking}}
+When I want to be bookable (2 or 3 blocks a week is plenty for calls): {{availability}}
+The tool I use or want to use: {{tool}}
+What I need to know before we meet: {{need_to_know}}
+
+Give me:
+1. The booking page settings: event name, length, location or video link, my time blocks, buffers before and after, minimum notice, how far ahead people can book, and a daily limit.
+2. Two intake questions, no more, that tell me what I need, and why each one helps.
+3. Step-by-step setup in my tool. Note which features need a paid plan, and tell me to check current pricing since plans change.
+4. Copy for: the confirmation, a reminder for the day before (to send myself if my plan doesn't send reminders), a no-show follow-up and a reschedule note.
+5. Where to put the link: my bio, email signature, website, saved replies and quote follow-ups.
+6. A test checklist: book a slot from my phone, check the time zone, check the calendar event and the confirmation.
+```
+
+**What you get back:** Calendly settings for a 15-minute call inside your three blocks with 10-minute buffers and 12 hours notice, two intake questions (level and goal), setup steps with paid features noted, four ready messages, link placements and a test checklist.
+
+**Works in:** Calendly, Cal.com, Google Calendar, Square Appointments
