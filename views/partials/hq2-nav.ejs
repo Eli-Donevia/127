@@ -13,6 +13,8 @@
    if (F.STORE_V2) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['store', '/app/hq/store', 'Store']);
    // Life in HQ (lib/life, HQ_LIFE): before Library, after the Store.
    if (F.HQ_LIFE) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['life', '/app/hq/life', 'Life']);
+   // Perks and grants (lib/perks, HQ_PERKS): after Life, before Library.
+   if (F.HQ_PERKS) tabs.splice(tabs.findIndex(function (t) { return t[0] === 'library'; }), 0, ['perks', '/app/hq/perks', 'Perks']);
    var here = tab === 'workflow' ? 'start' : tab === 'run' ? 'runs' : tab === 'brain-doc' ? 'brain' : tab === 'team-role' ? 'team' : tab === 'prompt' ? 'prompts' : tab === 'brief' || tab === 'briefs' || tab === 'script' ? 'scripts' : tab; %>
 <% if (typeof ws === 'undefined' || !ws) { %>
 <nav class="h2-tabs" aria-label="HQ">

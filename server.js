@@ -45,6 +45,7 @@ const storeRoutes = require('./lib/store-routes');
 const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
 const lifeRoutes = require('./lib/life-routes');
+const perksRoutes = require('./lib/perks-routes');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const postRoutes = require('./lib/harness/posts-routes');
 const hqOffer = require('./lib/hq-offer');
@@ -2086,6 +2087,8 @@ app.use(shopRoutes({ track }));
 app.use(lifeRoutes({ requireAuth }));
 // The Invite page and the member marketplace, each behind its own switch (lib/market-routes.js).
 app.use(marketRoutes({ requireAuth, requireAdmin, flash, track }));
+// Perks and grants (lib/perks): credits, discounts, grants and free help from official pages. Behind HQ_PERKS (default off).
+app.use(perksRoutes({ requireAuth }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 // HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).

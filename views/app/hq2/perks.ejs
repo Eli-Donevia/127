@@ -1,0 +1,120 @@
+<%- include('../../partials/app-head') %>
+<%# Perks and grants (lib/perks, HQ_PERKS). A timetable, not a wall of cards: the next 60 days of deadlines as one line
+    that draws from today, then each shelf as a ruled list with the amount set like a price. Every row opens with
+    <details>, so the page is complete with the script off; public/js/perks.js adds the fit filter and the member's own
+    list, kept in their browser only. %>
+<% var fmt = function (d) { return new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }); };
+   var when = function (p) {
+     if (p.status === 'closed') return 'Closed for now';
+     if (p.status === 'rolling') return 'Apply any time';
+     var d = p.left === 0 ? 'today' : fmt(p.due);
+     if (p.deadline.kind === 'monthly') return 'This month\u2019s round closes ' + d;
+     if (p.deadline.kind === 'quarterly') return 'This quarter\u2019s round closes ' + d;
+     return 'Closes ' + d;
+   }; %>
+<div class="hq h2 pk" data-scope="<%= scope %>" data-today="<%= today %>">
+  <%- include('../../partials/hq2-nav') %>
+
+  <header class="pk-head">
+    <h1 class="hq-title pk-title">Perks and grants</h1>
+    <p class="pk-lede">Credits, startup pricing, grants and free help. <%= count %> programs, each read on its own official page on <%= fmt(checked) %>.</p>
+    <p class="pk-honest">Amounts are the most a program offers. Most applicants get less, and many get nothing. Terms change, so read the official page before you apply.</p>
+  </header>
+
+  <% if (soon.length) { var span = 60, end = Math.max(1, Math.min(99, soon[soon.length - 1].left / span * 100)); %>
+  <section class="pk-soon" aria-labelledby="pk-soon-h">
+    <h2 id="pk-soon-h" class="pk-h">Closing in the next 60 days</h2>
+    <div class="pk-rail" aria-hidden="true">
+      <div class="pk-rail-line">
+        <span class="pk-rail-run" style="width:<%= end %>%"></span>
+        <% [50, 100].forEach(function (x) { %><span class="pk-rail-tick" style="left:<%= x %>%"></span><% }) %>
+        <% soon.forEach(function (p, i) { %><span class="pk-stop<%= i === 0 ? " is-next" : "" %>" style="left:<%= Math.max(1, Math.min(99, p.left / span * 100)) %>%;--i:<%= i %>"></span><% }) %>
+      </div>
+      <div class="pk-rail-k"><span>Today</span><span>30 days</span><span>60</span></div>
+    </div>
+    <ol class="pk-times">
+      <% soon.forEach(function (p) { %>
+      <li><a href="#<%= p.id %>" data-open="<%= p.id %>">
+        <time datetime="<%= p.due %>"><%= fmt(p.due) %></time>
+        <span class="pk-times-n"><%= p.name %></span>
+        <span class="pk-times-l"><%= p.left === 0 ? 'today' : p.left === 1 ? '1 day' : p.left + ' days' %></span>
+      </a></li>
+      <% }) %>
+    </ol>
+  </section>
+  <% } %>
+
+  <section class="pk-fit" aria-labelledby="pk-fit-h" hidden data-fit>
+    <h2 id="pk-fit-h" class="pk-k">What you're building</h2>
+    <div class="pk-fit-set" role="group" aria-labelledby="pk-fit-h">
+      <% fits.forEach(function (f) { %><button type="button" aria-pressed="false" data-fit-k="<%= f[0] %>"><%= f[1] %></button><% }) %>
+    </div>
+    <p class="pk-fit-n" role="status" aria-live="polite" data-fit-n></p>
+  </section>
+
+  <section class="pk-mine" aria-labelledby="pk-mine-h" hidden data-mine>
+    <div class="pk-mine-top">
+      <h2 id="pk-mine-h" class="pk-h">Your list</h2>
+      <div class="pk-mine-do">
+        <button type="button" class="pk-link" data-ics>Add dates to your calendar</button>
+        <button type="button" class="pk-link quiet" data-clear>Clear</button>
+      </div>
+    </div>
+    <ol class="pk-mine-l" data-mine-l></ol>
+    <p class="pk-small">Your list stays in this browser. 127 doesn't see it.</p>
+  </section>
+
+  <% shelves.forEach(function (s, si) { %>
+  <section class="pk-shelf" id="shelf-<%= s.id %>" aria-labelledby="pk-<%= s.id %>-h" data-shelf>
+    <header class="pk-shelf-h">
+      <span class="pk-num" aria-hidden="true"><%= String(si + 1).padStart(2, '0') %></span>
+      <h2 id="pk-<%= s.id %>-h" class="pk-h"><%= s.title %></h2>
+      <p class="pk-shelf-l"><%= s.line %></p>
+    </header>
+    <% if (s.id === 'grants') { %>
+    <blockquote class="pk-sba">
+      <p>&ldquo;<%= sba.quote %>&rdquo;</p>
+      <footer><a href="<%= sba.url %>" rel="noopener noreferrer" target="_blank">SBA.gov</a>, read <%= fmt(sba.checked) %>. If someone says they're the SBA and offers you a grant, it isn't the SBA.</footer>
+    </blockquote>
+    <% } %>
+    <ul class="pk-rows">
+      <% s.items.forEach(function (p) { %>
+      <li class="pk-row" id="<%= p.id %>" data-id="<%= p.id %>" data-fits="<%= p.fits.join(' ') %>" data-due="<%= p.due || '' %>" data-name="<%= p.name %>" data-url="<%= p.url %>">
+        <details>
+          <summary>
+            <span class="pk-n"><%= p.name %><span class="pk-by"><%= p.by %></span></span>
+            <span class="pk-lead" aria-hidden="true"></span>
+            <span class="pk-amt<%= p.amount ? '' : ' none' %>"><%= p.amount || 'Not listed' %></span>
+            <span class="pk-when<%= p.status === 'closed' ? ' shut' : '' %>"><%= when(p) %></span>
+          </summary>
+          <div class="pk-body">
+            <% if (p.amountNote) { %><p class="pk-note"><%= p.amountNote %></p><% } %>
+            <% if (p.statusNote) { %><p class="pk-note"><%= p.statusNote %></p><% } %>
+            <dl class="pk-facts">
+              <div><dt>Who it's for</dt><dd><ul><% p.who.forEach(function (w) { %><li><%= w %></li><% }) %></ul></dd></div>
+              <% if (p.notFor) { %><div><dt>Not for</dt><dd><%= p.notFor %></dd></div><% } %>
+              <% if (p.fee) { %><div><dt>Costs</dt><dd><%= p.fee %></dd></div><% } %>
+              <% if (p.ready && p.ready.length) { %><div><dt>Have ready</dt><dd><ul><% p.ready.forEach(function (w) { %><li><%= w %></li><% }) %></ul></dd></div><% } %>
+              <% if (p.answer) { %><div><dt>After you apply</dt><dd><%= p.answer %></dd></div><% } %>
+            </dl>
+            <div class="pk-acts">
+              <a class="pk-go" href="<%= p.url %>" rel="noopener noreferrer" target="_blank">Official page<span class="sr-only"> for <%= p.name %>, opens in a new tab</span></a>
+              <button type="button" class="pk-save" aria-pressed="false" data-save hidden>Save</button>
+              <span class="pk-checked">Read <%= fmt(p.checked) %><% if (admin && p.stale) { %>, <b>recheck</b><% } %></span>
+            </div>
+          </div>
+        </details>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
+  <% }) %>
+
+  <p class="pk-empty" hidden data-empty>Nothing here fits that mix yet. Tap a choice again to take it off.</p>
+
+  <footer class="pk-foot">
+    <p>127 isn't part of these programs and earns nothing when you apply. No link on this page is an affiliate link. You apply on each program's own site, and the decision is theirs.</p>
+  </footer>
+</div>
+<script src="/js/perks.js" defer></script>
+<%- include('../../partials/app-foot') %>
