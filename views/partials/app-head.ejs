@@ -31,7 +31,7 @@
 <% var hasWs = typeof ws !== 'undefined' && ws; %>
 <% if (!hasWs) { %>
 <div class="mobile-top">
-  <a href="/app" class="mark"><img src="/img/127-emerald.png" srcset="/img/127-emerald.png 2x, /img/127-emerald@3x.png 3x" width="46" height="24" alt="127" class="logo"></a>
+  <a href="/app" class="mark"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
   <button class="btn ghost sm" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
 </div>
 <% } %>
@@ -41,7 +41,7 @@
 <% } else { %>
   <aside class="side" id="side">
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <a href="/" class="mark"><img src="/img/127-emerald.png" srcset="/img/127-emerald.png 2x, /img/127-emerald@3x.png 3x" width="46" height="24" alt="127" class="logo"></a>
+      <a href="/" class="mark"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
       <button class="btn ghost sm" style="display:none" id="closeSide" onclick="document.getElementById('side').classList.remove('open')">Close</button>
     </div>
     <nav>

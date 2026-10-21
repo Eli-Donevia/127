@@ -583,6 +583,12 @@ button.pm-dot:hover { border-color: var(--accent); }
 .mark .logo{height:24px;width:auto;display:block}
 .foot .mark .logo{height:22px}
 .mobile-top .logo{height:22px}
+/* The top-left 127 turns like the Circle stone: it rests on its face, then makes one quick eased turn every 7 s, so the
+   edge-on frames only flash past. A 30-frame sprite (front first), stepped, no JS. Reduced motion stops it on the face. */
+.logo.logo-spin{display:block;width:auto;aspect-ratio:506/281;background:url(/img/127-emerald-spin.webp) 0 0/3000% 100% no-repeat;background-image:image-set(url(/img/127-emerald-spin.webp) 2x,url(/img/127-emerald-spin@3x.webp) 3x);animation:logo-spin 7s steps(1,end) infinite}
+.mark .logo.logo-spin{height:26px}
+.mobile-top .logo.logo-spin,.ws-mark .logo.logo-spin{height:24px}
+@keyframes logo-spin{0%,82.14%{background-position:0 0}82.74%{background-position:3.448% 0}83.33%{background-position:6.897% 0}83.93%{background-position:10.345% 0}84.52%{background-position:13.793% 0}85.12%{background-position:17.241% 0}85.71%{background-position:20.690% 0}86.31%{background-position:24.138% 0}86.90%{background-position:27.586% 0}87.50%{background-position:31.034% 0}88.09%{background-position:34.483% 0}88.69%{background-position:37.931% 0}89.28%{background-position:41.379% 0}89.88%{background-position:44.828% 0}90.47%{background-position:48.276% 0}91.07%{background-position:51.724% 0}91.67%{background-position:55.172% 0}92.26%{background-position:58.621% 0}92.86%{background-position:62.069% 0}93.45%{background-position:65.517% 0}94.05%{background-position:68.966% 0}94.64%{background-position:72.414% 0}95.24%{background-position:75.862% 0}95.83%{background-position:79.310% 0}96.43%{background-position:82.759% 0}97.02%{background-position:86.207% 0}97.62%{background-position:89.655% 0}98.21%{background-position:93.103% 0}98.81%{background-position:96.552% 0}99.40%{background-position:100.000% 0}}
 .mnav{display:none;position:relative}
 .mnav summary{list-style:none;cursor:pointer;width:40px;height:36px;border:1px solid var(--line-2);border-radius:999px;display:grid;place-content:center;gap:5px}
 .mnav summary::-webkit-details-marker{display:none}
