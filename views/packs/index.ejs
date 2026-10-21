@@ -1,0 +1,42 @@
+<%- include('../partials/head') %>
+<% var ownedList = owned || []; var paidPacks = packs.filter(function (p) { return !p.free; }); var starter = packs.find(function (p) { return p.free; }); %>
+<main class="pk pk-index">
+  <section class="pk-hero pk-hero-index">
+    <div class="wrap">
+            <h1 class="pk-h1">The files, without the subscription.</h1>
+      <p class="pk-line">Files and short courses, one payment each, for your own business and your clients' work. Every one of them also comes with Builder.</p>
+      <% if (unavailable) { %><p class="pk-alert" role="status">Checkout isn't open yet. Nothing was charged.</p><% } else if (cancelled) { %><p class="pk-alert" role="status">Checkout cancelled. Nothing was charged.</p><% } %>
+    </div>
+  </section>
+  <section class="pk-shelf">
+    <div class="wrap">
+      <% [['Packs', paidPacks.filter(function (p) { return p.kind !== 'course'; })], ['Courses', paidPacks.filter(function (p) { return p.kind === 'course'; })]].forEach(function (g) { if (!g[1].length) return; %>
+      <h2 class="pk-shelf-h"><%= g[0] %> <span><%= g[1].length %></span></h2>
+      <ul class="pk-grid">
+        <% g[1].forEach(function (p, i) { %>
+        <li class="pk-tile pk-tile-<%= p.art %>">
+          <a class="pk-tile-link" href="/packs/<%= p.slug %>"><span class="pk-tile-n"><%= String(i + 1).padStart(2, '0') %></span><span class="pk-t"><%= p.name %></span><span class="pk-s"><%= p.line %></span><span class="pk-c"><% if (p.kind === 'course') { %><%= p.moves.length %> lessons, <%= p.items.length %> files<% } else { %><%= p.count %> files<% } %></span></a>
+          <div class="pk-tile-buy"><span class="pk-price">$<%= p.price %></span><%- include('buy', { p: p, ownedList: ownedList, buyFrom: '/packs', buyLabel: 'Buy' }) %></div>
+        </li>
+        <% }) %>
+      </ul>
+      <% }) %>
+      <div class="pk-pair">
+        <% if (bundle) { %>
+        <div class="pk-pair-item">
+          <p class="pk-t"><%= bundle.name %></p><p class="pk-s"><%= bundle.line %></p>
+          <div class="pk-tile-buy"><span class="pk-price">$<%= bundle.price %></span><%- include('buy', { p: bundle, ownedList: ownedList, buyFrom: '/packs', buyLabel: 'Buy all' }) %></div>
+        </div>
+        <% } %>
+        <% if (starter) { %>
+        <div class="pk-pair-item">
+          <p class="pk-t"><%= starter.name %></p><p class="pk-s"><%= starter.line %></p>
+          <div class="pk-tile-buy"><span class="pk-price">Free</span><%- include('buy', { p: starter, ownedList: ownedList, buyFrom: '/packs' }) %></div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+  <%- include('builder-band') %>
+</main>
+<%- include('../partials/foot') %>

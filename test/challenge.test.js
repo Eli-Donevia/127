@@ -349,3 +349,147 @@ test('content: five days, each with a check-in, matching the five moves', () => 
     assert.ok(d.checkin && d.checkin.fields.length);
   });
 });
+
+// ---------- v2: "Five days. Five things live." (CHALLENGE_DAYS=v2, content/challenge-v2.json) ----------
+async function withV2(fn) {
+  // v2 runs on its own default dates (lib/launch.js CHALLENGE_V2_DEFAULTS), so the v1 start set above steps aside.
+  const start = process.env.CHALLENGE_START_AT;
+  process.env.CHALLENGE_DAYS = 'v2';
+  delete process.env.CHALLENGE_START_AT;
+  try { return await fn(); } finally { delete process.env.CHALLENGE_DAYS; process.env.CHALLENGE_START_AT = start; }
+}
+const V2_ANSWERS = {
+  1: { business: 'Northside Detail', line: 'I clean cars in your driveway, for busy parents' },
+  2: { site_url: 'northside-detail.preview.test', show_idea: 'on' },
+  3: { offer: 'Your car, cleaned in your driveway while you work, $89', grade: '72', show_offer: 'on' },
+  4: { proof: 'before_after' },
+  5: { site_public: 'preview' },
+  6: { time_block: 'morning' },
+  7: { package: 'Full detail, about 2 hours, $89' },
+  8: { list_count: '25', list_where: 'know' },
+  9: { posted: 'story', post_url: '' },
+  10: { asks: '5', replies: '2' },
+  11: { asks_more: '5', followups: '2' },
+  12: { posts: '3' },
+  13: { walkthrough: 'posted', feature_ok: 'on', feature_idea: 'on' },
+  14: { lesson: 'People answer faster than I thought', asks_total: '10', replies_all: '4', feature_ok: 'on', feature_idea: 'on' },
+};
+
+test('v2 content: 14 days, any 12 finish, moves match, slots, summary and card lines point at real fields, no clients or leads', () => withV2(() => {
+  const C = ch.content();
+  assert.ok(ch.contentFile().endsWith('challenge-v2.json'));
+  assert.strictEqual(C.days.length, 14);
+  assert.strictEqual(ch.totalDays(), 14);
+  assert.strictEqual(ch.finishMin(), 12);
+  assert.strictEqual(C.landing.days.length, 14);
+  C.days.forEach((d, i) => {
+    assert.strictEqual(d.n, i + 1);
+    assert.strictEqual(d.move, ch.moves()[i]);
+    assert.ok(d.label.startsWith(`DAY ${i + 1} OF 14`), d.label);
+    assert.ok(d.checkin.fields.length && d.tool && d.example && d.stuck && d.after && d.card && d.card.label, `day ${i + 1}`);
+  });
+  const has = (n, f) => ch.day(n).checkin.fields.some((x) => x.id === f);
+  for (const s of ['idea', 'offer']) assert.ok(has(ch.slot(s).day, ch.slot(s).field), s);
+  for (const [k, [n, f]] of Object.entries(C.summary)) assert.ok(has(n, f), k);
+  for (const d of C.days) if (d.card.line) assert.ok(has(d.card.line[0], d.card.line[1]) && d.card.toggle, `card line day ${d.n}`);
+  assert.ok(has(2, 'show_idea') && has(3, 'show_offer'));
+  const text = JSON.stringify(C);
+  assert.ok(!/\bclients?\b|\bleads?\b/i.test(text), 'L62: nothing says the challenge or a plan gets people clients or leads');
+  assert.ok(text.includes("Don't use tools that mass-text or auto-DM people") && text.includes('Mail Order Rule'), 'Legal 3.7 lines stay');
+  assert.ok(!text.includes('\u2014'), 'no em dashes in site copy');
+  assert.ok(!/127group\.io\b(?!\/challenge)/.test(JSON.stringify(C.days)), 'no site address on a 127 domain: 127 hosts nothing');
+  // v1 is untouched without the switch.
+  delete process.env.CHALLENGE_DAYS;
+  assert.strictEqual(ch.moves()[0], 'Pick one');
+  assert.strictEqual(ch.slot('offer').day, 4);
+  assert.strictEqual(ch.totalDays(), 5);
+  process.env.CHALLENGE_DAYS = 'v2';
+}));
+
+test('v2 dates: Tue Nov 3 to Mon Nov 16, sign-ups close Mon Nov 9 noon ET, demo night Mon Nov 16 8pm ET; env still wins', () => withV2(() => {
+  const T = ch.times();
+  assert.strictEqual(T.startAt, Date.parse('2026-11-03T13:00:00Z'));
+  assert.strictEqual(T.regClosesAt, Date.parse('2026-11-09T17:00:00Z'));
+  assert.strictEqual(T.closesAt, Date.parse('2026-11-17T04:59:59Z'));
+  assert.strictEqual(T.live1At, Date.parse('2026-11-04T01:00:00Z'));
+  assert.strictEqual(T.live2At, Date.parse('2026-11-17T01:00:00Z'));
+  assert.strictEqual(launch.date('CHALLENGE_START_AT'), T.startAt);
+  assert.strictEqual(ch.etDay(ch.unlockAt(1)), 'Tue Nov 3');
+  assert.strictEqual(ch.etDay(ch.unlockAt(14)), 'Mon Nov 16');
+  assert.strictEqual(ch.liveDay(T.startAt + 13 * ch.DAY + 60e3), 14);
+  assert.strictEqual(ch.liveDay(T.startAt + 40 * ch.DAY), 14);
+  assert.deepStrictEqual(ch.lives().map((l) => l.title), ['Kickoff', 'Demo night']);
+  assert.ok(ch.ics('debrief').includes('SUMMARY:Day One Challenge: Demo night live with Eli'));
+  const c = require('../lib/consent').copy('challenge');
+  assert.ok(c.version.endsWith('-v2') && c.line.includes('November 3 to 16'));
+  process.env.CHALLENGE_START_AT = '2026-11-04T13:00:00Z';
+  assert.strictEqual(ch.times().startAt, Date.parse('2026-11-04T13:00:00Z'));
+  delete process.env.CHALLENGE_START_AT;
+}));
+
+test('v2 join: the path is kept when it is one of the four, ignored otherwise, and filled in on a later join', () => withV2(async () => {
+  at('2026-11-02T12:00:00Z');
+  const a = await ch.join({ email: email(), firstName: 'Jo', path: 'service' });
+  assert.strictEqual(a.entry.path, 'service');
+  assert.strictEqual(ch.profile(a.entry).challenge_path, 'service');
+  const e = email();
+  const b = await ch.join({ email: e, firstName: 'Bo', path: 'astronaut' });
+  assert.strictEqual(b.entry.path, null);
+  const again = await ch.join({ email: e, path: 'creator' });
+  assert.strictEqual(again.entry.path, 'creator');
+  const w = ch.welcomeParts(a.entry, null);
+  const txt = JSON.stringify(w);
+  assert.ok(w.subject.includes('Tuesday is day one'));
+  assert.ok(txt.includes('Tuesday, November 3 to Monday, November 16') && txt.includes('Any 12 of the 14 days count') && txt.includes('for the demo night'), txt);
+  at('2026-11-10T12:00:00Z');
+  assert.ok((await ch.join({ email: email() })).closed, 'sign-ups closed Mon Nov 9 noon ET');
+}));
+
+test('v2 check-ins: 12 of 14 makes a finisher, card toggles, summary, hot seats show the site only when ticked, CSV columns', () => withV2(async () => {
+  at('2026-11-02T12:00:00Z');
+  const { entry } = await ch.join({ email: email(), firstName: 'Jordan', path: 'service' });
+  at('2026-11-16T14:00:00Z');
+  for (const d of [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12]) {
+    const r = await ch.checkIn(entry, d, V2_ANSWERS[d]);
+    assert.ok(!r.errors, `day ${d}: ${JSON.stringify(r.errors)}`);
+    assert.ok(!entry.finishedAt, `not a finisher at ${ch.daysDone(entry)} days`);
+  }
+  const r13 = await ch.checkIn(entry, 13, V2_ANSWERS[13]);
+  assert.ok(r13.finishedNow && entry.finishedAt && entry.finishedDay === 13, 'the 12th day done makes a finisher');
+  await ch.checkIn(entry, 14, V2_ANSWERS[14]);
+  assert.strictEqual(ch.daysDone(entry), 13);
+  assert.strictEqual(entry.finishedDay, 13, 'a later check-in keeps the finish day');
+  assert.strictEqual(entry.showIdea, true);
+  assert.strictEqual(entry.showOffer, true);
+  const s = ch.summary(entry);
+  assert.strictEqual(s.site, 'northside-detail.preview.test');
+  assert.strictEqual(s.offer_grade, 72);
+  assert.strictEqual(s.list_count, 25);
+  assert.strictEqual(s.post_url, null);
+  assert.strictEqual(s.package, 'Full detail, about 2 hours, $89');
+  assert.strictEqual(s.asks_total, 10);
+  assert.strictEqual(s.path, 'service');
+  const c = ch.hotSeatCandidates().find((x) => x.id === entry.id);
+  assert.strictEqual(c.idea, 'northside-detail.preview.test');
+  assert.strictEqual(c.offer, null, 'offer stays private without "show my offer"');
+  assert.strictEqual(c.asks, 10);
+  assert.strictEqual(c.replies, 4);
+  const prompt = ch.hotSeatPrompt([c]);
+  assert.ok(prompt.includes('Site (may be shown)') && prompt.includes('Asks: sent 10, 4 replies so far') && prompt.includes('finisher (13 of 14 days)') && prompt.includes('free 14-day') && prompt.includes("Monday's Instagram Live demo night"), prompt);
+  assert.ok(!prompt.includes(entry.email));
+  const head = ch.csv().split('\n')[0];
+  assert.ok(head.includes('"path"') && head.includes('"site"') && head.includes('"day14_at"') && head.includes('"package"') && !head.includes('"yeses"'));
+  // A required field is still required.
+  const bad = await ch.checkIn(entry, 8, { list_count: '' });
+  assert.ok(bad.errors && bad.errors.list_count);
+  // Day 15 doesn't exist.
+  assert.ok((await ch.checkIn(entry, 15, {})).notFound);
+}));
+
+test('v2 public counts stay hidden below 50, so a small number is never shown as proof', () => withV2(() => {
+  const n = db.all('challenge').length;
+  const c = ch.publicCounts();
+  if (n < 50) assert.strictEqual(c.joined, null);
+  else assert.strictEqual(c.joined, n);
+  assert.ok(c.sitesLive === null || c.sitesLive >= 50);
+}));

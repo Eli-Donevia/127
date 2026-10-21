@@ -43,11 +43,21 @@ const harnessRoutes = require('./lib/harness/routes');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
 const toolsRoutes = require('./lib/tools-routes');
+const shopRoutes = require('./lib/shop-routes');
+const shop = require('./lib/shop');
+const lifeRoutes = require('./lib/life-routes');
+const perksRoutes = require('./lib/perks-routes');
+const tapeRoutes = require('./lib/tape-routes');
+const verticals = require('./lib/verticals');
 const connectorRoutes = require('./lib/harness/connectors/routes');
+const postRoutes = require('./lib/harness/posts-routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
 const doors = require('./lib/doors');
+const referrals = require('./lib/referrals');
+const market = require('./lib/market');
+const marketRoutes = require('./lib/market-routes');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -217,6 +227,9 @@ app.use((req, res, next) => {
   res.locals.hqLive = hq.liveFor(user) || harness.enabledFor(user);
   // The workspace offer (lib/hq-offer.js): the plan cards sell HQ once it's on for members (HQ_OFFER=on). Off costs nothing.
   res.locals.hqOffer = hqOffer.forPage();
+  // The Invite page (lib/referrals.js, REFERRALS) and the member marketplace (lib/market.js, MARKETPLACE) in the menu.
+  res.locals.referralsOn = referrals.visibleTo(user);
+  res.locals.marketOn = market.visibleTo(user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -230,7 +243,9 @@ app.use((req, res, next) => {
   // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
   const utm = utmLib.present(req.query);
   if (Object.keys(utm).length && !req.session.utm) req.session.utm = utm;
-  if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
+  // The vertical a visitor came in on, first touch (lib/verticals.js): an ad link tagged utm_campaign=v-<slug>.
+  verticals.middleware(req, res, () => {});
+  if (req.query.ref && referrals.valid(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
 });
 
@@ -247,7 +262,8 @@ function builderOffer(req, user, L) {
     closesShort: L.closesShort,
     closesTime: L.closesTime,
     // Free first month from the referral reward changes the renewal line (Membership Terms, Appendix A1).
-    freeMonth: !!(founding && billing.referralRewardDue(user)),
+    // A month banked from a friend who paid (lib/referrals.js) does the same for a Builder checkout.
+    freeMonth: !!(founding && billing.referralRewardDue(user)) || !!(user && user.tier === 'free' && referrals.banked(user)),
   };
   offer.firstCharge = offer.freeMonth ? billing.firstChargeDate() : null;
   if (founding) {
@@ -358,7 +374,12 @@ function homeVideo() {
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
 // doors: "What are you building?" under the hero while the front doors are on (FRONT_DOORS, lib/doors.js).
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user) }));
+// The homepage's packs row (SHOP_PACKS): the paid packs with one-tap buy buttons, the free Starter Pack and the bundle.
+function homePacks(req) {
+  const keys = Array.isArray(req.session.packKeys) ? req.session.packKeys : [];
+  return { list: shop.list(), bundle: shop.catalog().bundle, owned: shop.ownedSlugs(req.user, { keys }), builderGetsAll: shop.catalog().builderGets === 'all' };
+}
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
   const v = launch.view();
@@ -489,17 +510,21 @@ app.post('/start', wrap(async (req, res) => {
 async function createMember(req, { email, name, password, optIn, source, fallbackSource }) {
   const onList = launch.onWaitlist(email);
   const refCode = cookie(req, 'ref');
-  const referrer = refCode && waitlist.byCode(refCode);
+  // A founding list code or a member's own code (lib/referrals.js): one code system.
+  const referrer = refCode && referrals.owner(refCode);
   const utm = req.session.utm || {};
   // Which funnel (quiz, stack, idea test) this member came from, if any.
   const lead = db.filter('leads', (l) => l.email === email).sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0] || null;
   const user = await db.save('users', {
     email,
     name,
-    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.referralCode : null),
+    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.code : null),
+    // Which share point the code came through ("site" = the Made with 127 badge), for the Invite page.
+    signupVia: referrer && referrer.email !== email ? req.session.refVia || null : null,
     signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
     leadSource: lead ? lead.source : null,
     utm: Object.keys(utm).length ? utm : null,
+    vertical: verticals.current(req),
     passwordHash: await bcrypt.hash(password, 10),
     tier: 'free',
     xp: 0,
@@ -561,8 +586,9 @@ function ownCode(req, code) {
 }
 
 app.get('/f/:code', (req, res) => {
-  const entry = waitlist.byCode(req.params.code);
-  if (entry) setRefCookie(res, entry.referralCode);
+  const own = referrals.owner(req.params.code);
+  if (own) setRefCookie(res, own.code);
+  if (own && ['site', 'challenge', 'invite'].includes(req.query.via)) req.session.refVia = req.query.via;
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
 
@@ -592,6 +618,7 @@ async function joinFromRequest(req, body, source) {
     source,
     ref: body.ref || cookie(req, 'ref'),
     utm: utmFrom(req, body),
+    vertical: verticals.current(req),
     ip: security.ip(req),
   });
 }
@@ -2061,9 +2088,24 @@ app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
 // The HQ Store (lib/store.js, W7): every template kind, Make it mine. Behind STORE_V2 (default off):
 // off, its pages 404 and the HQ tabs show no Store.
 app.use(storeRoutes({ requireAuth, flash, track }));
+// Packs (lib/shop.js): one-time purchases, behind SHOP_PACKS.
+app.use(shopRoutes({ track }));
+// Life in HQ (lib/life): budget, workouts, food, check-in, kept in the member's own browser. Behind HQ_LIFE (default off).
+app.use(lifeRoutes({ requireAuth }));
+// The Invite page and the member marketplace, each behind its own switch (lib/market-routes.js).
+app.use(marketRoutes({ requireAuth, requireAdmin, flash, track }));
+// Perks and grants (lib/perks): credits, discounts, grants and free help from official pages. Behind HQ_PERKS (default off).
+app.use(perksRoutes({ requireAuth }));
+// Tape (lib/tape): a watchlist for traders on the member's own market data key, facts only (Legal L88). Behind HQ_TAPE (default off).
+app.use(tapeRoutes({ requireAuth }));
+// Verticals (lib/verticals.js): /for/<slug> pages behind VERTICALS, and the board at /admin/verticals.
+app.use(require('./lib/verticals-routes')({ requireAuth, requireAdmin, doorsLive: (user) => doors.liveFor(user), builderPrice: () => PLANS.builder.price, track }));
+// Native HQ tools (lib/tools): the Store's spreadsheets as live pages, and a quote's private link. Behind HQ_TOOLS.
 app.use(toolsRoutes({ requireAuth, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
+// HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).
+app.use(postRoutes({ requireAuth, flash }));
 
 // 127 HQ (lib/hq-routes.js): /app/hq, its connections and Read my week. Falls through to the 404 while HQ_LIVE is off.
 app.use(hqRoutes({ requireAuth, flash, track, reserveAi, refundAi, ageFromAi, aiRunsLeft }));
@@ -2145,12 +2187,18 @@ db.init().then(async () => {
     require('./lib/harness/connectors').sweep().catch((err) => console.error('[connectors] sweep', err.message));
     // 30 days after a paid plan ends, saved keys, sign-ins and Studio likenesses go (lib/lapse.js, Legal K5).
     require('./lib/lapse').sweep().catch((err) => console.error('[lapse] sweep', err.message));
+    // HQ Post: photos of finished posts go after 7 days.
+    require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
+    // Referral months whose 14-day wait is over (lib/referrals.js); nothing while REFERRALS is off.
+    referrals.sweep().catch((err) => console.error('[referrals] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.
   harness.init();
   setInterval(() => {
     harness.tick().catch((err) => console.error('[harness] tick', err.message));
+    // HQ Post: OK'd posts whose time has come.
+    require('./lib/harness/posts').tick().catch((err) => console.error('[posts] tick', err.message));
     harness.daily().catch((err) => console.error('[harness] daily', err.message));
   }, 60 * 1000).unref();
   // The Founding Five: hello videos and applications go when Legal and Offer promised, and 127's copies of

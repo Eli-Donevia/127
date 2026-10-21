@@ -1,0 +1,11 @@
+<%# One-tap buy: posts straight to Stripe Checkout. buyFrom is where a cancelled checkout returns. %>
+<% if (p.free) { %>
+  <a class="btn light pk-buy" href="/packs/starter/claim">Get it free <span class="arrow"></span></a>
+<% } else if (typeof ownedList !== 'undefined' && ownedList.indexOf(p.slug) > -1) { %>
+  <a class="btn ghost pk-buy" href="/packs/<%= p.slug %>/get">Open your files <span class="arrow"></span></a>
+<% } else { %>
+  <form method="post" action="/packs/<%= p.slug %>/buy" class="pk-form">
+    <input type="hidden" name="from" value="<%= buyFrom %>">
+    <button class="btn light pk-buy" type="submit"><% var bl = typeof buyLabel !== 'undefined' && buyLabel ? buyLabel : 'Buy'; %><%= bl %><% if (bl !== 'Buy' && bl !== 'Buy all') { %> · $<%= p.price %><% } %></button>
+  </form>
+<% } %>

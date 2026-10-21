@@ -1,0 +1,21 @@
+<%# New in 127 this week (lib/harness/drops.js): what landed on the shelves since last week, found on its own, and the
+    workflows members finished most. Locals: drop, compact (Today's short version, closable). %>
+<% var list = compact ? drop.items.slice(0, 4) : drop.items;
+   var kinds = Object.keys(drop.counts).map(function (k) { return drop.counts[k] + ' ' + (k === 'Store' ? 'in the Store' : k.toLowerCase() + (drop.counts[k] === 1 ? '' : 's')); }); %>
+<section class="hqn-drop<%= compact ? '' : ' hq-card' %>" id="new" aria-labelledby="drop-h-<%= compact ? 't' : 'w' %>">
+  <div class="hqn-week-top">
+    <h2 id="drop-h-<%= compact ? 't' : 'w' %>">New in 127 this week<% if (kinds.length) { %><span class="hqn-dim"> · <%= kinds.join(', ') %></span><% } %></h2>
+    <% if (compact) { %><form method="post" action="/app/hq/you/drop/close"><button class="hq-link-btn">Close</button></form><% } %>
+  </div>
+  <% if (drop.picks.length && !compact) { %>
+  <ul class="hqn-drop-list picks"><% drop.picks.forEach(function (p) { %><li><a href="<%= p.href %>"><span class="k"><%= p.kindName %></span><b><%= p.title %></b><% if (p.line) { %><span class="l"><%= p.line %></span><% } %></a></li><% }) %></ul>
+  <% } %>
+  <% if (list.length) { %>
+  <ul class="hqn-drop-list"><% list.forEach(function (x) { %><li><a href="<%= x.href %>"><span class="k"><%= x.kindName %></span><b><%= x.title %></b></a></li><% }) %></ul>
+  <% } else if (!compact) { %><p class="hqn-note">Nothing new on the shelves yet this week. New workflows, prompts and designs show up here on their own.</p><% } %>
+  <% if (compact && drop.items.length > list.length) { %><a class="link tiny" href="/app/hq/week#new">See all <%= drop.items.length %></a><% } %>
+  <% if (!compact && drop.mostRun.length) { %>
+  <h3 class="hqn-h" style="margin-top:8px">Most run by members this week</h3>
+  <ol class="hqn-drop-list ranked"><% drop.mostRun.forEach(function (x) { %><li><a href="<%= x.href %>"><b><%= x.title %></b><span class="l"><%= x.runs %> runs</span></a></li><% }) %></ol>
+  <% } %>
+</section>

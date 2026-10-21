@@ -1,0 +1,22 @@
+<%- include('../partials/app-head') %>
+<%# /admin/wall (lib/wall.js): every entry members put up for 127's public wall, with the words they agreed to. Show,
+    Hide or leave waiting. Approving a private preview link is refused. Locals: entries, live, typicality. %>
+<% var when = function (iso) { return iso ? new Date(iso).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET' : ''; }; %>
+<div class="wrap" style="max-width:860px;padding:32px 16px 80px">
+  <h1 style="margin:0;font-size:32px;letter-spacing:-.04em">Wall</h1>
+  <p class="small" style="color:var(--muted)"><%= live ? 'WALL is on: shown entries are public at /wall.' : 'WALL is off: nothing is public yet. It waits on Legal\'s release words (N6).' %> Every surface carries: "<%= typicality %>"</p>
+  <% if (!entries.length) { %><p>Nothing yet.</p><% } %>
+  <% entries.forEach(function (e) { %>
+  <section style="border-top:1px solid var(--line);padding:16px 0;display:grid;gap:6px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b><%= e.title %></b><span class="small" style="font-family:var(--mono)"><%= e.status %> · <%= e.source %> · <%= e.kind %></span></div>
+    <% if (e.url) { %><a class="link" href="<%= e.url %>" target="_blank" rel="noopener noreferrer nofollow"><%= e.url %></a><% } %>
+    <% if (e.private) { %><p class="small" style="color:var(--danger);margin:0">Looks like a private preview link. Ask for the live address before showing it.</p><% } %>
+    <% if (e.note) { %><p style="margin:0"><%= e.note %></p><% } %>
+    <p class="small" style="color:var(--muted);margin:0">Shows as "<%= e.consent === 'public' ? [e.firstName, e.business].filter(Boolean).join(', ') : e.firstName %>". Agreed <%= when(e.consentAt) %> to: "<%= e.consentText %>" (<%= e.consentVersion %>)<%= e.reviewedAt ? '. Last reviewed ' + when(e.reviewedAt) + ' by ' + e.reviewedBy : '' %></p>
+    <div style="display:flex;gap:8px">
+      <% ['shown', 'hidden', 'pending'].filter(function (s) { return s !== e.status; }).forEach(function (s) { %><form method="post" action="/admin/wall/<%= e.id %>"><input type="hidden" name="status" value="<%= s %>"><button class="btn sm<%= s === 'shown' ? '' : ' ghost' %>"><%= s === 'shown' ? 'Show' : s === 'hidden' ? 'Hide' : 'Back to waiting' %></button></form><% }) %>
+    </div>
+  </section>
+  <% }) %>
+</div>
+<%- include('../partials/app-foot') %>

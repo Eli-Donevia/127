@@ -1,0 +1,121 @@
+<%- include('../partials/head') %>
+<%
+  var isBundle = !!pack.bundle;
+  var KIND = { site: 'Site design', shopify: 'Shopify', notion: 'Notion', sheet: 'Sheet', doc: 'Doc', email: 'Email', social: 'Social', deck: 'Deck', checklist: 'Checklist', recipe: 'Automation', 'video-prompts': 'Video prompts', prompts: 'Prompts' };
+  var KIT = { motion: 'Motion', ai: 'Prompts', creator: 'Template' };
+  var ownedList = owned ? [pack.slug] : [];
+  var total = files;
+  var course = pack.kind === 'course';
+%>
+<main class="pk pk-<%= pack.art || (isBundle ? 'all' : 'starter') %>">
+  <section class="pk-hero">
+    <div class="wrap pk-hero-in">
+      <div class="pk-copy">
+        <p class="pk-lbl"><a href="/packs">Packs</a> <span aria-hidden="true">/</span> <% if (course) { %>Course, <%= pack.moves.length %> lessons<% } else { %><%= total %> files<% } %></p>
+        <h1 class="pk-h1"><%= pack.name %></h1>
+        <p class="pk-line"><%= pack.line %></p>
+        <% if (unavailable) { %><p class="pk-alert" role="status">Checkout isn't open yet. Nothing was charged.</p><% } else if (cancelled) { %><p class="pk-alert" role="status">Checkout cancelled. Nothing was charged.</p><% } %>
+        <div class="pk-cta" data-hero-buy>
+          <%- include('buy', { p: pack, ownedList: ownedList, buyFrom: '/packs/' + pack.slug, buyLabel: pack.free ? null : 'Buy once' }) %>
+          <p class="pk-fine"><% if (pack.free) { %>Free with a 127 account. No card.<% } else { %>One payment. 14 days to change your mind.<% if (tax) { %> Plus tax where it applies.<% } %><% } %></p>
+        </div>
+      </div>
+      <%- include('art', { pack: pack, contents: contents, files: files }) %>
+    </div>
+  </section>
+
+  <% if (!isBundle) { %>
+  <section class="pk-what">
+    <div class="wrap pk-what-in">
+      <p class="pk-pitch"><%= pack.pitch %></p>
+      <ol class="pk-uses">
+        <% (pack.uses || []).forEach(function (u, i) { %><li><span class="pk-n">0<%= i + 1 %></span><span><%= u %></span></li><% }) %>
+      </ol>
+    </div>
+  </section>
+
+  <% if (pack.art === 'sites' && pack.items.length) { %>
+  <section class="pk-wall" aria-label="The site designs in this pack">
+    <div class="pk-wall-track" tabindex="0">
+      <% pack.items.filter(function (i) { return i.kind === 'site'; }).forEach(function (i) { %>
+      <figure class="pk-wall-item"><img src="/img/packs/sites/<%= i.id %>.jpg" alt="<%= i.title %>, the top of the design" loading="lazy" width="640" height="1200"><figcaption><%= i.title %></figcaption></figure>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+  <% } %>
+
+  <% if (course) { %>
+  <section class="pk-course" aria-labelledby="pk-course-h">
+    <div class="wrap">
+      <h2 id="pk-course-h" class="pk-h2">The lessons</h2>
+      <ol class="pk-lessons">
+        <% pack.moves.forEach(function (m, i) { %>
+        <li><span class="pk-ln"><%= String(i + 1).padStart(2, '0') %></span><span class="pk-t"><%= m.title %></span><span class="pk-s"><%= m.summary %></span></li>
+        <% }) %>
+      </ol>
+    </div>
+  </section>
+  <% if (pack.hq && pack.hq.length) { %>
+  <section class="pk-hq" aria-labelledby="pk-hq-h">
+    <div class="wrap pk-hq-in">
+      <div>
+        <h2 id="pk-hq-h" class="pk-h2">Then do it in 127 HQ</h2>
+        <p class="pk-hq-p">Each lesson ends with a prompt for any AI. In HQ, the matching workflow writes it from your business facts. The free ones run on a free account; the rest come with Builder.</p>
+      </div>
+      <ul class="pk-wf">
+        <% pack.hq.forEach(function (w) { %>
+        <li><span class="pk-t"><%= w.title %></span><span class="pk-wf-m"><% if (w.minutes) { %><%= w.minutes %> min<% } %></span><span class="pk-wf-tier"><%= w.tier === 'free' ? 'Free' : 'Builder' %></span></li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+  <% } %>
+  <% } %>
+
+  <section class="pk-inside" aria-labelledby="pk-inside-h">
+    <div class="wrap">
+      <h2 id="pk-inside-h" class="pk-h2"><%= course ? 'Files that come with it' : "What's inside" %></h2>
+      <% (isBundle ? contents : [pack]).forEach(function (p) { %>
+      <div class="pk-group">
+        <% if (isBundle) { %><h3 class="pk-h3"><a href="/packs/<%= p.slug %>"><%= p.name %></a> <span><%= p.count %> files</span></h3><% } %>
+        <ul class="pk-list">
+          <% (p.kind === 'course' && !isBundle ? [] : p.moves).forEach(function (m) { %>
+          <li><span class="pk-kind"><%= KIT[p.kit] || (p.kind === 'course' ? 'Lesson' : p.vertical ? 'Prompt' : 'File') %></span><span class="pk-t"><%= m.title %></span><% if (m.summary) { %><span class="pk-s"><%= m.summary %></span><% } %></li>
+          <% }) %>
+          <% p.items.forEach(function (i) { %>
+          <li><span class="pk-kind"><%= KIND[i.kind] || 'File' %></span><span class="pk-t"><%= i.title %></span><span class="pk-s"><%= i.summary %></span><%# Legal P11: Numbers previews are filled examples, so the Numbers Pack lists its sheets without them. %><% if (i.previewFile && !isBundle && p.art !== 'numbers') { %><img class="pk-peek" src="/packs/<%= p.slug %>/peek/<%= i.id %>" alt="" loading="lazy" width="120" height="80"><% } %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% }) %>
+      <p class="pk-terms"><% if (course) { %>Read each lesson on the page or download it. Access for as long as we offer the course. <% } %>Files open in a browser, Excel, Google Sheets, Word, Google Docs or Notion. Use them in your own business and for your clients. Please don't resell or share the files themselves. <a href="/terms#section-11">License</a>. <% if (!pack.free) { %>14 days to change your mind: email <a href="mailto:hello@127group.io">hello@127group.io</a> for a full refund.<% } else { %>Questions: <a href="mailto:hello@127group.io">hello@127group.io</a>.<% } %></p>
+      <% if (!pack.free && !owned) { %><div class="pk-again"><%- include('buy', { p: pack, ownedList: [], buyFrom: '/packs/' + pack.slug, buyLabel: 'Buy the ' + pack.name }) %></div><% } %>
+    </div>
+  </section>
+
+  <% if (builderGetsAll) { %><%- include('builder-band') %><% } %>
+
+  <% if (others.length) { %>
+  <section class="pk-more" aria-labelledby="pk-more-h">
+    <div class="wrap">
+      <h2 id="pk-more-h" class="pk-h2">More packs</h2>
+      <ul class="pk-more-list">
+        <% others.forEach(function (o) { %>
+        <li><a href="/packs/<%= o.slug %>"><span class="pk-t"><%= o.name %></span><span class="pk-s"><%= o.line %></span><span class="pk-price">$<%= o.price %></span></a></li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+  <% } %>
+  <% if (!pack.free && !owned) { %>
+  <%# Phones: the buy button stays in reach once the hero's has scrolled away (public/js/packs.js). Stripe Checkout
+      shows Apple Pay and Google Pay on its own when they're on in the Dashboard. %>
+  <div class="pk-sticky" data-sticky hidden>
+    <div><span class="pk-t"><%= pack.name %></span><span class="pk-price">$<%= pack.price %> once</span></div>
+    <%- include('buy', { p: pack, ownedList: [], buyFrom: '/packs/' + pack.slug, buyLabel: 'Buy' }) %>
+  </div>
+  <% } %>
+</main>
+<script src="/js/packs.js" defer></script>
+<%- include('../partials/foot') %>

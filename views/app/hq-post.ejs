@@ -1,0 +1,114 @@
+<%- include('../partials/app-head') %>
+<%# One post in HQ Post (lib/harness/posts.js): write it, pick places and a time, check each place's preview,
+    OK it. Photos are cropped and uploaded by public/js/hq-posts.js. %>
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<%
+  var ids = Object.keys(p.places);
+  var open = p.status === 'draft' || p.status === 'failed';
+  var going = ids.filter(function (k) { return p.places[k].on; });
+  var whenText = p.when ? p.when.slice(0, 16).replace('T', ' ') + ' UTC' : 'now';
+%>
+<div class="hq<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
+  <a class="hq-back" href="/app/hq/post"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>All posts</a>
+
+  <header class="pc-top">
+    <h1 class="pc-h1"><%= open ? 'New post' : p.label %></h1>
+    <% if (p.status === 'ok') { %><p class="pc-sum">Goes out <time data-when="<%= p.when %>"><%= whenText %></time>. You can cancel it until then.</p><% } %>
+  </header>
+
+  <div class="pc-cols">
+  <form class="pc-write" method="post" action="/app/hq/post/<%= p.id %>" id="pc-form" data-post="<%= p.id %>">
+    <fieldset <%= open ? '' : 'disabled' %>>
+    <label for="pc-text" class="pc-label">The post</label>
+    <textarea id="pc-text" name="text" rows="6" maxlength="5000" placeholder="Write it the way you'd say it."><%= p.text %></textarea>
+
+    <div class="pc-places">
+      <% ids.forEach(function (k) { var pl = p.places[k], P = places[k]; %>
+      <div class="pc-place" data-place="<%= k %>" data-max="<%= P.max %>">
+        <input type="hidden" name="<%= k %>_set" value="1">
+        <div class="pc-place-h">
+          <label class="pc-check"><input type="checkbox" name="<%= k %>_on"<%= pl.on ? ' checked' : '' %><%= P.held || !P.connected ? ' disabled' : '' %>><span><%= P.name %></span></label>
+          <% if (P.held) { %><span class="pc-mute">Waiting on Legal</span>
+          <% } else if (!P.connected) { %><a class="pc-link" href="/app/hq/apps/<%= k %>">Connect</a>
+          <% } else if (P.accounts.length) { %>
+            <select name="<%= k %>_target" aria-label="Which <%= P.name %> account">
+              <% P.accounts.forEach(function (a) { var v = a.id + '|' + a.name; %><option value="<%= v %>"<%= pl.target && pl.target.id === a.id ? ' selected' : '' %>><%= a.name %></option><% }) %>
+            </select>
+          <% } else { %><span class="pc-mute"><%= P.error || (k === 'instagram' ? 'No business or creator account is linked to your Pages.' : k === 'facebook' ? 'No Pages on this account.' : 'No account found. Reconnect it.') %></span><% } %>
+        </div>
+        <% if (P.connected && !P.held) { %>
+        <div class="pc-photo">
+          <% if (pl.media) { %><img src="<%= pl.media.src %>" alt="Photo for <%= P.name %>" width="<%= pl.media.w %>" height="<%= pl.media.h %>" loading="lazy"><% } %>
+          <div class="pc-photo-c">
+            <label class="pc-file"><input type="file" accept="image/*" data-photo="<%= k %>"><span><%= pl.media ? 'Change photo' : (P.photo === 'required' ? 'Add a photo (needed)' : 'Add a photo') %></span></label>
+            <select data-crop="<%= k %>" aria-label="<%= P.name %> crop"><% P.crops.forEach(function (c) { %><option value="<%= c[1] %>"><%= c[0] %></option><% }) %></select>
+            <span class="pc-photo-msg" data-msg="<%= k %>" role="status"></span>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+
+    <div class="pc-when">
+      <label class="pc-label" for="pc-when">When</label>
+      <input type="datetime-local" id="pc-when" data-iso="<%= p.when || '' %>">
+      <input type="hidden" name="when_iso" value="<%= p.when || '' %>">
+      <span class="pc-mute">Leave it empty to post as soon as you OK it.</span>
+    </div>
+    <label class="pc-check pc-ai"><input type="hidden" name="ai_set" value="1"><input type="checkbox" name="ai"<%= p.ai ? ' checked' : '' %>><span>It shows an AI-made person or voice</span></label>
+    <div class="pc-paid">
+      <label class="pc-check pc-ai"><input type="checkbox" name="paid"<%= p.paid ? ' checked' : '' %>><span>A brand paid me or gave me something for this</span></label>
+      <span class="pc-mute">Start the caption with #ad, and use the platform's paid partnership label in its app.</span>
+    </div>
+
+    <div class="pc-acts">
+      <button class="pc-go" name="next" value="review">Check it</button>
+      <button class="pc-quiet" formaction="/app/hq/post/<%= p.id %>/captions">Write it for each place</button>
+      <button class="pc-quiet" name="next" value="save">Save draft</button>
+    </div>
+    </fieldset>
+  </form>
+
+  <section class="pc-review" id="review" aria-label="Check it">
+    <% if (!going.length) { %><p class="pc-mute">Tick where it goes, then check it here.</p><% } %>
+    <% going.forEach(function (k) { var pl = p.places[k]; %>
+    <article class="pc-prev pc-<%= k %>">
+      <div class="pc-prev-h"><span class="pc-dp" aria-hidden="true"></span><b><%= pl.target ? pl.target.name : 'Pick an account' %></b><span class="pc-mute"><%= pl.name %></span></div>
+      <% if (pl.media) { %><img src="<%= pl.media.src %>" alt="" width="<%= pl.media.w %>" height="<%= pl.media.h %>" loading="lazy"><% } %>
+      <% if (open) { %>
+      <label class="pc-cap-l" for="pc-cap-<%= k %>"><%= pl.name %> caption</label>
+      <textarea id="pc-cap-<%= k %>" name="<%= k %>_caption" form="pc-form" rows="5" maxlength="<%= places[k].max %>" data-count="<%= k %>"><%= pl.caption %></textarea>
+      <% } else { %><p class="pc-cap"><%= pl.caption %></p><% } %>
+      <dl class="pc-facts">
+        <dt>Caption</dt><dd class="pc-num"><span data-n="<%= k %>"><%= pl.caption.length %></span> / <%= places[k].max.toLocaleString('en-US') %></dd>
+        <% if (pl.media) { %><dt>Photo</dt><dd class="pc-num"><%= pl.media.w %> × <%= pl.media.h %></dd><% } %>
+        <% if (pl.result) { %><dt>State</dt><dd><% if (pl.result.state === 'out') { %><span class="pc-won">Out</span><% if (pl.result.url) { %> · <a class="pc-link" href="<%= pl.result.url %>" rel="noopener" target="_blank">See it</a><% } %><% } else { %><span class="pc-bad"><%= pl.result.error %></span><% } %></dd><% } %>
+      </dl>
+    </article>
+    <% }) %>
+
+    <% if (open && p.problems.length) { %>
+    <ul class="pc-problems"><% p.problems.forEach(function (x) { %><li><%= x %></li><% }) %></ul>
+    <% } %>
+    <% if (open && going.length) { %>
+    <form method="post" action="/app/hq/post/<%= p.id %>/ok" class="pc-ok">
+      <button class="pc-go"<%= p.problems.length ? ' disabled' : '' %>>OK, post <time data-when="<%= p.when || '' %>" data-ok><%= p.when ? whenText : 'now' %></time></button>
+      <span class="pc-mute">Your OK covers what's shown here. Change anything and it asks again.</span>
+    </form>
+    <% } %>
+    <% if (p.status === 'ok') { %>
+    <form method="post" action="/app/hq/post/<%= p.id %>/cancel" class="pc-ok"><button class="pc-quiet">Cancel and edit</button></form>
+    <% } %>
+    <% if (p.photosGone) { %><p class="pc-mute">Photos are deleted 7 days after a post goes out.</p><% } %>
+    <% if (p.status !== 'posting') { %>
+    <form method="post" action="/app/hq/post/<%= p.id %>/delete" data-confirm="Delete this post from HQ? Anything already out stays up." class="pc-del"><button class="pc-quiet danger">Delete</button></form>
+    <% } %>
+  </section>
+  </div>
+</div>
+<script src="/js/hq.js" defer></script>
+<script src="/js/hq-posts.js" defer></script>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
+<%- include('../partials/app-foot') %>

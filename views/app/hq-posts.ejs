@@ -1,0 +1,55 @@
+<%- include('../partials/app-head') %>
+<%# HQ Post (lib/harness/posts.js): the week of posts, what's waiting, drafts, and a box to start one. %>
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<%
+  var waiting = all.filter(function (p) { return p.status === 'ok' || p.status === 'posting'; });
+  var drafts = all.filter(function (p) { return p.status === 'draft' || p.status === 'failed'; });
+  var out = all.filter(function (p) { return p.status === 'done'; }).reverse().slice(0, 20);
+  var where = function (p) { return Object.keys(p.places).filter(function (k) { return p.places[k].on; }).map(function (k) { return p.places[k].name; }).join(', ') || 'Nowhere yet'; };
+  var first = function (p) { return (p.text || '').split('\n')[0].slice(0, 70) || 'Untitled post'; };
+  var DAY = 864e5, start = new Date(); start.setUTCHours(0, 0, 0, 0);
+%>
+<div class="hq<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
+  <% if (!inWs) { %><a class="hq-back" href="/app/hq"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to HQ</a><% } %>
+
+  <header class="pc-top">
+    <h1 class="pc-h1">Post</h1>
+    <p class="pc-sum"><span class="<%= counts.out ? 'pc-won' : '' %>"><%= counts.out %> out in the last 7 days</span> · <%= counts.waiting %> waiting<%= drafts.length ? ' · ' + drafts.length + (drafts.length === 1 ? ' draft' : ' drafts') : '' %></p>
+  </header>
+
+  <form class="pc-new" method="post" action="/app/hq/post">
+    <label for="pc-new-text" class="pc-label">New post</label>
+    <textarea id="pc-new-text" name="text" rows="3" maxlength="5000" placeholder="What's new? Write it the way you'd say it."></textarea>
+    <button class="pc-go">Start</button>
+  </form>
+
+  <section class="pc-week" aria-label="This week">
+    <% for (var d = 0; d < 7; d++) { var day = new Date(start.getTime() + d * DAY), key = day.toISOString().slice(0, 10); %>
+    <div class="pc-day">
+      <span class="pc-dn<%= d === 0 ? ' now' : '' %>" data-day="<%= key %>"><%= day.toUTCString().slice(0, 3).toUpperCase() %> <%= day.getUTCDate() %></span>
+      <% all.filter(function (p) { return (p.status === 'ok' || p.status === 'posting' || p.status === 'done') && p.when && p.when.slice(0, 10) === key; }).forEach(function (p) { %>
+      <a class="pc-slot<%= p.status === 'done' ? ' out' : '' %>" href="/app/hq/post/<%= p.id %>"><%= first(p).slice(0, 28) %><em><%= where(p) %> · <%= p.status === 'done' ? 'out' : '' %><time data-when="<%= p.when %>" data-short><%= p.when.slice(11, 16) %> UTC</time></em></a>
+      <% }) %>
+    </div>
+    <% } %>
+  </section>
+
+  <% [['Waiting', waiting], ['Drafts', drafts], ['Out', out]].forEach(function (g) { if (!g[1].length) return; %>
+  <section class="pc-list">
+    <h2 class="pc-h2"><%= g[0] %></h2>
+    <% g[1].forEach(function (p) { %>
+    <a class="pc-row" href="/app/hq/post/<%= p.id %>">
+      <span class="pc-row-t"><%= first(p) %></span>
+      <span class="pc-row-m"><%= where(p) %><% if (p.when) { %> · <time data-when="<%= p.when %>"><%= p.when.slice(0, 16).replace('T', ' ') %> UTC</time><% } %><% if (p.status === 'failed') { %> · <span class="pc-bad">Needs a look</span><% } %></span>
+    </a>
+    <% }) %>
+  </section>
+  <% }) %>
+
+  <p class="pc-note">Nothing posts until you OK it. Instagram, Facebook and X post through your own accounts, connected in <a href="/app/hq/connect">Connections</a>.</p>
+</div>
+<script src="/js/hq.js" defer></script>
+<script src="/js/hq-posts.js" defer></script>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
+<%- include('../partials/app-foot') %>

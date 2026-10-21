@@ -1,0 +1,54 @@
+/* toast.css — pairs with toast.js. Stacking math follows Sonner (MIT, Emil Kowalski). */
+.tst-root {
+  --w: 356px;
+  position: fixed; z-index: 1000; margin: 0; padding: 0; list-style: none;
+  right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  width: var(--w); height: var(--stack-h, 0px);
+  transition: height .4s cubic-bezier(.21,1.02,.73,1);
+}
+@media (max-width: 600px) { .tst-root { --w: auto; left: 16px; right: 16px; } }
+
+.tst {
+  --y: translateY(calc(var(--index) * -1 * var(--gap, 14px)));
+  --s: calc(1 - var(--index) * .05);
+  --swipe-x: 0px; --swipe-y: 0px;
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 14px 16px; border-radius: 14px;
+  background: var(--surface-2, #111216); color: var(--fg, #F4F5F8);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  font: 400 14px/1.4 var(--font-sans, Geist, system-ui, sans-serif);
+  transform-origin: bottom center;
+  transform: translateX(var(--swipe-x)) translateY(var(--swipe-y)) var(--y) scale(var(--s));
+  transition: transform .4s cubic-bezier(.21,1.02,.73,1), opacity .4s, height .4s;
+  touch-action: none; user-select: none; outline: none;
+}
+/* Collapsed: toasts behind the front take the front's height and peek out above it. */
+.tst[data-front="false"] { height: var(--front-h); overflow: hidden; }
+.tst[data-front="false"] > * { opacity: 0; transition: opacity .3s; }
+.tst-root[data-expanded="true"] .tst { --y: translateY(calc(var(--offset) * -1)); --s: 1; height: auto; }
+.tst-root[data-expanded="true"] .tst > * { opacity: 1; }
+.tst[data-hidden="true"] { opacity: 0; pointer-events: none; }
+.tst[data-mounted="false"] { transform: translateY(100%); opacity: 0; }
+.tst[data-removed="true"] { opacity: 0; transform: translateY(40%) scale(.96); }
+.tst[data-swipe-out="right"] { transform: translateX(110%); }
+.tst[data-swipe-out="left"] { transform: translateX(-110%); }
+.tst[data-swipe-out="down"] { transform: translateY(120%); }
+.tst[data-swiping="true"] { transition: none; }
+.tst:focus-visible { box-shadow: 0 0 0 2px var(--pop, #7C8CFF); }
+
+.tst-icon { flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; background: var(--muted, #8A8F9C); }
+.tst[data-type="success"] .tst-icon { background: var(--signal, #86D6AD); }
+.tst[data-type="error"] .tst-icon { background: #F07178; }
+.tst[data-type="info"] .tst-icon { background: var(--pop, #7C8CFF); }
+.tst[data-type="loading"] .tst-icon { background: none; border: 2px solid var(--line-strong, rgba(255,255,255,.2)); border-top-color: var(--fg, #F4F5F8); animation: tst-spin .8s linear infinite; }
+@keyframes tst-spin { to { transform: rotate(360deg); } }
+.tst-body { flex: 1; min-width: 0; }
+.tst-title { margin: 0; font-weight: 500; }
+.tst-desc { margin: 2px 0 0; color: var(--muted, #8A8F9C); font-size: 13px; }
+.tst-action {
+  flex: none; align-self: center; border: 0; border-radius: 999px; padding: 6px 12px;
+  background: var(--fg, #F4F5F8); color: var(--bg, #060607); font: 500 12px/1 inherit; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) { .tst, .tst-root { transition: opacity .2s; } .tst[data-type="loading"] .tst-icon { animation-duration: 2s; } }

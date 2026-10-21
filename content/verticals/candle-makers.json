@@ -1,0 +1,133 @@
+{
+  "slug": "candle-makers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Online stores",
+  "name": "Candle makers",
+  "one": "candle shop",
+  "description": "Scent pages, market-day checklists, wholesale sheets and launch emails for small candle and home fragrance makers.",
+  "h1": "Nobody can smell a website. Write it so they can.",
+  "mark": "smell",
+  "lede": "127 helps a candle maker describe a scent, price a batch, pitch a shop and email the list when a season's scents go live.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Pour and price the batch",
+      "hand": "A cost sheet: wax, oil, vessel, wick and your time per candle"
+    },
+    {
+      "when": "Tue",
+      "job": "Name and describe the new scent",
+      "hand": "A scent page prompt with top, middle and base notes in plain words"
+    },
+    {
+      "when": "Thu",
+      "job": "Email the list",
+      "hand": "A season launch email and a back-in-stock note"
+    },
+    {
+      "when": "Sat",
+      "job": "Work the market table",
+      "hand": "A market day checklist and the sign for your table"
+    }
+  ],
+  "site": {
+    "design": "market",
+    "sample": {
+      "business": "Low Ember Candle Co.",
+      "what": "Candle company pouring soy candles in small batches",
+      "services": "Cedar and Smoke, 8 oz, $26\nFig Leaf, 8 oz, $26\nThe winter set of three, $68",
+      "city": "Madison"
+    },
+    "caption": "Low Ember is made up. Built by the free site builder from a few typed lines."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my candle site free",
+    "fine": "Type your shop and two scents. Free, no card.",
+    "query": {
+      "what": "Hand-poured candles"
+    }
+  },
+  "pack": {
+    "name": "Candle Pack",
+    "price": 39,
+    "line": "Scent pages, batch costs, wholesale pitches and season launch emails.",
+    "items": [
+      "site-story",
+      "site-shop",
+      "unit-economics",
+      "pricing-lab",
+      "inventory-reorder",
+      "email-launch",
+      "email-win-back",
+      "video-prompts-product",
+      "social-carousel",
+      "launch-countdown"
+    ],
+    "prompts": [
+      {
+        "id": "01-scent-page",
+        "title": "Scent page",
+        "summary": "Describes one scent so a shopper can almost smell it: a place, a moment and the notes.",
+        "prompt": "Write the product page for [scent name] from [shop], a hand-poured [wax] candle.\n\nNotes: top [ ], middle [ ], base [ ]. Size and burn time: [ ]. Price: [ ].\n\nGive: a name line, two sentences that put the scent in a real place and moment (a kitchen in October, a cabin after rain), the notes in plain words, how it burns, and care in one line. No health or aromatherapy claims.",
+        "use": "One per scent. Read it out loud; if it sounds like a perfume ad, cut a line."
+      },
+      {
+        "id": "02-wholesale-pitch",
+        "title": "Wholesale pitch to a local shop",
+        "summary": "A short, honest note to a gift shop or boutique asking if they'd carry your candles.",
+        "prompt": "Write a short email to [shop name], a [kind of shop] in [town], asking if they'd carry candles from [my shop]. What I know about them: [something true you noticed]. My wholesale terms: [price per candle, minimum order]. Keep it under 120 words, one question at the end, no pressure. Add my name, business and mailing address at the bottom and a line that says if it's a no, I won't write again.",
+        "use": "Send one at a time, to shops you'd actually want to be in."
+      },
+      {
+        "id": "03-batch-cost",
+        "title": "Batch cost check",
+        "summary": "Works out what one candle costs you and what the price leaves for your time.",
+        "prompt": "Help me price my candles. One batch makes [n] candles. Costs per batch: wax [$], fragrance oil [$], wicks [$], vessels [$], labels [$], packaging [$]. Pouring and curing take me [hours]. Show the cost per candle, what's left at [retail price] and at [wholesale price], and the price where my time is paid at [$ per hour]. Show the math in a table.",
+        "use": "Run it every time a supplier price changes."
+      }
+    ]
+  },
+  "hq": [
+    "shop",
+    "content",
+    "email",
+    "templates"
+  ],
+  "hooks": [
+    "Nobody can smell your candle on a phone. Here's how to write it so they almost can.",
+    "What one 8 oz candle actually costs to make.",
+    "The wholesale email I'd send a gift shop.",
+    "Name your scent after a place, not an adjective.",
+    "Your market table needs one sign. Here's what it says.",
+    "Fall scents go live in September. Here's the email."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Selling candles at markets? Give people somewhere to reorder.",
+      "body": "Type your shop and your scents. 127 builds a one-page site free.",
+      "headline": "Build your candle site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Scent pages, batch costs and wholesale pitches.",
+      "body": "The Candle Pack: $39 once, or included with Builder.",
+      "headline": "The Candle Pack, $39"
+    },
+    {
+      "angle": "Pricing",
+      "hook": "Is your candle price paying for your time?",
+      "body": "The Candle Pack's batch cost sheet shows what one candle costs and what's left.",
+      "headline": "Price your candles right"
+    }
+  ],
+  "keyword": "SCENT",
+  "next": [
+    "Soap makers",
+    "Home goods makers",
+    "Ceramics studios"
+  ],
+  "legal": "No aromatherapy or health claims about scents."
+}

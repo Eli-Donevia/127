@@ -18,9 +18,7 @@
 .st-card { display: flex; flex-direction: column; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-decoration: none; overflow: hidden; min-width: 0; transition: border-color .15s, transform .15s; }
 .st-card:hover { border-color: var(--line-2); transform: translateY(-1px); }
 .st-card.coming .st-thumb, .st-card.locked .st-thumb { opacity: .7; }
-.st-thumb { aspect-ratio: 4 / 3; background: var(--surface-2); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.st-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.st-thumb-k { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--slate); }
+.st-thumb { position: relative; aspect-ratio: 4 / 3; background: var(--surface-2); border-bottom: 1px solid var(--line); overflow: hidden; }
 .st-body { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 16px; flex: 1; }
 .st-body h3 { margin: 0; font-size: 16px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
 .st-body p { margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.45; }
@@ -44,3 +42,75 @@
 .st-fills li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--line); }
 .st-fills li b { font-weight: 500; color: var(--slate); font-size: 12px; white-space: nowrap; }
 .st-fills li.have b { color: var(--win); }
+
+/* Covers (views/partials/store-cover.ejs, lib/store-covers.js): every item shows something real. A website template
+   is its own sample page at desktop and phone width; a sheet or doc is its preview laid down like a printed page;
+   a prompt pack lists its prompts; a video pack shows its first shots as frames. No accent here: Pop stays for the
+   one thing a page is about. */
+.sc { position: absolute; inset: 0; display: block; overflow: hidden; background: linear-gradient(180deg, #131317 0%, #0c0c0f 100%); color: var(--ink); font-style: normal; }
+.sc img { display: block; }
+.st-thumb .sc-site img, .hqp-curve-img .sc-site img { width: 100%; height: auto; object-fit: initial; transform: none; }
+
+/* A website template: the desktop page bleeding off the right, the phone over its corner bleeding off the bottom. */
+.sc-site .sc-desk { position: absolute; left: 8%; top: 9%; width: 100% !important; border-radius: 8px 0 0 0; box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 24px 48px -18px rgba(0, 0, 0, .9); }
+.sc-site .sc-phone { position: absolute; right: 7%; top: 30%; width: 25%; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255, 255, 255, .2), 0 0 0 4px #0b0b0d, 0 0 0 5px rgba(255, 255, 255, .08), 0 30px 50px -16px rgba(0, 0, 0, .95); }
+.sc-site .sc-phone img { width: 100% !important; }
+/* A spreadsheet's page is mostly margin at card size: show its top-left corner closer, where the title and first rows are. */
+.st-thumb .sc-paper[data-kind="sheet"] .sc-sheet img, .hqp-curve-img .sc-paper[data-kind="sheet"] .sc-sheet img { width: 165%; max-width: none; height: auto; object-fit: initial; }
+
+/* A printed page: inset, flat white, bleeding off the bottom. */
+.sc-sheet { position: absolute; left: 9%; right: 9%; top: 10%; bottom: -8%; border-radius: 6px 6px 0 0; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 26px 44px -20px rgba(0, 0, 0, .95); }
+.st-thumb .sc-sheet img, .hqp-curve-img .sc-sheet img, .sc-sheet img { width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: brightness(.94); }
+
+/* A page drawn from the item's own words (a Notion system's pages, a doc that's coming). */
+.sc-page { background: #f2f1ed; color: #17171b; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.sc-pt { font-size: 15px; line-height: 1.2; font-weight: 650; letter-spacing: -0.015em; }
+.sc-pl { display: grid; }
+.sc-pl span { font-size: 11.5px; line-height: 1; padding: 7px 0; border-top: 1px solid rgba(23, 23, 27, .1); color: #3a3a42; }
+.sc-page small { font-family: var(--mono); font-size: 10px; color: #77777f; }
+.sc-pb { font-size: 11.5px; line-height: 1.5; color: #4a4a52; }
+.sc-rule { height: 6px; border-radius: 3px; background: rgba(23, 23, 27, .08); }
+.sc-rule.s { width: 62%; }
+
+/* A prompt pack: its prompts, numbered, fading out below the fold. */
+.sc-prompts { padding: 16px 18px; }
+.sc-k { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.sc-k span:first-child { white-space: nowrap; flex: none; }
+.sc-k span:last-child { letter-spacing: .04em; text-transform: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-rows { display: grid; margin-top: 12px; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+.sc-row { display: flex; align-items: baseline; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); min-width: 0; }
+.sc-row i { font-family: var(--mono); font-size: 10.5px; font-style: normal; color: var(--slate); flex: none; }
+.sc-row b { min-width: 0; font-size: 14px; line-height: 1.2; font-weight: 500; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-row:first-child b { color: var(--ink); }
+
+/* A video pack: its first three shots as tall frames, each lit from its own side; an image pack's are 4:5. */
+.sc-video { padding: 14px 14px 0; }
+.sc-frames { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 38px; display: flex; gap: 8px; }
+.sc-frame { flex: 1 1 0; min-width: 0; border-radius: 8px; border: 1px solid var(--line-2); padding: 9px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(168deg, #24242b 0%, #131317 48%, #0d0d10 100%); }
+.sc-frame.f1 { background: linear-gradient(196deg, #222229 0%, #121216 52%, #0d0d10 100%); }
+.sc-frame.f2 { background: linear-gradient(180deg, #0d0d10 0%, #141418 55%, #26262e 100%); }
+.sc-frames.still .sc-frame { align-self: center; height: auto; aspect-ratio: 4 / 5; }
+.sc-frame em { font-family: var(--mono); font-size: 9px; line-height: 1.35; font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: var(--slate); overflow-wrap: anywhere; }
+.sc-frame b { font-size: 11.5px; line-height: 1.25; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.sc-video .sc-k { position: absolute; left: 14px; right: 14px; bottom: 14px; }
+
+/* The item page: the same cover, larger. */
+.st-preview-site, .st-preview-prompts, .st-preview-video, .st-preview-doc { position: relative; aspect-ratio: 4 / 3; }
+@media (min-width: 720px) { .st-preview-site, .st-preview-prompts, .st-preview-video, .st-preview-doc { aspect-ratio: 16 / 10; } }
+.sc.big.sc-prompts { padding: 26px 28px; }
+.sc.big .sc-row b { font-size: 17px; }
+.sc.big .sc-frame b { font-size: 15px; }
+.sc.big.sc-page { padding: 26px 30px; }
+.sc.big .sc-pt { font-size: 22px; }
+.sc.big .sc-pl span { font-size: 14px; padding: 10px 0; }
+.sc.big.sc-site .sc-phone { width: 22%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sc-desk, .sc-phone, .sc-sheet, .sc-frame { transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+  .st-card:hover .sc-sheet, .hqp-curve-card:hover .sc-sheet { transform: translateY(-5px); }
+  .st-card:hover .sc-desk { transform: translateX(-6px); }
+  .st-card:hover .sc-phone { transform: translateY(-8px); }
+  .st-card:hover .sc-frame.f0 { transform: translateY(-3px); }
+  .st-card:hover .sc-frame.f1 { transform: translateY(-6px); }
+  .st-card:hover .sc-frame.f2 { transform: translateY(-3px); }
+}

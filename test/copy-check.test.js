@@ -27,6 +27,11 @@ test('each rule catches what it is for', () => {
     ['25 local businesses that need it.', 'outcome-promise'],
     ['Find your first 25 clients.', 'outcome-promise'],
     ['$1M+ fintech startup valuation', 'earnings-line'],
+    ['Your AI team replaces your VA.', 'ai-employee-claims'],
+    ['It does the work of three hires, for a fraction of a salary.', 'ai-employee-claims'],
+    ['Cut your headcount in half.', 'ai-employee-claims'],
+    ['Your business on autopilot.', 'ai-employee-autopilot'],
+    ['It works 24/7, while you sleep.', 'ai-employee-autopilot'],
   ];
   for (const [s, rule] of bad) assert.ok(rules(s).includes(rule), `${rule}: ${s}`);
 });
@@ -42,6 +47,7 @@ test('negations, ranges, our own prices and the earnings line pass', () => {
     'Weeks 1 – 4',
     "$1M+ fintech startup valuation. Eli's results aren't typical or a promise of what you'll earn.",
     '14 days to change your mind. No Black Friday sale.',
+    "Your AI team doesn't replace your staff.",
   ];
   for (const s of good) assert.deepStrictEqual(rules(s), [], s);
   assert.deepStrictEqual(rules('<td>–</td><td>–</td>', { file: 'x.ejs' }), []);

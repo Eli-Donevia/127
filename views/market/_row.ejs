@@ -1,0 +1,10 @@
+<%# One listing in a catalog list. Locals: c (market.card), money. %>
+<li class="mk-row">
+  <a href="/market/<%= c.slug %>">
+    <span class="mk-cover"><%- include('_cover', { c: c }) %></span>
+    <span class="mk-row-k"><%= c.kindName %></span>
+    <span class="mk-row-t"><%= c.title %></span>
+    <span class="mk-row-by"><%= c.maker ? 'by ' + c.maker.name : '' %><%= c.line ? '. ' + c.line : '' %></span>
+    <span class="mk-price">$<%= c.price %></span>
+  </a>
+</li>

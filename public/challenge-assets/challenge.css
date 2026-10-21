@@ -31,6 +31,9 @@
 .ch-dots .now { border: 1.5px solid var(--primary); color: var(--ink); box-shadow: 0 0 0 4px rgba(227,230,241,.08); }
 .ch-dots .locked { opacity: .45; }
 .ch-top .me-link { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+/* v2's 14 days: two rows of 7, one per week */
+.ch-dots.is-weeks { display: grid; grid-template-columns: repeat(7, 32px); gap: 5px; }
+.ch-dots.is-weeks a, .ch-dots.is-weeks span { width: 32px; height: 32px; font-size: 11px; }
 
 /* hero */
 .ch-hero { padding: 64px 0 36px; }
@@ -192,3 +195,21 @@
   .score-grid td.q { width: auto; min-width: 180px; }
 }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+
+/* v2: the day's tool button */
+.chp .tool-btn { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 6px 0 16px; }
+
+/* v2 premium pass (30k-prompt AI tells list): no backdrop glow or grid, no gradient text,
+   no accent bar on quotes, and labels in sentence case instead of an all-caps eyebrow on every block. */
+.chp.chp-v2::before, .chp.chp-v2::after { display: none; }
+.chp.chp-v2 .grad, .chp.chp-v2 .steps li::before { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); }
+.chp.chp-v2 .steps li::before { color: var(--muted); }
+.chp.chp-v2 .lbl { font-family: inherit; font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+.chp.chp-v2 .ch-quote, .chp.chp-v2 .ch-example .ch-quote:first-of-type { border-left: 0; padding-left: 0; color: var(--ink); }
+.chp.chp-v2 .tool-btn .btn { min-width: 220px; justify-content: space-between; }
+.chp.chp-v2 .ch-tool { border: 0; border-radius: 0; padding: 0; background: none; }
+.chp.chp-v2 .tpl .tpl-label { font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+.chp.chp-v2 { --muted: #8b8b95; }
+.chp.chp-v2 .input::placeholder { color: #85858f; }
+.chp.chp-v2 .answers dt { font-size: 13px; letter-spacing: 0; text-transform: none; }
+.ch-dots.is-weeks { margin-bottom: 14px; }

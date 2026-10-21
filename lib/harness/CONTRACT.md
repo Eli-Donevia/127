@@ -1,6 +1,6 @@
-# How a workflow plugs into the 127 harness (contract v1.13)
+# How a workflow plugs into the 127 harness (contract v1.14)
 
-Owner: Harness v2 thread. Version 1.11, 2026-10-20 (v1 to v1.10 were earlier; section 0
+Owner: Harness v2 thread. Version 1.14, 2026-10-21 (v1 to v1.13 were earlier; section 0
 lists what changed). Applies to every pack. The copy pack authors read is `/mnt/project-files/v2/harness/WORKFLOW-CONTRACT.md`;
 the site keeps the same file at `lib/harness/CONTRACT.md`.
 
@@ -11,6 +11,11 @@ Code: CommonJS, Node 20, no new npm packages without telling the Harness thread 
 ## 0. What changed since v1
 
 **Held for Legal** (Oct 19, nothing to change in a pack): `youtube`, `pexels`, `voice`, `transcribe`, `gemini` and `hunter` stay off in production until Legal clears each one. A key that is set is ignored, so a tool that needs one runs as a sample and `ctx.secret` gives a tool that wants one `null` (section 6).
+
+**In v1.14** (Oct 21; nothing breaks):
+- **`ctx.brain.brand`** `{ color, typeMood, theme, mood }`: the look of the member's own site, drafted by Brain auto-fill and kept only when the member ticks it. `color` is a hex (or "hex and hex"), `typeMood` one of serif, grotesk, mono, display, script, `theme` light, dark or auto. Logo and photos stay member uploads. Section 6b.
+- **Runs nobody is watching may wait for their AI answer.** In a scheduled run, `ctx.ai` can go to the AI at half price and the step picks up when the answer is in (often minutes, at most a day). It happens only before the step's first side effect (`spend`, `save`, `leads`, `remember`, `secret`) and never for `act` tools, so write steps the same way as before: do the AI calls first, then the writes. Section 11.
+- **`first`** on an AI team role, optional: a first name for the card ("Ava, AI sales lead"). Every card says "AI employee", its `job` must be true today on the member's plan, and nothing on it says it acts without the member's OK (Legal L83). Section 2.
 
 **In v1.13** (Oct 20, Eli's call; nothing breaks):
 - An `act` step's approval is one OK per item. The card shows a tick box beside each item, with nothing ticked, and only the ticked items reach the `act` step. An `items` approval that feeds an `act` step works like `choose`. Only the member, in HQ, can answer it.
@@ -131,7 +136,7 @@ module.exports = {
 
 ```js
 roles: [{
-  id: 'ads_manager', title: 'Ads manager',
+  id: 'ads_manager', title: 'AI ads lead', first: 'Theo',  // first is optional (v1.14); the card adds "AI employee"
   job: 'Drafts your ads, watches what they spend, and tells you what to cut.',
   skills: ['wf:ads.weekly_check'], workflows: ['ads.draft_campaign', 'ads.weekly_check'],
   connectors: { read: ['meta_ads'], write: [] },  // what its runs may read; in v2.0 a role's runs never change an account (write is ignored)
@@ -305,6 +310,7 @@ Read one with `ctx.secret('places')` (only names you declared). Never log it, pu
 ctx.brain = {
   business: { name, what, niche, offer, price, audience, city, region, country, timezone, stage, address },
   voice: { tone, avoid },
+  brand: { color, typeMood, theme, mood },  // v1.14, the member's own site look
   links: { website, instagram, tiktok, youtube, booking },
   goal: { northNumber, buildTarget },
   numbers: [{ week, label, value }],       // last 4 weeks from HQ, if any
@@ -410,7 +416,7 @@ Say what the call is, not which model. One map, which Eli can change without tou
 | `plan` | offers, pricing, strategy, forecasts explained | Opus 5.5, medium effort |
 | `deep` | the hardest reasoning, few calls | Fable 5.1, medium effort (Circle only; others get Opus 5.5) |
 
-A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and vision. If a `schema` answer doesn't validate, the call is retried once a model up. Keep prompts self-contained; the router adds the brain and voice context for `write` and `plan`.
+In a run nobody is watching (a schedule), a call made before the step's first side effect may go through the Batch API at half price; the run sleeps until the answer is in and the step runs again from the top, so keep AI calls ahead of writes (v1.14). A member past their tier's monthly soft cap gets Sonnet 5.5 for write, plan and vision. If a `schema` answer doesn't validate, the call is retried once a model up. Keep prompts self-contained; the router adds the brain and voice context for `write` and `plan`.
 
 ## 12. Files (the Library)
 

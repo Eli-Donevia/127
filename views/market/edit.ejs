@@ -1,0 +1,85 @@
+<%- include('../partials/app-head') %>
+<%# The listing form (GET /app/sell/new, /app/sell/:id). Words and price first; once saved, files, the cover, the
+    checks and the send-for-review box (public/js/market.js uploads files as the request body). %>
+<% var saved = !!l.id; var locked = saved && l.status === 'review'; %>
+<div class="mk">
+<div class="sl-head">
+  <div><div class="eyebrow"><a href="/app/sell" style="color:inherit;text-decoration:none">Sell</a></div><h1><%= saved ? l.title : 'New listing' %></h1></div>
+  <% if (saved) { %><div style="display:flex;gap:8px;align-items:center"><span class="sl-status <%= l.status %>"><%= STATUS[l.status] %></span><a class="btn ghost sm" href="/market/<%= l.slug %>">Preview</a></div><% } %>
+</div>
+<% if (error) { %><div class="alert error"><%= error %></div><% } %>
+<% if (saved && l.status === 'changes' && l.reviewNote) { %><p class="sl-note" style="margin:0 0 24px"><b style="font-weight:600">From 127:</b> <%= l.reviewNote %></p><% } %>
+<% if (locked) { %><div class="alert info">127 is looking at this listing. You can edit it again once they're done.</div><% } %>
+
+<form method="post" class="sl-form" action="<%= saved ? '/app/sell/' + l.id : '/app/sell/new' %>">
+  <fieldset style="border:0;padding:0;margin:0"<%= locked ? ' disabled' : '' %>>
+  <label class="field"><span>Title</span><input class="input" name="title" maxlength="70" value="<%= l.title || '' %>" placeholder="Gym intro-offer email sequence" required></label>
+  <div class="row2">
+    <label class="field"><span>What it is</span>
+      <select class="input" name="kind" required>
+        <option value="">Pick one</option>
+        <% Object.keys(KINDS).forEach(function (k) { %><option value="<%= k %>"<%= l.kind === k ? ' selected' : '' %>><%= KINDS[k] %></option><% }) %>
+      </select>
+    </label>
+    <label class="field"><span>Price (USD)</span><input class="input" name="price" type="number" inputmode="numeric" min="<%= LIMITS.minPrice %>" max="<%= LIMITS.maxPrice %>" step="1" value="<%= l.price || 29 %>" required data-price></label>
+  </div>
+  <p class="sl-split" data-split data-pct="<%= split.pct %>">Buyer pays <b data-gross>$<%= (split.cents / 100).toFixed(2) %></b> · your share <b data-net>$<%= (split.net / 100).toFixed(2) %></b> · 127 keeps <%= split.pct %>%</p>
+  <label class="field"><span>One line</span><input class="input" name="line" maxlength="140" value="<%= l.line || '' %>" placeholder="Five emails that turn a free class into a first month."></label>
+  <label class="field"><span>What it does and how to use it</span><textarea class="input" name="about" rows="7" maxlength="2000" placeholder="Who it's for, what's in it, how you use it in your own business. Plain words, like you'd tell a friend."><%= l.about || '' %></textarea><span class="sl-hint">No income or results promises. Say what the file does, not what it will earn.</span></label>
+  <label class="field"><span>What you get (one per line)</span><textarea class="input" name="inside" rows="4" maxlength="1000" placeholder="5 emails, Markdown and plain text&#10;A sending schedule&#10;Subject lines to test"><%= (l.inside || []).join('\n') %></textarea></label>
+  <label class="field"><span>Who it's for</span><input class="input" name="tags" maxlength="140" value="<%= (l.tags || []).join(', ') %>" list="niches" placeholder="gyms, coaches"><span class="sl-hint">Up to 5 kinds of business, separated by commas. They decide which niche pages show it.</span></label>
+  <datalist id="niches"><% NICHES.forEach(function (n) { %><option value="<%= n %>"><% }) %></datalist>
+  <button class="btn <%= saved ? 'ghost' : 'light' %>"><%= saved ? 'Save' : 'Save and add files' %></button>
+  </fieldset>
+</form>
+
+<% if (saved) { %>
+<div class="sl-section" id="files">
+  <h2>Files</h2>
+  <p class="muted" style="margin:0 0 14px">Markdown, text, HTML, CSV or JSON, up to 2 MB each and <%= LIMITS.files %> in all. 127 reads every one before it goes live.</p>
+  <% if (!locked) { %>
+  <label class="sl-drop" data-drop data-url="/app/sell/<%= l.id %>/files">
+    <input type="file" multiple accept=".md,.txt,.html,.csv,.json" data-file>
+    <span>Drop files here, or tap to pick them</span>
+    <small>.md .txt .html .csv .json</small>
+  </label>
+  <p class="sl-say" data-say role="status" aria-live="polite"></p>
+  <% } %>
+  <ul class="sl-files" data-list>
+    <% l.files.forEach(function (f) { %>
+    <li><span><%= f.name %> · <%= kb(f.size) %></span><% if (!locked) { %><form method="post" action="/app/sell/<%= l.id %>/files/<%= f.id %>/delete"><button>Remove</button></form><% } %></li>
+    <% }) %>
+  </ul>
+</div>
+
+<div class="sl-section">
+  <h2>Cover</h2>
+  <div class="sl-cover-row">
+    <span class="mk-cover" data-cover-img><% if (l.cover) { %><img src="/market/<%= l.slug %>/cover?v=<%= l.cover.v %>" alt=""><% } %></span>
+    <div>
+      <p class="muted" style="margin:0 0 10px;font-size:14.5px">A real screenshot or photo of the file in use. Tall works best (4 by 5). PNG, JPG or WebP, up to 2 MB.</p>
+      <% if (!locked) { %><label class="btn ghost sm" style="cursor:pointer">Choose a picture<input type="file" accept="image/png,image/jpeg,image/webp" data-cover data-url="/app/sell/<%= l.id %>/cover" style="position:absolute;width:1px;height:1px;opacity:0"></label><% } %>
+    </div>
+  </div>
+  <p class="sl-say" data-cover-say role="status" aria-live="polite"></p>
+</div>
+
+<div class="sl-section" id="checks">
+  <h2>Before it goes to 127</h2>
+  <ul class="sl-checks">
+    <% checks.forEach(function (c) { var cls = c.ok ? 'ok' : c.level === 'warn' ? 'warn' : 'no'; %>
+    <li class="<%= cls %>"><span class="mark" aria-hidden="true"></span><span><%= c.label %><% if (!c.ok) { %><small><%= c.level === 'warn' ? 'Worth a look: ' : '' %><%= c.detail %></small><% } %></span></li>
+    <% }) %>
+  </ul>
+  <p class="sl-hint" style="margin-top:10px">The words in your files are checked when you send it.</p>
+  <% if (['draft', 'changes'].includes(l.status)) { %>
+  <form method="post" action="/app/sell/<%= l.id %>/submit" style="margin-top:22px">
+    <label class="sl-check"><input type="checkbox" name="rights" required><span>I made this or have the right to sell it, and it doesn't copy anyone else's work.</span></label>
+    <button class="btn light">Send to 127 for a look</button>
+  </form>
+  <% } %>
+</div>
+<% } %>
+</div>
+<script src="/js/market.js" defer></script>
+<%- include('../partials/app-foot') %>

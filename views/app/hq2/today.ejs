@@ -36,8 +36,17 @@
   </section>
   <% } %>
   <% } %>
+  <% if (typeof nd !== 'undefined' && nd) { %><%- include('../../partials/hq-nudge', { nd: nd }) %><% } %>
   <div class="h2-grid">
     <div class="h2-stack">
+      <% if (typeof firstRun !== 'undefined' && firstRun) { var frDone = firstRun.steps.filter(function (x) { return x.done; }).length; %>
+      <section class="hq-card h2-move" aria-labelledby="fr-h">
+        <span class="eyebrow">Your first win · <%= frDone %> of 3</span>
+        <h2 id="fr-h" class="h2-steel"><%= firstRun.site ? 'Your website, then your first 25' : 'Your first 25, with every message written' %></h2>
+        <p><%= firstRun.host.first %>, your AI sales lead, picks up where you left off.</p>
+        <div class="h2-actions"><a class="btn" href="/app/hq/welcome">Keep going <span class="arrow"></span></a></div>
+      </section>
+      <% } %>
       <% if (typeof f25 !== 'undefined' && f25) { %>
       <section class="hq-card h2-move" aria-labelledby="f25-h">
         <span class="eyebrow">Your First 25</span>
@@ -52,8 +61,9 @@
 
       <% if (typeof ffCard !== 'undefined' && ffCard) { %><%- include('../../partials/founding-five-card', { c: ffCard, hq: true }) %><% } %>
 
-      <%# Day one already shows picking a business and setting up the Brain, so the move card steps aside for those. %>
-      <% if ((urgent || !q.items.length) && !(typeof tour !== 'undefined' && tour && (t.move.kind === 'pick' || t.move.kind === 'none'))) { %>
+      <%# Day one, or the first run while it's open, already covers picking a business and setting up the Brain, so the
+          move card steps aside for those: one move on the page. %>
+      <% if ((urgent || !q.items.length) && !(((typeof tour !== 'undefined' && tour) || (typeof firstRun !== 'undefined' && firstRun)) && (t.move.kind === 'pick' || t.move.kind === 'none'))) { %>
       <section class="hq-card h2-move" aria-labelledby="move-h">
         <span class="eyebrow">Your move<%= firstName ? ', ' + firstName : '' %></span>
         <h2 id="move-h" class="h2-steel"><%= t.move.title %></h2>
@@ -84,7 +94,7 @@
           <div>
             <span class="eyebrow">Do my day<%= firstName ? ', ' + firstName : '' %></span>
             <h2 id="day-h" class="h2-h"><%= h.done ? 'You did your ' + h.target + ' today.' : 'Your ' + h.target + ' for today' %></h2>
-            <p class="h2-sub" data-day-line><% if (h.done) { %>Everything past here is extra.<% } else { %><span data-left><%= h.left %></span> to go<%= sends ? ', about ' + q.minutes + ' minute' + (q.minutes === 1 ? '' : 's') : '' %>.<% } %><% if (h.streak > 1) { %> <b class="h2-win"><%= h.streak %> days in a row.</b><% } %><% if (q.written) { %> <%= q.written %> already written.<% } %></p>
+            <p class="h2-sub" data-day-line><% if (h.done) { %>Everything past here is extra.<% } else { %><span data-left><%= h.left %></span> to go<%= sends ? ', about ' + q.minutes + ' minute' + (q.minutes === 1 ? '' : 's') : '' %>.<% } %><% var STK = typeof nd !== 'undefined' && nd ? nd.run.days : h.streak; if (STK > 1) { %> <b class="h2-win"><%= STK %> days <%= typeof nd !== 'undefined' && nd ? 'running' : 'in a row' %>.</b><% } %><% if (q.written) { %> <%= q.written %> already written.<% } %></p>
           </div>
         </div>
         <div class="h2-q-list">

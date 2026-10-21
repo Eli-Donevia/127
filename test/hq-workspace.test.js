@@ -128,7 +128,7 @@ test.beforeEach(() => {
   process.env.HARNESS_V2 = 'on';
   process.env.TERMS_LIVE = 'true';
   process.env.PRIVACY_LIVE = 'true';
-  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS']) delete process.env[k];
+  for (const k of ['ADMIN_EMAILS', 'PACKS_ON', 'BRAIN_DOCS', 'HQ_ACTIVITY', 'HQ_AGENT', 'HQ_SKILLS', 'HQ_MCP_BRAIN', 'HQ_TEAM', 'HQ_PROMPTS', 'HQ_SITE_AGENT', 'HQ_PLANNER', 'HQ_SCRIPTS', 'BRAIN_AUTOFILL', 'HQ_FIRST_RUN', 'HQ_PREMIUM']) delete process.env[k];
 });
 process.on('exit', () => {
   try {
@@ -199,6 +199,213 @@ test('zip files round-trip, and Word and PDF give their text', () => {
   assert.equal(extract.extract('policy.pdf', pdf).text, 'Refunds within 30 days of purchase.\nCall us any time.');
   assert.throws(() => extract.extract('scan.pdf', Buffer.from('%PDF-1.4\n%%EOF')), /Couldn't read the text/);
   assert.throws(() => extract.extract('photo.png', Buffer.from('x')), /Markdown, text, CSV/);
+});
+
+// ---------- Brain auto-fill (Legal L84) ----------
+test('Brain auto-fill: robots.txt, no social profiles, one read, visible text only, and nothing saved until ticked', async () => {
+  const autofill = require('../lib/harness/autofill');
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /private', '/'), true);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /', '/'), false);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /\n\nUser-agent: 127-hq\nAllow: /', '/'), true);
+  assert.equal(autofill.robotsAllow('User-agent: *\nDisallow: /\nAllow: /$', '/'), true);
+  assert.equal(autofill.robotsAllow('', '/about'), true);
+  for (const bad of ['instagram.com/sam', 'https://www.tiktok.com/@sam', 'ftp://x.com', 'https://me:pw@x.com']) assert.throws(() => autofill.addressOf(bad), autofill.AutofillError, bad);
+  assert.equal(autofill.addressOf('samslawns.com/about#top').toString(), 'https://samslawns.com/about');
+
+  const asked = [];
+  let robots = 'User-agent: *\nDisallow: /admin';
+  const html = `<html><head><meta name="theme-color" content="#1F3A5F"><style>body{color:red}</style><script>var secret = 'SCRIPT-ONLY';</script></head>
+    <body><nav>Home About NAV-ONLY</nav><h1>Sam's Lawns</h1><p>Weekly mowing in Des Moines for busy families. $45 a visit.</p>
+    <blockquote>"Best lawn ever" - Jane Doe, 515-555-0100</blockquote><footer>FOOTER-ONLY</footer></body></html>`;
+  autofill._setDeps({
+    fetch: () => async (url, opts) => {
+      asked.push({ url, ua: opts.headers['user-agent'] });
+      if (url.endsWith('/robots.txt')) return new Response(robots, { status: 200, headers: { 'content-type': 'text/plain' } });
+      return new Response(html, { status: 200, headers: { 'content-type': 'text/html' } });
+    },
+  });
+  const seen = [];
+  const fake = async (p) => {
+    seen.push(p);
+    return { content: [{ type: 'text', text: JSON.stringify({ name: "Sam's Lawns", what: 'Weekly mowing for busy families.', offer: '', price: '$45 a visit', audience: 'Busy families', niche: 'Lawn care', city: 'Des Moines', region: '', tone: 'friendly, plain', avoid: '', typeMood: 'grotesk', theme: 'light', mood: 'fresh, calm' }) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+  };
+  anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
+  try {
+    process.env.HQ_ACTIVITY = 'on';
+    const u = await member();
+    assert.equal((await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).status, 404, 'off by default');
+    process.env.BRAIN_AUTOFILL = 'on';
+    const start = await (await s.go('/app/hq/brain', { as: u })).text();
+    assert.match(start, /We read this page once to draft your profile\. You approve every line before it's saved\./);
+    assert.match(start, /Paste your bio here\. HQ drafts from what you paste\./);
+    assert.match(start, /href="\/privacy#7c-your-brain/);
+    const page = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).text();
+    assert.deepEqual(asked.map((a) => a.url), ['https://samslawns.com/robots.txt', 'https://samslawns.com/'], 'robots.txt, then that one page');
+    assert.ok(asked.every((a) => /^127-HQ/.test(a.ua)));
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].model, 'claude-haiku-5-5');
+    const sent = seen[0].messages[0].content.at(-1).text;
+    assert.match(sent, /Weekly mowing in Des Moines/);
+    for (const hidden of ['SCRIPT-ONLY', 'NAV-ONLY', 'FOOTER-ONLY', 'color:red', 'Jane Doe']) assert.ok(!sent.includes(hidden), hidden);
+    assert.match(seen[0].system.map((b) => b.text).join('\n'), /Never include anyone else's name, photo, email, phone number/);
+    assert.match(page, /Here's what HQ found\./);
+    assert.match(page, /name="val_business_name" value="Sam&#39;s Lawns"/);
+    assert.match(page, /name="val_brand_color" value="#1f3a5f"/);
+    assert.match(page, /name="val_links_website" value="samslawns.com"/);
+    assert.doesNotMatch(page, /type="checkbox" name="keep_[^"]+" value="1" checked/, 'nothing pre-ticked');
+    // Nothing saved yet, and the page text kept nowhere.
+    assert.equal(harness.brain.snapshot(u).business.name, undefined);
+    assert.ok(!JSON.stringify(db.all('brains')).includes('Weekly mowing in Des Moines'));
+    assert.ok(!JSON.stringify(db.all('activity')).includes('Weekly mowing in Des Moines'));
+    // Keep three lines, one edited.
+    let r = await s.go('/app/hq/brain/draft/save', { as: u, form: { back: '/app/hq', keep_business_name: '1', val_business_name: "Sam's Lawns LLC", val_business_city: 'Des Moines', keep_brand_color: '1', val_brand_color: '#1f3a5f', keep_brand_typeMood: '1', val_brand_typeMood: 'grotesk' } });
+    assert.equal(r.headers.get('location'), '/app/hq');
+    const b = harness.brain.snapshot(u);
+    assert.equal(b.business.name, "Sam's Lawns LLC");
+    assert.equal(b.business.city, undefined, 'an unticked line is not saved');
+    assert.deepEqual(b.brand, { color: '#1f3a5f', typeMood: 'grotesk' });
+    r = await s.go('/app/hq/brain/draft/save', { as: u, form: { back: 'https://evil.example', keep_brand_theme: '1', val_brand_theme: 'neon' } });
+    assert.equal(r.headers.get('location'), '/app/hq/brain', 'only HQ paths');
+    assert.equal(harness.brain.snapshot(u).brand.theme, undefined, 'brand values are checked');
+    // Blocked by robots.txt: paste instead, and the page itself is never fetched.
+    robots = 'User-agent: *\nDisallow: /';
+    asked.length = 0;
+    const blocked = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'samslawns.com' } })).text();
+    assert.deepEqual(asked.map((a) => a.url), ['https://samslawns.com/robots.txt']);
+    assert.match(blocked, /Paste it in/);
+    assert.equal(seen.length, 1);
+    // Instagram: what they paste, and no fetch at all.
+    asked.length = 0;
+    const ig = await (await s.go('/app/hq/brain/draft', { as: u, form: { from: 'instagram', text: 'Lawn care in Des Moines. Weekly mowing from $45. DM to book.' } })).text();
+    assert.equal(asked.length, 0);
+    assert.match(seen.at(-1).messages[0].content.at(-1).text, /Their Instagram bio, as they pasted it/);
+    assert.match(ig, /From your bio/);
+    assert.doesNotMatch(ig, /val_brand_color/, 'no color without a page');
+    r = await s.go('/app/hq/brain/draft', { as: u, form: { from: 'website', url: 'https://instagram.com/samslawns' } });
+    assert.equal(r.status, 302);
+    assert.ok(flashes.some((f) => /paste your bio instead/.test(f.text || f[1] || JSON.stringify(f))));
+  } finally {
+    anthropic._setClient(null);
+    autofill._setDeps({ fetch: (memberId) => require('../lib/harness/ctx').makeFetch({ memberId }) });
+  }
+});
+
+// ---------- The first run (HQ_FIRST_RUN) ----------
+test('first run: payoff first, Ava says she is AI, steps tick from what is there, site builders get their site first', async () => {
+  const u = await member('free');
+  let r = await s.go('/app/hq', { as: u });
+  assert.notEqual(r.headers.get('location'), '/app/hq/welcome', 'off by default');
+  process.env.HQ_FIRST_RUN = 'on';
+  process.env.HQ_PREMIUM = 'on';
+  const ws = process.env.HQ_WORKSPACE;
+  process.env.HQ_WORKSPACE = 'on';
+  try {
+    r = await s.go('/app/hq', { as: u });
+    assert.equal(r.headers.get('location'), '/app/hq/welcome', 'a new member starts here, once');
+    let page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /I'm Ava, an AI employee in your HQ\. I'm AI, not a person\./);
+    assert.match(page, /AI sales lead · AI employee/);
+    assert.match(page, /25 real businesses near you/);
+    assert.match(page, /action="\/app\/hq\/welcome\/business"/);
+    assert.doesNotMatch(page, /Set up my first 25/, 'the win waits for the business');
+    assert.doesNotMatch(page.slice(page.indexOf("fr-chat")), /teammate|replace your|autopilot|while you sleep/i);
+    // Today now shows the first win card, and Day one waits until it's done.
+    const today = await (await s.go('/app/hq', { as: u })).text();
+    assert.match(today, /Your first win · 0 of 3/);
+    assert.doesNotMatch(today, /Day one ·/);
+    await s.go('/app/hq/welcome/business', { as: u, form: { what: 'Websites for gyms', audience: 'Gym owners', city: 'Des Moines, IA' } });
+    assert.equal(harness.brain.snapshot(u).business.what, 'Websites for gyms');
+    page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /Make my 127 link/);
+    await s.go('/app/hq/welcome/later', { as: u, form: { what: 'tools' } });
+    page = await (await s.go('/app/hq/welcome', { as: u })).text();
+    assert.match(page, /href="\/app\/hq\/w\/leads\.first_25\?in_service=Websites\+for\+gyms&amp;in_city=Des\+Moines%2C\+IA"/);
+    assert.match(page, /you send each one yourself/);
+    // Came in through the site builder: the site first.
+    const v = await member('free', { leadSource: 'site-tonight' });
+    await harness.brain.update(v, { business: { what: 'Pottery classes' } });
+    await harness.wins.markOffer(v.id, 'firstrun-tools-later');
+    page = await (await s.go('/app/hq/welcome', { as: v })).text();
+    assert.match(page, /your website first, then 25 real businesses/);
+    assert.match(page, /href="\/site-tonight">Build my site/);
+    await harness.wins.markOffer(v.id, 'source-site');
+    page = await (await s.go('/app/hq/welcome', { as: v })).text();
+    assert.match(page, /That's your first win\./);
+    assert.ok(harness.wins.offerSeen(v.id, 'firstrun-done'));
+    assert.match(await (await s.go('/app/hq', { as: v })).text(), /Day one ·/, 'setup shows after the payoff');
+    // Skip it all.
+    const w = await member('free');
+    await s.go('/app/hq/welcome/later', { as: w, form: { what: 'all' } });
+    assert.notEqual((await s.go('/app/hq', { as: w })).headers.get('location'), '/app/hq/welcome');
+  } finally {
+    if (ws === undefined) delete process.env.HQ_WORKSPACE;
+    else process.env.HQ_WORKSPACE = ws;
+  }
+});
+
+// ---------- Meaning-based Brain search (Legal L85) ----------
+test('Brain meaning search: held until Eli sets Voyage up, then mixes meaning with keywords, never for site chat', async () => {
+  const embeddings = require('../lib/harness/embeddings');
+  const needs = require('../lib/harness/needs');
+  process.env.BRAIN_DOCS = 'on';
+  const calls = [];
+  const vec = (t) => {
+    const s = String(t).toLowerCase();
+    return [/(price|charge|cost|\$)/.test(s) ? 1 : 0, /(yard|acre|lawn)/.test(s) ? 1 : 0, /(refund|money back)/.test(s) ? 1 : 0, 0.05];
+  };
+  embeddings._setDeps({
+    fetch: async (url, opts) => {
+      const body = JSON.parse(opts.body);
+      calls.push({ url, auth: opts.headers.authorization, body });
+      return new Response(JSON.stringify({ data: body.input.map((t, index) => ({ index, embedding: vec(t) })), usage: { total_tokens: 100 } }), { status: 200 });
+    },
+  });
+  const held = needs.HELD.embed;
+  try {
+    const u = await member();
+    process.env.VOYAGE_API_KEY = 'test-voyage';
+    const d = await docs.save(u.id, { title: 'Pricing', body: 'Lots over half an acre are $80 a visit.' });
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 0, 'held: nothing goes to Voyage with the key set');
+    assert.equal(embeddings.on(u), false);
+    delete needs.HELD.embed; // what Eli's V1 and V2 unlock
+    assert.equal(embeddings.on(u), true);
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, 'https://us.ai.mongodb.com/v1/embeddings');
+    assert.equal(calls[0].auth, 'Bearer test-voyage');
+    assert.deepEqual({ ...calls[0].body, input: undefined }, { input: undefined, model: 'voyage-3.5-lite', input_type: 'document', output_dimension: 512 });
+    assert.deepEqual(calls[0].body.input, ['Pricing\nLots over half an acre are $80 a visit.']);
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 1, 'an unchanged doc is not sent again');
+    await docs.save(u.id, { title: 'Refunds', body: 'Card 4242 4242 4242 4242 gets money back within 7 days.' });
+    await new Promise((r) => setTimeout(r, 20));
+    assert.equal(calls.length, 2, 'a saved doc is indexed on its own');
+    assert.match(calls[1].body.input[0], /\[card ending 4242\]/);
+    assert.ok(!calls[1].body.input[0].includes('4242 4242'), 'masked before it is sent (V7)');
+    assert.equal(docs.search(u.id, 'what do I charge for a big yard').length, 0, 'keywords alone miss it');
+    const hits = await embeddings.search(u, 'what do I charge for a big yard');
+    assert.equal(calls.at(-1).body.input_type, 'query');
+    assert.deepEqual(calls.at(-1).body.input, ['what do I charge for a big yard']);
+    assert.equal(hits[0].title, 'Pricing');
+    const n = calls.length;
+    assert.deepEqual(await embeddings.search(u, 'what do I charge for a big yard', { publicOnly: true }), [], 'site chat stays keywords only (V5)');
+    assert.equal(calls.length, n);
+    // Deleted with the doc, and with the account.
+    assert.equal(db.filter('brainVectors', (x) => x.memberId === u.id).length, 2);
+    await docs.remove(u.id, d.id);
+    assert.equal(db.get('brainVectors', d.id), null);
+    await docs.forget(u.id);
+    assert.equal(db.filter('brainVectors', (x) => x.memberId === u.id).length, 0);
+    // Voyage down: keywords, no error.
+    embeddings._setDeps({ fetch: async () => new Response('busy', { status: 529 }) });
+    await docs.save(u.id, { title: 'Hours', body: 'Open Monday to Friday.' });
+    assert.equal((await embeddings.search(u, 'Monday hours'))[0].title, 'Hours');
+  } finally {
+    needs.HELD.embed = held;
+    delete process.env.VOYAGE_API_KEY;
+    embeddings._setDeps({ fetch: (...a) => fetch(...a) });
+  }
 });
 
 // ---------- Brain docs ----------
@@ -394,20 +601,22 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   assert.equal((await s.go('/app/hq/team', { as: u })).status, 404);
   process.env.HQ_TEAM = 'on';
   const gallery = await (await s.go('/app/hq/team', { as: u })).text();
-  assert.match(gallery, /Sales helper/);
-  assert.match(gallery, /AI helper · Finds people to talk to[^<]* · Uses: Gmail, Calendly \(reads only\) · Budget: 400 credits a month/);
-  assert.doesNotMatch(gallery, /\bHire\b/);
+  assert.match(gallery, /Ava, AI sales lead/);
+  assert.match(gallery, /AI employee · In Builder<\/p>\s*<p class="h2-sub">Finds people to talk to[^<]*<\/p>\s*<p class="hq-small">Uses: Gmail, Calendly \(reads only\) · Budget: 400 credits a month/);
+  assert.match(gallery, /Hire your first<\/span><span class="steel">AI employee\./);
+  assert.doesNotMatch(gallery, /AI helper|replace|autopilot/i);
+  assert.match(gallery, /Hire Ava/); // L83 R4: "hire" is fine next to AI employees
   const r = await s.go('/app/hq/team/hire/sales_rep', { as: u, form: { budget: '50' } });
   const t = team.list(u)[0];
   assert.equal(r.headers.get('location'), `/app/hq/team/${t.id}`);
   assert.equal(t.budget, 50);
   const sch = skills.scheduleOf(u.id, 'daily_numbers');
   assert.equal(sch.team, t.id);
-  await assert.rejects(team.hire(u, 'sales_rep'), /already have a Sales helper/);
+  await assert.rejects(team.hire(u, 'sales_rep'), /Ava, AI sales lead is already on your team/);
   assert.equal(team.allows(t.id, 'gmail'), true);
   assert.equal(team.allows(t.id, 'gmail', true), false);
   assert.equal(team.allows(t.id, 'stripe'), false);
-  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Sales helper/);
+  assert.match(await (await s.go(`/app/hq/team/${t.id}`, { as: u })).text(), /Ava, AI sales lead/);
 
   // Paused: the sweep skips its skill and says why.
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: {} });
@@ -423,14 +632,14 @@ test('AI team: hire turns on its skills, pause and budget hold its turns, connec
   };
   let out = await due();
   assert.deepEqual(out.ids, []);
-  assert.match(out.after.lastError, /Sales helper is paused/);
+  assert.match(out.after.lastError, /Ava, AI sales lead is paused/);
   // Back to work: the run is the role's, and the Activity log says so.
   process.env.HQ_ACTIVITY = 'on';
   await s.go(`/app/hq/team/${t.id}/pause`, { as: u, form: { resume: '1' } });
   out = await due();
   assert.equal(out.ids.length, 1);
   assert.equal(db.get('runs', out.ids[0]).source, `team:${t.id}`);
-  assert.ok(activity.list(u.id, { who: 'Sales helper' }).some((a) => a.action === 'started'));
+  assert.ok(activity.list(u.id, { who: 'Ava, AI sales lead' }).some((a) => a.action === 'started'));
   assert.equal(team.report(u, t).done, 1);
   // Off for the member: its turns skip too.
   delete process.env.HQ_TEAM;
@@ -545,7 +754,16 @@ test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, c
     ],
   };
   const seen = [];
-  const fake = async (p) => { seen.push(p); return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model }; };
+  const picks = [];
+  const fake = async (p) => {
+    // The job picker's call (Haiku) comes first; the answer follows on the model it picked.
+    if (p.output_config && p.output_config.format && p.output_config.format.schema.properties.job && !p.output_config.format.schema.properties.answer) {
+      picks.push(p);
+      return { content: [{ type: 'text', text: JSON.stringify({ job: 'plan', why: 'pricing' }) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+    }
+    seen.push(p);
+    return { content: [{ type: 'text', text: JSON.stringify(reply) }], stop_reason: 'end_turn', usage: { input_tokens: 10, output_tokens: 5 }, model: p.model };
+  };
   anthropic._setClient({ messages: { create: fake }, beta: { messages: { create: fake } } });
   const left = ledger.left(u);
   try {
@@ -553,6 +771,13 @@ test('Ask 127 live: harness prompt with the Brain in its slot, cited passages, c
   } finally {
     anthropic._setClient(null);
   }
+  assert.equal(picks.length, 1);
+  assert.equal(picks[0].model, 'claude-haiku-5-5');
+  assert.match(picks[0].messages[0].content.at(-1).text, /How much is a full groom/);
+  assert.equal(seen.length, 1);
+  assert.equal(seen[0].model, 'claude-opus-5-5');
+  assert.equal(seen[0].output_config.effort, 'medium'); // a `plan` job thinks more
+  assert.equal(seen[0].max_tokens, 8000);
   const sys = seen[0].system.map((b) => b.text).join('\n');
   assert.match(sys, /Mobile dog grooming in Austin/);
   assert.doesNotMatch(sys, /Paste the founder's business brain here/);
@@ -602,7 +827,11 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   const paid = L.prompts.find((x) => x.tier === 'builder');
   const free = await member('free');
   assert.match(await (await s.go(`/app/hq/prompts/${paid.id}`, { as: free })).text(), /This prompt is part of Builder/);
-  assert.match(await (await s.go('/app/hq/prompts', { as: free })).text(), /h2-tag">Builder/);
+  const lib = await (await s.go('/app/hq/prompts', { as: free })).text();
+  assert.match(lib, /h2-tag lock"><svg[^>]*>.*?<\/svg>Builder/);
+  // A locked prompt's card peeks at what it gives, never its text.
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&#34;').replace(/'/g, '&#39;');
+  assert.ok(!lib.includes(esc(paid.prompt.split('\n')[0].slice(0, 60))));
   assert.equal((await s.go(`/app/hq/prompts/${paid.id}`, { as: free, form: { fill: '1' } })).headers.get('location'), `/app/hq/prompts/${paid.id}`);
   assert.equal((await s.go('/app/hq/prompts/nope', { as: u })).status, 404);
   // Send to Ask 127: one message showing the prompt's title.

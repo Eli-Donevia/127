@@ -1,0 +1,133 @@
+{
+  "slug": "content-creators",
+  "status": "ready",
+  "wave": 2,
+  "group": "Creators and editors",
+  "name": "Content creators",
+  "one": "channel",
+  "description": "A link-in-bio site, a hook bank, a batch day plan, a media kit and brand deal tracking for creators building a channel.",
+  "h1": "Post on a plan, not on a feeling.",
+  "mark": "plan,",
+  "lede": "127 gives a creator a link-in-bio site, a hook bank, a batch day that films a week in one afternoon, and a media kit for when brands ask.",
+  "week": [
+    {
+      "when": "Sun",
+      "job": "Batch the week",
+      "hand": "A batch day plan: five videos, one outfit change, one location"
+    },
+    {
+      "when": "Mon",
+      "job": "Write the hooks",
+      "hand": "A hook bank sorted by what held last month"
+    },
+    {
+      "when": "Wed",
+      "job": "Repurpose the long one",
+      "hand": "One video cut into five clips and a carousel"
+    },
+    {
+      "when": "Fri",
+      "job": "Answer a brand",
+      "hand": "A media kit and a deal tracker"
+    }
+  ],
+  "site": {
+    "design": "linkstack",
+    "sample": {
+      "business": "Nora Outdoors",
+      "what": "Outdoor and camping creator",
+      "services": "Gear reviews\nWeekend trip guides\nBrand partnerships",
+      "city": ""
+    },
+    "caption": "Nora Outdoors is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my link-in-bio free",
+    "fine": "Type your channel and what you make. Free, no card.",
+    "query": {
+      "what": "Content creator"
+    }
+  },
+  "pack": {
+    "name": "Creator Pack",
+    "price": 29,
+    "line": "A link-in-bio site, hook bank, batch day plan, media kit and deal tracker.",
+    "items": [
+      "site-link-in-bio",
+      "site-creator",
+      "hook-bank",
+      "content-planner",
+      "batch-day",
+      "brand-deals",
+      "notion-content-os",
+      "recipe-repurpose-video",
+      "social-thumbnail",
+      "video-prompts-faceless"
+    ],
+    "prompts": [
+      {
+        "id": "01-batch-day",
+        "title": "Batch day plan",
+        "summary": "Plans five videos to film in one afternoon from your topics.",
+        "prompt": "Plan a batch day for my [platform] channel about [topic]. I have [hours] and [locations]. Give five videos: the hook, three beats, the shot list, what to wear (one change at most) and the order to film them so I move as little as possible.",
+        "use": "Film on Sunday, schedule all five."
+      },
+      {
+        "id": "02-media-kit",
+        "title": "Media kit",
+        "summary": "A one-page media kit from your real numbers and the deals you want.",
+        "prompt": "Write a one-page media kit for [channel]. Real numbers: followers per platform [ ], average views [ ], audience (age, location, top interests) [ ]. What I make: [ ]. Brands I'd fit: [ ]. Packages: [ ]. Contact: [ ]. Use only the numbers I gave you.",
+        "use": "Update the numbers monthly. Send as a PDF."
+      },
+      {
+        "id": "03-repurpose",
+        "title": "One video, five pieces",
+        "summary": "Cuts one long video into five short clips and a carousel, with timestamps.",
+        "prompt": "Here's the transcript of my video with timestamps: [paste]. Find five 20 to 40-second clips that stand alone (give start and end times and a hook line for each) and turn the main point into a six-slide carousel.",
+        "use": "Run it on every long video you post."
+      }
+    ]
+  },
+  "hq": [
+    "content",
+    "faceless",
+    "video",
+    "ugc"
+  ],
+  "hooks": [
+    "Film a week of videos in one afternoon.",
+    "My hook bank, sorted by what held.",
+    "One long video, five shorts, one carousel.",
+    "The media kit I'd send a brand.",
+    "Post on a plan, not on a feeling.",
+    "Your link in bio should be a page, not a list."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Your link in bio, built tonight.",
+      "body": "Type your channel. 127 builds a page free.",
+      "headline": "Build your link-in-bio free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Hook bank, batch day, media kit.",
+      "body": "The Creator Pack, $29 once.",
+      "headline": "The Creator Pack, $29"
+    },
+    {
+      "angle": "Batch",
+      "hook": "Five videos, one afternoon.",
+      "body": "The pack's batch day plan sets the order.",
+      "headline": "Batch your week"
+    }
+  ],
+  "keyword": "BATCH",
+  "next": [
+    "Faceless channels",
+    "Podcasters",
+    "Newsletter writers"
+  ],
+  "legal": "No claims about follower growth, views or creator income."
+}

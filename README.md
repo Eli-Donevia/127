@@ -35,6 +35,14 @@ What the app does: new members pay through Stripe Checkout (subscription mode, n
 
 Until Stripe is connected, upgrade buttons say payments aren't on yet. For testing, set `DEMO_BILLING=true` to simulate upgrades with no payment (always ignored when `NODE_ENV=production`).
 
+## Packs (one-time purchases)
+
+`SHOP_PACKS=on` turns on /packs, a landing page per pack, and the Packs row with one-tap Buy buttons on the homepage (`admins` shows them to ADMIN_EMAILS only; off or unset hides all of it). The lineup and prices live in `content/shop/packs.json`; each pack lists Store items by id plus its own files in `content/shop/files/<kit>/`. Builder and Circle members own every pack (`builderGets: "all"`). Buyers need no account: Checkout runs in payment mode, the success page and the webhook record the purchase once, and the buyer gets a private link (on the page, in their browser session and by email). A full refund in Stripe ends that purchase. Pack copy and Checkout carry Legal's lines (L86, legal/handoffs/packs.md): "14 days to change your mind", the license line, and with `STRIPE_TERMS_CONSENT=true` the Terms box; each purchase keeps its `termsVersion` and the text shown at the button. Pack events carry no email (no marketing tool sees a guest buyer).
+
+Courses are packs with `"kind": "course"`: their lessons are Markdown files in `content/shop/files/<slug>/` (a folder of `.md` needs no code; the summary is the first sentence), `hq` lists the 127 HQ workflow ids shown on the page, and buyers read each lesson at `/packs/:slug/read/kit-<slug>/<file>` with a Copy button on every prompt. Courses need Legal's read of the outline before `SHOP_PACKS=on` (P8).
+
+`npm run stripe:setup` creates one product and one-time price per pack (lookup key `pack_<slug>`). Apple Pay and Google Pay show in Checkout on their own once they're on in Dashboard → Settings → Payment methods. After changing the motion runtime or the prompt library, rebuild the pack files with `node scripts/build-motion-pack.js` and `node scripts/build-ai-pack.js` (the tests fail if they're stale).
+
 ## Other integrations
 
 | What | Secrets | Notes |

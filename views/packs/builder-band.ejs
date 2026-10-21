@@ -1,0 +1,12 @@
+<%# Builder includes every pack (packs.json builderGets "all"). The price line follows the launch state: founding price
+    before and during the founding window (locked as long as you stay), the regular price after. %>
+<% var L = launch; var fp = L.foundingPrice; var reg = builder.price; %>
+<section class="pk-band" aria-labelledby="pk-band-h">
+  <div class="wrap pk-band-in">
+    <div>
+      <h2 id="pk-band-h" class="pk-band-h">Builder comes with every pack.</h2>
+      <p class="pk-band-p">Every pack here, the whole Store, and 127 HQ to run them for your business. <% if (L.prelaunch && fp) { %>Opens <%= L.launchDate || 'Nov 17' %> at $<%= fp %>/mo, locked as long as you stay ($<%= reg %> after <%= L.closesShort || 'Nov 24' %>).<% } else if (L.foundingOpen && fp) { %>$<%= fp %>/mo, locked as long as you stay ($<%= reg %> after <%= L.closesShort || 'Nov 24' %>).<% } else { %>$<%= reg %>/mo. Cancel anytime.<% } %></p>
+    </div>
+    <% if (L.prelaunch) { %><a class="btn ghost" href="/founding">Join the founding list <span class="arrow"></span></a><% } else { %><a class="btn ghost" href="/pricing">See Builder <span class="arrow"></span></a><% } %>
+  </div>
+</section>

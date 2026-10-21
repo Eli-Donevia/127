@@ -52,6 +52,7 @@
     <div class="jump"><% groups.forEach(function (g) { var n = g.items.filter(function (f) { return f[0] !== 'daily'; }).length; %><a href="#g-<%= g.id %>"><%= g.title %> <small data-g="<%= g.id %>"><%= filled(g) %>/<%= n %></small></a><% }) %></div>
   </nav>
   <% } %>
+  <% if (flags && flags.BRAIN_AUTOFILL) { %><%- include('../../partials/hq2-brain-draft-start', { back: '/app/hq/brain' }) %><% } %>
   <form method="post" action="/app/hq/brain" class="h2-stack<%= P ? ' hqp-brain' : '' %>">
     <% groups.forEach(function (g) { %>
     <section class="hq-card h2-form" aria-labelledby="g-<%= g.id %>">

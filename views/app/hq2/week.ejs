@@ -30,6 +30,9 @@
       <% if (wk.quiet) { %><p class="hq-small">Nothing logged yet these two weeks. Messages you mark sent on Today and the replies in your Pipeline show up here.</p><% } %>
     </section>
 
+    <% if (typeof nw !== 'undefined' && nw) { %><%- include('../../partials/hq-nudge-week', { w: nw, back: '/app/hq/week', closable: false }) %><% } %>
+    <% if (typeof drop !== 'undefined' && drop) { %><%- include('../../partials/hq-drop', { drop: drop, compact: false }) %><% } %>
+
     <% if (!wk.quiet) { %>
     <section class="hq-card hqp-week-line" data-week-line hidden aria-live="polite">
       <span class="eyebrow">What stood out</span>

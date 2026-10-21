@@ -388,7 +388,12 @@ test('circleProfile: Klaviyo properties for members and approved applicants only
     circle_discord_url: 'https://discord.gg/test',
     circle_profile_url: 'https://127.test/app/circle#profile',
     circle_handbook_url: 'https://127.test/app/circle/handbook',
+    // Not joined yet (billing moved them, the tick hasn't run): the seat they are taking.
+    circle_seat: '01',
+    circle_founding_seat: true,
   });
+  const fifth = await addUser(w, 'Fifth', { tier: 'circle', circle: { order: 5, seat: 3, joinedAt: '2026-11-20T12:00:00Z' } });
+  assert.deepStrictEqual([circle.circleProfile(fifth, { store: w.store, now: T0, env: ENV })].map((p) => [p.circle_seat, p.circle_founding_seat]), [['03', false]]);
   assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call_text, 'Thursday, December 3 at 8pm ET');
   assert.strictEqual(circle.circleProfile(late, { store: w.store, now: T0, env: ENV }).circle_first_call, '2026-12-04T01:00:00.000Z');
 });
@@ -416,4 +421,38 @@ test('handbook markdown keeps the #the-charter anchor', () => {
   assert.match(html, /<h2 id="the-charter">The Charter<\/h2>/);
   assert.match(html, /<table class="t">/);
   assert.ok(!/<script/i.test(markdown.render('<script>x</script>')));
+});
+
+test('a Founding Seat keeps the founding Circle price through Builder and back, and loses it on cancel (C33)', async () => {
+  const w = world();
+  const [a, , , , e] = await fillTable(w, 5);
+  assert.strictEqual(circle.foundingCirclePrice(a), true);
+  assert.strictEqual(circle.foundingCirclePrice(e), false, 'the fifth member ever is not a Founding Seat');
+  a.tier = 'builder';
+  await circle.syncMembers(w.c);
+  assert.strictEqual(circle.foundingCirclePrice(a), true, 'a move to Builder keeps it');
+  a.tier = 'circle';
+  await circle.syncMembers(w.c);
+  assert.strictEqual(circle.foundingCirclePrice(a), true, 'and back');
+  a.tier = 'builder';
+  await circle.syncMembers(w.c);
+  a.tier = 'free';
+  await circle.syncMembers(w.c);
+  assert.strictEqual(circle.foundingCirclePrice(a), false, 'cancelling Builder ends it');
+  a.tier = 'circle';
+  await circle.syncMembers(w.c);
+  assert.strictEqual(circle.foundingCirclePrice(a), false, 'coming back pays the price at that time');
+  assert.strictEqual(a.circle.founding, true, 'the Founding Seat mark stays for good');
+});
+
+test('the founding Circle price ends when the membership lapses to Free, and survives a paused plan', async () => {
+  const w = world();
+  const [a, b] = await fillTable(w, 2);
+  a.tier = 'free';
+  a.paymentIssue = true;
+  b.tier = 'free';
+  b.pausedTier = 'builder';
+  await circle.syncMembers(w.c);
+  assert.strictEqual(circle.foundingCirclePrice(a), false);
+  assert.strictEqual(circle.foundingCirclePrice(b), true);
 });

@@ -611,6 +611,42 @@ test('write calls get the house rules first (cached) and the member business aft
   assert.equal(sys[1].cache_control, undefined);
 });
 
+test('the job picker asks Haiku, keeps Fable for the Circle, and falls back to keywords', async () => {
+  const picker = require('../lib/harness/job-picker');
+  anthropic._setClient(null);
+  assert.deepEqual(await picker.pick('Help me price my offer'), { task: 'plan', by: 'keywords', why: '' });
+  let job = 'deep';
+  const fake = fakeClient((p) => reply(p, JSON.stringify({ job, why: 'many parts' })));
+  anthropic._setClient(fake);
+  try {
+    const costs = [];
+    const r = await picker.pick('Rework my whole model, the numbers make no sense', { tier: 'circle', onCost: async (m) => costs.push(m) });
+    assert.deepEqual(r, { task: 'deep', by: 'ai', why: 'many parts' });
+    assert.equal(fake.calls[0].model, 'claude-haiku-5-5');
+    assert.equal(fake.calls[0].max_tokens, 300);
+    assert.ok(costs[0].usd > 0 && costs[0].usd < 0.001);
+    assert.equal((await picker.pick('Same again', { tier: 'builder' })).task, 'plan', 'Fable is the Circle\'s');
+    job = 'write';
+    assert.equal((await picker.pick('Write a DM to a gym owner')).task, 'write');
+    process.env.HARNESS_JOB_PICKER = 'off';
+    const n = fake.calls.length;
+    assert.equal((await picker.pick('What should my budget be?')).by, 'keywords');
+    assert.equal(fake.calls.length, n);
+    delete process.env.HARNESS_JOB_PICKER;
+    anthropic._setClient(
+      fakeClient(() => {
+        const e = new Error('overloaded');
+        e.status = 529;
+        throw e;
+      })
+    );
+    assert.deepEqual(await picker.pick('Break-even on a $40 class?'), { task: 'plan', by: 'keywords', why: '' });
+  } finally {
+    delete process.env.HARNESS_JOB_PICKER;
+    anthropic._setClient(null);
+  }
+});
+
 test('a refusal and an API error read as plain messages', async () => {
   anthropic._setClient(fakeClient((p) => reply(p, '', { stop_reason: 'refusal' })));
   await assert.rejects(llm.call({ task: 'write', prompt: 'x' }), /wouldn't do this one/);
@@ -638,6 +674,119 @@ test('an AI step in a run records the model and the cost', async () => {
   assert.ok(run.usd > 0);
   assert.ok(ledger.usage(user).usd > 0);
   await engine.cancel(user, run.id);
+});
+
+test('a repeat sends its AI calls at batch price, sleeps, and picks up with the answers', async () => {
+  const batch = require('../lib/harness/batch');
+  batch._setDeps({ now: () => now });
+  const state = { creates: [], ended: false };
+  const fake = fakeClient(jsonReply);
+  fake.messages.batches = {
+    create: async (b) => {
+      state.creates.push(b);
+      return { id: `b${state.creates.length}` };
+    },
+    retrieve: async (id) => ({ id, processing_status: state.ended ? 'ended' : 'in_progress' }),
+    results: async (id) =>
+      (async function* () {
+        const p = state.creates[Number(id.slice(1)) - 1].requests[0].params;
+        yield { custom_id: 'one', result: { type: 'succeeded', message: { content: [{ type: 'text', text: JSON.stringify({ text: `Batch note ${id}` }) }], stop_reason: 'end_turn', model: p.model, usage: { input_tokens: 1000, output_tokens: 1000 } } } };
+      })(),
+    cancel: async () => ({}),
+  };
+  anthropic._setClient(fake);
+  try {
+    const user = await member('builder');
+    // Someone watching: the normal price.
+    let seen = await engine.start(user, 'tp.full', { n: 1 });
+    await engine.idle();
+    await engine.answer(user, seen.id, 'pick', { chosen: ['0'] });
+    await engine.idle();
+    assert.equal(engine.get(user, seen.id).status, 'waiting');
+    assert.equal(state.creates.length, 0);
+    await engine.cancel(user, seen.id);
+
+    let run = await engine.start(user, 'tp.full', { n: 2 }, { unattended: true });
+    await engine.idle();
+    await engine.answer(user, run.id, 'pick', { chosen: ['0', '1'] });
+    await engine.idle();
+    const live = fake.calls.length;
+    run = engine.get(user, run.id);
+    assert.equal(run.status, 'sleeping');
+    assert.equal(run.steps.drafts.status, 'sleeping');
+    assert.equal(state.creates.length, 2, 'one batch per call');
+    assert.equal(state.creates[0].requests[0].params.model, 'claude-opus-5-5');
+    assert.equal(run.credits.used, 3, 'nothing charged for a step still at the batch');
+    assert.ok(run.timeline.some((l) => /half price/.test(l.text)));
+    now += 61000;
+    await engine.tick();
+    await engine.idle();
+    assert.equal(engine.get(user, run.id).status, 'sleeping', 'still working: it sleeps again');
+    assert.equal(state.creates.length, 2, 'and sends nothing twice');
+    state.ended = true;
+    now += 61000;
+    await engine.tick();
+    await engine.idle();
+    run = engine.get(user, run.id);
+    assert.equal(run.status, 'waiting');
+    assert.deepEqual(run.steps.drafts.output.map((d) => d.text).sort(), ['Batch note b1', 'Batch note b2']);
+    assert.equal(run.steps.drafts.usd, 0.024, 'half of 1,000 in and 1,000 out on Opus 5.5, twice');
+    assert.equal(run.credits.used, 7);
+    assert.equal(fake.calls.length, live, 'no normal-price calls');
+    assert.equal(run.timeline.filter((l) => /half price/.test(l.text)).length, 1);
+    await engine.cancel(user, run.id);
+    assert.equal(await batch.sweep(), 0);
+    now += batch.KEEP_MS + 1;
+    assert.equal(await batch.sweep(), 2);
+  } finally {
+    anthropic._setClient(null);
+    batch._setDeps({ now: () => Date.now() });
+  }
+});
+
+test('batch pricing stops at the first side effect, and a failed batch is called normally', async () => {
+  const batch = require('../lib/harness/batch');
+  const user = await member('builder');
+  const subs = [];
+  let result = { state: 'pending' };
+  const fake = fakeClient(jsonReply);
+  fake.messages.batches = {
+    create: async (b) => (subs.push(b), { id: `x${subs.length}` }),
+    retrieve: async (id) => ({ id, processing_status: result.state === 'pending' ? 'in_progress' : 'ended' }),
+    results: async () => (async function* () { yield { custom_id: 'one', result: { type: 'errored', error: { type: 'overloaded_error' } } }; })(),
+    cancel: async () => ({}),
+  };
+  anthropic._setClient(fake);
+  const make = () => ctxLib.make({ user, run: { id: `r${subs.length}-${now}`, unattended: true, inputs: {} }, step: { id: 's' }, tool: { name: 'tp.x', risk: 'draft', needs: [], wants: [] }, pack: 'tp' });
+  const s = obj({ text: { type: 'string' } });
+  try {
+    let ctx = make();
+    await assert.rejects(ctx.ai({ task: 'write', prompt: 'One.', schema: s }), (e) => e.batchPending === true);
+    assert.ok(ctx._pending());
+    await assert.rejects(ctx.save('a.txt', 'x'), (e) => e.batchPending === true, 'nothing leaves a mark while a call waits');
+    await assert.rejects(ctx.ai({ task: 'write', prompt: 'Two.', schema: s }), (e) => e.batchPending === true);
+    assert.equal(subs.length, 1, 'later calls wait for the rerun');
+    // Same call again once the batch failed: a normal call.
+    result = { state: 'ended' };
+    const runId = subs.length;
+    ctx = ctxLib.make({ user, run: { id: `r0-${now}`, unattended: true, inputs: {} }, step: { id: 's' }, tool: { name: 'tp.x', risk: 'draft', needs: [], wants: [] }, pack: 'tp' });
+    const n = fake.calls.length;
+    assert.ok((await ctx.ai({ task: 'write', prompt: 'One.', schema: s })).data);
+    assert.equal(fake.calls.length, n + 1);
+    assert.equal(subs.length, runId);
+    // A tool that spent first gets the normal price straight away.
+    ctx = make();
+    await ctx.spend(0.01, 'a lookup');
+    await ctx.ai({ task: 'write', prompt: 'Three.', schema: s });
+    assert.equal(subs.length, runId);
+    process.env.HARNESS_BATCH = 'off';
+    ctx = make();
+    await ctx.ai({ task: 'write', prompt: 'Four.', schema: s });
+    assert.equal(subs.length, runId);
+  } finally {
+    delete process.env.HARNESS_BATCH;
+    anthropic._setClient(null);
+  }
 });
 
 // ---------- guard rails ----------
@@ -947,7 +1096,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
       assert.match(st.held, /^Waits for Legal: not in the Privacy Policy yet/, name);
     }
     assert.match(needsLib.status().find((x) => x.name === 'hunter').held, /beyond a business's own site/);
-    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['ElevenLabs', true], ['Hunter', true]]);
+    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['ElevenLabs', true], ['Hunter', true], ['Voyage AI (MongoDB Atlas)', false]]);
     assert.equal(needsLib.held('places'), false, 'Google Places is under L53, not held');
     // Legal L77 cleared Pexels, Deepgram, Luma and paid Gemini on 127's own keys.
     for (const name of ['pexels', 'transcribe', 'luma_ai']) {
@@ -973,6 +1122,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
     const card = await require('ejs').renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), { hq2: { mode: 'admins', list: [], until: '2026-12-01', credits: 5000, allowances: {}, held: needsLib.heldList() } });
     assert.match(card, /Waiting for Legal: YouTube Data API, ElevenLabs, Hunter\. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set\./);
     assert.match(card, /Set now and ignored: YouTube Data API, ElevenLabs, Hunter\./);
+    assert.match(card, /Waiting for you: Voyage AI \(MongoDB Atlas\)\. Eli turns off &#34;Help Improve Voyage AI Models&#34; in Atlas/);
   } finally {
     for (const [k, v] of Object.entries(was)) {
       if (v === undefined) delete process.env[k];

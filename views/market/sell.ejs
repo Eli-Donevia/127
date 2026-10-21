@@ -1,0 +1,110 @@
+<%- include('../partials/app-head') %>
+<%# The Sell page (GET /app/sell): three steps to a first listing, then the seller's numbers and listings.
+    Free members see what selling is and the Builder upgrade. %>
+<div class="mk">
+<div class="sl-head">
+  <div><div class="eyebrow">Marketplace</div><h1>Sell</h1></div>
+  <% if (seller) { %><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn ghost sm" href="/makers/<%= seller.handle %>">Your page</a><a class="btn sm" href="/app/sell/new">New listing</a></div><% } %>
+</div>
+
+<% if (!canSell) { %>
+  <p class="mk-line" style="margin-top:0">Sell the templates, prompts and site designs you made for your own business to other people building theirs. 127 checks each listing, takes the payment and pays you through Stripe.</p>
+  <ol class="mk-how" style="margin-top:28px;max-width:640px">
+    <li><span class="mk-n">01</span><span><b>Selling comes with Builder.</b> You keep <%= 100 - fee %>% of each sale<%= fee > 10 ? ' (90% on the Circle)' : '' %>.</span></li>
+    <li><span class="mk-n">02</span><span><b>Text files a person can read.</b> Markdown, HTML, CSV or JSON, plus a cover picture.</span></li>
+    <li><span class="mk-n">03</span><span><b>Paid out by Stripe</b> about <%= delay %> days after each sale.</span></li>
+  </ol>
+  <form method="post" action="/app/billing/checkout/builder" style="margin-top:28px" data-upgrade="sell" data-price="<%= builderOffer.price %>">
+    <button class="btn light"><%= builderOffer.founding ? 'Lock $' + builderOffer.price + '/month' : 'Become a Builder' %></button>
+    <%- include('../partials/renewal-line', { rlClass: 'small' }) %>
+  </form>
+<% } else if (!seller) { %>
+  <p class="mk-line" style="margin-top:0">Three steps to your first listing. Your page first: it's what buyers see next to everything you sell.</p>
+  <div class="sl-step" style="margin-top:28px">
+    <span class="mk-n">01</span>
+    <div class="sl-step-body">
+      <h2>Your creator page</h2>
+      <form method="post" action="/app/sell/profile" class="sl-form">
+        <div class="row2">
+          <label class="field"><span>Name buyers see</span><input class="input" name="name" maxlength="60" value="<%= user.name || '' %>" required></label>
+          <label class="field"><span>Handle</span><input class="input" name="handle" maxlength="30" pattern="[a-zA-Z0-9-]{3,30}" placeholder="yourname" required autocapitalize="off" autocorrect="off" spellcheck="false"><span class="sl-hint">127group.io/makers/yourname</span></label>
+        </div>
+        <label class="field"><span>One line about what you build</span><input class="input" name="line" maxlength="120" placeholder="I run a mobile detailing business in Tulsa."></label>
+        <label class="field"><span>A little more (optional)</span><textarea class="input" name="bio" rows="3" maxlength="600"></textarea></label>
+        <p class="small muted" style="margin:0 0 6px">The short version of the seller terms:</p>
+        <ul class="sl-terms">
+          <li>You sell only what you made or have the right to sell.</li>
+          <li>127 keeps <%= fee %>% of each sale<%= fee > 10 ? ' (10% if you are on the Circle)' : '' %> and covers the card fees. Stripe pays you the rest about <%= delay %> days after the sale.</li>
+          <li>127 checks every listing before it goes up, and can pause or remove one that breaks the rules.</li>
+          <li>A refund comes back out of your share. Buyers keep files they already bought if you remove a listing.</li>
+          <li>Listings come off the shelf if your Builder plan ends.</li>
+        </ul>
+        <label class="sl-check"><input type="checkbox" name="agree" required><span>I agree to the seller terms.</span></label>
+        <button class="btn light">Save my page</button>
+      </form>
+    </div>
+  </div>
+  <div class="sl-step"><span class="mk-n">02</span><div class="sl-step-body"><h2>Payouts</h2><p>Stripe asks for your bank and tax details. 127 never sees them.</p></div></div>
+  <div class="sl-step"><span class="mk-n">03</span><div class="sl-step-body"><h2>Your first listing</h2><p>Files, a cover, a price from $5 to $199. 127 looks at it within 2 business days.</p></div></div>
+<% } else { %>
+  <% if (!seller.payoutsReady) { %>
+  <div class="sl-step done"><span class="mk-n">01</span><div class="sl-step-body"><h2>Your creator page</h2><p><a class="link" href="/makers/<%= seller.handle %>">127group.io/makers/<%= seller.handle %></a></p></div></div>
+  <div class="sl-step">
+    <span class="mk-n">02</span>
+    <div class="sl-step-body">
+      <h2>Payouts</h2>
+      <p>Stripe asks for your bank and tax details, about 3 minutes. 127 never sees them. Listings can go live once this is done.</p>
+      <a class="btn light sm" style="margin-top:14px" href="/app/sell/payouts"><%= seller.stripeAccountId ? 'Finish with Stripe' : 'Set up payouts' %></a>
+    </div>
+  </div>
+  <div class="sl-step"><span class="mk-n">03</span><div class="sl-step-body"><h2>Your first listing</h2><p>You can start one now and send it once payouts are set up. <a class="link" href="/app/sell/new">Start a listing</a></p></div></div>
+  <% } else { %>
+  <div class="sl-nums">
+    <div><b><%= earn.sales %></b><span>sales<%= earn.lastWeek ? ', ' + earn.lastWeek + ' this week' : '' %></span></div>
+    <div><b class="<%= earn.net ? 'landed' : '' %>"><%= money(earn.net) %></b><span>your share</span></div>
+    <div><b><%= money(earn.fees) %></b><span>127's <%= fee %>%</span></div>
+  </div>
+  <% } %>
+
+  <div class="sl-section">
+    <h2>Your listings</h2>
+    <% if (!listings.length) { %>
+      <p class="muted" style="margin:0">Nothing yet. Start with the file you'd want if you were starting your business today.</p>
+      <a class="btn light sm" style="margin-top:16px" href="/app/sell/new">New listing</a>
+    <% } else { %>
+    <ul class="sl-list">
+      <% listings.forEach(function (l) { %>
+      <li>
+        <span class="mk-cover"><% if (l.cover) { %><img src="/market/<%= l.slug %>/cover?v=<%= l.cover.v %>" alt="" loading="lazy"><% } %></span>
+        <a class="t" href="/app/sell/<%= l.id %>"><%= l.title %></a>
+        <span class="sl-status <%= l.status %>"><%= STATUS[l.status] %></span>
+        <span class="meta">$<%= l.price %> · <%= KINDS[l.kind] %> · <%= l.sales || 0 %> sold<% if (l.status === 'live') { %> · <a class="link" href="/market/<%= l.slug %>">View</a><% } %></span>
+        <% if (l.status === 'changes' && l.reviewNote) { %><p class="sl-note" style="grid-column:1/-1"><%= l.reviewNote %></p><% } %>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </div>
+
+  <% if (seller.payoutsReady) { %>
+  <div class="sl-section">
+    <h2>Payouts</h2>
+    <p class="muted" style="margin:0 0 14px">Stripe pays you about <%= delay %> days after each sale. Your payout history and tax forms live in your Stripe dashboard.</p>
+    <a class="btn ghost sm" href="/app/sell/payouts/dashboard">Open Stripe</a>
+  </div>
+  <div class="sl-section">
+    <h2>Your page</h2>
+    <form method="post" action="/app/sell/profile" class="sl-form">
+      <div class="row2">
+        <label class="field"><span>Name buyers see</span><input class="input" name="name" maxlength="60" value="<%= seller.name %>" required></label>
+        <label class="field"><span>Handle</span><input class="input" name="handle" maxlength="30" value="<%= seller.handle %>" required autocapitalize="off" spellcheck="false"></label>
+      </div>
+      <label class="field"><span>One line</span><input class="input" name="line" maxlength="120" value="<%= seller.line %>"></label>
+      <label class="field"><span>A little more</span><textarea class="input" name="bio" rows="3" maxlength="600"><%= seller.bio %></textarea></label>
+      <button class="btn ghost sm">Save</button>
+    </form>
+  </div>
+  <% } %>
+<% } %>
+</div>
+<%- include('../partials/app-foot') %>

@@ -1,12 +1,14 @@
 <%- include('../../partials/app-head') %>
-<%# One AI helper: its week, skills, workflows, budget, pause and remove. Locals: t (team.view), acts. %>
+<%# One AI employee: its week, skills, workflows, budget, pause and remove. Locals: t (team.view), acts. %>
 <% var R = t.report; %>
 <div class="hq h2">
   <%- include('../../partials/hq2-nav') %>
   <p class="hq-small" style="margin:0 0 8px"><a href="/app/hq/team">AI team</a></p>
   <section class="hq-card">
     <div class="h2-row"><h1 class="h2-h"><%= t.name %></h1><span class="h2-tag"><%= t.status === 'paused' ? 'Paused' : 'Working' %></span></div>
-    <p class="h2-sub">AI helper · <%= t.job %> · Uses: <%= t.uses.length ? t.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= t.budget %> credits a month</p>
+    <p class="hq-small" style="margin:2px 0 6px">AI employee · <%= t.plan %></p>
+    <p class="h2-sub"><%= t.job %></p>
+    <p class="hq-small">Uses: <%= t.uses.length ? t.uses.join(', ') + ' (reads only)' : 'nothing connected' %> · Budget: <%= t.budget %> credits a month</p>
     <p class="hq-small">Always asks you before: <%= t.needsOk.join('; ').toLowerCase() %>.</p>
   </section>
   <section class="hq-card" style="margin-top:16px" aria-labelledby="wk-h">

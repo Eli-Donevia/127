@@ -1,0 +1,21 @@
+<%- include('../partials/head') %>
+<%# The weekly readout (lib/verticals.js weekly()): last Monday to Sunday, Chicago time. %>
+<main class="vt vb">
+  <div class="wrap">
+    <h1 class="vb-h1">This week</h1>
+    <p class="vb-sub"><%= w.range.from %> to <%= w.range.to %>. <a href="/admin/verticals/week.md">Download as Markdown</a> · <a href="/admin/verticals">The board</a></p>
+    <% [['Double down', w.doubles], ['Kill', w.kills], ['Keep testing', w.keeps]].forEach(function (s) { %>
+    <section class="vb-sec">
+      <h2 class="vb-h2"><%= s[0] %></h2>
+      <% if (!s[1].length) { %><p class="vb-sub">None this week.</p><% } else { %>
+      <ul class="vb-rows"><% s[1].forEach(function (r) { %><li><a href="/admin/verticals/<%= r.slug %>"><%= r.name %></a><small><%= r.why %></small></li><% }) %></ul>
+      <% } %>
+    </section>
+    <% }) %>
+    <section class="vb-sec">
+      <h2 class="vb-h2">The readout</h2>
+      <div class="vb-md"><%= w.markdown %></div>
+    </section>
+  </div>
+</main>
+<%- include('../partials/foot') %>

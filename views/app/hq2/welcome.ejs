@@ -1,0 +1,77 @@
+<%- include('../../partials/app-head') %>
+<%# The first run (HQ_FIRST_RUN, lib/harness/first-run.js): Ava, an AI employee, in a short chat. Payoff first,
+    setup after. Each step reads from what's really there. Locals: s (firstRun.state), firstName. %>
+<% var H = s.host, step = s.now, at = function (id) { return s.steps.find(function (x) { return x.id === id; }); };
+   var win = s.site ? 'your website first, then 25 real businesses to message, each with its message written' : '25 real businesses near you that could use what you sell, each with its message written'; %>
+<div class="hq h2 fr" data-first-run>
+  <%- include('../../partials/hq2-nav') %>
+  <header class="fr-head">
+    <div><b><%= H.first %></b><span><%= H.title %> · AI employee</span></div>
+    <ol class="fr-steps" aria-label="Your first win, <%= s.steps.filter(function (x) { return x.done; }).length %> of 3 done">
+      <% s.steps.forEach(function (x) { %><li class="<%= x.done ? 'done' : x.id === step ? 'now' : '' %>"></li><% }) %>
+    </ol>
+  </header>
+
+  <ol class="fr-chat" aria-live="polite">
+    <li class="fr-ai"><p>Hi<%= firstName ? ' ' + firstName : '' %>. I'm <%= H.first %>, an AI employee in your HQ. I'm AI, not a person.</p></li>
+    <li class="fr-ai"><p>Let's get you a first win today: <%= win %>. Nothing goes out unless you send it.</p></li>
+
+    <%# 1. The business %>
+    <li class="fr-ai<%= step === 'business' ? ' fr-now' : '' %>" id="business"><p>First, where can I learn about your business?</p></li>
+    <% if (at('business').done) { %>
+    <li class="fr-me"><p><%= s.business.what || s.business.offer %></p></li>
+    <% } else { %>
+    <li class="fr-act">
+      <% if (s.autofill) { %><%- include('../../partials/hq2-brain-draft-start', { back: '/app/hq/welcome' }) %><% } %>
+      <<%= s.autofill ? 'details' : 'div' %> class="hq-card h2-form fr-plain"<%- s.autofill ? '' : ' open' %>>
+        <% if (s.autofill) { %><summary>No site or bio yet? Answer three questions</summary><% } else { %><p class="h2-sub" style="margin-top:0">Three quick answers. You can add the rest later.</p><% } %>
+        <form method="post" action="/app/hq/welcome/business">
+          <label class="field" for="fr-what"><span>What do you sell?</span><input class="input" id="fr-what" name="what" maxlength="400" required placeholder="Weekly lawn care"></label>
+          <label class="field" for="fr-who"><span>Who is it for?</span><input class="input" id="fr-who" name="audience" maxlength="400" placeholder="Busy families with a yard"></label>
+          <label class="field" for="fr-city"><span>Your city</span><input class="input" id="fr-city" name="city" maxlength="120" autocomplete="address-level2" placeholder="Des Moines, IA"></label>
+          <button class="btn">Next <span class="arrow"></span></button>
+        </form>
+      </<%= s.autofill ? 'details' : 'div' %>>
+    </li>
+    <% } %>
+
+    <%# 2. The first two connections %>
+    <% if (at('business').done) { %>
+    <li class="fr-ai<%= step === 'tools' ? ' fr-now' : '' %>" id="tools"><p>Got it. Two connections make the rest automatic: your 127 link, so your numbers fill themselves<%= s.ai ? ', and 127 in your own Claude' : '' %>. You can do them later.</p></li>
+    <% if (at('tools').done) { %>
+    <li class="fr-me"><p><%= s.link || s.claude ? 'Connected.' : 'Later.' %></p></li>
+    <% } else { %>
+    <li class="fr-act">
+      <div class="fr-row">
+        <a class="btn<%= s.link ? ' ghost' : '' %>" href="/app/hq/connect#link"><%= s.link ? 'Your 127 link is on' : 'Make my 127 link' %></a>
+        <% if (s.ai) { %><a class="btn<%= s.claude ? ' ghost' : '' %>" href="/app/hq/connect#ai"><%= s.claude ? '127 is in Claude' : 'Add 127 to Claude' %></a><% } %>
+        <form method="post" action="/app/hq/welcome/later"><input type="hidden" name="what" value="tools"><button class="hq-link-btn">Later</button></form>
+      </div>
+    </li>
+    <% } %>
+    <% } %>
+
+    <%# 3. The first win %>
+    <% if (at('business').done && at('tools').done) { %>
+    <% if (step === 'finished') { %>
+    <li class="fr-ai fr-now"><p>That's your first win. Today has what's next: your messages to send, and the rest of your setup.</p></li>
+    <li class="fr-act"><a class="btn" href="/app/hq">Go to Today <span class="arrow"></span></a></li>
+    <% } else if (s.site) { %>
+    <li class="fr-ai fr-now" id="win"><p>Now your website. Build it from what you told me, and it comes back into your HQ when it's done.</p></li>
+    <li class="fr-act"><a class="btn" href="/site-tonight">Build my site <span class="arrow"></span></a></li>
+    <% } else { %>
+    <li class="fr-ai fr-now" id="win"><p>Here's your first win: 25 real businesses near you that could use what you sell, what each one is missing, and the message for each. I filled the form from what you told me. Check it, then run it.</p></li>
+    <li class="fr-act">
+      <a class="btn" href="<%= s.first25 %>">Set up my first 25 <span class="arrow"></span></a>
+      <p class="hq-small" style="margin:10px 0 0">You read the first 5 messages before anything is saved, and you send each one yourself.</p>
+    </li>
+    <% } %>
+    <% } %>
+  </ol>
+
+  <% if (step !== 'finished') { %>
+  <form method="post" action="/app/hq/welcome/later" class="fr-skip"><input type="hidden" name="what" value="all"><button class="hq-link-btn">Skip to Today</button></form>
+  <% } %>
+</div>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

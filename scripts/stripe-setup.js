@@ -5,7 +5,7 @@
 //   STRIPE_SECRET_KEY=sk_test_... npm run stripe:setup
 //   STRIPE_SECRET_KEY=sk_test_... npm run stripe:setup -- --webhook-url https://127group.io/billing/webhook
 //
-// Creates: the Builder and Founder's Circle products, the $29, $19 founding and
+// Creates: the Builder and Founder's Circle products, one product and one-time price per paid pack (content/shop/packs.json), the $29, $19 founding and
 // $299 monthly prices (found by lookup key, so no price IDs go in Secrets), the
 // founding referral and win-back coupons (first month free), and a customer portal setup.
 // Reports Stripe Tax status. It never changes tax registrations.
@@ -104,6 +104,27 @@ async function main() {
     if (cur) await s.prices.update(cur.id, { active: false });
     priceIds[k] = price.id;
     console.log(`+ price ${nickname} $${dollars}/mo (${price.id})${cur ? ` replaces ${cur.id}` : ''}`);
+  }
+
+  // Packs (lib/shop.js, content/shop/packs.json): one product and one one-time price per paid pack, plus the bundle,
+  // plus each vertical's niche pack (content/verticals, lib/verticals.js shopPacks()).
+  const shop = require('../content/shop/packs.json');
+  const verticalPacks = require('../lib/verticals').shopPacks();
+  for (const p of [...shop.packs, shop.bundle, ...verticalPacks].filter((x) => x && Number(x.price) > 0 && x.lookupKey)) {
+    const id = `127_pack_${p.slug}`;
+    const fields = { name: `127 ${p.name}`, description: p.line, metadata: { app: '127', pack: p.slug }, ...(taxCode ? { tax_code: taxCode } : {}) };
+    let prod = await s.products.retrieve(id).catch((e) => (e.code === 'resource_missing' ? null : Promise.reject(e)));
+    prod = prod ? await s.products.update(id, { ...fields, active: true }) : await s.products.create({ id, ...fields });
+    const amount = Math.round(Number(p.price) * 100);
+    const { data } = await s.prices.list({ lookup_keys: [p.lookupKey], active: true, limit: 1 });
+    const cur = data[0];
+    if (cur && cur.unit_amount === amount && cur.product === id && !cur.recurring && cur.tax_behavior === taxBehavior) {
+      console.log(`= pack ${p.name} $${p.price} (${cur.id})`);
+      continue;
+    }
+    const price = await s.prices.create({ product: id, currency: shop.currency || 'usd', unit_amount: amount, lookup_key: p.lookupKey, transfer_lookup_key: true, tax_behavior: taxBehavior, nickname: p.name, metadata: { app: '127', pack: p.slug } });
+    if (cur) await s.prices.update(cur.id, { active: false });
+    console.log(`+ pack ${p.name} $${p.price} (${price.id})${cur ? ` replaces ${cur.id}` : ''}`);
   }
 
   // Founding referral reward: first month free, founding Builder price only.

@@ -1,0 +1,138 @@
+/* Perks and grants (lib/perks, HQ_PERKS). Phone first. The material is a timetable: hairline rules, the amount set
+   like a price with leaders, dates in Geist Mono with tabular figures. Accents per D56: Pop lights the one thing to
+   look at (the deadline line and its head), Ion is the head's edge, Signal only marks what the member has sent.
+   No cards, no pills, no backdrop light. Everything reads complete with reduced motion and with the script off. */
+
+.pk {
+  --pop: #7c8cff;
+  --ion: #5be4ff;
+  --sig: #86d6ad;
+  --halo: #e3e6f1;
+  --out: cubic-bezier(.16, 1, .3, 1);
+  --spring: cubic-bezier(.34, 1.4, .64, 1);
+}
+.pk :focus-visible { outline: 2px solid var(--pop); outline-offset: 3px; }
+.pk a { color: inherit; }
+
+/* ---------- head ---------- */
+.pk-head { margin: 8px 0 28px; max-width: 680px; }
+.pk-title { color: var(--halo); margin-top: 10px; }
+.pk-lede { margin: 12px 0 0; color: var(--ink-2); font-size: 16px; line-height: 1.5; }
+.pk-honest { margin: 14px 0 0; padding-left: 14px; border-left: 1px solid var(--line-2); color: var(--muted); font-size: 13px; line-height: 1.5; }
+.pk-h { margin: 0; font: 600 20px/1.15 var(--display); letter-spacing: -0.025em; color: var(--ink); }
+.pk-k { margin: 0 0 10px; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pk-small { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+
+/* ---------- closing soon: one line from today, each deadline a stop on it ---------- */
+.pk-soon { margin: 0 0 36px; }
+.pk-rail { margin: 14px 0 6px; }
+.pk-rail-line { position: relative; height: 40px; }
+.pk-rail-line::before { content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--line-2); }
+.pk-rail-run { position: absolute; left: 0; bottom: 7.5px; height: 2px; background: linear-gradient(90deg, var(--pop), var(--ion)); transform-origin: left; border-radius: 2px; }
+.pk-rail-tick { position: absolute; bottom: 4px; width: 1px; height: 9px; margin-left: -1px; background: var(--line-2); }
+.pk-stop { position: absolute; bottom: 4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 2px var(--ion); transform-origin: 50% 100%; }
+.pk-stop::before { content: ''; position: absolute; left: 4px; bottom: 9px; width: 1px; height: 22px; background: var(--ink-2); }
+.pk-stop.is-next { background: var(--ion); box-shadow: 0 0 8px rgba(91, 228, 255, .5); } /* the next one emits; nothing else glows */
+.pk-rail-k { display: flex; justify-content: space-between; font: 400 11px/1 var(--mono); color: var(--muted); }
+.pk-times { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.pk-times a { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+.pk-times time { font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.pk-times-n { font-size: 15px; color: var(--ink); }
+.pk-times-l { font: 400 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.pk-times li:first-child time { color: var(--pop); }
+.pk-times a:hover .pk-times-n { text-decoration: underline; text-decoration-color: var(--pop); text-underline-offset: 4px; }
+
+/* ---------- what you're building: plain text toggles on a rule, not pills ---------- */
+.pk-fit { margin: 0 0 34px; }
+.pk-fit-set { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.pk-fit-set button { appearance: none; background: none; border: 0; padding: 8px 0; min-height: 44px; color: var(--muted); font: 500 15px/1 var(--sans); cursor: pointer; position: relative; transition: color .2s; }
+.pk-fit-set button::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: var(--pop); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--out); }
+.pk-fit-set button[aria-pressed="true"] { color: var(--ink); }
+.pk-fit-set button[aria-pressed="true"]::after { transform: scaleX(1); }
+.pk-fit-set button:hover { color: var(--ink); }
+.pk-fit-n { margin: 6px 0 0; min-height: 1.4em; font: 400 12px/1.4 var(--mono); color: var(--muted); }
+
+/* ---------- your list ---------- */
+.pk-mine { margin: 0 0 40px; padding: 18px 0 0; border-top: 1px solid var(--line-2); }
+.pk-mine-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pk-mine-do { display: flex; gap: 18px; }
+.pk-link { appearance: none; background: none; border: 0; padding: 10px 0; color: var(--ink); font: 500 14px/1 var(--sans); cursor: pointer; text-decoration: underline; text-decoration-color: var(--pop); text-underline-offset: 5px; }
+.pk-link.quiet { color: var(--muted); text-decoration-color: var(--line-2); }
+.pk-mine-l { list-style: none; margin: 10px 0 0; padding: 0; }
+.pk-mine-l li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.pk-mine-l a { font-size: 15px; text-decoration: none; }
+.pk-mine-l .d { grid-column: 1; font: 400 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.pk-mine-l select { grid-row: 1 / span 2; grid-column: 2; appearance: none; background: transparent; color: var(--ink); border: 1px solid var(--line-2); border-radius: 4px; padding: 10px 28px 10px 10px; min-height: 44px; font: 500 13px/1 var(--sans); background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(-45deg, transparent 50%, var(--muted) 50%); background-size: 5px 5px; background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-repeat: no-repeat; }
+.pk-mine-l li[data-s="sent"] select, .pk-mine-l li[data-s="heard"] select { border-color: var(--sig); color: var(--sig); }
+
+/* ---------- shelves: a ruled list, the amount set like a price ---------- */
+.pk-shelf { margin: 0 0 44px; }
+.pk-shelf-h { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 12px; align-items: baseline; margin-bottom: 12px; }
+.pk-num { grid-row: 1 / span 2; font: 500 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.pk-shelf-l { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; line-height: 1.45; max-width: 560px; }
+.pk-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.pk-row { border-bottom: 1px solid var(--line); }
+.pk-row[hidden] { display: none; }
+.pk-row summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n a" "w w"; gap: 6px 14px; align-items: baseline; padding: 16px 0; min-height: 44px; }
+.pk-row summary::-webkit-details-marker { display: none; }
+.pk-n { grid-area: n; font: 600 17px/1.25 var(--display); letter-spacing: -0.015em; color: var(--ink); }
+.pk-by { display: block; margin-top: 3px; font: 400 13px/1.3 var(--sans); letter-spacing: 0; color: var(--muted); }
+.pk-lead { display: none; }
+.pk-amt { grid-area: a; font: 500 15px/1.2 var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); text-align: right; white-space: nowrap; }
+.pk-amt.none { color: var(--muted); }
+.pk-when { grid-area: w; font: 400 12px/1 var(--mono); color: var(--muted); }
+.pk-when.shut { text-decoration: line-through; text-decoration-color: var(--line-2); }
+.pk-row summary:hover .pk-n { text-decoration: underline; text-decoration-color: var(--pop); text-underline-offset: 4px; }
+.pk-row details[open] .pk-n { color: var(--halo); }
+.pk-row details[open] summary { padding-bottom: 8px; }
+.pk-row.is-saved .pk-when::before { content: 'Saved \00b7  '; color: var(--pop); }
+
+.pk-body { padding: 0 0 20px; max-width: 640px; }
+.pk-row details[open] .pk-body { animation: pk-open .35s var(--out); }
+.pk-note { margin: 0 0 12px; color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+.pk-facts { margin: 0; display: grid; gap: 12px; }
+.pk-facts > div { display: grid; grid-template-columns: 1fr; gap: 4px; }
+.pk-facts dt { font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pk-facts dd { margin: 0; color: var(--ink); font-size: 14px; line-height: 1.5; }
+.pk-facts ul { margin: 0; padding: 0; list-style: none; }
+.pk-facts li { position: relative; padding-left: 14px; }
+.pk-facts li::before { content: ''; position: absolute; left: 0; top: .72em; width: 6px; height: 1px; background: var(--muted); }
+.pk-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 18px; }
+.pk-go { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--halo); color: var(--primary-ink) !important; font: 600 14px/1 var(--sans); text-decoration: none; transition: transform .25s var(--spring); }
+.pk-go::after { content: ''; width: 8px; height: 8px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); }
+.pk-go:active { transform: scale(.97); }
+.pk-save { appearance: none; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-2); background: transparent; color: var(--ink); font: 500 14px/1 var(--sans); cursor: pointer; transition: border-color .2s, transform .25s var(--spring); }
+.pk-save[aria-pressed="true"] { border-color: var(--pop); }
+.pk-save:active { transform: scale(.97); }
+.pk-checked { font: 400 12px/1 var(--mono); color: var(--muted); }
+.pk-checked b { color: var(--ink); font-weight: 500; }
+
+/* ---------- the SBA line ---------- */
+.pk-sba { margin: 0 0 16px; padding: 14px 0 14px 16px; border-left: 2px solid var(--pop); }
+.pk-sba p { margin: 0; font: 500 17px/1.35 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.pk-sba footer { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+.pk-empty { color: var(--muted); font-size: 14px; }
+.pk-foot { margin: 8px 0 0; padding-top: 18px; border-top: 1px solid var(--line); max-width: 640px; }
+.pk-foot p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+/* ---------- wider screens: the price list gets its leaders ---------- */
+@media (min-width: 760px) {
+  .pk-row summary { grid-template-columns: minmax(0, auto) minmax(40px, 1fr) auto 150px; grid-template-areas: "n l a w"; padding: 18px 0; }
+  .pk-lead { display: block; grid-area: l; align-self: end; margin-bottom: 7px; border-bottom: 1px dotted var(--line-2); }
+  .pk-when { text-align: right; }
+  .pk-facts > div { grid-template-columns: 150px minmax(0, 1fr); gap: 16px; }
+  .pk-facts dt { padding-top: 4px; }
+  .pk-times a { grid-template-columns: 80px minmax(0, 1fr) auto; }
+}
+
+/* ---------- motion (M2): the line draws from today, the stops set in order; all of it off for reduced motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .pk.is-live .pk-rail-run { animation: pk-draw 1.6s var(--out) both; }
+  .pk.is-live .pk-stop { animation: pk-stop .6s var(--spring) both; animation-delay: calc(.5s + var(--i) * 140ms); }
+  .pk-row { transition: opacity .25s; }
+}
+@keyframes pk-draw { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes pk-stop { from { opacity: 0; transform: translateY(6px) scale(.4); } to { opacity: 1; transform: none; } }
+@keyframes pk-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pk-row details[open] .pk-body { animation: none; } }

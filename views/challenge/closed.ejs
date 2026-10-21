@@ -8,7 +8,8 @@
   // Make sure the challenge stylesheet is on the page even if the route didn't pass it.
   var chCss = [].concat(typeof css !== 'undefined' && css ? css : []);
   if (chCss.indexOf('/challenge-assets/landing.css') === -1) chCss.push('/challenge-assets/landing.css');
-  var moves = ['Pick one.', 'Find 10 people.', 'Have the conversation.', 'Write the offer.', 'Ask for a yes.'];
+  var moves = C.copy ? C.copy.days.map(function (d) { return d.move; }) : ['Pick one.', 'Find 10 people.', 'Have the conversation.', 'Write the offer.', 'Ask for a yes.'];
+  var etFmt = function (t, o) { return new Date(t).toLocaleString('en-US', Object.assign({ timeZone: 'America/New_York' }, o)); };
   var wall = [
     ['eli-stage-full', 'morning-coffee', 'eli-popup-02', 'still-timer', 'eli-headphones', 'desk-overhead'],
     // O23: no still-watch (reads as luxury) or eli-plane (travel next to money messaging).
@@ -33,8 +34,8 @@
       <% if (!after) { %>
       <p class="chl-label">The Day One Challenge</p>
       <h1 class="kin chl-stagger" id="chl-h1"><span class="dim"><%- words("This week's challenge", 0) %></span><br><span><%- words('is underway.', 3) %></span></h1>
-      <p class="hx-value">Registration closed Friday at noon. 127 opens Tuesday, November 17 at 10am ET. If you're at the idea stage, your 30-day roadmap starts where the challenge did.</p>
-      <p class="chl-over-live">Watch the debrief live on Monday, November 16 at 8pm ET on Instagram <span class="mono">@elichristiansen_</span>. It's public.</p>
+      <p class="hx-value">Registration closed <%= C.regClosesAt ? etFmt(C.regClosesAt, { weekday: 'long' }) : 'Friday' %> at noon. 127 opens Tuesday, November 17 at 10am ET. If you're at the idea stage, your 30-day roadmap starts where the challenge did.</p>
+      <p class="chl-over-live">Watch the <%= C.copy ? 'demo night' : 'debrief' %> live on <%= C.live2At ? etFmt(C.live2At, { weekday: 'long', month: 'long', day: 'numeric' }) : 'Monday, November 16' %> at 8pm ET on Instagram <span class="mono">@elichristiansen_</span>. It's public.</p>
       <div class="hx-ctas"><a href="/founding" class="btn light big">Join the founding list <span class="arrow"></span></a></div>
       <p class="chl-over-note"><%= price !== null ? 'Founding members get Builder at $' + price + '/month, locked for as long as they stay.' : 'Founding members get Builder at a lower price, locked for as long as they stay.' %> $29 after November 24.</p>
       <% } else { %>
@@ -44,7 +45,7 @@
       <% } %>
 
       <ol class="chl-moves<%= after ? ' plus' : '' %>">
-        <% moves.forEach(function (m, i) { %><li><b>Day 0<%= i + 1 %></b><span><%= m %></span></li><% }) %>
+        <% moves.forEach(function (m, i) { %><li><b>Day <%= i < 9 ? '0' : '' %><%= i + 1 %></b><span><%= m %></span></li><% }) %>
       </ol>
     </div>
   </section>

@@ -1,0 +1,32 @@
+<%# PACKS (SHOP_PACKS, lib/shop.js): one-tap checkout on the homepage, set as a price list (files on one side, courses
+    on the other). Each Buy posts straight to Stripe Checkout (no account needed); a cancelled checkout comes back to
+    #packs. Builder includes every pack (builderGetsAll). %>
+<% var hp = packs; var paidPacks = hp.list.filter(function (p) { return !p.free; }); var starter = hp.list.find(function (p) { return p.free; });
+   var groups = [['Packs', paidPacks.filter(function (p) { return p.kind !== 'course'; })], ['Courses', paidPacks.filter(function (p) { return p.kind === 'course'; })]].filter(function (g) { return g[1].length; }); %>
+<section class="hp" id="packs" aria-labelledby="hp-h">
+  <div class="wrap hp-in">
+    <div class="hp-head">
+      <h2 class="h2" id="hp-h" data-reveal>Take the files. Pay once.</h2>
+      <p class="sub" data-reveal>Site designs, motion, prompts, templates and short courses, bundled by job. One payment each, and 14 days to change your mind<% if (hp.builderGetsAll) { %>. Every one comes with Builder<% } %>.</p>
+      <div class="hp-foot" data-reveal>
+        <% if (hp.bundle) { %><form method="post" action="/packs/<%= hp.bundle.slug %>/buy" class="hp-all"><input type="hidden" name="from" value="/#packs"><button class="btn ghost sm" type="submit">Everything · $<%= hp.bundle.price %></button></form><% } %>
+        <% if (starter) { %><a class="hp-starter" href="/packs/starter">The <%= starter.name %> is free with an account <span class="arrow"></span></a><% } %>
+      </div>
+    </div>
+    <div class="hp-lists">
+      <% groups.forEach(function (g) { %>
+      <div class="hp-col" data-reveal>
+        <h3 class="hp-h3"><%= g[0] %> <span><%= g[1].length %></span></h3>
+        <ul class="hp-list">
+          <% g[1].forEach(function (p) { %>
+          <li class="hp-i">
+            <a class="hp-link" href="/packs/<%= p.slug %>"><span class="hp-t"><%= p.name %></span><span class="hp-lead" aria-hidden="true"></span><span class="hp-price">$<%= p.price %></span><span class="hp-s"><%= p.line %></span></a>
+            <%- include('../packs/buy', { p: p, ownedList: hp.owned, buyFrom: '/#packs', buyLabel: 'Buy' }) %>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

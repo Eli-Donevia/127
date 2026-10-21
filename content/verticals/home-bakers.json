@@ -1,0 +1,132 @@
+{
+  "slug": "home-bakers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Food and drink",
+  "name": "Home bakers",
+  "one": "home bakery",
+  "description": "An order page, a pricing sheet, pickup messages and holiday preorder posts for cottage home bakers.",
+  "h1": "Take orders without forty DMs.",
+  "mark": "orders",
+  "lede": "127 gives a home baker an order page with pickup days, a pricing sheet that counts your hours, and the saved replies and preorder posts for every holiday.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Post the week's bake list",
+      "hand": "A bake list post and story with the order cutoff"
+    },
+    {
+      "when": "Tue",
+      "job": "Answer order questions",
+      "hand": "Saved replies for price, allergens, pickup and custom cakes"
+    },
+    {
+      "when": "Thu",
+      "job": "Price a custom order",
+      "hand": "A pricing sheet: ingredients, boxes and your hours"
+    },
+    {
+      "when": "Sat",
+      "job": "Pickup day",
+      "hand": "A pickup reminder text and a thank-you with your order link"
+    }
+  ],
+  "site": {
+    "design": "bloom",
+    "sample": {
+      "business": "Butter and Bell",
+      "what": "Home bakery, sourdough and cookies",
+      "services": "Country sourdough, $10\nBrown butter cookies, dozen, $18\nCustom cake, from $55",
+      "city": "Fort Collins"
+    },
+    "caption": "Butter and Bell is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my order page free",
+    "fine": "Type your bakery and your bake list. Free, no card.",
+    "query": {
+      "what": "Home bakery, pickup orders"
+    }
+  },
+  "pack": {
+    "name": "Home Baker Pack",
+    "price": 29,
+    "line": "An order page, a pricing sheet, saved replies and holiday preorder posts.",
+    "items": [
+      "site-local-service",
+      "site-link-in-bio",
+      "pricing-lab",
+      "jobs-tracker",
+      "recipe-saved-replies",
+      "recipe-booking-link",
+      "social-story",
+      "email-newsletter",
+      "money-setup-checklist"
+    ],
+    "prompts": [
+      {
+        "id": "01-bake-list",
+        "title": "This week's bake list",
+        "summary": "The bake list post, the story frames and the cutoff, from what you plan to bake.",
+        "prompt": "This week [bakery] is baking: [items with prices]. Orders close [day/time], pickup is [day, time, place]. Write the bake list post (short, items and prices in a list), three story frames (the list, a close-up, last call), and a pinned comment with how to order: [link].",
+        "use": "Post Monday. Repost the last-call frame the night before cutoff."
+      },
+      {
+        "id": "02-saved-replies",
+        "title": "Saved replies for order DMs",
+        "summary": "Answers to the six questions home bakers get every day, in your voice.",
+        "prompt": "Write saved replies for [bakery] for: price list, allergens (we bake with [ ]; we can't promise allergen-free), pickup times and place, custom cake requests (what I need to quote), delivery (yes/no and cost), and \"are you sold out?\". Each under 50 words, friendly, ending with the order link [link].",
+        "use": "Save them in Instagram's saved replies or your phone's text shortcuts."
+      },
+      {
+        "id": "03-holiday-preorder",
+        "title": "Holiday preorder plan",
+        "summary": "A preorder plan for one holiday: the menu, the cutoff, the posts and the pickup slots.",
+        "prompt": "Plan [holiday] preorders for [bakery]. I can bake [max] orders. Menu ideas: [ ]. Give: a 4-item holiday menu with prices, the cutoff date, pickup slots, three posts (announce, half sold, last call) and a pickup reminder text.",
+        "use": "Start three weeks out. Close orders at your max, not after."
+      }
+    ]
+  },
+  "hq": [
+    "local",
+    "content",
+    "email",
+    "mealprep"
+  ],
+  "hooks": [
+    "Home bakers: stop taking orders in DMs.",
+    "What a custom cake actually costs you, counting your hours.",
+    "The six saved replies every home baker needs.",
+    "Close preorders at your max. Here's the post.",
+    "Your bake list is your homepage.",
+    "Pickup day text that brings people back next week."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Taking bake orders in DMs?",
+      "body": "Type your bakery and bake list. 127 builds an order page free.",
+      "headline": "Build your order page free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Pricing, saved replies and holiday preorders.",
+      "body": "The Home Baker Pack, $29 once.",
+      "headline": "The Home Baker Pack, $29"
+    },
+    {
+      "angle": "Pricing",
+      "hook": "Is your cake price paying you?",
+      "body": "The pack's pricing sheet counts ingredients, boxes and hours.",
+      "headline": "Price your bakes"
+    }
+  ],
+  "keyword": "BAKE",
+  "next": [
+    "Custom cookie makers",
+    "Cake decorators",
+    "Meal prep cooks"
+  ],
+  "legal": "Cottage food rules differ by state (what you can sell, labels, where). The pack tells bakers to check their state's rules; copy never says home baking is allowed everywhere."
+}

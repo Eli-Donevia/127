@@ -1,0 +1,133 @@
+{
+  "slug": "truck-dispatchers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Trucking and freight",
+  "name": "Truck dispatchers",
+  "one": "dispatch service",
+  "description": "A dispatch service site, carrier agreements, onboarding checklists and weekly carrier reports for independent truck dispatchers.",
+  "h1": "Your carriers should never wonder what you did this week.",
+  "mark": "this week.",
+  "lede": "127 gives an independent dispatcher a site that explains your service and fee, the agreement and onboarding packet, and a weekly report each carrier can read in a minute.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Onboard a new carrier",
+      "hand": "An onboarding checklist: authority, insurance, W-9, preferences"
+    },
+    {
+      "when": "Tue",
+      "job": "Book and confirm",
+      "hand": "A rate con check: what to read before your carrier signs"
+    },
+    {
+      "when": "Thu",
+      "job": "Chase paperwork",
+      "hand": "Saved replies for BOLs, PODs and detention"
+    },
+    {
+      "when": "Fri",
+      "job": "Send the weekly report",
+      "hand": "A one-page carrier report: loads, miles, rate per mile, your fee"
+    }
+  ],
+  "site": {
+    "design": "northstar",
+    "sample": {
+      "business": "Mile Marker Dispatch",
+      "what": "Truck dispatching for owner-operators",
+      "services": "Dispatch, 5% of gross per load\nCarrier setup with brokers, included",
+      "city": "Kansas City"
+    },
+    "caption": "Mile Marker Dispatch is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my dispatch site free",
+    "fine": "Type your service and fee. Free, no card.",
+    "query": {
+      "what": "Independent truck dispatching"
+    }
+  },
+  "pack": {
+    "name": "Dispatcher Pack",
+    "price": 39,
+    "line": "A dispatch site, the agreement and onboarding packet, rate con checks and weekly reports.",
+    "items": [
+      "site-agency",
+      "proposal",
+      "scope-of-work",
+      "client-welcome",
+      "notion-client-portal",
+      "pipeline-tracker",
+      "weekly-scorecard",
+      "sop-template",
+      "recipe-saved-replies",
+      "objection-log"
+    ],
+    "prompts": [
+      {
+        "id": "01-weekly-report",
+        "title": "Weekly carrier report",
+        "summary": "Turns your load list into a one-page weekly report for each carrier.",
+        "prompt": "Here are this week's loads for [carrier]: [paste load number, lane, miles, rate, deadhead, status]. Write a one-page report: totals (loads, loaded miles, gross, rate per mile, deadhead %), my fee at [%], one line per load, anything still owed (PODs, detention), and next week's plan in two lines. Plain and short.",
+        "use": "Send Friday afternoon, the same format every week."
+      },
+      {
+        "id": "02-rate-con-check",
+        "title": "Rate con check",
+        "summary": "A checklist to read a rate confirmation for the things that cost a carrier later.",
+        "prompt": "Read this rate confirmation and list, in plain words: pickup and delivery windows, the all-in rate and how it splits, detention and layover terms, lumper terms, TONU, payment terms, any fines or penalties, and anything that looks different from what was said on the phone: [paste rate con text].",
+        "use": "Run it before your carrier signs. Ask the broker about anything it flags."
+      },
+      {
+        "id": "03-service-agreement-outline",
+        "title": "Service agreement outline",
+        "summary": "An outline of what your dispatch agreement should cover, to take to a lawyer.",
+        "prompt": "Outline a dispatch service agreement between [my business] and a carrier. Cover: what I do and don't do, my fee and when it's paid, who signs rate cons, the carrier's right to refuse a load, how either side ends it, and what records I keep. Mark it as an outline for a lawyer to review, not a contract.",
+        "use": "Have a lawyer turn it into your agreement before you sign carriers."
+      }
+    ]
+  },
+  "hq": [
+    "ops",
+    "finance",
+    "email",
+    "sales"
+  ],
+  "hooks": [
+    "Dispatchers: your carriers judge you by Friday's report.",
+    "Read these five lines on every rate con.",
+    "The weekly report that keeps carriers with you.",
+    "What a dispatch agreement needs to say.",
+    "Saved replies for chasing PODs.",
+    "Your dispatch fee should be on your website."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Starting a dispatch service?",
+      "body": "Type your service and fee. 127 builds the site free.",
+      "headline": "Build your dispatch site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Agreements, onboarding, rate con checks, weekly reports.",
+      "body": "The Dispatcher Pack, $39 once.",
+      "headline": "The Dispatcher Pack, $39"
+    },
+    {
+      "angle": "Reports",
+      "hook": "Send carriers a report they'll actually read.",
+      "body": "One page, every Friday, from your load list.",
+      "headline": "Weekly carrier reports"
+    }
+  ],
+  "keyword": "DISPATCH",
+  "next": [
+    "Freight brokers",
+    "Fleet managers",
+    "Expediters"
+  ],
+  "legal": "Dispatch income is a common 'business opportunity' pitch online. Copy never says how much a dispatcher makes or how many carriers they'll sign (L62, Legal 05)."
+}
