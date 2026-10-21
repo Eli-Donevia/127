@@ -31,6 +31,7 @@ const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const challenge = require('./lib/challenge');
 const memberOps = require('./lib/member-ops');
+const ambassadors = require('./lib/ambassadors');
 const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
@@ -246,6 +247,11 @@ app.use((req, res, next) => {
   // The vertical a visitor came in on, first touch (lib/verticals.js): an ad link tagged utm_campaign=v-<slug>.
   verticals.middleware(req, res, () => {});
   if (req.query.ref && referrals.valid(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
+  // Legal L90: the first tracked 127 link on this device (an ambassador's, any other tagged link, or a referral link).
+  if (!req.session.firstLink) {
+    const first = ambassadors.firstLinkFrom(utm, req.query.ref && referrals.valid(req.query.ref) ? req.query.ref : null);
+    if (first) req.session.firstLink = first;
+  }
   next();
 });
 
@@ -524,6 +530,8 @@ async function createMember(req, { email, name, password, optIn, source, fallbac
     signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
     leadSource: lead ? lead.source : null,
     utm: Object.keys(utm).length ? utm : null,
+    // Ambassador pay (lib/ambassadors.js, Legal L90): the first tracked link on the device they joined from.
+    firstLink: req.session.firstLink || null,
     vertical: verticals.current(req),
     passwordHash: await bcrypt.hash(password, 10),
     tier: 'free',
@@ -588,6 +596,7 @@ function ownCode(req, code) {
 app.get('/f/:code', (req, res) => {
   const own = referrals.owner(req.params.code);
   if (own) setRefCookie(res, own.code);
+  if (own && !req.session.firstLink) req.session.firstLink = ambassadors.firstLinkFrom(null, own.code);
   if (own && ['site', 'challenge', 'invite'].includes(req.query.via)) req.session.refVia = req.query.via;
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
@@ -2143,6 +2152,14 @@ app.get('/admin/joins.csv', require('./lib/export-token').orAdmin(requireAuth, r
   const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
   const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
   res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);
+});
+
+// Ambassador pay counts (lib/ambassadors.js): per month and ambassador link, paid joins still paying at day 30. Counts only.
+app.get('/admin/ambassadors.csv', require('./lib/export-token').orAdmin(requireAuth, requireAdmin), (req, res) => {
+  res.set('cache-control', 'no-store');
+  const month = /^\d{4}-\d{2}$/.test(String(req.query.month || '')) ? String(req.query.month) : undefined;
+  const csv = ambassadors.csv(ambassadors.counts(db.all('users'), { month }));
+  res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="ambassadors-${month || 'all'}.csv"`).send(csv);
 });
 
 app.get('/admin/waitlist.csv', requireAuth, requireAdmin, (req, res) => {
