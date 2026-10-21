@@ -42,7 +42,8 @@ function fakeStripe() {
     sub(id, priceId, endSec, extra = {}) {
       subs[id] = {
         id, object: 'subscription', status: 'active', customer: 'cus_1', metadata: {}, created: Math.floor(Date.now() / 1000) - 40 * S,
-        billing_cycle_anchor: endSec - 30 * S, cancel_at_period_end: false, cancel_at: null, pause_collection: null,
+        billing_cycle_anchor: endSec, // a renewal date, so the anchor day matches the period end (30 days back broke near month ends)
+        cancel_at_period_end: false, cancel_at: null, pause_collection: null,
         items: { data: [{ id: 'si_' + id, price: byId[priceId], current_period_start: endSec - 30 * S, current_period_end: endSec }] },
         ...extra,
       };
