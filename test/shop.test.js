@@ -72,7 +72,12 @@ test('catalog: every pack resolves, paid packs have a lookup key and a one-time 
     assert.ok(p.price >= 19 && p.price <= 199, `${p.slug} price`);
   }
   assert.equal(shop.list().filter((p) => p.free).length, 1, 'one free pack: the Starter');
-  assert.equal(shop.get('build-with-ai'), null, 'planned packs are not for sale');
+  assert.equal(shop.get('nope'), null);
+  for (const p of paid.filter((x) => x.kind === 'course')) {
+    assert.ok(p.moves.length >= 5, `${p.slug} has its lessons`);
+    assert.ok(p.hq.length >= 3, `${p.slug} names the HQ workflows it runs`);
+  }
+  assert.equal(paid.filter((x) => x.kind === 'course').length, 4, 'four courses');
 });
 
 test('the built kits are current', () => {

@@ -1,25 +1,32 @@
-<%# PACKS (SHOP_PACKS, lib/shop.js): one-tap checkout on the homepage. Each Buy posts straight to Stripe Checkout
-    (no account needed); a cancelled checkout comes back to #packs. Builder includes every pack (builderGetsAll). %>
-<% var hp = packs; var paidPacks = hp.list.filter(function (p) { return !p.free; }); var starter = hp.list.find(function (p) { return p.free; }); %>
+<%# PACKS (SHOP_PACKS, lib/shop.js): one-tap checkout on the homepage, set as a price list (files on one side, courses
+    on the other). Each Buy posts straight to Stripe Checkout (no account needed); a cancelled checkout comes back to
+    #packs. Builder includes every pack (builderGetsAll). %>
+<% var hp = packs; var paidPacks = hp.list.filter(function (p) { return !p.free; }); var starter = hp.list.find(function (p) { return p.free; });
+   var groups = [['Packs', paidPacks.filter(function (p) { return p.kind !== 'course'; })], ['Courses', paidPacks.filter(function (p) { return p.kind === 'course'; })]].filter(function (g) { return g[1].length; }); %>
 <section class="hp" id="packs" aria-labelledby="hp-h">
-  <div class="wrap">
+  <div class="wrap hp-in">
     <div class="hp-head">
-      <p class="lbl" data-reveal>Packs</p>
-      <h2 class="h2" id="hp-h" data-reveal>Take the files.<br><span class="dim">Pay once.</span></h2>
-      <p class="sub" data-reveal>Site designs, motion, prompts and templates, bundled by job. One payment, yours to keep<% if (hp.builderGetsAll) { %>, and every pack comes with Builder<% } %>.</p>
+      <h2 class="h2" id="hp-h" data-reveal>Take the files. Pay once.</h2>
+      <p class="sub" data-reveal>Site designs, motion, prompts, templates and short courses, bundled by job. One payment, yours to keep<% if (hp.builderGetsAll) { %>, and every one comes with Builder<% } %>.</p>
+      <div class="hp-foot" data-reveal>
+        <% if (hp.bundle) { %><form method="post" action="/packs/<%= hp.bundle.slug %>/buy" class="hp-all"><input type="hidden" name="from" value="/#packs"><button class="btn ghost sm" type="submit">Everything · $<%= hp.bundle.price %></button></form><% } %>
+        <% if (starter) { %><a class="hp-starter" href="/packs/starter">The <%= starter.name %> is free with an account <span class="arrow"></span></a><% } %>
+      </div>
     </div>
-    <ul class="hp-row">
-      <% paidPacks.forEach(function (p) { %>
-      <li class="hp-card hp-<%= p.art %>" data-reveal>
-        <a class="hp-link" href="/packs/<%= p.slug %>"><span class="hp-t"><%= p.name %></span><span class="hp-s"><%= p.line %></span><span class="hp-c"><%= p.count %> files</span></a>
-        <div class="hp-buy"><span class="hp-price">$<%= p.price %></span><%- include('../packs/buy', { p: p, ownedList: hp.owned, buyFrom: '/#packs', buyLabel: 'Buy' }) %></div>
-      </li>
+    <div class="hp-lists">
+      <% groups.forEach(function (g) { %>
+      <div class="hp-col" data-reveal>
+        <h3 class="hp-h3"><%= g[0] %> <span><%= g[1].length %></span></h3>
+        <ul class="hp-list">
+          <% g[1].forEach(function (p) { %>
+          <li class="hp-i">
+            <a class="hp-link" href="/packs/<%= p.slug %>"><span class="hp-t"><%= p.name %></span><span class="hp-lead" aria-hidden="true"></span><span class="hp-price">$<%= p.price %></span><span class="hp-s"><%= p.line %></span></a>
+            <%- include('../packs/buy', { p: p, ownedList: hp.owned, buyFrom: '/#packs', buyLabel: 'Buy' }) %>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
       <% }) %>
-    </ul>
-    <div class="hp-foot" data-reveal>
-      <% if (hp.bundle) { %><form method="post" action="/packs/<%= hp.bundle.slug %>/buy" class="hp-all"><input type="hidden" name="from" value="/#packs"><button class="btn ghost sm" type="submit">All paid packs · $<%= hp.bundle.price %></button></form><% } %>
-      <% if (starter) { %><a class="hp-starter" href="/packs/starter">The <%= starter.name %> is free with an account <span class="arrow"></span></a><% } %>
-      <a class="hp-starter" href="/packs">See every pack <span class="arrow"></span></a>
     </div>
   </div>
 </section>
