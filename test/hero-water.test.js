@@ -41,8 +41,8 @@ test('the homepage asks for the liquid hero only with both flags on', () => {
   assert.match(v, /var flDir = heroWater \? '\/img\/liquid\/' : '\/img\/fl\/', flRest = heroWater && !heroMark \? 'water' : 'rest';/);
   assert.match(v, /data-fl<% if \(heroWater\) \{ %> data-fl-water<% \} %>/);
   assert.match(v, /srcset="<%= flDir %><%= flRest %>-s\.jpg"/);
-  assert.match(v, /import\('\/js\/liquid-127\.js'\)\.then\(\(\{ liquid127 \}\) => liquid127\(fl\.querySelector\('\.fl-stage'\), opts\)\)/);
-  assert.match(v, /import\('\/js\/first-light\.js'\)\.then\(\(\{ firstLight \}\) => firstLight\(fl\.querySelector\('\.fl-stage'\), \{ \.\.\.opts, base: '\/img\/fl\/' \}\)\)/);
+  assert.match(v, /import\('<%= typeof v === 'function' \? v\('\/js\/liquid-127\.js'\) : '\/js\/liquid-127\.js' %>'\)\.then\(\(\{ liquid127 \}\) => liquid127\(fl\.querySelector\('\.fl-stage'\), opts\)\)/);
+  assert.match(v, /import\('<%= typeof v === 'function' \? v\('\/js\/first-light\.js'\) : '\/js\/first-light\.js' %>'\)\.then\(\(\{ firstLight \}\) => firstLight\(fl\.querySelector\('\.fl-stage'\), \{ \.\.\.opts, base: '\/img\/fl\/' \}\)\)/);
 });
 
 test('the 127 forms on scroll only where the live hero can play it, and the poster backs it up', () => {
@@ -78,4 +78,13 @@ test('Eli (Oct 21): the hero is just the water for now, and HERO_WATER_MARK brin
   const src = fs.readFileSync(path.join(ROOT, 'public/js/liquid-127.js'), 'utf8');
   // no glass to hit, and the neon lives on the ripples themselves (no backdrop glow)
   for (const k of ['const noMark = opts.mark === false;', 'uniform float uNeon;', 'if (uNeon < 0.5)']) assert.ok(src.includes(k), k);
+});
+
+test('a publish never leaves a phone on last hour\'s hero script or CSS: their URLs carry a hash of the file', () => {
+  const v = fs.readFileSync(path.join(ROOT, 'views/home.ejs'), 'utf8');
+  assert.match(v, /import\('<%= typeof v === 'function' \? v\('\/js\/liquid-127\.js'\) : '\/js\/liquid-127\.js' %>'\)/);
+  const head = fs.readFileSync(path.join(ROOT, 'views/partials/doc-start.ejs'), 'utf8');
+  assert.match(head, /v\('\/css\/style\.css'\)/);
+  const srv = fs.readFileSync(path.join(ROOT, 'server.js'), 'utf8');
+  assert.match(srv, /app\.locals\.v = \(p\) =>/);
 });

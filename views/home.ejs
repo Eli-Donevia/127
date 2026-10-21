@@ -531,8 +531,8 @@ if (fl) {
     const opts = { small: phone, mark: !fl.hasAttribute('data-fl-nomark'), get reveal() { clearTimeout(fl.flPond); return pond(); }, onSlow: () => { fl.classList.remove('is-live'); if (pin) pin.classList.remove('is-scrub'); } };
     if (pin && pond()) opts.scrub = scrub;
     const live = () => (water
-      ? import('/js/liquid-127.js').then(({ liquid127 }) => liquid127(fl.querySelector('.fl-stage'), opts))
-      : import('/js/first-light.js').then(({ firstLight }) => firstLight(fl.querySelector('.fl-stage'), { ...opts, base: '/img/fl/' })))
+      ? import('<%= typeof v === 'function' ? v('/js/liquid-127.js') : '/js/liquid-127.js' %>').then(({ liquid127 }) => liquid127(fl.querySelector('.fl-stage'), opts))
+      : import('<%= typeof v === 'function' ? v('/js/first-light.js') : '/js/first-light.js' %>').then(({ firstLight }) => firstLight(fl.querySelector('.fl-stage'), { ...opts, base: '/img/fl/' })))
       .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); fl.classList.remove('is-pond'); })
       .catch(unpin);
     const later = () => ('requestIdleCallback' in window ? requestIdleCallback(live, { timeout: pond() ? 400 : 2500 }) : setTimeout(live, 300));

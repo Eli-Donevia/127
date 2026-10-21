@@ -55,6 +55,8 @@ precision highp float;
 #define STEPS 90
 #define INNER 22
 #define REFL 48
+#define NEON_LO 0.03
+#define NEON_HI 0.12
 uniform sampler2D uSdf, uW;
 uniform vec2 uRes; uniform float uDpr; uniform vec4 uFrame; uniform float uTime, uGrain;
 uniform vec4 uMark;          // the mark's middle (xyz) and its stretch (w)
@@ -185,11 +187,13 @@ vec3 shadeWater(vec3 p, vec3 rd, vec3 n) {
   // flare, drifting slowly across the pond (D57). Only moving water glows; the still pond stays a dark mirror.
   if (uNeon > 0.0) {
     vec2 uv = (p.xz - WB_.xy) / WB_.zw, e2 = vec2(1.0 / 256.0, 0.0);
-    float h0 = texture(uW, uv).r, gx = texture(uW, uv + e2).r - texture(uW, uv - e2).r, gz = texture(uW, uv + e2.yx).r - texture(uW, uv - e2.yx).r;
-    float g = smoothstep(0.05, 0.22, length(vec2(gx, gz))) * (0.55 + 0.45 * smoothstep(0.0, 0.4, h0));
+    float h0 = texture(uW, uv).r, hx1 = texture(uW, uv + e2).r, hx0 = texture(uW, uv - e2).r, hz1 = texture(uW, uv + e2.yx).r, hz0 = texture(uW, uv - e2.yx).r;
+    // light only on the crest lines of moving rings (where the surface curves over), never filled discs or still water
+    float crest = smoothstep(NEON_LO, NEON_HI, 4.0 * h0 - hx1 - hx0 - hz1 - hz0);
+    float g = crest * smoothstep(0.03, 0.12, length(vec2(hx1 - hx0, hz1 - hz0)));
     float a = abs(fract(dot(p.xz, vec2(0.19, 0.11)) + uTime * 0.035) * 2.0 - 1.0);
     vec3 neon = mix(mix(TIDE, ORCHID, smoothstep(0.15, 0.6, a)), FLARE, smoothstep(0.65, 1.0, a));
-    col += neon * g * g * 1.15 * uNeon * (0.35 + 0.65 * (1.0 - c));
+    col += neon * g * 1.1 * uNeon * (0.35 + 0.65 * (1.0 - c));
   }
   if (uGlow > 0.0) {
     vec3 rt = refract(rd, n, 1.0 / 1.33); q = p; t = 0.0;
@@ -228,6 +232,8 @@ void main() {
     t += d * 0.8;
     if (t > 40.0 || (rd.y > 0.0 && p.y > 2.6)) break;
   }
+  // a grazing ray that runs out of steps (phones march fewer) still lands on the pond, so the far water never tears into holes
+  if (hit < 0.5 && rd.y < 0.0 && uMerge < 0.001) { t = -ro.y / rd.y; p = ro + rd * t; g = glass(p); hit = t < 40.0 ? 1.0 : 0.0; }
   if (hit > 0.5) {
     float w = p.y - water(p.xz);
     // where the glass and the pond are still one, the surface is a blend of both
@@ -235,7 +241,7 @@ void main() {
     vec3 cg = k > 0.01 ? shadeGlass(p, rd, uMerge > 0.001 && k < 0.99 ? snorm(p) : gnorm(p), true) : vec3(0.0);
     vec3 cw = k < 0.99 ? shadeWater(p, rd, k > 0.01 ? snorm(p) : wnorm(p.xz)) : vec3(0.0);
     col = mix(cw, cg, k);
-    col = mix(col, vec3(0.0), sm(9.0, 22.0, t));            // the far pond fades into the dark
+    col = mix(col, vec3(0.0), sm(6.0, 15.0, t));            // the far pond fades into the dark
   } else col = vec3(0.010, 0.010, 0.013) * exp(-abs(rd.y) * 5.0);    // the lights themselves are out of sight
   vec2 s = q / (uRes / uDpr);
   float edge = sm(0.0, 0.08, s.x) * sm(0.0, 0.08, 1.0 - s.x) * sm(0.0, 0.05, s.y) * sm(0.0, 0.16, 1.0 - s.y);

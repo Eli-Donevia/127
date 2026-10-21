@@ -108,6 +108,17 @@ app.use(harnessSiteChat.publicRouter());
 // Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
+// Static files are cached for an hour, so a publish can leave a phone running last hour's hero script and CSS.
+// v('/js/x.js') adds ?v=<hash of the file> (worked out once per file per process), so a changed file gets a new URL.
+const assetV = new Map();
+app.locals.v = (p) => {
+  if (!assetV.has(p)) {
+    let h = '';
+    try { h = require('crypto').createHash('sha1').update(fs.readFileSync(path.join(__dirname, 'public', p))).digest('hex').slice(0, 10); } catch (e) { /* missing file: plain URL */ }
+    assetV.set(p, h ? `${p}?v=${h}` : p);
+  }
+  return assetV.get(p);
+};
 app.use(
   cookieSession({
     name: 'h127',
