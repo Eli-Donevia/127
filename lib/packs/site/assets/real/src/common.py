@@ -260,6 +260,24 @@ def bokeh_field(cam_loc, n=160, az=(-16, 16), el=(-4.5, 1.5), dist=(25, 250), st
         o.visible_diffuse = False
 
 
+def glare(sc, kind='Fog Glow', threshold=4.0, strength=0.25, size=0.5, quality='High'):
+    """Gentle lens halation on the brightest lights only (compositor glare), never streaks or flares."""
+    g = bpy.data.node_groups.new('comp', 'CompositorNodeTree')
+    g.interface.new_socket('Image', in_out='OUTPUT', socket_type='NodeSocketColor')
+    rl = g.nodes.new('CompositorNodeRLayers')
+    gl = g.nodes.new('CompositorNodeGlare')
+    for k, v in (('Type', kind), ('Quality', quality), ('Threshold', threshold), ('Strength', strength), ('Size', size)):
+        try:
+            gl.inputs[k].default_value = v
+        except Exception as e:
+            print('glare input', k, e)
+    out = g.nodes.new('NodeGroupOutput')
+    g.links.new(rl.outputs['Image'], gl.inputs['Image'])
+    g.links.new(gl.outputs['Image'], out.inputs[0])
+    sc.compositing_node_group = g
+    sc.render.use_compositing = True
+
+
 def pbr(name, maps, scale=1.0, color_mult=None, rough_mult=1.0, rough_add=0.0, bump=1.0, disp=None, coat=0.0,
         coat_rough=0.05, hue_sat=None, rot=0.0, metal=None, sheen=0.0):
     """Principled material from a Poly Haven map set. disp: displacement scale in metres (needs adaptive or a dense mesh)."""
@@ -381,6 +399,8 @@ def camera(sc, loc, target, lens=50, fstop=2.8, focus=None, sensor=36, shift=(0,
     import mathutils
     cd = bpy.data.cameras.new('cam')
     cd.lens = lens
+    cd.clip_start = 0.01
+    cd.clip_end = 20000
     cd.sensor_width = sensor
     cd.shift_x, cd.shift_y = shift
     cam = bpy.data.objects.new('cam', cd)

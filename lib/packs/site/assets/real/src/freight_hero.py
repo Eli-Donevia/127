@@ -18,14 +18,14 @@ nt = sc.world.node_tree
 nt.nodes.clear()
 sky = nt.nodes.new('ShaderNodeTexSky')
 sky.sky_type = 'MULTIPLE_SCATTERING'
-sky.sun_elevation = math.radians(float(E('SUNEL', '-4')))
-sky.sun_rotation = math.radians(float(E('SUNROT', '200')))
+sky.sun_elevation = math.radians(float(E('SUNEL', '-3')))
+sky.sun_rotation = math.radians(float(E('SUNROT', '15')))
 sky.altitude = 100
 sky.air_density = 1.0
 sky.aerosol_density = float(E('AEROSOL', '2.5'))
 sky.sun_disc = False
 bg = nt.nodes.new('ShaderNodeBackground')
-bg.inputs['Strength'].default_value = float(E('SKY', '0.35'))
+bg.inputs['Strength'].default_value = float(E('SKY', '0.5'))
 out = nt.nodes.new('ShaderNodeOutputWorld')
 nt.links.new(sky.outputs['Color'], bg.inputs['Color'])
 nt.links.new(bg.outputs['Background'], out.inputs['Surface'])
@@ -61,8 +61,8 @@ def cyl(name, r, depth, loc, rot, mat, verts=48, parent=None, bevel=0.0):
 
 
 # ---------- materials ----------
-paint = C.principled('cab_paint', color=(0.045, 0.047, 0.05), rough=0.32, metal=0.55, **{'Coat Weight': 1.0, 'Coat Roughness': 0.04})
-trailer_m = C.principled('trailer_skin', color=(0.62, 0.63, 0.64), rough=0.38, metal=0.15, **{'Coat Weight': 0.3, 'Coat Roughness': 0.15})
+paint = C.principled('cab_paint', color=(0.78, 0.79, 0.8), rough=0.3, metal=0.0, **{'Coat Weight': 1.0, 'Coat Roughness': 0.03})
+trailer_m = C.principled('trailer_skin', color=(0.7, 0.71, 0.72), rough=0.42, metal=0.1, **{'Coat Weight': 0.3, 'Coat Roughness': 0.15})
 black = C.principled('black_plastic', color=(0.015, 0.015, 0.016), rough=0.55)
 chrome = C.principled('chrome', color=(0.9, 0.9, 0.92), rough=0.08, metal=1.0)
 alu = C.principled('alu', color=(0.75, 0.76, 0.78), rough=0.22, metal=1.0)
@@ -70,7 +70,7 @@ rubber = C.principled('rubber', color=(0.02, 0.02, 0.02), rough=0.75)
 glassd = C.principled('windscreen', color=(0.02, 0.022, 0.025), rough=0.02, **{'Specular IOR Level': 0.8, 'Coat Weight': 0.0})
 frame_m = C.principled('chassis', color=(0.02, 0.02, 0.02), rough=0.5, metal=0.4)
 head = C.emission('headlamp', C.kelvin(5200), float(E('HEAD', '120')))
-amber = C.emission('marker_amber', (1.0, 0.42, 0.05), float(E('AMBER', '40')))
+amber = C.emission('marker_amber', (1.0, 0.42, 0.05), float(E('AMBER', '8')))
 red = C.emission('marker_red', (1.0, 0.04, 0.02), 25)
 
 # ---------- truck (local: front face at y=0 facing -Y, ground z=0) ----------
@@ -104,6 +104,11 @@ for s in (-1, 1):
 for i in range(5):
     x = -0.5 + i * 0.25
     box('clearance', x - 0.05, x + 0.05, -0.02, 0.04, 4.03, 4.08, amber, bevel=0.01, parent=P)
+# wipers and a blank plate
+for x in (-0.55, 0.25):
+    w = box('wiper', x, x + 0.62, -0.03, -0.015, 2.42, 2.44, black, parent=P)
+    w.rotation_euler = (0, math.radians(-12), 0)
+box('plate', -0.3, 0.3, -0.155, -0.14, 0.55, 0.7, C.principled('plate', color=(0.55, 0.56, 0.58), rough=0.4, metal=0.3), bevel=0.01, parent=P)
 # mirrors
 for s in (-1, 1):
     cyl('mirror_arm', 0.018, 0.4, (s * 1.42, 0.12, 2.9), (0, math.radians(90), 0), black, parent=P)
@@ -147,7 +152,7 @@ truck.rotation_euler = (0, 0, math.radians(float(E('YAW', '0.6'))))
 # headlight beams
 for s in (-1, 1):
     l = C.light(sc, 'SPOT', (TRUCK_X + s * 0.95, TRUCK_Y - 0.25, 0.96), target=(TRUCK_X + s * 0.6, TRUCK_Y - 40, 0.0),
-                energy=float(E('BEAM', '9000')), color=C.kelvin(5200), size=0.06, spot=math.radians(38), blend=0.5, name='beam')
+                energy=float(E('BEAM', '3000')), color=C.kelvin(5200), size=0.06, spot=math.radians(38), blend=0.5, name='beam')
 
 # ---------- road ----------
 asph = C.texture('asphalt_pit_lane', '2k')
@@ -190,14 +195,22 @@ for lp in r2.data.loops:
     v = r2.data.vertices[lp.vertex_index].co
     r2.data.uv_layers.active.data[lp.index].uv = (v.x, v.y)
 # median barrier
-box('barrier', 2.2, 2.6, -100, 1300, 0.0, 0.81, C.principled('concrete_barrier', color=(0.32, 0.32, 0.31), rough=0.8), bevel=0.05)
+# delineator posts along the shoulder, every 50 m, with small reflectors
+post_m = C.principled('post', color=(0.6, 0.6, 0.6), rough=0.5)
+refl_m = C.principled('reflector', color=(1.0, 0.95, 0.9), rough=0.15, metal=1.0)
+y = -40.0
+while y < 900:
+    box('post', -8.3, -8.22, y, y + 0.08, 0.0, 1.1, post_m)
+    box('reflector', -8.31, -8.21, y - 0.005, y + 0.085, 0.9, 1.0, refl_m)
+    y += 50.0
 # distant hills
 bpy.ops.mesh.primitive_grid_add(x_subdivisions=400, y_subdivisions=8, size=1, location=(0, 2600, 0))
 hills = bpy.context.object; hills.scale = (6000, 400, 1); bpy.ops.object.transform_apply(scale=True)
 for v in hills.data.vertices:
     t = v.co.x / 600.0
-    v.co.z = (40 + 35 * math.sin(t * 1.3) + 18 * math.sin(t * 3.7 + 1) + 8 * math.sin(t * 9.1)) * max(0, (v.co.y - 2200) / 400)
-hills.data.materials.append(C.principled('hill', color=(0.02, 0.022, 0.02), rough=1.0))
+    v.co.z = (14 + 9 * math.sin(t * 1.3) + 6 * math.sin(t * 3.7 + 1) + 2.5 * math.sin(t * 9.1) + 1.2 * math.sin(t * 23.0) + 0.6 * math.sin(t * 57.0)) * max(0.0, (v.co.y - 2400.0) / 400)
+hills.data.update()
+hills.data.materials.append(C.principled('hill', color=(0.06, 0.07, 0.09), rough=1.0))
 # a few far lights along the road (distant traffic and a farm) for scale
 for i in range(int(E('FAR', '9'))):
     yy = rng.uniform(250, 1200)
@@ -207,14 +220,24 @@ for i in range(int(E('FAR', '9'))):
     o.data.materials.append(head if xx > 3 else red)
 
 # ---------- air: thin haze near the ground so the headlamps bloom and the land falls off ----------
-C.fog_box((-2, 60, 6), (60, 160, 12), density=float(E('FOG', '0.006')), anisotropy=0.75)
+C.fog_box((-2, 60, 6), (60, 160, 12), density=float(E('FOG', '0.0006')), anisotropy=0.75)
 sc.cycles.volume_step_rate = 4.0
 
 # ---------- camera: on the hard shoulder, low, long lens ----------
-cam = C.camera(sc, (float(E('CX', '-13')), 0.0, float(E('CZ', '1.3'))), (TRUCK_X + 0.6, TRUCK_Y + 4.0, 2.35),
-               lens=float(E('LENS', '135')), fstop=float(E('FSTOP', '4')))
+cam = C.camera(sc, (float(E('CX', '-10')), float(E('CY', '-20')), float(E('CZ', '0.9'))), (TRUCK_X + 0.6, TRUCK_Y + 4.0, 2.35),
+               lens=float(E('LENS', '180')), fstop=float(E('FSTOP', '2.8')))
 cam.data.dof.focus_distance = (mathutils.Vector((TRUCK_X, TRUCK_Y, 2.0)) - cam.location).length
-cam.data.shift_x = float(E('SHX', '-0.1'))
+cam.data.shift_x = float(E('SHX', '-0.16'))
 cam.data.shift_y = float(E('SHY', '0.05'))
 
+# moving at ~90 km/h: a 1/60 s shutter smears the wheels and the far edge a touch
+sc.render.use_motion_blur = True
+sc.render.motion_blur_shutter = float(E('SHUTTER', '0.5'))
+sc.frame_set(1)
+truck.keyframe_insert('location', frame=1)
+truck.location.y -= 25.0 / 24.0
+truck.keyframe_insert('location', frame=2)
+truck.location.y += 25.0 / 24.0
+sc.frame_set(1)
+C.glare(sc, threshold=float(E('GTH', '3')), strength=float(E('GST', '0.3')), size=float(E('GSZ', '0.6')))
 C.render(sc, 'freight', 'hero')
