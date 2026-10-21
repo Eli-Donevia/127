@@ -93,6 +93,31 @@ html.js .prc-intro .prc-jump, html.js .prc-intro .prc-cap { animation: prc-in .8
 .prc .prc-compare th:last-child, .prc .prc-compare td:last-child { color: var(--emerald); }
 .prc .prc-compare th:last-child { color: var(--emerald); }
 
+/* Everything in Builder (the HQ offer's stack): a spec sheet, not nine boxed quote cards. Each row is what members say,
+   then the part of Builder for it, then what Free gets. The roster inside a row (r.list) stays a two-column list. */
+.prc .hqs { padding: clamp(64px, 8vw, 104px) 0 0; }
+.prc .hqs .section-head { text-align: left; margin: 0 0 28px; max-width: none; }
+.prc .hqs .section-head .eyebrow { font: 500 11px var(--mono); letter-spacing: .14em; color: var(--tide); }
+.prc .hqs .section-head h2 { font-size: clamp(32px, 4vw, 52px); letter-spacing: -.04em; margin: 10px 0 12px; }
+.prc .hqs .section-head p.hqs-count { margin: 0; max-width: 52ch; color: var(--ink-2); font-size: 16px; font-variant-numeric: tabular-nums; }
+.prc .hqs-group + .hqs-group { margin-top: 48px; }
+.prc .hqs-label { font: 500 11px var(--mono); letter-spacing: .14em; color: var(--muted); margin: 0 0 4px; }
+.prc .hqs-grid { display: block; border-bottom: 1px solid var(--pr-hair); }
+.prc .hqs-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, .9fr); grid-template-areas: "says name free" "says does free" "says list free"; column-gap: clamp(20px, 3vw, 48px); row-gap: 6px; align-content: start;
+  background: none; border: 0; border-top: 1px solid var(--pr-hair); border-radius: 0; padding: 22px 0; transition: background .3s; }
+.prc .hqs-card:hover { background: linear-gradient(90deg, rgba(124,235,246,.035), rgba(124,235,246,0) 70%); }
+.prc .hqs-says { grid-area: says; font-size: 14px; line-height: 1.5; color: var(--muted); font-style: italic; }
+.prc .hqs-card h3 { grid-area: name; font-size: 18px; }
+.prc .hqs-does { grid-area: does; max-width: 60ch; }
+.prc .hqs-list { grid-area: list; }
+.prc .hqs-free { grid-area: free; margin: 0; padding: 0; border: 0; font-size: 12px; line-height: 1.5; color: var(--muted); align-self: start; padding-top: 3px; }
+.prc .hqs-ok { text-align: left; margin-top: 28px; font-size: 17px; }
+.prc .hqs-keep { text-align: left; }
+@media (max-width: 760px) {
+  .prc .hqs-card { grid-template-columns: 1fr; grid-template-areas: "says" "name" "does" "list" "free"; row-gap: 6px; padding: 20px 0; }
+  .prc .hqs-free { padding-top: 6px; }
+}
+
 /* straight answers and questions */
 .prc-trust { padding: clamp(48px, 7vw, 88px) 0 0; }
 .prc .trust-block { background: none; border: 0; border-top: 1px solid var(--pr-hair); border-radius: 0; padding: 28px 0 0; }
@@ -102,6 +127,7 @@ html.js .prc-intro .prc-jump, html.js .prc-intro .prc-cap { animation: prc-in .8
 @media (min-width: 1001px) {
   /* desktop: the type sits up in the dark corner of the room, the open roadmap keeps the lower right */
   .prc-hero { min-height: clamp(640px, 92svh, 940px); align-items: flex-start; padding: clamp(96px, 13svh, 150px) 0 0; }
+  .prc-h1-hq { max-width: 11ch; font-size: clamp(56px, 6vw, 92px); }
   .prc-cap { right: auto; left: max(28px, calc((100vw - var(--max)) / 2 + 28px)); text-align: left; bottom: 28px; }
 }
 @media (max-width: 1000px) {

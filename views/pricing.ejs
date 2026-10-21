@@ -22,6 +22,24 @@
 <main class="prc">
   <script>(function(){document.documentElement.classList.add('js');var m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection&&navigator.connection.saveData;if(!m&&!c)document.currentScript.parentNode.classList.add('prc-intro');})();</script>
   <section class="prc-hero">
+    <% if (hqo) { %>
+    <%# While the workspace offer sells HQ, the hero is Brand's night desk (brand/v2/hyperreal, desk): the 127 and HQ open on
+        the screen. One callout on the screen. %>
+    <div class="prc-scene prc-scene-hq" data-scene data-iw="2400" data-ih="1350" data-tw="1080" data-th="1350">
+      <div class="prc-frame" data-frame>
+        <picture>
+          <source media="(max-width: 760px)" type="image/webp" srcset="/img/pricing/hq-desk-tall-720.webp 720w, /img/pricing/hq-desk-tall-1080.webp 1080w" sizes="100vw">
+          <source media="(max-width: 760px)" srcset="/img/pricing/hq-desk-tall-1080.jpg">
+          <source type="image/webp" srcset="/img/pricing/hq-desk-wide-1200.webp 1200w, /img/pricing/hq-desk-wide-2400.webp 2400w" sizes="100vw">
+          <img class="prc-room" src="/img/pricing/hq-desk-wide-1920.jpg" alt="Illustration of a desk at night: a glass 127 in front of a laptop with HQ open on the screen" width="1920" height="1080" fetchpriority="high" decoding="async">
+        </picture>
+        <div class="prc-pins" aria-hidden="true">
+          <span class="prc-pin" style="--xw:79%;--yw:36%;--xt:76%;--yt:30%;--n:0"><b>Your HQ</b></span>
+        </div>
+      </div>
+      <p class="prc-cap">Illustration. The screen shows HQ in sketch form, not a real account.</p>
+    </div>
+    <% } else { %>
     <div class="prc-scene" data-scene data-iw="1920" data-ih="1080" data-tw="1080" data-th="1350">
       <div class="prc-frame" data-frame>
         <picture>
@@ -37,10 +55,11 @@
       </div>
       <p class="prc-cap">Illustration. Your roadmap lives in your account; nothing is printed or shipped.</p>
     </div>
+    <% } %>
     <div class="wrap prc-hero-copy">
       <% if (hqo && hqo.preview) { %><p class="hqs-preview mono">Admin preview. Members see this page once HQ is on for everyone and HQ_OFFER=on.</p><% } %>
       <% if (hqo) { %>
-      <h1 class="prc-h1">Run your business from one screen.</h1>
+      <h1 class="prc-h1 prc-h1-hq">Run your business from one screen.</h1>
       <p class="prc-lede"><%= hqo.line %> Start free, no card. Upgrade when it's earned it. Cancel anytime.</p>
       <% } else { %>
       <h1 class="prc-h1">Start free. Grow into it.</h1>
