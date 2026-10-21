@@ -676,6 +676,119 @@ test('an AI step in a run records the model and the cost', async () => {
   await engine.cancel(user, run.id);
 });
 
+test('a repeat sends its AI calls at batch price, sleeps, and picks up with the answers', async () => {
+  const batch = require('../lib/harness/batch');
+  batch._setDeps({ now: () => now });
+  const state = { creates: [], ended: false };
+  const fake = fakeClient(jsonReply);
+  fake.messages.batches = {
+    create: async (b) => {
+      state.creates.push(b);
+      return { id: `b${state.creates.length}` };
+    },
+    retrieve: async (id) => ({ id, processing_status: state.ended ? 'ended' : 'in_progress' }),
+    results: async (id) =>
+      (async function* () {
+        const p = state.creates[Number(id.slice(1)) - 1].requests[0].params;
+        yield { custom_id: 'one', result: { type: 'succeeded', message: { content: [{ type: 'text', text: JSON.stringify({ text: `Batch note ${id}` }) }], stop_reason: 'end_turn', model: p.model, usage: { input_tokens: 1000, output_tokens: 1000 } } } };
+      })(),
+    cancel: async () => ({}),
+  };
+  anthropic._setClient(fake);
+  try {
+    const user = await member('builder');
+    // Someone watching: the normal price.
+    let seen = await engine.start(user, 'tp.full', { n: 1 });
+    await engine.idle();
+    await engine.answer(user, seen.id, 'pick', { chosen: ['0'] });
+    await engine.idle();
+    assert.equal(engine.get(user, seen.id).status, 'waiting');
+    assert.equal(state.creates.length, 0);
+    await engine.cancel(user, seen.id);
+
+    let run = await engine.start(user, 'tp.full', { n: 2 }, { unattended: true });
+    await engine.idle();
+    await engine.answer(user, run.id, 'pick', { chosen: ['0', '1'] });
+    await engine.idle();
+    const live = fake.calls.length;
+    run = engine.get(user, run.id);
+    assert.equal(run.status, 'sleeping');
+    assert.equal(run.steps.drafts.status, 'sleeping');
+    assert.equal(state.creates.length, 2, 'one batch per call');
+    assert.equal(state.creates[0].requests[0].params.model, 'claude-opus-5-5');
+    assert.equal(run.credits.used, 3, 'nothing charged for a step still at the batch');
+    assert.ok(run.timeline.some((l) => /half price/.test(l.text)));
+    now += 61000;
+    await engine.tick();
+    await engine.idle();
+    assert.equal(engine.get(user, run.id).status, 'sleeping', 'still working: it sleeps again');
+    assert.equal(state.creates.length, 2, 'and sends nothing twice');
+    state.ended = true;
+    now += 61000;
+    await engine.tick();
+    await engine.idle();
+    run = engine.get(user, run.id);
+    assert.equal(run.status, 'waiting');
+    assert.deepEqual(run.steps.drafts.output.map((d) => d.text).sort(), ['Batch note b1', 'Batch note b2']);
+    assert.equal(run.steps.drafts.usd, 0.024, 'half of 1,000 in and 1,000 out on Opus 5.5, twice');
+    assert.equal(run.credits.used, 7);
+    assert.equal(fake.calls.length, live, 'no normal-price calls');
+    assert.equal(run.timeline.filter((l) => /half price/.test(l.text)).length, 1);
+    await engine.cancel(user, run.id);
+    assert.equal(await batch.sweep(), 0);
+    now += batch.KEEP_MS + 1;
+    assert.equal(await batch.sweep(), 2);
+  } finally {
+    anthropic._setClient(null);
+    batch._setDeps({ now: () => Date.now() });
+  }
+});
+
+test('batch pricing stops at the first side effect, and a failed batch is called normally', async () => {
+  const batch = require('../lib/harness/batch');
+  const user = await member('builder');
+  const subs = [];
+  let result = { state: 'pending' };
+  const fake = fakeClient(jsonReply);
+  fake.messages.batches = {
+    create: async (b) => (subs.push(b), { id: `x${subs.length}` }),
+    retrieve: async (id) => ({ id, processing_status: result.state === 'pending' ? 'in_progress' : 'ended' }),
+    results: async () => (async function* () { yield { custom_id: 'one', result: { type: 'errored', error: { type: 'overloaded_error' } } }; })(),
+    cancel: async () => ({}),
+  };
+  anthropic._setClient(fake);
+  const make = () => ctxLib.make({ user, run: { id: `r${subs.length}-${now}`, unattended: true, inputs: {} }, step: { id: 's' }, tool: { name: 'tp.x', risk: 'draft', needs: [], wants: [] }, pack: 'tp' });
+  const s = obj({ text: { type: 'string' } });
+  try {
+    let ctx = make();
+    await assert.rejects(ctx.ai({ task: 'write', prompt: 'One.', schema: s }), (e) => e.batchPending === true);
+    assert.ok(ctx._pending());
+    await assert.rejects(ctx.save('a.txt', 'x'), (e) => e.batchPending === true, 'nothing leaves a mark while a call waits');
+    await assert.rejects(ctx.ai({ task: 'write', prompt: 'Two.', schema: s }), (e) => e.batchPending === true);
+    assert.equal(subs.length, 1, 'later calls wait for the rerun');
+    // Same call again once the batch failed: a normal call.
+    result = { state: 'ended' };
+    const runId = subs.length;
+    ctx = ctxLib.make({ user, run: { id: `r0-${now}`, unattended: true, inputs: {} }, step: { id: 's' }, tool: { name: 'tp.x', risk: 'draft', needs: [], wants: [] }, pack: 'tp' });
+    const n = fake.calls.length;
+    assert.ok((await ctx.ai({ task: 'write', prompt: 'One.', schema: s })).data);
+    assert.equal(fake.calls.length, n + 1);
+    assert.equal(subs.length, runId);
+    // A tool that spent first gets the normal price straight away.
+    ctx = make();
+    await ctx.spend(0.01, 'a lookup');
+    await ctx.ai({ task: 'write', prompt: 'Three.', schema: s });
+    assert.equal(subs.length, runId);
+    process.env.HARNESS_BATCH = 'off';
+    ctx = make();
+    await ctx.ai({ task: 'write', prompt: 'Four.', schema: s });
+    assert.equal(subs.length, runId);
+  } finally {
+    delete process.env.HARNESS_BATCH;
+    anthropic._setClient(null);
+  }
+});
+
 // ---------- guard rails ----------
 
 test('fetch only reaches the public web, on every redirect', async () => {
