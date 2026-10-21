@@ -1,7 +1,8 @@
-// Life in HQ (lib/life, lib/life-routes.js, views/app/hq2/life*.ejs) behind HQ_LIFE: off means 404 and no rail item;
-// nothing can be POSTed (127 stores none of it); held modules (food, body, faith) wait for LIFE_CLEARED for members and
-// open as a preview for admins; a module above the plan opens with its example and keeps nothing; the bundled data
-// (starter foods, exercises, Bible chapters) holds together. No AI.
+// Life in HQ (lib/life, lib/life-routes.js, views/app/hq2/life.ejs) behind HQ_LIFE: off means 404 and no rail item;
+// every tool lives at one address (Legal L87 LV2); nothing can be POSTed (127 stores none of it); no outside script
+// reaches a Life page (LV3); held modules (food, body, faith) wait for LIFE_CLEARED for members and open as a preview
+// for admins; the food log and check-in stay closed under age review (LV4); a module above the plan keeps nothing;
+// Legal's lines appear word for word; the bundled data (starter foods, exercises, Bible chapters) holds together. No AI.
 
 const path = require('path');
 const os = require('os');
@@ -39,7 +40,7 @@ async function server() {
       user: req.user, userPlan: req.user ? plan(req.user.tier) : null, isAdmin: false, path: req.path, flash: null,
       builderOffer: { founding: false, price: 29, regular: 29, messages: 300, freeMonth: false, firstCharge: null },
       launch: {}, pauseInfo: null, ageReview: false, agePauseMessage: '', stripeLive: false, demoBilling: false, checkoutCancelled: false,
-      fmtDate: () => null, plausible: null, trackEvents: [], canonical: 'https://127.test', baseUrl: 'https://127.test', adConsentScript: '', description: null, hqLive: true,
+      fmtDate: () => null, plausible: '127group.io', trackEvents: [{ name: 'Signup' }], canonical: 'https://127.test', baseUrl: 'https://127.test', adConsentScript: '<script src="https://connect.facebook.net/en_US/fbevents.js"></script>', description: null, hqLive: true,
     });
     next();
   });
@@ -91,60 +92,111 @@ test('admins: only an admin with a confirmed email gets in', async () => {
   assert.equal((await s.go('/app/hq/life', { as: a })).status, 200);
 });
 
-test('nothing can be saved to 127: there is no POST route', async () => {
+test('nothing can be saved to 127, and every tool shares one address', async () => {
   const m = await member();
+  assert.equal((await s.go('/app/hq/life', { as: m, post: true })).status, 404);
   for (const id of ['budget', 'train', 'food', 'body', 'faith']) {
+    assert.equal((await s.go(`/app/hq/life/${id}`, { as: m })).status, 404, `${id}: no address names a tool`);
     assert.equal((await s.go(`/app/hq/life/${id}`, { as: m, post: true })).status, 404, id);
-    assert.equal((await s.go(`/app/hq/life/${id}/data`, { as: m, post: true })).status, 404, id);
   }
+});
+
+test('no outside script on a Life page: analytics and pixels dropped, a CSP that allows only 127', async () => {
+  const m = await member();
+  const res = await s.go('/app/hq/life', { as: m });
+  const html = await res.text();
+  assert.ok(!/plausible|fbevents|connect\.facebook/.test(html), 'analytics and pixels are not on the page');
+  for (const [, src] of html.matchAll(/<script[^>]*\ssrc="([^"]+)"/g)) assert.match(src, /^\/(?!\/)/, src);
+  const csp = res.headers.get('content-security-policy') || '';
+  assert.match(csp, /script-src 'self'/);
+  assert.match(csp, /connect-src 'self'/);
+  assert.match(csp, /img-src 'self' data:/);
+  assert.ok(!/https?:|\*/.test(csp), csp);
+  assert.equal(res.headers.get('referrer-policy'), 'no-referrer');
 });
 
 test('open modules draw from the device; held ones wait for Legal by id', async () => {
   const m = await member();
-  const shelf = await (await s.go('/app/hq/life', { as: m })).text();
-  assert.ok(shelf.includes('href="/app/hq/life/budget"'));
-  assert.ok(shelf.includes('href="/app/hq/life/train"'));
-  assert.ok(!shelf.includes('href="/app/hq/life/food"'), 'a held module is not a link for members');
-  assert.equal((shelf.match(/On the way/g) || []).length, 3);
-
-  const budget = await (await s.go('/app/hq/life/budget', { as: m })).text();
-  assert.ok(budget.includes('/js/life/budget.js'));
-  assert.ok(budget.includes('"keep":true'));
-  assert.ok(budget.includes(`"scope":"${life.scope(m.id)}"`));
-  assert.ok(!budget.includes(m.id + '"'), 'the member id itself is not written to the page state');
-  assert.ok(budget.includes('Actual Budget'));
-
+  const page = await (await s.go('/app/hq/life', { as: m })).text();
+  assert.ok(page.includes('href="#budget"'));
+  assert.ok(page.includes('href="#train"'));
+  assert.ok(!page.includes('href="#food"'), 'a held module is not a link for members');
+  assert.equal((page.match(/On the way/g) || []).length, 3);
+  assert.ok(page.includes('data-life="clear-all"') && page.includes('Clear Life data'));
+  assert.ok(page.includes('/js/life/budget.js') && page.includes('/js/life/train.js'));
+  assert.ok(page.includes('"keep":true'));
+  assert.ok(page.includes(`"scope":"${life.scope(m.id)}"`));
+  assert.ok(!page.includes(m.id + '"'), 'the member id itself is not written to the page state');
+  assert.ok(page.includes('Actual Budget'));
+  // Charts, rings and toasts load before the tools, each a port with its licence beside it.
+  for (const f of ['vendor/rings.js', 'vendor/toast.js', 'chart.js', 'kit.js']) assert.ok(page.indexOf(`/js/life/${f}`) < page.indexOf('/js/life/budget.js'), f);
+  for (const lic of ['LICENSE-bklit', 'LICENSE-kokonutui', 'LICENSE-sonner']) assert.match(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'life', 'vendor', lic), 'utf8'), /MIT License/, lic);
   for (const id of ['food', 'body', 'faith']) {
-    const page = await (await s.go(`/app/hq/life/${id}`, { as: m })).text();
-    assert.ok(page.includes('On the way'), id);
     assert.ok(!page.includes(`/js/life/${id}.js`), `${id}: the module's script is not sent`);
-    assert.ok(!page.includes('id="life-state"'), id);
+    assert.ok(!page.includes(`data-view="${id}"`), id);
   }
+
   process.env.LIFE_CLEARED = 'faith, food';
-  const faith = await (await s.go('/app/hq/life/faith', { as: m })).text();
-  assert.ok(faith.includes('/js/life/faith.js'));
-  assert.ok(faith.includes('"plans"'), 'the reading plans ride along');
-  assert.ok(!faith.includes('Preview for admins'));
-  assert.ok((await (await s.go('/app/hq/life/food', { as: m })).text()).includes('"foods"'));
-  assert.ok(!(await (await s.go('/app/hq/life/body', { as: m })).text()).includes('/js/life/body.js'));
-  assert.equal((await s.go('/app/hq/life/nope', { as: m })).status, 404);
+  const cleared = await (await s.go('/app/hq/life', { as: m })).text();
+  assert.ok(cleared.includes('/js/life/faith.js') && cleared.includes('/js/life/food.js'));
+  assert.ok(cleared.includes('"plans"'), 'the reading plans ride along');
+  assert.ok(cleared.includes('"foods"'));
+  assert.ok(!cleared.includes('Preview for admins'));
+  assert.ok(!cleared.includes('/js/life/body.js'));
 });
 
 test('an admin previews a held module, marked as a preview', async () => {
   process.env.ADMIN_EMAILS = 'boss@127.test';
   const a = await member('builder', 'boss@127.test');
-  const page = await (await s.go('/app/hq/life/body', { as: a })).text();
+  const page = await (await s.go('/app/hq/life', { as: a })).text();
   assert.ok(page.includes('/js/life/body.js'));
   assert.ok(page.includes('Preview for admins'));
   assert.ok(page.includes('LIFE_CLEARED=body'));
 });
 
-test('above the plan: the example only, nothing kept', async () => {
+test('under age review the food log and check-in stay closed, even cleared or for an admin', async () => {
+  process.env.LIFE_CLEARED = 'food,body,faith';
+  process.env.ADMIN_EMAILS = 'young@127.test';
+  const m = await member('builder', 'young@127.test');
+  m.ageReview = { status: 'open', source: 'chat' };
+  await db.save('users', m);
+  const page = await (await s.go('/app/hq/life', { as: m })).text();
+  for (const id of ['food', 'body']) assert.ok(!page.includes(`/js/life/${id}.js`), id);
+  assert.ok(page.includes('/js/life/faith.js') && page.includes('/js/life/budget.js'));
+  assert.equal((page.match(/Not open on this account/g) || []).length, 2);
+});
+
+test('above the plan: nothing kept', async () => {
   const m = await member('free');
-  const page = await (await s.go('/app/hq/life/train', { as: m })).text();
+  const page = await (await s.go('/app/hq/life', { as: m })).text();
   assert.ok(page.includes('comes with Builder'));
   assert.ok(page.includes('"keep":false'));
   assert.ok(!page.includes('data-life="export"'));
+});
+
+test("Legal's lines, word for word (L87 LV4 to LV6, PC3)", async () => {
+  process.env.LIFE_CLEARED = 'food,body,faith';
+  const m = await member();
+  const page = await (await s.go('/app/hq/life', { as: m })).text();
+  const wellness = 'General wellness ideas, not medical advice. Check with a doctor before you change how you eat or train.';
+  assert.equal(page.split(wellness).length - 1, 3, 'on the workout planner, food log and check-in');
+  assert.ok(page.includes('Planning help, not financial advice.'));
+  assert.ok(page.includes('Actual Budget and SimpleFIN Bridge are separate services under their own terms. Your bank login goes to them, never to 127.'));
+  assert.ok(page.includes('Claude reads what your AI link allows, under your own terms with Anthropic and your settings there. <a class="link" href="/privacy#7a-hq-and-connected-accounts">What&#39;s shared</a>'));
+  const js = (f) => fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'life', f), 'utf8');
+  assert.ok(js('faith.js').includes('Your reading plan and prayer times stay in this browser on this device. 127 never receives them.'));
+  const readings = [...js('faith.js').matchAll(/el\('a', \{([^}]*href: link\([^}]*)\}/g)];
+  assert.ok(readings.length >= 2);
+  for (const [, attrs] of readings) assert.match(attrs, /rel: 'noopener noreferrer'/);
+  // Budget starts empty: no example amounts in its script. The food example carries no target.
+  assert.ok(!/EXAMPLE|example\(/.test(js('budget.js')));
+  assert.match(js('food.js'), /target: 0, protein: 0/);
+  // Forecasts and cautions run in the browser: no tool script calls the network except the bundled exercise list.
+  for (const f of ['budget.js', 'train.js', 'food.js', 'body.js', 'faith.js', 'kit.js', 'chart.js']) {
+    const src = js(f);
+    assert.ok(!/XMLHttpRequest|sendBeacon|WebSocket|navigator\.sendBeacon/.test(src), f);
+    for (const [, url] of src.matchAll(/fetch\('([^']+)'/g)) assert.equal(url, '/life/exercises.json', f);
+  }
 });
 
 test('the bundled data holds together', () => {

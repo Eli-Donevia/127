@@ -1,26 +1,95 @@
 <%- include('../../partials/app-head') %>
-<%# Life in HQ (lib/life, HQ_LIFE): the shelf. Nothing here is stored by 127; each module keeps the member's entries
-    in their own browser. Held modules (Legal) show as on the way for members; admins see them marked Preview. %>
-<div class="hq h2 lf">
+<%# Life in HQ (lib/life, HQ_LIFE). Every tool lives at this one address (Legal L87 LV2): the shelf and one hidden
+    section per tool the member can open; public/js/life/kit.js shows the one the #fragment names, in the browser.
+    Nothing here is stored by 127; each tool keeps the member's entries in their own browser. Held tools (Legal) show
+    as on the way for members and ship no section; admins see them marked Preview. %>
+<div class="hq h2 lf" data-scope="<%= scope %>">
   <%- include('../../partials/hq2-nav') %>
-  <header class="lf-head">
-    <h1 class="hq-title lf-title">Life</h1>
-    <p class="hq-lede">Your money, your training, what you eat and how you slept, one tab over from the business. What you type here stays on this device. 127 never sees it.</p>
-  </header>
-  <div class="lf-shelf">
-    <% shelf.forEach(function (m) { %>
-    <% if (m.open) { %><a class="lf-card" href="/app/hq/life/<%= m.id %>"><% } else { %><div class="lf-card is-wait"><% } %>
-      <span class="lf-card-t"><%= m.title %></span>
-      <span class="lf-card-l"><%= m.line %></span>
-      <span class="lf-art" aria-hidden="true" data-art="<%= m.art %>"></span>
-      <span class="lf-card-f">
-        <% if (!m.open) { %><span>On the way</span><% } else if (m.preview) { %><span>Preview, admins only</span><% } else if (!m.plan) { %><span>Comes with Builder</span><% } else { %><span>Open</span><% } %>
-        <% if (m.open) { %><span class="arrow"></span><% } %>
-      </span>
-    <% if (m.open) { %></a><% } else { %></div><% } %>
-    <% }) %>
-  </div>
-  <p class="lf-foot">Your entries live in this browser only, under your account. Export them to keep a copy or move to another device. Nothing in Life is sent to AI.</p>
+  <section class="lf-view" data-view="">
+    <header class="lf-head">
+      <h1 class="hq-title lf-title">Life</h1>
+      <p class="hq-lede">Your money, your training, what you eat and how you slept, one tab over from the business. What you type here stays on this device. 127 never sees it.</p>
+    </header>
+    <div class="lf-shelf">
+      <% shelf.forEach(function (m) { %>
+      <% if (m.open) { %><a class="lf-card" data-hue="<%= m.id %>" href="#<%= m.id %>"><% } else { %><div class="lf-card is-wait" data-hue="<%= m.id %>"><% } %>
+        <span class="lf-card-t"><%= m.title %></span>
+        <span class="lf-card-l"><%= m.line %></span>
+        <span class="lf-art" aria-hidden="true" data-art="<%= m.art %>"></span>
+        <span class="lf-card-f">
+          <% if (m.paused) { %><span>Not open on this account</span><% } else if (!m.open) { %><span>On the way</span><% } else if (m.preview) { %><span>Preview, admins only</span><% } else if (!m.plan) { %><span>Comes with Builder</span><% } else { %><span>Open</span><% } %>
+          <% if (m.open) { %><span class="arrow"></span><% } %>
+        </span>
+      <% if (m.open) { %></a><% } else { %></div><% } %>
+      <% }) %>
+    </div>
+    <div class="lf-foot lf-clear">
+      <p>Your entries live in this browser only, under your account. Export them from each tool to keep a copy or move to another device. Nothing in Life is sent to 127 or to AI.</p>
+      <button type="button" class="lf-act" data-life="clear-all">Clear Life data</button>
+      <span class="lf-saved" id="life-cleared" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <% views.forEach(function (v) { %>
+  <section class="lf-view" data-view="<%= v.id %>" data-hue="<%= v.id %>" hidden>
+    <header class="lf-head">
+      <a class="lf-back" href="#">Life</a>
+      <h1 class="hq-title lf-title"><%= v.title %></h1>
+      <p class="hq-lede"><%= v.line %></p>
+      <% if (v.id === 'budget') { %><p class="lf-small"><%= lines.budget %></p><% } %>
+    </header>
+    <% if (v.preview) { %><div class="lf-note">Preview for admins. Members see this once Legal clears it (LIFE_CLEARED=<%= v.id %>).</div><% } %>
+    <% if (!v.plan) { %><div class="lf-note">This comes with Builder. You can try it below; nothing is kept. <a class="link" href="/app/billing">See Builder</a></div><% } %>
+    <div class="lf-app" data-mod="<%= v.id %>">
+      <noscript><p class="h2-sub">This needs JavaScript turned on.</p></noscript>
+    </div>
+    <% if (v.plan) { %>
+    <footer class="lf-bar">
+      <span class="lf-saved" role="status" aria-live="polite">Kept on this device only</span>
+      <button type="button" class="lf-act" data-life="export">Export</button>
+      <label class="lf-act lf-file">Import<input type="file" accept="application/json,.json" data-life="import"></label>
+      <button type="button" class="lf-act" data-life="erase">Delete from this device</button>
+    </footer>
+    <% } %>
+    <% if (v.bring.length) { %>
+    <section class="lf-bring" aria-labelledby="bring-h-<%= v.id %>">
+      <h2 class="lf-h" id="bring-h-<%= v.id %>">Bring your own</h2>
+      <p class="lf-sub"><%= v.id === 'budget' ? lines.bring : 'Apps you run on your own account. 127 links to them and holds nothing.' %></p>
+      <div class="lf-bring-list">
+        <% v.bring.forEach(function (b) { %>
+        <div class="lf-app-wrap">
+          <a class="lf-app-card" href="<%= b.url %>" target="_blank" rel="noopener noreferrer">
+            <span class="lf-app-n"><%= b.name %></span>
+            <span class="lf-app-l"><%= b.line %></span>
+            <span class="lf-app-m"><span><%= b.license %></span><span><%= b.cost %></span></span>
+          </a>
+          <% if (b.small) { %><p class="lf-small"><%= b.small.text %> <a class="link" href="<%= b.small.link[1] %>"><%= b.small.link[0] %></a></p><% } %>
+        </div>
+        <% }) %>
+      </div>
+    </section>
+    <% } %>
+    <% if (v.prompt) { %>
+    <section class="lf-prompt" aria-labelledby="prompt-h-<%= v.id %>">
+      <h2 class="lf-h" id="prompt-h-<%= v.id %>">Build a bigger one in your own Claude</h2>
+      <p class="lf-sub">Paste this into Claude. It builds a version shaped around you, kept in your own account.</p>
+      <pre class="lf-prompt-t" id="life-prompt-<%= v.id %>"><%= v.prompt %></pre>
+      <button type="button" class="lf-act" data-copy="life-prompt-<%= v.id %>">Copy prompt</button>
+    </section>
+    <% } %>
+    <% if (v.id === 'train' || v.id === 'food' || v.id === 'body') { %><p class="lf-foot"><%= lines.wellness %></p><% } %>
+    <script type="application/json" class="life-state"><%- JSON.stringify(v.state).replace(/</g, '\\u003c') %></script>
+  </section>
+  <% }) %>
 </div>
 <script src="/js/life/art.js" defer></script>
+<% if (views.length) { %>
+<script src="/js/life/vendor/rings.js" defer></script>
+<script src="/js/life/vendor/toast.js" defer></script>
+<script src="/js/life/chart.js" defer></script>
+<% } %>
+<script src="/js/life/kit.js" defer></script>
+<% views.forEach(function (v) { %><script src="/js/life/<%= v.id %>.js" defer></script>
+<% }) %>
+<script src="/js/hq2.js" defer></script>
 <%- include('../../partials/app-foot') %>

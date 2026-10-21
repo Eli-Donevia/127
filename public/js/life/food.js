@@ -4,10 +4,10 @@
 // Data: { target, protein, mine: [food], days: { 'YYYY-MM-DD': [{ id, name, serving, qty, kcal, protein, carbs, fat, meal }] } }.
 (function () {
   'use strict';
-  var L = window.Life, el = L.el, svg = L.svg;
+  var L = window.LifeKit('food'), el = L.el;
   var MEALS = [['breakfast', 'Breakfast'], ['lunch', 'Lunch'], ['dinner', 'Dinner'], ['snacks', 'Snacks']];
   var STARTER = (L.state.foods && L.state.foods.foods) || [];
-  var d = null, day = L.today(), q = '', qty = 1, meal = guessMeal(), adding = false;
+  var d = null, day = L.today(), q = '', qty = 1, meal = guessMeal(), adding = false, ringHost = null, ringApi = null, ringKey = '';
 
   function guessMeal() { var h = new Date().getHours(); return h < 11 ? 'breakfast' : h < 15 ? 'lunch' : h < 21 ? 'dinner' : 'snacks'; }
   function food(f) {
@@ -33,7 +33,8 @@
   function example() {
     var by = {}; STARTER.forEach(function (f) { by[f.id] = f; });
     var pick = function (id, n, mealId) { var f = food(by[id] || { name: id }); f.id = L.uid(); f.qty = n; f.meal = mealId; return f; };
-    var o = { target: 2200, protein: 150, started: true, mine: [], days: {} };
+    // No target in the example: the member types their own, and 127 never suggests one (Legal L87 LV4).
+    var o = { target: 0, protein: 0, started: true, mine: [], days: {} };
     var plan = [['egg', 2, 'breakfast'], ['oats', 1, 'breakfast'], ['blueberries', 0.5, 'breakfast'], ['coffee', 1, 'breakfast'], ['chicken-breast', 1.5, 'lunch'], ['white-rice', 1, 'lunch'], ['broccoli', 1, 'lunch'], ['greek-yogurt', 1, 'snacks'], ['salmon', 1.5, 'dinner'], ['potato', 1, 'dinner']];
     for (var i = 6; i >= 0; i--) {
       var k = L.addDays(L.today(), -i);
@@ -64,23 +65,25 @@
     ]);
   }
 
-  function week() {
-    var W = 320, H = 120, pad = 18, bw = 28, days = [];
-    for (var i = 6; i >= 0; i--) days.push(L.addDays(day, -i));
-    var vals = days.map(function (k) { return sum(d.days[k]).kcal; });
-    var max = Math.max(d.target || 0, Math.max.apply(null, vals), 1) * 1.1;
-    var g = svg('svg', { viewBox: '0 0 ' + W + ' ' + (H + 22), class: 'fd-week', role: 'img', 'aria-label': 'Calories for the last seven days' });
-    var step = (W - pad * 2) / 7;
-    days.forEach(function (k, i) {
-      var h = Math.round((vals[i] / max) * H), x = pad + i * step + (step - bw) / 2;
-      g.appendChild(svg('rect', { x: x, y: H - h, width: bw, height: Math.max(h, vals[i] ? 2 : 0), rx: 5, class: k === day ? 'is-lit' : '' }));
-      var t = svg('text', { x: x + bw / 2, y: H + 16, 'text-anchor': 'middle' }); t.textContent = 'MTWTFSS'[(new Date(k + 'T12:00:00').getDay() + 6) % 7]; g.appendChild(t);
-    });
-    if (d.target) {
-      var y = H - Math.round((d.target / max) * H);
-      g.appendChild(svg('line', { x1: pad, x2: W - pad, y1: y, y2: y, class: 'goal' }));
+  // Last 14 days as bars with the 7-day average and the member's target; today lit.
+  function week(host) {
+    var pts = [], avg = [];
+    for (var i = 13; i >= 0; i--) { var k = L.addDays(day, -i), t = sum(d.days[k]); pts.push({ label: L.day(k), y: d.days[k] ? Math.round(t.kcal) : null, note: d.days[k] ? Math.round(t.protein) + ' g protein' : null }); }
+    pts.forEach(function (p, j) { var w = pts.slice(Math.max(0, j - 6), j + 1).filter(function (x) { return x.y != null; }); avg.push(w.length >= 3 ? w.reduce(function (n, x) { return n + x.y; }, 0) / w.length : null); });
+    setTimeout(function () { L.chart(host, { key: 'fd-week', kind: 'bar', points: pts, avg: avg, target: d.target || null, targetLabel: 'Target', lit: 13, height: 180, unit: 'cal', aria: 'Calories, last 14 days', fmt: L.count }); }, 0);
+  }
+  function notes() {
+    var out = [], logged = 0, protLow = 0, kcal = [];
+    for (var i = 0; i < 7; i++) { var k = L.addDays(L.today(), -i), list = d.days[k]; if (!list) continue; logged++; var t = sum(list); kcal.push(t.kcal); if (d.protein && t.protein < d.protein * 0.8) protLow++; }
+    if (d.protein && logged >= 4 && protLow >= 4) out.push({ tone: 'caution', title: 'Protein under target ' + protLow + ' of ' + logged + ' days', body: 'Your target is ' + L.count(d.protein) + ' g. A protein food at each meal closes most of the gap.' });
+    if (d.target && kcal.length >= 4) {
+      var a = kcal.reduce(function (n, v) { return n + v; }, 0) / kcal.length, diff = (a - d.target) / d.target;
+      if (Math.abs(diff) >= 0.1) out.push({ tone: 'info', title: 'This week averages ' + L.count(a) + ' a day', body: L.count(Math.abs(a - d.target)) + (diff > 0 ? ' above' : ' below') + ' your ' + L.count(d.target) + ' target, across ' + kcal.length + ' logged days.' });
+      else out.push({ tone: 'good', title: 'Close to target this week', body: 'Averaging ' + L.count(a) + ' against ' + L.count(d.target) + '.' });
     }
-    return g;
+    var streak = 0; for (var q = 0; q < 90; q++) { if (d.days[L.addDays(L.today(), -q)]) streak++; else break; }
+    if (streak >= 5) out.push({ tone: 'good', title: streak + ' days logged in a row', body: null });
+    return out;
   }
 
   function draw() {
@@ -105,6 +108,16 @@
       el('div', { class: 'lf-stat' }, [el('span', { class: 'lf-k', text: 'Protein' }), el('b', { text: L.count(t.protein) + ' g' }), el('span', { class: 'lf-d', text: d.protein ? 'of ' + L.count(d.protein) + ' g' : ' ' })]),
       el('div', { class: 'lf-stat' }, [el('span', { class: 'lf-k', text: 'Carbs · Fat' }), el('b', { text: L.count(t.carbs) + ' · ' + L.count(t.fat) }), el('span', { class: 'lf-d', text: 'grams' })]),
     ]));
+
+    var rd = [];
+    if (d.target) rd.push({ label: 'Calories', current: Math.round(t.kcal), target: d.target, unit: '', color: '#7c8cff', colorEnd: '#5be4ff' });
+    if (d.protein) rd.push({ label: 'Protein', current: Math.round(t.protein), target: d.protein, unit: 'g', color: '#5be4ff', colorEnd: '#a6f0ff' });
+    if (rd.length && L.rings) {
+      var rk = rd.map(function (r) { return r.label + r.target; }).join('|') + day;
+      if (!ringHost || rk !== ringKey) { ringHost = el('div', { class: 'bd-rings' }); ringApi = L.rings(ringHost, rd, { size: 120, stroke: 11, gap: 4 }); ringKey = rk; } else ringApi.update(rd);
+      root.appendChild(ringHost);
+    }
+    L.notices(root, notes(), 3);
 
     // Add food: search the starter list and the member's own foods.
     var search = L.text({ id: 'fd-q', value: q, placeholder: 'Search foods, e.g. eggs, rice, salmon', max: 40, onInput: function (v) { q = v; drawSoon(); } });
@@ -153,7 +166,8 @@
     }).filter(Boolean).concat(list.length ? [] : [el('p', { class: 'lf-note-s', text: 'Nothing logged ' + (day === L.today() ? 'today' : 'this day') + ' yet.' })])));
 
     root.appendChild(el('section', { class: 'lf-panel' }, [
-      el('h2', { class: 'lf-h', text: 'Last seven days' }), week(),
+      el('h2', { class: 'lf-h', text: 'Last two weeks' }), (function () { var h = el('div', { class: 'fd-chart' }); week(h); return h; })(),
+      el('p', { class: 'lc-cap' }, [el('span', null, [el('i'), 'Calories']), el('span', null, [el('i', { class: 'avg' }), '7-day average']), d.target ? el('span', null, [el('i', { class: 'goal' }), 'Your target']) : null]),
       el('div', { class: 'lf-two' }, [
         L.field({ id: 'fd-t', label: 'Daily calorie target', value: d.target || '', int: true, onInput: function (v) { d.target = v; L.save(d); drawSoon(); } }),
         L.field({ id: 'fd-p', label: 'Daily protein target', value: d.protein || '', post: 'g', int: true, onInput: function (v) { d.protein = v; L.save(d); drawSoon(); } }),
@@ -188,5 +202,5 @@
   d = L.state.keep ? clean(L.load()) : example();
   L.current = function () { return d; };
   L.onData = function (x) { d = clean(x); day = L.today(); draw(); };
-  draw();
+  L.ready(draw);
 })();
