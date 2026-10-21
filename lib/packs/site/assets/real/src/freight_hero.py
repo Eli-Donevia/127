@@ -6,7 +6,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
 import bpy, mathutils
 
-W, H = 1600, 1000
+SLOT = os.environ.get('SLOT', 'hero')
+W, H = {'hero': (1800, 1200), 'heroPhone': (1080, 1600)}[SLOT]
 E = os.environ.get
 sc = C.reset()
 C.setup(sc, W, H, samples=int(E('SAMPLES', '96')), exposure=float(E('EXPO', '0')))
@@ -69,7 +70,7 @@ alu = C.principled('alu', color=(0.75, 0.76, 0.78), rough=0.22, metal=1.0)
 rubber = C.principled('rubber', color=(0.02, 0.02, 0.02), rough=0.75)
 glassd = C.principled('windscreen', color=(0.004, 0.0045, 0.005), rough=0.015, **{'Specular IOR Level': 1.0, 'Coat Weight': 0.0})
 frame_m = C.principled('chassis', color=(0.02, 0.02, 0.02), rough=0.5, metal=0.4)
-head = C.emission('headlamp', C.kelvin(5200), float(E('HEAD', '120')))
+head = C.emission('headlamp', C.kelvin(5200), float(E('HEAD', '320')))
 amber = C.emission('marker_amber', (1.0, 0.42, 0.05), float(E('AMBER', '8')))
 red = C.emission('marker_red', (1.0, 0.04, 0.02), 25)
 
@@ -222,14 +223,15 @@ for i in range(int(E('FAR', '9'))):
     o.data.materials.append(head if xx > 3 else red)
 
 # ---------- air: thin haze near the ground so the headlamps bloom and the land falls off ----------
-C.fog_box((-2, 60, 6), (60, 160, 12), density=float(E('FOG', '0.0006')), anisotropy=0.75)
+if float(E('FOG', '0')) > 0:
+    C.fog_box((-2, 60, 6), (60, 160, 12), density=float(E('FOG', '0')), anisotropy=0.75)
 sc.cycles.volume_step_rate = 4.0
 
 # ---------- camera: on the hard shoulder, low, long lens ----------
 cam = C.camera(sc, (float(E('CX', '-10')), float(E('CY', '-20')), float(E('CZ', '0.9'))), (TRUCK_X + 0.6, TRUCK_Y + 4.0, 2.35),
-               lens=float(E('LENS', '180')), fstop=float(E('FSTOP', '2.8')))
+               lens=float(E('LENS', '180' if SLOT == 'hero' else '150')), fstop=float(E('FSTOP', '2.8')))
 cam.data.dof.focus_distance = (mathutils.Vector((TRUCK_X, TRUCK_Y, 2.0)) - cam.location).length
-cam.data.shift_x = float(E('SHX', '-0.16'))
+cam.data.shift_x = float(E('SHX', '-0.16' if SLOT == 'hero' else '0.0'))
 cam.data.shift_y = float(E('SHY', '0.05'))
 
 # moving at ~90 km/h: a 1/60 s shutter smears the wheels and the far edge a touch
@@ -241,5 +243,4 @@ truck.location.y -= 25.0 / 24.0
 truck.keyframe_insert('location', frame=2)
 truck.location.y += 25.0 / 24.0
 sc.frame_set(1)
-C.glare(sc, threshold=float(E('GTH', '3')), strength=float(E('GST', '0.3')), size=float(E('GSZ', '0.6')))
-C.render(sc, 'freight', 'hero')
+C.render(sc, 'freight', SLOT)
