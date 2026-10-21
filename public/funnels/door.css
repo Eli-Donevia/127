@@ -106,7 +106,7 @@ textarea.input { min-height: 104px; resize: vertical; line-height: 1.5; padding-
 .fb .fb-more[open] > summary::after { transform: rotate(45deg); }
 @media (hover: hover) { .fb .fb-more > summary:hover { color: var(--c-ink); } }
 .fb .fb-more > .stack-m { padding: 4px 0 8px; }
-.fb .form-note { margin-top: 12px; font-size: 14px; line-height: 1.45; color: var(--c-slate); }
+.fb .form-note { margin-top: 12px; font-size: 15px; line-height: 1.5; color: var(--c-ink); }
 
 /* one white button: it presses in, and on hover draws a Tide edge */
 .fb .btn { border-radius: 999px; transition: transform .5s var(--out), box-shadow .3s var(--out), background .2s, border-color .2s; }

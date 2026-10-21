@@ -95,7 +95,7 @@ select.input { appearance: none; -webkit-appearance: none; padding-right: 40px; 
 .f25-plan li b { font-family: var(--f-mono); font-weight: 500; font-size: 12px; color: var(--c-slate); padding-top: 2px; }
 /* what's left: the next problem, named, and where the list lives */
 .f25-next { border-color: rgba(124, 235, 246,.28); background-image: radial-gradient(120% 90% at 100% 0%, rgba(124, 235, 246,.10), transparent 60%); }
-.f25-keep { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--c-line); font-size: 13.5px; line-height: 1.5; color: var(--c-fog); }
+.f25-keep { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--c-line); font-size: 15px; line-height: 1.5; color: var(--c-fog); }
 .f25-keep b { color: var(--c-ink); font-weight: 600; }
 .f25-compare { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
 @media (min-width: 560px) { .f25-compare { grid-template-columns: 1fr 1fr; } }
@@ -134,7 +134,7 @@ select.input { appearance: none; -webkit-appearance: none; padding-right: 40px; 
 .f25-pick { padding-top: 14px; border-top: 1px solid var(--c-line); animation: fadeIn .4s var(--ease) both; }
 
 /* value line under the stats */
-.f25-saved { margin: 12px 0 0; font-size: 13.5px; color: var(--c-slate); }
+.f25-saved { margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: var(--c-fog); }
 
 /* tracker */
 .f25-track { margin-top: 18px; border-color: rgba(124, 235, 246,.28); }
