@@ -253,3 +253,33 @@ test('Week builder: blocks clean to the quarter hour; the calendar file is made 
   assert.ok(csv.includes('Monday,09:00,17:00,deep,"Write; part, one"'), csv);
   delete process.env.ADMIN_EMAILS;
 });
+
+test('Money overview keeps month totals and category rules only, never bank rows', async () => {
+  const c = tools._clean.cleanMoney({
+    cats: ['Rent', 'Ads', ''],
+    months: [{ month: '2026-09', revenue: '8,830', costs: [1350, '575', 99], cash: -40, rows: [{ desc: 'GUSTO' }] }, { month: '2026-09', revenue: 1 }, { month: '2026-13', revenue: 5 }, { month: '2026-10', revenue: 10, cash: '' }],
+    bills: [{ id: 'b', name: 'Insurance', amount: 340, due: '2026-10-30' }, { id: 'x' }],
+    invoices: [{ id: 'i', name: 'Invoice 104', amount: 1800, due: 'soon', paid: 1 }],
+    rules: [{ match: 'HOME DEPOT', cat: 0 }, { match: 'transfer', cat: -1 }, { match: 'nope', cat: 7 }],
+    transactions: [{ desc: 'x' }],
+  });
+  assert.deepEqual(c.months.map((m) => m.month), ['2026-10', '2026-09']);
+  assert.deepEqual(c.months[1], { month: '2026-09', revenue: 8830, costs: [1350, 575], cash: -40 });
+  assert.equal(c.months[0].cash, null);
+  assert.deepEqual(c.bills.map((b) => b.id), ['b']);
+  assert.equal(c.invoices[0].due, null);
+  assert.equal(c.invoices[0].paid, true);
+  assert.deepEqual(c.rules, [{ match: 'home depot', cat: 0 }, { match: 'transfer', cat: -1 }]);
+  assert.ok(!('transactions' in c));
+  const m = await member();
+  process.env.ADMIN_EMAILS = m.email;
+  assert.equal((await s.go('/app/hq/tools/money/data', { as: m, json: c })).status, 200);
+  const csv = await (await s.go('/app/hq/tools/money/export.csv', { as: m })).text();
+  assert.ok(csv.includes('Month,Revenue,Rent,Ads,Cash at month end') && csv.includes('2026-09,8830,1350,575,-40') && csv.includes('invoice,Invoice 104,1800,,yes'), csv);
+  const f = await member('free');
+  process.env.ADMIN_EMAILS = f.email;
+  assert.equal((await s.go('/app/hq/tools/money/data', { as: f, json: c })).status, 403);
+  delete process.env.ADMIN_EMAILS;
+  // No example money in the page script (Legal L82 T2).
+  assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'money.js'), 'utf8'), /function example|EXAMPLE/);
+});

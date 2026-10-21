@@ -16,6 +16,12 @@
       s.appendChild(svg('circle', { cx: 57, cy: 34, r: 3.5, class: 'is-lit' }));
       return s;
     },
+    money: function () {
+      var s = svg('svg', { viewBox: '0 0 120 64' });
+      s.appendChild(svg('path', { d: 'M8 50 C24 48 30 40 46 38 C62 36 70 26 86 22 C98 19 104 14 112 12', class: 'ln' }));
+      s.appendChild(svg('circle', { cx: 112, cy: 12, r: 3.5, class: 'is-lit' }));
+      return s;
+    },
     cash: function () {
       var s = svg('svg', { viewBox: '0 0 120 64' });
       s.appendChild(svg('path', { d: 'M8 18 L22 22 L36 20 L50 34 L64 46 L78 38 L92 30 L106 24', class: 'ln' }));
@@ -77,6 +83,7 @@
       var keep = d.price - d.unitCost - (d.price * d.feePct) / 100 - d.feeFlat;
       return keep > 0 && d.fixed > 0 ? 'Break even at ' + Math.ceil(d.fixed / keep) + ' sales' : 'Keep ' + T.money(keep, 2) + ' a sale';
     }
+    if (id === 'money' && d.months && d.months.length) { var m = d.months[0], p = m.revenue - m.costs.reduce(function (n, c) { return n + c; }, 0); return 'Profit ' + T.money(p, 0) + ' in ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m.month.slice(5) - 1]; }
     if (id === 'cash') return 'Cash today ' + T.money(d.cash || 0, 0);
     if (id === 'adtest' && d.log && d.log.length) return d.log.length + ' days logged';
     if (id === 'hooks') return (d.stars || []).length + ' starred';

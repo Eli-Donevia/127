@@ -66,7 +66,7 @@
     ]);
     input.addEventListener('input', function () {
       input.value = input.value.replace(o.neg ? /[^\d.,\-]/g : /[^\d.,]/g, '');
-      o.onInput(num(input.value));
+      o.onInput(num(input.value), input.value);
     });
     // Tabbing or tapping in selects the number to type over it; a tool putting focus back after a redraw doesn't.
     input.addEventListener('focus', function () { if (window.Tool.keepCaret) { window.Tool.keepCaret = false; return; } setTimeout(function () { input.select(); }, 0); });
