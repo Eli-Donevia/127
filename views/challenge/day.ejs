@@ -117,7 +117,7 @@
 
   <section class="ch-block">
     <div class="wrap">
-      <span class="lbl">The move · <%= d.move_time %></span>
+      <span class="lbl">The move<% if (d.move_time) { %> · <%= d.move_time %><% } %></span>
       <ol class="steps">
         <% d.steps.forEach(function (s) { %><li><div><b><%- md(s.title) %></b> <%- md(s.body) %></div><% if (s.sub && s.sub.length) { %><ul><% s.sub.forEach(function (x) { %><li><%- md(x) %></li><% }) %></ul><% } %></li><% }) %>
       </ol>

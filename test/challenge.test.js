@@ -537,3 +537,10 @@ test('v2 Legal L97: three feature ticks logged with the content version, walkthr
   assert.strictEqual(counts.sitesLive, null);
   assert.ok(counts.sitesBuilt === null || counts.sitesBuilt >= 50);
 }));
+
+test('v2 Legal CH8: no "about N minutes" time claim until the timing is done; "block 15 minutes" advice stays', () => withV2(() => {
+  const text = JSON.stringify(ch.content());
+  assert.ok(!/about \d+ min|\b(five|ten|fifteen) minutes\b/i.test(text), 'no untimed time claims');
+  assert.ok(ch.content().days.every((d) => d.move_time === null || !/\d/.test(d.move_time)));
+  assert.ok(text.includes('block 15 minutes a day'), 'planning advice stays');
+}));
