@@ -1,14 +1,13 @@
 // Shared pieces for Life in HQ (lib/life): the member's entries kept in their own browser, export and import as a
-// file, delete from the device, number formats, dates, and small DOM and SVG builders. Each module's script
-// (public/js/life/<id>.js) draws its page with these. Nothing here talks to 127's server. No libraries.
+// file, delete from the device, number formats, dates, and small DOM and SVG builders. All the Life tools share one
+// address (/app/hq/life, Legal L87 LV2): each tool is a hidden section, and the address's #fragment, which never
+// reaches 127's server, picks the one to show. Each tool's script (public/js/life/<id>.js) takes its own kit with
+// LifeKit('<id>') and draws when its section is first shown. Nothing here talks to 127's server. No libraries.
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var stateEl = document.getElementById('life-state');
-  var state = stateEl ? JSON.parse(stateEl.textContent || '{}') : {};
-  var root = document.getElementById('life');
-  var mod = root ? root.getAttribute('data-mod') : null;
-  var savedEl = document.getElementById('life-saved');
+  var page = document.querySelector('.lf[data-scope]');
+  var scopeId = page ? page.getAttribute('data-scope') : null;
 
   // ---------- formats ----------
   function money(n, dp) {
@@ -99,50 +98,99 @@
     })(t0);
   }
 
-  // ---------- the member's own storage ----------
-  var KEY = state.scope && mod ? '127life:' + state.scope + ':' + mod : null;
-  function say(t, cls) { if (savedEl) { savedEl.textContent = t; savedEl.className = 'lf-saved' + (cls ? ' ' + cls : ''); } }
-  function load() {
-    if (!KEY || !state.keep) return null;
-    try { var raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+  // ---------- one kit per tool, each over its own section and storage key ----------
+  var kits = {};
+  function make(mod) {
+    var view = document.querySelector('.lf-view[data-view="' + mod + '"]');
+    var stateEl = view && view.querySelector('script.life-state');
+    var state = stateEl ? JSON.parse(stateEl.textContent || '{}') : {};
+    var root = view && view.querySelector('.lf-app');
+    var savedEl = view && view.querySelector('.lf-saved');
+    var KEY = state.scope ? '127life:' + state.scope + ':' + mod : null;
+    function say(t, cls) { if (savedEl) { savedEl.textContent = t; savedEl.className = 'lf-saved' + (cls ? ' ' + cls : ''); } }
+    function load() {
+      if (!KEY || !state.keep) return null;
+      try { var raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+    }
+    var timer = null;
+    function save(data) {
+      if (!KEY || !state.keep) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(data));
+          say('Kept on this device · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }), 'ok');
+        } catch (e) {
+          say('This browser won\'t keep it (private window or storage full). Export to keep a copy.', 'bad');
+        }
+      }, 250);
+    }
+    var shown = false, waiting = [];
+    var api = { state: state, root: root, view: view, mod: mod, key: KEY, el: el, svg: svg, field: field, text: text, choice: choice, tween: tween, load: load, save: save, say: say,
+      money: money, count: count, num: num, one: one, iso: iso, today: today, day: day, addDays: addDays, month: month, monthName: monthName, addMonths: addMonths, uid: uid, reduce: reduce,
+      // The tool sets these: current() returns what to export, onData(data) redraws from imported or erased data.
+      current: function () { return load(); }, onData: function () {},
+      // Draw when the section is first shown, so charts measure a visible box and animate where the member sees them.
+      ready: function (fn) { if (shown) fn(); else if (waiting.indexOf(fn) < 0) waiting.push(fn); },
+      show: function () {
+        if (shown) return;
+        shown = true;
+        waiting.splice(0).forEach(function (fn) { fn(); });
+        // Panels rise in once; after that, redraws as the member types stay still.
+        if (root) setTimeout(function () { root.classList.add('is-settled'); }, 1100);
+      },
+      // Shared pieces loaded before this file: charts and notices (chart.js), rings (vendor/rings.js), toasts (vendor/toast.js).
+      chart: window.LifeChart && window.LifeChart.chart, project: window.LifeChart && window.LifeChart.project, fit: window.LifeChart && window.LifeChart.fit,
+      notices: window.LifeChart && window.LifeChart.notices, rings: window.activityRings, toast: window.lifeToast || function () {} };
+    kits[mod] = api;
+    return api;
   }
-  var timer = null;
-  function save(data) {
-    if (!KEY || !state.keep) return;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      try {
-        localStorage.setItem(KEY, JSON.stringify(data));
-        say('Kept on this device · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }), 'ok');
-      } catch (e) {
-        say('This browser won\'t keep it (private window or storage full). Export to keep a copy.', 'bad');
-      }
-    }, 250);
+  window.LifeKit = function (mod) { return kits[mod] || make(mod); };
+
+  // ---------- which tool is showing: the #fragment, read only in the browser ----------
+  var shelfTitle = document.title;
+  function route(moved) {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var target = id && document.querySelector('.lf-view[data-view="' + id.replace(/[^a-z]/g, '') + '"]') ? id : '';
+    document.querySelectorAll('.lf-view').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== target; });
+    var shown = document.querySelector('.lf-view[data-view="' + target + '"]');
+    var h = shown && shown.querySelector('h1');
+    document.title = target && h ? h.textContent.trim() + ' · 127' : shelfTitle;
+    if (target) LifeKit(target).show();
+    if (moved) { window.scrollTo(0, 0); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
   }
+  window.addEventListener('hashchange', function () { route(true); });
+  document.addEventListener('DOMContentLoaded', function () { route(false); });
 
-  var api = { state: state, root: root, mod: mod, el: el, svg: svg, field: field, text: text, choice: choice, tween: tween, load: load, save: save, say: say,
-    money: money, count: count, num: num, one: one, iso: iso, today: today, day: day, addDays: addDays, month: month, monthName: monthName, addMonths: addMonths, uid: uid, reduce: reduce,
-    // The module sets these: current() returns what to export, onData(data) redraws from imported or erased data.
-    current: function () { return load(); }, onData: function () {} };
-  window.Life = api;
-
-  // ---------- footer: export, import, delete ----------
+  // ---------- footer: export, import, delete; the shelf's Clear Life data ----------
+  function kitFor(node) { var v = node.closest && node.closest('.lf-view'); var id = v && v.getAttribute('data-view'); return id ? LifeKit(id) : null; }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-life],[data-copy]');
     if (!b) return;
-    var act = b.getAttribute('data-life');
-    if (act === 'export') {
-      var doc = { kind: '127-life', module: mod, version: 1, exported: new Date().toISOString(), data: api.current() };
+    var act = b.getAttribute('data-life'), k = kitFor(b);
+    if (act === 'export' && k) {
+      var doc = { kind: '127-life', module: k.mod, version: 1, exported: new Date().toISOString(), data: k.current() };
       var url = URL.createObjectURL(new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' }));
-      var a = el('a', { href: url, download: '127-' + mod + '-' + today() + '.json' });
+      var a = el('a', { href: url, download: '127-' + k.mod + '-' + today() + '.json' });
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
-      say('Exported. The file is on your device.', 'ok');
-    } else if (act === 'erase') {
-      if (!window.confirm('Delete everything in ' + document.title.split('·')[0].trim() + ' from this device? Export first if you want a copy.')) return;
-      try { localStorage.removeItem(KEY); } catch (err) { /* nothing kept */ }
-      api.onData(null);
-      say('Deleted from this device.', 'ok');
+      k.say('Exported. The file is on your device.', 'ok');
+    } else if (act === 'erase' && k) {
+      var name = (k.view.querySelector('h1') || {}).textContent || 'this tool';
+      if (!window.confirm('Delete everything in ' + name.trim() + ' from this device? Export first if you want a copy.')) return;
+      try { localStorage.removeItem(k.key); } catch (err) { /* nothing kept */ }
+      k.onData(null);
+      k.say('Deleted from this device.', 'ok');
+    } else if (act === 'clear-all') {
+      if (!scopeId || !window.confirm('Clear all your Life data from this device? This deletes every Life tool\'s entries here. Export first if you want a copy.')) return;
+      try {
+        var prefix = '127life:' + scopeId + ':', gone = [];
+        for (var i = 0; i < localStorage.length; i++) { var key = localStorage.key(i); if (key && key.indexOf(prefix) === 0) gone.push(key); }
+        gone.forEach(function (key) { localStorage.removeItem(key); });
+      } catch (err) { /* nothing kept */ }
+      Object.keys(kits).forEach(function (id) { kits[id].onData(null); });
+      var st = document.getElementById('life-cleared');
+      if (st) st.textContent = 'Cleared. Nothing from Life is left on this device.';
     } else if (b.hasAttribute('data-copy')) {
       var src = document.getElementById(b.getAttribute('data-copy'));
       var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy prompt'; }, 1800); };
@@ -152,19 +200,19 @@
   });
   document.addEventListener('change', function (e) {
     if (!e.target.matches || !e.target.matches('[data-life="import"]')) return;
-    var f = e.target.files && e.target.files[0];
+    var k = kitFor(e.target), f = e.target.files && e.target.files[0];
     e.target.value = '';
-    if (!f) return;
-    if (f.size > 2e6) { say('That file is too big to be a Life export.', 'bad'); return; }
+    if (!f || !k) return;
+    if (f.size > 2e6) { k.say('That file is too big to be a Life export.', 'bad'); return; }
     var rd = new FileReader();
     rd.onload = function () {
       try {
         var doc = JSON.parse(rd.result);
-        if (!doc || doc.kind !== '127-life' || doc.module !== mod || !doc.data || typeof doc.data !== 'object') throw new Error('x');
-        api.onData(doc.data);
-        save(doc.data);
-        say('Imported from ' + f.name + '.', 'ok');
-      } catch (err) { say('That isn\'t an export from this page. Pick a file you exported here.', 'bad'); }
+        if (!doc || doc.kind !== '127-life' || doc.module !== k.mod || !doc.data || typeof doc.data !== 'object') throw new Error('x');
+        k.onData(doc.data);
+        k.save(doc.data);
+        k.say('Imported from ' + f.name + '.', 'ok');
+      } catch (err) { k.say('That isn\'t an export from this tool. Pick a file you exported here.', 'bad'); }
     };
     rd.readAsText(f);
   });
