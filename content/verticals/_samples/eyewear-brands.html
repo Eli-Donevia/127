@@ -177,7 +177,7 @@ html.m .sweep{animation:sweep 3.2s cubic-bezier(.45,0,.25,1) 1.5s both}
 .hero-in{position:relative;display:grid;gap:1.1rem;justify-items:start;margin-top:-4.5rem}
 .chart{container-type:inline-size;width:min(100%,34rem)}
 .chart-in{text-align:left}
-.cr-h{margin:0;font:inherit;letter-spacing:0;line-height:inherit;color:#fff}
+.cr-h{margin:0;font:inherit;font-size:clamp(2.6rem,1.6rem + 5vw,6rem);letter-spacing:0;line-height:inherit;color:#fff}
 .cr{display:block;font-family:"Atkinson Hyperlegible","Optic Body Fallback",sans-serif;font-weight:700;font-size:var(--f);line-height:1.12;letter-spacing:.1em;white-space:nowrap}
 .cr-city{margin-top:.9rem;font-size:.9rem!important;font-weight:700;letter-spacing:.32em;color:#c9d0cf}
 .cr-city::before{content:'';display:block;width:3.5rem;height:2px;margin-bottom:.9rem;background:var(--neon)}
@@ -347,15 +347,16 @@ var Motion=(()=>{var Me=Object.defineProperty;var Kt=Object.getOwnPropertyDescri
 <div class="fr-body"><h3 class="fr-name">The Ives frame, crystal</h3></div>
 <p class="fr-p">$148</p>
 </li>
-<li class="fr" data-faces="" data-rv style="--d:2">
-<div class="fr-pic"><svg class="" viewBox="0 0 200 72" aria-hidden="true" focusable="false"><defs><pattern id="ttf2" width="26" height="19" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><rect width="26" height="19" fill="#7a4519"/><path d="M0 4q5-4 10 0t6 5q-4 5-10 3T0 4zM15 13q4-3 9-1t2 5q-5 3-9 0z" fill="#2c160a" opacity=".85"/><path d="M8 13q3-2 5 0t-1 4q-3 1-4-4zM19 2q3-1 5 2t-3 3q-3-1-2-5z" fill="#4a2610"/><path d="M12 2q2-1 3 1t-2 2q-2 0-1-3zM3 15q2-1 3 1t-2 1q-2 0-1-2z" fill="#c4873f" opacity=".8"/><path d="M21 9q2 0 2 2t-2 1q-1-1 0-3z" fill="#e0a95c" opacity=".55"/></pattern></defs><g class="fc" style="--s:-9;--e:9"><g fill="none" stroke="#1a1a1a" stroke-width="6.5" stroke-linecap="round"><path d="M32 12H62.4A25.6 18 0 0 1 88 30V32A40 30 0 0 1 48 62H48A40 30 0 0 1 8 32V29A24 17 0 0 1 32 12Z"/><path d="M137.6 12H168A24 17 0 0 1 192 29V32A40 30 0 0 1 152 62H152A40 30 0 0 1 112 32V30A25.6 18 0 0 1 137.6 12Z"/><path d="M86 27Q100 13 114 27" stroke-width="6"/><path d="M10 18H1.5M190 18H198.5" stroke-width="5"/><path d="M32 11H62.4A25.6 18 0 0 1 88 29V31A40 30 0 0 1 48 61H48A40 30 0 0 1 8 31V28A24 17 0 0 1 32 11ZM137.6 11H168A24 17 0 0 1 192 28V31A40 30 0 0 1 152 61H152A40 30 0 0 1 112 31V29A25.6 18 0 0 1 137.6 11Z" style="stroke:var(--rim,rgba(255,255,255,.16))" stroke-width="1.1"/></g></g><path d="M32 12H62.4A25.6 18 0 0 1 88 30V32A40 30 0 0 1 48 62H48A40 30 0 0 1 8 32V29A24 17 0 0 1 32 12ZM137.6 12H168A24 17 0 0 1 192 29V32A40 30 0 0 1 152 62H152A40 30 0 0 1 112 32V30A25.6 18 0 0 1 137.6 12Z" fill="rgba(170,200,210,.07)"/><path d="M16 52 46 16M124 52 154 16" stroke="#fff" stroke-opacity=".34" stroke-width="7" stroke-linecap="round"/><g class="glint"><path d="M58 59q18-4 27-20M162 59q18-4 27-20" fill="none" style="stroke:var(--neon)" stroke-opacity=".7" stroke-width="2.4" stroke-linecap="round"/></g><path d="M14 17q30-6 66 0M118 17q30-6 66 0" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-<div class="fr-body"><h3 class="fr-name">The Wren frame, black</h3></div>
-<p class="fr-p">$138</p>
-</li>
 </ol>
 <p class="fr-none" hidden>No frames listed for that face shape yet.</p>
 <div class="frames-foot"></div>
 
+</div>
+</section>
+<section class="sec shop" aria-labelledby="shop-title">
+<div class="wrap shop-in">
+<h2 class="h2" id="shop-title">With every pair</h2>
+<ol class="shop-l"><li data-rv style="--d:0"><span class="shop-n" aria-hidden="true">01</span>Case and cloth</li></ol>
 </div>
 </section>
 <section class="sec visit" id="visit" aria-labelledby="visit-title">
