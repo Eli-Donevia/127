@@ -1,0 +1,38 @@
+<%- include('partials/head') %>
+<%# The open Perks and grants page (lib/perks-routes.js, PERKS_PUBLIC). Legal L100 PP1-PP5: the same rows, lines and
+    official links as HQ, for everyone. Signing up adds saving, matching and the drafter, never the links. No
+    countdowns, no totals, no "free money", "claim", "unlock", "get funded", "you qualify", and 127's name never sits
+    beside a program's in a way that reads as a partnership. %>
+<main class="pk pk-open">
+  <div class="wrap">
+    <% if (preview) { %><p class="pk-small mono">Admin preview. Everyone sees this page once PERKS_PUBLIC=on.</p><% } %>
+    <header class="pk-head">
+      <h1 class="pk-title pk-open-t">Perks and grants for small businesses</h1>
+      <%- include('partials/perks-lede') %>
+    </header>
+
+    <% if (soon.length) { %>
+    <section class="pk-soon" aria-labelledby="pk-soon-h">
+      <h2 id="pk-soon-h" class="pk-h">Deadlines coming up</h2>
+      <ol class="pk-times">
+        <% soon.forEach(function (p) { %>
+        <li><a href="#<%= p.id %>"><time datetime="<%= p.due %>"><%= fmt(p.due) %></time><span class="pk-times-n"><%= p.name %></span><span class="pk-times-l"></span></a></li>
+        <% }) %>
+      </ol>
+    </section>
+    <% } %>
+
+    <%- include('partials/perks-rows', { hq: false }) %>
+
+    <section class="pk-join" aria-labelledby="pk-join-h">
+      <h2 id="pk-join-h" class="pk-h">Keep a list in HQ</h2>
+      <p>With a free 127 account you can save programs, track where each application stands, put the deadlines on your calendar, and draft answers from your own business profile. The links above stay open to everyone.</p>
+      <a class="pk-go" href="/start">Start free</a>
+    </section>
+  </div>
+</main>
+<script>
+// Open the row the address points at.
+(function () { var r = location.hash && document.getElementById(location.hash.slice(1)); var d = r && r.querySelector('details'); if (d) d.open = true; })();
+</script>
+<%- include('partials/foot') %>
