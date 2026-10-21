@@ -423,6 +423,10 @@ textarea.input { height: auto; min-height: 120px; padding: 14px 16px; resize: ve
 .win-item { padding: 16px 0; border-top: 1px solid var(--line); display: flex; gap: 14px; }
 .win-item:first-child { border-top: 0; }
 .avatar { flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--surface-3); color: var(--ink-2); display: grid; place-items: center; font-weight: 600; font-size: 15px; }
+.win-ai .mark { gap: 0; }
+.win-ai .mark .num { font-size: 13px; color: var(--ink-2); }
+.win-ai-note { margin: 2px 0 4px; }
+.win-ai-line { margin: 10px 0 0; }
 
 table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 table.t th { text-align: left; font-weight: 500; color: var(--muted); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 12px; border-bottom: 1px solid var(--line); }

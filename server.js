@@ -31,6 +31,7 @@ const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const challenge = require('./lib/challenge');
 const memberOps = require('./lib/member-ops');
+const winAi = require('./lib/win-ai');
 const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
@@ -1323,8 +1324,25 @@ app.get('/app/wins', requireAuth, (req, res) => {
     REPORT_REASONS: memberOps.REPORT_REASONS,
     winReplies: memberOps.winRepliesOn(),
     visibleReplies: memberOps.visibleReplies,
+    // AI replies (lib/win-ai.js, WIN_AI_REPLIES, Legal L99): the post box line while it's on and the member allows it.
+    winAi: winAi.on() ? { NAME: winAi.NAME, UNDER: winAi.UNDER, LINE: winAi.POST_BOX_LINE, allowed: winAi.allows(user) } : null,
   });
 });
+
+// WA5: "Turn off" in the post box line, and the Settings switch.
+app.post('/app/wins/ai-replies', requireAuth, wrap(async (req, res) => {
+  req.user.winAiReplies = req.body.on === '1';
+  await db.save('users', req.user);
+  integrations.emit('profile.updated', { userId: req.user.id });
+  if (req.body.from === 'settings') return res.redirect('/app/settings?saved=1');
+  flash(req, 'info', req.user.winAiReplies ? 'AI replies are on for your new posts.' : "AI replies are off. Eli's Playbook (AI) won't reply to your posts.");
+  res.redirect('/app/wins');
+}));
+// WA5: the post's author removes an AI reply from their post.
+app.post('/app/wins/:id/ai-reply/:reply/remove', requireAuth, wrap(async (req, res) => {
+  await winAi.removeFromPost(req.user, req.params.id, req.params.reply);
+  res.redirect(`/app/wins#win-${req.params.id}`);
+}));
 
 // Pre-screen (lib/moderation.js): block (not saved), hold (saved, waits for Eli in /admin/ops) or live.
 app.post('/app/wins', requireAuth, wrap(async (req, res) => {
@@ -1350,6 +1368,8 @@ app.post('/app/wins', requireAuth, wrap(async (req, res) => {
   const win = await db.save('wins', {
     userId: user.id, name: firstName, text, tier: user.pausedTier || user.tier,
     status, flags: screen.reasons.map((r) => r.code), urgent: !!screen.urgent, heldAt: status === 'held' ? now : null,
+    // WA4: only posts made while the post box showed the AI line can get an AI reply.
+    aiOk: winAi.on() && winAi.allows(user),
   });
   memberOps.afterScreen(user, win, screen);
   await addXp(user, 15);
@@ -1779,7 +1799,7 @@ app.get('/app/settings', requireAuth, wrap(async (req, res) => {
       console.warn('[billing] refresh for settings', err.message);
     }
   }
-  res.render('app/settings', { title: 'Settings', saved: req.query.saved });
+  res.render('app/settings', { title: 'Settings', saved: req.query.saved, winAiOn: winAi.on() });
 }));
 app.post('/app/settings', requireAuth, wrap(async (req, res) => {
   const user = req.user;
@@ -2189,6 +2209,8 @@ db.init().then(async () => {
     require('./lib/lapse').sweep().catch((err) => console.error('[lapse] sweep', err.message));
     // HQ Post: photos of finished posts go after 7 days.
     require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
+    // AI replies on wins posts nobody answered in about 12 hours (lib/win-ai.js); nothing while WIN_AI_REPLIES is off.
+    winAi.sweep().catch((err) => console.error('[win-ai] sweep', err.message));
     // Referral months whose 14-day wait is over (lib/referrals.js); nothing while REFERRALS is off.
     referrals.sweep().catch((err) => console.error('[referrals] sweep', err.message));
   }, 5 * 60 * 1000).unref();

@@ -9,6 +9,15 @@
     <label class="check" style="margin-bottom:20px"><input type="checkbox" name="optin" <%= user.marketingOptIn ? 'checked' : '' %>> Founder emails and the weekly digest</label>
     <button class="btn">Save</button>
   </form>
+  <% if (winAiOn) { %>
+  <%# Legal L99 WA5: on unless the member turns it off. Off means nothing from their posts goes to AI. %>
+  <form method="post" action="/app/wins/ai-replies" class="card pad-lg">
+    <input type="hidden" name="from" value="settings"><input type="hidden" name="on" value="<%= user.winAiReplies === false ? '1' : '0' %>">
+    <h3>AI replies to my wins posts</h3>
+    <p class="small muted">If nobody replies to your win in about 12 hours, Eli's Playbook (AI) may write one short reply, labeled as AI. It reads only that post. <%= user.winAiReplies === false ? 'Off.' : 'On.' %></p>
+    <button class="btn ghost sm"><%= user.winAiReplies === false ? 'Turn on' : 'Turn off' %></button>
+  </form>
+  <% } %>
   <div class="card pad-lg">
     <h3>Help</h3>
     <p class="small muted">A question about your account, billing, a refund or anything else? A person answers within one business day.</p>

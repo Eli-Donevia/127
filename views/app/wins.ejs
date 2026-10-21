@@ -17,7 +17,15 @@
               <% if ((w.cheers || []).length) { %><span class="muted"> · <%= w.cheers.length %> cheer<%= w.cheers.length === 1 ? '' : 's' %></span><% } %>
             </div>
             <% replies.forEach(function(r){ %>
+              <% if (r.byAI) { %>
+              <%# Legal L99 WA11: the Playbook's mark and name, never Eli's photo, and the plain line under it. %>
+              <div class="win-reply win-ai small">
+                <span class="mark" aria-hidden="true"><span class="num">127</span></span> <b style="font-weight:500">Eli's Playbook (AI)</b> <span style="color:var(--ink-2);overflow-wrap:anywhere"><%= r.text %></span>
+                <div class="win-ai-note tiny muted">AI reply. Eli didn't write it.<% if (mine) { %> · <form method="post" action="/app/wins/<%= w.id %>/ai-reply/<%= r.id %>/remove" style="display:inline"><button class="link tiny" style="background:none;border:0;padding:0;cursor:pointer">Remove</button></form><% } %></div>
+              </div>
+              <% } else { %>
               <div class="win-reply small"><b style="font-weight:500"><%= r.name %></b><% if (r.status === 'held') { %> <span class="chip">Waiting for a check</span><% } %> <span style="color:var(--ink-2);overflow-wrap:anywhere"><%= r.text %></span></div>
+              <% } %>
             <% }) %>
             <% if (canPost) { %>
             <form method="post" action="/app/wins/<%= w.id %>/reply" class="win-reply-form">
@@ -49,6 +57,10 @@
       <textarea class="input" name="text" maxlength="500" placeholder="I booked my first three customer interviews." required></textarea>
       <button class="btn block" style="margin-top:12px">Post</button>
     </form>
+    <% if (winAi && winAi.allowed) { %>
+    <%# Legal L99 WA11: shown while WIN_AI_REPLIES is on, with "Turn off" (WA5). %>
+    <form method="post" action="/app/wins/ai-replies" class="tiny muted win-ai-line"><input type="hidden" name="on" value="0"><%= winAi.LINE %> <button class="link tiny" style="background:none;border:0;padding:0;cursor:pointer">Turn off</button></form>
+    <% } %>
     <% } else { %>
     <p class="small muted"><%= pausedNote %></p>
     <% } %>

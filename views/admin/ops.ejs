@@ -169,6 +169,21 @@
 </section>
 <% } %>
 
+<% if (aiReplies.length) { %>
+<%# Legal L99 WA13: read every AI reply for the first two weeks; Hide takes it off the board. %>
+<section class="card pad-lg ops-sec" id="ai-replies" style="margin-bottom:16px">
+  <div class="card-title"><h3>AI replies</h3><span class="small muted">Eli's Playbook (AI) on wins posts, last 24 hours</span></div>
+  <% aiReplies.forEach(function (x) { %>
+  <div style="border-top:1px solid var(--line);padding:10px 0">
+    <div class="small"><b style="font-weight:500"><%= x.w.name %></b> <span class="muted">· <%= when(x.r.at) %></span></div>
+    <p class="small muted" style="overflow-wrap:anywhere;margin:4px 0"><%= x.w.text %></p>
+    <p class="small" style="overflow-wrap:anywhere;margin:4px 0">AI: <%= x.r.text %></p>
+    <form method="post" action="/admin/ops/wins/<%= x.w.id %>/hide"><input type="hidden" name="reply" value="<%= x.r.id %>"><input type="hidden" name="back" value="ai-replies"><button class="btn ghost sm">Hide</button></form>
+  </div>
+  <% }) %>
+</section>
+<% } %>
+
 <section class="card pad-lg ops-sec" id="grace" style="margin-bottom:16px">
   <div class="card-title"><h3>Founding grace link</h3><span class="small muted">One per person, works for 3 days</span></div>
   <p class="small muted" style="margin:0 0 12px">Only for a founding checkout that started while spots were open and before the close, then broke on our side or Stripe's. Never for a card decline.</p>

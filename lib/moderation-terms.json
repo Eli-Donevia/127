@@ -1,5 +1,5 @@
 {
-  "_about": "Word lists for engine/moderation.js. crisis, crisis_mention and threat are regular expressions; every other list is matched as whole words or phrases, case-insensitive. Slur and sexual lists block a post (sexual content that also mentions a minor is held and kept for reporting instead); everything else holds it for a person. Keep lists short: the daily moderation review (a person or Claude reading every new post) catches what lists miss. Add a term only with a test in test/moderation.test.js.",
+  "_about": "Word lists for engine/moderation.js. crisis, crisis_mention and threat are regular expressions; every other list is matched as whole words or phrases, case-insensitive. Slur and sexual lists block a post (sexual content that also mentions a minor is held and kept for reporting instead); everything else holds it for a person. Keep lists short: the daily moderation review (a person or Claude reading every new post) catches what lists miss. Add a term only with a test in test/moderation.test.js. health: lib/win-ai.js skips a wins post that mentions health, the body or mental health (Legal L99 WA3); it never holds or blocks a post.",
   "crisis": [
     "\\bkill(?:ing)?\\s+my\\s*self\\b",
     "\\bend(?:ing)?\\s+(?:it\\s+all|my\\s+life)\\b",
@@ -183,5 +183,39 @@
     "linktr.ee",
     "beacons.ai",
     "stan.store"
+  ],
+  "health": [
+    "doctor",
+    "doctors",
+    "hospital",
+    "surgery",
+    "diagnosis",
+    "diagnosed",
+    "therapy",
+    "therapist",
+    "anxiety",
+    "depression",
+    "depressed",
+    "pregnant",
+    "pregnancy",
+    "medication",
+    "meds",
+    "sober",
+    "sobriety",
+    "rehab",
+    "weight",
+    "weight loss",
+    "cancer",
+    "chemo",
+    "mental health",
+    "panic attack",
+    "adhd",
+    "eating disorder",
+    "miscarriage",
+    "diet",
+    "calories",
+    "injury",
+    "illness",
+    "sick"
   ]
 }

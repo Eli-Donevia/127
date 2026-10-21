@@ -3,5 +3,9 @@
 <main class="wrap doc" style="padding:80px 24px">
   <div class="eyebrow">127 community</div>
   <%- html %>
+  <% if (typeof winAiOn !== 'undefined' && winAiOn) { %>
+  <%# Legal L99 WA15: only while WIN_AI_REPLIES is on. %>
+  <p>If nobody replies to a win in about 12 hours, Eli's Playbook (AI) may reply. It's labeled as AI, and you can turn it off in Settings.</p>
+  <% } %>
 </main>
 <%- include('partials/foot') %>
