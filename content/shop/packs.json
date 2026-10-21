@@ -1,473 +1,473 @@
 {
- "version": 1,
- "currency": "usd",
- "builderGets": "all",
- "memberCoupon": null,
- "bundle": {
-  "slug": "all",
-  "name": "Every pack",
-  "price": 149,
-  "lookupKey": "pack_all",
-  "line": "Every paid pack and course, one checkout."
- },
- "packs": [
-  {
-   "slug": "starter",
-   "name": "Starter Pack",
-   "price": 0,
-   "free": true,
-   "art": "starter",
-   "line": "The files a first business needs in week one. Free with an account.",
-   "pitch": "Three site designs that move, the sheets for your first numbers, a quote, a pitch deck and a welcome email. Make a free account and they're yours.",
-   "uses": [
-    "Put a waitlist or link-in-bio page up tonight",
-    "Score an idea before you spend on it",
-    "Send your first quote"
-   ],
-   "items": [
-    "site-waitlist",
-    "site-link-in-bio",
-    "site-local-service",
-    "idea-scorecard",
-    "break-even",
-    "interview-kit",
-    "interview-synthesis",
-    "conversation-tracker",
-    "jobs-tracker",
-    "content-planner",
-    "brand-deals",
-    "quote",
-    "client-welcome",
-    "email-welcome",
-    "social-carousel",
-    "deck-pitch",
-    "batch-day",
-    "thirty-day-retro",
-    "notion-crm",
-    "recipe-ai-cofounder",
-    "video-prompts-by-model"
-   ],
-   "kit": "motion",
-   "kitFiles": [
-    "intro-stamp",
-    "intro-mask",
-    "kit-reveal"
-   ]
+  "version": 1,
+  "currency": "usd",
+  "builderGets": "all",
+  "memberCoupon": null,
+  "bundle": {
+    "slug": "all",
+    "name": "Every pack",
+    "price": 149,
+    "lookupKey": "pack_all",
+    "line": "Every paid pack and course, one checkout."
   },
-  {
-   "slug": "motion",
-   "name": "Motion Pack",
-   "price": 49,
-   "lookupKey": "pack_motion",
-   "art": "motion",
-   "line": "The motion behind our site designs, as files you drop into any page.",
-   "pitch": "Eight headline intros, three scroll moments, motion at rest, and five effects: liquid chrome, a particle swarm that forms your logo, activity rings, stacked toasts and a drag-to-close sheet. Plain HTML, CSS and JavaScript. No framework, no build step.",
-   "uses": [
-    "Give a plain landing page an opening that holds attention",
-    "Form your logo out of particles on scroll",
-    "Paste one file into Claude, Lovable or Webflow and ask it to wire the move in"
-   ],
-   "items": [],
-   "kit": "motion",
-   "kitFiles": [
-    "intro-assemble",
-    "intro-develop",
-    "intro-pour",
-    "intro-unfold",
-    "intro-type",
-    "intro-mask",
-    "intro-stamp",
-    "intro-draw",
-    "scroll-scrub",
-    "scroll-pin",
-    "scroll-scene",
-    "alive",
-    "kit-reveal",
-    "fx-liquid-chrome",
-    "fx-particle-swarm",
-    "fx-activity-rings",
-    "fx-toast",
-    "fx-sheet"
-   ]
-  },
-  {
-   "slug": "sites",
-   "name": "Website Pack",
-   "price": 79,
-   "lookupKey": "pack_sites",
-   "art": "sites",
-   "line": "Fifteen site designs with motion built in, plus Shopify sections.",
-   "pitch": "Agency, coach, creator, restaurant, studio, shop, software, event and more. Each one is a single file that opens in a browser, fast on a phone, with its motion already choreographed. Swap the words and photos, or hand it to an AI builder with the prompt inside.",
-   "uses": [
-    "Launch a site that doesn't look like a template",
-    "Start a client's site from a design that's already finished",
-    "Add the Shopify sections to a store theme"
-   ],
-   "items": [
-    "site-agency",
-    "site-coach",
-    "site-creator",
-    "site-gallery",
-    "site-editorial",
-    "site-event",
-    "site-exploded",
-    "site-glow",
-    "site-portfolio",
-    "site-product-landing",
-    "site-restaurant",
-    "site-studio",
-    "site-shop",
-    "site-saas",
-    "site-story",
-    "shopify-sections-essentials"
-   ]
-  },
-  {
-   "slug": "content",
-   "name": "Content Pack",
-   "price": 39,
-   "lookupKey": "pack_content",
-   "art": "content",
-   "line": "Video prompts, shot lists and social templates for a month of posts.",
-   "pitch": "Prompt packs for cinematic, product, UGC-style, faceless and local service video, camera moves and shot lists by video type. Social templates for carousels, stories, quote cards and thumbnails. A hook bank and an ad test planner to keep score.",
-   "uses": [
-    "Plan and shoot a week of short video in one sitting",
-    "Get usable clips out of AI video tools on the first try",
-    "Test two ads against each other properly"
-   ],
-   "items": [
-    "video-prompts-cinematic",
-    "video-prompts-camera-moves",
-    "video-prompts-shot-lists",
-    "video-prompts-product",
-    "video-prompts-ugc",
-    "video-prompts-faceless",
-    "video-prompts-local-service",
-    "video-prompts-image-ads",
-    "social-quote-card",
-    "social-story",
-    "social-thumbnail",
-    "hook-bank",
-    "ad-test-planner",
-    "email-newsletter",
-    "recipe-repurpose-video",
-    "recipe-comment-to-dm"
-   ]
-  },
-  {
-   "slug": "sales",
-   "name": "Sales and Clients Pack",
-   "price": 39,
-   "lookupKey": "pack_sales",
-   "art": "sales",
-   "line": "From first quote to paid and onboarded, with the follow-ups written.",
-   "pitch": "A proposal, scope of work, one-page offer and sales deck. The follow-up, review request, win-back and launch emails. A pipeline tracker and an objection log. A Notion client portal, and the automation recipes that move someone from paid to onboarded without you chasing it.",
-   "uses": [
-    "Send a proposal that looks like you've done this before",
-    "Follow up on every quote without remembering to",
-    "Onboard each client with their own portal from day one"
-   ],
-   "items": [
-    "proposal",
-    "scope-of-work",
-    "one-page-offer",
-    "deck-sales",
-    "pipeline-tracker",
-    "objection-log",
-    "client-sessions",
-    "email-quote-follow-up",
-    "email-review-ask",
-    "email-win-back",
-    "email-launch",
-    "notion-client-portal",
-    "recipe-follow-up",
-    "recipe-lead-form",
-    "recipe-booking-link",
-    "recipe-saved-replies",
-    "recipe-paid-to-onboarded"
-   ]
-  },
-  {
-   "slug": "numbers",
-   "name": "Numbers Pack",
-   "price": 29,
-   "lookupKey": "pack_numbers",
-   "art": "numbers",
-   "line": "The sheets that tell you what to charge and what you keep.",
-   "pitch": "Pricing lab, unit economics, first-sale math, a 13-week cash flow, a business budget, inventory and reorder, an hours audit and a tool stack audit. Every sheet comes empty and as a filled example, and opens in Excel or Google Sheets.",
-   "uses": [
-    "Set a price you can defend",
-    "See thirteen weeks of cash before it's a problem",
-    "Find the tools you pay for and don't use"
-   ],
-   "items": [
-    "pricing-lab",
-    "unit-economics",
-    "first-sale-math",
-    "cash-flow-13-week",
-    "business-budget",
-    "inventory-reorder",
-    "hours-audit",
-    "stack-audit",
-    "weekly-scorecard",
-    "money-setup-checklist"
-   ]
-  },
-  {
-   "slug": "ops",
-   "name": "Ops Pack",
-   "price": 39,
-   "lookupKey": "pack_ops",
-   "art": "ops",
-   "line": "A Notion operating system and the weekly rhythm to run it.",
-   "pitch": "The 127 Founder OS, a content OS and an SOP wiki for Notion. A one-page SOP, a weekly CEO review, 90-day priorities, a brand sheet and a business model one-pager. Launch countdown and landing page leak audit checklists, and recipes for call notes and a Monday scorecard email.",
-   "uses": [
-    "Get everything you know out of your head and into one place",
-    "Run a 30-minute review every week",
-    "Hand a task to someone else with a one-page SOP"
-   ],
-   "items": [
-    "founder-os-notion",
-    "notion-content-os",
-    "notion-sop-wiki",
-    "sop-template",
-    "ceo-review",
-    "ninety-day-plan",
-    "brand-sheet",
-    "business-model-canvas",
-    "landing-page-brief",
-    "page-leak-audit",
-    "launch-countdown",
-    "recipe-call-notes",
-    "recipe-monday-scorecard"
-   ]
-  },
-  {
-   "slug": "creator",
-   "name": "UGC Creator Kit",
-   "price": 39,
-   "lookupKey": "pack_creator",
-   "art": "creator",
-   "line": "A portfolio site, a rate card and the emails to pitch brands.",
-   "pitch": "The Creator website design with a prompt that turns it into your portfolio, a rate card brands expect, five pitch and follow-up emails, a content brief, and a usage rights checklist so a one-time fee doesn't become a year of ads. Plus UGC video prompts, a hook bank, a brand deal tracker and thumbnail and story templates.",
-   "uses": [
-    "Put a portfolio up that brands can judge in one scroll",
-    "Pitch one brand a day without staring at a blank email",
-    "Charge for paid usage instead of giving it away"
-   ],
-   "items": [
-    "site-creator",
-    "brand-deals",
-    "video-prompts-ugc",
-    "video-prompts-shot-lists",
-    "hook-bank",
-    "social-thumbnail",
-    "social-story",
-    "batch-day"
-   ],
-   "kit": "creator",
-   "kitFiles": [
-    "01-rate-card",
-    "02-brand-pitch-emails",
-    "03-content-brief",
-    "04-usage-rights-checklist",
-    "05-portfolio-site"
-   ]
-  },
-  {
-   "slug": "ai",
-   "name": "AI Pack",
-   "price": 29,
-   "lookupKey": "pack_ai",
-   "art": "ai",
-   "line": "61 prompts and the operator setup that make any AI work from your business.",
-   "pitch": "Operator instructions you paste once into a Claude Project, a custom GPT or a Gemini Gem, then nine files of prompts by job: picking and proving an idea, your business brain, the offer, content, video, the website, money, operations and the weekly review. Each prompt says when to use it, what to fill in and what comes back.",
-   "uses": [
-    "Stop re-explaining your business every time you open a chat",
-    "Get a finished offer, page or plan instead of advice",
-    "Run a weekly review with an AI that remembers last week"
-   ],
-   "items": [],
-   "kit": "ai",
-   "kitFiles": [
-    "operator-instructions",
-    "prompts-start",
-    "prompts-brain",
-    "prompts-offer",
-    "prompts-content",
-    "prompts-video",
-    "prompts-website",
-    "prompts-finance",
-    "prompts-ops",
-    "prompts-review"
-   ]
-  },
-  {
-   "slug": "challenge",
-   "name": "Run your own challenge",
-   "price": 49,
-   "lookupKey": "pack_challenge",
-   "art": "challenge",
-   "kind": "course",
-   "line": "The five-day challenge engine 127 runs, with your days in it.",
-   "pitch": "Seven lessons on running a free five-day challenge where people build one real thing with you: the promise, the five days, the landing page and nine emails, the share cards that spread it, the honest offer at the end, a run sheet from three weeks out, and the rules that keep it clean. Every lesson ends with a prompt, and the launch countdown, email and hook templates come with it.",
-   "uses": [
-    "Turn your expertise into a free week people finish",
-    "Write every page and email from templates, not a blank page",
-    "Make the offer once, at the end, without pressure"
-   ],
-   "items": [
-    "launch-countdown",
-    "email-launch",
-    "hook-bank",
-    "social-story",
-    "site-waitlist",
-    "content-planner"
-   ],
-   "kit": "challenge",
-   "kitFiles": [
-    "01-pick-the-one-thing",
-    "02-design-the-five-days",
-    "03-pages-and-emails",
-    "04-share-mechanics",
-    "05-the-offer-at-the-end",
-    "06-run-sheet",
-    "07-keep-it-clean"
-   ],
-   "hq": [
-    "playbooks.launch_planner",
-    "email.launch_week",
-    "email.welcome",
-    "content.hooks",
-    "content.plan_week",
-    "dm.waitlist",
-    "offer.value_score"
-   ]
-  },
-  {
-   "slug": "digital-products",
-   "name": "Sell digital products",
-   "price": 39,
-   "lookupKey": "pack_digitalproducts",
-   "art": "digital",
-   "kind": "course",
-   "line": "Make, price, list and deliver a template, guide or prompt pack.",
-   "pitch": "Six lessons from picking what to make to the week you launch it: find the product in work you already repeat, build version one in a weekend, price it against the alternative, write a product page for phones, set up checkout, delivery and refunds, and run a seven-day launch. It is how 127 makes and sells its own packs, with the page, pricing and launch templates included.",
-   "uses": [
-    "Turn a file you already reuse into something people buy",
-    "Price it without guessing",
-    "Launch it in one week, then make the next one"
-   ],
-   "items": [
-    "site-product-landing",
-    "landing-page-brief",
-    "pricing-lab",
-    "first-sale-math",
-    "email-launch",
-    "launch-countdown"
-   ],
-   "kit": "digital-products",
-   "kitFiles": [
-    "01-pick-what-to-make",
-    "02-make-it-in-a-weekend",
-    "03-price-it",
-    "04-the-product-page",
-    "05-checkout-and-delivery",
-    "06-launch-week"
-   ],
-   "hq": [
-    "templates.make",
-    "templates.launch",
-    "templates.bundle",
-    "templates.next_product",
-    "offer.price_it",
-    "offer.lead_magnet",
-    "dm.product_link",
-    "email.launch_week"
-   ]
-  },
-  {
-   "slug": "paid-ads",
-   "name": "Run paid ads",
-   "price": 49,
-   "lookupKey": "pack_paidads",
-   "art": "ads",
-   "kind": "course",
-   "line": "A small first test, creative that stops the scroll, and a daily call you can make in five minutes.",
-   "pitch": "Seven lessons on Meta and Google ads for a small business: check you are ready and find your break-even number, set up a small first test, make three ads on three angles, check the page the ad sends people to, read five numbers and make the keep, fix or pause call, try search, and stay inside the platform rules. Comes with the ad test planner, image ad and UGC video prompts, and the break-even sheets.",
-   "uses": [
-    "Know your break-even number before you spend",
-    "Run a seven-day test that tells you something",
-    "Decide each day in five minutes what to keep or cut"
-   ],
-   "items": [
-    "ad-test-planner",
-    "video-prompts-image-ads",
-    "video-prompts-ugc",
-    "hook-bank",
-    "page-leak-audit",
-    "unit-economics",
-    "break-even"
-   ],
-   "kit": "paid-ads",
-   "kitFiles": [
-    "01-are-you-ready",
-    "02-your-first-test",
-    "03-creative",
-    "04-landing-page",
-    "05-read-the-numbers",
-    "06-google-search",
-    "07-ad-rules"
-   ],
-   "hq": [
-    "ads.ready_check",
-    "ads.launch_kit",
-    "ads.ad_images",
-    "ads.creator_brief",
-    "ads.landing_check",
-    "ads.read_results",
-    "ads.optimize",
-    "ads.google_search"
-   ]
-  },
-  {
-   "slug": "build-with-ai",
-   "name": "Build it with AI",
-   "price": 59,
-   "lookupKey": "pack_buildwithai",
-   "art": "build",
-   "kind": "course",
-   "line": "How 127 is built by one founder and a team of AI agents, and the prompts to build yours.",
-   "pitch": "Seven lessons on the method behind 127: the five tools, a spec before any code, one thread per job with one place that ships, everything behind a switch with tests, your standards written as rules the AI checks, and payments and legal basics without guessing. The last lesson is every prompt in one place. You need to know what you want, not how to code.",
-   "uses": [
-    "Write a spec an AI can build from",
-    "Run several AI agents without them breaking each other",
-    "Ship behind a switch and test before anyone sees it"
-   ],
-   "items": [
-    "recipe-ai-cofounder",
-    "landing-page-brief",
-    "sop-template",
-    "ninety-day-plan"
-   ],
-   "kit": "build-with-ai",
-   "kitFiles": [
-    "01-the-setup",
-    "02-spec-first",
-    "03-one-thread-per-job",
-    "04-ship-behind-a-switch",
-    "05-rules-the-ai-checks",
-    "06-payments-and-legal",
-    "07-prompts"
-   ],
-   "hq": [
-    "site.quick_site",
-    "site.build_tonight",
-    "offer.grand_slam",
-    "playbooks.launch_planner",
-    "playbooks.workflow_recommender"
-   ]
-  }
- ],
- "coming": []
+  "packs": [
+    {
+      "slug": "starter",
+      "name": "Starter Pack",
+      "price": 0,
+      "free": true,
+      "art": "starter",
+      "line": "The files a first business needs in week one. Free with an account.",
+      "pitch": "Three site designs that move, the sheets for your first numbers, a quote, a pitch deck and a welcome email. Make a free account and they're yours.",
+      "uses": [
+        "Put a waitlist or link-in-bio page up tonight",
+        "Score an idea before you spend on it",
+        "Send your first quote"
+      ],
+      "items": [
+        "site-waitlist",
+        "site-link-in-bio",
+        "site-local-service",
+        "idea-scorecard",
+        "break-even",
+        "interview-kit",
+        "interview-synthesis",
+        "conversation-tracker",
+        "jobs-tracker",
+        "content-planner",
+        "brand-deals",
+        "quote",
+        "client-welcome",
+        "email-welcome",
+        "social-carousel",
+        "deck-pitch",
+        "batch-day",
+        "thirty-day-retro",
+        "notion-crm",
+        "recipe-ai-cofounder",
+        "video-prompts-by-model"
+      ],
+      "kit": "motion",
+      "kitFiles": [
+        "intro-stamp",
+        "intro-mask",
+        "kit-reveal"
+      ]
+    },
+    {
+      "slug": "motion",
+      "name": "Motion Pack",
+      "price": 49,
+      "lookupKey": "pack_motion",
+      "art": "motion",
+      "line": "The motion behind our site designs, as files you drop into any page.",
+      "pitch": "Eight headline intros, three scroll moments, motion at rest, and five effects: liquid chrome, a particle swarm that forms your logo, activity rings, stacked toasts and a drag-to-close sheet. Plain HTML, CSS and JavaScript. No framework, no build step.",
+      "uses": [
+        "Give a plain landing page an opening that holds attention",
+        "Form your logo out of particles on scroll",
+        "Paste one file into Claude, Lovable or Webflow and ask it to wire the move in"
+      ],
+      "items": [],
+      "kit": "motion",
+      "kitFiles": [
+        "intro-assemble",
+        "intro-develop",
+        "intro-pour",
+        "intro-unfold",
+        "intro-type",
+        "intro-mask",
+        "intro-stamp",
+        "intro-draw",
+        "scroll-scrub",
+        "scroll-pin",
+        "scroll-scene",
+        "alive",
+        "kit-reveal",
+        "fx-liquid-chrome",
+        "fx-particle-swarm",
+        "fx-activity-rings",
+        "fx-toast",
+        "fx-sheet"
+      ]
+    },
+    {
+      "slug": "sites",
+      "name": "Website Pack",
+      "price": 79,
+      "lookupKey": "pack_sites",
+      "art": "sites",
+      "line": "Fifteen site designs with motion built in, plus Shopify sections.",
+      "pitch": "Agency, coach, creator, restaurant, studio, shop, software, event and more. Each one is a single file that opens in a browser, fast on a phone, with its motion already choreographed. Swap the words and photos, or hand it to an AI builder with the prompt inside.",
+      "uses": [
+        "Launch a site that doesn't look like a template",
+        "Start a client's site from a design that's already finished",
+        "Add the Shopify sections to a store theme"
+      ],
+      "items": [
+        "site-agency",
+        "site-coach",
+        "site-creator",
+        "site-gallery",
+        "site-editorial",
+        "site-event",
+        "site-exploded",
+        "site-glow",
+        "site-portfolio",
+        "site-product-landing",
+        "site-restaurant",
+        "site-studio",
+        "site-shop",
+        "site-saas",
+        "site-story",
+        "shopify-sections-essentials"
+      ]
+    },
+    {
+      "slug": "content",
+      "name": "Content Pack",
+      "price": 39,
+      "lookupKey": "pack_content",
+      "art": "content",
+      "line": "Video prompts, shot lists and social templates for a month of posts.",
+      "pitch": "Prompt packs for cinematic, product, UGC-style, faceless and local service video, camera moves and shot lists by video type. Social templates for carousels, stories, quote cards and thumbnails. A hook bank and an ad test planner to keep score.",
+      "uses": [
+        "Plan and shoot a week of short video in one sitting",
+        "Get usable clips out of AI video tools on the first try",
+        "Test two ads against each other properly"
+      ],
+      "items": [
+        "video-prompts-cinematic",
+        "video-prompts-camera-moves",
+        "video-prompts-shot-lists",
+        "video-prompts-product",
+        "video-prompts-ugc",
+        "video-prompts-faceless",
+        "video-prompts-local-service",
+        "video-prompts-image-ads",
+        "social-quote-card",
+        "social-story",
+        "social-thumbnail",
+        "hook-bank",
+        "ad-test-planner",
+        "email-newsletter",
+        "recipe-repurpose-video",
+        "recipe-comment-to-dm"
+      ]
+    },
+    {
+      "slug": "sales",
+      "name": "Sales and Clients Pack",
+      "price": 39,
+      "lookupKey": "pack_sales",
+      "art": "sales",
+      "line": "From first quote to paid and onboarded, with the follow-ups written.",
+      "pitch": "A proposal, scope of work, one-page offer and sales deck. The follow-up, review request, win-back and launch emails. A pipeline tracker and an objection log. A Notion client portal, and the automation recipes that move someone from paid to onboarded without you chasing it.",
+      "uses": [
+        "Send a proposal that looks like you've done this before",
+        "Follow up on every quote without remembering to",
+        "Onboard each client with their own portal from day one"
+      ],
+      "items": [
+        "proposal",
+        "scope-of-work",
+        "one-page-offer",
+        "deck-sales",
+        "pipeline-tracker",
+        "objection-log",
+        "client-sessions",
+        "email-quote-follow-up",
+        "email-review-ask",
+        "email-win-back",
+        "email-launch",
+        "notion-client-portal",
+        "recipe-follow-up",
+        "recipe-lead-form",
+        "recipe-booking-link",
+        "recipe-saved-replies",
+        "recipe-paid-to-onboarded"
+      ]
+    },
+    {
+      "slug": "numbers",
+      "name": "Numbers Pack",
+      "price": 29,
+      "lookupKey": "pack_numbers",
+      "art": "numbers",
+      "line": "The sheets that tell you what to charge and what you keep.",
+      "pitch": "Pricing lab, unit economics, first-sale math, a 13-week cash flow, a business budget, inventory and reorder, an hours audit and a tool stack audit. Every sheet comes empty and as a filled example, and opens in Excel or Google Sheets.",
+      "uses": [
+        "Set a price you can defend",
+        "See thirteen weeks of cash before it's a problem",
+        "Find the tools you pay for and don't use"
+      ],
+      "items": [
+        "pricing-lab",
+        "unit-economics",
+        "first-sale-math",
+        "cash-flow-13-week",
+        "business-budget",
+        "inventory-reorder",
+        "hours-audit",
+        "stack-audit",
+        "weekly-scorecard",
+        "money-setup-checklist"
+      ]
+    },
+    {
+      "slug": "ops",
+      "name": "Ops Pack",
+      "price": 39,
+      "lookupKey": "pack_ops",
+      "art": "ops",
+      "line": "A Notion operating system and the weekly rhythm to run it.",
+      "pitch": "The 127 Founder OS, a content OS and an SOP wiki for Notion. A one-page SOP, a weekly CEO review, 90-day priorities, a brand sheet and a business model one-pager. Launch countdown and landing page leak audit checklists, and recipes for call notes and a Monday scorecard email.",
+      "uses": [
+        "Get everything you know out of your head and into one place",
+        "Run a 30-minute review every week",
+        "Hand a task to someone else with a one-page SOP"
+      ],
+      "items": [
+        "founder-os-notion",
+        "notion-content-os",
+        "notion-sop-wiki",
+        "sop-template",
+        "ceo-review",
+        "ninety-day-plan",
+        "brand-sheet",
+        "business-model-canvas",
+        "landing-page-brief",
+        "page-leak-audit",
+        "launch-countdown",
+        "recipe-call-notes",
+        "recipe-monday-scorecard"
+      ]
+    },
+    {
+      "slug": "creator",
+      "name": "UGC Creator Kit",
+      "price": 39,
+      "lookupKey": "pack_creator",
+      "art": "creator",
+      "line": "A portfolio site, a rate card and the emails to pitch brands.",
+      "pitch": "The Creator website design with a prompt that turns it into your portfolio, a rate card brands expect, five pitch and follow-up emails, a content brief, and a usage rights checklist so a one-time fee doesn't become a year of ads. Plus UGC video prompts, a hook bank, a brand deal tracker and thumbnail and story templates.",
+      "uses": [
+        "Put a portfolio up that brands can judge in one scroll",
+        "Pitch one brand a day without staring at a blank email",
+        "Charge for paid usage instead of giving it away"
+      ],
+      "items": [
+        "site-creator",
+        "brand-deals",
+        "video-prompts-ugc",
+        "video-prompts-shot-lists",
+        "hook-bank",
+        "social-thumbnail",
+        "social-story",
+        "batch-day"
+      ],
+      "kit": "creator",
+      "kitFiles": [
+        "01-rate-card",
+        "02-brand-pitch-emails",
+        "03-content-brief",
+        "04-usage-rights-checklist",
+        "05-portfolio-site"
+      ]
+    },
+    {
+      "slug": "ai",
+      "name": "AI Pack",
+      "price": 29,
+      "lookupKey": "pack_ai",
+      "art": "ai",
+      "line": "61 prompts and the operator setup that make any AI work from your business.",
+      "pitch": "Operator instructions you paste once into a Claude Project, a custom GPT or a Gemini Gem, then nine files of prompts by job: picking and proving an idea, your business brain, the offer, content, video, the website, money, operations and the weekly review. Each prompt says when to use it, what to fill in and what comes back.",
+      "uses": [
+        "Stop re-explaining your business every time you open a chat",
+        "Get a finished offer, page or plan instead of advice",
+        "Run a weekly review with an AI that remembers last week"
+      ],
+      "items": [],
+      "kit": "ai",
+      "kitFiles": [
+        "operator-instructions",
+        "prompts-start",
+        "prompts-brain",
+        "prompts-offer",
+        "prompts-content",
+        "prompts-video",
+        "prompts-website",
+        "prompts-finance",
+        "prompts-ops",
+        "prompts-review"
+      ]
+    },
+    {
+      "slug": "challenge",
+      "name": "Run your own challenge",
+      "price": 49,
+      "lookupKey": "pack_challenge",
+      "art": "challenge",
+      "kind": "course",
+      "line": "The five-day challenge engine 127 runs, with your days in it.",
+      "pitch": "Seven lessons on running a free five-day challenge where people build one real thing with you: the promise, the five days, the landing page and nine emails, the share cards that spread it, the honest offer at the end, a run sheet from three weeks out, and the rules that keep it clean. Every lesson ends with a prompt, and the launch countdown, email and hook templates come with it.",
+      "uses": [
+        "Turn your expertise into a free week people finish",
+        "Write every page and email from templates, not a blank page",
+        "Make the offer once, at the end, without pressure"
+      ],
+      "items": [
+        "launch-countdown",
+        "email-launch",
+        "hook-bank",
+        "social-story",
+        "site-waitlist",
+        "content-planner"
+      ],
+      "kit": "challenge",
+      "kitFiles": [
+        "01-pick-the-one-thing",
+        "02-design-the-five-days",
+        "03-pages-and-emails",
+        "04-share-mechanics",
+        "05-the-offer-at-the-end",
+        "06-run-sheet",
+        "07-keep-it-clean"
+      ],
+      "hq": [
+        "playbooks.launch_planner",
+        "email.launch_week",
+        "email.welcome",
+        "content.hooks",
+        "content.plan_week",
+        "dm.waitlist",
+        "offer.value_score"
+      ]
+    },
+    {
+      "slug": "digital-products",
+      "name": "Sell digital products",
+      "price": 39,
+      "lookupKey": "pack_digitalproducts",
+      "art": "digital",
+      "kind": "course",
+      "line": "Make, price, list and deliver a template, guide or prompt pack.",
+      "pitch": "Six lessons from picking what to make to the week you launch it: find the product in work you already repeat, build version one in a weekend, price it against the alternative, write a product page for phones, set up checkout, delivery and refunds, and run a seven-day launch. It is how 127 makes and sells its own packs, with the page, pricing and launch templates included.",
+      "uses": [
+        "Turn a file you already reuse into something people buy",
+        "Price it without guessing",
+        "Launch it in one week, then make the next one"
+      ],
+      "items": [
+        "site-product-landing",
+        "landing-page-brief",
+        "pricing-lab",
+        "first-sale-math",
+        "email-launch",
+        "launch-countdown"
+      ],
+      "kit": "digital-products",
+      "kitFiles": [
+        "01-pick-what-to-make",
+        "02-make-it-in-a-weekend",
+        "03-price-it",
+        "04-the-product-page",
+        "05-checkout-and-delivery",
+        "06-launch-week"
+      ],
+      "hq": [
+        "templates.make",
+        "templates.launch",
+        "templates.bundle",
+        "templates.next_product",
+        "offer.price_it",
+        "offer.lead_magnet",
+        "dm.product_link",
+        "email.launch_week"
+      ]
+    },
+    {
+      "slug": "paid-ads",
+      "name": "Run paid ads",
+      "price": 49,
+      "lookupKey": "pack_paidads",
+      "art": "ads",
+      "kind": "course",
+      "line": "A small first test, creative that stops the scroll, and a daily call you can make in five minutes.",
+      "pitch": "Seven lessons on Meta and Google ads for a small business: check you are ready and find your break-even number, set up a small first test, make three ads on three angles, check the page the ad sends people to, read five numbers and make the keep, fix or pause call, try search, and stay inside the platform rules. Comes with the ad test planner, image ad and UGC video prompts, and the break-even sheets.",
+      "uses": [
+        "Know your break-even number before you spend",
+        "Run a seven-day test that tells you something",
+        "Decide each day in five minutes what to keep or cut"
+      ],
+      "items": [
+        "ad-test-planner",
+        "video-prompts-image-ads",
+        "video-prompts-ugc",
+        "hook-bank",
+        "page-leak-audit",
+        "unit-economics",
+        "break-even"
+      ],
+      "kit": "paid-ads",
+      "kitFiles": [
+        "01-are-you-ready",
+        "02-your-first-test",
+        "03-creative",
+        "04-landing-page",
+        "05-read-the-numbers",
+        "06-google-search",
+        "07-ad-rules"
+      ],
+      "hq": [
+        "ads.ready_check",
+        "ads.launch_kit",
+        "ads.ad_images",
+        "ads.creator_brief",
+        "ads.landing_check",
+        "ads.read_results",
+        "ads.optimize",
+        "ads.google_search"
+      ]
+    },
+    {
+      "slug": "build-with-ai",
+      "name": "Build it with AI",
+      "price": 59,
+      "lookupKey": "pack_buildwithai",
+      "art": "build",
+      "kind": "course",
+      "line": "How 127 is built by one founder and a team of AI agents, and the prompts to build yours.",
+      "pitch": "Seven lessons on the method behind 127: the five tools, a spec before any code, one thread per job with one place that ships, everything behind a switch with tests, your standards written as rules the AI checks, and payments and legal basics without guessing. The last lesson is every prompt in one place. You need to know what you want, not how to code.",
+      "uses": [
+        "Write a spec an AI can build from",
+        "Run several AI agents without them breaking each other",
+        "Ship behind a switch and test before anyone sees it"
+      ],
+      "items": [
+        "recipe-ai-cofounder",
+        "landing-page-brief",
+        "sop-template",
+        "ninety-day-plan"
+      ],
+      "kit": "build-with-ai",
+      "kitFiles": [
+        "01-the-setup",
+        "02-spec-first",
+        "03-one-thread-per-job",
+        "04-ship-behind-a-switch",
+        "05-rules-the-ai-checks",
+        "06-payments-and-legal",
+        "07-prompts"
+      ],
+      "hq": [
+        "site.quick_site",
+        "site.build_tonight",
+        "offer.grand_slam",
+        "playbooks.launch_planner",
+        "playbooks.workflow_recommender"
+      ]
+    }
+  ],
+  "coming": []
 }
