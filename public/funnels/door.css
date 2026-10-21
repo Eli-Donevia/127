@@ -210,6 +210,23 @@ textarea.input { min-height: 104px; resize: vertical; line-height: 1.5; padding-
   .fb .dr-keep .btn { width: auto; min-width: 340px; }
   .fb .dr-keep .center { text-align: left; }
 }
+
+/* Fix my website (FIX_MY_SITE, door.js puts .fb-fix on <html>): the builder's page in one column, Legal G8's lines at
+   full contrast (L103), and what it fixed as plain rows like the list under the form (Tide stays light on the subject,
+   D57, so the rows carry no ticks). */
+.fb .form-note a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,.4); text-underline-offset: 3px; }
+.fb .fb-terms { margin-top: 12px; }
+.fb .fb-from { margin: 14px 0 0; font-size: 15px; line-height: 1.5; color: var(--c-ink); }
+.fb .fb-fixed { margin-top: 30px; }
+.fb .fx-list { list-style: none; margin: 10px 0 0; padding: 0; }
+.fb .fx-list li { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid var(--c-line); }
+.fb .fx-list li:last-child { border-bottom: 1px solid var(--c-line); }
+.fb .fx-list b { font-size: 16px; line-height: 1.35; font-weight: 600; letter-spacing: -.01em; color: var(--c-ink); }
+.fb .fx-list span { font-size: 15px; line-height: 1.5; color: var(--c-ink); }
+.fb .fb-kept { margin: 16px 0 0; font-size: 15px; line-height: 1.5; color: var(--c-ink); }
+@media (min-width: 1024px) {
+  .fb-fix main { grid-template-columns: minmax(0, 600px); }
+}
 @media (prefers-reduced-motion: reduce) {
   .fb *, .fb *::after { transition-duration: .01ms !important; }
 }

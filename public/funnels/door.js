@@ -14,7 +14,9 @@
     $('formWrap').hidden = true;
     return;
   }
-  var M = C.id, LAST = '127-door-' + M;
+  // Fix my website (FIX_MY_SITE, lib/doors.js doorCopy 'fix'): the free website builder for someone who already has a
+  // website. They paste it, and the site is rebuilt from what 127 read there.
+  var M = C.id, FIX = !!C.fix, LAST = '127-door-' + M + (FIX ? '-fix' : '');
   var st = { run: null, unlocked: false, sticky: null };
   // The free website builder (FREE_SITE_BUILDER, lib/doors.js doorCopy) is a page of its own: door.css .fb, a made-up
   // business's site beside the form, the name forming from light while the site builds, the designs as a row of names.
@@ -22,6 +24,7 @@
   var calm = !window.matchMedia || matchMedia('(prefers-reduced-motion: reduce)').matches;
   // The page's head marked it .fb before the first paint; .fb-up shows it now that it's drawn (this runs before any paint).
   if (FB) document.documentElement.classList.add('fb', 'fb-up');
+  if (FIX) document.documentElement.classList.add('fb-fix');
   // The email gate's copy for this door (results-kit.js reads it by magnet).
   RD.gate[M] = C.gate;
 
@@ -35,6 +38,8 @@
   var cap = function (s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); };
   var usd = function (n) { n = Number(n); return '$' + (n % 1 ? n.toFixed(2) : String(n)); };
   var label = function (t) { return '<div class="label">' + esc(t) + '</div>'; };
+  // A website as people say it: no https://, www. or path.
+  var hostOf = function (u) { return String(u || '').trim().replace(/^[a-z][a-z0-9+.-]*:\/\//i, '').replace(/^www\./i, '').split(/[/?#]/)[0].toLowerCase(); };
 
   // ---------- the form ----------
   $('chip').textContent = C.chip;
@@ -42,6 +47,8 @@
   $('h1').textContent = C.h1;
   $('lede').textContent = C.lede;
   $('note').textContent = C.note || '';
+  // Legal G8: the Terms line right under the button, at full contrast like the line under the form (L103).
+  if (C.terms) go.insertAdjacentHTML('afterend', '<p class="form-note fb-terms">' + esc(C.terms).replace('Terms', '<a href="/terms" target="_blank" rel="noopener">Terms</a>').replace('Privacy Policy', '<a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>') + '</p>');
   var button = function () { go.innerHTML = esc(C.button) + ' <span class="arrow"></span>'; };
   button();
   $('stack').innerHTML = C.free.map(function (t) { return '<li><span class="ck" aria-hidden="true"></span><span>' + esc(t) + '</span></li>'; }).join('');
@@ -201,7 +208,7 @@
     landing(false); $('result').hidden = true; $('whoWrap').hidden = true;
     $('scan').hidden = false;
     $('scanLabel').textContent = C.copy.running;
-    $('scanTitle').textContent = fill(C.scan, input);
+    $('scanTitle').textContent = fill(C.scan, FIX ? { site: hostOf(input.from) } : input);
     $('log').innerHTML = C.progress.map(function (t, i) { return '<li data-s="' + i + '"><span class="ic"></span><span class="tx">' + esc(t) + '</span><span class="val"></span></li>'; }).join('');
     $('meter').style.width = '6%';
     if (FB) building(input);
@@ -373,6 +380,19 @@
         if (errEl) { errEl.textContent = e.message || FB.designs.failed; errEl.hidden = false; }
       })
       .then(function () { st.busy = false; });
+  }
+
+  // Fix my website: Legal G8's line under the rebuilt site (full contrast, L103), then what it fixed and what it kept.
+  function fromLine(run) {
+    var x = run.result;
+    return x.from ? '<p class="fb-from">' + esc(fill(C.fix.from, { domain: x.from.domain, date: dayOf(run.keepUntil) })) + '</p>' : '';
+  }
+  function fixed(run) {
+    var x = run.result;
+    if (!x.fixed || !x.fixed.length) return x.kept ? '<p class="fb-kept">' + esc(fill(C.fix.kept, { kept: x.kept })) + '</p>' : '';
+    return '<div class="dr-sec fb-fixed"><h3 class="fb-h">' + esc(C.fix.fixed) + '</h3><ol class="fx-list">' + x.fixed.map(function (f) {
+      return '<li><b>' + esc(f.title) + '</b><span>' + esc(f.line) + '</span></li>';
+    }).join('') + '</ol>' + (x.kept ? '<p class="fb-kept">' + esc(fill(C.fix.kept, { kept: x.kept })) + '</p>' : '') + '</div>';
   }
 
   // The example beside the form: a made-up business's site playing in the designs that fit it, so the builder shows
@@ -558,11 +578,11 @@
     return [hex('--fb-tide', '#7cebf6'), hex('--fb-orchid', '#a98bff')];
   }
   function building(input) {
-    var box = $('fbBuild');
+    var box = $('fbBuild'), name = FIX ? hostOf(input.from) : input.business;
     if (!box) { box = document.createElement('div'); box.id = 'fbBuild'; $('scan').appendChild(box); }
     box.classList.remove('fb-out');
     if (swarm) { swarm.destroy(); swarm = null; }
-    box.innerHTML = '<div class="dr-frame fb-phone fb-forming"><canvas aria-hidden="true"></canvas><p class="fb-name" aria-hidden="true">' + esc(input.business) + '</p></div>' +
+    box.innerHTML = '<div class="dr-frame fb-phone fb-forming"><canvas aria-hidden="true"></canvas><p class="fb-name" aria-hidden="true">' + esc(name) + '</p></div>' +
       '<div class="fb-prog"><span id="fbBar"></span></div><p class="fb-step" id="fbStep"></p>';
     var fr = box.querySelector('.dr-frame');
     light(fr, 'draw');
@@ -571,7 +591,7 @@
     swarmLib().then(function (make) {
       var cv = fr.querySelector('canvas');
       if ($('scan').hidden || !box.contains(cv)) return;
-      return make(cv, { source: { canvas: nameArt(input.business, Math.round(cv.clientWidth), Math.round(cv.clientHeight)) }, colors: hues(cv), fit: 1, density: 3, jitter: 0.5, size: 1.1, scatter: 1.3, progress: 0 }).then(function (s) {
+      return make(cv, { source: { canvas: nameArt(name, Math.round(cv.clientWidth), Math.round(cv.clientHeight)) }, colors: hues(cv), fit: 1, density: 3, jitter: 0.5, size: 1.1, scatter: 1.3, progress: 0 }).then(function (s) {
         if ($('scan').hidden || !box.contains(cv)) { s.destroy(); return; }
         swarm = s;
         fr.classList.add('fb-swarm');
@@ -639,7 +659,8 @@
       free: function (run) {
         var p = fileOf(run, 'preview'), moving = !!(FB && run.result.designs);
         // Once the page is at the result's link, how long that link lasts (Legal L97 CH16).
-        return (p && p.open ? (moving ? '<div class="dr-sec fb-show">' + frame(p.open, C.result.preview, moving) + (st.unlocked ? '<p class="fb-cap">' + esc(fill(FB.lasts, { days: C.keepDays })) + '</p>' : '') + '</div>' + designs(run) : '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>') : '') +
+        return (p && p.open ? (moving ? '<div class="dr-sec fb-show">' + frame(p.open, C.result.preview, moving) + (FIX ? fromLine(run) : st.unlocked ? '<p class="fb-cap">' + esc(fill(FB.lasts, { days: C.keepDays })) + '</p>' : '') + '</div>' + designs(run) : '<div class="dr-sec">' + label(C.result.preview) + frame(p.open, C.result.preview) + '</div>') : '') +
+          (FIX ? fixed(run) : '') +
           (moving ? keep(run) : '') +
           // What the site still needs sits under the page until the email gate, then heads the steps.
           (!st.unlocked && run.result.ready === false ? '<div class="dr-sec">' + almost(run) + '</div>' : '');
@@ -803,6 +824,7 @@
       (x && x.status === 'not_shopify' && F.shopifyOnly ? '<p class="fog">' + esc(F.shopifyOnly) + '</p>' : '') +
       '<button type="button" class="btn block" data-again style="margin-top:14px">' + esc(F.again || C.copy.again) + '</button>' +
       (C.sample ? '<p class="center" style="margin:12px 0 0"><button type="button" class="dr-sample" data-sample>' + esc(C.sample.label) + '</button></p>' : '') +
+      (FIX && C.fix.buildPath ? '<p class="center" style="margin:12px 0 0"><a class="fb-link" href="' + esc(C.fix.buildPath) + '">' + esc(C.fix.build) + '</a></p>' : '') +
     '</div>';
     el.querySelector('[data-again]').onclick = function () {
       el.hidden = true; landing(true);

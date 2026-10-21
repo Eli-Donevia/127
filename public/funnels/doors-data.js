@@ -167,6 +167,37 @@
           lasts: 'This preview link lasts {days} days from when you made it.',
           keep: { start: 'Keep it free in 127 HQ', in: 'Bring it into 127 HQ', line: 'A free account. Your site, its files and the steps to put it online stay in one place.', or: 'Or get the ZIP by email', bar: 'Keep this website free in 127 HQ.', barIn: 'Bring this website into 127 HQ.', barButton: 'Keep it' },
         },
+        // Fix my website (FIX_MY_SITE, lib/doors.js doorCopy 'fix'): the builder for someone who already has a website.
+        // Legal G8 (L104, legal/handoffs/turnkey.md): the tick, the Terms line under the button, the line under the form
+        // and the line under the rebuilt site are Legal's words, at full contrast (L103).
+        fix: {
+          path: '/fix-my-site',
+          track: 'Fix My Site Run',
+          title: 'Fix my website · 127',
+          description: 'Paste your website. 127 rebuilds it in a design that moves, with your own words and photos, and shows you what it fixed. Free.',
+          h1: 'Make your website premium.',
+          lede: 'Paste your website. 127 reads it and rebuilds it in a design that moves, with your own words and photos, then shows you what it fixed.',
+          fields: [
+            { name: 'from', label: 'Your website', placeholder: 'yourbusiness.com', required: true, max: 300, auto: 'url' },
+            { name: 'owner', type: 'checkbox', label: 'I own or run this website, and I have the right to use its words and photos.', required: true },
+          ],
+          ownerError: 'Tick the box to confirm you own or run this website and can use its words and photos.',
+          badUrl: 'Paste your website address, like yourbusiness.com.',
+          terms: 'By continuing, you agree to our Terms and Privacy Policy.',
+          note: "We read your site's public pages once and never log in. Your words and photos go into a preview that only people with its link can see. The link works for {days} days, and nothing on your current site changes.",
+          button: 'Make it premium',
+          scan: 'Reading {site}',
+          progress: ['Reading your website', 'Carrying over your words and photos', 'Picking the designs that fit', 'Rebuilding it'],
+          free: ['Your website, rebuilt in a design that moves', 'Your own words and photos, carried over', 'What it fixed, in plain words', 'The whole site as a ZIP that is yours to keep'],
+          heading: 'Your website, rebuilt.',
+          from: 'Rebuilt from {domain} with your own words and photos. Check every line, and that you can use every photo, before you put it online. This preview link works until {date}.',
+          fixed: 'What it fixed',
+          kept: 'Carried over from your site: {kept}.',
+          build: 'No website yet? Build one free',
+          capped: '127 has read all the websites it can for today. Try yours again tomorrow.',
+          fail: { blocked: 'Your website asks bots not to read it, so we left it alone.', unreachable: "We couldn't open that website.", parked: "There isn't a working website at that address yet.", thin: 'Your homepage has almost no words we can read.', hosted: "That's a page on another company's site.", bad: "That doesn't look like a website address.", other: "We couldn't read that website.", again: 'Try another address' },
+          email: { subject: 'Your website, rebuilt: {business}', open: 'Open your rebuilt website and download the ZIP' },
+        },
       },
       offer: {
         path: '/offer-score',
