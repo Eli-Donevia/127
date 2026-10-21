@@ -27,6 +27,10 @@ Fill this in five times. If a box is hard to fill, the day is too big.
 
 The stuck lines are where finish rates come from. Guess the excuses before you hear them: "I don't have a name yet", "I don't like how it looks", "I'm scared to post", "I don't know my price". Each one gets a smaller version of the task that still counts. Posting to Close Friends counts. A screen recording counts. A price you can change Friday counts.
 
+## Running it longer
+
+Once five days works, you can stretch it. 127's Day One Challenge runs 14 days. Keep the same shape: every day still ends in something real, the hard days stay early, and the ask comes at the end. Add days only where people need more time, never to fill a calendar.
+
 ## Prompt: draft the five days
 
 ```text
