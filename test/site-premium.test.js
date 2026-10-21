@@ -53,7 +53,7 @@ test('each upgraded design declares a valid choreo block', () => {
   const intro = (id) => L.T.TEMPLATES.find((x) => x.id === id).choreo.intro;
   assert.equal(intro('supper'), 'pour');
   assert.equal(intro('atelier'), 'unfold');
-  assert.equal(intro('northstar'), 'develop');
+  assert.equal(intro('northstar'), 'draw');
   assert.equal(intro('lumen'), 'type');
 });
 
