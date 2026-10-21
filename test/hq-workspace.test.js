@@ -602,7 +602,11 @@ test('Prompts: forms from variables, filled in, locked by plan, never showing wh
   const paid = L.prompts.find((x) => x.tier === 'builder');
   const free = await member('free');
   assert.match(await (await s.go(`/app/hq/prompts/${paid.id}`, { as: free })).text(), /This prompt is part of Builder/);
-  assert.match(await (await s.go('/app/hq/prompts', { as: free })).text(), /h2-tag">Builder/);
+  const lib = await (await s.go('/app/hq/prompts', { as: free })).text();
+  assert.match(lib, /h2-tag lock"><svg[^>]*>.*?<\/svg>Builder/);
+  // A locked prompt's card peeks at what it gives, never its text.
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&#34;').replace(/'/g, '&#39;');
+  assert.ok(!lib.includes(esc(paid.prompt.split('\n')[0].slice(0, 60))));
   assert.equal((await s.go(`/app/hq/prompts/${paid.id}`, { as: free, form: { fill: '1' } })).headers.get('location'), `/app/hq/prompts/${paid.id}`);
   assert.equal((await s.go('/app/hq/prompts/nope', { as: u })).status, 404);
   // Send to Ask 127: one message showing the prompt's title.

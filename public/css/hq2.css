@@ -404,3 +404,45 @@
 .br-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .br-n { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-right: 10px; border-radius: 999px; border: 1px solid var(--line-2); font: 500 12px var(--mono); color: var(--ink-2); vertical-align: 2px; }
 .br-method { margin: 10px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--ink-2); font-size: 14px; }
+
+/* The prompt library (/app/hq/prompts) as cards. Each card opens on a peek of the prompt: its first line and the blanks
+   the member fills in (a locked one shows what it gives instead). On a wide screen hovering a card scrolls the peek;
+   on a phone each group is one row to swipe. No accent: the titles carry it. */
+.pl-index { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 4px -16px 6px; padding: 0 16px 2px; }
+.pl-index::-webkit-scrollbar { display: none; }
+.pl-index a { flex: none; height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.pl-index a i { font: 500 11px var(--mono); font-style: normal; color: var(--slate); }
+.pl-index a:hover { border-color: var(--line-2); color: var(--ink); }
+@media (min-width: 720px) { .pl-index { flex-wrap: wrap; overflow: visible; margin: 4px 0 6px; padding: 0; } }
+.pl-groups { display: flex; flex-direction: column; gap: 40px; margin-top: 22px; }
+.pl-group { scroll-margin-top: 80px; }
+.pl-head { max-width: 640px; }
+.pl-n { display: block; font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.pl-head .h2-h { margin: 8px 0 0; font-size: 24px; letter-spacing: -0.02em; }
+.pl-head .h2-sub { margin-top: 6px; }
+.pl-cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 16px; }
+.pl-card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-decoration: none; overflow: hidden; transition: border-color .15s; }
+.pl-card:hover { border-color: var(--line-2); }
+.pl-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.pl-peek { position: relative; display: block; height: 150px; overflow: hidden; background: linear-gradient(180deg, #131317 0%, #0d0d10 100%); border-bottom: 1px solid var(--line); -webkit-mask-image: linear-gradient(180deg, #000 70%, rgba(0, 0, 0, .25) 100%); mask-image: linear-gradient(180deg, #000 70%, rgba(0, 0, 0, .25) 100%); }
+.pl-scroll { display: flex; flex-direction: column; gap: 10px; padding: 16px 16px 20px; }
+.pl-lead { font: 11.5px/1.55 var(--mono); color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.pl-peek em { font: 500 10.5px var(--mono); font-style: normal; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.pl-field { display: grid; gap: 6px; }
+.pl-field b { font-size: 11.5px; line-height: 1.3; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl-field i { display: block; height: 22px; border-radius: 6px; border: 1px solid var(--line-2); background: rgba(255, 255, 255, .02); }
+.pl-card.locked .pl-lead { font-family: var(--sans); font-size: 13px; line-height: 1.5; -webkit-line-clamp: 5; }
+.pl-body { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; flex: 1; }
+.pl-body h3 { margin: 0; font-size: 16px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
+.pl-when { color: var(--ink-2); font-size: 13.5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.pl-meta { margin-top: auto; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font: 11px var(--mono); color: var(--slate); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .pl-scroll { transition: transform 2.4s cubic-bezier(.3, 0, .2, 1); }
+  .pl-card:hover .pl-scroll, .pl-card:focus-visible .pl-scroll { transform: translateY(-34%); transition-duration: 3.2s; }
+}
+@media (max-width: 719px) {
+  .pl-groups { gap: 32px; }
+  .pl-cards { display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; margin: 14px -16px 0; padding: 0 16px 4px; scroll-padding-inline: 16px; scrollbar-width: none; }
+  .pl-cards::-webkit-scrollbar { display: none; }
+  .pl-card { flex: 0 0 82%; scroll-snap-align: start; }
+}
