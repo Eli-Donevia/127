@@ -10,7 +10,7 @@ process.env.DB_FILE = path.join(__dirname, '..', 'data', `test-db-free-sites-${p
 process.env.BLOB_DIR = path.join(os.tmpdir(), `127-blobs-free-sites-${process.pid}`);
 process.env.BASE_URL = 'https://127.test';
 process.env.SESSION_SECRET = 'test-secret';
-// The 18 designs with motion join the site pack when it loads.
+// The 24 designs with motion join the site pack when it loads.
 process.env.SITE_MOTION = 'on';
 for (const k of ['ANTHROPIC_API_KEY', 'FRONT_DOORS_AI', 'DOORS_PER_IP', 'DOORS_REDESIGN_PER_IP', 'FREE_SITE_BUILDER', 'HARNESS_PAUSE', 'PRELAUNCH']) delete process.env[k];
 Object.assign(process.env, { FRONT_DOORS: 'true', HARNESS_V2: 'on', TERMS_LIVE: 'true', PRIVACY_LIVE: 'true' });
@@ -99,14 +99,15 @@ test("switched on, the page is the free website builder, with every design that 
     const c = config(html);
     assert.equal(c.h1, F.page.h1);
     assert.equal(c.button, F.page.button);
-    assert.deepEqual(c.free, F.page.free.map((t) => t.replace('{n}', '18')));
-    assert.match(c.free[1], /^All 18 designs/);
+    const n = String(require('../lib/packs/site/lib/templates').TEMPLATES.filter((t) => t.animated).length);
+    assert.deepEqual(c.free, F.page.free.map((t) => t.replace('{n}', n)));
+    assert.match(c.free[1], new RegExp(`^All ${n} designs`));
     assert.equal(c.result.heading, F.page.heading);
     assert.equal(c.result.design, F.page.design, 'the result names the design without its long description');
     assert.equal(c.design, undefined);
     assert.equal(c.result.deploy, D.doors.site.result.deploy, "the rest of the result's words stay");
     assert.deepEqual(c.freeBuilder.all.map((d) => d.id), MOVING);
-    assert.equal(MOVING.length, 18);
+    assert.equal(MOVING.length, 24);
     assert.deepEqual(c.freeBuilder.keep, F.keep);
     assert.equal(c.freeBuilder.lasts, F.lasts);
     assert.match(F.lasts, /lasts \{days\} days from when you made it\.$/);
