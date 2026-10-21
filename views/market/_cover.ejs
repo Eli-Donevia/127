@@ -1,0 +1,2 @@
+<%# A listing's cover, or its title set on a plain block when it has none yet. Locals: c (market.card). %>
+<% if (c.cover) { %><img src="<%= c.cover %>" alt="" loading="lazy" width="400" height="500"><% } else { %><span class="mk-blank"><%= c.title %></span><% } %>

@@ -1,0 +1,43 @@
+<%- include('../partials/head') %>
+<%# The marketplace's front (lib/market-routes.js GET /market). Shelves by kind, then niches, then the rows. %>
+<% var q = function (k, n) { var p = []; if (k) p.push('kind=' + k); if (n) p.push('niche=' + encodeURIComponent(n)); return '/market' + (p.length ? '?' + p.join('&') : ''); }; %>
+<main class="mk mk-index">
+  <section class="mk-hero">
+    <div class="wrap">
+      <h1 class="mk-h1">Made by people building on 127.</h1>
+      <p class="mk-line">Site designs, templates, prompt packs and workflows from members running their own businesses. A person at 127 checks every one before it goes up.</p>
+    </div>
+  </section>
+  <nav class="mk-shelves" aria-label="Shelves">
+    <div class="mk-shelves-in">
+      <a href="<%= q(null, niche) %>"<% if (!kind) { %> aria-current="page"<% } %>>Everything <span><%= total %></span></a>
+      <% Object.keys(KINDS).forEach(function (k) { if (!counts[k] && kind !== k) return; %><a href="<%= q(k, niche) %>"<% if (kind === k) { %> aria-current="page"<% } %>><%= KINDS[k] %> <span><%= counts[k] %></span></a><% }) %>
+    </div>
+  </nav>
+  <div class="wrap">
+    <% if (niches.length) { %>
+    <p class="mk-niches"><span>For</span>
+      <% if (niche) { %><a href="<%= q(kind, null) %>">any business</a><% } %>
+      <% niches.forEach(function (n) { %><a href="<%= q(kind, n) %>"<% if (niche === n) { %> aria-current="true"<% } %>><%= n.replace(/-/g, ' ') %></a><% }) %>
+    </p>
+    <% } %>
+    <% if (listings.length) { %>
+    <div class="mk-list-wrap">
+      <ul class="mk-rows">
+        <% listings.forEach(function (c) { %><%- include('_row', { c: c }) %><% }) %>
+      </ul>
+      <% if (canSell) { %><p class="mk-fine">Made something other members would use? <a href="/app/sell">Sell it here</a>.</p><% } %>
+    </div>
+    <% } else { %>
+    <section class="mk-empty">
+      <p class="mk-empty-big"><%= total ? 'Nothing on this shelf yet.' : 'The shelf is being stocked. The first members’ files are with 127 for a check.' %></p>
+      <ol class="mk-how">
+        <li><span class="mk-n">01</span><span><b>Members make it.</b> Builder and Circle members list files from their own businesses.</span></li>
+        <li><span class="mk-n">02</span><span><b>127 checks it.</b> A person reads every file and turns away copies, income promises and filler.</span></li>
+        <li><span class="mk-n">03</span><span><b>You pay once.</b> Download straight away, no account needed. The maker gets most of what you pay.</span></li>
+      </ol>
+    </section>
+    <% } %>
+  </div>
+</main>
+<%- include('../partials/foot') %>

@@ -51,6 +51,9 @@ const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
 const foundingFiveRoutes = require('./lib/founding-five-routes');
 const doors = require('./lib/doors');
+const referrals = require('./lib/referrals');
+const market = require('./lib/market');
+const marketRoutes = require('./lib/market-routes');
 const onboarding = require('./content/onboarding.json');
 const { resources } = require('./content/resources.json');
 
@@ -220,6 +223,9 @@ app.use((req, res, next) => {
   res.locals.hqLive = hq.liveFor(user) || harness.enabledFor(user);
   // The workspace offer (lib/hq-offer.js): the plan cards sell HQ once it's on for members (HQ_OFFER=on). Off costs nothing.
   res.locals.hqOffer = hqOffer.forPage();
+  // The Invite page (lib/referrals.js, REFERRALS) and the member marketplace (lib/market.js, MARKETPLACE) in the menu.
+  res.locals.referralsOn = referrals.visibleTo(user);
+  res.locals.marketOn = market.visibleTo(user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -233,7 +239,7 @@ app.use((req, res, next) => {
   // utm_source/medium/campaign/content/term; fbclid and ttclid only as a "1" flag (lib/utm.js).
   const utm = utmLib.present(req.query);
   if (Object.keys(utm).length && !req.session.utm) req.session.utm = utm;
-  if (req.query.ref && waitlist.byCode(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
+  if (req.query.ref && referrals.valid(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
   next();
 });
 
@@ -250,7 +256,8 @@ function builderOffer(req, user, L) {
     closesShort: L.closesShort,
     closesTime: L.closesTime,
     // Free first month from the referral reward changes the renewal line (Membership Terms, Appendix A1).
-    freeMonth: !!(founding && billing.referralRewardDue(user)),
+    // A month banked from a friend who paid (lib/referrals.js) does the same for a Builder checkout.
+    freeMonth: !!(founding && billing.referralRewardDue(user)) || !!(user && user.tier === 'free' && referrals.banked(user)),
   };
   offer.firstCharge = offer.freeMonth ? billing.firstChargeDate() : null;
   if (founding) {
@@ -497,14 +504,17 @@ app.post('/start', wrap(async (req, res) => {
 async function createMember(req, { email, name, password, optIn, source, fallbackSource }) {
   const onList = launch.onWaitlist(email);
   const refCode = cookie(req, 'ref');
-  const referrer = refCode && waitlist.byCode(refCode);
+  // A founding list code or a member's own code (lib/referrals.js): one code system.
+  const referrer = refCode && referrals.owner(refCode);
   const utm = req.session.utm || {};
   // Which funnel (quiz, stack, idea test) this member came from, if any.
   const lead = db.filter('leads', (l) => l.email === email).sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0] || null;
   const user = await db.save('users', {
     email,
     name,
-    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.referralCode : null),
+    referredBy: (onList && onList.referredBy) || (referrer && referrer.email !== email ? referrer.code : null),
+    // Which share point the code came through ("site" = the Made with 127 badge), for the Invite page.
+    signupVia: referrer && referrer.email !== email ? req.session.refVia || null : null,
     signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
     leadSource: lead ? lead.source : null,
     utm: Object.keys(utm).length ? utm : null,
@@ -569,8 +579,9 @@ function ownCode(req, code) {
 }
 
 app.get('/f/:code', (req, res) => {
-  const entry = waitlist.byCode(req.params.code);
-  if (entry) setRefCookie(res, entry.referralCode);
+  const own = referrals.owner(req.params.code);
+  if (own) setRefCookie(res, own.code);
+  if (own && ['site', 'challenge', 'invite'].includes(req.query.via)) req.session.refVia = req.query.via;
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
 
@@ -2073,6 +2084,8 @@ app.use(storeRoutes({ requireAuth, flash, track }));
 app.use(shopRoutes({ track }));
 // Life in HQ (lib/life): budget, workouts, food, check-in, kept in the member's own browser. Behind HQ_LIFE (default off).
 app.use(lifeRoutes({ requireAuth }));
+// The Invite page and the member marketplace, each behind its own switch (lib/market-routes.js).
+app.use(marketRoutes({ requireAuth, requireAdmin, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 // HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).
@@ -2160,6 +2173,8 @@ db.init().then(async () => {
     require('./lib/lapse').sweep().catch((err) => console.error('[lapse] sweep', err.message));
     // HQ Post: photos of finished posts go after 7 days.
     require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
+    // Referral months whose 14-day wait is over (lib/referrals.js); nothing while REFERRALS is off.
+    referrals.sweep().catch((err) => console.error('[referrals] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.

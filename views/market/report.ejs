@@ -1,0 +1,23 @@
+<%- include('../partials/head') %>
+<%# Report a listing (POST /market/:slug/report). A report puts the listing in front of an admin. %>
+<main class="mk"><section class="mk-item"><div class="wrap" style="max-width:640px">
+  <p class="mk-lbl"><a href="/market/<%= l.slug %>"><%= l.title %></a> <span aria-hidden="true">/</span> Report</p>
+  <h1 class="mk-h1" style="font-size:clamp(32px,5vw,52px)">What's wrong with it?</h1>
+  <p class="mk-line">127 reads every report. If it copies your work, say where yours lives so we can compare.</p>
+  <% if (error) { %><div class="alert error" style="margin-top:20px"><%= error %></div><% } %>
+  <form method="post" class="sl-form" style="margin-top:28px">
+    <label class="field"><span>Reason</span>
+      <select class="input" name="reason">
+        <option value="copied">It copies someone's work</option>
+        <option value="misleading">It doesn't match what the page says</option>
+        <option value="broken">The files don't work</option>
+        <option value="not-allowed">It shouldn't be sold here</option>
+        <option value="other">Something else</option>
+      </select>
+    </label>
+    <label class="field"><span>Tell us more</span><textarea class="input" name="text" rows="5" maxlength="1500" required></textarea></label>
+    <label class="field"><span>Your email, if you'd like a reply</span><input class="input" name="email" type="email" maxlength="200" autocomplete="email"></label>
+    <button class="btn light">Send the report</button>
+  </form>
+</div></section></main>
+<%- include('../partials/foot') %>
