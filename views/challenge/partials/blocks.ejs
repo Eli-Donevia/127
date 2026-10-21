@@ -1,7 +1,10 @@
-<%# Renders content blocks from content/challenge.json. Locals: blocks, md %>
-<% (blocks || []).forEach(function (b) { %>
+<%# Renders content blocks from content/challenge.json. Locals: blocks, md. A block with a "path" shows only
+    to people on that path (v2), or to everyone who hasn't picked one. %>
+<% var myPath = (typeof me !== 'undefined' && me && me.entry && me.entry.path) || null; if (myPath === 'none') myPath = null; %>
+<% (blocks || []).forEach(function (b) { if (b.path && myPath && b.path !== myPath) return; %>
   <% if (b.type === 'p') { %><p><%- md(b.text) %></p>
   <% } else if (b.type === 'h') { %><h4><%- md(b.text) %></h4>
+  <% } else if (b.type === 'button') { %><p class="tool-btn"><a class="btn light" href="<%= b.href %>" data-track="Challenge Tool Open"><%= b.text %> <span class="arrow"></span></a><% if (b.path && !myPath) { %> <span class="note"><%= b.path === 'service' ? 'For services' : b.path === 'creator' ? 'For creators' : 'For products' %></span><% } %></p>
   <% } else if (b.type === 'note') { %><p class="note"><%- md(b.text) %></p>
   <% } else if (b.type === 'ul' || b.type === 'ol') { %><<%= b.type %>><% b.items.forEach(function (it) { %><li><%- md(it) %></li><% }) %></<%= b.type %>>
   <% } else if (b.type === 'quote') { %><blockquote class="ch-quote"><%- md(b.text) %></blockquote>

@@ -1,6 +1,6 @@
 <%- include('../partials/head') %>
 <% var fn = me ? me.firstName : ''; var live = chx.phase === 'live'; %>
-<main class="chp">
+<main class="chp<%= typeof chx !== 'undefined' && chx.v2 ? ' chp-v2' : '' %>">
   <% if (kind !== 'sent') { %><%- include('partials/top', { n: null, preview: false }) %><% } %>
   <section class="ch-hero">
     <div class="wrap">
@@ -14,7 +14,7 @@
         <h1><span class="dim">You're in<%= fn ? ',' : '.' %></span><% if (fn) { %> <span class="grad"><%= fn %>.</span><% } %></h1>
         <% if (onList && kind === 'new') { %><p class="lede">You're already on the founding list, so your founding price is saved.</p><% } %>
         <% if (live) { %>
-          <p class="lede">The challenge started Monday, and you can still finish it: every day stays open until <b>Sunday, November 15 at 11:59pm ET</b>. Start here, about 20 minutes each.</p>
+          <p class="lede">The challenge started <%= chx.etWeekday(chx.startAt) %>, and you can still finish it: every day stays open until <b><%= chx.etLong(chx.closesAt) %> at 11:59pm ET</b>. Start here, <%= chx.v2 ? 'about 15 minutes each' : 'about 20 minutes each' %>.</p>
           <div class="ch-catchup">
             <% me.days.forEach(function (d) { if (!d.unlocked) return; %><a class="btn <%= d.done ? 'ghost' : 'light' %> sm" href="/challenge/day/<%= d.n %>"><%= d.done ? '✓ ' : '' %>Day <%= d.n %>: <%= d.move %><% if (!d.done) { %> <span class="arrow"></span><% } %></a><% }) %>
           </div>
@@ -23,7 +23,7 @@
           <div class="lbl" style="margin-top:30px">Day 1 starts in</div>
           <%- include('../partials/countdown', { cdTarget: chx.startAt }) %>
         <% } %>
-        <p class="small-print" style="margin-top:18px">You'll get one email a day, Nov 9 to 13.</p>
+        <p class="small-print" style="margin-top:18px">You'll get one email a day, <%= chx.dates %>.</p>
       <% } %>
     </div>
   </section>
@@ -31,12 +31,15 @@
   <% if (kind !== 'sent') { %>
   <section class="ch-block">
     <div class="wrap">
-      <span class="lbl"><%= live ? 'Before your next move' : 'Three things before Monday' %></span>
+      <span class="lbl"><%= live ? 'Before your next move' : 'Three things before ' + chx.etWeekday(chx.startAt) %></span>
       <ol class="ch-prep">
-        <% if (!live) { %>
+        <% if (!live && prepV2) { %>
+        <li><b><%= prepV2.headline %></b><% prepV2.body.forEach(function (l) { %><p><%- md(l) %></p><% }) %>
+          <% if (starters) { %><p>No idea yet? Starter ideas:</p><ul><% Object.keys(starters).forEach(function (k) { var p = (paths || []).filter(function (x) { return x.id === k; })[0]; (starters[k] || []).forEach(function (idea) { %><li><%= idea %><% if (p && Object.keys(starters).length > 1) { %> <span class="tiny">(<%= p.label.toLowerCase() %>)</span><% } %></li><% }) }) %></ul><% } %></li>
+        <% } else if (!live) { %>
         <li><b>Do the 1-minute prep.</b><p>Write down 3 problems you've noticed this week. Things people complain about, pay someone to fix, or do badly themselves.</p></li>
         <% } %>
-        <li><b>Save the lives.</b><p>Kickoff and debrief, live with Eli on Instagram. Replays if you can't make it.</p>
+        <li><b>Save the lives.</b><p>Kickoff and <%= chx.lives[1].title.toLowerCase() %>, live with Eli on Instagram. Replays if you can't make it.</p>
           <div class="btns"><% chx.lives.forEach(function (l) { if (l.aired) return; %><a class="btn ghost sm" href="<%= l.ics %>" data-track="Challenge Calendar" data-channel="<%= l.id %>"><%= l.title %> · <%= l.label %></a><% }) %></div></li>
         <li><b>Turn on live alerts.</b><p>Follow <a href="https://instagram.com/elichristiansen_" target="_blank" rel="noopener">@elichristiansen_</a> on Instagram and tap the bell.</p></li>
       </ol>

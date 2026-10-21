@@ -446,3 +446,62 @@
   .pl-cards::-webkit-scrollbar { display: none; }
   .pl-card { flex: 0 0 82%; scroll-snap-align: start; }
 }
+
+/* Brain auto-fill (views/partials/hq2-brain-draft-start.ejs, views/app/hq2/brain-draft.ejs) */
+.hq-draft-row { display: flex; gap: 10px; align-items: stretch; margin-top: 14px; }
+.hq-draft-row .btn { flex: none; }
+.hq-draft-alt { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.hq-draft-alt summary { cursor: pointer; font-size: 14px; color: var(--slate); min-height: 44px; display: flex; align-items: center; }
+.hq-draft-alt form { margin-top: 8px; }
+/* Review: one card per group, one hairline row per line; the label and its Keep tick share a row. */
+.hq-draft-group { margin: 0; min-width: 0; }
+.hq-draft-legend { float: left; width: 100%; padding: 0 0 4px; font: 12px/1.4 'Geist Mono', ui-monospace, monospace; color: var(--slate); }
+.hq-draft-line { clear: both; display: grid; gap: 6px; padding: 12px 0; border-top: 1px solid var(--line); }
+.hq-draft-group .hq-draft-line:first-of-type { border-top: 0; }
+.hq-draft-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
+.hq-draft-keep { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px; color: var(--slate); cursor: pointer; flex: none; }
+.hq-draft-keep input { width: 22px; height: 22px; accent-color: var(--pop, #7c8cff); }
+.hq-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-left: 6px; border: 1px solid var(--line); }
+.hq-draft-save { position: sticky; bottom: calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 10px; justify-content: flex-end; padding: 12px 0; }
+@media (max-width: 480px) {
+  .hq-draft-row { flex-direction: column; }
+  .hq-draft-save .btn { flex: 1; justify-content: center; }
+}
+
+/* With the workspace shell on a phone, the tab bar (hq2-ws.css .ws-bar-phone) covers the page bottom. */
+@media (max-width: 860px) { .shell.hqws .hq-draft-save { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+
+/* The first run (views/app/hq2/welcome.ejs): a short chat with an AI employee, phone first. */
+.fr { max-width: 640px; }
+.fr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin: 4px 0 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.fr-head b { display: block; font-size: 22px; font-weight: 500; letter-spacing: -.01em; }
+.fr-head span { font: 12px/1.4 'Geist Mono', ui-monospace, monospace; color: var(--slate); }
+/* Three steps; the one in progress takes the pop (the subject of the view), done ones go steel. */
+.fr-steps { list-style: none; margin: 0 0 6px; padding: 0; display: flex; gap: 4px; flex: none; }
+.fr-steps li { width: 22px; height: 3px; border-radius: 2px; background: var(--line); }
+.fr-steps li.done { background: #e3e6f1; }
+.fr-steps li.now { background: var(--pop, #7c8cff); }
+.fr-chat { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fr-chat > li { max-width: 88%; }
+.fr-chat p { margin: 0; line-height: 1.5; font-size: 15px; }
+.fr-ai { align-self: flex-start; }
+.fr-ai p { padding: 12px 14px; border-radius: 4px 18px 18px 18px; background: var(--surface); border: 1px solid var(--line); }
+.fr-me { align-self: flex-end; }
+.fr-me p { padding: 10px 14px; border-radius: 18px 4px 18px 18px; background: rgba(227, 230, 241, .09); color: var(--ink, #f2f3f7); }
+.fr-act { align-self: stretch; max-width: 100% !important; margin: 4px 0 8px; }
+.fr-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.fr-plain summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; color: var(--slate); }
+.fr-plain[open] summary { margin-bottom: 8px; }
+.fr-act .hq-draft { margin-bottom: 10px; }
+.fr-skip { margin: 28px 0 0; text-align: center; }
+@media (max-width: 480px) {
+  .fr-chat > li { max-width: 94%; }
+  .fr-row .btn { flex: 1 1 100%; justify-content: center; }
+  .fr-act > .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Only the newest message arrives; everything already said stays put. */
+  .fr-now, .fr-now + .fr-act { animation: fr-in .36s cubic-bezier(.22, 1, .36, 1) both; }
+  .fr-now + .fr-act { animation-delay: .12s; }
+  @keyframes fr-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+}

@@ -1,0 +1,133 @@
+{
+  "slug": "gym-owners",
+  "status": "test",
+  "wave": 1,
+  "group": "Fitness",
+  "name": "Gym owners",
+  "one": "gym",
+  "description": "A class schedule site, a member welcome series, review asks, a challenge plan and a retention sheet for independent gyms and studios.",
+  "h1": "The schedule is the homepage.",
+  "mark": "schedule",
+  "lede": "127 gives an independent gym a site that opens on this week's classes, a welcome series for new members, and the sheet that shows who hasn't checked in for two weeks.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Post the week's classes",
+      "hand": "A schedule post and story from your class list"
+    },
+    {
+      "when": "Tue",
+      "job": "Welcome new members",
+      "hand": "A five-email welcome series: first class, the coaches, what to bring"
+    },
+    {
+      "when": "Thu",
+      "job": "Check who's gone quiet",
+      "hand": "A retention sheet that lists members with no check-in in 14 days"
+    },
+    {
+      "when": "Sat",
+      "job": "Film the class",
+      "hand": "A 15-second class reel brief, with a consent line for members on camera"
+    }
+  ],
+  "site": {
+    "design": "northstar",
+    "sample": {
+      "business": "Ironside Athletic",
+      "what": "Strength and conditioning gym with group classes",
+      "services": "Drop-in class, $20\nUnlimited classes, monthly, $139\nIntro week, 3 classes, $29",
+      "city": "Des Moines"
+    },
+    "caption": "Ironside Athletic is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my gym's site free",
+    "fine": "Type your gym and your classes. Free, no card.",
+    "query": {
+      "what": "Independent gym with group classes"
+    }
+  },
+  "pack": {
+    "name": "Gym Pack",
+    "price": 39,
+    "line": "A schedule site, welcome emails, review asks, a challenge plan and a retention sheet.",
+    "items": [
+      "site-studio",
+      "site-event",
+      "client-sessions",
+      "weekly-scorecard",
+      "email-welcome",
+      "email-win-back",
+      "email-review-ask",
+      "social-story",
+      "video-prompts-local-service",
+      "launch-countdown"
+    ],
+    "prompts": [
+      {
+        "id": "01-welcome-series",
+        "title": "New member welcome series",
+        "summary": "Five short emails for a new member's first two weeks.",
+        "prompt": "Write a five-email welcome series for new members at [gym]. Day 0: welcome and what to bring. Day 2: how the first class goes. Day 5: meet the coaches [names, one line each]. Day 9: the schedule and how to book. Day 14: check in, ask how it's going. Each under 120 words, signed by [owner]. No promises about weight loss or results.",
+        "use": "Set it up once in your email tool and let it run."
+      },
+      {
+        "id": "02-quiet-members",
+        "title": "Quiet member check-in",
+        "summary": "A personal text for a member who hasn't been in for two weeks.",
+        "prompt": "Write three versions of a short text from [coach] at [gym] to a member who hasn't checked in for two weeks. Warm, no guilt, one question, offer a class time [ ]. Under 30 words each, with a way to opt out.",
+        "use": "Send them from your phone, one by one, every Thursday."
+      },
+      {
+        "id": "03-challenge-plan",
+        "title": "Six-week challenge plan",
+        "summary": "Plans an in-gym challenge: the rules, the weekly posts, the check-ins and the finale.",
+        "prompt": "Plan a six-week in-gym challenge at [gym] for [members or newcomers]. Price [ ]. Include: rules and what counts (attendance, not body weight), the weekly post, a weekly check-in message, the finale day, and how we'll celebrate. No before-and-after body photos, no weight-loss claims.",
+        "use": "Run it twice a year. Count attendance, not pounds."
+      }
+    ]
+  },
+  "hq": [
+    "content",
+    "reviews",
+    "email",
+    "local"
+  ],
+  "hooks": [
+    "Your gym's homepage should be this week's schedule.",
+    "The text I'd send a member who's gone quiet.",
+    "Five emails for a new member's first two weeks.",
+    "Run a challenge that counts attendance, not pounds.",
+    "Who hasn't checked in for 14 days? Here's the sheet.",
+    "Film the class, not the gym."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Is your class schedule on your website, on a phone?",
+      "body": "Type your gym and classes. 127 builds the site free.",
+      "headline": "Build your gym's site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Welcome emails, quiet-member texts, a challenge plan.",
+      "body": "The Gym Pack, $39 once, or with Builder.",
+      "headline": "The Gym Pack, $39"
+    },
+    {
+      "angle": "Retention",
+      "hook": "Know who's gone quiet before they cancel.",
+      "body": "The pack's retention sheet lists them every Thursday.",
+      "headline": "Keep members coming"
+    }
+  ],
+  "keyword": "CLASS",
+  "next": [
+    "Yoga studios",
+    "Pilates studios",
+    "Martial arts schools"
+  ],
+  "legal": "No weight-loss or health result claims; members on camera only with their OK."
+}

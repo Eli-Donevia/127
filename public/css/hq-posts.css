@@ -51,6 +51,8 @@ textarea:focus, select:focus, input:focus { outline: none; border-color: var(--a
 .pc-check { display: inline-flex; gap: 10px; align-items: center; font-size: 15px; color: var(--ink); cursor: pointer; }
 .pc-check input { width: 18px; height: 18px; accent-color: var(--ink); }
 .pc-ai span { font-size: 14px; color: var(--ink-2); }
+.pc-paid { display: grid; gap: 4px; }
+.pc-paid .pc-mute { padding-left: 28px; }
 .pc-photo { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: end; }
 .pc-photo img { width: 88px; height: auto; border-radius: 4px; display: block; }
 .pc-photo-c { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }

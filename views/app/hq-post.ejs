@@ -35,7 +35,7 @@
             <select name="<%= k %>_target" aria-label="Which <%= P.name %> account">
               <% P.accounts.forEach(function (a) { var v = a.id + '|' + a.name; %><option value="<%= v %>"<%= pl.target && pl.target.id === a.id ? ' selected' : '' %>><%= a.name %></option><% }) %>
             </select>
-          <% } else { %><span class="pc-mute"><%= P.error || (k === 'instagram' ? 'No business or creator account is linked to your Pages.' : 'No Pages on this account.') %></span><% } %>
+          <% } else { %><span class="pc-mute"><%= P.error || (k === 'instagram' ? 'No business or creator account is linked to your Pages.' : k === 'facebook' ? 'No Pages on this account.' : 'No account found. Reconnect it.') %></span><% } %>
         </div>
         <% if (P.connected && !P.held) { %>
         <div class="pc-photo">
@@ -58,6 +58,10 @@
       <span class="pc-mute">Leave it empty to post as soon as you OK it.</span>
     </div>
     <label class="pc-check pc-ai"><input type="hidden" name="ai_set" value="1"><input type="checkbox" name="ai"<%= p.ai ? ' checked' : '' %>><span>It shows an AI-made person or voice</span></label>
+    <div class="pc-paid">
+      <label class="pc-check pc-ai"><input type="checkbox" name="paid"<%= p.paid ? ' checked' : '' %>><span>A brand paid me or gave me something for this</span></label>
+      <span class="pc-mute">Start the caption with #ad, and use the platform's paid partnership label in its app.</span>
+    </div>
 
     <div class="pc-acts">
       <button class="pc-go" name="next" value="review">Check it</button>

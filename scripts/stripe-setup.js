@@ -106,9 +106,11 @@ async function main() {
     console.log(`+ price ${nickname} $${dollars}/mo (${price.id})${cur ? ` replaces ${cur.id}` : ''}`);
   }
 
-  // Packs (lib/shop.js, content/shop/packs.json): one product and one one-time price per paid pack, plus the bundle.
+  // Packs (lib/shop.js, content/shop/packs.json): one product and one one-time price per paid pack, plus the bundle,
+  // plus each vertical's niche pack (content/verticals, lib/verticals.js shopPacks()).
   const shop = require('../content/shop/packs.json');
-  for (const p of [...shop.packs, shop.bundle].filter((x) => x && Number(x.price) > 0 && x.lookupKey)) {
+  const verticalPacks = require('../lib/verticals').shopPacks();
+  for (const p of [...shop.packs, shop.bundle, ...verticalPacks].filter((x) => x && Number(x.price) > 0 && x.lookupKey)) {
     const id = `127_pack_${p.slug}`;
     const fields = { name: `127 ${p.name}`, description: p.line, metadata: { app: '127', pack: p.slug }, ...(taxCode ? { tax_code: taxCode } : {}) };
     let prod = await s.products.retrieve(id).catch((e) => (e.code === 'resource_missing' ? null : Promise.reject(e)));

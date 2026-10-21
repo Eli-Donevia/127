@@ -1,0 +1,66 @@
+<%- include('../partials/head') %>
+<%# One listing (lib/market-routes.js GET /market/:slug). The cover sells; the words say what it is and how to use it;
+    the maker is named. Phones keep a buy bar in reach once the first one scrolls away. %>
+<% var paras = String(l.about || '').split(/\n\s*\n/).filter(Boolean); var nFiles = (l.files || []).length; %>
+<main class="mk mk-listing">
+  <section class="mk-item">
+    <div class="wrap mk-item-in">
+      <figure class="mk-item-art"><% if (c.cover) { %><img src="<%= c.cover %>" alt="<%= l.title %>, the cover" width="800" height="1000"><% } else { %><span class="mk-blank"><%= l.title %></span><% } %></figure>
+      <div>
+        <% if (preview) { %><p class="mk-preview-note">Only you can see this page until 127 approves it. Status: <%= STATUS[l.status] %>.</p><% } %>
+        <p class="mk-lbl"><a href="/market">Marketplace</a> <span aria-hidden="true">/</span> <a href="/market?kind=<%= l.kind %>"><%= KINDS[l.kind] %></a> <span aria-hidden="true">/</span> <%= nFiles %> file<%= nFiles === 1 ? '' : 's' %></p>
+        <h1 class="mk-h1"><%= l.title %></h1>
+        <% if (seller) { %><p class="mk-by">by <a href="/makers/<%= seller.handle %>"><%= seller.name %></a></p><% } %>
+        <% if (l.line) { %><p class="mk-line"><%= l.line %></p><% } %>
+        <% if (unavailable) { %><p class="mk-alert" role="status">Checkout isn't open yet. Nothing was charged.</p><% } else if (cancelled) { %><p class="mk-alert" role="status">Checkout cancelled. Nothing was charged.</p><% } else if (reported) { %><p class="mk-alert" role="status">Thanks. 127 will look at it.</p><% } %>
+        <div class="mk-buybar" data-hero-buy>
+          <span class="mk-price">$<%= l.price %></span>
+          <% if (owned) { %>
+            <a class="btn ghost mk-buy" href="/market/<%= l.slug %>/get">Open your files <span class="arrow"></span></a>
+          <% } else if (!preview) { %>
+            <form method="post" action="/market/<%= l.slug %>/buy" class="mk-form"><button class="btn light mk-buy" type="submit">Buy once</button></form>
+          <% } %>
+        </div>
+        <p class="mk-fine">One payment to 127. Instant download, no account needed. <% if (preview && split) { %>Your share of each sale: $<%= (split.net / 100).toFixed(2) %>.<% } %></p>
+
+        <div class="mk-about">
+          <% paras.forEach(function (p) { %><p><%= p %></p><% }) %>
+          <% if ((l.inside || []).length) { %>
+          <h2 class="mk-h2" style="margin-top:28px">What you get</h2>
+          <ol class="mk-inside"><% l.inside.forEach(function (x, i) { %><li><span class="mk-n"><%= String(i + 1).padStart(2, '0') %></span><span><%= x %></span></li><% }) %></ol>
+          <% } %>
+          <ul class="mk-files-list" aria-label="Files">
+            <% (l.files || []).forEach(function (f) { %><li><span><%= f.name %></span><span><%= kb(f.size) %></span></li><% }) %>
+          </ul>
+          <% if ((l.tags || []).length) { %><p class="mk-tags">For <% l.tags.forEach(function (t, i) { %><a href="/market?niche=<%= encodeURIComponent(t) %>"><%= t.replace(/-/g, ' ') %></a><%= i < l.tags.length - 1 ? ', ' : '' %><% }) %></p><% } %>
+        </div>
+
+        <% if (seller) { %>
+        <a class="mk-maker" href="/makers/<%= seller.handle %>">
+          <span class="mk-mono">Made by</span>
+          <b><%= seller.name %></b>
+          <span><%= seller.line || 'Builds on 127.' %></span>
+        </a>
+        <% } %>
+        <p class="mk-fine">Made by <%= seller ? seller.name : 'a member' %>, a 127 member, and checked by 127 before it went up. Use the files in your own business and for your clients; please don't resell or share them. Questions about an order: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p>
+        <% if (!preview) { %><a class="mk-report" href="/market/<%= l.slug %>/report">Report this listing</a><% } %>
+      </div>
+    </div>
+  </section>
+  <% if (more.length) { %>
+  <section class="mk-more">
+    <div class="wrap">
+      <h2 class="mk-h2">More from <%= seller.name %></h2>
+      <ul class="mk-rows"><% more.forEach(function (m) { %><%- include('_row', { c: m }) %><% }) %></ul>
+    </div>
+  </section>
+  <% } %>
+  <% if (!owned && !preview) { %>
+  <div class="mk-sticky" data-sticky>
+    <span class="mk-sticky-t"><%= l.title %> · $<%= l.price %></span>
+    <form method="post" action="/market/<%= l.slug %>/buy" class="mk-form"><button class="btn light mk-buy" type="submit">Buy</button></form>
+  </div>
+  <% } %>
+</main>
+<script src="/js/market.js" defer></script>
+<%- include('../partials/foot') %>

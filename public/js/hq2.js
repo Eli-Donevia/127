@@ -636,4 +636,12 @@
       window.alert(err.message);
     });
   });
+
+  // Brain auto-fill: "Tick all" ticks every line the member can see (they still press Save).
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-draft-all]');
+    if (!b) return;
+    var f = b.closest('[data-draft]');
+    if (f) f.querySelectorAll('input[type=checkbox][name^="keep_"]').forEach(function (c) { c.checked = true; });
+  });
 })();

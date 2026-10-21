@@ -3,7 +3,7 @@
 <%- include('promo-style') %>
 <a class="chpr-bar<%= live ? ' chpr-live' : '' %>" href="/challenge?from=home" onclick="window.plausible&&plausible('Challenge Promo Click',{props:{source:'home'}})">
   <span class="chpr-dot" aria-hidden="true"></span>
-  <b><%= live ? 'Day ' + chPromo.dayLive + ' of the free Day One Challenge is live' : 'Free 5-day challenge with Eli · Nov 9 to 13' %></b>
+  <b><%= live ? 'Day ' + chPromo.dayLive + ' of the free Day One Challenge is live' : (chPromo.label || 'Free 5-day challenge with Eli · Nov 9 to 13') %></b>
   <span class="chpr-go"><%= live ? 'Join and catch up' : 'Join' %> <span aria-hidden="true">→</span></span>
 </a>
 <% } %>

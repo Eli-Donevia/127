@@ -81,7 +81,7 @@
         <% if (isBundle) { %><h3 class="pk-h3"><a href="/packs/<%= p.slug %>"><%= p.name %></a> <span><%= p.count %> files</span></h3><% } %>
         <ul class="pk-list">
           <% (p.kind === 'course' && !isBundle ? [] : p.moves).forEach(function (m) { %>
-          <li><span class="pk-kind"><%= KIT[p.kit] || (p.kind === 'course' ? 'Lesson' : 'File') %></span><span class="pk-t"><%= m.title %></span><% if (m.summary) { %><span class="pk-s"><%= m.summary %></span><% } %></li>
+          <li><span class="pk-kind"><%= KIT[p.kit] || (p.kind === 'course' ? 'Lesson' : p.vertical ? 'Prompt' : 'File') %></span><span class="pk-t"><%= m.title %></span><% if (m.summary) { %><span class="pk-s"><%= m.summary %></span><% } %></li>
           <% }) %>
           <% p.items.forEach(function (i) { %>
           <li><span class="pk-kind"><%= KIND[i.kind] || 'File' %></span><span class="pk-t"><%= i.title %></span><span class="pk-s"><%= i.summary %></span><%# Legal P11: Numbers previews are filled examples, so the Numbers Pack lists its sheets without them. %><% if (i.previewFile && !isBundle && p.art !== 'numbers') { %><img class="pk-peek" src="/packs/<%= p.slug %>/peek/<%= i.id %>" alt="" loading="lazy" width="120" height="80"><% } %></li>

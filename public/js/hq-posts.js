@@ -45,11 +45,31 @@
     if (n) ta.addEventListener('input', function () { n.textContent = ta.value.length; });
   });
 
-  var MAXW = { instagram: 1440, facebook: 2048 };
+  var MAXW = { instagram: 1440, facebook: 2048, x: 2048 };
   var save = function () {
     var b = form.querySelector('button[name="next"][value="save"]');
     if (form.requestSubmit && b) form.requestSubmit(b);
     else form.submit();
+  };
+
+  // Sends one JPEG for one place, then saves the form so what was written stays.
+  var upload = function (place, blob, say) {
+    say('Uploading…');
+    fetch('/app/hq/post/' + post + '/photo/' + place, { method: 'POST', body: blob, headers: { accept: 'application/json', 'content-type': 'image/jpeg' }, credentials: 'same-origin' })
+      .then(function (res) { return res.json().then(function (j) { return { ok: res.ok, j: j }; }); })
+      .then(function (x) {
+        if (!x.ok) return say(x.j.error || "That photo didn't upload.");
+        say('Added.');
+        save();
+      })
+      .catch(function () { say("That photo didn't upload. Try again."); });
+  };
+  // Legal L93 PO2: a file that carries AI labels (C2PA, or IPTC from Studio) goes up as it is, so the
+  // platform can read them; cropping here would redraw it and lose them.
+  var LABELS = ['c2pa', 'jumb', 'Photoshop 3.0', 'trainedAlgorithmicMedia'];
+  var labelled = function (buf) {
+    var t = new TextDecoder('latin1').decode(new Uint8Array(buf.slice(0, 512 * 1024)));
+    return LABELS.some(function (l) { return t.indexOf(l) !== -1; });
   };
 
   document.querySelectorAll('input[data-photo]').forEach(function (input) {
@@ -62,8 +82,12 @@
       if (!file) return;
       if (!window.createImageBitmap) return say("This browser can't crop photos. Try another one.");
       say('Cropping…');
-      createImageBitmap(file).then(function (img) {
+      Promise.all([createImageBitmap(file), file.arrayBuffer()]).then(function (got) {
+        var img = got[0], bytes = got[1];
         var r = Number(crop && crop.value) || img.width / img.height;
+        var asIs = file.type === 'image/jpeg' && file.size <= 8 * 1024 * 1024 && img.width <= 4096 && img.height <= 4096 && Math.abs(img.width / img.height - r) < 0.01;
+        if (asIs) return upload(place, new Blob([bytes], { type: 'image/jpeg' }), say);
+        if (labelled(bytes)) return say('This file carries labels that show how it was made. Pick Original, or crop it in Studio first, so the labels stay.');
         var w = img.width, h = img.height, sx = 0, sy = 0;
         if (w / h > r) { sx = (w - h * r) / 2; w = h * r; } else { sy = (h - w / r) / 2; h = w / r; }
         var outW = Math.min(MAXW[place] || 1440, Math.round(w));
@@ -78,15 +102,7 @@
         g.drawImage(img, sx, sy, w, h, 0, 0, outW, outH);
         c.toBlob(function (blob) {
           if (!blob) return say("That photo couldn't be read.");
-          say('Uploading…');
-          fetch('/app/hq/post/' + post + '/photo/' + place, { method: 'POST', body: blob, headers: { accept: 'application/json', 'content-type': 'image/jpeg' }, credentials: 'same-origin' })
-            .then(function (res) { return res.json().then(function (j) { return { ok: res.ok, j: j }; }); })
-            .then(function (x) {
-              if (!x.ok) return say(x.j.error || "That photo didn't upload.");
-              say('Added.');
-              save();
-            })
-            .catch(function () { say("That photo didn't upload. Try again."); });
+          upload(place, blob, say);
         }, 'image/jpeg', 0.9);
       }).catch(function () { say("That file isn't a photo 127 can read."); });
     });

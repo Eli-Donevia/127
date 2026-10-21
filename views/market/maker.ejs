@@ -1,0 +1,20 @@
+<%- include('../partials/head') %>
+<%# A creator's page (GET /makers/:handle): who they are and what they sell. Sales show once there are 10. %>
+<main class="mk mk-maker-page">
+  <div class="wrap">
+    <section class="mk-maker-hero">
+      <div>
+        <p class="mk-lbl"><a href="/market">Marketplace</a> <span aria-hidden="true">/</span> @<%= seller.handle %></p>
+        <h1 class="mk-h1"><%= seller.name %></h1>
+        <% if (seller.line) { %><p class="mk-line"><%= seller.line %></p><% } %>
+        <% if (seller.bio) { %><p class="mk-maker-bio"><%= seller.bio %></p><% } %>
+        <p class="mk-mono" style="margin-top:18px"><%= listings.length %> listing<%= listings.length === 1 ? '' : 's' %><% if (sales >= 10) { %> · <%= sales %> sold<% } %></p>
+      </div>
+    </section>
+    <div class="mk-list-wrap">
+      <% if (listings.length) { %><ul class="mk-rows"><% listings.forEach(function (c) { %><%- include('_row', { c: c }) %><% }) %></ul>
+      <% } else { %><p class="mk-fine">Nothing live yet. Your listings show here once 127 approves them.</p><% } %>
+    </div>
+  </div>
+</main>
+<%- include('../partials/foot') %>

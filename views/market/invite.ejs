@@ -1,0 +1,44 @@
+<%- include('../partials/app-head') %>
+<%# The Invite page (GET /app/invite, lib/referrals.js). One link per person, the same code as the founding list and
+    the Challenge. Friends by first name only. The share text says what the sender gets (FTC endorsement rule). %>
+<% var shareText = "I'm building my business on 127. Here's my link: " + ref.link.replace(/^https?:\/\//, '') + " (if you start a paid plan, I get a free month)"; %>
+<% var STATE = { free: 'Joined, on the free plan', waiting: 'Paid. Counts after the ' + WAIT_DAYS + ' days', earned: 'Free month added', banked: 'Free month saved for you', used: 'Free month used', refunded: 'Refunded, so it doesn\'t count', 'not-counted': "Doesn't count" }; %>
+<div class="mk">
+<div class="sl-head"><div><div class="eyebrow">Invite</div><h1>A month on 127 for every friend who starts a plan.</h1></div></div>
+<p class="mk-line" style="margin-top:0;max-width:52ch">When someone starts Builder or the Circle with your link and stays past the first <%= WAIT_DAYS %> days, your next month is on 127.</p>
+
+<div class="sl-section">
+  <div class="iv-link"><code><%= ref.link.replace(/^https?:\/\//, '') %></code><button type="button" class="btn sm" data-copy-text="<%= ref.link %>" data-track="Referral Share" data-channel="copy">Copy</button></div>
+  <div class="iv-share">
+    <a class="btn ghost sm" href="sms:?&body=<%= encodeURIComponent(shareText) %>" data-track="Referral Share" data-channel="messages">Messages</a>
+    <a class="btn ghost sm" href="https://wa.me/?text=<%= encodeURIComponent(shareText) %>" target="_blank" rel="noopener" data-track="Referral Share" data-channel="whatsapp">WhatsApp</a>
+    <a class="btn ghost sm" href="mailto:?subject=<%= encodeURIComponent('127') %>&body=<%= encodeURIComponent(shareText) %>" data-track="Referral Share" data-channel="email">Email</a>
+    <button type="button" class="btn ghost sm" data-share data-text="<%= shareText %>" data-url="<%= ref.link %>" hidden>More</button>
+  </div>
+  <div class="iv-say"><b>If you post it</b>Say you get something for it, like the line at the end of the text above. A post with your link and no line like that breaks the rules on endorsements.</div>
+</div>
+
+<% if (ref.joined) { %><p class="iv-tally"><%= ref.joined %> joined with your link<%= ref.waiting ? ', ' + ref.waiting + ' waiting out the ' + WAIT_DAYS + ' days' : '' %>. <b><%= ref.earned %> free month<%= ref.earned === 1 ? '' : 's' %> earned.</b></p><% } %>
+
+<div class="sl-section">
+  <h2>Friends</h2>
+  <% if (!ref.friends.length) { %><p class="muted" style="margin:0">Nobody yet. Send it to one person who has been talking about starting something.</p>
+  <% } else { %>
+  <ul class="iv-friends">
+    <% ref.friends.forEach(function (f) { %><li><span><%= f.first %><% if (f.via === 'site') { %> <span class="muted small">from your site</span><% } %></span><span class="st <%= f.state === 'earned' || f.state === 'banked' ? 'earned' : '' %>"><%= STATE[f.state] || '' %><% if (f.eligibleAt) { %> (<%= fmtDate(f.eligibleAt) %>)<% } %></span></li><% }) %>
+  </ul>
+  <% } %>
+</div>
+
+<div class="sl-section">
+  <h2>How it works</h2>
+  <ol class="mk-how" style="max-width:640px">
+    <li><span class="mk-n">01</span><span><b>A friend signs up with your link</b> within 30 days of tapping it, then starts Builder or the Circle.</span></li>
+    <li><span class="mk-n">02</span><span><b>Their first payment clears the <%= WAIT_DAYS %> days</b> they have to change their mind.</span></li>
+    <li><span class="mk-n">03</span><span><% if (ref.paying) { %><b>A month's credit lands on your account</b>, up to $<%= ref.monthPrice %>, the price of your plan. If they're on a cheaper plan than you, the credit matches theirs.<% } else { %><b>Your first Builder month is free</b> whenever you upgrade. It stays saved until you do.<% } %></span></li>
+  </ol>
+  <p class="mk-fine">Up to <%= YEAR_CAP %> free months a year; <%= ref.capLeft %> left. Self-referrals and fake accounts don't count. Full rules: <a href="/membership-terms">Membership Terms</a>.</p>
+</div>
+</div>
+<script src="/js/market.js" defer></script>
+<%- include('../partials/app-foot') %>

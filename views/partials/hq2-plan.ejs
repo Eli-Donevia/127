@@ -1,5 +1,5 @@
 <%# An Ask 127 plan (HQ_PLANNER, lib/harness/planner.js). Locals: a (the plan action), left (credits left, optional). %>
-<% var KIND = { workflow: 'Workflow', prompt: 'Prompt', script: 'AI script', template: 'Template', brief: 'Brief', helper: 'AI helper', skill: 'Skill' }; %>
+<% var KIND = { workflow: 'Workflow', prompt: 'Prompt', script: 'AI script', template: 'Template', brief: 'Brief', helper: 'AI employee', skill: 'Skill' }; %>
 <form class="h2-actcard h2-plan" method="post" action="/app/hq/ask/act/<%= a.id %>" style="display:block"<%- a.status === 'proposed' ? ' data-fresh' : '' %>>
   <input type="hidden" name="plan" value="1">
   <span class="eyebrow">Plan</span>

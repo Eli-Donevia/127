@@ -1,0 +1,56 @@
+<%- include('../partials/app-head') %>
+<%# The marketplace review queue (GET /admin/market): listings waiting, with their checks and files, then reports. %>
+<div class="mk">
+<div class="sl-head"><div><div class="eyebrow">Admin</div><h1>Marketplace</h1></div><span class="mk-mono">MARKETPLACE=<%= setting %> · REFERRALS=<%= refSetting %> · fee <%= fee %>%</span></div>
+<div class="sl-nums">
+  <div><b><%= q.review.length %></b><span>waiting for a look</span></div>
+  <div><b><%= q.live %></b><span>live from <%= q.sellers %> sellers</span></div>
+  <div><b><%= money(q.fees) %></b><span>127's fees, <%= q.orders %> sales</span></div>
+</div>
+<div class="sl-nums">
+  <div><b><%= refs.waiting %></b><span>referral months waiting</span></div>
+  <div><b><%= refs.earned + refs.banked + refs.used %></b><span>months given</span></div>
+  <div><b><%= money(refs.credited) %></b><span>credited in Stripe</span></div>
+</div>
+
+<div class="sl-section">
+  <h2>Waiting for a look</h2>
+  <% if (!q.review.length) { %><p class="muted" style="margin:0">Nothing waiting.</p><% } %>
+  <% q.review.forEach(function (l) { %>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><a class="link" href="/market/<%= l.slug %>"><b style="font-weight:600"><%= l.title %></b></a><span class="mk-mono">$<%= l.price %> · <%= KINDS[l.kind] %> · @<%= l.seller ? l.seller.handle : '?' %></span></div>
+    <p class="small muted" style="margin:6px 0 12px"><%= l.line %></p>
+    <ul class="sl-checks"><% (l.checks || []).forEach(function (c) { var cls = c.ok ? 'ok' : c.level === 'warn' ? 'warn' : 'no'; %><li class="<%= cls %>"><span class="mark" aria-hidden="true"></span><span><%= c.label %><% if (!c.ok) { %><small><%= c.detail %></small><% } %></span></li><% }) %></ul>
+    <ul class="sl-files"><% (l.files || []).forEach(function (f) { %><li><span><%= f.name %> · <%= kb(f.size) %></span><a class="link small" href="/market/<%= l.slug %>/files/<%= f.id %>">Download</a></li><% }) %></ul>
+    <form method="post" style="margin-top:14px">
+      <label class="field"><span>Note to the seller (for changes, pause or remove)</span><textarea class="input" name="note" rows="2" maxlength="800"></textarea></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn light sm" formaction="/admin/market/<%= l.id %>/approve">Approve</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/changes">Ask for changes</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/remove">Remove</button>
+      </div>
+    </form>
+  </div>
+  <% }) %>
+</div>
+
+<div class="sl-section">
+  <h2>Reports</h2>
+  <% if (!q.reported.length) { %><p class="muted" style="margin:0">No open reports.</p><% } %>
+  <% q.reported.forEach(function (l) { %>
+  <div class="card" style="margin-bottom:16px">
+    <a class="link" href="/market/<%= l.slug %>"><b style="font-weight:600"><%= l.title %></b></a> <span class="mk-mono">@<%= l.seller ? l.seller.handle : '?' %> · <%= STATUS[l.status] %></span>
+    <% l.reports.forEach(function (r) { %><p class="small" style="margin:10px 0 0"><span class="mk-mono"><%= r.reason %></span> <%= r.text %><% if (r.email) { %> <span class="muted">(<%= r.email %>)</span><% } %></p><% }) %>
+    <form method="post" style="margin-top:14px">
+      <label class="field"><span>Note to the seller</span><textarea class="input" name="note" rows="2" maxlength="800"></textarea></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/dismiss">Keep it up</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/pause">Pause</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/remove">Remove</button>
+      </div>
+    </form>
+  </div>
+  <% }) %>
+</div>
+</div>
+<%- include('../partials/app-foot') %>

@@ -1,0 +1,52 @@
+{
+  "slug": "car-detailers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Local service",
+  "name": "Car detailers",
+  "one": "detailing business",
+  "description": "A package menu site, before-and-after reels, a price sheet by vehicle size, booking texts and maintenance plans for mobile car detailers.",
+  "h1": "Show the after. Price by the size of the car.",
+  "mark": "after.",
+  "lede": "127 gives a detailer a package menu site, a price sheet by vehicle size and condition, the before-and-after reel brief and a maintenance plan that brings cars back every month.",
+  "week": [
+    { "when": "Mon", "job": "Post the before and after", "hand": "A 15-second reel brief: the reveal, the sound, the caption" },
+    { "when": "Tue", "job": "Quote a dirty SUV", "hand": "A price sheet by size, condition and add-ons" },
+    { "when": "Thu", "job": "Offer the monthly plan", "hand": "A maintenance plan page and the text you send after a full detail" },
+    { "when": "Sat", "job": "Confirm Sunday's jobs", "hand": "Booking, address and water-access texts" }
+  ],
+  "site": {
+    "design": "beacon",
+    "sample": { "business": "Gloss Theory Detailing", "what": "Mobile car detailing, we come to you", "services": "Interior detail, sedan, $150\nFull detail, SUV, $260\nMonthly maintenance wash, $70", "city": "West Des Moines" },
+    "caption": "Gloss Theory is made up. Built by the free site builder."
+  },
+  "entry": { "door": "site", "label": "Build my detailing site free", "fine": "Type your business and your packages. Free, no card.", "query": { "what": "Mobile car detailing" } },
+  "pack": {
+    "name": "Detailer Pack",
+    "price": 29,
+    "line": "A package menu site, price sheet, reel briefs, booking texts and a monthly plan.",
+    "items": ["site-local-service", "quote", "pricing-lab", "jobs-tracker", "recipe-booking-link", "recipe-saved-replies", "email-review-ask", "video-prompts-local-service", "social-story"],
+    "prompts": [
+      { "id": "01-price-sheet", "title": "Price by size and condition", "summary": "Package prices for sedans, SUVs and trucks, with condition upcharges.", "prompt": "Build detailing prices. Target per hour [$]. Hours for interior, exterior and full detail on a sedan [ ], add [%] for SUVs and [%] for trucks or vans. Condition upcharges: pet hair, heavy stains, sand [ ]. Add-ons: [ ]. Give a price menu and the line I use when someone asks why a dirty car costs more.", "use": "Ask for two photos before you quote." },
+      { "id": "02-reveal-reel", "title": "Before-and-after reel", "summary": "A 15-second reel brief built around the reveal.", "prompt": "Write a 15-second before-and-after reel brief for a [vehicle] at [business]. Plan the first second (the worst spot), three working shots, the reveal with the sound moment, on-screen words (six at most) and the caption with the package and price.", "use": "Film every job's worst spot first, before you touch it." },
+      { "id": "03-monthly-plan", "title": "Monthly maintenance plan", "summary": "A monthly plan offer and the text that offers it after a full detail.", "prompt": "Write a monthly maintenance plan for [business]: what's included each visit, price [ ], how to cancel. Then a short text to send the day after a full detail offering it.", "use": "Offer it to every full detail." }
+    ]
+  },
+  "hq": ["detailing", "reviews", "local", "content"],
+  "hooks": [
+    "Film the worst spot first. Always.",
+    "How I'd price a dirty SUV.",
+    "The text that turns one detail into a monthly plan.",
+    "Your package menu is your website.",
+    "Ask for two photos before you quote.",
+    "The reveal is the whole reel."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Detailer booking through DMs?", "body": "Type your business and packages. 127 builds a site free.", "headline": "Build your detailing site free" },
+    { "angle": "The pack", "hook": "Price sheet, reel briefs, monthly plan.", "body": "The Detailer Pack, $29 once.", "headline": "The Detailer Pack, $29" },
+    { "angle": "Pricing", "hook": "Price by the size of the car.", "body": "The pack's price sheet does it in one table.", "headline": "Price your details" }
+  ],
+  "keyword": "DETAIL",
+  "next": ["Ceramic coating installers", "Boat detailers", "Window tint shops"],
+  "legal": null
+}

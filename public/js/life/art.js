@@ -29,6 +29,9 @@
     var f = ART[n.getAttribute('data-art')];
     if (!f) return;
     var v = s('svg', { viewBox: '-4 -4 182 96' });
+    var defs = s('defs', {}), lg = s('linearGradient', { id: 'lf-pi', x1: 0, y1: 0, x2: 1, y2: 1 });
+    var a = s('stop', { offset: '0%', 'stop-color': '#7c8cff' }), b = s('stop', { offset: '100%', 'stop-color': '#5be4ff' });
+    lg.appendChild(a); lg.appendChild(b); defs.appendChild(lg); v.appendChild(defs);
     f(v);
     n.appendChild(v);
   });

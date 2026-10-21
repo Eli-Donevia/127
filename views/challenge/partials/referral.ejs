@@ -1,5 +1,5 @@
 <%# Invite block (same component as the founding status page). Locals: me, chx %>
-<% if (me && me.referral) { var ref = me.referral; var shareText = "I'm doing the Day One Challenge with Eli Christiansen, Nov 9 to 13. 5 days to test a business idea for real. It's free, do it with me: " + ref.link.replace(/^https?:\/\//, ''); %>
+<% if (me && me.referral) { var ref = me.referral; var shareText = (chx.v2 ? "I'm doing the Day One Challenge with Eli Christiansen, Nov 3 to 16. Two weeks to start a business, in public. It's free, do it with me: " : "I'm doing the Day One Challenge with Eli Christiansen, Nov 9 to 13. 5 days to test a business idea for real. It's free, do it with me: ") + ref.link.replace(/^https?:\/\//, ''); %>
 <div class="card pad-lg share-card">
   <div class="eyebrow">Do it with a friend</div>
   <p style="margin:10px 0 0">It's easier to show up when someone's counting on you. Send them your link:</p>

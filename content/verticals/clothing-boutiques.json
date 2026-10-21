@@ -1,0 +1,52 @@
+{
+  "slug": "clothing-boutiques",
+  "status": "test",
+  "wave": 1,
+  "group": "Online stores",
+  "name": "Clothing boutiques",
+  "one": "boutique",
+  "description": "Drop pages, try-on reels, restock emails and inventory sheets for small clothing boutiques. Audit your store free, or get the Boutique Pack.",
+  "h1": "Every drop needs a page, a reel and an email.",
+  "mark": "drop",
+  "lede": "127 writes the three things a boutique makes every week, from your own notes on the pieces. You pick, post and pack orders.",
+  "week": [
+    { "when": "Sun", "job": "Plan the drop", "hand": "A drop plan prompt: the order pieces go live, the post for each, the email" },
+    { "when": "Mon", "job": "Film the try-on", "hand": "A try-on reel brief: one outfit, three ways, the first second planned" },
+    { "when": "Wed", "job": "List the new pieces", "hand": "Product copy with real fit notes, not \"flattering on everyone\"" },
+    { "when": "Fri", "job": "Count what sold", "hand": "An inventory and reorder sheet that flags sizes running out" }
+  ],
+  "site": {
+    "design": "market",
+    "sample": { "business": "June and Rye", "what": "Women's clothing boutique, small-batch drops every Friday", "services": "Linen wrap dress, $78\nWide-leg trouser, $64\nCropped cardigan, $58", "city": "Sioux Falls" },
+    "caption": "June and Rye is made up. Built by the free site builder from what a boutique owner would type."
+  },
+  "entry": { "door": "store", "label": "Audit my store free", "fine": "Paste your store address. Free, no card." },
+  "pack": {
+    "name": "Boutique Pack",
+    "price": 39,
+    "line": "Drop pages, try-on reel briefs, restock emails and the sheets that count sizes.",
+    "items": ["site-shop", "shopify-sections-essentials", "inventory-reorder", "unit-economics", "email-launch", "email-win-back", "social-carousel", "social-story", "video-prompts-ugc", "content-planner"],
+    "prompts": [
+      { "id": "01-drop-plan", "title": "Drop plan", "summary": "Plans one drop from a list of pieces: the order they go live, a post for each and the email.", "prompt": "I run [boutique], a clothing boutique for [who]. This week's drop: [list each piece with color, sizes and price].\n\nPlan the drop:\n1. The order the pieces go live and why (lead with the one most people will want).\n2. One post idea per piece: what to film, the first line of the caption.\n3. The drop email: subject line, three short paragraphs, one button.\n4. A restock note for anything with fewer than [n] in a size.\n\nKeep it in my voice: [paste a caption you wrote].", "use": "Run it on Sunday night with your list. Post the lead piece first." },
+      { "id": "02-fit-notes", "title": "Fit notes for a piece", "summary": "Writes honest fit notes from your measurements and how the piece wore on you or a model.", "prompt": "Write fit notes for the [piece] from [boutique].\n\nFacts: fabric [ ], stretch [none/some/a lot], length on a [height] model wearing size [ ], measurements per size [paste], how it fit when we tried it [your words].\n\nGive: \"How it fits\" in three short lines, \"Size up or down?\" in one line, and care in one line. Plain words. Never \"flattering on every body\".", "use": "Paste the output under the product photos. Fit notes cut the returns that come from guessing." },
+      { "id": "03-try-on-reel", "title": "Try-on reel brief", "summary": "One outfit styled three ways, as a 20-second reel with the first second and the shot order.", "prompt": "Write a 20-second try-on reel brief for the [piece] from [boutique]. Style it three ways: [occasions]. Include the first second (the piece moving, not a title card), the shot order, where to stand for light, on-screen words (five per look at most), and the caption with the price and sizes left.", "use": "Film it in one take per look in the fitting room. Post the day the piece goes live." }
+    ]
+  },
+  "hq": ["shop", "content", "video", "email", "ads"],
+  "hooks": [
+    "Every boutique drop needs three things. Most owners make them at midnight.",
+    "Fit notes are the cheapest way to stop returns.",
+    "One dress, three ways, twenty seconds.",
+    "The order your pieces go live matters more than the photos.",
+    "Here's the restock email that goes out when a size runs low.",
+    "I gave an AI my boutique's drop list. This is the plan it wrote."
+  ],
+  "ads": [
+    { "angle": "Store audit", "hook": "What does a shopper miss on your product pages?", "body": "127's free store audit reads your boutique's pages and lists what's missing, then rebuilds one as a mock-up.", "headline": "Audit your boutique free" },
+    { "angle": "The pack", "hook": "Drop pages, try-on briefs and restock emails, ready to fill in.", "body": "The Boutique Pack for small clothing shops. $39 once. Comes with Builder.", "headline": "The Boutique Pack, $39" },
+    { "angle": "Free site", "hook": "Selling out of your DMs? Give the drop a home.", "body": "Type your boutique and this week's pieces. 127 builds the site free.", "headline": "Build your boutique's site free" }
+  ],
+  "keyword": "DROP",
+  "next": ["Vintage resellers", "Kids clothing shops", "Activewear brands"],
+  "legal": null
+}

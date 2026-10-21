@@ -5,7 +5,7 @@
 // Data: { on, plan, start, translation, done: { dayIndex: 1 }, blocks: [{ id, name, time, minutes, days: ['MO', ...] }] }.
 (function () {
   'use strict';
-  var L = window.Life, el = L.el;
+  var L = window.LifeKit('faith'), el = L.el;
   var B = L.state.bible || { books: [], plans: [], translations: [] };
   var DAYS = [['MO', 'Mon'], ['TU', 'Tue'], ['WE', 'Wed'], ['TH', 'Thu'], ['FR', 'Fri'], ['SA', 'Sat'], ['SU', 'Sun']];
   var d = null;
@@ -93,7 +93,7 @@
     return el('div', { class: 'lf-start fa-in' }, [
       el('p', { class: 'fa-verse' }, [el('span', { text: 'Except the LORD build the house, they labour in vain that build it.' }), el('cite', { text: 'Psalm 127:1, KJV' })]),
       el('p', { class: 'lf-start-q', text: 'A reading plan and time set apart.' }),
-      el('p', { class: 'lf-start-s', text: 'Faith stays off until you turn it on. Your plan and blocks live on this device only, and you can delete them any time.' }),
+      el('p', { class: 'lf-start-s', text: 'Your reading plan and prayer times stay in this browser on this device. 127 never receives them.' }),
       el('div', { class: 'lf-start-b' }, [el('button', { type: 'button', class: 'lf-go', text: 'Turn on Faith', onclick: function () { d.on = true; d.start = L.today(); commit(); } })]),
     ]);
   }
@@ -119,6 +119,24 @@
         el('span', { class: 'lf-d', text: doneN + ' of ' + p.days + ' days read' }),
       ]),
     ]));
+
+    // Pace: when the plan ends at the member's own rate, a heatmap of the plan, and notices.
+    var elapsedDays = Math.min(Math.max(dayIndex() + 1, 1), p.days), rate = doneN / elapsedDays;
+    var leftDays = p.days - doneN, finish = rate > 0 ? L.addDays(L.today(), Math.ceil(leftDays / rate)) : null;
+    var planEnd = L.addDays(d.start, p.days - 1), late = finish ? Math.round((Date.parse(finish + 'T12:00:00') - Date.parse(planEnd + 'T12:00:00')) / 864e5) : null;
+    var nts = [];
+    if (missed.length >= 3) nts.push({ tone: 'caution', title: missed.length + ' days behind', body: 'Two readings a day for ' + missed.length + ' days catches you up by ' + L.day(L.addDays(L.today(), missed.length - 1)) + '.' });
+    if (finish && doneN >= 3 && late != null) nts.push(late > 1 ? { tone: 'info', title: 'At your pace you finish ' + L.day(finish), body: late + ' days after the plan\'s ' + L.day(planEnd) + '.' } : { tone: 'good', title: 'On pace to finish ' + L.day(planEnd), body: null });
+    var streak = 0; for (var q = today; q >= 0; q--) { if (d.done[q]) streak++; else if (q !== today) break; }
+    if (streak >= 5) nts.push({ tone: 'good', title: streak + ' days in a row', body: null });
+    L.notices(root, nts, 3);
+    var heat = el('div', { class: 'fa-heat', role: 'img', 'aria-label': doneN + ' of ' + p.days + ' days read' });
+    var tipEl = el('span', { class: 'fa-heat-t', text: 'Tap a day to see its reading' });
+    for (var hi = 0; hi < p.days; hi++) (function (i) {
+      heat.appendChild(el('button', { type: 'button', class: 'fa-cell' + (d.done[i] ? ' is-done' : i < today ? ' is-miss' : '') + (i === today ? ' is-today' : ''), 'aria-label': 'Day ' + (i + 1) + ': ' + all[i].map(label).join(', ') + (d.done[i] ? ', read' : ''),
+        onclick: function () { tipEl.textContent = 'Day ' + (i + 1) + ' · ' + L.day(L.addDays(d.start, i)) + ' · ' + all[i].map(label).join(' · ') + (d.done[i] ? ' · read' : ''); } }));
+    })(hi);
+    root.appendChild(el('section', { class: 'lf-panel' }, [el('div', { class: 'lf-panel-h' }, [el('h2', { class: 'lf-h', text: 'The plan at a glance' }), el('span', { class: 'lf-d', text: finish ? 'Projected finish ' + L.day(finish) : '' })]), heat, tipEl]));
 
     // Catch up, without starting over.
     if (missed.length) {
@@ -183,5 +201,5 @@
   d = L.state.keep ? clean(L.load()) : example();
   L.current = function () { return d; };
   L.onData = function (x) { d = clean(x); draw(); };
-  draw();
+  L.ready(draw);
 })();

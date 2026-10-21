@@ -1,0 +1,133 @@
+{
+  "slug": "coffee-roasters",
+  "status": "ready",
+  "wave": 2,
+  "group": "Food and drink",
+  "name": "Coffee roasters",
+  "one": "roastery",
+  "description": "Bag pages, subscription emails, wholesale pitches and roast-day content for small coffee roasters.",
+  "h1": "Roast day is content. Most roasters waste it.",
+  "mark": "content.",
+  "lede": "127 turns what a small roaster already does every week (roast, bag, ship, pour) into bag pages, subscription emails and posts, written from your own cupping notes.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Roast and cup",
+      "hand": "A tasting notes prompt that turns your cupping sheet into words a buyer reads"
+    },
+    {
+      "when": "Tue",
+      "job": "Film the roast",
+      "hand": "A roast day shot list: the drop, the crack, the cooling tray"
+    },
+    {
+      "when": "Wed",
+      "job": "Email subscribers",
+      "hand": "A subscription email for this month's coffee and what's next"
+    },
+    {
+      "when": "Fri",
+      "job": "Pitch a cafe",
+      "hand": "A wholesale note to one cafe, with your terms"
+    }
+  ],
+  "site": {
+    "design": "nightfall",
+    "sample": {
+      "business": "Drift Line Roasters",
+      "what": "Coffee roaster shipping beans the day after roasting",
+      "services": "Huila, Colombia, 12 oz, $19\nGuji, Ethiopia, 12 oz, $21\nMonthly subscription, from $18",
+      "city": "Duluth"
+    },
+    "caption": "Drift Line is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my roastery site free",
+    "fine": "Type your roastery and two coffees. Free, no card.",
+    "query": {
+      "what": "Small-batch coffee roaster"
+    }
+  },
+  "pack": {
+    "name": "Roaster Pack",
+    "price": 39,
+    "line": "Bag pages, tasting notes, subscription emails and wholesale pitches.",
+    "items": [
+      "site-story",
+      "site-shop",
+      "shopify-sections-essentials",
+      "unit-economics",
+      "inventory-reorder",
+      "email-newsletter",
+      "email-win-back",
+      "video-prompts-product",
+      "social-carousel",
+      "proposal"
+    ],
+    "prompts": [
+      {
+        "id": "01-tasting-notes",
+        "title": "Tasting notes for the bag",
+        "summary": "Turns your cupping sheet into tasting notes and a bag page a non-expert understands.",
+        "prompt": "Here's my cupping sheet for [coffee]: origin [ ], process [ ], roast level [ ], notes [ ], body [ ], acidity [ ]. Write: three tasting notes a regular coffee drinker would recognize, a two-sentence story of where it's from (only what I gave you), how to brew it (one method, one ratio), and a one-line label for the bag.",
+        "use": "One per coffee. Put the brew line on the bag sticker too."
+      },
+      {
+        "id": "02-wholesale-note",
+        "title": "Wholesale note to a cafe",
+        "summary": "A short, specific note to one cafe owner about carrying your coffee.",
+        "prompt": "Write a short email to [cafe] in [town] about carrying [roastery]'s coffee. What I noticed about them: [something true]. What I'd offer: [price per lb, minimum, delivery, a free tasting]. Under 120 words, one question. Sign with my name, business and mailing address, and say I won't follow up more than once.",
+        "use": "Bring beans when they say yes to a tasting."
+      },
+      {
+        "id": "03-roast-day-reel",
+        "title": "Roast day reel",
+        "summary": "A 15-second reel brief for roast day, with the sound moment planned.",
+        "prompt": "Write a 15-second reel brief for roast day at [roastery]. Plan: the first second (beans dropping into the cooling tray), the first crack as the sound moment, four more shots in order, on-screen words (six at most), and a caption that names the coffee and when it ships.",
+        "use": "Film it every roast day. Same shots, different coffee."
+      }
+    ]
+  },
+  "hq": [
+    "shop",
+    "content",
+    "email",
+    "social"
+  ],
+  "hooks": [
+    "First crack is the best sound in coffee. Why isn't it on your page?",
+    "Your cupping notes are written for roasters. Your buyers aren't roasters.",
+    "The wholesale email I'd send a cafe.",
+    "Roast day is a reel you film once a week, forever.",
+    "What to put on a coffee bag besides the origin.",
+    "A subscription email people actually open."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Roasting out of a garage? Give the beans a real page.",
+      "body": "Type your roastery and your coffees. 127 builds the site free.",
+      "headline": "Build your roastery site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Bag pages, subscription emails and wholesale pitches.",
+      "body": "The Roaster Pack, $39 once, or with Builder.",
+      "headline": "The Roaster Pack, $39"
+    },
+    {
+      "angle": "Content",
+      "hook": "One roast day, a week of posts.",
+      "body": "The pack's roast day brief and tasting notes prompt do the writing.",
+      "headline": "Turn roast day into posts"
+    }
+  ],
+  "keyword": "ROAST",
+  "next": [
+    "Tea companies",
+    "Coffee carts",
+    "Craft chocolate makers"
+  ],
+  "legal": null
+}

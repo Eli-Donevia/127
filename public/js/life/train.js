@@ -5,7 +5,7 @@
 // Data: { goal, days, minutes, level, equip: [...], seed, swaps: { 'day:slot': n } }.
 (function () {
   'use strict';
-  var L = window.Life, el = L.el;
+  var L = window.LifeKit('train'), el = L.el;
   var EQUIP = [['body only', 'Bodyweight'], ['dumbbell', 'Dumbbells'], ['barbell', 'Barbell'], ['kettlebells', 'Kettlebells'], ['bands', 'Bands'], ['cable', 'Cable'], ['machine', 'Machines']];
   var GOALS = [['strength', 'Get stronger'], ['muscle', 'Build muscle'], ['fit', 'Get fit']];
   var SPLITS = {
@@ -84,6 +84,25 @@
     });
   }
 
+  // Weekly hard sets per muscle group from the plan, and what's light or missing.
+  var GROUPS = [['Chest', ['chest']], ['Back', ['lats', 'middle back', 'traps', 'lower back']], ['Shoulders', ['shoulders']], ['Arms', ['biceps', 'triceps', 'forearms']], ['Legs', ['quadriceps', 'hamstrings', 'glutes', 'calves', 'adductors', 'abductors']], ['Core', ['abdominals']]];
+  function sets(dose) { var m = /^(\d+)/.exec(dose[0]); return m ? +m[1] : 3; }
+  function balance(week) {
+    var tally = GROUPS.map(function (g) { return { name: g[0], m: g[1], n: 0 }; });
+    week.forEach(function (w) { w.moves.forEach(function (mv) { if (!mv.ex) return; tally.forEach(function (t) { if (mv.ex.primary.some(function (p) { return t.m.indexOf(p) >= 0; })) t.n += sets(mv.dose); }); }); });
+    var max = Math.max.apply(null, tally.map(function (t) { return t.n; })) || 1;
+    var nts = [], miss = tally.filter(function (t) { return !t.n; });
+    if (miss.length) nts.push({ tone: 'caution', title: 'No ' + miss.map(function (t) { return t.name.toLowerCase(); }).join(' or ') + ' work this week', body: 'Add the equipment for it above, or swap one move.' });
+    var push = tally[0].n + tally[2].n, pull = tally[1].n;
+    if (push && pull && push > pull * 1.6) nts.push({ tone: 'info', title: 'Pushing more than pulling', body: push + ' chest and shoulder sets against ' + pull + ' for your back. Swap one press for a row.' });
+    if (!nts.length) nts.push({ tone: 'good', title: 'Balanced week', body: 'Every muscle group gets work.' });
+    var sec = el('section', { class: 'lf-panel tr-bal' }, [el('div', { class: 'lf-panel-h' }, [el('h2', { class: 'lf-h', text: 'Sets per week' }), el('span', { class: 'lf-d', text: tally.reduce(function (n, t) { return n + t.n; }, 0) + ' hard sets' })])]);
+    L.notices(sec, nts, 2);
+    sec.appendChild(el('ul', { class: 'tr-bars' }, tally.map(function (t) {
+      return el('li', { class: t.n === max ? 'is-lit' : !t.n ? 'is-none' : '' }, [el('span', { class: 'tr-bar-n', text: t.name }), el('span', { class: 'tr-bar' }, [el('i', { style: '--w:' + Math.round((t.n / max) * 100) + '%' })]), el('b', { text: String(t.n) })]);
+    })));
+    return sec;
+  }
   function commit(reset) { if (reset) d.swaps = {}; L.save(d); draw(); }
 
   function setup() {
@@ -128,6 +147,7 @@
     root.appendChild(el('div', { class: 'tr-days', role: 'tablist', 'aria-label': 'Days' }, week.map(function (w, i) {
       return el('button', { type: 'button', role: 'tab', class: i === pick ? 'on' : '', 'aria-selected': i === pick ? 'true' : 'false', onclick: function () { pick = i; draw(); } }, [el('span', { text: 'Day ' + (i + 1) }), el('b', { text: w.title })]);
     })));
+    root.appendChild(balance(week));
     var w = week[pick];
     root.appendChild(el('section', { class: 'lf-panel tr-day', role: 'tabpanel' }, [
       w.warm ? el('p', { class: 'tr-warm' }, [el('span', { class: 'lf-k', text: 'Warm up' }), el('span', { text: w.warm.name + ', 2 easy rounds, then a light first set of exercise 1.' })]) : null,
@@ -142,7 +162,7 @@
   d = clean(L.state.keep ? L.load() : null);
   L.current = function () { return d; };
   L.onData = function (x) { d = clean(x); pick = 0; draw(); };
-  draw();
-  fetch('/life/exercises.json', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) { all = j.exercises || []; draw(); })
+  L.ready(draw);
+  fetch('/life/exercises.json', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (j) { all = j.exercises || []; L.ready(draw); })
     .catch(function () { L.say('Couldn\'t load the exercise list. Check your connection and reload.', 'bad'); });
 })();

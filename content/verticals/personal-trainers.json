@@ -1,0 +1,132 @@
+{
+  "slug": "personal-trainers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Fitness",
+  "name": "Personal trainers",
+  "one": "training business",
+  "description": "A booking site, a consult script, session packages, check-in messages and a client tracker for independent personal trainers.",
+  "h1": "Sell the next twelve sessions, not one.",
+  "mark": "twelve",
+  "lede": "127 gives a personal trainer a site with your packages and a booking link, a consult that ends in a plan, and the weekly check-ins that keep people showing up.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Run a free consult",
+      "hand": "A consult script: goals, history, schedule, the plan, the price"
+    },
+    {
+      "when": "Tue",
+      "job": "Send check-ins",
+      "hand": "Weekly check-in texts by where each person is in their package"
+    },
+    {
+      "when": "Thu",
+      "job": "Track sessions",
+      "hand": "A session tracker with packages, sessions left and renewals"
+    },
+    {
+      "when": "Sat",
+      "job": "Post one tip",
+      "hand": "A tip post prompt that stays out of medical advice"
+    }
+  ],
+  "site": {
+    "design": "northstar",
+    "sample": {
+      "business": "Ren Strength",
+      "what": "Personal training for beginners",
+      "services": "Free consult, 30 minutes\n8 sessions, $480\n12 sessions, $660",
+      "city": "St. Paul"
+    },
+    "caption": "Ren Strength is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my trainer site free",
+    "fine": "Type your name and your packages. Free, no card.",
+    "query": {
+      "what": "Personal trainer"
+    }
+  },
+  "pack": {
+    "name": "Trainer Pack",
+    "price": 29,
+    "line": "A booking site, consult script, packages, check-ins and a session tracker.",
+    "items": [
+      "site-coach",
+      "client-sessions",
+      "pricing-lab",
+      "one-page-offer",
+      "recipe-booking-link",
+      "recipe-follow-up",
+      "email-welcome",
+      "email-win-back",
+      "social-carousel"
+    ],
+    "prompts": [
+      {
+        "id": "01-consult",
+        "title": "Consult script",
+        "summary": "A 30-minute consult that ends in a plan and a clear price, without pressure.",
+        "prompt": "Write a 30-minute consult script for [my business]. Sections: welcome (2 min), goals in their words (8), training history and injuries, with a note to get a doctor's OK where needed (5), schedule (3), the plan I'd suggest (5), packages and prices [ ] (5), next step (2). Questions to ask in each. No promises about results.",
+        "use": "Print it. Write their answers on it."
+      },
+      {
+        "id": "02-check-ins",
+        "title": "Weekly check-ins",
+        "summary": "Short weekly texts for week one, the middle of a package and the last two sessions.",
+        "prompt": "Write short check-in texts from [trainer] for: the first week, the middle of a package, two sessions left (with the renewal option), and after a missed session. Under 35 words each, warm, one question.",
+        "use": "Send Tuesdays."
+      },
+      {
+        "id": "03-packages",
+        "title": "Session packages",
+        "summary": "Builds three packages from your hourly rate, with the renewal price.",
+        "prompt": "Build three personal training packages. My rate per session [$], sessions per week options [ ], package lengths [ ]. Give names, prices, what's included, a renewal price, and the cancellation rule in one line.",
+        "use": "Put them on your site and your consult sheet."
+      }
+    ]
+  },
+  "hq": [
+    "trainer",
+    "coaching",
+    "content",
+    "email"
+  ],
+  "hooks": [
+    "Trainers: sell the package, not the session.",
+    "The consult script I'd use.",
+    "The text that goes out two sessions before a package ends.",
+    "Three packages, one page.",
+    "A tip post that isn't medical advice.",
+    "Track sessions left, not just sessions done."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Trainer without a booking page?",
+      "body": "Type your name and packages. 127 builds it free.",
+      "headline": "Build your trainer site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Consult script, packages, check-ins.",
+      "body": "The Trainer Pack, $29 once.",
+      "headline": "The Trainer Pack, $29"
+    },
+    {
+      "angle": "Packages",
+      "hook": "Stop selling one session at a time.",
+      "body": "The pack builds three packages from your rate.",
+      "headline": "Build your packages"
+    }
+  ],
+  "keyword": "TRAIN",
+  "next": [
+    "Online coaches",
+    "Nutrition coaches",
+    "Run coaches"
+  ],
+  "legal": "No health or body result claims; injuries and conditions go to a doctor."
+}

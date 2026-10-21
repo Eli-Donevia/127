@@ -1,0 +1,52 @@
+{
+  "slug": "pet-groomers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Pets",
+  "name": "Pet groomers",
+  "one": "grooming shop",
+  "description": "A booking site with your grooming menu, before-and-after posts, rebooking texts and a pricing sheet for pet groomers.",
+  "h1": "Rebook them before they leave the table.",
+  "mark": "Rebook",
+  "lede": "127 gives a groomer a menu site with booking, before-and-after posts that take a minute, and the rebooking texts that keep the calendar full of dogs you already know.",
+  "week": [
+    { "when": "Mon", "job": "Post the before and afters", "hand": "A caption prompt for before-and-after photos, no dog's name without the owner's OK" },
+    { "when": "Tue", "job": "Price a matted coat", "hand": "A pricing sheet by size, coat and time on the table" },
+    { "when": "Thu", "job": "Send rebook texts", "hand": "Rebook texts at four, six and eight weeks" },
+    { "when": "Sat", "job": "Answer booking questions", "hand": "Saved replies for prices, first visits and vaccines" }
+  ],
+  "site": {
+    "design": "atelier",
+    "sample": { "business": "Tidy Paws Grooming", "what": "Dog grooming salon, by appointment", "services": "Bath and tidy, small dog, $55\nFull groom, medium dog, $85\nNail trim, $15", "city": "Lincoln" },
+    "caption": "Tidy Paws is made up. Built by the free site builder."
+  },
+  "entry": { "door": "site", "label": "Build my grooming site free", "fine": "Type your shop and your menu. Free, no card.", "query": { "what": "Dog grooming salon" } },
+  "pack": {
+    "name": "Groomer Pack",
+    "price": 29,
+    "line": "A booking site, before-and-after posts, rebook texts and a pricing sheet.",
+    "items": ["site-studio", "pricing-lab", "client-sessions", "recipe-booking-link", "recipe-follow-up", "recipe-saved-replies", "email-review-ask", "social-story", "social-quote-card"],
+    "prompts": [
+      { "id": "01-before-after", "title": "Before and after captions", "summary": "Short captions for a before-and-after post, in your voice.", "prompt": "Write five short captions for before-and-after grooming photos at [shop]. Facts: breed [ ], what we did [ ], how long [ ]. Voice: [paste a caption you like]. Use the dog's name only if I write \"owner said yes\". End with how to book: [link].", "use": "Ask owners at drop-off if you can post their dog." },
+      { "id": "02-rebook-texts", "title": "Rebook texts", "summary": "Rebook texts at four, six and eight weeks, by coat type.", "prompt": "Write three short rebook texts for [shop]: one at four weeks for short coats, one at six for doodles and curly coats, one at eight for everyone else. Each under 30 words, with the booking link [link], and a way to reply STOP.", "use": "Send from your booking app or phone." },
+      { "id": "03-price-sheet", "title": "Price by size and coat", "summary": "Builds your grooming price list from your time on the table and the price per hour you want.", "prompt": "Help me set grooming prices for [shop]. My target per hour: [$]. Typical table time: small [min], medium [min], large [min], extra for matting [min per level], doodle coat [min]. Build a price list by size and service, with a matting fee, and a line for how I explain it to an owner.", "use": "Print the list for the front desk." }
+    ]
+  },
+  "hq": ["petcare", "reviews", "local", "content"],
+  "hooks": [
+    "Groomers: rebook before the dog leaves the table.",
+    "How I price a matted doodle.",
+    "Before and afters that take one minute to post.",
+    "The rebook text that goes out at week six.",
+    "Your grooming menu belongs on your homepage.",
+    "Five saved replies for booking questions."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Is your grooming menu on your website?", "body": "Type your shop and your menu. 127 builds a booking site free.", "headline": "Build your grooming site free" },
+    { "angle": "The pack", "hook": "Rebook texts, before-and-after captions, a price sheet.", "body": "The Groomer Pack, $29 once.", "headline": "The Groomer Pack, $29" },
+    { "angle": "Pricing", "hook": "Charge for the matting.", "body": "The pack's price sheet builds prices from your time on the table.", "headline": "Price by size and coat" }
+  ],
+  "keyword": "GROOM",
+  "next": ["Mobile groomers", "Dog trainers", "Pet sitters"],
+  "legal": null
+}

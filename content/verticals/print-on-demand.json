@@ -1,0 +1,131 @@
+{
+  "slug": "print-on-demand",
+  "status": "ready",
+  "wave": 2,
+  "group": "Online stores",
+  "name": "Print-on-demand stores",
+  "one": "print-on-demand store",
+  "description": "Niche picks, mockup prompts, product pages and the margin math for print-on-demand shirt, mug and poster stores.",
+  "h1": "The design is the easy part. The niche isn't.",
+  "mark": "niche",
+  "lede": "127 helps a print-on-demand store pick a niche worth printing for, write the pages, plan the mockups and check what each sale leaves after the printer's cut.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Pick this week's niche",
+      "hand": "A niche test prompt: who buys, what they already wear, what they'd never buy"
+    },
+    {
+      "when": "Tue",
+      "job": "Make the mockups",
+      "hand": "Image prompts for mockups on real people in real places"
+    },
+    {
+      "when": "Wed",
+      "job": "List the products",
+      "hand": "Product pages that talk to one group of people"
+    },
+    {
+      "when": "Fri",
+      "job": "Check the margin",
+      "hand": "Unit economics with the printer's base price and shipping"
+    }
+  ],
+  "site": {
+    "design": "market",
+    "sample": {
+      "business": "Trailhead Type",
+      "what": "Apparel brand for people who hike before work",
+      "services": "Dawn patrol tee, $28\nSummit mug, $18\nTrail map poster, $24",
+      "city": ""
+    },
+    "caption": "Trailhead Type is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my store site free",
+    "fine": "Type your niche and three products. Free, no card.",
+    "query": {
+      "what": "Print-on-demand shirts and mugs"
+    }
+  },
+  "pack": {
+    "name": "Print-on-Demand Pack",
+    "price": 29,
+    "line": "Niche tests, mockup prompts, product pages and margin math.",
+    "items": [
+      "site-product-landing",
+      "shopify-sections-essentials",
+      "unit-economics",
+      "idea-scorecard",
+      "ad-test-planner",
+      "video-prompts-image-ads",
+      "social-carousel",
+      "hook-bank"
+    ],
+    "prompts": [
+      {
+        "id": "01-niche-test",
+        "title": "Niche test",
+        "summary": "Checks a niche before you design for it: who buys, what they already wear and the inside jokes.",
+        "prompt": "I'm thinking of a print-on-demand line for [niche]. Tell me: who buys for this group (themselves or gifts), what they already wear or use, five phrases or inside jokes they'd recognize that aren't trademarked, what they'd find cringe, and three places they gather online. End with a yes, maybe or no and why.",
+        "use": "Run it before you design anything. Check every phrase for trademarks yourself before you print it."
+      },
+      {
+        "id": "02-mockup-prompts",
+        "title": "Mockup image prompts",
+        "summary": "Image prompts that put your design on a real-looking person in a place your buyer goes.",
+        "prompt": "Write five image prompts for mockups of a [product] with this design: [describe it]. The buyer is [niche]. Each prompt: the person, the place, the light, the camera angle and what they're doing. No celebrities, no brand logos, no real places' signage.",
+        "use": "Use them in any image model. Label any AI image as a mockup on your page."
+      },
+      {
+        "id": "03-margin-check",
+        "title": "Margin check",
+        "summary": "What a sale leaves after the printer's base price, shipping, fees and ads.",
+        "prompt": "My printer charges [$] base for a [product], shipping is [$], my store fee is [%], payment fee is [%]. I sell it for [$]. Show what one sale leaves, then what's left if I spend [$] on ads per sale. Table, then one sentence.",
+        "use": "Run it per product before you run any ad."
+      }
+    ]
+  },
+  "hq": [
+    "shop",
+    "content",
+    "ads",
+    "templates"
+  ],
+  "hooks": [
+    "The design is the easy part of print-on-demand.",
+    "Check the niche before you open Canva.",
+    "What a $28 shirt actually leaves you.",
+    "Mockups on a white background don't sell shirts to hikers.",
+    "Five inside jokes beat one clever design.",
+    "Here's a niche I'd test this week, and why."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Got a print-on-demand idea? Put it online tonight.",
+      "body": "Type your niche and products. 127 builds the page free.",
+      "headline": "Build your store site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Niche tests, mockup prompts and margin math.",
+      "body": "The Print-on-Demand Pack, $29 once.",
+      "headline": "The POD Pack, $29"
+    },
+    {
+      "angle": "Margin",
+      "hook": "Does your shirt still make money after ads?",
+      "body": "The pack's margin check shows it in one table.",
+      "headline": "Check your margin"
+    }
+  ],
+  "keyword": "PRINT",
+  "next": [
+    "Digital download shops",
+    "Sticker shops",
+    "Poster shops"
+  ],
+  "legal": "Phrases and designs must be checked for trademarks and copyright before printing; the pack says so."
+}

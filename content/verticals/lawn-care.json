@@ -1,0 +1,52 @@
+{
+  "slug": "lawn-care",
+  "status": "ready",
+  "wave": 2,
+  "group": "Local service",
+  "name": "Lawn care businesses",
+  "one": "lawn care business",
+  "description": "A service-area site, a route-aware price sheet, season signup posts, rain-day texts and a snow plan for lawn care and landscaping businesses.",
+  "h1": "Sell the season in March.",
+  "mark": "season",
+  "lede": "127 gives a lawn care business a site with your service area and season plans, a price sheet that counts drive time between yards, and the texts for rain days and snow.",
+  "week": [
+    { "when": "Mon", "job": "Quote by lot size", "hand": "A price sheet by lot size, frequency and drive time" },
+    { "when": "Tue", "job": "Post the season plan", "hand": "A season signup post and a door hanger" },
+    { "when": "Thu", "job": "Rain day", "hand": "Rain delay and reschedule texts for the whole route" },
+    { "when": "Fri", "job": "Count the route", "hand": "A jobs tracker with yards per day and revenue per hour" }
+  ],
+  "site": {
+    "design": "beacon",
+    "sample": { "business": "Fairway Lawn Co.", "what": "Weekly mowing, edging and seasonal cleanups", "services": "Weekly mow, small lot, $40\nSpring cleanup, from $180\nSeason plan, 26 mows, from $960", "city": "Ankeny" },
+    "caption": "Fairway Lawn Co. is made up. Built by the free site builder."
+  },
+  "entry": { "door": "site", "label": "Build my lawn site free", "fine": "Type your business and your services. Free, no card.", "query": { "what": "Lawn care and mowing" } },
+  "pack": {
+    "name": "Lawn Pack",
+    "price": 29,
+    "line": "A service-area site, price sheet, season posts, rain-day texts and a snow plan.",
+    "items": ["site-local-service", "quote", "pricing-lab", "jobs-tracker", "email-quote-follow-up", "recipe-saved-replies", "email-review-ask", "social-story", "launch-countdown"],
+    "prompts": [
+      { "id": "01-season-plan", "title": "Season plan offer", "summary": "A season plan with a clear price, what's included and the signup post.", "prompt": "Write a season plan for [business]: [mows] mows from [month] to [month], plus [extras]. Price by lot size [ ]. Payment options [ ]. Then the signup post, a door hanger (40 words at most) and a reminder post two weeks later.", "use": "Post it in March, before the first mow." },
+      { "id": "02-rain-day", "title": "Rain day texts", "summary": "Texts for a rain delay, a reschedule and a skipped week.", "prompt": "Write short texts for [business]: rain delay today (new day [ ]), we're running a day behind all week, and skipping this week because of drought or heat. Under 30 words, with STOP to opt out.", "use": "Send them to the whole route from your phone or app." },
+      { "id": "03-price-by-lot", "title": "Price by lot size", "summary": "Prices weekly and biweekly mowing by lot size, with drive time.", "prompt": "Price mowing for [business]. Target per hour [$] per crew member, crew size [ ], minutes per lot size: small [ ], medium [ ], large [ ], drive time between yards [min]. Give weekly and biweekly prices and a minimum.", "use": "Re-run each spring." }
+    ]
+  },
+  "hq": ["lawn", "reviews", "local", "frontdesk"],
+  "hooks": [
+    "Lawn care: sell the season in March.",
+    "The rain day text, sent to the whole route.",
+    "Price by lot size, not by guess.",
+    "Drive time between yards is the cost nobody counts.",
+    "A door hanger in forty words.",
+    "What I'd put in a season plan."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Lawn care business without a site?", "body": "Type your business and services. 127 builds it free.", "headline": "Build your lawn site free" },
+    { "angle": "The pack", "hook": "Season plans, price sheets, rain-day texts.", "body": "The Lawn Pack, $29 once.", "headline": "The Lawn Pack, $29" },
+    { "angle": "Season", "hook": "Sell the whole season before the first mow.", "body": "The pack's season plan and posts are ready to fill in.", "headline": "Sell the season" }
+  ],
+  "keyword": "MOW",
+  "next": ["Snow removal", "Landscapers", "Tree services"],
+  "legal": null
+}

@@ -11,12 +11,18 @@
     card: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>',
     gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
     admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
-    hq: '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>'
+    hq: '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+    sell: '<svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12h-13z"/><path d="M9 7a3 3 0 016 0"/></svg>',
+    invite: '<svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 7-6s7 2.5 7 6M19 8v6M16 11h6"/></svg>'
   };
   var nav = [['/app','Dashboard',I.home],['/app/library','Library',I.lib],['/app/tools','AI tools',I.ai],['/app/wins','Wins',I.win],['/app/circle',"Founder's Circle",I.circle],['/app/billing','Membership',I.card],['/app/settings','Settings',I.gear]];
   // 127 HQ (lib/hq.js), after Dashboard, only while HQ_LIVE=true.
   if (typeof hqLive !== 'undefined' && hqLive) nav.splice(1, 0, ['/app/hq','HQ',I.hq]);
-  if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); }
+  // The member marketplace and the Invite page, each behind its switch (lib/market.js MARKETPLACE, lib/referrals.js REFERRALS).
+  var wi = nav.findIndex(function (n) { return n[0] === '/app/wins'; }) + 1;
+  if (typeof referralsOn !== 'undefined' && referralsOn) nav.splice(wi, 0, ['/app/invite','Invite',I.invite]);
+  if (typeof marketOn !== 'undefined' && marketOn) nav.splice(wi, 0, ['/app/sell','Sell',I.sell]);
+  if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); if (typeof marketOn !== 'undefined' && marketOn) nav.push(['/admin/market','Market review',I.admin]); }
 %>
 <%# HQ as a workspace (HQ_WORKSPACE=on, lib/harness/nav.js): on HQ pages its rail takes the side menu's place. %>
 <% var hasWs = typeof ws !== 'undefined' && ws; %>
