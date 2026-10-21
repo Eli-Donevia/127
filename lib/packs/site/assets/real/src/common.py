@@ -278,6 +278,60 @@ def glare(sc, kind='Fog Glow', threshold=4.0, strength=0.25, size=0.5, quality='
     sc.render.use_compositing = True
 
 
+def uv_box(o, scale=1.0):
+    """Box-projected UVs in metres (x scale), so tiling textures keep real size on any box."""
+    me = o.data
+    if not me.uv_layers:
+        me.uv_layers.new()
+    uv = me.uv_layers.active.data
+    mw = o.matrix_world
+    for p in me.polygons:
+        n = p.normal
+        ax = max(range(3), key=lambda i: abs(n[i]))
+        for li in p.loop_indices:
+            v = mw @ me.vertices[me.loops[li].vertex_index].co
+            a, b = [(v.y, v.z), (v.x, v.z), (v.x, v.y)][ax]
+            uv[li].uv = (a * scale, b * scale)
+
+
+def lathe(name, prof, loc=(0, 0, 0), mat=None, steps=96, sub=1, thick=0.0):
+    """Revolve an (r, z) profile around Z."""
+    me = bpy.data.meshes.new(name)
+    me.from_pydata([(r, 0, z) for r, z in prof], [(i, i + 1) for i in range(len(prof) - 1)], [])
+    o = bpy.data.objects.new(name, me)
+    bpy.context.scene.collection.objects.link(o)
+    o.location = loc
+    sw = o.modifiers.new('screw', 'SCREW'); sw.steps = steps; sw.render_steps = steps
+    sw.use_merge_vertices = True; sw.use_normal_calculate = True
+    if thick:
+        so = o.modifiers.new('solid', 'SOLIDIFY'); so.thickness = thick
+    if sub:
+        ss = o.modifiers.new('sub', 'SUBSURF'); ss.levels = sub; ss.render_levels = sub
+    for p in me.polygons:
+        p.use_smooth = True
+    if mat:
+        me.materials.append(mat)
+    return o
+
+
+def obj_random_color(m, spread=0.25):
+    """Varies a material's base colour per object (Object Info random), like real batches of beans or stones."""
+    nt = m.node_tree
+    b = nt.nodes['Principled BSDF']
+    oi = nt.nodes.new('ShaderNodeObjectInfo')
+    hs = nt.nodes.new('ShaderNodeHueSaturation')
+    mr = nt.nodes.new('ShaderNodeMapRange')
+    mr.inputs['To Min'].default_value = 1 - spread; mr.inputs['To Max'].default_value = 1 + spread
+    nt.links.new(oi.outputs['Random'], mr.inputs['Value'])
+    nt.links.new(mr.outputs['Result'], hs.inputs['Value'])
+    src = b.inputs['Base Color'].links[0].from_socket if b.inputs['Base Color'].links else None
+    if src:
+        nt.links.new(src, hs.inputs['Color'])
+    else:
+        hs.inputs['Color'].default_value = b.inputs['Base Color'].default_value
+    nt.links.new(hs.outputs['Color'], b.inputs['Base Color'])
+
+
 def pbr(name, maps, scale=1.0, color_mult=None, rough_mult=1.0, rough_add=0.0, bump=1.0, disp=None, coat=0.0,
         coat_rough=0.05, hue_sat=None, rot=0.0, metal=None, sheen=0.0):
     """Principled material from a Poly Haven map set. disp: displacement scale in metres (needs adaptive or a dense mesh)."""
