@@ -43,6 +43,25 @@ test('no email, no going online; a store needs its shipping and returns policies
   assert.match(file(r2, 'privacy.html'), /When you buy from us[\s\S]*Shopify handles your payment/);
 });
 
+test('a store that ships nothing gets a refunds and cancellations page (Legal L80)', async () => {
+  const shop = { business: 'Halden Goods', what: 'Insulated water bottles', email: 'hi@halden.example', buy: 'https://halden.myshopify.com/products/one' };
+  const r = await build({ ...shop, ships: 'no' });
+  assert.deepEqual(r.blockers, ['Add your refund and cancellation policy: a store has to post it, even if it is "all sales final".']);
+  const pol = file(r, 'policies.html');
+  assert.match(pol, /<title>Refunds and cancellations \|/);
+  assert.match(pol, /\[add your refund and cancellation policy\]/);
+  assert.ok(!/id="shipping"|Shipping<\/h2>/.test(pol));
+  assert.match(file(r, 'index.html'), /policies\.html">Refunds and cancellations/);
+  assert.match(file(r, 'README.txt'), /Your refunds and cancellations page \(policies\.html\)/);
+  assert.match(file(r, 'privacy.html'), /billing address, your shipping address if we ship your order,[\s\S]*handle refunds and returns\./);
+  const digital = await build({ business: 'Plan Kit', what: 'Notion templates', email: 'hi@plankit.example', buy: 'https://plankit.gumroad.com/l/one' });
+  assert.equal(digital.c.ships, false, 'digital products default to no');
+  assert.equal((await build(shop)).c.ships, true, 'other stores default to yes');
+  const { shipsByDefault } = require('../lib/packs/site/lib/privacy');
+  assert.deepEqual(['gather', 'lumen', 'orbit', 'market'].map((d) => shipsByDefault(d, {})), [false, false, false, true], 'tickets, Lumen and Orbit default to no');
+  assert.equal(factsFrom(null, { ...shop, ships: 'yes' }, { own: false }).ships, true, "the member's answer wins");
+});
+
 test("127's site chat: its button and its block in privacy.html, only when the member pasted its code", async () => {
   const key = 'a'.repeat(32);
   const snippet = `<script src="https://127group.io/js/site-chat-embed.js" data-chat="${key}" async></script>`;
