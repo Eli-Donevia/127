@@ -90,7 +90,7 @@
     if (id === 'ideas' && d.ideas && d.ideas.length) return d.ideas.length + ' ideas scored';
     if (id === 'content' && d.posts) { var n = Object.keys(d.posts).filter(function (k) { return d.posts[k].state === 'posted'; }).length; return n + ' posted this month'; }
     if (id === 'stock' && d.items && d.items.length) return d.items.length + ' products tracked';
-    if (id === 'hours' && d.tasks && d.tasks.length) { var back = d.tasks.reduce(function (n, t) { return n + (t.tag !== 'me' ? +t.hours || 0 : 0); }, 0); return back + ' hrs a week to get back'; }
+    if (id === 'hours' && d.tasks && d.tasks.length) { var back = d.tasks.reduce(function (n, t) { return n + (t.tag !== 'me' ? +t.hours || 0 : 0); }, 0); return back + ' hrs on repeat tasks and waste'; }
     if (id === 'week' && d.blocks && d.blocks.length) { var deep = d.blocks.reduce(function (n, b) { return n + (b.kind === 'deep' ? b.len : 0); }, 0) / 60; return deep ? deep + ' hrs of deep work a week' : d.blocks.length + ' blocks a week'; }
     if (id === 'checklists') return Object.keys(d.done || {}).length + ' steps done';
     return null;

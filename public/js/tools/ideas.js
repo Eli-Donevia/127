@@ -1,6 +1,6 @@
 // Idea scorecard (lib/tools 'ideas'): up to eight ideas scored 0 to 10 on the Idea Test's five questions
 // (lib/idea-test.js), ranked as the member scores. The leader is the one thing lit in Pop. Verdict bands match the
-// Idea Test: Build it at 75% and up, Promising at 50 to 74, Rework it below.
+// Idea Test's 75 and 50 lines, worded as what the answers say, not what will happen (Legal L92 HT3).
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;
@@ -19,7 +19,7 @@
   if (!T.state.canSave) { data = JSON.parse(JSON.stringify(EXAMPLE)); demo = true; }
 
   var total = function (x) { return Q.reduce(function (n, q) { return n + (x.scores[q[0]] || 0); }, 0); };
-  var band = function (p) { return p >= 75 ? 'Build it' : p >= 50 ? 'Promising' : 'Rework it'; };
+  var band = function (p) { return p >= 75 ? 'Strong answers' : p >= 50 ? 'Mixed answers' : 'Weak answers'; };
   var weakest = function (x) { return Q.reduce(function (m, q) { return x.scores[q[0]] < x.scores[m[0]] ? q : m; }, Q[0]); };
 
   function draw() {
@@ -36,9 +36,10 @@
     var ranked = data.ideas.slice().sort(function (a, b) { return total(b) - total(a); });
     var lead = ranked[0], lp = lead ? Math.round((total(lead) / 50) * 100) : 0;
     root.appendChild(el('section', { class: 'tl-sum' }, [
-      el('div', { class: 'tl-hero' }, [el('span', { class: 'tl-k', text: lead && lead.name ? 'Test this one first: ' + lead.name : 'Your leader' }), el('b', { class: 'tl-hero-v', text: lead ? lp + '%' : '–' }), el('span', { class: 'tl-d' + (lp >= 75 ? ' up' : ''), text: lead ? band(lp) + '. Its weakest answer is ' + weakest(lead)[1].toLowerCase() + ': check that first.' : '' })]),
+      el('div', { class: 'tl-hero' }, [el('span', { class: 'tl-k', text: lead && lead.name ? 'Your top score: ' + lead.name : 'Your top score' }), el('b', { class: 'tl-hero-v', text: lead ? lp + '%' : '–' }), el('span', { class: 'tl-d' + (lp >= 75 ? ' up' : ''), text: lead ? band(lp) + '. Its weakest answer is ' + weakest(lead)[1].toLowerCase() + ': check that first.' : '' })]),
       el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Ideas on the board' }), el('b', { text: String(data.ideas.length) }), el('span', { class: 'tl-d', text: 'up to eight' })]),
       el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Gap to the next one' }), el('b', { text: ranked[1] ? (total(lead) - total(ranked[1])) * 2 + ' pts' : '–' }), el('span', { class: 'tl-d', text: ranked[1] ? (total(lead) === total(ranked[1]) ? 'A tie. Talk to five buyers of each.' : 'ahead of ' + (ranked[1].name || 'the next idea')) : 'Add a second idea to compare' })]),
+      el('p', { class: 'tl-note id-from', text: 'Scores come from your own answers. They don’t predict how an idea will do.' }),
     ]));
     var list = el('div', { class: 'id-list' });
     ranked.forEach(function (x, r) { list.appendChild(row(x, r, x === lead && data.ideas.length > 1)); });

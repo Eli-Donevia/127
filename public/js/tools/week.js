@@ -2,8 +2,8 @@
 // each kind of block gets; "Build my week" lays the blocks out (deep work first thing, admin last, faith before the
 // day and health after it), then every block can be dragged, or moved and resized from its panel. The block on now or
 // next is the one thing lit in Pop. The week downloads as a calendar file that repeats weekly. No AI: the layout is
-// the rules below, and the calendar file is made in the browser. Saves { goals, days, start, end, want, blocks } with
-// times in minutes from midnight.
+// the rules below. Device only (Legal L92 HT8): { goals, days, start, end, want, blocks } (times in minutes from
+// midnight) is kept in this browser under the member's id, and the calendar file and CSV are made here too.
 (function () {
   'use strict';
   var T = window.Tool, el = T.el;
@@ -35,8 +35,10 @@
     d.blocks = build(d).blocks;
     return d;
   }
-  var data = T.state.data, demo = false;
-  if (!T.state.canSave) { data = example(); demo = true; }
+  // Everything here stays in this browser (Legal L92 HT8): nothing is posted to 127, the calendar file and the CSV
+  // are made on the device.
+  var data = T.device.get('week'), demo = false;
+  if (data && !Array.isArray(data.blocks)) data = null;
 
   // ---------- the layout rules ----------
   // Work blocks share out each kind's weekly hours over the days worked; life blocks over all seven days. On a work
@@ -89,7 +91,7 @@
         el('button', { type: 'button', class: 'tl-act', text: 'See an example week first', onclick: function () { data = example(); demo = true; draw(); } }),
       ]),
     ]));
-    if (demo && T.state.canSave) root.appendChild(el('div', { class: 'tl-demo' }, [el('span', { text: 'Example week. Nothing is saved.' }), el('button', { class: 'tl-act', type: 'button', text: 'Start mine', onclick: function () { data = null; demo = false; sel = null; draw(); } })]));
+    if (demo) root.appendChild(el('div', { class: 'tl-demo' }, [el('span', { text: 'Example week. Nothing is kept.' }), el('button', { class: 'tl-act', type: 'button', text: 'Start mine', onclick: function () { data = null; demo = false; sel = null; draw(); } })]));
     nodes.sum = el('section', { class: 'tl-sum' });
     nodes.board = el('section', { class: 'tl-panel wk-board', 'aria-label': 'Your week' });
     nodes.edit = el('section', { class: 'tl-panel wk-edit', hidden: true });
@@ -333,15 +335,25 @@
     out.push('END:VCALENDAR');
     return out.join('\r\n') + '\r\n';
   }
-  function download() {
-    var url = URL.createObjectURL(new Blob([ics()], { type: 'text/calendar' }));
-    var a = el('a', { href: url, download: 'my-week.ics' });
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-  }
+  function download() { T.download('my-week.ics', 'text/calendar', ics()); }
   T.weekIcs = ics;
 
-  function changed() { if (!demo) T.save(data); update(); }
+  var saved = document.getElementById('tool-saved');
+  function changed() {
+    if (!demo) { var ok = T.device.set('week', data); if (saved) saved.textContent = ok ? 'Kept on this device only' : 'This browser isn’t keeping anything. Download your week to keep it.'; }
+    update();
+  }
+  var exp = document.getElementById('tool-export'), clr = document.getElementById('tool-clear');
+  if (exp) exp.addEventListener('click', function () {
+    if (!data || demo) return;
+    var rows = [['Day', 'From', 'To', 'Kind', 'Name']];
+    data.blocks.slice().sort(function (a, b) { return a.day - b.day || a.from - b.from; }).forEach(function (b) { rows.push([DOW[b.day], clock(b.from), clock(b.from + b.len), NAME[b.kind], b.label]); });
+    T.download('my-week.csv', 'text/csv', T.csv(rows));
+  });
+  if (clr) clr.addEventListener('click', function () {
+    if (!window.confirm('Clear your week from this device? It can’t be brought back.')) return;
+    T.device.clear('week'); data = null; demo = false; sel = null; draw();
+  });
   var w = window.innerWidth;
   window.addEventListener('resize', function () { if ((w > 720) !== (window.innerWidth > 720)) { w = window.innerWidth; if (data && nodes.board) board(); } });
   draw();

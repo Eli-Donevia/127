@@ -598,3 +598,4 @@
   .mo-due { grid-template-columns: minmax(0, 1fr) 104px 44px; }
 }
 @media (prefers-reduced-motion: reduce) { .mo-line, .mo-glow, .mo-area, .mo-head, .mo-bar > i i { transition: none; } }
+.tl-sum > .ad-from, .tl-sum > .id-from { grid-column: 1 / -1; margin: 0; padding: 14px 24px; font-size: 13px; color: var(--ink-2); }

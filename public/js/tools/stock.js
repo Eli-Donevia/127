@@ -34,6 +34,7 @@
     nodes.list = el('div', { class: 'sk-list' });
     root.appendChild(nodes.sum);
     root.appendChild(nodes.list);
+    root.appendChild(T.estimate()); // on weeks left and the reorder dates (Legal L92 HT5)
     root.appendChild(el('button', { type: 'button', class: 'tl-act id-add', text: 'Add a product', onclick: function () { data.items.push(it('', 0, 0, 2, 0, 0)); changed(); draw(); var all = root.querySelectorAll('.sk-name'); all[all.length - 1].focus(); } }));
     rows();
     update();

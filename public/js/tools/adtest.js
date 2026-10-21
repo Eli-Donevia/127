@@ -77,10 +77,13 @@
   function update(full) {
     var v = verdict();
     nodes.sum.innerHTML = '';
-    var words = { noline: ['Set your line', 'Without a line there is no stop rule. Set the most you can pay for one result.'], stop: ['Stop this test', v.fired && v.fired.why + ' Change the ad, the audience or the offer, then start a new test.'], done: ['Cap reached', 'The test spent what you set. Read the numbers before you add more.'], scale: ['It is working', 'Results cost well under your line. Raise the cap in small steps and keep logging.'], run: ['Keep going', 'Under the stop rule so far. Log every day.'] }[v.state];
+    var words = { noline: ['Set your line', 'Without a line there is no stop rule. Set the most you can pay for one result.'], stop: ['Stop this test', v.fired && v.fired.why + ' Change the ad, the audience or the offer, then start a new test.'], done: ['Cap reached', 'The test spent what you set. Read the numbers before you add more.'], scale: ['Under your line', 'So far each result has cost well under your line. If you raise the cap, do it in small steps and keep logging.'], run: ['Keep going', 'Under the stop rule so far. Log every day.'] }[v.state];
     nodes.sum.appendChild(el('div', { class: 'tl-hero' }, [el('span', { class: 'tl-k', text: (data.name || 'This test') + ', ' + data.log.length + ' day' + (data.log.length === 1 ? '' : 's') + ' in' }), el('b', { class: 'tl-hero-v ad-v' + (v.state === 'scale' ? ' up' : ''), text: words[0] }), el('span', { class: 'tl-d', text: words[1] })]));
     nodes.sum.appendChild(el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Spent' }), el('b', { text: T.money(v.spent, 0) }), el('span', { class: 'tl-d', text: data.budget ? 'of a ' + T.money(data.budget, 0) + ' cap' : 'Set a cap' })]));
     nodes.sum.appendChild(el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Cost per ' + (data.goal === 'leads' ? 'lead' : 'sale') }), el('b', { text: v.cpr == null ? '–' : T.money(v.cpr, 0) }), el('span', { class: 'tl-d' + (v.cpr != null && v.L && v.cpr <= v.L ? ' up' : ''), text: v.L ? (v.got ? v.got + ' so far, line ' + T.money(v.L, 0) : 'Nothing back yet, line ' + T.money(v.L, 0)) : 'No line set' })]));
+    // Legal L92 HT1: say where a default line came from. The verdict only ever compares the member's own logged
+    // numbers with their line; it never predicts results.
+    if (!(data.line > 0) && v.L) nodes.sum.appendChild(el('p', { class: 'tl-note ad-from', text: 'Your stop line, ' + T.money(v.L, 0) + ', comes from the numbers in your Profit tool: what one customer is worth to you. Set your own above to change it.' }));
     drawChart(v);
     if (full) drawLog();
   }
@@ -88,7 +91,7 @@
   function drawChart(v) {
     var box = nodes.chart;
     box.innerHTML = '';
-    box.appendChild(el('h2', { class: 'tl-h', text: 'Spend against what results are worth' }));
+    box.appendChild(el('h2', { class: 'tl-h', text: 'Spend against your results, counted at your line' }));
     if (!v.pts.length || !v.L) { box.appendChild(el('p', { class: 'tl-note', text: v.L ? 'Log your first day and it draws here.' : 'Set your line to draw the stop rule.' })); return; }
     var W = Math.max(300, Math.min(760, (box.clientWidth || 600) - 40)), H = 220, Lp = 48, R = 12, Tp = 16, B = 28, n = Math.max(data.days, v.pts.length) - 1 || 1;
     var cap = Math.max(data.budget || 0, v.spent, 3 * v.L, v.got * v.L) * 1.08;

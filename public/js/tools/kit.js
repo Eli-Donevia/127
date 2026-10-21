@@ -144,8 +144,28 @@
     io.observe(node);
   }
 
+  // What a tool keeps in this browser only (Legal L92: the Week builder, Money overview's category rules), under the
+  // member's id so two people on one computer don't see each other's. Storage can be off or full: then it just
+  // isn't kept, and the page still works for this visit.
+  var device = {
+    key: function (name) { return '127:' + name + ':' + (state.member || 'me'); },
+    get: function (name) { try { var v = window.localStorage.getItem(device.key(name)); return v ? JSON.parse(v) : null; } catch (e) { return null; } },
+    set: function (name, v) { try { window.localStorage.setItem(device.key(name), JSON.stringify(v)); return true; } catch (e) { return false; } },
+    clear: function (name) { try { window.localStorage.removeItem(device.key(name)); } catch (e) { /* nothing kept */ } },
+  };
+  // A file made here and handed to the member's device, never sent anywhere.
+  function download(name, type, text) {
+    var url = URL.createObjectURL(new Blob([text], { type: type }));
+    var a = el('a', { href: url, download: name });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  function csv(rows) {
+    return rows.map(function (r) { return r.map(function (v) { var x = String(v == null ? '' : v); if (/^[=+\-@]/.test(x) && !/^-?\d/.test(x)) x = "'" + x; return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }).join(','); }).join('\r\n') + '\r\n';
+  }
+
   // Under every money result (Legal L82 T3), word for word.
   function estimate() { return el('p', { class: 'tl-est', text: "Worked out from the numbers you enter. It's an estimate, not financial advice." }); }
 
-  window.Tool = { estimate: estimate, state: state, root: root, el: el, svg: svg, field: field, text: text, tween: tween, save: save, reveal: reveal, money: money, count: count, pct: pct, num: num, day: day, iso: iso, monday: monday, addDays: addDays, reduce: reduce };
+  window.Tool = { device: device, download: download, csv: csv, estimate: estimate, state: state, root: root, el: el, svg: svg, field: field, text: text, tween: tween, save: save, reveal: reveal, money: money, count: count, pct: pct, num: num, day: day, iso: iso, monday: monday, addDays: addDays, reduce: reduce };
 })();

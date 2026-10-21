@@ -38,7 +38,7 @@ async function server() {
       user: req.user, userPlan: req.user ? plan(req.user.tier) : null, isAdmin: false, path: req.path, flash: null,
       builderOffer: { founding: false, price: 29, regular: 29, messages: 300, freeMonth: false, firstCharge: null },
       launch: {}, pauseInfo: null, ageReview: false, agePauseMessage: '', stripeLive: false, demoBilling: false, checkoutCancelled: false,
-      fmtDate: () => null, plausible: null, trackEvents: [], canonical: 'https://127.test', baseUrl: 'https://127.test', adConsentScript: '', description: null, hqLive: true,
+      fmtDate: () => null, plausible: '127.test', trackEvents: [], canonical: 'https://127.test', baseUrl: 'https://127.test', adConsentScript: '<script src="https://ads.example/tag.js"></script>', description: null, hqLive: true,
     });
     next();
   });
@@ -177,17 +177,25 @@ test('the newer tools clean to their own fields too', () => {
   assert.equal(ct.posts['2026-10-19'].state, 'idea');
 });
 
-test('tools Legal has not cleared show to admins only', async () => {
+test('a tool Legal has not cleared shows to admins only', async () => {
   const m = await member();
-  const shelf = await (await s.go('/app/hq/tools', { as: m })).text();
-  for (const t of tools.list({ all: true })) assert.equal(shelf.includes(`/app/hq/tools/${t.id}"`), !t.held, t.id);
-  assert.deepEqual(tools.list().map((t) => t.id), ['conversion', 'profit', 'cash']);
-  assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 404);
-  assert.equal((await s.go('/app/hq/tools/stock/data', { as: m, json: { items: [] } })).status, 404);
-  process.env.ADMIN_EMAILS = m.email;
-  assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 200);
-  assert.ok((await (await s.go('/app/hq/tools', { as: m })).text()).includes('Admins only until Legal clears it'));
-  delete process.env.ADMIN_EMAILS;
+  tools.CLEARED.delete('stock');
+  try {
+    const shelf = await (await s.go('/app/hq/tools', { as: m })).text();
+    assert.ok(!shelf.includes('/app/hq/tools/stock"'));
+    assert.ok(shelf.includes('/app/hq/tools/profit"'));
+    assert.ok(!tools.list().some((t) => t.id === 'stock'));
+    assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 404);
+    assert.equal((await s.go('/app/hq/tools/stock/data', { as: m, json: { items: [] } })).status, 404);
+    process.env.ADMIN_EMAILS = m.email;
+    assert.equal((await s.go('/app/hq/tools/stock', { as: m })).status, 200);
+    assert.ok((await (await s.go('/app/hq/tools', { as: m })).text()).includes('Admins only until Legal clears it'));
+  } finally {
+    tools.CLEARED.add('stock');
+    delete process.env.ADMIN_EMAILS;
+  }
+  // Legal L82 and L92 cleared every tool built so far.
+  assert.deepEqual(tools.list().map((t) => t.id), tools.list({ all: true }).map((t) => t.id));
 });
 
 test('every newer tool saves, opens and exports; free plans keep ideas and content', async () => {
@@ -237,24 +245,26 @@ test('the fullest content, stock, hours and hooks documents fit', async () => {
   delete process.env.ADMIN_EMAILS;
 });
 
-test('Week builder: blocks clean to the quarter hour; the calendar file is made in the browser, never on the server', async () => {
-  const c = tools._clean.cleanWeek({ start: '25:00', days: [4, 0, 0], want: { deep: 200, nope: 3 }, blocks: [{ id: 'a', kind: 'deep', day: 0, from: 547, len: 1000, label: 'Write; part, one' }, { id: 'b', kind: 'boss', day: 9, from: -5, len: 2 }, { kind: 'deep' }] });
-  assert.equal(c.start, '09:00');
-  assert.deepEqual(c.days, [0, 4]);
-  assert.equal(c.want.deep, 80);
-  assert.ok(!('nope' in c.want));
-  assert.deepEqual(c.blocks, [{ id: 'a', kind: 'deep', day: 0, from: 540, len: 480, label: 'Write; part, one' }, { id: 'b', kind: 'other', day: 6, from: 0, len: 15, label: '' }]);
+test('Week builder lives on the device only: no save, clear or export route, no outside scripts (Legal L92 HT8)', async () => {
   const m = await member();
-  process.env.ADMIN_EMAILS = m.email;
-  assert.equal((await s.go('/app/hq/tools/week/data', { as: m, json: { blocks: c.blocks } })).status, 200);
-  assert.equal((await s.go('/app/hq/tools/week/export.ics', { as: m })).status, 404); // Legal L87: built client-side
-  assert.match(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'week.js'), 'utf8'), /new Blob\(\[ics\(\)\], \{ type: 'text\/calendar' \}\)/);
-  const csv = await (await s.go('/app/hq/tools/week/export.csv', { as: m })).text();
-  assert.ok(csv.includes('Monday,09:00,17:00,deep,"Write; part, one"'), csv);
-  delete process.env.ADMIN_EMAILS;
+  const page = await (await s.go('/app/hq/tools/week', { as: m })).text();
+  assert.ok(page.includes('/js/tools/week.js'));
+  assert.ok(page.includes(`"member":"${m.id}"`));
+  assert.ok(page.includes('Clear from this device'));
+  assert.ok(!page.includes('plausible.io') && !page.includes('ads.example'));
+  for (const p of ['/app/hq/tools/week/export.csv', '/app/hq/tools/week/export.ics']) assert.equal((await s.go(p, { as: m })).status, 404, p);
+  assert.equal((await s.go('/app/hq/tools/week/data', { as: m, json: { blocks: [{ id: 'a', kind: 'faith', day: 0, from: 480, len: 30 }] } })).status, 404);
+  assert.equal((await s.go('/app/hq/tools/week/clear', { as: m, post: true })).status, 404);
+  assert.equal(db.filter('tools', (d) => d.memberId === m.id).length, 0);
+  const js = fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'week.js'), 'utf8');
+  assert.doesNotMatch(js, /T\.save\(|fetch\(|XMLHttpRequest|sendBeacon/);
+  assert.match(js, /T\.device\.set\('week'/);
+  assert.match(js, /T\.download\('my-week\.ics', 'text\/calendar'/);
+  // Other tools still load the site's scripts as usual.
+  assert.ok((await (await s.go('/app/hq/tools/profit', { as: m })).text()).includes('plausible.io'));
 });
 
-test('Money overview keeps month totals and category rules only, never bank rows', async () => {
+test('Money overview keeps month totals only: category rules stay on the device, bank rows never leave the page', async () => {
   const c = tools._clean.cleanMoney({
     cats: ['Rent', 'Ads', ''],
     months: [{ month: '2026-09', revenue: '8,830', costs: [1350, '575', 99], cash: -40, rows: [{ desc: 'GUSTO' }] }, { month: '2026-09', revenue: 1 }, { month: '2026-13', revenue: 5 }, { month: '2026-10', revenue: 10, cash: '' }],
@@ -269,7 +279,7 @@ test('Money overview keeps month totals and category rules only, never bank rows
   assert.deepEqual(c.bills.map((b) => b.id), ['b']);
   assert.equal(c.invoices[0].due, null);
   assert.equal(c.invoices[0].paid, true);
-  assert.deepEqual(c.rules, [{ match: 'home depot', cat: 0 }, { match: 'transfer', cat: -1 }]);
+  assert.ok(!('rules' in c)); // L92 MO2: kept in the browser
   assert.ok(!('transactions' in c));
   const m = await member();
   process.env.ADMIN_EMAILS = m.email;
@@ -280,6 +290,17 @@ test('Money overview keeps month totals and category rules only, never bank rows
   process.env.ADMIN_EMAILS = f.email;
   assert.equal((await s.go('/app/hq/tools/money/data', { as: f, json: c })).status, 403);
   delete process.env.ADMIN_EMAILS;
+  // L92 MO3: no outside scripts on the page, and the page only ever posts category names, month totals, bills and
+  // invoices: a bank file is read and added up in the browser.
+  process.env.ADMIN_EMAILS = m.email;
+  const page = await (await s.go('/app/hq/tools/money', { as: m })).text();
+  assert.ok(!page.includes('plausible.io') && !page.includes('ads.example'));
+  delete process.env.ADMIN_EMAILS;
+  const js = fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'money.js'), 'utf8');
+  assert.match(js, /function saved\(d\) \{ return \{ cats: d\.cats, months: d\.months, bills: d\.bills, invoices: d\.invoices \}; \}/);
+  assert.deepEqual(js.match(/T\.save\([^)]*\)/g), ['T.save(saved(data)']);
+  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|sendBeacon|FormData/);
+  assert.match(js, /T\.device\.set\('money-rules', data\.rules\)/);
   // No example money in the page script (Legal L82 T2).
   assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'tools', 'money.js'), 'utf8'), /function example|EXAMPLE/);
 });

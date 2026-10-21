@@ -1,5 +1,6 @@
 // Money overview (lib/tools 'money'): the member's month totals (revenue, costs by their own categories, cash at the
 // month end), typed in or added up here in the browser from a bank file, plus bills and invoices with due dates.
+// No outside scripts load on this page (L92 MO3).
 // Out: revenue, costs, profit and cash with the change on the month before, cash across twelve months, where the
 // money went, and what's due. Only the totals and the category rules are saved; a bank file's rows never leave the
 // page. Fields start empty and there are no example numbers (Legal L82). Accent: the cash line is the one neon (Ion,
@@ -20,6 +21,10 @@
   var data = T.state.data, readOnly = !T.state.canSave, sel = null, fileView = null;
   var blank = function () { return { cats: [], months: [], bills: [], invoices: [], rules: [] }; };
   if (readOnly && !data) data = blank();
+  // The category rules (words from bank rows, which can name a person) stay in this browser under the member's id,
+  // never on 127 (Legal L92 MO2). Start over empties the saved totals, and an empty tool forgets the rules too.
+  if (!T.state.data) T.device.clear('money-rules');
+  if (data) data.rules = (T.device.get('money-rules') || []).filter(function (r) { return r && r.match && r.cat < data.cats.length; });
 
   var monthOf = function (m) { return data.months.filter(function (x) { return x.month === m; })[0] || null; };
   function ensure(m) {
@@ -356,7 +361,15 @@
   function update() {
     tiles(); chart(); topCosts(); status();
   }
-  function changed() { if (!readOnly) T.save(data); if (nodes.tiles) update(); }
+  // What goes to 127: category names, month totals, bills and invoices. Never rules, rows, amounts or descriptions
+  // from a bank file (test/tools.test.js checks this page's saves).
+  function saved(d) { return { cats: d.cats, months: d.months, bills: d.bills, invoices: d.invoices }; }
+  function changed() {
+    if (readOnly) { if (nodes.tiles) update(); return; }
+    T.save(saved(data));
+    T.device.set('money-rules', data.rules);
+    if (nodes.tiles) update();
+  }
   var w = window.innerWidth;
   window.addEventListener('resize', function () { if (Math.abs(window.innerWidth - w) > 40 && nodes.chart) { w = window.innerWidth; chart(); } });
   draw();

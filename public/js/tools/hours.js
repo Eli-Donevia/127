@@ -39,16 +39,16 @@
     var sum = { me: 0, repeat: 0, waste: 0 }, all = 0;
     data.tasks.forEach(function (t) { sum[t.tag] += t.hours; all += t.hours; });
     var top = data.tasks.filter(function (t) { return t.tag === 'repeat' && t.hours > 0; }).sort(function (a, b) { return b.hours - a.hours; })[0];
-    var cut = data.tools.filter(function (t) { return !t.used || !t.job; }), cutCost = cut.reduce(function (n, t) { return n + t.cost; }, 0);
-    var spend = data.tools.reduce(function (n, t) { return n + t.cost; }, 0);
+    var cut = data.tools.filter(function (t) { return !t.used || !t.job; });
     nodes.sum.innerHTML = '';
     nodes.sum.appendChild(el('div', { class: 'tl-hero' }, [
-      el('span', { class: 'tl-k', text: 'Hours you could get back each week' }),
+      el('span', { class: 'tl-k', text: 'Hours on repeat tasks and waste' }),
       el('b', { class: 'tl-hero-v', text: (sum.repeat + sum.waste).toFixed((sum.repeat + sum.waste) % 1 ? 1 : 0) }),
-      el('span', { class: 'tl-d', text: top ? 'Hand off ' + (top.name || 'your biggest repeat task').toLowerCase() + ' first: ' + top.hours + ' hours a week. Write the SOP once.' : 'Tag the tasks you repeat every week.' }),
+      el('span', { class: 'tl-d', text: top ? 'Start with ' + (top.name || 'your biggest repeat task').toLowerCase() + ': ' + top.hours + ' hours last week. Write the steps down once so it can be handed off.' : 'Tag the tasks you repeat every week.' }),
     ]));
     nodes.sum.appendChild(el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Only you can do' }), el('b', { text: sum.me + ' hrs' }), el('span', { class: 'tl-d', text: all ? Math.round((sum.me / all) * 100) + '% of ' + all + ' hours' : 'of last week' })]));
-    nodes.sum.appendChild(el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Tools to cut' }), el('b', { text: cutCost > 0 ? T.money(cutCost, 0) : String(cut.length) }), el('span', { class: 'tl-d' + (cutCost ? ' up' : ''), text: !cut.length ? 'Every tool has a job and gets used' : cutCost > 0 ? 'a month across ' + cut.length + ' unused or jobless, of ' + T.money(spend, 0) : (cut.length === 1 ? 'tool' : 'tools') + ' unused or with no job. Add what each costs.' })]));
+    // Legal L92 HT6: no savings, headcount or replacement figures. What's unused is named, not priced as a saving.
+    nodes.sum.appendChild(el('div', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Tools to look at' }), el('b', { text: String(cut.length) }), el('span', { class: 'tl-d', text: !cut.length ? 'Every tool has a job and gets used' : cut.map(function (t) { return t.name || 'Unnamed tool'; }).slice(0, 3).join(', ') + (cut.length > 3 ? ' and ' + (cut.length - 3) + ' more' : '') + ': unused or with no job' })]));
     // The week as one bar, split by tag.
     nodes.split.innerHTML = '';
     nodes.split.appendChild(el('h2', { class: 'tl-h', text: 'Last week' }));

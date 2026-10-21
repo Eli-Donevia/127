@@ -41,6 +41,8 @@
       side.push(el('label', { class: 'tl-stat' }, [el('span', { class: 'tl-k', text: 'Launch day' }), f, el('span', { class: 'tl-d', text: data.launch ? daysTo(data.launch) : 'Pick one about 14 days out' })]));
     }
     root.appendChild(el('section', { class: 'tl-sum ck-sum' + (side.length ? '' : ' one') }, [el('div', { class: 'tl-hero' }, head)].concat(side)));
+    // Legal L92 HT7, word for word, on the list about taking money.
+    if (l.id === 'money-setup-checklist') root.appendChild(el('p', { class: 'tl-est ck-legal', text: 'General steps, not legal or tax advice. Rules differ by state.' }));
     l.groups.forEach(function (g) {
       var due = dueOf(g), gc = g.items.filter(function (i) { return data.done[i.id]; }).length, isNext = next === g;
       var box = el('section', { class: 'ck-g' + (isNext ? ' next' : '') }, [el('div', { class: 'ck-gh' }, [
