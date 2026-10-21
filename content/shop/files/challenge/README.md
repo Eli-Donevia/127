@@ -1,6 +1,6 @@
 # Run your own challenge
 
-A five-day challenge is a free week where people build one real thing with you, a little each day. It's the format 127 uses for its own Day One Challenge. This course is that engine, with your days in it.
+A challenge is a free run of days where people build one real thing with you, a little each day. 127 runs its own Day One Challenge this way over 14 days. This course teaches the five-day version, the easiest one to run first, and shows how to stretch it longer once it works.
 
 By the end you'll have the promise, the five days, the landing page, every email, the share mechanics, the run sheet, and the one honest offer at the end.
 
