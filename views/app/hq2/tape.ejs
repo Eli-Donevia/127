@@ -1,0 +1,133 @@
+<%- include('../../partials/app-head') %>
+<%# Tape (lib/tape, HQ_TAPE). Drawn by public/js/tape.js from /app/hq/tape/data. Facts only (Legal L88 TK1); the TK5
+    notice sits on the view and the alert line under the flags. Without the member's own key it runs on invented
+    sample tickers, labeled "Sample data". %>
+<div class="hq h2 tp">
+  <%- include('../../partials/hq2-nav') %>
+  <header class="tp-head">
+    <div>
+      <h1 class="hq-title tp-title">Tape</h1>
+      <p class="hq-lede">Your watchlist, your flags, and what moved, in plain numbers.</p>
+    </div>
+    <p class="tp-src">
+      <% if (live) { %><span><%= keyInfo.attribution %></span><span class="tp-delay">Data may be delayed</span>
+      <% } else { %><span class="tp-sample">Sample data</span><span>Invented tickers and prices. They don't track any real stock.</span><% } %>
+    </p>
+  </header>
+  <% if (saved) { %><div class="tp-msg" role="status"><%= saved %></div><% } %>
+  <% if (error) { %><div class="tp-msg tp-err" role="alert"><%= error %></div><% } %>
+
+  <nav class="tp-tape" id="tp-tape" aria-label="Watchlist"></nav>
+
+  <div class="tp-grid">
+    <div class="tp-main">
+      <section class="tp-stage" aria-label="Quote and chart">
+        <div class="tp-quote">
+          <div class="tp-qhead"><div class="tp-sym" id="tp-sym"></div><div class="tp-when" id="tp-when"></div></div>
+          <div class="tp-price" id="tp-price" aria-live="off"></div>
+          <div class="tp-delta" id="tp-delta"></div>
+          <div class="tp-reads" id="tp-reads"></div>
+        </div>
+        <div class="tp-chart" id="tp-chart">
+          <svg id="tp-main" role="img" aria-label="Price chart"></svg>
+          <svg id="tp-vol" aria-hidden="true"></svg>
+          <div class="tp-tip" id="tp-tip"></div>
+          <p class="tp-empty" id="tp-empty" hidden></p>
+        </div>
+        <div class="tp-controls">
+          <div class="tp-seg" id="tp-tf" role="group" aria-label="Time frame"><span class="tp-knob"></span>
+            <button type="button" data-v="1D" aria-pressed="true">1D</button><button type="button" data-v="5D" aria-pressed="false">5D</button><button type="button" data-v="1M" aria-pressed="false">1M</button><button type="button" data-v="3M" aria-pressed="false">3M</button>
+          </div>
+          <div class="tp-seg" id="tp-mode" role="group" aria-label="Chart type"><span class="tp-knob"></span>
+            <button type="button" data-v="line" aria-pressed="true">Line</button><button type="button" data-v="candle" aria-pressed="false">Candles</button>
+          </div>
+        </div>
+        <div class="tp-ovs" id="tp-ovs">
+          <button type="button" class="tp-ov" data-k="vwap" aria-pressed="true"><i></i>VWAP</button>
+          <button type="button" class="tp-ov" data-k="sma" aria-pressed="false"><i></i>20-day avg</button>
+        </div>
+      </section>
+
+      <section class="tp-panel" aria-labelledby="tp-h-notes">
+        <h2 class="tp-h" id="tp-h-notes">Heads up</h2>
+        <p class="tp-sub">Facts about this stock right now, from the flags you turned on.</p>
+        <div id="tp-notes" class="tp-notes" aria-live="polite"></div>
+      </section>
+
+      <section class="tp-panel" aria-labelledby="tp-h-read">
+        <h2 class="tp-h" id="tp-h-read">What moved</h2>
+        <p class="tp-sub">Worked out from the numbers on this screen. It says what already happened, never what to do next.</p>
+        <p class="tp-asof" id="tp-asof"></p>
+        <p class="tp-read" id="tp-read"></p>
+        <details class="tp-terms">
+          <summary>What do these terms mean?</summary>
+          <dl>
+            <dt>VWAP</dt><dd>The average price paid today, weighted by how many shares traded at each price.</dd>
+            <dt>Relative volume</dt><dd>Shares traded so far today, compared with a normal day at the same time.</dd>
+            <dt>20-day average</dt><dd>The average closing price over the last 20 trading days.</dd>
+            <dt>RSI (14 days)</dt><dd>A 0 to 100 measure of how large recent up days were against recent down days.</dd>
+            <dt>Gap</dt><dd>How far today's opening price was from yesterday's close.</dd>
+          </dl>
+        </details>
+      </section>
+    </div>
+
+    <aside class="tp-rail">
+      <section class="tp-panel tp-flags" aria-labelledby="tp-h-flags">
+        <h2 class="tp-h" id="tp-h-flags">Flags for <span id="tp-fsym"></span></h2>
+        <p class="tp-sub">You choose what Tape watches. Alerts show here while HQ is open.</p>
+        <div id="tp-rules"></div>
+        <div class="tp-levels" id="tp-levels"></div>
+        <form class="tp-add" id="tp-addlvl">
+          <input id="tp-lvlin" inputmode="decimal" autocomplete="off" placeholder="Price level" aria-label="Price level to flag">
+          <button type="submit">Add level</button>
+        </form>
+        <p class="tp-alertnote"><%= alertNote %></p>
+      </section>
+
+      <section class="tp-panel" aria-labelledby="tp-h-wl">
+        <h2 class="tp-h" id="tp-h-wl">Watchlist</h2>
+        <p class="tp-sub"><%= live ? 'Tap a row to open it.' : 'Six invented tickers to try it with.' %></p>
+        <table class="tp-wl"><tbody id="tp-wl"></tbody></table>
+        <% if (live) { %>
+        <form class="tp-add" id="tp-addsym">
+          <input id="tp-symin" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Add a ticker, e.g. AAPL" aria-label="Ticker to add">
+          <button type="submit">Add</button>
+        </form>
+        <% } %>
+      </section>
+
+      <section class="tp-panel tp-connect" aria-labelledby="tp-h-key">
+        <h2 class="tp-h" id="tp-h-key">Your market data</h2>
+        <% if (!can) { %>
+          <p class="tp-sub">Connecting your own data comes with Builder. Until then, try Tape on the sample tickers.</p>
+          <a class="tp-btn" href="/app/billing">See Builder</a>
+        <% } else if (keyInfo) { %>
+          <p class="tp-sub">Connected to <%= keyInfo.name %>, key ending <span class="tp-mono"><%= keyInfo.tail %></span>. 127 keeps the key encrypted and never shows it again.</p>
+          <p class="tp-small"><%= keyInfo.attribution %>. Data may be delayed.</p>
+          <form method="post" action="/app/hq/tape/key/remove"><button class="tp-btn ghost" type="submit">Remove key</button></form>
+        <% } else if (!ready) { %>
+          <p class="tp-sub">Connecting your own data opens soon. Until then, try Tape on the sample tickers.</p>
+        <% } else { %>
+          <% var p = providers[0]; %>
+          <p class="tp-sub">Tape uses your own account with a market data provider. You pay them directly, and 127 stores only your watchlist and flags.</p>
+          <form method="post" action="/app/hq/tape/key" class="tp-keyform" autocomplete="off">
+            <input type="hidden" name="provider" value="<%= p.id %>">
+            <label for="tp-key"><%= p.name %> API key</label>
+            <input id="tp-key" name="key" type="password" spellcheck="false" required>
+            <p class="tp-small"><%= p.plan %> <a class="link" href="<%= p.signup %>" target="_blank" rel="noopener noreferrer">See <%= p.name %> plans</a></p>
+            <p class="tp-small"><%= p.attribution %>. Data may be delayed.</p>
+            <label class="tp-check"><input type="checkbox" name="agree" value="yes" required> My plan allows use in other apps like 127.</label>
+            <button class="tp-btn" type="submit">Connect</button>
+          </form>
+        <% } %>
+      </section>
+    </aside>
+  </div>
+
+  <p class="tp-notice" id="tp-notice"><%= notice %></p>
+</div>
+<script type="application/json" id="tp-state"><%- JSON.stringify(state).replace(/</g, '\\u003c') %></script>
+<script src="/js/tape.js" defer></script>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>
