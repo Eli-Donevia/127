@@ -9,19 +9,35 @@
       <p class="hq-lede">Prompts for every part of running your business. Fill one in, then copy it into any AI<%= agentOn ? ', or send it to Ask 127' : '' %>.</p>
     </div>
   </div>
-  <div class="h2-stack">
-    <% groups.forEach(function (g) { %>
-    <section class="hq-card" aria-labelledby="pg-<%= g.id %>">
-      <h2 class="h2-h" id="pg-<%= g.id %>" style="font-size:18px"><%= g.title %></h2>
-      <p class="h2-sub"><%= g.intro %></p>
-      <ul class="h2-list" style="margin-top:10px">
+  <% var lockIcon = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+     var n2 = function (i) { return (i < 9 ? '0' : '') + (i + 1); };
+     var split = function (t) { var i = t.indexOf(':'); return i < 0 ? [t, ''] : [t.slice(0, i), t.slice(i + 1).trim().replace(/^./, function (c) { return c.toUpperCase(); }) + '.']; }; %>
+  <nav class="pl-index" aria-label="Prompt groups">
+    <% groups.forEach(function (g, gi) { %><a href="#pg-<%= g.id %>"><i><%= n2(gi) %></i><%= split(g.title)[0] %></a><% }) %>
+  </nav>
+  <div class="pl-groups">
+    <% groups.forEach(function (g, gi) { var t = split(g.title); %>
+    <section class="pl-group" aria-labelledby="pg-<%= g.id %>">
+      <div class="pl-head">
+        <span class="pl-n"><%= n2(gi) %> / <%= t[0] %></span>
+        <h2 class="h2-h" id="pg-<%= g.id %>"><%= t[1] || t[0] %></h2>
+        <p class="h2-sub"><%= g.intro %></p>
+      </div>
+      <div class="pl-cards">
         <% g.prompts.forEach(function (p) { %>
-        <li style="padding:10px 0;border-top:1px solid var(--line)">
-          <div class="h2-row"><a class="link" href="/app/hq/prompts/<%= p.id %>"><%= p.title %></a><% if (p.locked) { %><span class="h2-tag">Builder</span><% } %></div>
-          <div class="hq-small" style="margin:2px 0 0"><%= p.when %></div>
-        </li>
+        <a class="pl-card<%= p.locked ? ' locked' : '' %>" href="/app/hq/prompts/<%= p.id %>">
+          <span class="pl-peek" aria-hidden="true"><span class="pl-scroll">
+            <% if (p.locked) { %><em>You get</em><span class="pl-lead"><%= p.peek.get %></span>
+            <% } else { %><span class="pl-lead"><%= p.peek.lead %></span><% p.peek.fields.forEach(function (f) { %><span class="pl-field"><b><%= f %></b><i></i></span><% }) %><% } %>
+          </span></span>
+          <div class="pl-body">
+            <h3><%= p.title %></h3>
+            <span class="pl-when"><%= p.when %></span>
+            <span class="pl-meta"><span><%= p.peek.blanks %> <%= p.peek.blanks === 1 ? 'blank' : 'blanks' %> to fill</span><% if (p.locked) { %><span class="h2-tag <%= p.tier === 'circle' ? 'gold' : 'lock' %>"><%- lockIcon %><%= p.tier === 'circle' ? "Founder's Circle" : 'Builder' %></span><% } %></span>
+          </div>
+        </a>
         <% }) %>
-      </ul>
+      </div>
     </section>
     <% }) %>
   </div>

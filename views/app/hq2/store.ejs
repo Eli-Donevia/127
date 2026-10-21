@@ -32,14 +32,14 @@
   <% } else { %>
   <% if (typeof ws !== 'undefined' && ws && ws.premium && !kind && !type && !q) {
        var seen = {}, feat = [];
-       items.forEach(function (c) { if (c.preview && !c.coming && feat.length < 12 && (seen[c.kindLabel] || 0) < 2) { seen[c.kindLabel] = (seen[c.kindLabel] || 0) + 1; feat.push(c); } }); %>
+       items.forEach(function (c) { if ((c.cover.type === 'site' || c.cover.type === 'paper') && !c.coming && feat.length < 12 && (seen[c.kindLabel] || 0) < 2) { seen[c.kindLabel] = (seen[c.kindLabel] || 0) + 1; feat.push(c); } }); %>
   <% if (feat.length > 4) { %>
   <section class="hqp-curve" aria-labelledby="feat-h" data-curve>
     <div class="h2-row"><span class="eyebrow" id="feat-h">A few to start with</span><span class="tiny" style="color:var(--slate)"><%= items.length %> in the Store</span></div>
     <div class="hqp-curve-track" data-curve-track>
       <% feat.forEach(function (c) { %>
       <a class="hqp-curve-card" href="/app/hq/store/<%= c.id %>">
-        <span class="hqp-curve-img"><img src="<%= c.preview %>" alt="" loading="lazy"></span>
+        <span class="hqp-curve-img"><%- include('../../partials/store-cover', { cv: c.cover }) %></span>
         <span class="hqp-curve-t"><b><%= c.title %></b><small><%= c.kindLabel %></small></span>
       </a>
       <% }) %>
@@ -49,7 +49,7 @@
   <div class="st-grid">
     <% items.forEach(function (c) { %>
     <a class="st-card<%= c.locked ? ' locked' : '' %><%= c.coming ? ' coming' : '' %>" href="/app/hq/store/<%= c.id %>">
-      <div class="st-thumb"><% if (c.preview) { %><img src="<%= c.preview %>" alt="" loading="lazy"><% } else { %><span class="st-thumb-k"><%= c.kindShort %></span><% } %></div>
+      <div class="st-thumb"><%- include('../../partials/store-cover', { cv: c.cover }) %></div>
       <div class="st-body">
         <h3><%= c.title %></h3>
         <p><%= c.summary %></p>

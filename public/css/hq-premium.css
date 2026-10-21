@@ -347,3 +347,13 @@ html.hqp-in .hqp-tour li { animation: hqpRise .7s var(--out) both; animation-del
 .hqp-week-line { border-color: var(--line-2); }
 .hqp-week-line .h2-sub { margin: 6px 0 2px; font-size: 17px; color: var(--ink); }
 @media print { .ws-rail, .ws-bar-phone, .ws-phone-top, .hqp-hz, .h2-talk, .hqp-uses { display: none !important; } }
+
+/* A workflow card's peek (views/partials/hq2-card.ejs): what the member fills in to start it, read from its inputs,
+   in place of the drawn lines it had before. */
+.hqp-pv.hqp-ask { display: flex; flex-direction: column; gap: 8px; height: auto; min-height: 104px; }
+.hqp-ask-k { display: flex; justify-content: space-between; gap: 8px; font: 500 10.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.hqp-ask-k span { letter-spacing: .04em; text-transform: none; }
+.hqp-ask-f { display: grid; gap: 5px; min-width: 0; }
+.hqp-ask-f b { font-size: 12px; line-height: 1.3; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hqp-ask-f u { display: block; height: 20px; border-radius: 6px; border: 1px solid var(--line-2); background: rgba(255, 255, 255, .02); }
+.hqp-ask-none { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }

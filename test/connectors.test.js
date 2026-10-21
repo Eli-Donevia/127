@@ -198,7 +198,7 @@ test('the gallery: every category, one honest status each, never a key', async (
   const status = (g, id) => g.categories.flatMap((c) => c.apps).find((a) => a.id === id);
 
   let g = connectors.gallery(jo);
-  assert.deepEqual(g.categories.map((c) => c.id), ['money', 'store', 'email', 'calendar', 'social', 'ads', 'knowledge', 'team', 'media', 'design', 'automation', 'ai']);
+  assert.deepEqual(g.categories.map((c) => c.id), ['money', 'crm', 'store', 'email', 'calendar', 'social', 'ads', 'knowledge', 'team', 'media', 'design', 'automation', 'ai']);
   assert.equal(status(g, 'notion').status, 'legal');
   assert.equal(status(g, 'zapier').status, 'connect');
   assert.equal(status(g, 'higgsfield').status, 'coming', 'cleared on the member\'s own account; its switch is off');
@@ -817,4 +817,114 @@ test('with HQ_WORKSPACE on, Dashboards and Connections sit in the workspace, and
     delete process.env.HQ_WORKSPACE;
     delete process.env.HARNESS_V2;
   }
+});
+
+// ---------- recipes (Eli Oct 21: CRMs first, as many connectors as possible) ----------
+
+test('recipes: CRMs join the catalog as data, with an allowlisted client per recipe', async () => {
+  const recipes = require('../lib/harness/connectors/recipes');
+  const ids = connectors.catalog.APPS.filter((a) => a.category === 'crm').map((a) => a.id);
+  assert.deepEqual(ids, ['hubspot', 'gohighlevel', 'pipedrive', 'attio', 'close', 'keap', 'folk', 'twenty']);
+  assert.equal(connectors.catalog.APPS.filter((a) => a.id === 'hubspot').length, 1, 'the recipe replaces the old HubSpot entry');
+  assert.match(connectors.catalog.byId.hubspot.writes, /deal stages/);
+  for (const r of recipes.RECIPES) {
+    assert.ok(r.card && r.card.reads, r.id);
+    for (const [n, w] of Object.entries(r.writes || {})) assert.ok(['POST', 'PUT', 'PATCH'].includes(w.method), `${r.id}.${n}`);
+    if (r.auth === 'oauth') assert.ok(oauth.PROVIDERS[r.provider || r.id], r.id);
+  }
+  // Templates: a missing value drops its key; {now} is a time; objects pass through whole.
+  assert.deepEqual(recipes.fill({ a: '{x}', b: '{y}', c: { d: '{z}' }, n: 'n-{x}' }, { x: 1, z: [1, 2] }), { a: 1, c: { d: [1, 2] }, n: 'n-1' });
+  assert.deepEqual(recipes.scrub([{ name: 'Pat', email: 'p@x.test', phone_number: '1', nested: { emails: ['x'], ok: 1 } }]), [{ name: 'Pat', nested: { ok: 1 } }]);
+});
+
+test('recipes: Close by key (Basic auth), reads without emails or phones, writes only on an OK with listed fields', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_CLOSE = 'on';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  const KEY = 'api_' + 'k'.repeat(30);
+  assert.match((await connectors.connectKey(boss, 'close', { key: 'nope-' + 'x'.repeat(20) })).error, /doesn't look like a Close key/);
+  on('GET', /api\.close\.com\/api\/v1\/me\//, { id: 'user_1' });
+  assert.equal((await connectors.connectKey(boss, 'close', { key: KEY })).ok, true);
+  assert.equal(calls[0].headers.authorization, `Basic ${Buffer.from(`${KEY}:`).toString('base64')}`);
+
+  on('GET', /api\.close\.com\/api\/v1\/lead\//, { data: [{ id: 'lead_1', display_name: 'Rivera Lawn', status_label: 'Hot', contacts: [{ name: 'Pat', emails: [{ email: 'pat@x.test' }], phones: [{ phone: '555' }] }] }] });
+  const c = connectors.clientFor(boss, 'close', { runId: 'r1', tool: 'crm.leads' });
+  const leads = await c.leads({ _limit: 5 });
+  assert.equal(leads[0].display_name, 'Rivera Lawn');
+  assert.doesNotMatch(JSON.stringify(leads), /pat@x\.test|555/);
+  assert.match(calls.at(-1).url, /_limit=5/);
+
+  await assert.rejects(() => c.writes.addNote({ leadId: 'lead_1', text: 'Called' }), /need your OK first/);
+  on('POST', /api\.close\.com\/api\/v1\/activity\/note\//, { id: 'acti_1' });
+  const w = connectors.clientFor(boss, 'close', { write: true, approvedBy: 'member', runId: 'r1', tool: 'crm.note' });
+  assert.deepEqual(await w.writes.addNote({ leadId: 'lead_1', text: 'Called', sneaky: 'x' }), { ok: true, id: 'acti_1' });
+  assert.deepEqual(JSON.parse(calls.at(-1).body), { lead_id: 'lead_1', note: 'Called' });
+  assert.match(log.list(boss.id, { app: 'close' })[0].what, /Close: add note, approved by you/);
+});
+
+test('recipes: Pipedrive signs in, keeps its company address, calls only there, and revokes on disconnect', async () => {
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_PIPEDRIVE = 'on';
+  process.env.OAUTH_PIPEDRIVE_ID = 'pd';
+  process.env.OAUTH_PIPEDRIVE_SECRET = 'pds';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  const go = connectors.startOauth(boss, 'pipedrive', 'https://127.test');
+  assert.equal(new URL(go.url).origin, 'https://oauth.pipedrive.com');
+  on('POST', /oauth\.pipedrive\.com\/oauth\/token/, { access_token: 'pd-1', refresh_token: 'pd-r', expires_in: 3600, api_domain: 'https://rivera.pipedrive.com' });
+  assert.equal((await connectors.finishOauth(boss, go.pending, 'pipedrive', { code: 'c', state: go.pending.state }, 'https://127.test')).ok, true);
+  assert.equal(connectors.credsOf(boss.id, 'pipedrive').api_domain, 'https://rivera.pipedrive.com');
+  on('GET', /rivera\.pipedrive\.com\/api\/v2\/deals/, { data: [{ id: 7, title: 'Spring cleanup', value: 450 }] });
+  const deals = await connectors.clientFor(boss, 'pipedrive').deals();
+  assert.deepEqual(deals, [{ id: 7, title: 'Spring cleanup', value: 450 }]);
+  assert.equal(calls.at(-1).headers.authorization, 'Bearer pd-1');
+  assert.match(calls.at(-1).url, /status=open/);
+  // A path value is encoded, so it can't walk the API.
+  on('PATCH', /rivera\.pipedrive\.com/, {});
+  await connectors.clientFor(boss, 'pipedrive', { write: true, approvedBy: 'member' }).writes.moveDeal({ id: '7/../../users', stageId: 3 });
+  assert.match(calls.at(-1).url, /\/api\/v2\/deals\/7%2F\.\.%2F\.\.%2Fusers$/);
+
+  // An address that isn't Pipedrive's is refused.
+  const c = hq.connOf(boss.id);
+  c.apps.pipedrive.secret = hq.enc(JSON.stringify({ ...connectors.credsOf(boss.id, 'pipedrive'), api_domain: 'https://evil.test' }));
+  await hq.saveConn(c);
+  await assert.rejects(() => connectors.clientFor(boss, 'pipedrive').deals(), /Reconnect Pipedrive/);
+
+  on('POST', /oauth\.pipedrive\.com\/oauth\/revoke/, {});
+  assert.deepEqual(await connectors.disconnect(boss, 'pipedrive'), { ok: true, revoked: true });
+  const rv = calls.find((x) => /oauth\/revoke/.test(x.url));
+  assert.equal(new URLSearchParams(rv.body).get('token'), 'pd-r');
+  assert.match(rv.headers.authorization, /^Basic /);
+});
+
+test('recipes: HighLevel uses the location from sign-in; Twenty only reaches a public https server', async () => {
+  const recipes = require('../lib/harness/connectors/recipes');
+  process.env.CONNECTORS = 'admins';
+  process.env.CONNECTOR_GOHIGHLEVEL = 'on';
+  process.env.CONNECTOR_TWENTY = 'on';
+  process.env.OAUTH_GOHIGHLEVEL_ID = 'gh';
+  process.env.OAUTH_GOHIGHLEVEL_SECRET = 'ghs';
+  const boss = await member('builder', { email: 'boss@127.test' });
+  const go = connectors.startOauth(boss, 'gohighlevel', 'https://127.test');
+  on('POST', /services\.leadconnectorhq\.com\/oauth\/token/, { access_token: 'gh-1', refresh_token: 'gh-r', expires_in: 3600, locationId: 'LOC9', companyId: 'CO1' });
+  await connectors.finishOauth(boss, go.pending, 'gohighlevel', { code: 'c', state: go.pending.state }, 'https://127.test');
+  assert.equal(stored(boss, 'gohighlevel').label, 'LOC9');
+  on('GET', /leadconnectorhq\.com\/contacts\//, { contacts: [{ id: 'c1', firstName: 'Pat', email: 'p@x.test' }] });
+  assert.deepEqual(await connectors.clientFor(boss, 'gohighlevel').contacts(), [{ id: 'c1', firstName: 'Pat' }]);
+  assert.match(calls.at(-1).url, /locationId=LOC9/);
+  assert.equal(calls.at(-1).headers.version, '2021-07-28');
+  on('POST', /leadconnectorhq\.com\/contacts\/$/, { contact: { id: 'c2' } });
+  await connectors.clientFor(boss, 'gohighlevel', { write: true, approvedBy: 'member' }).writes.createContact({ firstName: 'Lee' });
+  assert.deepEqual(JSON.parse(calls.at(-1).body), { locationId: 'LOC9', firstName: 'Lee' });
+
+  // Twenty: the member's own server, public https only, checked again before every call.
+  for (const bad of ['http://crm.rivera.test', 'https://localhost', 'https://10.0.0.5', 'https://crm.local', 'https://u:p@crm.rivera.test', 'https://crm.rivera.test:8443']) assert.equal(recipes.serverOf(bad), null, bad);
+  assert.equal(recipes.serverOf('https://crm.rivera.test/'), 'https://crm.rivera.test');
+  assert.match((await connectors.connectKey(boss, 'twenty', { server: 'http://crm.rivera.test', key: 'k'.repeat(30) })).error, /starting with https/);
+  recipes._setDeps({ lookup: async () => [{ address: '10.1.2.3' }] });
+  assert.match((await connectors.connectKey(boss, 'twenty', { server: 'https://crm.rivera.test', key: 'k'.repeat(30) })).error, /public address/);
+  recipes._setDeps({ lookup: async () => [{ address: '93.184.216.34' }] });
+  on('GET', /crm\.rivera\.test\/rest\/people/, { data: { people: [{ id: 'p1', name: { firstName: 'Pat' }, emails: { primaryEmail: 'p@x.test' } }] } });
+  assert.equal((await connectors.connectKey(boss, 'twenty', { server: 'https://crm.rivera.test', key: 'k'.repeat(30) })).ok, true);
+  assert.deepEqual(await connectors.clientFor(boss, 'twenty').people(), [{ id: 'p1', name: { firstName: 'Pat' } }]);
+  recipes._setDeps({ lookup: (h) => require('dns').promises.lookup(h, { all: true }) });
 });

@@ -1,0 +1,26 @@
+<%- include('../../partials/app-head') %>
+<%# Life in HQ (lib/life, HQ_LIFE): the shelf. Nothing here is stored by 127; each module keeps the member's entries
+    in their own browser. Held modules (Legal) show as on the way for members; admins see them marked Preview. %>
+<div class="hq h2 lf">
+  <%- include('../../partials/hq2-nav') %>
+  <header class="lf-head">
+    <h1 class="hq-title lf-title">Life</h1>
+    <p class="hq-lede">Your money, your training, what you eat and how you slept, one tab over from the business. What you type here stays on this device. 127 never sees it.</p>
+  </header>
+  <div class="lf-shelf">
+    <% shelf.forEach(function (m) { %>
+    <% if (m.open) { %><a class="lf-card" href="/app/hq/life/<%= m.id %>"><% } else { %><div class="lf-card is-wait"><% } %>
+      <span class="lf-card-t"><%= m.title %></span>
+      <span class="lf-card-l"><%= m.line %></span>
+      <span class="lf-art" aria-hidden="true" data-art="<%= m.art %>"></span>
+      <span class="lf-card-f">
+        <% if (!m.open) { %><span>On the way</span><% } else if (m.preview) { %><span>Preview, admins only</span><% } else if (!m.plan) { %><span>Comes with Builder</span><% } else { %><span>Open</span><% } %>
+        <% if (m.open) { %><span class="arrow"></span><% } %>
+      </span>
+    <% if (m.open) { %></a><% } else { %></div><% } %>
+    <% }) %>
+  </div>
+  <p class="lf-foot">Your entries live in this browser only, under your account. Export them to keep a copy or move to another device. Nothing in Life is sent to AI.</p>
+</div>
+<script src="/js/life/art.js" defer></script>
+<%- include('../../partials/app-foot') %>

@@ -1,13 +1,14 @@
 {
  "name": "127 prompt library",
  "version": 1,
- "generatedAt": "2026-10-20T04:22:16.912Z",
+ "generatedAt": "2026-10-21T03:50:54.232Z",
  "harness": "harness.md",
  "variableSyntax": "{{key}}",
- "count": 61,
+ "scripts": "scripts.json",
+ "count": 70,
  "counts": {
-  "free": 27,
-  "builder": 34
+  "free": 30,
+  "builder": 40
  },
  "groups": [
   {
@@ -21,7 +22,9 @@
     "start.competitor_teardown",
     "start.customer_interviews",
     "start.market_brief",
-    "start.pmf_check"
+    "start.pmf_check",
+    "start.business_one_pager",
+    "start.pitch_deck"
    ]
   },
   {
@@ -48,7 +51,8 @@
     "offer.price_ladder",
     "offer.pricing_floor",
     "offer.sales_page",
-    "offer.objection_bank"
+    "offer.objection_bank",
+    "offer.proposal_scope"
    ]
   },
   {
@@ -64,7 +68,8 @@
     "outreach.call_prep",
     "outreach.comment_to_dm",
     "outreach.warm_network",
-    "outreach.brand_pitch"
+    "outreach.brand_pitch",
+    "outreach.sales_deck"
    ]
   },
   {
@@ -77,7 +82,8 @@
     "content.calendar_30",
     "content.repurpose",
     "content.voice_guide",
-    "content.performance_read"
+    "content.performance_read",
+    "content.email_writer"
    ]
   },
   {
@@ -133,7 +139,11 @@
     "ops.skill_packager",
     "ops.client_onboarding",
     "ops.weekly_review",
-    "ops.hire_brief"
+    "ops.hire_brief",
+    "ops.ninety_day_plan",
+    "ops.thirty_day_retro",
+    "ops.saved_replies",
+    "ops.booking_setup"
    ]
   },
   {
@@ -401,6 +411,117 @@
    },
    "tools": [],
    "pairsWith": []
+  },
+  {
+   "id": "start.business_one_pager",
+   "group": "start",
+   "title": "Business one-pager",
+   "tier": "builder",
+   "when": "Before you spend money or time on a new business or offer, or when you need to explain the whole business on one page to a partner, a lender or yourself.",
+   "prompt": "Put my whole business on one page and check it before I spend a dollar.\n\nWhat I sell and the price: {{offer}}\nWho pays (be specific): {{buyer}}\nHow I'll reach them: {{reach}}\nWhat it costs me to deliver, and what it costs to make a sale: {{costs}}\nWhat I have (skills, tools, contacts, time, money): {{resources}}\n\nFill in, in short lines:\n1. Who pays, and the moment they need this.\n2. The problem in their words, and what they do about it today.\n3. What I sell, the price, and why it beats what they do today.\n4. How they find me: the two channels to use first.\n5. How the first sale happens, step by step.\n6. Money: price, cost to deliver, gross profit per sale, what I can afford to spend to make a sale, and the sales I need each month to cover my costs.\n7. What I have, and what I'm missing.\n8. The riskiest assumption on this page, and the cheapest way to test it this week.\n\nThen score each section green, yellow or red with one line of reasoning, and tell me the one fix that matters most. Use only my numbers and mark every guess as a guess.",
+   "variables": [
+    {
+     "key": "offer",
+     "label": "What you sell and the price",
+     "example": "Custom birthday cakes, $85 for a 6-inch, $140 for 2 tiers"
+    },
+    {
+     "key": "buyer",
+     "label": "Who pays",
+     "example": "Parents planning kids' parties within 15 miles of me"
+    },
+    {
+     "key": "reach",
+     "label": "How you will reach them",
+     "example": "Instagram, a local parents Facebook group, the farmers market on Saturdays"
+    },
+    {
+     "key": "costs",
+     "label": "Cost to deliver and to make a sale",
+     "example": "$22 in ingredients and boxes per cake, about 4 hours each; market booth $40 a week"
+    },
+    {
+     "key": "resources",
+     "label": "What you have",
+     "example": "Home kitchen with a cottage food permit, a good phone camera, Saturdays free, $500"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "offer": "Custom birthday cakes, $85 for a 6-inch, $140 for 2 tiers",
+     "buyer": "Parents planning kids' parties within 15 miles of me",
+     "reach": "Instagram, a local parents Facebook group, the farmers market on Saturdays",
+     "costs": "$22 in ingredients and boxes per cake, about 4 hours each; market booth $40 a week",
+     "resources": "Home kitchen with a cottage food permit, a good phone camera, Saturdays free, $500"
+    },
+    "youGet": "A one-page model, about $63 of profit per 6-inch cake after ingredients, the cakes needed to cover the booth, a red flag on 4 hours per cake and one test to run this Saturday.",
+    "filled": "Put my whole business on one page and check it before I spend a dollar.\n\nWhat I sell and the price: Custom birthday cakes, $85 for a 6-inch, $140 for 2 tiers\nWho pays (be specific): Parents planning kids' parties within 15 miles of me\nHow I'll reach them: Instagram, a local parents Facebook group, the farmers market on Saturdays\nWhat it costs me to deliver, and what it costs to make a sale: $22 in ingredients and boxes per cake, about 4 hours each; market booth $40 a week\nWhat I have (skills, tools, contacts, time, money): Home kitchen with a cottage food permit, a good phone camera, Saturdays free, $500\n\nFill in, in short lines:\n1. Who pays, and the moment they need this.\n2. The problem in their words, and what they do about it today.\n3. What I sell, the price, and why it beats what they do today.\n4. How they find me: the two channels to use first.\n5. How the first sale happens, step by step.\n6. Money: price, cost to deliver, gross profit per sale, what I can afford to spend to make a sale, and the sales I need each month to cover my costs.\n7. What I have, and what I'm missing.\n8. The riskiest assumption on this page, and the cheapest way to test it this week.\n\nThen score each section green, yellow or red with one line of reasoning, and tell me the one fix that matters most. Use only my numbers and mark every guess as a guess."
+   },
+   "tools": [
+    "Google Docs",
+    "Notion"
+   ],
+   "pairsWith": [
+    "start.idea_test",
+    "offer.price_ladder",
+    "finance.unit_economics"
+   ]
+  },
+  {
+   "id": "start.pitch_deck",
+   "group": "start",
+   "title": "Pitch deck",
+   "tier": "free",
+   "when": "You are pitching investors, a lender, a partner or a program and need a clear deck with talking points.",
+   "prompt": "Build a pitch deck for my business, slide by slide.\n\nWho I'm pitching and what I want from them: {{audience}}\nMy business: {{business}}\nReal traction so far (numbers, customers, partners, with dates): {{traction}}\nWho else solves this, and how: {{competition}}\nMy ask: {{ask}}\n\nMake 10 to 12 slides in this order: title, problem, who has it, solution, how it works, why now, traction, business model, competition, team, the ask (with what the money or help is for), contact.\n\nFor each slide give: a headline that states the point as a full sentence (not a label), at most three short lines or one number under it, the visual to use, and 2 to 3 sentences of speaker notes.\n\nRules:\n- Use only the numbers I gave you. Where a slide needs a number I don't have, write [need: what] instead of making one up. Label any projection as a projection.\n- If my traction is thin, lead with the problem and what I've learned from customers, not with big market sizes.\n- Never promise investors a return or say the money is safe.\n\nThen list the five questions this audience is most likely to ask, with a short, honest answer to each. Last, offer to lay the deck out as an HTML file I can present from a browser, or as text ready for Google Slides, Canva or PowerPoint.",
+   "variables": [
+    {
+     "key": "audience",
+     "label": "Who you are pitching and what you want from them",
+     "example": "Two local angel investors at a pitch night"
+    },
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "FreshFold, pickup-and-delivery laundry for apartment buildings in Columbus"
+    },
+    {
+     "key": "traction",
+     "label": "Real traction, with dates",
+     "example": "3 buildings signed since June, 140 active customers, $6,800 revenue in September, 4 part-time drivers"
+    },
+    {
+     "key": "competition",
+     "label": "Who else solves this",
+     "example": "Laundromats with drop-off, two app services that only cover downtown"
+    },
+    {
+     "key": "ask",
+     "label": "Your ask",
+     "example": "$60,000 for a second van and a folding space"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "audience": "Two local angel investors at a pitch night",
+     "business": "FreshFold, pickup-and-delivery laundry for apartment buildings in Columbus",
+     "traction": "3 buildings signed since June, 140 active customers, $6,800 revenue in September, 4 part-time drivers",
+     "competition": "Laundromats with drop-off, two app services that only cover downtown",
+     "ask": "$60,000 for a second van and a folding space"
+    },
+    "youGet": "Twelve slides with full-sentence headlines, traction built from your real September numbers, [need: ...] marks where a number is missing, a competition table, the $60,000 ask split by use, speaker notes and five likely investor questions.",
+    "filled": "Build a pitch deck for my business, slide by slide.\n\nWho I'm pitching and what I want from them: Two local angel investors at a pitch night\nMy business: FreshFold, pickup-and-delivery laundry for apartment buildings in Columbus\nReal traction so far (numbers, customers, partners, with dates): 3 buildings signed since June, 140 active customers, $6,800 revenue in September, 4 part-time drivers\nWho else solves this, and how: Laundromats with drop-off, two app services that only cover downtown\nMy ask: $60,000 for a second van and a folding space\n\nMake 10 to 12 slides in this order: title, problem, who has it, solution, how it works, why now, traction, business model, competition, team, the ask (with what the money or help is for), contact.\n\nFor each slide give: a headline that states the point as a full sentence (not a label), at most three short lines or one number under it, the visual to use, and 2 to 3 sentences of speaker notes.\n\nRules:\n- Use only the numbers I gave you. Where a slide needs a number I don't have, write [need: what] instead of making one up. Label any projection as a projection.\n- If my traction is thin, lead with the problem and what I've learned from customers, not with big market sizes.\n- Never promise investors a return or say the money is safe.\n\nThen list the five questions this audience is most likely to ask, with a short, honest answer to each. Last, offer to lay the deck out as an HTML file I can present from a browser, or as text ready for Google Slides, Canva or PowerPoint."
+   },
+   "tools": [
+    "Google Slides",
+    "Canva",
+    "PowerPoint",
+    "Keynote"
+   ],
+   "pairsWith": [
+    "start.market_brief",
+    "review.skeptic"
+   ]
   },
   {
    "id": "brain.founder_interview",
@@ -842,6 +963,69 @@
    "pairsWith": []
   },
   {
+   "id": "offer.proposal_scope",
+   "group": "offer",
+   "title": "Proposal and scope of work",
+   "tier": "builder",
+   "when": "A buyer asked \"what would it cost?\" after a call, or said yes and you need the scope in writing before work starts.",
+   "prompt": "Write a client proposal and a matching scope of work for this job, ready to paste into a doc.\n\nMy business: {{business}}\nThe client and what they told me, in their words: {{client}}\nWhat I'll do: {{plan}}\nMy prices or price range: {{prices}}\nTimeline and terms (deposit, revisions, what they provide): {{terms}}\nReal proof I can use (results, quotes with permission): {{proof}}\n\nPROPOSAL (one to two pages):\n1. What you told us: their situation and goal in their own words, two or three sentences.\n2. What we will do: three to five steps, each with what they get from it.\n3. Included and not included, as a two-column table.\n4. Timeline: kickoff, milestones and handover, with dates.\n5. Three options (essential, recommended, complete) with what's in each and the price. Make the recommended one the clear choice by what it includes, not by pressure. Say how long the prices are valid.\n6. Why us: only the real proof I gave you. If I gave none, leave this section out.\n7. Next step: one clear action (reply with the option, or book a time).\n\nSCOPE OF WORK (one page, for after they pick an option):\n1. The goal in one sentence.\n2. Deliverables, each with what \"done\" means so both sides can tell it's finished.\n3. Not in this project: the things people often assume are included.\n4. What the client provides, and by when.\n5. Milestones with dates.\n6. Revisions included, and how changes get priced in writing before work on them starts.\n7. Payment schedule tied to the milestones.\n8. A sign-off block with names and dates.\n\nRules: plain words, nothing I can't deliver, no invented results. Mark any blank I need to fill as [brackets]. This is a business document, not legal advice: if the job is big or risky, tell me to have a lawyer turn the scope into a contract.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business",
+     "example": "Bright Path Bookkeeping, Kemi Adeyemi, monthly books for small trades businesses"
+    },
+    {
+     "key": "client",
+     "label": "The client and what they told you, in their words",
+     "example": "Marco runs a 4-person landscaping crew. \"My books are 8 months behind and my accountant needs them by March.\" He wants it caught up, then kept current."
+    },
+    {
+     "key": "plan",
+     "label": "What you will do",
+     "example": "Catch up 8 months of books, set up bank feeds and receipt capture, then close each month by the 10th"
+    },
+    {
+     "key": "prices",
+     "label": "Your prices or range",
+     "example": "Catch-up $1,200 one time; monthly $350; payroll add-on $100 a month"
+    },
+    {
+     "key": "terms",
+     "label": "Timeline and terms",
+     "example": "50% deposit on the catch-up, 2 rounds of questions a month, he sends bank logins and receipts by Nov 1"
+    },
+    {
+     "key": "proof",
+     "label": "Real proof you can use",
+     "example": "Caught up 3 trades businesses this year; one owner quote with permission: \"First tax season I didn't panic.\"",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Bright Path Bookkeeping, Kemi Adeyemi, monthly books for small trades businesses",
+     "client": "Marco runs a 4-person landscaping crew. \"My books are 8 months behind and my accountant needs them by March.\" He wants it caught up, then kept current.",
+     "plan": "Catch up 8 months of books, set up bank feeds and receipt capture, then close each month by the 10th",
+     "prices": "Catch-up $1,200 one time; monthly $350; payroll add-on $100 a month",
+     "terms": "50% deposit on the catch-up, 2 rounds of questions a month, he sends bank logins and receipts by Nov 1",
+     "proof": "Caught up 3 trades businesses this year; one owner quote with permission: \"First tax season I didn't panic.\""
+    },
+    "youGet": "A proposal that opens on Marco's March deadline in his words, three options from the $1,200 catch-up to catch-up plus monthly with payroll, and a scope that defines \"done\" for each month-end close, the Nov 1 logins and the deposit schedule.",
+    "filled": "Write a client proposal and a matching scope of work for this job, ready to paste into a doc.\n\nMy business: Bright Path Bookkeeping, Kemi Adeyemi, monthly books for small trades businesses\nThe client and what they told me, in their words: Marco runs a 4-person landscaping crew. \"My books are 8 months behind and my accountant needs them by March.\" He wants it caught up, then kept current.\nWhat I'll do: Catch up 8 months of books, set up bank feeds and receipt capture, then close each month by the 10th\nMy prices or price range: Catch-up $1,200 one time; monthly $350; payroll add-on $100 a month\nTimeline and terms (deposit, revisions, what they provide): 50% deposit on the catch-up, 2 rounds of questions a month, he sends bank logins and receipts by Nov 1\nReal proof I can use (results, quotes with permission): Caught up 3 trades businesses this year; one owner quote with permission: \"First tax season I didn't panic.\"\n\nPROPOSAL (one to two pages):\n1. What you told us: their situation and goal in their own words, two or three sentences.\n2. What we will do: three to five steps, each with what they get from it.\n3. Included and not included, as a two-column table.\n4. Timeline: kickoff, milestones and handover, with dates.\n5. Three options (essential, recommended, complete) with what's in each and the price. Make the recommended one the clear choice by what it includes, not by pressure. Say how long the prices are valid.\n6. Why us: only the real proof I gave you. If I gave none, leave this section out.\n7. Next step: one clear action (reply with the option, or book a time).\n\nSCOPE OF WORK (one page, for after they pick an option):\n1. The goal in one sentence.\n2. Deliverables, each with what \"done\" means so both sides can tell it's finished.\n3. Not in this project: the things people often assume are included.\n4. What the client provides, and by when.\n5. Milestones with dates.\n6. Revisions included, and how changes get priced in writing before work on them starts.\n7. Payment schedule tied to the milestones.\n8. A sign-off block with names and dates.\n\nRules: plain words, nothing I can't deliver, no invented results. Mark any blank I need to fill as [brackets]. This is a business document, not legal advice: if the job is big or risky, tell me to have a lawyer turn the scope into a contract."
+   },
+   "tools": [
+    "Google Docs",
+    "Word",
+    "Notion"
+   ],
+   "pairsWith": [
+    "outreach.call_prep",
+    "finance.quote_invoice",
+    "outreach.sales_deck"
+   ]
+  },
+  {
    "id": "outreach.first_25",
    "group": "outreach",
    "title": "Build your list of 25",
@@ -1179,6 +1363,58 @@
    "pairsWith": []
   },
   {
+   "id": "outreach.sales_deck",
+   "group": "outreach",
+   "title": "Sales presentation",
+   "tier": "builder",
+   "when": "You have a meeting with one buyer and want to walk them from their situation to your plan, price and next step.",
+   "prompt": "Build a short sales presentation for a meeting with one buyer.\n\nThe buyer and what I know about them: {{buyer}}\nWhat they said they want (their words, if I have them): {{goal}}\nMy offer, what's included and the price: {{offer}}\nReal proof I can show (results, examples, quotes with permission): {{proof}}\n\nMake 7 to 9 slides: their situation today, what they want, what's in the way, my plan in three steps, what's included, timeline, price (options if I have them), proof, next step.\n\nFor each slide: a headline about them (not about me), at most three short lines, a visual idea, and what I say out loud in 2 to 3 sentences, including one question to ask them on that slide.\n\nThen give me:\n1. The three objections this buyer is most likely to raise, with an honest answer to each.\n2. How to ask for a decision at the end in one or two sentences, with no pressure tactics.\n3. A short follow-up email to send after the meeting.\n\nUse only the proof I gave you. If I gave none, use a \"how we'll work together\" slide instead of results.",
+   "variables": [
+    {
+     "key": "buyer",
+     "label": "The buyer and what you know",
+     "example": "Dana Whitfield, owner of a 3-location physical therapy clinic with an in-house front desk team"
+    },
+    {
+     "key": "goal",
+     "label": "What they want, in their words",
+     "example": "\"Half our new patient calls go to voicemail after 5pm.\""
+    },
+    {
+     "key": "offer",
+     "label": "Your offer, what is included, the price",
+     "example": "After-hours call answering and booking for clinics, $900 a month for up to 300 calls, set up in 10 days"
+    },
+    {
+     "key": "proof",
+     "label": "Real proof you can show",
+     "example": "Running for 2 dental offices since April; one office manager quote with permission",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "buyer": "Dana Whitfield, owner of a 3-location physical therapy clinic with an in-house front desk team",
+     "goal": "\"Half our new patient calls go to voicemail after 5pm.\"",
+     "offer": "After-hours call answering and booking for clinics, $900 a month for up to 300 calls, set up in 10 days",
+     "proof": "Running for 2 dental offices since April; one office manager quote with permission"
+    },
+    "youGet": "Eight slides that open on Dana's voicemail problem in her words, a three-step plan, the $900 price, the dental office proof, a talk track with one question per slide, three objections answered, a calm close and the follow-up email.",
+    "filled": "Build a short sales presentation for a meeting with one buyer.\n\nThe buyer and what I know about them: Dana Whitfield, owner of a 3-location physical therapy clinic with an in-house front desk team\nWhat they said they want (their words, if I have them): \"Half our new patient calls go to voicemail after 5pm.\"\nMy offer, what's included and the price: After-hours call answering and booking for clinics, $900 a month for up to 300 calls, set up in 10 days\nReal proof I can show (results, examples, quotes with permission): Running for 2 dental offices since April; one office manager quote with permission\n\nMake 7 to 9 slides: their situation today, what they want, what's in the way, my plan in three steps, what's included, timeline, price (options if I have them), proof, next step.\n\nFor each slide: a headline about them (not about me), at most three short lines, a visual idea, and what I say out loud in 2 to 3 sentences, including one question to ask them on that slide.\n\nThen give me:\n1. The three objections this buyer is most likely to raise, with an honest answer to each.\n2. How to ask for a decision at the end in one or two sentences, with no pressure tactics.\n3. A short follow-up email to send after the meeting.\n\nUse only the proof I gave you. If I gave none, use a \"how we'll work together\" slide instead of results."
+   },
+   "tools": [
+    "Google Slides",
+    "Canva",
+    "PowerPoint",
+    "Keynote"
+   ],
+   "pairsWith": [
+    "outreach.call_prep",
+    "offer.proposal_scope",
+    "offer.objection_bank"
+   ]
+  },
+  {
    "id": "content.hook_bank",
    "group": "content",
    "title": "Hook bank",
@@ -1394,6 +1630,63 @@
     "Google Sheets"
    ],
    "pairsWith": []
+  },
+  {
+   "id": "content.email_writer",
+   "group": "content",
+   "title": "Email writer",
+   "tier": "free",
+   "when": "You need one of the emails every business sends: a launch, a quote follow-up, a review ask, a weekly newsletter, a welcome or a win-back.",
+   "prompt": "Write a {{email_type}} email for my business.\n\nMy business and voice: {{business}}\nWho gets it: {{audience}}\nWhat it needs to say (details, offer, links, dates): {{details}}\nMy business name and mailing address, for the footer: {{footer}}\n\nFollow the pattern for the type:\n- Launch: what it is, who it's for, what's included, the price and where to see it. Plain, no hype.\n- Quote follow-up: check the quote arrived, recap it in two lines, offer to adjust the scope, and make it easy to book a start date or to say no.\n- Review ask: thank them for something specific, ask for an honest review with the direct link, and invite them to reply if anything was off. No discount or gift for the review, and send it to every recent customer, not only the happy ones.\n- Newsletter: one useful tip, one short story from my week, one small thing to try. Under 250 words.\n- Welcome: hello, what I do, how often I'll write and about what, and one easy first step.\n- Win-back: thanks, what's new since their last visit, and an easy way back with no pressure.\n\nGive me:\n1. Three subject lines, each with a preview line.\n2. The email, under 200 words unless it's a newsletter, written like a person, with one clear call to action.\n3. A footer with my business name, mailing address and an unsubscribe line for anything sent to a list.\n4. A plain-text version.\n5. When to send it, and one follow-up if the type needs one.\n\nUse only facts I gave you. No fake deadlines or scarcity, and no results I didn't give you.",
+   "variables": [
+    {
+     "key": "email_type",
+     "label": "Which email: launch, quote follow-up, review ask, newsletter, welcome or win-back",
+     "example": "Win-back"
+    },
+    {
+     "key": "business",
+     "label": "Your business and voice",
+     "example": "Sol Nail Studio, a two-chair salon in Tucson. Warm, short, a bit playful."
+    },
+    {
+     "key": "audience",
+     "label": "Who gets it",
+     "example": "Clients who haven't booked in 4 months or more"
+    },
+    {
+     "key": "details",
+     "label": "What it needs to say",
+     "example": "New since then: gel-x extensions, Sunday hours 10 to 3, online booking at solnails.com/book"
+    },
+    {
+     "key": "footer",
+     "label": "Business name and mailing address",
+     "example": "Sol Nail Studio, 214 Example Ave, Tucson, AZ"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "email_type": "Win-back",
+     "business": "Sol Nail Studio, a two-chair salon in Tucson. Warm, short, a bit playful.",
+     "audience": "Clients who haven't booked in 4 months or more",
+     "details": "New since then: gel-x extensions, Sunday hours 10 to 3, online booking at solnails.com/book",
+     "footer": "Sol Nail Studio, 214 Example Ave, Tucson, AZ"
+    },
+    "youGet": "Three subject lines (for example \"Your chair missed you, and we open Sundays now\"), a warm 120-word note naming gel-x and Sunday hours, one \"Book online\" link, a footer with the address and unsubscribe line, a plain-text copy and a nudge for 5 days later.",
+    "filled": "Write a Win-back email for my business.\n\nMy business and voice: Sol Nail Studio, a two-chair salon in Tucson. Warm, short, a bit playful.\nWho gets it: Clients who haven't booked in 4 months or more\nWhat it needs to say (details, offer, links, dates): New since then: gel-x extensions, Sunday hours 10 to 3, online booking at solnails.com/book\nMy business name and mailing address, for the footer: Sol Nail Studio, 214 Example Ave, Tucson, AZ\n\nFollow the pattern for the type:\n- Launch: what it is, who it's for, what's included, the price and where to see it. Plain, no hype.\n- Quote follow-up: check the quote arrived, recap it in two lines, offer to adjust the scope, and make it easy to book a start date or to say no.\n- Review ask: thank them for something specific, ask for an honest review with the direct link, and invite them to reply if anything was off. No discount or gift for the review, and send it to every recent customer, not only the happy ones.\n- Newsletter: one useful tip, one short story from my week, one small thing to try. Under 250 words.\n- Welcome: hello, what I do, how often I'll write and about what, and one easy first step.\n- Win-back: thanks, what's new since their last visit, and an easy way back with no pressure.\n\nGive me:\n1. Three subject lines, each with a preview line.\n2. The email, under 200 words unless it's a newsletter, written like a person, with one clear call to action.\n3. A footer with my business name, mailing address and an unsubscribe line for anything sent to a list.\n4. A plain-text version.\n5. When to send it, and one follow-up if the type needs one.\n\nUse only facts I gave you. No fake deadlines or scarcity, and no results I didn't give you."
+   },
+   "tools": [
+    "Gmail",
+    "Klaviyo",
+    "Mailchimp",
+    "Kit",
+    "Flodesk"
+   ],
+   "pairsWith": [
+    "content.voice_guide",
+    "review.claims_check"
+   ]
   },
   {
    "id": "video.short_script",
@@ -2458,6 +2751,198 @@
    },
    "tools": [],
    "pairsWith": []
+  },
+  {
+   "id": "ops.ninety_day_plan",
+   "group": "ops",
+   "title": "90-day plan",
+   "tier": "builder",
+   "when": "At the start of a quarter, or when you are busy every day but not sure the business is moving.",
+   "prompt": "Help me build a one-page plan for the next 90 days. If anything below is unclear, ask me up to three questions first, then write it.\n\nWhere the business is today (numbers if I have them): {{today}}\nWhat I want to be true in 90 days: {{outcome}}\nHours a week I can put in, and budget: {{capacity}}\nEverything on my plate or my idea list right now: {{list}}\n\nGive me:\n1. One outcome for the quarter, rewritten so it's specific and I can check it on day 90. If it depends on things I don't control, add the actions I do control that drive it.\n2. Three priorities that get me there, no more. For each: why it matters, the first step this week, and how I'll know it's working by day 30.\n3. The stop list: everything from my list that isn't one of the three, with a one-line reason. These wait until next quarter.\n4. What each priority looks like by week 4, week 8 and week 13.\n5. The one number to check every Monday, and the level that tells me to change course.\n6. The biggest risk to the plan and what I'll do if it shows up.\n\nFit it to my hours. If the plan needs more time than I have, cut, don't cram.",
+   "variables": [
+    {
+     "key": "today",
+     "label": "Where the business is today",
+     "example": "Mobile dog grooming van, about 30 regular clients, booked 4 days a week"
+    },
+    {
+     "key": "outcome",
+     "label": "What you want true in 90 days",
+     "example": "Booked 5 days a week with a waitlist"
+    },
+    {
+     "key": "capacity",
+     "label": "Weekly hours and budget",
+     "example": "45 hours a week, $1,500 for the quarter"
+    },
+    {
+     "key": "list",
+     "label": "Everything on your plate or idea list",
+     "example": "Second van, Instagram reels, a dog treat line, referral program, new website, hire a bather, apartment complex partnerships"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "today": "Mobile dog grooming van, about 30 regular clients, booked 4 days a week",
+     "outcome": "Booked 5 days a week with a waitlist",
+     "capacity": "45 hours a week, $1,500 for the quarter",
+     "list": "Second van, Instagram reels, a dog treat line, referral program, new website, hire a bather, apartment complex partnerships"
+    },
+    "youGet": "A day-90 outcome tied to booked days and waitlist names, three priorities (referrals, apartment partnerships, a bather to free your hands), a stop list with the second van and treat line on it, week 4, 8 and 13 checkpoints and the Monday number.",
+    "filled": "Help me build a one-page plan for the next 90 days. If anything below is unclear, ask me up to three questions first, then write it.\n\nWhere the business is today (numbers if I have them): Mobile dog grooming van, about 30 regular clients, booked 4 days a week\nWhat I want to be true in 90 days: Booked 5 days a week with a waitlist\nHours a week I can put in, and budget: 45 hours a week, $1,500 for the quarter\nEverything on my plate or my idea list right now: Second van, Instagram reels, a dog treat line, referral program, new website, hire a bather, apartment complex partnerships\n\nGive me:\n1. One outcome for the quarter, rewritten so it's specific and I can check it on day 90. If it depends on things I don't control, add the actions I do control that drive it.\n2. Three priorities that get me there, no more. For each: why it matters, the first step this week, and how I'll know it's working by day 30.\n3. The stop list: everything from my list that isn't one of the three, with a one-line reason. These wait until next quarter.\n4. What each priority looks like by week 4, week 8 and week 13.\n5. The one number to check every Monday, and the level that tells me to change course.\n6. The biggest risk to the plan and what I'll do if it shows up.\n\nFit it to my hours. If the plan needs more time than I have, cut, don't cram."
+   },
+   "tools": [
+    "Google Docs",
+    "Notion"
+   ],
+   "pairsWith": [
+    "ops.weekly_review",
+    "ops.thirty_day_retro",
+    "review.premortem"
+   ]
+  },
+  {
+   "id": "ops.thirty_day_retro",
+   "group": "ops",
+   "title": "Monthly retro",
+   "tier": "free",
+   "when": "At the end of a month, or 30 days into a new plan. See what moved, why, and plan the next 30 days around what worked.",
+   "prompt": "Run a 30-day retro with me. Be honest, not a cheerleader.\n\nWhat I planned to do this month: {{plan}}\nWhat actually happened (what I did, and my numbers at the start and end): {{happened}}\nHow it felt (what drained me, what I enjoyed, where my time went): {{felt}}\n\n1. Scorecard: each thing I planned, marked done, partly done or not done, in a table.\n2. What moved my numbers and what didn't, based only on what I told you. Keep what I can show apart from what's a guess.\n3. Why: for each thing that didn't happen, the likely real reason (time, skill, fear, wrong priority, outside events). Ask me one question if the reason isn't clear.\n4. Keep, stop, start: three short lists.\n5. The next 30 days: one focus, at most three actions with dates, and the one number to watch.\n6. One sentence for me to read on day 1 of next month.\n\nKeep it under 400 words.",
+   "variables": [
+    {
+     "key": "plan",
+     "label": "What you planned this month",
+     "example": "Post 3 reels a week, send 20 DMs a week to local cafes, launch a $15 latte art workshop"
+    },
+    {
+     "key": "happened",
+     "label": "What actually happened, with numbers",
+     "example": "Posted 5 reels total, sent 60 DMs, 4 replies, 1 cafe booked a staff training for $200. Workshop not launched. Followers 410 to 455."
+    },
+    {
+     "key": "felt",
+     "label": "What drained you, what you enjoyed, where time went",
+     "example": "DMs felt awkward but worked. Editing each reel took 3 hours.",
+     "optional": true
+    }
+   ],
+   "example": {
+    "inputs": {
+     "plan": "Post 3 reels a week, send 20 DMs a week to local cafes, launch a $15 latte art workshop",
+     "happened": "Posted 5 reels total, sent 60 DMs, 4 replies, 1 cafe booked a staff training for $200. Workshop not launched. Followers 410 to 455.",
+     "felt": "DMs felt awkward but worked. Editing each reel took 3 hours."
+    },
+    "youGet": "A scorecard, cafe DMs flagged as what moved (one $200 booking from 60 messages), reels flagged as slow for the time they take, the workshop gap traced to time, keep, stop and start lists and a next-30 plan built on DMs.",
+    "filled": "Run a 30-day retro with me. Be honest, not a cheerleader.\n\nWhat I planned to do this month: Post 3 reels a week, send 20 DMs a week to local cafes, launch a $15 latte art workshop\nWhat actually happened (what I did, and my numbers at the start and end): Posted 5 reels total, sent 60 DMs, 4 replies, 1 cafe booked a staff training for $200. Workshop not launched. Followers 410 to 455.\nHow it felt (what drained me, what I enjoyed, where my time went): DMs felt awkward but worked. Editing each reel took 3 hours.\n\n1. Scorecard: each thing I planned, marked done, partly done or not done, in a table.\n2. What moved my numbers and what didn't, based only on what I told you. Keep what I can show apart from what's a guess.\n3. Why: for each thing that didn't happen, the likely real reason (time, skill, fear, wrong priority, outside events). Ask me one question if the reason isn't clear.\n4. Keep, stop, start: three short lists.\n5. The next 30 days: one focus, at most three actions with dates, and the one number to watch.\n6. One sentence for me to read on day 1 of next month.\n\nKeep it under 400 words."
+   },
+   "tools": [],
+   "pairsWith": [
+    "ops.ninety_day_plan",
+    "finance.weekly_numbers",
+    "ops.weekly_review"
+   ]
+  },
+  {
+   "id": "ops.saved_replies",
+   "group": "ops",
+   "title": "Saved replies for the questions you get every day",
+   "tier": "builder",
+   "when": "You have typed the same answer to a DM or email three times. Write it once, save it where you reply.",
+   "prompt": "Help me write saved replies for the questions customers ask me over and over.\n\nMy business and how I talk: {{business}}\nQuestions I get, in their words (paste real messages if you can): {{questions}}\nMy facts (prices, hours, turnaround, how to book or pay, links): {{facts}}\nWhere I reply: {{apps}}\n\n1. Group the questions and pick the five that come up most. If I gave fewer, suggest the likely missing ones and mark them as guesses.\n2. For each, write a saved reply under 60 words: the answer in the first two lines, then one question or next step. Start each with a [personal line] slot so it reads as written for that person.\n3. Give each reply a short shortcut name (like /price) to type in the app.\n4. For anything custom (a quote, a special request), write a reply that asks one or two questions before giving a price.\n5. Write one reply for when I can't help, pointing them somewhere useful.\n6. Tell me where to save these in each app I listed, step by step, and note anything that needs a business or professional account. Tell me to check the app's help page if a menu has moved.\n\nRules: sound like me, not a bot. I read and personalize each reply before sending. If I ever set replies to send automatically, they must say they're automated.",
+   "variables": [
+    {
+     "key": "business",
+     "label": "Your business and how you talk",
+     "example": "Rivera Sneaker Care, sneaker cleaning and restoration, ships nationwide, friendly and casual"
+    },
+    {
+     "key": "questions",
+     "label": "Questions you get, in their words",
+     "example": "\"How much for a deep clean?\" \"How long does it take?\" \"Can you fix yellow soles?\" \"Do you ship?\" \"Can you do suede?\""
+    },
+    {
+     "key": "facts",
+     "label": "Prices, hours, turnaround, how to book or pay, links",
+     "example": "Deep clean $35 a pair, sole unyellowing $25, suede $45, back in 5 days plus shipping, prepaid label at riverasneaker.co/ship"
+    },
+    {
+     "key": "apps",
+     "label": "Where you reply",
+     "example": "Instagram DMs, TikTok, Gmail"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "business": "Rivera Sneaker Care, sneaker cleaning and restoration, ships nationwide, friendly and casual",
+     "questions": "\"How much for a deep clean?\" \"How long does it take?\" \"Can you fix yellow soles?\" \"Do you ship?\" \"Can you do suede?\"",
+     "facts": "Deep clean $35 a pair, sole unyellowing $25, suede $45, back in 5 days plus shipping, prepaid label at riverasneaker.co/ship",
+     "apps": "Instagram DMs, TikTok, Gmail"
+    },
+    "youGet": "Five replies under 60 words with shortcuts like /price and /ship, a two-question reply for custom restorations, a polite \"can't help\" reply and save steps for Instagram, TikTok and Gmail.",
+    "filled": "Help me write saved replies for the questions customers ask me over and over.\n\nMy business and how I talk: Rivera Sneaker Care, sneaker cleaning and restoration, ships nationwide, friendly and casual\nQuestions I get, in their words (paste real messages if you can): \"How much for a deep clean?\" \"How long does it take?\" \"Can you fix yellow soles?\" \"Do you ship?\" \"Can you do suede?\"\nMy facts (prices, hours, turnaround, how to book or pay, links): Deep clean $35 a pair, sole unyellowing $25, suede $45, back in 5 days plus shipping, prepaid label at riverasneaker.co/ship\nWhere I reply: Instagram DMs, TikTok, Gmail\n\n1. Group the questions and pick the five that come up most. If I gave fewer, suggest the likely missing ones and mark them as guesses.\n2. For each, write a saved reply under 60 words: the answer in the first two lines, then one question or next step. Start each with a [personal line] slot so it reads as written for that person.\n3. Give each reply a short shortcut name (like /price) to type in the app.\n4. For anything custom (a quote, a special request), write a reply that asks one or two questions before giving a price.\n5. Write one reply for when I can't help, pointing them somewhere useful.\n6. Tell me where to save these in each app I listed, step by step, and note anything that needs a business or professional account. Tell me to check the app's help page if a menu has moved.\n\nRules: sound like me, not a bot. I read and personalize each reply before sending. If I ever set replies to send automatically, they must say they're automated."
+   },
+   "tools": [
+    "Instagram",
+    "TikTok",
+    "WhatsApp Business",
+    "Gmail",
+    "Facebook Messenger"
+   ],
+   "pairsWith": [
+    "outreach.reply_copilot",
+    "content.voice_guide"
+   ]
+  },
+  {
+   "id": "ops.booking_setup",
+   "group": "ops",
+   "title": "Booking link setup",
+   "tier": "builder",
+   "when": "A short call or appointment is the next step with buyers, and agreeing on a time takes too many messages.",
+   "prompt": "Help me set up one booking link so people can book with me without the back-and-forth.\n\nWhat people book (call or appointment, length, in person or online): {{booking}}\nWhen I want to be bookable (2 or 3 blocks a week is plenty for calls): {{availability}}\nThe tool I use or want to use: {{tool}}\nWhat I need to know before we meet: {{need_to_know}}\n\nGive me:\n1. The booking page settings: event name, length, location or video link, my time blocks, buffers before and after, minimum notice, how far ahead people can book, and a daily limit.\n2. Two intake questions, no more, that tell me what I need, and why each one helps.\n3. Step-by-step setup in my tool. Note which features need a paid plan, and tell me to check current pricing since plans change.\n4. Copy for: the confirmation, a reminder for the day before (to send myself if my plan doesn't send reminders), a no-show follow-up and a reschedule note.\n5. Where to put the link: my bio, email signature, website, saved replies and quote follow-ups.\n6. A test checklist: book a slot from my phone, check the time zone, check the calendar event and the confirmation.",
+   "variables": [
+    {
+     "key": "booking",
+     "label": "What people book",
+     "example": "A free 15-minute fit call by video for my online Spanish tutoring"
+    },
+    {
+     "key": "availability",
+     "label": "When you want to be bookable",
+     "example": "Tuesday and Thursday 4 to 6pm, Saturday 9 to 11am, Central time"
+    },
+    {
+     "key": "tool",
+     "label": "Booking tool",
+     "example": "Calendly free plan"
+    },
+    {
+     "key": "need_to_know",
+     "label": "What you need to know before you meet",
+     "example": "Their level, their goal (travel, work, family) and when they could take lessons"
+    }
+   ],
+   "example": {
+    "inputs": {
+     "booking": "A free 15-minute fit call by video for my online Spanish tutoring",
+     "availability": "Tuesday and Thursday 4 to 6pm, Saturday 9 to 11am, Central time",
+     "tool": "Calendly free plan",
+     "need_to_know": "Their level, their goal (travel, work, family) and when they could take lessons"
+    },
+    "youGet": "Calendly settings for a 15-minute call inside your three blocks with 10-minute buffers and 12 hours notice, two intake questions (level and goal), setup steps with paid features noted, four ready messages, link placements and a test checklist.",
+    "filled": "Help me set up one booking link so people can book with me without the back-and-forth.\n\nWhat people book (call or appointment, length, in person or online): A free 15-minute fit call by video for my online Spanish tutoring\nWhen I want to be bookable (2 or 3 blocks a week is plenty for calls): Tuesday and Thursday 4 to 6pm, Saturday 9 to 11am, Central time\nThe tool I use or want to use: Calendly free plan\nWhat I need to know before we meet: Their level, their goal (travel, work, family) and when they could take lessons\n\nGive me:\n1. The booking page settings: event name, length, location or video link, my time blocks, buffers before and after, minimum notice, how far ahead people can book, and a daily limit.\n2. Two intake questions, no more, that tell me what I need, and why each one helps.\n3. Step-by-step setup in my tool. Note which features need a paid plan, and tell me to check current pricing since plans change.\n4. Copy for: the confirmation, a reminder for the day before (to send myself if my plan doesn't send reminders), a no-show follow-up and a reschedule note.\n5. Where to put the link: my bio, email signature, website, saved replies and quote follow-ups.\n6. A test checklist: book a slot from my phone, check the time zone, check the calendar event and the confirmation."
+   },
+   "tools": [
+    "Calendly",
+    "Cal.com",
+    "Google Calendar",
+    "Square Appointments"
+   ],
+   "pairsWith": [
+    "ops.saved_replies",
+    "outreach.follow_ups",
+    "ops.client_onboarding"
+   ]
   },
   {
    "id": "review.ten_x",

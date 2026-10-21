@@ -1,6 +1,6 @@
 <%# A workflow card (harness.catalog). Locals: w, fitJob (optional). %>
 <a class="h2-card<%= w.locked ? ' locked' : '' %><%= typeof fitJob !== 'undefined' && fitJob && w.job === fitJob && !w.locked ? ' fit' : '' %>" href="/app/hq/w/<%= w.id %>" data-search="<%= (w.title + ' ' + w.promise + ' ' + w.packTitle).toLowerCase() %>">
-  <% if (typeof ws !== 'undefined' && ws && ws.premium) { %><span class="hqp-pv" data-job="<%= w.job || 'ops' %>" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><% } %>
+  <% if (typeof ws !== 'undefined' && ws && ws.premium) { var asks = w.asks || { count: 0, titles: [] }; %><span class="hqp-pv hqp-ask" aria-hidden="true"><% if (asks.titles.length) { %><span class="hqp-ask-k">You fill in<% if (asks.count > asks.titles.length) { %><span><%= asks.count %> in all</span><% } %></span><% asks.titles.forEach(function (t) { %><span class="hqp-ask-f"><b><%= t %></b><u></u></span><% }) %><% } else { %><span class="hqp-ask-k">Nothing to fill in</span><span class="hqp-ask-none">Tap Run. It stops for your OK before anything goes out.</span><% } %></span><% } %>
   <h3><%= w.title %></h3>
   <p><%= w.promise %></p>
   <div class="meta">

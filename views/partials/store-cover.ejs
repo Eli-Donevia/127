@@ -1,0 +1,22 @@
+<%# A Store item's cover (lib/store-covers.js) on a card, the curve or the item page. Locals: cv (the cover), big (the item page: larger type, phone shot beside). Decorative: the card's own title and summary carry the meaning. %>
+<% var big = typeof big !== 'undefined' && big, n2 = function (i) { return (i < 9 ? '0' : '') + (i + 1); }; %>
+<span class="sc sc-<%= cv.type %><%= big ? ' big' : '' %>"<% if (cv.kind) { %> data-kind="<%= cv.kind %>"<% } %> aria-hidden="true">
+<% if (cv.type === 'site') { %>
+  <img class="sc-desk" src="<%= cv.desk %>" alt="" loading="lazy" decoding="async">
+  <% if (cv.phone) { %><span class="sc-phone"><img src="<%= cv.phone %>" alt="" loading="lazy" decoding="async"></span><% } %>
+<% } else if (cv.type === 'paper') { %>
+  <span class="sc-sheet"><img src="<%= cv.src %>" alt="" loading="lazy" decoding="async"></span>
+<% } else if (cv.type === 'prompts') { %>
+  <span class="sc-k"><span>Prompt pack</span><span><%= cv.count %></span></span>
+  <span class="sc-rows"><% cv.lines.forEach(function (t, i) { %><span class="sc-row"><i><%= n2(i) %></i><b><%= t %></b></span><% }) %></span>
+<% } else if (cv.type === 'video') { %>
+  <span class="sc-frames<%= cv.still ? ' still' : '' %>"><% cv.shots.forEach(function (s, i) { %><span class="sc-frame f<%= i %>"><em><%= s.camera || ('Shot ' + (i + 1)) %></em><b><%= s.title %></b></span><% }) %></span>
+  <span class="sc-k"><span><%= cv.count %> <%= cv.still ? 'images' : 'shots' %></span><span><%= cv.models.slice(0, 3).join(' / ') %></span></span>
+<% } else { %>
+  <span class="sc-sheet sc-page">
+    <b class="sc-pt"><%= cv.title %></b>
+    <% if (cv.lines.length) { %><span class="sc-pl"><% cv.lines.forEach(function (t) { %><span><%= t %></span><% }) %></span><% if (cv.count > cv.lines.length) { %><small><%= cv.count - cv.lines.length %> more pages</small><% } %>
+    <% } else { %><span class="sc-pb"><%= cv.body %></span><span class="sc-rule"></span><span class="sc-rule s"></span><span class="sc-rule"></span><% } %>
+  </span>
+<% } %>
+</span>

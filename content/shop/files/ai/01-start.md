@@ -214,3 +214,78 @@ Rules: don't soften it. If the data is too thin to say, tell me exactly what dat
 ```
 
 **What you get back:** A demand verdict, the reason Instagram DMs win, a stop and double-down list, the real job buyers hire you for (online booking), an offer tweak and one weekly number.
+
+## Business one-pager
+
+**Use it when:** Before you spend money or time on a new business or offer, or when you need to explain the whole business on one page to a partner, a lender or yourself.
+
+**Fill in first:**
+
+- `{{offer}}`: What you sell and the price (for example: Custom birthday cakes, $85 for a 6-inch, $140 for 2 tiers)
+- `{{buyer}}`: Who pays (for example: Parents planning kids' parties within 15 miles of me)
+- `{{reach}}`: How you will reach them (for example: Instagram, a local parents Facebook group, the farmers market on Saturdays)
+- `{{costs}}`: Cost to deliver and to make a sale (for example: $22 in ingredients and boxes per cake, about 4 hours each; market booth $40 a week)
+- `{{resources}}`: What you have (for example: Home kitchen with a cottage food permit, a good phone camera, Saturdays free, $500)
+
+```text
+Put my whole business on one page and check it before I spend a dollar.
+
+What I sell and the price: {{offer}}
+Who pays (be specific): {{buyer}}
+How I'll reach them: {{reach}}
+What it costs me to deliver, and what it costs to make a sale: {{costs}}
+What I have (skills, tools, contacts, time, money): {{resources}}
+
+Fill in, in short lines:
+1. Who pays, and the moment they need this.
+2. The problem in their words, and what they do about it today.
+3. What I sell, the price, and why it beats what they do today.
+4. How they find me: the two channels to use first.
+5. How the first sale happens, step by step.
+6. Money: price, cost to deliver, gross profit per sale, what I can afford to spend to make a sale, and the sales I need each month to cover my costs.
+7. What I have, and what I'm missing.
+8. The riskiest assumption on this page, and the cheapest way to test it this week.
+
+Then score each section green, yellow or red with one line of reasoning, and tell me the one fix that matters most. Use only my numbers and mark every guess as a guess.
+```
+
+**What you get back:** A one-page model, about $63 of profit per 6-inch cake after ingredients, the cakes needed to cover the booth, a red flag on 4 hours per cake and one test to run this Saturday.
+
+**Works in:** Google Docs, Notion
+
+## Pitch deck
+
+**Use it when:** You are pitching investors, a lender, a partner or a program and need a clear deck with talking points.
+
+**Fill in first:**
+
+- `{{audience}}`: Who you are pitching and what you want from them (for example: Two local angel investors at a pitch night)
+- `{{business}}`: Your business (for example: FreshFold, pickup-and-delivery laundry for apartment buildings in Columbus)
+- `{{traction}}`: Real traction, with dates (for example: 3 buildings signed since June, 140 active customers, $6,800 revenue in September, 4 part-time drivers)
+- `{{competition}}`: Who else solves this (for example: Laundromats with drop-off, two app services that only cover downtown)
+- `{{ask}}`: Your ask (for example: $60,000 for a second van and a folding space)
+
+```text
+Build a pitch deck for my business, slide by slide.
+
+Who I'm pitching and what I want from them: {{audience}}
+My business: {{business}}
+Real traction so far (numbers, customers, partners, with dates): {{traction}}
+Who else solves this, and how: {{competition}}
+My ask: {{ask}}
+
+Make 10 to 12 slides in this order: title, problem, who has it, solution, how it works, why now, traction, business model, competition, team, the ask (with what the money or help is for), contact.
+
+For each slide give: a headline that states the point as a full sentence (not a label), at most three short lines or one number under it, the visual to use, and 2 to 3 sentences of speaker notes.
+
+Rules:
+- Use only the numbers I gave you. Where a slide needs a number I don't have, write [need: what] instead of making one up. Label any projection as a projection.
+- If my traction is thin, lead with the problem and what I've learned from customers, not with big market sizes.
+- Never promise investors a return or say the money is safe.
+
+Then list the five questions this audience is most likely to ask, with a short, honest answer to each. Last, offer to lay the deck out as an HTML file I can present from a browser, or as text ready for Google Slides, Canva or PowerPoint.
+```
+
+**What you get back:** Twelve slides with full-sentence headlines, traction built from your real September numbers, [need: ...] marks where a number is missing, a competition table, the $60,000 ask split by use, speaker notes and five likely investor questions.
+
+**Works in:** Google Slides, Canva, PowerPoint, Keynote

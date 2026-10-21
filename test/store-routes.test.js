@@ -253,7 +253,7 @@ test('prompt packs: each prompt\'s title and when, its text only where the plan 
   assert.match(a, /When: Once you have a brain\./);
   assert.match(a, /FREE-PROMPT-TEXT: ask me ten questions about \{\{business\}\}\./);
   assert.doesNotMatch(a, /BUILDER-PROMPT-TEXT/);
-  const vault = a.slice(a.indexOf('Set up my vault'));
+  const vault = a.slice(a.indexOf('<h3>Set up my vault'));
   assert.match(vault.slice(0, 600), /h2-tag lock"><svg[^]*Builder/);
   assert.match(a, /<button type="button" data-copy>Copy<\/button>/);
   const b = await html(await s.go('/app/hq/store/prompts-brain', { as: paid }));
