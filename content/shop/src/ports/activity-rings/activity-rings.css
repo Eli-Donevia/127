@@ -1,0 +1,12 @@
+/* activity-rings.css — pairs with activity-rings.js (MIT, ported from Kokonut UI). */
+.ar { display: flex; align-items: center; gap: 24px; }
+.ar-svg { flex: none; overflow: visible; }
+.ar-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ar-legend li { display: grid; gap: 2px; }
+.ar-label {
+  font: 500 11px/1 var(--font-mono, "Geist Mono", ui-monospace, monospace);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ar-color);
+}
+.ar-val { font: 600 20px/1.1 var(--font-sans, Geist, system-ui, sans-serif); color: var(--fg, #F4F5F8); font-variant-numeric: tabular-nums; }
+.ar-of { font-weight: 400; font-size: 13px; color: var(--muted, #8A8F9C); margin-left: 2px; }
+@media (max-width: 420px) { .ar { flex-direction: column; align-items: flex-start; } }

@@ -1,0 +1,68 @@
+<%# Each pack's hero picture, drawn from what's in the pack. One pop of colour per view, on the subject. %>
+<% var a = pack.art || (pack.bundle ? 'all' : 'starter'); %>
+<div class="pk-art pk-art-<%= a %>"<% if (a !== 'numbers') { %> aria-hidden="true"<% } %>>
+<% if (a === 'motion') { %>
+  <div class="am-stage">
+    <p class="am-word am-1"><span>A</span><span>s</span><span>s</span><span>e</span><span>m</span><span>b</span><span>l</span><span>e</span></p>
+    <p class="am-word am-2"><span>Pour</span></p>
+    <p class="am-word am-3"><span>Stamp.</span></p>
+    <svg class="am-draw" viewBox="0 0 200 120" fill="none"><path pathLength="1" d="M10 100 C 60 100, 60 20, 100 20 S 140 100, 190 100"/></svg>
+    <div class="am-ring"></div>
+  </div>
+<% } else if (a === 'sites') { %>
+  <div class="as-fan">
+    <% ['site-editorial','site-agency','site-restaurant'].forEach(function (id, i) { %>
+    <figure class="as-frame as-f<%= i %>"><div class="as-chrome"><i></i><i></i><i></i></div><div class="as-scroll"><img src="/img/packs/sites/<%= id %>.jpg" alt="" loading="<%= i ? 'lazy' : 'eager' %>" width="640" height="1200"></div></figure>
+    <% }) %>
+  </div>
+<% } else if (a === 'numbers') { %>
+  <div class="an-sheet" data-calc>
+    <div class="an-row"><label for="an-price">Your price</label><input id="an-price" type="number" inputmode="decimal" value="120" min="0"></div>
+    <div class="an-row"><label for="an-cost">Cost per sale</label><input id="an-cost" type="number" inputmode="decimal" value="35" min="0"></div>
+    <div class="an-row"><label for="an-fixed">Monthly costs</label><input id="an-fixed" type="number" inputmode="decimal" value="900" min="0"></div>
+    <div class="an-out"><span>Sales to break even</span><b data-out>11</b></div>
+    <p class="an-note">The Break-Even sheet, live. Change a number.</p>
+  </div>
+<% } else if (a === 'sales') { %>
+  <div class="aa-doc">
+    <p class="aa-k">Proposal</p>
+    <p class="aa-t">Spring refresh for<br>Harbor Dental</p>
+    <div class="aa-lines"><i></i><i></i><i style="width:62%"></i></div>
+    <div class="aa-table"><span>Scope</span><span>3 pages, 2 rounds</span><span>Start</span><span>Mar 3</span><span>Total</span><span>$2,400</span></div>
+    <svg class="aa-sign" viewBox="0 0 220 60" fill="none"><path pathLength="1" d="M6 44 C 26 6, 40 58, 58 30 S 84 10, 96 38 S 128 52, 140 24 S 170 30, 214 34"/></svg>
+    <p class="aa-stamp">Signed</p>
+  </div>
+<% } else if (a === 'content') { %>
+  <div class="ac-reel">
+    <% [['01','Hook','Close-up, push in'],['02','Problem','Handheld, over the shoulder'],['03','Proof','Top-down, slow pan'],['04','Ask','Eye level, still']].forEach(function (s, i) { %>
+    <div class="ac-shot ac-s<%= i %>"><b><%= s[0] %></b><span><%= s[1] %></span><em><%= s[2] %></em></div>
+    <% }) %>
+  </div>
+<% } else if (a === 'ops') { %>
+  <div class="ao-board">
+    <% [['This week',['Price the spring package','Write the onboarding SOP']],['Doing',['Monday scorecard']],['Done',['Founder OS imported','Weekly review']]].forEach(function (col, i) { %>
+    <div class="ao-col"><p><%= col[0] %></p><% col[1].forEach(function (t, j) { %><div class="ao-card<%= i === 1 ? ' ao-move' : '' %>"><%= t %></div><% }) %></div>
+    <% }) %>
+  </div>
+<% } else if (a === 'creator') { %>
+  <div class="ar-card">
+    <p class="ar-k">Rate card</p>
+    <div class="ar-rows"><span>One video, 30s</span><span>One video, 60s</span><span>Hook pack</span><span>Paid use, 90 days</span><span>Whitelisting</span></div>
+    <div class="ar-phone"><div class="ar-rec"></div><p>Hook 2 of 3</p></div>
+  </div>
+<% } else if (a === 'ai') { %>
+  <div class="ai-term">
+    <p class="ai-l ai-1"><b>Operator</b> Read the business brain. Finish the work, don't describe it.</p>
+    <p class="ai-l ai-2"><b>You</b> Price the spring package for {{audience}}.</p>
+    <p class="ai-l ai-3"><b>AI</b> Three tiers, the math for each, and the one I'd lead with<span class="ai-caret"></span></p>
+  </div>
+<% } else if (a === 'all') { %>
+  <div class="aw-stack">
+    <% (contents || []).forEach(function (p, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= p.name %></span></div><% }) %>
+  </div>
+<% } else { %>
+  <div class="aw-stack aw-starter">
+    <% ['Waitlist page','Idea Scorecard','Break-Even','Quote','Pitch Deck','Welcome Email'].forEach(function (n, i) { %><div class="aw-sheet" style="--i:<%= i %>"><span><%= n %></span></div><% }) %>
+  </div>
+<% } %>
+</div>
