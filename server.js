@@ -42,6 +42,8 @@ const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
+const shopRoutes = require('./lib/shop-routes');
+const shop = require('./lib/shop');
 const connectorRoutes = require('./lib/harness/connectors/routes');
 const hqOffer = require('./lib/hq-offer');
 const foundingFive = require('./lib/founding-five');
@@ -357,7 +359,12 @@ function homeVideo() {
 const HOME_FIRST25 = fs.existsSync(path.join(__dirname, 'public', 'funnels', 'first-25.html'));
 const first25Live = () => HOME_FIRST25 && require('./lib/first25').sourceName() !== 'sample';
 // doors: "What are you building?" under the hero while the front doors are on (FRONT_DOORS, lib/doors.js).
-app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user) }));
+// The homepage's packs row (SHOP_PACKS): the paid packs with one-tap buy buttons, the free Starter Pack and the bundle.
+function homePacks(req) {
+  const keys = Array.isArray(req.session.packKeys) ? req.session.packKeys : [];
+  return { list: shop.list(), bundle: shop.catalog().bundle, owned: shop.ownedSlugs(req.user, { keys }), builderGetsAll: shop.catalog().builderGets === 'all' };
+}
+app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
   const v = launch.view();
@@ -2060,6 +2067,8 @@ app.use(harnessRoutes({ requireAuth, flash, track, isAdmin }));
 // The HQ Store (lib/store.js, W7): every template kind, Make it mine. Behind STORE_V2 (default off):
 // off, its pages 404 and the HQ tabs show no Store.
 app.use(storeRoutes({ requireAuth, flash, track }));
+// Packs (lib/shop.js): one-time purchases, behind SHOP_PACKS.
+app.use(shopRoutes({ track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
 
