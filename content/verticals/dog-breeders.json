@@ -70,7 +70,7 @@
         "id": "01-puppy-update",
         "title": "Weekly puppy update",
         "summary": "Turns your weigh-in and notes into a post and an email for the families waiting.",
-        "prompt": "Write this week's puppy update for [kennel]. Litter: [parents, born date]. Notes per puppy: [collar color, weight, what they did this week]. Write a short email to the waitlist families (warm, specific, one photo note per puppy) and a post caption (no prices, no pressure). Never promise a puppy's future size, health or temperament.",
+        "prompt": "Write this week's puppy update for [kennel]. Litter: [parents, born date]. Notes per puppy: [collar color, weight, what they did this week]. Write a short email to the waitlist families (warm, specific, one photo note per puppy) and a post caption (no prices, deposits, \"reserve\" or \"DM to claim\"; those stay on the site). Never promise a puppy's future size, health or temperament.",
         "use": "Send every Monday after weigh-in. Families share these."
       },
       {
@@ -87,6 +87,11 @@
         "prompt": "Write a go-home packet for a [breed] puppy from [kennel] going home at [weeks] weeks. Include: the food and amounts we use [ ], the daily schedule, crate and potty tips for the first week, what the puppy has had from our vet [ ] and what's next (ask your vet), what's in the bag, and my number. Tell families to follow their own vet's advice.",
         "use": "Print it and email it the same day."
       }
+    ],
+    "notes": [
+      "These files assume families meet the puppy in person. If you have more than four breeding females and sell sight unseen (shipped, or sold online without meeting), you need a USDA license (9 CFR 1.1 and 2.1). Your state may also need a license, health certificates and lemon law terms.",
+      "Post from a business profile that shows your kennel's name and where to find you. Prices, deposits and \"reserve\" or \"DM to claim\" stay on your site, never in posts: Meta removes person-to-person animal sales.",
+      "Saved replies about deposits and health testing use only your own terms. Never let an AI write a health guarantee, refund or deposit rule you didn't give it."
     ]
   },
   "hq": [
@@ -129,5 +134,6 @@
     "Horse breeders",
     "Dog trainers"
   ],
-  "legal": "Breeding and selling animals is regulated by state and sometimes city (licenses, health certificates, lemon laws). Copy never promises a puppy's health, size or temperament. Legal should read this vertical before it goes live."
+  "legal": "Breeding and selling animals is regulated by state and sometimes city (licenses, health certificates, lemon laws). Copy never promises a puppy's health, size or temperament. Legal should read this vertical before it goes live.",
+  "legalRead": "L102"
 }

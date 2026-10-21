@@ -16,7 +16,7 @@ Facts (use only these):
 - Face shapes it suits: [list]
 - Price: [$]
 
-Give me: a two-line opener that says who the frame is for, a fit section in plain words ("sits a little wide, good for a broad face"), one paragraph on how it is made, and three short answers to the questions people ask before buying frames online. No claims about vision, prescriptions or eye health.
+Give me: a two-line opener that says who the frame is for, a fit section in plain words ("sits a little wide, good for a broad face"), one paragraph on how it is made, and three short answers to the questions people ask before buying frames online. No claims about vision, prescriptions or eye health. Nothing about blue light protecting eyes, easing strain or helping sleep, and no UV claim unless I paste the supplier's test report.
 ```
 
 ## How to use it

@@ -3,22 +3,26 @@
 <main class="mk mk-files">
   <section class="mk-item">
     <div class="wrap" style="max-width:760px">
-      <p class="mk-lbl"><a href="/market">Marketplace</a> <span aria-hidden="true">/</span> Your files</p>
+      <p class="mk-lbl"><a href="/market">AI marketplace</a> <span aria-hidden="true">/</span> Your files</p>
       <h1 class="mk-h1" style="font-size:clamp(34px,5vw,56px)"><%= l.title %></h1>
       <% if (seller) { %><p class="mk-by">by <a href="/makers/<%= seller.handle %>"><%= seller.name %></a></p><% } %>
+      <% if (pulled) { %>
+      <p class="mk-line">We took this listing off the Market because it looks like it wasn't its maker's to sell, so its files no longer download. If you'd like your money back, write to <a class="link" href="mailto:hello@127group.io?subject=<%= encodeURIComponent('Refund: ' + l.title) %>">hello@127group.io</a> and we'll refund you in full.</p>
+      <% } else { %>
       <% if (bought) { %><p class="mk-alert" role="status">Paid. Your files are below.</p><% } %>
       <ul class="mk-dl" style="margin-top:32px">
         <% (l.files || []).forEach(function (f) { %>
         <li><span class="mk-dl-name"><%= f.name %> <span class="mk-mono">· <%= kb(f.size) %></span></span><a class="btn ghost sm" href="/market/<%= l.slug %>/files/<%= f.id %><%= key ? '?k=' + key : '' %>">Download</a></li>
         <% }) %>
       </ul>
+      <% } %>
       <% if (link) { %>
       <div class="mk-keep">
         <b style="font-weight:600">Keep this link.</b> It's private and it's how you get back to these files<%= emailed ? '. We emailed it to you too' : '' %>.
         <code><%= link %></code>
       </div>
       <% } %>
-      <p class="mk-fine">Questions about the order or a file that won't open: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p>
+      <% if (!pulled) { %><p class="mk-fine">Questions about the order or a file that won't open: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p><% } %>
     </div>
   </section>
 </main>

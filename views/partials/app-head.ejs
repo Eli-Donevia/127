@@ -13,6 +13,7 @@
     admin: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     hq: '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
     sell: '<svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12h-13z"/><path d="M9 7a3 3 0 016 0"/></svg>',
+    market: '<svg viewBox="0 0 24 24"><path d="M4 9h16l-1.4 11H5.4z"/><path d="M8.5 9V7a3.5 3.5 0 017 0v2"/><path d="M12 12.5l.8 1.7 1.7.8-1.7.8-.8 1.7-.8-1.7-1.7-.8 1.7-.8z"/></svg>',
     invite: '<svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 7-6s7 2.5 7 6M19 8v6M16 11h6"/></svg>'
   };
   var nav = [['/app','Dashboard',I.home],['/app/library','Library',I.lib],['/app/tools','AI tools',I.ai],['/app/wins','Wins',I.win],['/app/circle',"Founder's Circle",I.circle],['/app/billing','Membership',I.card],['/app/settings','Settings',I.gear]];
@@ -22,13 +23,15 @@
   var wi = nav.findIndex(function (n) { return n[0] === '/app/wins'; }) + 1;
   if (typeof referralsOn !== 'undefined' && referralsOn) nav.splice(wi, 0, ['/app/invite','Invite',I.invite]);
   if (typeof marketOn !== 'undefined' && marketOn) nav.splice(wi, 0, ['/app/sell','Sell',I.sell]);
+  // The AI marketplace (/market), after Library, while SHOP_PACKS or MARKETPLACE is on for this member.
+  if (typeof aiMarketOn !== 'undefined' && aiMarketOn) nav.splice(nav.findIndex(function (n) { return n[0] === '/app/library'; }) + 1, 0, ['/market','AI marketplace',I.market]);
   if (isAdmin) { nav.push(['/admin','Admin',I.admin]); nav.push(['/admin/ops','Ops',I.admin]); if (typeof marketOn !== 'undefined' && marketOn) nav.push(['/admin/market','Market review',I.admin]); }
 %>
 <%# HQ as a workspace (HQ_WORKSPACE=on, lib/harness/nav.js): on HQ pages its rail takes the side menu's place. %>
 <% var hasWs = typeof ws !== 'undefined' && ws; %>
 <% if (!hasWs) { %>
 <div class="mobile-top">
-  <a href="/app" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+  <a href="/app" class="mark"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
   <button class="btn ghost sm" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
 </div>
 <% } %>
@@ -38,7 +41,7 @@
 <% } else { %>
   <aside class="side" id="side">
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+      <a href="/" class="mark"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
       <button class="btn ghost sm" style="display:none" id="closeSide" onclick="document.getElementById('side').classList.remove('open')">Close</button>
     </div>
     <nav>

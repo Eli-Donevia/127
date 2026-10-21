@@ -106,9 +106,9 @@
 
     // Today against the member's own goals.
     var gl = d.goals, ringsData = [];
-    if (gl.sleep) ringsData.push({ label: 'Sleep', current: L.one(e.sleep || 0), target: gl.sleep, unit: 'h', color: '#7c8cff', colorEnd: '#a9b4ff' });
-    if (gl.water) ringsData.push({ label: 'Water', current: e.water || 0, target: gl.water, unit: 'cups', color: '#5be4ff', colorEnd: '#a6f0ff' });
-    if (gl.steps) ringsData.push({ label: 'Steps', current: e.steps || 0, target: gl.steps, unit: '', color: '#86d6ad', colorEnd: '#b4ebcd' });
+    if (gl.sleep) ringsData.push({ label: 'Sleep', current: L.one(e.sleep || 0), target: gl.sleep, unit: 'h', color: '#7cebf6', colorEnd: '#a9b4ff' });
+    if (gl.water) ringsData.push({ label: 'Water', current: e.water || 0, target: gl.water, unit: 'cups', color: '#a98bff', colorEnd: '#a6f0ff' });
+    if (gl.steps) ringsData.push({ label: 'Steps', current: e.steps || 0, target: gl.steps, unit: '', color: '#f27bff', colorEnd: '#f9b8ff' });
     ringsData.forEach(function (r) { r.current = +r.current || 0; });
     // One rings drawing kept across redraws: a change animates from where each ring stands instead of replaying.
     if (ringsData.length && L.rings) {

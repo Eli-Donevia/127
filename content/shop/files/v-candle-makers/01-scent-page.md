@@ -11,7 +11,7 @@ Write the product page for [scent name] from [shop], a hand-poured [wax] candle.
 
 Notes: top [ ], middle [ ], base [ ]. Size and burn time: [ ]. Price: [ ].
 
-Give: a name line, two sentences that put the scent in a real place and moment (a kitchen in October, a cabin after rain), the notes in plain words, how it burns, and care in one line. No health or aromatherapy claims.
+Give: a name line, two sentences that put the scent in a real place and moment (a kitchen in October, a cabin after rain), the notes in plain words, how it burns (the burn time from my own burn test), and care in one line that points to the fire-safety label on the candle. No health or aromatherapy claims, and no "non-toxic", "clean-burning" or "all-natural" unless I write "I can show this".
 ```
 
 ## How to use it

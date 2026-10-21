@@ -78,7 +78,9 @@
   var heroLive = process.env.HERO_LIVE === 'true'; // the live First Light hero (public/js/first-light.js); off keeps the loop hero
   // With it, the liquid 127: a real-time 3D glass 127 over a pond (public/js/liquid-127.js, poster in /img/liquid). Off keeps the standing mark.
   var heroWater = heroLive && process.env.HERO_WATER === 'true';
-  var flDir = heroWater ? '/img/liquid/' : '/img/fl/';
+  // Eli (Oct 21): "remove the 127 logo for now from hero. just body of water." HERO_WATER_MARK=true brings the 127 back.
+  var heroMark = heroWater && process.env.HERO_WATER_MARK === 'true';
+  var flDir = heroWater ? '/img/liquid/' : '/img/fl/', flRest = heroWater && !heroMark ? 'water' : 'rest';
   // Run mode (v2 playbook 2.2): the hero is First 25 itself, so the first screen shows the product doing the work.
   // Only on real business data (server.js), with Legal's First 25 wording (05 rule 6a): the list and the words, never clients.
   // The demo rows are First 25's own sample run (gyms, Des Moines): made-up businesses, labeled Sample.
@@ -93,7 +95,7 @@
   ];
 -%>
 <%# The hero's poster is the first thing to fetch on the brand hero (before the fonts), so slow 4G spends itself on it first. %>
-<%- include('partials/head', { hbState: st === 'C' ? null : st, navQuiet: run, heroImg: run ? null : heroLive ? [flDir + 'rest-s.jpg', flDir + 'rest.jpg'] : ['/img/first-light-phone.jpg', '/img/first-light.jpg'] }) %>
+<%- include('partials/head', { hbState: st === 'C' ? null : st, navQuiet: run, heroImg: run ? null : heroLive ? [flDir + flRest + '-s.jpg', flDir + flRest + '.jpg'] : ['/img/first-light-phone.jpg', '/img/first-light.jpg'] }) %>
 <main class="v5" data-state="<%= st %>">
 
   <% if (run) { %>
@@ -143,9 +145,9 @@
   <!-- HERO: the bio's promise and one button, set on the floor under the glass 127, lit live -->
   <%# With water the hero sits in .fl-scrub: where the rise can play, it holds still for a short scroll (is-scrub)
       while the 127 forms out of the pond, then the page scrolls on. %>
-  <% if (heroWater) { %><div class="fl-scrub"><% } %>
-  <section class="fl" data-fl<% if (heroWater) { %> data-fl-water<% } %>>
-    <% if (heroWater) { %><%# With water the page opens on the still pond and the first bit of scroll raises the 127 out
+  <% if (heroMark) { %><div class="fl-scrub"><% } %>
+  <section class="fl" data-fl<% if (heroWater) { %> data-fl-water<% } %><% if (heroWater && !heroMark) { %> data-fl-nomark<% } %>>
+    <% if (heroMark) { %><%# With water the page opens on the still pond and the first bit of scroll raises the 127 out
         of it. Where that can play (a real GPU, motion welcome), the still water shows instead of the poster and the
         hero is pinned for the rise; if the live hero isn't drawing within 5 s, the poster fades in, the pin goes and
         the hero picks up at rest. Software WebGL (as in Lighthouse) keeps the poster from the start. %>
@@ -164,7 +166,7 @@
         breathes and a soft light follows the pointer. Software WebGL (no GPU) keeps the poster. With HERO_WATER it's the liquid 127
         instead (public/js/liquid-127.js), a 3D scene drawn every frame. Reduced motion, Save-Data or no WebGL2 keep the poster. %>
     <div class="fl-stage" aria-hidden="true">
-      <picture><source media="(max-width: 760px)" srcset="<%= flDir %>rest-s.jpg" width="960" height="540"><img src="<%= flDir %>rest.jpg" alt="" width="1600" height="900" fetchpriority="high"></picture>
+      <picture><source media="(max-width: 760px)" srcset="<%= flDir %><%= flRest %>-s.jpg" width="960" height="540"><img src="<%= flDir %><%= flRest %>.jpg" alt="" width="1600" height="900" fetchpriority="high"></picture>
     </div>
     <div class="fl-hud" aria-hidden="true"><span class="tl" data-fl-day>Day 001</span><span class="tr">Make today day one</span><span class="bl" data-fl-hint>Move to light it</span><span class="br">Scroll</span></div>
     <div class="wrap fl-copy">
@@ -199,7 +201,7 @@
       <p class="ticker-note">Eli's results aren't typical or a promise of what you'll earn. <a href="/earnings-disclaimer">Earnings disclaimer</a></p>
     </div>
   </section>
-  <% if (heroLive && heroWater) { %></div><% } %>
+  <% if (heroLive && heroMark) { %></div><% } %>
   <% } %>
 
   <% if (typeof doors !== 'undefined' && doors) { %>
@@ -296,7 +298,6 @@
 
   <!-- THE AI TOOLS: what each one hands back -->
   <section class="t5" id="library">
-    <img class="t5-art" src="/img/v2/glass-7.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1200" height="1500">
     <div class="wrap">
       <div class="t5-head">
         <p class="lbl" data-reveal>AI tools</p>
@@ -382,7 +383,7 @@
   </section>
 
   <% if (video) { %>
-  <!-- INTRO VIDEO: Video's Finovate highlight (public/video/intro.mp4) until Eli's "Why I built 127" clip -->
+  <!-- INTRO VIDEO: only when HOME_VIDEO_URL is set (Eli's "Why I built 127" clip) -->
   <section class="video-sec">
     <div class="wrap">
       <h2 class="h2" data-reveal><%= video.title %></h2>
@@ -399,10 +400,7 @@
     <div class="wrap fx-grid">
       <div class="collage" aria-hidden="true">
         <figure class="cc c1" data-tilt><img src="/img/eli-founder.jpg" alt="" loading="lazy"></figure>
-        <figure class="cc c2" data-tilt>
-          <video class="lazy-loop" muted loop playsinline preload="none" data-poster="/img/finovate-stage-loop-16x9-bw.jpg" data-src="/video/finovate-stage-loop-16x9-bw.mp4" width="1920" height="1080"></video>
-          <figcaption>Spoke on stage at Finovate Fall</figcaption>
-        </figure>
+        <figure class="cc c2" data-tilt><img src="/img/wall/eli-stockroom-square.jpg" alt="" loading="lazy"><figcaption>In the apparel stockroom</figcaption></figure>
         <figure class="cc c3" data-tilt><img src="/img/wall/eli-award-night.jpg" alt="" loading="lazy"><figcaption>Received a "Most Improved" award</figcaption></figure>
         <figure class="cc c4" data-tilt><img src="/img/wall/eli-popup-01.jpg" alt="" loading="lazy"><figcaption>Apparel pop-up</figcaption></figure>
       </div>
@@ -526,11 +524,11 @@ if (fl) {
     const pin = fl.parentElement.classList.contains('fl-scrub') ? fl.parentElement : null;
     const scrub = () => { const r = pin.getBoundingClientRect(), top = parseFloat(getComputedStyle(fl).top) || 0; return (top - r.top) / Math.max(1, r.height - fl.offsetHeight); };
     const unpin = () => { clearTimeout(fl.flPond); fl.classList.remove('is-pond'); if (pin) pin.classList.remove('is-scrub'); };
-    const opts = { small: phone, get reveal() { clearTimeout(fl.flPond); return pond(); }, onSlow: () => { fl.classList.remove('is-live'); if (pin) pin.classList.remove('is-scrub'); } };
+    const opts = { small: phone, mark: !fl.hasAttribute('data-fl-nomark'), get reveal() { clearTimeout(fl.flPond); return pond(); }, onSlow: () => { fl.classList.remove('is-live'); if (pin) pin.classList.remove('is-scrub'); } };
     if (pin && pond()) opts.scrub = scrub;
     const live = () => (water
-      ? import('/js/liquid-127.js').then(({ liquid127 }) => liquid127(fl.querySelector('.fl-stage'), opts))
-      : import('/js/first-light.js').then(({ firstLight }) => firstLight(fl.querySelector('.fl-stage'), { ...opts, base: '/img/fl/' })))
+      ? import('<%= typeof v === 'function' ? v('/js/liquid-127.js') : '/js/liquid-127.js' %>').then(({ liquid127 }) => liquid127(fl.querySelector('.fl-stage'), opts))
+      : import('<%= typeof v === 'function' ? v('/js/first-light.js') : '/js/first-light.js' %>').then(({ firstLight }) => firstLight(fl.querySelector('.fl-stage'), { ...opts, base: '/img/fl/' })))
       .then((r) => { if (r.reveal) fl.classList.add('is-reveal'); fl.classList.add('is-live'); fl.classList.remove('is-pond'); })
       .catch(unpin);
     const later = () => ('requestIdleCallback' in window ? requestIdleCallback(live, { timeout: pond() ? 400 : 2500 }) : setTimeout(live, 300));

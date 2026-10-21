@@ -86,7 +86,7 @@
         <% fields.forEach(function (f) { var v = values[f.id]; if (v === undefined || v === '' || v === null) return; if (f.options) { var o = f.options.filter(function (x) { return x.value === v; })[0]; if (o) v = o.label; } %>
         <div><dt><%= f.label %></dt><dd><%= v %></dd></div>
         <% }) %>
-        <% if (d.checkin.feature) { %><div><dt>Feature my check-in</dt><dd><%= values.feature_ok ? 'Yes' + (values.feature_idea ? ' · idea' : '') + (values.feature_offer ? ' · offer' : '') : 'No' %><%= values.guest_ok ? ' · Up for joining as a guest' : '' %></dd></div><% } %>
+        <% if (d.checkin.feature) { %><div><dt>Feature my check-in</dt><dd><%= values.feature_ok ? 'Yes' + (values.feature_idea ? (feature.feature_walk ? ' · site' : ' · idea') : '') + (values.feature_offer ? ' · offer' : '') + (values.feature_walk ? ' · walkthrough' : '') : 'No' %><%= values.guest_ok ? ' · Up for joining as a guest' : '' %></dd></div><% } %>
       </dl>
       <% if (state === 'done') { %><p style="margin-top:16px"><a href="/challenge/day/<%= n %>?edit=1#checkin">Edit my answers</a></p><% } %>
     </div>
@@ -117,7 +117,7 @@
 
   <section class="ch-block">
     <div class="wrap">
-      <span class="lbl">The move · <%= d.move_time %></span>
+      <span class="lbl">The move<% if (d.move_time) { %> · <%= d.move_time %><% } %></span>
       <ol class="steps">
         <% d.steps.forEach(function (s) { %><li><div><b><%- md(s.title) %></b> <%- md(s.body) %></div><% if (s.sub && s.sub.length) { %><ul><% s.sub.forEach(function (x) { %><li><%- md(x) %></li><% }) %></ul><% } %></li><% }) %>
       </ol>
@@ -177,6 +177,7 @@
           <div class="sub">
             <label class="ch-check"><input type="checkbox" name="feature_idea" value="on" <%= values.feature_idea ? 'checked' : '' %>> <%= feature.feature_idea %></label>
             <label class="ch-check"><input type="checkbox" name="feature_offer" value="on" <%= values.feature_offer ? 'checked' : '' %>> <%= feature.feature_offer %></label>
+            <% if (feature.feature_walk) { %><label class="ch-check"><input type="checkbox" name="feature_walk" value="on" <%= values.feature_walk ? 'checked' : '' %>> <%= feature.feature_walk %></label><% } %>
           </div>
           <label class="ch-check"><input type="checkbox" name="guest_ok" value="on" <%= values.guest_ok ? 'checked' : '' %>> <span><%- md(feature.guest_ok) %></span></label>
           <p class="small-print" style="margin:6px 0 0"><%- md(feature.small) %></p>

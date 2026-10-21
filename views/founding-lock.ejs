@@ -1,6 +1,6 @@
 <%- include('partials/doc-start') %>
 <body class="bare">
-  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a><% if (!user) { %><a href="/login?next=/founding/lock" class="small link">Sign in</a><% } %></div>
+  <div class="bare-top"><a href="/" class="mark"><img src="/img/127-emerald.png" srcset="/img/127-emerald.png 2x, /img/127-emerald@3x.png 3x" width="46" height="24" alt="127" class="logo"></a><% if (!user) { %><a href="/login?next=/founding/lock" class="small link">Sign in</a><% } %></div>
   <main class="auth-card lock-card fade-in">
     <div class="eyebrow"><%= grace ? 'Your founding link' : 'Founding price · ends ' + launch.closesShort %></div>
     <h1 style="margin-top:12px">Lock $<%= launch.foundingPrice %> a month.</h1>

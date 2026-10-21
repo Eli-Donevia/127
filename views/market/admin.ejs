@@ -1,5 +1,7 @@
 <%- include('../partials/app-head') %>
-<%# The marketplace review queue (GET /admin/market): listings waiting, with their checks and files, then reports. %>
+<%# The marketplace review queue (GET /admin/market): listings waiting, with their checks, files and the reviewer's
+    checklist (Legal L101 MK13), then reports (copyright notices count strikes, MK12), then pulled listings' orders to
+    refund when a buyer asks (MK8). %>
 <div class="mk">
 <div class="sl-head"><div><div class="eyebrow">Admin</div><h1>Marketplace</h1></div><span class="mk-mono">MARKETPLACE=<%= setting %> · REFERRALS=<%= refSetting %> · fee <%= fee %>%</span></div>
 <div class="sl-nums">
@@ -13,6 +15,21 @@
   <div><b><%= money(refs.credited) %></b><span>credited in Stripe</span></div>
 </div>
 
+<div class="sl-section" id="ambassadors">
+  <h2>Ambassadors</h2>
+  <p class="small muted" style="margin:0 0 12px">Ambassadors earn their pay instead of free months, whichever link a friend used (Agreement 11, Legal L101 RF9). Their Invite page shows the commission line.</p>
+  <% if (!ambassadors.length) { %><p class="muted" style="margin:0 0 12px">None on the roster.</p><% } %>
+  <ul class="sl-files"><% ambassadors.forEach(function (a) { %><li><span><%= a.email %><% if (a.handle) { %> · amb-<%= a.handle %><% } %> · since <%= fmtDate(a.since) %></span><form method="post" action="/admin/market/ambassadors"><input type="hidden" name="email" value="<%= a.email %>"><input type="hidden" name="action" value="end"><button class="btn ghost sm">End</button></form></li><% }) %></ul>
+  <form method="post" action="/admin/market/ambassadors" class="sl-form" style="margin-top:12px">
+    <div class="row2">
+      <label class="field"><span>Member's email</span><input class="input" type="email" name="email" required></label>
+      <label class="field"><span>Link name (after amb-)</span><input class="input" name="handle" maxlength="60" autocapitalize="off" spellcheck="false"></label>
+    </div>
+    <input type="hidden" name="action" value="add">
+    <button class="btn ghost sm">Add to the roster</button>
+  </form>
+</div>
+
 <div class="sl-section">
   <h2>Waiting for a look</h2>
   <% if (!q.review.length) { %><p class="muted" style="margin:0">Nothing waiting.</p><% } %>
@@ -22,10 +39,15 @@
     <p class="small muted" style="margin:6px 0 12px"><%= l.line %></p>
     <ul class="sl-checks"><% (l.checks || []).forEach(function (c) { var cls = c.ok ? 'ok' : c.level === 'warn' ? 'warn' : 'no'; %><li class="<%= cls %>"><span class="mark" aria-hidden="true"></span><span><%= c.label %><% if (!c.ok) { %><small><%= c.detail %></small><% } %></span></li><% }) %></ul>
     <ul class="sl-files"><% (l.files || []).forEach(function (f) { %><li><span><%= f.name %> · <%= kb(f.size) %></span><a class="link small" href="/market/<%= l.slug %>/files/<%= f.id %>">Download</a></li><% }) %></ul>
+    <% if (l.strikes) { %><p class="small" style="margin:10px 0 0"><span class="mk-mono">Copyright strikes</span> <%= l.strikes %> of <%= STRIKE_LIMIT %> in 12 months</p><% } %>
     <form method="post" style="margin-top:14px">
+      <p class="small muted" style="margin:0 0 6px">Look for other people's work before approving:</p>
+      <ul class="sl-terms"><% REVIEW_LIST.forEach(function (x) { %><li><%= x %></li><% }) %></ul>
+      <label class="sl-check"><input type="checkbox" name="looked"><span>I checked it against this list.</span></label>
       <label class="field"><span>Note to the seller (for changes, pause or remove)</span><textarea class="input" name="note" rows="2" maxlength="800"></textarea></label>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn light sm" formaction="/admin/market/<%= l.id %>/approve">Approve</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/ai-person"><%= l.aiPerson ? 'Remove the AI person label' : 'Label: AI-generated person' %></button>
         <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/changes">Ask for changes</button>
         <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/remove">Remove</button>
       </div>
@@ -47,8 +69,23 @@
         <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/dismiss">Keep it up</button>
         <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/pause">Pause</button>
         <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/remove">Remove</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/rights">Not theirs to sell</button>
+        <button class="btn ghost sm" formaction="/admin/market/<%= l.id %>/copyright">Valid copyright notice</button>
       </div>
+      <p class="sl-hint">"Not theirs to sell" and a valid copyright notice take it down, stop its files and email its buyers how to get a refund. A notice also counts a strike: <%= STRIKE_LIMIT %> in 12 months ends their selling.<% if (l.strikes) { %> This maker has <%= l.strikes %>.<% } %></p>
     </form>
+  </div>
+  <% }) %>
+</div>
+
+<div class="sl-section" id="pulled">
+  <h2>Taken down, buyers to refund</h2>
+  <% if (!q.pulled.length) { %><p class="muted" style="margin:0">None.</p><% } %>
+  <% q.pulled.forEach(function (l) { %>
+  <div class="card" style="margin-bottom:16px">
+    <b style="font-weight:600"><%= l.title %></b> <span class="mk-mono">@<%= l.seller ? l.seller.handle : '?' %> · <%= l.pulled === 'copyright' ? 'copyright notice' : 'not theirs to sell' %></span>
+    <p class="small muted" style="margin:6px 0 10px">Refund the buyers who ask. It comes back out of the maker's share.</p>
+    <ul class="sl-files"><% l.orders.forEach(function (o) { %><li><span><%= o.email || 'guest' %> · <%= money(o.amount) %> · <%= fmtDate(o.paidAt) %></span><form method="post" action="/admin/market/orders/<%= o.id %>/refund"><button class="btn ghost sm">Refund</button></form></li><% }) %></ul>
   </div>
   <% }) %>
 </div>

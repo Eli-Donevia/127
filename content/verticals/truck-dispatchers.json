@@ -84,9 +84,12 @@
         "id": "03-service-agreement-outline",
         "title": "Service agreement outline",
         "summary": "An outline of what your dispatch agreement should cover, to take to a lawyer.",
-        "prompt": "Outline a dispatch service agreement between [my business] and a carrier. Cover: what I do and don't do, my fee and when it's paid, who signs rate cons, the carrier's right to refuse a load, how either side ends it, and what records I keep. Mark it as an outline for a lawyer to review, not a contract.",
+        "prompt": "Outline a dispatch service agreement between [my business] and a carrier. Cover: what I do and don't do, which loads I find for this carrier (lanes and equipment, so I never choose between carriers for one load), my fee and when it's paid, who signs rate cons, the carrier's right to refuse a load, how either side ends it, and what records I keep. Mark it as an outline for a lawyer to review, not a contract.",
         "use": "Have a lawyer turn it into your agreement before you sign carriers."
       }
+    ],
+    "notes": [
+      "FMCSA's 2023 guidance: a dispatcher who works for more than one carrier and chooses which carrier gets a load is acting as a broker and needs broker authority. Handling money between shippers and carriers points the same way. The agreement outline sets which loads you find for each carrier (lanes, equipment) so you never choose between carriers for one load. Have a lawyer check it."
     ]
   },
   "hq": [
@@ -98,7 +101,7 @@
   "hooks": [
     "Dispatchers: your carriers judge you by Friday's report.",
     "Read these five lines on every rate con.",
-    "The weekly report that keeps carriers with you.",
+    "The weekly report a carrier reads in a minute.",
     "What a dispatch agreement needs to say.",
     "Saved replies for chasing PODs.",
     "Your dispatch fee should be on your website."
@@ -118,7 +121,7 @@
     },
     {
       "angle": "Reports",
-      "hook": "Send carriers a report they'll actually read.",
+      "hook": "Send carriers one page every Friday.",
       "body": "One page, every Friday, from your load list.",
       "headline": "Weekly carrier reports"
     }
@@ -129,5 +132,6 @@
     "Fleet managers",
     "Expediters"
   ],
-  "legal": "Dispatch income is a common 'business opportunity' pitch online. Copy never says how much a dispatcher makes or how many carriers they'll sign (L62, Legal 05)."
+  "legal": "Dispatch income is a common 'business opportunity' pitch online. Copy never says how much a dispatcher makes or how many carriers they'll sign (L62, Legal 05).",
+  "legalRead": "L102"
 }

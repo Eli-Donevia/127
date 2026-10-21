@@ -7,7 +7,7 @@ Plans a spec clip for a brand you want to work with, from their product page.
 Copy everything in the box into Claude, ChatGPT or Gemini. Fill in the [brackets] first.
 
 ```
-I want to pitch [brand]. Here's their product page: [paste the text]. Plan a 15-second spec clip: three hook options for the first two seconds, five shots, the line I say on camera, and the on-screen words. No claims the product page doesn't make.
+I want to pitch [brand]. Here's their product page: [paste the text]. Plan a 15-second spec clip: three hook options for the first two seconds, five shots, the line I say on camera, and the on-screen words. No claims the product page doesn't make, and no before-and-after.
 ```
 
 ## How to use it

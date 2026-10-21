@@ -1,11 +1,14 @@
 <%- include('../partials/app-head') %>
 <%# The Invite page (GET /app/invite, lib/referrals.js). One link per person, the same code as the founding list and
     the Challenge. Friends by first name only. The share text says what the sender gets (FTC endorsement rule). %>
-<% var shareText = "I'm building my business on 127. Here's my link: " + ref.link.replace(/^https?:\/\//, '') + " (if you start a paid plan, I get a free month)"; %>
-<% var STATE = { free: 'Joined, on the free plan', waiting: 'Paid. Counts after the ' + WAIT_DAYS + ' days', earned: 'Free month added', banked: 'Free month saved for you', used: 'Free month used', refunded: 'Refunded, so it doesn\'t count', 'not-counted': "Doesn't count" }; %>
+<%# An ambassador's page (Legal L101 RF9): the commission disclosure instead of the free-month line, friends as "Joined". %>
+<% var shareText = "I'm building my business on 127. Here's my link: " + ref.link.replace(/^https?:\/\//, '') + (ref.ambassador ? " (I earn a commission if you join with my link)" : " (if you start a paid plan, I get a free month)"); %>
+<%# Friend states say nothing about a friend's plan or payments (Legal L101 RF2). %>
+<% var STATE = { joined: 'Joined', waiting: 'Counts on', earned: 'Free month added', banked: 'Free month saved for you', used: 'Free month used', held: 'Being checked', 'not-counted': "Didn't count" }; %>
 <div class="mk">
-<div class="sl-head"><div><div class="eyebrow">Invite</div><h1>A month on 127 for every friend who starts a plan.</h1></div></div>
-<p class="mk-line" style="margin-top:0;max-width:52ch">When someone starts Builder or the Circle with your link and stays past the first <%= WAIT_DAYS %> days, your next month is on 127.</p>
+<div class="sl-head"><div><div class="eyebrow">Invite</div><h1><%= ref.ambassador ? 'Your invite link.' : 'A free month for each friend who starts a plan.' %></h1></div></div>
+<% if (ref.ambassador) { %><p class="mk-line" style="margin-top:0;max-width:52ch">You're a 127 ambassador, so people who join with your links count toward your ambassador pay, not free months.</p>
+<% } else { %><p class="mk-line" style="margin-top:0;max-width:52ch">When someone starts Builder or the Circle with your link and stays past the first <%= WAIT_DAYS %> days, <% if (ref.paying) { %>you get a free month, as credit up to the price of their plan<% } else { %>your first Builder month is free<% } %>. Up to <%= YEAR_CAP %> a year.</p><% } %>
 
 <div class="sl-section">
   <div class="iv-link"><code><%= ref.link.replace(/^https?:\/\//, '') %></code><button type="button" class="btn sm" data-copy-text="<%= ref.link %>" data-track="Referral Share" data-channel="copy">Copy</button></div>
@@ -15,30 +18,33 @@
     <a class="btn ghost sm" href="mailto:?subject=<%= encodeURIComponent('127') %>&body=<%= encodeURIComponent(shareText) %>" data-track="Referral Share" data-channel="email">Email</a>
     <button type="button" class="btn ghost sm" data-share data-text="<%= shareText %>" data-url="<%= ref.link %>" hidden>More</button>
   </div>
-  <div class="iv-say"><b>If you post it</b>Say you get something for it, like the line at the end of the text above. A post with your link and no line like that breaks the rules on endorsements.</div>
+  <div class="iv-say"><b>If you post it</b>Say you get something for it, like the line at the end of the text above. Put the line where people see it without tapping “more”. A post with your link and no line like that breaks the rules on endorsements.</div>
 </div>
 
-<% if (ref.joined) { %><p class="iv-tally"><%= ref.joined %> joined with your link<%= ref.waiting ? ', ' + ref.waiting + ' waiting out the ' + WAIT_DAYS + ' days' : '' %>. <b><%= ref.earned %> free month<%= ref.earned === 1 ? '' : 's' %> earned.</b></p><% } %>
+<% if (ref.joined && ref.ambassador) { %><p class="iv-tally"><%= ref.joined %> joined with your link.</p>
+<% } else if (ref.joined) { %><p class="iv-tally"><%= ref.joined %> joined with your link<%= ref.waiting ? ', ' + ref.waiting + ' waiting out the ' + WAIT_DAYS + ' days' : '' %>. <b><%= ref.earned %> free month<%= ref.earned === 1 ? '' : 's' %> earned.</b></p><% } %>
 
 <div class="sl-section">
   <h2>Friends</h2>
   <% if (!ref.friends.length) { %><p class="muted" style="margin:0">Nobody yet. Send it to one person who has been talking about starting something.</p>
   <% } else { %>
   <ul class="iv-friends">
-    <% ref.friends.forEach(function (f) { %><li><span><%= f.first %><% if (f.via === 'site') { %> <span class="muted small">from your site</span><% } %></span><span class="st <%= f.state === 'earned' || f.state === 'banked' ? 'earned' : '' %>"><%= STATE[f.state] || '' %><% if (f.eligibleAt) { %> (<%= fmtDate(f.eligibleAt) %>)<% } %></span></li><% }) %>
+    <% ref.friends.forEach(function (f) { %><li><span><%= f.first %><% if (f.via === 'site') { %> <span class="muted small">from your site</span><% } %></span><span class="st <%= f.state === 'earned' || f.state === 'banked' ? 'earned' : '' %>"><%= STATE[f.state] || '' %><% if (f.eligibleAt) { %> <%= fmtDate(f.eligibleAt) %><% } %></span></li><% }) %>
   </ul>
   <% } %>
 </div>
 
+<% if (!ref.ambassador) { %>
 <div class="sl-section">
   <h2>How it works</h2>
   <ol class="mk-how" style="max-width:640px">
     <li><span class="mk-n">01</span><span><b>A friend signs up with your link</b> within 30 days of tapping it, then starts Builder or the Circle.</span></li>
     <li><span class="mk-n">02</span><span><b>Their first payment clears the <%= WAIT_DAYS %> days</b> they have to change their mind.</span></li>
-    <li><span class="mk-n">03</span><span><% if (ref.paying) { %><b>A month's credit lands on your account</b>, up to $<%= ref.monthPrice %>, the price of your plan. If they're on a cheaper plan than you, the credit matches theirs.<% } else { %><b>Your first Builder month is free</b> whenever you upgrade. It stays saved until you do.<% } %></span></li>
+    <li><span class="mk-n">03</span><span><% if (ref.paying) { %><b>A free month lands on your account</b> as credit: one month of your plan, up to the price of theirs.<% } else { %><b>Your first Builder month is free</b> whenever you upgrade. It stays saved until you do.<% } %></span></li>
   </ol>
-  <p class="mk-fine">Up to <%= YEAR_CAP %> free months a year; <%= ref.capLeft %> left. Self-referrals and fake accounts don't count. Full rules: <a href="/membership-terms">Membership Terms</a>.</p>
+  <p class="mk-fine">Up to <%= YEAR_CAP %> free months each calendar year; <%= ref.capLeft %> left this year. Self-referrals and fake accounts don't count. <a href="/membership-terms#5a-invite-friends-a-free-month-for-each-friend-who-pays">Full rules</a>.</p>
 </div>
+<% } %>
 </div>
 <script src="/js/market.js" defer></script>
 <%- include('../partials/app-foot') %>

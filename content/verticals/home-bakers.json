@@ -69,7 +69,7 @@
         "id": "01-bake-list",
         "title": "This week's bake list",
         "summary": "The bake list post, the story frames and the cutoff, from what you plan to bake.",
-        "prompt": "This week [bakery] is baking: [items with prices]. Orders close [day/time], pickup is [day, time, place]. Write the bake list post (short, items and prices in a list), three story frames (the list, a close-up, last call), and a pinned comment with how to order: [link].",
+        "prompt": "This week [bakery] is baking: [items with prices]. Orders close [day/time], pickup is [day, time, place]. Write the bake list post (short, items and prices in a list), three story frames (the list, a close-up, last call), and a pinned comment with how to order: [link]. Add my cottage food notice at the end of the post exactly as written: [the home-kitchen notice your state requires].",
         "use": "Post Monday. Repost the last-call frame the night before cutoff."
       },
       {
@@ -84,8 +84,14 @@
         "title": "Holiday preorder plan",
         "summary": "A preorder plan for one holiday: the menu, the cutoff, the posts and the pickup slots.",
         "prompt": "Plan [holiday] preorders for [bakery]. I can bake [max] orders. Menu ideas: [ ]. Give: a 4-item holiday menu with prices, the cutoff date, pickup slots, three posts (announce, half sold, last call) and a pickup reminder text.",
-        "use": "Start three weeks out. Close orders at your max, not after."
+        "use": "Start three weeks out. Close orders at your max, not after.",
+        "rules": [
+          "texts"
+        ]
       }
+    ],
+    "notes": [
+      "Before you take orders online, check your state's cottage food rules: whether you need a permit, the home-kitchen notice on labels (some states want it online too), which foods are allowed (many leave out cakes that need the fridge), delivery and shipping, and any sales cap. Most states don't allow cottage food across state lines."
     ]
   },
   "hq": [
@@ -100,7 +106,7 @@
     "The six saved replies every home baker needs.",
     "Close preorders at your max. Here's the post.",
     "Your bake list is your homepage.",
-    "Pickup day text that brings people back next week."
+    "The pickup day text, with next week's order link."
   ],
   "ads": [
     {
@@ -117,7 +123,7 @@
     },
     {
       "angle": "Pricing",
-      "hook": "Is your cake price paying you?",
+      "hook": "Does your cake price count your hours?",
       "body": "The pack's pricing sheet counts ingredients, boxes and hours.",
       "headline": "Price your bakes"
     }
@@ -128,5 +134,6 @@
     "Cake decorators",
     "Meal prep cooks"
   ],
-  "legal": "Cottage food rules differ by state (what you can sell, labels, where). The pack tells bakers to check their state's rules; copy never says home baking is allowed everywhere."
+  "legal": "Cottage food rules differ by state (what you can sell, labels, where). The pack tells bakers to check their state's rules; copy never says home baking is allowed everywhere.",
+  "legalRead": "L102"
 }

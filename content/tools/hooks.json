@@ -1,0 +1,589 @@
+{
+ "source": "product/templates files/hook-bank (from the hooks-library playbook)",
+ "hooks": [
+  {
+   "id": 1,
+   "type": "Story",
+   "text": "I started [business] with [small amount or resource]. Here's what month one looked like.",
+   "example": "I started a sneaker cleaning business with $60 and a toothbrush.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 2,
+   "type": "Story",
+   "text": "[Time] ago I [old situation]. Now I [new situation].",
+   "example": "Six months ago I couldn't edit a video. Now I edit for 4 podcasts.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 3,
+   "type": "Story",
+   "text": "The day I almost quit [thing], [what happened].",
+   "example": "The day I almost quit making candles, a local shop asked to stock them.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 4,
+   "type": "Story",
+   "text": "My first customer came from [unexpected place].",
+   "example": "My first resume client came from a comment I left on a Reddit thread.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 5,
+   "type": "Story",
+   "text": "Everyone told me [doubt]. Here's what happened when I tried anyway.",
+   "example": "Everyone told me college students won't pay for meal prep.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 6,
+   "type": "Story",
+   "text": "This is what [number] weeks of building [business] actually looks like.",
+   "example": "This is what 8 weeks of building a phone repair business actually looks like.",
+   "pillar": "You",
+   "rule": ""
+  },
+  {
+   "id": 7,
+   "type": "Mistake",
+   "text": "I wasted [time] on [thing] so you don't have to.",
+   "example": "I wasted $200 on cleaning kits so you don't have to.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 8,
+   "type": "Mistake",
+   "text": "Stop [common action] if you want to [do the thing] well.",
+   "example": "Stop washing suede with water if you want it to last.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 9,
+   "type": "Mistake",
+   "text": "[Number] mistakes I made in my first [timeframe] of [business].",
+   "example": "3 mistakes I made in my first month of selling candles.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 10,
+   "type": "Mistake",
+   "text": "If you're still [common habit], you're making [task] harder than it needs to be.",
+   "example": "If you're still pricing by the hour, you're losing your best clients.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 11,
+   "type": "Mistake",
+   "text": "Don't [action] until you've [done this first].",
+   "example": "Don't print 500 stickers until you've sold 50.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 12,
+   "type": "Mistake",
+   "text": "The [mistake] almost every [person] makes with [thing].",
+   "example": "The mistake almost every new seller makes with shipping costs.",
+   "pillar": "Teach or You",
+   "rule": ""
+  },
+  {
+   "id": 13,
+   "type": "Contrarian",
+   "text": "Unpopular opinion: you don't need [common belief] to [do the thing].",
+   "example": "Unpopular opinion: you don't need a camera to start a video editing business.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 14,
+   "type": "Contrarian",
+   "text": "Everyone says [advice]. Here's why I stopped.",
+   "example": "Everyone says post every day. Here's why I post 3 times a week.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 15,
+   "type": "Contrarian",
+   "text": "[Popular thing] is overrated for [person]. Do this instead.",
+   "example": "Meal kits are overrated for college students.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 16,
+   "type": "Contrarian",
+   "text": "You don't have a [surface problem] problem. You have a [real problem] problem.",
+   "example": "You don't have a views problem. You have a first-2-seconds problem.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 17,
+   "type": "Contrarian",
+   "text": "[Thing people fear] isn't the hard part. [Real hard part] is.",
+   "example": "Getting your first client isn't the hard part. Getting your second one is.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 18,
+   "type": "Contrarian",
+   "text": "The worst advice I got about [topic] was [advice].",
+   "example": "The worst advice I got about pricing was to start cheap and raise it later.",
+   "pillar": "Teach",
+   "rule": "Only if you believe it and back it up in the post"
+  },
+  {
+   "id": 19,
+   "type": "How-to",
+   "text": "How to [do the task] without [pain].",
+   "example": "How to clean white midsoles in 5 minutes without bleach.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 20,
+   "type": "How-to",
+   "text": "Here's exactly how I'd start [thing] if I began today.",
+   "example": "Here's exactly how I'd get my first editing client if I started today.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 21,
+   "type": "How-to",
+   "text": "The [number]-minute fix for [problem].",
+   "example": "The 2-minute fix for a resume that gets no replies.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 22,
+   "type": "How-to",
+   "text": "How I [do the task] using only [tool or phone].",
+   "example": "How I film product videos using only my phone and a window.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 23,
+   "type": "How-to",
+   "text": "Do this before you [common action].",
+   "example": "Do this before you send your first invoice.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 24,
+   "type": "How-to",
+   "text": "The easiest way to [do the task] if you're [specific situation].",
+   "example": "The easiest way to meal prep if you live in a dorm with no stove.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 25,
+   "type": "List",
+   "text": "[Number] [things] I tested, ranked from worst to best.",
+   "example": "5 sneaker cleaners I tested, ranked from worst to best.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 26,
+   "type": "List",
+   "text": "[Number] free tools I use every week to [do the task].",
+   "example": "4 free tools I use every week to run my tutoring business.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 27,
+   "type": "List",
+   "text": "[Number] signs your [thing] is [problem].",
+   "example": "3 signs your resume is getting filtered out before a human sees it.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 28,
+   "type": "List",
+   "text": "[Number] things I wish I knew before [milestone].",
+   "example": "3 things I wish I knew before my first market stall.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 29,
+   "type": "List",
+   "text": "[Number] [things] that make [task] easier.",
+   "example": "3 lighting setups under $20 that make phone videos look professional.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 30,
+   "type": "List",
+   "text": "My [number]-step [process] for [task]. Copy it.",
+   "example": "My 4-step packing checklist for orders that never arrive broken.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 31,
+   "type": "Result",
+   "text": "This [before] became [after] in [timeframe].",
+   "example": "This yellowed midsole went white again in 20 minutes.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 32,
+   "type": "Result",
+   "text": "How [customer type] went from [before] to [after].",
+   "example": "How a nursing student went from 0 interview calls to 3 in two weeks.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 33,
+   "type": "Result",
+   "text": "What [price] gets you with [offer].",
+   "example": "What $25 gets you with my resume review.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 34,
+   "type": "Result",
+   "text": "[Customer] said \"[exact words].\" Here's what we did.",
+   "example": "A client said \"I finally get algebra.\" Here's what we changed.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 35,
+   "type": "Result",
+   "text": "My [first, 10th or 100th] [sale, client or order] and what it taught me.",
+   "example": "My 10th order and the packing mistake it exposed.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 36,
+   "type": "Result",
+   "text": "Watch this [thing] go from [before] to [after].",
+   "example": "Watch this $8 thrifted jacket go from stained to resale ready.",
+   "pillar": "Proof",
+   "rule": "Real results only: yours, or a customer's shared with permission"
+  },
+  {
+   "id": 37,
+   "type": "Behind the scenes",
+   "text": "A day running [business] while [other commitment].",
+   "example": "A day running a candle business while working a full-time job.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 38,
+   "type": "Behind the scenes",
+   "text": "What goes into one [product or service] that nobody sees.",
+   "example": "What goes into one $30 logo that nobody sees.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 39,
+   "type": "Behind the scenes",
+   "text": "Packing [number] orders for [business]. Come with me.",
+   "example": "Packing 14 orders for my sticker shop.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 40,
+   "type": "Behind the scenes",
+   "text": "Here's what my [setup or process] actually looks like.",
+   "example": "Here's what my $0 editing setup actually looks like.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 41,
+   "type": "Behind the scenes",
+   "text": "Honest update: week [number] of building [business].",
+   "example": "Honest update: week 6 of building a meal prep business.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 42,
+   "type": "Behind the scenes",
+   "text": "The part of [business] I hate, and why I do it anyway.",
+   "example": "The part of tutoring I hate, and why I do it anyway.",
+   "pillar": "You or Proof",
+   "rule": ""
+  },
+  {
+   "id": 43,
+   "type": "Call-out",
+   "text": "If you're a [specific person] who [situation], this is for you.",
+   "example": "If you're a student athlete who hates cooking, this is for you.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 44,
+   "type": "Call-out",
+   "text": "This is for every [person] who's tired of [pain].",
+   "example": "This is for every freelancer who's tired of chasing invoices.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 45,
+   "type": "Call-out",
+   "text": "Do you [common behavior]? Here's what it's doing to [thing].",
+   "example": "Do you machine-wash your sneakers? Here's what it's doing to the glue.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 46,
+   "type": "Call-out",
+   "text": "Raise your hand if you've ever [relatable pain].",
+   "example": "Raise your hand if you've ever bought a planner and quit by February.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 47,
+   "type": "Call-out",
+   "text": "Only watch this if you [qualifier].",
+   "example": "Only watch this if you sell something under $50.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 48,
+   "type": "Call-out",
+   "text": "POV: you [relatable moment].",
+   "example": "POV: you finally clean the sneakers you've been hiding in your closet.",
+   "pillar": "Teach",
+   "rule": ""
+  },
+  {
+   "id": 49,
+   "type": "Comparison",
+   "text": "[Option A] vs [option B]: which one I actually use for [task].",
+   "example": "$5 cleaner vs $25 cleaner: which one actually works?",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 50,
+   "type": "Comparison",
+   "text": "I tested [cheap thing] and [expensive thing] for [timeframe]. Here's the verdict.",
+   "example": "I tested a $12 and a $60 ring light for a week.",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 51,
+   "type": "Comparison",
+   "text": "What [amount] gets you at [place A] vs [place B].",
+   "example": "What $50 gets you at a local print shop vs online.",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 52,
+   "type": "Comparison",
+   "text": "Beginner [thing] vs pro [thing], same [tool].",
+   "example": "Beginner lighting vs pro lighting, same phone.",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 53,
+   "type": "Comparison",
+   "text": "[Task] the slow way vs the fast way.",
+   "example": "Packing orders the slow way vs the fast way.",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 54,
+   "type": "Comparison",
+   "text": "What [customers] expect vs what actually happens.",
+   "example": "What clients expect from a logo designer vs what actually happens.",
+   "pillar": "Teach or Proof",
+   "rule": ""
+  },
+  {
+   "id": 55,
+   "type": "Experiment",
+   "text": "I tried [thing] for [timeframe]. Here's what happened.",
+   "example": "I sold at a farmers market for 4 weekends.",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  },
+  {
+   "id": 56,
+   "type": "Experiment",
+   "text": "Can you [do the task] with only [constraint]? Let's find out.",
+   "example": "Can you start a business with only $50?",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  },
+  {
+   "id": 57,
+   "type": "Experiment",
+   "text": "I let [person or group] decide [thing] for my business.",
+   "example": "I let my followers pick my next candle scent.",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  },
+  {
+   "id": 58,
+   "type": "Experiment",
+   "text": "Testing [popular claim] so you don't have to.",
+   "example": "Testing the viral toothpaste sneaker trick so you don't have to.",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  },
+  {
+   "id": 59,
+   "type": "Experiment",
+   "text": "Day [number] of [challenge].",
+   "example": "Day 1 of turning $100 into a real business.",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  },
+  {
+   "id": 60,
+   "type": "Experiment",
+   "text": "I tried [something unusual] for [task]. Was it worth it?",
+   "example": "I handed out 100 flyers to find tutoring clients.",
+   "pillar": "Proof or You",
+   "rule": "Only if you ran it, and show the real outcome"
+  }
+ ],
+ "captions": [
+  {
+   "id": 1,
+   "type": "PAS: Problem, agitate, solve",
+   "text": "[The problem, in your customer's words.]\n[Why it's worse than it looks, one specific line.]\n[Your fix, in one or two sentences.]\n[CTA]"
+  },
+  {
+   "id": 2,
+   "type": "BAB: Before, after, bridge",
+   "text": "Before: [situation].\nAfter: [situation].\nWhat changed: [the one thing they can copy].\n[CTA]"
+  },
+  {
+   "id": 3,
+   "type": "AIDA: Attention, interest, desire, action",
+   "text": "[Restate the hook in new words.]\n[One surprising, specific detail.]\n[What it looks like once it's fixed.]\n[One CTA.]"
+  },
+  {
+   "id": 4,
+   "type": "Quick lesson",
+   "text": "[Hook restated]. The lesson: [one sentence]. [CTA]"
+  },
+  {
+   "id": 5,
+   "type": "Three tips",
+   "text": "[Number] things I wish I knew about [topic]:\n1) [tip]\n2) [tip]\n3) [tip]\nWhich one are you trying first?"
+  },
+  {
+   "id": 6,
+   "type": "Story",
+   "text": "[Where you were]. [What happened]. [What you learned]. [Question for the reader]?"
+  },
+  {
+   "id": 7,
+   "type": "Customer words (with permission)",
+   "text": "\"[Exact customer quote].\" That's why we [what you do]. [CTA]"
+  },
+  {
+   "id": 8,
+   "type": "Behind the scenes",
+   "text": "What you didn't see: [the hidden work]. That's why [task] takes [time]. [CTA]"
+  },
+  {
+   "id": 9,
+   "type": "Myth vs truth",
+   "text": "Myth: [common belief]. Truth: [what you've seen]. Why: [one reason]. [CTA]"
+  },
+  {
+   "id": 10,
+   "type": "Honest offer",
+   "text": "I help [who] with [what you do], without [pain]. I have room for [real number] [clients or orders] this month. [CTA]"
+  }
+ ],
+ "ctas": [
+  {
+   "id": 1,
+   "goal": "Leads",
+   "text": "Follow and comment [KEYWORD] and I'll DM you [free thing]."
+  },
+  {
+   "id": 2,
+   "goal": "Reach",
+   "text": "Send this to a friend who [situation]."
+  },
+  {
+   "id": 3,
+   "goal": "Saves",
+   "text": "Save this for the next time you [situation]."
+  },
+  {
+   "id": 4,
+   "goal": "Follows",
+   "text": "Follow for part 2, where I [what part 2 covers]. (Only when part 2 is already filmed.)"
+  },
+  {
+   "id": 5,
+   "goal": "Sales chats",
+   "text": "DM me [KEYWORD] if you want help with [problem]."
+  },
+  {
+   "id": 6,
+   "goal": "Comments",
+   "text": "Which one are you, [A] or [B]? Tell me below."
+  },
+  {
+   "id": 7,
+   "goal": "Clicks",
+   "text": "Link in bio to [book, order or get the free guide]. (Use the same words on the link page.)"
+  },
+  {
+   "id": 8,
+   "goal": "Proof",
+   "text": "Try this today and tell me how it went."
+  },
+  {
+   "id": 9,
+   "goal": "Trust",
+   "text": "Drop your [thing] below and I'll give quick feedback on the first [number]. (Then actually do it.)"
+  },
+  {
+   "id": 10,
+   "goal": "Sales",
+   "text": "I have room for [real number] [clients or orders] this month. DM me [KEYWORD] to grab one. (Real capacity only.)"
+  }
+ ]
+}

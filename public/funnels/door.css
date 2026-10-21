@@ -57,3 +57,159 @@ textarea.input { min-height: 104px; resize: vertical; line-height: 1.5; padding-
 @media (prefers-reduced-motion: reduce) {
   .dr-item { animation: none; }
 }
+
+/* ---------- the free website builder (FREE_SITE_BUILDER: door.js puts .fb on <html>) ----------
+   A page of its own: flat void with no grid or glow, a solid headline that sets word by word, the form on the page
+   itself, a made-up business's site playing in a lit phone frame, the designs as a row of names, one white button.
+   Colour follows Design's accent and motion rules v2, D57 (v2/design/accent-motion-v2.md): Tide running into Orchid is
+   light on the subject only (the frame's edge, the design that's showing, the field being typed in), its bloom no wider
+   than twice the stroke and only while the light moves, and nothing glows behind a card, a button or the page. The two
+   hues follow --tide and --orchid wherever a page defines them. */
+.fb {
+  --fb-tide: var(--tide, #7cebf6); --fb-orchid: var(--orchid, #a98bff); --fb-line: color-mix(in srgb, var(--fb-tide) 50%, transparent);
+  --out: cubic-bezier(.16,1,.3,1);
+  --plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M7 1.5v11M1.5 7h11' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M2.5 8h11M9 3.5 13.5 8 9 12.5' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.fb .bg-grid, .fb .glow { display: none; }
+/* main waits for door.js to draw the builder (.fb-up), and shows anyway after four seconds if the script never runs */
+.fb:not(.fb-up) main { animation: fb-late 0s 4s both; }
+@keyframes fb-late { from { visibility: hidden; } to { visibility: visible; } }
+.fb ::selection { background: color-mix(in srgb, var(--fb-tide) 30%, transparent); }
+.fb :focus-visible { outline: 2px solid var(--fb-tide); outline-offset: 3px; }
+.fb .label, .fb .label.lilac, .fb .label.signal, .fb .fb-h { margin: 0; font-size: 15px; line-height: 1.3; letter-spacing: -.01em; text-transform: none; color: var(--c-ink); font-weight: 600; }
+.fb #h1, .fb .dr-head .h1 { background: none; color: var(--c-ink); -webkit-text-fill-color: currentColor; }
+
+/* the top: the headline sets word by word, then the lede and the form */
+.fb #intro { padding-top: 26px; padding-bottom: 0; }
+.fb #h1 { margin: 0; font-size: clamp(44px, 12.4vw, 80px); line-height: .9; letter-spacing: -.042em; text-wrap: balance; }
+.fb .lede { margin-top: 18px; font-size: 17px; line-height: 1.5; max-width: 30em; }
+.fb-go #h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+.fb-go #h1 .w > span { display: inline-block; transform: translateY(105%); transition: transform .8s var(--out); transition-delay: calc(var(--i) * 50ms); }
+.fb-in #h1 .w > span { transform: none; }
+/* the lede and form were styled before door.js ran, so they drop to hidden at once and only the way in is animated */
+.fb-go .lede, .fb-go #formWrap { opacity: 0; transform: translateY(8px); }
+.fb-in .lede, .fb-in #formWrap { opacity: 1; transform: none; transition: opacity .7s var(--out) .3s, transform .7s var(--out) .3s; }
+
+/* the form sits on the page; what's optional folds away */
+.fb #formWrap { margin-top: 26px; }
+.fb .card { background: none; border: 0; border-top: 1px solid var(--c-line); border-radius: 0; box-shadow: none; padding: 24px 0 0; }
+.fb #doorForm.card, .fb .f25-stack.card { border-top: 0; padding-top: 0; }
+.fb .field > span { font-size: 14px; }
+.fb .input { border-radius: 12px; background: var(--c-carbon); caret-color: var(--fb-tide); }
+.fb .input:focus { border-color: var(--fb-line); background: var(--c-carbon); box-shadow: 0 0 0 1px var(--fb-line); }
+.fb .input:focus-visible { outline: none; }
+.fb .fb-more { border-top: 1px solid var(--c-line); }
+.fb .fb-more > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; font-size: 15px; color: var(--c-fog); cursor: pointer; list-style: none; }
+.fb .fb-more > summary::-webkit-details-marker { display: none; }
+.fb .fb-more > summary::after { content: ''; flex: none; width: 14px; height: 14px; background: currentColor; -webkit-mask: var(--plus) center / contain no-repeat; mask: var(--plus) center / contain no-repeat; transition: transform .45s var(--out); }
+.fb .fb-more[open] > summary::after { transform: rotate(45deg); }
+@media (hover: hover) { .fb .fb-more > summary:hover { color: var(--c-ink); } }
+.fb .fb-more > .stack-m { padding: 4px 0 8px; }
+.fb .form-note { margin-top: 12px; font-size: 15px; line-height: 1.5; color: var(--c-ink); }
+
+/* one white button: it presses in, and on hover draws a Tide edge */
+.fb .btn { border-radius: 999px; transition: transform .5s var(--out), box-shadow .3s var(--out), background .2s, border-color .2s; }
+.fb .btn:hover { transform: none; }
+@media (hover: hover) {
+  .fb .btn:hover { background: #fff; border-color: #fff; box-shadow: 0 0 0 2px var(--c-void), 0 0 0 3.5px var(--fb-tide); }
+  .fb .btn.ghost:hover { background: var(--c-graphite); border-color: rgba(255,255,255,.3); box-shadow: none; }
+  .fb .btn:hover .arrow { transform: translateX(3px); }
+}
+.fb .btn:active { transform: scale(.97); transition-duration: .1s; }
+.fb .btn:disabled { box-shadow: none; }
+.fb .btn .arrow { display: inline-flex; transition: transform .45s var(--out); }
+.fb .btn .arrow::after { content: ''; width: 16px; height: 16px; background: currentColor; -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat; }
+
+/* what you get: a list ruled in hairlines */
+.fb #fbStack { margin-top: 48px; }
+.fb #fbStack .f25-stack-list { gap: 0; margin-top: 10px; }
+.fb #fbStack .f25-stack-list li { display: block; padding: 12px 0; border-top: 1px solid var(--c-line); font-size: 15px; color: var(--c-ink); }
+.fb #fbStack .f25-stack-list li:last-child { border-bottom: 1px solid var(--c-line); }
+.fb #fbStack .ck { display: none; }
+
+/* the frames: the site inside, the edge drawn in light (door.js edge, light) */
+.fb .dr-frame { position: relative; border: 0; border-radius: 22px; background: #0b0b0e; isolation: isolate; }
+.fb .dr-frame iframe { background: #fff; opacity: 0; transition: opacity .5s var(--out); }
+.fb .dr-frame.in iframe { opacity: 1; }
+.fb .fb-phone { width: 100%; height: min(680px, 82svh); aspect-ratio: auto; max-height: none; margin-top: 14px; border-radius: 30px; }
+.fb .fb-phone iframe { position: absolute; inset: 0; border-radius: inherit; }
+.fb .fb-edge { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; transition: filter .6s var(--out); }
+.fb .fb-edge.go { filter: drop-shadow(0 0 2px color-mix(in srgb, var(--fb-tide) 45%, transparent)); }
+.fb .fb-edge stop { stop-color: var(--fb-tide); }
+.fb .fb-edge stop + stop { stop-color: var(--fb-orchid); }
+.fb .fb-edge rect { fill: none; stroke-width: 1.5; }
+.fb .fb-edge .bs { stroke: rgba(255,255,255,.12); }
+.fb .fb-edge .hd { stroke: #effcff; stroke-width: 2; stroke-linecap: round; opacity: 0; }
+.fb .dr-frame.busy iframe { opacity: .12; }
+.fb .dr-frame.busy::after { content: attr(data-busy); position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 24px; text-align: center; font-size: 15px; letter-spacing: -.01em; color: var(--c-ink); pointer-events: none; }
+
+/* the designs as a row of names; the one showing is underlined in light */
+.fb .fb-tabs { display: flex; flex-wrap: wrap; column-gap: 22px; margin-top: 6px; }
+.fb .fb-tab { position: relative; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 16px; letter-spacing: -.01em; color: var(--c-slate); cursor: pointer; transition: color .2s; }
+.fb .fb-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: 9px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--fb-tide), var(--fb-orchid)); transform: scaleX(0); transform-origin: left center; transition: transform .5s var(--out); }
+.fb .fb-tab[aria-pressed="true"] { color: var(--c-ink); }
+@media (hover: hover) { .fb .fb-tab:not(:disabled):hover { color: var(--c-ink); } }
+.fb .fb-tab[aria-pressed="true"]::after { transform: none; }
+.fb .fb-tab:disabled { cursor: default; }
+.fb .fb-tab:disabled:not([aria-pressed="true"]) { color: #55555e; }
+.fb .fb-tog { color: var(--c-fog); text-decoration: underline; text-decoration-color: var(--c-line-strong); text-underline-offset: 4px; }
+.fb .fb-tog::after { display: none; }
+
+/* the example: what was typed, set like a label */
+.fb #example { margin-top: 56px; }
+.fb .fb-cap { margin: 18px 0 0; font-size: 14px; line-height: 1.5; color: var(--c-fog); }
+.fb .fb-said { margin: 8px 0 0; font-size: 14px; }
+.fb .fb-said > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--c-line); }
+.fb .fb-said > div:last-child { border-bottom: 1px solid var(--c-line); }
+.fb .fb-said dt { color: var(--c-slate); }
+.fb .fb-said dd { margin: 0; color: var(--c-ink); }
+.fb .fb-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; margin: 8px 0 0; }
+.fb .fb-link, .fb .dr-sample { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 15px; line-height: 1.3; color: var(--c-ink); text-decoration: underline; text-decoration-color: rgba(255,255,255,.28); text-underline-offset: 4px; cursor: pointer; transition: text-decoration-color .2s; }
+@media (hover: hover) { .fb .fb-link:hover, .fb .dr-sample:hover { color: var(--c-ink); text-decoration-color: var(--fb-tide); } }
+@media (max-width: 1023px) {
+  .fb #exFrame { cursor: pointer; }
+  .fb #exFrame iframe { pointer-events: none; }
+}
+
+/* while it builds: the name forms from light in the frame */
+.fb #scan { padding-top: 26px; }
+.fb #scanTitle { text-wrap: balance; }
+.fb #scan .fb-phone { height: max(360px, calc(100svh - 250px)); }
+.fb #scanLabel, .fb #scan .f25-meter, .fb #scan .f25-log { display: none; }
+.fb .fb-forming { background: #0b0b0e; }
+.fb .fb-forming canvas { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 0 2px color-mix(in srgb, var(--fb-tide) 40%, transparent)); }
+.fb .fb-name { position: absolute; left: 8%; right: 8%; top: 50%; margin: 0; transform: translateY(-50%); font-size: clamp(40px, 12vw, 64px); line-height: .92; letter-spacing: -.04em; font-weight: 700; color: var(--c-ink); overflow-wrap: anywhere; transition: opacity .4s; }
+.fb .fb-swarm .fb-name { opacity: 0; }
+.fb #fbBuild.fb-out canvas { opacity: 0; transition: opacity .38s cubic-bezier(.4,0,1,1); }
+.fb .fb-prog { position: relative; height: 2px; margin-top: 18px; border-radius: 2px; background: var(--c-line); overflow: hidden; }
+.fb .fb-prog span { position: absolute; inset: 0; transform: scaleX(.06); transform-origin: left center; background: linear-gradient(90deg, var(--fb-tide), var(--fb-orchid)); transition: transform .9s var(--out), background .3s; }
+.fb .fb-prog.done span { background: var(--fb-tide); }
+.fb .fb-step { min-height: 1.5em; margin: 10px 0 0; font-size: 14px; color: var(--c-fog); }
+
+/* the result */
+.fb .dr-head { padding-top: 26px; }
+.fb .dr-head .h1 { margin-top: 0; font-size: clamp(38px, 10vw, 60px); letter-spacing: -.04em; }
+.fb .fb-show .fb-cap { margin-top: 12px; }
+.fb .dr-designs { margin-top: 18px; }
+.fb .dr-keep { margin-top: 26px; }
+.fb .dr-keep .btn { width: 100%; }
+.fb .sticky-ask { padding: 8px 8px 8px 20px; border-radius: 999px; background: #0e0e11; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+@media (min-width: 1024px) {
+  .fb main { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 400px); column-gap: clamp(64px, 8vw, 136px); justify-content: center; align-items: start; padding: 0 40px; }
+  .fb main > * { grid-column: 1 / -1; }
+  .fb main > #intro, .fb main > #formWrap, .fb main > #fbStack { grid-column: 1; width: 100%; max-width: none; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
+  .fb main > #example { grid-column: 2; grid-row: 1 / span 3; position: sticky; top: 28px; width: 100%; max-width: none; margin: 30px 0 0; padding: 0; }
+  .fb #intro { padding-top: 64px; }
+  .fb .fb-phone { height: min(760px, calc(100svh - 240px)); }
+  .fb main > #scan, .fb main > #result, .fb main > #whoWrap { width: 100%; }
+  .fb main > #scan, .fb main > #result { max-width: none; }
+  .fb #scan .fb-phone, .fb #free .fb-show .dr-frame { height: min(720px, calc(100svh - 230px)); min-height: 440px; aspect-ratio: auto; max-height: none; border-radius: 22px; }
+  .fb #result > :not(#free), .fb #free > :not(.fb-show), .fb #scanTitle { max-width: 600px; }
+  .fb .dr-keep .btn { width: auto; min-width: 340px; }
+  .fb .dr-keep .center { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fb *, .fb *::after { transition-duration: .01ms !important; }
+}

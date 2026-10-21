@@ -23,7 +23,7 @@
     <% if (userPlan.key !== 'free' && !user.cancelAt) { %>
       <form method="post" action="/app/billing/cancel" class="delete-instead">
         <input type="hidden" name="intent" value="cancel">
-        <button class="btn sm">Cancel instead and keep access until <%= fmtDate(user.periodEnd) || 'the end of the month you paid for' %></button>
+        <button class="btn sm" style="white-space:normal;text-align:left;height:auto;line-height:1.35;padding-block:10px">Cancel instead and keep access until <%= fmtDate(user.periodEnd) || 'the end of the month you paid for' %></button>
       </form>
     <% } else if (userPlan.key !== 'free' && user.cancelAt) { %>
       <p class="small muted">Your plan is cancelled and access runs until <%= fmtDate(user.cancelAt) %>. To use that time, delete your account after then.</p>

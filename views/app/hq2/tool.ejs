@@ -1,0 +1,39 @@
+<%- include('../../partials/app-head') %>
+<%# One native tool (lib/tools, HQ_TOOLS). The page is drawn by public/js/tools/<id>.js over the member's saved
+    document (state.data, null before first use) and what their other tools say (state.linked). Without scripts it
+    says so; nothing here works as a plain form. %>
+<div class="hq h2 tl">
+  <%- include('../../partials/hq2-nav') %>
+  <header class="tl-head">
+    <a class="tl-back" href="/app/hq/tools">Tools</a>
+    <h1 class="hq-title"><span class="steel"><%= tool.title %></span></h1>
+    <p class="hq-lede"><%= tool.line %></p>
+  </header>
+  <% if (!open) { %>
+  <div class="tl-lock"><p>This tool comes with Builder. You can try it here, but nothing you type is saved. <a class="link" href="/app/billing">See Builder</a></p></div>
+  <% } %>
+  <div class="tl-app" id="tool" data-tool="<%= tool.id %>">
+    <noscript><p class="h2-sub">This tool needs JavaScript turned on.</p></noscript>
+  </div>
+  <% if (tool.device) { %>
+  <footer class="tl-bar">
+    <span class="tl-saved" id="tool-saved" role="status" aria-live="polite">Kept on this device only</span>
+    <button type="button" class="tl-act" id="tool-export">Export CSV</button>
+    <button type="button" class="tl-act" id="tool-clear">Clear from this device</button>
+  </footer>
+  <% } else if (open) { %>
+  <footer class="tl-bar">
+    <span class="tl-saved" id="tool-saved" role="status" aria-live="polite"></span>
+    <a class="tl-act" href="/app/hq/tools/<%= tool.id %>/export.csv">Export CSV</a>
+    <form method="post" action="/app/hq/tools/<%= tool.id %>/clear" data-confirm="Start over? Everything you typed in <%= tool.title %> is deleted."><button class="tl-act">Start over</button></form>
+  </footer>
+  <% } %>
+  <nav class="tl-more" aria-label="Other tools">
+    <% others.forEach(function (o) { %><a href="/app/hq/tools/<%= o.id %>"><%= o.title %></a><% }) %>
+  </nav>
+</div>
+<script type="application/json" id="tool-state"><%- JSON.stringify(state).replace(/</g, '\\u003c') %></script>
+<script src="/js/tools/kit.js" defer></script>
+<script src="/js/tools/<%= tool.id %>.js" defer></script>
+<script src="/js/hq2.js" defer></script>
+<%- include('../../partials/app-foot') %>

@@ -9,6 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const { check } = require('../lib/copy-check');
+const { finePrint } = require('../lib/fine-print');
 
 const ROOT = path.join(__dirname, '..');
 // Legal pages must say "no guarantee", so they're out. So are the member library and the tools' prompts.
@@ -48,6 +49,7 @@ function run(files, opts = {}) {
   for (const p of files) {
     const text = fs.readFileSync(p, 'utf8');
     for (const f of check(text, { file: p, date: opts.date, paid: opts.paid || isPaidCopy(p), footerHasEarnings: footerHasEarnings(p) })) found.push({ file: path.relative(ROOT, p), ...f });
+    for (const f of finePrint(text, { file: p })) found.push({ file: path.relative(ROOT, p), ...f });
   }
   return found;
 }

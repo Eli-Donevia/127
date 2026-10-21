@@ -1,0 +1,797 @@
+{
+ "source": "product/templates manifest.json checklists (item ids stable)",
+ "lists": [
+  {
+   "id": "launch-countdown",
+   "title": "Launch Countdown",
+   "summary": "Every step from picking a launch date to the week after launch, with a do-by date for each so nothing important gets missed.",
+   "dated": true,
+   "groups": [
+    {
+     "key": "today",
+     "title": "Today",
+     "due": -14,
+     "items": [
+      {
+       "id": "launch-countdown.today.1",
+       "text": "Pick a launch date about 14 days out and put it on your calendar."
+      },
+      {
+       "id": "launch-countdown.today.2",
+       "text": "Text three people the date and ask them to check in on you."
+      },
+      {
+       "id": "launch-countdown.today.3",
+       "text": "Copy this countdown into Google Sheets, Notion or your notes app."
+      }
+     ]
+    },
+    {
+     "key": "t14",
+     "title": "Two weeks before: set up the foundation",
+     "due": -8,
+     "items": [
+      {
+       "id": "launch-countdown.t14.1",
+       "text": "Finish your One-Page Offer."
+      },
+      {
+       "id": "launch-countdown.t14.2",
+       "text": "Fill in your Landing Page Brief and build the page."
+      },
+      {
+       "id": "launch-countdown.t14.3",
+       "text": "Run the five-point pre-launch check on your phone."
+      },
+      {
+       "id": "launch-countdown.t14.4",
+       "text": "Set up payments: Shopify Payments for a store, or a payment link for a service."
+      },
+      {
+       "id": "launch-countdown.t14.5",
+       "text": "Make a real payment with your own card, then refund it."
+      },
+      {
+       "id": "launch-countdown.t14.6",
+       "text": "Look into registering your business. Check your local rules or ask a professional. This isn't legal or tax advice."
+      },
+      {
+       "id": "launch-countdown.t14.7",
+       "text": "Set up a separate way to track business money. See Before You Take Money."
+      },
+      {
+       "id": "launch-countdown.t14.8",
+       "text": "Write your delivery steps: everything that happens after someone pays."
+      },
+      {
+       "id": "launch-countdown.t14.9",
+       "text": "Do one full test delivery with a friend."
+      }
+     ]
+    },
+    {
+     "key": "t7",
+     "title": "One week before: warm up your list",
+     "due": -1,
+     "items": [
+      {
+       "id": "launch-countdown.t7.1",
+       "text": "Write your warm list in the Pipeline Tracker. Aim for 30 names."
+      },
+      {
+       "id": "launch-countdown.t7.2",
+       "text": "Mark the 10 people most likely to buy."
+      },
+      {
+       "id": "launch-countdown.t7.3",
+       "text": "Send those 10 a personal heads-up and ask if you can send them the link first."
+      },
+      {
+       "id": "launch-countdown.t7.4",
+       "text": "Post once about what you're building and why."
+      },
+      {
+       "id": "launch-countdown.t7.5",
+       "text": "Draft your launch post, your launch DM and your launch story."
+      },
+      {
+       "id": "launch-countdown.t7.6",
+       "text": "Write the welcome message every new customer gets."
+      },
+      {
+       "id": "launch-countdown.t7.7",
+       "text": "Write your three feedback questions."
+      },
+      {
+       "id": "launch-countdown.t7.8",
+       "text": "Open the Objection Log so you can capture every \"but\" during launch week."
+      }
+     ]
+    },
+    {
+     "key": "d1",
+     "title": "Launch day",
+     "due": 0,
+     "items": [
+      {
+       "id": "launch-countdown.d1.1",
+       "text": "Send personal DMs to your top 10. One at a time, never a group message."
+      },
+      {
+       "id": "launch-countdown.d1.2",
+       "text": "Post your launch post and your story."
+      },
+      {
+       "id": "launch-countdown.d1.3",
+       "text": "Reply to every comment and DM the same day."
+      },
+      {
+       "id": "launch-countdown.d1.4",
+       "text": "Log every reply and sale in the Pipeline Tracker."
+      }
+     ]
+    },
+    {
+     "key": "d2",
+     "title": "Day 2",
+     "due": 1,
+     "items": [
+      {
+       "id": "launch-countdown.d2.1",
+       "text": "Message the next 20 people on your warm list."
+      },
+      {
+       "id": "launch-countdown.d2.2",
+       "text": "Ask your day 1 buyers if they know one person who'd want this."
+      }
+     ]
+    },
+    {
+     "key": "d3",
+     "title": "Day 3",
+     "due": 2,
+     "items": [
+      {
+       "id": "launch-countdown.d3.1",
+       "text": "Post something useful about the problem you solve, like a before and after or a quick tip."
+      },
+      {
+       "id": "launch-countdown.d3.2",
+       "text": "Log every objection you've heard so far in the Objection Log."
+      }
+     ]
+    },
+    {
+     "key": "d4",
+     "title": "Day 4",
+     "due": 3,
+     "items": [
+      {
+       "id": "launch-countdown.d4.1",
+       "text": "Send one short, friendly follow-up to every maybe and every no-reply."
+      }
+     ]
+    },
+    {
+     "key": "d5",
+     "title": "Day 5",
+     "due": 4,
+     "items": [
+      {
+       "id": "launch-countdown.d5.1",
+       "text": "Deliver to your first customers with extra care. Over-deliver on the first orders."
+      }
+     ]
+    },
+    {
+     "key": "d6",
+     "title": "Day 6",
+     "due": 5,
+     "items": [
+      {
+       "id": "launch-countdown.d6.1",
+       "text": "Post a real update: what happened and what you learned."
+      },
+      {
+       "id": "launch-countdown.d6.2",
+       "text": "Share a customer result only with their permission."
+      }
+     ]
+    },
+    {
+     "key": "d7",
+     "title": "Day 7",
+     "due": 6,
+     "items": [
+      {
+       "id": "launch-countdown.d7.1",
+       "text": "Count messages sent, replies, sales and objections."
+      },
+      {
+       "id": "launch-countdown.d7.2",
+       "text": "Write down the one thing you'll change next week."
+      }
+     ]
+    },
+    {
+     "key": "after",
+     "title": "The week after: ask, learn, decide",
+     "due": 13,
+     "items": [
+      {
+       "id": "launch-countdown.after.1",
+       "text": "Thank every customer within three days of delivery."
+      },
+      {
+       "id": "launch-countdown.after.2",
+       "text": "Ask every customer: What almost stopped you from buying? What was the best part? What would you change?"
+      },
+      {
+       "id": "launch-countdown.after.3",
+       "text": "Ask happy customers if you can share their words or a photo. Use only what they approve."
+      },
+      {
+       "id": "launch-countdown.after.4",
+       "text": "Ask every non-buyer: What would have made it a yes?"
+      },
+      {
+       "id": "launch-countdown.after.5",
+       "text": "Update your FAQ and landing page from the Objection Log."
+      },
+      {
+       "id": "launch-countdown.after.6",
+       "text": "Find the message, post or person that drove the most sales, and ask why it worked."
+      },
+      {
+       "id": "launch-countdown.after.7",
+       "text": "Pick one thing to do more of next week."
+      },
+      {
+       "id": "launch-countdown.after.8",
+       "text": "Set up simple revenue and expense tracking, and ask a professional about taxes where you live."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "money-setup-checklist",
+   "title": "Before You Take Money",
+   "summary": "Set up payments, separate business money, keep simple records and write down your promises before your first customer pays you.",
+   "dated": false,
+   "groups": [
+    {
+     "key": "pay",
+     "title": "Payments",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.pay.1",
+       "text": "Pick one processor for what you sell: Shopify for a store, a payment link for a service, a card reader in person."
+      },
+      {
+       "id": "money-setup-checklist.pay.2",
+       "text": "Check current fees and payout timing on the processor's own site."
+      },
+      {
+       "id": "money-setup-checklist.pay.3",
+       "text": "Connect the account your payouts will go to."
+      },
+      {
+       "id": "money-setup-checklist.pay.4",
+       "text": "Make a real payment with your own card."
+      },
+      {
+       "id": "money-setup-checklist.pay.5",
+       "text": "Refund that payment and confirm the refund went through."
+      },
+      {
+       "id": "money-setup-checklist.pay.6",
+       "text": "Turn on alerts so you know when money comes in."
+      }
+     ]
+    },
+    {
+     "key": "under18",
+     "title": "If you're under 18",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.under18.1",
+       "text": "Read each processor's current age rules before you sign up."
+      },
+      {
+       "id": "money-setup-checklist.under18.2",
+       "text": "Ask a parent or guardian to open the account, or be added as its owner, if the rules require it."
+      },
+      {
+       "id": "money-setup-checklist.under18.3",
+       "text": "Agree together on who can see the account and where payouts land."
+      },
+      {
+       "id": "money-setup-checklist.under18.4",
+       "text": "Ask the same age question about any bank account for business money."
+      },
+      {
+       "id": "money-setup-checklist.under18.5",
+       "text": "Ask a professional whether being under 18 changes anything else for you."
+      },
+      {
+       "id": "money-setup-checklist.under18.6",
+       "text": "Never fake your age or use someone else's details to get around the rules."
+      }
+     ]
+    },
+    {
+     "key": "separate",
+     "title": "Keep business money separate",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.separate.1",
+       "text": "Ask a professional which setup fits you, like a separate account or a business account."
+      },
+      {
+       "id": "money-setup-checklist.separate.2",
+       "text": "Send every business payment to that one place."
+      },
+      {
+       "id": "money-setup-checklist.separate.3",
+       "text": "Pay business costs from there, and never personal ones."
+      },
+      {
+       "id": "money-setup-checklist.separate.4",
+       "text": "Store your logins in a password manager."
+      }
+     ]
+    },
+    {
+     "key": "records",
+     "title": "Records from day one",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.records.1",
+       "text": "Make a simple sheet: date, what, sale or expense, amount, receipt link."
+      },
+      {
+       "id": "money-setup-checklist.records.2",
+       "text": "Log every sale and every expense the day it happens, even small ones."
+      },
+      {
+       "id": "money-setup-checklist.records.3",
+       "text": "Make one receipts folder and save a photo of every receipt."
+      },
+      {
+       "id": "money-setup-checklist.records.4",
+       "text": "Check the sheet against your payment app once a week."
+      }
+     ]
+    },
+    {
+     "key": "ask",
+     "title": "Questions for a local professional",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.ask.1",
+       "text": "Ask: do I need to register this business where I live?"
+      },
+      {
+       "id": "money-setup-checklist.ask.2",
+       "text": "Ask: do I need to register my business name, and can I use it?"
+      },
+      {
+       "id": "money-setup-checklist.ask.3",
+       "text": "Ask: does what I sell need a permit or license?"
+      },
+      {
+       "id": "money-setup-checklist.ask.4",
+       "text": "Ask: do I need to collect sales tax, and on what?"
+      },
+      {
+       "id": "money-setup-checklist.ask.5",
+       "text": "Ask: how is this income taxed for me, and how much should I set aside?"
+      },
+      {
+       "id": "money-setup-checklist.ask.6",
+       "text": "Ask: which records should I keep, and for how long?"
+      },
+      {
+       "id": "money-setup-checklist.ask.7",
+       "text": "Write down each answer, who gave it and the date."
+      }
+     ]
+    },
+    {
+     "key": "promise",
+     "title": "Your promises",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.promise.1",
+       "text": "Test your delivery time on a real order before you promise it."
+      },
+      {
+       "id": "money-setup-checklist.promise.2",
+       "text": "Write your refund policy, and how many days buyers have to change their mind, in two or three sentences."
+      },
+      {
+       "id": "money-setup-checklist.promise.3",
+       "text": "Put that policy where buyers see it before they pay."
+      },
+      {
+       "id": "money-setup-checklist.promise.4",
+       "text": "Write what happens after someone pays, step by step, starting with the confirmation message."
+      },
+      {
+       "id": "money-setup-checklist.promise.5",
+       "text": "Decide how you'll handle a refund request before the first one comes in."
+      }
+     ]
+    },
+    {
+     "key": "privacy",
+     "title": "Customer info",
+     "due": null,
+     "items": [
+      {
+       "id": "money-setup-checklist.privacy.1",
+       "text": "Collect only what you need to deliver: name, contact and order details."
+      },
+      {
+       "id": "money-setup-checklist.privacy.2",
+       "text": "Keep customer info in one private place, like your Pipeline Tracker, and never share or sell it."
+      },
+      {
+       "id": "money-setup-checklist.privacy.3",
+       "text": "Never store card numbers yourself. Your processor handles them."
+      },
+      {
+       "id": "money-setup-checklist.privacy.4",
+       "text": "Ask before you add anyone to an email list."
+      },
+      {
+       "id": "money-setup-checklist.privacy.5",
+       "text": "Get permission before you post a customer's photo or words."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "page-leak-audit",
+   "title": "Landing Page Leak Audit",
+   "summary": "Run 24 quick checks on a page people visit but don't buy from, find the three biggest leaks and fix them one at a time.",
+   "dated": false,
+   "groups": [
+    {
+     "key": "clarity",
+     "title": "Clarity",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.clarity.1",
+       "text": "Show the page to a stranger for five seconds, then ask what you sell and who it's for."
+      },
+      {
+       "id": "page-leak-audit.clarity.2",
+       "text": "Make the headline the result customers want, in their words."
+      },
+      {
+       "id": "page-leak-audit.clarity.3",
+       "text": "Make the subhead say who it's for and how it works."
+      }
+     ]
+    },
+    {
+     "key": "mobile",
+     "title": "Mobile",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.mobile.1",
+       "text": "Open the page on your phone."
+      },
+      {
+       "id": "page-leak-audit.mobile.2",
+       "text": "Check the button shows without scrolling."
+      },
+      {
+       "id": "page-leak-audit.mobile.3",
+       "text": "Check every block reads cleanly, with nothing cut off."
+      },
+      {
+       "id": "page-leak-audit.mobile.4",
+       "text": "Load it on mobile data. If you're waiting, shrink or cut images."
+      }
+     ]
+    },
+    {
+     "key": "offer",
+     "title": "Offer",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.offer.1",
+       "text": "List exactly what they get."
+      },
+      {
+       "id": "page-leak-audit.offer.2",
+       "text": "Frame the price as the smallest true number, like per week or per session."
+      },
+      {
+       "id": "page-leak-audit.offer.3",
+       "text": "Offer only a refund window you can honor every time."
+      },
+      {
+       "id": "page-leak-audit.offer.4",
+       "text": "Promise only a delivery time you've already tested."
+      }
+     ]
+    },
+    {
+     "key": "proof",
+     "title": "Proof",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.proof.1",
+       "text": "Show only real proof: conversations, photos of real work, pilot results, your story."
+      },
+      {
+       "id": "page-leak-audit.proof.2",
+       "text": "Delete any number, review or logo you can't back up."
+      },
+      {
+       "id": "page-leak-audit.proof.3",
+       "text": "Get permission for every customer quote and photo."
+      }
+     ]
+    },
+    {
+     "key": "objection",
+     "title": "Objections",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.objection.1",
+       "text": "Pull your top three objections from your Objection Log or your DMs."
+      },
+      {
+       "id": "page-leak-audit.objection.2",
+       "text": "Answer all three plainly on the page."
+      }
+     ]
+    },
+    {
+     "key": "action",
+     "title": "Action",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.action.1",
+       "text": "Use one call to action: one button, one next step."
+      },
+      {
+       "id": "page-leak-audit.action.2",
+       "text": "Repeat that same button at the top and the bottom."
+      },
+      {
+       "id": "page-leak-audit.action.3",
+       "text": "Tap every button and link on your phone."
+      },
+      {
+       "id": "page-leak-audit.action.4",
+       "text": "Complete a real purchase or booking, then refund or cancel it."
+      }
+     ]
+    },
+    {
+     "key": "followup",
+     "title": "Follow-up",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.followup.1",
+       "text": "Check the buyer gets a confirmation message right away."
+      },
+      {
+       "id": "page-leak-audit.followup.2",
+       "text": "Check you get notified of every sale, booking or form."
+      }
+     ]
+    },
+    {
+     "key": "tracking",
+     "title": "Tracking",
+     "due": null,
+     "items": [
+      {
+       "id": "page-leak-audit.tracking.1",
+       "text": "Write down this week's visits and leads from your Weekly Founder Scorecard."
+      },
+      {
+       "id": "page-leak-audit.tracking.2",
+       "text": "Work out visits to leads (leads divided by visits). That's your before number."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "batch-day",
+   "title": "Batch Day",
+   "summary": "Film a full week of short videos in one two-hour block: plan, film, edit and schedule five posts, with a shot list that keeps you on track.",
+   "dated": false,
+   "groups": [
+    {
+     "key": "before",
+     "title": "Before you start",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.before.1",
+       "text": "Put your two-hour slot on the calendar, same time every week."
+      },
+      {
+       "id": "batch-day.before.2",
+       "text": "Charge your phone and clear space for video."
+      },
+      {
+       "id": "batch-day.before.3",
+       "text": "Clean the camera lens."
+      },
+      {
+       "id": "batch-day.before.4",
+       "text": "Pick one spot with window light facing you."
+      },
+      {
+       "id": "batch-day.before.5",
+       "text": "Pull last week's comments and DMs for post ideas."
+      },
+      {
+       "id": "batch-day.before.6",
+       "text": "Open your three pillars and your Hook Bank, or a note of hooks you've saved."
+      }
+     ]
+    },
+    {
+     "key": "plan",
+     "title": "Plan (15 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.plan.1",
+       "text": "Write five hooks, with at least one from each pillar."
+      },
+      {
+       "id": "batch-day.plan.2",
+       "text": "Fill each hook's blanks with your customers' exact words."
+      },
+      {
+       "id": "batch-day.plan.3",
+       "text": "Write a one-line outline under each hook."
+      },
+      {
+       "id": "batch-day.plan.4",
+       "text": "Pick one format per post."
+      },
+      {
+       "id": "batch-day.plan.5",
+       "text": "Fill in the shot list below."
+      }
+     ]
+    },
+    {
+     "key": "film",
+     "title": "Film (45 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.film.1",
+       "text": "Set the phone at eye level and lock focus."
+      },
+      {
+       "id": "batch-day.film.2",
+       "text": "Record a 10-second test and check the sound."
+      },
+      {
+       "id": "batch-day.film.3",
+       "text": "Film all five back to back in the same spot."
+      },
+      {
+       "id": "batch-day.film.4",
+       "text": "Start talking on the first frame. No warm-up."
+      },
+      {
+       "id": "batch-day.film.5",
+       "text": "Shoot each hook two or three ways."
+      },
+      {
+       "id": "batch-day.film.6",
+       "text": "Grab extra clips: hands at work, before and after, your setup."
+      }
+     ]
+    },
+    {
+     "key": "edit",
+     "title": "Edit in CapCut (45 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.edit.1",
+       "text": "Pick the best take of each hook."
+      },
+      {
+       "id": "batch-day.edit.2",
+       "text": "Cut every pause and every 'um'."
+      },
+      {
+       "id": "batch-day.edit.3",
+       "text": "Add auto captions and fix any wrong words."
+      },
+      {
+       "id": "batch-day.edit.4",
+       "text": "Put the hook on screen in the first two seconds."
+      },
+      {
+       "id": "batch-day.edit.5",
+       "text": "Keep each video under 45 seconds."
+      },
+      {
+       "id": "batch-day.edit.6",
+       "text": "Watch each one on your phone with the sound off."
+      }
+     ]
+    },
+    {
+     "key": "post",
+     "title": "Captions and schedule (15 minutes)",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.post.1",
+       "text": "Write a short caption for each post."
+      },
+      {
+       "id": "batch-day.post.2",
+       "text": "Give each post one call to action: follow, comment or DM."
+      },
+      {
+       "id": "batch-day.post.3",
+       "text": "Schedule all five with the platform's own scheduler."
+      },
+      {
+       "id": "batch-day.post.4",
+       "text": "Check the days match your posting rhythm."
+      }
+     ]
+    },
+    {
+     "key": "after",
+     "title": "After",
+     "due": null,
+     "items": [
+      {
+       "id": "batch-day.after.1",
+       "text": "Log each post in your 30-Day Content Planner."
+      },
+      {
+       "id": "batch-day.after.2",
+       "text": "Reply to every comment within a day."
+      },
+      {
+       "id": "batch-day.after.3",
+       "text": "Write down every question people ask. That's next week's batch."
+      },
+      {
+       "id": "batch-day.after.4",
+       "text": "Fill in the format tracker 48 hours after each post."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

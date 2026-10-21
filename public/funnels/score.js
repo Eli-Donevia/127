@@ -329,7 +329,7 @@
       for (var gy = 0; gy <= H; gy += 72) { x.beginPath(); x.moveTo(0, gy + .5); x.lineTo(W, gy + .5); x.stroke(); }
       var fade = x.createLinearGradient(0, 0, 0, H); fade.addColorStop(0, 'rgba(6,6,7,0)'); fade.addColorStop(.45, 'rgba(6,6,7,.85)'); fade.addColorStop(1, 'rgba(6,6,7,1)');
       x.fillStyle = fade; x.fillRect(0, 0, W, H);
-      var glow = x.createRadialGradient(W / 2, 260, 0, W / 2, 260, 700); glow.addColorStop(0, 'rgba(184,191,255,0.18)'); glow.addColorStop(1, 'rgba(184,191,255,0)');
+      var glow = x.createRadialGradient(W / 2, 260, 0, W / 2, 260, 700); glow.addColorStop(0, 'rgba(124, 235, 246,0.18)'); glow.addColorStop(1, 'rgba(124, 235, 246,0)');
       x.fillStyle = glow; x.fillRect(0, 0, W, H);
 
       var L = 96;
@@ -353,8 +353,8 @@
       // band chip
       x.font = '500 26px ' + SANS;
       var chip = r.band.label.toUpperCase(), cw = spacedWidth(x, chip, 5) + 56;
-      roundRect(x, W - L - cw, y + 92, cw, 64, 32); x.strokeStyle = 'rgba(184,191,255,0.45)'; x.lineWidth = 2; x.stroke();
-      spaced(x, chip, W - L - cw + 28, y + 133, '500 26px ' + SANS, '#b8bfff', 5);
+      roundRect(x, W - L - cw, y + 92, cw, 64, 32); x.strokeStyle = 'rgba(124, 235, 246,0.45)'; x.lineWidth = 2; x.stroke();
+      spaced(x, chip, W - L - cw + 28, y + 133, '500 26px ' + SANS, '#7cebf6', 5);
       // bars
       var by = y + 270, bw = W - L * 2 - 260 - 150;
       Object.keys(S.dims).forEach(function (d, i) {
@@ -362,7 +362,7 @@
         x.font = '500 36px ' + SANS; x.fillStyle = d === r.weakest ? '#ededf2' : '#b3b3bd'; x.fillText(S.dims[d], L, yy);
         roundRect(x, L + 260, yy - 18, bw, 14, 7); x.fillStyle = '#1b1b20'; x.fill();
         var fw = Math.max(14, bw * r.dims[d] / 20);
-        roundRect(x, L + 260, yy - 18, fw, 14, 7); x.fillStyle = d === r.weakest ? '#b8bfff' : '#e3e6f1'; x.fill();
+        roundRect(x, L + 260, yy - 18, fw, 14, 7); x.fillStyle = d === r.weakest ? '#7cebf6' : '#e3e6f1'; x.fill();
         x.font = '500 30px ' + MONO; x.fillStyle = '#7b7b86'; x.textAlign = 'right'; x.fillText(r.dims[d] + '/20', W - L, yy); x.textAlign = 'left';
       });
       // tagline
@@ -372,7 +372,7 @@
       // footer
       x.strokeStyle = 'rgba(255,255,255,0.1)'; x.lineWidth = 2; x.beginPath(); x.moveTo(L, H - 230); x.lineTo(W - L, H - 230); x.stroke();
       x.font = '600 46px ' + SANS; x.fillStyle = '#ededf2'; x.fillText('What kind of founder are you?', L, H - 150);
-      x.font = '500 36px ' + MONO; x.fillStyle = '#b8bfff'; x.fillText('127group.io/score', L, H - 92);
+      x.font = '500 36px ' + MONO; x.fillStyle = '#7cebf6'; x.fillText('127group.io/score', L, H - 92);
       return c;
     });
   }

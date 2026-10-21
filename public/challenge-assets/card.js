@@ -5,7 +5,7 @@
   'use strict';
   var W = 1080, H = 1920, CX = W / 2, PAD = 96, IMG = '/challenge-assets/img/';
   var SANS = 'Geist, "Helvetica Neue", Arial, sans-serif', MONO = '"Geist Mono", ui-monospace, Menlo, monospace';
-  var INK = '#ededf2', FOG = '#b4b4be', SLATE = '#7e7e89', SIGNAL = '#86d6ad', BG = '#060607';
+  var INK = '#ededf2', FOG = '#b4b4be', SLATE = '#7e7e89', SIGNAL = '#7cebf6', BG = '#060607';
   var STEEL = [[0, '#ffffff'], [0.55, '#c9cad3'], [1, '#7f808c']], DIM = [[0, '#8f92a0'], [1, '#616472']];
   var MOVES = ['Pick one', 'Find 10 people', 'Have the conversation', 'Write the offer', 'Ask for a yes'];
   var LABELS = { 1: 'Day 1 \u00b7 Picked one', 2: 'Day 2 \u00b7 10 names, 3 asks', 3: 'Day 3 \u00b7 Had the conversation', 4: 'Day 4 \u00b7 Wrote the offer', 5: 'Day 5 \u00b7 Asked for a yes', finisher: 'Day One finisher \u00b7 5 of 5' };
@@ -110,7 +110,7 @@
     if (v2()) return;
     x.save(); x.translate(CX, 0); x.scale(1, 575 / 450);
     var g = x.createRadialGradient(0, 0, 0, 0, 0, 450);
-    for (var i = 0; i <= 10; i++) g.addColorStop(i / 10, 'rgba(184,191,255,' + (0.24 * Math.pow(1 - i / 10, 1.25)).toFixed(4) + ')');
+    for (var i = 0; i <= 10; i++) g.addColorStop(i / 10, 'rgba(124, 235, 246,' + (0.24 * Math.pow(1 - i / 10, 1.25)).toFixed(4) + ')');
     x.fillStyle = g; x.fillRect(-CX, 0, W, 470); x.restore();
     var seg = 6, gx, gy, p;
     for (gx = 45; gx < W; gx += 90) for (p = 0; p < 1152; p += seg) gridSeg(x, gx, p, 1, seg, gx, p + seg / 2);

@@ -3,7 +3,7 @@
 <div class="card fm-challenge">
   <div class="eyebrow">FREE · <%= launch.challenge.datesShort %></div>
   <h3>Don't wait for <%= launch.launchDate || 'doors to open' %>. Start on the <%= launch.challenge.dates.replace(/^\D+(\d+).*$/, function (m, d) { return d + (/1[123]$/.test(d) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[d.slice(-1)] || 'th'); }) %>.</h3>
-  <p>The Day One Challenge: 5 days, one move a day, about 20 minutes. Finish it and doors open for you an hour early.</p>
+  <p>The Day One Challenge: <%= launch.challenge.days %> days, one move a day, <%= launch.challenge.days === 14 ? 'short steps every day' : 'about 20 minutes' %>. <%= launch.challenge.days === 14 ? 'Finish 12 of the 14' : 'Finish it' %> and doors open for you an hour early.</p>
   <a class="btn ghost sm" href="<%= chHref %>" data-track="Challenge Card Click" data-props='<%- JSON.stringify({ from: chFrom }) %>'>Join the challenge <span class="arrow"></span></a>
 </div>
 <% } %>

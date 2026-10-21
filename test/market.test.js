@@ -12,7 +12,7 @@ process.env.DB_FILE = path.join(__dirname, '..', 'data', `test-db-market-${proce
 process.env.BLOB_DIR = path.join(os.tmpdir(), `127-blobs-market-${process.pid}`);
 process.env.BASE_URL = 'https://127.test';
 process.env.STRIPE_WEBHOOK_SECRET = 'whsec_test_fake';
-for (const k of ['MARKETPLACE', 'ADMIN_EMAILS', 'STRIPE_SECRET_KEY', 'STRIPE_AUTOMATIC_TAX', 'MARKET_FEE_PCT', 'MARKET_FEE_PCT_CIRCLE', 'REFERRALS']) delete process.env[k];
+for (const k of ['MARKETPLACE', 'MARKET_SELLERS', 'ADMIN_EMAILS', 'STRIPE_SECRET_KEY', 'STRIPE_AUTOMATIC_TAX', 'MARKET_FEE_PCT', 'MARKET_FEE_PCT_CIRCLE', 'MARKET_FEE_PCT_FREE', 'MARKET_PAYOUT_DELAY_DAYS', 'REFERRALS']) delete process.env[k];
 process.env.DEMO_BILLING = 'true';
 
 const test = require('node:test');
@@ -95,6 +95,7 @@ test.after(async () => {
 });
 test.beforeEach(() => {
   process.env.MARKETPLACE = 'on';
+  delete process.env.MARKET_SELLERS;
   delete process.env.STRIPE_SECRET_KEY;
   delete process.env.ADMIN_EMAILS;
 });
@@ -109,23 +110,38 @@ test('MARKETPLACE: off is a 404 everywhere; admins shows it to admins only', asy
   assert.equal((await s.go('/market', { as: u })).status, 200);
 });
 
-test('fees: 20% by default, 10% for a Circle seller, both settable', () => {
+test('fees: 20% by default, 10% for a Circle seller, the free plan settable on its own; payouts wait 15 days', () => {
   assert.deepEqual(market.split(29, { tier: 'builder' }), { cents: 2900, fee: 580, net: 2320, pct: 20 });
   assert.equal(market.split(29, { tier: 'circle' }).net, 2610);
+  assert.equal(market.split(29, { tier: 'free' }).fee, 580, 'free sellers pay the same fee unless set');
   process.env.MARKET_FEE_PCT = '15';
   assert.equal(market.split(100, { tier: 'builder' }).fee, 1500);
+  process.env.MARKET_FEE_PCT_FREE = '30';
+  assert.equal(market.split(100, { tier: 'free' }).fee, 3000);
   delete process.env.MARKET_FEE_PCT;
+  delete process.env.MARKET_FEE_PCT_FREE;
+  assert.equal(market.payoutDelay(), 15, 'past the 14-day refund window (L101 MK5)');
 });
 
-test('a free member sees what selling is and the Builder upgrade, and cannot set up a page', async () => {
+test('who can sell (L101 MK1): any member by default; MARKET_SELLERS=paid shows free members a plain note, never a pitch', async () => {
   const u = await member('free');
-  const r = await s.go('/app/sell', { as: u });
-  assert.equal(r.status, 200);
-  const html = await r.text();
-  assert.match(html, /Selling comes with Builder/);
-  assert.match(html, /\/app\/billing\/checkout\/builder/);
+  let html = await (await s.go('/app/sell', { as: u })).text();
+  assert.match(html, /Your creator page/);
+  assert.match(html, /\/terms#13e-selling-on-the-market/);
+  assert.match(html, /Stripe's own terms cover your payout account/);
+  assert.match(html, /Your maker page is public/);
+  assert.doesNotMatch(html, /Builder plan ends/);
   const out = await market.saveSeller(u, { handle: 'freebie', name: 'Free Person', agree: 'on' });
-  assert.ok(out.error);
+  assert.equal(out.seller.agreementVersion, 'terms-13e-2026-10-21');
+
+  process.env.MARKET_SELLERS = 'paid';
+  const v = await member('free');
+  html = await (await s.go('/app/sell', { as: v })).text();
+  const page = html.split('<h1>Sell</h1>')[1].split('Browse the Market')[0];
+  assert.match(page, /open to paid plans for now/);
+  assert.doesNotMatch(page, /checkout\/builder|perk|earn|make money/i);
+  assert.ok((await market.saveSeller(v, { handle: 'freebie-2', name: 'Free Person', agree: 'on' })).error);
+  delete process.env.MARKET_SELLERS;
 });
 
 test('creator page: handle rules, the seller terms box, no claims in the words', async () => {
@@ -190,9 +206,14 @@ test('the whole path: listing, files, cover, checks, review, shelf, a demo sale,
   process.env.ADMIN_EMAILS = admin.email;
   r = await s.go('/admin/market', { as: admin });
   assert.match(await r.text(), /Gym intro-offer emails/);
-  r = await s.go(`/admin/market/${id}/approve`, { as: admin, form: { note: '' } });
+  assert.match(await (await s.go('/admin/market', { as: admin })).text(), /Envato, ThemeForest/);
+  await s.go(`/admin/market/${id}/approve`, { as: admin, form: { note: '' } });
+  assert.equal(market.mine(u, id).status, 'review', 'approving needs the checklist tick (MK13)');
+  r = await s.go(`/admin/market/${id}/approve`, { as: admin, form: { note: '', looked: 'on' } });
   assert.equal(r.status, 303);
   l = market.mine(u, id);
+  assert.equal(l.approvedBy, admin.email);
+  assert.ok(l.approvedAt);
   assert.equal(l.status, 'live');
   assert.ok(market.onShelf(l));
 
@@ -209,6 +230,9 @@ test('the whole path: listing, files, cover, checks, review, shelf, a demo sale,
   assert.match(html, /\/makers\/tulsa-gym/);
   assert.match(await (await s.go('/makers/tulsa-gym')).text(), /Rae Cole/);
   assert.equal(market.forNiche('gyms')[0].slug, l.slug);
+  assert.equal(market.forNiche('gyms')[0].label, 'Made by members', 'never "recommended" (MK17)');
+  assert.match(html, /\/terms#5b-buying-on-the-market/);
+  assert.match(html, /checked by 127 against its rules/);
   process.env.MARKETPLACE = 'admins';
   assert.deepEqual(market.forNiche('gyms'), [], 'niche pages are public, so nothing until fully on');
   process.env.MARKETPLACE = 'on';
@@ -238,11 +262,14 @@ test('the whole path: listing, files, cover, checks, review, shelf, a demo sale,
   // Buyers keep what they paid for.
   assert.equal((await s.go(`/market/${l.slug}/files/${fid}?k=${key}`)).status, 200);
 
-  // A seller whose plan ends comes off the shelf.
-  await market.review(admin, id, 'approve');
+  // Any member sells, so a plan ending keeps the listing up; with MARKET_SELLERS=paid it comes off the shelf.
+  await market.review(admin, id, 'approve', '', { looked: 'on' });
   assert.ok(market.onShelf(market.mine(u, id)));
   await db.save('users', { ...db.get('users', u.id), tier: 'free' });
+  assert.ok(market.onShelf(market.bySlug(l.slug)));
+  process.env.MARKET_SELLERS = 'paid';
   assert.ok(!market.onShelf(market.bySlug(l.slug)));
+  delete process.env.MARKET_SELLERS;
   await db.save('users', { ...db.get('users', u.id), tier: 'builder' });
 
   // A report puts it in front of an admin.
@@ -289,7 +316,7 @@ test('Stripe: a destination charge with 127 fee, the webhook records the order o
   await market.addFile(u, listing.id, 'menu.html', Buffer.from('<h1>Menu</h1>'));
   await market.setCover(u, listing.id, 'image/png', PNG);
   await market.submit(u, listing.id, { rights: 'on' });
-  await market.review({ email: 'a@127.test' }, listing.id, 'approve');
+  await market.review({ email: 'a@127.test' }, listing.id, 'approve', '', { looked: 'on' });
 
   const calls = [];
   billing._setClient({
@@ -307,8 +334,11 @@ test('Stripe: a destination charge with 127 fee, the webhook records the order o
   assert.equal(a.payment_intent_data.transfer_data.destination, 'acct_maker1');
   assert.equal(a.metadata.kind, 'market');
   assert.equal(a.allow_promotion_codes, false);
+  assert.equal(a.billing_address_collection, 'required', 'every Market checkout asks for the address (MK6)');
+  assert.match(a.custom_text.submit.message, /your business and your clients' work/);
+  assert.doesNotMatch(a.custom_text.submit.message, /yours to keep/);
 
-  const cs = { id: 'cs_test_mk', object: 'checkout.session', mode: 'payment', payment_status: 'paid', amount_total: 4000, currency: 'usd', customer_details: { email: 'Guest@Example.com' }, payment_intent: 'pi_mk_1', metadata: { kind: 'market', listing: listing.id, fee_cents: '400' } };
+  const cs = { id: 'cs_test_mk', object: 'checkout.session', mode: 'payment', payment_status: 'paid', amount_total: 4000, currency: 'usd', customer_details: { email: 'Guest@Example.com', name: 'Dana Reyes', address: { country: 'US' } }, payment_intent: 'pi_mk_1', metadata: { kind: 'market', listing: listing.id, fee_cents: '400' } };
   const hook = async (type, object) => {
     const payload = JSON.stringify({ id: `evt_${Math.random()}`, type, data: { object } });
     const header = Stripe.webhooks.generateTestHeaderString({ payload, secret: process.env.STRIPE_WEBHOOK_SECRET });
@@ -323,12 +353,116 @@ test('Stripe: a destination charge with 127 fee, the webhook records the order o
   assert.equal(orders[0].fee, 4);
   assert.equal(orders[0].net, 36);
   assert.equal(orders[0].email, 'guest@example.com');
+  assert.equal(orders[0].buyerFirst, 'Dana', 'the maker sees a first name and country only (MK18)');
+  assert.equal(orders[0].country, 'US');
   const buyer = await member('free', { email: 'guest@example.com' });
   assert.ok(market.owns(buyer, market.bySlug(listing.slug)));
   assert.equal(await hook('charge.refunded', { id: 'ch_1', object: 'charge', payment_intent: 'pi_mk_1', refunded: true, amount_refunded: 4000 }), 200);
   assert.ok(!market.owns(buyer, market.bySlug(listing.slug)));
+
+  // MK6: a billing address outside the US is refunded straight away (maker's share reversed) and never delivered.
+  const refunds = [];
+  billing._setClient({
+    webhooks: new Stripe('sk_test_fake').webhooks,
+    refunds: { create: async (a, o) => (refunds.push([a, o]), { id: 're_1' }) },
+    subscriptions: { retrieve: async () => null },
+  });
+  const abroad = { ...cs, id: 'cs_test_mk_uk', payment_intent: 'pi_mk_uk', customer_details: { email: 'uk@example.com', name: 'Sam Lee', address: { country: 'GB' } } };
+  assert.equal(await hook('checkout.session.completed', abroad), 200);
+  const o = db.get('marketOrders', 'cs_test_mk_uk');
+  assert.equal(o.refused, 'non-us');
+  assert.ok(o.refundedAt);
+  assert.equal(refunds[0][0].payment_intent, 'pi_mk_uk');
+  assert.equal(refunds[0][0].reverse_transfer, true);
+  assert.equal(refunds[0][1].idempotencyKey, 'market-refund-cs_test_mk_uk');
+  assert.equal(market.mine(u, listing.id).sales, 1, 'not counted as a sale');
+  const uk = await member('free', { email: 'uk@example.com' });
+  assert.ok(!market.owns(uk, market.bySlug(listing.slug)));
   delete process.env.STRIPE_SECRET_KEY;
   billing._setClient(null);
+});
+
+test('Legal L101 checks: money, results, pitches, spam tools and health block; praise and unlabeled example money warn', async () => {
+  const u = await member();
+  await market.saveSeller(u, { handle: `checker-${seq}`, name: 'Lee Park', agree: 'on' });
+  await market.payoutsLink(u);
+  const run = async (over, file) => {
+    const { listing } = await market.saveListing(u, null, { ...GOOD, ...over });
+    await market.addFile(u, listing.id, 'one.md', Buffer.from(file || '# One\n\nA plain file.'));
+    await market.setCover(u, listing.id, 'image/png', PNG);
+    const l = market.mine(u, listing.id);
+    return market.check(l, market.sellerFor(u), { fileTexts: await market.fileTexts(l) });
+  };
+  const blockedBy = (c) => c.filter((x) => !x.ok && x.level === 'block').map((x) => x.id);
+  const warnedBy = (c) => c.filter((x) => !x.ok && x.level === 'warn').map((x) => x.id);
+  assert.deepEqual(blockedBy(await run({})), [], 'the good listing passes');
+  assert.ok(blockedBy(await run({ about: `${GOOD.about} A $500 value for $29.` })).includes('money'));
+  assert.ok(blockedBy(await run({ about: `${GOOD.about} Built to land more clients each week.` })).includes('money'));
+  assert.ok(blockedBy(await run({ about: `${GOOD.about} Passive sales while you sleep.` })).includes('money'));
+  assert.ok(blockedBy(await run({ title: 'Start your own gym kit' })).includes('allowed'));
+  // Legal's follow-up: whole words, bookkeeping "income" warns, the variants and wider results phrasing block.
+  assert.deepEqual(blockedBy(await run({ about: `${GOOD.about} Learning the ropes takes a week.` })), []);
+  const books = await run({ title: 'Income statement template' });
+  assert.ok(!blockedBy(books).includes('money') && warnedBy(books).includes('money-words'));
+  for (const w of ['A side hustle in a weekend.', 'Built for 6-figure studios.', 'Proven to fill classes.', 'Stay fully booked.', 'Boost bookings fast.', 'Your path to financial freedom.'])
+    assert.ok(blockedBy(await run({ about: `${GOOD.about} ${w}` })).includes('money'), w);
+  assert.ok(blockedBy(await run({ title: 'Instagram auto DM bot' })).includes('allowed'));
+  assert.ok(blockedBy(await run({ title: '30-day weight loss plan' })).includes('allowed'));
+  assert.ok(warnedBy(await run({ about: `${GOOD.about} Rated 5 stars by 40 gyms.` })).includes('praise'));
+  assert.ok(warnedBy(await run({ title: 'Monthly profit tracker' })).includes('money-words'));
+  assert.ok(warnedBy(await run({}, '# Prices\n\nIntro class $20.')).includes('example-money'));
+  assert.ok(!warnedBy(await run({}, '# Prices\n\nExample: made-up numbers. Intro class $20.')).includes('example-money'));
+});
+
+test('takedowns (MK8, MK12): files stop, buyers are told and refunded on request, three copyright strikes end selling', async () => {
+  const u = await member();
+  const admin = { email: 'admin@127.test' };
+  await market.saveSeller(u, { handle: `pulled-${seq}`, name: 'Kim Vo', agree: 'on' });
+  await market.payoutsLink(u);
+  const live = async (title) => {
+    const { listing } = await market.saveListing(u, null, { ...GOOD, title });
+    await market.addFile(u, listing.id, 'one.md', Buffer.from('# One\n\nA plain file.'));
+    await market.setCover(u, listing.id, 'image/png', PNG);
+    await market.submit(u, listing.id, { rights: 'on' });
+    await market.review(admin, listing.id, 'approve', '', { looked: 'on' });
+    return market.mine(u, listing.id);
+  };
+  const l = await live('Front desk scripts');
+  assert.equal(l.rights.text, market.RIGHTS_TEXT);
+  assert.match(market.RIGHTS_TEXT, /fonts, images, code or AI output/);
+  const r = await s.go(`/market/${l.slug}/buy`, { form: {} });
+  const key = r.headers.get('location').match(/k=([a-f0-9]{64})/)[1];
+  const order = market.byKey(key);
+  await db.save('marketOrders', { ...order, email: 'buyer@example.com' });
+
+  // MK16: the reviewer labels a cover's AI-made person.
+  await market.review(admin, l.id, 'ai-person');
+  assert.equal(market.card(market.bySlug(l.slug)).aiPerson, true);
+  assert.match(await (await s.go(`/market/${l.slug}`)).text(), /AI-generated person/);
+
+  await market.review(admin, l.id, 'rights', 'Uses a paid theme.');
+  const pulled = market.bySlug(l.slug);
+  assert.equal(pulled.pulled, 'rights');
+  assert.ok(db.get('marketOrders', order.id).toldPulledAt, 'buyers are emailed how to get a refund');
+  const html = await (await s.go(`/market/${l.slug}/get?k=${key}`)).text();
+  assert.match(html, /wasn't its maker's to sell/);
+  assert.doesNotMatch(html, /Download/);
+  assert.equal((await s.go(`/market/${l.slug}/files/${pulled.files[0].id}?k=${key}`)).status, 404);
+  assert.equal(market.queue().pulled[0].orders.length, 1);
+  const refunded = await market.refundOrder(admin, order.id);
+  assert.equal(refunded.refundReason, 'pulled-rights');
+  assert.equal(market.queue().pulled.length, 0);
+  assert.equal(market.strikesOf(market.sellerFor(u)), 0, 'not a copyright strike');
+
+  for (const t of ['Script pack one', 'Script pack two', 'Script pack three']) {
+    const x = await live(t);
+    await market.review(admin, x.id, 'copyright');
+  }
+  const seller = market.sellerFor(u);
+  assert.equal(market.strikesOf(seller), 3);
+  assert.equal(seller.status, 'ended');
+  assert.match((await market.saveListing(u, null, { ...GOOD, title: 'After the end' })).error, /ended/);
+  assert.match(await (await s.go('/app/sell', { as: u })).text(), /has ended for this account/);
 });
 
 test('every marketplace page passes the copy check', () => {
@@ -337,4 +471,42 @@ test('every marketplace page passes the copy check', () => {
     const found = check(fs.readFileSync(path.join(dir, f), 'utf8'), { file: f }).filter((x) => x.severity === 'block');
     assert.deepEqual(found, [], f);
   }
+});
+
+test("an ambassador's Invite page: the commission line, friends as Joined, no free-month talk (L101 RF9)", async () => {
+  process.env.REFERRALS = 'on';
+  const amb = await member('builder', { name: 'Riley Stone', ambassador: { handle: 'riley', since: new Date(Date.now() - 864e5).toISOString() } });
+  const html = await (await s.go('/app/invite', { as: amb })).text();
+  assert.match(html, /I earn a commission if you join with my link/);
+  assert.match(html, /You're a 127 ambassador, so people who join with your links count toward your ambassador pay, not free months\./);
+  assert.doesNotMatch(html, /I get a free month|How it works/);
+  const plain = await member('builder');
+  const p = await (await s.go('/app/invite', { as: plain })).text();
+  assert.match(p, /if you start a paid plan, I get a free month/);
+  assert.match(p, /A free month for each friend who starts a plan\./);
+  delete process.env.REFERRALS;
+});
+
+test('the AI marketplace (/market): 127\'s packs with SHOP_PACKS, the members\' market with MARKETPLACE, one page', async () => {
+  const shop = require('../lib/shop');
+  process.env.MARKETPLACE = 'off';
+  process.env.SHOP_PACKS = 'on';
+  let html = await (await s.go('/market')).text();
+  assert.match(html, /The AI marketplace\./);
+  assert.match(html, /From 127/);
+  for (const p of shop.list().filter((x) => !x.free)) assert.match(html, new RegExp(`href="/packs/${p.slug}"`), p.slug);
+  assert.match(html, /href="\/packs\/all"/, 'the every-pack bundle');
+  assert.doesNotMatch(html, /From members|mk-shelves/);
+  assert.equal((await s.go('/app/sell', { as: await member() })).status, 404, 'selling still needs MARKETPLACE');
+  process.env.MARKETPLACE = 'on';
+  html = await (await s.go('/market')).text();
+  assert.match(html, /From 127/);
+  assert.match(html, /From members/);
+  assert.doesNotMatch(html.split('<main')[1].split('</main>')[0], /\bearn|make money|side hustle|extra income/i, 'never pitched as a way to earn (L101 MK2)');
+  html = await (await s.go('/market?kind=prompts')).text();
+  assert.doesNotMatch(html, /id="house"/, 'a filtered shelf shows members only');
+  process.env.SHOP_PACKS = 'off';
+  process.env.MARKETPLACE = 'off';
+  assert.equal((await s.go('/market')).status, 404);
+  delete process.env.SHOP_PACKS;
 });

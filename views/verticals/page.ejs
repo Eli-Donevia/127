@@ -59,7 +59,7 @@
         <% } else if (packOn) { %>
           <form method="post" action="/packs/<%= v.packSlug %>/buy"><input type="hidden" name="from" value="/for/<%= v.slug %>"><button class="vt-btn" type="submit">Buy the <%= v.pack.name %> · $<%= v.pack.price %></button></form>
         <% } %>
-        <p class="vt-fine"><% if (unavailable) { %>Checkout isn't open yet. Nothing was charged. <% } else if (cancelled) { %>Checkout cancelled. Nothing was charged. <% } %><% if (packOn && !owned) { %>One payment, files yours to keep. <% } else if (!packOn) { %>On sale soon. <% } %>Every file in it comes with Builder.</p>
+        <p class="vt-fine"><% if (unavailable) { %>Checkout isn't open yet. Nothing was charged. <% } else if (cancelled) { %>Checkout cancelled. Nothing was charged. <% } %><% if (packOn && !owned) { %>One payment. 14 days to change your mind. <% } else if (!packOn) { %>On sale soon. <% } %>Every file in it comes with Builder. Use the files in your own business; please don't resell or share them. <a href="/terms#section-11">License</a>.</p>
       </div>
     </div>
   </section>

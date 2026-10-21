@@ -1,0 +1,48 @@
+<%- include('../partials/app-head') %>
+<%# HQ in Teams (lib/harness/teams.js): open 127's app in Teams, link the member's Teams account with a one-time
+    code (Legal L93 SL1), OK cards on or off, remove. %>
+<% var inWs = typeof ws !== 'undefined' && ws; %>
+<div class="hq<%= inWs ? ' h2' : '' %>">
+<% if (inWs) { %><%- include('../partials/hq2-nav') %><% } %>
+  <a class="hq-back" href="/app/hq/connect"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Connections</a>
+  <header class="pc-top">
+    <h1 class="pc-h1">Teams</h1>
+    <p class="pc-sum"><%= s.linked ? 'Linked. OK cards and your morning pulse come to your chat with HQ in Teams.' : 'OK cards and your morning pulse, in a private chat with HQ in Microsoft Teams.' %></p>
+  </header>
+
+  <ol class="sl-steps">
+    <li class="<%= s.linked ? 'done' : 'now' %>">
+      <h2 class="pc-h2">Add HQ to your Teams</h2>
+      <% if (!s.linked) { %>
+        <p class="pc-mute">Open HQ's app in Teams and add it. If your organization manages apps, ask your Teams admin to allow it. HQ only sends you messages in a private chat. It doesn't read your chats or channels.</p>
+        <% if (s.app) { %><a class="pc-go" href="<%= s.app %>" target="_blank" rel="noopener">Open in Teams</a>
+        <% } else { %><button class="pc-go" type="button" disabled>Open in Teams</button><p class="pc-mute">Not set up on this server yet.</p><% } %>
+      <% } else { %><p class="pc-mute">Added to your Teams.</p><% } %>
+    </li>
+    <li class="<%= s.linked ? 'done' : '' %>">
+      <h2 class="pc-h2">Link your Teams account</h2>
+      <% if (s.linked) { %><p class="pc-mute">Linked. Only you can OK a card, and cards only go to your private chat with HQ.</p>
+      <% } else if (code) { %>
+        <p>In your chat with HQ in Teams, type this. It works once, for 10 minutes.</p>
+        <p class="sl-code"><code>link <%= code %></code></p>
+      <% } else { %>
+        <form method="post" action="/app/hq/teams/code"><button class="pc-go"<%= s.ready ? '' : ' disabled' %>>Get a link code</button></form>
+      <% } %>
+    </li>
+  </ol>
+
+  <% if (s.linked) { %>
+  <section class="sl-set">
+    <form method="post" action="/app/hq/teams/cards" class="sl-cards">
+      <label class="pc-check"><input type="checkbox" name="cards"<%= s.cards ? ' checked' : '' %>><span>Send me OK cards in Teams</span></label>
+      <button class="pc-quiet">Save</button>
+    </form>
+    <p class="pc-mute">Money, deletes, publishing and ad budgets are always OK'd here in HQ. The morning pulse in Teams is in <a class="pc-link" href="/app/hq/you#out">You</a>.</p>
+    <form method="post" action="/app/hq/teams/disconnect" data-confirm="Remove HQ from Teams? HQ deletes what it kept for it."><button class="pc-quiet danger">Remove from Teams</button></form>
+    <p class="pc-mute">To take the app out of your Teams too, uninstall it there.</p>
+  </section>
+  <% } %>
+</div>
+<script src="/js/hq.js" defer></script>
+<% if (inWs) { %><script src="/js/hq2.js" defer></script><% } %>
+<%- include('../partials/app-foot') %>

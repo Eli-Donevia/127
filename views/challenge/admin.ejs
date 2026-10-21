@@ -52,10 +52,10 @@
 </div>
 
 <div class="card pad-lg" id="hotseats" style="margin-bottom:16px">
-  <div class="card-title"><h3>Debrief hot seats</h3><span class="small muted"><%= hot.length %> ticked "Eli can feature my check-in"</span></div>
+  <div class="card-title"><h3><%= total > 5 ? 'Demo night picks' : 'Debrief hot seats' %></h3><span class="small muted"><%= hot.length %> ticked "Eli can feature my check-in"</span></div>
   <div class="alert info" style="margin:0 0 18px">
     <b style="font-weight:600">On air:</b> first names only. Show an idea or offer only where it says "may show". Never mention money amounts, revenue or income.
-    Before the first hot seat, say once: "It's one person's week. Results vary." Guests hear before they speak: "You're on a public live that's saved and may be clipped. Still good?"
+    Before the first hot seat, say once: "<%= total > 5 ? "This is one person's two weeks. Results vary." : "It's one person's week. Results vary." %>"<% if (total > 5) { %> Play a walkthrough only where it says "may play". Totals across members carry "Totals from everyone who checked in, not only finishers. Results vary.", from a dated export kept with the replay.<% } %> Guests hear before they speak: "You're on a public live that's saved and may be clipped. Still good?"
   </div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
     <form method="post" action="/admin/challenge/hotseat"><button class="btn sm"<%= hot.length ? '' : ' disabled' %>><%= hotSummary ? 'Rewrite the shortlist' : 'Write the shortlist' %></button></form>
@@ -65,7 +65,7 @@
     <div style="white-space:pre-wrap;font-size:14px;line-height:1.6;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:18px"><%= hotSummary.text %></div>
     <div class="tiny muted" style="margin:-10px 0 18px">Written <%= when(Date.parse(hotSummary.at)) %> from <%= hotSummary.count %> check-in<%= hotSummary.count === 1 ? '' : 's' %>.</div>
   <% } %>
-  <% if (!hot.length) { %><p class="small muted" style="margin:0">Nobody yet. The box is on the Day 3, 4 and 5 check-ins.</p><% } else { %>
+  <% if (!hot.length) { %><p class="small muted" style="margin:0">Nobody yet. The box is on the <%= total > 5 ? 'Day 13 and 14' : 'Day 3, 4 and 5' %> check-ins.</p><% } else { %>
   <div class="scroll-x"><table class="t">
     <thead><tr><th>First name</th><th>Days</th><th>Idea</th><th>Day 3 conversation</th><th>Offer</th><th>Day 5</th><th></th></tr></thead>
     <tbody>
@@ -73,7 +73,7 @@
       <tr>
         <td><b style="font-weight:500"><%= c.firstName || '–' %></b><% if (c.guestOk) { %><br><span class="chip">open to camera</span><% } %></td>
         <td class="mono"><%= c.daysDone %>/<%= total %><%= c.finisher ? ' ✓' : '' %></td>
-        <td><% if (c.idea) { %><%= c.idea %><br><span class="tiny muted">may show</span><% } else { %><span class="muted">not cleared</span><% } %></td>
+        <td><% if (c.idea) { %><%= c.idea %><br><span class="tiny muted">may show</span><% } else { %><span class="muted">not cleared</span><% } %><% if (c.walkthrough) { %><br><a href="<%= /^https?:\/\//.test(c.walkthrough) ? c.walkthrough : '#' %>" target="_blank" rel="noopener noreferrer">Walkthrough</a> <span class="tiny muted">may play</span><% } %></td>
         <td><%= c.conversation ? (LIVE[c.conversation] || c.conversation) : '–' %><% if (c.quote) { %><br><span class="muted">"<%= c.quote %>"</span><% } %></td>
         <td><% if (c.offer) { %><%= c.offer %><br><span class="tiny muted">may show</span><% } else { %><span class="muted">not cleared</span><% } %></td>
         <td><% if (c.asks != null) { %>Asked <%= c.asks %>, yes <%= c.yeses != null ? c.yeses : '–' %><% } else { %>–<% } %><% if (c.lesson) { %><br><span class="muted"><%= c.lesson %></span><% } %></td>

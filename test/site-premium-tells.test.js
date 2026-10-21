@@ -64,3 +64,18 @@ test('placeholder photos are window light: no blurred blobs, no text, the member
     }
   }
 });
+
+test('brain auto-fill brand fills blanks on the member\'s own site only, and the form wins', () => {
+  const { factsFrom } = require('../lib/packs/site/lib/facts');
+  const ctx = { brain: { business: { name: 'Bean Lane' }, brand: { color: '#1f3a5f', theme: 'dark', typeMood: 'serif', mood: 'calm' } } };
+  const own = factsFrom(ctx, { what: 'coffee roaster' }, { own: true });
+  assert.equal(own.color, '#1f3a5f');
+  assert.equal(own.theme, 'dark');
+  assert.equal(own.typeMood, 'serif');
+  const form = factsFrom(ctx, { what: 'coffee roaster', color: 'forest green', theme: 'light' }, { own: true });
+  assert.equal(form.color, 'forest green');
+  assert.equal(form.theme, 'light');
+  const client = factsFrom(ctx, { business: 'Other', what: 'coffee roaster' }, { own: false });
+  assert.equal(client.theme, '');
+  assert.equal(client.typeMood, '');
+});

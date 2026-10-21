@@ -1,0 +1,61 @@
+<%- include('../../partials/app-head') %>
+<%# The application drafter (lib/perks/draft.js, Legal L100 PD1-PD6). The member pastes one question from the
+    program's application, adds facts if they like, and taps once with the credits shown first. Each draft is
+    labeled "Draft by AI", carries Legal's review line, marks blanks and "Check this" numbers, and leaves HQ only by
+    the member's own Copy. 127 never submits anything. %>
+<div class="hq h2 pk">
+  <%- include('../../partials/hq2-nav') %>
+
+  <header class="pk-head">
+    <a class="pk-back" href="/app/hq/perks#<%= p.id %>">Perks and grants</a>
+    <h1 class="hq-title pk-title">Draft an answer for <%= p.name %></h1>
+    <p class="pk-lede">Paste one question from the application. The draft is written from your Brain and the facts you add here, and anything it doesn't know is left as a blank for you.</p>
+  </header>
+
+  <form class="pk-form" method="post" action="/app/hq/perks/<%= p.id %>/draft">
+    <% if (error) { %><p class="pk-err" role="alert"><%= error %></p><% } %>
+    <label for="pk-q">The question from the application
+      <textarea id="pk-q" name="question" maxlength="1200" required placeholder="Paste it exactly as the program asks it"><%= question %></textarea>
+    </label>
+    <label for="pk-notes">Facts to use <span class="hint">Optional. What you'd want in the answer: what you sell, who it's for, what you'd do next. Leave out who owns the business and details like women-owned or veteran status. Write those parts yourself.</span>
+      <textarea id="pk-notes" name="notes" maxlength="2000"><%= notes %></textarea>
+    </label>
+    <div class="pk-run">
+      <button class="pk-go" type="submit"<%= left < cost ? ' disabled' : '' %>>Draft by AI, <%= cost %> credit<%= cost === 1 ? '' : 's' %></button>
+      <span class="pk-checked"><%= left.toLocaleString('en-US') %> credits left this month</span>
+    </div>
+    <% if (!live) { %><p class="pk-small">No AI key is set on this server, so drafts here are samples and cost nothing.</p><% } %>
+  </form>
+
+  <% if (drafts.length) { %>
+  <section aria-labelledby="pk-drafts-h">
+    <h2 id="pk-drafts-h" class="pk-h">Your drafts</h2>
+    <ol class="pk-drafts">
+      <% drafts.forEach(function (d) { %>
+      <li class="pk-draft" id="d-<%= d.id %>">
+        <div class="pk-draft-top"><b><%= d.label %></b><span><%= new Date(d.at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %><%= d.sample ? ', sample' : '' %></span></div>
+        <p class="pk-draft-q"><%= d.question %></p>
+        <p class="pk-draft-t" data-text="<%= d.text %>"><% d.parts.forEach(function (x) { if (x.kind === 'blank') { %><mark class="blank"><%= x.t %></mark><% } else if (x.kind === 'check') { %><mark class="check"><%= x.t %><i>Check this</i></mark><% } else { %><%= x.t %><% } }) %></p>
+        <p class="pk-review"><%= review %></p>
+        <div class="pk-draft-do">
+          <button type="button" class="pk-save" data-copy hidden>Copy</button>
+          <form method="post" action="/app/hq/perks/drafts/<%= d.id %>/delete"><button class="pk-link quiet" type="submit">Delete</button></form>
+        </div>
+      </li>
+      <% }) %>
+    </ol>
+  </section>
+  <% } %>
+</div>
+<script>
+// Copy: the draft's plain text, the only way it leaves HQ (Legal L100 PD6).
+document.querySelectorAll('.pk-draft').forEach(function (li) {
+  var b = li.querySelector('[data-copy]'), t = li.querySelector('[data-text]');
+  if (!b || !t || !navigator.clipboard) return;
+  b.hidden = false;
+  b.addEventListener('click', function () {
+    navigator.clipboard.writeText(t.getAttribute('data-text')).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1800); }, function () {});
+  });
+});
+</script>
+<%- include('../../partials/app-foot') %>

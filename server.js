@@ -31,6 +31,7 @@ const circle = require('./lib/circle');
 const markdown = require('./lib/markdown');
 const challenge = require('./lib/challenge');
 const memberOps = require('./lib/member-ops');
+const ambassadors = require('./lib/ambassadors');
 const ageCheck = require('./lib/age-check');
 const { MILESTONES } = require('./lib/milestones');
 const templates = require('./lib/templates');
@@ -42,6 +43,7 @@ const harness = require('./lib/harness');
 const harnessRoutes = require('./lib/harness/routes');
 const harnessSiteChat = require('./lib/harness/routes-site-chat');
 const storeRoutes = require('./lib/store-routes');
+const toolsRoutes = require('./lib/tools-routes');
 const shopRoutes = require('./lib/shop-routes');
 const shop = require('./lib/shop');
 const lifeRoutes = require('./lib/life-routes');
@@ -89,6 +91,10 @@ app.get('/healthz', (req, res) => res.json({ ok: true }));
 
 // Stripe needs the raw body, so this route comes before the body parsers.
 app.post('/billing/webhook', express.raw({ type: 'application/json' }), billing.webhook);
+// HQ in Slack (lib/harness/slack.js, HQ_SLACK): Slack signs the raw body, so these come before the parsers.
+app.use(require('./lib/harness/slack-routes').hooks());
+// HQ in Teams (lib/harness/teams.js, HQ_TEAMS): Bot Framework activities, token checked before anything else.
+app.use(require('./lib/harness/teams-routes').hooks());
 // 127 HQ inbound (lib/hq-routes.js): a member's 127 link and their Shopify order webhooks. Raw body for
 // Shopify's signature, and ahead of the session so it never reads or sets a cookie. 404 while HQ_LIVE is off.
 app.all('/hq/in/:token', hqRoutes.inbound);
@@ -102,6 +108,17 @@ app.use(harnessSiteChat.publicRouter());
 // Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
+// Static files are cached for an hour, so a publish can leave a phone running last hour's hero script and CSS.
+// v('/js/x.js') adds ?v=<hash of the file> (worked out once per file per process), so a changed file gets a new URL.
+const assetV = new Map();
+app.locals.v = (p) => {
+  if (!assetV.has(p)) {
+    let h = '';
+    try { h = require('crypto').createHash('sha1').update(fs.readFileSync(path.join(__dirname, 'public', p))).digest('hex').slice(0, 10); } catch (e) { /* missing file: plain URL */ }
+    assetV.set(p, h ? `${p}?v=${h}` : p);
+  }
+  return assetV.get(p);
+};
 app.use(
   cookieSession({
     name: 'h127',
@@ -229,6 +246,10 @@ app.use((req, res, next) => {
   // The Invite page (lib/referrals.js, REFERRALS) and the member marketplace (lib/market.js, MARKETPLACE) in the menu.
   res.locals.referralsOn = referrals.visibleTo(user);
   res.locals.marketOn = market.visibleTo(user);
+  // The AI marketplace tab (/market): 127's packs (SHOP_PACKS) and the members' market (MARKETPLACE), while either is on.
+  res.locals.aiMarketOn = res.locals.marketOn || shop.visibleTo(user);
+  // Legal L101 RF3: a friend who came through a member's link sees whose link it was on the sign-up forms.
+  res.locals.invitedLine = user ? null : referrals.invitedLine(cookie(req, 'ref'), user);
   // Back from Stripe Checkout without paying.
   res.locals.checkoutCancelled = req.query.checkout === 'cancelled';
   res.locals.baseUrl = baseUrl(req);
@@ -245,6 +266,11 @@ app.use((req, res, next) => {
   // The vertical a visitor came in on, first touch (lib/verticals.js): an ad link tagged utm_campaign=v-<slug>.
   verticals.middleware(req, res, () => {});
   if (req.query.ref && referrals.valid(req.query.ref)) setRefCookie(res, String(req.query.ref).toUpperCase());
+  // Legal L90: the first tracked 127 link on this device (an ambassador's, any other tagged link, or a referral link).
+  if (!req.session.firstLink) {
+    const first = ambassadors.firstLinkFrom(utm, req.query.ref && referrals.valid(req.query.ref) ? req.query.ref : null);
+    if (first) req.session.firstLink = first;
+  }
   next();
 });
 
@@ -358,13 +384,12 @@ function checkLink(kind, q) {
 
 // ---------- public site ----------
 // Intro video on the homepage: HOME_VIDEO_URL, or drop a file at public/video/intro.mp4 (poster: intro.jpg).
-// intro.mp4 is Video's Finovate Fall highlight until Eli films "Why I built 127"; then set HOME_VIDEO_TITLE="Why I built 127."
+// Set HOME_VIDEO_URL (and HOME_VIDEO_TITLE="Why I built 127.") once Eli films it.
 function homeVideo() {
-  const title = process.env.HOME_VIDEO_TITLE || 'On stage at Finovate Fall.';
+  const title = process.env.HOME_VIDEO_TITLE || 'Why I built 127.';
+  // public/video/intro.mp4 (the Finovate cut) is off the homepage (Eli Oct 21: not relevant to 127, and its lower third says "2X FOUNDER").
   if (process.env.HOME_VIDEO_URL) return { title, src: process.env.HOME_VIDEO_URL, poster: process.env.HOME_VIDEO_POSTER || '/img/eli-founder.jpg' };
-  const f = path.join(__dirname, 'public', 'video', 'intro.mp4');
-  if (!fs.existsSync(f)) return null;
-  return { title, src: '/video/intro.mp4', poster: fs.existsSync(path.join(__dirname, 'public', 'video', 'intro.jpg')) ? '/video/intro.jpg' : '/img/eli-founder.jpg' };
+  return null;
 }
 // hState: A1, A2, B or C (conversion/pages/homepage.md section 1); joinFlag picks Legal's consent wording for the inline form.
 // The homepage hero runs First 25 once the Funnels tool is installed (public/funnels/first-25.html) and searches real
@@ -523,6 +548,8 @@ async function createMember(req, { email, name, password, optIn, source, fallbac
     signupSource: source || utm.utm_source || (referrer ? 'referral' : null) || (onList ? `waitlist:${onList.source}` : null) || (lead ? `funnel:${lead.source}` : null) || fallbackSource || 'direct',
     leadSource: lead ? lead.source : null,
     utm: Object.keys(utm).length ? utm : null,
+    // Ambassador pay (lib/ambassadors.js, Legal L90): the first tracked link on the device they joined from.
+    firstLink: req.session.firstLink || null,
     vertical: verticals.current(req),
     passwordHash: await bcrypt.hash(password, 10),
     tier: 'free',
@@ -587,6 +614,7 @@ function ownCode(req, code) {
 app.get('/f/:code', (req, res) => {
   const own = referrals.owner(req.params.code);
   if (own) setRefCookie(res, own.code);
+  if (own && !req.session.firstLink) req.session.firstLink = ambassadors.firstLinkFrom(null, own.code);
   if (own && ['site', 'challenge', 'invite'].includes(req.query.via)) req.session.refVia = req.query.via;
   res.redirect(launch.prelaunch() ? '/founding' : '/start');
 });
@@ -600,7 +628,7 @@ function foundingPage() {
   const base = { fState: state, resourceCount: resources.length };
   if (state === 'A' && v.upcoming) return { ...base, title: 'Founding members', description: `The 127 founding price opens${v.launchDate ? ` ${v.launchDate}` : ' soon'}: Builder for ${pm}, locked while you stay. The free plan is open now.` };
   if (state === 'A') {
-    const ch = v.challenge.open ? ` Free 5-day challenge with Eli, ${v.challenge.dates}.` : '';
+    const ch = v.challenge.open ? ` Free ${v.challenge.days}-day challenge with Eli, ${v.challenge.dates}.` : '';
     return { ...base, title: 'Founding members', description: `Join the 127 founding list. Builder for ${pm}, locked while you stay, when doors open${v.launchDate ? ` ${v.launchDate}` : ''}.${ch}` };
   }
   if (state === 'B') return { ...base, title: 'Founding price', description: `Builder for ${pm}, locked while you stay. Until ${v.closesDate || 'the founding close'} or the first ${v.cap} founding members.` };
@@ -1839,6 +1867,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await harness.forget(user.id, { email: user.email, keepAgreements: retainBilling });
   // The Founding Five: the application, its videos and the five's weeks.
   await foundingFive.forget(user.id);
+  // Perks and grants: the member's application drafts (lib/perks/draft.js).
+  await require('./lib/perks/draft').removeAll(user);
   await db.remove('users', user.id);
 }
 
@@ -2099,8 +2129,12 @@ app.use(perksRoutes({ requireAuth }));
 app.use(tapeRoutes({ requireAuth }));
 // Verticals (lib/verticals.js): /for/<slug> pages behind VERTICALS, and the board at /admin/verticals.
 app.use(require('./lib/verticals-routes')({ requireAuth, requireAdmin, doorsLive: (user) => doors.liveFor(user), builderPrice: () => PLANS.builder.price, track }));
+// Native HQ tools (lib/tools): the Store's spreadsheets as live pages, and a quote's private link. Behind HQ_TOOLS.
+app.use(toolsRoutes({ requireAuth, flash, track }));
 // Connections (lib/harness/connectors): every app, connector pages, sign-in-with and dashboards. CONNECTORS and DASHBOARDS.
 app.use(connectorRoutes({ requireAuth, flash }));
+app.use(require('./lib/harness/slack-routes').pages({ requireAuth, flash }));
+app.use(require('./lib/harness/teams-routes').pages({ requireAuth, flash }));
 // HQ Post, the composer (lib/harness/posts.js, HQ_POSTS).
 app.use(postRoutes({ requireAuth, flash }));
 
@@ -2138,6 +2172,14 @@ app.get('/admin/joins.csv', require('./lib/export-token').orAdmin(requireAuth, r
   const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) ? String(v) : undefined);
   const csv = utmLib.csv(utmLib.fromStore({ from: day(req.query.from), to: day(req.query.to) }));
   res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="site-joins-${utmLib.chicagoDay(Date.now())}.csv"`).send(csv);
+});
+
+// Ambassador pay counts (lib/ambassadors.js): per month and ambassador link, paid joins still paying at day 30. Counts only.
+app.get('/admin/ambassadors.csv', require('./lib/export-token').orAdmin(requireAuth, requireAdmin), (req, res) => {
+  res.set('cache-control', 'no-store');
+  const month = /^\d{4}-\d{2}$/.test(String(req.query.month || '')) ? String(req.query.month) : undefined;
+  const csv = ambassadors.csv(ambassadors.counts(db.all('users'), { month }));
+  res.set('content-type', 'text/csv').set('content-disposition', `attachment; filename="ambassadors-${month || 'all'}.csv"`).send(csv);
 });
 
 app.get('/admin/waitlist.csv', requireAuth, requireAdmin, (req, res) => {
@@ -2188,12 +2230,18 @@ db.init().then(async () => {
     require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
     // Referral months whose 14-day wait is over (lib/referrals.js); nothing while REFERRALS is off.
     referrals.sweep().catch((err) => console.error('[referrals] sweep', err.message));
+    // The wall: Challenge entries never tied to an account go 12 months after they were made (Legal L98 NU25).
+    require('./lib/wall').sweep().catch((err) => console.error('[wall] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.
   harness.init();
   setInterval(() => {
     harness.tick().catch((err) => console.error('[harness] tick', err.message));
+    // HQ in Slack: new OK cards, and the morning pulse for members who turned it on.
+    require('./lib/harness/slack').tick().catch((err) => console.error('[slack] tick', err.message));
+    // HQ in Teams: the same, in the member's personal chat with HQ.
+    require('./lib/harness/teams').tick().catch((err) => console.error('[teams] tick', err.message));
     // HQ Post: OK'd posts whose time has come.
     require('./lib/harness/posts').tick().catch((err) => console.error('[posts] tick', err.message));
     harness.daily().catch((err) => console.error('[harness] daily', err.message));

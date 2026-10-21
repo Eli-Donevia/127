@@ -1,9 +1,9 @@
 /* The member marketplace and the Invite page (lib/market.js, lib/referrals.js).
    A catalog, not a card wall: numbered rows with hairlines, the cover doing the selling, prices set in mono.
-   One pop (#7C8CFF) per view, on the subject only: the active shelf on /market, the price on a listing, the link on
+   One pop (#7cebf6) per view, on the subject only: the active shelf on /market, the price on a listing, the link on
    Invite. Signal green only for money that has landed and checks that passed. Phone first; motion stops under
    reduced motion. */
-:root { --pop: #7c8cff; --pop-soft: rgba(124, 140, 255, .12); --sig: #86d6ad; }
+:root { --pop: #7cebf6; --pop-soft: rgba(124, 235, 246, .12); --sig: #7cebf6; }
 
 .mk { overflow-x: clip; }
 .mk-lbl { margin: 0 0 18px; font: 500 11.5px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -179,3 +179,36 @@
 .iv-friends li { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
 .iv-friends .st { font-size: 13.5px; color: var(--muted); text-align: right; }
 .iv-friends .st.earned { color: var(--sig); }
+
+/* Legal L101: the maker's recent sales (first name and country only), and the AI-generated person label on a cover. */
+.sl-sales { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.sl-sales li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+.sl-sales li > span:nth-child(2) { grid-column: 1; grid-row: 2; font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sl-sales li > span:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.mk-item-art, .mk-cover { position: relative; }
+.mk-ai { position: absolute; left: 8px; bottom: 8px; padding: 3px 7px; border-radius: 4px; background: rgba(6, 6, 7, .78); color: var(--ink); font: 500 10.5px/1.3 var(--mono); letter-spacing: .04em; }
+.mk-row .mk-ai, .sl-list .mk-ai, .sl-cover-row .mk-ai { left: 4px; right: 4px; bottom: 4px; padding: 2px 4px; font-size: 8.5px; text-align: center; }
+
+/* The AI marketplace front: 127's own packs and courses first, then the members' shelves. */
+.mk-jump { display: flex; gap: 22px; margin: 22px 0 0; font-size: 15px; }
+.mk-jump a { color: var(--ink-2, var(--muted)); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.mk-jump a:hover { color: var(--ink); border-color: var(--pop); }
+.mk-part { scroll-margin-top: 12px; }
+.mk-part + .mk-part { margin-top: clamp(40px, 6vw, 72px); }
+.mk-part-h { margin: 0 0 6px; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.02em; font-weight: 700; }
+.mk-part-h span { font: 500 13px/1 var(--mono); color: var(--muted); letter-spacing: 0; margin-left: 6px; vertical-align: middle; }
+#members .mk-part-h { margin-bottom: 14px; }
+/* 127's shelf as a price list: name, a dotted leader, the price; the line under it. Two columns from tablet up. */
+.mk-plists { display: grid; gap: 28px; margin-top: 18px; }
+@media (min-width: 820px) { .mk-plists { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.mk-plist-h { margin: 0 0 4px; font: 500 11.5px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.mk-plist { list-style: none; margin: 0; padding: 0; }
+.mk-plist li { border-bottom: 1px solid var(--line); }
+.mk-plist a { display: grid; grid-template-columns: auto minmax(12px, 1fr) auto; align-items: baseline; gap: 2px 10px; padding: 14px 0; color: inherit; text-decoration: none; }
+.mk-plist .t { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; }
+.mk-plist .lead { border-bottom: 1px dotted var(--line-2, var(--line)); transform: translateY(-4px); }
+.mk-plist .p { font: 500 15px/1 var(--mono); }
+.mk-plist .s { grid-column: 1 / -1; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.mk-plist a:hover .t, .mk-plist a:focus-visible .t { color: var(--pop); }
+.mk-plist-foot { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; font-size: 14.5px; color: var(--muted); }
+.mk-plist-foot a { color: var(--ink); }

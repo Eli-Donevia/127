@@ -8,7 +8,7 @@ Subject: Video idea for [product]
 
 Hi [first name],
 
-I make short videos for [type of brand]. I've been using [product] for [time] and I have an idea for an ad: [one sentence on the hook, for example "a 15-second before and after of my morning routine with the serum as the last step"].
+I make short videos for [type of brand]. [Only if it's true: I've been using [product] for [time].] I have an idea for an ad: [one sentence on the hook, for example "a 15-second morning routine with the serum as the last step"].
 
 Here are three videos I've made for brands like yours: [link].
 

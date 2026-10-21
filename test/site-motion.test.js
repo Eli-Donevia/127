@@ -14,7 +14,7 @@ function load(flag) {
   finally { if (old === undefined) delete process.env.SITE_MOTION; else process.env.SITE_MOTION = old; fresh(); }
 }
 const KINDS = ['local-service', 'studio', 'restaurant', 'coach', 'portfolio', 'product', 'agency', 'creator'];
-const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'market', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack', 'nightfall', 'rotunda', 'assembly', 'lumen', 'bloom'];
+const IDS = ['beacon', 'atelier', 'supper', 'northstar', 'gather', 'launch', 'market', 'orbit', 'soon', 'foundry', 'frame', 'spotlight', 'linkstack', 'nightfall', 'rotunda', 'assembly', 'lumen', 'bloom', 'optic', 'drop', 'roastery', 'freight', 'reel', 'feed'];
 
 test('the animated designs show only with SITE_MOTION=on', () => {
   assert.equal(load().T.TEMPLATES.filter((t) => t.animated).length, 0);

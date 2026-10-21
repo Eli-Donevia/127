@@ -3,10 +3,11 @@
 <% if (typeof hbState !== 'undefined' && hbState) { %><%- include('home-bar') %><% } %>
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="/" class="mark" aria-label="127 home"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <a href="/" class="mark" aria-label="127 home"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
     <nav class="nav-links">
       <a href="/#how">How it works</a>
       <a href="/#library">Library</a>
+      <% if (typeof aiMarketOn !== 'undefined' && aiMarketOn) { %><a href="/market">AI marketplace</a><% } %>
       <a href="/pricing">Membership</a>
       <a href="/circle">Founder's Circle</a>
     </nav>
@@ -24,6 +25,7 @@
         <div class="mnav-panel">
           <a href="/#how">How it works</a>
           <a href="/#library">Library</a>
+          <% if (typeof aiMarketOn !== 'undefined' && aiMarketOn) { %><a href="/market">AI marketplace</a><% } %>
           <a href="/pricing">Membership</a>
           <a href="/circle">Founder's Circle</a>
           <% if (user) { %><a href="/app">Dashboard</a><% } else { %><a href="/login">Sign in</a><% } %>

@@ -77,7 +77,7 @@
         "id": "02-media-kit",
         "title": "Media kit",
         "summary": "A one-page media kit from your real numbers and the deals you want.",
-        "prompt": "Write a one-page media kit for [channel]. Real numbers: followers per platform [ ], average views [ ], audience (age, location, top interests) [ ]. What I make: [ ]. Brands I'd fit: [ ]. Packages: [ ]. Contact: [ ]. Use only the numbers I gave you.",
+        "prompt": "Write a one-page media kit for [channel]. Real numbers: followers per platform [ ], average views [ ], audience (age, location, top interests) [ ]. What I make: [ ]. Brands I'd fit: [ ]. Packages: [ ]. Contact: [ ]. Use only the numbers I gave you, real and current (never bought followers, views or likes). Add a line that brand deals carry #ad or the platform's paid-partnership label, and that gear reviews say when the gear was free.",
         "use": "Update the numbers monthly. Send as a PDF."
       },
       {
@@ -87,6 +87,9 @@
         "prompt": "Here's the transcript of my video with timestamps: [paste]. Find five 20 to 40-second clips that stand alone (give start and end times and a hook line for each) and turn the main point into a six-slide carousel.",
         "use": "Run it on every long video you post."
       }
+    ],
+    "notes": [
+      "Media kit numbers are real and current. Never bought followers, views or likes (the FTC bans fake social media influence, 16 CFR 465.8). Brand deals carry #ad or the platform's paid-partnership label, and gear reviews say when the gear was free."
     ]
   },
   "hq": [
@@ -129,5 +132,6 @@
     "Podcasters",
     "Newsletter writers"
   ],
-  "legal": "No claims about follower growth, views or creator income."
+  "legal": "No claims about follower growth, views or creator income.",
+  "legalRead": "L102"
 }

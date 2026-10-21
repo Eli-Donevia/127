@@ -4,7 +4,7 @@
    challenge meter). Flat void, no glows, no card grids: the line is type on the page, the week is a sentence, the
    month is a calendar. Reads complete with no script and with reduced motion. */
 
-.hqn, .hqn-you { --pop: #7c8cff; --pop-line: rgba(124, 140, 255, .5); --sig: #86d6ad; --sig-line: rgba(134, 214, 173, .42); --sig-soft: rgba(134, 214, 173, .1); --out: cubic-bezier(.16, 1, .3, 1); }
+.hqn, .hqn-you { --pop: #7cebf6; --pop-line: rgba(124, 235, 246, .5); --sig: #7cebf6; --sig-line: rgba(124, 235, 246, .42); --sig-soft: rgba(124, 235, 246, .1); --out: cubic-bezier(.16, 1, .3, 1); }
 .hqn-dim { color: var(--muted); }
 .hqn-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
@@ -145,6 +145,21 @@
 .hqn-rivals .who { display: grid; gap: 2px; min-width: 0; }
 .hqn-rivals .h { font: 500 15px var(--mono); color: var(--ink); overflow-wrap: anywhere; }
 .hqn-rivals .who .hqn-dim { font-size: 13px; }
+.hqn-rivals .hqn-full { grid-column: 1 / -1; margin: 0; }
+.hqn-shot { display: grid; gap: 4px; }
+.hqn-shot > label { justify-self: start; display: inline-flex; align-items: center; cursor: pointer; }
+.hqn-shot > .hqn-dim { font-size: 12.5px; }
+.hqn-total[hidden] { display: none; }
+.hqn-total:not([hidden]) { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 6px; }
+.hqn-total label, .hqn-total span { font-size: 14px; color: var(--ink-2); }
+.hqn-total input[type="number"] { width: 9ch; min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font: 500 15px var(--mono); }
+.hqn-total .hqn-shot-msg { flex-basis: 100%; margin: 0; font-size: 13px; }
+.hqn-share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 18px 0 0; }
+.hqn-share-row .hqn-dim { font-size: 13px; }
+.hqn-out .hqn-note { flex-basis: 100%; margin-top: -6px; }
+.hqn-out .hqn-sub { padding-left: 28px; align-items: flex-start; font-size: 13.5px; }
+.hqn-out .hqn-sub input { margin-top: 2px; }
+.hqn-out .hqn-sub b { color: var(--ink); font-weight: 500; }
 .hqn-rivals .hqn-ask { grid-column: 1 / -1; }
 .hqn-add { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 10px; }
 .hqn-add label { flex-basis: 100%; font-size: 12.5px; color: var(--muted); margin-bottom: -4px; }
@@ -165,6 +180,18 @@
 .hqn-quiet .hqn-note { flex-basis: 100%; margin-top: -6px; }
 .hqn-quiet label, .hqn-prefs label[for="p-goal"] { font-size: 14px; color: var(--ink-2); }
 .hqn-prefs > .btn { justify-self: start; }
+
+/* The wall's release (Legal L98 NU19): one unticked box, the name choice inside the sentence, the small print under it. */
+.hqn-prefs fieldset.hqn-release { display: grid; gap: 10px; padding: 16px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.hqn-agree { display: grid; grid-template-columns: auto 1fr; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); cursor: pointer; }
+.hqn-agree input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--pop); }
+.hqn-agree b { color: var(--ink); font-weight: 600; }
+.hqn-names { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 28px; }
+.hqn-names label { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); font-size: 14px; color: var(--ink); cursor: pointer; }
+.hqn-names label:has(input:checked) { box-shadow: inset 0 0 0 1.5px var(--pop); }
+.hqn-names input { accent-color: var(--pop); margin: 0; }
+.hqn-release-rest { margin: 0; padding-left: 28px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+.hqn-small { margin: 4px 0 0; padding-left: 28px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 
 @keyframes hqnGrow { from { transform: scaleX(0); } }
 @keyframes hqnEngrave { from { opacity: 0; transform: scale(.8); } }

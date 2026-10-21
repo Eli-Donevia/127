@@ -53,7 +53,7 @@
     var keep = { 'Is it really free?': 1, 'What do finishers get?': 1, 'Is this financial advice?': 1, 'Is this a contest?': 1 };
     faqs = V2.faq.concat(faqs.filter(function (q) { return keep[q[0]]; }).map(function (q) {
       if (q[0] === 'What do finishers get?') return [q[0], finisherTerms];
-      if (q[0] === 'Is this a contest?' && V2.finisher_terms) return [q[0], "No. There's no drawing, judging or prize. Everyone who finishes gets the finisher perks, and the founding price is the same for everyone."];
+      if (q[0] === 'Is this a contest?' && V2.finisher_terms) return [q[0], V2.contest_a || "No. There's no drawing, judging or prize. Everyone who finishes gets the finisher perks, and the founding price is the same for everyone."];
       return q;
     }));
   }
@@ -138,7 +138,7 @@ function joinForm(id, withError) { %>
       <% } %>
 
       <p class="chl-meta"><% if (V2) { %><span><%= V2.dates || 'Nov 9 to 13' %></span><% } %><span>Free</span><span>No card</span><span><%= V2 && V2.lives_meta ? V2.lives_meta : 'Live with Eli on Instagram, Mon Nov 9 and Mon Nov 16 at 8pm ET' %></span></p>
-      <% if (counts.joined || counts.sitesLive) { %><p class="chl-meta chl-counts"><% if (counts.joined) { %><span><b><%= counts.joined.toLocaleString('en-US') %></b> joined</span><% } %><% if (counts.sitesLive) { %><span><b><%= counts.sitesLive.toLocaleString('en-US') %></b> sites live</span><% } %><% if (counts.withFriend) { %><span><b><%= counts.withFriend.toLocaleString('en-US') %></b> doing it with a friend</span><% } %></p><% } %>
+      <% if (counts.joined || counts.sitesLive || counts.sitesBuilt) { %><p class="chl-meta chl-counts"><% if (counts.joined) { %><span><b><%= counts.joined.toLocaleString('en-US') %></b> joined</span><% } %><% if (counts.sitesBuilt) { %><span><b><%= counts.sitesBuilt.toLocaleString('en-US') %></b> <%= (V2 && V2.count_sites) || 'sites built' %></span><% } else if (counts.sitesLive) { %><span><b><%= counts.sitesLive.toLocaleString('en-US') %></b> sites live</span><% } %><% if (counts.withFriend) { %><span><b><%= counts.withFriend.toLocaleString('en-US') %></b> doing it with a friend</span><% } %></p><% } %>
     </div>
 
     <% if (!V2) { %><div class="ticker chl-ticker" aria-hidden="true">

@@ -10,7 +10,7 @@ const fs = require('fs');
 process.env.DB_FILE = path.join(__dirname, '..', 'data', `test-db-perks-${process.pid}.json`);
 process.env.BLOB_DIR = path.join(os.tmpdir(), `127-blobs-perks-${process.pid}`);
 process.env.BASE_URL = 'https://127.test';
-for (const k of ['ANTHROPIC_API_KEY', 'ADMIN_EMAILS', 'HQ_PERKS', 'HQ_WORKSPACE', 'HQ_PREMIUM']) delete process.env[k];
+for (const k of ['ANTHROPIC_API_KEY', 'ADMIN_EMAILS', 'HQ_PERKS', 'PERKS_PUBLIC', 'HQ_WORKSPACE', 'HQ_PREMIUM']) delete process.env[k];
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -21,6 +21,7 @@ const harness = require('../lib/harness');
 const perks = require('../lib/perks');
 const perksRoutes = require('../lib/perks-routes');
 const copy = require('../lib/copy-check');
+const draft = require('../lib/perks/draft');
 const nav = require('../lib/harness/nav');
 const { plan } = require('../lib/plans');
 
@@ -44,6 +45,7 @@ async function server() {
     });
     next();
   });
+  app.use(express.urlencoded({ extended: true }));
   const requireAuth = (req, res, next) => (req.user ? next() : res.redirect('/login'));
   app.use(perksRoutes({ requireAuth }));
   app.use((req, res) => res.status(404).send('app 404'));
@@ -51,7 +53,7 @@ async function server() {
   app.use((err, req, res, next) => res.status(500).send(String(err && err.stack)));
   const srv = await new Promise((r) => { const s = app.listen(0, '127.0.0.1', () => r(s)); });
   const url = `http://127.0.0.1:${srv.address().port}`;
-  const go = (p, { as, post } = {}) => fetch(url + p, { method: post ? 'POST' : 'GET', headers: as ? { 'x-user': as.id } : {}, redirect: 'manual' });
+  const go = (p, { as, post, form } = {}) => fetch(url + p, { method: post || form ? 'POST' : 'GET', headers: { ...(as ? { 'x-user': as.id } : {}), ...(form ? { 'content-type': 'application/x-www-form-urlencoded' } : {}) }, body: form ? new URLSearchParams(form).toString() : undefined, redirect: 'manual' });
   return { go, close: () => new Promise((r) => srv.close(r)) };
 }
 
@@ -148,4 +150,86 @@ test('the page: honest lines, official links only, the member list scoped, copy 
   assert.deepEqual(found, []);
   const data = copy.check(JSON.stringify(perks.PROGRAMS), { file: 'lib/perks' }).filter((f) => f.severity === 'block');
   assert.deepEqual(data, []);
+});
+
+test('Legal L100 row fixes: read-on sources, YC as investment, Atlas costs, the calendar line', async () => {
+  const yc = perks.PROGRAMS.find((p) => p.id === 'yc');
+  assert.equal(yc.amount, '$500,000 investment');
+  assert.match(perks.PROGRAMS.find((p) => p.id === 'atlas').fee, /Delaware’s yearly tax, and registering in your home state if you work there, cost extra\./);
+  const m = await member();
+  const page = await (await s.go('/app/hq/perks', { as: m })).text();
+  assert.ok(page.includes('Read on SBA.gov, Oct 21'), 'SCORE says where it was read');
+  assert.ok(page.includes('each read on an official page on Oct 21'));
+  assert.ok(fs.readFileSync(path.join(__dirname, '..', 'public', 'js', 'perks.js'), 'utf8').includes('Dates can change. Check the official page.'));
+  assert.doesNotMatch(page, /\b(unlock|unlocks|claim your|in perks|worth of perks)\b/i, 'never a total, never "127 unlocks"');
+});
+
+test('rows hide from members 90 days after their read date; admins still see them, marked', () => {
+  const later = new Date('2027-02-01T12:00:00Z');
+  assert.equal(perks.list(later).length, 0);
+  assert.equal(perks.get('amber', later), null);
+  assert.ok(perks.get('amber', later, { admin: true }).expired);
+  assert.equal(perks.list(later, { admin: true }).length, perks.PROGRAMS.length);
+  assert.equal(perks.list(new Date('2026-12-01T12:00:00Z')).length, perks.PROGRAMS.length, 'still shown at 41 days');
+});
+
+test('Might fit says why, from the Brain, and never says qualify', async () => {
+  const m = await member();
+  await db.save('brains', { id: m.id, business: { niche: 'Software or app', country: 'US' }, voice: {}, links: {}, goal: {}, packs: {} });
+  const page = await (await s.go('/app/hq/perks', { as: m })).text();
+  assert.ok(page.includes('Might fit. You said you’re building software'));
+  for (const [, line] of page.matchAll(/class="pk-might">([^<]*)</g)) assert.doesNotMatch(line, /qualify|eligible|approved/i, line);
+  assert.doesNotMatch(page, /you qualify|you're eligible|you’re eligible/i);
+  const fit = perks.mightFit({ business: { niche: 'Software or app', country: 'Germany' } }, perks.list());
+  assert.ok(!fit.sbir && !fit.yc === false, 'country rules out US-only rows');
+  assert.ok(!('amber' in perks.mightFit({ business: { niche: 'women-owned bakery', country: 'US' } }, perks.list())), 'owner details are never matched from the Brain');
+});
+
+test('the drafter: credits first, Legal’s line, blanks and Check this, delete, nothing sent anywhere', async () => {
+  const m = await member();
+  const o = await member();
+  assert.equal((await s.go('/app/hq/perks/aws-founders/draft', { as: m })).status, 404, 'only programs with a written application');
+  const form = await (await s.go('/app/hq/perks/amber/draft', { as: m })).text();
+  assert.match(form, /Draft by AI, 2 credits/);
+  assert.match(form, /credits left this month/);
+  const bad = await s.go('/app/hq/perks/amber/draft', { as: m, form: { question: '' } });
+  assert.equal(bad.status, 400);
+  const ok = await s.go('/app/hq/perks/amber/draft', { as: m, form: { question: 'Tell us about your business and how you would use the grant.', notes: 'I bake sourdough for 3 cafes.' } });
+  assert.equal(ok.status, 303);
+  const d = draft.mine(m.id, 'amber')[0];
+  assert.ok(d && d.label === 'Draft by AI' && d.sample, 'no key: a sample, at no cost');
+  assert.equal(harness.ledger.usage(m).used, 0);
+  const page = await (await s.go('/app/hq/perks/amber/draft', { as: m })).text();
+  assert.ok(page.includes(draft.REVIEW_LINE.replace(/’/g, '&#39;')) || page.includes(draft.REVIEW_LINE), 'Legal’s line, exactly');
+  assert.ok(page.includes('data-copy'));
+  assert.equal((await s.go(`/app/hq/perks/drafts/${d.id}/delete`, { as: o, post: true })).status, 303);
+  assert.ok(db.get(draft.COL, d.id), 'another member cannot delete it');
+  await s.go(`/app/hq/perks/drafts/${d.id}/delete`, { as: m, post: true });
+  assert.equal(db.get(draft.COL, d.id), null);
+});
+
+test('the drafter’s guards: owner details become blanks, unknown numbers get Check this', () => {
+  assert.equal(draft.scrubOwner('We bake bread. We are a women-owned business. We sell locally.'), 'We bake bread. [eligibility: write this part yourself] We sell locally.');
+  assert.equal(draft.scrubOwner('I am a US citizen.'), '[eligibility: write this part yourself]');
+  const parts = draft.parts('We serve 3 cafes and grew 40% last year. Revenue is [your yearly revenue].', 'I bake for 3 cafes.');
+  assert.deepEqual(parts.filter((x) => x.kind === 'check').map((x) => x.t), ['40%']);
+  assert.deepEqual(parts.filter((x) => x.kind === 'blank').map((x) => x.t), ['[your yearly revenue]']);
+  assert.equal(draft.REVIEW_LINE, 'You review and submit it yourself. 127 doesn’t apply for you and can’t promise any award. Check every fact before you send it: it’s your application. Some programs don’t accept AI-written answers, so check its rules.');
+});
+
+test('the open page: off by default; on, the same rows and lines, no countdowns or scam words', async () => {
+  assert.equal((await s.go('/perks')).status, 404);
+  process.env.PERKS_PUBLIC = 'on';
+  const res = await s.go('/perks');
+  assert.equal(res.status, 200);
+  const page = await res.text();
+  assert.equal((page.match(/class="pk-row"/g) || []).length, perks.PROGRAMS.length);
+  for (const line of ['Amounts are the most a program offers', 'most applicants don’t win', 'SBA does not provide grants', 'No link on this page is an affiliate link']) assert.ok(page.includes(line) || page.includes(line.replace(/’/g, '&#39;')), line);
+  assert.ok(!page.includes('data-save') && !page.includes('/draft"'), 'saving and the drafter need an account');
+  const text = page.replace(/<script[\s\S]*?<\/script>|<!--[\s\S]*?-->/g, ' ').replace(/<[^>]+>/g, ' ');
+  assert.doesNotMatch(text, /free money|\bclaim\b|\bunlock|get funded|you qualify|guarantee|secret|little-known/i);
+  const soon = page.slice(page.indexOf('pk-soon'), page.indexOf('pk-shelf'));
+  assert.doesNotMatch(soon.replace(/<[^>]+>/g, ' '), /\d+ days?\b|today/i, 'dates only, no countdown');
+  assert.deepEqual(copy.check(text, { file: 'perks-open' }).filter((f) => f.severity === 'block'), []);
+  delete process.env.PERKS_PUBLIC;
 });

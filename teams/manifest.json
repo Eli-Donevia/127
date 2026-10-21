@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.0",
+  "id": "{{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "127 Group LLC",
+    "websiteUrl": "https://127group.io",
+    "privacyUrl": "https://127group.io/privacy",
+    "termsOfUseUrl": "https://127group.io/terms"
+  },
+  "name": {
+    "short": "127 HQ",
+    "full": "127 HQ"
+  },
+  "description": {
+    "short": "OK cards and your morning pulse from 127 HQ, in a private chat.",
+    "full": "127 HQ sends you its OK cards and your morning pulse in a private chat. Link your Teams account from HQ with a one-time code, then type link and the code in your chat with HQ. Only you can OK a card, each card works once, and money, deletes, publishing and ad budgets are always OK'd in HQ. HQ doesn't read your chats or channels. In a channel it answers only when @mentioned, with a line pointing to your private chat."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#060607",
+  "bots": [
+    {
+      "botId": "{{TEAMS_APP_ID}}",
+      "scopes": ["personal", "team"],
+      "supportsFiles": false,
+      "isNotificationOnly": false,
+      "commandLists": [
+        {
+          "scopes": ["personal"],
+          "commands": [
+            { "title": "oks", "description": "Anything waiting on your OK" },
+            { "title": "pulse", "description": "Yesterday in numbers" },
+            { "title": "link", "description": "Link with the code from HQ" },
+            { "title": "help", "description": "What HQ can do here" }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["127group.io"]
+}

@@ -5,10 +5,10 @@
   <div class="wrap">
     <p class="vt-crumb"><a href="/admin/verticals">Verticals</a> <span aria-hidden="true">/</span> <%= v.slug %></p>
     <h1 class="vb-h1"><%= v.name %></h1>
-    <p class="vb-sub"><%= v.group %> · status <b><%= status %></b> · keyword <b><%= v.keyword %></b> · <a href="/for/<%= v.slug %>">Open the page</a><% if (row) { %> · <%= row.visits %> visits, <%= row.signups %> signups, <%= row.paid %> paid, verdict <b><%= row.verdict %></b><% } %></p>
+    <p class="vb-sub"><%= v.group %> · status <b><%= status %></b> · keyword <b><%= v.keyword %></b> (off) · <a href="/for/<%= v.slug %>">Open the page</a><% if (row) { %> · <%= row.visits %> visits, <%= row.signups %> signups, <%= row.paid %> paid, verdict <b><%= row.verdict %></b><% } %></p>
     <% if (saved) { %><p class="vb-saved" role="status"><%= saved === 'spend-error' ? 'That spend line didn\'t save: the week is a Monday date and the amount a number.' : 'Saved.' %></p><% } %>
     <% if (v.problems.length) { %><div class="vb-problems"><%= v.problems.join(' · ') %></div><% } %>
-    <% if (v.legal) { %><div class="vb-problems" style="border-color: var(--vt-pop)"><b>Legal note:</b> <%= v.legal %></div><% } %>
+    <% if (v.legal) { %><div class="vb-problems" style="border-color: var(--orchid)"><b>Legal note:</b> <%= v.legal %> <% if (v.legalRead) { %><span class="vb-dim">Read by Legal (<%= v.legalRead %>).</span><% } else { %><b>Legal hasn't read it yet, so it stays at admins even when it's set to test.</b><% } %></div><% } %>
 
     <section class="vb-sec">
       <h2 class="vb-h2">Status</h2>
@@ -39,11 +39,13 @@
 
     <section class="vb-sec">
       <h2 class="vb-h2">Hooks</h2>
-      <ul class="vb-rows"><% v.hooks.forEach(function (h) { %><li><%= h %></li><% }) %></ul>
+      <p class="vb-sub">Organic posts. Say "I" only when it's true for whoever's on camera; otherwise "how to". A post that shows money (a cost, a price, the math) puts "Example: made-up numbers" on screen, and never runs as an ad (Legal L102).</p>
+      <ul class="vb-rows"><% v.hooks.forEach(function (h) { %><li><%= h %><% if (/\$\d|\bcosts?\b|\bprice\b|\bmath\b|leaves you/i.test(h)) { %><small>Money example: label it "Example: made-up numbers".</small><% } %></li><% }) %></ul>
     </section>
 
     <section class="vb-sec">
       <h2 class="vb-h2">Ad angles</h2>
+      <p class="vb-sub">Nothing runs until Eli says. Ads promise the free result and describe the files, never clients, bookings, sales or income.</p>
       <ul class="vb-rows"><% v.ads.forEach(function (a) { %><li><b><%= a.angle %></b>: <%= a.hook %><small><%= a.body %> Headline: <%= a.headline %></small></li><% }) %></ul>
     </section>
 
@@ -53,7 +55,9 @@
         <% v.pack.prompts.forEach(function (p) { %><li><b><%= p.title %></b><small><%= p.summary %></small></li><% }) %>
         <li><small>Store items: <%= v.pack.items.join(', ') %></small></li>
       </ul>
+      <% if (v.pack.notes && v.pack.notes.length) { %><p class="vb-sub">In the pack's README, before the files:</p><ul class="vb-rows"><% v.pack.notes.forEach(function (n) { %><li><small><%= n %></small></li><% }) %></ul><% } %>
       <p class="vb-sub">Pack slug <b><%= v.packSlug %></b>, Stripe lookup key pack_<%= v.packSlug %> (npm run stripe:setup). Next to try if it wins: <%= (v.next || []).join(', ') || 'not set' %>.</p>
+      <p class="vb-sub">DM keyword <b><%= v.keyword %></b>: off until Eli turns keywords on. Its first DM opens with "Heads up, this DM is automated so you get the link in seconds." before any link, offer or price (L69).</p>
     </section>
   </div>
 </main>

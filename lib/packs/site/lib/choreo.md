@@ -166,3 +166,23 @@ buildSite(ctx, { facts, template: 'supper', motion: { intro: 'develop', pace: 'c
   motion never gets), and every section is complete and still. If the bundle never arrives, the intro's pieces show
   anyway after 2.6 s.
 - Save-Data: no intro and no motion at rest.
+
+## Light and dark
+
+A design can ship both modes. Declare `modes: ['dark', 'light']`, with the design's own mode first, and take the mode in `tokens(p, mode)`.
+
+The build then does this:
+- **Tokens:** your own mode's tokens go on `:root`. The other mode's go under `html[data-theme="<other>"]`.
+- **Start mode:** `<html data-theme>` is set to the mode the member picked (`facts.theme`: light, dark or auto; blank means your own mode).
+- **Before paint:** a head script switches to the visitor's saved choice, or to their phone's setting when the member picked auto.
+- **The switch:** `parts.modeToggle(c)` is the sun and moon button. `parts.header` includes it. A design with its own header must place `${modeToggle(c)}` itself.
+  - The button stays hidden until the page script wires it.
+  - It saves the visitor's choice as `site-mode` on their device.
+
+Write the CSS for your own mode as usual. Put everything the other mode changes under `html[data-theme="light"]` (or `"dark"`).
+
+Rules for the other mode:
+- **Design it; don't invert it.** Give it its own surfaces, its own shadows (light) or highlights (dark), and its own grain.
+- **Contrast:** every text pair keeps 4.5:1 in both modes.
+- **Drawings:** an image file is the same in both modes. A drawn object sits in its own lit frame, so it reads on either page.
+- **Without JavaScript:** the page shows the member's start mode, with no switch.

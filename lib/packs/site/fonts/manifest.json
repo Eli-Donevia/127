@@ -250,5 +250,65 @@
    "archivo.txt",
    "host-grotesk.txt"
   ]
+ },
+ "family=Gloock&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400": {
+  "css": "@font-face{font-family:'Atkinson Hyperlegible';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/atkinson-hyperlegible-italic-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/atkinson-hyperlegible-normal-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/atkinson-hyperlegible-normal-700.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Gloock';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/gloock-normal-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}",
+  "files": [
+   "atkinson-hyperlegible-italic-400.woff2",
+   "atkinson-hyperlegible-normal-400.woff2",
+   "atkinson-hyperlegible-normal-700.woff2",
+   "gloock-normal-400.woff2"
+  ],
+  "licenses": [
+   "atkinson-hyperlegible.txt",
+   "gloock.txt"
+  ]
+ },
+ "family=Anybody:wdth,wght@150,900&family=IBM+Plex+Mono:wght@400;600": {
+  "css": "@font-face{font-family:'Anybody';font-style:normal;font-weight:900;font-stretch:150%;font-display:swap;src:url(fonts/anybody-normal-900.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/ibm-plex-mono-normal-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/ibm-plex-mono-normal-600.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}",
+  "files": [
+   "anybody-normal-900.woff2",
+   "ibm-plex-mono-normal-400.woff2",
+   "ibm-plex-mono-normal-600.woff2"
+  ],
+  "licenses": [
+   "anybody.txt",
+   "ibm-plex-mono.txt"
+  ]
+ },
+ "family=Chivo:wght@400..900&family=Chivo+Mono:wght@400;500": {
+  "css": "@font-face{font-family:'Chivo';font-style:normal;font-weight:400 900;font-display:swap;src:url(fonts/chivo-normal-400-900.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Chivo Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/chivo-mono-normal-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Chivo Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/chivo-mono-normal-400.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}",
+  "files": [
+   "chivo-normal-400-900.woff2",
+   "chivo-mono-normal-400.woff2"
+  ],
+  "licenses": [
+   "chivo.txt",
+   "chivo-mono.txt"
+  ]
+ },
+ "family=Overpass:wght@700;800&family=Public+Sans:wght@400;500;700&family=Overpass+Mono:wght@500": {
+  "css": "@font-face{font-family:'Overpass';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/overpass-normal-700.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Overpass';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/overpass-normal-700.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Overpass Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/overpass-mono-normal-500.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Public Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/public-sans-normal-400-600.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Public Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/public-sans-normal-400-600.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Public Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/public-sans-normal-400-600.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}",
+  "files": [
+   "overpass-normal-700.woff2",
+   "overpass-mono-normal-500.woff2",
+   "public-sans-normal-400-600.woff2"
+  ],
+  "licenses": [
+   "overpass.txt",
+   "overpass-mono.txt",
+   "public-sans.txt"
+  ]
+ },
+ "family=Funnel+Display:wght@600..800&family=Funnel+Sans:wght@400..700": {
+  "css": "@font-face{font-family:'Funnel Display';font-style:normal;font-weight:600 800;font-display:swap;src:url(fonts/funnel-display-normal-600-800.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Funnel Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/funnel-sans-normal-400-700.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}",
+  "files": [
+   "funnel-display-normal-600-800.woff2",
+   "funnel-sans-normal-400-700.woff2"
+  ],
+  "licenses": [
+   "funnel-display.txt",
+   "funnel-sans.txt"
+  ]
  }
 }

@@ -14,7 +14,7 @@
         <h1><span class="dim">You're in<%= fn ? ',' : '.' %></span><% if (fn) { %> <span class="grad"><%= fn %>.</span><% } %></h1>
         <% if (onList && kind === 'new') { %><p class="lede">You're already on the founding list, so your founding price is saved.</p><% } %>
         <% if (live) { %>
-          <p class="lede">The challenge started <%= chx.etWeekday(chx.startAt) %>, and you can still finish it: every day stays open until <b><%= chx.etLong(chx.closesAt) %> at 11:59pm ET</b>. Start here, <%= chx.v2 ? 'about 15 minutes each' : 'about 20 minutes each' %>.</p>
+          <p class="lede">The challenge started <%= chx.etWeekday(chx.startAt) %>, and you can still finish it: every day stays open until <b><%= chx.etLong(chx.closesAt) %> at 11:59pm ET</b>. Start here, <%= chx.v2 ? 'one short step at a time' : 'about 20 minutes each' %>.</p>
           <div class="ch-catchup">
             <% me.days.forEach(function (d) { if (!d.unlocked) return; %><a class="btn <%= d.done ? 'ghost' : 'light' %> sm" href="/challenge/day/<%= d.n %>"><%= d.done ? '✓ ' : '' %>Day <%= d.n %>: <%= d.move %><% if (!d.done) { %> <span class="arrow"></span><% } %></a><% }) %>
           </div>

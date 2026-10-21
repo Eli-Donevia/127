@@ -111,7 +111,7 @@
       out.push('BEGIN:VEVENT', 'UID:' + id + '-' + due + '@127group.io', 'DTSTAMP:' + stamp,
         'DTSTART;VALUE=DATE:' + day(due, -1), 'DTEND;VALUE=DATE:' + day(due, 0),
         'SUMMARY:' + esc(r.getAttribute('data-name') + ' closes tomorrow'),
-        'DESCRIPTION:' + esc('Check the official page for the exact time and rules: ' + r.getAttribute('data-url')),
+        'DESCRIPTION:' + esc('Dates can change. Check the official page. ' + r.getAttribute('data-url')),
         'URL:' + r.getAttribute('data-url'), 'END:VEVENT');
     });
     out.push('END:VCALENDAR');

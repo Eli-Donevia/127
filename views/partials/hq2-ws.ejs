@@ -12,6 +12,7 @@
   leaf: '<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19c3-4 6-7 10-9"/>',
   ticket: '<path d="M4 7h16v3a2 2 0 000 4v3H4v-3a2 2 0 000-4z"/><path d="M14 7v10" stroke-dasharray="2 2"/>',
   bag: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/>',
+  gauge: '<path d="M4 18a8 8 0 1116 0"/><path d="M12 18l4-6"/><path d="M4 18h16"/>',
   repeat: '<path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/>',
   play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
   list: '<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
@@ -35,7 +36,7 @@ var ico = function (n) { return '<svg class="ws-i" viewBox="0 0 24 24" aria-hidd
 var pct = usage.allowance ? Math.max(0, Math.min(100, Math.round(100 * usage.left / usage.allowance))) : 0; %>
 <aside class="ws-rail" aria-label="HQ">
   <div class="ws-top">
-    <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+    <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
     <button type="button" class="ws-jump" data-ws-jump aria-haspopup="dialog"><%- ico('search') %><span>Jump to</span><kbd>⌘K</kbd></button>
   </div>
   <nav class="ws-nav">
@@ -58,7 +59,7 @@ var pct = usage.allowance ? Math.max(0, Math.min(100, Math.round(100 * usage.lef
 </aside>
 
 <header class="ws-phone-top">
-  <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><img src="/img/127-lockup-steel.svg" alt="127" class="logo"></a>
+  <a href="/app/hq" class="ws-mark" aria-label="HQ, Today"><span class="logo logo-spin" role="img" aria-label="127"></span></a>
   <button type="button" class="ws-icon-btn" data-ws-jump aria-label="Jump to"><%- ico('search') %></button>
 </header>
 

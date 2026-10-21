@@ -1,7 +1,7 @@
 /* Packs (lib/shop.js): /packs, each pack's own page, the files page and the homepage row.
-   One pop (#7C8CFF) per view, on the subject only; Signal green only for "signed" and done. Motion stops under
+   One pop (#7cebf6) per view, on the subject only; Signal green only for "signed" and done. Motion stops under
    reduced motion. Each pack's hero art is its own small piece, drawn from what is in the pack. */
-:root { --pop: #7c8cff; --pop-soft: rgba(124, 140, 255, .14); --ion: #5be4ff; --sig: #86d6ad; --steel: linear-gradient(180deg, #fff 30%, #a3a7b4); }
+:root { --pop: #7cebf6; --pop-soft: rgba(124, 235, 246, .14); --ion: #a98bff; --sig: #7cebf6; --steel: linear-gradient(180deg, #fff 30%, #a3a7b4); }
 
 .pk { overflow-x: clip; }
 .pk p { text-wrap: pretty; }
@@ -204,7 +204,7 @@
 .am-2 span { animation: amMask 6s cubic-bezier(.7, 0, .2, 1) infinite both; }
 .am-3 span { animation: amStamp 6s cubic-bezier(.16, 1, .3, 1) infinite both; color: #6f7280; }
 .am-draw { width: 70%; margin-top: 28px; }
-.am-draw path { stroke: url(#amGrad); stroke-width: 2.5; filter: drop-shadow(0 0 3px rgba(91, 228, 255, .5)); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: amDraw 6s cubic-bezier(.65, 0, .35, 1) infinite; }
+.am-draw path { stroke: url(#amGrad); stroke-width: 2.5; filter: drop-shadow(0 0 3px rgba(169, 139, 255, .5)); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: amDraw 6s cubic-bezier(.65, 0, .35, 1) infinite; }
 .am-ring { position: absolute; right: 9%; top: 12%; width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line-2); animation: amFloat 6s ease-in-out infinite; }
 @keyframes amAssemble { 0% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--r)); } 14%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
 @keyframes amMask { 0%, 12% { transform: translateY(105%); } 28%, 88% { transform: none; } 100% { transform: translateY(-105%); } }
@@ -322,7 +322,7 @@
 .aad { position: absolute; inset: 8% 0; border-radius: 20px; border: 1px solid var(--line-2); background: #0b0b0e; padding: clamp(20px, 3vw, 32px); display: grid; align-content: center; font-family: var(--mono); }
 .aad-k { margin: 0 0 18px; font-size: 12px; color: var(--muted); }
 .aad-be { position: relative; display: flex; justify-content: space-between; align-items: baseline; padding: 0 0 14px; font-size: 13px; color: var(--ink-2); }
-.aad-be::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: linear-gradient(90deg, var(--pop), var(--ion)); box-shadow: 0 0 3px rgba(91, 228, 255, .45); transform-origin: left; animation: aadLine 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+.aad-be::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: linear-gradient(90deg, var(--pop), var(--ion)); box-shadow: 0 0 3px rgba(169, 139, 255, .45); transform-origin: left; animation: aadLine 8s cubic-bezier(.65, 0, .35, 1) infinite; }
 @keyframes aadLine { 0% { transform: scaleX(0); } 12%, 94% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
 .aad-be b { font: 600 clamp(28px, 3.4vw, 40px)/1 var(--display); letter-spacing: -.04em; color: var(--ink); }
 .aad-rows { list-style: none; margin: 0; padding: 0; }

@@ -4,9 +4,9 @@
    No cards, no pills, no backdrop light. Everything reads complete with reduced motion and with the script off. */
 
 .pk {
-  --pop: #7c8cff;
-  --ion: #5be4ff;
-  --sig: #86d6ad;
+  --pop: #7cebf6;
+  --ion: #a98bff;
+  --sig: #7cebf6;
   --halo: #e3e6f1;
   --out: cubic-bezier(.16, 1, .3, 1);
   --spring: cubic-bezier(.34, 1.4, .64, 1);
@@ -32,7 +32,7 @@
 .pk-rail-tick { position: absolute; bottom: 4px; width: 1px; height: 9px; margin-left: -1px; background: var(--line-2); }
 .pk-stop { position: absolute; bottom: 4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 2px var(--ion); transform-origin: 50% 100%; }
 .pk-stop::before { content: ''; position: absolute; left: 4px; bottom: 9px; width: 1px; height: 22px; background: var(--ink-2); }
-.pk-stop.is-next { background: var(--ion); box-shadow: 0 0 8px rgba(91, 228, 255, .5); } /* the next one emits; nothing else glows */
+.pk-stop.is-next { background: var(--ion); box-shadow: 0 0 8px rgba(169, 139, 255, .5); } /* the next one emits; nothing else glows */
 .pk-rail-k { display: flex; justify-content: space-between; font: 400 11px/1 var(--mono); color: var(--muted); }
 .pk-times { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--line); }
 .pk-times a { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
@@ -136,3 +136,41 @@
 @keyframes pk-stop { from { opacity: 0; transform: translateY(6px) scale(.4); } to { opacity: 1; transform: none; } }
 @keyframes pk-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .pk-row details[open] .pk-body { animation: none; } }
+
+/* ---------- Might fit (Legal L100 PM2): the reason, never "you qualify" ---------- */
+.pk-might { grid-column: 1 / -1; font: 400 13px/1.35 var(--sans); color: var(--pop); }
+.pk-might::before { content: ''; display: inline-block; width: 10px; height: 1px; margin: 0 8px 4px 0; background: currentColor; vertical-align: middle; }
+
+/* ---------- the open page (/perks) ---------- */
+.pk-open { padding-block: 32px 72px; }
+.pk-open .wrap { max-width: 880px; }
+.pk-open-t { margin: 0; font: 700 clamp(40px, 9vw, 72px)/.95 var(--display); letter-spacing: -0.045em; text-wrap: balance; }
+.pk-join { margin: 12px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line-2); max-width: 640px; }
+.pk-join p { margin: 10px 0 18px; color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+
+/* ---------- the drafter ---------- */
+.pk-back { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+.pk-back::before { content: ''; width: 14px; height: 1px; background: currentColor; }
+.pk-form { display: grid; gap: 16px; max-width: 640px; margin: 0 0 40px; }
+.pk-form label { display: grid; gap: 6px; font: 500 14px/1.3 var(--sans); color: var(--ink); }
+.pk-form .hint { font: 400 13px/1.45 var(--sans); color: var(--muted); }
+.pk-form textarea { width: 100%; min-height: 120px; resize: vertical; padding: 12px 14px; border: 1px solid var(--line-2); border-radius: 6px; background: transparent; color: var(--ink); font: 400 15px/1.5 var(--sans); }
+.pk-form textarea:focus { border-color: var(--pop); outline: none; }
+.pk-run { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.pk-run button { appearance: none; border: 0; cursor: pointer; }
+.pk-err { margin: 0; padding: 10px 0 10px 14px; border-left: 2px solid var(--danger, #f09b8a); color: var(--ink); font-size: 14px; }
+.pk-drafts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); max-width: 680px; }
+.pk-draft { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.pk-draft-top { display: flex; justify-content: space-between; gap: 12px; font: 400 12px/1 var(--mono); color: var(--muted); }
+.pk-draft-top b { color: var(--ink); font-weight: 500; }
+.pk-draft-q { margin: 10px 0 12px; color: var(--ink-2); font-size: 14px; line-height: 1.45; }
+.pk-draft-t { margin: 0; white-space: pre-wrap; color: var(--ink); font-size: 16px; line-height: 1.6; }
+.pk-draft-t mark { background: none; color: inherit; padding: 0 2px; border-radius: 2px; }
+.pk-draft-t .blank { box-shadow: inset 0 -1px 0 var(--pop); color: var(--pop); }
+.pk-draft-t .check { box-shadow: inset 0 0 0 1px var(--ion); }
+.pk-draft-t .check i { font: 500 10px/1 var(--mono); font-style: normal; letter-spacing: .04em; text-transform: uppercase; color: var(--ion); margin-left: 4px; vertical-align: 2px; }
+.pk-review { margin: 14px 0 0; padding-left: 14px; border-left: 1px solid var(--line-2); color: var(--muted); font-size: 13px; line-height: 1.5; }
+.pk-draft-do { display: flex; gap: 18px; align-items: center; margin-top: 12px; }
+.pk-draft-do form { margin: 0; }
+.pk-open section { padding: 0; }
+.pk-open .pk-shelf { margin-bottom: 44px; }

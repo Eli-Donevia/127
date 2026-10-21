@@ -163,6 +163,8 @@
       '<h2 class="ob-q">Your roadmap is ready. Where should we save it?</h2>' +
       '<p class="ob-hint">Create your free account to open weeks 1 and 2 and track your progress.</p>' +
       (window.OB_ERROR ? '<div class="alert error">' + esc(window.OB_ERROR) + '</div>' : '') +
+      // Legal L101 RF3: whose invite link brought them here, and what that member will see.
+      (window.OB_INVITED ? '<p class="small muted" style="margin:0 0 14px">' + esc(window.OB_INVITED) + '</p>' : '') +
       '<form id="acct">' +
         '<label class="field"><span>First name</span><input class="input" name="name" autocomplete="given-name" required></label>' +
         '<label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="email" required value="' + esc(leadEmail()) + '"></label>' +

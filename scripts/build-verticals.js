@@ -55,12 +55,14 @@ function scaffold() {
     lede: todo(raw.lede),
     week: raw.week.map((w) => ({ ...w, job: todo(w.job), hand: todo(w.hand) })),
     site: { ...raw.site, sample: { business: todo('a made-up business name'), what: todo(raw.site.sample.what), services: '', city: '' }, caption: todo(raw.site.caption) },
-    pack: { ...raw.pack, name: todo(raw.pack.name), line: todo(raw.pack.line), prompts: raw.pack.prompts.map((p) => ({ ...p, title: todo(p.title), summary: todo(p.summary), prompt: todo(p.prompt), use: todo(p.use) })) },
+    pack: { ...raw.pack, name: todo(raw.pack.name), line: todo(raw.pack.line), notes: (raw.pack.notes || []).map(todo), prompts: raw.pack.prompts.map((p) => ({ ...p, title: todo(p.title), summary: todo(p.summary), prompt: todo(p.prompt), use: todo(p.use) })) },
     hooks: raw.hooks.map(todo),
     ads: raw.ads.map((a) => ({ angle: a.angle, hook: todo(a.hook), body: todo(a.body), headline: todo(a.headline) })),
     keyword: 'TODO',
     next: [],
     legal: todo('anything regulated about this kind of business, or null'),
+    // A new note stays at admins until Legal reads it (L102 VT11); Legal's ruling goes here.
+    legalRead: null,
   };
   fs.writeFileSync(file, `${JSON.stringify(out, null, 2)}\n`);
   console.log(`Wrote content/verticals/${slug}.json as a draft. Rewrite every TODO line (content/verticals/_brief.md), then run --check.`);
@@ -79,7 +81,8 @@ function writeKit(v) {
     const src = path.join(V.KITS_DIR, v.pack.kitFrom.kit);
     for (const f of v.pack.kitFrom.files || []) fs.copyFileSync(path.join(src, `${f}.md`), path.join(dir, `${v.pack.kitFrom.kit}-${f}.md`));
   }
-  fs.writeFileSync(path.join(dir, 'README.md'), `# ${v.pack.name}\n\nMade by scripts/build-verticals.js from content/verticals/${v.slug}.json. Don't edit these files; edit the vertical and build again.\n\n${names.map((n) => `- ${n}`).join('\n')}\n`);
+  const notes = v.pack.notes && v.pack.notes.length ? `\n## Before you use these\n\n${v.pack.notes.map((n) => `- ${n}`).join('\n')}\n` : '';
+  fs.writeFileSync(path.join(dir, 'README.md'), `# ${v.pack.name}\n\nMade by scripts/build-verticals.js from content/verticals/${v.slug}.json. Don't edit these files; edit the vertical and build again.\n\n${names.map((n) => `- ${n}`).join('\n')}\n${notes}`);
 }
 
 async function writeSample(v) {
@@ -111,9 +114,14 @@ async function shots(list) {
     await page.goto(`file://${path.join(V.SAMPLES_DIR, `${v.slug}.html`)}`, { waitUntil: 'load' });
     await page.waitForTimeout(400);
     // A full-page shot pins fixed bars (the phone call-to-action bar, a sticky nav) mid-page: take them out. The
-    // made-up-business note goes too: the phone's corners clip it, and the caption under the phone says it instead.
+    // made-up-business note stays on every poster (Legal L102 VT5), set in from the edges so the phone's corners
+    // don't clip it.
     await page.evaluate(() => {
-      for (const el of document.querySelectorAll('.sample-bar')) el.style.setProperty('display', 'none', 'important');
+      for (const el of document.querySelectorAll('.sample-bar')) {
+        el.style.setProperty('position', 'static', 'important');
+        el.style.setProperty('padding', '30px 44px 12px', 'important');
+        el.style.setProperty('text-align', 'center', 'important');
+      }
       for (const el of document.querySelectorAll('body *')) {
         const pos = getComputedStyle(el).position;
         if (pos === 'fixed' || (pos === 'sticky' && el.getBoundingClientRect().top > 200)) el.style.setProperty('display', 'none', 'important');

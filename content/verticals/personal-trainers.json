@@ -8,7 +8,7 @@
   "description": "A booking site, a consult script, session packages, check-in messages and a client tracker for independent personal trainers.",
   "h1": "Sell the next twelve sessions, not one.",
   "mark": "twelve",
-  "lede": "127 gives a personal trainer a site with your packages and a booking link, a consult that ends in a plan, and the weekly check-ins that keep people showing up.",
+  "lede": "127 gives a personal trainer a site with your packages and a booking link, a consult that ends in a plan, and weekly check-ins for every client.",
   "week": [
     {
       "when": "Mon",
@@ -34,12 +34,12 @@
   "site": {
     "design": "northstar",
     "sample": {
-      "business": "Ren Strength",
+      "business": "Fernhill Strength",
       "what": "Personal training for beginners",
       "services": "Free consult, 30 minutes\n8 sessions, $480\n12 sessions, $660",
       "city": "St. Paul"
     },
-    "caption": "Ren Strength is made up. Built by the free site builder."
+    "caption": "Fernhill Strength is made up. Built by the free site builder."
   },
   "entry": {
     "door": "site",
@@ -77,15 +77,25 @@
         "title": "Weekly check-ins",
         "summary": "Short weekly texts for week one, the middle of a package and the last two sessions.",
         "prompt": "Write short check-in texts from [trainer] for: the first week, the middle of a package, two sessions left (with the renewal option), and after a missed session. Under 35 words each, warm, one question.",
-        "use": "Send Tuesdays."
+        "use": "Send Tuesdays.",
+        "rules": [
+          "texts",
+          "recurring"
+        ]
       },
       {
         "id": "03-packages",
         "title": "Session packages",
         "summary": "Builds three packages from your hourly rate, with the renewal price.",
         "prompt": "Build three personal training packages. My rate per session [$], sessions per week options [ ], package lengths [ ]. Give names, prices, what's included, a renewal price, and the cancellation rule in one line.",
-        "use": "Put them on your site and your consult sheet."
+        "use": "Put them on your site and your consult sheet.",
+        "rules": [
+          "recurring"
+        ]
       }
+    ],
+    "notes": [
+      "Forms on your site never ask about injuries, conditions, medications or pregnancy. That stays in the consult, on paper. Tips stay general: never a diet, supplement or treatment plan for one person."
     ]
   },
   "hq": [
@@ -128,5 +138,6 @@
     "Nutrition coaches",
     "Run coaches"
   ],
-  "legal": "No health or body result claims; injuries and conditions go to a doctor."
+  "legal": "No health or body result claims; injuries and conditions go to a doctor.",
+  "legalRead": "L102"
 }
