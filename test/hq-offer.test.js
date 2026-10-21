@@ -15,6 +15,7 @@ const harness = require('../lib/harness');
 const connectors = require('../lib/harness/connectors');
 const skills = require('../lib/harness/skills');
 const prompts = require('../lib/harness/prompts');
+const team = require('../lib/harness/team');
 const offer = require('../lib/hq-offer');
 const templates = require('../lib/templates');
 const store = require('../lib/store');
@@ -32,8 +33,13 @@ const reset = () => {
 const launch = { prelaunch: false, foundingOpen: false, foundingPrice: null, cap: 100 };
 const renderCards = (hqOffer) => ejs.render(fs.readFileSync(path.join(VIEWS, 'partials', 'plans.ejs'), 'utf8'), { launch, PLANS, user: null, circleCapacity: 4, hqOffer }, { filename: path.join(VIEWS, 'partials', 'plans.ejs') });
 const renderStack = (hqOffer) => ejs.render(fs.readFileSync(path.join(VIEWS, 'partials', 'hq-stack.ejs'), 'utf8'), { hqOffer });
+const andList = (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+// Legal's R4 for AI employees (L83, legal/handoffs/turnkey.md row 13): "AI" stays next to anything a reader could take
+// for a person, and no line says it acts on its own, replaces anyone, saves hours or money, or gives professional advice.
+const R4 = /\b(?:runs? your business|on autopilot|set it and forget it|handles? your customers|while you sleep|24\/7|replac\w*|fire your|stop hiring|no need to hire|work of \d+ people|full-time hire|hours saved|save \d+ hours|money saved|AI (?:CFO|tax pro|legal team|accountant|lawyer)|not a tool)\b/i;
+const barePerson = (w) => /\b(?:employees?|staff|teammates?)\b/i.test(String(w).replace(/\bAI employees?\b/g, ''));
 // Every line a reader can see.
-const words = (p) => [p.line, p.count, p.keep, ...p.stack.flatMap((r) => [r.name, r.says, r.does, typeof r.free === 'string' ? r.free : '']), p.cards.free.line, p.cards.builder.line, p.cards.builder.flag, ...p.cards.free.items, ...p.cards.builder.items, ...p.cards.circle.items, ...p.compare.flat()];
+const words = (p) => [p.line, p.count, p.keep, ...p.stack.flatMap((r) => [r.name, r.says, r.does, typeof r.free === 'string' ? r.free : '', ...(r.list || []).flat()]), p.cards.free.line, p.cards.builder.line, p.cards.builder.flag, ...p.cards.free.items, ...p.cards.builder.items, ...p.cards.circle.items, ...p.compare.flat()];
 
 test('off by default, and on for members only with HQ v2 on for everyone, the Terms and Privacy pages live and real AI', () => {
   reset();
@@ -253,6 +259,69 @@ test('the prompt library shows and counts only while HQ_PROMPTS is on for member
   reset();
 });
 
+test('the AI team sells as AI employees only with HQ_OFFER_TEAM=on and HQ_TEAM on for every member, each with a job line that is true today (Legal L83)', () => {
+  reset();
+  membersOn();
+  const faq = (hqOffer) => ejs.render(fs.readFileSync(path.join(VIEWS, 'partials', 'faq.ejs'), 'utf8'), { launch, PLANS, circleCapacity: 4, hqOffer });
+  let p = offer.forPage();
+  assert.ok(!p.stack.some((r) => r.id === 'team') && !/employee/i.test(words(p).join(' ')));
+  assert.match(p.line, /, and AI that does the work with your OK\.$/);
+  assert.ok(!faq(p).includes('AI employees'));
+  // The team on in HQ, as in production, changes no page until its own switch is on.
+  process.env.HQ_TEAM = 'on';
+  p = offer.forPage();
+  assert.deepEqual(p.n.team, []);
+  assert.ok(!p.stack.some((r) => r.id === 'team') && !/employee/i.test(words(p).join(' ')));
+  assert.match(p.line, /, and AI that does the work with your OK\.$/);
+  assert.ok(!faq(p).includes('AI employees'));
+  process.env.HQ_OFFER_TEAM = 'on';
+  process.env.HQ_TEAM = 'admins';
+  assert.ok(!offer.forPage().stack.some((r) => r.id === 'team'), 'a team for admins only sells nothing');
+  process.env.HQ_TEAM = 'on';
+  // A line shows only while its role has that workflow and the workflow runs for real on Builder.
+  const real = (wf) => !!wf && !wf.hidden && offer.runsForReal(wf);
+  const sold = () => offer.TEAM.filter(([id, wfId]) => {
+    const r = team.role(id);
+    const wf = harness.packs.workflow(wfId);
+    return r && r.workflows.includes(wfId) && real(wf) && wf.tier !== 'circle';
+  });
+  assert.ok(sold().length > 1, 'more than one AI employee to sell');
+  p = offer.forPage();
+  assert.deepEqual(p.n.team, sold().map((t) => [t[2], t[3]]));
+  const row = p.stack.find((r) => r.id === 'team');
+  assert.equal(row.name, 'Your AI team');
+  assert.equal(row.group, 'core');
+  assert.equal(row.does, 'Hire AI employees, one job each. Each one has a monthly credit budget and a weekly report, and anything it drafts waits for your OK.');
+  // The roster: a job name and what it does, for each one sold.
+  assert.deepEqual(row.list, sold().map((t) => [t[2], t[3]]));
+  const card = renderStack(p);
+  for (const [job, does] of row.list) assert.ok(card.includes(`<div><dt>${job}</dt><dd>${does}</dd></div>`), job);
+  assert.ok(!p.stack.some((r) => r.id !== 'team' && r.list), 'only the team card has a roster');
+  const freeJobs = sold().some(([id]) => team.role(id).workflows.some((w) => { const x = harness.packs.workflow(w); return real(x) && x.tier === 'free'; }));
+  assert.equal(row.free, freeJobs ? 'Their free workflows' : null);
+  assert.match(p.line, /, and AI employees that do the work with your OK\.$/);
+  assert.equal(p.cards.builder.line, 'Your business HQ: every workflow, every template, and AI employees that do the work with your OK.');
+  assert.equal(p.cards.builder.items[1], `Your AI team: AI employees that draft your ${andList(sold().slice(0, 3).map((t) => t[4]))}`);
+  assert.deepEqual(p.compare[1], ['Your AI team: AI employees, one job each', freeJobs ? 'Free workflows only' : '–', '✓', '✓']);
+  assert.ok(faq(p).includes("<summary>Are AI employees real people?</summary><p>No. We call them AI employees because each one has a job, but they're software that 127 runs for you."), 'Terms 13D');
+  // A role that loses the workflow its line names drops out.
+  const support = team.role('support_rep');
+  const had = support.workflows;
+  try {
+    support.workflows = had.filter((w) => w !== 'dm.reply_bank');
+    assert.ok(!offer.forPage().n.team.some(([job]) => job === 'Support'));
+  } finally {
+    support.workflows = had;
+  }
+  // Never the helpers that find people, follow up or run ads (L62), or hire (R6).
+  for (const id of ['sales_rep', 'assistant', 'ads_manager', 'recruiter']) assert.ok(!offer.TEAM.some((t) => t[0] === id), id);
+  for (const w of words(p)) {
+    assert.ok(!R4.test(w), `R4: "${w}"`);
+    assert.ok(!barePerson(w), `"AI" stays next to employee: "${w}"`);
+  }
+  reset();
+});
+
 test("Legal's keep-it line (L76) shows only with HQ_OFFER_KEEP and Brain docs on, under the Builder button and the stack", () => {
   reset();
   membersOn();
@@ -275,15 +344,17 @@ test("Legal's keep-it line (L76) shows only with HQ_OFFER_KEEP and Brain docs on
 test('nothing in it blocks or is held by the copy check as paid-plan copy (Legal L62), and it names no price', () => {
   reset();
   membersOn();
-  Object.assign(process.env, { CONNECTORS: 'on', CONNECTOR_NOTION: 'on', HQ_LIVE: 'true', HQ_SECRET: 'x'.repeat(32), HQ_HARNESS: 'true', HQ_AGENT: 'on', BRAIN_DOCS: 'on', HQ_ACTIVITY: 'on', HQ_SKILLS: 'on', HQ_PROMPTS: 'on', HQ_OFFER_KEEP: 'on', STORE_V2: 'on', SITE_MOTION: 'on' });
+  Object.assign(process.env, { CONNECTORS: 'on', CONNECTOR_NOTION: 'on', HQ_LIVE: 'true', HQ_SECRET: 'x'.repeat(32), HQ_HARNESS: 'true', HQ_AGENT: 'on', BRAIN_DOCS: 'on', HQ_ACTIVITY: 'on', HQ_SKILLS: 'on', HQ_PROMPTS: 'on', HQ_OFFER_KEEP: 'on', STORE_V2: 'on', SITE_MOTION: 'on', HQ_TEAM: 'on', HQ_OFFER_TEAM: 'on' });
   connectors.CLEARED.add('notion');
   for (const mcp of ['off', 'on']) {
     process.env.HQ_MCP_BRAIN = mcp;
     const p = offer.forPage();
+    assert.ok(p.stack.some((r) => r.id === 'team'));
     for (const w of words(p)) {
       assert.deepEqual(check(String(w), { file: 'offer.txt', paid: true }), [], w);
       assert.ok(!/\$\d/.test(w), `no price in "${w}": prices stay in lib/plans.js and the plan cards`);
       assert.ok(!/\b(?:hormozi|turnkey|10x|done[- ]for[- ]you|unlimited|replace your)\b/i.test(w), w);
+      assert.ok(!R4.test(w) && !barePerson(w), `R4: "${w}"`);
     }
   }
   const src = fs.readFileSync(path.join(__dirname, '..', 'lib', 'hq-offer.js'), 'utf8');

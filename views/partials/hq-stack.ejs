@@ -12,7 +12,7 @@
         <div class="hqs-card" data-row="<%= r.id %>">
           <p class="hqs-says">"<%= r.says %>"</p>
           <h3><%= r.name %></h3>
-          <p class="hqs-does"><%= r.does %></p>
+          <p class="hqs-does"><%= r.does %></p><% if (r.list) { %><dl class="hqs-list"><% r.list.forEach(function (x) { %><div><dt><%= x[0] %></dt><dd><%= x[1] %></dd></div><% }) %></dl><% } %>
           <% if (r.free) { %><p class="hqs-free mono"><%= r.free === true ? 'Also on Free' : 'On Free: ' + r.free %></p><% } %>
         </div>
         <% }) %>
