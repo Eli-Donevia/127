@@ -209,6 +209,9 @@ test('the whole path: listing, files, cover, checks, review, shelf, a demo sale,
   assert.match(html, /\/makers\/tulsa-gym/);
   assert.match(await (await s.go('/makers/tulsa-gym')).text(), /Rae Cole/);
   assert.equal(market.forNiche('gyms')[0].slug, l.slug);
+  process.env.MARKETPLACE = 'admins';
+  assert.deepEqual(market.forNiche('gyms'), [], 'niche pages are public, so nothing until fully on');
+  process.env.MARKETPLACE = 'on';
 
   // A guest buys in demo mode: the private link opens the files and the download.
   r = await s.go(`/market/${l.slug}/buy`, { form: {} });
