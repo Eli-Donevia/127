@@ -416,7 +416,7 @@ app.get('/pricing', (req, res) => {
   const offer = hqOffer.forPage({ preview: isAdmin(req.user) && req.query.preview === 'hq' });
   res.render('pricing', { title: 'Membership', description: pricingDescription(offer), resourceCount: resources.length, builderMap: builderMap.forPage(), hqOffer: offer });
 });
-app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle" }));
+app.get('/circle', (req, res) => res.render('circle', { title: "Founder's Circle", ogImage: '/img/og/founders-circle.png' }));
 app.get('/media-kit', (req, res) => res.render('media-kit', { title: 'Media kit', description: 'Eli Christiansen media kit: 100K+ followers built, audience snapshot, past brand partnerships and ways to work together.' }));
 app.get('/mediakit', (req, res) => res.redirect(301, '/media-kit'));
 app.get('/privacy', (req, res) => res.render('legal', { title: 'Privacy', kind: 'privacy' }));
