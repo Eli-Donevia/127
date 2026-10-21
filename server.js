@@ -2191,6 +2191,8 @@ db.init().then(async () => {
     require('./lib/harness/posts').sweep().catch((err) => console.error('[posts] sweep', err.message));
     // Referral months whose 14-day wait is over (lib/referrals.js); nothing while REFERRALS is off.
     referrals.sweep().catch((err) => console.error('[referrals] sweep', err.message));
+    // The wall: Challenge entries never tied to an account go 12 months after they were made (Legal L98 NU25).
+    require('./lib/wall').sweep().catch((err) => console.error('[wall] sweep', err.message));
   }, 5 * 60 * 1000).unref();
   // HQ v2 (lib/harness): load the packs; while HARNESS_V2 is on, resume waiting work every minute
   // (and Monday's cards every 10), and clear old runs and cache once a day.

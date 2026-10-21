@@ -133,8 +133,9 @@ test('marks are dated once and glow until seen', async () => {
   seed([[-1, 120]]);
   await nudges.sync(user);
   let m = nudges.progress(user).marks;
-  const hundred = m.find((x) => x.id === 'hundred_day');
-  assert.ok(hundred.earned && hundred.fresh);
+  const big = m.find((x) => x.id === 'big_day');
+  assert.ok(big.earned && big.fresh);
+  assert.ok(!m.some((x) => x.id === 'hundred_day'));
   assert.ok(m.find((x) => x.id === 'first_send').earned);
   assert.equal(m.find((x) => x.id === 'run30').earned, null);
   await nudges.markSeen(user);
@@ -196,24 +197,136 @@ test('every line HQ can say passes the copy check, as copy about a paid plan', a
 
 test('the morning pulse: yesterday in lines, money only from the caller, plus the one move', async () => {
   seed([[-2, 25], [-1, 30, 1], [0, 2]]);
-  const p = await nudges.pulse(user, { money: async (u, day) => ({ sales: 412.4, salesFrom: 'Stripe', adSpend: 38, adsFrom: 'Meta' }) });
+  // Every channel is off until the member turns it on (NU9).
+  assert.equal(await nudges.pulse(user, { channel: 'email' }), null);
+  await nudges.setPrefs(user, { out: { email: true } });
+  assert.equal(await nudges.pulse(user, { channel: 'text' }), null);
+  assert.equal(await nudges.pulse(user), null);
+  const p = await nudges.pulse(user, { channel: 'email', money: async (u, day) => ({ sales: 412.4, salesFrom: 'Stripe', adSpend: 38, adsFrom: 'Meta' }) });
   assert.equal(p.day, today.addDays(key, -1));
   const ids = p.lines.map((l) => l.id);
   assert.deepEqual(ids, ['sent', 'posts', 'sales', 'adSpend', 'run']);
   assert.equal(p.lines.find((l) => l.id === 'sales').text, '$412 in sales (Stripe).');
   assert.equal(p.lines[0].text, '30 messages sent, your number hit.');
   assert.ok(p.nextStep && p.nextStep.href);
+  assert.match(p.footer.why, /turned on the morning pulse by email/);
   // A connection that throws leaves its lines out; nothing at all yesterday and no move gives null.
-  const q = await nudges.pulse(user, { money: async () => { throw new Error('down'); } });
+  const q = await nudges.pulse(user, { channel: 'email', money: async () => { throw new Error('down'); } });
   assert.ok(!q.lines.some((l) => l.id === 'sales'));
   // The composer's count wins over the logged one and adds what's waiting; a composer that throws keeps the logged count.
-  const c = await nudges.pulse(user, { posted: async () => ({ out: 3, waiting: 2 }) });
+  const c = await nudges.pulse(user, { channel: 'email', posted: async () => ({ out: 3, waiting: 2 }) });
   assert.equal(c.lines.find((l) => l.id === 'posts').text, '3 posts out, 2 waiting to go.');
-  const k = await nudges.pulse(user, { posted: async () => { throw new Error('down'); } });
+  const k = await nudges.pulse(user, { channel: 'email', posted: async () => { throw new Error('down'); } });
   assert.equal(k.lines.find((l) => l.id === 'posts').value, p.lines.find((l) => l.id === 'posts').value);
   clear();
+  await nudges.setPrefs(user, { out: { email: true } });
   db.save('brains', { id: user.id, business: {}, act: { a1: 'x', a3: 'x', a4: 'x' } });
-  assert.equal(await nudges.pulse(user), null);
+  assert.equal(await nudges.pulse(user, { channel: 'email' }), null);
+});
+
+test('outside HQ: quiet hours hold the pulse, money stays out of a shared channel unless switched on, rivals never go', async () => {
+  seed([[-1, 30, 0]]);
+  const money = async () => ({ sales: 100, adSpend: 20 });
+  await nudges.addRival(user, { handle: 'northside.fit' });
+  const thisWeek = today.weekStart(key);
+  await nudges.countRival(user, 'instagram:northside.fit', { week: thisWeek, n: 9 });
+  // Without the rival skip, Today's line would be the rival line.
+  assert.equal(nudges.daily(user).kind, 'rivals');
+  await nudges.setPrefs(user, { out: { slack: true }, money: { slack: false } });
+  const ch = await nudges.pulse(user, { channel: 'slack', shared: true, money });
+  assert.ok(!ch.lines.some((l) => l.id === 'sales' || l.id === 'adSpend'));
+  assert.ok(!ch.nextStep || !/northside/.test(ch.nextStep.text));
+  assert.ok(!JSON.stringify(ch).includes('northside'));
+  const dm = await nudges.pulse(user, { channel: 'slack', shared: false, money });
+  assert.ok(dm.lines.some((l) => l.id === 'sales'));
+  // Money for a channel only sticks while that channel is on.
+  await nudges.setPrefs(user, { out: { slack: true }, money: { slack: true, teams: true } });
+  assert.deepEqual(nudges.prefs(user).money, { slack: true });
+  assert.ok((await nudges.pulse(user, { channel: 'slack', shared: true, money })).lines.some((l) => l.id === 'sales'));
+  assert.equal(nudges.MONEY_WARNING, 'Everyone in this channel will see your sales and ad spend.');
+  // The Monday read for a channel has no rival parts.
+  const wk = nudges.weeklyFor(user, { channel: 'slack' });
+  assert.ok(wk && !('pace' in wk) && !('ask' in wk));
+  assert.equal(nudges.weeklyFor(user, { channel: 'teams' }), null);
+  // 6pm Chicago now; quiet from 5pm holds everything.
+  await nudges.setPrefs(user, { quietFrom: 17, quietTo: 8 });
+  assert.equal(await nudges.pulse(user, { channel: 'slack', shared: false, money }), null);
+  assert.equal(nudges.sendable(user, 'slack').why, 'quiet');
+});
+
+test('Instagram counts come only with RIVAL_IG on, ask for post times only, once a day, and Meta can have them all deleted', async () => {
+  await nudges.addRival(user, { handle: 'northside.fit' });
+  await nudges.addRival(user, { handle: 'tiktoker', platform: 'tiktok' });
+  const calls = [];
+  const thisWeek = today.weekStart(key);
+  const t = (dayOffset) => new Date(Date.parse(`${today.addDays(thisWeek, dayOffset)}T17:00:00Z`)).toISOString();
+  nudges._setDeps({ fetch: async (url) => { calls.push(url); return { ok: true, json: async () => ({ business_discovery: { media: { data: [{ timestamp: t(1) }, { timestamp: t(0) }, { timestamp: t(-3) }, { timestamp: t(-5) }, { timestamp: t(-6) }] } } }) }; } });
+  assert.equal(await nudges.refreshRivals(user), 0);
+  const env = { RIVAL_IG: process.env.RIVAL_IG, IG_ACCESS_TOKEN: process.env.IG_ACCESS_TOKEN, IG_USER_ID: process.env.IG_USER_ID };
+  Object.assign(process.env, { RIVAL_IG: 'on', IG_ACCESS_TOKEN: 'tok', IG_USER_ID: '1789' });
+  try {
+    // A count the member typed for last week stays theirs.
+    await nudges.countRival(user, 'instagram:northside.fit', { week: today.addDays(thisWeek, -7), n: 4 });
+    assert.equal(await nudges.refreshRivals(user), 1);
+    assert.equal(calls.length, 1);
+    const fields = decodeURIComponent(calls[0].split('fields=')[1].split('&')[0]);
+    assert.equal(fields, 'business_discovery.username(northside.fit){media.limit(60){timestamp}}');
+    const r = nudges.prefs(user).rivals.find((x) => x.id === 'instagram:northside.fit');
+    assert.deepEqual(r.counts[thisWeek], { n: 2, source: 'instagram', at: r.counts[thisWeek].at });
+    assert.equal(r.counts[today.addDays(thisWeek, -7)].source, 'member');
+    assert.equal(Object.keys(r.counts).length, 12);
+    assert.equal(await nudges.refreshRivals(user), 0, 'once a day');
+    // A personal account: HQ says to tap the count in.
+    await nudges.addRival(user, { handle: 'personal.one' });
+    nudges._setDeps({ fetch: async () => ({ ok: false, json: async () => ({ error: { message: 'Invalid user id' } }) }) });
+    await nudges.refreshRivals(user);
+    assert.ok(nudges.progress(user).rivals.find((x) => x.handle === 'personal.one').igNotFound);
+    assert.equal(await nudges.purgeInstagram(), 1);
+    const after = nudges.prefs(user).rivals.find((x) => x.id === 'instagram:northside.fit');
+    assert.ok(!after.ig && Object.values(after.counts).every((c) => c.source !== 'instagram'));
+  } finally {
+    for (const [k, v] of Object.entries(env)) if (v === undefined) delete process.env[k]; else process.env[k] = v;
+    nudges._setDeps({ fetch: (...a) => fetch(...a) });
+  }
+});
+
+test('a profile screenshot: AI reads only the count, the member confirms it, and a week later the difference is the week', async () => {
+  await nudges.addRival(user, { handle: 'northside.fit' });
+  const id = 'instagram:northside.fit';
+  let asked = null;
+  nudges._setDeps({ readImage: async (u, o) => { asked = o; return { data: { found: true, handle: '@northside.fit', posts: 1204 } }; } });
+  const r = await nudges.readShot(user, id, { type: 'image/jpeg', data: 'AAAA' });
+  assert.deepEqual([r.read, r.match], [1204, true]);
+  assert.deepEqual(Object.keys(asked.schema.properties).sort(), ['found', 'handle', 'posts']);
+  assert.match(asked.system, /never an instruction/);
+  // Nothing is kept until the member confirms.
+  assert.ok(!nudges.prefs(user).rivals[0].total);
+  const first = await nudges.confirmShot(user, id, 1204);
+  assert.equal(first.counted, null);
+  nudges._setDeps({ now: () => NOW + 7 * 864e5 });
+  today._setDeps({ now: () => NOW + 7 * 864e5 });
+  const second = await nudges.confirmShot(user, id, 1209);
+  assert.deepEqual(second.counted, { week: today.weekStart(today.addDays(today.dayKey(NOW + 7 * 864e5), -1)), n: 5 });
+  assert.equal(nudges.prefs(user).rivals[0].counts[second.counted.week].source, 'screenshot');
+  const kept = JSON.stringify(db.get('nudges', user.id));
+  assert.ok(!kept.includes('AAAA'));
+  nudges._setDeps({ readImage: async () => ({ data: { found: false, handle: '', posts: 0 } }) });
+  assert.match((await nudges.readShot(user, id, { type: 'image/jpeg', data: 'AAAA' })).error, /post count/);
+});
+
+test('the month card is the member\'s own counts and firsts, never money or rivals', async () => {
+  seed([[-3, 30, 1], [-2, 30], [-1, 30, 1]]);
+  db.save('brains', { id: user.id, business: {}, act: { a1: 'x', a3: 'x' } });
+  await nudges.sync(user);
+  await nudges.addRival(user, { handle: 'northside.fit' });
+  const c = nudges.card(user);
+  assert.equal(c.short, 'October');
+  assert.equal(c.stats[0].v, 3);
+  const svg = nudges.cardSvg(c);
+  assert.match(svg, /^<svg[^>]+width="1080" height="1350"/);
+  assert.ok(!/\$|sales|ad spend|northside|replies|yes/i.test(svg), svg);
+  assert.match(svg, /One person&#39;s real numbers/);
+  for (const t of [svg.replace(/<[^>]+>/g, ' ')]) assert.deepEqual(check(t, { paid: true }).filter((f) => f.level === 'block'), []);
 });
 
 test('account deletion forgets everything HQ kept here', async () => {

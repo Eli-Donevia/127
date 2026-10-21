@@ -1,18 +1,35 @@
 <%- include('../partials/app-head') %>
-<%# /admin/wall (lib/wall.js): every entry members put up for 127's public wall, with the words they agreed to. Show,
-    Hide or leave waiting. Approving a private preview link is refused. Locals: entries, live, typicality. %>
+<%# /admin/wall (lib/wall.js): every entry members put up for 127's public wall, with the words they agreed to and their
+    connection with 127. Admins approve every entry that meets the rules below, not only the best ones (Legal L98 NU22).
+    Approving a private preview link or an outcome win is refused. Locals: entries, live, line, rules, connections. %>
 <% var when = function (iso) { return iso ? new Date(iso).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET' : ''; }; %>
 <div class="wrap" style="max-width:860px;padding:32px 16px 80px">
   <h1 style="margin:0;font-size:32px;letter-spacing:-.04em">Wall</h1>
-  <p class="small" style="color:var(--muted)"><%= live ? 'WALL is on: shown entries are public at /wall.' : 'WALL is off: nothing is public yet. It waits on Legal\'s release words (N6).' %> Every surface carries: "<%= typicality %>"</p>
+  <p class="small" style="color:var(--muted)"><%= live ? 'WALL is on: shown entries are public at /wall.' : 'WALL is off: nothing is public yet.' %> Every surface carries: "<%= line %>"</p>
+  <section style="border-top:1px solid var(--line);padding:16px 0">
+    <h2 style="margin:0 0 8px;font-size:17px">Show every entry that meets these rules</h2>
+    <ol class="small" style="margin:0;padding-left:20px;display:grid;gap:4px"><% rules.forEach(function (r) { %><li><%= r %></li><% }) %></ol>
+    <p class="small" style="color:var(--muted);margin:10px 0 0">Wins are only things a member did or made for now. When an entry is reported, open its link again before it stays up.</p>
+  </section>
+  <form method="post" action="/admin/wall/take-down" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);padding:16px 0">
+    <label for="td-email" class="small">Take down by email</label>
+    <input id="td-email" name="email" type="email" required autocomplete="off" style="flex:1;min-width:200px">
+    <button class="btn sm ghost">Take down</button>
+  </form>
   <% if (!entries.length) { %><p>Nothing yet.</p><% } %>
   <% entries.forEach(function (e) { %>
   <section style="border-top:1px solid var(--line);padding:16px 0;display:grid;gap:6px">
-    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b><%= e.title %></b><span class="small" style="font-family:var(--mono)"><%= e.status %> · <%= e.source %> · <%= e.kind %></span></div>
-    <% if (e.url) { %><a class="link" href="<%= e.url %>" target="_blank" rel="noopener noreferrer nofollow"><%= e.url %></a><% } %>
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b><%= e.title %></b><span class="small" style="font-family:var(--mono)"><%= e.status %> · <%= e.source %> · <%= e.kind %><%= e.memberId ? '' : ' · no account yet' %></span></div>
+    <% if (e.url) { %><a class="link" href="<%= e.url %>" target="_blank" rel="ugc nofollow noopener noreferrer"><%= e.url %></a><% } %>
     <% if (e.private) { %><p class="small" style="color:var(--danger);margin:0">Looks like a private preview link. Ask for the live address before showing it.</p><% } %>
     <% if (e.note) { %><p style="margin:0"><%= e.note %></p><% } %>
-    <p class="small" style="color:var(--muted);margin:0">Shows as "<%= e.consent === 'public' ? [e.firstName, e.business].filter(Boolean).join(', ') : e.firstName %>". Agreed <%= when(e.consentAt) %> to: "<%= e.consentText %>" (<%= e.consentVersion %>)<%= e.reviewedAt ? '. Last reviewed ' + when(e.reviewedAt) + ' by ' + e.reviewedBy : '' %></p>
+    <p class="small" style="color:var(--muted);margin:0">Shows as "<%= e.consent === 'public' ? [e.firstName, e.business].filter(Boolean).join(', ') : e.firstName %>". Agreed <%= when(e.consentAt) %> (<%= e.consentVersion %>) to: "<%= e.consentText %>"<%= e.reviewedAt ? '. Last reviewed ' + when(e.reviewedAt) + ' by ' + e.reviewedBy : '' %></p>
+    <form method="post" action="/admin/wall/<%= e.id %>/connection" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <label for="cn-<%= e.id %>" class="small">Connection with 127</label>
+      <select id="cn-<%= e.id %>" name="connection"><option value="">None</option><% Object.keys(connections).forEach(function (k) { %><option value="<%= k %>"<%- e.connection === k ? ' selected' : '' %>><%= connections[k].name %></option><% }) %></select>
+      <button class="btn sm ghost">Set</button>
+      <% if (e.connectionLine) { %><span class="small">Shows: "<%= e.connectionLine %>"</span><% } %>
+    </form>
     <div style="display:flex;gap:8px">
       <% ['shown', 'hidden', 'pending'].filter(function (s) { return s !== e.status; }).forEach(function (s) { %><form method="post" action="/admin/wall/<%= e.id %>"><input type="hidden" name="status" value="<%= s %>"><button class="btn sm<%= s === 'shown' ? '' : ' ghost' %>"><%= s === 'shown' ? 'Show' : s === 'hidden' ? 'Hide' : 'Back to waiting' %></button></form><% }) %>
     </div>

@@ -1,19 +1,22 @@
 <%- include('partials/head') %>
-<%# /wall (lib/wall.js, WALL=on): sites and wins members chose to show, each approved by 127 and named the way the
-    member agreed. No amounts. The typicality line sits right under the heading. Locals: entries, typicality. %>
+<%# /wall (lib/wall.js, WALL=on): sites and things members made that they chose to show, each approved by 127 and named
+    the way the member agreed, with their connection line when they have one. No amounts. Legal's wall line (L98 NU20)
+    sits right under the heading; member links are rel="ugc nofollow" and each entry has a Report link. Locals: entries, line. %>
 <main class="wall">
   <header class="wall-head wrap">
     <h1>Built with 127.</h1>
-    <p>Sites members shipped and wins they chose to show. <%= typicality %></p>
+    <p>Sites members shipped and things they made. <%= line %></p>
   </header>
   <div class="wrap">
     <% if (!entries.length) { %><p class="wall-empty">The first ones go up soon.</p><% } %>
     <ol class="wall-list">
       <% entries.forEach(function (e) { var host = ''; try { host = e.url ? new URL(e.url).hostname.replace(/^www\./, '') : ''; } catch (x) {} %>
       <li class="<%= e.kind %>">
-        <% if (e.kind === 'site') { %><a href="<%= e.url %>" target="_blank" rel="noopener noreferrer nofollow"><b><%= e.title %></b><span class="u"><%= host %></span></a><% } else { %><b><%= e.title %></b><% } %>
+        <% if (e.kind === 'site') { %><a href="<%= e.url %>" target="_blank" rel="ugc nofollow noopener noreferrer"><b><%= e.title %></b><span class="u"><%= host %></span></a><% } else { %><b><%= e.title %></b><% } %>
         <% if (e.note) { %><p><%= e.note %></p><% } %>
         <span class="by"><%= e.by %></span>
+        <% if (e.connection) { %><span class="cn"><%= e.connection %></span><% } %>
+        <a class="rp" href="<%= e.report %>">Report</a>
       </li>
       <% }) %>
     </ol>
@@ -31,6 +34,9 @@
   .wall-list .u { font: 13px var(--mono); color: var(--muted); }
   .wall-list p { margin: 0; color: var(--ink-2); }
   .wall-list .by { font-size: 13px; color: var(--muted); }
+  .wall-list .cn { font-size: 13px; color: var(--ink-2); }
+  .wall-list .rp { justify-self: start; font-size: 12px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .wall-list .rp:hover { color: var(--ink); }
   .wall-empty { color: var(--muted); }
 </style>
 <%- include('partials/foot') %>
