@@ -1,0 +1,52 @@
+{
+  "slug": "barbers",
+  "status": "ready",
+  "wave": 2,
+  "group": "Local service",
+  "name": "Barbers",
+  "one": "barbershop",
+  "description": "A booking site with your cut menu, chair-side content, rebook texts, a chair rent sheet and review asks for barbers and barbershops.",
+  "h1": "Book the next cut before they stand up.",
+  "mark": "next cut",
+  "lede": "127 gives a barber a site with your cuts, prices and booking link, the reel brief for the fade, and the rebook texts that keep the chair full of regulars.",
+  "week": [
+    { "when": "Mon", "job": "Post the cuts", "hand": "A fade reel brief and captions with the client's OK" },
+    { "when": "Tue", "job": "Rebook regulars", "hand": "Rebook texts at two, three and four weeks" },
+    { "when": "Thu", "job": "Check the chair math", "hand": "A chair rent or commission sheet: cuts per day, price, take-home" },
+    { "when": "Sat", "job": "Ask for reviews", "hand": "A review card for the mirror" }
+  ],
+  "site": {
+    "design": "atelier",
+    "sample": { "business": "Third Street Barbers", "what": "Barbershop, fades and beard work, walk-ins and booking", "services": "Haircut, $35\nSkin fade, $40\nBeard trim and line-up, $20", "city": "Waterloo" },
+    "caption": "Third Street Barbers is made up. Built by the free site builder."
+  },
+  "entry": { "door": "site", "label": "Build my barber site free", "fine": "Type your shop and your cuts. Free, no card.", "query": { "what": "Barbershop" } },
+  "pack": {
+    "name": "Barber Pack",
+    "price": 29,
+    "line": "A booking site, fade reel briefs, rebook texts, chair math and review cards.",
+    "items": ["site-studio", "pricing-lab", "client-sessions", "recipe-booking-link", "recipe-follow-up", "email-review-ask", "social-story", "social-quote-card", "video-prompts-local-service"],
+    "prompts": [
+      { "id": "01-fade-reel", "title": "Fade reel", "summary": "A 15-second reel brief for one cut, with the chair spin reveal.", "prompt": "Write a 15-second reel brief for a [cut] at [shop]. The first second, three working shots, the chair-spin reveal, on-screen words (five at most), and the caption with the cut's name and price. Only post the client with their OK.", "use": "Ask before you film. Most say yes." },
+      { "id": "02-rebook", "title": "Rebook texts", "summary": "Texts at two, three and four weeks, by the cut.", "prompt": "Write three short rebook texts for [barber] at [shop]: two weeks (fades), three weeks (regular cuts), four weeks (everyone else). Under 25 words, booking link [link], STOP to opt out.", "use": "Send from your booking app." },
+      { "id": "03-chair-math", "title": "Chair math", "summary": "Compares chair rent and commission at your price and cuts per day.", "prompt": "Compare chair rent [$ per week] vs commission [% to me] at [cuts per day], [days per week], average ticket [$], product sales [$]. Show my take-home both ways, and the cuts per week where they break even.", "use": "Run it before you sign a chair deal." }
+    ]
+  },
+  "hq": ["reviews", "local", "content", "email"],
+  "hooks": [
+    "Barbers: book the next cut before they stand up.",
+    "Chair rent or commission? The math.",
+    "The fade reel, in fifteen seconds.",
+    "Rebook texts at two, three and four weeks.",
+    "A review card for the mirror.",
+    "Your cut menu belongs on your homepage."
+  ],
+  "ads": [
+    { "angle": "Free site", "hook": "Barber with a booking link and no site?", "body": "Type your shop and your cuts. 127 builds it free.", "headline": "Build your barber site free" },
+    { "angle": "The pack", "hook": "Rebook texts, reel briefs, chair math.", "body": "The Barber Pack, $29 once.", "headline": "The Barber Pack, $29" },
+    { "angle": "Chair math", "hook": "Chair rent or commission?", "body": "The pack's chair math shows your take-home both ways.", "headline": "Do the chair math" }
+  ],
+  "keyword": "FADE",
+  "next": ["Hair stylists", "Lash artists", "Tattoo artists"],
+  "legal": null
+}

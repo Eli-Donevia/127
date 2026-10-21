@@ -1,0 +1,95 @@
+<%- include('../partials/head') %>
+<%# One vertical's page (lib/verticals.js, content/verticals/<slug>.json). Every vertical renders from this one view:
+    the hero with their site already drafted on a phone, their week as a timetable, their pack as a price list, a
+    near-empty HQ line, then the free start again. One pop per view: the drawn line under the h1's mark, then today's
+    row in the week. %>
+<%
+  var h1 = v.h1, mark = v.mark && h1.indexOf(v.mark) > -1 ? v.mark : null;
+  var before = mark ? h1.slice(0, h1.indexOf(mark)) : h1, after = mark ? h1.slice(h1.indexOf(mark) + mark.length) : '';
+  var go = '/for/' + v.slug + '/go';
+  var L = launch, fp = L.foundingPrice;
+  var builderLine = L.prelaunch && fp ? 'Opens ' + (L.launchDate || 'Nov 17') + ' at $' + fp + '/mo, locked as long as you stay ($' + builder.price + ' after ' + (L.closesShort || 'Nov 24') + ').' : L.foundingOpen && fp ? '$' + fp + '/mo, locked as long as you stay ($' + builder.price + ' after ' + (L.closesShort || 'Nov 24') + ').' : '$' + builder.price + '/mo. Cancel anytime.';
+%>
+<main class="vt">
+  <section class="vt-hero">
+    <div class="wrap vt-hero-in">
+      <div class="vt-copy">
+        <p class="vt-crumb"><a href="/for">127 for</a> <span aria-hidden="true">/</span> <%= v.name.toLowerCase() %></p>
+        <h1 class="vt-h1"><%= before %><% if (mark) { %><span class="vt-mark"><%= mark %><svg class="vt-line" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M1 5.5 C 22 3.2, 48 6.4, 72 4.1 S 94 4.6, 99 3.4"/></svg></span><% } %><%= after %></h1>
+        <p class="vt-lede"><%= v.lede %></p>
+        <div class="vt-cta" data-hero-cta>
+          <a class="vt-btn" href="<%= go %>"><%= v.entry.label %></a>
+          <p class="vt-fine"><%= doorOn ? v.entry.fine : (launch.prelaunch ? 'Free. Join the founding list and it opens with your account.' : 'Free account. No card.') %></p>
+        </div>
+        <% if (pack) { %><a class="vt-quiet" href="#pack">Or the <%= v.pack.name %>, $<%= v.pack.price %> once</a><% } %>
+      </div>
+      <% if (poster) { %>
+      <figure class="vt-phone" data-phone>
+        <div class="vt-screen"><img src="<%= poster %>" alt="The top of a sample site for <%= v.site.sample.business %>, a made-up <%= v.one %>, on a phone" width="780" height="3120" fetchpriority="high" data-scroller></div>
+        <figcaption class="vt-cap"><span><%= v.site.caption %></span><% if (sample) { %> <a href="<%= sample %>" target="_blank" rel="noopener">Open the sample<span class="vt-ext" aria-hidden="true"></span><span class="sr-only">(opens in a new tab)</span></a><% } %></figcaption>
+      </figure>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="vt-week" aria-labelledby="vt-week-h">
+    <div class="wrap vt-week-in">
+      <h2 id="vt-week-h" class="vt-h2">A week at <%= v.aOne %>, and what 127 hands you for each part.</h2>
+      <ol class="vt-tt">
+        <% v.week.forEach(function (w) { %>
+        <li<% if (w.when === today) { %> class="is-today"<% } %>><span class="vt-day"><%= w.when %><% if (w.when === today) { %><span class="sr-only"> (today)</span><% } %></span><span class="vt-job"><%= w.job %></span><span class="vt-hand"><%= w.hand %></span></li>
+        <% }) %>
+      </ol>
+    </div>
+  </section>
+
+  <section class="vt-pack" id="pack" aria-labelledby="vt-pack-h">
+    <div class="wrap vt-pack-in">
+      <div class="vt-pack-head">
+        <h2 id="vt-pack-h" class="vt-h2 vt-pack-name"><%= v.pack.name %></h2>
+        <p class="vt-price"><span class="vt-num">$<%= v.pack.price %></span> once</p>
+      </div>
+      <p class="vt-pack-line"><%= v.pack.line %></p>
+      <ul class="vt-list">
+        <% contents.forEach(function (c) { %><li><span class="vt-t"><%= c.title %></span><span class="vt-lead" aria-hidden="true"></span><span class="vt-k"><%= c.kind %></span></li><% }) %>
+      </ul>
+      <div class="vt-buy">
+        <% if (owned) { %>
+          <a class="vt-btn ghost" href="/packs/<%= v.packSlug %>/get">Open your files</a>
+        <% } else if (packOn) { %>
+          <form method="post" action="/packs/<%= v.packSlug %>/buy"><input type="hidden" name="from" value="/for/<%= v.slug %>"><button class="vt-btn" type="submit">Buy the <%= v.pack.name %> · $<%= v.pack.price %></button></form>
+        <% } %>
+        <p class="vt-fine"><% if (unavailable) { %>Checkout isn't open yet. Nothing was charged. <% } else if (cancelled) { %>Checkout cancelled. Nothing was charged. <% } %><% if (packOn && !owned) { %>One payment, files yours to keep. <% } else if (!packOn) { %>On sale soon. <% } %>Every file in it comes with Builder.</p>
+      </div>
+    </div>
+  </section>
+
+  <% var hq3 = hq.slice(0, 3); if (hq3.length) { %>
+  <section class="vt-hq" aria-labelledby="vt-hq-h">
+    <div class="wrap">
+      <h2 id="vt-hq-h" class="vt-hq-h">With Builder, 127 HQ runs the <%= hq3.map(function (h) { return h.title; }).slice(0, -1).join(', ') %><%= hq3.length > 1 ? ' and ' : '' %><%= hq3[hq3.length - 1].title %> workflows for your <%= v.one %>.</h2>
+      <p class="vt-hq-p"><%= builderLine %> <a href="<%= launch.prelaunch ? '/founding' : '/pricing' %>"><%= launch.prelaunch ? 'Join the founding list' : 'See Builder' %></a></p>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="vt-again" aria-labelledby="vt-again-h">
+    <div class="wrap vt-again-in">
+      <h2 id="vt-again-h" class="vt-again-h">Start with the free part tonight.</h2>
+      <a class="vt-btn" href="<%= go %>"><%= v.entry.label %></a>
+    </div>
+  </section>
+
+  <% if (related.length) { %>
+  <nav class="vt-rel wrap" aria-label="More on 127">
+    <p class="vt-rel-h">Also on 127</p>
+    <ul><% related.forEach(function (r) { %><li><a href="/for/<%= r.slug %>"><%= r.name %></a></li><% }) %><li><a href="/for">Everyone else</a></li></ul>
+  </nav>
+  <% } %>
+
+  <div class="vt-sticky" data-sticky hidden>
+    <a class="vt-btn" href="<%= go %>"><%= v.entry.label %></a>
+  </div>
+</main>
+<script src="/js/verticals.js" defer></script>
+<%- include('../partials/foot') %>

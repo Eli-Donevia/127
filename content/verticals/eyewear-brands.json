@@ -1,0 +1,131 @@
+{
+  "slug": "eyewear-brands",
+  "status": "test",
+  "wave": 1,
+  "group": "Online stores",
+  "name": "Eyewear brands",
+  "one": "eyewear brand",
+  "description": "Store pages, try-on video briefs, fit guides and launch emails for small eyewear brands. Build your site free, or get the Eyewear Pack.",
+  "h1": "Frames sell on a face. Show the face.",
+  "mark": "face.",
+  "lede": "127 gives a small eyewear brand its store pages, try-on video briefs, fit guides and drop emails, written from your own product notes.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Shoot the new colorway",
+      "hand": "A try-on shot list: three faces, three angles, the frame in daylight"
+    },
+    {
+      "when": "Tue",
+      "job": "Write the drop page",
+      "hand": "A product page prompt that reads like your brand, not a catalog"
+    },
+    {
+      "when": "Thu",
+      "job": "Email the list",
+      "hand": "Launch and win-back emails with the new frames in them"
+    },
+    {
+      "when": "Fri",
+      "job": "Check what each frame costs you",
+      "hand": "Unit economics and a reorder sheet, one row per SKU"
+    }
+  ],
+  "site": {
+    "design": "orbit",
+    "sample": {
+      "business": "Halden Optical",
+      "what": "Eyewear brand making acetate frames by hand",
+      "services": "The Marlow frame, tortoise, $148\nThe Ives frame, crystal, $148\nBlue light lenses, add $40",
+      "city": ""
+    },
+    "caption": "Halden Optical is made up. The words came from four lines typed into the free builder."
+  },
+  "entry": {
+    "door": "store",
+    "label": "Audit my store free",
+    "fine": "Paste your store address. Free, no card."
+  },
+  "pack": {
+    "name": "Eyewear Pack",
+    "price": 39,
+    "line": "Store pages, fit guides, try-on briefs and drop emails for a frame brand.",
+    "items": [
+      "site-exploded",
+      "site-product-landing",
+      "shopify-sections-essentials",
+      "unit-economics",
+      "inventory-reorder",
+      "email-launch",
+      "email-win-back",
+      "video-prompts-product",
+      "video-prompts-ugc",
+      "page-leak-audit"
+    ],
+    "prompts": [
+      {
+        "id": "01-frame-page",
+        "title": "Frame product page",
+        "summary": "Writes one frame's product page from its measurements, material and the face shapes it suits.",
+        "prompt": "You write product pages for [brand], a small eyewear brand. Our voice: [three words]. Write the page for the [frame name] frame.\n\nFacts (use only these):\n- Material: [acetate, titanium...]\n- Colors: [list]\n- Lens width / bridge / temple: [mm]\n- Face shapes it suits: [list]\n- Price: [$]\n\nGive me: a two-line opener that says who the frame is for, a fit section in plain words (\"sits a little wide, good for a broad face\"), one paragraph on how it is made, and three short answers to the questions people ask before buying frames online. No claims about vision, prescriptions or eye health.",
+        "use": "Paste into Claude or ChatGPT once per frame. Keep the fit section; it answers the question that stops most online frame orders."
+      },
+      {
+        "id": "02-fit-guide",
+        "title": "Fit guide from your measurements",
+        "summary": "Turns your frame measurements into a fit guide a buyer can check against glasses they already own.",
+        "prompt": "Here are the measurements for every frame we sell: [paste lens width, bridge, temple, frame width for each]. Write a one-page fit guide for our site.\n\n1. Explain the three numbers printed inside a pair of glasses, in one sentence each.\n2. Tell a buyer how to compare them with a pair they own.\n3. Sort our frames into narrow, medium and wide, with the numbers that put them there.\n4. End with what to do if they sit between two sizes.\n\nShort sentences. No medical or prescription advice.",
+        "use": "Put it on its own page and link it from every product page."
+      },
+      {
+        "id": "03-try-on-brief",
+        "title": "Try-on video brief",
+        "summary": "A 15-second try-on brief for one frame: the faces, the light, the first second and the shot order.",
+        "prompt": "Write a 15-second try-on video brief for the [frame name] frame from [brand]. We film on a phone.\n\nInclude: who wears it on camera (face shape, style), where (window light, time of day), the first second (the frame going on, no logo card), five shots in order with what each one shows, the on-screen words (six words at most), and one line of caption. No music cues that need a license. No claims about vision.",
+        "use": "Film three of these per new colorway: one for the product page, two for Reels and TikTok."
+      }
+    ]
+  },
+  "hq": [
+    "shop",
+    "content",
+    "video",
+    "email",
+    "ads"
+  ],
+  "hooks": [
+    "Your frames look better on a face than on a white background. Your store should know that.",
+    "Three numbers inside every pair of glasses decide whether an online order gets returned.",
+    "I rebuilt a frame brand's product page from four lines of notes. Here's what changed.",
+    "Stop posting flat lays of glasses. Film this instead.",
+    "The fit guide is the page most frame brands skip.",
+    "One frame, three faces, fifteen seconds. That's the whole content plan."
+  ],
+  "ads": [
+    {
+      "angle": "Store audit",
+      "hook": "Is your frame store losing people at the fit question?",
+      "body": "Paste your store into 127's free audit. It reads your product pages and shows what a buyer can't find, then rebuilds one page as a mock-up.",
+      "headline": "Audit your eyewear store free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Fit guides, try-on briefs and drop emails for frame brands.",
+      "body": "The Eyewear Pack: store page designs, a fit guide prompt, try-on video briefs, launch and win-back emails and the sheets for cost per frame. $39 once.",
+      "headline": "The Eyewear Pack, $39"
+    },
+    {
+      "angle": "Free site",
+      "hook": "Starting a frame brand? Your site, tonight.",
+      "body": "Type your brand and your first frames. 127 builds a one-page store site in your words, free.",
+      "headline": "Build your frame brand's site free"
+    }
+  ],
+  "keyword": "FRAMES",
+  "next": [
+    "Sunglasses brands",
+    "Jewelry brands",
+    "Watch brands"
+  ],
+  "legal": "Eyeglasses with prescription lenses are regulated (FTC Eyeglass Rule, state optometry laws). Copy stays on frames, fit and style; never vision, prescriptions or eye health."
+}

@@ -1,0 +1,133 @@
+{
+  "slug": "video-editors",
+  "status": "test",
+  "wave": 1,
+  "group": "Creators and editors",
+  "name": "Video editors",
+  "one": "editing business",
+  "description": "A portfolio site with your reel, a rate card, a scope of work, a revision policy and a client portal for freelance video editors.",
+  "h1": "Your reel is the pitch. Put it first.",
+  "mark": "reel",
+  "lede": "127 gives a freelance editor a portfolio site that opens on your reel, a rate card and scope you can send the same day, and a client portal so files stop living in your texts.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Quote a new project",
+      "hand": "A scope of work with deliverables, rounds of revisions and turnaround"
+    },
+    {
+      "when": "Tue",
+      "job": "Cut the first draft",
+      "hand": "A shot list and edit brief from the client's notes"
+    },
+    {
+      "when": "Thu",
+      "job": "Handle round two",
+      "hand": "A revision policy and the reply for the fourth round"
+    },
+    {
+      "when": "Fri",
+      "job": "Post a before and after",
+      "hand": "A 15-second before-and-after edit brief for your own feed"
+    }
+  ],
+  "site": {
+    "design": "frame",
+    "sample": {
+      "business": "Cut Line Studio",
+      "what": "Video editing studio",
+      "services": "Short-form edit, per clip, $60\nYouTube edit, up to 15 minutes, $350\nMonthly retainer, 12 shorts, $600",
+      "city": "Minneapolis"
+    },
+    "caption": "Cut Line Studio is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my portfolio site free",
+    "fine": "Type your name and what you edit. Free, no card.",
+    "query": {
+      "what": "Freelance video editor"
+    }
+  },
+  "pack": {
+    "name": "Editor Pack",
+    "price": 39,
+    "line": "A portfolio site, rate card, scope of work, revision policy and client portal.",
+    "items": [
+      "site-portfolio",
+      "site-gallery",
+      "proposal",
+      "scope-of-work",
+      "quote",
+      "client-welcome",
+      "notion-client-portal",
+      "pipeline-tracker",
+      "video-prompts-shot-lists",
+      "recipe-repurpose-video"
+    ],
+    "prompts": [
+      {
+        "id": "01-rate-card",
+        "title": "Rate card",
+        "summary": "Builds your rate card from your hours per deliverable and the hourly rate you want.",
+        "prompt": "Help me build a rate card. I edit [types]. Time per deliverable: [e.g. short clip 45 min, 10-min YouTube 5 hours]. Target per hour: [$]. Rounds of revisions included: [ ]. Build three packages and per-piece prices, with a rush fee and what's not included. Then one paragraph I can paste into an email.",
+        "use": "Send it as a PDF or put it on your site's services section."
+      },
+      {
+        "id": "02-revision-policy",
+        "title": "Revision policy and the fourth-round reply",
+        "summary": "A clear revision policy, and a friendly reply when a client asks for more rounds than you included.",
+        "prompt": "Write a revision policy for [my business]: [n] rounds included, what counts as a round, how notes should come in (one list per round), and the price per extra round [$]. Then write a short, friendly reply for when a client sends round four.",
+        "use": "Put the policy in every scope of work."
+      },
+      {
+        "id": "03-edit-brief",
+        "title": "Edit brief from client notes",
+        "summary": "Turns a client's loose notes into an edit brief you can cut from.",
+        "prompt": "Turn these client notes into an edit brief: [paste notes]. Give: the goal of the video in one line, the audience, length, the hook in the first two seconds, the structure, music and caption style, brand rules, and the questions I should ask before I start.",
+        "use": "Send the questions back the same day; start cutting once they answer."
+      }
+    ]
+  },
+  "hq": [
+    "video",
+    "content",
+    "sales",
+    "ops"
+  ],
+  "hooks": [
+    "Editors: open your site on the reel. Nothing else.",
+    "My revision policy, and what I say on round four.",
+    "How I price a 10-minute YouTube edit.",
+    "Turn a client's voice memo into an edit brief.",
+    "Stop sending files over text. Here's the portal.",
+    "Before and after: the same footage, two edits."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Video editor without a portfolio site?",
+      "body": "Type your name and what you edit. 127 builds a site that opens on your reel, free.",
+      "headline": "Build your portfolio free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Rate card, scope of work, revision policy, client portal.",
+      "body": "The Editor Pack, $39 once.",
+      "headline": "The Editor Pack, $39"
+    },
+    {
+      "angle": "Pricing",
+      "hook": "What should you charge per edit?",
+      "body": "The pack's rate card prompt works it out from your hours.",
+      "headline": "Price your edits"
+    }
+  ],
+  "keyword": "EDIT",
+  "next": [
+    "Podcast editors",
+    "Thumbnail designers",
+    "Motion designers"
+  ],
+  "legal": null
+}

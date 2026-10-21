@@ -1,0 +1,133 @@
+{
+  "slug": "dog-breeders",
+  "status": "test",
+  "wave": 1,
+  "group": "Pets",
+  "name": "Dog breeders",
+  "one": "kennel",
+  "description": "A kennel site with litters and a waitlist, puppy updates, buyer questions and go-home packets for small dog breeders.",
+  "h1": "The waitlist is the business.",
+  "mark": "waitlist",
+  "lede": "127 gives a small kennel a site with your litters and a waitlist form, weekly puppy updates written from your notes, and the go-home packet every family asks for.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Weigh and photograph the litter",
+      "hand": "A puppy update post and email from your weigh-in notes"
+    },
+    {
+      "when": "Tue",
+      "job": "Answer waitlist questions",
+      "hand": "Saved replies for price, deposit, health testing and pickup"
+    },
+    {
+      "when": "Thu",
+      "job": "Screen a family",
+      "hand": "A buyer questionnaire that asks what you need to know"
+    },
+    {
+      "when": "Sat",
+      "job": "Send a puppy home",
+      "hand": "A go-home packet: food, schedule, first vet visit, your number"
+    }
+  ],
+  "site": {
+    "design": "beacon",
+    "sample": {
+      "business": "Willow Creek Goldens",
+      "what": "Golden retriever breeder raising one or two litters a year",
+      "services": "Waitlist deposit, $300\nPuppy, $2,800",
+      "city": "Ames"
+    },
+    "caption": "Willow Creek Goldens is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my kennel's site free",
+    "fine": "Type your kennel and breed. Free, no card.",
+    "query": {
+      "what": "Small dog breeder with a waitlist"
+    }
+  },
+  "pack": {
+    "name": "Breeder Pack",
+    "price": 39,
+    "line": "A kennel site, a waitlist, puppy updates, buyer questions and go-home packets.",
+    "items": [
+      "site-local-service",
+      "site-waitlist",
+      "notion-crm",
+      "client-welcome",
+      "email-welcome",
+      "email-newsletter",
+      "recipe-lead-form",
+      "recipe-saved-replies",
+      "social-story",
+      "video-prompts-local-service"
+    ],
+    "prompts": [
+      {
+        "id": "01-puppy-update",
+        "title": "Weekly puppy update",
+        "summary": "Turns your weigh-in and notes into a post and an email for the families waiting.",
+        "prompt": "Write this week's puppy update for [kennel]. Litter: [parents, born date]. Notes per puppy: [collar color, weight, what they did this week]. Write a short email to the waitlist families (warm, specific, one photo note per puppy) and a post caption (no prices, no pressure). Never promise a puppy's future size, health or temperament.",
+        "use": "Send every Monday after weigh-in. Families share these."
+      },
+      {
+        "id": "02-buyer-questions",
+        "title": "Buyer questionnaire",
+        "summary": "A questionnaire for families on the waitlist, written in your words.",
+        "prompt": "Write a buyer questionnaire for [kennel], a [breed] breeder. I want to know: home and yard, work schedule, other pets, kids, experience with the breed, who the main caretaker is, vet they'll use, and what they'd do if they couldn't keep the dog. Friendly, 12 questions at most, with a note that I return every family's call.",
+        "use": "Link it from your waitlist page."
+      },
+      {
+        "id": "03-go-home-packet",
+        "title": "Go-home packet",
+        "summary": "A packet for the day a puppy goes home: food, schedule, first week and who to call.",
+        "prompt": "Write a go-home packet for a [breed] puppy from [kennel] going home at [weeks] weeks. Include: the food and amounts we use [ ], the daily schedule, crate and potty tips for the first week, what the puppy has had from our vet [ ] and what's next (ask your vet), what's in the bag, and my number. Tell families to follow their own vet's advice.",
+        "use": "Print it and email it the same day."
+      }
+    ]
+  },
+  "hq": [
+    "content",
+    "email",
+    "local",
+    "brand"
+  ],
+  "hooks": [
+    "For a breeder, the waitlist is the whole business.",
+    "The weekly puppy update families share.",
+    "Twelve questions I'd ask every family on the waitlist.",
+    "What goes in a go-home packet.",
+    "Your kennel's site needs your litters on it, not a stock photo of a puppy.",
+    "Saved replies for the five questions every breeder gets."
+  ],
+  "ads": [
+    {
+      "angle": "Free site",
+      "hook": "Breeder with a waitlist in your DMs?",
+      "body": "Type your kennel and breed. 127 builds a site with your litters and a waitlist form, free.",
+      "headline": "Build your kennel's site free"
+    },
+    {
+      "angle": "The pack",
+      "hook": "Puppy updates, buyer questions, go-home packets.",
+      "body": "The Breeder Pack, $39 once, or with Builder.",
+      "headline": "The Breeder Pack, $39"
+    },
+    {
+      "angle": "Updates",
+      "hook": "Families waiting on a puppy want Monday's update.",
+      "body": "The pack writes it from your weigh-in notes.",
+      "headline": "Weekly puppy updates"
+    }
+  ],
+  "keyword": "LITTER",
+  "next": [
+    "Cat breeders",
+    "Horse breeders",
+    "Dog trainers"
+  ],
+  "legal": "Breeding and selling animals is regulated by state and sometimes city (licenses, health certificates, lemon laws). Copy never promises a puppy's health, size or temperament. Legal should read this vertical before it goes live."
+}
