@@ -290,6 +290,71 @@ test('Brain auto-fill: robots.txt, no social profiles, one read, visible text on
   }
 });
 
+// ---------- Meaning-based Brain search (Legal L85) ----------
+test('Brain meaning search: held until Eli sets Voyage up, then mixes meaning with keywords, never for site chat', async () => {
+  const embeddings = require('../lib/harness/embeddings');
+  const needs = require('../lib/harness/needs');
+  process.env.BRAIN_DOCS = 'on';
+  const calls = [];
+  const vec = (t) => {
+    const s = String(t).toLowerCase();
+    return [/(price|charge|cost|\$)/.test(s) ? 1 : 0, /(yard|acre|lawn)/.test(s) ? 1 : 0, /(refund|money back)/.test(s) ? 1 : 0, 0.05];
+  };
+  embeddings._setDeps({
+    fetch: async (url, opts) => {
+      const body = JSON.parse(opts.body);
+      calls.push({ url, auth: opts.headers.authorization, body });
+      return new Response(JSON.stringify({ data: body.input.map((t, index) => ({ index, embedding: vec(t) })), usage: { total_tokens: 100 } }), { status: 200 });
+    },
+  });
+  const held = needs.HELD.embed;
+  try {
+    const u = await member();
+    process.env.VOYAGE_API_KEY = 'test-voyage';
+    const d = await docs.save(u.id, { title: 'Pricing', body: 'Lots over half an acre are $80 a visit.' });
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 0, 'held: nothing goes to Voyage with the key set');
+    assert.equal(embeddings.on(u), false);
+    delete needs.HELD.embed; // what Eli's V1 and V2 unlock
+    assert.equal(embeddings.on(u), true);
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, 'https://us.ai.mongodb.com/v1/embeddings');
+    assert.equal(calls[0].auth, 'Bearer test-voyage');
+    assert.deepEqual({ ...calls[0].body, input: undefined }, { input: undefined, model: 'voyage-3.5-lite', input_type: 'document', output_dimension: 512 });
+    assert.deepEqual(calls[0].body.input, ['Pricing\nLots over half an acre are $80 a visit.']);
+    await embeddings.index(u.id, d.id);
+    assert.equal(calls.length, 1, 'an unchanged doc is not sent again');
+    await docs.save(u.id, { title: 'Refunds', body: 'Card 4242 4242 4242 4242 gets money back within 7 days.' });
+    await new Promise((r) => setTimeout(r, 20));
+    assert.equal(calls.length, 2, 'a saved doc is indexed on its own');
+    assert.match(calls[1].body.input[0], /\[card ending 4242\]/);
+    assert.ok(!calls[1].body.input[0].includes('4242 4242'), 'masked before it is sent (V7)');
+    assert.equal(docs.search(u.id, 'what do I charge for a big yard').length, 0, 'keywords alone miss it');
+    const hits = await embeddings.search(u, 'what do I charge for a big yard');
+    assert.equal(calls.at(-1).body.input_type, 'query');
+    assert.deepEqual(calls.at(-1).body.input, ['what do I charge for a big yard']);
+    assert.equal(hits[0].title, 'Pricing');
+    const n = calls.length;
+    assert.deepEqual(await embeddings.search(u, 'what do I charge for a big yard', { publicOnly: true }), [], 'site chat stays keywords only (V5)');
+    assert.equal(calls.length, n);
+    // Deleted with the doc, and with the account.
+    assert.equal(db.filter('brainVectors', (x) => x.memberId === u.id).length, 2);
+    await docs.remove(u.id, d.id);
+    assert.equal(db.get('brainVectors', d.id), null);
+    await docs.forget(u.id);
+    assert.equal(db.filter('brainVectors', (x) => x.memberId === u.id).length, 0);
+    // Voyage down: keywords, no error.
+    embeddings._setDeps({ fetch: async () => new Response('busy', { status: 529 }) });
+    await docs.save(u.id, { title: 'Hours', body: 'Open Monday to Friday.' });
+    assert.equal((await embeddings.search(u, 'Monday hours'))[0].title, 'Hours');
+  } finally {
+    needs.HELD.embed = held;
+    delete process.env.VOYAGE_API_KEY;
+    embeddings._setDeps({ fetch: (...a) => fetch(...a) });
+  }
+});
+
 // ---------- Brain docs ----------
 test('Brain: docs, house rules, decisions, numbers, search and the doc page', async () => {
   process.env.BRAIN_DOCS = 'on';

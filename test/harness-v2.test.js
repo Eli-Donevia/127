@@ -1096,7 +1096,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
       assert.match(st.held, /^Waits for Legal: not in the Privacy Policy yet/, name);
     }
     assert.match(needsLib.status().find((x) => x.name === 'hunter').held, /beyond a business's own site/);
-    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['ElevenLabs', true], ['Hunter', true]]);
+    assert.deepEqual(needsLib.heldList().map((h) => [h.service, h.keySet]), [['YouTube Data API', true], ['ElevenLabs', true], ['Hunter', true], ['Voyage AI (MongoDB Atlas)', false]]);
     assert.equal(needsLib.held('places'), false, 'Google Places is under L53, not held');
     // Legal L77 cleared Pexels, Deepgram, Luma and paid Gemini on 127's own keys.
     for (const name of ['pexels', 'transcribe', 'luma_ai']) {
@@ -1122,6 +1122,7 @@ test("outside services Legal hasn't cleared stay off with their key set, and /ad
     const card = await require('ejs').renderFile(path.join(__dirname, '..', 'views', 'partials', 'hq2-admin-access.ejs'), { hq2: { mode: 'admins', list: [], until: '2026-12-01', credits: 5000, allowances: {}, held: needsLib.heldList() } });
     assert.match(card, /Waiting for Legal: YouTube Data API, ElevenLabs, Hunter\. None of them is in the Privacy Policy yet, so each needs Legal's OK before its key is set\./);
     assert.match(card, /Set now and ignored: YouTube Data API, ElevenLabs, Hunter\./);
+    assert.match(card, /Waiting for you: Voyage AI \(MongoDB Atlas\)\. Eli turns off &#34;Help Improve Voyage AI Models&#34; in Atlas/);
   } finally {
     for (const [k, v] of Object.entries(was)) {
       if (v === undefined) delete process.env[k];
