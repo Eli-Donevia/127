@@ -16,6 +16,7 @@
       <% if (!M.sends && !M.replies && !M.posts && !M.jobs) { %>Nothing logged <%= M.current ? 'yet this month' : 'that month' %>. What you send from Do my day, the replies in your Pipeline and the jobs 127 finishes all land here.
       <% } else { %>You hit your number on <b><%= pl(M.days, 'day', 'days') %></b>, sent <b><%= M.sends %></b>, posted <b><%= pl(M.posts, 'time', 'times') %></b> and got <b><%= pl(M.replies, 'reply', 'replies') %></b><%= M.calls ? ', ' + pl(M.calls, 'call', 'calls') + ' booked' : '' %><%= M.yeses ? ' and ' + pl(M.yeses, 'yes', 'yeses') : '' %>. 127 finished <b><%= pl(M.jobs, 'job', 'jobs') %></b> for you.<% } %>
     </p>
+    <% if (!pr.card.empty) { %><p class="hqn-share-row"><a class="btn sm ghost" href="/app/hq/you/card.svg<%= M.months[0].key === M.key ? '' : '?m=' + M.key %>" data-card="<%= M.short %>" download="127-<%= M.key %>.svg">Share my month</a><span class="hqn-dim">Your counts and firsts as a picture. Nothing posts unless you share it.</span></p><% } %>
     <nav class="hqn-months" aria-label="Pick a month"><% M.months.forEach(function (m) { %><a href="/app/hq/you<%= m.key === M.months[0].key ? '' : '?m=' + m.key %>"<%- m.key === M.key ? ' aria-current="page"' : '' %>><%= m.name.split(' ')[0].slice(0, 3) %></a><% }) %></nav>
   </header>
 
@@ -72,13 +73,26 @@
 
   <section id="pace" aria-labelledby="pace-h">
     <h2 id="pace-h" class="hqn-h">Keep pace</h2>
-    <p class="hqn-note">Name up to <%= pr.maxRivals %> accounts in your space. Each Monday HQ asks how often they posted and puts it next to your own posts. Only you see them, and removing one deletes every count you gave.</p>
+    <p class="hqn-note">Name up to <%= pr.maxRivals %> accounts in your space. HQ puts how often they post next to your own posts<%= pr.ig ? ', counting Instagram business and creator accounts for you once a day' : '' %>. HQ keeps only the handle and the weekly counts, only you see them, and Remove deletes all of it.</p>
     <% if (pr.rivals.length) { %>
     <ul class="hqn-rivals">
       <% pr.rivals.forEach(function (r) { %>
       <li>
-        <span class="who"><span class="h">@<%= r.handle %></span><span class="hqn-dim"><%= r.platformName %> · <%= r.last === null ? 'no count for last week yet' : pl(r.last, 'post', 'posts') + ' last week' %></span></span>
+        <span class="who"><span class="h">@<%= r.handle %></span><span class="hqn-dim"><%= r.platformName %> · <%= r.last === null ? 'no count for last week yet' : pl(r.last, 'post', 'posts') + ' last week' + (r.lastSource === 'instagram' ? ', from Instagram' : r.lastSource === 'screenshot' ? ', from your screenshots' : '') %></span></span>
         <form method="post" action="/app/hq/you/rivals/remove"><input type="hidden" name="id" value="<%= r.id %>"><button class="hq-link-btn" aria-label="Remove @<%= r.handle %>">Remove</button></form>
+        <% if (r.igNotFound) { %><p class="hqn-dim hqn-full">Instagram only shares business and creator accounts, so tap in their count instead.</p><% } %>
+        <% if (r.platform === 'instagram') { %><div class="hqn-shot hqn-full" data-shot="<%= r.id %>" hidden>
+          <label class="hq-link-btn"><input type="file" accept="image/*" class="sr-only"> Read a screenshot of their profile</label>
+          <span class="hqn-dim"><%= r.total ? r.total.n + ' posts on ' + r.totalDay + '. ' : '' %>HQ reads only the post count, and the picture isn't kept.</span>
+          <form class="hqn-total" method="post" action="/app/hq/you/rivals/total" hidden>
+            <input type="hidden" name="id" value="<%= r.id %>">
+            <label for="tot-<%= r.id.replace(/[^a-z0-9]/gi, '') %>">Their profile shows</label>
+            <input id="tot-<%= r.id.replace(/[^a-z0-9]/gi, '') %>" name="n" type="number" min="0" inputmode="numeric" required>
+            <span>posts</span><button class="btn sm">That's right</button>
+            <p class="hqn-dim hqn-shot-msg" role="status"></p>
+          </form>
+        </div>
+        <% } %>
         <% if (r.last === null) { %>
         <form class="hqn-ask" method="post" action="/app/hq/you/rivals/count">
           <input type="hidden" name="id" value="<%= r.id %>"><input type="hidden" name="week" value="<%= pr.lastWeek %>"><input type="hidden" name="back" value="/app/hq/you#pace">
@@ -101,7 +115,7 @@
   <% if (typeof wallMine !== 'undefined' && wallMine) { %>
   <section id="wall" aria-labelledby="wall-h">
     <h2 id="wall-h" class="hqn-h">On 127's wall</h2>
-    <p class="hqn-note">Put a site you shipped or a win on 127's public wall. 127 checks each one before it shows, and Remove takes it down at once. No amounts. The wall says: "<%= wallMine.typicality %>"</p>
+    <p class="hqn-note">Put a site you shipped, or something you did or made, on 127's public wall. 127 checks each one against the wall's rules before it shows, and Remove takes it down at once. No money amounts. Under every wall: "<%= wallMine.line %>"</p>
     <% if (wallMine.entries.length) { %>
     <ul class="hqn-rivals">
       <% wallMine.entries.forEach(function (e) { %>
@@ -113,17 +127,23 @@
     <form class="hqn-prefs" method="post" action="/app/hq/you/wall">
       <fieldset class="hqn-tone">
         <legend>What it is</legend>
-        <% Object.keys(wallMine.kinds).forEach(function (k, i) { %><label><input type="radio" name="kind" value="<%= k %>"<%- i === 0 ? ' checked' : '' %>> <b><%= wallMine.kinds[k] %></b></label><% }) %>
+        <label><input type="radio" name="kind" value="site" checked> <b><%= wallMine.kinds.site %></b><span>A live site, with its address.</span></label>
+        <label><input type="radio" name="kind" value="win"> <b>Something I did or made</b><span>Like "Posted every day this week" or "Wrote my first offer".</span></label>
       </fieldset>
       <fieldset>
         <legend class="sr-only">About it</legend>
-        <label for="w-title" class="hqn-check" style="min-height:0">Name it</label><input id="w-title" name="title" maxlength="80" required placeholder="Maya Tutoring" class="hqn-in">
-        <label for="w-url" class="hqn-check" style="min-height:0">Live address (for a site)</label><input id="w-url" name="url" maxlength="300" inputmode="url" placeholder="maya-tutoring.com" class="hqn-in">
+        <label for="w-title" class="hqn-check" style="min-height:0">Name it</label><input id="w-title" name="title" maxlength="80" required class="hqn-in">
+        <label for="w-url" class="hqn-check" style="min-height:0">Live address (for a site)</label><input id="w-url" name="url" maxlength="300" inputmode="url" autocomplete="url" class="hqn-in">
         <label for="w-note" class="hqn-check" style="min-height:0">One line about it (optional)</label><input id="w-note" name="note" maxlength="200" class="hqn-in">
       </fieldset>
-      <fieldset class="hqn-tone">
-        <legend>How your name shows</legend>
-        <% Object.keys(wallMine.consent).forEach(function (k, i) { %><label><input type="radio" name="consent" value="<%= k %>" required> <span style="grid-column:2;color:var(--ink)"><%= wallMine.consent[k] %></span></label><% }) %>
+      <fieldset class="hqn-release">
+        <legend class="sr-only">Release</legend>
+        <label class="hqn-agree"><input type="checkbox" name="agree" value="1" required> <span><b><%= wallMine.release.head %></b> <%= wallMine.release.lead %></span></label>
+        <div class="hqn-names" role="radiogroup" aria-label="How your name shows">
+          <% Object.keys(wallMine.consent).forEach(function (k) { %><label><input type="radio" name="consent" value="<%= k %>" required> <%= wallMine.consent[k] %></label><% }) %>
+        </div>
+        <p class="hqn-release-rest"><%= wallMine.release.tail %></p>
+        <p class="hqn-small"><%= wallMine.release.small %></p>
       </fieldset>
       <button class="btn">Send it to 127</button>
     </form>
@@ -148,6 +168,14 @@
         <label for="q-from">From</label><select id="q-from" name="quietFrom"><% hours.forEach(function (o) { %><option value="<%= o.h %>"<%- pr.prefs.quiet.from === o.h ? ' selected' : '' %>><%= o.label %></option><% }) %></select>
         <label for="q-to">to</label><select id="q-to" name="quietTo"><% hours.forEach(function (o) { %><option value="<%= o.h %>"<%- pr.prefs.quiet.to === o.h ? ' selected' : '' %>><%= o.label %></option><% }) %></select>
       </fieldset>
+      <fieldset id="out" class="hqn-out">
+        <legend>Outside HQ</legend>
+        <p class="hqn-note">Yesterday's numbers and today's one move, each morning after your quiet hours. All off until you turn one on. Never by text, never an offer, and accounts you keep pace with stay in HQ.</p>
+        <% Object.keys(pr.channels).forEach(function (k) { var on = !!pr.prefs.out[k]; %>
+        <label class="hqn-check"><input type="checkbox" name="out_<%= k %>" value="1"<%- on ? ' checked' : '' %>> <%= pr.channels[k] %></label>
+        <% if (pr.shared.indexOf(k) >= 0) { %><label class="hqn-check hqn-sub"><input type="checkbox" name="money_<%= k %>" value="1"<%- pr.prefs.money[k] ? ' checked' : '' %>> <span>Show sales and ad spend in a shared <%= k === 'slack' ? 'Slack' : 'Teams' %> channel. <b><%= pr.moneyWarning %></b></span></label><% } %>
+        <% }) %>
+      </fieldset>
       <fieldset>
         <legend>Posting goal</legend>
         <label for="p-goal">Posts a week</label><input id="p-goal" name="postGoal" type="number" min="0" max="21" inputmode="numeric" value="<%= Number.isInteger(pr.prefs.postGoal) ? pr.prefs.postGoal : '' %>" placeholder="<%= pr.postGoal %>">
@@ -159,4 +187,5 @@
   <p class="hq-foot">These are your own numbers from HQ, counted in Eastern time like Today. They aren't a forecast.</p>
 </div>
 <script src="/js/hq2.js" defer></script>
+<script src="/js/hq-you.js" defer></script>
 <%- include('../../partials/app-foot') %>
