@@ -15,6 +15,21 @@
   <div><b><%= money(refs.credited) %></b><span>credited in Stripe</span></div>
 </div>
 
+<div class="sl-section" id="ambassadors">
+  <h2>Ambassadors</h2>
+  <p class="small muted" style="margin:0 0 12px">Ambassadors earn their pay instead of free months, whichever link a friend used (Agreement 11, Legal L101 RF9). Their Invite page shows the commission line.</p>
+  <% if (!ambassadors.length) { %><p class="muted" style="margin:0 0 12px">None on the roster.</p><% } %>
+  <ul class="sl-files"><% ambassadors.forEach(function (a) { %><li><span><%= a.email %><% if (a.handle) { %> · amb-<%= a.handle %><% } %> · since <%= fmtDate(a.since) %></span><form method="post" action="/admin/market/ambassadors"><input type="hidden" name="email" value="<%= a.email %>"><input type="hidden" name="action" value="end"><button class="btn ghost sm">End</button></form></li><% }) %></ul>
+  <form method="post" action="/admin/market/ambassadors" class="sl-form" style="margin-top:12px">
+    <div class="row2">
+      <label class="field"><span>Member's email</span><input class="input" type="email" name="email" required></label>
+      <label class="field"><span>Link name (after amb-)</span><input class="input" name="handle" maxlength="60" autocapitalize="off" spellcheck="false"></label>
+    </div>
+    <input type="hidden" name="action" value="add">
+    <button class="btn ghost sm">Add to the roster</button>
+  </form>
+</div>
+
 <div class="sl-section">
   <h2>Waiting for a look</h2>
   <% if (!q.review.length) { %><p class="muted" style="margin:0">Nothing waiting.</p><% } %>

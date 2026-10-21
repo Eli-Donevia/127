@@ -400,6 +400,12 @@ test('Legal L101 checks: money, results, pitches, spam tools and health block; p
   assert.ok(blockedBy(await run({ about: `${GOOD.about} Built to land more clients each week.` })).includes('money'));
   assert.ok(blockedBy(await run({ about: `${GOOD.about} Passive sales while you sleep.` })).includes('money'));
   assert.ok(blockedBy(await run({ title: 'Start your own gym kit' })).includes('allowed'));
+  // Legal's follow-up: whole words, bookkeeping "income" warns, the variants and wider results phrasing block.
+  assert.deepEqual(blockedBy(await run({ about: `${GOOD.about} Learning the ropes takes a week.` })), []);
+  const books = await run({ title: 'Income statement template' });
+  assert.ok(!blockedBy(books).includes('money') && warnedBy(books).includes('money-words'));
+  for (const w of ['A side hustle in a weekend.', 'Built for 6-figure studios.', 'Proven to fill classes.', 'Stay fully booked.', 'Boost bookings fast.', 'Your path to financial freedom.'])
+    assert.ok(blockedBy(await run({ about: `${GOOD.about} ${w}` })).includes('money'), w);
   assert.ok(blockedBy(await run({ title: 'Instagram auto DM bot' })).includes('allowed'));
   assert.ok(blockedBy(await run({ title: '30-day weight loss plan' })).includes('allowed'));
   assert.ok(warnedBy(await run({ about: `${GOOD.about} Rated 5 stars by 40 gyms.` })).includes('praise'));
@@ -465,4 +471,18 @@ test('every marketplace page passes the copy check', () => {
     const found = check(fs.readFileSync(path.join(dir, f), 'utf8'), { file: f }).filter((x) => x.severity === 'block');
     assert.deepEqual(found, [], f);
   }
+});
+
+test("an ambassador's Invite page: the commission line, friends as Joined, no free-month talk (L101 RF9)", async () => {
+  process.env.REFERRALS = 'on';
+  const amb = await member('builder', { name: 'Riley Stone', ambassador: { handle: 'riley', since: new Date(Date.now() - 864e5).toISOString() } });
+  const html = await (await s.go('/app/invite', { as: amb })).text();
+  assert.match(html, /I earn a commission if you join with my link/);
+  assert.match(html, /You're a 127 ambassador, so people who join with your links count toward your ambassador pay, not free months\./);
+  assert.doesNotMatch(html, /I get a free month|How it works/);
+  const plain = await member('builder');
+  const p = await (await s.go('/app/invite', { as: plain })).text();
+  assert.match(p, /if you start a paid plan, I get a free month/);
+  assert.match(p, /A free month for each friend who starts a plan\./);
+  delete process.env.REFERRALS;
 });

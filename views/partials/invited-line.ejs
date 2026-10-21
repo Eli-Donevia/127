@@ -1,2 +1,2 @@
-<%# Legal L101 RF3: shown on sign-up forms when the visitor came through a member's invite link (REFERRALS on). %>
-<% if (typeof invitedBy !== 'undefined' && invitedBy) { %><p class="small muted invited-line" style="margin:0 0 14px"><%= invitedBy %> invited you. They'll see your first name and whether your sign-up earns them a free month.</p><% } %>
+<%# Legal L101 RF3 and RF9: shown on sign-up forms when the visitor came through a member's invite link (REFERRALS on). %>
+<% if (typeof invitedLine !== 'undefined' && invitedLine) { %><p class="small muted invited-line" style="margin:0 0 14px"><%= invitedLine %></p><% } %>

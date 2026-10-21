@@ -1,12 +1,14 @@
 <%- include('../partials/app-head') %>
 <%# The Invite page (GET /app/invite, lib/referrals.js). One link per person, the same code as the founding list and
     the Challenge. Friends by first name only. The share text says what the sender gets (FTC endorsement rule). %>
-<% var shareText = "I'm building my business on 127. Here's my link: " + ref.link.replace(/^https?:\/\//, '') + " (if you start a paid plan, I get a free month)"; %>
+<%# An ambassador's page (Legal L101 RF9): the commission disclosure instead of the free-month line, friends as "Joined". %>
+<% var shareText = "I'm building my business on 127. Here's my link: " + ref.link.replace(/^https?:\/\//, '') + (ref.ambassador ? " (I earn a commission if you join with my link)" : " (if you start a paid plan, I get a free month)"); %>
 <%# Friend states say nothing about a friend's plan or payments (Legal L101 RF2). %>
 <% var STATE = { joined: 'Joined', waiting: 'Counts on', earned: 'Free month added', banked: 'Free month saved for you', used: 'Free month used', held: 'Being checked', 'not-counted': "Didn't count" }; %>
 <div class="mk">
-<div class="sl-head"><div><div class="eyebrow">Invite</div><h1>A free month for each friend who starts a plan.</h1></div></div>
-<p class="mk-line" style="margin-top:0;max-width:52ch">When someone starts Builder or the Circle with your link and stays past the first <%= WAIT_DAYS %> days, <% if (ref.paying) { %>you get a free month, as credit up to the price of their plan<% } else { %>your first Builder month is free<% } %>. Up to <%= YEAR_CAP %> a year.</p>
+<div class="sl-head"><div><div class="eyebrow">Invite</div><h1><%= ref.ambassador ? 'Your invite link.' : 'A free month for each friend who starts a plan.' %></h1></div></div>
+<% if (ref.ambassador) { %><p class="mk-line" style="margin-top:0;max-width:52ch">You're a 127 ambassador, so people who join with your links count toward your ambassador pay, not free months.</p>
+<% } else { %><p class="mk-line" style="margin-top:0;max-width:52ch">When someone starts Builder or the Circle with your link and stays past the first <%= WAIT_DAYS %> days, <% if (ref.paying) { %>you get a free month, as credit up to the price of their plan<% } else { %>your first Builder month is free<% } %>. Up to <%= YEAR_CAP %> a year.</p><% } %>
 
 <div class="sl-section">
   <div class="iv-link"><code><%= ref.link.replace(/^https?:\/\//, '') %></code><button type="button" class="btn sm" data-copy-text="<%= ref.link %>" data-track="Referral Share" data-channel="copy">Copy</button></div>
@@ -19,7 +21,8 @@
   <div class="iv-say"><b>If you post it</b>Say you get something for it, like the line at the end of the text above. Put the line where people see it without tapping “more”. A post with your link and no line like that breaks the rules on endorsements.</div>
 </div>
 
-<% if (ref.joined) { %><p class="iv-tally"><%= ref.joined %> joined with your link<%= ref.waiting ? ', ' + ref.waiting + ' waiting out the ' + WAIT_DAYS + ' days' : '' %>. <b><%= ref.earned %> free month<%= ref.earned === 1 ? '' : 's' %> earned.</b></p><% } %>
+<% if (ref.joined && ref.ambassador) { %><p class="iv-tally"><%= ref.joined %> joined with your link.</p>
+<% } else if (ref.joined) { %><p class="iv-tally"><%= ref.joined %> joined with your link<%= ref.waiting ? ', ' + ref.waiting + ' waiting out the ' + WAIT_DAYS + ' days' : '' %>. <b><%= ref.earned %> free month<%= ref.earned === 1 ? '' : 's' %> earned.</b></p><% } %>
 
 <div class="sl-section">
   <h2>Friends</h2>
@@ -31,6 +34,7 @@
   <% } %>
 </div>
 
+<% if (!ref.ambassador) { %>
 <div class="sl-section">
   <h2>How it works</h2>
   <ol class="mk-how" style="max-width:640px">
@@ -40,6 +44,7 @@
   </ol>
   <p class="mk-fine">Up to <%= YEAR_CAP %> free months each calendar year; <%= ref.capLeft %> left this year. Self-referrals and fake accounts don't count. <a href="/membership-terms#5a-invite-friends-a-free-month-for-each-friend-who-pays">Full rules</a>.</p>
 </div>
+<% } %>
 </div>
 <script src="/js/market.js" defer></script>
 <%- include('../partials/app-foot') %>

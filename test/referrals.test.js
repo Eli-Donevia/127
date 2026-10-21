@@ -186,12 +186,36 @@ test('rewards that would take a member to $2,000 in a calendar year wait for Leg
 test('the sign-up forms say whose link it was and what they will see (RF3)', async () => {
   const own = await user({ name: 'Morgan Diaz' });
   const code = await referrals.codeFor(own);
-  assert.equal(referrals.invitedBy(code, null), 'Morgan');
+  assert.equal(referrals.invitedBy(code, null).first, 'Morgan');
+  assert.equal(referrals.invitedLine(code, null), "Morgan invited you. They'll see your first name and whether your sign-up earns them a free month.");
   assert.equal(referrals.invitedBy(code, own), null, 'signed in: no line');
   assert.equal(referrals.invitedBy('NOPE00', null), null);
   process.env.REFERRALS = 'off';
   assert.equal(referrals.invitedBy(code, null), null);
   const ejs = require('ejs');
-  const html = await ejs.renderFile(path.join(__dirname, '..', 'views', 'partials', 'invited-line.ejs'), { invitedBy: 'Morgan' });
-  assert.match(html, /Morgan invited you\. They'll see your first name and whether your sign-up earns them a free month\./);
+  const html = await ejs.renderFile(path.join(__dirname, '..', 'views', 'partials', 'invited-line.ejs'), { invitedLine: "Morgan invited you. They'll see your first name and whether your sign-up earns them a free month." });
+  assert.match(html, /Morgan invited you\. They(?:'|&#39;)ll see your first name and whether your sign-up earns them a free month\./);
+});
+
+test('an ambassador earns no free months and their Invite page discloses the commission (RF9)', async () => {
+  const ambassadors = require('../lib/ambassadors');
+  const since = new Date(Date.now() - 5 * DAY).toISOString();
+  const amb = await user({ name: 'Riley Stone', tier: 'builder', stripeCustomerId: 'cus_amb', ambassador: { handle: 'riley', since } });
+  assert.ok(ambassadors.isAmbassador(amb));
+  const code = await referrals.codeFor(amb);
+  const friend = await user({ tier: 'builder', referredBy: code });
+  const rec = await referrals.onPaid(friend, { id: 'in_amb', amount_paid: 2900 });
+  assert.equal(rec.status, 'void');
+  assert.equal(rec.reason, 'referrer-ambassador', 'whichever link the friend used');
+  // A friend who signed up before they were an ambassador still counts.
+  const early = await user({ tier: 'builder', referredBy: code, createdAt: new Date(Date.now() - 9 * DAY).toISOString() });
+  assert.equal((await referrals.onPaid(early, { id: 'in_early', amount_paid: 2900 })).status, 'waiting');
+  const sum = referrals.summary(amb, code);
+  assert.equal(sum.ambassador, true);
+  assert.ok(sum.friends.every((f) => f.state === 'joined'), 'ambassadors only see "Joined"');
+  assert.equal(referrals.invitedLine(code, null), "Riley invited you. They'll see your first name.");
+  const ended = { ...amb, ambassador: { handle: 'riley', since, until: new Date(Date.now() - DAY).toISOString() } };
+  assert.ok(!ambassadors.isAmbassador(ended));
+  assert.ok(ambassadors.isAmbassador(ended, Date.now() - 2 * DAY), 'judged by the day');
+
 });

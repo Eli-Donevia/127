@@ -22,7 +22,7 @@
   <script>
     window.OB = <%- JSON.stringify(onboarding).replace(/</g, '\\u003c') %>;
     window.OB_ACCOUNT = <%- JSON.stringify(!user) %>;
-    window.OB_INVITED = <%- JSON.stringify(typeof invitedBy !== 'undefined' ? invitedBy : null).replace(/</g, '\\u003c') %>;
+    window.OB_INVITED = <%- JSON.stringify(typeof invitedLine !== 'undefined' ? invitedLine : null).replace(/</g, '\\u003c') %>;
     window.OB_RETAKE = <%- JSON.stringify(!!retake) %>;
     window.OB_ERROR = <%- JSON.stringify(error || null) %>;
     window.OB_PREFILL = <%- JSON.stringify(typeof prefill !== 'undefined' ? prefill : null).replace(/</g, '\\u003c') %>;
