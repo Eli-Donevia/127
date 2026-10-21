@@ -246,6 +246,8 @@ app.use((req, res, next) => {
   // The Invite page (lib/referrals.js, REFERRALS) and the member marketplace (lib/market.js, MARKETPLACE) in the menu.
   res.locals.referralsOn = referrals.visibleTo(user);
   res.locals.marketOn = market.visibleTo(user);
+  // The AI marketplace tab (/market): 127's packs (SHOP_PACKS) and the members' market (MARKETPLACE), while either is on.
+  res.locals.aiMarketOn = res.locals.marketOn || shop.visibleTo(user);
   // Legal L101 RF3: a friend who came through a member's link sees whose link it was on the sign-up forms.
   res.locals.invitedLine = user ? null : referrals.invitedLine(cookie(req, 'ref'), user);
   // Back from Stripe Checkout without paying.

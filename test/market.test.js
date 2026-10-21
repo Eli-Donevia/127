@@ -486,3 +486,27 @@ test("an ambassador's Invite page: the commission line, friends as Joined, no fr
   assert.match(p, /A free month for each friend who starts a plan\./);
   delete process.env.REFERRALS;
 });
+
+test('the AI marketplace (/market): 127\'s packs with SHOP_PACKS, the members\' market with MARKETPLACE, one page', async () => {
+  const shop = require('../lib/shop');
+  process.env.MARKETPLACE = 'off';
+  process.env.SHOP_PACKS = 'on';
+  let html = await (await s.go('/market')).text();
+  assert.match(html, /The AI marketplace\./);
+  assert.match(html, /From 127/);
+  for (const p of shop.list().filter((x) => !x.free)) assert.match(html, new RegExp(`href="/packs/${p.slug}"`), p.slug);
+  assert.match(html, /href="\/packs\/all"/, 'the every-pack bundle');
+  assert.doesNotMatch(html, /From members|mk-shelves/);
+  assert.equal((await s.go('/app/sell', { as: await member() })).status, 404, 'selling still needs MARKETPLACE');
+  process.env.MARKETPLACE = 'on';
+  html = await (await s.go('/market')).text();
+  assert.match(html, /From 127/);
+  assert.match(html, /From members/);
+  assert.doesNotMatch(html.split('<main')[1].split('</main>')[0], /\bearn|make money|side hustle|extra income/i, 'never pitched as a way to earn (L101 MK2)');
+  html = await (await s.go('/market?kind=prompts')).text();
+  assert.doesNotMatch(html, /id="house"/, 'a filtered shelf shows members only');
+  process.env.SHOP_PACKS = 'off';
+  process.env.MARKETPLACE = 'off';
+  assert.equal((await s.go('/market')).status, 404);
+  delete process.env.SHOP_PACKS;
+});

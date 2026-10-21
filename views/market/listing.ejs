@@ -8,7 +8,7 @@
       <figure class="mk-item-art"><% if (c.cover) { %><img src="<%= c.cover %>" alt="<%= l.title %>, the cover" width="800" height="1000"><% } else { %><span class="mk-blank"><%= l.title %></span><% } %><% if (c.aiPerson) { %><figcaption class="mk-ai">AI-generated person</figcaption><% } %></figure>
       <div>
         <% if (preview) { %><p class="mk-preview-note">Only you can see this page until 127 approves it. Status: <%= STATUS[l.status] %>.</p><% } %>
-        <p class="mk-lbl"><a href="/market">Marketplace</a> <span aria-hidden="true">/</span> <a href="/market?kind=<%= l.kind %>"><%= KINDS[l.kind] %></a> <span aria-hidden="true">/</span> <%= nFiles %> file<%= nFiles === 1 ? '' : 's' %></p>
+        <p class="mk-lbl"><a href="/market">AI marketplace</a> <span aria-hidden="true">/</span> <a href="/market?kind=<%= l.kind %>"><%= KINDS[l.kind] %></a> <span aria-hidden="true">/</span> <%= nFiles %> file<%= nFiles === 1 ? '' : 's' %></p>
         <h1 class="mk-h1"><%= l.title %></h1>
         <% if (seller) { %><p class="mk-by">by <a href="/makers/<%= seller.handle %>"><%= seller.name %></a></p><% } %>
         <% if (l.line) { %><p class="mk-line"><%= l.line %></p><% } %>
