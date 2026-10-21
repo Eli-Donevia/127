@@ -63,12 +63,38 @@ def cyl(name, r, depth, loc, rot, mat, verts=48, parent=None, bevel=0.0):
 
 # ---------- materials ----------
 paint = C.principled('cab_paint', color=(0.78, 0.79, 0.8), rough=0.3, metal=0.0, **{'Coat Weight': 1.0, 'Coat Roughness': 0.03})
+
+
+def road_grime(m, z0, z1, dirt=(0.16, 0.14, 0.12)):
+    """Road film on the lower panels: strongest at height z0 (world), gone by z1, streaked by noise; the coat dulls with it."""
+    nt = m.node_tree; N, L = nt.nodes, nt.links; b = N['Principled BSDF']
+    tc = N.new('ShaderNodeNewGeometry'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Position'], sp.inputs['Vector'])
+    h = N.new('ShaderNodeMapRange'); h.inputs['From Min'].default_value = z0; h.inputs['From Max'].default_value = z1
+    h.inputs['To Min'].default_value = 1.0; h.inputs['To Max'].default_value = 0.0; L.new(sp.outputs['Z'], h.inputs['Value'])
+    ns = N.new('ShaderNodeTexNoise'); ns.inputs['Scale'].default_value = 5.0; ns.inputs['Detail'].default_value = 8
+    mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1.5, 1.5, 6.0)
+    L.new(tc.outputs['Position'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], ns.inputs['Vector'])
+    mm = N.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; L.new(h.outputs['Result'], mm.inputs[0]); L.new(ns.outputs['Fac'], mm.inputs[1])
+    f = N.new('ShaderNodeMapRange'); f.inputs['From Min'].default_value = 0.12; f.inputs['From Max'].default_value = 0.5; L.new(mm.outputs[0], f.inputs['Value'])
+    mx = N.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+    a_, b_ = [x for x in mx.inputs if x.type == 'RGBA'][:2]; a_.default_value = tuple(b.inputs['Base Color'].default_value); b_.default_value = (*dirt, 1)
+    L.new(f.outputs['Result'], mx.inputs[0]); L.new([x for x in mx.outputs if x.type == 'RGBA'][0], b.inputs['Base Color'])
+    inv = N.new('ShaderNodeMath'); inv.operation = 'SUBTRACT'; inv.inputs[0].default_value = 1.0; L.new(f.outputs['Result'], inv.inputs[1])
+    L.new(inv.outputs[0], b.inputs['Coat Weight'])
+    rr = N.new('ShaderNodeMapRange'); rr.inputs['To Min'].default_value = b.inputs['Roughness'].default_value; rr.inputs['To Max'].default_value = 0.7
+    L.new(f.outputs['Result'], rr.inputs['Value']); L.new(rr.outputs['Result'], b.inputs['Roughness'])
+    return m
+
+
+road_grime(paint, 1.15, 2.0)
 trailer_m = C.principled('trailer_skin', color=(0.7, 0.71, 0.72), rough=0.42, metal=0.1, **{'Coat Weight': 0.3, 'Coat Roughness': 0.15})
+road_grime(trailer_m, 1.3, 2.1)
 black = C.principled('black_plastic', color=(0.015, 0.015, 0.016), rough=0.55)
-chrome = C.principled('chrome', color=(0.9, 0.9, 0.92), rough=0.08, metal=1.0)
+chrome = C.principled('chrome', color=(0.92, 0.92, 0.94), rough=0.04, metal=1.0)
 alu = C.principled('alu', color=(0.75, 0.76, 0.78), rough=0.22, metal=1.0)
 rubber = C.principled('rubber', color=(0.02, 0.02, 0.02), rough=0.75)
 glassd = C.principled('windscreen', color=(0.004, 0.0045, 0.005), rough=0.015, **{'Specular IOR Level': 1.0, 'Coat Weight': 0.0})
+screen = C.principled('screen_glass', color=(0.85, 0.9, 0.88), rough=0.0, **{'Transmission Weight': 1.0, 'IOR': 1.52})
 frame_m = C.principled('chassis', color=(0.02, 0.02, 0.02), rough=0.5, metal=0.4)
 head = C.emission('headlamp', C.kelvin(5200), float(E('HEAD', '320')))
 amber = C.emission('marker_amber', (1.0, 0.42, 0.05), float(E('AMBER', '8')))
@@ -81,8 +107,18 @@ P = truck
 # cab
 box('cab', -1.25, 1.25, 0.0, 2.25, 1.15, 3.95, paint, bevel=0.15, seg=6, parent=P)
 box('roof_fairing', -1.2, 1.2, 0.35, 2.25, 3.9, 4.12, paint, bevel=0.08, seg=4, parent=P)
-ws = box('windscreen', -1.1, 1.1, -0.04, -0.01, 2.38, 3.45, glassd, bevel=0.03, parent=P)
-ws.rotation_euler = (math.radians(-7), 0, 0)
+# windscreen: a gently curved, raked pane of real glass so it carries the dusk sky; a dark cab with a dash behind it
+bpy.ops.mesh.primitive_grid_add(x_subdivisions=40, y_subdivisions=8, size=1, location=(0, 0, 0))
+ws = bpy.context.object; ws.name = 'windscreen'
+for v in ws.data.vertices:
+    x, zz = v.co.x * 2.2, (v.co.y + 0.5) * 1.07
+    v.co = (x, -0.02 + 0.09 * (x / 1.1) ** 2 + zz * math.tan(math.radians(12)), 2.38 + zz)
+ws.data.update(); ws.data.shade_smooth(); ws.data.materials.append(screen); ws.parent = P
+box('cab_inside', -1.15, 1.15, 0.25, 2.1, 1.3, 3.8, C.principled('cab_dark', color=(0.01, 0.01, 0.011), rough=0.8), parent=P)
+box('dash', -1.1, 1.1, 0.2, 0.75, 2.2, 2.42, C.principled('dash', color=(0.02, 0.02, 0.022), rough=0.6), bevel=0.04, parent=P)
+for s_ in (-1, 1):
+    box('a_pillar', s_ * 1.1 - 0.06, s_ * 1.1 + 0.06, -0.03, 0.2, 2.36, 3.47, black, bevel=0.02, parent=P)
+box('screen_seal', -1.12, 1.12, -0.02, 0.16, 2.33, 2.39, black, parent=P)
 
 box('visor', -1.2, 1.2, -0.16, 0.05, 3.5, 3.58, black, bevel=0.01, parent=P)
 box('side_window_l', -1.262, -1.24, 0.25, 1.15, 2.4, 3.35, glassd, parent=P)
@@ -93,10 +129,13 @@ box('door_seam_r', 1.25, 1.264, 1.2, 1.215, 1.3, 3.4, black, parent=P)
 box('grille_back', -0.95, 0.95, -0.01, 0.05, 1.4, 2.28, black, parent=P)
 for i in range(7):
     z = 1.46 + i * 0.12
-    box('grille_bar', -0.93, 0.93, -0.03, 0.0, z, z + 0.045, alu if i % 3 == 0 else frame_m, bevel=0.008, parent=P)
+    box('grille_bar', -0.93, 0.93, -0.05, 0.0, z, z + 0.05, chrome, bevel=0.012, parent=P)
+box('grille_surround', -0.99, 0.99, -0.06, 0.02, 1.38, 1.43, chrome, bevel=0.015, parent=P)
+box('grille_surround', -0.99, 0.99, -0.06, 0.02, 2.26, 2.31, chrome, bevel=0.015, parent=P)
 box('badge', -0.18, 0.18, -0.04, -0.01, 2.06, 2.12, chrome, bevel=0.01, parent=P)
 # bumper with lamps
-box('bumper', -1.27, 1.27, -0.14, 0.2, 0.48, 1.12, black, bevel=0.04, parent=P)
+box('bumper', -1.27, 1.27, -0.14, 0.2, 0.48, 1.12, chrome, bevel=0.06, seg=5, parent=P)
+box('bumper_step', -0.6, 0.6, -0.16, -0.13, 0.52, 0.6, black, bevel=0.01, parent=P)
 for s in (-1, 1):
     x0, x1 = sorted((s * 0.72, s * 1.17))
     box('lamp_housing', x0 - 0.02, x1 + 0.02, -0.16, -0.1, 0.84, 1.08, chrome, bevel=0.01, parent=P)
@@ -120,6 +159,8 @@ for s in (-1, 1):
 for s in (-1, 1):
     box('step', s * 1.24 - 0.08, s * 1.24 + 0.08, 1.75, 2.15, 0.62, 0.66, alu, parent=P)
     cyl('tank', 0.33, 1.5, (s * 1.0, 3.3, 0.85), (math.radians(90), 0, 0), alu, parent=P, bevel=0.02)
+    for yy in (2.85, 3.75):   # steel straps holding the tank to its brackets
+        cyl('strap', 0.337, 0.05, (s * 1.0, yy, 0.85), (math.radians(90), 0, 0), frame_m, parent=P)
 # chassis
 box('chassis', -0.5, 0.5, 0.2, 7.2, 0.62, 1.0, frame_m, parent=P)
 # wheels: front steer, two drive axles, three trailer axles
@@ -127,7 +168,17 @@ def wheel(x, y, dual=False):
     for k in ([0] if not dual else [-0.16, 0.16]):
         xx = x + (k if x > 0 else -k)
         cyl('tyre', 0.52, 0.3, (xx, y, 0.52), (0, math.radians(90), 0), rubber, parent=P, bevel=0.06)
-    cyl('rim', 0.3, 0.32, (x + (0.02 if x > 0 else -0.02) * (2 if dual else 1), y, 0.52), (0, math.radians(90), 0), alu, parent=P, bevel=0.02)
+    sx = 1 if x > 0 else -1
+    face = x + sx * (0.02 * (2 if dual else 1) + 0.16)        # outer face of the rim
+    cyl('rim', 0.3, 0.32, (face - sx * 0.16, y, 0.52), (0, math.radians(90), 0), alu, parent=P, bevel=0.02)
+    cyl('rim_dish', 0.24, 0.02, (face + sx * 0.005, y, 0.52), (0, math.radians(90), 0), C.principled('rim_dish', color=(0.5, 0.51, 0.53), rough=0.3, metal=1.0), parent=P)
+    cyl('hub', 0.11, 0.08, (face + sx * 0.04, y, 0.52), (0, math.radians(90), 0), frame_m, parent=P, bevel=0.01)
+    for k in range(10):
+        a = 2 * math.pi * k / 10
+        cyl('lug', 0.016, 0.05, (face + sx * 0.03, y + math.cos(a) * 0.145, 0.52 + math.sin(a) * 0.145), (0, math.radians(90), 0), chrome, verts=6, parent=P)
+    for k in range(5):   # hand holes in the disc
+        a = 2 * math.pi * (k + 0.5) / 5
+        cyl('hole', 0.035, 0.03, (face + sx * 0.006, y + math.cos(a) * 0.2, 0.52 + math.sin(a) * 0.2), (0, math.radians(90), 0), rubber, parent=P)
 for s in (-1, 1):
     wheel(s * 1.05, 1.15)
     wheel(s * 0.95, 5.0, True)

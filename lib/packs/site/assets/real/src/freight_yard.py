@@ -78,7 +78,28 @@ apron = C.pbr('dock_concrete', conc_t, scale=1.0, color_mult=(0.42, 0.42, 0.42),
 door_m = C.principled('door_panels', color=(0.42, 0.43, 0.44), rough=0.4, metal=0.5)
 rubber = C.principled('seal_rubber', color=(0.012, 0.012, 0.013), rough=0.7)
 yellow = C.principled('safety_yellow', color=(0.75, 0.52, 0.04), rough=0.5, **{'Coat Weight': 0.3})
-trailer_m = C.principled('trailer_skin', color=(0.56, 0.57, 0.58), rough=0.4, metal=0.15, **{'Coat Weight': 0.3, 'Coat Roughness': 0.15})
+def grimy(name, clean, dirt, z0, z1, rough=(0.4, 0.75), **kw):
+    """Road grime: dirt colour strongest at z0, gone by z1, broken up by noise, rougher where dirty."""
+    m = C.principled(name, color=clean, rough=rough[0], **kw)
+    nt = m.node_tree; N, L = nt.nodes, nt.links; b = N['Principled BSDF']
+    geo = N.new('ShaderNodeNewGeometry'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(geo.outputs['Position'], sp.inputs['Vector'])
+    h = N.new('ShaderNodeMapRange'); h.inputs['From Min'].default_value = z0; h.inputs['From Max'].default_value = z1
+    h.inputs['To Min'].default_value = 1.0; h.inputs['To Max'].default_value = 0.0; L.new(sp.outputs['Z'], h.inputs['Value'])
+    ns = N.new('ShaderNodeTexNoise'); ns.inputs['Scale'].default_value = 6.0; ns.inputs['Detail'].default_value = 8
+    mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1.0, 1.0, 5.0)   # streaks run down
+    L.new(geo.outputs['Position'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], ns.inputs['Vector'])
+    mm = N.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; L.new(h.outputs['Result'], mm.inputs[0]); L.new(ns.outputs['Fac'], mm.inputs[1])
+    f = N.new('ShaderNodeMapRange'); f.inputs['From Min'].default_value = 0.15; f.inputs['From Max'].default_value = 0.55; L.new(mm.outputs[0], f.inputs['Value'])
+    mx = N.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+    a_, b_ = [x for x in mx.inputs if x.type == 'RGBA'][:2]; a_.default_value = (*clean, 1); b_.default_value = (*dirt, 1)
+    L.new(f.outputs['Result'], mx.inputs[0]); L.new([x for x in mx.outputs if x.type == 'RGBA'][0], b.inputs['Base Color'])
+    rr = N.new('ShaderNodeMapRange'); rr.inputs['To Min'].default_value = rough[0]; rr.inputs['To Max'].default_value = rough[1]
+    L.new(f.outputs['Result'], rr.inputs['Value']); L.new(rr.outputs['Result'], b.inputs['Roughness'])
+    return m
+
+
+trailer_m = grimy('trailer_skin', (0.56, 0.57, 0.58), (0.2, 0.18, 0.15), 1.3, 2.3, metal=0.15, **{'Coat Weight': 0.3, 'Coat Roughness': 0.15})
+skirt_m = grimy('skirt', (0.02, 0.02, 0.021), (0.12, 0.105, 0.09), 0.5, 1.3, rough=(0.5, 0.9))
 alu = C.principled('alu', color=(0.72, 0.73, 0.75), rough=0.25, metal=1.0)
 frame_m = C.principled('chassis', color=(0.02, 0.02, 0.02), rough=0.5, metal=0.4)
 tyre_m = C.principled('tyre', color=(0.02, 0.02, 0.02), rough=0.75)
@@ -88,7 +109,7 @@ inside_m = C.emission('warehouse_inside', C.kelvin(3800), float(E('INSIDE', '0.9
 
 # ---------- building: dock wall along x at y=0, yard toward -y ----------
 DOCK = 1.25      # dock floor height
-WX0, WX1 = -40.0, 26.0
+WX0, WX1 = -60.0, 60.0
 box('wall', WX0, WX1, 0.0, 0.4, DOCK, 10.0, clad)
 box('apron', WX0, WX1, -0.05, 0.4, 0.0, DOCK, apron)
 box('parapet', WX0, WX1, -0.08, 0.45, 10.0, 10.35, alu)
@@ -154,7 +175,7 @@ def trailer(x, length=14.6, seed=0):
         yy = y0 + 0.8 + i * (length - 1.6) / 4
         for s in (-1, 1):
             box('side_marker', x + s * 1.31 - 0.012, x + s * 1.31 + 0.012, yy, yy + 0.1, 1.31, 1.37, amber)
-    box('skirt', x - 1.28, x + 1.28, y0 + 5.0, y0 + 10.5, 0.55, 1.27, frame_m)
+    box('skirt', x - 1.28, x + 1.28, y0 + 5.0, y0 + 10.5, 0.55, 1.27, skirt_m)
     # rear axles
     for yy in (y1 - 3.4, y1 - 2.1):
         for s in (-1, 1):
@@ -178,6 +199,21 @@ cr.inputs['To Min'].default_value = 1.0; cr.inputs['To Max'].default_value = 0.3
 L.new(wn.outputs['Fac'], cr.inputs['Value'])
 mu = N.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'
 L.new(rough_src, mu.inputs[0]); L.new(cr.outputs['Result'], mu.inputs[1]); L.new(mu.outputs[0], b.inputs['Roughness'])
+# tyre marks: long dark streaks running in and out of the bays (along y), strongest near the dock
+tco = N.new('ShaderNodeTexCoord')
+tm = N.new('ShaderNodeTexNoise'); tm.inputs['Scale'].default_value = 1.0; tm.inputs['Detail'].default_value = 3
+tmm = N.new('ShaderNodeMapping'); tmm.inputs['Scale'].default_value = (2.2, 0.06, 1.0)
+L.new(tco.outputs['Object'], tmm.inputs['Vector']); L.new(tmm.outputs['Vector'], tm.inputs['Vector'])
+tr = N.new('ShaderNodeMapRange'); tr.inputs['From Min'].default_value = 0.5; tr.inputs['From Max'].default_value = 0.66
+tr.inputs['To Max'].default_value = float(E('MARKS', '0.75')); L.new(tm.outputs['Fac'], tr.inputs['Value'])
+tsp = N.new('ShaderNodeSeparateXYZ'); L.new(tco.outputs['Object'], tsp.inputs['Vector'])
+ty_ = N.new('ShaderNodeMapRange'); ty_.inputs['From Min'].default_value = 100 - 40; ty_.inputs['From Max'].default_value = 100 - 2
+L.new(tsp.outputs['Y'], ty_.inputs['Value'])   # object y: the yard plane sits at y=-100, so the dock edge is local y=+100
+tmul = N.new('ShaderNodeMath'); tmul.operation = 'MULTIPLY'; L.new(tr.outputs['Result'], tmul.inputs[0]); L.new(ty_.outputs['Result'], tmul.inputs[1])
+dark = N.new('ShaderNodeMix'); dark.data_type = 'RGBA'; dark.blend_type = 'MULTIPLY'
+a_, b_ = [x for x in dark.inputs if x.type == 'RGBA'][:2]; b_.default_value = (0.35, 0.34, 0.33, 1)
+L.new(b.inputs['Base Color'].links[0].from_socket, a_); L.new(tmul.outputs[0], dark.inputs[0])
+L.new([x for x in dark.outputs if x.type == 'RGBA'][0], b.inputs['Base Color'])
 bpy.ops.mesh.primitive_plane_add(size=1, location=(0, -100, 0))
 yard = bpy.context.object; yard.scale = (400, 200, 1); bpy.ops.object.transform_apply(scale=True)
 yard.data.materials.append(road_m)
@@ -197,7 +233,7 @@ for px, py in ((-30.0, -34.0), (6.0, -40.0)):
             size=0.5, spot=math.radians(70), blend=0.6, name='flood')
 
 # ---------- camera: standing in the yard, three-quarter along the dock ----------
-cam = C.camera(sc, (float(E('CX', '-34')), float(E('CY', '-30')), float(E('CZ', '1.7'))), (float(E('TX', '-6')), float(E('TYT', '-2')), float(E('TZ', '3.9'))),
-               lens=float(E('LENS', '40')), fstop=float(E('FSTOP', '5.6')))
+cam = C.camera(sc, (float(E('CX', '-17')), float(E('CY', '-31')), float(E('CZ', '2.0'))), (float(E('TX', '-1')), float(E('TYT', '-4')), float(E('TZ', '3.0'))),
+               lens=float(E('LENS', '35')), fstop=float(E('FSTOP', '5.6')))
 cam.data.dof.focus_distance = (Vector((-12.0, -8.0, 2.5)) - cam.location).length
 C.render(sc, 'freight', 'yard')

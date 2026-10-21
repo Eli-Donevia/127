@@ -27,27 +27,36 @@ bar.data.materials.append(bar_m)
 
 # ---------- the bag: stand-up kraft pouch, rolled top, tin tie ----------
 def kraft():
+    """Unbleached kraft: tan-brown with a slow mottle, fine vertical fibres and darker fibre flecks, fully matte."""
     m = bpy.data.materials.new('kraft'); m.use_nodes = True
     N, L = m.node_tree.nodes, m.node_tree.links
     b = N['Principled BSDF']
     tc = N.new('ShaderNodeTexCoord')
-    n1 = N.new('ShaderNodeTexNoise'); n1.inputs['Scale'].default_value = 420; n1.inputs['Detail'].default_value = 8
-    mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1, 1, 6)  # fibres run vertically
-    L.new(tc.outputs['Object'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], n1.inputs['Vector'])
-    n2 = N.new('ShaderNodeTexNoise'); n2.inputs['Scale'].default_value = 18; n2.inputs['Detail'].default_value = 4
-    L.new(tc.outputs['Object'], n2.inputs['Vector'])
-    ramp = N.new('ShaderNodeValToRGB')
-    ramp.color_ramp.elements[0].color = (0.16, 0.1, 0.05, 1)
-    ramp.color_ramp.elements[1].color = (0.3, 0.2, 0.11, 1)
-    mix = N.new('ShaderNodeMath'); mix.operation = 'ADD'
-    L.new(n1.outputs['Fac'], mix.inputs[0]); L.new(n2.outputs['Fac'], mix.inputs[1])
-    half = N.new('ShaderNodeMath'); half.operation = 'MULTIPLY'; half.inputs[1].default_value = 0.5
-    L.new(mix.outputs[0], half.inputs[0]); L.new(half.outputs[0], ramp.inputs['Fac'])
-    L.new(ramp.outputs['Color'], b.inputs['Base Color'])
-    b.inputs['Roughness'].default_value = 0.78
-    bump = N.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.12; bump.inputs['Distance'].default_value = 0.0004
-    L.new(n1.outputs['Fac'], bump.inputs['Height']); L.new(bump.outputs['Normal'], b.inputs['Normal'])
-    b.inputs['Sheen Weight'].default_value = 0.15
+    mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1, 1, 7)  # fibres run vertically
+    L.new(tc.outputs['Object'], mp.inputs['Vector'])
+    fib = N.new('ShaderNodeTexNoise'); fib.inputs['Scale'].default_value = 900; fib.inputs['Detail'].default_value = 6
+    L.new(mp.outputs['Vector'], fib.inputs['Vector'])
+    mot = N.new('ShaderNodeTexNoise'); mot.inputs['Scale'].default_value = 22; mot.inputs['Detail'].default_value = 5
+    L.new(tc.outputs['Object'], mot.inputs['Vector'])
+    fl = N.new('ShaderNodeTexVoronoi'); fl.inputs['Scale'].default_value = 650; L.new(mp.outputs['Vector'], fl.inputs['Vector'])
+    flm = N.new('ShaderNodeMapRange'); flm.inputs['From Min'].default_value = 0.0; flm.inputs['From Max'].default_value = 0.09
+    flm.inputs['To Min'].default_value = 1.0; flm.inputs['To Max'].default_value = 0.0; L.new(fl.outputs['Distance'], flm.inputs['Value'])
+    mix = N.new('ShaderNodeMath'); mix.operation = 'MULTIPLY_ADD'; mix.inputs[1].default_value = 0.35
+    L.new(fib.outputs['Fac'], mix.inputs[0]); L.new(mot.outputs['Fac'], mix.inputs[2])
+    ramp = N.new('ShaderNodeValToRGB'); e = ramp.color_ramp.elements
+    e[0].position = 0.45; e[0].color = (0.2, 0.135, 0.075, 1)
+    e[1].position = 0.85; e[1].color = (0.33, 0.235, 0.14, 1)
+    L.new(mix.outputs[0], ramp.inputs['Fac'])
+    dk = N.new('ShaderNodeMix'); dk.data_type = 'RGBA'
+    a_, b_ = [x for x in dk.inputs if x.type == 'RGBA'][:2]
+    L.new(ramp.outputs['Color'], a_); b_.default_value = (0.09, 0.055, 0.03, 1)
+    fm = N.new('ShaderNodeMath'); fm.operation = 'MULTIPLY'; fm.inputs[1].default_value = 0.7; L.new(flm.outputs['Result'], fm.inputs[0])
+    L.new(fm.outputs[0], dk.inputs[0])
+    L.new([x for x in dk.outputs if x.type == 'RGBA'][0], b.inputs['Base Color'])
+    b.inputs['Roughness'].default_value = 0.92
+    b.inputs['Specular IOR Level'].default_value = 0.3
+    bump = N.new('ShaderNodeBump'); bump.inputs['Strength'].default_value = 0.35; bump.inputs['Distance'].default_value = 0.0003
+    L.new(fib.outputs['Fac'], bump.inputs['Height']); L.new(bump.outputs['Normal'], b.inputs['Normal'])
     return m
 
 BAG_X, BAG_Y = float(E('BAGX', '0.07')), 0.06
@@ -104,9 +113,8 @@ kr = bag.data.materials[0]
 for k, (z, th) in enumerate(((BH - 0.004, 0.012), (BH - 0.016, 0.011))):
     bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -0.006 - 0.004 * k, z))
     f = bpy.context.object; f.scale = (0.136 + 0.002 * k, th, 0.022); bpy.ops.object.transform_apply(scale=True)
-    bv = f.modifiers.new('bev', 'BEVEL'); bv.width = 0.0045; bv.segments = 5
-    f.modifiers.new('sub', 'SUBSURF').levels = 1
-    f.parent = bag; f.data.materials.append(kr); C.smooth(f)
+    bv = f.modifiers.new('bev', 'BEVEL'); bv.width = 0.0012; bv.segments = 2   # a folded paper edge is crisp
+    f.parent = bag; f.data.materials.append(kr)
 tin = C.principled('tin', color=(0.42, 0.41, 0.4), rough=0.45, metal=1.0)
 bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -0.0135, BH - 0.01))
 t = bpy.context.object; t.scale = (0.15, 0.0015, 0.008); bpy.ops.object.transform_apply(scale=True)
@@ -116,10 +124,14 @@ for s in (-1, 1):  # tie ends folded back
     bpy.ops.mesh.primitive_cube_add(size=1, location=(s * 0.076, -0.006, BH - 0.01))
     e = bpy.context.object; e.scale = (0.003, 0.016, 0.008); e.parent = bag; e.data.materials.append(tin)
 # one-way degassing valve, upper front
-bpy.ops.mesh.primitive_cylinder_add(radius=0.0085, depth=0.002, vertices=64, location=(0, 0, 0))
+bpy.ops.mesh.primitive_cylinder_add(radius=0.0075, depth=0.0016, vertices=64, location=(0, 0, 0))
 va = bpy.context.object; va.rotation_euler = (math.radians(72), 0, 0); va.location = (0.0, -0.0156, 0.168); va.parent = bag
 bv = va.modifiers.new('bev', 'BEVEL'); bv.width = 0.0008; bv.segments = 3; C.smooth(va)
-va.data.materials.append(C.principled('valve', color=(0.05, 0.045, 0.04), rough=0.4))
+valve_m = C.principled('valve', color=(0.012, 0.012, 0.013), rough=0.55, **{'Specular IOR Level': 0.3})
+va.data.materials.append(valve_m)
+bpy.ops.mesh.primitive_torus_add(major_radius=0.0042, minor_radius=0.0006, location=(0, 0, 0))   # the moulded inner ring
+vr = bpy.context.object; vr.rotation_euler = va.rotation_euler; vr.location = (0.0, -0.0164, 0.1683); vr.parent = bag
+vr.data.materials.append(valve_m)
 # a small round seal sticker, matte black, blank
 
 bpy.context.view_layer.update()
@@ -260,7 +272,7 @@ L.new(sep.outputs['Z'], base.inputs['Value'])
 m1 = N.new('ShaderNodeMath'); m1.operation = 'MULTIPLY'; L.new(cr.outputs['Result'], m1.inputs[0]); L.new(rfall.outputs['Result'], m1.inputs[1])
 m2 = N.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'; L.new(m1.outputs[0], m2.inputs[0]); L.new(hfall.outputs['Result'], m2.inputs[1])
 m3 = N.new('ShaderNodeMath'); m3.operation = 'MULTIPLY'; L.new(m2.outputs[0], m3.inputs[0]); L.new(base.outputs['Result'], m3.inputs[1])
-dens = N.new('ShaderNodeMath'); dens.operation = 'MULTIPLY'; dens.inputs[1].default_value = float(E('STEAM', '22'))
+dens = N.new('ShaderNodeMath'); dens.operation = 'MULTIPLY'; dens.inputs[1].default_value = float(E('STEAM', '5'))
 L.new(m3.outputs[0], dens.inputs[0])
 vs = N.new('ShaderNodeVolumeScatter'); vs.inputs['Anisotropy'].default_value = 0.65; vs.inputs['Color'].default_value = (0.95, 0.95, 0.95, 1)
 L.new(dens.outputs[0], vs.inputs['Density'])
@@ -310,16 +322,18 @@ _zlo = min(p.z for p in _pts); _zhi = max(p.z for p in _pts)
 FIL_Z = _zlo + 0.36 * (_zhi - _zlo)  # the filament sits in the widest part of the glass, below the base
 print('BULB z', round(_zlo, 3), round(_zhi, 3))
 bpy.ops.mesh.primitive_uv_sphere_add(radius=0.0035, location=(BULB.x, BULB.y, FIL_Z))
-fil = bpy.context.object; fil.scale = (0.6, 0.6, 2.4); fil.data.materials.append(C.emission('filament', C.kelvin(2300), float(E('FIL', '400'))))
+fil = bpy.context.object; fil.scale = (0.6, 0.6, 2.4); fil.data.materials.append(C.emission('filament', C.kelvin(2300), float(E('FIL', '45'))))
 fil.visible_shadow = False
-C.light(sc, 'POINT', (BULB.x, BULB.y, FIL_Z), energy=float(E('BULBW', '22')), color=C.kelvin(2500), size=0.015, name='bulb')
+bl = C.light(sc, 'POINT', (BULB.x, BULB.y, FIL_Z), energy=float(E('BULBW', '22')), color=C.kelvin(2500), size=0.015, name='bulb')
+# the bulb's light does the lighting; what the eye sees through the glass is only the filament
+bl.visible_camera = False; bl.visible_transmission = False; bl.visible_glossy = False
 bpy.ops.mesh.primitive_cylinder_add(radius=0.0025, depth=1.5, location=(BULB.x, BULB.y, BULB.z + zmax + 0.75))
 bpy.context.object.data.materials.append(C.principled('cord', color=(0.01, 0.01, 0.01), rough=0.6))
 # key: the next pendant along the bar, off frame front-left, rakes the bag's face
 C.light(sc, 'AREA', (-0.22, -0.05, 0.36), target=(BAG_X, BAG_Y, 0.08), energy=float(E('KEY', '7')), color=C.kelvin(2500), size=0.07,
         shape='DISK', name='key')
 # backlight for the steam (hidden behind the cup, scatters forward)
-C.light(sc, 'SPOT', (CUP.x + 0.05, CUP.y + 0.45, 0.12), target=(CUP.x, CUP.y, 0.2), energy=float(E('STEAMW', '14')), color=C.kelvin(3000),
+C.light(sc, 'SPOT', (CUP.x + 0.05, CUP.y + 0.45, 0.12), target=(CUP.x, CUP.y, 0.2), energy=float(E('STEAMW', '6')), color=C.kelvin(3000),
         size=0.02, spot=math.radians(25), blend=0.5, name='steam_back')
 # cool night spill from a window off to the left: the only cool note, keeps the warm light honest
 C.light(sc, 'AREA', (-1.4, 0.2, 0.9), target=(0.0, 0.1, 0.05), energy=float(E('WIN', '14')), color=C.kelvin(7500), size=1.5, name='window')

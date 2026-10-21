@@ -368,9 +368,11 @@ def pbr(name, maps, scale=1.0, color_mult=None, rough_mult=1.0, rough_add=0.0, b
             mm.data_type = 'RGBA'
             mm.blend_type = 'MULTIPLY'
             mm.inputs['Factor'].default_value = 1.0
-            L.new(col, mm.inputs['A'])
-            mm.inputs['B'].default_value = (*color_mult, 1)
-            col = mm.outputs['Result']
+            # the Mix node has float, vector and colour sockets that share the names A/B/Result: pick the colour ones
+            a_, b_ = [s for s in mm.inputs if s.type == 'RGBA'][:2]
+            L.new(col, a_)
+            b_.default_value = (*color_mult, 1)
+            col = [s for s in mm.outputs if s.type == 'RGBA'][0]
         L.new(col, bs.inputs['Base Color'])
     r = maps.get('Rough')
     if r:
