@@ -50,7 +50,8 @@
 <div class="plans plans-v5<%= anchor ? ' plans-anchor' : '' %><%= ledger ? ' plans-ledger' : '' %>"<%- ledger ? ' data-plans' : '' %>>
   <% ['free','builder','circle'].forEach(function(k){ var p = PLANS[k]; var c = CARDS[k]; %>
   <div class="plan plan-<%= k %> <%= k==='builder' ? 'featured' : '' %> <%= k==='circle' ? 'dark' : '' %>"<%- ledger ? ' data-plan="' + k + '" id="plan-' + k + '"' : '' %>>
-    <% if (ledger && k === 'circle') { %><a class="plan-pic" href="/circle" tabindex="-1" aria-hidden="true"><img src="/img/emerald-16x9.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></a><% } %>
+    <%# D59: each tier is its 127 (Design's renders): Free chrome, Builder emerald, Circle diamond %>
+    <% if (ledger) { var tier = { free: 'chrome', builder: 'emerald', circle: 'diamond' }[k]; %><<%= k === 'circle' ? 'a href="/circle" tabindex="-1"' : 'div' %> class="plan-pic plan-pic-<%= tier %>" aria-hidden="true"><picture><source type="image/webp" srcset="/img/tiers/tier-<%= tier %>-600.webp 600w, /img/tiers/tier-<%= tier %>-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 380px"><img src="/img/tiers/tier-<%= tier %>-1200.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async"></picture></<%= k === 'circle' ? 'a' : 'div' %>><% } %>
     <div class="plan-flag"><%= c.flag %></div>
     <h3><%= p.name %></h3>
     <% if (k === 'builder' && fp) { %>
