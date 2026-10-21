@@ -4,10 +4,11 @@
 import sys, os, math, random
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
-import bpy, bmesh, mathutils
+import bpy, bmesh, mathutils, time
+T0 = time.time()
 from mathutils import Vector, noise
 
-W, H = 1600, 1000
+W, H = 1200, 1500  # the design's 'bag' slot
 E = os.environ.get
 sc = C.reset()
 C.setup(sc, W, H, samples=int(E('SAMPLES', '128')), exposure=float(E('EXPO', '0')))
@@ -16,7 +17,7 @@ rng = random.Random(21)
 
 # ---------- bar top: Poly Haven dark_wood, lacquered ----------
 wood = C.texture('dark_wood', '2k')
-bar_m = C.pbr('bar_walnut', wood, scale=1.0, color_mult=(0.55, 0.5, 0.45), hue_sat=(0.5, 0.75, 0.8), rough_mult=0.6,
+bar_m = C.pbr('bar_walnut', wood, scale=1.0, color_mult=(0.4, 0.38, 0.36), hue_sat=(0.5, 0.6, 0.75), rough_mult=0.6,
               rough_add=0.08, bump=0.4, coat=0.35, coat_rough=0.12)
 bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0.3, -0.025))
 bar = bpy.context.object; bar.scale = (2.4, 1.6, 0.05); bpy.ops.object.transform_apply(scale=True)
@@ -36,8 +37,8 @@ def kraft():
     n2 = N.new('ShaderNodeTexNoise'); n2.inputs['Scale'].default_value = 18; n2.inputs['Detail'].default_value = 4
     L.new(tc.outputs['Object'], n2.inputs['Vector'])
     ramp = N.new('ShaderNodeValToRGB')
-    ramp.color_ramp.elements[0].color = (0.25, 0.135, 0.06, 1)
-    ramp.color_ramp.elements[1].color = (0.42, 0.25, 0.12, 1)
+    ramp.color_ramp.elements[0].color = (0.16, 0.1, 0.05, 1)
+    ramp.color_ramp.elements[1].color = (0.3, 0.2, 0.11, 1)
     mix = N.new('ShaderNodeMath'); mix.operation = 'ADD'
     L.new(n1.outputs['Fac'], mix.inputs[0]); L.new(n2.outputs['Fac'], mix.inputs[1])
     half = N.new('ShaderNodeMath'); half.operation = 'MULTIPLY'; half.inputs[1].default_value = 0.5
@@ -57,22 +58,30 @@ def bag_mesh():
     grid = []
     for j in range(nv + 1):
         v = j / nv
-        a = 0.064 * (1 + 0.05 * math.sin(math.pi * min(1, v * 1.2)))
-        bdep = 0.043 * (1 - v ** 2.4) + 0.0035
-        n = 4.5 - 2.3 * min(1, v * 1.6)  # boxy gusset at the bottom, pillow higher up
+        # side-gusset kraft bag: flat bottom block, pillowed front and back, sides folded in along a V, flattened above
+        # the fill line where front meets back under the rolled top
+        a = 0.066 + 0.002 * math.sin(math.pi * v)
+        vf = 0.74
+        u = min(1.0, max(0.0, (v - 0.3) / 0.7)); u = u * u * (3 - 2 * u)
+        bdep = 0.0035 + 0.0405 * (1 - u) ** 0.8
+        pinch = 0.55 * bdep * min(1.0, v * 12)
         row = []
         for i in range(nu):
             t = 2 * math.pi * i / nu
             c, s = math.cos(t), math.sin(t)
-            x = a * math.copysign(abs(c) ** (2 / n), c)
-            y = bdep * math.copysign(abs(s) ** (2 / n), s)
+            x = a * math.copysign(abs(c) ** (2 / 8), c)
+            y = bdep * math.copysign(abs(s) ** (2 / 8), s)
+            if abs(x) > a - bdep:  # the side gusset folds inwards
+                w = (abs(x) - (a - bdep)) / max(bdep, 1e-5)
+                x = math.copysign(abs(x) - pinch * (1 - abs(y) / max(bdep, 1e-5)) * w * w, x)
+            y *= 1 + 0.16 * (1 - min(1, (x / a) ** 2)) * min(1.0, v * 6)
             z = v * BH
             p = Vector((x, y, z))
-            # paper creases: ridged noise, stronger near the gusset and the top fold
-            k = 0.0016 + 0.0022 * (1 - v) ** 4 + 0.0016 * v ** 6
-            q = Vector((x * 38, y * 38, z * 13))
-            d = (noise.ridged_multi_fractal(q, 0.9, 2.1, 4, 0.6, 2.2) - 1.0) * k
-            d += noise.noise(q * 0.4) * 0.0015
+            k = (0.0035 + 0.004 * (1 - v) ** 6 + 0.004 * max(0, v - vf) / (1 - vf)) * float(E('CREASE', '0.35'))
+            q = Vector((x * 26.0, y * 26.0, z * 9.0))
+            d = noise.fractal(q, 0.9, 2.0, 4) * k * 0.8                      # soft dents
+            d += (1 - abs(noise.noise(q * 1.6 + Vector((3.1, 0, 0))))) ** 6 * k * 0.9   # crease ridges
+            d -= (1 - abs(noise.noise(q * 2.3 + Vector((0, 7.7, 0))))) ** 8 * k * 0.6   # and valleys
             nrm = Vector((x / max(a, 1e-4) ** 2, y / max(bdep, 1e-4) ** 2, 0)).normalized()
             row.append(bm.verts.new(p + nrm * d))
         grid.append(row)
@@ -84,7 +93,7 @@ def bag_mesh():
     bm.to_mesh(me); bm.free()
     o = bpy.data.objects.new('bag', me); sc.collection.objects.link(o)
     o.location = (BAG_X, BAG_Y, 0.0)
-    o.rotation_euler = (0, 0, math.radians(float(E('BAGROT', '-14'))))
+    o.rotation_euler = (0, 0, math.radians(float(E('BAGROT', '-28'))))
     C.smooth(o)
     o.data.materials.append(kraft())
     return o
@@ -98,7 +107,7 @@ for k, (z, th) in enumerate(((BH - 0.004, 0.012), (BH - 0.016, 0.011))):
     bv = f.modifiers.new('bev', 'BEVEL'); bv.width = 0.0045; bv.segments = 5
     f.modifiers.new('sub', 'SUBSURF').levels = 1
     f.parent = bag; f.data.materials.append(kr); C.smooth(f)
-tin = C.principled('tin', color=(0.7, 0.66, 0.6), rough=0.35, metal=1.0)
+tin = C.principled('tin', color=(0.42, 0.41, 0.4), rough=0.45, metal=1.0)
 bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -0.0135, BH - 0.01))
 t = bpy.context.object; t.scale = (0.15, 0.0015, 0.008); bpy.ops.object.transform_apply(scale=True)
 bv = t.modifiers.new('bev', 'BEVEL'); bv.width = 0.0006; bv.segments = 2
@@ -106,12 +115,13 @@ t.parent = bag; t.data.materials.append(tin)
 for s in (-1, 1):  # tie ends folded back
     bpy.ops.mesh.primitive_cube_add(size=1, location=(s * 0.076, -0.006, BH - 0.01))
     e = bpy.context.object; e.scale = (0.003, 0.016, 0.008); e.parent = bag; e.data.materials.append(tin)
+# one-way degassing valve, upper front
+bpy.ops.mesh.primitive_cylinder_add(radius=0.0085, depth=0.002, vertices=64, location=(0, 0, 0))
+va = bpy.context.object; va.rotation_euler = (math.radians(72), 0, 0); va.location = (0.0, -0.0156, 0.168); va.parent = bag
+bv = va.modifiers.new('bev', 'BEVEL'); bv.width = 0.0008; bv.segments = 3; C.smooth(va)
+va.data.materials.append(C.principled('valve', color=(0.05, 0.045, 0.04), rough=0.4))
 # a small round seal sticker, matte black, blank
-bpy.ops.mesh.primitive_cylinder_add(radius=0.026, depth=0.0004, vertices=96, location=(0, 0, 0))
-st = bpy.context.object; st.rotation_euler = (math.radians(90), 0, 0)
-st.location = (0, -0.0445, 0.092)
-st.parent = bag
-st.data.materials.append(C.principled('seal', color=(0.012, 0.011, 0.01), rough=0.55))
+
 bpy.context.view_layer.update()
 
 # ---------- beans: one modelled bean, 220 copies dropped with rigid bodies at 10x scale ----------
@@ -129,7 +139,7 @@ def bean_mesh():
     return me
 
 bean_me = bean_mesh()
-bean_m = C.principled('roasted_bean', color=(0.09, 0.042, 0.018), rough=0.38, **{'Coat Weight': 0.35, 'Coat Roughness': 0.25,
+bean_m = C.principled('roasted_bean', color=(0.05, 0.022, 0.01), rough=0.38, **{'Coat Weight': 0.35, 'Coat Roughness': 0.25,
                                                                                'Subsurface Weight': 0.0})
 C.obj_random_color(bean_m, 0.35)
 nb = bean_m.node_tree.nodes
@@ -139,61 +149,66 @@ bean_m.node_tree.links.new(nn.outputs['Fac'], bump.inputs['Height'])
 bean_m.node_tree.links.new(bump.outputs['Normal'], nb['Principled BSDF'].inputs['Normal'])
 
 SIM = 10.0
-sc.rigidbody_world if sc.rigidbody_world else bpy.ops.rigidbody.world_add()
-sc.rigidbody_world.substeps_per_frame = 20
-sc.rigidbody_world.solver_iterations = 20
-bpy.ops.mesh.primitive_plane_add(size=40, location=(0, 0, 0)); floor = bpy.context.object
-bpy.ops.rigidbody.object_add(); floor.rigid_body.type = 'PASSIVE'; floor.rigid_body.friction = 0.8
-# the bag as a passive collider (scaled copy)
-bc = bpy.data.objects.new('bagcol', bag.data.copy()); sc.collection.objects.link(bc)
-bc.matrix_world = mathutils.Matrix.Scale(SIM, 4) @ bag.matrix_world
-bpy.context.view_layer.objects.active = bc; bc.select_set(True)
-bpy.ops.rigidbody.object_add(); bc.rigid_body.type = 'PASSIVE'; bc.rigid_body.collision_shape = 'CONVEX_HULL'
-beans = []
-NB = int(E('BEANS', '230'))
-for i in range(NB):
+NB = int(E('BEANS', '169'))
+BSCALE = float(E('BSCALE', '0.0095'))
+import json
+cache = os.path.join(C.OUT, f"roastery_beans_{NB}_{E('SIMF', '90')}_{BSCALE}_{BAG_X}_{E('BAGROT', '-28')}_{E('HEAP', 'a')}.json")
+if os.path.exists(cache):
+    poses = json.load(open(cache))
+else:
+    sc.rigidbody_world if sc.rigidbody_world else bpy.ops.rigidbody.world_add()
+    sc.rigidbody_world.substeps_per_frame = 10
+    sc.rigidbody_world.solver_iterations = 10
+    bpy.ops.mesh.primitive_plane_add(size=40, location=(0, 0, 0)); floor = bpy.context.object
+    bpy.ops.rigidbody.object_add(); floor.rigid_body.type = 'PASSIVE'; floor.rigid_body.friction = 0.8
+    bc = bpy.data.objects.new('bagcol', bag.data.copy()); sc.collection.objects.link(bc)
+    bc.matrix_world = mathutils.Matrix.Scale(SIM, 4) @ bag.matrix_world
+    bpy.context.view_layer.objects.active = bc; bc.select_set(True)
+    bpy.ops.rigidbody.object_add(); bc.rigid_body.type = 'PASSIVE'; bc.rigid_body.collision_shape = 'CONVEX_HULL'
+    sims = []
+    for i in range(NB):
+        o = bpy.data.objects.new(f'simbean{i}', bean_me); sc.collection.objects.link(o)
+        if i < NB * 0.82:  # a heap, poured from just above the counter in front-left of the bag
+            r = abs(rng.gauss(0, 0.018)); a = rng.uniform(0, 2 * math.pi)
+            x, y = -0.035 + r * math.cos(a) * 1.5, -0.06 + r * math.sin(a)
+            z = 0.01 + i * 0.0011
+        else:  # strays that rolled off
+            x, y, z = rng.uniform(-0.2, 0.06), rng.uniform(-0.22, -0.02), 0.01 + rng.uniform(0, 0.02)
+        o.location = (x * SIM, y * SIM, z * SIM)
+        o.rotation_euler = (rng.uniform(0, 6.3), rng.uniform(0, 6.3), rng.uniform(0, 6.3))
+        o.scale = (SIM * BSCALE * rng.uniform(0.88, 1.1),) * 3
+        sims.append(o)
+    for o in sims:
+        bpy.context.view_layer.objects.active = o; o.select_set(True)
+        bpy.ops.rigidbody.object_add()
+        o.rigid_body.collision_shape = 'CONVEX_HULL'; o.rigid_body.mass = 0.02
+        o.rigid_body.friction = 0.75; o.rigid_body.restitution = 0.1
+        o.rigid_body.linear_damping = 0.3; o.rigid_body.angular_damping = 0.4
+        o.select_set(False)
+    sc.frame_start = 1; sc.frame_end = 200
+    sc.rigidbody_world.point_cache.frame_end = 200
+    for f in range(1, int(E('SIMF', '90'))):
+        sc.frame_set(f)
+        if f % 10 == 0: print('frame', f, round(time.time() - T0), flush=True)
+    poses = []
+    for o in sims:
+        loc, rot, scl = o.matrix_world.decompose()
+        poses.append([list(loc / SIM), list(rot), list(scl / SIM)])
+    for o in sims + [floor, bc]:
+        bpy.data.objects.remove(o)
+    bpy.ops.rigidbody.world_remove()
+    sc.frame_set(1)
+    os.makedirs(C.OUT, exist_ok=True)
+    json.dump(poses, open(cache, 'w'))
+bean_me.materials.append(bean_m)
+for i, (loc, rot, scl) in enumerate(poses):
     o = bpy.data.objects.new(f'bean{i}', bean_me); sc.collection.objects.link(o)
-    # most fall in a loose heap in front-left of the bag, a few roll away
-    if i < NB * 0.8:
-        r = abs(rng.gauss(0, 0.035)); a = rng.uniform(0, 2 * math.pi)
-        x, y = -0.03 + r * math.cos(a) * 1.4, -0.07 + r * math.sin(a) * 0.8
-        z = 0.008 + i * 0.0006
-    else:
-        x, y, z = rng.uniform(-0.2, 0.08), rng.uniform(-0.2, 0.0), 0.01 + rng.uniform(0, 0.02)
-    o.location = (x * SIM, y * SIM, z * SIM)
-    o.rotation_euler = (rng.uniform(0, 6.3), rng.uniform(0, 6.3), rng.uniform(0, 6.3))
-    o.scale = (SIM * 0.0058 * rng.uniform(0.85, 1.12),) * 3
-    beans.append(o)
-for o in beans:
-    bpy.context.view_layer.objects.active = o
-    o.select_set(True)
-    bpy.ops.rigidbody.object_add()
-    o.rigid_body.collision_shape = 'CONVEX_HULL'
-    o.rigid_body.mass = 0.02
-    o.rigid_body.friction = 0.7
-    o.rigid_body.restitution = 0.1
-    o.rigid_body.linear_damping = 0.3
-    o.rigid_body.angular_damping = 0.4
-    o.select_set(False)
-sc.frame_start = 1; sc.frame_end = 160
-sc.rigidbody_world.point_cache.frame_end = 160
-for f in range(1, int(E('SIMF', '150'))):
-    sc.frame_set(f)
-mats = [o.matrix_world.copy() for o in beans]
-for o in beans + [floor, bc]:
-    bpy.context.view_layer.objects.active = o; o.select_set(True)
-    bpy.ops.rigidbody.object_remove(); o.select_set(False)
-bpy.data.objects.remove(floor); bpy.data.objects.remove(bc)
-bpy.ops.rigidbody.world_remove()
-sc.frame_set(1)
-for o, mw in zip(beans, mats):
-    loc, rot, scl = mw.decompose()
-    o.location = loc / SIM; o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = rot; o.scale = scl / SIM
-    o.data.materials.append(bean_m) if not o.data.materials else None
+    o.location = loc; o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = rot; o.scale = scl
 for p in bean_me.polygons:
     p.use_smooth = True
 # a few beans resting on the bag's top fold read as "just poured"; skip, keep it clean
 
+print('SIM done', time.time() - T0)
 # ---------- the cup: matte charcoal stoneware with black coffee, steam ----------
 CUP = Vector((float(E('CUPX', '-0.17')), 0.24, 0.0))
 stone = C.principled('stoneware', color=(0.035, 0.033, 0.03), rough=0.42, **{'Coat Weight': 0.4, 'Coat Roughness': 0.2})
@@ -245,7 +260,7 @@ L.new(sep.outputs['Z'], base.inputs['Value'])
 m1 = N.new('ShaderNodeMath'); m1.operation = 'MULTIPLY'; L.new(cr.outputs['Result'], m1.inputs[0]); L.new(rfall.outputs['Result'], m1.inputs[1])
 m2 = N.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'; L.new(m1.outputs[0], m2.inputs[0]); L.new(hfall.outputs['Result'], m2.inputs[1])
 m3 = N.new('ShaderNodeMath'); m3.operation = 'MULTIPLY'; L.new(m2.outputs[0], m3.inputs[0]); L.new(base.outputs['Result'], m3.inputs[1])
-dens = N.new('ShaderNodeMath'); dens.operation = 'MULTIPLY'; dens.inputs[1].default_value = float(E('STEAM', '60'))
+dens = N.new('ShaderNodeMath'); dens.operation = 'MULTIPLY'; dens.inputs[1].default_value = float(E('STEAM', '22'))
 L.new(m3.outputs[0], dens.inputs[0])
 vs = N.new('ShaderNodeVolumeScatter'); vs.inputs['Anisotropy'].default_value = 0.65; vs.inputs['Color'].default_value = (0.95, 0.95, 0.95, 1)
 L.new(dens.outputs[0], vs.inputs['Density'])
@@ -254,7 +269,7 @@ steam.data.materials.append(sm)
 steam.visible_shadow = False
 
 # ---------- back bar: plaster wall, a shelf with jars, the amber strip under it ----------
-wall = C.principled('wall', color=(0.05, 0.045, 0.04), rough=0.9)
+wall = C.principled('wall', color=(0.03, 0.03, 0.032), rough=0.9)
 bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 1.5, 0.6), rotation=(math.radians(90), 0, 0))
 w = bpy.context.object; w.scale = (6, 2.5, 1); w.data.materials.append(wall)
 shelf_m = C.principled('shelf', color=(0.02, 0.012, 0.008), rough=0.5)
@@ -265,13 +280,13 @@ for i in range(9):
     h = rng.uniform(0.16, 0.24)
     C.lathe('jar', [(0.0, 0.0), (0.055, 0.0), (0.058, 0.004), (0.058, h - 0.02), (0.045, h), (0.0, h)], (x, 1.36, 0.355), glass, sub=1)
     C.lathe('jar_beans', [(0.0, 0.0), (0.054, 0.0), (0.054, h * 0.6), (0.0, h * 0.62)], (x, 1.36, 0.358), C.principled('beans_far', color=(0.07, 0.035, 0.015), rough=0.6), sub=0)
-bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 1.35, 0.322)); led = bpy.context.object; led.scale = (2.9, 0.012, 0.004)
-led.data.materials.append(C.emission('amber_led', C.kelvin(1900), float(E('LED', '25'))))
-C.light(sc, 'AREA', (0, 1.35, 0.318), target=(0, 1.42, 0.0), energy=float(E('LEDL', '6')), color=C.kelvin(1900), size=2.9, size_y=0.02,
+bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 1.485, 0.362)); led = bpy.context.object; led.scale = (2.9, 0.012, 0.004)
+led.data.materials.append(C.emission('amber_led', C.kelvin(2200), float(E('LED', '8'))))
+C.light(sc, 'AREA', (0, 1.47, 0.37), target=(0, 1.5, 1.0), energy=float(E('LEDL', '5')), color=C.kelvin(2200), size=2.9, size_y=0.02,
         shape='RECTANGLE', name='led_wash')
 
 # ---------- the bulb: Poly Haven lightbulb_01 hanging on a cord, filament glowing ----------
-BULB = Vector((float(E('BULBX', '-0.06')), float(E('BULBY', '0.42')), float(E('BULBZ', '0.36'))))
+BULB = Vector((float(E('BULBX', '-0.06')), float(E('BULBY', '0.42')), float(E('BULBZ', '0.27'))))
 bobjs = C.model('lightbulb_01', '1k')
 bmeshes = [o for o in bobjs if o.type == 'MESH']
 root = bobjs[0]
@@ -279,7 +294,8 @@ while root.parent: root = root.parent
 bpy.context.view_layer.update()
 zs = [(o.matrix_world @ v.co).z for o in bmeshes for v in o.data.vertices]
 zmax = max(zs)
-root.rotation_euler = (math.radians(180), 0, 0)  # base up, glass down
+root.rotation_mode = 'XYZ'
+root.rotation_euler = (math.radians(180), 0, 0)  # hang it: base up, glass down
 root.location = (BULB.x, BULB.y, BULB.z + zmax)
 for o in bmeshes:
     for i, m in enumerate(o.data.materials):
@@ -288,22 +304,35 @@ for o in bmeshes:
             o.data.materials[i] = C.glass('bulb_glass', ior=1.5, tint=(1.0, 0.96, 0.9))
         else:
             m.surface_render_method = 'DITHERED'
-bpy.ops.mesh.primitive_uv_sphere_add(radius=0.0035, location=(BULB.x, BULB.y, BULB.z + 0.035))
-fil = bpy.context.object; fil.scale = (1, 1, 2.2); fil.data.materials.append(C.emission('filament', C.kelvin(2000), float(E('FIL', '400'))))
+bpy.context.view_layer.update()
+_pts = [o.matrix_world @ v.co for o in bmeshes for v in o.data.vertices]
+_zlo = min(p.z for p in _pts); _zhi = max(p.z for p in _pts)
+FIL_Z = _zlo + 0.36 * (_zhi - _zlo)  # the filament sits in the widest part of the glass, below the base
+print('BULB z', round(_zlo, 3), round(_zhi, 3))
+bpy.ops.mesh.primitive_uv_sphere_add(radius=0.0035, location=(BULB.x, BULB.y, FIL_Z))
+fil = bpy.context.object; fil.scale = (0.6, 0.6, 2.4); fil.data.materials.append(C.emission('filament', C.kelvin(2300), float(E('FIL', '400'))))
 fil.visible_shadow = False
-C.light(sc, 'POINT', (BULB.x, BULB.y, BULB.z + 0.035), energy=float(E('BULBW', '22')), color=C.kelvin(2100), size=0.015, name='bulb')
+C.light(sc, 'POINT', (BULB.x, BULB.y, FIL_Z), energy=float(E('BULBW', '22')), color=C.kelvin(2500), size=0.015, name='bulb')
 bpy.ops.mesh.primitive_cylinder_add(radius=0.0025, depth=1.5, location=(BULB.x, BULB.y, BULB.z + zmax + 0.75))
 bpy.context.object.data.materials.append(C.principled('cord', color=(0.01, 0.01, 0.01), rough=0.6))
+# key: the next pendant along the bar, off frame front-left, rakes the bag's face
+C.light(sc, 'AREA', (-0.22, -0.05, 0.36), target=(BAG_X, BAG_Y, 0.08), energy=float(E('KEY', '7')), color=C.kelvin(2500), size=0.07,
+        shape='DISK', name='key')
+# backlight for the steam (hidden behind the cup, scatters forward)
+C.light(sc, 'SPOT', (CUP.x + 0.05, CUP.y + 0.45, 0.12), target=(CUP.x, CUP.y, 0.2), energy=float(E('STEAMW', '14')), color=C.kelvin(3000),
+        size=0.02, spot=math.radians(25), blend=0.5, name='steam_back')
+# cool night spill from a window off to the left: the only cool note, keeps the warm light honest
+C.light(sc, 'AREA', (-1.4, 0.2, 0.9), target=(0.0, 0.1, 0.05), energy=float(E('WIN', '14')), color=C.kelvin(7500), size=1.5, name='window')
 # a soft warm bounce from the room in front so the bag face isn't black
-C.light(sc, 'AREA', (-0.5, -0.9, 0.5), target=(BAG_X, BAG_Y, 0.08), energy=float(E('FILL', '3')), color=C.kelvin(2600), size=1.2, name='fill')
+C.light(sc, 'AREA', (-0.5, -0.9, 0.5), target=(BAG_X, BAG_Y, 0.08), energy=float(E('FILL', '1.5')), color=C.kelvin(3600), size=1.2, name='fill')
 # a hard-ish kick from behind right that rakes the bean pile and edges the bag
 C.light(sc, 'SPOT', (0.45, 0.55, 0.35), target=(-0.02, -0.05, 0.0), energy=float(E('KICK', '25')), color=C.kelvin(2400), size=0.03,
         spot=math.radians(30), blend=0.6, name='kick')
 
-cam = C.camera(sc, (float(E('CAMX', '-0.12')), float(E('CAMY', '-0.62')), float(E('CAMZ', '0.15'))), (0.0, 0.1, 0.09),
-               lens=float(E('LENS', '70')), fstop=float(E('FSTOP', '2.8')))
+cam = C.camera(sc, (float(E('CAMX', '-0.08')), float(E('CAMY', '-0.8')), float(E('CAMZ', '0.12'))), (-0.03, 0.1, 0.12),
+               lens=float(E('LENS', '60')), fstop=float(E('FSTOP', '2.8')))
 cam.data.dof.focus_distance = (Vector((BAG_X - 0.04, BAG_Y - 0.06, 0.06)) - cam.location).length
-cam.data.shift_y = float(E('SHY', '0.05'))
-cam.data.shift_x = float(E('SHX', '-0.06'))
+cam.data.shift_y = float(E('SHY', '0.0'))
+cam.data.shift_x = float(E('SHX', '0.0'))
 
-C.render(sc, 'roastery', 'hero')
+C.render(sc, 'roastery', 'bag')
