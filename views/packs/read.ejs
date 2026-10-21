@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<%# One kit file as a page (lib/shop-routes.js, /packs/:slug/read): a course lesson read on a phone, with a copy button on
+    every prompt (public/js/packs.js) and the lessons either side. %>
+<main class="pk pk-reader">
+  <div class="wrap pk-read-wrap">
+    <p class="pk-lbl"><a href="<%= back %>"><%= pack.name %></a><% if (step) { %> <span aria-hidden="true">/</span> <%= step.course ? 'Lesson' : 'File' %> <%= step.n %> of <%= step.of %><% } %></p>
+    <article class="pk-read"><%- html %></article>
+    <nav class="pk-read-nav" aria-label="Lessons">
+      <% if (prev) { %><a class="pk-read-prev" href="<%= prev.href %>"><span>Before</span><b><%= prev.title %></b></a><% } else { %><span></span><% } %>
+      <% if (next) { %><a class="pk-read-next" href="<%= next.href %>"><span>Next</span><b><%= next.title %></b></a><% } %>
+    </nav>
+    <p class="pk-read-foot"><a href="<%= back %>">All your files</a> <span aria-hidden="true">·</span> <a href="<%= download %>">Download this file</a></p>
+  </div>
+</main>
+<script src="/js/packs.js" defer></script>
+<%- include('../partials/foot') %>

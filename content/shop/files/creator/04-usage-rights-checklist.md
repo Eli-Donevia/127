@@ -21,6 +21,7 @@ What to settle in writing before you film, so a brand doesn't run your face in a
 - [ ] What happens after the end date (they stop running it, or pay to extend)
 - [ ] Who owns the raw footage
 - [ ] Disclosure: paid posts are labeled #ad or with the platform's paid partnership tool, every time
+- [ ] Say only what's true for you: use the product before you film it, no filters or edits on a before-and-after, and no health or results claims the brand can't back up.
 
 ## After it's live
 

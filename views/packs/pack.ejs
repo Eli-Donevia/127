@@ -17,7 +17,7 @@
         <% if (unavailable) { %><p class="pk-alert" role="status">Checkout isn't open yet. Nothing was charged.</p><% } else if (cancelled) { %><p class="pk-alert" role="status">Checkout cancelled. Nothing was charged.</p><% } %>
         <div class="pk-cta" data-hero-buy>
           <%- include('buy', { p: pack, ownedList: ownedList, buyFrom: '/packs/' + pack.slug, buyLabel: pack.free ? null : 'Buy once' }) %>
-          <p class="pk-fine"><% if (pack.free) { %>Free with a 127 account. No card.<% } else if (course) { %>One payment. Read it today, no account needed.<% } else { %>One payment. Instant download, no account needed.<% } %></p>
+          <p class="pk-fine"><% if (pack.free) { %>Free with a 127 account. No card.<% } else { %>One payment. 14 days to change your mind.<% if (tax) { %> Plus tax where it applies.<% } %><% } %></p>
         </div>
       </div>
       <%- include('art', { pack: pack, contents: contents, files: files }) %>
@@ -84,12 +84,12 @@
           <li><span class="pk-kind"><%= KIT[p.kit] || (p.kind === 'course' ? 'Lesson' : 'File') %></span><span class="pk-t"><%= m.title %></span><% if (m.summary) { %><span class="pk-s"><%= m.summary %></span><% } %></li>
           <% }) %>
           <% p.items.forEach(function (i) { %>
-          <li><span class="pk-kind"><%= KIND[i.kind] || 'File' %></span><span class="pk-t"><%= i.title %></span><span class="pk-s"><%= i.summary %></span><% if (i.previewFile && !isBundle) { %><img class="pk-peek" src="/packs/<%= p.slug %>/peek/<%= i.id %>" alt="" loading="lazy" width="120" height="80"><% } %></li>
+          <li><span class="pk-kind"><%= KIND[i.kind] || 'File' %></span><span class="pk-t"><%= i.title %></span><span class="pk-s"><%= i.summary %></span><%# Legal P11: Numbers previews are filled examples, so the Numbers Pack lists its sheets without them. %><% if (i.previewFile && !isBundle && p.art !== 'numbers') { %><img class="pk-peek" src="/packs/<%= p.slug %>/peek/<%= i.id %>" alt="" loading="lazy" width="120" height="80"><% } %></li>
           <% }) %>
         </ul>
       </div>
       <% }) %>
-      <p class="pk-terms"><% if (course) { %>Lessons are plain text files that open on any phone or computer. <% } %>Files open in a browser, Excel, Google Sheets, Word, Google Docs or Notion. Use them in your own business and for your clients; please don't resell or share the pack itself. Questions about an order: <a href="mailto:hello@127group.io">hello@127group.io</a>.</p>
+      <p class="pk-terms"><% if (course) { %>Read each lesson on the page or download it. Access for as long as we offer the course. <% } %>Files open in a browser, Excel, Google Sheets, Word, Google Docs or Notion. Use them in your own business and for your clients. Please don't resell or share the files themselves. <a href="/terms#section-11">License</a>. <% if (!pack.free) { %>14 days to change your mind: email <a href="mailto:hello@127group.io">hello@127group.io</a> for a full refund.<% } else { %>Questions: <a href="mailto:hello@127group.io">hello@127group.io</a>.<% } %></p>
       <% if (!pack.free && !owned) { %><div class="pk-again"><%- include('buy', { p: pack, ownedList: [], buyFrom: '/packs/' + pack.slug, buyLabel: 'Buy the ' + pack.name }) %></div><% } %>
     </div>
   </section>

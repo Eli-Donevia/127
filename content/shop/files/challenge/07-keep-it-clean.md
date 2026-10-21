@@ -22,7 +22,7 @@ A few rules keep a challenge trusted, and keep you out of trouble. This is a pla
 
 ## Prizes
 
-- [ ] If there's a prize, you're running a contest or a sweepstakes, which has its own rules in most places (official rules, no purchase necessary, eligibility). The simplest path is no prizes: "no catch, no contest".
+- [ ] If there's a prize, you're running a contest or a sweepstakes, which has its own rules: written official rules, no purchase necessary to enter or win, and who's eligible. In the US, New York and Florida also require registration (and a bond) when the prizes add up to more than $5,000. The simplest path is no prizes: "no catch, no contest".
 
 ## The offer
 

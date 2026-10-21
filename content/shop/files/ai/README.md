@@ -18,4 +18,4 @@ start from your business instead of from zero.
 - 08-ops.md: Ops and SOPs
 - 09-review.md: Review
 
-These prompts are yours to use in your own business and for your clients. Please don't resell or share the pack itself.
+Use them in your own business and for your clients. Please don't resell or share the files themselves.

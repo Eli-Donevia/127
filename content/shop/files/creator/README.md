@@ -7,4 +7,4 @@ Everything to start selling UGC to brands: the portfolio site, the rate card, th
 3. Pitch one brand a day with the emails in 02.
 4. Send the brief (03) after every yes, and settle usage (04) before you film.
 
-Yours to use in your own business. Please don't resell or share the kit itself.
+Use them in your own business and for your clients. Please don't resell or share the files themselves.

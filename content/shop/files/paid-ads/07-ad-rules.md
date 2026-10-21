@@ -7,11 +7,18 @@ Ad platforms reject ads and close accounts for a short list of reasons. Most are
 - [ ] No promises of income, results or "guaranteed" outcomes.
 - [ ] No before-and-after images for weight loss, skin or health products (most platforms block these).
 - [ ] No "you" statements about personal traits ("Are you in debt?", "Struggling with anxiety?"). Talk about the product instead.
+- [ ] Every claim in an ad is one you can back up with evidence you already have.
 - [ ] Testimonials and reviews are real, and reflect what a typical customer can expect, or say clearly that they don't.
 
-## Special categories
+## Special and restricted categories
 
-If your ad is about housing, jobs, credit or loans, or social and political issues, platforms make you declare a special ad category, which limits targeting. Declare it. Getting caught without it can close the account.
+- [ ] If your ad is about credit or loans, jobs, housing, social issues, or elections and politics, Meta makes you declare a special ad category, which limits targeting. Declare it. Getting caught without it can close the account.
+- [ ] Google restricts its own list (for example financial services, healthcare and medicines, gambling, alcohol). Check its advertising policies before you build the campaign, and complete any certification it asks for.
+
+## Customer lists
+
+- [ ] Upload a customer list (for a custom or lookalike audience) only when those people agreed to hear from you, for example by joining your email list or buying from you under a privacy policy that says so.
+- [ ] Never upload health information or anything that reveals it, and never a list you bought or scraped.
 
 ## Creators
 
@@ -21,7 +28,7 @@ If your ad is about housing, jobs, credit or loans, or social and political issu
 ## Tracking and privacy
 
 - [ ] Your privacy policy says you use advertising pixels and what they collect.
-- [ ] Your cookie banner or consent setup covers ad tracking where the law requires it (for example, the EU, the UK and some US states).
+- [ ] The pixel goes live only once your site's notice describes it, and your cookie banner or consent setup asks first where the law requires it (for example, the EU, the UK and some US states).
 
 ## Account health
 

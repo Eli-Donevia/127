@@ -7,7 +7,7 @@
   <div class="wrap hp-in">
     <div class="hp-head">
       <h2 class="h2" id="hp-h" data-reveal>Take the files. Pay once.</h2>
-      <p class="sub" data-reveal>Site designs, motion, prompts, templates and short courses, bundled by job. One payment, yours to keep<% if (hp.builderGetsAll) { %>, and every one comes with Builder<% } %>.</p>
+      <p class="sub" data-reveal>Site designs, motion, prompts, templates and short courses, bundled by job. One payment each, and 14 days to change your mind<% if (hp.builderGetsAll) { %>. Every one comes with Builder<% } %>.</p>
       <div class="hp-foot" data-reveal>
         <% if (hp.bundle) { %><form method="post" action="/packs/<%= hp.bundle.slug %>/buy" class="hp-all"><input type="hidden" name="from" value="/#packs"><button class="btn ghost sm" type="submit">Everything · $<%= hp.bundle.price %></button></form><% } %>
         <% if (starter) { %><a class="hp-starter" href="/packs/starter">The <%= starter.name %> is free with an account <span class="arrow"></span></a><% } %>
