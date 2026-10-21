@@ -8,7 +8,7 @@
     <p class="vb-sub"><%= v.group %> · status <b><%= status %></b> · keyword <b><%= v.keyword %></b> · <a href="/for/<%= v.slug %>">Open the page</a><% if (row) { %> · <%= row.visits %> visits, <%= row.signups %> signups, <%= row.paid %> paid, verdict <b><%= row.verdict %></b><% } %></p>
     <% if (saved) { %><p class="vb-saved" role="status"><%= saved === 'spend-error' ? 'That spend line didn\'t save: the week is a Monday date and the amount a number.' : 'Saved.' %></p><% } %>
     <% if (v.problems.length) { %><div class="vb-problems"><%= v.problems.join(' · ') %></div><% } %>
-    <% if (v.legal) { %><div class="vb-problems" style="border-color: var(--vt-pop)"><b>Legal note:</b> <%= v.legal %></div><% } %>
+    <% if (v.legal) { %><div class="vb-problems" style="border-color: var(--orchid)"><b>Legal note:</b> <%= v.legal %></div><% } %>
 
     <section class="vb-sec">
       <h2 class="vb-h2">Status</h2>
