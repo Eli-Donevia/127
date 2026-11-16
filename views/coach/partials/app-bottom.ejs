@@ -1,0 +1,10 @@
+</main>
+<nav class="ca-tabs">
+  <a href="/c/<%= c.slug %>/app" class="<%= tab === 'today' ? 'on' : '' %>"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Today</a>
+  <% var firstCh = myChallenges && myChallenges[0]; %>
+  <a href="<%= firstCh ? '/c/' + c.slug + '/app/challenge/' + firstCh.x.slug : '/c/' + c.slug %>" class="<%= tab === 'challenge' ? 'on' : '' %>"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.6 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg>Challenge</a>
+  <a href="/c/<%= c.slug %>/app/checkin" class="<%= tab === 'checkin' ? 'on' : '' %>"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 9h8M8 13h8M8 17h5"/></svg>Check-in</a>
+  <a href="/c/<%= c.slug %>/app/progress" class="<%= tab === 'progress' ? 'on' : '' %>"><svg viewBox="0 0 24 24"><path d="M4 19l5-6 4 3 7-9"/></svg>Progress</a>
+</nav>
+</body>
+</html>

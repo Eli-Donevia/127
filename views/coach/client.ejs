@@ -1,0 +1,40 @@
+<%- include('partials/top') %>
+<div class="cx-head"><div><a class="small muted" href="/coach/dashboard">← Clients</a><h1><%= cl.name %></h1><p class="muted small"><%= cl.email %> · joined <%= String(cl.createdAt).slice(0, 10) %></p></div></div>
+<div class="kpis">
+  <div class="kpi"><span>Adherence (7d)</span><b><%= row.adherence.pct == null ? '–' : row.adherence.pct + '%' %></b></div>
+  <div class="kpi"><span>Sessions (7d)</span><b><%= row.adherence.done %>/<%= row.adherence.scheduled %></b></div>
+  <div class="kpi"><span>Weight</span><b><%= row.weight ? row.weight + ' lb' : '–' %></b><small><%= row.change != null ? (row.change > 0 ? '+' : '') + row.change + ' lb since first check-in' : '' %></small></div>
+  <div class="kpi"><span>Last check-in</span><b><%= row.lastCheckin ? row.daysSinceCheckin + 'd' : '–' %></b></div>
+</div>
+<div class="cx-split">
+  <div class="card">
+    <h3>Program</h3>
+    <form method="post" action="/coach/clients/<%= cl.id %>/assign" class="inline">
+      <select class="input" name="programId"><% programs.forEach(function (p) { %><option value="<%= p.id %>" <%= assignment && assignment.programId === p.id ? 'selected' : '' %>><%= p.name %></option><% }) %></select>
+      <input class="input" type="date" name="start" value="<%= assignment ? assignment.start : today %>">
+      <button class="btn accent sm"><%= assignment ? 'Reassign' : 'Assign' %></button>
+    </form>
+    <h3 style="margin-top:20px">Last 14 days</h3>
+    <div class="days14">
+      <% days.forEach(function (x) { var st = x.w && x.w.complete ? 'done' : x.s && x.s.day ? (x.k < today ? 'missed' : 'planned') : 'rest'; %>
+        <div class="d <%= st %>" title="<%= x.label %>: <%= x.s && x.s.day ? x.s.day.title : 'Rest' %>"><small><%= x.label.split(' ')[1] %></small><i></i><em><%= x.h ? x.h.done.length + '/' + x.h.of : '' %></em></div>
+      <% }) %>
+    </div>
+    <p class="small muted">Square: session (green done, red missed, outline planned). Number: habits ticked.</p>
+  </div>
+  <div class="card">
+    <h3>Weight trend</h3>
+    <%- spark || '<p class="muted small">Two check-ins needed.</p>' %>
+  </div>
+</div>
+<div class="card">
+  <h3>Check-ins</h3>
+  <% checkins.forEach(function (c) { %>
+    <div class="ci-row">
+      <b><%= c.date %></b> · <%= c.weight %> lb<% if (c.adherence != null) { %> · <%= c.adherence %>% on plan<% } %> · energy <%= c.energy || '–' %>/10
+      <% if (c.wins) { %><p class="small"><b>Wins:</b> <%= c.wins %></p><% } %>
+      <% if (c.reply) { %><p class="small reply">You: <%= c.reply %></p><% } else { %><a class="pill hot" href="/coach/review">needs review</a><% } %>
+    </div>
+  <% }) %>
+</div>
+<%- include('partials/bottom') %>

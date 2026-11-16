@@ -1,0 +1,21 @@
+<%- include('../partials/brand-top', { bodyClass: 'cb-app' }) %>
+<main class="ca-main auth">
+  <div class="ca-brand big"><span class="ca-logo"><%= c.brand.initials %></span><span><%= c.brand.name %></span></div>
+  <% if (!ok) { %>
+    <h1>Invite only</h1><p class="muted">Ask <%= c.coachName %> for your invite link. Already a client? <a class="link" href="/login?next=/c/<%= c.slug %>/app">Sign in</a>.</p>
+  <% } else { %>
+  <h1>Join <%= c.brand.name %></h1>
+  <p class="muted">Your program, check-ins and challenges, in one app.</p>
+  <%- include('../partials/flash') %>
+  <form method="post" action="/c/<%= c.slug %>/join">
+    <input type="hidden" name="i" value="<%= invite %>"><input type="hidden" name="next" value="<%= next %>">
+    <label class="field"><span>Name</span><input class="input" name="name" required value="<%= form.name || '' %>" autocomplete="name"></label>
+    <label class="field"><span>Email</span><input class="input" type="email" name="email" required value="<%= form.email || '' %>" autocomplete="email"></label>
+    <label class="field"><span>Password</span><input class="input" type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+    <label class="check"><input type="checkbox" name="consent" required> I agree that <%= c.brand.name %> can see the workouts, weight, photos and notes I log here, to coach me. <em class="muted">(Placeholder wording: health-data consent needs Legal before launch.)</em></label>
+    <button class="btn accent block big">Create my account</button>
+  </form>
+  <p class="small muted">Already have an account? <a class="link" href="/login?next=<%= encodeURIComponent(next) %>">Sign in</a></p>
+  <% } %>
+</main>
+</body></html>

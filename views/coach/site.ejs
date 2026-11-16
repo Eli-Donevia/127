@@ -1,0 +1,47 @@
+<%- include('partials/brand-top', { bodyClass: 'cb-site' }) %>
+<header class="cs-nav">
+  <a href="/c/<%= c.slug %>" class="ca-brand"><span class="ca-logo"><%= c.brand.initials %></span><span><%= c.brand.name %></span></a>
+  <nav><a href="#offer">Coaching</a><% if (challenges.length) { %><a href="#challenge">Challenge</a><% } %><a href="#about">About</a>
+  <% if (user && user.role === 'client' && user.coachId === c.id) { %><a class="btn accent sm" href="/c/<%= c.slug %>/app">Open my app</a><% } else { %><a class="btn ghost sm" href="/login?next=/c/<%= c.slug %>/app">Client login</a><% } %></nav>
+</header>
+<section class="cs-hero">
+  <div class="eyebrow accent-t"><%= nicheName %> coaching · online</div>
+  <h1><%= c.headline %></h1>
+  <p class="lede"><%= c.coachName %> coaches you from anywhere: <%= copy.result %>, <%= copy.corner %>.</p>
+  <div class="cs-ctas">
+    <% if (challenges.length) { var top = challenges[0]; %><a class="btn accent big" href="/c/<%= c.slug %>/challenge/<%= top.slug %>"><%= top.cohort.on ? 'Apply' : 'Join' %>: <%= top.name %></a><% } %>
+    <a class="btn ghost big" href="#offer"><%= c.offer.title %></a>
+  </div>
+  <div class="cs-proof"><span><b><%= clientCount %></b> clients training now</span><span><b><%= programs %></b> programs</span><span>Your own app, in your pocket</span></div>
+</section>
+<section class="cs-sec" id="offer">
+  <div class="cs-offer card">
+    <div><div class="eyebrow">Coaching</div><h2><%= c.offer.title %></h2><p class="price"><b>$<%= c.offer.price %></b>/month</p>
+      <a class="btn accent" href="/c/<%= c.slug %>/join<%= c.openSignup ? '' : '?apply=1' %>"><%= c.openSignup ? 'Start now' : 'Request an invite' %></a></div>
+    <ul class="ticks"><% c.offer.bullets.forEach(function (b) { %><li><%= b %></li><% }) %></ul>
+  </div>
+</section>
+<% challenges.forEach(function (x) { %>
+<section class="cs-sec" id="challenge">
+  <div class="cs-ch card">
+    <div class="eyebrow accent-t"><%= x.days %>-day challenge</div>
+    <h2><%= x.name %></h2>
+    <p class="lede small"><%= x.tagline %></p>
+    <ol class="cs-rules"><% x.rules.forEach(function (r) { %><li><%= r.label %></li><% }) %></ol>
+    <p class="small muted"><%= x.mode === 'restart' ? 'Miss any rule on any day and you start again at day 1.' : 'Every rule you keep scores points. Full days score a bonus.' %></p>
+    <div class="cs-ctas">
+      <a class="btn accent" href="/c/<%= c.slug %>/challenge/<%= x.slug %>"><%= x.price ? 'Join for $' + x.price : 'Join free' %></a>
+      <% if (x.cohort.on) { %><a class="btn ghost" href="/c/<%= c.slug %>/challenge/<%= x.slug %>#cohort">Apply for <%= x.cohort.name %> · <%= x.cohort.capacity %> seats</a><% } %>
+    </div>
+  </div>
+</section>
+<% }) %>
+<section class="cs-sec" id="about">
+  <div class="cs-about">
+    <div class="cs-portrait"><span><%= c.brand.initials %></span></div>
+    <div><div class="eyebrow">About</div><h2><%= c.coachName %></h2><p class="lede small"><%= c.bio %></p></div>
+  </div>
+</section>
+<footer class="cs-foot"><span>© <%= c.brand.name %></span><span class="muted small">Built on 127</span></footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<% var f = form || {}; var cv = (typeof coach !== 'undefined' && coach) || null; var val = function (k, d) { return f[k] != null ? f[k] : d; }; %>
+<div class="grid2">
+  <label class="field"><span>Brand name</span><input class="input" name="brandName" required maxlength="60" value="<%= val('brandName', cv ? cv.brand.name : '') %>" placeholder="Forge Fitness"></label>
+  <label class="field"><span>Your name</span><input class="input" name="coachName" maxlength="60" value="<%= val('coachName', cv ? cv.coachName : '') %>" placeholder="Jordan Reyes"></label>
+  <label class="field"><span>Web address</span><div class="prefix"><em>127group.io/c/</em><input class="input" name="slug" maxlength="40" value="<%= val('slug', cv ? cv.slug : '') %>" placeholder="forge-fitness"></div></label>
+  <label class="field"><span>Initials (logo)</span><input class="input" name="initials" maxlength="3" value="<%= val('initials', cv ? cv.brand.initials : '') %>" placeholder="FF"></label>
+  <label class="field"><span>Accent color</span><input class="input color" type="color" name="accent" value="<%= val('accent', cv ? cv.brand.accent : '#ff5a36') %>"></label>
+  <label class="field"><span>Niche</span><select class="input" name="niche"><% niches.forEach(function (n) { %><option value="<%= n %>" <%= val('niche', cv ? cv.niche : 'hybrid') === n ? 'selected' : '' %>><%= nicheNames[n] %></option><% }) %></select></label>
+</div>
+<label class="field"><span>Headline on your site</span><input class="input" name="headline" maxlength="120" value="<%= val('headline', cv ? cv.headline : '') %>" placeholder="Get strong, lean and consistent, without living in the gym."></label>
+<label class="field"><span>About you</span><textarea class="input" name="bio" rows="3" maxlength="800"><%= val('bio', cv ? cv.bio : '') %></textarea></label>
+<div class="grid2">
+  <label class="field"><span>Your offer</span><input class="input" name="offerTitle" maxlength="80" value="<%= val('offerTitle', cv ? cv.offer.title : '1:1 Online Coaching') %>"></label>
+  <label class="field"><span>Price per month ($)</span><input class="input" name="offerPrice" type="number" min="0" max="5000" value="<%= val('offerPrice', cv ? cv.offer.price : 199) %>"></label>
+</div>
+<label class="field"><span>What's included (one per line)</span><textarea class="input" name="offerBullets" rows="4"><%= val('offerBullets', cv ? cv.offer.bullets.join('\n') : 'A program built for your equipment and schedule\nWeekly check-ins with video feedback\nNutrition targets and habit tracking\nYour own app with every session and log') %></textarea></label>
+<label class="field"><span>Daily habits your clients tick (one per line)</span><textarea class="input" name="habits" rows="4"><%= val('habits', cv ? cv.habits.join('\n') : habitsDefault.join('\n')) %></textarea></label>
+<label class="check"><input type="checkbox" name="openSignup" <%= (f.openSignup === 'on' || (!f.brandName && cv && cv.openSignup)) ? 'checked' : '' %>> Anyone can join from my site (off: invite link only)</label>

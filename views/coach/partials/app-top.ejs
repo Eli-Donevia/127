@@ -1,0 +1,7 @@
+<%- include('brand-top', { bodyClass: 'cb-app' }) %>
+<header class="ca-top">
+  <a href="/c/<%= c.slug %>/app" class="ca-brand"><span class="ca-logo"><%= c.brand.initials %></span><span><%= c.brand.name %></span></a>
+  <span class="ca-hi">Hi, <%= (me.name || '').split(' ')[0] %></span>
+</header>
+<main class="ca-main">
+<%- include('flash') %>

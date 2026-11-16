@@ -1,0 +1,15 @@
+<%- include('partials/top') %>
+<div class="cx-head"><div><div class="eyebrow">Brand</div><h1>Your brand</h1></div><a class="btn ghost sm" href="/c/<%= coach.slug %>">Open site</a></div>
+<div class="cx-split">
+<form method="post" action="/coach/brand" class="card">
+  <%- include('partials/brand-fields', { habitsDefault: coach.habits }) %>
+  <button class="btn accent block">Save brand</button>
+</form>
+<aside class="card brand-preview" style="--accent: <%= coach.brand.accent %>">
+  <div class="eyebrow">App icon</div>
+  <img src="/c/<%= coach.slug %>/icon.svg" width="96" height="96" alt="">
+  <p class="small muted">Clients add your app to their home screen from <b>/c/<%= coach.slug %>/app</b>. It opens full screen in your colors.</p>
+  <p class="small muted">Custom domain (e.g. app.<%= coach.slug %>.com): next step, see PROTOTYPE.md.</p>
+</aside>
+</div>
+<%- include('partials/bottom') %>

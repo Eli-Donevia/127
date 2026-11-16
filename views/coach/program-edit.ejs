@@ -1,0 +1,51 @@
+<%- include('partials/top') %>
+<% var p = program; %>
+<div class="cx-head"><div><a class="small muted" href="/coach/programs">← Programs</a><h1><%= p.id ? p.name : 'New program' %></h1></div></div>
+<form method="post" action="<%= p.id ? '/coach/programs/' + p.id : '/coach/programs' %>" class="pb" data-builder>
+  <div class="card">
+    <div class="grid2">
+      <label class="field"><span>Program name</span><input class="input" name="name" required value="<%= p.name %>" placeholder="Hybrid Strength 4-Day"></label>
+      <label class="field"><span>Goal</span><input class="input" name="goal" value="<%= p.goal || '' %>" placeholder="Build strength and conditioning, 4 days a week"></label>
+    </div>
+  </div>
+  <% p.weeks.forEach(function (w, wi) { %>
+  <details class="pb-week card" data-week <%= wi === 0 || p.weeks.length < 3 ? 'open' : '' %>>
+    <summary class="card-title"><h3><span data-week-title>Week <%= wi + 1 %></span> <small class="muted"><%= w.days.length %> days · <%= w.days.reduce(function (a, d) { return a + d.exercises.length; }, 0) %> exercises</small></h3><span class="small muted">Tap to <%= wi === 0 ? 'collapse' : 'expand' %></span></summary>
+    <div class="pb-tools"><button type="button" class="btn ghost sm" data-dup-week>Duplicate week (progression)</button> <button type="button" class="btn ghost sm" data-del="week">Remove week</button></div>
+    <div class="pb-days">
+    <% w.days.forEach(function (d, di) { var pre = 'weeks[' + wi + '][days][' + di + ']'; %>
+      <div class="pb-day" data-day>
+        <div class="pb-dayhead"><input class="input day-title" data-f="title" name="<%= pre %>[title]" value="<%= d.title %>"><button type="button" class="x" data-del="day" title="Remove day">×</button></div>
+        <div class="pb-ex pb-exhead"><span>Exercise</span><span>Sets</span><span>Reps</span><span>Rest</span><span>Note</span><span></span></div>
+        <% d.exercises.forEach(function (e, ei) { var q = pre + '[exercises][' + ei + ']'; %>
+        <div class="pb-ex" data-ex>
+          <input class="input" data-f="name" name="<%= q %>[name]" value="<%= e.name %>" list="exlib" placeholder="Back Squat">
+          <input class="input" data-f="sets" name="<%= q %>[sets]" value="<%= e.sets %>" inputmode="numeric">
+          <input class="input" data-f="reps" name="<%= q %>[reps]" value="<%= e.reps %>">
+          <input class="input" data-f="rest" name="<%= q %>[rest]" value="<%= e.rest || '' %>">
+          <input class="input" data-f="note" name="<%= q %>[note]" value="<%= e.note || '' %>" placeholder="RPE 8">
+          <button type="button" class="x" data-del="ex" title="Remove">×</button>
+        </div>
+        <% }) %>
+        <button type="button" class="btn ghost sm" data-add-ex>+ Exercise</button>
+      </div>
+    <% }) %>
+    </div>
+    <button type="button" class="btn ghost sm" data-add-day>+ Day</button>
+  </details>
+  <% }) %>
+  <div class="pb-actions">
+    <button type="button" class="btn ghost" data-add-week>+ Week</button>
+    <button class="btn accent big">Save program</button>
+  </div>
+  <datalist id="exlib"><% exercises.forEach(function (n) { %><option value="<%= n %>"><% }) %></datalist>
+</form>
+<% if (p.id && clients.length) { %>
+<form method="post" action="/coach/programs/<%= p.id %>/assign" class="card inline">
+  <h3>Assign to a client</h3>
+  <select class="input" name="clientId"><% clients.forEach(function (c) { %><option value="<%= c.id %>"><%= c.name %></option><% }) %></select>
+  <input class="input" type="date" name="start">
+  <button class="btn accent sm">Assign</button>
+</form>
+<% } %>
+<%- include('partials/bottom') %>

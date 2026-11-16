@@ -1,0 +1,47 @@
+<%- include('partials/top') %>
+<div class="cx-head">
+  <div><a class="small muted" href="/coach/challenges">← Challenges</a><h1><%= c.name %></h1>
+  <p class="muted small"><%= c.days %> days · <%= c.rules.length %> rules · <%= c.mode === 'restart' ? 'miss one, back to day 1' : 'points mode' %> · <%= c.price ? '$' + c.price : 'free for clients' %></p></div>
+  <div class="row-actions">
+    <a class="btn ghost sm" href="<%= publicUrl %>" target="_blank">Public page ↗</a>
+    <a class="btn ghost sm" href="/coach/challenges/<%= c.id %>/edit">Edit</a>
+    <form method="post" action="/coach/challenges/<%= c.id %>"><input type="hidden" name="status" value="<%= c.status === 'live' ? 'closed' : 'live' %>"><button class="btn ghost sm"><%= c.status === 'live' ? 'Close' : 'Reopen' %></button></form>
+  </div>
+</div>
+<div class="kpis">
+  <div class="kpi"><span>In it now</span><b><%= board.length + (openBoard ? openBoard.length : 0) %></b></div>
+  <% if (c.cohort.on) { %><div class="kpi"><span><%= c.cohort.name %></span><b><%= seatsTaken %>/<%= c.cohort.capacity %></b><small>seats · starts <%= c.cohort.startDate %></small></div>
+  <div class="kpi"><span>Applications</span><b class="<%= apps.length ? 'hot' : '' %>"><%= apps.length %></b></div><% } %>
+  <div class="kpi"><span>Revenue <em class="tag">demo</em></span><b>$<%= (revenue / 100).toLocaleString('en-US', { maximumFractionDigits: 0 }) %></b><small>after 127's fee</small></div>
+</div>
+<div class="cx-split">
+  <div class="card">
+    <h3>Daily rules</h3>
+    <ol class="rules-ol"><% c.rules.forEach(function (r) { %><li><%= r.label %><% if (r.proof !== 'none') { %> <span class="pill"><%= r.proof === 'photo' ? '📷 photo' : '✎ note' %></span><% } %></li><% }) %></ol>
+  </div>
+  <% if (c.cohort.on) { %>
+  <div class="card">
+    <h3>Applications <span class="muted"><%= apps.length %></span></h3>
+    <% if (!apps.length) { %><p class="muted small">None waiting.</p><% } %>
+    <% apps.forEach(function (x) { %>
+      <div class="app-row">
+        <b><%= x.user ? x.user.name : x.e.name %></b> <small class="muted">applied <%= String(x.e.appliedAt).slice(0, 10) %></small>
+        <% x.e.answers.forEach(function (a) { %><p class="small"><span class="muted"><%= a.q %></span><br><%= a.a %></p><% }) %>
+        <form method="post" action="/coach/challenges/<%= c.id %>/decide/<%= x.e.id %>" class="inline">
+          <button class="btn accent sm" name="action" value="approve" <%= seatsLeft <= 0 ? 'disabled' : '' %>>Approve</button>
+          <button class="btn ghost sm" name="action" value="decline">Decline</button>
+        </form>
+      </div>
+    <% }) %>
+    <% if (approved.length) { %><p class="small muted">Approved, waiting to confirm: <%= approved.map(function (x) { return x.user ? x.user.name : x.e.name; }).join(', ') %></p><% } %>
+  </div>
+  <% } %>
+</div>
+<div class="card flush">
+  <div class="card-title pad"><h3><%= c.cohort.on ? c.cohort.name + ' leaderboard' : 'Leaderboard' %></h3></div>
+  <%- include('partials/board', { rows: board, mode: c.mode }) %>
+</div>
+<% if (openBoard && openBoard.length) { %>
+<div class="card flush"><div class="card-title pad"><h3>Open track (not in the cohort)</h3></div><%- include('partials/board', { rows: openBoard, mode: c.mode }) %></div>
+<% } %>
+<%- include('partials/bottom') %>

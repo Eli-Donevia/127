@@ -1,0 +1,52 @@
+<%- include('partials/top') %>
+<div class="cx-head"><div><a class="small muted" href="/coach/challenges">← Challenges</a><h1><%= isNew ? 'New challenge' : 'Edit challenge' %></h1></div></div>
+<form method="post" action="<%= isNew ? '/coach/challenges' : '/coach/challenges/' + c.id %>" data-rules>
+  <div class="card">
+    <h3>The challenge</h3>
+    <div class="grid2">
+      <label class="field"><span>Name</span><input class="input" name="name" required value="<%= c.name %>" placeholder="Demo Coach 50"></label>
+      <label class="field"><span>Length (days)</span><input class="input" type="number" name="days" min="3" max="365" value="<%= c.days %>"></label>
+    </div>
+    <label class="field"><span>One line</span><input class="input" name="tagline" value="<%= c.tagline || '' %>" placeholder="50 days. 7 rules. Every day."></label>
+    <div class="grid2">
+      <label class="field"><span>Mode</span><select class="input" name="mode">
+        <option value="restart" <%= c.mode === 'restart' ? 'selected' : '' %>>Hard mode: miss any rule, restart at day 1</option>
+        <option value="points" <%= c.mode === 'points' ? 'selected' : '' %>>Points: every rule scores, nothing resets</option>
+      </select></label>
+      <label class="field"><span>Price to join ($, 0 = free for your clients)</span><input class="input" type="number" name="price" min="0" value="<%= c.price %>"></label>
+      <label class="field"><span>Points per rule</span><input class="input" type="number" name="pointsPerRule" value="<%= c.pointsPerRule %>"></label>
+      <label class="field"><span>Bonus for a full day</span><input class="input" type="number" name="fullDayBonus" value="<%= c.fullDayBonus %>"></label>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><h3>Daily rules</h3><button type="button" class="btn ghost sm" data-add-rule>+ Rule</button></div>
+    <div class="rules" data-rule-list>
+    <% c.rules.forEach(function (r, i) { %>
+      <div class="rule-row" data-rule>
+        <span class="n"><%= i + 1 %></span>
+        <input type="hidden" data-f="id" name="rules[<%= i %>][id]" value="<%= r.id || '' %>">
+        <input class="input" data-f="label" name="rules[<%= i %>][label]" value="<%= r.label %>">
+        <select class="input" data-f="proof" name="rules[<%= i %>][proof]">
+          <option value="none" <%= r.proof === 'none' ? 'selected' : '' %>>Tick only</option>
+          <option value="photo" <%= r.proof === 'photo' ? 'selected' : '' %>>Needs a photo</option>
+          <option value="note" <%= r.proof === 'note' ? 'selected' : '' %>>Needs a note</option>
+        </select>
+        <button type="button" class="x" data-del="rule">×</button>
+      </div>
+    <% }) %>
+    </div>
+  </div>
+  <div class="card cohort">
+    <label class="check big"><input type="checkbox" name="cohortOn" <%= c.cohort.on ? 'checked' : '' %>> <span><b>Add a cohort</b> (optional premium layer): application-only, capped seats, a start date, its own price and a leaderboard.</span></label>
+    <div class="grid2">
+      <label class="field"><span>Cohort name</span><input class="input" name="cohortName" value="<%= c.cohort.name || '' %>"></label>
+      <label class="field"><span>Start date</span><input class="input" type="date" name="cohortStart" value="<%= c.cohort.startDate || '' %>"></label>
+      <label class="field"><span>Seats</span><input class="input" type="number" name="capacity" value="<%= c.cohort.capacity %>"></label>
+      <label class="field"><span>Cohort price ($)</span><input class="input" type="number" name="cohortPrice" value="<%= c.cohort.price %>"></label>
+    </div>
+    <label class="field"><span>Application questions (one per line)</span><textarea class="input" name="questions" rows="3"><%= (c.cohort.questions || []).join('\n') %></textarea></label>
+    <label class="field"><span>What the cohort gets (one per line)</span><textarea class="input" name="perks" rows="3"><%= (c.cohort.perks || []).join('\n') %></textarea></label>
+  </div>
+  <button class="btn accent big block"><%= isNew ? 'Launch challenge' : 'Save' %></button>
+</form>
+<%- include('partials/bottom') %>
