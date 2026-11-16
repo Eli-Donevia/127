@@ -405,6 +405,8 @@ function homePacks(req) {
   const keys = Array.isArray(req.session.packKeys) ? req.session.packKeys : [];
   return { list: shop.list(), bundle: shop.catalog().bundle, owned: shop.ownedSlugs(req.user, { keys }), builderGetsAll: shop.catalog().builderGets === 'all' };
 }
+// COACH_HOME=on makes the coach homepage (public/coaches/index.html) the front door; off keeps the current home.
+app.get('/', (req, res, next) => (process.env.COACH_HOME === 'on' ? res.sendFile(path.join(__dirname, 'public', 'coaches', 'index.html')) : next()));
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {

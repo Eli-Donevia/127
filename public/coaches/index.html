@@ -81,7 +81,7 @@ textarea{min-height:76px;resize:vertical}
 /* Phone frames for the site and app previews */
 .phone{width:300px;max-width:100%;margin:0 auto;border-radius:38px;border:10px solid #1f1f24;background:#fff;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px var(--line-2)}
 .phone .scr{height:560px;overflow-y:auto;color:#18131a;background:#fff;font-size:14px}
-.phone iframe{display:block;width:100%;height:600px;border:0}
+.phone iframe{display:block;width:100%;height:600px;border:0;background:#fff}
 .ms-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-weight:700;font-size:14px}
 .ms-nav span{width:22px;height:2px;background:#18131a;box-shadow:0 6px 0 #18131a}
 .ms-hero{padding:22px 18px 26px;background:linear-gradient(180deg,color-mix(in srgb,var(--coach) 14%,#fff),#fff)}
@@ -222,10 +222,11 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
   var form = document.getElementById('f'), sw = document.getElementById('sw');
   var state = { color: COLORS[0], tab: 'site' };
   var APP = (window.COACH_APP_URL || '/coach-app/');
+  var DASH = (window.COACH_DASH_URL || '/coaches/dashboard.html');
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   COLORS.forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.style.background=c; b.setAttribute('aria-label','Color '+c); b.setAttribute('aria-pressed', c===state.color); b.onclick=function(){ state.color=c; [].forEach.call(sw.children,function(x){x.setAttribute('aria-pressed', x===b);}); run(); }; sw.appendChild(b); });
 
-  var TABS = [['site','Website'],['challenge','Challenge page'],['vsl','VSL script'],['ads','Ads'],['emails','Emails'],['dms','DMs'],['posts','30 days of posts'],['consult','Consult call'],['app','Client app']];
+  var TABS = [['site','Website'],['challenge','Challenge page'],['vsl','VSL script'],['ads','Ads'],['emails','Emails'],['dms','DMs'],['posts','30 days of posts'],['consult','Consult call'],['app','Client app'],['dash','Coach dashboard']];
   var tabs = document.getElementById('tabs');
   TABS.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.role='tab'; b.textContent=t[1]; b.dataset.t=t[0]; b.onclick=function(){ state.tab=t[0]; paint(); }; tabs.appendChild(b); });
 
@@ -262,6 +263,9 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     var src = APP + kit.app.query;
     out.app = '<div class="cols"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p class="sub">Your clients open one link and add it to their home screen. Today\'s workout, sets with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p>'+
       list([item('Client link', esc(src), new URL(src, location.href).href)])+'<p class="note" style="margin-top:12px">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
+    var dsrc = DASH + kit.app.query + '&by=' + encodeURIComponent(f.coach);
+    out.dash = '<div class="cols"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(dsrc)+'"></iframe></div><div><h3>Your coach dashboard</h3><p class="sub">The challenge at a glance: who joined, who checked in today, and who to message, with the message already written in your voice. Then the board.</p>'+
+      '<p class="note">Shown with sample clients. Real clients appear here once they join from your challenge link.</p></div></div>';
     return out;
   }
 
