@@ -45,7 +45,7 @@ Optional later: `META_PIXEL_ID`, `TIKTOK_PIXEL_ID`, `META_CAPI_TOKEN`, `PLAUSIBL
 **Deploy → Reserved VM** (one always-on machine, smallest size is fine). When it's live, copy the URL.
 
 ## 5. One quick check
-Open `/admin` on the deployed site from your phone on cellular, then from a laptop on Wi-Fi. The top line shows "Your IP as the server sees it". If both show the same address, add the Secret `TRUST_PROXY` = `2` and redeploy. Otherwise the sign-up and waitlist limits apply to everyone at once.
+Open `/admin` on the deployed site from your phone on cellular, then from a laptop on Wi-Fi. The top line shows "Your IP as the server sees it". It should be your own address, not a Google 34.x or 35.x one. The app trusts three proxy hops by default (Replit's deploy, checked Nov 16, 2026); if that changes, set the Secret `TRUST_PROXY` to the number of addresses after yours in "forwarded for" plus one, and redeploy. Otherwise the sign-up and waitlist limits apply to everyone at once.
 
 ## 6. Send me the URL
 Paste the `https://….replit.app` URL in the Website thread. I then:
