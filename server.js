@@ -107,6 +107,8 @@ app.use(harnessSiteChat.publicRouter());
 // Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
 // Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
+// Coach Launch Kit (lib/coach-kit.js): the same file builds the kit in the browser and on the server.
+app.get('/js/coach-kit.js', (req, res) => res.type('application/javascript').sendFile(path.join(__dirname, 'lib', 'coach-kit.js')));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 // Static files are cached for an hour, so a publish can leave a phone running last hour's hero script and CSS.
 // v('/js/x.js') adds ?v=<hash of the file> (worked out once per file per process), so a changed file gets a new URL.
