@@ -1,0 +1,17 @@
+<table class="tbl board">
+  <thead><tr><th>#</th><th>Name</th><th>Day</th><th>Streak</th><th>Points</th><th class="hide-sm">Level</th><% if (mode === 'restart') { %><th class="hide-sm">Restarts</th><% } %></tr></thead>
+  <tbody>
+  <% if (!rows.length) { %><tr><td colspan="7" class="muted">Nobody on the board yet.</td></tr><% } %>
+  <% rows.forEach(function (b) { %>
+    <tr class="<%= typeof myId !== 'undefined' && b.userId === myId ? 'me' : '' %>">
+      <td class="rank r<%= b.rank %>"><%= b.rank %></td>
+      <td><b><%= b.name %></b><% if (b.finished) { %> <span class="pill good">finished</span><% } %></td>
+      <td><%= b.finished ? b.of : b.dayNumber %><small class="muted">/<%= b.of %></small></td>
+      <td><%= b.streak %>🔥</td>
+      <td><%= b.points %></td>
+      <td class="hide-sm"><span class="muted small"><%= b.level %></span></td>
+      <% if (mode === 'restart') { %><td class="hide-sm"><%= b.restarts %></td><% } %>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>

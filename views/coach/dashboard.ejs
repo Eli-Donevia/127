@@ -1,0 +1,56 @@
+<%- include('partials/top') %>
+<% var money = function (c) { return '$' + (c / 100).toLocaleString('en-US', { maximumFractionDigits: 0 }); }; %>
+<div class="cx-head">
+  <div><div class="eyebrow"><%= coach.brand.name %></div><h1>Clients</h1></div>
+  <form method="post" action="/coach/invite/rotate" class="invite">
+    <label class="small muted">Invite link</label>
+    <input class="input mono" readonly value="<%= inviteUrl %>" data-copy>
+    <button class="btn ghost sm" type="submit" title="Make a new link">New link</button>
+  </form>
+</div>
+<div class="kpis">
+  <div class="kpi"><span>Active clients</span><b><%= d.rows.length %></b></div>
+  <div class="kpi"><span>Avg adherence (7d)</span><b><%= d.avgAdherence == null ? '–' : d.avgAdherence + '%' %></b></div>
+  <a class="kpi link" href="/coach/review"><span>Check-ins to review</span><b class="<%= d.queue.length ? 'hot' : '' %>"><%= d.queue.length %></b></a>
+  <div class="kpi"><span>Coaching MRR <em class="tag">placeholder</em></span><b><%= '$' + d.revenue.mrrPlaceholder.toLocaleString('en-US') %></b><small><%= d.revenue.clients %> × $<%= coach.offer.price %>/mo</small></div>
+  <div class="kpi"><span>Challenge sales <em class="tag">demo</em></span><b><%= money(d.revenue.challenge.net) %></b><small><%= d.revenue.sales %> paid · 127 fee <%= money(d.revenue.challenge.fee) %></small></div>
+</div>
+
+<div class="card flush">
+  <table class="tbl stack">
+    <thead><tr><th>Client</th><th>Program</th><th>Adherence (7 days)</th><th>Last check-in</th><th>Weight</th><th></th></tr></thead>
+    <tbody>
+    <% if (!d.rows.length) { %><tr><td colspan="6" class="muted">No clients yet. Send your invite link.</td></tr><% } %>
+    <% d.rows.forEach(function (r) { %>
+      <tr>
+        <td><a href="/coach/clients/<%= r.id %>" class="who"><span class="av"><%= (r.name || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) %></span><span><b><%= r.name %></b><small class="muted"><%= r.email %></small></span></a></td>
+        <td><%= r.program || '–' %></td>
+        <td>
+          <% if (r.adherence.pct == null) { %><span class="muted">–</span><% } else { %>
+          <div class="bar"><i style="width: <%= r.adherence.pct %>%" class="<%= r.adherence.pct < 50 ? 'low' : r.adherence.pct < 75 ? 'mid' : '' %>"></i></div>
+          <small class="muted"><%= r.adherence.pct %>% · <%= r.adherence.done %>/<%= r.adherence.scheduled %> sessions</small>
+          <% } %>
+        </td>
+        <td><%= r.lastCheckin ? (r.daysSinceCheckin === 0 ? 'Today' : r.daysSinceCheckin + 'd ago') : 'Never' %><% if (r.waiting) { %> <a class="pill hot" href="/coach/review">review</a><% } %></td>
+        <td><%= r.weight ? r.weight + ' lb' : '–' %><% if (r.change != null) { %> <small class="<%= r.change <= 0 ? 'good' : 'muted' %>"><%= r.change > 0 ? '+' : '' %><%= r.change %></small><% } %></td>
+        <td><% if (r.flag === 'low') { %><span class="pill warn">Low adherence</span><% } else if (r.flag === 'late') { %><span class="pill warn">Check-in late</span><% } %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<div class="cx-split">
+  <div class="card">
+    <div class="card-title"><h3>Challenges</h3><a class="btn ghost sm" href="/coach/challenges/new">New</a></div>
+    <% challenges.forEach(function (x) { %>
+      <a class="rowlink" href="/coach/challenges/<%= x.c.id %>"><b><%= x.c.name %></b><span class="muted small"><%= x.c.days %> days · <%= x.entries %> active<%= x.apps ? ' · ' + x.apps + (x.apps === 1 ? ' application' : ' applications') : '' %></span></a>
+    <% }) %>
+    <% if (!challenges.length) { %><p class="muted small">No challenges yet.</p><% } %>
+  </div>
+  <div class="card">
+    <div class="card-title"><h3>Programs</h3><a class="btn ghost sm" href="/coach/programs/new">New</a></div>
+    <% programs.forEach(function (p) { %><a class="rowlink" href="/coach/programs/<%= p.id %>"><b><%= p.name %></b><span class="muted small"><%= p.weeks.length %> weeks · <%= p.weeks[0].days.length %> days/week</span></a><% }) %>
+  </div>
+</div>
+<%- include('partials/bottom') %>

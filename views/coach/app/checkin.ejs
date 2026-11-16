@@ -1,0 +1,20 @@
+<%- include('../partials/app-top') %>
+<h1 class="ca-h1">Weekly check-in</h1>
+<form method="post" action="/c/<%= c.slug %>/app/checkin" class="ca-card" data-checkin>
+  <div class="grid2">
+    <label class="field"><span>Weight (lb)</span><input class="input" name="weight" inputmode="decimal" required placeholder="<%= last ? last.weight : '' %>"></label>
+    <label class="field"><span>Waist (in, optional)</span><input class="input" name="waist" inputmode="decimal" placeholder="<%= last && last.waist ? last.waist : '' %>"></label>
+    <label class="field"><span>Energy (1-10)</span><input class="input" name="energy" type="number" min="1" max="10" value="7"></label>
+    <label class="field"><span>Sleep (1-10)</span><input class="input" name="sleep" type="number" min="1" max="10" value="7"></label>
+  </div>
+  <label class="field"><span>How much of the plan did you hit? <b data-out>80%</b></span><input type="range" name="adherence" min="0" max="100" step="5" value="80" data-range></label>
+  <label class="field"><span>Wins this week</span><textarea class="input" name="wins" rows="2"></textarea></label>
+  <label class="field"><span>What was hard</span><textarea class="input" name="struggles" rows="2"></textarea></label>
+  <div class="field"><span>Progress photos (front, side, back)</span>
+    <div class="photos" data-photos data-url="/c/<%= c.slug %>/app/photo"></div>
+    <label class="btn ghost block photo-btn"><input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" data-photo-input hidden>+ Add photo</label>
+    <small class="muted">Only you and <%= c.coachName %> can see these.</small>
+  </div>
+  <button class="btn accent block big">Send check-in</button>
+</form>
+<%- include('../partials/app-bottom') %>

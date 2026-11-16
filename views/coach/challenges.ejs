@@ -1,0 +1,13 @@
+<%- include('partials/top') %>
+<div class="cx-head"><div><div class="eyebrow">Challenges</div><h1>Challenges</h1></div><a class="btn accent" href="/coach/challenges/new">New challenge</a></div>
+<div class="cards">
+<% list.forEach(function (x) { %>
+  <a class="card prog" href="/coach/challenges/<%= x.c.id %>">
+    <h3><%= x.c.name %> <% if (x.c.status !== 'live') { %><span class="pill">closed</span><% } %></h3>
+    <p class="muted small"><%= x.c.days %> days · <%= x.c.rules.length %> daily rules · <%= x.c.mode === 'restart' ? 'miss one, back to day 1' : 'points mode' %></p>
+    <p class="small"><%= x.active %> in it now<% if (x.c.cohort.on) { %> · cohort <%= x.seats %>/<%= x.c.cohort.capacity %> seats<% } %><% if (x.apps) { %> · <b class="hot"><%= x.apps %> to review</b><% } %></p>
+  </a>
+<% }) %>
+<% if (!list.length) { %><p class="muted">No challenges yet. Start from the 50-day template.</p><% } %>
+</div>
+<%- include('partials/bottom') %>

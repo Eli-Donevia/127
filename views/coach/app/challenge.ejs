@@ -1,0 +1,57 @@
+<%- include('../partials/app-top') %>
+<% var base = '/c/' + c.slug + '/app/challenge/' + x.slug; var editable = !st.finished && st.started; %>
+<section class="ch-hero">
+  <%- include('../partials/ring', { value: st.finished ? 1 : st.todayDone / x.rules.length, big: st.finished ? '✓' : 'Day ' + st.dayNumber, small: st.finished ? 'finished' : 'of ' + st.of, r: 70 }) %>
+  <div class="ch-meta">
+    <div class="eyebrow accent-t"><%= x.name %></div>
+    <div class="ch-nums">
+      <div><b><%= st.streak %></b><span>day streak</span></div>
+      <div><b><%= st.todayDone %>/<%= x.rules.length %></b><span>today</span></div>
+      <div><b><%= st.points %></b><span>points</span></div>
+    </div>
+    <% if (x.mode === 'restart') { %><p class="small muted"><%= st.restarts ? 'Restarted ' + st.restarts + (st.restarts === 1 ? ' time' : ' times') + ' · best run ' + st.best + ' days' : 'No restarts. Keep it that way.' %></p><% } %>
+  </div>
+</section>
+<% if (!st.started) { %><div class="ca-card"><p>Your challenge starts <b><%= st.startsOn %></b>.</p></div><% } %>
+
+<% if (editable) { %>
+<form method="post" action="<%= base %>/day" class="ca-card checklist" data-checklist>
+  <h2>Today's rules</h2>
+  <% x.rules.forEach(function (r) { var on = !!(day.done && day.done[r.id]); var pf = (day.proof && day.proof[r.id]) || {}; %>
+  <div class="rule <%= on ? 'on' : '' %>">
+    <label class="rule-main"><input type="checkbox" name="r_<%= r.id %>" <%= on ? 'checked' : '' %>><span class="tick"></span><span class="rule-label"><%= r.label %></span>
+      <% if (r.proof !== 'none') { %><span class="pill <%= (r.proof === 'photo' ? pf.photo : pf.note) ? 'good' : '' %>"><%= r.proof === 'photo' ? '📷' : '✎' %> proof</span><% } %></label>
+    <% if (r.proof === 'note') { %><input class="input proof" name="note_<%= r.id %>" value="<%= pf.note || '' %>" placeholder="What did you do? (needed to count)"><% } %>
+    <% if (r.proof === 'photo') { %>
+      <div class="proof-photo" data-proof-photo data-url="/c/<%= c.slug %>/app/photo">
+        <input type="hidden" name="photo_<%= r.id %>" value="<%= pf.photo || '' %>">
+        <% if (pf.photo) { %><img src="/c/<%= c.slug %>/photo/<%= pf.photo %>" alt=""><% } %>
+        <label class="btn ghost sm"><input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden><%= pf.photo ? 'Replace photo' : 'Add photo proof' %></label>
+      </div>
+    <% } %>
+  </div>
+  <% }) %>
+  <label class="field"><span>Journal</span><textarea class="input" name="journal" rows="3" placeholder="How did today go?"><%= day.journal || '' %></textarea></label>
+  <button class="btn accent block big">Save today</button>
+  <% if (x.mode === 'restart') { %><p class="small muted center">Every rule, every day. Miss one and tomorrow is day 1.</p><% } %>
+</form>
+<% } %>
+
+<section class="ca-card">
+  <div class="card-title"><h2>Calendar</h2><span class="small muted"><%= st.calendar.filter(function (d) { return d.state === 'done'; }).length %> days done</span></div>
+  <div class="cal">
+    <% st.calendar.forEach(function (d) { %><span class="cd <%= d.state %> <%= d.earlier ? 'earlier' : '' %>" title="<%= d.label %>"><%= d.day || '' %></span><% }) %>
+  </div>
+  <div class="cal-key small muted"><span><i class="cd done"></i>done</span><span><i class="cd missed"></i>missed</span><span><i class="cd partial"></i>in progress</span><span><i class="cd earlier"></i>earlier attempt</span></div>
+</section>
+
+<section class="ca-card share">
+  <h2>Share your progress</h2>
+  <img src="<%= base %>/card.svg" alt="Progress card: day <%= st.dayNumber %> of <%= st.of %>" class="share-card">
+  <div class="row2">
+    <a class="btn ghost block" href="<%= base %>/card.svg" download="<%= x.slug %>-day-<%= st.dayNumber %>.svg">Save card</a>
+    <a class="btn ghost block" href="<%= base %>/journal.md">Export journal</a>
+  </div>
+  <% if (e.track === 'cohort' || x.cohort.on) { %><a class="btn accent block" href="<%= base %>/leaderboard" style="margin-top:10px">Leaderboard</a><% } %>
+</section>
+<%- include('../partials/app-bottom') %>

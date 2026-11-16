@@ -1,0 +1,54 @@
+<%- include('../partials/app-top') %>
+<div class="ca-date"><%= new Date(today + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }) %></div>
+
+<% challengeCards.forEach(function (y) { var st = y.st; %>
+<a class="ca-card ch-mini" href="/c/<%= c.slug %>/app/challenge/<%= y.x.slug %>">
+  <%- include('../partials/ring', { value: st.todayDone / y.x.rules.length, big: st.todayDone + '/' + y.x.rules.length, small: 'today', r: 30 }) %>
+  <div><div class="eyebrow accent-t"><%= y.x.name %></div><b class="h">Day <%= st.dayNumber %> of <%= st.of %></b><span class="muted small"><%= st.streak %>-day streak · <%= st.points %> pts</span></div>
+  <span class="chev">›</span>
+</a>
+<% }) %>
+
+<% if (dueCheckin) { %><a class="ca-card due" href="/c/<%= c.slug %>/app/checkin"><b>Weekly check-in due</b><span class="small">Weight, photos, how the week went · 2 min</span><span class="chev">›</span></a><% } %>
+
+<section class="ca-card" id="workout">
+  <% if (!s) { %><h2>No program yet</h2><p class="muted small"><%= c.coachName %> is building yours.</p>
+  <% } else if (s.upcoming) { %><h2><%= s.program.name %></h2><p class="muted small">Starts <%= s.start %>.</p>
+  <% } else if (s.rest) { %><div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div><h2>Rest day</h2><p class="muted small">Walk, stretch, hit your habits.</p>
+  <% } else { var done = log && log.complete; %>
+    <div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div>
+    <h2><%= s.day.title %> <% if (done) { %><span class="pill good">logged</span><% } %></h2>
+    <form method="post" action="/c/<%= c.slug %>/app/workout" class="wk">
+      <% s.day.exercises.forEach(function (e, i) { var prev = log && log.exercises[i]; %>
+      <div class="wk-ex">
+        <div class="wk-name"><b><%= e.name %></b><span class="muted small"><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · rest ' + e.rest : '' %><%= e.note ? ' · ' + e.note : '' %></span></div>
+        <div class="wk-sets">
+          <% for (var k = 0; k < e.sets; k++) { var ps = prev && prev.sets[k]; %>
+          <label class="set <%= ps && ps.done ? 'on' : '' %>"><span><%= k + 1 %></span>
+            <input class="input" name="sets[<%= i %>][<%= k %>][weight]" inputmode="decimal" placeholder="lb" value="<%= ps && ps.weight != null ? ps.weight : '' %>">
+            <input class="input" name="sets[<%= i %>][<%= k %>][reps]" inputmode="numeric" placeholder="<%= e.reps %>" value="<%= ps && ps.reps != null ? ps.reps : '' %>">
+            <input type="checkbox" name="sets[<%= i %>][<%= k %>][done]" <%= ps && ps.done ? 'checked' : '' %>>
+          </label>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+      <input class="input" name="note" placeholder="Note for your coach (optional)" value="<%= log && log.note || '' %>">
+      <input type="hidden" name="complete" value="on">
+      <button class="btn accent block"><%= done ? 'Update log' : 'Finish session' %></button>
+    </form>
+  <% } %>
+</section>
+
+<section class="ca-card" id="habits">
+  <h2>Daily habits</h2>
+  <form method="post" action="/c/<%= c.slug %>/app/habits" class="habits" data-autosubmit>
+    <% c.habits.forEach(function (h, i) { var on = habits && habits.done.indexOf(h) >= 0; %>
+      <label class="habit <%= on ? 'on' : '' %>"><input type="checkbox" name="h<%= i %>" <%= on ? 'checked' : '' %>><span class="tick"></span><%= h %></label>
+    <% }) %>
+    <noscript><button class="btn ghost sm">Save</button></noscript>
+  </form>
+</section>
+
+<% if (lastReply) { %><section class="ca-card reply"><div class="eyebrow">From <%= c.coachName %> · <%= lastReply.date %></div><p><%= lastReply.reply %></p></section><% } %>
+<%- include('../partials/app-bottom') %>

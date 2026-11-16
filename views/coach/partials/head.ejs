@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title><%= typeof title !== 'undefined' && title ? title : 'Coach' %><%= typeof brand !== 'undefined' && brand ? ' · ' + brand.name : ' · 127 Coach' %></title>
+<meta name="robots" content="noindex">
+<% if (typeof brand !== 'undefined' && brand) { %>
+<meta name="theme-color" content="<%= brand.accent %>">
+<link rel="manifest" href="/c/<%= coachSite.slug %>/manifest.webmanifest">
+<link rel="icon" href="/c/<%= coachSite.slug %>/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/c/<%= coachSite.slug %>/icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="<%= brand.name %>">
+<% } else { %>
+<meta name="theme-color" content="#060607">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<% } %>
+<link rel="stylesheet" href="<%= typeof v === 'function' ? v('/css/style.css') : '/css/style.css' %>">
+<link rel="stylesheet" href="<%= typeof v === 'function' ? v('/css/coach.css') : '/css/coach.css' %>">
+<script src="<%= typeof v === 'function' ? v('/js/coach.js') : '/js/coach.js' %>" defer></script>
+</head>

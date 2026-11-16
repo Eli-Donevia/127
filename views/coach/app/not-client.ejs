@@ -1,0 +1,7 @@
+<%- include('../partials/brand-top', { bodyClass: 'cb-site' }) %>
+<main class="cs-narrow">
+  <h1><%= site.brand.name %></h1>
+  <% if (isOwner) { %><p class="lede">This is your clients' app. Sign in as a client to see it, or open your dashboard.</p><a class="btn accent" href="/coach/dashboard">Open dashboard</a>
+  <% } else { %><p class="lede">This app is for <%= site.brand.name %>'s clients.</p><a class="btn accent" href="/c/<%= site.slug %>">See coaching</a><% } %>
+</main>
+</body></html>

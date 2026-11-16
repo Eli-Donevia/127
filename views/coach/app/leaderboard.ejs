@@ -1,0 +1,10 @@
+<%- include('../partials/app-top') %>
+<a class="small muted" href="/c/<%= c.slug %>/app/challenge/<%= x.slug %>">← <%= x.name %></a>
+<h1 class="ca-h1"><%= x.cohort.on ? x.cohort.name : x.name %></h1>
+<p class="muted small"><%= x.mode === 'restart' ? 'Ranked by how far into your current run you are, then points.' : 'Ranked by points.' %> First name and last initial only.</p>
+<% var podium = board.slice(0, 3); %>
+<div class="podium"><% [1, 0, 2].forEach(function (i) { var b = podium[i]; if (!b) return; %>
+  <div class="pod p<%= b.rank %> <%= b.userId === myId ? 'me' : '' %>"><span class="av"><%= b.name.split(' ').map(function (w) { return w[0]; }).join('') %></span><b><%= b.name %></b><small>Day <%= b.finished ? b.of : b.dayNumber %> · <%= b.points %> pts</small><i><%= b.rank %></i></div>
+<% }) %></div>
+<div class="ca-card flush"><%- include('../partials/board', { rows: board, mode: x.mode }) %></div>
+<%- include('../partials/app-bottom') %>

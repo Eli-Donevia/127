@@ -1,0 +1,20 @@
+<%- include('../partials/app-top') %>
+<h1 class="ca-h1">Progress</h1>
+<div class="ca-stats">
+  <div><b><%= checkins.length ? checkins[0].weight : '–' %></b><span>lb now</span></div>
+  <div><b><%= checkins.length > 1 ? (Math.round((checkins[0].weight - checkins[checkins.length - 1].weight) * 10) / 10) : '–' %></b><span>lb change</span></div>
+  <div><b><%= logs.length %></b><span>sessions</span></div>
+  <div><b><%= ad.pct == null ? '–' : ad.pct + '%' %></b><span>on plan (7d)</span></div>
+</div>
+<section class="ca-card"><h2>Weight</h2><%- spark || '<p class="muted small">Your trend shows after two check-ins.</p>' %></section>
+<section class="ca-card"><h2>Check-ins</h2>
+  <% checkins.forEach(function (x) { %>
+  <div class="ci-row"><b><%= x.date %></b> · <%= x.weight %> lb
+    <% if (x.photos.length) { %><div class="thumbs"><% x.photos.forEach(function (p) { %><img src="/c/<%= c.slug %>/photo/<%= p %>" alt=""><% }) %></div><% } %>
+    <% if (x.reply) { %><p class="small reply"><b><%= c.coachName %>:</b> <%= x.reply %></p><% } else { %><p class="small muted">Waiting for <%= c.coachName %>'s reply</p><% } %>
+  </div>
+  <% }) %>
+  <% if (!checkins.length) { %><p class="muted small">No check-ins yet.</p><% } %>
+</section>
+<section class="ca-card"><h2>Recent sessions</h2><% logs.slice(0, 8).forEach(function (l) { %><div class="ci-row small"><b><%= l.date %></b> · <%= l.title %></div><% }) %></section>
+<%- include('../partials/app-bottom') %>

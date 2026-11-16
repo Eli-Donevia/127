@@ -1,0 +1,20 @@
+<%- include('partials/top') %>
+<section class="cx-hero">
+  <div class="eyebrow">127 for coaches · prototype</div>
+  <h1>Your site, your app, your challenge.<br><span class="grad">One place.</span></h1>
+  <p class="muted lede">Set up your brand once. 127 gives you a coaching site, a client app in your colors, a program builder, weekly check-ins and a daily-rules challenge with an application-only cohort.</p>
+</section>
+<form method="post" action="/coach/start" class="card cx-form">
+  <%- include('partials/flash') %>
+  <% if (!user) { %>
+  <h3>Your account</h3>
+  <div class="grid2">
+    <label class="field"><span>Email</span><input class="input" type="email" name="email" required value="<%= form.email || '' %>"></label>
+    <label class="field"><span>Password</span><input class="input" type="password" name="password" required minlength="8"></label>
+  </div>
+  <% } else { %><p class="small muted">Signed in as <%= user.email %>. This adds a coach space to your account.</p><% } %>
+  <h3>Your brand</h3>
+  <%- include('partials/brand-fields', { habitsDefault: habits }) %>
+  <button class="btn accent big block">Create my coach space</button>
+</form>
+<%- include('partials/bottom') %>

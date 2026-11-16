@@ -321,6 +321,10 @@ function fmtDate(isoOrMs) {
 // Day One Challenge (lib/challenge-routes.js): /challenge, /dayone, /early, /admin/challenge,
 // cross-promo locals, and carry-over on /app. Mounted here so it runs after req.user is set.
 require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
+// The coach platform (lib/coach, lib/coach-platform-routes.js): the coach's site, programs, the branded client app,
+// weekly check-ins and challenges. Behind COACH_PLATFORM (default off): off, it passes every request on. It shares
+// /c/<slug> with the launch kits below, so it comes first and passes on any slug that isn't one of its coaches.
+app.use(require('./lib/coach-platform-routes')({ requireAuth, flash: (...a) => flash(...a), createMember: (...a) => createMember(...a), limit: (...a) => limit(...a), TOO_FAST: 'Too many tries in a short time. Wait a few minutes and try again.' }));
 require('./lib/coach-routes')(app, { requireAuth, isAdmin });
 
 function cookie(req, name) {
@@ -1929,6 +1933,8 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   // Coach kit and that coach's clients (lib/coach-routes.js), and this email's own client rows with other coaches.
   for (const c of db.filter('coachClients', (c) => c.kitId === user.id || c.email === String(user.email || '').toLowerCase())) await db.remove('coachClients', c.id);
   await db.remove('coachKits', user.id);
+  // The coach platform's documents and check-in photos (lib/coach).
+  await require('./lib/coach').deleteFor(user);
   await db.remove('users', user.id);
 }
 

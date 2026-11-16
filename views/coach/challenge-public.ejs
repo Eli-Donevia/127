@@ -1,0 +1,44 @@
+<%- include('partials/brand-top', { bodyClass: 'cb-site' }) %>
+<% var c2 = c; %>
+<header class="cs-nav"><a href="/c/<%= site.slug %>" class="ca-brand"><span class="ca-logo"><%= site.brand.initials %></span><span><%= site.brand.name %></span></a></header>
+<main class="cs-narrow">
+  <%- include('partials/flash') %>
+  <div class="eyebrow accent-t"><%= c2.days %> days · <%= c2.rules.length %> rules</div>
+  <h1><%= c2.name %></h1>
+  <p class="lede"><%= c2.tagline %></p>
+  <div class="card">
+    <h3>Every day, all of these</h3>
+    <ol class="cs-rules"><% c2.rules.forEach(function (r) { %><li><%= r.label %><% if (r.proof !== 'none') { %> <span class="pill"><%= r.proof === 'photo' ? 'photo proof' : 'note' %></span><% } %></li><% }) %></ol>
+    <p class="small muted"><%= c2.mode === 'restart' ? 'Miss any one and you go back to day 1. That is the point.' : 'Points for every rule, a bonus for every full day.' %></p>
+    <% if (e && e.status === 'active') { %>
+      <a class="btn accent block" href="/c/<%= site.slug %>/app/challenge/<%= c2.slug %>">Open today's checklist</a>
+    <% } else if (c2.status !== 'live') { %><p class="muted">This challenge is closed.</p>
+    <% } else { %>
+      <form method="post" action="/c/<%= site.slug %>/challenge/<%= c2.slug %>/start"><button class="btn accent block big"><%= c2.price ? 'Start today · $' + c2.price + ' (demo checkout)' : 'Start today, free' %></button></form>
+      <% if (!isClient) { %><p class="small muted">You'll make your account with <%= site.brand.name %> first.</p><% } %>
+    <% } %>
+  </div>
+  <% if (c2.cohort.on) { %>
+  <div class="card cohort-card" id="cohort">
+    <div class="eyebrow accent-t">Application only · <%= seatsLeft %> of <%= c2.cohort.capacity %> seats left</div>
+    <h2><%= c2.cohort.name %></h2>
+    <p>Starts <b><%= c2.cohort.startDate %></b> · $<%= c2.cohort.price %></p>
+    <ul class="ticks"><% c2.cohort.perks.forEach(function (p) { %><li><%= p %></li><% }) %><li>A live leaderboard with your cohort</li></ul>
+    <% if (e && e.track === 'cohort' && e.status === 'applied') { %><div class="alert info">Application in. <%= site.coachName %> reviews every one.</div>
+    <% } else if (e && e.track === 'cohort' && e.status === 'approved') { %>
+      <div class="alert win">You're in. Confirm your seat.</div>
+      <form method="post" action="/c/<%= site.slug %>/challenge/<%= c2.slug %>/confirm"><button class="btn accent block">Confirm seat · $<%= c2.cohort.price %> (demo checkout)</button></form>
+    <% } else if (e && e.track === 'cohort' && e.status === 'declined') { %><p class="muted small">Not this cohort. The open challenge is still yours.</p>
+    <% } else if (e && e.track === 'cohort') { %><a class="btn accent block" href="/c/<%= site.slug %>/app/challenge/<%= c2.slug %>/leaderboard">See the leaderboard</a>
+    <% } else { %>
+      <form method="post" action="/c/<%= site.slug %>/challenge/<%= c2.slug %>/apply">
+        <% c2.cohort.questions.forEach(function (q, i) { %><label class="field"><span><%= q %></span><textarea class="input" name="q<%= i %>" rows="2" required></textarea></label><% }) %>
+        <button class="btn accent block">Apply</button>
+      </form>
+    <% } %>
+    <% if (board.length) { %><h3 style="margin-top:20px">Top of the board</h3><ol class="mini-board"><% board.forEach(function (b) { %><li><b><%= b.name %></b><span>Day <%= b.dayNumber %> · <%= b.points %> pts</span></li><% }) %></ol><% } %>
+  </div>
+  <% } %>
+</main>
+</body>
+</html>

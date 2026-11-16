@@ -1,0 +1,31 @@
+<%- include('partials/top') %>
+<div class="cx-head"><div><div class="eyebrow">Review queue</div><h1>Check-ins <span class="muted"><%= items.length %></span></h1></div></div>
+<% if (!items.length) { %><div class="card"><p class="muted">All caught up.</p></div><% } %>
+<% items.forEach(function (x) { var c = x.c; var delta = x.prev ? Math.round((c.weight - x.prev.weight) * 10) / 10 : null; %>
+<article class="card rq">
+  <header class="rq-head">
+    <a href="/coach/clients/<%= x.client.id %>" class="who"><span class="av"><%= x.client.name.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) %></span><span><b><%= x.client.name %></b><small class="muted">Week of <%= c.date %> · <%= x.row.program || 'No program' %></small></span></a>
+    <div class="rq-stats">
+      <span><b><%= c.weight %></b> lb<% if (delta != null) { %> <em class="<%= delta <= 0 ? 'good' : 'bad' %>"><%= delta > 0 ? '+' : '' %><%= delta %></em><% } %></span>
+      <% if (c.waist) { %><span><b><%= c.waist %></b> in waist</span><% } %>
+      <span><b><%= c.adherence != null ? c.adherence + '%' : '–' %></b> self-rated</span>
+      <span><b><%= x.row.adherence.pct != null ? x.row.adherence.pct + '%' : '–' %></b> logged (7d)</span>
+      <span>Energy <b><%= c.energy || '–' %></b> · Sleep <b><%= c.sleep || '–' %></b></span>
+    </div>
+  </header>
+  <div class="rq-body">
+    <div>
+      <% if (c.wins) { %><p><b>Wins</b><br><%= c.wins %></p><% } %>
+      <% if (c.struggles) { %><p><b>Struggles</b><br><%= c.struggles %></p><% } %>
+    </div>
+    <div class="rq-photos"><% c.photos.forEach(function (ph) { %><a href="/c/<%= coach.slug %>/photo/<%= ph %>" target="_blank"><img src="/c/<%= coach.slug %>/photo/<%= ph %>" alt="Progress photo"></a><% }) %><% if (!c.photos.length) { %><span class="muted small">No photos this week</span><% } %></div>
+  </div>
+  <form method="post" action="/coach/review/<%= c.id %>" class="rq-reply">
+    <textarea class="input" name="reply" rows="2" placeholder="Reply to <%= x.client.name.split(' ')[0] %>: what to keep, what to change this week"></textarea>
+    <button class="btn accent">Send &amp; mark reviewed</button>
+  </form>
+</article>
+<% }) %>
+<% if (done.length) { %><h3 class="muted" style="margin-top:28px">Recently reviewed</h3>
+<div class="card"><% done.forEach(function (x) { %><div class="ci-row small"><b><%= x.client.name %></b> · <%= x.c.date %> · <span class="muted"><%= x.c.reply %></span></div><% }) %></div><% } %>
+<%- include('partials/bottom') %>
