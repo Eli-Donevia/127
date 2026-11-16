@@ -319,6 +319,7 @@ function fmtDate(isoOrMs) {
 // Day One Challenge (lib/challenge-routes.js): /challenge, /dayone, /early, /admin/challenge,
 // cross-promo locals, and carry-over on /app. Mounted here so it runs after req.user is set.
 require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
+require('./lib/coach-routes')(app, { requireAuth, isAdmin });
 
 function cookie(req, name) {
   const m = (req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
@@ -1873,6 +1874,9 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await foundingFive.forget(user.id);
   // Perks and grants: the member's application drafts (lib/perks/draft.js).
   await require('./lib/perks/draft').removeAll(user);
+  // Coach kit and that coach's clients (lib/coach-routes.js), and this email's own client rows with other coaches.
+  for (const c of db.filter('coachClients', (c) => c.kitId === user.id || c.email === String(user.email || '').toLowerCase())) await db.remove('coachClients', c.id);
+  await db.remove('coachKits', user.id);
   await db.remove('users', user.id);
 }
 

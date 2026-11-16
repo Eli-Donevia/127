@@ -277,7 +277,12 @@ const COACH = (function(){
   const days = Math.max(7, Math.min(90, parseInt(pick("days","21"),10) || 21));
   return { name: pick("coach","Your coach").slice(0,60), by: pick("by","").slice(0,60), color, days,
     start: /^\d{4}-\d{2}-\d{2}$/.test(pick("start","")) ? pick("start","") : null,
-    challenge: pick("ch", days + "-Day Challenge").slice(0,80), food: false };
+    challenge: pick("ch", days + "-Day Challenge").slice(0,80), food: false, slug: w.slug || null, token: (function(){
+      /* The join link puts the client's token in the #hash; keep it on this phone and take it out of the address bar. */
+      if (!w.slug) return null; const k = "coach.t." + w.slug;
+      const m = location.hash.match(/(?:^#|&)t=([a-f0-9]{64})/);
+      try { if (m){ localStorage.setItem(k, m[1]); history.replaceState(null, "", location.pathname + location.search); } return localStorage.getItem(k); } catch(e){ return m ? m[1] : null; }
+    })() };
 })();
 (function(){
   const r = document.documentElement.style, c = COACH.color;
@@ -1255,7 +1260,9 @@ document.addEventListener("click", e=>{
   const el = e.target.closest("[data-act]"); if (!el) return;
   const a = el.dataset.act, date = today();
   switch(a){
-    case "checkin": { S.checkins = S.checkins || {}; const k = "c:"+COACH.start+":"+el.dataset.d; if (S.checkins[k]) delete S.checkins[k]; else { S.checkins[k] = Date.now(); toast("Checked in. See you tomorrow."); } save(); render(true); break; }
+    case "checkin": { S.checkins = S.checkins || {}; const k = "c:"+COACH.start+":"+el.dataset.d; if (S.checkins[k]) delete S.checkins[k]; else { S.checkins[k] = Date.now(); toast("Checked in. See you tomorrow."); } save(); render(true);
+      if (COACH.slug && COACH.token) fetch("/c/"+encodeURIComponent(COACH.slug)+"/checkin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({t:COACH.token,date:el.dataset.d,on:!!S.checkins[k]})}).then(r=>{ if(!r.ok) r.json().then(j=>toast(j.error||"Check-in not sent. Try again."),()=>toast("Check-in not sent. Try again.")); }).catch(()=>toast("Offline. Tap again when you have signal."));
+      break; }
     case "tab": closeSheet(); UI.page=null; UI.tab=el.dataset.tab; if (UI.tab==="nutrition" && !UI.nutDate) UI.nutDate=today(); render(); break;
     case "page": UI.page = UI.page===el.dataset.page ? null : el.dataset.page; render(); break;
     case "back": UI.page=null; render(); break;

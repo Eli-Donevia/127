@@ -59,6 +59,9 @@ textarea{min-height:76px;resize:vertical}
 /* Kit */
 .kit{padding:28px 0 12px}
 .kit-head{display:flex;flex-wrap:wrap;align-items:end;gap:10px 16px;margin-bottom:14px}
+.saved{background:var(--soft);border:1px solid rgba(62,230,160,.35);border-radius:14px;padding:12px 14px;margin:0 0 12px;font-size:15px}
+.saved a{color:var(--emerald);font-weight:600}
+[hidden]{display:none!important}
 .kit-head h2{font-size:clamp(26px,5vw,40px);letter-spacing:-.04em;margin:0;line-height:1.05}
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
@@ -169,7 +172,9 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
 </div></section>
 
 <section class="kit" id="kit"><div class="wrap">
-  <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div></div>
+  <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div>
+    <button class="btn sm" type="button" id="save">Save my kit and get my challenge link</button></div>
+  <div class="saved" id="saved" hidden></div>
   <div class="tabs" role="tablist" id="tabs"></div>
   <div class="panel" id="panel" role="tabpanel"></div>
 </div></section>
@@ -285,6 +290,26 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
   var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(run, 250); });
   document.addEventListener('click', function(e){ var b=e.target.closest('[data-copy]'); if(!b) return; var txt=b.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('Copied');},function(){toast('Select the text to copy');}); });
   function toast(m){ var el=document.getElementById('toast'); el.textContent=m; el.classList.add('on'); setTimeout(function(){el.classList.remove('on');},1400); }
+  // Keep the form across sign-up: signed-out coaches are sent to /start and come back to a filled form.
+  var KEY = 'coachKitForm';
+  try { var old = JSON.parse(localStorage.getItem(KEY) || 'null'); if (old) { Object.keys(old).forEach(function(k){ if (form.elements[k] && old[k]) form.elements[k].value = old[k]; }); if (old.color) state.color = old.color; [].forEach.call(sw.children,function(x){ x.setAttribute('aria-pressed', x.getAttribute('aria-label')==='Color '+state.color); }); } } catch(_){}
+  function formData(){ var d = {}; new FormData(form).forEach(function(v,k){ d[k]=v; }); d.color = state.color; return d; }
+  var saved = document.getElementById('saved');
+  function say(html){ saved.innerHTML = html; saved.hidden = false; }
+  document.getElementById('save').addEventListener('click', function(){
+    var d = formData();
+    try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(_){}
+    fetch('/coaches/kit', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
+      .then(function(x){
+        if (x.s === 401) { location.href = x.j.next || '/start?next=/coaches'; return; }
+        if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
+        if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
+        var link = location.origin + x.j.joinUrl;
+        say('Saved. Your challenge link: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
+      })
+      .catch(function(){ say('Saving works once you are on 127group.io with an account. This preview keeps your answers on this phone.'); });
+  });
   run();
 })();
 </script>

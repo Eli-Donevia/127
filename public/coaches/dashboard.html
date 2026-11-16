@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Coach dashboard</title>
 <style>
+[hidden]{display:none!important}
 @font-face{font-family:Geist;src:url(/fonts/Geist-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Geist;src:url(/fonts/Geist-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:Geist;src:url(/fonts/Geist-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
@@ -68,13 +69,15 @@ button.copy:focus-visible{outline:2px solid var(--coach);outline-offset:2px}
 </div>
 <script>
 (function(){
-  var q = new URLSearchParams(location.search);
+  var q = new URLSearchParams(location.search), LIVE = window.COACH_DASH || null;
+  if (LIVE) { q = new URLSearchParams({ coach: LIVE.coach, by: LIVE.by, ch: LIVE.ch, color: LIVE.color, days: LIVE.days }); }
   var color = /^#[0-9a-f]{6}$/i.test(q.get('color')||'') ? q.get('color') : '#C83A75';
   document.documentElement.style.setProperty('--coach', color);
-  var days = Math.max(7, Math.min(90, parseInt(q.get('days')||'21',10)||21)), today = 7;
+  var days = Math.max(7, Math.min(90, parseInt(q.get('days')||'21',10)||21)), today = LIVE ? Math.max(LIVE.day,0) : 7;
   document.getElementById('biz').textContent = q.get('coach') || 'Reyes Strength';
   document.getElementById('ch').textContent = q.get('ch') || 'The 21-Day Strength Challenge';
-  document.getElementById('day').textContent = 'Day ' + today + ' of ' + days;
+  document.getElementById('day').textContent = today < 1 ? 'Starts ' + LIVE.start : 'Day ' + today + ' of ' + days;
+  if (LIVE) document.querySelector('.sample').hidden = true;
   document.getElementById('prog').style.width = Math.round(today/days*100) + '%';
   var first = (q.get('by')||'Jordan').split(' ')[0];
   // Made-up clients: a check-in pattern per person for days 1..7 (1 = checked in).
@@ -82,12 +85,14 @@ button.copy:focus-visible{outline:2px solid var(--coach);outline-offset:2px}
     ['Ana M.','1111111'],['Chris T.','1111110'],['Dee W.','1101111'],['Maya L.','1111111'],['Sam R.','1110000'],
     ['Jo P.','1111101'],['Luis G.','1111111'],['Priya K.','1100100'],['Rob S.','0111111'],['Tess N.','1111100'],
     ['Will A.','1000000'],['Zoe H.','1111111']
-  ].map(function(c){ var p=c[1].split('').map(Number); var miss=0; for(var i=p.length-1;i>=0&&!p[i];i--) miss++; return {n:c[0], p:p, pts:p.reduce(function(a,b){return a+b;},0), miss:miss}; });
+  ];
+  if (LIVE) C = LIVE.clients.map(function(c){ return [c.name, c.p]; });
+  C = C.map(function(c){ var p=c[1].split('').map(Number); var miss=0; for(var i=p.length-1;i>=0&&!p[i];i--) miss++; return {n:c[0], p:p, pts:p.reduce(function(a,b){return a+b;},0), miss:miss}; });
   function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function ini(n){ return n.split(' ').map(function(w){return w[0];}).join(''); }
   function dots(p){ var h=''; for(var i=0;i<days&&i<14;i++) h+='<i class="'+(i<p.length?(p[i]?'y':'n'):'')+'"></i>'; return '<div class="dots">'+h+'</div>'; }
   document.getElementById('sJoined').textContent = C.length;
-  document.getElementById('sToday').textContent = C.filter(function(c){return c.p[today-1];}).length;
+  document.getElementById('sToday').textContent = today < 1 ? 0 : C.filter(function(c){return c.p[today-1];}).length;
   document.getElementById('sMiss').textContent = C.filter(function(c){return c.miss>=2;}).length;
   var who = C.filter(function(c){ return c.miss>=1; }).sort(function(a,b){ return b.miss-a.miss; });
   document.getElementById('nudge').innerHTML = who.map(function(c){
@@ -98,7 +103,7 @@ button.copy:focus-visible{outline:2px solid var(--coach);outline-offset:2px}
     var tag = c.miss>=3 ? 'miss' : c.miss===2 ? 'late' : 'ok';
     return '<div class="row" style="display:block"><div style="display:flex;gap:10px;align-items:center"><div class="av">'+esc(ini(c.n))+'</div><div class="grow"><div class="nm">'+esc(c.n)+'</div>'+dots(c.p)+'</div><span class="pill '+tag+'">'+(c.miss===1?'not yet today':c.miss+' days')+'</span></div>'+
       '<div class="msg">'+esc(text)+'</div><div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="copy" data-copy="'+esc(text)+'">Copy message</button></div></div>';
-  }).join('') || '<div class="row">Everyone checked in today.</div>';
+  }).join('') || '<div class="row">'+(C.length ? 'Everyone checked in today.' : 'No one has joined yet. Share your challenge link to fill this.')+'</div>';
   var board = C.slice().sort(function(a,b){ return b.pts-a.pts || a.n.localeCompare(b.n); });
   document.getElementById('board').innerHTML = board.map(function(c,i){
     return '<div class="row"><span class="rank">'+(i+1)+'</span><div class="av">'+esc(ini(c.n))+'</div><div class="grow"><div class="nm">'+esc(c.n)+'</div>'+dots(c.p)+'</div><span class="pts">'+c.pts+'</span></div>';
