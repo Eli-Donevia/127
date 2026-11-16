@@ -1,0 +1,143 @@
+{
+  "slug": "online-coaches",
+  "status": "draft",
+  "wave": 1,
+  "group": "Fitness",
+  "name": "Online coaches",
+  "one": "coaching business",
+  "description": "A coach site, a challenge page, a VSL script, ads, launch emails, a DM flow and a client app in your colors, from one form.",
+  "h1": "Launch your next challenge from one form.",
+  "mark": "one form",
+  "lede": "Type your name, who you coach and your price. 127 builds your site, your challenge page, your VSL script, ads, emails, DM replies and a client app with your name on it.",
+  "week": [
+    {
+      "when": "Mon",
+      "job": "Build the kit",
+      "hand": "Site, challenge page, VSL script, ads, emails and DMs from one form"
+    },
+    {
+      "when": "Tue",
+      "job": "Film the VSL",
+      "hand": "Seven beats with timings and a shot list for your phone"
+    },
+    {
+      "when": "Wed",
+      "job": "Open the challenge",
+      "hand": "A dated sign-up page with a countdown and a five-email launch"
+    },
+    {
+      "when": "Sat",
+      "job": "Check in on clients",
+      "hand": "Your client app shows who trained and who checked in"
+    }
+  ],
+  "site": {
+    "design": "northstar",
+    "sample": {
+      "business": "Reyes Strength",
+      "what": "Online strength coaching for busy parents",
+      "services": "21-Day Strength Challenge, $49\n1:1 online coaching, $149 a month",
+      "city": ""
+    },
+    "caption": "Reyes Strength is made up. Built by the free site builder."
+  },
+  "entry": {
+    "door": "site",
+    "label": "Build my coach kit free",
+    "fine": "Type your name, who you coach and your price. Free, no card.",
+    "query": {
+      "what": "Online coach"
+    }
+  },
+  "pack": {
+    "name": "Coach Launch Kit",
+    "price": 29,
+    "line": "Site, challenge page, VSL script, ads, launch emails, DM flow, 30 days of posts and a client app.",
+    "items": [
+      "site-coach",
+      "client-sessions",
+      "pricing-lab",
+      "one-page-offer",
+      "recipe-booking-link",
+      "recipe-follow-up",
+      "email-welcome",
+      "email-win-back",
+      "social-carousel"
+    ],
+    "prompts": [
+      {
+        "id": "01-consult",
+        "title": "Consult script",
+        "summary": "A 30-minute consult that ends in a plan and a clear price, without pressure.",
+        "prompt": "Write a 30-minute consult script for [my business]. Sections: welcome (2 min), goals in their words (8), training history and injuries, with a note to get a doctor's OK where needed (5), schedule (3), the plan I'd suggest (5), packages and prices [ ] (5), next step (2). Questions to ask in each. No promises about results.",
+        "use": "Print it. Write their answers on it."
+      },
+      {
+        "id": "02-check-ins",
+        "title": "Weekly check-ins",
+        "summary": "Short weekly texts for week one, the middle of a package and the last two sessions.",
+        "prompt": "Write short check-in texts from [trainer] for: the first week, the middle of a package, two sessions left (with the renewal option), and after a missed session. Under 35 words each, warm, one question.",
+        "use": "Send Tuesdays.",
+        "rules": [
+          "texts",
+          "recurring"
+        ]
+      },
+      {
+        "id": "03-packages",
+        "title": "Session packages",
+        "summary": "Builds three packages from your hourly rate, with the renewal price.",
+        "prompt": "Build three personal training packages. My rate per session [$], sessions per week options [ ], package lengths [ ]. Give names, prices, what's included, a renewal price, and the cancellation rule in one line.",
+        "use": "Put them on your site and your consult sheet.",
+        "rules": [
+          "recurring"
+        ]
+      }
+    ],
+    "notes": [
+      "Forms on your site never ask about injuries, conditions, medications or pregnancy. That stays in the consult, on paper. Tips stay general: never a diet, supplement or treatment plan for one person."
+    ]
+  },
+  "hq": [
+    "trainer",
+    "coaching",
+    "content",
+    "email"
+  ],
+  "hooks": [
+    "Coaches: launch the challenge, not another post.",
+    "The VSL script I'd film this week.",
+    "Comment-to-DM replies for every answer.",
+    "Your clients' app, in your colors.",
+    "A challenge page with a real countdown.",
+    "Thirty days of posts that point at one offer."
+  ],
+  "ads": [
+    {
+      "angle": "One form",
+      "hook": "Coach without a launch plan?",
+      "body": "Type your name, who you coach and your price. 127 builds the site, the challenge page and the VSL script.",
+      "headline": "Build your coach kit free"
+    },
+    {
+      "angle": "Client app",
+      "hook": "Your clients' workouts, in your colors.",
+      "body": "A phone app with sets, a rest timer and a daily check-in. Comes with the kit.",
+      "headline": "A client app in your colors"
+    },
+    {
+      "angle": "VSL",
+      "hook": "Stuck on what to say in your VSL?",
+      "body": "Seven beats with timings, written from your answers.",
+      "headline": "Get your VSL script"
+    }
+  ],
+  "keyword": "COACH",
+  "next": [
+    "Nutrition coaches",
+    "Run coaches",
+    "Mindset coaches"
+  ],
+  "legal": "No health, body or money result claims; testimonials only in the client's own words with written OK; injuries and conditions go to a doctor.",
+  "legalRead": "Eli as Legal, 2026-11-16"
+}

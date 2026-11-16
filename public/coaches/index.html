@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>127 for coaches</title>
+<meta name="description" content="Type your name, your program and your price. 127 builds your site, challenge page, VSL script, ads, emails and a client app with your name on it.">
+<meta name="theme-color" content="#060607">
+<style>
+@font-face{font-family:Geist;src:url(/fonts/Geist-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Geist;src:url(/fonts/Geist-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Geist;src:url(/fonts/Geist-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Geist;src:url(/fonts/Geist-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{
+  --bg:#060607;--surface:#0e0e11;--surface-2:#141418;--surface-3:#1b1b20;--ink:#ededf2;--ink-2:#b3b3bd;--muted:#8b8b96;
+  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--emerald:#3ee6a0;--emerald-deep:#0e7a55;--orchid:#a98bff;
+  --soft:rgba(62,230,160,.09);--r:18px;--font:Geist,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --coach:#C83A75;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(6,6,7,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:60px}
+.mark{font-weight:700;font-size:22px;letter-spacing:-.04em;color:var(--emerald);text-decoration:none}
+.top nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+.top nav a{text-decoration:none;color:var(--ink-2);font-size:14px;padding:8px 10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--emerald);color:#03140c;font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}
+.btn.sm{min-height:38px;padding:0 14px;font-size:14px}
+.top .btn{min-height:38px;font-size:14px;color:#03140c;padding:0 16px}
+.kit,.sec{scroll-margin-top:70px}
+@media(max-width:520px){.top nav a.hide-s{display:none}}
+
+/* Hero: the form is the hero. Water light rises behind it (emerald from below, no overlay image). */
+.hero{position:relative;padding:44px 0 28px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:auto -20% -40% -20%;height:70%;background:radial-gradient(60% 60% at 50% 100%,rgba(62,230,160,.22),transparent 70%);pointer-events:none}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);font-weight:600}
+h1{font-size:clamp(34px,8.4vw,68px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 14px;font-weight:700;max-width:14ch}
+.lede{font-size:clamp(17px,2.4vw,20px);color:var(--ink-2);max-width:40ch;margin:0 0 24px}
+.grid{display:grid;gap:28px}
+@media(min-width:900px){.grid{grid-template-columns:1.05fr .95fr;align-items:start}.hero{padding:72px 0 40px}}
+
+.form{position:relative;background:var(--surface);border:1px solid var(--line-2);border-radius:24px;padding:18px;display:grid;gap:12px}
+.form h2{margin:0 0 2px;font-size:18px;letter-spacing:-.02em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:grid;gap:6px;font-size:13px;color:var(--ink-2);font-weight:500}
+input,textarea{width:100%;background:var(--surface-2);border:1px solid var(--line-2);border-radius:12px;padding:12px 12px;font-size:16px;color:var(--ink)}
+input:focus,textarea:focus{outline:none;border-color:var(--emerald)}
+textarea{min-height:76px;resize:vertical}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.swatches button[aria-pressed=true]{border-color:var(--ink)}
+.form .btn{width:100%;margin-top:4px}
+.note{font-size:14px;color:var(--ink-2)}
+
+/* Kit */
+.kit{padding:28px 0 12px}
+.kit-head{display:flex;flex-wrap:wrap;align-items:end;gap:10px 16px;margin-bottom:14px}
+.saved{background:var(--soft);border:1px solid rgba(62,230,160,.35);border-radius:14px;padding:12px 14px;margin:0 0 12px;font-size:15px}
+.saved a{color:var(--emerald);font-weight:600}
+[hidden]{display:none!important}
+.kit-head h2{font-size:clamp(26px,5vw,40px);letter-spacing:-.04em;margin:0;line-height:1.05}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);border-radius:999px;padding:9px 14px;font-size:14px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--soft);border-color:var(--emerald);color:var(--ink)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-height:300px}
+.panel h3{margin:0 0 4px;font-size:20px;letter-spacing:-.02em}
+.panel .sub{color:var(--ink-2);margin:0 0 14px}
+.rows{display:grid;gap:10px}
+.item{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+.item .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px}
+.item p{margin:0;overflow-wrap:anywhere}
+.cols>*{min-width:0}
+.item b{font-weight:600}
+.copy{border:0;background:none;color:var(--emerald);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:0}
+.warn{border:1px solid #f09b8a;color:#f6c3b8;background:rgba(240,155,138,.08);border-radius:12px;padding:12px;margin-bottom:12px;font-size:14px}
+.cols{display:grid;gap:14px}
+@media(min-width:760px){.cols{grid-template-columns:auto 1fr;align-items:start}}
+
+/* Phone frames for the site and app previews */
+.phone{width:300px;max-width:100%;margin:0 auto;border-radius:38px;border:10px solid #1f1f24;background:#fff;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px var(--line-2)}
+.phone .scr{height:560px;overflow-y:auto;color:#18131a;background:#fff;font-size:14px}
+.phone iframe{display:block;width:100%;height:600px;border:0;background:#fff}
+.ms-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-weight:700;font-size:14px}
+.ms-nav span{width:22px;height:2px;background:#18131a;box-shadow:0 6px 0 #18131a}
+.ms-hero{padding:22px 18px 26px;background:linear-gradient(180deg,color-mix(in srgb,var(--coach) 14%,#fff),#fff)}
+.ms-hero h4{font-size:26px;line-height:1.08;letter-spacing:-.03em;margin:0 0 10px}
+.ms-hero p{color:#5d5560;margin:0 0 16px}
+.ms-btn{display:inline-block;background:var(--coach);color:#fff;border-radius:999px;padding:11px 18px;font-weight:600}
+.ms-sec{padding:18px;border-top:1px solid #eee}
+.ms-sec h5{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--coach);margin:0 0 10px}
+.ms-card{border:1px solid #eee;border-radius:14px;padding:12px;margin-bottom:10px}
+.ms-card b{display:block}
+.ms-card i{font-style:normal;color:var(--coach);font-weight:700}
+.ms-step{display:flex;gap:10px;margin-bottom:10px}
+.ms-step em{flex:none;width:24px;height:24px;border-radius:50%;background:var(--coach);color:#fff;font-style:normal;font-size:12px;display:grid;place-items:center;font-weight:700}
+.ch-top{padding:22px 18px;background:#111;color:#fff}
+.ch-top small{color:var(--coach);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.ch-top h4{font-size:28px;line-height:1.05;letter-spacing:-.035em;margin:8px 0}
+.ch-count{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.ch-count div{background:#222;border-radius:10px;padding:8px 0;text-align:center;font-weight:700;font-size:18px}
+.ch-count span{display:block;font-size:10px;color:#aaa;font-weight:500}
+
+/* Sections below the kit */
+.sec{padding:56px 0;border-top:1px solid var(--line)}
+.sec h2{font-size:clamp(28px,5.4vw,46px);letter-spacing:-.04em;line-height:1.04;margin:0 0 12px;max-width:18ch}
+.sec .lede{margin-bottom:28px}
+.parts{display:grid;gap:10px}
+@media(min-width:700px){.parts{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.parts{grid-template-columns:repeat(3,1fr)}}
+.part{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.part h3{margin:0 0 6px;font-size:17px;letter-spacing:-.01em}
+.part p{margin:0;color:var(--ink-2);font-size:15px}
+.tiers{display:grid;gap:12px}
+@media(min-width:860px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.tier.lead{border-color:var(--emerald);background:linear-gradient(180deg,rgba(62,230,160,.08),var(--surface) 45%)}
+.tier .name{font-weight:600;color:var(--ink-2)}
+.tier .price{font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.tier .price small{font-size:15px;font-weight:500;color:var(--ink-2);letter-spacing:0}
+.tier ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:6px}
+.tier .btn{margin-top:auto}
+.faq details{border-top:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{color:var(--ink-2);margin:10px 0 0;max-width:62ch}
+footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#000;padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;transition:.2s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="mark" href="/">127</a>
+  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a class="btn" href="/start">Start free</a></nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap grid">
+  <div>
+    <div class="eyebrow">For online coaches</div>
+    <h1>Your coaching business, built in one sitting.</h1>
+    <p class="lede">Type your name, who you coach and your price. 127 hands back your website, a challenge page, your VSL script, ads, emails, DM replies and a client app with your name on it.</p>
+    <p class="note">Every piece is yours to edit. Nothing here promises your clients a result, and nothing goes live until you say so.</p>
+  </div>
+  <form class="form" id="f" autocomplete="off">
+    <h2>Build my launch kit</h2>
+    <div class="two">
+      <label>Your name<input name="coach" placeholder="Jordan Reyes"></label>
+      <label>Business<input name="business" placeholder="Reyes Strength"></label>
+    </div>
+    <label>Who you coach<input name="who" placeholder="busy parents"></label>
+    <label>What you coach<input name="what" placeholder="strength training at home"></label>
+    <div class="two">
+      <label>Challenge days<input name="days" inputmode="numeric" placeholder="21"></label>
+      <label>Challenge price ($)<input name="price" inputmode="numeric" placeholder="49"></label>
+    </div>
+    <div class="two">
+      <label>Starts<input name="start" type="date" value="2027-01-04"></label>
+      <label>Coaching ($/month)<input name="monthly" inputmode="numeric" placeholder="149"></label>
+    </div>
+    <label>Why you coach, in your words<textarea name="story" placeholder="I started training in my garage with two dumbbells and twenty minutes a day. That is still how I coach."></textarea></label>
+    <div><label style="margin-bottom:6px">Your color</label>
+      <div class="swatches" id="sw"></div></div>
+    <button class="btn" type="submit">Build my kit</button>
+  </form>
+</div></section>
+
+<section class="kit" id="kit"><div class="wrap">
+  <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div>
+    <button class="btn sm" type="button" id="save">Save my kit and get my challenge link</button></div>
+  <div class="saved" id="saved" hidden></div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <h2>Everything a coach pays five tools for.</h2>
+  <p class="lede">The kit is built from the same engine 127 members already run their business in.</p>
+  <div class="parts">
+    <div class="part"><h3>Website</h3><p>Your program, how it works, your story and an apply button. Yours to host, free.</p></div>
+    <div class="part"><h3>Challenge page</h3><p>Dates, daily rules, what's included, a countdown and the price, ready for your link in bio.</p></div>
+    <div class="part"><h3>VSL script</h3><p>Seven beats with timings, written in your words, plus a shot list for your phone.</p></div>
+    <div class="part"><h3>Ads and posts</h3><p>Three ad angles and 30 days of posts that point at the challenge.</p></div>
+    <div class="part"><h3>Emails and DMs</h3><p>A five-email launch, and a comment-to-DM flow with replies for every answer.</p></div>
+    <div class="part"><h3>Client app</h3><p>Your clients' daily workouts, sets, rest timer, streak and check-in, in your colors.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="pricing"><div class="wrap">
+  <h2>Start free. Pay when it's working for you.</h2>
+  <div class="tiers">
+    <div class="tier"><div class="name">Free</div><div class="price">$0</div>
+      <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
+      <a class="btn ghost" href="/start">Start free</a></div>
+    <div class="tier lead"><div class="name">Builder</div><div class="price">$29<small> a month</small></div>
+      <ul><li>The full kit, rewritten in your voice</li><li>Client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>Every pack in the store</li></ul>
+      <a class="btn" href="/start">Start with Builder</a></div>
+    <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
+      <ul><li>Everything in Builder</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
+      <a class="btn ghost" href="/circle">Apply</a></div>
+  </div>
+  <p class="note" style="margin-top:14px">Monthly, cancel any time. 127 doesn't promise you clients, sales or income; what you earn depends on your work and your market.</p>
+</div></section>
+
+<section class="sec faq"><div class="wrap">
+  <h2>Questions coaches ask</h2>
+  <details><summary>Do I need a website already?</summary><p>No. The kit builds one. If you have one, Fix my site can rebuild it from what's there.</p></details>
+  <details><summary>Can my clients use the app on their phone?</summary><p>Yes. They open a link and add it to their home screen. It works offline and saves every set.</p></details>
+  <details><summary>Will it write fake testimonials or results?</summary><p>No. The kit leaves a spot for a client's own words, used only with their written OK, and never writes weight, body or money claims.</p></details>
+  <details><summary>Is it only for fitness coaches?</summary><p>It's built for fitness first. Nutrition, run and mindset coaches can use it today; their own templates come next.</p></details>
+</div></section>
+</main>
+<footer><div class="wrap">127 Group LLC. Make today day one.</div></footer>
+<div class="toast" id="toast"></div>
+
+<script src="/js/coach-kit.js"></script>
+<script>
+(function(){
+  var K = window.CoachKit;
+  var COLORS = ['#C83A75','#3EE6A0','#2F6BFF','#FF6A3D','#7A4BB0','#111111'];
+  var form = document.getElementById('f'), sw = document.getElementById('sw');
+  var state = { color: COLORS[0], tab: 'site' };
+  var APP = (window.COACH_APP_URL || '/coach-app/');
+  var DASH = (window.COACH_DASH_URL || '/coaches/dashboard.html');
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  COLORS.forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.style.background=c; b.setAttribute('aria-label','Color '+c); b.setAttribute('aria-pressed', c===state.color); b.onclick=function(){ state.color=c; [].forEach.call(sw.children,function(x){x.setAttribute('aria-pressed', x===b);}); run(); }; sw.appendChild(b); });
+
+  var TABS = [['site','Website'],['challenge','Challenge page'],['vsl','VSL script'],['ads','Ads'],['emails','Emails'],['dms','DMs'],['posts','30 days of posts'],['consult','Consult call'],['app','Client app'],['dash','Coach dashboard']];
+  var tabs = document.getElementById('tabs');
+  TABS.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.role='tab'; b.textContent=t[1]; b.dataset.t=t[0]; b.onclick=function(){ state.tab=t[0]; paint(); }; tabs.appendChild(b); });
+
+  function item(k, body, copyText){ return '<div class="item"><div class="k"><span>'+esc(k)+'</span>'+(copyText!=null?'<button class="copy" data-copy="'+esc(copyText)+'">Copy</button>':'')+'</div><p>'+body+'</p></div>'; }
+  function list(rows){ return '<div class="rows">'+rows.join('')+'</div>'; }
+
+  function render(kit){
+    var f = kit.facts, s = kit.site, c = kit.challenge;
+    document.documentElement.style.setProperty('--coach', f.color);
+    var out = {};
+    out.site = '<div class="cols"><div class="phone"><div class="scr">'+
+      '<div class="ms-nav">'+esc(s.name)+'<span></span></div>'+
+      '<div class="ms-hero"><h4>'+esc(s.heroTitle)+'</h4><p>'+esc(s.heroSub)+'</p><span class="ms-btn">'+esc(s.cta)+'</span></div>'+
+      '<div class="ms-sec"><h5>Programs</h5>'+s.program.map(function(p){return '<div class="ms-card"><b>'+esc(p.name)+'</b>'+esc(p.line)+'<br><i>'+esc(p.price)+'</i></div>';}).join('')+'</div>'+
+      '<div class="ms-sec"><h5>How it works</h5>'+s.steps.map(function(p,i){return '<div class="ms-step"><em>'+(i+1)+'</em><div><b>'+esc(p.title)+'</b><br>'+esc(p.body)+'</div></div>';}).join('')+'</div>'+
+      '<div class="ms-sec"><h5>About '+esc(f.first)+'</h5><p>'+esc(s.about)+'</p></div>'+
+      '<div class="ms-sec"><h5>Questions</h5>'+s.faq.map(function(q){return '<p><b>'+esc(q.q)+'</b><br>'+esc(q.a)+'</p>';}).join('')+'</div>'+
+      '</div></div><div><h3>Your website</h3><p class="sub">One page, phone first, about 40 KB. Download it and drop it on free hosting, or let 127 rebuild it in any of 12 designs.</p>'+
+      list([item('Headline', esc(s.heroTitle), s.heroTitle), item('Under it', esc(s.heroSub), s.heroSub), item('About', esc(s.about), s.about)])+'</div></div>';
+    out.challenge = '<div class="cols"><div class="phone"><div class="scr">'+
+      '<div class="ch-top"><small>'+esc(c.dates)+'</small><h4>'+esc(c.title)+'</h4><p style="color:#ccc;margin:0">'+esc(c.line)+'</p>'+
+      '<div class="ch-count"><div>12<span>days</span></div><div>04<span>hours</span></div><div>31<span>min</span></div><div>08<span>sec</span></div></div></div>'+
+      '<div class="ms-sec"><h5>Every day</h5>'+c.rules.map(function(r,i){return '<div class="ms-step"><em>'+(i+1)+'</em><div>'+esc(r)+'</div></div>';}).join('')+'</div>'+
+      '<div class="ms-sec"><h5>What you get</h5>'+c.get.map(function(r){return '<p>'+esc(r)+'</p>';}).join('')+'<p><b>'+esc(c.finish)+'</b></p></div>'+
+      '<div class="ms-sec" style="text-align:center"><span class="ms-btn">Join for '+esc(c.price)+'</span></div>'+
+      '</div></div><div><h3>'+esc(c.title)+'</h3><p class="sub">A dated sign-up page with a live countdown. Clients who join land straight in your app on day one.</p>'+
+      list([item('One line', esc(c.line), c.line), item('Daily rules', c.rules.map(esc).join('<br>'), c.rules.join('\n')), item('Finish rule', esc(c.finish), c.finish)])+'</div></div>';
+    out.vsl = '<h3>VSL script</h3><p class="sub">About four minutes. Film it on your phone in one take per beat.</p>'+list(kit.vsl.map(function(b){return item(b.time+'  '+b.beat, esc(b.say), b.say);}));
+    out.ads = '<h3>Three ads</h3><p class="sub">One angle each, so you can see which one gets clicks.</p>'+list(kit.ads.map(function(a){var t=a.hook+'\n\n'+a.body+'\n\n'+a.headline; return item(a.angle, '<b>'+esc(a.hook)+'</b><br>'+esc(a.body)+'<br><span class="note">Headline: '+esc(a.headline)+' · Button: '+esc(a.cta)+'</span>', t);}));
+    out.emails = '<h3>Launch emails</h3><p class="sub">Five emails from ten days out to the last day.</p>'+list(kit.emails.map(function(e){return item(e.when, '<b>'+esc(e.subject)+'</b><br>'+esc(e.body), e.subject+'\n\n'+e.body);}));
+    out.dms = '<h3>Comment-to-DM flow</h3><p class="sub">Someone comments '+esc(f.keyword)+', the DM goes out, and you have a reply ready for what comes back.</p>'+list(kit.dms.map(function(d){return item(d.step, esc(d.text), d.text);}));
+    out.posts = '<h3>30 days of posts</h3><p class="sub">Six kinds of post on rotation, every third one asks for the comment.</p>'+list(kit.posts.map(function(p){return item('Day '+p.day, esc(p.post)+' <span class="note">· '+esc(p.cta)+'</span>', p.post);}));
+    out.consult = '<h3>Consult call</h3><p class="sub">About 20 minutes. The price is said once.</p>'+list(kit.consult.map(function(p){return item(p.part, esc(p.say), p.say);}));
+    var src = APP + kit.app.query;
+    out.app = '<div class="cols"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p class="sub">Your clients open one link and add it to their home screen. Today\'s workout, sets with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p>'+
+      list([item('Client link', esc(src), new URL(src, location.href).href)])+'<p class="note" style="margin-top:12px">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
+    var dsrc = DASH + kit.app.query + '&by=' + encodeURIComponent(f.coach);
+    out.dash = '<div class="cols"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(dsrc)+'"></iframe></div><div><h3>Your coach dashboard</h3><p class="sub">The challenge at a glance: who joined, who checked in today, and who to message, with the message already written in your voice. Then the board.</p>'+
+      '<p class="note">Shown with sample clients. Real clients appear here once they join from your challenge link.</p></div></div>';
+    return out;
+  }
+
+  var cur = null;
+  function paint(){
+    [].forEach.call(tabs.children,function(b){ b.setAttribute('aria-selected', b.dataset.t===state.tab); });
+    var warn = cur.kit.problems.length ? '<div class="warn">A line in your answers reads like a result claim ("'+esc(cur.kit.problems[0].text.slice(0,80))+'"). Coaches can\'t promise body or money results in ads, so change it before you publish.</div>' : '';
+    document.getElementById('panel').innerHTML = warn + cur.out[state.tab];
+  }
+  function run(){
+    var d = {}; new FormData(form).forEach(function(v,k){ d[k]=v; }); d.color = state.color;
+    var kit = K.build(d); cur = { kit: kit, out: render(kit) };
+    document.getElementById('kitTitle').textContent = kit.facts.business;
+    paint();
+  }
+  form.addEventListener('submit', function(e){ e.preventDefault(); run(); document.getElementById('kit').scrollIntoView({behavior:'smooth'}); });
+  var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(run, 250); });
+  document.addEventListener('click', function(e){ var b=e.target.closest('[data-copy]'); if(!b) return; var txt=b.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('Copied');},function(){toast('Select the text to copy');}); });
+  function toast(m){ var el=document.getElementById('toast'); el.textContent=m; el.classList.add('on'); setTimeout(function(){el.classList.remove('on');},1400); }
+  // Keep the form across sign-up: signed-out coaches are sent to /start and come back to a filled form.
+  var KEY = 'coachKitForm';
+  try { var old = JSON.parse(localStorage.getItem(KEY) || 'null'); if (old) { Object.keys(old).forEach(function(k){ if (form.elements[k] && old[k]) form.elements[k].value = old[k]; }); if (old.color) state.color = old.color; [].forEach.call(sw.children,function(x){ x.setAttribute('aria-pressed', x.getAttribute('aria-label')==='Color '+state.color); }); } } catch(_){}
+  function formData(){ var d = {}; new FormData(form).forEach(function(v,k){ d[k]=v; }); d.color = state.color; return d; }
+  var saved = document.getElementById('saved');
+  function say(html){ saved.innerHTML = html; saved.hidden = false; }
+  document.getElementById('save').addEventListener('click', function(){
+    var d = formData();
+    try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(_){}
+    fetch('/coaches/kit', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
+      .then(function(x){
+        if (x.s === 401) { location.href = x.j.next || '/start?next=/coaches'; return; }
+        if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
+        if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
+        var link = location.origin + x.j.joinUrl;
+        say('Saved. Your challenge link: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
+      })
+      .catch(function(){ say('Saving works once you are on 127group.io with an account. This preview keeps your answers on this phone.'); });
+  });
+  run();
+})();
+</script>
+</body>
+</html>

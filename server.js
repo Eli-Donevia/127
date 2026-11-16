@@ -109,6 +109,8 @@ app.use(harnessSiteChat.publicRouter());
 // Members heartbeat API (lib/member-ops.js): GET /ops/feed, POST /ops/drafts, POST /ops/notes.
 // Bearer OPS_FEED_TOKEN only (404 without it), mounted before the session so it never reads or sets cookies.
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
+// Coach Launch Kit (lib/coach-kit.js): the same file builds the kit in the browser and on the server.
+app.get('/js/coach-kit.js', (req, res) => res.type('application/javascript').sendFile(path.join(__dirname, 'lib', 'coach-kit.js')));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 // Static files are cached for an hour, so a publish can leave a phone running last hour's hero script and CSS.
 // v('/js/x.js') adds ?v=<hash of the file> (worked out once per file per process), so a changed file gets a new URL.
@@ -319,6 +321,7 @@ function fmtDate(isoOrMs) {
 // Day One Challenge (lib/challenge-routes.js): /challenge, /dayone, /early, /admin/challenge,
 // cross-promo locals, and carry-over on /app. Mounted here so it runs after req.user is set.
 require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
+require('./lib/coach-routes')(app, { requireAuth, isAdmin });
 
 function cookie(req, name) {
   const m = (req.headers.cookie || '').match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
@@ -411,6 +414,8 @@ function homePacks(req) {
   const keys = Array.isArray(req.session.packKeys) ? req.session.packKeys : [];
   return { list: shop.list(), bundle: shop.catalog().bundle, owned: shop.ownedSlugs(req.user, { keys }), builderGetsAll: shop.catalog().builderGets === 'all' };
 }
+// COACH_HOME=on makes the coach homepage (public/coaches/index.html) the front door; off keeps the current home.
+app.get('/', (req, res, next) => (process.env.COACH_HOME === 'on' ? res.sendFile(path.join(__dirname, 'public', 'coaches', 'index.html')) : next()));
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
@@ -1921,6 +1926,9 @@ async function deleteAccount(user, { retainBilling = true } = {}) {
   await foundingFive.forget(user.id);
   // Perks and grants: the member's application drafts (lib/perks/draft.js).
   await require('./lib/perks/draft').removeAll(user);
+  // Coach kit and that coach's clients (lib/coach-routes.js), and this email's own client rows with other coaches.
+  for (const c of db.filter('coachClients', (c) => c.kitId === user.id || c.email === String(user.email || '').toLowerCase())) await db.remove('coachClients', c.id);
+  await db.remove('coachKits', user.id);
   await db.remove('users', user.id);
 }
 
