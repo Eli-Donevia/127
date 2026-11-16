@@ -482,3 +482,60 @@ test('a founding checkout started inside the window is recorded for support', as
   assert.ok(user.foundingCheckoutStartedAt);
   assert.strictEqual(billing.graceCheck(user.email).startedAt, user.foundingCheckoutStartedAt);
 });
+
+// Launch-eve fixes: a double-clicked or two-tab checkout never opens a second Stripe session, and a second paid
+// checkout refunds the first one instead of cancelling it unrefunded.
+test('checkout: a double click opens one Stripe session', async () => {
+  const [a, b] = await Promise.all([billing.checkoutUrl(req, user, 'builder'), billing.checkoutUrl(req, user, 'builder')]);
+  assert.strictEqual(a, b);
+  assert.strictEqual(s.calls.filter((c) => c.name === 'checkout.create').length, 1);
+});
+
+test('checkout: a second tab goes back to the open session for the same price', async () => {
+  await billing.checkoutUrl(req, user, 'builder');
+  fakeStripe.session = { id: 'cs_test_new', status: 'open', url: 'https://checkout.stripe.test/s' };
+  const again = await billing.checkoutUrl(req, user, 'builder');
+  assert.strictEqual(again, 'https://checkout.stripe.test/s');
+  assert.strictEqual(s.calls.filter((c) => c.name === 'checkout.create').length, 1);
+  // Expired or paid sessions are not reused.
+  fakeStripe.session = { id: 'cs_test_new', status: 'expired', url: null };
+  await billing.checkoutUrl(req, user, 'builder');
+  assert.strictEqual(s.calls.filter((c) => c.name === 'checkout.create').length, 2);
+  // A different plan never reuses the Builder session.
+  fakeStripe.session = { id: 'cs_test_new', status: 'open', url: 'https://checkout.stripe.test/s' };
+  await billing.checkoutUrl(req, user, 'circle');
+  assert.strictEqual(s.calls.filter((c) => c.name === 'checkout.create').length, 3);
+  fakeStripe.session = undefined;
+});
+
+test('webhook: a second paid checkout refunds the first subscription started today', async () => {
+  s.sub('sub_first', 'price_f', 'active', { created: Math.floor(Date.now() / 1000) - 60 });
+  s.sub('sub_second', 'price_f');
+  user.stripeCustomerId = 'cus_1';
+  user.stripeSubscriptionId = 'sub_first';
+  user.tier = 'builder';
+  await db.save('users', user);
+  s.invoices.list = async (a) => (s.calls.push({ name: 'invoices.list', args: a }), { data: [{ id: 'in_first' }] });
+  s.invoicePayments = { list: async (a) => (s.calls.push({ name: 'invoicePayments.list', args: a }), { data: [{ payment: { type: 'payment_intent', payment_intent: 'pi_first' } }] }) };
+  s.refunds = { create: async (a, o) => (s.calls.push({ name: 'refunds.create', args: { a, o } }), { id: 're_1' }) };
+  const r = await deliver({ id: `evt_dup_${Date.now()}`, type: 'checkout.session.completed', data: { object: { client_reference_id: user.id, payment_status: 'paid', subscription: 'sub_second', metadata: {} } } });
+  assert.strictEqual(r.code, 200);
+  assert.ok(s.calls.some((c) => c.name === 'subs.cancel' && c.args === 'sub_first'));
+  const refund = s.calls.find((c) => c.name === 'refunds.create');
+  assert.ok(refund, 'the duplicate payment is refunded');
+  assert.strictEqual(refund.args.a.payment_intent, 'pi_first');
+  assert.strictEqual(refund.args.o.idempotencyKey, 'dup-refund-pi_first');
+  assert.strictEqual(db.get('users', user.id).stripeSubscriptionId, 'sub_second');
+});
+
+test('webhook: replacing a subscription older than a day cancels without a refund', async () => {
+  s.sub('sub_old', 'price_b', 'past_due', { created: Math.floor(Date.now() / 1000) - 40 * 864e2 });
+  s.sub('sub_new', 'price_b');
+  user.stripeCustomerId = 'cus_1';
+  user.stripeSubscriptionId = 'sub_old';
+  await db.save('users', user);
+  s.refunds = { create: async (a) => (s.calls.push({ name: 'refunds.create', args: a }), { id: 're_x' }) };
+  await deliver({ id: `evt_old_${Date.now()}`, type: 'checkout.session.completed', data: { object: { client_reference_id: user.id, payment_status: 'paid', subscription: 'sub_new', metadata: {} } } });
+  assert.ok(s.calls.some((c) => c.name === 'subs.cancel' && c.args === 'sub_old'));
+  assert.ok(!s.calls.some((c) => c.name === 'refunds.create'));
+});

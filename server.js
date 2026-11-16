@@ -81,9 +81,11 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').toLowerCase().split(',').m
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-// Proxy hops in front of the app. Check /admin ("Your IP as the server sees it") on the first deploy:
-// if a phone on cellular and a laptop on Wi-Fi show the same address, raise TRUST_PROXY.
-app.set('trust proxy', parseInt(process.env.TRUST_PROXY || '1', 10));
+// Proxy hops in front of the app. On Replit's deploy there are three (checked on /admin, Nov 16: forwarded for
+// "<visitor>, 34.111.x (Google load balancer), 35.191.x (Google front end)"). With 1, every visitor looked like the
+// same Google address and shared one signup limit. If /admin's "Your IP" ever shows a 34.x or 35.x Google address
+// again, the hop count changed: set TRUST_PROXY to match.
+app.set('trust proxy', parseInt(process.env.TRUST_PROXY || '3', 10));
 app.disable('x-powered-by');
 app.use(security.headers(PROD));
 app.use(require('compression')());
@@ -347,7 +349,13 @@ function requireAdmin(req, res, next) {
   if (!isAdmin(req.user)) return res.status(404).render('404');
   next();
 }
+// New accounts per address per hour. Phones on cellular share addresses (carrier NAT), and a talk or a gym's
+// Wi-Fi puts a room behind one, so this only stops a script, not a crowd.
+const SIGNUPS_PER_IP = parseInt(process.env.SIGNUPS_PER_IP || '20', 10);
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+// Saves nobody waits on (a "seen" mark on a page view): a database blip is logged, never left as an
+// unhandled rejection, which would stop the whole process.
+const saveQuietly = (collection, doc) => db.save(collection, doc).catch((err) => console.error(`[db] save ${collection}`, err.message));
 
 // Returns false (and answers the request) when a rate limit is hit.
 function limit(req, res, key, max, windowMs, message) {
@@ -483,7 +491,7 @@ app.post('/start/preview', express.json({ limit: '20kb' }), (req, res) => {
 
 app.post('/start', wrap(async (req, res) => {
   if (prelaunchGate(req)) return res.redirect('/founding');
-  if (req.user ? !limit(req, res, `retake:${req.user.id}`, 10, 60 * 60 * 1000, TOO_FAST) : !limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  if (req.user ? !limit(req, res, `retake:${req.user.id}`, 10, 60 * 60 * 1000, TOO_FAST) : !limit(req, res, `signup:${security.ip(req)}`, SIGNUPS_PER_IP, 60 * 60 * 1000, TOO_FAST)) return;
   let answers = {};
   try {
     answers = JSON.parse(req.body.answers || '{}');
@@ -493,47 +501,77 @@ app.post('/start', wrap(async (req, res) => {
   const clean = cleanAnswers(answers);
 
   let user = req.user;
-  if (!user) {
-    const email = String(req.body.email || '').trim().toLowerCase();
-    const name = String(req.body.name || '').trim().slice(0, 80);
-    const password = String(req.body.password || '');
-    const renderErr = (error) => res.status(400).render('start', { title: 'Your free roadmap', onboarding, retake: false, error, layout: 'bare', prefill: clean });
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
-    if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
-    if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead.');
-    if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
-    user = await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: clean.source });
-    integrations.sendEmail({ to: email, subject: 'Your 127 roadmap is ready', text: `Hi ${name || 'there'},\n\nYour personalized 30-day roadmap is waiting: ${process.env.BASE_URL || 'https://127group.io'}/app\n\nBuild with purpose.\n127` });
-  }
+  let release = null;
+  try {
+    if (!user) {
+      const email = String(req.body.email || '').trim().toLowerCase();
+      const name = String(req.body.name || '').trim().slice(0, 80);
+      const password = String(req.body.password || '');
+      const renderErr = (error) => res.status(400).render('start', { title: 'Your free roadmap', onboarding, retake: false, error, layout: 'bare', prefill: clean });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
+      if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
+      release = await signupTurn(email);
+      const existing = db.find('users', (u) => u.email === email);
+      if (existing && existing.roadmap && (await sameSignup(req, existing, password))) return res.redirect('/app?welcome=1');
+      if (existing) return renderErr('That email already has an account. Sign in instead.');
+      if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
+      user = await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: clean.source });
+      integrations.sendEmail({ to: email, subject: 'Your 127 roadmap is ready', text: `Hi ${name || 'there'},\n\nYour personalized 30-day roadmap is waiting: ${process.env.BASE_URL || 'https://127group.io'}/app\n\nBuild with purpose.\n127` });
+    }
 
-  const firstTime = !user.roadmap;
-  user.answers = clean;
-  user.answersHistory = [...(user.answersHistory || []), { at: new Date().toISOString(), answers: clean }].slice(-5);
-  user.roadmap = roadmap.generate(clean);
-  if (!firstTime) user.completed = {};
-  // The personal note is an AI call, so it runs on the first roadmap and at most once a day on retakes.
-  const lastNote = user.roadmapNoteAt ? Date.parse(user.roadmapNoteAt) : 0;
-  let note = null;
-  if (firstTime || Date.now() - lastNote > 24 * 60 * 60 * 1000) {
-    note = await ai.roadmapNote(user, { withFlags: true });
-    user.roadmapNote = note && note.text ? note.text : null;
-    user.roadmapNoteAt = new Date().toISOString();
-  } else {
-    user.roadmapNote = null;
+    const firstTime = !user.roadmap;
+    user.answers = clean;
+    user.answersHistory = [...(user.answersHistory || []), { at: new Date().toISOString(), answers: clean }].slice(-5);
+    user.roadmap = roadmap.generate(clean);
+    if (!firstTime) user.completed = {};
+    // The personal note is an AI call, so it runs on the first roadmap and at most once a day on retakes.
+    const lastNote = user.roadmapNoteAt ? Date.parse(user.roadmapNoteAt) : 0;
+    let note = null;
+    if (firstTime || Date.now() - lastNote > 24 * 60 * 60 * 1000) {
+      note = await ai.roadmapNote(user, { withFlags: true });
+      user.roadmapNote = note && note.text ? note.text : null;
+      user.roadmapNoteAt = new Date().toISOString();
+    } else {
+      user.roadmapNote = null;
+    }
+    if (firstTime) {
+      await addXp(user, 50);
+      user.onboardedAt = new Date().toISOString();
+      track(req, 'Onboarding Complete', { track: user.roadmap.trackName });
+    }
+    const badgesBefore = (user.badges || []).length;
+    gamify.refreshBadges(user);
+    await db.save('users', user);
+    integrations.emit('onboarding.completed', { userId: user.id, answers: clean, track: user.roadmap.track, trackName: user.roadmap.trackName });
+    emitNewBadges(user, badgesBefore);
+    if (note) await ageFromAi(req, user, note, [{ from: 'member', text: wordsOf(clean), at: new Date().toISOString() }]);
+    res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
+  } finally {
+    if (release) release();
   }
-  if (firstTime) {
-    await addXp(user, 50);
-    user.onboardedAt = new Date().toISOString();
-    track(req, 'Onboarding Complete', { track: user.roadmap.trackName });
-  }
-  const badgesBefore = (user.badges || []).length;
-  gamify.refreshBadges(user);
-  await db.save('users', user);
-  integrations.emit('onboarding.completed', { userId: user.id, answers: clean, track: user.roadmap.track, trackName: user.roadmap.trackName });
-  emitNewBadges(user, badgesBefore);
-  if (note) await ageFromAi(req, user, note, [{ from: 'member', text: wordsOf(clean), at: new Date().toISOString() }]);
-  res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
 }));
+
+// Double-clicked or re-sent signup forms: requests for the same email take turns, so the second one sees the
+// account the first one made instead of making another (bcrypt and the roadmap call leave time for a race).
+const signupsInFlight = new Map();
+async function signupTurn(email) {
+  while (signupsInFlight.has(email)) await signupsInFlight.get(email);
+  let release;
+  signupsInFlight.set(email, new Promise((r) => (release = r)));
+  return () => {
+    signupsInFlight.delete(email);
+    release();
+  };
+}
+// The same person sending the same signup again (a double click, a refresh after a slow load): the account was
+// made in the last 10 minutes and the password matches, so sign them in as the first request did.
+async function sameSignup(req, existing, password) {
+  if (!existing || Date.now() - Date.parse(existing.createdAt) > 10 * 60 * 1000) return false;
+  if (!existing.passwordHash || !(await bcrypt.compare(password, existing.passwordHash))) return false;
+  req.session.uid = existing.id;
+  req.user = existing;
+  return true;
+}
 
 // New account, signed in. `source` overrides the usual source (utm, referral, waitlist, funnel).
 async function createMember(req, { email, name, password, optIn, source, fallbackSource }) {
@@ -590,7 +628,7 @@ app.get('/circle/apply', (req, res) => {
 app.post('/circle/apply', wrap(async (req, res) => {
   if (req.user) return res.redirect('/app/circle');
   if (prelaunchGate(req)) return res.redirect('/founding');
-  if (!limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  if (!limit(req, res, `signup:${security.ip(req)}`, SIGNUPS_PER_IP, 60 * 60 * 1000, TOO_FAST)) return;
   const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
   const name = String(req.body.name || '').trim().slice(0, 80);
   const password = String(req.body.password || '');
@@ -598,9 +636,16 @@ app.post('/circle/apply', wrap(async (req, res) => {
   if (!name) return renderErr('Please add your name.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderErr('Please enter a valid email.');
   if (password.length < 8) return renderErr('Use a password with at least 8 characters.');
-  if (db.find('users', (u) => u.email === email)) return renderErr('That email already has an account. Sign in instead, and you will land on the application.');
-  if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
-  await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: 'circle' });
+  const release = await signupTurn(email);
+  try {
+    const existing = db.find('users', (u) => u.email === email);
+    if (existing && (await sameSignup(req, existing, password))) return res.redirect('/app/circle');
+    if (existing) return renderErr('That email already has an account. Sign in instead, and you will land on the application.');
+    if (ageCheck.blocked(email)) return renderErr(ageCheck.SIGNUP_REFUSED);
+    await createMember(req, { email, name, password, optIn: req.body.optin === 'on', fallbackSource: 'circle' });
+  } finally {
+    release();
+  }
   res.redirect('/app/circle');
 }));
 
@@ -803,7 +848,7 @@ app.post('/founding/lock', wrap(async (req, res) => {
   const grace = token && billing.verifyGrace(token);
   if (!lockOpen() && !grace) return res.redirect('/pricing');
   if (req.user) return res.redirect(graceFrom(grace && token));
-  if (!limit(req, res, `signup:${security.ip(req)}`, 5, 60 * 60 * 1000, TOO_FAST)) return;
+  if (!limit(req, res, `signup:${security.ip(req)}`, SIGNUPS_PER_IP, 60 * 60 * 1000, TOO_FAST)) return;
   const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
   const name = String(req.body.name || '').trim().slice(0, 80);
   const password = String(req.body.password || '');
@@ -813,9 +858,16 @@ app.post('/founding/lock', wrap(async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderLock(req, res, { ...g, error: 'Please enter a valid email.', form });
   if (password.length < 8) return renderLock(req, res, { ...g, error: 'Use a password with at least 8 characters.', form });
   if (!lockOpen() && email !== grace.email) return renderLock(req, res, { ...g, error: `This founding link works for ${grace.email}. Use that email to continue.`, form });
-  if (db.find('users', (u) => u.email === email)) return renderLock(req, res, { ...g, exists: true, form });
-  if (ageCheck.blocked(email)) return renderLock(req, res, { ...g, error: ageCheck.SIGNUP_REFUSED, form });
-  await createMember(req, { email, name, password, optIn: false, source: 'founding-lock' });
+  const release = await signupTurn(email);
+  try {
+    const existing = db.find('users', (u) => u.email === email);
+    if (existing && !(await sameSignup(req, existing, password))) return renderLock(req, res, { ...g, exists: true, form });
+    if (!existing && ageCheck.blocked(email)) return renderLock(req, res, { ...g, error: ageCheck.SIGNUP_REFUSED, form });
+    if (!existing) await createMember(req, { email, name, password, optIn: false, source: 'founding-lock' });
+    else if (existing.tier !== 'free') return res.redirect('/app/billing');
+  } finally {
+    release();
+  }
   await startCheckout(req, res, 'builder', graceFrom(grace && token), { grace: grace ? token : null });
 }));
 
@@ -924,11 +976,11 @@ app.get('/app', requireAuth, (req, res) => {
   let closedNotice = false;
   if (res.locals.builderOffer.founding && !user.foundingBarSeenAt) {
     user.foundingBarSeenAt = new Date().toISOString();
-    db.save('users', user);
+    saveQuietly('users', user);
   } else if (!res.locals.builderOffer.founding && user.tier === 'free' && user.foundingBarSeenAt) {
     if (!user.foundingClosedSeenAt) {
       user.foundingClosedSeenAt = new Date().toISOString();
-      db.save('users', user);
+      saveQuietly('users', user);
     }
     closedNotice = Date.now() - Date.parse(user.foundingClosedSeenAt) < 24 * 60 * 60 * 1000 && cookie(req, 'fbclosed') !== '1';
   }
@@ -941,7 +993,7 @@ app.get('/app', requireAuth, (req, res) => {
     user.upgradeScreens = user.upgradeScreens || {};
     if (day && !user.upgradeScreens[`day${day}`]) {
       user.upgradeScreens[`day${day}`] = new Date().toISOString();
-      db.save('users', user);
+      saveQuietly('users', user);
       const early = roadmap.allTasks({ weeks: user.roadmap.weeks.filter((w) => w.freeVisible) });
       const earlyDone = early.filter((t) => user.completed && user.completed[t.id]).length;
       upgradeScreen = {
@@ -1270,7 +1322,7 @@ function reserveAi(req, res, user, back) {
     // Klaviyo "Hit Free Limit": once per member per month, only for the real plan limit.
     if (user.emailVerified && user.tier === 'free' && user.limitHitMonth !== monthKey()) {
       user.limitHitMonth = monthKey();
-      db.save('users', user);
+      saveQuietly('users', user);
       const d = new Date();
       const resets = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toISOString().slice(0, 10);
       integrations.emit('ai.limit_hit', { userId: user.id, limit_type: 'messages', resets_on: resets });
@@ -2217,6 +2269,10 @@ app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).render('404', { title: 'Something went wrong', error: true });
 });
+
+// Backstop: a stray rejected promise (a save nobody awaited, a dropped connection) is logged instead of
+// stopping the process, which on Node 20 would take every member offline until the deploy restarts.
+process.on('unhandledRejection', (err) => console.error('[unhandled rejection]', (err && err.stack) || err));
 
 db.init().then(async () => {
   // Members who joined before this ran get their seat numbers quietly; later joins notify Eli.
