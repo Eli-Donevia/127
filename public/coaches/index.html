@@ -6,6 +6,21 @@
 <title>127 for coaches</title>
 <meta name="description" content="Type your name, your program and your price. 127 builds your site, challenge page, VSL script, ads, emails and a client app with your name on it.">
 <meta name="theme-color" content="#060607">
+<link rel="canonical" href="https://127group.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="127">
+<meta property="og:title" content="127 for coaches">
+<meta property="og:description" content="Type your name, your program and your price. 127 builds your site, challenge page, launch content and a client app with your name on it.">
+<meta property="og:url" content="https://127group.io/">
+<meta property="og:image" content="https://127group.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="127 for coaches">
+<meta name="twitter:image" content="https://127group.io/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/favicon-180.png">
 <style>
 @font-face{font-family:Geist;src:url(/fonts/Geist-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Geist;src:url(/fonts/Geist-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
@@ -132,15 +147,26 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#000;padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;transition:.2s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.fbar{background:var(--soft);border-bottom:1px solid var(--line)}
+.fbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-block:12px;font-size:15px}
+.fbar b{color:var(--emerald)}
+.fbar a{color:var(--emerald);font-weight:600}
+.price s{color:var(--muted);font-weight:500;font-size:.6em;margin-right:6px}
+.price-note{font-size:14px;color:var(--ink-2);margin:-4px 0 10px}
+footer .foot{display:flex;flex-direction:column;gap:10px}
+footer .foot p{margin:0}
+.foot-links{display:flex;flex-wrap:wrap;gap:4px 16px}
+.foot-links a{color:var(--ink-2);text-decoration:none;padding:8px 0;font-size:14px}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="mark" href="/">127</a>
-  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a class="btn" href="/start">Start free</a></nav>
+  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a href="/login?next=/coaches/">Sign in</a><a class="btn" href="/start?next=/coaches/%23kit">Start free</a></nav>
 </div></header>
 
 <main>
+<!--FOUNDING_BAR-->
 <section class="hero"><div class="wrap grid">
   <div>
     <div class="eyebrow">For online coaches</div>
@@ -197,10 +223,10 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
   <div class="tiers">
     <div class="tier"><div class="name">Free</div><div class="price">$0</div>
       <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
-      <a class="btn ghost" href="/start">Start free</a></div>
-    <div class="tier lead"><div class="name">Builder</div><div class="price">$29<small> a month</small></div>
+      <a class="btn ghost" href="/start?next=/coaches/%23kit">Start free</a></div>
+    <div class="tier lead"><div class="name">Builder</div><!--BUILDER_PRICE--><div class="price">$29<small> a month</small></div><!--/BUILDER_PRICE-->
       <ul><li>The full kit, rewritten in your voice</li><li>Client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>Every pack in the store</li></ul>
-      <a class="btn" href="/start">Start with Builder</a></div>
+      <a class="btn" href="/start?next=/coaches/%23kit" data-builder-cta>Start with Builder</a></div>
     <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
       <ul><li>Everything in Builder</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
       <a class="btn ghost" href="/circle">Apply</a></div>
@@ -216,7 +242,10 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
   <details><summary>Is it only for fitness coaches?</summary><p>It's built for fitness first. Nutrition, run and mindset coaches can use it today; their own templates come next.</p></details>
 </div></section>
 </main>
-<footer><div class="wrap">127 Group LLC. Make today day one.</div></footer>
+<footer><div class="wrap foot">
+  <p>127 Group LLC. Make today day one. Built by Eli Christiansen, 4x founder.</p>
+  <nav class="foot-links"><a href="/pricing">Membership</a><a href="/circle">Founder's Circle</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/earnings-disclaimer">Earnings disclaimer</a><a href="/cookies">Cookie Notice</a><a href="/login">Sign in</a></nav>
+</div></footer>
 <div class="toast" id="toast"></div>
 
 <script src="/js/coach-kit.js"></script>
@@ -268,7 +297,7 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     var src = APP + kit.app.query;
     out.app = '<div class="cols"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p class="sub">Your clients open one link and add it to their home screen. Today\'s workout, sets with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p>'+
       list([item('Client link', esc(src), new URL(src, location.href).href)])+'<p class="note" style="margin-top:12px">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
-    var dsrc = DASH + kit.app.query + '&by=' + encodeURIComponent(f.coach);
+    var dsrc = DASH + kit.app.query;
     out.dash = '<div class="cols"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(dsrc)+'"></iframe></div><div><h3>Your coach dashboard</h3><p class="sub">The challenge at a glance: who joined, who checked in today, and who to message, with the message already written in your voice. Then the board.</p>'+
       '<p class="note">Shown with sample clients. Real clients appear here once they join from your challenge link.</p></div></div>';
     return out;
@@ -287,7 +316,7 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     paint();
   }
   form.addEventListener('submit', function(e){ e.preventDefault(); run(); document.getElementById('kit').scrollIntoView({behavior:'smooth'}); });
-  var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(run, 250); });
+  var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(function(){ run(); try { localStorage.setItem('coachKitForm', JSON.stringify(formData())); } catch(_){} }, 250); });
   document.addEventListener('click', function(e){ var b=e.target.closest('[data-copy]'); if(!b) return; var txt=b.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('Copied');},function(){toast('Select the text to copy');}); });
   function toast(m){ var el=document.getElementById('toast'); el.textContent=m; el.classList.add('on'); setTimeout(function(){el.classList.remove('on');},1400); }
   // Keep the form across sign-up: signed-out coaches are sent to /start and come back to a filled form.
@@ -302,7 +331,7 @@ footer{padding:34px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     fetch('/coaches/kit', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
       .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
       .then(function(x){
-        if (x.s === 401) { location.href = x.j.next || '/start?next=/coaches'; return; }
+        if (x.s === 401) { location.href = '/start?next=/coaches/%23kit'; return; }
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
         var link = location.origin + x.j.joinUrl;

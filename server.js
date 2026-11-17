@@ -111,6 +111,7 @@ app.use(harnessSiteChat.publicRouter());
 app.use('/ops', memberOps.api({ feedApp: () => opsFeedApp(), circleFeed: () => circleFeedData(), attendance: (u) => (u.tier === 'circle' || circle.isFormer(u) ? circle.historyFor(circleCtx(), u.id) : []) }));
 // Coach Launch Kit (lib/coach-kit.js): the same file builds the kit in the browser and on the server.
 app.get('/js/coach-kit.js', (req, res) => res.type('application/javascript').sendFile(path.join(__dirname, 'lib', 'coach-kit.js')));
+app.get(['/coaches/', '/coaches/index.html'], (req, res) => coachPage(req, res));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 // Static files are cached for an hour, so a publish can leave a phone running last hour's hero script and CSS.
 // v('/js/x.js') adds ?v=<hash of the file> (worked out once per file per process), so a changed file gets a new URL.
@@ -419,7 +420,23 @@ function homePacks(req) {
   return { list: shop.list(), bundle: shop.catalog().bundle, owned: shop.ownedSlugs(req.user, { keys }), builderGetsAll: shop.catalog().builderGets === 'all' };
 }
 // COACH_HOME=on makes the coach homepage (public/coaches/index.html) the front door; off keeps the current home.
-app.get('/', (req, res, next) => (process.env.COACH_HOME === 'on' ? res.sendFile(path.join(__dirname, 'public', 'coaches', 'index.html')) : next()));
+// While the founding window is open, the page carries the founding bar and the founding Builder price (launch.view()).
+const COACH_PAGE = path.join(__dirname, 'public', 'coaches', 'index.html');
+function coachPage(req, res) {
+  const v = launch.view();
+  let html = require('fs').readFileSync(COACH_PAGE, 'utf8');
+  if (v.foundingOpen && v.foundingPrice) {
+    const p = v.foundingPrice;
+    const full = PLANS.builder.price;
+    const left = v.showSpots ? ` ${v.spotsLeft} of ${v.cap} spots left.` : ` First ${v.cap} members only.`;
+    html = html
+      .replace('<!--FOUNDING_BAR-->', `<div class="fbar"><div class="wrap"><span><b>Founding price: Builder $${p}/mo</b>, locked as long as you stay ($${full} after ${v.closesAbbr || v.closesDate}).${left}</span><a href="/founding/lock">Lock $${p} &rarr;</a></div></div>`)
+      .replace(/<!--BUILDER_PRICE-->[\s\S]*?<!--\/BUILDER_PRICE-->/, `<div class="price"><s>$${full}</s>$${p}<small> a month</small></div><p class="price-note">Founding price, locked as long as you stay. Until ${v.closesDate} or the first ${v.cap} members.</p>`)
+      .replace('href="/start?next=/coaches/%23kit" data-builder-cta>Start with Builder', `href="/founding/lock" data-builder-cta>Lock $${p} a month`);
+  }
+  res.set('Cache-Control', 'no-cache').type('html').send(html);
+}
+app.get('/', (req, res, next) => (process.env.COACH_HOME === 'on' ? coachPage(req, res) : next()));
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
@@ -454,6 +471,8 @@ function prelaunchGate(req) {
 
 app.get('/start', (req, res) => {
   if (prelaunchGate(req)) return res.redirect('/founding');
+  // ?next= (the coach homepage): after the first roadmap, go back there instead of the dashboard.
+  if (req.query.next) req.session.afterStart = security.safeNext(req.query.next, null);
   if (req.user && req.user.roadmap && !req.query.retake) return res.redirect('/app');
   // With the front doors on, a plain /start asks "What are you building?" first. Any link that carries
   // something (?roadmap=1 from the picker, ?from=, a hero answer, a retake) goes straight to the questions.
@@ -465,6 +484,8 @@ app.get('/start', (req, res) => {
   const prefill = picked ? { [first.id]: picked.value } : null;
   res.render('start', { title: 'Your free roadmap', onboarding, retake: !!(req.user && req.user.roadmap), error: null, layout: 'bare', prefill, jump: picked ? 1 : null });
 });
+app.get('/apply', (req, res) => res.redirect(301, '/circle/apply'));
+app.get('/about', (req, res) => res.redirect(301, '/founding'));
 app.get('/signup', (req, res) => res.redirect(prelaunchGate(req) ? '/founding' : '/start'));
 app.get('/app/assessment', requireAuth, (req, res) => res.redirect('/start?retake=1'));
 
@@ -549,7 +570,9 @@ app.post('/start', wrap(async (req, res) => {
     integrations.emit('onboarding.completed', { userId: user.id, answers: clean, track: user.roadmap.track, trackName: user.roadmap.trackName });
     emitNewBadges(user, badgesBefore);
     if (note) await ageFromAi(req, user, note, [{ from: 'member', text: wordsOf(clean), at: new Date().toISOString() }]);
-    res.redirect(firstTime ? '/app?welcome=1' : '/app?retook=1');
+    const after = firstTime && req.session.afterStart;
+    req.session.afterStart = null;
+    res.redirect(after || (firstTime ? '/app?welcome=1' : '/app?retook=1'));
   } finally {
     if (release) release();
   }
