@@ -199,7 +199,7 @@ footer .foot p{margin:0}
 
 <section class="kit" id="kit"><div class="wrap">
   <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div>
-    <button class="btn sm" type="button" id="save">Save my kit and get my challenge link</button></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" type="button" id="voice" hidden>Rewrite in my voice</button><button class="btn sm" type="button" id="save">Save my kit and get my challenge link</button></div></div>
   <div class="saved" id="saved" hidden></div>
   <div class="tabs" role="tablist" id="tabs"></div>
   <div class="panel" id="panel" role="tabpanel"></div>
@@ -338,6 +338,25 @@ footer .foot p{margin:0}
         say('Saved. Your challenge link: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
       })
       .catch(function(){ say('Saving works once you are on 127group.io with an account. This preview keeps your answers on this phone.'); });
+  });
+  // Rewrite in my voice (COACH_AI): shown only when the server says it's on for this coach. Editing the form goes back
+  // to the template kit, so the rewrite always matches the answers it was written from.
+  var vb = document.getElementById('voice');
+  fetch('/coaches/kit/ai', { credentials:'same-origin' }).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j && j.on) vb.hidden = false; }).catch(function(){});
+  vb.addEventListener('click', function(){
+    var d = formData(); vb.disabled = true; vb.textContent = 'Rewriting, about 30 seconds';
+    fetch('/coaches/kit/rewrite', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
+      .then(function(x){
+        if (x.s === 401) { location.href = '/start?next=/coaches/%23kit'; return; }
+        if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
+        if (x.s !== 200) { say(esc(x.j.error || 'Not rewritten. Try again.')); return; }
+        var kit = K.build(d); Object.keys(x.j.sections).forEach(function(k){ kit[k] = x.j.sections[k]; });
+        kit.problems = K.check(kit); cur = { kit: kit, out: render(kit) }; paint();
+        say(x.j.used.length ? 'Rewritten in your voice. Read every line before you publish it.' + (x.j.kept.length ? ' Kept the template for: ' + esc(x.j.kept.join(', ')) + '.' : '') : 'The rewrite didn\'t pass 127\'s claim check, so your template kit stays. Try again, or add more of your own words to your story.');
+      })
+      .catch(function(){ say('Not rewritten. Try again.'); })
+      .then(function(){ vb.disabled = false; vb.textContent = 'Rewrite in my voice'; });
   });
   run();
 })();
