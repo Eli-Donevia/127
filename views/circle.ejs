@@ -16,7 +16,7 @@
         <p style="font-size:19px;margin:0 0 28px">Up to <%= circleCapacity %> heavily committed, driven founders. One focused call every week with Eli, real hot seats, clear commitments, and two in-person gatherings a year.</p>
         <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
           <a href="<%= user ? '/app/circle' : '/circle/apply' %>" class="btn light"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %> <span class="arrow"></span></a>
-          <span class="small" style="color:var(--on-dark-2)">$299 / month · <%= circleSeatsLeft %> of <%= circleCapacity %> seats open</span>
+          <span class="small" style="color:var(--on-dark-2)">$299 / month · <% if (circleSeatsLeft < circleCapacity) { %><%= circleSeatsLeft %> of <%= circleCapacity %> seats open<% } else { %><%= circleCapacity %> seats · applications reviewed weekly<% } %></span>
         </div>
       </div>
     </div>
