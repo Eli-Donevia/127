@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Builds a self-contained preview of the coach pages (homepage + kit, client app, coach dashboard) for a claude.ai
-// Artifact: fonts and lib/coach-kit.js inlined, site links pointed at the page itself.
+// Artifact: fonts, lib/coach-kit.js and lib/coach-site.js inlined, site links pointed at the page itself.
 // Usage: node scripts/build-coach-preview.js <out-dir>  ->  coaches.html, coach-app.html, dashboard.html
 const fs = require('fs');
 const path = require('path');
@@ -21,6 +21,7 @@ const strip = (s) => s
 let home = inlineFonts(read('public/coaches/index.html'));
 home = home.replace('<script src="/js/coach-kit.js"></script>', () =>
   `<script>window.COACH_APP_URL = "coach-app.html"; window.COACH_DASH_URL = "dashboard.html";\n${read('lib/coach-kit.js')}\n</script>`);
+home = home.replace('<script src="/js/coach-site.js"></script>', () => `<script>\n${read('lib/coach-site.js')}\n</script>`);
 home = strip(home)
   .replace('<title>127 for coaches</title>', '<title>127 for coaches</title>\n<meta name="claude:viewport-fit-sides" content="cover">')
   .replace(/href="\/start"/g, 'href="#pricing"')
