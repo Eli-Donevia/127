@@ -553,7 +553,7 @@ test('coach plan: $149 checkout by lookup key, coach welcome page, webhook turns
   assert.strictEqual(a.metadata.founding, '');
   assert.ok(a.success_url.startsWith('https://127.test/coaches/welcome?session_id='));
   assert.match(a.custom_text.submit.message, /Renews monthly at \$149 \+ tax until you cancel/);
-  assert.doesNotMatch(a.custom_text.submit.message, /14 days/);
+  assert.match(a.custom_text.submit.message, /14 days to change your mind on your first payment/);
   const cus = 'cus_coach' + user.id;
   s.sub('sub_coach', 'price_coach', 'active', { customer: cus });
   assert.ok(!user.coach);
@@ -562,6 +562,8 @@ test('coach plan: $149 checkout by lookup key, coach welcome page, webhook turns
   assert.strictEqual(user.coach, true);
   assert.strictEqual(user.foundingPrice, false);
   assert.ok(require('../lib/plans').canAccess(user, 'builder'));
+  await deliver({ id: 'evt_coach_paid' + user.id, type: 'invoice.paid', data: { object: { id: 'in_coach', customer: cus, amount_paid: 14900, currency: 'usd', parent: { subscription_details: { subscription: 'sub_coach' } } } } });
+  assert.ok(user.firstPaidAt, 'first Coach charge starts the 14-day refund window');
   // Cancelled: back to Free, but still a coach account, so the kit and site stay theirs.
   await deliver({ id: 'evt_coach_del' + user.id, type: 'customer.subscription.deleted', data: { object: { ...s.subs.sub_coach, status: 'canceled' } } });
   assert.strictEqual(user.tier, 'free');
