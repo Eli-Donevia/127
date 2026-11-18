@@ -66,7 +66,7 @@ input,textarea{width:100%;background:var(--surface-2);border:1px solid var(--lin
 input:focus,textarea:focus{outline:none;border-color:var(--emerald)}
 textarea{min-height:76px;resize:vertical}
 .swatches{display:flex;gap:8px;flex-wrap:wrap}
-.swatches button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.swatches button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);cursor:pointer}
 .swatches button[aria-pressed=true]{border-color:var(--ink)}
 .form .btn{width:100%;margin-top:4px}
 .note{font-size:14px;color:var(--ink-2)}
@@ -292,78 +292,145 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .side-app p{color:var(--ink-2);margin:0 0 10px}
 </style>
 <style id="siteCss">
-/* The coach's site (rendered on the kit page and in the downloaded file). Container queries, so it lays out by the
-   frame it sits in: phone view and desktop view are the same markup. */
-.cs{--ac:#C83A75;--bg:#0c0c0e;--ink:#f3f1ee;--ink2:#b9b6b2;--line:rgba(255,255,255,.1);container-type:inline-size;background:var(--bg);color:var(--ink);font-family:Geist,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+/* The coach's site (kit page and the downloaded file). One markup, three looks (data-look), the coach's color as the
+   accent (--ac, text on it --on). Container queries, so phone and desktop views are the same page. */
+@font-face{font-family:"BSD";src:url(/fonts/coach/big-shoulders-display-normal-500-900.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"Hanken";src:url(/fonts/coach/hanken-grotesk-normal-400.woff2) format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"ISerif";src:url(/fonts/coach/instrument-serif-normal-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"ISerif";src:url(/fonts/coach/instrument-serif-italic-400.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"InterC";src:url(/fonts/coach/inter-normal-400.woff2) format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Unb";src:url(/fonts/coach/unbounded-normal-500-900.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"Onest";src:url(/fonts/coach/onest-normal-400-600.woff2) format("woff2");font-weight:400 600;font-display:swap}
+.cs{--ac:#C83A75;--on:#fff;--bg:#0a0a0b;--bg2:#121214;--ink:#f4f2ef;--ink2:#a9a6a2;--line:rgba(255,255,255,.1);--card:rgba(255,255,255,.03);
+  --fd:"BSD",Impact,"Arial Narrow",sans-serif;--fb:"Hanken",-apple-system,"Helvetica Neue",Arial,sans-serif;--hw:800;--hcase:uppercase;--hls:-.01em;--hlh:.92;--hs:1;
+  container-type:inline-size;background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow:hidden}
+.cs[data-look=editorial]{--bg:#f5f1ea;--bg2:#ece6dc;--ink:#1a1714;--ink2:#5e5850;--line:rgba(26,23,20,.14);--card:rgba(255,255,255,.55);--fd:"ISerif",Georgia,serif;--fb:"InterC",-apple-system,Arial,sans-serif;--hw:400;--hcase:none;--hls:-.025em;--hlh:.98;--hs:1.04}
+.cs[data-look=bold]{--bg:#0d0d10;--bg2:#16161b;--fd:"Unb","Arial Black",sans-serif;--fb:"Onest",-apple-system,Arial,sans-serif;--hw:700;--hcase:none;--hls:-.045em;--hlh:1;--hs:.78}
 .cs *{box-sizing:border-box}
-.cs .in{max-width:1080px;margin:0 auto;padding:0 22px}
-.cs-nav{position:sticky;top:0;z-index:2;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.cs-nav .in{display:flex;align-items:center;gap:12px;height:62px}
-.cs-logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:17px}
+.cs .in{max-width:1120px;margin:0 auto;padding:0 22px}
+.cs a{color:inherit}
+.cs .dsp{font-family:var(--fd);font-weight:var(--hw);text-transform:var(--hcase);letter-spacing:var(--hls);line-height:var(--hlh);margin:0}
+.cs .dsp em{font-style:italic;color:var(--ac)}
+.cs-nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.cs-nav .in{display:flex;align-items:center;gap:12px;height:64px}
+.cs-logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;font-size:16px;min-width:0}
 .cs-logo img{height:34px;width:auto;max-width:120px;border-radius:8px;object-fit:contain}
-.cs-logo .mk{width:32px;height:32px;border-radius:9px;background:var(--ac);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800}
-.cs-links{margin-left:auto;display:none;gap:22px;font-size:14px;color:var(--ink2)}
-.cs-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:999px;background:var(--ac);color:#fff;font-weight:700;font-size:15px;text-decoration:none;border:0}
-.cs-btn.sm{min-height:38px;padding:0 14px;font-size:13px;margin-left:auto;white-space:nowrap;flex:none}
-.cs-logo{min-width:0}.cs-logo span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cs-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.cs-hero{position:relative;min-height:560px;display:flex;align-items:flex-end;padding:120px 0 44px;background:radial-gradient(70% 60% at 85% 10%,color-mix(in srgb,var(--ac) 45%,transparent),transparent 70%),radial-gradient(50% 50% at 0% 100%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%),var(--bg);overflow:hidden}
-.cs-hero.ph{background-size:cover;background-position:center}
-.cs-hero.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35) 40%,var(--bg) 98%)}
-.cs-hero .in{position:relative;width:100%}
-.cs-kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ac);margin:0 0 14px;filter:brightness(1.25)}
-.cs-hero h1{font-size:38px;line-height:1.02;letter-spacing:-.045em;margin:0 0 16px;max-width:15ch;font-weight:700}
-.cs-hero p{font-size:18px;color:var(--ink2);max-width:42ch;margin:0 0 24px}
+.cs-logo .mk{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ac);color:var(--on);display:grid;place-items:center;font-family:var(--fd);font-weight:var(--hw);font-size:15px;text-transform:uppercase}
+.cs-logo span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-links{margin-left:auto;display:none;gap:26px;font-size:14px;color:var(--ink2)}
+.cs-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 24px;border-radius:999px;background:var(--ac);color:var(--on);font-weight:700;font-size:15px;text-decoration:none;border:0;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 30px -12px color-mix(in srgb,var(--ac) 80%,transparent)}
+.cs-btn:hover{transform:translateY(-2px)}
+.cs-btn.sm{min-height:38px;padding:0 15px;font-size:13px;margin-left:auto;white-space:nowrap;flex:none;box-shadow:none}
+.cs-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.cs-hero{position:relative;padding:44px 0 36px}
+.cs-hero .grid{display:grid;gap:28px}
+.cs-kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink2);margin:0 0 18px}
+.cs-kick::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 25%,transparent)}
+.cs-hero h1{font-size:calc(52px * var(--hs));margin:0 0 18px;overflow-wrap:anywhere}
+.cs-hero h1.long{font-size:calc(40px * var(--hs))}
+.cs-hero .sub{font-size:18px;color:var(--ink2);max-width:40ch;margin:0 0 26px}
 .cs-ctas{display:flex;gap:10px;flex-wrap:wrap}
-.cs-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.cs-facts span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink);background:rgba(0,0,0,.25)}
-.cs-sec{padding:64px 0;border-top:1px solid var(--line)}
-.cs-sec h2{font-size:32px;letter-spacing:-.035em;line-height:1.05;margin:0 0 26px;max-width:18ch}
-.cs-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:0 0 10px;font-weight:600}
+.cs-media{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);isolation:isolate}
+.cs-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.cs.on .cs-media img{transform:none}
+.cs-media.art{background:radial-gradient(80% 70% at 80% 10%,color-mix(in srgb,var(--ac) 70%,transparent),transparent 65%),radial-gradient(60% 60% at 0% 100%,color-mix(in srgb,var(--ac) 35%,transparent),transparent 70%),var(--bg2)}
+.cs-media.art b{position:absolute;left:5%;top:4%;font-family:var(--fd);font-weight:900;font-size:min(62cqw,420px);line-height:.8;color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--ink) 30%,transparent);text-transform:uppercase;letter-spacing:-.04em}
+.cs-media .tag{position:absolute;left:14px;bottom:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:13px;color:var(--ink);border:1px solid var(--line)}
+.cs-media .tag strong{display:block;font-size:14px}
+.cs-media .tag span{color:var(--ink2)}
+.cs-media .tag i{flex:none;width:40px;height:40px;border-radius:12px;background:var(--ac);color:var(--on);display:grid;place-items:center;font-style:normal;font-weight:800;font-family:var(--fd);font-size:18px}
+.cs-facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:34px}
+.cs-facts div{padding:16px 0 16px 14px;border-left:1px solid var(--line)}
+.cs-facts div:first-child{border-left:0;padding-left:0}
+.cs-facts b{display:block;font-family:var(--fd);font-weight:var(--hw);text-transform:var(--hcase);font-size:calc(30px * var(--hs));line-height:1;letter-spacing:var(--hls)}
+.cs-facts span{font-size:12px;color:var(--ink2)}
+.cs-band{background:var(--ac);color:var(--on);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--fd);font-weight:var(--hw);text-transform:var(--hcase);font-size:calc(22px * var(--hs));letter-spacing:var(--hls)}
+.cs-band div{display:inline-block;animation:csMarq 40s linear infinite}
+.cs-band span{padding:0 22px}
+.cs-band span::after{content:"\2726";margin-left:44px;opacity:.6}
+@keyframes csMarq{to{transform:translateX(-50%)}}
+.cs-sec{padding:72px 0;position:relative}
+.cs-sec+.cs-sec{border-top:1px solid var(--line)}
+.cs-head{display:grid;gap:12px;margin-bottom:34px}
+.cs-label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin:0;font-weight:700;filter:saturate(1.1)}
+.cs[data-look=editorial] .cs-label{filter:brightness(.8)}
+.cs-head h2{font-size:calc(42px * var(--hs));max-width:16ch}
 .cs-cards{display:grid;gap:14px}
-.cs-card{border:1px solid var(--line);border-radius:20px;padding:24px;background:rgba(255,255,255,.025);display:flex;flex-direction:column;gap:10px}
-.cs-card.hl{border-color:color-mix(in srgb,var(--ac) 70%,transparent);background:color-mix(in srgb,var(--ac) 9%,transparent)}
-.cs-card h3{font-size:21px;letter-spacing:-.02em;margin:0;line-height:1.15}
+.cs-card{position:relative;border:1px solid var(--line);border-radius:24px;padding:26px;background:var(--card);display:flex;flex-direction:column;gap:12px;min-height:240px;overflow:hidden}
+.cs-card.hl{background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 22%,var(--bg)),var(--bg) 75%);border-color:color-mix(in srgb,var(--ac) 55%,transparent)}
+.cs-card .no{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+.cs-card h3{font-size:calc(28px * var(--hs));margin:0}
 .cs-card p{margin:0;color:var(--ink2)}
-.cs-card .pr{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-top:auto}
-.cs-steps{display:grid;gap:12px;counter-reset:s}
-.cs-step{display:flex;gap:16px;padding:20px;border-radius:18px;border:1px solid var(--line)}
-.cs-step em{flex:none;font-style:normal;width:38px;height:38px;border-radius:12px;background:var(--ac);color:#fff;display:grid;place-items:center;font-weight:800}
-.cs-step b{display:block;font-size:17px;margin-bottom:2px}
+.cs-card .pr{margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-top:16px;border-top:1px solid var(--line)}
+.cs-card .pr b{font-family:var(--fd);font-weight:var(--hw);font-size:calc(40px * var(--hs));letter-spacing:var(--hls);line-height:1}
+.cs-card .pr a{font-weight:700;font-size:14px;text-decoration:none;color:var(--ac);filter:brightness(1.2)}
+.cs[data-look=editorial] .cs-card .pr a{filter:brightness(.8)}
+.cs-steps{display:grid;gap:0;border-top:1px solid var(--line)}
+.cs-step{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:24px 0;border-bottom:1px solid var(--line)}
+.cs-step em{font-style:normal;font-family:var(--fd);font-weight:var(--hw);font-size:calc(40px * var(--hs));line-height:1;color:var(--ac)}
+.cs-step b{display:block;font-size:19px;margin-bottom:4px;font-weight:700}
 .cs-step span{color:var(--ink2)}
-.cs-about{display:grid;gap:22px;align-items:center}
-.cs-about .pic{aspect-ratio:4/5;border-radius:22px;background:radial-gradient(60% 60% at 70% 20%,color-mix(in srgb,var(--ac) 50%,transparent),transparent 70%),#17171b;background-size:cover;background-position:center;display:grid;place-items:center;color:var(--ink2);font-size:13px;max-height:420px}
-.cs-about blockquote{margin:0;font-size:24px;line-height:1.3;letter-spacing:-.02em}
-.cs-about cite{display:block;margin-top:14px;font-style:normal;color:var(--ink2);font-size:15px}
-.cs-ch{border-radius:26px;padding:32px 26px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,#000),color-mix(in srgb,var(--ac) 45%,#000));color:#fff}
-.cs-ch small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.85}
-.cs-ch h3{font-size:32px;letter-spacing:-.04em;line-height:1.02;margin:10px 0 10px}
-.cs-ch p{margin:0 0 20px;opacity:.9}
-.cs-ch ol{margin:0 0 22px;padding-left:20px;display:grid;gap:6px}
-.cs-ch .cs-btn{background:#fff;color:#111}
-.cs-faq details{border-bottom:1px solid var(--line);padding:16px 0}
-.cs-faq summary{font-weight:600;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
-.cs-faq summary::after{content:"+";color:var(--ac);font-size:22px;line-height:1;filter:brightness(1.3)}
-.cs-faq details[open] summary::after{content:"\2212"}
-.cs-faq p{color:var(--ink2);margin:10px 0 0}
-.cs-foot{padding:34px 0 40px;border-top:1px solid var(--line);color:var(--ink2);font-size:13px}
+.cs-ch{position:relative;border-radius:30px;padding:34px 24px;background:radial-gradient(90% 80% at 100% 0,color-mix(in srgb,#fff 18%,transparent),transparent 60%),var(--ac);color:var(--on);overflow:hidden}
+.cs-ch small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.8}
+.cs-ch h3{font-size:calc(46px * var(--hs));margin:12px 0 12px}
+.cs-ch p{margin:0 0 22px;opacity:.9;max-width:44ch}
+.cs-count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 24px;max-width:420px}
+.cs-count div{background:color-mix(in srgb,#000 22%,transparent);border-radius:14px;padding:12px 0;text-align:center}
+.cs-count b{display:block;font-family:var(--fd);font-weight:var(--hw);font-size:calc(30px * var(--hs));line-height:1;font-variant-numeric:tabular-nums}
+.cs-count span{font-size:11px;opacity:.8}
+.cs-ch ol{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:8px;counter-reset:r}
+.cs-ch li{counter-increment:r;display:flex;gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,#000 16%,transparent)}
+.cs-ch li::before{content:counter(r,decimal-leading-zero);font-weight:800;opacity:.7;font-size:13px}
+.cs-ch .cs-btn{background:var(--on);color:var(--ac);box-shadow:none}
+.cs-about{display:grid;gap:26px;align-items:center}
+.cs-about .cs-media{aspect-ratio:1/1;max-height:440px}
+.cs-about blockquote{margin:0;font-family:var(--fd);font-weight:var(--hw);text-transform:none;letter-spacing:var(--hls);font-size:calc(30px * var(--hs));line-height:1.12}
+.cs[data-look=athletic] .cs-about blockquote{font-family:var(--fb);font-weight:600;font-size:26px;letter-spacing:-.02em;line-height:1.25}
+.cs-about cite{display:flex;align-items:center;gap:10px;margin-top:18px;font-style:normal;color:var(--ink2);font-size:15px}
+.cs-about cite::before{content:"";width:28px;height:2px;background:var(--ac)}
+.cs-faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.cs-faq details:first-of-type{border-top:1px solid var(--line)}
+.cs-faq summary{font-weight:600;font-size:18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.cs-faq summary::-webkit-details-marker{display:none}
+.cs-faq summary::after{content:"";flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:linear-gradient(var(--ink),var(--ink)) center/10px 1.5px no-repeat,linear-gradient(var(--ink),var(--ink)) center/1.5px 10px no-repeat;transition:transform .3s}
+.cs-faq details[open] summary::after{transform:rotate(45deg)}
+.cs-faq p{color:var(--ink2);margin:10px 0 0;max-width:60ch}
+.cs-end{padding:84px 0;text-align:center;background:radial-gradient(60% 80% at 50% 100%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 70%)}
+.cs-end h2{font-size:calc(54px * var(--hs));margin:0 auto 22px;max-width:16ch}
+.cs-foot{padding:30px 0 34px;border-top:1px solid var(--line);color:var(--ink2);font-size:13px}
 .cs-foot .in{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+.cs .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.cs .rv.on{opacity:1;transform:none}
+.cs .rv.d1{transition-delay:.08s}.cs .rv.d2{transition-delay:.16s}.cs .rv.d3{transition-delay:.24s}
 @container (min-width:720px){
-  .cs .in{padding:0 40px}
-  .cs-links{display:flex}.cs-links+.cs-btn.sm{margin-left:8px}
-  .cs-hero{min-height:640px;padding-bottom:64px}
-  .cs-hero h1{font-size:60px;max-width:17ch}
-  .cs-hero p{font-size:20px}
-  .cs-sec{padding:96px 0}
-  .cs-sec h2{font-size:46px}
+  .cs .in{padding:0 44px}
+  .cs-links{display:flex}.cs-links+.cs-btn.sm{margin-left:10px}
+  .cs-hero{padding:72px 0 56px}
+  .cs-hero .grid{grid-template-columns:1.15fr .85fr;align-items:end;gap:48px}
+  .cs-hero h1{font-size:calc(104px * var(--hs))}
+  .cs-hero h1.long{font-size:calc(72px * var(--hs))}
+  .cs-hero .sub{font-size:20px}
+  .cs-facts div{padding:22px 0 22px 26px}
+  .cs-facts b{font-size:calc(44px * var(--hs))}
+  .cs-band{font-size:calc(30px * var(--hs));padding:18px 0}
+  .cs-sec{padding:112px 0}
+  .cs-head{grid-template-columns:.8fr 1.2fr;align-items:end}
+  .cs-head h2{font-size:calc(64px * var(--hs))}
   .cs-cards{grid-template-columns:1fr 1fr}
-  .cs-steps{grid-template-columns:repeat(3,1fr)}.cs-step{flex-direction:column}
-  .cs-about{grid-template-columns:.8fr 1.2fr;gap:48px}
-  .cs-about blockquote{font-size:32px}
-  .cs-ch{padding:48px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
-  .cs-ch h3{font-size:44px}
-  .cs-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px}
+  .cs-card{padding:34px;min-height:320px}
+  .cs-steps{grid-template-columns:repeat(3,1fr);border-top:0}
+  .cs-step{grid-template-columns:1fr;padding:28px 26px 30px;border-bottom:0;border-left:1px solid var(--line)}
+  .cs-step:first-child{border-left:0;padding-left:0}
+  .cs-step em{font-size:calc(64px * var(--hs));margin-bottom:18px}
+  .cs-ch{padding:60px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .cs-ch h3{font-size:calc(72px * var(--hs))}
+  .cs-about{grid-template-columns:.85fr 1.15fr;gap:64px}
+  .cs-about blockquote{font-size:calc(46px * var(--hs))}
+  .cs[data-look=athletic] .cs-about blockquote{font-size:36px}
+  .cs-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}
+  .cs-end h2{font-size:calc(96px * var(--hs))}
 }
+@media (prefers-reduced-motion:reduce){.cs .rv{opacity:1;transform:none;transition:none}.cs-band div{animation:none}.cs-media img{transform:none}}
 </style>
 </head>
 <body>
@@ -491,6 +558,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
       <label class="chip"><input type="color" id="pick" value="#C83A75" aria-label="Brand color">Color</label>
       <label class="chip"><span id="logoPv">+</span>Logo<input type="file" accept="image/*" id="logoIn"></label>
       <label class="chip"><span id="photoPv">+</span>Photo<input type="file" accept="image/*" id="photoIn"></label>
+      <div class="seg" id="look" role="group" aria-label="Look"><button type="button" data-k="athletic">Athletic</button><button type="button" data-k="editorial">Editorial</button><button type="button" data-k="bold">Bold</button></div>
       <div class="seg" id="seg" role="group" aria-label="Preview size"><button type="button" data-v="phone">Phone</button><button type="button" data-v="desk">Desktop</button></div>
     </div>
     <div class="live-row">
@@ -525,7 +593,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
       <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
       <a class="btn ghost" href="/start?next=/coaches/%23build">Start free</a></div>
     <div class="tier lead"><div class="name">Coach</div><div class="price">$149<small> a month</small></div>
-      <ul><li>The full kit, rewritten in your voice</li><li>Client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>Every pack in the store</li></ul>
+      <ul><li>Your site and challenge page live, in your brand</li><li>Client sign-ups and the client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>The full launch kit, yours to edit</li></ul>
       <a class="btn" href="/start?next=/coaches/%23build">Start as a coach</a></div>
     <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
       <ul><li>Everything in Coach</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
@@ -544,7 +612,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 </main>
 <footer><div class="wrap foot">
   <p>127 Group LLC. Make today day one. Built by Eli Christiansen, 4x founder.</p>
-  <nav class="foot-links"><a href="/pricing">Membership</a><a href="/circle">Founder's Circle</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/earnings-disclaimer">Earnings disclaimer</a><a href="/cookies">Cookie Notice</a><a href="/login">Sign in</a></nav>
+  <nav class="foot-links"><a href="#pricing">Pricing</a><a href="/circle">Founder's Circle</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/earnings-disclaimer">Earnings disclaimer</a><a href="/cookies">Cookie Notice</a><a href="/login">Sign in</a></nav>
 </div></footer>
 <div class="toast" id="toast"></div>
 
@@ -577,40 +645,67 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   function E(tag, path, text, live, cls){ return '<'+tag+(cls?' class="'+cls+'"':'')+(live?' data-e="'+path+'" contenteditable="plaintext-only" spellcheck="true"':'')+'>'+esc(text)+'</'+tag+'>'; }
   function initials(n){ return String(n||'').split(/\s+/).map(function(w){ return w[0]||''; }).join('').slice(0,2).toUpperCase(); }
 
+  // Text on the coach's color: dark on light colors, white on dark ones.
+  function onColor(hex){ var n = parseInt(String(hex).slice(1), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+    var L = function(c){ c /= 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); }; return (.2126*L(r) + .7152*L(g) + .0722*L(b)) > .4 ? '#0b0b0d' : '#ffffff'; }
+  function csOpen(f){ return '<div class="cs" data-look="'+(brand.look||'athletic')+'" style="--ac:'+esc(f.color)+';--on:'+onColor(f.color)+'">'; }
+  function navHTML(f, links, cta, href){
+    var logo = brand.logo ? '<img src="'+brand.logo+'" alt="'+esc(f.business)+'">' : '<span class="mk">'+esc(initials(f.business))+'</span>';
+    return '<header class="cs-nav"><div class="in"><div class="cs-logo">'+logo+'<span>'+esc(f.business)+'</span></div>'+(links?'<nav class="cs-links">'+links+'</nav>':'')+'<a class="cs-btn sm" href="'+href+'">'+esc(cta)+'</a></div></header>';
+  }
+  function media(f, tag){
+    return '<div class="cs-media rv d2'+(brand.photo?'':' art')+'">'+(brand.photo?'<img src="'+brand.photo+'" alt="'+esc(f.coach)+'">':'<b>'+esc(initials(f.business))+'</b>')+tag+'</div>';
+  }
+  function cdown(start){ var ms = Math.max(0, Date.parse(start+'T09:00:00') - Date.now()); return [Math.floor(ms/864e5), Math.floor(ms/36e5)%24, Math.floor(ms/6e4)%60, Math.floor(ms/1e3)%60]; }
+  function countHTML(f){ var c = cdown(f.start); return '<div class="cs-count" data-start="'+esc(f.start)+'">'+['days','hours','min','sec'].map(function(u,i){ return '<div><b>'+String(c[i]).padStart(2,'0')+'</b><span>'+u+'</span></div>'; }).join('')+'</div>'; }
+
   function siteHTML(kit, live){
     var f = kit.facts, s = kit.site, c = kit.challenge;
-    var logo = brand.logo ? '<img src="'+brand.logo+'" alt="'+esc(f.business)+'">' : '<span class="mk">'+esc(initials(f.business))+'</span>';
-    var photo = brand.photo ? ' ph" style="background-image:url('+brand.photo+')' : '';
-    return '<div class="cs" style="--ac:'+esc(f.color)+'">'+
-      '<header class="cs-nav"><div class="in"><div class="cs-logo">'+logo+'<span>'+esc(f.business)+'</span></div>'+
-        '<nav class="cs-links"><span>Coaching</span><span>Challenge</span><span>About</span><span>Questions</span></nav><a class="cs-btn sm" href="#apply">'+esc(s.cta)+'</a></div></header>'+
-      '<section class="cs-hero'+photo+'"><div class="in"><p class="cs-kick">Online coaching for '+esc(f.who)+'</p>'+
-        E('h1','site.heroTitle',s.heroTitle,live)+E('p','site.heroSub',s.heroSub,live)+
-        '<div class="cs-ctas"><a class="cs-btn" href="#apply">'+esc(s.cta)+'</a><a class="cs-btn ghost" href="#challenge">Join the '+f.days+'-day challenge</a></div>'+
-        '<div class="cs-facts"><span>'+esc(c.dates)+'</span><span>'+f.days+' days, one workout a day</span><span>'+esc(c.price)+' to join</span></div></div></section>'+
-      '<section class="cs-sec"><div class="in"><p class="cs-label">Coaching</p><h2>Two ways to train with '+esc(f.first)+'.</h2><div class="cs-cards">'+
-        s.program.map(function(p,i){ return '<div class="cs-card'+(i?' hl':'')+'"><h3>'+esc(p.name)+'</h3>'+E('p','site.program.'+i+'.line',p.line,live)+'<div class="pr">'+esc(p.price)+'</div></div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec"><div class="in"><p class="cs-label">How it works</p><h2>Three steps, then you train.</h2><div class="cs-steps">'+
-        s.steps.map(function(p,i){ return '<div class="cs-step"><em>'+(i+1)+'</em><div>'+E('b','site.steps.'+i+'.title',p.title,live)+E('span','site.steps.'+i+'.body',p.body,live)+'</div></div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec"><div class="in cs-about"><div class="pic"'+(brand.photo?' style="background-image:url('+brand.photo+')"':'')+'>'+(brand.photo?'':'Your photo')+'</div><div><p class="cs-label">About '+esc(f.first)+'</p>'+
+    return csOpen(f)+navHTML(f, '<a href="#cs-coach">Coaching</a><a href="#cs-ch">Challenge</a><a href="#cs-about">About</a><a href="#cs-faq">Questions</a>', s.cta, '#cs-apply')+
+      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">Online coaching for '+esc(f.who)+'</p>'+
+        E('h1','site.heroTitle',s.heroTitle,live,'dsp rv d1'+(s.heroTitle.length>44?' long':''))+E('p','site.heroSub',s.heroSub,live,'sub rv d2')+
+        '<div class="cs-ctas rv d3"><a class="cs-btn" href="#cs-apply">'+esc(s.cta)+' &rarr;</a><a class="cs-btn ghost" href="#cs-ch">The '+f.days+'-day challenge</a></div></div>'+
+        media(f, '<div class="tag"><div><strong>'+esc(c.title)+'</strong><span>'+esc(c.dates)+'</span></div><i>'+f.days+'</i></div>')+'</div>'+
+        '<div class="in"><div class="cs-facts rv"><div><b>'+f.days+'</b><span>days in the challenge</span></div><div><b>1</b><span>workout a day, in the app</span></div><div><b>'+esc(c.price)+'</b><span>to join</span></div></div></div></section>'+
+      '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
+      '<section class="cs-sec" id="cs-coach"><div class="in"><div class="cs-head rv"><p class="cs-label">Coaching</p><h2 class="dsp">Two ways to train with '+esc(f.first)+'.</h2></div><div class="cs-cards">'+
+        s.program.map(function(p,i){ return '<div class="cs-card rv d'+(i+1)+(i?' hl':'')+'"><span class="no">0'+(i+1)+'</span><h3 class="dsp">'+esc(p.name)+'</h3>'+E('p','site.program.'+i+'.line',p.line,live)+'<div class="pr"><b>'+esc(p.price)+'</b><a href="#cs-apply">'+(i?'Apply':'Join')+' &rarr;</a></div></div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">How it works</p><h2 class="dsp">Three steps. Then you train.</h2></div><div class="cs-steps">'+
+        s.steps.map(function(p,i){ return '<div class="cs-step rv d'+(i+1)+'"><em>0'+(i+1)+'</em><div>'+E('b','site.steps.'+i+'.title',p.title,live)+E('span','site.steps.'+i+'.body',p.body,live)+'</div></div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec" id="cs-ch"><div class="in"><div class="cs-ch rv"><div><small>'+esc(c.dates)+'</small><h3 class="dsp">'+esc(c.title)+'</h3>'+E('p','challenge.line',c.line,live)+countHTML(f)+
+        '<a class="cs-btn" href="#cs-apply">Join for '+esc(c.price)+' &rarr;</a></div><ol>'+c.rules.map(function(r,i){ return E('li','challenge.rules.'+i,r,live); }).join('')+'</ol></div></div></section>'+
+      '<section class="cs-sec" id="cs-about"><div class="in cs-about">'+media(f,'')+'<div class="rv d1"><p class="cs-label" style="margin-bottom:18px">About '+esc(f.first)+'</p>'+
         E('blockquote','site.about',s.about,live)+'<cite>'+esc(f.coach)+', '+esc(f.business)+'</cite></div></div></section>'+
-      '<section class="cs-sec" id="challenge"><div class="in"><div class="cs-ch"><div><small>'+esc(c.dates)+'</small><h3>'+esc(c.title)+'</h3>'+E('p','challenge.line',c.line,live)+
-        '<a class="cs-btn" href="#apply">Join for '+esc(c.price)+'</a></div><ol>'+c.rules.map(function(r,i){ return E('li','challenge.rules.'+i,r,live); }).join('')+'</ol></div></div></section>'+
-      '<section class="cs-sec"><div class="in cs-faq"><div><p class="cs-label">Questions</p><h2>Before you apply.</h2></div><div>'+
+      '<section class="cs-sec" id="cs-faq"><div class="in cs-faq"><div class="cs-head rv" style="display:block"><p class="cs-label">Questions</p><h2 class="dsp" style="margin-top:12px">Before you apply.</h2></div><div class="rv d1">'+
         s.faq.map(function(q,i){ return '<details'+(live?' open':'')+'><summary>'+E('span','site.faq.'+i+'.q',q.q,live)+'</summary>'+E('p','site.faq.'+i+'.a',q.a,live)+'</details>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-end" id="cs-apply"><div class="in"><h2 class="dsp rv">Start on '+esc(dateShort(f.start))+'.</h2><a class="cs-btn rv d1" href="'+(f.handle?'https://instagram.com/'+esc(f.handle):'#')+'">'+esc(s.cta)+' &rarr;</a></div></section>'+
       '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+(f.handle?' · @'+esc(f.handle):'')+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
   }
+  function dateShort(iso){ var d = new Date(iso+'T12:00:00Z'); return d.toLocaleDateString('en-US',{ month:'long', day:'numeric', timeZone:'UTC' }); }
 
-  function countdown(start){ var ms = Date.parse(start+'T09:00:00') - Date.now(); if (!(ms > 0)) return 'It has started'; var d=Math.floor(ms/864e5), h=Math.floor(ms/36e5)%24; return d+' days, '+h+' hours to go'; }
   function challengeHTML(kit, live){
     var f = kit.facts, c = kit.challenge;
-    return '<div class="cs" style="--ac:'+esc(f.color)+'"><header class="cs-nav"><div class="in"><div class="cs-logo">'+(brand.logo?'<img src="'+brand.logo+'" alt="">':'<span class="mk">'+esc(initials(f.business))+'</span>')+'<span>'+esc(f.business)+'</span></div><a class="cs-btn sm" href="#join">Join</a></div></header>'+
-      '<section class="cs-hero'+(brand.photo?' ph" style="background-image:url('+brand.photo+')':'')+'" style="min-height:460px"><div class="in"><p class="cs-kick">'+esc(c.dates)+'</p>'+E('h1','challenge.title',c.title,live)+E('p','challenge.line',c.line,live)+
-        '<div class="cs-ctas"><a class="cs-btn" href="#join">Join for '+esc(c.price)+'</a></div><div class="cs-facts"><span>'+esc(countdown(f.start))+'</span></div></div></section>'+
-      '<section class="cs-sec"><div class="in"><p class="cs-label">Every day</p><div class="cs-steps">'+c.rules.map(function(r,i){ return '<div class="cs-step"><em>'+(i+1)+'</em>'+E('div','challenge.rules.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec"><div class="in"><p class="cs-label">What you get</p><div class="cs-cards">'+c.get.map(function(r,i){ return '<div class="cs-card">'+E('p','challenge.get.'+i,r,live)+'</div>'; }).join('')+'</div>'+
-        '<p style="margin:24px 0 0;font-weight:600">'+E('span','challenge.finish',c.finish,live)+'</p></div></section>'+
+    return csOpen(f)+navHTML(f, '', 'Join', '#cs-join')+
+      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">'+esc(c.dates)+'</p>'+E('h1','challenge.title',c.title,live,'dsp rv d1'+(c.title.length>44?' long':''))+E('p','challenge.line',c.line,live,'sub rv d2')+
+        '<div class="rv d3">'+countHTML(f).replace('cs-count','cs-count cs-count-l')+'<a class="cs-btn" href="#cs-join">Join for '+esc(c.price)+' &rarr;</a></div></div>'+
+        media(f, '<div class="tag"><div><strong>'+esc(f.coach)+'</strong><span>'+esc(f.business)+'</span></div><i>'+f.days+'</i></div>')+'</div></section>'+
+      '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
+      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">Every day</p><h2 class="dsp">The rules.</h2></div><div class="cs-steps">'+c.rules.map(function(r,i){ return '<div class="cs-step rv d'+(i%3+1)+'"><em>0'+(i+1)+'</em>'+E('div','challenge.rules.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">What you get</p><h2 class="dsp">Everything is in the app.</h2></div><div class="cs-cards">'+c.get.map(function(r,i){ return '<div class="cs-card rv d'+(i%2+1)+'" style="min-height:0"><span class="no">0'+(i+1)+'</span>'+E('p','challenge.get.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-end" id="cs-join"><div class="in"><h2 class="dsp rv">'+E('span','challenge.finish',c.finish,live)+'</h2><a class="cs-btn rv d1" href="#">Join for '+esc(c.price)+' &rarr;</a></div></section>'+
       '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
+  }
+
+  // Motion for the coach's pages: reveal on scroll inside the preview frame, and the challenge countdown ticking.
+  var io = null, tick = null;
+  function animate(){
+    var scr = document.querySelector('#panel .frame-scr'); if (io) io.disconnect(); clearInterval(tick);
+    var cs = document.querySelector('#panel .cs'); if (!cs) return;
+    requestAnimationFrame(function(){ cs.classList.add('on'); });
+    var els = cs.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { [].forEach.call(els, function(e){ e.classList.add('on'); }); }
+    else { io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }); }, { root: scr, rootMargin: '0px 0px -8% 0px' }); [].forEach.call(els, function(e){ io.observe(e); }); }
+    tick = setInterval(function(){ [].forEach.call(cs.querySelectorAll('.cs-count'), function(el){ var c = cdown(el.dataset.start); [].forEach.call(el.querySelectorAll('b'), function(b, i){ b.textContent = String(c[i]).padStart(2,'0'); }); }); }, 1000);
   }
 
   function frame(inner, url){
@@ -647,8 +742,9 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   }
   function paint(){
     [].forEach.call(tabs.children,function(b){ b.setAttribute('aria-selected', b.dataset.t===state.tab); });
-    document.getElementById('panel').innerHTML = render(cur.kit);
+    document.getElementById('panel').innerHTML = render(cur.kit); animate();
     [].forEach.call(document.querySelectorAll('#seg button'), function(b){ b.setAttribute('aria-pressed', b.dataset.v===state.view); });
+    [].forEach.call(document.querySelectorAll('#look button'), function(b){ b.setAttribute('aria-pressed', b.dataset.k===(brand.look||'athletic')); });
     warn();
   }
   function buildKit(d){ var kit = K.build(d); K.applyEdits(kit, edits); return kit; }
@@ -670,6 +766,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     if (e.target.closest('[data-e]') || e.target.closest('.cs a')) { if (e.target.closest('.cs a')) e.preventDefault(); }
     if (e.target.closest('summary [data-e]')) e.preventDefault();
   });
+  document.getElementById('look').addEventListener('click', function(e){ var b = e.target.closest('[data-k]'); if (!b) return; brand.look = b.dataset.k; keep(BK, brand); paint(); });
   document.getElementById('seg').addEventListener('click', function(e){ var b = e.target.closest('[data-v]'); if (!b) return; state.view = b.dataset.v; paint(); });
   var pick = document.getElementById('pick');
   pick.addEventListener('input', function(){ state.color = pick.value; [].forEach.call(sw.children,function(x){ x.setAttribute('aria-pressed','false'); }); run(); try { localStorage.setItem('coachKitForm', JSON.stringify(formData())); } catch(_){} });
@@ -686,8 +783,17 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   brandPv();
   // Download my site: one HTML file with the coach's text, color, logo and photo in it.
   document.getElementById('dl').addEventListener('click', function(){
-    var k = cur.kit, html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(k.facts.business)+'</title><style>body{margin:0}'+document.getElementById('siteCss').textContent+'</style></head><body>'+siteHTML(k, false)+'</body></html>';
-    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = k.facts.slug + '.html'; document.body.appendChild(a); a.click(); a.remove();
+    var k = cur.kit, css = document.getElementById('siteCss').textContent;
+    var urls = (css.match(/url\(\/fonts\/coach\/[^)]+\)/g) || []).map(function(u){ return u.slice(4, -1); });
+    var js = "(function(){var cs=document.querySelector('.cs');cs.classList.add('on');var r=document.querySelectorAll('.rv');if(!('IntersectionObserver'in window)){r.forEach(function(e){e.classList.add('on')});}else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});r.forEach(function(e){io.observe(e)});}"+
+      "setInterval(function(){document.querySelectorAll('.cs-count').forEach(function(el){var ms=Math.max(0,Date.parse(el.dataset.start+'T09:00:00')-Date.now()),c=[Math.floor(ms/864e5),Math.floor(ms/36e5)%24,Math.floor(ms/6e4)%60,Math.floor(ms/1e3)%60];el.querySelectorAll('b').forEach(function(b,i){b.textContent=String(c[i]).padStart(2,'0')})})},1000);})();";
+    // Fonts go inside the file, so the site looks the same wherever it's hosted.
+    Promise.all(urls.map(function(u){ return fetch(u).then(function(r){ return r.blob(); }).then(function(b){ return new Promise(function(ok){ var fr = new FileReader(); fr.onload = function(){ ok([u, fr.result]); }; fr.readAsDataURL(b); }); }).catch(function(){ return [u, u]; }); }))
+      .then(function(pairs){
+        pairs.forEach(function(p){ css = css.split('url('+p[0]+')').join('url('+p[1]+')'); });
+        var html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(k.facts.business)+'</title><meta name="description" content="'+esc(k.site.heroSub)+'"><style>body{margin:0}html{scroll-behavior:smooth}'+css+'</style></head><body>'+siteHTML(k, false)+'<script>'+js+'<\/script></body></html>';
+        var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = k.facts.slug + '.html'; document.body.appendChild(a); a.click(); a.remove();
+      });
   });
   form.addEventListener('submit', function(e){ e.preventDefault(); run(); document.getElementById('kit').scrollIntoView({behavior:'smooth'}); });
   var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(function(){ run(); try { localStorage.setItem('coachKitForm', JSON.stringify(formData())); } catch(_){} }, 250); });

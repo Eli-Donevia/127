@@ -11,7 +11,8 @@ if (!out) { console.error('Usage: node scripts/build-coach-preview.js <out-dir>'
 fs.mkdirSync(out, { recursive: true });
 const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 const font = (name) => `url(data:font/woff2;base64,${fs.readFileSync(path.join(root, 'public/fonts', `Geist-${name}.woff2`)).toString('base64')})`;
-const inlineFonts = (s) => s.replace(/url\(\/fonts\/Geist-(\w+)\.woff2\)/g, (_, n) => font(n));
+const inlineFonts = (s) => s.replace(/url\(\/fonts\/Geist-(\w+)\.woff2\)/g, (_, n) => font(n))
+  .replace(/url\(\/fonts\/coach\/([\w-]+\.woff2)\)/g, (_, n) => `url(data:font/woff2;base64,${fs.readFileSync(path.join(root, 'public/fonts/coach', n)).toString('base64')})`);
 const strip = (s) => s
   .replace(/<!doctype html>\s*<html lang="en">\s*<head>\s*<meta charset="utf-8">\s*<meta name="viewport"[^>]*>\s*/i, '')
   .replace('</head>\n<body>', '')
