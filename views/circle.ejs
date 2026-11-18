@@ -10,10 +10,10 @@
     <div class="wrap founder" style="align-items:end">
       <div>
         <div class="eyebrow">Founder's Circle · By application</div>
-        <h1 class="serif" style="font-size:clamp(48px,6.4vw,84px);line-height:.95;letter-spacing:-.055em;margin:18px 0 0"><span class="grad">A small room for</span> <span style="color:var(--gold)">driven</span> <span class="grad">founders.</span></h1>
+        <h1 class="serif" style="font-size:clamp(48px,6.4vw,84px);line-height:.95;letter-spacing:-.055em;margin:18px 0 0"><% var cc = typeof coachHome !== 'undefined' && coachHome; %><span class="grad">A small room for</span> <span style="color:var(--gold)"><%= cc ? 'serious' : 'driven' %></span> <span class="grad"><%= cc ? 'coaches.' : 'founders.' %></span></h1>
       </div>
       <div>
-        <p style="font-size:19px;margin:0 0 28px">Up to <%= circleCapacity %> heavily committed, driven founders. One focused call every week with Eli, real hot seats, clear commitments, and two in-person gatherings a year.</p>
+        <p style="font-size:19px;margin:0 0 28px">Up to <%= circleCapacity %> <%= cc ? 'online coaches building their business on 127' : 'heavily committed, driven founders' %>. One focused call every week with Eli, real hot seats, clear commitments, and two in-person gatherings a year.</p>
         <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
           <a href="<%= user ? '/app/circle' : '/circle/apply' %>" class="btn light"><%= circleSeatsLeft > 0 ? 'Apply for a seat' : 'Join the waitlist' %> <span class="arrow"></span></a>
           <span class="small" style="color:var(--on-dark-2)">$299 / month · <% if (circleSeatsLeft < circleCapacity) { %><%= circleSeatsLeft %> of <%= circleCapacity %> seats open<% } else { %><%= circleCapacity %> seats · applications reviewed weekly<% } %></span>

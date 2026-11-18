@@ -80,7 +80,7 @@ async function main() {
   const cu = await userDoc(`coach@${DOMAIN}`, 'Demo Coach', { role: 'coach' });
   const { coach: c } = await coach.saveCoach(cu, {
     brandName: 'Forge Hybrid', coachName: 'Demo Coach', slug: 'demo-coach', initials: 'FH', accent: '#ff5a36', niche: 'hybrid',
-    headline: 'Strong, lean and conditioned. Coached from your phone.',
+    headline: 'Lift, run and train hybrid. Coached from your phone.',
     bio: 'Demo Coach is a made-up example coach for the 127 coach platform prototype. Every client, number and check-in on this site is demo data.',
     offerTitle: '1:1 Hybrid Coaching', offerPrice: '199',
     offerBullets: 'A 4-day program built for your gym and schedule\nWeekly check-ins with written feedback\nDaily habit targets: protein, steps, water, sleep\nYour own app with every session and log\nEntry to the next Demo Coach 50 cohort',

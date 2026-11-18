@@ -228,6 +228,21 @@ app.use((req, res, next) => {
   res.locals.launch = launch.view();
   // The coach homepage is the front door (COACH_HOME=on): the shared header, footer and bio page follow it.
   res.locals.coachHome = process.env.COACH_HOME === 'on';
+  next();
+});
+// COACH_HOME=on (Grok QA, Nov 18): the old founder offer and funnels are retired. The $19 Builder pages, the old free
+// tools and the founder roadmap picker send people to the coach page; the $19 payment form is off. Members who are
+// signed in keep /start (retakes). Off: every page works as before. 302s, so turning it off brings them back.
+const COACH_RETIRED = { '/pricing': '/#pricing', '/founding': '/#pricing', '/founding/lock': '/#pricing', '/about': '/#pricing', '/score': '/', '/stack': '/', '/idea-test': '/', '/media-kit': '/' };
+app.use((req, res, next) => {
+  if (process.env.COACH_HOME !== 'on') return next();
+  const p = req.path.replace(/\/+$/, '') || '/';
+  if (COACH_RETIRED[p]) { res.set('X-Robots-Tag', 'noindex'); return res.redirect(302, COACH_RETIRED[p]); }
+  if ((p === '/start' || p === '/signup') && !req.user) return res.redirect(302, '/coaches/join?next=' + encodeURIComponent('/coaches/#build'));
+  next();
+});
+app.use((req, res, next) => {
+  const user = req.user;
   // First 25 on real business data (defined with the homepage route): the footer links it, the hero and bio page lead with it.
   res.locals.first25Live = first25Live();
   res.locals.consentCopy = consent.copy;
@@ -809,11 +824,12 @@ app.get('/founding/confirm', wrap(async (req, res) => {
 // Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
 app.get('/links', (req, res) => res.render('links', { title: 'Links', ...(process.env.COACH_HOME === 'on' ? { ogImage: '/img/og-coach.png' } : {}), description: process.env.COACH_HOME === 'on' ? 'Eli Christiansen: 127 for online fitness coaches. Build your coach kit free, see the coach plan, or apply to the Founder\'s Circle.' : first25Live() ? 'Eli Christiansen: First 25, the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' : 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.', first25: first25Live() }));
 
+app.get('/favicon.ico', (req, res) => res.redirect(301, '/favicon-32.png'));
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /admin\nDisallow: /api\nDisallow: /billing\nDisallow: /founding/status\nDisallow: /founding/confirm\nDisallow: /stack/guide\n\nSitemap: ${baseUrl(req)}/sitemap.xml\n`);
 });
 app.get('/sitemap.xml', (req, res) => {
-  const pages = ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
+  const pages = process.env.COACH_HOME === 'on' ? ['/', '/circle', '/links', '/terms', '/privacy'] : ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
   if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
   if (process.env.CIRCLE_AGREEMENT_LIVE === 'true') pages.push('/circle-agreement');
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);

@@ -52,6 +52,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* Hero: the form is the hero. Water light rises behind it (emerald from below, no overlay image). */
 .hero{position:relative;padding:44px 0 28px;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:auto -20% -40% -20%;height:70%;background:radial-gradient(60% 60% at 50% 100%,rgba(62,230,160,.22),transparent 70%);pointer-events:none}
+[id]{scroll-margin-top:84px}
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);font-weight:600}
 h1{font-size:clamp(34px,8.4vw,68px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 14px;font-weight:700;max-width:14ch}
 .lede{font-size:clamp(17px,2.4vw,20px);color:var(--ink-2);max-width:40ch;margin:0 0 24px}
@@ -334,8 +335,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .cs-hero .grid{display:grid;gap:28px}
 .cs-kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink2);margin:0 0 18px}
 .cs-kick::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 25%,transparent)}
-.cs .cs-hero h1,.cs .cs-hero h2{font-size:calc(52px * var(--hs));margin:0 0 18px;overflow-wrap:anywhere}
-.cs .cs-hero h1.long,.cs .cs-hero h2.long{font-size:calc(40px * var(--hs))}
+.cs .cs-hero h1,.cs .cs-hero h2{font-size:min(calc(52px * var(--hs)),10.5cqw);margin:0 0 18px;overflow-wrap:normal;word-break:normal;hyphens:manual}
+.cs .cs-hero h1.long,.cs .cs-hero h2.long{font-size:min(calc(40px * var(--hs)),9cqw)}
 .cs-hero .sub{font-size:18px;color:var(--ink2);max-width:40ch;margin:0 0 26px}
 .cs-ctas{display:flex;gap:10px;flex-wrap:wrap}
 .cs-card .pr a,.cs-links a{display:inline-flex;align-items:center;min-height:44px}
@@ -451,7 +452,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 <body>
 <header class="top"><div class="wrap">
   <a class="mark" href="/">127</a>
-  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a href="/login?next=/coaches/%23kit">Sign in</a><a class="btn" href="/start?next=/coaches/%23build">Start free</a></nav>
+  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a href="/login?next=/coaches/%23kit">Sign in</a><a class="btn" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free</a></nav>
 </div></header>
 
 <main>
@@ -462,7 +463,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     <h1 class="rise d1" id="heroTitle">Launch your own coaching platform from one form.</h1>
     <p class="lede rise d2">Your website, challenge, client app and coach dashboard, built for your coaching business.</p>
     <div class="cta-row rise d3">
-      <a class="btn" href="/start?next=/coaches/%23build">Start free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn ghost" href="#kit">See what's included</a>
     </div>
     <div class="get rise d4">
@@ -590,7 +591,6 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 
 <section class="sec"><div class="wrap">
   <h2>Everything a coach pays five tools for.</h2>
-  <p class="lede">The kit is built from the same engine 127 members already run their business in.</p>
   <div class="parts">
     <div class="part"><h3>Website</h3><p>Your program, how it works, your story and an apply button. Yours to host, free.</p></div>
     <div class="part"><h3>Challenge page</h3><p>Dates, daily rules, what's included, a countdown and the price, ready for your link in bio.</p></div>
@@ -606,10 +606,10 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   <div class="tiers">
     <div class="tier"><div class="name">Free</div><div class="price">$0</div>
       <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
-      <a class="btn ghost" href="/start?next=/coaches/%23build">Start free</a></div>
+      <a class="btn ghost" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free</a></div>
     <div class="tier lead"><div class="name">Coach</div><div class="price">$149<small> a month</small></div>
       <ul><li>Your site and challenge page live, in your brand</li><li>The client app in your colors, when client sign-ups open</li><li>Coach dashboard: who checked in, who to message</li><li>The full launch kit, yours to edit</li></ul>
-      <a class="btn" href="/start?next=/coaches/%23build">Start as a coach</a></div>
+      <a class="btn" href="/coaches/join?next=%2Fcoaches%2F%23build">Start as a coach</a></div>
     <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
       <ul><li>Everything in Coach</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
       <a class="btn ghost" href="/circle/apply">Apply</a></div>
@@ -619,14 +619,14 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 
 <section class="sec faq"><div class="wrap">
   <h2>Questions coaches ask</h2>
-  <details><summary>Do I need a website already?</summary><p>No. The kit builds one. If you have one, Fix my site can rebuild it from what's there.</p></details>
+  <details><summary>Do I need a website already?</summary><p>No. The kit builds one.</p></details>
   <details><summary>Can my clients use the app on their phone?</summary><p>Yes. They open a link and add it to their home screen. It works offline and saves every set.</p></details>
   <details><summary>Will it write fake testimonials or results?</summary><p>No. The kit leaves a spot for a client's own words, used only with their written OK, and never writes weight, body or money claims.</p></details>
   <details><summary>Is it only for fitness coaches?</summary><p>It's built for fitness first. Nutrition, run and mindset coaches can use it today; their own templates come next.</p></details>
 </div></section>
 </main>
 <footer><div class="wrap foot">
-  <p>127 Group LLC. Make today day one. Built by Eli Christiansen, 4x founder.</p>
+  <p>127 Group LLC. Built by Eli Christiansen, 4x founder.</p>
   <nav class="foot-links"><a href="#pricing">Pricing</a><a href="/circle">Founder's Circle</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/earnings-disclaimer">Earnings disclaimer</a><a href="/cookies">Cookie Notice</a><a href="/login">Sign in</a></nav>
 </div></footer>
 <div class="toast" id="toast"></div>
