@@ -357,7 +357,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .loft-copy{padding-top:calc(66px + clamp(28px,6vh,64px))}
 .loft-copy h1{font-weight:500;letter-spacing:-.035em;color:#f4f4f2;max-width:none;font-size:clamp(34px,4.5vw,66px);line-height:1.02;margin:0 auto 18px}
 .loft-copy .lede{color:#b9b9be;font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:32ch}
-.cta-note{color:#a9a9ae;font-size:15px}
+.cta-note{color:#f4f4f2;font-size:15px;text-shadow:0 1px 12px rgba(0,0,0,.7)}
 .loft-copy .btn.lg{min-height:52px;padding:0 26px;font-size:17px;font-weight:500}
 .loft-pin::before{opacity:.8}
 .loft-hint{color:#8d8d93}
@@ -571,8 +571,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 (function(){
   // Where each device's screen sits in its render (top-left, top-right, bottom-right, bottom-left, as fractions of the image).
   var SHOTS = {
-    wide: { w: 2400, h: 1350, quad: [[0.43903, 0.7055], [0.56097, 0.7055], [0.56361, 0.85281], [0.43639, 0.85281]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
-    tall: { w: 1080, h: 1920, quad: [[0.68892, 0.61777], [0.73957, 0.61833], [0.74319, 0.68403], [0.69076, 0.68299]], scr: '/img/coach-hero/loft-phone-screen.webp', sw: 780, sh: 1690, fill: [.8, .84], tag: 'Client app. Forge Hybrid is a demo coach.' }
+    wide: { w: 2400, h: 1350, quad: [[0.4099, 0.57222], [0.60078, 0.57222], [0.60339, 0.7662], [0.40833, 0.76898]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1304, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
+    tall: { w: 1080, h: 1920, quad: [[0.19424, 0.57222], [0.79753, 0.57222], [0.80576, 0.7662], [0.1893, 0.76898]], scr: '/img/coach-hero/loft-mac-screen-s.webp', sw: 1360, sh: 783, fill: [.96, .5], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' }
   };
   var pin = document.getElementById('loftPin'), scene = document.getElementById('loftScene'), scr = document.getElementById('loftScr');
   var copy = document.getElementById('loftCopy'), sec = pin.parentNode;
@@ -624,7 +624,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     scene.style.transform = 'translate3d(' + (tx + k * cover.ox) + 'px,' + (ty + k * cover.oy) + 'px,0) scale(' + k + ')';
     var q = quad.map(function(pt){ return [tx + k * pt[0], ty + k * pt[1]]; });
     scr.style.transform = homography(S.sw, S.sh, q);
-    scr.style.opacity = clamp((z - .3) / .4).toFixed(3);
+    scr.style.opacity = '1';
     var fade = clamp(p / .22);
     copy.style.opacity = (1 - fade).toFixed(3); copy.style.transform = 'translateY(' + (-24 * fade) + 'px)';
     copy.style.visibility = fade >= 1 ? 'hidden' : '';
