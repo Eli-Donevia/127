@@ -1704,8 +1704,8 @@ app.post('/app/circle/scorecard', requireAuth, wrap(async (req, res) => {
 app.get('/app/billing', requireAuth, (req, res) => {
   const application = db.find('applications', (a) => a.userId === req.user.id);
   const user = req.user;
-  // 14 days to change your mind: Builder only, from the first paid charge (unknown = still show it).
-  const refundAsk = user.tier === 'builder' && !user.demoBilling && (!user.firstPaidAt || Date.now() - Date.parse(user.firstPaidAt) < 14 * 864e5);
+  // 14 days to change your mind: Builder and Coach (Eli, 2026-11-18), from the first paid charge (unknown = still show it).
+  const refundAsk = ['builder', 'coach'].includes(user.tier) && !user.demoBilling && (!user.firstPaidAt || Date.now() - Date.parse(user.firstPaidAt) < 14 * 864e5);
   if (req.query.cancelled) res.locals.trackEvents.push({ name: 'Cancel', props: { plan: (user.cancellations || []).slice(-1).map((c) => c.plan)[0] || user.tier } });
   const lastCancel = (user.cancellations || []).slice(-1)[0];
   res.render('app/billing', { title: 'Membership', application, refundAsk, justCancelled: !!req.query.cancelled, askReason: !!req.query.cancelled && !!lastCancel && !lastCancel.reason, CANCEL_REASONS, pausePrice: pausePrice(user) });
