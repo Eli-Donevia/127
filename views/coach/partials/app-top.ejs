@@ -1,4 +1,4 @@
-<%- include('brand-top', { bodyClass: 'cb-app' }) %>
+<%- include('brand-top', { bodyClass: 'cb-app' + (typeof hero !== 'undefined' && hero ? ' has-hero' : '') }) %>
 <% var coachPhoto = c.brand.photo ? '/c/' + c.slug + '/brand-photo?v=' + c.brand.photo.slice(-6) : null; %>
 <header class="ca-top">
   <a href="/c/<%= c.slug %>/app" class="ca-brand"><% if (coachPhoto) { %><img class="ca-logo img" src="<%= coachPhoto %>" alt=""><% } else { %><span class="ca-logo"><%= c.brand.initials %></span><% } %><span class="ca-name"><%= c.brand.name %></span></a>
