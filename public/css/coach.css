@@ -553,3 +553,59 @@ body.cb { background: var(--bg); color: var(--ink); }
 .t-habits { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .t-habits .habit { min-height: 64px; align-items: center; font-size: 14px; font-weight: 600; line-height: 1.25; padding: 12px; }
 @media (min-width: 600px) { .t-hero { margin: 0; border-radius: 0 0 28px 28px; } }
+
+/* ---------- import (COACH_IMPORT) ---------- */
+.im-head { max-width: 640px; margin-bottom: 18px; }
+.im-head h1 { font-size: 34px; letter-spacing: -0.035em; margin: 6px 0 6px; line-height: 1.05; }
+.im-form, .im-help, .im-save, .im-reviews, .im-skip, .im-prog { max-width: 640px; }
+.im-kinds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.im-kind { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 18px; border: 1px solid var(--line-2); background: var(--surface); cursor: pointer; }
+.im-kind input { position: absolute; opacity: 0; pointer-events: none; }
+.im-kind:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.im-kind:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.im-kind b { display: block; font-size: 16px; }
+.im-kind small { display: block; font-size: 13px; color: var(--ink-2); margin-top: 2px; line-height: 1.35; }
+.im-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-3); }
+.im-kind:has(input:checked) .im-ic { background: var(--accent); color: #04140d; }
+.im-ic svg, .im-drop-ic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.im-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; min-height: 170px; padding: 22px; border-radius: 20px; border: 1.5px dashed var(--line-2); background: var(--surface); cursor: pointer; position: relative; }
+.im-drop:hover, .im-drop:focus-within { border-color: var(--accent); }
+.im-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.im-drop-ic { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.im-drop b { font-size: 17px; word-break: break-all; }
+.im-drop small { color: var(--ink-2); font-size: 13px; }
+.im-paste { margin: 12px 0 16px; }
+.im-paste summary { cursor: pointer; color: var(--ink-2); font-size: 14px; padding: 6px 0; }
+.im-paste textarea { margin-top: 8px; font-size: 12.5px; }
+.im-help { display: grid; gap: 1px; margin-top: 26px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
+.im-help > div { display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; background: var(--surface); font-size: 14px; }
+.im-help span { color: var(--ink-2); }
+.im-help a { color: var(--accent); font-weight: 600; text-decoration: none; margin-top: 4px; }
+.im-skip { font-size: 14px; color: #ffb36b; margin: 0 0 12px; }
+.im-reviews { display: grid; gap: 10px; margin-bottom: 18px; }
+.im-rv { margin: 0; padding: 16px 18px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.im-rv blockquote { margin: 6px 0 10px; font-size: 16px; line-height: 1.45; }
+.im-rv figcaption { font-size: 14px; color: var(--ink-2); }
+.im-rv figcaption b { color: var(--ink); }
+.im-stars { color: #ffc93c; letter-spacing: 2px; font-size: 15px; }
+.im-stars span { color: var(--line-2); }
+.im-prog { margin-bottom: 14px; }
+.im-day { padding: 12px 0; border-top: 1px solid var(--line); }
+.im-day ol { margin: 6px 0 0; padding-left: 20px; }
+.im-day li { padding: 3px 0; }
+.im-day li span { margin-right: 8px; }
+.im-day li em { font-style: normal; color: var(--ink-2); font-size: 13px; white-space: nowrap; }
+.im-save .check { color: var(--ink); }
+/* reviews on the coach's site */
+.cs-rv-h { font-size: 36px; letter-spacing: -0.035em; margin: 8px 0 18px; }
+.cs-reviews { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.cs-rv { margin: 0; padding: 22px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.cs-rv-res { color: var(--accent); font-size: 15px; }
+.cs-rv blockquote { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink); }
+.cs-rv figcaption { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.cs-rv-note { margin: 14px 0 0; font-size: 14px; color: var(--ink); }
+@media (max-width: 760px) {
+  .im-head h1 { font-size: 30px; }
+  .cs-rv-h { font-size: 30px; }
+  .row-actions { flex-wrap: wrap; }
+}

@@ -1,7 +1,7 @@
 <%- include('partials/brand-top', { bodyClass: 'cb-site' }) %>
 <header class="cs-nav">
   <a href="/c/<%= c.slug %>" class="ca-brand"><span class="ca-logo"><%= c.brand.initials %></span><span><%= c.brand.name %></span></a>
-  <nav><a href="#offer">Coaching</a><% if (challenges.length) { %><a href="#challenge">Challenge</a><% } %><a href="#about">About</a>
+  <nav><a href="#offer">Coaching</a><% if (challenges.length) { %><a href="#challenge">Challenge</a><% } %><% if (reviews.length) { %><a href="#reviews">Reviews</a><% } %><a href="#about">About</a>
   <% if (user && user.role === 'client' && user.coachId === c.id) { %><a class="btn accent sm" href="/c/<%= c.slug %>/app">Open my app</a><% } else { %><a class="btn ghost sm" href="/login?next=/c/<%= c.slug %>/app">Client login</a><% } %></nav>
 </header>
 <section class="cs-hero">
@@ -36,6 +36,23 @@
   </div>
 </section>
 <% }) %>
+<% if (reviews.length) { %>
+<section class="cs-sec" id="reviews">
+  <div class="eyebrow">From clients</div>
+  <h2 class="cs-rv-h">What clients say</h2>
+  <div class="cs-reviews">
+  <% reviews.forEach(function (rv) { %>
+    <figure class="cs-rv">
+      <% if (rv.rating) { %><div class="im-stars" aria-label="<%= rv.rating %> out of 5"><%= '★★★★★'.slice(0, rv.rating) %><span><%= '★★★★★'.slice(rv.rating) %></span></div><% } %>
+      <% if (rv.result) { %><b class="cs-rv-res"><%= rv.result %></b><% } %>
+      <blockquote><%= rv.quote %></blockquote>
+      <figcaption><%= rv.name %></figcaption>
+    </figure>
+  <% }) %>
+  </div>
+  <p class="cs-rv-note">Each client's result is their own. Yours depends on your starting point, your effort and your plan.</p>
+</section>
+<% } %>
 <section class="cs-sec" id="about">
   <div class="cs-about">
     <div class="cs-portrait"><span><%= c.brand.initials %></span></div>

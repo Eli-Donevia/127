@@ -139,4 +139,18 @@
     var onScroll = function () { document.body.classList.toggle('scrolled', window.scrollY > 120); };
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   }
+  // ---- import: read the chosen CSV into the form (the server parses it; nothing is saved before the preview) ----
+  var im = document.querySelector('[data-import]');
+  if (im) {
+    im.querySelector('[data-import-file]').addEventListener('change', function (ev) {
+      var f = ev.target.files[0]; if (!f) return;
+      var label = im.querySelector('[data-import-label]');
+      if (f.size > 150 * 1024) { label.textContent = 'That file is over 150 KB. Split it into smaller files.'; return; }
+      var r = new FileReader();
+      r.onload = function () { im.querySelector('[data-import-text]').value = r.result; im.querySelector('[data-import-name]').value = f.name; label.textContent = f.name; };
+      r.readAsText(f);
+    });
+    // the file input itself is never sent
+    im.addEventListener('submit', function () { im.querySelector('[data-import-file]').disabled = true; });
+  }
 })();

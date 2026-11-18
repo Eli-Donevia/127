@@ -1,5 +1,5 @@
 <%- include('partials/top') %>
-<div class="cx-head"><div><div class="eyebrow">Program builder</div><h1>Programs</h1></div><a class="btn accent" href="/coach/programs/new">New program</a></div>
+<div class="cx-head"><div><div class="eyebrow">Program builder</div><h1>Programs</h1></div><div class="row-actions"><% if (importOn) { %><a class="btn ghost" href="/coach/import?kind=programs">Import CSV</a><% } %><a class="btn accent" href="/coach/programs/new">New program</a></div></div>
 <div class="cards">
 <% programs.forEach(function (x) { %>
   <a class="card prog" href="/coach/programs/<%= x.p.id %>">
