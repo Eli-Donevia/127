@@ -28,8 +28,8 @@
 @font-face{font-family:Geist;src:url(/fonts/Geist-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
 :root{
   --bg:#060607;--surface:#0e0e11;--surface-2:#141418;--surface-3:#1b1b20;--ink:#ededf2;--ink-2:#b3b3bd;--muted:#8b8b96;
-  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--emerald:#3ee6a0;--emerald-deep:#0e7a55;--orchid:#a98bff;
-  --soft:rgba(62,230,160,.09);--r:18px;--font:Geist,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--emerald:#3b63ff;--emerald-deep:#0e7a55;--orchid:#a98bff;
+  --soft:rgba(59,99,255,.12);--r:18px;--font:Geist,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   --coach:#C83A75;color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -42,10 +42,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mark{font-weight:700;font-size:22px;letter-spacing:-.04em;color:var(--emerald);text-decoration:none}
 .top nav{margin-left:auto;display:flex;gap:6px;align-items:center}
 .top nav a{text-decoration:none;color:var(--ink-2);font-size:14px;padding:8px 10px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--emerald);color:#03140c;font-weight:600;text-decoration:none;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--emerald);color:#ffffff;font-weight:600;text-decoration:none;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}
 .btn.sm{min-height:38px;padding:0 14px;font-size:14px}
-.top .btn{min-height:38px;font-size:14px;color:#03140c;padding:0 16px}
+.top .btn{min-height:38px;font-size:14px;color:#ffffff;padding:0 16px}
 .kit,.sec{scroll-margin-top:70px}
 @media(max-width:520px){.top nav a.hide-s{display:none}}
 
@@ -236,7 +236,7 @@ footer .foot p{margin:0}
 .note-pop.on{opacity:1;transform:none}
 .note-pop small{display:block;color:#8b8b96;font-size:11px}
 .note-pop .ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:11px;flex:none}
-.note-pop .ic.o{background:#ff5c2e;color:#1a0700}.note-pop .ic.g{background:var(--emerald);color:#03140c}
+.note-pop .ic.o{background:#ff5c2e;color:#1a0700}.note-pop .ic.g{background:var(--emerald);color:#ffffff}
 .n1{left:860px;top:430px}.n2{left:150px;top:24px}
 .stage.narrow .n1{left:130px;top:440px}.stage.narrow .n2{left:24px;top:30px}
 
@@ -337,7 +337,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .top nav.end a{text-decoration:none;color:var(--ink-2);font-size:15px;padding:8px 10px}
 .top{background:rgba(6,6,7,.55)}
 .btn.sq{border-radius:10px}
-.top nav.end .btn.sq{min-height:40px;padding:0 18px;color:#03140c;font-size:15px}
+.top nav.end .btn.sq{min-height:40px;padding:0 18px;color:#ffffff;font-size:15px}
 .btn.lg{min-height:52px;padding:0 26px;font-size:17px}
 .loft-copy h1{max-width:19ch;color:#f4f4f7;font-weight:600;letter-spacing:-.045em;font-size:clamp(36px,4.6vw,64px);line-height:1.04}
 .loft-copy .lede{color:#c9c9d1;font-size:clamp(17px,1.7vw,21px);max-width:34ch;margin:0 auto 26px}
@@ -346,6 +346,25 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .loft-hint{font-size:13px;letter-spacing:.02em}
 @media(max-width:760px){.top nav.mid{display:none}}
 @media(max-width:560px){.loft-copy .cta-row{flex-direction:column;gap:10px}.loft-copy .cta-row .btn{width:100%;max-width:340px}.cta-note{font-size:14px}}
+
+/* Eli's reference, closer: white wordmark, solid near-black bar, cobalt actions, medium-weight white headline. */
+.mark{color:#f4f4f2}
+.top{background:#070707;border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:none;-webkit-backdrop-filter:none}
+.top .wrap{height:66px}
+.btn{color:#fff}
+.btn.sq{border-radius:9px;background:#3b63ff}
+.btn.sq:hover{background:#4f73ff}
+.loft-copy{padding-top:calc(66px + clamp(28px,6vh,64px))}
+.loft-copy h1{font-weight:500;letter-spacing:-.035em;color:#f4f4f2;max-width:none;font-size:clamp(34px,4.5vw,66px);line-height:1.02;margin:0 auto 18px}
+.loft-copy .lede{color:#b9b9be;font-size:clamp(17px,1.6vw,21px);line-height:1.4;max-width:32ch}
+.cta-note{color:#a9a9ae;font-size:15px}
+.loft-copy .btn.lg{min-height:52px;padding:0 26px;font-size:17px;font-weight:500}
+.loft-pin::before{opacity:.8}
+.loft-hint{color:#8d8d93}
+.loft-hint i{display:none}
+.loft{margin-top:-67px}
+.loft-copy .cta-row .btn{flex:none;width:auto;min-width:0}
+@media(max-width:520px){br.hide-s{display:none}.loft-copy .cta-row .btn{width:100%}}
 </style>
 <style id="siteCss">
 /* The coach's site (kit page and the downloaded file). One markup, three looks (data-look), the coach's color as the
@@ -499,8 +518,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 <body>
 <header class="top"><div class="wrap">
   <a class="mark" href="/">127</a>
-  <nav class="mid" aria-label="Main"><a href="#kit">The kit</a><a href="#pricing">Pricing</a><a href="/circle">Circle</a></nav>
-  <nav class="end"><a class="hide-s" href="/login?next=/coaches/%23kit">Sign in</a><a class="btn sq" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free</a></nav>
+  <nav class="mid" aria-label="Main"><a href="#kit">Product</a><a href="#pricing">Pricing</a><a href="/circle">Circle</a></nav>
+  <nav class="end"><a class="hide-s" href="/login?next=/coaches/%23kit">Log in</a><a class="btn sq" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free</a></nav>
 </div></header>
 
 <main>
@@ -515,11 +534,11 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     </div>
     <img class="loft-scr" id="loftScr" alt="" aria-hidden="true" decoding="async">
     <div class="loft-copy" id="loftCopy">
-      <h1 id="heroTitle">Your own coaching platform, built from one form.</h1>
+      <h1 id="heroTitle">Your own coaching platform,<br class="hide-s"> built from one form.</h1>
       <p class="lede">Your website, client app, dashboard and launch kit. No app store. No developers.</p>
       <div class="cta-row">
         <a class="btn sq lg" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free</a>
-        <span class="cta-note">Free to build. $149/mo when you're ready for clients.</span>
+        <span class="cta-note">Free to build. $149/mo when you launch.</span>
       </div>
     </div>
     <div class="loft-hint" aria-hidden="true"><i></i>Scroll</div>
@@ -552,7 +571,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 (function(){
   // Where each device's screen sits in its render (top-left, top-right, bottom-right, bottom-left, as fractions of the image).
   var SHOTS = {
-    wide: { w: 2400, h: 1350, quad: [[0.44245, 0.6585], [0.55755, 0.6585], [0.55913, 0.79086], [0.44087, 0.79086]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
+    wide: { w: 2400, h: 1350, quad: [[0.43903, 0.7055], [0.56097, 0.7055], [0.56361, 0.85281], [0.43639, 0.85281]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
     tall: { w: 1080, h: 1920, quad: [[0.68892, 0.61777], [0.73957, 0.61833], [0.74319, 0.68403], [0.69076, 0.68299]], scr: '/img/coach-hero/loft-phone-screen.webp', sw: 780, sh: 1690, fill: [.8, .84], tag: 'Client app. Forge Hybrid is a demo coach.' }
   };
   var pin = document.getElementById('loftPin'), scene = document.getElementById('loftScene'), scr = document.getElementById('loftScr');
@@ -585,7 +604,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     var s0 = Math.max(vw / S.w, vh / S.h), dw = S.w * s0, dh = S.h * s0;
     // Center on the device rather than the image, as far as the image allows.
     var qx = (S.quad[0][0] + S.quad[2][0]) / 2 * dw, qy = (S.quad[0][1] + S.quad[2][1]) / 2 * dh;
-    var ox = Math.min(0, Math.max(vw - dw, vw / 2 - qx)), oy = Math.min(0, Math.max(vh - dh, vh * .62 - qy));
+    var ox = Math.min(0, Math.max(vw - dw, vw / 2 - qx)), oy = Math.min(0, Math.max(vh - dh, vh * .76 - qy));
     cover = { s: s0, ox: ox, oy: oy, dw: dw, dh: dh };
     scene.style.width = dw + 'px'; scene.style.height = dh + 'px';
     quad = S.quad.map(function(p){ return [ox + p[0] * dw, oy + p[1] * dh]; });
