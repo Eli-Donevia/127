@@ -89,6 +89,8 @@ app.set('trust proxy', parseInt(process.env.TRUST_PROXY || '3', 10));
 app.disable('x-powered-by');
 app.use(security.headers(PROD));
 app.use(require('compression')());
+// A coach's own domain (lib/coach-hosting.js, COACH_DOMAINS): their site answers there, ahead of 127's session and pages.
+app.use(require('./lib/coach-hosting').hostRouter({ isAdmin: (u) => isAdmin(u), clientsOpen: (req) => coachClientsOpen(req) }));
 app.get('/healthz', (req, res) => res.json({ ok: true }));
 
 // Stripe needs the raw body, so this route comes before the body parsers.
@@ -343,6 +345,10 @@ require('./lib/challenge-routes')(app, { requireAuth, requireAdmin });
 // weekly check-ins and challenges. Behind COACH_PLATFORM (default off): off, it passes every request on. It shares
 // /c/<slug> with the launch kits below, so it comes first and passes on any slug that isn't one of its coaches.
 app.use(require('./lib/coach-platform-routes')({ requireAuth, flash: (...a) => flash(...a), createMember: (...a) => createMember(...a), limit: (...a) => limit(...a), TOO_FAST: 'Too many tries in a short time. Wait a few minutes and try again.' }));
+// Hosted coach sites (lib/coach-hosting.js, COACH_HOSTING, coach plan): /c/<slug> and /c/<slug>/challenge once a coach
+// presses "Put it live". Ahead of the kit routes, so an unpublished slug still gets the kit's plain challenge page.
+const coachClientsOpen = (req) => { const m = require('./lib/coach-routes').mode(); return m === 'on' || (m === 'admins' && isAdmin(req.user)); };
+require('./lib/coach-hosting')(app, { requireAuth, isAdmin, clientsOpen: coachClientsOpen, baseUrl });
 require('./lib/coach-routes')(app, { requireAuth, isAdmin });
 
 function cookie(req, name) {
@@ -831,6 +837,7 @@ app.get('/robots.txt', (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   const pages = process.env.COACH_HOME === 'on' ? ['/', '/circle', '/links', '/terms', '/privacy'] : ['/', '/founding', '/pricing', '/circle', '/score', '/stack', '/idea-test', '/media-kit', '/links', '/terms', '/privacy'];
   if (process.env.MEMBERSHIP_TERMS_LIVE === 'true') pages.push('/membership-terms');
+  pages.push(...require('./lib/coach-hosting').sitemapPaths(isAdmin));
   if (process.env.CIRCLE_AGREEMENT_LIVE === 'true') pages.push('/circle-agreement');
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${baseUrl(req)}${p}</loc></url>`).join('\n')}\n</urlset>\n`);
 });

@@ -299,9 +299,12 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 @media(max-width:759px){.stage-k{padding:0;border-radius:18px;border:0;background:none}.frame,.frame.phone-v{margin:0;border:1px solid var(--line-2);border-radius:18px;max-width:none}#seg{display:none}}
 .side-app h3{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
 .side-app p{color:var(--ink-2);margin:0 0 10px}
+.dom{margin-top:14px;padding-top:14px;border-top:1px solid rgba(127,127,127,.25)}.dom p{margin:0 0 10px}.dom-f{display:flex;gap:8px}.dom-f input{flex:1;min-width:0;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit}
+.dom-t{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 10px;display:block;overflow-x:auto}.dom-t th,.dom-t td{text-align:left;padding:6px 8px 6px 0;vertical-align:top;word-break:break-all}.dom-t td:first-child,.dom-t th:first-child{white-space:nowrap;word-break:normal}.dom .btn{margin-bottom:10px}
 </style>
 <style id="siteCss">
-/* The coach's site (kit page and the downloaded file). One markup, three looks (data-look), the coach's color as the
+/* The coach's site (kit page, the downloaded file, and the hosted site at /c/<slug>: lib/coach-hosting.js reads this
+   block as-is). Markup: lib/coach-site.js. One markup, three looks (data-look), the coach's color as the
    accent (--ac, text on it --on). Container queries, so phone and desktop views are the same page. */
 @font-face{font-family:"BSD";src:url(/fonts/coach/big-shoulders-display-normal-500-900.woff2) format("woff2");font-weight:500 900;font-display:swap}
 @font-face{font-family:"Hanken";src:url(/fonts/coach/hanken-grotesk-normal-400.woff2) format("woff2");font-weight:400 700;font-display:swap}
@@ -632,6 +635,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 <div class="toast" id="toast"></div>
 
 <script src="/js/coach-kit.js"></script>
+<script src="/js/coach-site.js"></script>
 <script>
 (function(){
   var K = window.CoachKit;
@@ -656,64 +660,10 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 
   function item(k, body, copyText){ return '<div class="item"><div class="k"><span>'+esc(k)+'</span>'+(copyText!=null?'<button class="copy" data-copy="'+esc(copyText)+'">Copy</button>':'')+'</div><p>'+body+'</p></div>'; }
   function list(rows){ return '<div class="rows">'+rows.join('')+'</div>'; }
-  // An editable piece of text: path into the kit, so the edit survives a rebuild.
-  function E(tag, path, text, live, cls){ return '<'+tag+(cls?' class="'+cls+'"':'')+(live?' data-e="'+path+'" contenteditable="plaintext-only" spellcheck="true"':'')+'>'+esc(text)+'</'+tag+'>'; }
-  function initials(n){ return String(n||'').split(/\s+/).map(function(w){ return w[0]||''; }).join('').slice(0,2).toUpperCase(); }
-
-  // Text on the coach's color: dark on light colors, white on dark ones.
-  function onColor(hex){ var n = parseInt(String(hex).slice(1), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
-    var L = function(c){ c /= 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); }; return (.2126*L(r) + .7152*L(g) + .0722*L(b)) > .4 ? '#0b0b0d' : '#ffffff'; }
-  function csOpen(f){ return '<div class="cs" data-look="'+(brand.look||'athletic')+'" style="--ac:'+esc(f.color)+';--on:'+onColor(f.color)+'">'; }
-  function navHTML(f, links, cta, href){
-    var logo = brand.logo ? '<img src="'+brand.logo+'" alt="'+esc(f.business)+'">' : '<span class="mk">'+esc(initials(f.business))+'</span>';
-    return '<header class="cs-nav"><div class="in"><div class="cs-logo">'+logo+'<span>'+esc(f.business)+'</span></div>'+(links?'<nav class="cs-links">'+links+'</nav>':'')+'<a class="cs-btn sm" href="'+href+'">'+esc(cta)+'</a></div></header>';
-  }
-  function media(f, tag){
-    return '<div class="cs-media rv d2'+(brand.photo?'':' art')+'">'+(brand.photo?'<img src="'+brand.photo+'" alt="'+esc(f.coach)+'">':ringArt(f))+tag+'</div>';
-  }
-  // No photo yet: the challenge drawn as a ring of days, one tick a day, the first week filled in.
-  function ringArt(f){ var n = f.days, t = '', R = 150; for (var i = 0; i < n; i++) { var a = (i / n) * 2 * Math.PI - Math.PI / 2, on = i < Math.min(7, n);
-      t += '<line x1="'+(200+Math.cos(a)*(R-18)).toFixed(1)+'" y1="'+(200+Math.sin(a)*(R-18)).toFixed(1)+'" x2="'+(200+Math.cos(a)*R).toFixed(1)+'" y2="'+(200+Math.sin(a)*R).toFixed(1)+'" class="'+(on?'on':'')+'"/>'; }
-    return '<svg class="ring" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="178" class="o"/><circle cx="200" cy="200" r="108" class="o"/>'+t+'<text x="200" y="214" text-anchor="middle" class="d">Day 1</text><text x="200" y="250" text-anchor="middle" class="s">of '+n+'</text></svg>'; }
-  function cdown(start){ var ms = Math.max(0, Date.parse(start+'T09:00:00') - Date.now()); return [Math.floor(ms/864e5), Math.floor(ms/36e5)%24, Math.floor(ms/6e4)%60, Math.floor(ms/1e3)%60]; }
-  function countHTML(f){ var c = cdown(f.start); return '<div class="cs-count" data-start="'+esc(f.start)+'">'+['days','hours','min','sec'].map(function(u,i){ return '<div><b>'+String(c[i]).padStart(2,'0')+'</b><span>'+u+'</span></div>'; }).join('')+'</div>'; }
-
-  function siteHTML(kit, live){
-    var f = kit.facts, s = kit.site, c = kit.challenge;
-    return csOpen(f)+navHTML(f, '<a href="#cs-coach">Coaching</a><a href="#cs-ch">Challenge</a><a href="#cs-about">About</a><a href="#cs-faq">Questions</a>', s.cta, '#cs-apply')+
-      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">Online coaching for '+esc(f.who)+'</p>'+
-        E(live?'h2':'h1','site.heroTitle',s.heroTitle,live,'dsp rv d1'+(s.heroTitle.length>44?' long':''))+E('p','site.heroSub',s.heroSub,live,'sub rv d2')+
-        '<div class="cs-ctas rv d3"><a class="cs-btn" href="#cs-apply">'+esc(s.cta)+' &rarr;</a><a class="cs-btn ghost" href="#cs-ch">The '+f.days+'-day challenge</a></div></div>'+
-        media(f, '<div class="tag"><div><strong>'+esc(c.title)+'</strong><span>'+esc(c.dates)+'</span></div></div>')+'</div>'+
-        '<div class="in"><div class="cs-facts rv"><div><b>'+f.days+'</b><span>days in the challenge</span></div><div><b>1</b><span>workout a day, in the app</span></div><div><b>'+esc(c.price)+'</b><span>to join</span></div></div></div></section>'+
-      '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
-      '<section class="cs-sec" id="cs-coach"><div class="in"><div class="cs-head rv"><p class="cs-label">Coaching</p><h2 class="dsp">Two ways to train with '+esc(f.first)+'.</h2></div><div class="cs-cards">'+
-        s.program.map(function(p,i){ return '<div class="cs-card rv d'+(i+1)+(i?' hl':'')+'"><span class="no">0'+(i+1)+'</span><h3 class="dsp">'+esc(p.name)+'</h3>'+E('p','site.program.'+i+'.line',p.line,live)+'<div class="pr"><b>'+esc(p.price)+'</b><a href="#cs-apply">'+(i?'Apply':'Join')+' &rarr;</a></div></div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">How it works</p><h2 class="dsp">Three steps. Then you train.</h2></div><div class="cs-steps">'+
-        s.steps.map(function(p,i){ return '<div class="cs-step rv d'+(i+1)+'"><em>0'+(i+1)+'</em><div>'+E('b','site.steps.'+i+'.title',p.title,live)+E('span','site.steps.'+i+'.body',p.body,live)+'</div></div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec" id="cs-ch"><div class="in"><div class="cs-ch rv"><div><small>'+esc(c.dates)+'</small><h3 class="dsp">'+esc(c.title)+'</h3>'+E('p','challenge.line',c.line,live)+countHTML(f)+
-        '<a class="cs-btn" href="#cs-apply">Join for '+esc(c.price)+' &rarr;</a></div><ol>'+c.rules.map(function(r,i){ return E('li','challenge.rules.'+i,r,live); }).join('')+'</ol></div></div></section>'+
-      '<section class="cs-sec" id="cs-about"><div class="in cs-about">'+media(f,'')+'<div class="rv d1"><p class="cs-label" style="margin-bottom:18px">About '+esc(f.first)+'</p>'+
-        E('blockquote','site.about',s.about,live)+'<cite>'+esc(f.coach)+', '+esc(f.business)+'</cite></div></div></section>'+
-      '<section class="cs-sec" id="cs-faq"><div class="in cs-faq"><div class="cs-head rv" style="display:block"><p class="cs-label">Questions</p><h2 class="dsp" style="margin-top:12px">Before you apply.</h2></div><div class="rv d1">'+
-        s.faq.map(function(q,i){ return '<details'+(live?' open':'')+'><summary>'+E('span','site.faq.'+i+'.q',q.q,live)+'</summary>'+E('p','site.faq.'+i+'.a',q.a,live)+'</details>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-end" id="cs-apply"><div class="in"><h2 class="dsp rv">Start on '+esc(dateShort(f.start))+'.</h2><a class="cs-btn rv d1" href="'+(f.handle&&f.handle!=='reyesstrength'?'https://instagram.com/'+esc(f.handle):'#cs-apply')+'">'+esc(s.cta)+' &rarr;</a></div></section>'+
-      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+(f.handle&&f.handle!=='reyesstrength'?' · @'+esc(f.handle):'')+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
-  }
-  function dateShort(iso){ var d = new Date(iso+'T12:00:00Z'); return d.toLocaleDateString('en-US',{ month:'long', day:'numeric', timeZone:'UTC' }); }
-
-  function challengeHTML(kit, live){
-    var f = kit.facts, c = kit.challenge;
-    return csOpen(f)+navHTML(f, '', 'Join', '#cs-join')+
-      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">'+esc(c.dates)+'</p>'+E(live?'h2':'h1','challenge.title',c.title,live,'dsp rv d1'+(c.title.length>44?' long':''))+E('p','challenge.line',c.line,live,'sub rv d2')+
-        '<div class="rv d3">'+countHTML(f).replace('cs-count','cs-count cs-count-l')+'<a class="cs-btn" href="#cs-join">Join for '+esc(c.price)+' &rarr;</a></div></div>'+
-        media(f, '<div class="tag"><div><strong>'+esc(f.coach)+'</strong><span>'+esc(f.business)+'</span></div><i>'+f.days+'</i></div>')+'</div></section>'+
-      '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
-      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">Every day</p><h2 class="dsp">The rules.</h2></div><div class="cs-steps">'+c.rules.map(function(r,i){ return '<div class="cs-step rv d'+(i%3+1)+'"><em>0'+(i+1)+'</em>'+E('div','challenge.rules.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-sec"><div class="in"><div class="cs-head rv"><p class="cs-label">What you get</p><h2 class="dsp">Everything is in the app.</h2></div><div class="cs-cards">'+c.get.map(function(r,i){ return '<div class="cs-card rv d'+(i%2+1)+'" style="min-height:0"><span class="no">0'+(i+1)+'</span>'+E('p','challenge.get.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-end" id="cs-join"><div class="in"><h2 class="dsp rv">'+E('span','challenge.finish',c.finish,live)+'</h2><a class="cs-btn rv d1" href="#">Join for '+esc(c.price)+' &rarr;</a></div></section>'+
-      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
-  }
+  // The coach's site and challenge page markup is lib/coach-site.js (also the hosted site at /c/<slug>).
+  var CS = window.CoachSite, E = CS.E, initials = CS.initials, onColor = CS.onColor, cdown = CS.cdown;
+  function siteHTML(kit, live){ return CS.site(kit, brand, { live: live }); }
+  function challengeHTML(kit, live){ return CS.challenge(kit, brand, { live: live }); }
 
   // Motion for the coach's pages: reveal on scroll inside the preview frame, and the challenge countdown ticking.
   var io = null, tick = null;
@@ -882,6 +832,35 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   function formData(){ var d = {}; new FormData(form).forEach(function(v,k){ d[k]=v; }); d.color = state.color; return d; }
   var saved = document.getElementById('saved');
   function say(html){ saved.innerHTML = html; saved.hidden = false; }
+  // Coach plan (COACH_HOSTING): the kit is saved, now put the site itself live at /c/<slug> with the logo and photo.
+  function publish(saved){
+    say('Putting your site live...');
+    var b = {}; if (brand.logo) b.logo = brand.logo; if (brand.photo) b.photo = brand.photo;
+    fetch('/coaches/site/publish', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(b) })
+      .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
+      .then(function(x){
+        if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
+        if (x.s !== 200) { say(esc(x.j.error || 'Saved, but not live yet. Try again.')); return; }
+        var site = location.origin + x.j.url, ch = location.origin + x.j.challengeUrl;
+        say('Your site is live: <a href="'+esc(x.j.url)+'" target="_blank" rel="noopener">'+esc(site)+'</a> <button class="copy" data-copy="'+esc(site)+'">Copy</button><br>Challenge page: <a href="'+esc(x.j.challengeUrl)+'" target="_blank" rel="noopener">'+esc(ch)+'</a> <button class="copy" data-copy="'+esc(ch)+'">Copy</button><br>Change anything here and press Put it live again to update it. Clients who join show up on <a href="'+esc(saved.dashboardUrl)+'">your dashboard</a>.'+(x.j.public ? '' : ' Only 127 admins can see it for now.'));
+        if (x.j.domains) domainUI(x.j.domain);
+      })
+      .catch(function(){ say('Saved, but the site didn\'t go live. Check your connection and press Put it live again.'); });
+  }
+  // Your own domain (COACH_DOMAINS): add it, copy the DNS records, check it. Shown under the live links.
+  function domainUI(d){
+    var box = document.createElement('div'); box.className = 'dom'; saved.appendChild(box);
+    function draw(d, msg){
+      if (!d) { box.innerHTML = '<p><b>Use your own domain</b></p><form class="dom-f"><input name="host" placeholder="yourname.com" autocomplete="off" aria-label="Your domain"><button class="btn sm" type="submit">Add</button></form>'+(msg?'<p>'+esc(msg)+'</p>':''); return; }
+      var rows = d.records.map(function(r){ return '<tr><td>'+esc(r.type)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.value)+(r.value.charAt(0)==='(' ? '' : ' <button class="copy" type="button" data-copy="'+esc(r.value)+'">Copy</button>')+'</td></tr>'; }).join('');
+      var state = d.connected ? 'Live at <a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.host)+'</a>.' : d.verified ? esc(d.host)+' is yours. 127 is connecting it, usually within a day, and you\'ll see it live here.' : 'Add these records where you bought '+esc(d.host)+', then check.';
+      box.innerHTML = '<p><b>Your domain</b> '+state+'</p>'+(d.connected ? '' : '<table class="dom-t"><tr><th>Type</th><th>Name</th><th>Value</th></tr>'+rows+'</table>')+(d.verified ? '' : '<button class="btn sm" type="button" data-dom="check">Check my domain</button>')+(msg?'<p>'+esc(msg)+'</p>':'');
+    }
+    function call(path, body){ return fetch(path, { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(body||{}) }).then(function(r){ return r.json(); }); }
+    box.addEventListener('submit', function(e){ e.preventDefault(); call('/coaches/site/domain', { host: e.target.elements.host.value }).then(function(j){ draw(j.domain || null, j.error); }); });
+    box.addEventListener('click', function(e){ if (!e.target.closest('[data-dom=check]')) return; call('/coaches/site/domain/verify').then(function(j){ draw(j.domain, j.error); }); });
+    draw(d);
+  }
   document.getElementById('save').addEventListener('click', function(){
     var d = formData();
     try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(_){}
@@ -892,6 +871,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
         if (x.s === 401) { try { localStorage.setItem('coachKitPending', '1'); } catch(_){} location.href = '/coaches/join?next=' + encodeURIComponent('/coaches/?saved=1#kit'); return; }
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
+        if (x.j.host) { publish(x.j); return; }
         var link = location.origin + x.j.joinUrl;
         say('It\'s saved. Your challenge page: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
       })
