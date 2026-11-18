@@ -10,7 +10,7 @@
       <label class="field"><span>Name</span><input class="input" name="name" required autocomplete="name" maxlength="80" value="<%= form.name || '' %>" autofocus></label>
       <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email" value="<%= form.email || '' %>"></label>
       <label class="field"><span>Password</span><input class="input" type="password" name="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters"></label>
-      <label class="check" style="margin:4px 0 18px"><input type="checkbox" name="optin" <%= form.optin ? 'checked' : '' %>> Send me founder emails and the weekly digest. Unsubscribe anytime.</label>
+      <label class="check" style="margin:4px 0 18px"><input type="checkbox" name="optin" <%= form.optin ? 'checked' : '' %>> <%= (typeof coachHome !== 'undefined' && coachHome) ? 'Send me coach tips and 127 news.' : 'Send me founder emails and the weekly digest.' %> Unsubscribe anytime.</label>
       <p class="consent-line" style="margin:0 0 18px">By creating an account, you confirm you're 18 or older and agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
       <button class="btn gold block">Continue to the application</button>
     </form>
