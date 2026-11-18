@@ -23,3 +23,15 @@ test('inputs are cleaned and bounded', () => {
   assert.strictEqual(k.facts.keyword, 'GONOW');
   assert.strictEqual(k.facts.handle, 'mescript');
 });
+
+test('a coach edit replaces kit text, bad paths are ignored, and an edited claim is flagged', () => {
+  const kit = require('../lib/coach-kit').build({});
+  const K = require('../lib/coach-kit');
+  const kept = K.applyEdits(kit, { 'site.heroTitle': 'Train at home with me.', 'challenge.rules.0': 'Move for 30 minutes.', 'facts.price': '1', 'site.program.0.price': 'x', 'site.__proto__.x': 'y', 'site.nope': 'z' });
+  assert.equal(kit.site.heroTitle, 'Train at home with me.');
+  assert.equal(kit.challenge.rules[0], 'Move for 30 minutes.');
+  assert.deepEqual(Object.keys(kept).sort(), ['challenge.rules.0', 'site.heroTitle']);
+  assert.equal(kit.problems.length, 0);
+  K.applyEdits(kit, { 'site.heroSub': 'Lose 10 lbs in 21 days.' });
+  assert.ok(kit.problems.length > 0);
+});

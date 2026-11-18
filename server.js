@@ -425,7 +425,8 @@ const COACH_PAGE = path.join(__dirname, 'public', 'coaches', 'index.html');
 function coachPage(req, res) {
   const v = launch.view();
   let html = require('fs').readFileSync(COACH_PAGE, 'utf8');
-  if (v.foundingOpen && v.foundingPrice) {
+  // The coach page is priced on its own ($149 coach plan, Eli 2026-11-18): the old $19 Builder founding bar stays off it.
+  if (process.env.COACH_FOUNDING_BAR === 'on' && v.foundingOpen && v.foundingPrice) {
     const p = v.foundingPrice;
     const full = PLANS.builder.price;
     const left = v.showSpots ? ` ${v.spotsLeft} of ${v.cap} spots left.` : ` First ${v.cap} members only.`;

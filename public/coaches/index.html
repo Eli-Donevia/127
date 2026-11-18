@@ -254,6 +254,116 @@ footer .foot p{margin:0}
 @media(max-width:640px){.feats a{padding:9px 12px;font-size:14px}.cta-row .btn{flex:1 1 100%}.get p{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.stage-hero *,.stage-hero::before{animation:none!important;transition:none!important}.rise,.dev{opacity:1!important}}
 h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;margin:12px 0 14px;font-weight:700;max-width:14ch}
+/* Kit studio: the coach's own site is the hero, editable in place; brand, device and "put it live" sit above it. */
+.studio-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:0 0 12px}
+.brand-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;position:relative}
+.chip input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.chip input[type=color]{width:22px;height:22px;border:0;padding:0;background:none;border-radius:50%;cursor:pointer}
+.chip input[type=color]::-webkit-color-swatch-wrapper{padding:0}.chip input[type=color]::-webkit-color-swatch{border:0;border-radius:50%}
+.chip img{width:22px;height:22px;border-radius:6px;object-fit:cover}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:none;color:var(--ink-2);font-size:13px;font-weight:600;border-radius:999px;padding:7px 12px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--surface-3);color:var(--ink)}
+.live-row{display:flex;gap:8px;flex-wrap:wrap}
+.hint{font-size:13px;color:var(--ink-2);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.hint i{width:8px;height:8px;border-radius:50%;background:var(--emerald);display:inline-block;animation:blink 2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+.stage-k{display:flex;justify-content:center;background:radial-gradient(70% 60% at 50% 0,rgba(255,255,255,.04),transparent 70%),var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 0;overflow:hidden}
+.frame{width:100%;max-width:1060px;margin:0 14px;border-radius:14px;overflow:hidden;border:1px solid #2c2c32;background:#0c0c0e;box-shadow:0 40px 80px -40px rgba(0,0,0,.9);transition:max-width .45s cubic-bezier(.2,.7,.2,1),border-radius .45s}
+.frame.phone-v{max-width:390px;border-radius:34px;border:9px solid #1d1d22}
+.frame-bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#17171b}
+.frame-bar i{width:9px;height:9px;border-radius:50%;background:#ff5f57}.frame-bar i+i{background:#febc2e}.frame-bar i+i+i{background:#28c840}
+.frame-bar span{margin-left:10px;flex:1;max-width:360px;height:18px;border-radius:6px;background:#0d0d10;color:#8a8a94;font-size:11px;line-height:18px;padding:0 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame.phone-v .frame-bar{display:none}
+.frame-scr{max-height:760px;overflow-y:auto;overscroll-behavior:contain}
+.frame.phone-v .frame-scr{max-height:700px}
+[data-e]{outline:1px dashed transparent;outline-offset:3px;border-radius:4px;transition:outline-color .2s,background .2s;cursor:text}
+.editing [data-e]:hover{outline-color:rgba(255,255,255,.35)}
+[data-e]:focus{outline:2px solid var(--ac,#3ee6a0);background:rgba(255,255,255,.04)}
+.launch-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.launch-nav button{border:1px solid var(--line-2);background:transparent;color:var(--ink-2);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
+.launch-nav button[aria-pressed=true]{color:var(--ink);border-color:var(--emerald);background:var(--soft)}
+.side-app{display:grid;gap:18px;align-items:center}
+@media(min-width:860px){.side-app{grid-template-columns:auto 1fr}}
+.side-app .phone{width:340px}
+@media(max-width:759px){.stage-k{padding:0;border-radius:18px;border:0;background:none}.frame,.frame.phone-v{margin:0;border:1px solid var(--line-2);border-radius:18px;max-width:none}#seg{display:none}}
+.side-app h3{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
+.side-app p{color:var(--ink-2);margin:0 0 10px}
+</style>
+<style id="siteCss">
+/* The coach's site (rendered on the kit page and in the downloaded file). Container queries, so it lays out by the
+   frame it sits in: phone view and desktop view are the same markup. */
+.cs{--ac:#C83A75;--bg:#0c0c0e;--ink:#f3f1ee;--ink2:#b9b6b2;--line:rgba(255,255,255,.1);container-type:inline-size;background:var(--bg);color:var(--ink);font-family:Geist,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+.cs *{box-sizing:border-box}
+.cs .in{max-width:1080px;margin:0 auto;padding:0 22px}
+.cs-nav{position:sticky;top:0;z-index:2;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.cs-nav .in{display:flex;align-items:center;gap:12px;height:62px}
+.cs-logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:17px}
+.cs-logo img{height:34px;width:auto;max-width:120px;border-radius:8px;object-fit:contain}
+.cs-logo .mk{width:32px;height:32px;border-radius:9px;background:var(--ac);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800}
+.cs-links{margin-left:auto;display:none;gap:22px;font-size:14px;color:var(--ink2)}
+.cs-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:999px;background:var(--ac);color:#fff;font-weight:700;font-size:15px;text-decoration:none;border:0}
+.cs-btn.sm{min-height:38px;padding:0 14px;font-size:13px;margin-left:auto;white-space:nowrap;flex:none}
+.cs-logo{min-width:0}.cs-logo span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.cs-hero{position:relative;min-height:560px;display:flex;align-items:flex-end;padding:120px 0 44px;background:radial-gradient(70% 60% at 85% 10%,color-mix(in srgb,var(--ac) 45%,transparent),transparent 70%),radial-gradient(50% 50% at 0% 100%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%),var(--bg);overflow:hidden}
+.cs-hero.ph{background-size:cover;background-position:center}
+.cs-hero.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35) 40%,var(--bg) 98%)}
+.cs-hero .in{position:relative;width:100%}
+.cs-kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ac);margin:0 0 14px;filter:brightness(1.25)}
+.cs-hero h1{font-size:38px;line-height:1.02;letter-spacing:-.045em;margin:0 0 16px;max-width:15ch;font-weight:700}
+.cs-hero p{font-size:18px;color:var(--ink2);max-width:42ch;margin:0 0 24px}
+.cs-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.cs-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.cs-facts span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink);background:rgba(0,0,0,.25)}
+.cs-sec{padding:64px 0;border-top:1px solid var(--line)}
+.cs-sec h2{font-size:32px;letter-spacing:-.035em;line-height:1.05;margin:0 0 26px;max-width:18ch}
+.cs-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:0 0 10px;font-weight:600}
+.cs-cards{display:grid;gap:14px}
+.cs-card{border:1px solid var(--line);border-radius:20px;padding:24px;background:rgba(255,255,255,.025);display:flex;flex-direction:column;gap:10px}
+.cs-card.hl{border-color:color-mix(in srgb,var(--ac) 70%,transparent);background:color-mix(in srgb,var(--ac) 9%,transparent)}
+.cs-card h3{font-size:21px;letter-spacing:-.02em;margin:0;line-height:1.15}
+.cs-card p{margin:0;color:var(--ink2)}
+.cs-card .pr{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-top:auto}
+.cs-steps{display:grid;gap:12px;counter-reset:s}
+.cs-step{display:flex;gap:16px;padding:20px;border-radius:18px;border:1px solid var(--line)}
+.cs-step em{flex:none;font-style:normal;width:38px;height:38px;border-radius:12px;background:var(--ac);color:#fff;display:grid;place-items:center;font-weight:800}
+.cs-step b{display:block;font-size:17px;margin-bottom:2px}
+.cs-step span{color:var(--ink2)}
+.cs-about{display:grid;gap:22px;align-items:center}
+.cs-about .pic{aspect-ratio:4/5;border-radius:22px;background:radial-gradient(60% 60% at 70% 20%,color-mix(in srgb,var(--ac) 50%,transparent),transparent 70%),#17171b;background-size:cover;background-position:center;display:grid;place-items:center;color:var(--ink2);font-size:13px;max-height:420px}
+.cs-about blockquote{margin:0;font-size:24px;line-height:1.3;letter-spacing:-.02em}
+.cs-about cite{display:block;margin-top:14px;font-style:normal;color:var(--ink2);font-size:15px}
+.cs-ch{border-radius:26px;padding:32px 26px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,#000),color-mix(in srgb,var(--ac) 45%,#000));color:#fff}
+.cs-ch small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.85}
+.cs-ch h3{font-size:32px;letter-spacing:-.04em;line-height:1.02;margin:10px 0 10px}
+.cs-ch p{margin:0 0 20px;opacity:.9}
+.cs-ch ol{margin:0 0 22px;padding-left:20px;display:grid;gap:6px}
+.cs-ch .cs-btn{background:#fff;color:#111}
+.cs-faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.cs-faq summary{font-weight:600;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.cs-faq summary::after{content:"+";color:var(--ac);font-size:22px;line-height:1;filter:brightness(1.3)}
+.cs-faq details[open] summary::after{content:"\2212"}
+.cs-faq p{color:var(--ink2);margin:10px 0 0}
+.cs-foot{padding:34px 0 40px;border-top:1px solid var(--line);color:var(--ink2);font-size:13px}
+.cs-foot .in{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+@container (min-width:720px){
+  .cs .in{padding:0 40px}
+  .cs-links{display:flex}.cs-links+.cs-btn.sm{margin-left:8px}
+  .cs-hero{min-height:640px;padding-bottom:64px}
+  .cs-hero h1{font-size:60px;max-width:17ch}
+  .cs-hero p{font-size:20px}
+  .cs-sec{padding:96px 0}
+  .cs-sec h2{font-size:46px}
+  .cs-cards{grid-template-columns:1fr 1fr}
+  .cs-steps{grid-template-columns:repeat(3,1fr)}.cs-step{flex-direction:column}
+  .cs-about{grid-template-columns:.8fr 1.2fr;gap:48px}
+  .cs-about blockquote{font-size:32px}
+  .cs-ch{padding:48px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+  .cs-ch h3{font-size:44px}
+  .cs-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px}
+}
 </style>
 </head>
 <body>
@@ -275,7 +385,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     </div>
     <div class="get rise d4">
       <ul><li>Website</li><li>Challenge page</li><li>Client app</li><li>Coach dashboard</li><li>Ads, emails, DMs, VSL script</li></ul>
-      <p><b>$19/mo</b>, locked as long as you stay. Founding price ends Tue, Nov 24, then it's $29. Start on the free plan.</p>
+      <p>Start on the free plan. The coach plan is <b>$149 a month</b> when you're ready for clients.</p>
     </div>
   </div>
 
@@ -375,11 +485,24 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 </div></section>
 
 <section class="kit" id="kit"><div class="wrap">
-  <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" type="button" id="voice" hidden>Rewrite in my voice</button><button class="btn sm" type="button" id="save">Save my kit and get my challenge link</button></div></div>
+  <div class="kit-head"><div><div class="eyebrow">Your kit</div><h2 id="kitTitle">Reyes Strength</h2></div></div>
+  <div class="studio-bar">
+    <div class="brand-row">
+      <label class="chip"><input type="color" id="pick" value="#C83A75" aria-label="Brand color">Color</label>
+      <label class="chip"><span id="logoPv">+</span>Logo<input type="file" accept="image/*" id="logoIn"></label>
+      <label class="chip"><span id="photoPv">+</span>Photo<input type="file" accept="image/*" id="photoIn"></label>
+      <div class="seg" id="seg" role="group" aria-label="Preview size"><button type="button" data-v="phone">Phone</button><button type="button" data-v="desk">Desktop</button></div>
+    </div>
+    <div class="live-row">
+      <button class="btn sm ghost" type="button" id="voice" hidden>Rewrite in my voice</button>
+      <button class="btn sm ghost" type="button" id="dl">Download my site</button>
+      <button class="btn sm" type="button" id="save">Put it live</button>
+    </div>
+  </div>
   <div class="saved" id="saved" hidden></div>
+  <div class="warn" id="warn" hidden></div>
   <div class="tabs" role="tablist" id="tabs"></div>
-  <div class="panel" id="panel" role="tabpanel"></div>
+  <div id="panel" role="tabpanel"></div>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -401,11 +524,11 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     <div class="tier"><div class="name">Free</div><div class="price">$0</div>
       <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
       <a class="btn ghost" href="/start?next=/coaches/%23build">Start free</a></div>
-    <div class="tier lead"><div class="name">Builder</div><!--BUILDER_PRICE--><div class="price">$29<small> a month</small></div><!--/BUILDER_PRICE-->
+    <div class="tier lead"><div class="name">Coach</div><div class="price">$149<small> a month</small></div>
       <ul><li>The full kit, rewritten in your voice</li><li>Client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>Every pack in the store</li></ul>
-      <a class="btn" href="/start?next=/coaches/%23kit" data-builder-cta>Start with Builder</a></div>
+      <a class="btn" href="/start?next=/coaches/%23build">Start as a coach</a></div>
     <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
-      <ul><li>Everything in Builder</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
+      <ul><li>Everything in Coach</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
       <a class="btn ghost" href="/circle">Apply</a></div>
   </div>
   <p class="note" style="margin-top:14px">Monthly, cancel any time. 127 doesn't promise you clients, sales or income; what you earn depends on your work and your market.</p>
@@ -437,61 +560,135 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   COLORS.forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.style.background=c; b.setAttribute('aria-label','Color '+c); b.setAttribute('aria-pressed', c===state.color); b.onclick=function(){ state.color=c; [].forEach.call(sw.children,function(x){x.setAttribute('aria-pressed', x===b);}); run(); }; sw.appendChild(b); });
 
-  var TABS = [['site','Website'],['challenge','Challenge page'],['vsl','VSL script'],['ads','Ads'],['emails','Emails'],['dms','DMs'],['posts','30 days of posts'],['consult','Consult call'],['app','Client app'],['dash','Coach dashboard']];
+  var TABS = [['site','Website'],['challenge','Challenge page'],['app','Client app'],['dash','Coach dashboard'],['launch','Launch content']];
+  var LAUNCH = [['vsl','VSL script'],['ads','Ads'],['emails','Emails'],['dms','DMs'],['posts','30 days of posts'],['consult','Consult call']];
+  state.sub = 'vsl'; state.view = innerWidth < 760 ? 'phone' : 'desk';
   var tabs = document.getElementById('tabs');
   TABS.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.role='tab'; b.textContent=t[1]; b.dataset.t=t[0]; b.onclick=function(){ state.tab=t[0]; paint(); }; tabs.appendChild(b); });
 
+  // The coach's edits (tap any text on their site or pages and type) and their brand (logo, photo), kept on this phone.
+  var EK = 'coachKitEdits', BK = 'coachKitBrand', edits = {}, brand = {};
+  try { edits = JSON.parse(localStorage.getItem(EK) || '{}') || {}; brand = JSON.parse(localStorage.getItem(BK) || '{}') || {}; } catch(_){}
+  function keep(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(_){ toast('This phone is out of space for photos'); } }
+
   function item(k, body, copyText){ return '<div class="item"><div class="k"><span>'+esc(k)+'</span>'+(copyText!=null?'<button class="copy" data-copy="'+esc(copyText)+'">Copy</button>':'')+'</div><p>'+body+'</p></div>'; }
   function list(rows){ return '<div class="rows">'+rows.join('')+'</div>'; }
+  // An editable piece of text: path into the kit, so the edit survives a rebuild.
+  function E(tag, path, text, live, cls){ return '<'+tag+(cls?' class="'+cls+'"':'')+(live?' data-e="'+path+'" contenteditable="plaintext-only" spellcheck="true"':'')+'>'+esc(text)+'</'+tag+'>'; }
+  function initials(n){ return String(n||'').split(/\s+/).map(function(w){ return w[0]||''; }).join('').slice(0,2).toUpperCase(); }
+
+  function siteHTML(kit, live){
+    var f = kit.facts, s = kit.site, c = kit.challenge;
+    var logo = brand.logo ? '<img src="'+brand.logo+'" alt="'+esc(f.business)+'">' : '<span class="mk">'+esc(initials(f.business))+'</span>';
+    var photo = brand.photo ? ' ph" style="background-image:url('+brand.photo+')' : '';
+    return '<div class="cs" style="--ac:'+esc(f.color)+'">'+
+      '<header class="cs-nav"><div class="in"><div class="cs-logo">'+logo+'<span>'+esc(f.business)+'</span></div>'+
+        '<nav class="cs-links"><span>Coaching</span><span>Challenge</span><span>About</span><span>Questions</span></nav><a class="cs-btn sm" href="#apply">'+esc(s.cta)+'</a></div></header>'+
+      '<section class="cs-hero'+photo+'"><div class="in"><p class="cs-kick">Online coaching for '+esc(f.who)+'</p>'+
+        E('h1','site.heroTitle',s.heroTitle,live)+E('p','site.heroSub',s.heroSub,live)+
+        '<div class="cs-ctas"><a class="cs-btn" href="#apply">'+esc(s.cta)+'</a><a class="cs-btn ghost" href="#challenge">Join the '+f.days+'-day challenge</a></div>'+
+        '<div class="cs-facts"><span>'+esc(c.dates)+'</span><span>'+f.days+' days, one workout a day</span><span>'+esc(c.price)+' to join</span></div></div></section>'+
+      '<section class="cs-sec"><div class="in"><p class="cs-label">Coaching</p><h2>Two ways to train with '+esc(f.first)+'.</h2><div class="cs-cards">'+
+        s.program.map(function(p,i){ return '<div class="cs-card'+(i?' hl':'')+'"><h3>'+esc(p.name)+'</h3>'+E('p','site.program.'+i+'.line',p.line,live)+'<div class="pr">'+esc(p.price)+'</div></div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec"><div class="in"><p class="cs-label">How it works</p><h2>Three steps, then you train.</h2><div class="cs-steps">'+
+        s.steps.map(function(p,i){ return '<div class="cs-step"><em>'+(i+1)+'</em><div>'+E('b','site.steps.'+i+'.title',p.title,live)+E('span','site.steps.'+i+'.body',p.body,live)+'</div></div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec"><div class="in cs-about"><div class="pic"'+(brand.photo?' style="background-image:url('+brand.photo+')"':'')+'>'+(brand.photo?'':'Your photo')+'</div><div><p class="cs-label">About '+esc(f.first)+'</p>'+
+        E('blockquote','site.about',s.about,live)+'<cite>'+esc(f.coach)+', '+esc(f.business)+'</cite></div></div></section>'+
+      '<section class="cs-sec" id="challenge"><div class="in"><div class="cs-ch"><div><small>'+esc(c.dates)+'</small><h3>'+esc(c.title)+'</h3>'+E('p','challenge.line',c.line,live)+
+        '<a class="cs-btn" href="#apply">Join for '+esc(c.price)+'</a></div><ol>'+c.rules.map(function(r,i){ return E('li','challenge.rules.'+i,r,live); }).join('')+'</ol></div></div></section>'+
+      '<section class="cs-sec"><div class="in cs-faq"><div><p class="cs-label">Questions</p><h2>Before you apply.</h2></div><div>'+
+        s.faq.map(function(q,i){ return '<details'+(live?' open':'')+'><summary>'+E('span','site.faq.'+i+'.q',q.q,live)+'</summary>'+E('p','site.faq.'+i+'.a',q.a,live)+'</details>'; }).join('')+'</div></div></section>'+
+      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+(f.handle?' · @'+esc(f.handle):'')+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
+  }
+
+  function countdown(start){ var ms = Date.parse(start+'T09:00:00') - Date.now(); if (!(ms > 0)) return 'It has started'; var d=Math.floor(ms/864e5), h=Math.floor(ms/36e5)%24; return d+' days, '+h+' hours to go'; }
+  function challengeHTML(kit, live){
+    var f = kit.facts, c = kit.challenge;
+    return '<div class="cs" style="--ac:'+esc(f.color)+'"><header class="cs-nav"><div class="in"><div class="cs-logo">'+(brand.logo?'<img src="'+brand.logo+'" alt="">':'<span class="mk">'+esc(initials(f.business))+'</span>')+'<span>'+esc(f.business)+'</span></div><a class="cs-btn sm" href="#join">Join</a></div></header>'+
+      '<section class="cs-hero'+(brand.photo?' ph" style="background-image:url('+brand.photo+')':'')+'" style="min-height:460px"><div class="in"><p class="cs-kick">'+esc(c.dates)+'</p>'+E('h1','challenge.title',c.title,live)+E('p','challenge.line',c.line,live)+
+        '<div class="cs-ctas"><a class="cs-btn" href="#join">Join for '+esc(c.price)+'</a></div><div class="cs-facts"><span>'+esc(countdown(f.start))+'</span></div></div></section>'+
+      '<section class="cs-sec"><div class="in"><p class="cs-label">Every day</p><div class="cs-steps">'+c.rules.map(function(r,i){ return '<div class="cs-step"><em>'+(i+1)+'</em>'+E('div','challenge.rules.'+i,r,live)+'</div>'; }).join('')+'</div></div></section>'+
+      '<section class="cs-sec"><div class="in"><p class="cs-label">What you get</p><div class="cs-cards">'+c.get.map(function(r,i){ return '<div class="cs-card">'+E('p','challenge.get.'+i,r,live)+'</div>'; }).join('')+'</div>'+
+        '<p style="margin:24px 0 0;font-weight:600">'+E('span','challenge.finish',c.finish,live)+'</p></div></section>'+
+      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
+  }
+
+  function frame(inner, url){
+    return '<p class="hint"><i></i>Tap any text to change it. Your edits stay as you change the form.</p><div class="stage-k"><div class="frame'+(state.view==='phone'?' phone-v':'')+'"><div class="frame-bar"><i></i><i></i><i></i><span>'+esc(url)+'</span></div><div class="frame-scr editing">'+inner+'</div></div></div>';
+  }
+  function launchHTML(kit){
+    var f = kit.facts, L = {};
+    L.vsl = '<p class="sub">About four minutes. Film it on your phone, one take per beat.</p>'+list(kit.vsl.map(function(b,i){ return item(b.time+'  '+b.beat, E('span','vsl.'+i+'.say',b.say,true), b.say); }));
+    L.ads = '<p class="sub">One angle each, so you can see which one gets clicks.</p>'+list(kit.ads.map(function(a,i){ return item(a.angle, '<b>'+E('span','ads.'+i+'.hook',a.hook,true)+'</b><br>'+E('span','ads.'+i+'.body',a.body,true)+'<br><span class="note">Headline: '+E('span','ads.'+i+'.headline',a.headline,true)+'</span>', a.hook+'\n\n'+a.body+'\n\n'+a.headline); }));
+    L.emails = '<p class="sub">Five emails from ten days out to the last day.</p>'+list(kit.emails.map(function(e,i){ return item(e.when, '<b>'+E('span','emails.'+i+'.subject',e.subject,true)+'</b><br>'+E('span','emails.'+i+'.body',e.body,true), e.subject+'\n\n'+e.body); }));
+    L.dms = '<p class="sub">Someone comments '+esc(f.keyword)+', the DM goes out, and you have a reply ready for what comes back.</p>'+list(kit.dms.map(function(d,i){ return item(d.step, E('span','dms.'+i+'.text',d.text,true), d.text); }));
+    L.posts = '<p class="sub">Six kinds of post on rotation. Every third one asks for the comment.</p>'+list(kit.posts.map(function(p){ return item('Day '+p.day, esc(p.post)+' <span class="note">· '+esc(p.cta)+'</span>', p.post); }));
+    L.consult = '<p class="sub">About 20 minutes. The price is said once.</p>'+list(kit.consult.map(function(p,i){ return item(p.part, E('span','consult.'+i+'.say',p.say,true), p.say); }));
+    return '<div class="panel"><div class="launch-nav" id="lnav">'+LAUNCH.map(function(l){ return '<button type="button" data-l="'+l[0]+'" aria-pressed="'+(state.sub===l[0])+'">'+l[1]+'</button>'; }).join('')+'</div><div class="editing">'+L[state.sub]+'</div></div>';
+  }
 
   function render(kit){
-    var f = kit.facts, s = kit.site, c = kit.challenge;
+    var f = kit.facts;
     document.documentElement.style.setProperty('--coach', f.color);
-    var out = {};
-    out.site = '<div class="cols"><div class="phone"><div class="scr">'+
-      '<div class="ms-nav">'+esc(s.name)+'<span></span></div>'+
-      '<div class="ms-hero"><h4>'+esc(s.heroTitle)+'</h4><p>'+esc(s.heroSub)+'</p><span class="ms-btn">'+esc(s.cta)+'</span></div>'+
-      '<div class="ms-sec"><h5>Programs</h5>'+s.program.map(function(p){return '<div class="ms-card"><b>'+esc(p.name)+'</b>'+esc(p.line)+'<br><i>'+esc(p.price)+'</i></div>';}).join('')+'</div>'+
-      '<div class="ms-sec"><h5>How it works</h5>'+s.steps.map(function(p,i){return '<div class="ms-step"><em>'+(i+1)+'</em><div><b>'+esc(p.title)+'</b><br>'+esc(p.body)+'</div></div>';}).join('')+'</div>'+
-      '<div class="ms-sec"><h5>About '+esc(f.first)+'</h5><p>'+esc(s.about)+'</p></div>'+
-      '<div class="ms-sec"><h5>Questions</h5>'+s.faq.map(function(q){return '<p><b>'+esc(q.q)+'</b><br>'+esc(q.a)+'</p>';}).join('')+'</div>'+
-      '</div></div><div><h3>Your website</h3><p class="sub">One page, phone first, about 40 KB. Download it and drop it on free hosting, or let 127 rebuild it in any of 12 designs.</p>'+
-      list([item('Headline', esc(s.heroTitle), s.heroTitle), item('Under it', esc(s.heroSub), s.heroSub), item('About', esc(s.about), s.about)])+'</div></div>';
-    out.challenge = '<div class="cols"><div class="phone"><div class="scr">'+
-      '<div class="ch-top"><small>'+esc(c.dates)+'</small><h4>'+esc(c.title)+'</h4><p style="color:#ccc;margin:0">'+esc(c.line)+'</p>'+
-      '<div class="ch-count"><div>12<span>days</span></div><div>04<span>hours</span></div><div>31<span>min</span></div><div>08<span>sec</span></div></div></div>'+
-      '<div class="ms-sec"><h5>Every day</h5>'+c.rules.map(function(r,i){return '<div class="ms-step"><em>'+(i+1)+'</em><div>'+esc(r)+'</div></div>';}).join('')+'</div>'+
-      '<div class="ms-sec"><h5>What you get</h5>'+c.get.map(function(r){return '<p>'+esc(r)+'</p>';}).join('')+'<p><b>'+esc(c.finish)+'</b></p></div>'+
-      '<div class="ms-sec" style="text-align:center"><span class="ms-btn">Join for '+esc(c.price)+'</span></div>'+
-      '</div></div><div><h3>'+esc(c.title)+'</h3><p class="sub">A dated sign-up page with a live countdown. Clients who join land straight in your app on day one.</p>'+
-      list([item('One line', esc(c.line), c.line), item('Daily rules', c.rules.map(esc).join('<br>'), c.rules.join('\n')), item('Finish rule', esc(c.finish), c.finish)])+'</div></div>';
-    out.vsl = '<h3>VSL script</h3><p class="sub">About four minutes. Film it on your phone in one take per beat.</p>'+list(kit.vsl.map(function(b){return item(b.time+'  '+b.beat, esc(b.say), b.say);}));
-    out.ads = '<h3>Three ads</h3><p class="sub">One angle each, so you can see which one gets clicks.</p>'+list(kit.ads.map(function(a){var t=a.hook+'\n\n'+a.body+'\n\n'+a.headline; return item(a.angle, '<b>'+esc(a.hook)+'</b><br>'+esc(a.body)+'<br><span class="note">Headline: '+esc(a.headline)+' · Button: '+esc(a.cta)+'</span>', t);}));
-    out.emails = '<h3>Launch emails</h3><p class="sub">Five emails from ten days out to the last day.</p>'+list(kit.emails.map(function(e){return item(e.when, '<b>'+esc(e.subject)+'</b><br>'+esc(e.body), e.subject+'\n\n'+e.body);}));
-    out.dms = '<h3>Comment-to-DM flow</h3><p class="sub">Someone comments '+esc(f.keyword)+', the DM goes out, and you have a reply ready for what comes back.</p>'+list(kit.dms.map(function(d){return item(d.step, esc(d.text), d.text);}));
-    out.posts = '<h3>30 days of posts</h3><p class="sub">Six kinds of post on rotation, every third one asks for the comment.</p>'+list(kit.posts.map(function(p){return item('Day '+p.day, esc(p.post)+' <span class="note">· '+esc(p.cta)+'</span>', p.post);}));
-    out.consult = '<h3>Consult call</h3><p class="sub">About 20 minutes. The price is said once.</p>'+list(kit.consult.map(function(p){return item(p.part, esc(p.say), p.say);}));
-    var src = APP + kit.app.query;
-    out.app = '<div class="cols"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p class="sub">Your clients open one link and add it to their home screen. Today\'s workout, sets with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p>'+
-      list([item('Client link', esc(src), new URL(src, location.href).href)])+'<p class="note" style="margin-top:12px">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
-    var dsrc = DASH + kit.app.query;
-    out.dash = '<div class="cols"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(dsrc)+'"></iframe></div><div><h3>Your coach dashboard</h3><p class="sub">The challenge at a glance: who joined, who checked in today, and who to message, with the message already written in your voice. Then the board.</p>'+
-      '<p class="note">Shown with sample clients. Real clients appear here once they join from your challenge link.</p></div></div>';
-    return out;
+    var host = '127group.io/c/'+f.slug;
+    if (state.tab === 'site') return frame(siteHTML(kit, true), f.handle ? f.handle+'.com' : host);
+    if (state.tab === 'challenge') return frame(challengeHTML(kit, true), host);
+    if (state.tab === 'launch') return launchHTML(kit);
+    var src = (state.tab === 'app' ? APP : DASH) + kit.app.query;
+    if (state.tab === 'app') return '<div class="panel side-app"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p>Clients open one link and add it to their home screen. Today\'s workout with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p><p class="note">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
+    return '<div class="panel side-app"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>Your coach dashboard</h3><p>Who joined, who checked in today, and who to message, with the message already written. Then the board.</p><p class="note">Shown with sample clients until real ones join from your challenge link.</p></div></div>';
   }
 
-  var cur = null;
+  var cur = null, warnEl = document.getElementById('warn');
+  function warn(){
+    var p = cur.kit.problems[0];
+    warnEl.hidden = !p;
+    if (p) warnEl.textContent = 'This line reads like a result claim: "'+p.text.slice(0,90)+'". Coaches can\'t promise body or money results, so change it before you put it live.';
+  }
   function paint(){
     [].forEach.call(tabs.children,function(b){ b.setAttribute('aria-selected', b.dataset.t===state.tab); });
-    var warn = cur.kit.problems.length ? '<div class="warn">A line in your answers reads like a result claim ("'+esc(cur.kit.problems[0].text.slice(0,80))+'"). Coaches can\'t promise body or money results in ads, so change it before you publish.</div>' : '';
-    document.getElementById('panel').innerHTML = warn + cur.out[state.tab];
+    document.getElementById('panel').innerHTML = render(cur.kit);
+    [].forEach.call(document.querySelectorAll('#seg button'), function(b){ b.setAttribute('aria-pressed', b.dataset.v===state.view); });
+    warn();
   }
+  function buildKit(d){ var kit = K.build(d); K.applyEdits(kit, edits); return kit; }
   function run(){
-    var d = {}; new FormData(form).forEach(function(v,k){ d[k]=v; }); d.color = state.color;
-    var kit = K.build(d); cur = { kit: kit, out: render(kit) };
-    document.getElementById('kitTitle').textContent = kit.facts.business;
+    var d = formData();
+    cur = { kit: buildKit(d) };
+    document.getElementById('kitTitle').textContent = cur.kit.facts.business;
+    pick.value = cur.kit.facts.color;
     paint();
   }
+  // Typing on the site: keep the edit by its path and re-check claims, without re-drawing under the cursor.
+  document.getElementById('panel').addEventListener('input', function(e){
+    var el = e.target.closest('[data-e]'); if (!el) return;
+    edits[el.dataset.e] = el.innerText.replace(/\s+$/,''); keep(EK, edits);
+    cur.kit = buildKit(formData()); warn();
+  });
+  document.getElementById('panel').addEventListener('click', function(e){
+    var l = e.target.closest('[data-l]'); if (l) { state.sub = l.dataset.l; paint(); return; }
+    if (e.target.closest('[data-e]') || e.target.closest('.cs a')) { if (e.target.closest('.cs a')) e.preventDefault(); }
+    if (e.target.closest('summary [data-e]')) e.preventDefault();
+  });
+  document.getElementById('seg').addEventListener('click', function(e){ var b = e.target.closest('[data-v]'); if (!b) return; state.view = b.dataset.v; paint(); });
+  var pick = document.getElementById('pick');
+  pick.addEventListener('input', function(){ state.color = pick.value; [].forEach.call(sw.children,function(x){ x.setAttribute('aria-pressed','false'); }); run(); try { localStorage.setItem('coachKitForm', JSON.stringify(formData())); } catch(_){} });
+  // Logo and photo: shrunk on the phone before they're kept, so a 12 MB camera photo stays small.
+  function shrink(file, max, type, cb){
+    var r = new FileReader(); r.onload = function(){ var img = new Image(); img.onload = function(){
+      var k = Math.min(1, max / Math.max(img.width, img.height)), cv = document.createElement('canvas');
+      cv.width = Math.round(img.width*k); cv.height = Math.round(img.height*k); cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      cb(cv.toDataURL(type, .82)); }; img.src = r.result; }; r.readAsDataURL(file);
+  }
+  function brandPv(){ document.getElementById('logoPv').innerHTML = brand.logo ? '<img src="'+brand.logo+'" alt="">' : '+'; document.getElementById('photoPv').innerHTML = brand.photo ? '<img src="'+brand.photo+'" alt="">' : '+'; }
+  document.getElementById('logoIn').addEventListener('change', function(){ var f = this.files[0]; if (!f) return; shrink(f, 360, 'image/png', function(u){ brand.logo = u; keep(BK, brand); brandPv(); paint(); toast('Logo added'); }); });
+  document.getElementById('photoIn').addEventListener('change', function(){ var f = this.files[0]; if (!f) return; shrink(f, 1600, 'image/jpeg', function(u){ brand.photo = u; keep(BK, brand); brandPv(); paint(); toast('Photo added'); }); });
+  brandPv();
+  // Download my site: one HTML file with the coach's text, color, logo and photo in it.
+  document.getElementById('dl').addEventListener('click', function(){
+    var k = cur.kit, html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(k.facts.business)+'</title><style>body{margin:0}'+document.getElementById('siteCss').textContent+'</style></head><body>'+siteHTML(k, false)+'</body></html>';
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = k.facts.slug + '.html'; document.body.appendChild(a); a.click(); a.remove();
+  });
   form.addEventListener('submit', function(e){ e.preventDefault(); run(); document.getElementById('kit').scrollIntoView({behavior:'smooth'}); });
   var t; form.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(function(){ run(); try { localStorage.setItem('coachKitForm', JSON.stringify(formData())); } catch(_){} }, 250); });
   document.addEventListener('click', function(e){ var b=e.target.closest('[data-copy]'); if(!b) return; var txt=b.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('Copied');},function(){toast('Select the text to copy');}); });
@@ -505,6 +702,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   document.getElementById('save').addEventListener('click', function(){
     var d = formData();
     try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(_){}
+    d.edits = edits;
     fetch('/coaches/kit', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
       .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
       .then(function(x){
@@ -512,12 +710,11 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
         var link = location.origin + x.j.joinUrl;
-        say('Saved. Your challenge link: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
+        say('It\'s saved. Your challenge page: <a href="'+esc(x.j.joinUrl)+'">'+esc(link)+'</a> <button class="copy" data-copy="'+esc(link)+'">Copy</button><br>Clients who join show up on <a href="'+esc(x.j.dashboardUrl)+'">your dashboard</a>.'+(x.j.live ? '' : ' The link opens to clients once 127 turns client sign-ups on.'));
       })
       .catch(function(){ say('Saving works once you are on 127group.io with an account. This preview keeps your answers on this phone.'); });
   });
-  // Rewrite in my voice (COACH_AI): shown only when the server says it's on for this coach. Editing the form goes back
-  // to the template kit, so the rewrite always matches the answers it was written from.
+  // Rewrite in my voice (COACH_AI): shown only when the server says it's on for this coach.
   var vb = document.getElementById('voice');
   fetch('/coaches/kit/ai', { credentials:'same-origin' }).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j && j.on) vb.hidden = false; }).catch(function(){});
   vb.addEventListener('click', function(){
@@ -528,14 +725,16 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
         if (x.s === 401) { location.href = '/start?next=/coaches/%23kit'; return; }
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not rewritten. Try again.')); return; }
-        var kit = K.build(d); Object.keys(x.j.sections).forEach(function(k){ kit[k] = x.j.sections[k]; });
-        kit.problems = K.check(kit); cur = { kit: kit, out: render(kit) }; paint();
+        // The rewrite becomes the coach's edits, so they can keep changing it by tapping.
+        (function flat(v, path){ if (typeof v === 'string') edits[path] = v; else if (v && typeof v === 'object') Object.keys(v).forEach(function(k){ flat(v[k], path ? path+'.'+k : k); }); })(
+          x.j.used.reduce(function(o, k){ o[k] = x.j.sections[k]; return o; }, {}), '');
+        keep(EK, edits); run();
         say(x.j.used.length ? 'Rewritten in your voice. Read every line before you publish it.' + (x.j.kept.length ? ' Kept the template for: ' + esc(x.j.kept.join(', ')) + '.' : '') : 'The rewrite didn\'t pass 127\'s claim check, so your template kit stays. Try again, or add more of your own words to your story.');
       })
       .catch(function(){ say('Not rewritten. Try again.'); })
       .then(function(){ vb.disabled = false; vb.textContent = 'Rewrite in my voice'; });
   });
-  [].forEach.call(document.querySelectorAll('.feats [data-tab]'), function(a){ a.addEventListener('click', function(){ state.tab = a.dataset.tab; paint(); }); });
+  [].forEach.call(document.querySelectorAll('.feats [data-tab]'), function(a){ a.addEventListener('click', function(){ var t = a.dataset.tab; if (t === 'ads') { state.tab = 'launch'; state.sub = 'ads'; } else state.tab = t; paint(); }); });
   // Back from sign-up (or a Start free link): land on the form, cursor in the first box.
   if (location.hash === '#build') setTimeout(function(){ var el = form.elements.coach; if (el) { el.focus({ preventScroll: true }); document.getElementById('build').scrollIntoView(); } }, 60);
   run();
