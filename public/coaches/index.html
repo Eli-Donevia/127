@@ -300,7 +300,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .side-app h3{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
 .side-app p{color:var(--ink-2);margin:0 0 10px}
 
-/* Hero: a coach's desk in a Chicago high-rise at dusk. Scrolling pushes the camera into the Mac (or the iPhone on a phone)
+/* Hero: a near-black kitchen at night, the open Mac on the island the brightest thing in the room. Scrolling pushes the camera into the Mac (or the iPhone on a phone)
    until the real screen fills the view. The scene is rendered in-house (Blender, CC0 assets); the screen is the live product. */
 .loft{position:relative;height:300vh;height:300svh;background:#07080b}
 .loft-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:paint}
@@ -533,8 +533,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 (function(){
   // Where each device's screen sits in its render (top-left, top-right, bottom-right, bottom-left, as fractions of the image).
   var SHOTS = {
-    wide: { w: 2400, h: 1350, quad: [[0.43635, 0.57657], [0.53385, 0.57871], [0.53289, 0.6929], [0.43338, 0.6896]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
-    tall: { w: 1080, h: 1920, quad: [[0.66488, 0.60133], [0.74084, 0.60294], [0.73512, 0.70057], [0.65804, 0.69802]], scr: '/img/coach-hero/loft-phone-screen.webp', sw: 780, sh: 1690, fill: [.8, .84], tag: 'Client app. Forge Hybrid is a demo coach.' }
+    wide: { w: 2400, h: 1350, quad: [[0.5218, 0.70008], [0.61345, 0.70193], [0.61561, 0.81077], [0.52103, 0.80779]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
+    tall: { w: 1080, h: 1920, quad: [[0.62963, 0.62052], [0.66392, 0.6213], [0.66308, 0.6662], [0.6283, 0.66523]], scr: '/img/coach-hero/loft-phone-screen.webp', sw: 780, sh: 1690, fill: [.8, .84], tag: 'Client app. Forge Hybrid is a demo coach.' }
   };
   var pin = document.getElementById('loftPin'), scene = document.getElementById('loftScene'), scr = document.getElementById('loftScr');
   var copy = document.getElementById('loftCopy'), sec = pin.parentNode;
