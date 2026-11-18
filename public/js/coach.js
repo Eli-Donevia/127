@@ -134,4 +134,9 @@
     };
     form.addEventListener('input', sync); form.addEventListener('change', sync);
   }
+  // ---- Today: the header sits on the coach's photo, then turns solid as you scroll ----
+  if (document.body.classList.contains('has-hero')) {
+    var onScroll = function () { document.body.classList.toggle('scrolled', window.scrollY > 120); };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  }
 })();

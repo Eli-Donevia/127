@@ -1,51 +1,69 @@
-<%- include('../partials/app-top') %>
+<%- include('../partials/app-top', { hero: true }) %>
 <%
   var first = (me.name || '').split(' ')[0];
-  var totalSets = 0, doneSets = 0;
-  if (s && !s.rest && !s.upcoming && s.day) s.day.exercises.forEach(function (e, i) { var pv = log && log.exercises[i]; totalSets += e.sets; for (var k = 0; k < e.sets; k++) if (pv && pv.sets[k] && pv.sets[k].done) doneSets++; });
-  if (log && log.complete) doneSets = totalSets;
+  var totalSets = 0, doneSets = 0, train = s && !s.rest && !s.upcoming && s.day;
+  if (train) s.day.exercises.forEach(function (e, i) { var pv = log && log.exercises[i]; totalSets += e.sets; for (var k = 0; k < e.sets; k++) if (pv && pv.sets[k] && pv.sets[k].done) doneSets++; });
+  var logged = !!(log && log.complete);
+  if (logged) doneSets = totalSets;
   var hDone = habits ? habits.done.filter(function (h) { return c.habits.indexOf(h) >= 0; }).length : 0;
   var cc = challengeCards[0];
   var coachPhoto = c.brand.photo ? '/c/' + c.slug + '/brand-photo?v=' + c.brand.photo.slice(-6) : null;
+  var day = function (k, o) { return new Date(k + 'T12:00:00Z').toLocaleDateString('en-US', Object.assign({ timeZone: 'UTC' }, o)); };
+  var openAt = 0;
+  if (train) { openAt = -1; s.day.exercises.forEach(function (e, i) { if (openAt >= 0) return; var pv = log && log.exercises[i]; var d = 0; for (var k = 0; k < e.sets; k++) if (pv && pv.sets[k] && pv.sets[k].done) d++; if (d < e.sets) openAt = i; }); }
 %>
-<section class="ca-hero">
-  <div class="ca-date"><%= new Date(today + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }) %></div>
-  <h1 class="ca-display"><%= s && s.rest ? 'Rest day, ' + first + '.' : 'Let\'s work, ' + first + '.' %></h1>
-  <div class="ca-rings">
-    <% if (cc) { %><a href="/c/<%= c.slug %>/app/challenge/<%= cc.x.slug %>" class="ca-ring"><%- include('../partials/ring', { value: cc.st.todayDone / cc.x.rules.length, big: cc.st.todayDone + '/' + cc.x.rules.length, small: 'rules', r: 30 }) %><span>Day <%= cc.st.dayNumber %></span></a><% } %>
-    <a href="#workout" class="ca-ring"><%- include('../partials/ring', { value: totalSets ? doneSets / totalSets : (s && s.rest ? 1 : 0), big: totalSets ? Math.round(doneSets / totalSets * 100) + '%' : (s && s.rest ? 'Rest' : '–'), small: 'session', r: 30 }) %><span>Workout</span></a>
-    <a href="#habits" class="ca-ring"><%- include('../partials/ring', { value: c.habits.length ? hDone / c.habits.length : 0, big: hDone + '/' + c.habits.length, small: 'habits', r: 30 }) %><span>Habits</span></a>
+<section class="t-hero <%= coachPhoto ? 'photo' : 'mono' %>">
+  <% if (coachPhoto) { %><img class="t-hero-img" src="<%= coachPhoto %>" alt=""><% } else { %><span class="t-hero-mono" aria-hidden="true"><%= c.brand.initials %></span><% } %>
+  <div class="t-hero-in">
+    <div class="t-date"><%= day(today, { weekday: 'long', month: 'long', day: 'numeric' }) %></div>
+    <h1 class="t-h1"><%= s && s.rest ? 'Rest day, ' + first + '.' : logged ? 'Done today, ' + first + '.' : 'Let\'s work, ' + first + '.' %></h1>
+    <% if (train) { %>
+      <p class="t-sub"><b><%= s.day.title %></b><span><%= s.day.exercises.length %> exercises · <%= totalSets %> sets · week <%= s.weekIndex + 1 %></span></p>
+      <a class="t-cta" href="#workout"><%= logged ? 'See today\'s log' : doneSets ? 'Keep going' : 'Start workout' %><span aria-hidden="true">→</span></a>
+    <% } else if (s && s.rest) { %>
+      <p class="t-sub"><span>Walk, stretch, hit your habits.</span></p>
+    <% } %>
   </div>
 </section>
 
-<% if (lastReply) { %>
-<section class="ca-note">
-  <% if (coachPhoto) { %><img class="ca-note-av" src="<%= coachPhoto %>" alt=""><% } else { %><span class="ca-note-av"><%= c.brand.initials %></span><% } %>
-  <div><div class="ca-note-who"><b><%= c.coachName %></b> <span><%= new Date(lastReply.date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) %></span></div><p><%= lastReply.reply %></p></div>
+<section class="t-rings" aria-label="Today">
+  <% if (cc) { %><a href="/c/<%= c.slug %>/app/challenge/<%= cc.x.slug %>"><%- include('../partials/ring', { value: cc.st.todayDone / cc.x.rules.length, big: cc.st.todayDone + '/' + cc.x.rules.length, small: '', r: 34 }) %><span>Rules</span></a><% } %>
+  <a href="#workout"><%- include('../partials/ring', { value: totalSets ? doneSets / totalSets : (s && s.rest ? 1 : 0), big: totalSets ? doneSets + '/' + totalSets : (s && s.rest ? 'Rest' : '–'), small: '', r: 34 }) %><span>Sets</span></a>
+  <a href="#habits"><%- include('../partials/ring', { value: c.habits.length ? hDone / c.habits.length : 0, big: hDone + '/' + c.habits.length, small: '', r: 34 }) %><span>Habits</span></a>
 </section>
+
+<% if (lastReply) { %>
+<figure class="t-quote">
+  <blockquote><%= lastReply.reply %></blockquote>
+  <figcaption><% if (coachPhoto) { %><img src="<%= coachPhoto %>" alt=""><% } else { %><span><%= c.brand.initials %></span><% } %><b><%= c.coachName %></b> · <%= day(lastReply.date, { month: 'short', day: 'numeric' }) %></figcaption>
+</figure>
 <% } %>
 
-<% challengeCards.forEach(function (y) { var st = y.st; %>
-<a class="ca-card ch-mini" href="/c/<%= c.slug %>/app/challenge/<%= y.x.slug %>">
-  <div class="ch-mini-day"><b><%= st.dayNumber %></b><span>of <%= st.of %></span></div>
-  <div><div class="eyebrow accent-t"><%= y.x.name %></div><b class="h"><%= st.todayDone === y.x.rules.length ? 'All rules done today' : (y.x.rules.length - st.todayDone) + ' rules left today' %></b><span class="small ink2"><%= st.streak %>-day streak · <%= st.points %> pts</span></div>
+<% challengeCards.forEach(function (y) { var st = y.st, left = y.x.rules.length - st.todayDone; %>
+<a class="t-ch" href="/c/<%= c.slug %>/app/challenge/<%= y.x.slug %>">
+  <span class="t-ch-n"><b><%= st.dayNumber %></b><small>/<%= st.of %></small></span>
+  <span class="t-ch-t"><small><%= y.x.name %></small><b><%= left ? left + (left === 1 ? ' rule' : ' rules') + ' left today' : 'Every rule done today' %></b>
+    <i class="t-bar"><i style="width:<%= Math.round(st.dayNumber / st.of * 100) %>%"></i></i></span>
   <span class="chev">›</span>
 </a>
 <% }) %>
 
-<% if (dueCheckin) { %><a class="ca-card due" href="/c/<%= c.slug %>/app/checkin"><b>Weekly check-in due</b><span class="small">Weight, photos, how the week went. About 2 minutes.</span><span class="chev">›</span></a><% } %>
+<% if (dueCheckin) { %><a class="t-due" href="/c/<%= c.slug %>/app/checkin"><b>Weekly check-in due</b><span>Weight, photos and how the week went. About 2 minutes.</span><span class="chev">›</span></a><% } %>
 
-<section class="ca-card" id="workout">
-  <% if (!s) { %><h2>No program yet</h2><p class="muted small"><%= c.coachName %> is building yours.</p>
-  <% } else if (s.upcoming) { %><h2><%= s.program.name %></h2><p class="muted small">Starts <%= s.start %>.</p>
-  <% } else if (s.rest) { %><div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div><h2>Rest day</h2><p class="muted small">Walk, stretch, hit your habits.</p>
-  <% } else { var done = log && log.complete; %>
-    <div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div>
-    <h2><%= s.day.title %> <% if (done) { %><span class="pill good">Logged</span><% } %></h2>
+<section class="t-sec" id="workout">
+  <% if (!s) { %><h2 class="t-h2">No program yet</h2><p class="ink2"><%= c.coachName %> is building yours.</p>
+  <% } else if (s.upcoming) { %><h2 class="t-h2"><%= s.program.name %></h2><p class="ink2">Starts <%= s.start %>.</p>
+  <% } else if (s.rest) { %><h2 class="t-h2">Rest day</h2><p class="ink2">Recovery is part of the program.</p>
+  <% } else { %>
+    <div class="t-sec-head"><h2 class="t-h2"><%= s.day.title %></h2><% if (logged) { %><span class="pill good">Logged</span><% } %></div>
     <form method="post" action="/c/<%= c.slug %>/app/workout" class="wk">
-      <% s.day.exercises.forEach(function (e, i) { var prev = log && log.exercises[i]; %>
-      <div class="wk-ex">
-        <div class="wk-name"><span class="wk-i"><%= i + 1 %></span><b><%= e.name %></b><span class="small ink2"><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · rest ' + e.rest : '' %><%= e.note ? ' · ' + e.note : '' %></span></div>
+      <% s.day.exercises.forEach(function (e, i) { var prev = log && log.exercises[i]; var d = 0; for (var q = 0; q < e.sets; q++) if (prev && prev.sets[q] && prev.sets[q].done) d++; %>
+      <details class="ex <%= d === e.sets || logged ? 'done' : '' %>" <%= i === openAt ? 'open' : '' %>>
+        <summary>
+          <span class="ex-i"><%= d === e.sets || logged ? '✓' : i + 1 %></span>
+          <span class="ex-t"><b><%= e.name %></b><small><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · rest ' + e.rest : '' %><%= e.note ? ' · ' + e.note : '' %></small></span>
+          <span class="ex-c"><%= logged ? e.sets : d %>/<%= e.sets %></span>
+        </summary>
         <div class="wk-sets">
           <% for (var k = 0; k < e.sets; k++) { var ps = prev && prev.sets[k]; %>
           <div class="set <%= ps && ps.done ? 'on' : '' %>"><span class="set-n"><%= k + 1 %></span>
@@ -55,20 +73,20 @@
           </div>
           <% } %>
         </div>
-      </div>
+      </details>
       <% }) %>
-      <input class="input" name="note" placeholder="Note for your coach (optional)" value="<%= log && log.note || '' %>">
+      <input class="input t-note" name="note" placeholder="Note for <%= c.coachName.split(' ')[0] %> (optional)" value="<%= log && log.note || '' %>">
       <input type="hidden" name="complete" value="on">
-      <button class="btn accent block"><%= done ? 'Update log' : 'Finish session' %></button>
+      <button class="btn accent block"><%= logged ? 'Update log' : 'Finish session' %></button>
     </form>
   <% } %>
 </section>
 
-<section class="ca-card" id="habits">
-  <h2>Daily habits</h2>
-  <form method="post" action="/c/<%= c.slug %>/app/habits" class="habits" data-autosubmit>
+<section class="t-sec" id="habits">
+  <div class="t-sec-head"><h2 class="t-h2">Habits</h2><span class="ink2"><%= hDone %> of <%= c.habits.length %></span></div>
+  <form method="post" action="/c/<%= c.slug %>/app/habits" class="t-habits" data-autosubmit>
     <% c.habits.forEach(function (h, i) { var on = habits && habits.done.indexOf(h) >= 0; %>
-      <label class="habit <%= on ? 'on' : '' %>"><input type="checkbox" name="h<%= i %>" <%= on ? 'checked' : '' %>><span class="tick"></span><%= h %></label>
+      <label class="habit <%= on ? 'on' : '' %>"><input type="checkbox" name="h<%= i %>" <%= on ? 'checked' : '' %>><span class="tick"></span><span><%= h %></span></label>
     <% }) %>
     <noscript><button class="btn ghost sm">Save</button></noscript>
   </form>
