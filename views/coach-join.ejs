@@ -4,9 +4,10 @@
 <body class="bare">
   <div class="bare-top"><a href="/" class="mark"><img src="/img/127-emerald.png" srcset="/img/127-emerald.png 2x, /img/127-emerald@3x.png 3x" width="46" height="24" alt="127" class="logo"></a><a href="/login?next=<%= encodeURIComponent(next) %>" class="small link">Have an account? Sign in</a></div>
   <main class="auth-card fade-in">
-    <div class="eyebrow">127 for coaches · Free</div>
-    <h1 style="margin-top:12px">Save your kit and get your challenge link</h1>
-    <p class="muted" style="margin:0 0 28px">Make your free account. You go straight back to your kit, and it saves as it is.</p>
+    <% const paying = next === '/coaches/checkout'; %>
+    <div class="eyebrow">127 for coaches · <%= paying ? 'Coach plan, $149 a month' : 'Free' %></div>
+    <h1 style="margin-top:12px"><%= paying ? 'Make your account, then start the Coach plan' : 'Save your kit and get your challenge link' %></h1>
+    <p class="muted" style="margin:0 0 28px"><%= paying ? 'Next is a secure Stripe checkout. The plan renews monthly at $149 plus tax until you cancel.' : 'Make your free account. You go straight back to your kit, and it saves as it is.' %></p>
     <% if (error) { %><div class="alert error"><%= error %></div><% } %>
     <form method="post" action="/coaches/join">
       <input type="hidden" name="next" value="<%= next %>">
@@ -15,7 +16,7 @@
       <label class="field"><span>Password</span><input class="input" type="password" name="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters"></label>
       <label class="check" style="margin:4px 0 18px"><input type="checkbox" name="optin" <%= form.optin ? 'checked' : '' %>> Send me 127 emails for coaches. Unsubscribe anytime.</label>
       <p class="consent-line" style="margin:0 0 18px">By creating an account, you confirm you're 18 or older and agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
-      <button class="btn light block">Save my kit <span class="arrow"></span></button>
+      <button class="btn light block"><%= paying ? 'Continue to checkout' : 'Save my kit' %> <span class="arrow"></span></button>
     </form>
   </main>
 </body>

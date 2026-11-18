@@ -292,7 +292,7 @@ test('Started Checkout: plan is "builder" or "circle" only; a founding Builder s
   assert.ok(e, 'circle event emitted');
   assert.strictEqual(e.payload.founding, false);
   assert.strictEqual(e.payload.checkout_url, 'https://127.test/app/circle');
-  for (const x of events('checkout.started', user.id)) assert.ok(['builder', 'circle'].includes(x.payload.plan));
+  for (const x of events('checkout.started', user.id)) assert.ok(['builder', 'coach', 'circle'].includes(x.payload.plan));
 });
 
 test('Klaviyo "Payment Failed" on every attempt, "Payment Recovered" only after a failure', async () => {
@@ -538,4 +538,32 @@ test('webhook: replacing a subscription older than a day cancels without a refun
   await deliver({ id: `evt_old_${Date.now()}`, type: 'checkout.session.completed', data: { object: { client_reference_id: user.id, payment_status: 'paid', subscription: 'sub_new', metadata: {} } } });
   assert.ok(s.calls.some((c) => c.name === 'subs.cancel' && c.args === 'sub_old'));
   assert.ok(!s.calls.some((c) => c.name === 'refunds.create'));
+});
+
+test('coach plan: $149 checkout by lookup key, coach welcome page, webhook turns on the coach account', async () => {
+  PRICES.coach_monthly = { id: 'price_coach', lookup_key: 'coach_monthly' };
+  byId.price_coach = PRICES.coach_monthly;
+  assert.strictEqual(PLANS.coach.price, 149);
+  assert.ok(PLANS.coach.rank > PLANS.builder.rank && PLANS.coach.rank < PLANS.circle.rank);
+  const url = await billing.checkoutUrl(req, user, 'coach');
+  assert.strictEqual(url, 'https://checkout.stripe.test/s');
+  const a = s.calls.find((c) => c.name === 'checkout.create').args;
+  assert.deepStrictEqual(a.line_items, [{ price: 'price_coach', quantity: 1 }]);
+  assert.strictEqual(a.metadata.tier, 'coach');
+  assert.strictEqual(a.metadata.founding, '');
+  assert.ok(a.success_url.startsWith('https://127.test/coaches/welcome?session_id='));
+  assert.match(a.custom_text.submit.message, /Renews monthly at \$149 \+ tax until you cancel/);
+  assert.doesNotMatch(a.custom_text.submit.message, /14 days/);
+  const cus = 'cus_coach' + user.id;
+  s.sub('sub_coach', 'price_coach', 'active', { customer: cus });
+  assert.ok(!user.coach);
+  await deliver({ id: 'evt_coach' + user.id, type: 'checkout.session.completed', data: { object: { client_reference_id: user.id, payment_status: 'paid', subscription: 'sub_coach', customer: cus, metadata: { tier: 'coach' } } } });
+  assert.strictEqual(user.tier, 'coach');
+  assert.strictEqual(user.coach, true);
+  assert.strictEqual(user.foundingPrice, false);
+  assert.ok(require('../lib/plans').canAccess(user, 'builder'));
+  // Cancelled: back to Free, but still a coach account, so the kit and site stay theirs.
+  await deliver({ id: 'evt_coach_del' + user.id, type: 'customer.subscription.deleted', data: { object: { ...s.subs.sub_coach, status: 'canceled' } } });
+  assert.strictEqual(user.tier, 'free');
+  assert.strictEqual(user.coach, true);
 });

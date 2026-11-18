@@ -5,7 +5,7 @@
 //   STRIPE_SECRET_KEY=sk_test_... npm run stripe:setup
 //   STRIPE_SECRET_KEY=sk_test_... npm run stripe:setup -- --webhook-url https://127group.io/billing/webhook
 //
-// Creates: the Builder and Founder's Circle products, one product and one-time price per paid pack (content/shop/packs.json), the $29, $19 founding and
+// Creates: the Builder, Coach ($149) and Founder's Circle products, one product and one-time price per paid pack (content/shop/packs.json), the $29, $19 founding and
 // $299 monthly prices (found by lookup key, so no price IDs go in Secrets), the
 // founding referral and win-back coupons (first month free), and a customer portal setup.
 // Reports Stripe Tax status. It never changes tax registrations.
@@ -19,7 +19,7 @@
 const Stripe = require('stripe');
 const { PLANS } = require('../lib/plans');
 
-const LOOKUP = { builder: 'builder_monthly', founding: 'builder_founding_monthly', circle: 'circle_monthly' };
+const LOOKUP = { builder: 'builder_monthly', founding: 'builder_founding_monthly', coach: 'coach_monthly', circle: 'circle_monthly' };
 const REFERRAL_COUPON = 'founding-referral';
 const EVENTS = [
   'checkout.session.completed',
@@ -59,7 +59,7 @@ async function main() {
 
   // Products: one per plan, so checkout and invoices show the plan name.
   const products = {};
-  for (const [k, p] of [['builder', PLANS.builder], ['circle', PLANS.circle]]) {
+  for (const [k, p] of [['builder', PLANS.builder], ['coach', PLANS.coach], ['circle', PLANS.circle]]) {
     const id = `127_${k}`;
     let prod = await s.products.retrieve(id).catch((e) => (e.code === 'resource_missing' ? null : Promise.reject(e)));
     const fields = { name: p.name, description: p.tagline, metadata: { app: '127', tier: k }, ...(taxCode ? { tax_code: taxCode } : {}) };
@@ -78,6 +78,7 @@ async function main() {
   const wanted = [
     ['builder', products.builder.id, PLANS.builder.price, 'Builder'],
     ['founding', products.builder.id, foundingPrice, 'Builder (founding, locked)'],
+    ['coach', products.coach.id, PLANS.coach.price, 'Coach'],
     ['circle', products.circle.id, PLANS.circle.price, "Founder's Circle"],
   ];
   const priceIds = {};
@@ -217,7 +218,7 @@ async function main() {
   console.log(`  STRIPE_WEBHOOK_SECRET=${webhookSecret || 'whsec_...  (from the webhook endpoint)'}`);
   if (!portal.is_default) console.log(`  STRIPE_PORTAL_CONFIGURATION=${portal.id}`);
   console.log('\nOptional (the app finds prices by lookup key without these):');
-  console.log(`  STRIPE_PRICE_BUILDER=${priceIds.builder}\n  STRIPE_PRICE_BUILDER_FOUNDING=${priceIds.founding}\n  STRIPE_PRICE_CIRCLE=${priceIds.circle}`);
+  console.log(`  STRIPE_PRICE_BUILDER=${priceIds.builder}\n  STRIPE_PRICE_BUILDER_FOUNDING=${priceIds.founding}\n  STRIPE_PRICE_COACH=${priceIds.coach}\n  STRIPE_PRICE_CIRCLE=${priceIds.circle}`);
 }
 
 main().catch((e) => {

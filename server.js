@@ -491,6 +491,31 @@ app.post('/coaches/join', express.urlencoded({ extended: false, limit: '10kb' })
     release();
   }
 }));
+// Coach plan checkout ($149 a month, Eli 2026-11-18). Signed out: make a coach account first, then come back here.
+// Already a coach (or Circle, which includes Coach): straight to the dashboard. The webhook is what turns the plan on.
+app.get('/checkout', (req, res) => res.redirect(302, '/coaches/checkout'));
+app.get('/coaches/checkout', wrap(async (req, res) => {
+  if (!req.user) return res.redirect(302, '/coaches/join?next=' + encodeURIComponent('/coaches/checkout'));
+  if (['coach', 'circle'].includes(req.user.tier)) return res.redirect('/coaches/dashboard');
+  if (req.query.checkout === 'cancelled') return res.redirect('/coaches/#pricing');
+  if (req.user.pause && !req.user.pause.endedAt) {
+    flash(req, 'info', 'Your Builder plan is paused. Resume it here first, then switch to the Coach plan.');
+    return res.redirect('/app/billing#pause');
+  }
+  await startCheckout(req, res, 'coach', '/coaches/checkout');
+}));
+app.get('/coaches/welcome', requireAuth, wrap(async (req, res) => {
+  if (req.query.session_id) {
+    try {
+      await billing.confirmCheckout(req.user, req.query.session_id);
+    } catch (err) {
+      console.warn('[billing] coach confirm', err.type || '', err.message);
+    }
+  }
+  if (req.user.tier === 'coach') flash(req, 'success', "You're on the Coach plan. Your receipt is on its way from Stripe.");
+  else flash(req, 'info', 'Your payment is still going through. This page updates in a minute.');
+  res.redirect('/coaches/dashboard');
+}));
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
@@ -1703,7 +1728,7 @@ function checkoutFrom(req) {
 
 app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
   const tier = req.params.tier;
-  if (!['builder', 'circle'].includes(tier)) return res.redirect('/app/billing');
+  if (!['builder', 'coach', 'circle'].includes(tier)) return res.redirect('/app/billing');
   // A paused Builder still has a subscription: "Resume now" on Billing brings it back, no new checkout.
   if (req.user.pause && !req.user.pause.endedAt) {
     flash(req, 'info', 'Your Builder plan is paused. Resume it here to get everything back.');
@@ -1718,7 +1743,7 @@ app.post('/app/billing/checkout/:tier', requireAuth, wrap(async (req, res) => {
     }
     // Builder members move up on their saved card without Stripe Checkout, so they confirm
     // and tick the box here first (Membership Terms, Appendix A3).
-    if (req.user.tier === 'builder') {
+    if (['builder', 'coach'].includes(req.user.tier)) {
       if (req.body.agree !== 'on') return res.redirect('/app/billing/confirm/circle');
       req.user.consents = [...(req.user.consents || []), {
         kind: 'upgrade', plan: 'circle', at: new Date().toISOString(), box: true,
@@ -1752,7 +1777,7 @@ app.get('/winback', requireAuth, wrap(async (req, res) => {
 
 app.get('/app/billing/confirm/circle', requireAuth, wrap(async (req, res) => {
   const application = db.find('applications', (a) => a.userId === req.user.id);
-  if (req.user.tier !== 'builder' || !application || application.status !== 'approved') return res.redirect('/app/circle');
+  if (!['builder', 'coach'].includes(req.user.tier) || !application || application.status !== 'approved') return res.redirect('/app/circle');
   let preview = null;
   try {
     preview = await billing.previewUpgrade(req.user, 'circle');
@@ -1763,7 +1788,7 @@ app.get('/app/billing/confirm/circle', requireAuth, wrap(async (req, res) => {
 }));
 
 async function startCheckout(req, res, tier, from, opts = {}) {
-  const price = tier === 'circle' ? PLANS.circle.price : billing.foundingKept(req.user) ? launch.view().foundingPrice || res.locals.builderOffer.price : res.locals.builderOffer.price;
+  const price = tier === 'circle' || tier === 'coach' ? PLANS[tier].price : billing.foundingKept(req.user) ? launch.view().foundingPrice || res.locals.builderOffer.price : res.locals.builderOffer.price;
   track(req, 'Checkout Start', { plan: tier, price, from });
   try {
     if (tier === 'circle') {
