@@ -14,7 +14,7 @@
       </form>
       <%- include('partials/renewal-line', { rlPrice: launch.foundingPrice }) %>
     <% } else { %>
-      <p class="muted" style="margin:0 0 24px">Create your account, then pay. Your 3-minute assessment comes right after, so your roadmap fits you.</p>
+      <p class="muted" style="margin:0 0 24px">Create your account, then pay.<%= (typeof coachHome !== 'undefined' && coachHome) ? ' Then build your coaching app.' : ' Your 3-minute assessment comes right after, so your roadmap fits you.' %></p>
       <% if (exists) { %><div class="alert error">That email already has an account. <a class="link" href="/login?next=/founding/lock">Sign in</a> and you'll come right back here.</div><% } %>
       <% if (error) { %><div class="alert error"><%= error %></div><% } %>
       <form method="post" action="/founding/lock" class="lock-form">
