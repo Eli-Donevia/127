@@ -231,9 +231,9 @@ app.use((req, res, next) => {
   next();
 });
 // COACH_HOME=on (Grok QA, Nov 18): the old founder offer and funnels are retired. The $19 Builder pages, the old free
-// tools and the founder roadmap picker send people to the coach page; the $19 payment form is off. Members who are
+// tools and the founder roadmap picker send people to the coach page. /founding/lock (the $19 payment form) stays on until Nov 24 (Eli, Nov 18). Members who are
 // signed in keep /start (retakes). Off: every page works as before. 302s, so turning it off brings them back.
-const COACH_RETIRED = { '/pricing': '/#pricing', '/founding': '/#pricing', '/founding/lock': '/#pricing', '/about': '/#pricing', '/score': '/', '/stack': '/', '/idea-test': '/', '/media-kit': '/' };
+const COACH_RETIRED = { '/pricing': '/#pricing', '/founding': '/#pricing', '/about': '/#pricing', '/score': '/', '/stack': '/', '/idea-test': '/', '/media-kit': '/' };
 app.use((req, res, next) => {
   if (process.env.COACH_HOME !== 'on') return next();
   const p = req.path.replace(/\/+$/, '') || '/';
