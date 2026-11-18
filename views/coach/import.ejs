@@ -1,0 +1,76 @@
+<%- include('partials/top') %>
+<% var R = kind === 'reviews'; %>
+<% if (step === 'pick') { %>
+<div class="im-head">
+  <div class="eyebrow">Import</div>
+  <h1>Bring what you already have</h1>
+  <p class="lede small-lede">Drop in a CSV of your client reviews or your programs. Exports from Google Sheets, Excel, Trainerize, TrueCoach or FitBudd usually work as they are.</p>
+</div>
+<% if (error) { %><div class="alert error"><%= error %></div><% } %>
+<form method="post" action="/coach/import/preview" class="im-form" data-import>
+  <div class="im-kinds" role="radiogroup" aria-label="What are you importing?">
+    <label class="im-kind"><input type="radio" name="kind" value="reviews" <%= R ? 'checked' : '' %>>
+      <span class="im-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg></span>
+      <span><b>Client reviews</b><small>Show on your site, next to your offer</small></span></label>
+    <label class="im-kind"><input type="radio" name="kind" value="programs" <%= R ? '' : 'checked' %>>
+      <span class="im-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9v6M6.5 6.5v11M17.5 6.5v11M21 9v6M6.5 12h11"/></svg></span>
+      <span><b>Programs</b><small>Weeks, days and exercises, ready to assign</small></span></label>
+  </div>
+  <label class="im-drop">
+    <input type="file" accept=".csv,.tsv,.txt,text/csv,text/plain" data-import-file>
+    <span class="im-drop-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5M4 15v4h16v-4"/></svg></span>
+    <b data-import-label><%= filename || 'Choose a CSV file' %></b>
+    <small>Up to 150 KB. Nothing is saved until you check it.</small>
+  </label>
+  <input type="hidden" name="filename" value="<%= filename %>" data-import-name>
+  <details class="im-paste" <%= csv ? 'open' : '' %>><summary>Or paste the rows</summary>
+    <textarea class="input mono" name="csv" rows="7" data-import-text placeholder="Name,Review,Rating&#10;Jordan K.,&quot;Down 18 lb and I finally like training.&quot;,5"><%= csv %></textarea>
+  </details>
+  <button class="btn accent block big">Check my file</button>
+</form>
+<div class="im-help">
+  <div><b>Reviews need</b><span>a column called Review or Testimonial. Name, Rating and Result are optional.</span><a href="/coach/import/template/reviews.csv">Download the reviews template</a></div>
+  <div><b>Programs need</b><span>one row per exercise, with an Exercise column. Program, Week, Day, Sets, Reps, Rest and Notes are optional.</span><a href="/coach/import/template/programs.csv">Download the programs template</a></div>
+  <div><b>Clients</b><span>are not imported from a file. Send your invite link so each client joins and agrees to share their data with you.</span></div>
+</div>
+<% } else { %>
+<div class="im-head">
+  <a class="small ink2" href="/coach/import?kind=<%= kind %>">← Pick another file</a>
+  <h1><%= R ? 'We found ' + out.items.length + (out.items.length === 1 ? ' review' : ' reviews') : 'We found ' + out.items.length + (out.items.length === 1 ? ' program' : ' programs') %></h1>
+  <p class="lede small-lede"><%= filename ? filename + ' · ' : '' %><%= out.rows %> rows read<%= out.skipped.length ? ', ' + out.skipped.length + ' skipped' : '' %><%= out.cut ? ', ' + out.cut + ' over the limit of 30' : '' %>. Check it, then save.</p>
+</div>
+<% if (error) { %><div class="alert error"><%= error %></div><% } %>
+<% if (out.skipped.length) { %><p class="im-skip">Skipped: <%= out.skipped.slice(0, 6).map(function (x) { return 'row ' + x.line + ' (' + x.why + ')'; }).join(', ') %><%= out.skipped.length > 6 ? ' and more' : '' %>.</p><% } %>
+<% if (R) { %>
+  <div class="im-reviews">
+  <% out.items.forEach(function (rv) { %>
+    <figure class="im-rv">
+      <% if (rv.rating) { %><div class="im-stars" aria-label="<%= rv.rating %> out of 5"><%= '★★★★★'.slice(0, rv.rating) %><span><%= '★★★★★'.slice(rv.rating) %></span></div><% } %>
+      <blockquote><%= rv.quote %></blockquote>
+      <figcaption><b><%= rv.name %></b><% if (rv.result) { %> · <%= rv.result %><% } %></figcaption>
+    </figure>
+  <% }) %>
+  </div>
+<% } else { %>
+  <% out.items.forEach(function (p) { %>
+  <section class="card im-prog">
+    <div class="card-title"><h3><%= p.name %></h3><span class="ink2 small"><%= p.weeks.length %> <%= p.weeks.length === 1 ? 'week' : 'weeks' %> · <%= p.days %> days · <%= p.exercises %> exercises</span></div>
+    <% p.weeks.slice(0, 1).forEach(function (w) { w.days.forEach(function (d) { %>
+      <div class="im-day"><b><%= d.title %></b>
+        <ol><% d.exercises.forEach(function (e) { %><li><span><%= e.name %></span><em><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · ' + e.rest : '' %></em></li><% }) %></ol>
+      </div>
+    <% }) }) %>
+    <% if (p.weeks.length > 1) { %><p class="small ink2">Weeks 2 to <%= p.weeks.length %> come in too.</p><% } %>
+  </section>
+  <% }) %>
+<% } %>
+<form method="post" action="/coach/import/save" class="im-save">
+  <input type="hidden" name="kind" value="<%= kind %>">
+  <input type="hidden" name="filename" value="<%= filename %>">
+  <textarea name="csv" hidden><%= csv %></textarea>
+  <% if (R) { %><label class="check big"><input type="checkbox" name="consent" required> These are real reviews from my clients, in their words, and I have their OK to show them on my site.</label><% } %>
+  <button class="btn accent block big"><%= R ? 'Put these reviews on my site' : (out.items.length === 1 ? 'Import this program' : 'Import these programs') %></button>
+  <% if (R) { %><p class="small ink2">Importing again replaces reviews from your last import.</p><% } %>
+</form>
+<% } %>
+<%- include('partials/bottom') %>

@@ -154,6 +154,61 @@ test('brand: the look and the coach photo carry into their app and site; a bad f
   assert.ok(coach.coachFor(db.get('users', cu.id)).brand.photo);
 });
 
+test('import: CSV reader handles quotes, semicolons and loose column names', () => {
+  const imp = require('../lib/coach/import');
+  assert.deepEqual(imp.parseCsv('a,b\r\n"x, ""y""",2\n'), [['a', 'b'], ['x, "y"', '2']]);
+  assert.deepEqual(imp.parseCsv('a;b\n1;2'), [['a', 'b'], ['1', '2']]);
+  const rv = imp.read('Client Name,Testimonial,Stars\nJo,"Great coach, real plan.",5\nNo text,,4\n');
+  assert.equal(rv.kind, 'reviews');
+  assert.equal(rv.items.length, 1);
+  assert.deepEqual(rv.items[0], { name: 'Jo', quote: 'Great coach, real plan.', rating: 5, result: '' });
+  assert.equal(rv.skipped.length, 1);
+  const pr = imp.read('Program Name;Week;Workout Name;Exercise Name;Sets;Rep Range;Rest Seconds\nBase;1;Lower;Squat;4;5;180\nBase;1;Upper;Bench;3;8;90\nBase;2;Lower;Squat;4;4;180\n');
+  assert.equal(pr.kind, 'programs');
+  assert.equal(pr.items[0].name, 'Base');
+  assert.equal(pr.items[0].weeks.length, 2);
+  assert.deepEqual(pr.items[0].weeks[0].days.map((d) => d.title), ['Lower', 'Upper']);
+  assert.equal(pr.items[0].weeks[0].days[0].exercises[0].rest, '180s');
+  assert.match(imp.read('a,b\n1,2').error, /could not find/);
+  assert.match(imp.read('x'.repeat(imp.MAX_BYTES + 1)).error, /150 KB/);
+});
+
+test('import: off by default; preview saves nothing; reviews need consent and show on the site; programs save', async () => {
+  delete process.env.COACH_IMPORT;
+  assert.equal((await s.go('/coach/import', { as: cu })).status, 404);
+  process.env.COACH_IMPORT = 'on';
+  try {
+    assert.equal((await s.go('/coach/import', { as: cu })).status, 200);
+    const csv = 'Name,Review,Rating,Result\nJordan K.,"Down 18 lb and I like training now.",5,Lost 18 lb\n';
+    const pv = await s.go('/coach/import/preview', { as: cu, form: { csv, filename: 'reviews.csv' } });
+    assert.equal(pv.status, 200);
+    assert.match(await pv.text(), /We found 1 review/);
+    assert.ok(!(coach.coachFor(db.get('users', cu.id)).reviews || []).length, 'preview saves nothing');
+    const noOk = await s.go('/coach/import/save', { as: cu, form: { csv, kind: 'reviews' } });
+    assert.equal(noOk.status, 400);
+    const ok = await s.go('/coach/import/save', { as: cu, form: { csv, kind: 'reviews', consent: 'on' } });
+    assert.equal(ok.status, 302);
+    assert.equal(coach.coachFor(db.get('users', cu.id)).reviews.length, 1);
+    const site = await (await s.go('/c/forge-hybrid')).text();
+    assert.match(site, /Down 18 lb and I like training now/);
+    assert.match(site, /Each client's result is their own/);
+    // importing again replaces the last import
+    await s.go('/coach/import/save', { as: cu, form: { csv: 'Review\n"Second file, one review here."', kind: 'reviews', consent: 'on' } });
+    assert.deepEqual(coach.coachFor(db.get('users', cu.id)).reviews.map((r) => r.quote), ['Second file, one review here.']);
+    const before = coach.programsOf(coach.coachFor(db.get('users', cu.id))).length;
+    const prog = await s.go('/coach/import/save', { as: cu, form: { csv: 'Day,Exercise,Sets,Reps\nLower,Squat,4,5\nLower,RDL,3,8', kind: 'programs', filename: 'my-plan.csv' } });
+    assert.equal(prog.status, 302);
+    const progs = coach.programsOf(coach.coachFor(db.get('users', cu.id)));
+    assert.equal(progs.length, before + 1);
+    assert.ok(progs.some((p) => p.name === 'my plan' && p.weeks[0].days[0].exercises.length === 2));
+    const tpl = await s.go('/coach/import/template/programs.csv', { as: cu });
+    assert.match(tpl.headers.get('content-type'), /text\/csv/);
+    // another member who isn't a coach can't import
+    const stranger = await member();
+    assert.equal((await s.go('/coach/import', { as: stranger })).status, 302);
+  } finally { delete process.env.COACH_IMPORT; }
+});
+
 test('client sign-up: invite link and consent required; the client is tied to the coach', async () => {
   const form = { name: 'Maya Rodriguez', email: 'maya@127.test', password: 'longenough', consent: 'on' };
   assert.equal((await s.go('/c/forge-hybrid/join', { form: { ...form, i: 'wrong' } })).status, 403);
