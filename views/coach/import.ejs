@@ -38,6 +38,7 @@
   <a class="small ink2" href="/coach/import?kind=<%= kind %>">← Pick another file</a>
   <h1><%= R ? 'We found ' + out.items.length + (out.items.length === 1 ? ' review' : ' reviews') : 'We found ' + out.items.length + (out.items.length === 1 ? ' program' : ' programs') %></h1>
   <p class="lede small-lede"><%= filename ? filename + ' · ' : '' %><%= out.rows %> rows read<%= out.skipped.length ? ', ' + out.skipped.length + ' skipped' : '' %><%= out.cut ? ', ' + out.cut + ' over the limit of 30' : '' %>. Check it, then save.</p>
+  <% var nFlag = R ? out.items.filter(function (x) { return x.flagged; }).length : 0; if (nFlag) { %><p class="im-flag"><%= nFlag %> result <%= nFlag === 1 ? 'headline has' : 'headlines have' %> weight or body numbers, so <%= nFlag === 1 ? 'it' : 'they' %> won't show. The reviews themselves still go on your site.<% } %></p>
 </div>
 <% if (error) { %><div class="alert error"><%= error %></div><% } %>
 <% if (out.skipped.length) { %><p class="im-skip">Skipped: <%= out.skipped.slice(0, 6).map(function (x) { return 'row ' + x.line + ' (' + x.why + ')'; }).join(', ') %><%= out.skipped.length > 6 ? ' and more' : '' %>.</p><% } %>
@@ -48,6 +49,7 @@
       <% if (rv.rating) { %><div class="im-stars" aria-label="<%= rv.rating %> out of 5"><%= '★★★★★'.slice(0, rv.rating) %><span><%= '★★★★★'.slice(rv.rating) %></span></div><% } %>
       <blockquote><%= rv.quote %></blockquote>
       <figcaption><b><%= rv.name %></b><% if (rv.result) { %> · <%= rv.result %><% } %></figcaption>
+      <% if (rv.flagged) { %><p class="im-flag">Headline "<%= rv.flagged.result %>" left off. <%= rv.flagged.why %></p><% } %>
     </figure>
   <% }) %>
   </div>
@@ -68,7 +70,7 @@
   <input type="hidden" name="kind" value="<%= kind %>">
   <input type="hidden" name="filename" value="<%= filename %>">
   <textarea name="csv" hidden><%= csv %></textarea>
-  <% if (R) { %><label class="check big"><input type="checkbox" name="consent" required> These are real reviews from my clients, in their words, and I have their OK to show them on my site.</label><% } %>
+  <% if (R) { %><label class="check big"><input type="checkbox" name="consent" required> These are real reviews from my clients, in their own words. Each client said yes in writing to showing theirs on my site, and if I gave anyone something for a review, like a free month or a discount, I'll say so next to it.</label><% } %>
   <button class="btn accent block big"><%= R ? 'Put these reviews on my site' : (out.items.length === 1 ? 'Import this program' : 'Import these programs') %></button>
   <% if (R) { %><p class="small ink2">Importing again replaces reviews from your last import.</p><% } %>
 </form>
