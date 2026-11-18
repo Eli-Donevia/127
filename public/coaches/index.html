@@ -299,6 +299,34 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 @media(max-width:759px){.stage-k{padding:0;border-radius:18px;border:0;background:none}.frame,.frame.phone-v{margin:0;border:1px solid var(--line-2);border-radius:18px;max-width:none}#seg{display:none}}
 .side-app h3{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
 .side-app p{color:var(--ink-2);margin:0 0 10px}
+
+/* Hero: a coach's desk in a Chicago high-rise at dusk. Scrolling pushes the camera into the Mac (or the iPhone on a phone)
+   until the real screen fills the view. The scene is rendered in-house (Blender, CC0 assets); the screen is the live product. */
+.loft{position:relative;height:300vh;height:300svh;background:#07080b}
+.loft-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:paint}
+.loft-scene{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.loft-scene img{display:block;width:100%;height:100%;user-select:none;-webkit-user-drag:none}
+.loft-scr{position:absolute;left:0;top:0;max-width:none;max-height:none;transform-origin:0 0;opacity:0;will-change:transform,opacity;pointer-events:none;backface-visibility:hidden}
+.loft-pin::before{content:"";position:absolute;inset:0 0 auto 0;height:74%;z-index:1;pointer-events:none;background:radial-gradient(70% 80% at 50% 30%,rgba(6,6,7,.7),rgba(6,6,7,.35) 60%,transparent 85%),linear-gradient(180deg,rgba(6,6,7,.9) 0,rgba(6,6,7,.55) 45%,rgba(6,6,7,0) 100%);opacity:var(--scrim,1)}
+.loft-copy{position:absolute;inset:0 0 auto 0;z-index:2;padding:calc(60px + clamp(20px,5vh,56px)) 16px 0;text-align:center;will-change:opacity,transform}
+.loft-copy h1{margin:12px auto 14px;max-width:16ch;font-size:clamp(38px,5.8vw,68px);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+.loft-copy h1 span{display:block;color:var(--ink-2)}
+.loft-copy .lede{margin:0 auto 22px;max-width:40ch;color:var(--ink)}
+.loft-copy .cta-row{justify-content:center}
+.loft-hint{position:absolute;left:50%;bottom:22px;z-index:2;transform:translateX(-50%);font-size:13px;color:var(--ink-2);display:flex;gap:8px;align-items:center;opacity:var(--hint,1)}
+.loft-hint i{width:1px;height:22px;background:linear-gradient(var(--ink-2),transparent);animation:hint 1.8s ease-in-out infinite}
+@keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.loft-tag{position:absolute;right:16px;bottom:18px;z-index:2;font-size:12px;color:var(--ink-2);opacity:var(--tag,0)}
+.outcomes{padding:56px 0 18px;text-align:center}
+.outcomes h2{margin:0 auto 10px;max-width:20ch;font-size:clamp(30px,4.6vw,48px);letter-spacing:-.03em;line-height:1.05}
+.outcomes .sub{margin:0 auto 30px;max-width:46ch;color:var(--ink-2)}
+.wins{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 auto;max-width:1120px;text-align:left}
+.win{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.win h3{margin:0 0 6px;font-size:18px;letter-spacing:-.01em}
+.win p{margin:0;color:var(--ink-2);font-size:15px}
+@media(max-width:960px){.wins{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.wins{grid-template-columns:1fr}.loft-copy h1{font-size:clamp(34px,10vw,44px)}.loft-copy .lede{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.loft{height:auto}.loft-pin{position:relative}.loft-hint{display:none}.loft-hint i{animation:none}}
 </style>
 <style id="siteCss">
 /* The coach's site (kit page and the downloaded file). One markup, three looks (data-look), the coach's color as the
@@ -457,83 +485,118 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 
 <main>
 <!--FOUNDING_BAR-->
-<section class="stage-hero" id="top" aria-labelledby="heroTitle">
-  <div class="wrap">
-    <div class="eyebrow rise">For online coaches</div>
-    <h1 class="rise d1" id="heroTitle">Launch your own coaching platform from one form.</h1>
-    <p class="lede rise d2">Your website, challenge, client app and coach dashboard, built for your coaching business.</p>
-    <div class="cta-row rise d3">
-      <a class="btn" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn ghost" href="#kit">See what's included</a>
+<section class="loft" id="top" aria-labelledby="heroTitle">
+  <div class="loft-pin" id="loftPin">
+    <div class="loft-scene" id="loftScene" aria-hidden="true">
+      <picture>
+        <source media="(max-aspect-ratio: 9/10)" srcset="/img/coach-hero/loft-tall.webp" width="1080" height="1920">
+        <img src="/img/coach-hero/loft-wide.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+      </picture>
     </div>
-    <div class="get rise d4">
-      <ul><li>Website</li><li>Challenge page</li><li>Client app</li><li>Coach dashboard</li><li>Ads, emails, DMs, VSL script</li></ul>
-      <p>Start on the free plan. The coach plan is <b>$149 a month</b> when you're ready for clients.</p>
+    <img class="loft-scr" id="loftScr" alt="" aria-hidden="true" decoding="async">
+    <div class="loft-copy" id="loftCopy">
+      <div class="eyebrow">For online coaches</div>
+      <h1 id="heroTitle">Your own coaching platform. <span>No app store. No developers.</span></h1>
+      <p class="lede">Your website, challenge, client app and coach dashboard, built from one form.</p>
+      <div class="cta-row">
+        <a class="btn" href="/coaches/join?next=%2Fcoaches%2F%23build">Start free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#kit">See what's included</a>
+      </div>
     </div>
+    <div class="loft-hint" aria-hidden="true"><i></i>Scroll</div>
+    <div class="loft-tag" id="loftTag" aria-hidden="true"></div>
   </div>
+</section>
 
-  <div class="stage" id="stage" aria-hidden="true">
-    <div class="canvas">
-      <div class="dev web"><div class="web-frame"><div class="web-bar"><i></i><i></i><i></i><span>forgehybrid.com</span></div>
-        <div class="view scroll"><img src="/img/coach-hero/site.webp" width="1400" height="2000" alt="" decoding="async" loading="lazy"><div class="glare"></div></div></div></div>
-      <div class="dev lap"><div class="lap-lid"><div class="view"><img src="/img/coach-hero/dashboard.webp" width="2360" height="1480" alt="" decoding="async" fetchpriority="high"><div class="glare"></div></div></div><div class="lap-base"></div></div>
-      <div class="dev ph"><div class="ph-body"><div class="ph-scr" id="phScr">
-        <div class="ph-isl"></div><div class="ph-st"><span>9:41</span><i></i></div>
-        <div class="view scroll a"><img src="/img/coach-hero/app-today.webp" width="780" height="2800" alt="" decoding="async"></div>
-        <div class="view scroll b"><img src="/img/coach-hero/app-rules.webp" width="780" height="2800" alt="" decoding="async" loading="lazy"></div>
-        <div class="ph-bar"></div><span class="tap" id="tap"></span><div class="glare"></div>
-      </div></div></div>
-      <div class="note-pop n1" id="n1"><span class="ic o">MR</span><span><b>Maya R. ticked today's rules</b><small>Demo Coach 50, day 18 of 50</small></span></div>
-      <div class="note-pop n2" id="n2"><span class="ic g">5</span><span><b>Check-ins to review</b><small>Jordan K. sent this week's</small></span></div>
-    </div>
+<section class="outcomes" aria-labelledby="winsTitle"><div class="wrap">
+  <h2 id="winsTitle">Your business, on your own platform.</h2>
+  <p class="sub">Clients see your name, not ours. You run every program from one dashboard.</p>
+  <div class="wins">
+    <div class="win"><h3>Your brand, not ours</h3><p>Your name, logo and colors on the site, the challenge page and the client app.</p></div>
+    <div class="win"><h3>No app store</h3><p>Clients open your app from a link you send. Nothing to download and no review to wait on.</p></div>
+    <div class="win"><h3>No developers</h3><p>Fill in one form and 127 builds the pages, the app and the dashboard. Change anything later yourself.</p></div>
+    <div class="win"><h3>One place to coach</h3><p>Workouts, daily rules, check-ins and streaks for every client, in one coach dashboard.</p></div>
   </div>
-
-  <div class="wrap">
-    <span class="demo-tag">Real screens from 127. Forge Hybrid is a demo coach, and the clients are made up.</span>
-    <ul class="feats">
+  <div class="get">
+    <p>Start on the free plan. The coach plan is <b>$149 a month</b> when you're ready for clients.</p>
+  </div>
+  <span class="demo-tag">Real screens from 127. Forge Hybrid is a demo coach, and the clients are made up.</span>
+  <ul class="feats">
       <li><a href="#kit" data-tab="site"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Website</a></li>
       <li><a href="#kit" data-tab="challenge"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Challenge</a></li>
       <li><a href="#kit" data-tab="ads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Marketing</a></li>
       <li><a href="#kit" data-tab="app"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Client app</a></li>
       <li><a href="#kit" data-tab="dash"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>Dashboard</a></li>
-    </ul>
-  </div>
-</section>
+  </ul>
+</div></section>
 <script>
 (function(){
-  var hero = document.querySelector('.stage-hero'), stage = document.getElementById('stage'), canvas = stage.querySelector('.canvas');
-  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function fit(){
-    var w = stage.clientWidth, narrow = w < 760;
-    stage.classList.toggle('narrow', narrow);
-    var cw = narrow ? 420 : 1240;
-    stage.style.setProperty('--s', Math.min(1, w / cw).toFixed(4));
+  // Where each device's screen sits in its render (top-left, top-right, bottom-right, bottom-left, as fractions of the image).
+  var SHOTS = {
+    wide: { w: 2400, h: 1350, quad: [[0.43635, 0.57657], [0.53385, 0.57871], [0.53289, 0.6929], [0.43338, 0.6896]], scr: '/img/coach-hero/loft-mac-screen.webp', sw: 2279, sh: 1480, fill: [.94, .86], tag: 'Coach dashboard. Forge Hybrid is a demo coach.' },
+    tall: { w: 1080, h: 1920, quad: [[0.66488, 0.60133], [0.74084, 0.60294], [0.73512, 0.70057], [0.65804, 0.69802]], scr: '/img/coach-hero/loft-phone-screen.webp', sw: 780, sh: 1690, fill: [.8, .84], tag: 'Client app. Forge Hybrid is a demo coach.' }
+  };
+  var pin = document.getElementById('loftPin'), scene = document.getElementById('loftScene'), scr = document.getElementById('loftScr');
+  var copy = document.getElementById('loftCopy'), sec = pin.parentNode;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var S, vw, vh, cover, quad, c0, kEnd, raf = 0;
+
+  // The 3x3 homography that takes the screenshot's rectangle onto four points, as a CSS matrix3d.
+  function homography(w, h, q){
+    var src = [[0,0],[w,0],[w,h],[0,h]], A = [], b = [];
+    for (var i = 0; i < 4; i++){
+      var x = src[i][0], y = src[i][1], u = q[i][0], v = q[i][1];
+      A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
+      A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
+    }
+    for (var c = 0; c < 8; c++){            // Gaussian elimination with partial pivoting
+      var p = c; for (var r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
+      var t = A[c]; A[c] = A[p]; A[p] = t; t = b[c]; b[c] = b[p]; b[p] = t;
+      for (r = c + 1; r < 8; r++){ var f = A[r][c] / A[c][c]; for (var k = c; k < 8; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; }
+    }
+    var x8 = new Array(8);
+    for (c = 7; c >= 0; c--){ var s = b[c]; for (k = c + 1; k < 8; k++) s -= A[c][k] * x8[k]; x8[c] = s / A[c][c]; }
+    var m = x8;
+    return 'matrix3d(' + [m[0], m[3], 0, m[6], m[1], m[4], 0, m[7], 0, 0, 1, 0, m[2], m[5], 0, 1].join(',') + ')';
   }
-  fit(); addEventListener('resize', fit);
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ hero.classList.add('in'); }); });
-  if (still) return;
-  // Tilt toward the pointer on desktop; on phones the stage leans back as it scrolls into view.
-  var fine = matchMedia('(pointer: fine)').matches;
-  if (fine) hero.addEventListener('pointermove', function(e){
-    var r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    canvas.style.setProperty('--ry', (x * 6).toFixed(2) + 'deg'); canvas.style.setProperty('--rx', (-y * 4).toFixed(2) + 'deg');
-  });
-  else addEventListener('scroll', function(){
-    var r = stage.getBoundingClientRect(), t = Math.max(0, Math.min(1, r.top / innerHeight));
-    canvas.style.setProperty('--rx', (t * 10).toFixed(2) + 'deg');
-  }, { passive: true });
-  hero.addEventListener('pointerleave', function(){ canvas.style.setProperty('--ry','0deg'); canvas.style.setProperty('--rx','0deg'); });
-  // The phone flips between Today and the challenge, with a tap on the tab it opens.
-  var scr = document.getElementById('phScr'), tap = document.getElementById('tap'), alt = false;
-  setInterval(function(){
-    alt = !alt; tap.style.left = (alt ? 37 : 13) + '%'; tap.style.top = '94%';
-    tap.classList.remove('go'); void tap.offsetWidth; tap.classList.add('go');
-    setTimeout(function(){ scr.classList.toggle('alt', alt); }, 180);
-  }, 6500);
-  // Notes pop in turn.
-  var n = [document.getElementById('n1'), document.getElementById('n2')], i = 0;
-  function pop(){ n.forEach(function(el){ el.classList.remove('on'); }); setTimeout(function(){ n[i % 2].classList.add('on'); i++; }, 500); }
-  setTimeout(function(){ pop(); setInterval(pop, 4200); }, 1800);
+  function layout(){
+    vw = pin.clientWidth; vh = pin.clientHeight;
+    var next = vw / vh < 0.9 ? SHOTS.tall : SHOTS.wide;
+    if (next !== S){ S = next; scr.src = S.scr; scr.width = S.sw; scr.height = S.sh; scr.style.width = S.sw + 'px'; scr.style.height = S.sh + 'px'; document.getElementById('loftTag').textContent = S.tag; }
+    var s0 = Math.max(vw / S.w, vh / S.h), dw = S.w * s0, dh = S.h * s0;
+    // Center on the device rather than the image, as far as the image allows.
+    var qx = (S.quad[0][0] + S.quad[2][0]) / 2 * dw, qy = (S.quad[0][1] + S.quad[2][1]) / 2 * dh;
+    var ox = Math.min(0, Math.max(vw - dw, vw / 2 - qx)), oy = Math.min(0, Math.max(vh - dh, vh * .62 - qy));
+    cover = { s: s0, ox: ox, oy: oy, dw: dw, dh: dh };
+    scene.style.width = dw + 'px'; scene.style.height = dh + 'px';
+    quad = S.quad.map(function(p){ return [ox + p[0] * dw, oy + p[1] * dh]; });
+    c0 = [(quad[0][0] + quad[1][0] + quad[2][0] + quad[3][0]) / 4, (quad[0][1] + quad[1][1] + quad[2][1] + quad[3][1]) / 4];
+    var qw = Math.max(quad[1][0] - quad[0][0], quad[2][0] - quad[3][0]), qh = Math.max(quad[3][1] - quad[0][1], quad[2][1] - quad[1][1]);
+    kEnd = Math.min(vw * S.fill[0] / qw, vh * S.fill[1] / qh);
+    frame();
+  }
+  function ease(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function clamp(t){ return t < 0 ? 0 : t > 1 ? 1 : t; }
+  function frame(){
+    raf = 0;
+    var p = still ? 0 : clamp(-sec.getBoundingClientRect().top / (sec.offsetHeight - vh));
+    var z = ease(clamp((p - .06) / .82));
+    var k = Math.pow(kEnd, z), cx = c0[0] + (vw / 2 - c0[0]) * z, cy = c0[1] + (vh / 2 + 18 * z - c0[1]) * z;
+    var tx = cx - k * c0[0], ty = cy - k * c0[1];
+    scene.style.transform = 'translate3d(' + (tx + k * cover.ox) + 'px,' + (ty + k * cover.oy) + 'px,0) scale(' + k + ')';
+    var q = quad.map(function(pt){ return [tx + k * pt[0], ty + k * pt[1]]; });
+    scr.style.transform = homography(S.sw, S.sh, q);
+    scr.style.opacity = clamp((z - .3) / .4).toFixed(3);
+    var fade = clamp(p / .22);
+    copy.style.opacity = (1 - fade).toFixed(3); copy.style.transform = 'translateY(' + (-24 * fade) + 'px)';
+    copy.style.visibility = fade >= 1 ? 'hidden' : '';
+    pin.style.setProperty('--scrim', (1 - fade).toFixed(3));
+    pin.style.setProperty('--hint', (1 - clamp(p / .06)).toFixed(3));
+    pin.style.setProperty('--tag', clamp((z - .9) / .1).toFixed(3));
+  }
+  function req(){ if (!raf) raf = requestAnimationFrame(frame); }
+  layout(); addEventListener('resize', layout);
+  if (!still) addEventListener('scroll', req, { passive: true });
 })();
 </script>
 
