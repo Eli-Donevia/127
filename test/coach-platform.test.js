@@ -169,6 +169,10 @@ test('import: CSV reader handles quotes, semicolons and loose column names', () 
   assert.equal(pr.items[0].weeks.length, 2);
   assert.deepEqual(pr.items[0].weeks[0].days.map((d) => d.title), ['Lower', 'Upper']);
   assert.equal(pr.items[0].weeks[0].days[0].exercises[0].rest, '180s');
+  const fl = imp.read('Name,Review,Transformation\nA,"Strong and happy now.",Lost 20 lbs\nB,"Best coach I have had.",First pull-up\n');
+  assert.equal(fl.items[0].result, '');
+  assert.equal(fl.items[0].flagged.result, 'Lost 20 lbs');
+  assert.equal(fl.items[1].result, 'First pull-up');
   assert.match(imp.read('a,b\n1,2').error, /could not find/);
   assert.match(imp.read('x'.repeat(imp.MAX_BYTES + 1)).error, /150 KB/);
 });
@@ -191,7 +195,8 @@ test('import: off by default; preview saves nothing; reviews need consent and sh
     assert.equal(coach.coachFor(db.get('users', cu.id)).reviews.length, 1);
     const site = await (await s.go('/c/forge-hybrid')).text();
     assert.match(site, /Down 18 lb and I like training now/);
-    assert.match(site, /Each client's result is their own/);
+    assert.match(site, /not typical and not a promise of yours/);
+    assert.doesNotMatch(site, /Lost 18 lb/, 'a weight headline is left off');
     // importing again replaces the last import
     await s.go('/coach/import/save', { as: cu, form: { csv: 'Review\n"Second file, one review here."', kind: 'reviews', consent: 'on' } });
     assert.deepEqual(coach.coachFor(db.get('users', cu.id)).reviews.map((r) => r.quote), ['Second file, one review here.']);
