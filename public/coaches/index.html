@@ -299,6 +299,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 @media(max-width:759px){.stage-k{padding:0;border-radius:18px;border:0;background:none}.frame,.frame.phone-v{margin:0;border:1px solid var(--line-2);border-radius:18px;max-width:none}#seg{display:none}}
 .side-app h3{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
 .side-app p{color:var(--ink-2);margin:0 0 10px}
+.dom{margin-top:14px;padding-top:14px;border-top:1px solid rgba(127,127,127,.25)}.dom p{margin:0 0 10px}.dom-f{display:flex;gap:8px}.dom-f input{flex:1;min-width:0;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit}
+.dom-t{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 10px;display:block;overflow-x:auto}.dom-t th,.dom-t td{text-align:left;padding:6px 8px 6px 0;vertical-align:top;word-break:break-all}.dom-t td:first-child,.dom-t th:first-child{white-space:nowrap;word-break:normal}.dom .btn{margin-bottom:10px}
 </style>
 <style id="siteCss">
 /* The coach's site (kit page, the downloaded file, and the hosted site at /c/<slug>: lib/coach-hosting.js reads this
@@ -841,8 +843,23 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
         if (x.s !== 200) { say(esc(x.j.error || 'Saved, but not live yet. Try again.')); return; }
         var site = location.origin + x.j.url, ch = location.origin + x.j.challengeUrl;
         say('Your site is live: <a href="'+esc(x.j.url)+'" target="_blank" rel="noopener">'+esc(site)+'</a> <button class="copy" data-copy="'+esc(site)+'">Copy</button><br>Challenge page: <a href="'+esc(x.j.challengeUrl)+'" target="_blank" rel="noopener">'+esc(ch)+'</a> <button class="copy" data-copy="'+esc(ch)+'">Copy</button><br>Change anything here and press Put it live again to update it. Clients who join show up on <a href="'+esc(saved.dashboardUrl)+'">your dashboard</a>.'+(x.j.public ? '' : ' Only 127 admins can see it for now.'));
+        if (x.j.domains) domainUI(x.j.domain);
       })
       .catch(function(){ say('Saved, but the site didn\'t go live. Check your connection and press Put it live again.'); });
+  }
+  // Your own domain (COACH_DOMAINS): add it, copy the DNS records, check it. Shown under the live links.
+  function domainUI(d){
+    var box = document.createElement('div'); box.className = 'dom'; saved.appendChild(box);
+    function draw(d, msg){
+      if (!d) { box.innerHTML = '<p><b>Use your own domain</b></p><form class="dom-f"><input name="host" placeholder="yourname.com" autocomplete="off" aria-label="Your domain"><button class="btn sm" type="submit">Add</button></form>'+(msg?'<p>'+esc(msg)+'</p>':''); return; }
+      var rows = d.records.map(function(r){ return '<tr><td>'+esc(r.type)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.value)+(r.value.charAt(0)==='(' ? '' : ' <button class="copy" type="button" data-copy="'+esc(r.value)+'">Copy</button>')+'</td></tr>'; }).join('');
+      var state = d.connected ? 'Live at <a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.host)+'</a>.' : d.verified ? esc(d.host)+' is yours. 127 is connecting it, usually within a day, and you\'ll see it live here.' : 'Add these records where you bought '+esc(d.host)+', then check.';
+      box.innerHTML = '<p><b>Your domain</b> '+state+'</p>'+(d.connected ? '' : '<table class="dom-t"><tr><th>Type</th><th>Name</th><th>Value</th></tr>'+rows+'</table>')+(d.verified ? '' : '<button class="btn sm" type="button" data-dom="check">Check my domain</button>')+(msg?'<p>'+esc(msg)+'</p>':'');
+    }
+    function call(path, body){ return fetch(path, { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(body||{}) }).then(function(r){ return r.json(); }); }
+    box.addEventListener('submit', function(e){ e.preventDefault(); call('/coaches/site/domain', { host: e.target.elements.host.value }).then(function(j){ draw(j.domain || null, j.error); }); });
+    box.addEventListener('click', function(e){ if (!e.target.closest('[data-dom=check]')) return; call('/coaches/site/domain/verify').then(function(j){ draw(j.domain, j.error); }); });
+    draw(d);
   }
   document.getElementById('save').addEventListener('click', function(){
     var d = formData();

@@ -30,6 +30,7 @@ test.before(async () => {
   app.response.render = function (view) { this.status(this.statusCode || 404).send(view); };
   const requireAuth = (req, res, next) => (req.user ? next() : res.status(302).end());
   const clientsOpen = () => process.env.COACH_CLIENTS === 'on';
+  app.use(require('../lib/coach-hosting').hostRouter({ isAdmin, clientsOpen }));
   require('../lib/coach-hosting')(app, { requireAuth, isAdmin, clientsOpen, baseUrl: () => 'https://127group.io' });
   require('../lib/coach-routes')(app, { requireAuth, isAdmin });
   await new Promise((r) => { server = app.listen(0, r); });
@@ -196,4 +197,87 @@ test('one markup: the kit preview is editable, the hosted page is not, the file 
   assert.match(coachSite.challenge(k, {}, {}), /cs-count cs-count-l/);
   // The CSS the server inlines is the kit page's own block.
   assert.match(hosting.page({ id: 'x', slug: 'x', version: 1, input: kit, edits: {}, look: 'athletic', assets: {} }, 'site', { base: '/c/x', origin: 'https://127group.io', index: true }), /\.cs\[data-look=editorial\]/);
+});
+
+// A request with a Host header (a coach's own domain).
+const http = require('http');
+const onHost = (host, p, method = 'GET', body = null) => new Promise((resolve, reject) => {
+  const u = new URL(base + p);
+  const rq = http.request({ host: u.hostname, port: u.port, path: u.pathname, method, headers: { Host: host, ...(body ? { 'Content-Type': 'application/x-www-form-urlencoded' } : {}) } }, (res) => {
+    let d = ''; res.on('data', (c) => { d += c; }); res.on('end', () => resolve({ status: res.statusCode, headers: res.headers, text: d }));
+  });
+  rq.on('error', reject); if (body) rq.write(body); rq.end();
+});
+
+test('custom domains: off by default; add, verify by TXT, serve on the domain, then /c/<slug> moves there', async () => {
+  process.env.COACH_HOSTING = 'on';
+  delete process.env.COACH_DOMAINS;
+  me = COACH;
+  await post('/coaches/kit', kit);
+  await post('/coaches/site/publish', { logo: PNG, photo: JPG('photo-3') });
+  assert.equal((await post('/coaches/site/domain', { host: 'forgefit.com' })).status, 404);
+  assert.equal((await onHost('forgefit.com', '/')).status, 404); // falls to 127's own 404 (no route)
+
+  process.env.COACH_DOMAINS = 'on';
+  assert.equal(hosting.cleanHost('https://WWW.ForgeFit.com/about?x=1'), 'forgefit.com');
+  for (const bad of ['127group.io', 'x.127group.io', 'localhost', '10.0.0.1', 'nodot', 'a.replit.app', 'bad_host.com']) assert.equal(hosting.cleanHost(bad), null, bad);
+  assert.equal((await post('/coaches/site/domain', { host: '127group.io' })).status, 400);
+  let j = await (await post('/coaches/site/domain', { host: 'www.forgefit.com' })).json();
+  assert.equal(j.domain.host, 'forgefit.com');
+  assert.equal(j.domain.verified, false);
+  const txt = j.domain.records.find((r) => r.type === 'TXT');
+  assert.equal(txt.name, '_127-verify.forgefit.com');
+  // Not verified yet: the domain doesn't serve.
+  assert.equal((await onHost('forgefit.com', '/')).status, 404);
+  hosting._setResolver(async () => [['wrong']]);
+  j = await (await post('/coaches/site/domain/verify', {})).json();
+  assert.equal(j.ok, false);
+  hosting._setResolver(async (name) => (name === '_127-verify.forgefit.com' ? [[txt.value.slice(0, 10), txt.value.slice(10)]] : []));
+  j = await (await post('/coaches/site/domain/verify', {})).json();
+  assert.equal(j.ok, true);
+  assert.equal(j.domain.verified, true);
+  hosting._setResolver(null);
+  // Another coach can't take it.
+  me = ADMIN;
+  assert.equal((await post('/coaches/site/domain', { host: 'forgefit.com' })).status, 409);
+
+  // Served on the domain (and www), at the root, with the domain as canonical.
+  let r = await onHost('www.forgefit.com', '/');
+  assert.equal(r.status, 200);
+  assert.match(r.text, /<link rel="canonical" href="https:\/\/www\.forgefit\.com\/">/);
+  assert.match(r.text, /href="\/challenge#cs-join"/);
+  assert.match(r.text, /<img src="\/i\/[a-f0-9]{24}\.png"/);
+  const img = r.text.match(/\/i\/[a-f0-9]{24}\.jpg/)[0];
+  assert.equal((await onHost('forgefit.com', img)).status, 200);
+  r = await onHost('forgefit.com', '/challenge');
+  assert.equal(r.status, 200);
+  process.env.COACH_CLIENTS = 'on';
+  r = await onHost('forgefit.com', '/challenge');
+  assert.match(r.text, /action="\/c\/forge-strength\/join"/);
+  delete process.env.COACH_CLIENTS;
+  assert.match((await onHost('forgefit.com', '/sitemap.xml')).text, /https:\/\/forgefit\.com\/challenge/);
+  assert.equal((await onHost('forgefit.com', '/login')).status, 404);
+  assert.equal((await onHost('forgefit.com', '/coaches/kit')).status, 404);
+  assert.equal((await onHost('other.com', '/')).status, 404);
+
+  // Until connected, /c/<slug> still answers; once an admin marks it connected, it 301s to the domain.
+  me = null;
+  assert.equal((await get('/c/forge-strength')).status, 200);
+  me = COACH;
+  assert.equal((await post(`/admin/coach-domains/${COACH.id}/connected`, {})).status, 404);
+  me = ADMIN;
+  assert.equal((await post(`/admin/coach-domains/${COACH.id}/connected`, {})).status, 200);
+  me = null;
+  r = await get('/c/forge-strength/challenge');
+  assert.equal(r.status, 301);
+  assert.equal(r.headers.get('location'), 'https://forgefit.com/challenge');
+  assert.deepEqual(hosting.sitemapPaths(isAdmin).filter((p) => p.includes('forge')), []);
+
+  // Removing the domain puts the site back on /c/<slug>.
+  me = COACH;
+  await post('/coaches/site/domain/remove', {});
+  me = null;
+  assert.equal((await get('/c/forge-strength')).status, 200);
+  assert.equal((await onHost('forgefit.com', '/')).status, 404);
+  delete process.env.COACH_DOMAINS;
 });

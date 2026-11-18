@@ -89,6 +89,8 @@ app.set('trust proxy', parseInt(process.env.TRUST_PROXY || '3', 10));
 app.disable('x-powered-by');
 app.use(security.headers(PROD));
 app.use(require('compression')());
+// A coach's own domain (lib/coach-hosting.js, COACH_DOMAINS): their site answers there, ahead of 127's session and pages.
+app.use(require('./lib/coach-hosting').hostRouter({ isAdmin: (u) => isAdmin(u), clientsOpen: (req) => coachClientsOpen(req) }));
 app.get('/healthz', (req, res) => res.json({ ok: true }));
 
 // Stripe needs the raw body, so this route comes before the body parsers.
