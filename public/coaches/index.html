@@ -12,12 +12,12 @@
 <meta property="og:title" content="127 for coaches">
 <meta property="og:description" content="Type your name, your program and your price. 127 builds your site, challenge page, launch content and a client app with your name on it.">
 <meta property="og:url" content="https://127group.io/">
-<meta property="og:image" content="https://127group.io/og.png">
+<meta property="og:image" content="https://127group.io/img/og-coach.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="127 for coaches">
-<meta name="twitter:image" content="https://127group.io/og.png">
+<meta name="twitter:image" content="https://127group.io/img/og-coach.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/favicon-180.png">
@@ -91,7 +91,7 @@ textarea{min-height:76px;resize:vertical}
 .item p{margin:0;overflow-wrap:anywhere}
 .cols>*{min-width:0}
 .item b{font-weight:600}
-.copy{border:0;background:none;color:var(--emerald);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:0}
+.copy{border:0;background:none;color:var(--emerald);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:16px 8px;margin:-16px -8px}
 .warn{border:1px solid #f09b8a;color:#f6c3b8;background:rgba(240,155,138,.08);border-radius:12px;padding:12px;margin-bottom:12px;font-size:14px}
 .cols{display:grid;gap:14px}
 @media(min-width:760px){.cols{grid-template-columns:auto 1fr;align-items:start}}
@@ -180,7 +180,7 @@ footer .foot p{margin:0}
 .stage-hero.in .d1{transition-delay:.08s}.stage-hero.in .d2{transition-delay:.16s}.stage-hero.in .d3{transition-delay:.24s}.stage-hero.in .d4{transition-delay:.32s}
 
 .stage{--cw:1240;--ch:600;--s:1;position:relative;margin:38px auto 0;perspective:2000px;height:calc(var(--ch) * var(--s) * 1px)}
-.stage.narrow{--cw:640;--ch:560}
+.stage.narrow{--cw:420;--ch:560}
 .canvas{position:absolute;left:50%;top:0;width:calc(var(--cw) * 1px);height:calc(var(--ch) * 1px);margin-left:calc(var(--cw) * -.5px);transform:scale(var(--s)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-origin:50% 0;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1);text-align:left}
 .dev{position:absolute;opacity:0;transition:opacity 1s ease,transform 1.3s cubic-bezier(.16,.84,.24,1)}
 .stage-hero.in .dev{opacity:1}
@@ -237,13 +237,12 @@ footer .foot p{margin:0}
 .note-pop .ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:11px;flex:none}
 .note-pop .ic.o{background:#ff5c2e;color:#1a0700}.note-pop .ic.g{background:var(--emerald);color:#03140c}
 .n1{left:860px;top:430px}.n2{left:150px;top:24px}
-.stage.narrow .n1{left:230px;top:470px}.stage.narrow .n2{left:24px;top:30px}
+.stage.narrow .n1{left:130px;top:440px}.stage.narrow .n2{left:24px;top:30px}
 
 .stage.narrow .web{display:none}
-.stage.narrow .lap{left:0;top:0;transform-origin:0 0;transform:translateY(60px) scale(.62)}
-.stage-hero.in .stage.narrow .lap{transform:scale(.62)}
-.stage.narrow .ph{left:350px;top:14px;transform:translateY(90px) rotate(0)}
-.stage-hero.in .stage.narrow .ph{transform:rotate(2.5deg)}
+.stage.narrow .lap,.stage.narrow .n2{display:none}
+.stage.narrow .ph{left:88px;top:14px;transform:translateY(90px) rotate(0)}
+.stage-hero.in .stage.narrow .ph{transform:rotate(-2deg)}
 
 .demo-tag{display:inline-block;margin:18px auto 0;font-size:13px;color:var(--ink-2);border:1px solid var(--line-2);border-radius:999px;padding:5px 12px}
 .feats{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 0;margin:22px auto 0;padding:0;list-style:none}
@@ -284,6 +283,15 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .launch-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .launch-nav button{border:1px solid var(--line-2);background:transparent;color:var(--ink-2);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
 .launch-nav button[aria-pressed=true]{color:var(--ink);border-color:var(--emerald);background:var(--soft)}
+.ad-top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px}
+.ad-grid{display:grid;gap:16px}
+@media(min-width:760px){.ad-grid{grid-template-columns:repeat(3,1fr)}}
+.ad{margin:0;background:var(--surface-2);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.ad img{display:block;width:100%;aspect-ratio:4/5;background:#111;object-fit:cover}
+.ad img.st{aspect-ratio:9/16}
+.ad figcaption{padding:14px;display:grid;gap:6px;font-size:14px}
+.ad figcaption .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ad-btns{display:flex;gap:12px;align-items:center;margin-top:6px}
 .side-app{display:grid;gap:18px;align-items:center}
 @media(min-width:860px){.side-app{grid-template-columns:auto 1fr}}
 .side-app .phone{width:340px}
@@ -326,15 +334,22 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .cs-hero .grid{display:grid;gap:28px}
 .cs-kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink2);margin:0 0 18px}
 .cs-kick::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 25%,transparent)}
-.cs-hero h1{font-size:calc(52px * var(--hs));margin:0 0 18px;overflow-wrap:anywhere}
-.cs-hero h1.long{font-size:calc(40px * var(--hs))}
+.cs .cs-hero h1,.cs .cs-hero h2{font-size:calc(52px * var(--hs));margin:0 0 18px;overflow-wrap:anywhere}
+.cs .cs-hero h1.long,.cs .cs-hero h2.long{font-size:calc(40px * var(--hs))}
 .cs-hero .sub{font-size:18px;color:var(--ink2);max-width:40ch;margin:0 0 26px}
 .cs-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.cs-card .pr a,.cs-links a{display:inline-flex;align-items:center;min-height:44px}
 .cs-media{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);isolation:isolate}
 .cs-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
 .cs.on .cs-media img{transform:none}
 .cs-media.art{background:radial-gradient(80% 70% at 80% 10%,color-mix(in srgb,var(--ac) 70%,transparent),transparent 65%),radial-gradient(60% 60% at 0% 100%,color-mix(in srgb,var(--ac) 35%,transparent),transparent 70%),var(--bg2)}
-.cs-media.art b{position:absolute;left:5%;top:4%;font-family:var(--fd);font-weight:900;font-size:min(62cqw,420px);line-height:.8;color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--ink) 30%,transparent);text-transform:uppercase;letter-spacing:-.04em}
+.cs-media .ring{position:absolute;inset:6% 6% 22%;width:88%;height:72%}
+.cs-media .ring line{stroke:color-mix(in srgb,var(--ink) 22%,transparent);stroke-width:5;stroke-linecap:round}
+.cs-media .ring line.on{stroke:var(--ac);stroke-width:7}
+.cs-media .ring .o{fill:none;stroke:color-mix(in srgb,var(--ink) 10%,transparent);stroke-width:1}
+.cs-media .ring .d{font-family:var(--fd);font-weight:var(--hw);font-size:46px;fill:var(--ink);text-transform:var(--hcase);letter-spacing:var(--hls)}
+.cs-media .ring .s{font-size:18px;fill:var(--ink2);font-weight:600}
+.cs-about .cs-media .ring{inset:8%;width:84%;height:84%}
 .cs-media .tag{position:absolute;left:14px;bottom:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:13px;color:var(--ink);border:1px solid var(--line)}
 .cs-media .tag strong{display:block;font-size:14px}
 .cs-media .tag span{color:var(--ink2)}
@@ -344,7 +359,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 .cs-facts div:first-child{border-left:0;padding-left:0}
 .cs-facts b{display:block;font-family:var(--fd);font-weight:var(--hw);text-transform:var(--hcase);font-size:calc(30px * var(--hs));line-height:1;letter-spacing:var(--hls)}
 .cs-facts span{font-size:12px;color:var(--ink2)}
-.cs-band{background:var(--ac);color:var(--on);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--fd);font-weight:var(--hw);text-transform:var(--hcase);font-size:calc(22px * var(--hs));letter-spacing:var(--hls)}
+.cs-band{background:var(--ac);color:var(--on);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--fd);font-weight:var(--hw);text-transform:none;font-size:calc(22px * var(--hs));letter-spacing:var(--hls)}
 .cs-band div{display:inline-block;animation:csMarq 40s linear infinite}
 .cs-band span{padding:0 22px}
 .cs-band span::after{content:"\2726";margin-left:44px;opacity:.6}
@@ -407,8 +422,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   .cs-links{display:flex}.cs-links+.cs-btn.sm{margin-left:10px}
   .cs-hero{padding:72px 0 56px}
   .cs-hero .grid{grid-template-columns:1.15fr .85fr;align-items:end;gap:48px}
-  .cs-hero h1{font-size:calc(104px * var(--hs))}
-  .cs-hero h1.long{font-size:calc(72px * var(--hs))}
+  .cs .cs-hero h1,.cs .cs-hero h2{font-size:calc(104px * var(--hs))}
+  .cs .cs-hero h1.long,.cs .cs-hero h2.long{font-size:calc(72px * var(--hs))}
   .cs-hero .sub{font-size:20px}
   .cs-facts div{padding:22px 0 22px 26px}
   .cs-facts b{font-size:calc(44px * var(--hs))}
@@ -436,7 +451,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
 <body>
 <header class="top"><div class="wrap">
   <a class="mark" href="/">127</a>
-  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a href="/login?next=/coaches/">Sign in</a><a class="btn" href="/start?next=/coaches/%23build">Start free</a></nav>
+  <nav><a class="hide-s" href="#kit">The kit</a><a class="hide-s" href="#pricing">Pricing</a><a href="/login?next=/coaches/%23kit">Sign in</a><a class="btn" href="/start?next=/coaches/%23build">Start free</a></nav>
 </div></header>
 
 <main>
@@ -490,7 +505,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   function fit(){
     var w = stage.clientWidth, narrow = w < 760;
     stage.classList.toggle('narrow', narrow);
-    var cw = narrow ? 640 : 1240;
+    var cw = narrow ? 420 : 1240;
     stage.style.setProperty('--s', Math.min(1, w / cw).toFixed(4));
   }
   fit(); addEventListener('resize', fit);
@@ -593,11 +608,11 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
       <ul><li>Your website</li><li>Your challenge page</li><li>The launch kit to copy</li></ul>
       <a class="btn ghost" href="/start?next=/coaches/%23build">Start free</a></div>
     <div class="tier lead"><div class="name">Coach</div><div class="price">$149<small> a month</small></div>
-      <ul><li>Your site and challenge page live, in your brand</li><li>Client sign-ups and the client app in your colors</li><li>Coach dashboard: who checked in, who to message</li><li>The full launch kit, yours to edit</li></ul>
+      <ul><li>Your site and challenge page live, in your brand</li><li>The client app in your colors, when client sign-ups open</li><li>Coach dashboard: who checked in, who to message</li><li>The full launch kit, yours to edit</li></ul>
       <a class="btn" href="/start?next=/coaches/%23build">Start as a coach</a></div>
     <div class="tier"><div class="name">Founder's Circle</div><div class="price">$299<small> a month</small></div>
       <ul><li>Everything in Coach</li><li>Your kit built with Eli on a call</li><li>Weekly calls and a private group</li><li>4 seats, by application</li></ul>
-      <a class="btn ghost" href="/circle">Apply</a></div>
+      <a class="btn ghost" href="/circle/apply">Apply</a></div>
   </div>
   <p class="note" style="margin-top:14px">Monthly, cancel any time. 127 doesn't promise you clients, sales or income; what you earn depends on your work and your market.</p>
 </div></section>
@@ -654,8 +669,12 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     return '<header class="cs-nav"><div class="in"><div class="cs-logo">'+logo+'<span>'+esc(f.business)+'</span></div>'+(links?'<nav class="cs-links">'+links+'</nav>':'')+'<a class="cs-btn sm" href="'+href+'">'+esc(cta)+'</a></div></header>';
   }
   function media(f, tag){
-    return '<div class="cs-media rv d2'+(brand.photo?'':' art')+'">'+(brand.photo?'<img src="'+brand.photo+'" alt="'+esc(f.coach)+'">':'<b>'+esc(initials(f.business))+'</b>')+tag+'</div>';
+    return '<div class="cs-media rv d2'+(brand.photo?'':' art')+'">'+(brand.photo?'<img src="'+brand.photo+'" alt="'+esc(f.coach)+'">':ringArt(f))+tag+'</div>';
   }
+  // No photo yet: the challenge drawn as a ring of days, one tick a day, the first week filled in.
+  function ringArt(f){ var n = f.days, t = '', R = 150; for (var i = 0; i < n; i++) { var a = (i / n) * 2 * Math.PI - Math.PI / 2, on = i < Math.min(7, n);
+      t += '<line x1="'+(200+Math.cos(a)*(R-18)).toFixed(1)+'" y1="'+(200+Math.sin(a)*(R-18)).toFixed(1)+'" x2="'+(200+Math.cos(a)*R).toFixed(1)+'" y2="'+(200+Math.sin(a)*R).toFixed(1)+'" class="'+(on?'on':'')+'"/>'; }
+    return '<svg class="ring" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="178" class="o"/><circle cx="200" cy="200" r="108" class="o"/>'+t+'<text x="200" y="214" text-anchor="middle" class="d">Day 1</text><text x="200" y="250" text-anchor="middle" class="s">of '+n+'</text></svg>'; }
   function cdown(start){ var ms = Math.max(0, Date.parse(start+'T09:00:00') - Date.now()); return [Math.floor(ms/864e5), Math.floor(ms/36e5)%24, Math.floor(ms/6e4)%60, Math.floor(ms/1e3)%60]; }
   function countHTML(f){ var c = cdown(f.start); return '<div class="cs-count" data-start="'+esc(f.start)+'">'+['days','hours','min','sec'].map(function(u,i){ return '<div><b>'+String(c[i]).padStart(2,'0')+'</b><span>'+u+'</span></div>'; }).join('')+'</div>'; }
 
@@ -663,9 +682,9 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     var f = kit.facts, s = kit.site, c = kit.challenge;
     return csOpen(f)+navHTML(f, '<a href="#cs-coach">Coaching</a><a href="#cs-ch">Challenge</a><a href="#cs-about">About</a><a href="#cs-faq">Questions</a>', s.cta, '#cs-apply')+
       '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">Online coaching for '+esc(f.who)+'</p>'+
-        E('h1','site.heroTitle',s.heroTitle,live,'dsp rv d1'+(s.heroTitle.length>44?' long':''))+E('p','site.heroSub',s.heroSub,live,'sub rv d2')+
+        E(live?'h2':'h1','site.heroTitle',s.heroTitle,live,'dsp rv d1'+(s.heroTitle.length>44?' long':''))+E('p','site.heroSub',s.heroSub,live,'sub rv d2')+
         '<div class="cs-ctas rv d3"><a class="cs-btn" href="#cs-apply">'+esc(s.cta)+' &rarr;</a><a class="cs-btn ghost" href="#cs-ch">The '+f.days+'-day challenge</a></div></div>'+
-        media(f, '<div class="tag"><div><strong>'+esc(c.title)+'</strong><span>'+esc(c.dates)+'</span></div><i>'+f.days+'</i></div>')+'</div>'+
+        media(f, '<div class="tag"><div><strong>'+esc(c.title)+'</strong><span>'+esc(c.dates)+'</span></div></div>')+'</div>'+
         '<div class="in"><div class="cs-facts rv"><div><b>'+f.days+'</b><span>days in the challenge</span></div><div><b>1</b><span>workout a day, in the app</span></div><div><b>'+esc(c.price)+'</b><span>to join</span></div></div></div></section>'+
       '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
       '<section class="cs-sec" id="cs-coach"><div class="in"><div class="cs-head rv"><p class="cs-label">Coaching</p><h2 class="dsp">Two ways to train with '+esc(f.first)+'.</h2></div><div class="cs-cards">'+
@@ -678,15 +697,15 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
         E('blockquote','site.about',s.about,live)+'<cite>'+esc(f.coach)+', '+esc(f.business)+'</cite></div></div></section>'+
       '<section class="cs-sec" id="cs-faq"><div class="in cs-faq"><div class="cs-head rv" style="display:block"><p class="cs-label">Questions</p><h2 class="dsp" style="margin-top:12px">Before you apply.</h2></div><div class="rv d1">'+
         s.faq.map(function(q,i){ return '<details'+(live?' open':'')+'><summary>'+E('span','site.faq.'+i+'.q',q.q,live)+'</summary>'+E('p','site.faq.'+i+'.a',q.a,live)+'</details>'; }).join('')+'</div></div></section>'+
-      '<section class="cs-end" id="cs-apply"><div class="in"><h2 class="dsp rv">Start on '+esc(dateShort(f.start))+'.</h2><a class="cs-btn rv d1" href="'+(f.handle?'https://instagram.com/'+esc(f.handle):'#')+'">'+esc(s.cta)+' &rarr;</a></div></section>'+
-      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+(f.handle?' · @'+esc(f.handle):'')+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
+      '<section class="cs-end" id="cs-apply"><div class="in"><h2 class="dsp rv">Start on '+esc(dateShort(f.start))+'.</h2><a class="cs-btn rv d1" href="'+(f.handle&&f.handle!=='reyesstrength'?'https://instagram.com/'+esc(f.handle):'#cs-apply')+'">'+esc(s.cta)+' &rarr;</a></div></section>'+
+      '<footer class="cs-foot"><div class="in"><span>'+esc(f.business)+(f.handle&&f.handle!=='reyesstrength'?' · @'+esc(f.handle):'')+'</span><span>Check with your doctor before starting a new exercise plan.</span></div></footer></div>';
   }
   function dateShort(iso){ var d = new Date(iso+'T12:00:00Z'); return d.toLocaleDateString('en-US',{ month:'long', day:'numeric', timeZone:'UTC' }); }
 
   function challengeHTML(kit, live){
     var f = kit.facts, c = kit.challenge;
     return csOpen(f)+navHTML(f, '', 'Join', '#cs-join')+
-      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">'+esc(c.dates)+'</p>'+E('h1','challenge.title',c.title,live,'dsp rv d1'+(c.title.length>44?' long':''))+E('p','challenge.line',c.line,live,'sub rv d2')+
+      '<section class="cs-hero"><div class="in grid"><div><p class="cs-kick rv">'+esc(c.dates)+'</p>'+E(live?'h2':'h1','challenge.title',c.title,live,'dsp rv d1'+(c.title.length>44?' long':''))+E('p','challenge.line',c.line,live,'sub rv d2')+
         '<div class="rv d3">'+countHTML(f).replace('cs-count','cs-count cs-count-l')+'<a class="cs-btn" href="#cs-join">Join for '+esc(c.price)+' &rarr;</a></div></div>'+
         media(f, '<div class="tag"><div><strong>'+esc(f.coach)+'</strong><span>'+esc(f.business)+'</span></div><i>'+f.days+'</i></div>')+'</div></section>'+
       '<div class="cs-band" aria-hidden="true"><div>'+[0,1].map(function(){ return c.rules.map(function(r){ return '<span>'+esc(r.replace(/\.$/,''))+'</span>'; }).join(''); }).join('')+'</div></div>'+
@@ -708,13 +727,67 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     tick = setInterval(function(){ [].forEach.call(cs.querySelectorAll('.cs-count'), function(el){ var c = cdown(el.dataset.start); [].forEach.call(el.querySelectorAll('b'), function(b, i){ b.textContent = String(c[i]).padStart(2,'0'); }); }); }, 1000);
   }
 
+  // Ads as finished images: drawn on a canvas in the coach's look, color, logo and photo, 1080 x 1350 (feed) or
+  // 1080 x 1920 (story), saved as PNG.
+  var LOOKF = { athletic: { d: '800 {s}px BSD', b: '{w} {s}px Hanken', up: true, bg: '#0a0a0b', ink: '#f4f2ef', ink2: '#b5b1aa' },
+    editorial: { d: '400 {s}px ISerif', b: '{w} {s}px InterC', up: false, bg: '#f5f1ea', ink: '#1a1714', ink2: '#5e5850' },
+    bold: { d: '700 {s}px Unb', b: '{w} {s}px Onest', up: false, bg: '#0d0d10', ink: '#f2f2f5', ink2: '#a9a9b3' } };
+  var photoImg = null, logoImg = null;
+  function imgOf(src, cb){ if (!src) return cb(null); var i = new Image(); i.onload = function(){ cb(i); }; i.onerror = function(){ cb(null); }; i.src = src; }
+  function wrap(g, text, maxW){ var words = String(text).split(/\s+/), lines = [], line = ''; words.forEach(function(w){ var t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }); if (line) lines.push(line); return lines; }
+  function fit(g, text, font, maxW, maxH, big, small, lh){ for (var s = big; s >= small; s -= 4) { g.font = font.replace('{s}', s); var L = wrap(g, text, maxW); if (L.length * s * lh <= maxH && L.every(function(l){ return g.measureText(l).width <= maxW; })) return { s: s, lines: L }; } g.font = font.replace('{s}', small); return { s: small, lines: wrap(g, text, maxW) }; }
+  function drawAd(ad, kit, story){
+    var f = kit.facts, look = LOOKF[brand.look || 'athletic'], W = 1080, H = story ? 1920 : 1350, P = 84;
+    var cv = document.createElement('canvas'); cv.width = W; cv.height = H; var g = cv.getContext('2d');
+    g.fillStyle = look.bg; g.fillRect(0, 0, W, H);
+    if (photoImg) {
+      var k = Math.max(W / photoImg.width, H / photoImg.height); g.drawImage(photoImg, (W - photoImg.width * k) / 2, (H - photoImg.height * k) / 2, photoImg.width * k, photoImg.height * k);
+      var gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(.35, 'rgba(0,0,0,.15)'); gr.addColorStop(.62, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,.9)'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    } else {
+      var rg = g.createRadialGradient(W * .85, H * .1, 0, W * .85, H * .1, W * .95); rg.addColorStop(0, f.color + 'cc'); rg.addColorStop(1, f.color + '00'); g.fillStyle = rg; g.fillRect(0, 0, W, H);
+      var rg2 = g.createRadialGradient(0, H, 0, 0, H, W * .8); rg2.addColorStop(0, f.color + '66'); rg2.addColorStop(1, f.color + '00'); g.fillStyle = rg2; g.fillRect(0, 0, W, H);
+      g.save(); var cx = W * .74, cy = H * (story ? .3 : .3), RR = W * .36; g.lineCap = 'round'; for (var di = 0; di < f.days; di++) { var an = di / f.days * 2 * Math.PI - Math.PI / 2, onD = di < Math.min(7, f.days); g.strokeStyle = onD ? f.color : look.ink + '26'; g.lineWidth = onD ? 14 : 9; g.beginPath(); g.moveTo(cx + Math.cos(an) * (RR - 46), cy + Math.sin(an) * (RR - 46)); g.lineTo(cx + Math.cos(an) * RR, cy + Math.sin(an) * RR); g.stroke(); } g.restore();
+    }
+    var ink = photoImg ? '#ffffff' : look.ink, ink2 = photoImg ? 'rgba(255,255,255,.82)' : look.ink2;
+    // Top: logo or initials, and the business name.
+    var y = P;
+    if (logoImg) { var lh = 76, lw = Math.min(260, logoImg.width * lh / logoImg.height); g.drawImage(logoImg, P, y, lw, lh); g.font = look.b.replace('{w}', 700).replace('{s}', 34); g.fillStyle = ink; g.textBaseline = 'middle'; g.fillText(f.business, P + lw + 22, y + lh / 2); }
+    else { g.fillStyle = f.color; roundRect(g, P, y, 76, 76, 20); g.fill(); g.fillStyle = onColor(f.color); g.font = look.d.replace('{s}', 36); g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(f.business).toUpperCase(), P + 38, y + 40); g.textAlign = 'left'; g.font = look.b.replace('{w}', 700).replace('{s}', 34); g.fillStyle = ink; g.fillText(f.business, P + 100, y + 38); }
+    g.textBaseline = 'alphabetic';
+    // Bottom up: the button, the body, then the hook fills the space above.
+    var btnH = 112, by = H - P - btnH, cta = (ad.cta || 'Apply') + '  →', meta = kit.challenge.dates.split(' to ')[0] + ' · ' + kit.challenge.price;
+    g.font = look.b.replace('{w}', 700).replace('{s}', 40); var bw = g.measureText(cta).width + 96;
+    g.fillStyle = f.color; roundRect(g, P, by, bw, btnH, btnH / 2); g.fill(); g.fillStyle = onColor(f.color); g.textBaseline = 'middle'; g.fillText(cta, P + 48, by + btnH / 2 + 2);
+    g.font = look.b.replace('{w}', 600).replace('{s}', 32); g.fillStyle = ink2; g.textAlign = 'right'; g.fillText(meta, W - P, by + btnH / 2 + 2); g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+    var b = fit(g, ad.body, look.b.replace('{w}', 400), W - P * 2, story ? 300 : 210, 42, 30, 1.32);
+    var bodyTop = by - 56 - b.lines.length * b.s * 1.32;
+    g.fillStyle = ink2; g.font = look.b.replace('{w}', 400).replace('{s}', b.s); b.lines.forEach(function(l, i){ g.fillText(l, P, bodyTop + (i + .9) * b.s * 1.32); });
+    var hookText = look.up ? ad.hook.toUpperCase() : ad.hook, top = P + 76 + 70, avail = bodyTop - 40 - top;
+    var h = fit(g, hookText, look.d, W - P * 2, avail, story ? 200 : 168, 64, look.up ? .94 : 1.02);
+    var lhh = h.s * (look.up ? .94 : 1.02), hy = bodyTop - 40 - h.lines.length * lhh;
+    g.fillStyle = ink; g.font = look.d.replace('{s}', h.s); h.lines.forEach(function(l, i){ g.fillText(l, P - 4, hy + (i + .82) * lhh); });
+    g.fillStyle = f.color; g.fillRect(P, hy - 34, 96, 8);
+    return cv;
+  }
+  function roundRect(g, x, y, w, h, r){ g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+  function paintAds(){
+    var box = document.getElementById('adImgs'); if (!box || !cur) return;
+    var look = brand.look || 'athletic', fam = { athletic: ['800 40px BSD','400 40px Hanken','700 40px Hanken'], editorial: ['400 40px ISerif','400 40px InterC','700 40px InterC'], bold: ['700 40px Unb','400 40px Onest','600 40px Onest'] }[look];
+    var ready = document.fonts ? Promise.all(fam.map(function(x){ return document.fonts.load(x); })) : Promise.resolve();
+    imgOf(brand.photo, function(pi){ photoImg = pi; imgOf(brand.logo, function(li){ logoImg = li; ready.then(function(){
+      [].forEach.call(box.querySelectorAll('[data-ad]'), function(el){ var i = +el.dataset.ad, cv = drawAd(cur.kit.ads[i], cur.kit, state.story); el.querySelector('img').src = cv.toDataURL('image/png'); el.dataset.w = cv.width; });
+    }); }); });
+  }
+
   function frame(inner, url){
     return '<p class="hint"><i></i>Tap any text to change it. Your edits stay as you change the form.</p><div class="stage-k"><div class="frame'+(state.view==='phone'?' phone-v':'')+'"><div class="frame-bar"><i></i><i></i><i></i><span>'+esc(url)+'</span></div><div class="frame-scr editing">'+inner+'</div></div></div>';
   }
   function launchHTML(kit){
     var f = kit.facts, L = {};
     L.vsl = '<p class="sub">About four minutes. Film it on your phone, one take per beat.</p>'+list(kit.vsl.map(function(b,i){ return item(b.time+'  '+b.beat, E('span','vsl.'+i+'.say',b.say,true), b.say); }));
-    L.ads = '<p class="sub">One angle each, so you can see which one gets clicks.</p>'+list(kit.ads.map(function(a,i){ return item(a.angle, '<b>'+E('span','ads.'+i+'.hook',a.hook,true)+'</b><br>'+E('span','ads.'+i+'.body',a.body,true)+'<br><span class="note">Headline: '+E('span','ads.'+i+'.headline',a.headline,true)+'</span>', a.hook+'\n\n'+a.body+'\n\n'+a.headline); }));
+    L.ads = '<div class="ad-top"><p class="sub" style="margin:0">Three angles, finished images in your look. Tap the words under an ad to change it.</p><div class="seg" id="adSize"><button type="button" data-z="feed" aria-pressed="'+!state.story+'">Feed 4:5</button><button type="button" data-z="story" aria-pressed="'+!!state.story+'">Story 9:16</button></div></div>'+
+      '<div class="ad-grid" id="adImgs">'+kit.ads.map(function(a,i){ return '<figure class="ad" data-ad="'+i+'"><img alt="'+esc(a.hook)+'" class="'+(state.story?'st':'')+'"><figcaption><span class="k">'+esc(a.angle)+'</span><b>'+E('span','ads.'+i+'.hook',a.hook,true)+'</b>'+E('span','ads.'+i+'.body',a.body,true)+
+        '<span class="note">Headline: '+E('span','ads.'+i+'.headline',a.headline,true)+'</span><span class="ad-btns"><button class="btn sm" type="button" data-save="'+i+'">Save image</button><button class="copy" data-copy="'+esc(a.hook+'\n\n'+a.body+'\n\n'+a.headline)+'">Copy text</button></span></figcaption></figure>'; }).join('')+'</div>';
     L.emails = '<p class="sub">Five emails from ten days out to the last day.</p>'+list(kit.emails.map(function(e,i){ return item(e.when, '<b>'+E('span','emails.'+i+'.subject',e.subject,true)+'</b><br>'+E('span','emails.'+i+'.body',e.body,true), e.subject+'\n\n'+e.body); }));
     L.dms = '<p class="sub">Someone comments '+esc(f.keyword)+', the DM goes out, and you have a reply ready for what comes back.</p>'+list(kit.dms.map(function(d,i){ return item(d.step, E('span','dms.'+i+'.text',d.text,true), d.text); }));
     L.posts = '<p class="sub">Six kinds of post on rotation. Every third one asks for the comment.</p>'+list(kit.posts.map(function(p){ return item('Day '+p.day, esc(p.post)+' <span class="note">· '+esc(p.cta)+'</span>', p.post); }));
@@ -729,7 +802,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     if (state.tab === 'site') return frame(siteHTML(kit, true), f.handle ? f.handle+'.com' : host);
     if (state.tab === 'challenge') return frame(challengeHTML(kit, true), host);
     if (state.tab === 'launch') return launchHTML(kit);
-    var src = (state.tab === 'app' ? APP : DASH) + kit.app.query;
+    var src = (state.tab === 'app' ? APP : DASH) + kit.app.query + (state.tab === 'app' ? '&look=' + (brand.look || 'athletic') : '');
     if (state.tab === 'app') return '<div class="panel side-app"><div class="phone"><iframe title="Client app preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>'+esc(kit.app.name)+'</h3><p>Clients open one link and add it to their home screen. Today\'s workout with last time\'s numbers, a rest timer, the challenge day and a check-in, in your color.</p><p class="note">Meal and nutrition tabs come once 127\'s privacy review of health data is done.</p></div></div>';
     return '<div class="panel side-app"><div class="phone"><iframe title="Coach dashboard preview" loading="lazy" src="'+esc(src)+'"></iframe></div><div><h3>Your coach dashboard</h3><p>Who joined, who checked in today, and who to message, with the message already written. Then the board.</p><p class="note">Shown with sample clients until real ones join from your challenge link.</p></div></div>';
   }
@@ -742,7 +815,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   }
   function paint(){
     [].forEach.call(tabs.children,function(b){ b.setAttribute('aria-selected', b.dataset.t===state.tab); });
-    document.getElementById('panel').innerHTML = render(cur.kit); animate();
+    document.getElementById('panel').innerHTML = render(cur.kit); animate(); if (state.tab === 'launch' && state.sub === 'ads') paintAds();
     [].forEach.call(document.querySelectorAll('#seg button'), function(b){ b.setAttribute('aria-pressed', b.dataset.v===state.view); });
     [].forEach.call(document.querySelectorAll('#look button'), function(b){ b.setAttribute('aria-pressed', b.dataset.k===(brand.look||'athletic')); });
     warn();
@@ -760,9 +833,13 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     var el = e.target.closest('[data-e]'); if (!el) return;
     edits[el.dataset.e] = el.innerText.replace(/\s+$/,''); keep(EK, edits);
     cur.kit = buildKit(formData()); warn();
+    if (/^ads\./.test(el.dataset.e)) { clearTimeout(adT); adT = setTimeout(paintAds, 400); }
   });
+  var adT;
   document.getElementById('panel').addEventListener('click', function(e){
     var l = e.target.closest('[data-l]'); if (l) { state.sub = l.dataset.l; paint(); return; }
+    var z = e.target.closest('[data-z]'); if (z) { state.story = z.dataset.z === 'story'; paint(); return; }
+    var sv = e.target.closest('[data-save]'); if (sv) { var i = +sv.dataset.save, a = document.createElement('a'); a.href = drawAd(cur.kit.ads[i], cur.kit, state.story).toDataURL('image/png'); a.download = cur.kit.facts.slug + '-ad-' + (i + 1) + (state.story ? '-story' : '') + '.png'; document.body.appendChild(a); a.click(); a.remove(); return; }
     if (e.target.closest('[data-e]') || e.target.closest('.cs a')) { if (e.target.closest('.cs a')) e.preventDefault(); }
     if (e.target.closest('summary [data-e]')) e.preventDefault();
   });
@@ -808,11 +885,11 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
   document.getElementById('save').addEventListener('click', function(){
     var d = formData();
     try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(_){}
-    d.edits = edits;
+    d.edits = edits; d.look = brand.look || 'athletic';
     fetch('/coaches/kit', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
       .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
       .then(function(x){
-        if (x.s === 401) { location.href = '/start?next=/coaches/%23kit'; return; }
+        if (x.s === 401) { try { localStorage.setItem('coachKitPending', '1'); } catch(_){} location.href = '/coaches/join?next=' + encodeURIComponent('/coaches/?saved=1#kit'); return; }
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not saved. Try again.')); return; }
         var link = location.origin + x.j.joinUrl;
@@ -820,6 +897,8 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
       })
       .catch(function(){ say('Saving works once you are on 127group.io with an account. This preview keeps your answers on this phone.'); });
   });
+  // Back from /coaches/join with an account: save the kit that was waiting.
+  try { if (localStorage.getItem('coachKitPending') && /[?&]saved=1/.test(location.search)) { localStorage.removeItem('coachKitPending'); setTimeout(function(){ document.getElementById('save').click(); }, 300); } } catch(_){}
   // Rewrite in my voice (COACH_AI): shown only when the server says it's on for this coach.
   var vb = document.getElementById('voice');
   fetch('/coaches/kit/ai', { credentials:'same-origin' }).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j && j.on) vb.hidden = false; }).catch(function(){});
@@ -828,7 +907,7 @@ h1.h1,.h1{font-size:clamp(30px,6vw,52px);line-height:1.04;letter-spacing:-.04em;
     fetch('/coaches/kit/rewrite', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin', body: JSON.stringify(d) })
       .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
       .then(function(x){
-        if (x.s === 401) { location.href = '/start?next=/coaches/%23kit'; return; }
+        if (x.s === 401) { try { localStorage.setItem('coachKitPending', '1'); } catch(_){} location.href = '/coaches/join?next=' + encodeURIComponent('/coaches/?saved=1#kit'); return; }
         if (x.s === 422) { say('Change this line first, it reads like a result claim: "'+esc(x.j.text.slice(0,80))+'"'); return; }
         if (x.s !== 200) { say(esc(x.j.error || 'Not rewritten. Try again.')); return; }
         // The rewrite becomes the coach's edits, so they can keep changing it by tapping.

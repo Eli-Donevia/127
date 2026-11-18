@@ -19,17 +19,18 @@ const strip = (s) => s
   .replace('</body>\n</html>', '');
 
 let home = inlineFonts(read('public/coaches/index.html'));
-home = home.replace('<script src="/js/coach-kit.js"></script>',
+home = home.replace('<script src="/js/coach-kit.js"></script>', () =>
   `<script>window.COACH_APP_URL = "coach-app.html"; window.COACH_DASH_URL = "dashboard.html";\n${read('lib/coach-kit.js')}\n</script>`);
 home = strip(home)
   .replace('<title>127 for coaches</title>', '<title>127 for coaches</title>\n<meta name="claude:viewport-fit-sides" content="cover">')
-  .replace(/href="\/(start|circle)"/g, 'href="#pricing"')
+  .replace(/href="\/start"/g, 'href="#pricing"')
+  .replace(/href="\/circle/g, 'href="https://127group.io/circle')
   .replace('class="mark" href="/"', 'class="mark" href="#"')
   .replace(/\/img\/coach-hero\//g, 'img/coach-hero/');
 fs.writeFileSync(path.join(out, 'coaches.html'), home);
 // The hero's real screens, published beside the page.
 fs.mkdirSync(path.join(out, 'img/coach-hero'), { recursive: true });
 for (const f of fs.readdirSync(path.join(root, 'public/img/coach-hero'))) fs.copyFileSync(path.join(root, 'public/img/coach-hero', f), path.join(out, 'img/coach-hero', f));
-fs.writeFileSync(path.join(out, 'coach-app.html'), read('public/coach-app/index.html'));
+fs.writeFileSync(path.join(out, 'coach-app.html'), inlineFonts(read('public/coach-app/index.html')));
 fs.writeFileSync(path.join(out, 'dashboard.html'), inlineFonts(read('public/coaches/dashboard.html')));
 console.log('Wrote', ['coaches.html', 'coach-app.html', 'dashboard.html'].map((f) => path.join(out, f)).join(', '));

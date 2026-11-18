@@ -4,19 +4,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Coach app</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
 <style>
 /* One light-pink look on purpose: it stays pink even when the phone is in dark mode.
    Rose for actions and progress, lavender for "ready to go up" moments, soft rounded type. */
+@font-face{font-family:"BSD";src:url(/fonts/coach/big-shoulders-display-normal-500-900.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"Hanken";src:url(/fonts/coach/hanken-grotesk-normal-400.woff2) format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"ISerif";src:url(/fonts/coach/instrument-serif-normal-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"InterC";src:url(/fonts/coach/inter-normal-400.woff2) format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"Unb";src:url(/fonts/coach/unbounded-normal-500-900.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"Onest";src:url(/fonts/coach/onest-normal-400-600.woff2) format("woff2");font-weight:400 700;font-display:swap}
+/* The coach's look (?look= or window.COACH_APP.look): the same three looks as their site. Headings use --fd. */
+:root{--fd:var(--font);--fdw:900;--fdcase:none;--fdls:-.02em}
+html[data-look] .hello h1,html[data-look] .hero h2,html[data-look] h2{font-family:var(--fd);font-weight:var(--fdw);text-transform:var(--fdcase);letter-spacing:var(--fdls)}
+html[data-look=athletic] .hero h2{font-size:38px;line-height:.95}
+html[data-look=athletic] .hello h1{font-size:28px;line-height:1}
+html[data-look=editorial] .hero h2{font-size:34px;line-height:1}
+html[data-look=editorial] .hello h1{font-size:28px}
+html[data-look=bold] .hero h2{font-size:26px}
 :root{
   --bg:#FFF5F8; --top:#FFE3EE; --card:#FFFFFF; --card2:#FFF0F5; --ink:#3B1F2C; --muted:#8C6474; --line:#F5D8E3;
   --accent:#C83A75; --accent-ink:#FFFFFF; --accent-soft:#FDE3EE; --accent-2:#7A4BB0; --accent-2-soft:#F2E8FC;
   --warn:#9C5B0B; --warn-soft:#FFF0DC; --danger:#B83246; --band:rgba(200,58,117,.13);
   --shadow:0 1px 2px rgba(200,58,117,.06), 0 6px 20px rgba(200,58,117,.08);
   --r:22px; --nav-h:64px;
-  --font: "Nunito", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -275,7 +286,8 @@ const COACH = (function(){
   const pick = (k, d) => (q.get(k) || w[k] || d);
   const color = /^#[0-9a-f]{6}$/i.test(pick("color","")) ? pick("color","") : "#C83A75";
   const days = Math.max(7, Math.min(90, parseInt(pick("days","21"),10) || 21));
-  return { name: pick("coach","Your coach").slice(0,60), by: pick("by","").slice(0,60), color, days,
+  const look = ["athletic","editorial","bold","classic"].indexOf(pick("look","")) >= 0 ? pick("look","") : "athletic";
+  return { name: pick("coach","Your coach").slice(0,60), by: pick("by","").slice(0,60), color, days, look,
     start: /^\d{4}-\d{2}-\d{2}$/.test(pick("start","")) ? pick("start","") : null,
     challenge: pick("ch", days + "-Day Challenge").slice(0,80), food: false, slug: w.slug || null, token: (function(){
       /* The join link puts the client's token in the #hash; keep it on this phone and take it out of the address bar. */
@@ -286,13 +298,33 @@ const COACH = (function(){
 })();
 (function(){
   const r = document.documentElement.style, c = COACH.color;
+  const n = parseInt(c.slice(1),16), L = (v) => { v /= 255; return v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4); };
+  const light = (.2126*L(n>>16&255) + .7152*L(n>>8&255) + .0722*L(n&255)) > .4;
   r.setProperty("--accent", c);
-  r.setProperty("--accent-soft", `color-mix(in srgb, ${c} 13%, #fff)`);
-  r.setProperty("--top", `color-mix(in srgb, ${c} 12%, #fff)`);
-  r.setProperty("--bg", `color-mix(in srgb, ${c} 4%, #fff)`);
-  r.setProperty("--card2", `color-mix(in srgb, ${c} 6%, #fff)`);
-  r.setProperty("--line", `color-mix(in srgb, ${c} 16%, #fff)`);
+  r.setProperty("--accent-ink", light ? "#0b0b0d" : "#ffffff");
   r.setProperty("--band", `color-mix(in srgb, ${c} 14%, transparent)`);
+  const LOOKS = {
+    // Dark, condensed athletic headings.
+    athletic: { bg:"#0a0a0b", top:`color-mix(in srgb, ${c} 16%, #0a0a0b)`, card:"#151517", card2:"#1c1c20", ink:"#f4f2ef", muted:"#a29e98", line:"rgba(255,255,255,.09)", soft:`color-mix(in srgb, ${c} 20%, #151517)`, font:'"Hanken", -apple-system, "Helvetica Neue", Arial, sans-serif', fd:'"BSD", Impact, sans-serif', fdw:"800", fdcase:"uppercase", fdls:"0", dark:true },
+    // Warm paper, serif headings.
+    editorial: { bg:"#f5f1ea", top:`color-mix(in srgb, ${c} 10%, #f5f1ea)`, card:"#fffdf9", card2:`color-mix(in srgb, ${c} 5%, #f5f1ea)`, ink:"#1a1714", muted:"#6b645b", line:"rgba(26,23,20,.12)", soft:`color-mix(in srgb, ${c} 12%, #fffdf9)`, font:'"InterC", -apple-system, "Helvetica Neue", Arial, sans-serif', fd:'"ISerif", Georgia, serif', fdw:"400", fdcase:"none", fdls:"-.02em" },
+    // Dark, wide grotesk headings.
+    bold: { bg:"#0d0d10", top:`color-mix(in srgb, ${c} 16%, #0d0d10)`, card:"#17171c", card2:"#1e1e24", ink:"#f2f2f5", muted:"#a0a0aa", line:"rgba(255,255,255,.09)", soft:`color-mix(in srgb, ${c} 20%, #17171c)`, font:'"Onest", -apple-system, "Helvetica Neue", Arial, sans-serif', fd:'"Unb", "Arial Black", sans-serif', fdw:"700", fdcase:"none", fdls:"-.04em", dark:true }
+  };
+  const t = LOOKS[COACH.look];
+  if (t) {
+    document.documentElement.dataset.look = COACH.look;
+    [["bg",t.bg],["top",t.top],["card",t.card],["card2",t.card2],["ink",t.ink],["muted",t.muted],["line",t.line],["accent-soft",t.soft],["font",t.font],["fd",t.fd],["fdw",t.fdw],["fdcase",t.fdcase],["fdls",t.fdls]].forEach(([k,v]) => r.setProperty("--"+k, v));
+    r.setProperty("--shadow", t.dark ? "0 1px 0 rgba(255,255,255,.04) inset, 0 10px 30px rgba(0,0,0,.35)" : "0 1px 2px rgba(26,23,20,.05), 0 8px 24px rgba(26,23,20,.06)");
+    if (t.dark) { r.setProperty("--warn-soft", "rgba(242,180,92,.12)"); r.setProperty("--warn", "#f2b45c"); r.setProperty("--accent-2-soft", "rgba(169,139,255,.14)"); r.setProperty("color-scheme", "dark"); }
+    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", t.bg);
+  } else {
+    r.setProperty("--accent-soft", `color-mix(in srgb, ${c} 13%, #fff)`);
+    r.setProperty("--top", `color-mix(in srgb, ${c} 12%, #fff)`);
+    r.setProperty("--bg", `color-mix(in srgb, ${c} 4%, #fff)`);
+    r.setProperty("--card2", `color-mix(in srgb, ${c} 6%, #fff)`);
+    r.setProperty("--line", `color-mix(in srgb, ${c} 16%, #fff)`);
+  }
   document.title = COACH.name;
   if (!COACH.food){ const st = document.createElement("style"); st.textContent = 'nav.tabs [data-tab="meals"],nav.tabs [data-tab="nutrition"],nav.tabs [data-tab="grocery"]{display:none}'; document.head.appendChild(st); }
 })();
@@ -310,7 +342,7 @@ function challengeCard(date){
     <div style="font-weight:800;font-size:20px;margin-top:2px">${head}</div>
     <div class="muted small">${doneDays} check-in${doneDays===1?"":"s"} · ${streak}-day streak</div></div>
     ${n>=1 && n<=COACH.days ? `<button class="btn sm ${tickedToday?"":"primary"}" data-act="checkin" data-d="${date}">${tickedToday?"Checked in":"Check in"}</button>` : ""}</div>
-    <div style="height:6px;border-radius:9px;background:#fff;margin-top:12px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--accent)"></div></div></div>`;
+    <div style="height:6px;border-radius:9px;background:var(--line);margin-top:12px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--accent)"></div></div></div>`;
 }
 /* ===================== PLAN DATA (sample program; the coach's program replaces it) ===================== */
 const PLAN = {

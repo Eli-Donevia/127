@@ -3,7 +3,15 @@
 <%# Bio-link page: the fallback when ManyChat isn't live ("comment KEYWORD" -> tap the link in bio). %>
 <main class="links-wrap">
   <img src="/img/127-emerald@3x.png" alt="127" class="links-logo" width="77" height="40">
-  <p class="links-sub">Eli Christiansen · Make today day one.<br>127 is a roadmap and the tools to start your first business.</p>
+  <% if (typeof coachHome !== 'undefined' && coachHome) { %>
+  <h1 class="links-sub" style="font-size:15px;font-weight:400">Eli Christiansen · Make today day one.<br>127 for online fitness coaches: your site, challenge, client app and dashboard from one form.</h1>
+  <nav class="links-list">
+    <a class="links-item primary" href="/?utm_source=bio&utm_content=coach#build"><b>Build your coach kit free</b><span>Site, challenge page and launch kit in a few minutes</span></a>
+    <a class="links-item" href="/?utm_source=bio&utm_content=pricing#pricing"><b>See the coach plan</b><span>$149 a month when you're ready for clients</span></a>
+    <a class="links-item" href="/circle?utm_source=bio&utm_content=circle"><b>Founder's Circle</b><span>Comment CIRCLE · 4 seats with Eli</span></a>
+  </nav>
+  <% } else { %>
+  <h1 class="links-sub" style="font-size:15px;font-weight:400">Eli Christiansen · Make today day one.<br>127 is a roadmap and the tools to start your first business.</h1>
   <%# First 25 leads the bio link once it searches real businesses (Funnels F1); in the founding window the founding price stays on top. %>
   <% var f25 = typeof first25 !== 'undefined' && first25, inWindow = launch.foundingOpen && !launch.prelaunch; %>
   <nav class="links-list">
@@ -23,6 +31,7 @@
     <a class="links-item" href="/idea-test?utm_source=bio&utm_content=idea"><b>Test your business idea</b><span>Comment IDEA · free, 60 seconds</span></a>
     <a class="links-item" href="/circle?utm_source=bio&utm_content=circle"><b>Founder's Circle</b><span>Comment CIRCLE · 4 seats with Eli</span></a>
   </nav>
+  <% } %>
   <p class="links-foot"><a href="https://instagram.com/elichristiansen_" rel="noopener">Instagram</a> · <a href="https://tiktok.com/@elichristiansen_" rel="noopener">TikTok</a> · <a href="https://youtube.com/@eli_christiansen" rel="noopener">YouTube</a></p>
   <%- include('partials/legal-footer', { privacyTerms: true }) %>
 </main>

@@ -226,6 +226,8 @@ app.use((req, res, next) => {
   res.locals.showDrafts = isAdmin(user) || process.env.SHOW_DRAFT_FLAGS === 'true';
   res.locals.devVerifyLink = DEV_LINKS && req.session.devVerifyLink ? req.session.devVerifyLink : null;
   res.locals.launch = launch.view();
+  // The coach homepage is the front door (COACH_HOME=on): the shared header, footer and bio page follow it.
+  res.locals.coachHome = process.env.COACH_HOME === 'on';
   // First 25 on real business data (defined with the homepage route): the footer links it, the hero and bio page lead with it.
   res.locals.first25Live = first25Live();
   res.locals.consentCopy = consent.copy;
@@ -438,6 +440,42 @@ function coachPage(req, res) {
   res.set('Cache-Control', 'no-cache').type('html').send(html);
 }
 app.get('/', (req, res, next) => (process.env.COACH_HOME === 'on' ? coachPage(req, res) : next()));
+// Coach sign-up (QA A4): "Put it live" without an account lands here, not on the founder roadmap picker, then goes
+// back to the kit, which saves itself (coachKitPending in the page's localStorage).
+const coachNext = (v) => { const n = security.safeNext(v, '/coaches/?saved=1#kit'); return /^\/coaches\//.test(n) || n === '/' || n.startsWith('/?') ? n : '/coaches/?saved=1#kit'; };
+const coachJoinView = (res, { error = null, form = {}, next }) => res.status(error ? 400 : 200).render('coach-join', { title: 'Save your kit', layout: 'bare', error, form, next });
+app.get('/coaches/join', (req, res) => {
+  const next = coachNext(req.query.next);
+  if (req.user) return res.redirect(next);
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  coachJoinView(res, { next });
+});
+app.post('/coaches/join', express.urlencoded({ extended: false, limit: '10kb' }), wrap(async (req, res) => {
+  const next = coachNext(req.body.next);
+  if (req.user) return res.redirect(next);
+  if (prelaunchGate(req)) return res.redirect('/founding');
+  if (!limit(req, res, `signup:${security.ip(req)}`, SIGNUPS_PER_IP, 60 * 60 * 1000, TOO_FAST)) return;
+  const email = String(req.body.email || '').trim().toLowerCase().slice(0, 200);
+  const name = String(req.body.name || '').trim().slice(0, 80);
+  const password = String(req.body.password || '');
+  const form = { name, email, optin: req.body.optin === 'on' };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return coachJoinView(res, { error: 'Please enter a valid email.', form, next });
+  if (password.length < 8) return coachJoinView(res, { error: 'Use a password with at least 8 characters.', form, next });
+  const release = await signupTurn(email);
+  try {
+    const existing = db.find('users', (u) => u.email === email);
+    if (existing && (await sameSignup(req, existing, password))) return res.redirect(next);
+    if (existing) return coachJoinView(res, { error: 'That email already has an account. Sign in instead, and your kit comes with you.', form, next });
+    if (ageCheck.blocked(email)) return coachJoinView(res, { error: ageCheck.SIGNUP_REFUSED, form, next });
+    const user = await createMember(req, { email, name, password, optIn: form.optin, fallbackSource: 'coach-kit' });
+    user.coach = true;
+    await db.save('users', user);
+    track(req, 'Coach Signup', {});
+    res.redirect(next);
+  } finally {
+    release();
+  }
+}));
 app.get('/', (req, res) => res.render('home', { title: null, resources, onboarding, tools: ai.TOOLS, video: homeVideo(), hState: launch.homeState(res.locals.launch), joinFlag: consent.on() ? 'on' : 'off', first25: first25Live(), doors: doors.picker(req.user), ...(shop.visibleTo(req.user) ? { packs: homePacks(req), css: ['/css/packs.css'] } : { packs: null }) }));
 // Pricing meta description by launch state (conversion/pages/pricing.md), and by the workspace offer once it's live.
 function pricingDescription(offer = {}) {
@@ -769,7 +807,7 @@ app.get('/founding/confirm', wrap(async (req, res) => {
 }));
 
 // Calendar reminder for doors opening, so people who didn't tick the box still know when to come back.
-app.get('/links', (req, res) => res.render('links', { title: 'Links', description: first25Live() ? 'Eli Christiansen: First 25, the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' : 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.', first25: first25Live() }));
+app.get('/links', (req, res) => res.render('links', { title: 'Links', ...(process.env.COACH_HOME === 'on' ? { ogImage: '/img/og-coach.png' } : {}), description: process.env.COACH_HOME === 'on' ? 'Eli Christiansen: 127 for online fitness coaches. Build your coach kit free, see the coach plan, or apply to the Founder\'s Circle.' : first25Live() ? 'Eli Christiansen: First 25, the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.' : 'Eli Christiansen: the founding list, the Founder Score, the Day One Stack, the free Idea Test and the Founder\'s Circle.', first25: first25Live() }));
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /admin\nDisallow: /api\nDisallow: /billing\nDisallow: /founding/status\nDisallow: /founding/confirm\nDisallow: /stack/guide\n\nSitemap: ${baseUrl(req)}/sitemap.xml\n`);
