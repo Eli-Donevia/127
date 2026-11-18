@@ -20,7 +20,7 @@
   <% x.rules.forEach(function (r) { var on = !!(day.done && day.done[r.id]); var pf = (day.proof && day.proof[r.id]) || {}; %>
   <div class="rule <%= on ? 'on' : '' %>">
     <label class="rule-main"><input type="checkbox" name="r_<%= r.id %>" <%= on ? 'checked' : '' %>><span class="tick"></span><span class="rule-label"><%= r.label %></span>
-      <% if (r.proof !== 'none') { %><span class="pill <%= (r.proof === 'photo' ? pf.photo : pf.note) ? 'good' : '' %>"><%= r.proof === 'photo' ? '📷' : '✎' %> proof</span><% } %></label>
+      <% if (r.proof !== 'none') { %><span class="pill <%= (r.proof === 'photo' ? pf.photo : pf.note) ? 'good' : '' %>"><%= r.proof === 'photo' ? 'Photo' : 'Note' %></span><% } %></label>
     <% if (r.proof === 'note') { %><input class="input proof" name="note_<%= r.id %>" value="<%= pf.note || '' %>" placeholder="What did you do? (needed to count)"><% } %>
     <% if (r.proof === 'photo') { %>
       <div class="proof-photo" data-proof-photo data-url="/c/<%= c.slug %>/app/photo">

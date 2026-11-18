@@ -9,12 +9,12 @@
 <section class="ca-card"><h2>Weight</h2><%- spark || '<p class="muted small">Your trend shows after two check-ins.</p>' %></section>
 <section class="ca-card"><h2>Check-ins</h2>
   <% checkins.forEach(function (x) { %>
-  <div class="ci-row"><b><%= x.date %></b> · <%= x.weight %> lb
+  <div class="ci-row"><b><%= new Date(x.date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) %></b> · <%= x.weight %> lb
     <% if (x.photos.length) { %><div class="thumbs"><% x.photos.forEach(function (p) { %><img src="/c/<%= c.slug %>/photo/<%= p %>" alt=""><% }) %></div><% } %>
     <% if (x.reply) { %><p class="small reply"><b><%= c.coachName %>:</b> <%= x.reply %></p><% } else { %><p class="small muted">Waiting for <%= c.coachName %>'s reply</p><% } %>
   </div>
   <% }) %>
   <% if (!checkins.length) { %><p class="muted small">No check-ins yet.</p><% } %>
 </section>
-<section class="ca-card"><h2>Recent sessions</h2><% logs.slice(0, 8).forEach(function (l) { %><div class="ci-row small"><b><%= l.date %></b> · <%= l.title %></div><% }) %></section>
+<section class="ca-card"><h2>Recent sessions</h2><% logs.slice(0, 8).forEach(function (l) { %><div class="ci-row small"><b><%= new Date(l.date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }) %></b> · <%= l.title %></div><% }) %></section>
 <%- include('../partials/app-bottom') %>

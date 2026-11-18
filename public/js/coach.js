@@ -96,4 +96,42 @@
 
   // ---- copy invite link ----
   $$('[data-copy]').forEach(function (i) { i.addEventListener('focus', function () { i.select(); }); });
+  $$('[data-copy-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = b.parentNode.querySelector('[data-copy]'); if (!i) return;
+      var done = function () { var t = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = t; }, 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(i.value).then(done, function () { i.select(); });
+      else { i.select(); try { document.execCommand('copy'); done(); } catch (e) {} }
+    });
+  });
+
+  // ---- workout: a tapped set lights up straight away ----
+  $$('.set-done input').forEach(function (i) { i.addEventListener('change', function () { i.closest('.set').classList.toggle('on', i.checked); }); });
+
+  // ---- brand: the coach's photo or logo, uploaded raw like check-in photos ----
+  var bp = document.querySelector('[data-brand-photo]');
+  if (bp) {
+    bp.querySelector('input[type=file]').addEventListener('change', function (ev) {
+      var f = ev.target.files[0]; if (!f) return;
+      var msg = bp.querySelector('[data-msg]'); msg.textContent = 'Uploading...';
+      upload('/coach/brand/photo', f).then(function (j) {
+        if (j.error) { msg.textContent = j.error; return; }
+        msg.textContent = 'Saved. Your app and site use it now.';
+        $$('[data-brand-img]').forEach(function (img) { img.src = j.url; img.hidden = false; });
+        $$('[data-brand-ini]').forEach(function (s) { s.hidden = true; });
+      }, function () { msg.textContent = 'That upload did not go through. Try again.'; });
+      ev.target.value = '';
+    });
+  }
+
+  // ---- brand: the phone preview follows the look, color and name ----
+  var form = document.querySelector('[data-brand-form]'), phone = document.querySelector('[data-phone]');
+  if (form && phone) {
+    var sync = function () {
+      var lk = form.querySelector('input[name=look]:checked'); if (lk) phone.setAttribute('data-look', lk.value);
+      var ac = form.querySelector('input[name=accent]'); if (ac) { phone.style.setProperty('--accent', ac.value); phone.style.setProperty('--accent-soft', ac.value + '1f'); phone.style.setProperty('--accent-mid', ac.value + '55'); }
+      var nm = form.querySelector('input[name=brandName]'); $$('[data-pv-name]', phone).forEach(function (n) { n.textContent = nm.value || 'Your brand'; });
+    };
+    form.addEventListener('input', sync); form.addEventListener('change', sync);
+  }
 })();

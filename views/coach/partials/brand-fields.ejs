@@ -7,6 +7,13 @@
   <label class="field"><span>Accent color</span><input class="input color" type="color" name="accent" value="<%= val('accent', cv ? cv.brand.accent : '#ff5a36') %>"></label>
   <label class="field"><span>Niche</span><select class="input" name="niche"><% niches.forEach(function (n) { %><option value="<%= n %>" <%= val('niche', cv ? cv.niche : 'hybrid') === n ? 'selected' : '' %>><%= nicheNames[n] %></option><% }) %></select></label>
 </div>
+<% var lookNow = val('look', cv && cv.brand.look ? cv.brand.look : 'athletic'); %>
+<fieldset class="looks">
+  <legend>Look for your app and site</legend>
+  <% [['athletic', 'Athletic', 'Tall, condensed, loud. Gym energy.'], ['editorial', 'Editorial', 'Light pages, serif headlines. Calm and premium.'], ['bold', 'Bold', 'Wide, heavy type on black. Modern.']].forEach(function (L) { %>
+  <label class="look-opt" data-look="<%= L[0] %>"><input type="radio" name="look" value="<%= L[0] %>" <%= lookNow === L[0] ? 'checked' : '' %>><span class="look-sw"><b>Aa</b></span><span class="look-t"><b><%= L[1] %></b><small><%= L[2] %></small></span></label>
+  <% }) %>
+</fieldset>
 <label class="field"><span>Headline on your site</span><input class="input" name="headline" maxlength="120" value="<%= val('headline', cv ? cv.headline : '') %>" placeholder="Get strong, lean and consistent, without living in the gym."></label>
 <label class="field"><span>About you</span><textarea class="input" name="bio" rows="3" maxlength="800"><%= val('bio', cv ? cv.bio : '') %></textarea></label>
 <div class="grid2">

@@ -1,39 +1,64 @@
 <%- include('partials/top') %>
 <% var money = function (c) { return '$' + (c / 100).toLocaleString('en-US', { maximumFractionDigits: 0 }); }; %>
+<% var firstName = (coach.coachName || '').split(' ')[0];
+   var needs = [];
+   d.rows.forEach(function (r) {
+     if (r.waiting) needs.push({ r: r, what: 'Check-in waiting', how: 'Reply and mark it reviewed', href: '/coach/review', kind: 'hot' });
+     else if (r.flag === 'low') needs.push({ r: r, what: 'Slipping: ' + r.adherence.pct + '% of sessions this week', how: 'Send a quick nudge', href: '/coach/clients/' + r.id, kind: 'warn' });
+     else if (r.flag === 'late') needs.push({ r: r, what: 'Check-in late', how: 'Last one ' + (r.lastCheckin ? r.daysSinceCheckin + ' days ago' : 'never'), href: '/coach/clients/' + r.id, kind: 'warn' });
+   });
+   challenges.forEach(function (x) { if (x.apps) needs.push({ r: { name: x.c.name }, what: x.apps + (x.apps === 1 ? ' application' : ' applications') + ' to decide', how: 'Approve or decline', href: '/coach/challenges/' + x.c.id, kind: 'hot', ch: true }); });
+   var ini = function (n) { return (n || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2); }; %>
 <div class="cx-head">
-  <div><div class="eyebrow"><%= coach.brand.name %></div><h1>Clients</h1></div>
+  <div><div class="eyebrow"><%= coach.brand.name %></div><h1><%= needs.length ? needs.length + (needs.length === 1 ? ' thing needs you' : ' things need you') : 'All caught up' %><span class="cx-h1-sub"><%= firstName ? ', ' + firstName : '' %></span></h1></div>
   <form method="post" action="/coach/invite/rotate" class="invite">
-    <label class="small muted">Invite link</label>
-    <input class="input mono" readonly value="<%= inviteUrl %>" data-copy>
+    <input class="input mono" readonly value="<%= inviteUrl %>" data-copy aria-label="Your client invite link">
+    <button class="btn accent sm" type="button" data-copy-btn>Copy invite link</button>
     <button class="btn ghost sm" type="submit" title="Make a new link">New link</button>
   </form>
 </div>
+<% if (needs.length) { %>
+<section class="needs">
+  <h2 class="cx-h2">Needs you today</h2>
+  <div class="card flush">
+  <% needs.forEach(function (n) { %>
+    <a class="need" href="<%= n.href %>">
+      <span class="av <%= n.ch ? 'sq' : '' %>"><%= ini(n.r.name) %></span>
+      <span class="need-t"><b><%= n.r.name %></b><span class="<%= n.kind %>"><%= n.what %></span><small><%= n.how %></small></span>
+      <span class="chev">›</span>
+    </a>
+  <% }) %>
+  </div>
+</section>
+<% } %>
+
 <div class="kpis">
   <div class="kpi"><span>Active clients</span><b><%= d.rows.length %></b></div>
-  <div class="kpi"><span>Avg adherence (7d)</span><b><%= d.avgAdherence == null ? '–' : d.avgAdherence + '%' %></b></div>
+  <div class="kpi"><span>On plan, last 7 days</span><b><%= d.avgAdherence == null ? '–' : d.avgAdherence + '%' %></b></div>
   <a class="kpi link" href="/coach/review"><span>Check-ins to review</span><b class="<%= d.queue.length ? 'hot' : '' %>"><%= d.queue.length %></b></a>
-  <div class="kpi"><span>Coaching MRR <em class="tag">placeholder</em></span><b><%= '$' + d.revenue.mrrPlaceholder.toLocaleString('en-US') %></b><small><%= d.revenue.clients %> × $<%= coach.offer.price %>/mo</small></div>
-  <div class="kpi"><span>Challenge sales <em class="tag">demo</em></span><b><%= money(d.revenue.challenge.net) %></b><small><%= d.revenue.sales %> paid · 127 fee <%= money(d.revenue.challenge.fee) %></small></div>
+  <div class="kpi"><span>Coaching per month, estimate</span><b><%= '$' + d.revenue.mrrPlaceholder.toLocaleString('en-US') %></b><small><%= d.revenue.clients %> clients × $<%= coach.offer.price %></small></div>
+  <div class="kpi"><span>Challenge sales, demo data</span><b><%= money(d.revenue.challenge.net) %></b><small><%= d.revenue.sales %> paid · 127 fee <%= money(d.revenue.challenge.fee) %></small></div>
 </div>
 
+<h2 class="cx-h2">Clients</h2>
 <div class="card flush">
-  <table class="tbl stack">
+  <table class="tbl stack clients">
     <thead><tr><th>Client</th><th>Program</th><th>Adherence (7 days)</th><th>Last check-in</th><th>Weight</th><th></th></tr></thead>
     <tbody>
     <% if (!d.rows.length) { %><tr><td colspan="6" class="muted">No clients yet. Send your invite link.</td></tr><% } %>
     <% d.rows.forEach(function (r) { %>
       <tr>
-        <td><a href="/coach/clients/<%= r.id %>" class="who"><span class="av"><%= (r.name || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) %></span><span><b><%= r.name %></b><small class="muted"><%= r.email %></small></span></a></td>
-        <td><%= r.program || '–' %></td>
-        <td>
+        <td class="c-who"><a href="/coach/clients/<%= r.id %>" class="who"><span class="av"><%= (r.name || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2) %></span><span><b><%= r.name %></b><small class="muted hide-sm"><%= r.email %></small><small class="show-sm"><%= r.program || 'No program yet' %></small></span></a></td>
+        <td class="c-prog"><%= r.program || '–' %></td>
+        <td class="c-adh">
           <% if (r.adherence.pct == null) { %><span class="muted">–</span><% } else { %>
           <div class="bar"><i style="width: <%= r.adherence.pct %>%" class="<%= r.adherence.pct < 50 ? 'low' : r.adherence.pct < 75 ? 'mid' : '' %>"></i></div>
-          <small class="muted"><%= r.adherence.pct %>% · <%= r.adherence.done %>/<%= r.adherence.scheduled %> sessions</small>
+          <small class="muted"><%= r.adherence.pct %>%<span class="hide-sm"> · <%= r.adherence.done %>/<%= r.adherence.scheduled %> sessions</span></small>
           <% } %>
         </td>
-        <td><%= r.lastCheckin ? (r.daysSinceCheckin === 0 ? 'Today' : r.daysSinceCheckin + 'd ago') : 'Never' %><% if (r.waiting) { %> <a class="pill hot" href="/coach/review">review</a><% } %></td>
-        <td><%= r.weight ? r.weight + ' lb' : '–' %><% if (r.change != null) { %> <small class="<%= r.change <= 0 ? 'good' : 'muted' %>"><%= r.change > 0 ? '+' : '' %><%= r.change %></small><% } %></td>
-        <td><% if (r.flag === 'low') { %><span class="pill warn">Low adherence</span><% } else if (r.flag === 'late') { %><span class="pill warn">Check-in late</span><% } %></td>
+        <td class="c-ci"><%= r.lastCheckin ? (r.daysSinceCheckin === 0 ? 'Today' : r.daysSinceCheckin + 'd ago') : 'Never' %><% if (r.waiting) { %> <a class="pill hot" href="/coach/review">review</a><% } %></td>
+        <td class="c-wt"><%= r.weight ? r.weight + ' lb' : '–' %><% if (r.change != null) { %> <small class="<%= r.change <= 0 ? 'good' : 'muted' %>"><%= r.change > 0 ? '+' : '' %><%= r.change %></small><% } %></td>
+        <td class="c-flag"><% if (r.flag === 'low') { %><span class="pill warn">Low adherence</span><% } else if (r.flag === 'late') { %><span class="pill warn">Check-in late</span><% } %></td>
       </tr>
     <% }) %>
     </tbody>

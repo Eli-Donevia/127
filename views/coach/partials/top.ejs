@@ -2,15 +2,15 @@
 <body class="cx">
 <header class="cx-nav">
   <a href="/coach/dashboard" class="cx-mark"><span class="cx-127">127</span><span class="cx-sub">Coach</span></a>
-  <% if (typeof coach !== 'undefined' && coach) { %>
-  <nav>
-    <a href="/coach/dashboard" class="<%= path === '/coach/dashboard' || (path || '').startsWith('/coach/clients') ? 'on' : '' %>">Clients</a>
-    <a href="/coach/programs" class="<%= (path || '').startsWith('/coach/programs') ? 'on' : '' %>">Programs</a>
-    <a href="/coach/review" class="<%= (path || '').startsWith('/coach/review') ? 'on' : '' %>">Check-ins<% if (queueCount) { %> <b class="cx-count"><%= queueCount %></b><% } %></a>
-    <a href="/coach/challenges" class="<%= (path || '').startsWith('/coach/challenges') ? 'on' : '' %>">Challenges</a>
-    <a href="/coach/brand" class="<%= (path || '').startsWith('/coach/brand') ? 'on' : '' %>">Brand</a>
+  <% if (typeof coach !== 'undefined' && coach) { var P = path || ''; %>
+  <nav class="cx-tabs" aria-label="Coach">
+    <a href="/coach/dashboard" class="<%= P === '/coach/dashboard' || P.startsWith('/coach/clients') ? 'on' : '' %>"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.4 3.4 0 010 6.4M18 14.8c2 .7 3.2 2.4 3.6 5.2"/></svg><span>Clients</span></a>
+    <a href="/coach/programs" class="<%= P.startsWith('/coach/programs') ? 'on' : '' %>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6M6.5 6.5v11M17.5 6.5v11M21 9v6M6.5 12h11"/></svg><span>Programs</span></a>
+    <a href="/coach/review" class="<%= P.startsWith('/coach/review') ? 'on' : '' %>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg><span>Check-ins</span><% if (queueCount) { %><b class="cx-count"><%= queueCount %></b><% } %></a>
+    <a href="/coach/challenges" class="<%= P.startsWith('/coach/challenges') ? 'on' : '' %>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4.5 3.5 4.5M17 6h3c0 3-1.5 4.5-3.5 4.5M12 14v4M8 20h8"/></svg><span>Challenges</span></a>
+    <a href="/coach/brand" class="<%= P.startsWith('/coach/brand') ? 'on' : '' %>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18c1.2 0 1.6-1 1.1-2-.6-1.2.2-2.5 1.5-2.5H17a4 4 0 004-4C21 7 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7.2" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></svg><span>Brand</span></a>
   </nav>
-  <a class="btn ghost sm" href="/c/<%= coach.slug %>" target="_blank" rel="noopener">View my site ↗</a>
+  <a class="btn ghost sm cx-site" href="/c/<%= coach.slug %>" target="_blank" rel="noopener">View my site<span class="hide-sm"> ↗</span></a>
   <% } %>
 </header>
 <main class="cx-main">

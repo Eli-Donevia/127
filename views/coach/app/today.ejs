@@ -1,15 +1,39 @@
 <%- include('../partials/app-top') %>
-<div class="ca-date"><%= new Date(today + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }) %></div>
+<%
+  var first = (me.name || '').split(' ')[0];
+  var totalSets = 0, doneSets = 0;
+  if (s && !s.rest && !s.upcoming && s.day) s.day.exercises.forEach(function (e, i) { var pv = log && log.exercises[i]; totalSets += e.sets; for (var k = 0; k < e.sets; k++) if (pv && pv.sets[k] && pv.sets[k].done) doneSets++; });
+  if (log && log.complete) doneSets = totalSets;
+  var hDone = habits ? habits.done.filter(function (h) { return c.habits.indexOf(h) >= 0; }).length : 0;
+  var cc = challengeCards[0];
+  var coachPhoto = c.brand.photo ? '/c/' + c.slug + '/brand-photo?v=' + c.brand.photo.slice(-6) : null;
+%>
+<section class="ca-hero">
+  <div class="ca-date"><%= new Date(today + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }) %></div>
+  <h1 class="ca-display"><%= s && s.rest ? 'Rest day, ' + first + '.' : 'Let\'s work, ' + first + '.' %></h1>
+  <div class="ca-rings">
+    <% if (cc) { %><a href="/c/<%= c.slug %>/app/challenge/<%= cc.x.slug %>" class="ca-ring"><%- include('../partials/ring', { value: cc.st.todayDone / cc.x.rules.length, big: cc.st.todayDone + '/' + cc.x.rules.length, small: 'rules', r: 30 }) %><span>Day <%= cc.st.dayNumber %></span></a><% } %>
+    <a href="#workout" class="ca-ring"><%- include('../partials/ring', { value: totalSets ? doneSets / totalSets : (s && s.rest ? 1 : 0), big: totalSets ? Math.round(doneSets / totalSets * 100) + '%' : (s && s.rest ? 'Rest' : '–'), small: 'session', r: 30 }) %><span>Workout</span></a>
+    <a href="#habits" class="ca-ring"><%- include('../partials/ring', { value: c.habits.length ? hDone / c.habits.length : 0, big: hDone + '/' + c.habits.length, small: 'habits', r: 30 }) %><span>Habits</span></a>
+  </div>
+</section>
+
+<% if (lastReply) { %>
+<section class="ca-note">
+  <% if (coachPhoto) { %><img class="ca-note-av" src="<%= coachPhoto %>" alt=""><% } else { %><span class="ca-note-av"><%= c.brand.initials %></span><% } %>
+  <div><div class="ca-note-who"><b><%= c.coachName %></b> <span><%= new Date(lastReply.date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) %></span></div><p><%= lastReply.reply %></p></div>
+</section>
+<% } %>
 
 <% challengeCards.forEach(function (y) { var st = y.st; %>
 <a class="ca-card ch-mini" href="/c/<%= c.slug %>/app/challenge/<%= y.x.slug %>">
-  <%- include('../partials/ring', { value: st.todayDone / y.x.rules.length, big: st.todayDone + '/' + y.x.rules.length, small: 'today', r: 30 }) %>
-  <div><div class="eyebrow accent-t"><%= y.x.name %></div><b class="h">Day <%= st.dayNumber %> of <%= st.of %></b><span class="muted small"><%= st.streak %>-day streak · <%= st.points %> pts</span></div>
+  <div class="ch-mini-day"><b><%= st.dayNumber %></b><span>of <%= st.of %></span></div>
+  <div><div class="eyebrow accent-t"><%= y.x.name %></div><b class="h"><%= st.todayDone === y.x.rules.length ? 'All rules done today' : (y.x.rules.length - st.todayDone) + ' rules left today' %></b><span class="small ink2"><%= st.streak %>-day streak · <%= st.points %> pts</span></div>
   <span class="chev">›</span>
 </a>
 <% }) %>
 
-<% if (dueCheckin) { %><a class="ca-card due" href="/c/<%= c.slug %>/app/checkin"><b>Weekly check-in due</b><span class="small">Weight, photos, how the week went · 2 min</span><span class="chev">›</span></a><% } %>
+<% if (dueCheckin) { %><a class="ca-card due" href="/c/<%= c.slug %>/app/checkin"><b>Weekly check-in due</b><span class="small">Weight, photos, how the week went. About 2 minutes.</span><span class="chev">›</span></a><% } %>
 
 <section class="ca-card" id="workout">
   <% if (!s) { %><h2>No program yet</h2><p class="muted small"><%= c.coachName %> is building yours.</p>
@@ -17,18 +41,18 @@
   <% } else if (s.rest) { %><div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div><h2>Rest day</h2><p class="muted small">Walk, stretch, hit your habits.</p>
   <% } else { var done = log && log.complete; %>
     <div class="eyebrow">Week <%= s.weekIndex + 1 %> · <%= s.program.name %></div>
-    <h2><%= s.day.title %> <% if (done) { %><span class="pill good">logged</span><% } %></h2>
+    <h2><%= s.day.title %> <% if (done) { %><span class="pill good">Logged</span><% } %></h2>
     <form method="post" action="/c/<%= c.slug %>/app/workout" class="wk">
       <% s.day.exercises.forEach(function (e, i) { var prev = log && log.exercises[i]; %>
       <div class="wk-ex">
-        <div class="wk-name"><b><%= e.name %></b><span class="muted small"><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · rest ' + e.rest : '' %><%= e.note ? ' · ' + e.note : '' %></span></div>
+        <div class="wk-name"><span class="wk-i"><%= i + 1 %></span><b><%= e.name %></b><span class="small ink2"><%= e.sets %> × <%= e.reps %><%= e.rest ? ' · rest ' + e.rest : '' %><%= e.note ? ' · ' + e.note : '' %></span></div>
         <div class="wk-sets">
           <% for (var k = 0; k < e.sets; k++) { var ps = prev && prev.sets[k]; %>
-          <label class="set <%= ps && ps.done ? 'on' : '' %>"><span><%= k + 1 %></span>
-            <input class="input" name="sets[<%= i %>][<%= k %>][weight]" inputmode="decimal" placeholder="lb" value="<%= ps && ps.weight != null ? ps.weight : '' %>">
-            <input class="input" name="sets[<%= i %>][<%= k %>][reps]" inputmode="numeric" placeholder="<%= e.reps %>" value="<%= ps && ps.reps != null ? ps.reps : '' %>">
-            <input type="checkbox" name="sets[<%= i %>][<%= k %>][done]" <%= ps && ps.done ? 'checked' : '' %>>
-          </label>
+          <div class="set <%= ps && ps.done ? 'on' : '' %>"><span class="set-n"><%= k + 1 %></span>
+            <label class="set-f"><input class="input" name="sets[<%= i %>][<%= k %>][weight]" inputmode="decimal" placeholder="–" value="<%= ps && ps.weight != null ? ps.weight : '' %>" aria-label="Set <%= k + 1 %> weight"><em>lb</em></label>
+            <label class="set-f"><input class="input" name="sets[<%= i %>][<%= k %>][reps]" inputmode="numeric" placeholder="<%= e.reps %>" value="<%= ps && ps.reps != null ? ps.reps : '' %>" aria-label="Set <%= k + 1 %> reps"><em>reps</em></label>
+            <label class="set-done"><input type="checkbox" name="sets[<%= i %>][<%= k %>][done]" <%= ps && ps.done ? 'checked' : '' %> aria-label="Set <%= k + 1 %> done"><span class="tick"></span></label>
+          </div>
           <% } %>
         </div>
       </div>
@@ -50,5 +74,4 @@
   </form>
 </section>
 
-<% if (lastReply) { %><section class="ca-card reply"><div class="eyebrow">From <%= c.coachName %> · <%= lastReply.date %></div><p><%= lastReply.reply %></p></section><% } %>
 <%- include('../partials/app-bottom') %>

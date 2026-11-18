@@ -128,6 +128,32 @@ test('coach set-up: a signed-in member becomes a coach and gets a branded public
   assert.ok(coach.bySlug('iron-and-oak'));
 });
 
+test('brand: the look and the coach photo carry into their app and site; a bad file is refused', async () => {
+  const saved = await s.go('/coach/brand', { as: cu, form: { ...BRAND, look: 'editorial' } });
+  assert.equal(saved.status, 302);
+  assert.equal(coach.coachFor(db.get('users', cu.id)).brand.look, 'editorial');
+  const odd = await s.go('/coach/brand', { as: cu, form: { ...BRAND, look: 'neon' } });
+  assert.equal(odd.status, 302);
+  assert.equal(coach.coachFor(db.get('users', cu.id)).brand.look, 'editorial', 'an unknown look keeps the old one');
+  assert.match(await (await s.go('/c/forge-hybrid')).text(), /data-look="editorial"/);
+  assert.equal((await s.go('/c/forge-hybrid/brand-photo')).status, 404);
+  const bad = await s.go('/coach/brand/photo', { as: cu, raw: Buffer.from('not a png'), type: 'image/png' });
+  assert.equal(bad.status, 400);
+  const other = await member();
+  assert.equal((await s.go('/coach/brand/photo', { as: other, raw: PNG, type: 'image/png' })).status, 302, 'not a coach');
+  const up = await s.go('/coach/brand/photo', { as: cu, raw: PNG, type: 'image/png' });
+  assert.equal(up.status, 200);
+  const first = (await up.json()).id;
+  const img = await s.go('/c/forge-hybrid/brand-photo');
+  assert.equal(img.status, 200);
+  assert.equal(img.headers.get('content-type'), 'image/png');
+  await s.go('/coach/brand/photo', { as: cu, raw: PNG, type: 'image/png' });
+  assert.equal(await db.getBlob(first), null, 'the old photo is removed');
+  // saving the brand form keeps the photo
+  await s.go('/coach/brand', { as: cu, form: { ...BRAND, look: 'athletic' } });
+  assert.ok(coach.coachFor(db.get('users', cu.id)).brand.photo);
+});
+
 test('client sign-up: invite link and consent required; the client is tied to the coach', async () => {
   const form = { name: 'Maya Rodriguez', email: 'maya@127.test', password: 'longenough', consent: 'on' };
   assert.equal((await s.go('/c/forge-hybrid/join', { form: { ...form, i: 'wrong' } })).status, 403);

@@ -1,7 +1,7 @@
 <% var R = typeof r !== 'undefined' ? r : 52, Cf = 2 * Math.PI * R, sz = R * 2 + 20, frac = Math.max(0, Math.min(1, value)); %>
 <svg class="ring" viewBox="0 0 <%= sz %> <%= sz %>" width="<%= sz %>" height="<%= sz %>" role="img" aria-label="<%= Math.round(frac * 100) %>% done">
   <circle cx="<%= sz / 2 %>" cy="<%= sz / 2 %>" r="<%= R %>" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
-  <circle cx="<%= sz / 2 %>" cy="<%= sz / 2 %>" r="<%= R %>" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="<%= (Cf * frac).toFixed(1) %> <%= Cf.toFixed(1) %>" transform="rotate(-90 <%= sz / 2 %> <%= sz / 2 %>)"/>
+  <% if (frac > 0) { %><circle cx="<%= sz / 2 %>" cy="<%= sz / 2 %>" r="<%= R %>" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="<%= (Cf * frac).toFixed(1) %> <%= Cf.toFixed(1) %>" transform="rotate(-90 <%= sz / 2 %> <%= sz / 2 %>)"/><% } %>
   <text x="50%" y="47%" text-anchor="middle" class="ring-big"><%= big %></text>
   <text x="50%" y="64%" text-anchor="middle" class="ring-small"><%= small %></text>
 </svg>

@@ -7,7 +7,7 @@
       <td class="rank r<%= b.rank %>"><%= b.rank %></td>
       <td><b><%= b.name %></b><% if (b.finished) { %> <span class="pill good">finished</span><% } %></td>
       <td><%= b.finished ? b.of : b.dayNumber %><small class="muted">/<%= b.of %></small></td>
-      <td><%= b.streak %>🔥</td>
+      <td><%= b.streak %></td>
       <td><%= b.points %></td>
       <td class="hide-sm"><span class="muted small"><%= b.level %></span></td>
       <% if (mode === 'restart') { %><td class="hide-sm"><%= b.restarts %></td><% } %>
