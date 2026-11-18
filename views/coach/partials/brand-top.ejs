@@ -1,2 +1,5 @@
 <%- include('head') %>
-<body class="cb <%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>" style="--accent: <%= brand.accent %>; --accent-soft: <%= brand.accent %>1f;">
+<% var _hex = parseInt(String(brand.accent).slice(1), 16), _L = function (c) { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+   var onAccent = (0.2126 * _L(_hex >> 16 & 255) + 0.7152 * _L(_hex >> 8 & 255) + 0.0722 * _L(_hex & 255)) > 0.4 ? '#0b0b0d' : '#ffffff';
+   var look = ['athletic', 'editorial', 'bold'].indexOf(brand.look) >= 0 ? brand.look : 'athletic'; %>
+<body class="cb <%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>" data-look="<%= look %>" style="--accent: <%= brand.accent %>; --accent-soft: <%= brand.accent %>1f; --accent-mid: <%= brand.accent %>55; --on-accent: <%= onAccent %>;">

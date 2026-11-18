@@ -1,15 +1,30 @@
 <%- include('partials/top') %>
-<div class="cx-head"><div><div class="eyebrow">Brand</div><h1>Your brand</h1></div><a class="btn ghost sm" href="/c/<%= coach.slug %>">Open site</a></div>
-<div class="cx-split">
-<form method="post" action="/coach/brand" class="card">
+<% var b = coach.brand, photoUrl = b.photo ? '/c/' + coach.slug + '/brand-photo?v=' + b.photo.slice(-6) : '';
+   var lookNow = ['athletic', 'editorial', 'bold'].indexOf(b.look) >= 0 ? b.look : 'athletic'; %>
+<div class="cx-head"><div><div class="eyebrow">Brand</div><h1>Make it yours</h1><p class="lede small-lede">Your clients see your name, your face, your color and your type. 127 stays out of the way.</p></div><a class="btn ghost sm" href="/c/<%= coach.slug %>">Open site</a></div>
+<div class="brand-grid">
+<form method="post" action="/coach/brand" class="card" data-brand-form>
+  <div class="bp" data-brand-photo>
+    <span class="bp-av"><img data-brand-img src="<%= photoUrl %>" alt="" <%= photoUrl ? '' : 'hidden' %>><span data-brand-ini <%= photoUrl ? 'hidden' : '' %>><%= b.initials %></span></span>
+    <div><b>Your photo or logo</b><p class="small ink2">Shows at the top of your app, on your notes to clients and on your site. A square photo of your face works best.</p>
+      <label class="btn ghost sm"><input type="file" accept="image/jpeg,image/png,image/webp" hidden><%= photoUrl ? 'Change photo' : 'Add photo' %></label> <span class="small ink2" data-msg></span></div>
+  </div>
   <%- include('partials/brand-fields', { habitsDefault: coach.habits }) %>
   <button class="btn accent block">Save brand</button>
 </form>
-<aside class="card brand-preview" style="--accent: <%= coach.brand.accent %>">
-  <div class="eyebrow">App icon</div>
-  <img src="/c/<%= coach.slug %>/icon.svg" width="96" height="96" alt="">
-  <p class="small muted">Clients add your app to their home screen from <b>/c/<%= coach.slug %>/app</b>. It opens full screen in your colors.</p>
-  <p class="small muted">Custom domain (e.g. app.<%= coach.slug %>.com): next step, see PROTOTYPE.md.</p>
+<aside class="brand-side">
+  <div class="eyebrow">What your clients see</div>
+  <div class="phone cb cb-app" data-phone data-look="<%= lookNow %>" style="--accent: <%= b.accent %>; --accent-soft: <%= b.accent %>1f; --accent-mid: <%= b.accent %>55; --on-accent: #0b0b0d;">
+    <div class="ph-top"><span class="ca-brand"><% if (photoUrl) { %><img class="ca-logo img" data-brand-img src="<%= photoUrl %>" alt=""><% } else { %><span class="ca-logo" data-brand-ini><%= b.initials %></span><img class="ca-logo img" data-brand-img alt="" hidden><% } %><span class="ca-name" data-pv-name><%= b.name %></span></span></div>
+    <div class="ph-body">
+      <div class="ca-date">Today</div>
+      <div class="ca-display">Let's work, Sam.</div>
+      <div class="ca-rings"><% [[.57, '4/7'], [.8, '80%'], [.5, '2/4']].forEach(function (x) { %><span class="ca-ring"><%- include('partials/ring', { value: x[0], big: x[1], small: '', r: 30 }) %></span><% }) %></div>
+      <div class="ca-note"><span class="ca-note-av"><%= b.initials %></span><div><div class="ca-note-who"><b><%= coach.coachName %></b></div><p>Strong week. Add 5 lb to squats Monday.</p></div></div>
+      <span class="btn accent block">Finish session</span>
+    </div>
+  </div>
+  <p class="small ink2">Clients add it to their home screen from <b>/c/<%= coach.slug %>/app</b>. It opens full screen with your icon and colors.</p>
 </aside>
 </div>
 <%- include('partials/bottom') %>
